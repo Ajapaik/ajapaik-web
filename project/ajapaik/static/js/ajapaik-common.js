@@ -197,7 +197,9 @@ var map,
 
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
-            $(myLocationButton).addClass('btn btn-default btn-xs').prop('id', 'ajapaik-mapview-my-location-button')
+            $(myLocationButton)
+                .addClass('btn btn-default btn-xs')
+                .prop('id', 'ajapaik-mapview-my-location-button')
                 .prop('title', gettext('Go to my location'))
                 .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
@@ -246,25 +248,11 @@ var map,
                 map.setZoom(16);
             });
 
-            google.maps.event.addListener(map, 'bounds_changed', function () {
-                if (!firstResizeDone) {
-                    google.maps.event.trigger(map, 'resize');
-                    firstResizeDone = true;
-                }
-                if (!firstPaneDone) {
-                    var bounds = map.getBounds();
-                    searchBox.setBounds(bounds);
-                    window.toggleVisiblePaneElements();
-                    firstPaneDone = true;
-                }
-                if (typeof window.toggleVisiblePaneElements === 'function') {
-                    if (mapDataTimeout) {
-                        clearTimeout(mapDataTimeout);
-                    }
-                    mapDataTimeout = setTimeout(function () {
-                        window.toggleVisiblePaneElements();
-                    }, 1000);
-                }
+            google.maps.event.addListener(map, 'idle', function () {
+                google.maps.event.trigger(map, 'resize');
+                var bounds = map.getBounds();
+                searchBox.setBounds(bounds);
+                window.toggleVisiblePaneElements();
             });
         }
 
@@ -385,6 +373,26 @@ var map,
     getQueryParameterByName = function (name) {
         var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    };
+
+    var update_comment_likes = function(link) {
+        var update_badge = function(badge, count) {
+            badge.text('(' + count + ')');
+            if (count <= 0) {
+                badge.addClass('hidden');
+            }
+            else {
+                badge.removeClass('hidden');
+            }
+        };
+        var comment_id = link.data('comment-id');
+
+        $.get('/comments/like-count/' + comment_id + '/', {}, function (response) {
+            var like_count_badge = $('#ajapaik-comments-like-count-' + comment_id);
+            var dislike_count_badge = $('#ajapaik-comments-dislike-count-' + comment_id);
+            update_badge(like_count_badge, response.like_count);
+            update_badge(dislike_count_badge, response.dislike_count);
+        });
     };
 
     $('.full-box div').on('click', function (e) {
@@ -889,9 +897,10 @@ var map,
         }
     });
 
-    $(document).on('click', '#ajapaik-feedback-link', function () {
-        _gaq.push(['_trackEvent', 'General', 'Feedback link click']);
+    $('#ajapaik-comment-form-register-link').click(function () {
+        $('#ajapaik-header-profile-button').click();
     });
+
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),
@@ -1257,6 +1266,16 @@ var map,
     //    }
     //});
 
+    $(document).on('focus', '#id_comment', function () {
+        $('.ajapaik-photo-modal-previous-button').addClass('ajapaik-photo-modal-previous-button-disabled').addClass('disabled');
+        $('.ajapaik-photo-modal-next-button').addClass('ajapaik-photo-modal-next-button-disabled').addClass('disabled');
+    });
+
+    $(document).on('blur', '#id_comment', function () {
+        $('.ajapaik-photo-modal-previous-button').removeClass('ajapaik-photo-modal-previous-button-disabled').removeClass('disabled');
+        $('.ajapaik-photo-modal-next-button').removeClass('ajapaik-photo-modal-next-button-disabled').removeClass('disabled');
+    });
+
     $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
         var $this = $(this);
         if (!isPhotoview) {
@@ -1278,7 +1297,11 @@ var map,
                 }
             }
         } else {
-            _gaq.push(['_trackEvent', 'Photoview', 'Previous']);
+            if ($this.hasClass('ajapaik-photo-modal-previous-button-disabled')) {
+                e.preventDefault();
+            } else {
+                _gaq.push(['_trackEvent', 'Photoview', 'Previous']);
+            }
         }
     });
 
@@ -1326,8 +1349,9 @@ var map,
         });
     });
 
-    $(document).on('click', '.ajapaik-photo-modal-next-button', function () {
+    $(document).on('click', '.ajapaik-photo-modal-next-button', function (e) {
         if (!isPhotoview) {
+            e.preventDefault();
             if (!$(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
                 var nextId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).next().data('id');
                 if (nextId && !window.nextPhotoLoading) {
@@ -1345,11 +1369,15 @@ var map,
                 }
             }
         } else {
-            _gaq.push(['_trackEvent', 'Photoview', 'Next']);
+            if ($(this).hasClass('ajapaik-photo-modal-next-button-disabled')) {
+                e.preventDefault();
+            } else {
+                _gaq.push(['_trackEvent', 'Photoview', 'Next']);
+            }
         }
     });
 
-    $(document).on('click', '.ajapaik-photo-modal-album-link', function () {
+    $(document).on('click', '.ajapaik-photo-album-link', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Album link click']);
         } else if (window.isMapview) {
@@ -1632,5 +1660,19 @@ var map,
                     break;
             }
         }
+    });
+
+    $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {
+        event.preventDefault();
+        var link = $(this);
+        $.post(link.prop('href'), {
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+        }, function (response, status) {
+            if (status === 'success') {
+                update_comment_likes(link);
+            }
+        });
+
+        return false;
     });
 }(jQuery));

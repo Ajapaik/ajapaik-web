@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 
+from project.ajapaik import views
 from project.ajapaik.api import PhotosBboxView, PhotosChangedView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
@@ -13,7 +15,6 @@ urlpatterns = patterns('project.ajapaik.views',
                        url(r'^resend-activation-email/', 'resend_activation_email'),
                        url(r'^stream/', 'fetch_stream'),
                        url(r'^difficulty-feedback/', 'difficulty_feedback'),
-                       url(r'^update-comment-count/', 'update_comment_count'),
                        url(r'^geotag/add/', 'geotag_add'),
                        url(r'^geotag/confirm/', 'geotag_confirm'),
                        url(r'^general-info-modal-content/$', 'get_general_info_modal_content',
@@ -86,13 +87,24 @@ urlpatterns += patterns('',
                         url(r'^accounts/', include('registration.backends.default.urls')),
                         url(r'^admin/', include(admin.site.urls)),
                         url(r'^admin_tools/', include('admin_tools.urls')),
+                        url(r'^comments/for/(?P<photo_id>\d+)/$', views.CommentList.as_view(),
+                            name='comments-for-photo'),
+                        url(r'^comments/post-one/(?P<photo_id>\d+)/$', login_required(views.PostComment.as_view()),
+                            name='comments-post-one'),
+                        url(r'^comments/delete-one/$', login_required(views.DeleteComment.as_view()),
+                            name='comments-delete-one'),
+                        url(r'^comments/edit-one/$', login_required(views.EditComment.as_view()),
+                            name='comments-edit-one'),
+                        url(r'^comments/like-count/(?P<comment_id>\d+)/$', views.get_comment_like_count,
+                            name='comments-like-count'),
+                        url(r'^comments/', include('django_comments_xtd.urls')),
                         url(r'^facebook/(?P<stage>[a-z_]+)/', 'project.ajapaik.facebook.facebook_handler'),
                         url(r'^google-login', 'project.ajapaik.google_plus.google_login'),
                         url(r'^oauth2callback', 'project.ajapaik.google_plus.auth_return'),
                         url(r'^i18n/', include('django.conf.urls.i18n')),
                         url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog',
                             {'domain': 'djangojs', 'packages': ('project')}),
-                        url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
+                        url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
                         url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
                         url(r'^sitemap-(?P<section>.+).xml$', 'django.contrib.sitemaps.views.sitemap',
                             {'sitemaps': sitemaps}),

@@ -1,6 +1,7 @@
 # coding=utf-8
-import os
 import sys
+
+import os
 
 gettext = lambda s: s
 
@@ -94,9 +95,11 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -108,6 +111,11 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
+
+SUBDOMAIN_URLCONFS = {
+    None: 'project.ajapaik.urls',
+    'opendata': 'project.ajapaik.urls_opendata'
+}
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
@@ -168,6 +176,9 @@ LOCAL_APPS = (
 )
 
 EXTERNAL_APPS = (
+    'django_comments_xtd',
+    'django_comments',
+    'project.ajapaik',
     'django_extensions',
     'sorl.thumbnail',
     'compressor',
@@ -194,7 +205,8 @@ ALLOWED_HOSTS = ['*']
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/collection1'
+        'URL': 'http://127.0.0.1:8983/solr/collection1',
+        'TIMEOUT': 60 * 5,
     }
 }
 
@@ -248,3 +260,21 @@ LOGGING = {
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
+    'PAGE_SIZE': 10
+}
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 1
+COMMENTS_XTD_CONFIRM_EMAIL = True
+COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.CommentForm'
+COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'
+COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'

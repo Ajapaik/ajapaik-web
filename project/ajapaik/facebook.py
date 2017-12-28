@@ -28,7 +28,7 @@ def auth_url(redirect_uri, scope=None):
     if not scope:
         scope = []
     return "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=%s" % (
-    APP_ID, quote(redirect_uri), quote(",".join(scope)))
+        APP_ID, quote(redirect_uri), quote(",".join(scope)))
 
 
 def token_url(request, code):
@@ -40,7 +40,7 @@ def token_url(request, code):
 
 
 def profile_url(token):
-    return "https://graph.facebook.com/v2.3/me?access_token=" + token['access_token']
+    return "https://graph.facebook.com/v2.5/me?access_token=" + token['access_token']
 
 
 def fbview_url(request, stage):

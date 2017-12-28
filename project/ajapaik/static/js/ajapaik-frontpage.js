@@ -630,6 +630,7 @@
             $('.footer').removeClass('ajapaik-invisible');
         });
         $(document).on('click', '.ajapaik-frontpage-image', function () {
+            hideScoreboard();
             window.loadPhoto($(this).data('id'));
         });
 

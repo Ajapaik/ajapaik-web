@@ -80,7 +80,9 @@
     <meta charset="UTF-8"/>
     {% if title %}
         <meta property="og:title" content="{{ title }}"/>
-        {% if description %}
+        {% if rephotos_by_name %}
+            <meta property="og:description" content="{% blocktrans %}Gallery of rephotographs by {{ rephotos_by_name }}{% endblocktrans %}"/>
+        {% elif description %}
             <meta property="og:description" content="{{ description }}"/>
         {% elif not description and is_game and album %}
             <meta property="og:description" content="{% blocktrans with album_photo_count as album_photo_count %}Album has {{ album_photo_count }} historic pictures. Let's put pictures on the map!{% endblocktrans %}"/>
@@ -110,7 +112,9 @@
             "/>
         {% endif %}
         <meta property="og:type" content="website"/>
-        {% if photo or rephoto %}
+        {% if rephotos_by_name %}
+            <meta property="og:url" content="{{ hostname }}{% url 'project.ajapaik.views.frontpage' %}?order1=time&order2=rephotos&page=1&rephotosBy={{ rephotos_by }}"/>
+        {% elif photo or rephoto %}
             {% if photo and is_frontpage %}
                 <meta property="og:url" content="{{ hostname }}?photo={{ photo.0 }}"/>
             {% elif not photo and rephoto and is_frontpage %}
@@ -199,15 +203,15 @@
         <meta property="og:site_name" content="{% trans "Fotodugnad" %}"/>
     {% endif %}
     <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
     <![endif]-->
     <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
     <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
     {% compress css %}
+        <link rel="stylesheet" href="{% static "css/bootstrap-3.3.7.css" %}">
+        <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}">
+        <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
@@ -231,7 +235,7 @@
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
 <div id="ajapaik-loading-overlay">
-    <div id="ajapaik-spinner"></div>
+    <div class="ajapaik-spinner"></div>
 </div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
@@ -313,23 +317,9 @@
                 }),
                 FB.Event.subscribe("comment.create", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
-                    var parts = a.href.split('/');
-                    $.post(window.updateCommentCountURL, {
-                        photo_id: parts[parts.length - 2],
-                        comment_id: a.commentID,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    }, function () {
-                    });
                 }),
                 FB.Event.subscribe("comment.remove", function (a) {
                     _gaq.push(["_trackEvent", "Facebook", "Comment removed", a.href]);
-                    var parts = a.href.split('/');
-                    $.post(window.updateCommentCountURL, {
-                        photo_id: parts[parts.length - 2],
-                        comment_id: a.commentID,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    }, function () {
-                    });
                 }), FB.Event.subscribe("auth.prompt", function () {
                     _gaq.push(["_trackEvent", "Facebook", "Login prompt"])
                 }), FB.Event.subscribe("auth.login", function () {
@@ -357,7 +347,6 @@
             saveLocationURL = '{% url 'project.ajapaik.views.geotag_add' %}',
             difficultyFeedbackURL = '{% url 'project.ajapaik.views.difficulty_feedback' %}',
             confirmLocationURL = '{% url 'project.ajapaik.views.geotag_confirm' %}',
-            updateCommentCountURL = '{% url 'project.ajapaik.views.update_comment_count' %}',
             leaderboardUpdateURL = '{% url 'project.ajapaik.views.leaderboard' %}',
             leaderboardFullURL = '{% url 'project.ajapaik.views.top50' %}',
             photoSelectionURL = '{% url 'project.ajapaik.views.photo_selection' %}',
@@ -383,14 +372,14 @@
     {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
     <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={% settings_value 'GOOGLE_API_KEY' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}
+        <script src="{% static "js/jquery-2.2.4.js" %}"></script>
+        <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
+        <script src="{% static "js/bootstrap-3.3.7.js" %}"></script>
+        <script src="{% static "js/moment-with-locales-2.18.1.js" %}"></script>
+        <script src="{% static "js/cookieconsent-3.0.4.js" %}"></script>
         <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.js" %}"></script>
         <script src="{% static "js/tmpl.js" %}"></script>
         <script src="{% static "js/ajapaik-cookie.js" %}"></script>
@@ -410,6 +399,7 @@
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
+        <script src="{% static "js/bootstrap-confirmation-2.4.0.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
@@ -429,9 +419,27 @@
         {% if request.user.profile %}
             window.currentProfileId = {{ request.user.profile.pk }};
             window.currentProfileName = '{{ request.user.profile.get_display_name }}';
+            {% if request.user.profile.fb_email %}
+                window.currentProfileEmail = '{{ request.user.profile.fb_email }}';
+            {% elif request.user.profile.google_plus_email %}
+                window.currentProfileEmail = '{{ request.user.profile.google_plus_email }}';
+            {% elif request.user.email %}
+                window.currentProfileEmail = '{{ request.user.email }}';
+            {% endif %}
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
+    </script>
+    <script>
+        var dataLayer = window.dataLayer || [],
+            userLoggedIn = !!window.currentProfileId;
+        dataLayer.push({
+            'event': 'user',
+            'logged_in': userLoggedIn,
+            'email': window.currentProfileEmail,
+            'userId': window.currentProfileId,
+            'name': window.currentProfileName
+        });
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}

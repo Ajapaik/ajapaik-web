@@ -124,7 +124,7 @@ body {
 }
 
 .ajapaik-body-frontpage {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
     overflow-y: scroll;
 }
 
@@ -1242,7 +1242,11 @@ a.fullscreen {
     position: relative;
 }
 
-#ajapaik-photo-modal-bottom-buttons-row > a {
+.no-text-decoration {
+    text-decoration: none;
+}
+
+.no-text-decoration:hover {
     text-decoration: none;
 }
 
@@ -1842,9 +1846,6 @@ ul.errorlist {
     display: inline-block;
 }
 
-#ajapaik-modal-rephoto {
-}
-
 #ajapaik-modal-body {
     text-align: center;
 }
@@ -1859,18 +1860,6 @@ ul.errorlist {
 
 .ajapaik-photo-modal-rephoto-thumb {
     margin: 0 auto 3%;
-}
-
-.ajapaik-licence {
-    text-decoration: none;
-}
-
-.ajapaik-licence {
-    text-decoration: none;
-}
-
-.ajapaik-licence:hover {
-    text-decoration: none;
 }
 
 #ajapaik-photo-modal-rephoto-date-taken {
@@ -1992,6 +1981,10 @@ ul.errorlist {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 300px;
+}
+
+#ajapaik-comments-container {
+    margin-top: 20px;
 }
 
 #ajapaik-photoview-container {
@@ -2292,7 +2285,7 @@ a[href^="https://maps.google.com/maps"] {
     z-index: 2000;
 }
 
-#ajapaik-spinner {
+.ajapaik-spinner {
     height: 28px;
     width: 28px;
     animation: rotate 0.8s infinite linear;
@@ -2443,7 +2436,6 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 #ajapaik-photo-pane-content-container {
-    margin-bottom: 50px;
     min-width: 20%;
 }
 
@@ -2493,14 +2485,6 @@ a[href^="https://maps.google.com/maps"] {
 
 .ajapaik-zero-left-padding {
     padding-left: 0 !important;
-}
-
-.fb_comments_count_zero {
-    display: none;
-}
-
-.fb_comments_count {
-    font-weight: bold;
 }
 
 #ajapaik-choose-albums-modal {
@@ -2591,9 +2575,8 @@ a[href^="https://maps.google.com/maps"] {
 
 .footer {
     position: absolute;
-    bottom: 0;
     width: 100%;
-    height: 70px;
+    height: 80px;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -2628,6 +2611,7 @@ a[href^="https://maps.google.com/maps"] {
     background-size: 36px;
     float: right;
     color: #888;
+    font-weight: bold;
 }
 
 .ajapaik-album-selection-map-button > i {
@@ -2683,7 +2667,7 @@ a[href^="https://maps.google.com/maps"] {
     margin-left: 5px;
 }
 
-.ajapaik-photo-modal-album-link {
+.ajapaik-photo-album-link {
     float: left;
     font-size: 18px;
 }
@@ -2805,4 +2789,60 @@ a[href^="https://maps.google.com/maps"] {
 
 #fotodugnad-footer-ajapaik-logo > img {
     width: 133px;
+}
+
+#ajapaik-header-arrow-drop-down {
+    font-size: 18px;
+}
+
+#ajapaik-photo-modal-source {
+    display: inline-block;
+}
+
+#ajapaik-photo-modal-fb-like-container {
+    margin-top: 5px;
+}
+
+#ajapaik-photo-modal-like {
+    margin-top: 5px;
+}
+
+input[type="search"] {
+    -webkit-appearance: searchfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+#ajapaik-ev-100-media > .media-left > a > img {
+    width: 150px;
+}
+
+#ajapaik-hotjar-footer-logo {
+    height: 33px;
+}
+
+.comment-box textarea {
+    display: block;
+    width: 100%;
+    resize: vertical;
+    padding: 5px 10px;
+}
+
+.badge {
+    background-color: black;
+}
+
+.ajapaik-load-more {
+    margin: 10px 0 10px 0;
+}
+
+.ajapaik-load-more button {
+    width: 100%;
+}
+
+#ajapaik-frontpage-container {
+    /* 130 = height of top menu + height of footer (50 + 80) */
+    min-height: calc(100vh - 130px);
 }

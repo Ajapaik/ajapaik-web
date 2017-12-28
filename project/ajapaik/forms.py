@@ -1,6 +1,11 @@
 import autocomplete_light
 from django import forms
+from django.conf import settings
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django_comments import get_model
+from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -182,27 +187,14 @@ class CuratorPhotoUploadForm(forms.Form):
     rotated = forms.FloatField(min_value=0, max_value=270, required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+    licence = forms.CharField(max_length=255, required=False)
 
 
 class SelectionUploadForm(forms.Form):
     selection = forms.CharField(max_length=100000)
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED,
-    ), label=_('Choose album'), required=False)
-    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True
-    ), label=_('Choose parent album'), required=False)
-    name = forms.CharField(max_length=255, required=False)
-    description = forms.CharField(max_length=2047, required=False)
-    open = forms.BooleanField(initial=False, required=False)
-    public = forms.BooleanField(initial=False, required=False)
-    areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
-    areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 
 class SubmitGeotagForm(forms.ModelForm):
-    photo_flipped = forms.BooleanField(initial=False, required=False)
-
     class Meta:
         model = GeoTag
         exclude = ('user', 'trustworthiness')
@@ -286,9 +278,30 @@ class UserPhotoUploadForm(autocomplete_light.ModelForm):
 
 
 class UserPhotoUploadAddAlbumForm(forms.ModelForm):
+    location = forms.CharField(max_length=255, required=False)
+
     class Meta:
         model = Album
-        fields = ('name', 'description', 'is_public', 'open')
+        fields = ('subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
+
+    def __init__(self, *args, **kwargs):
+        self.profile = kwargs.pop('profile', None)
+        super(UserPhotoUploadAddAlbumForm, self).__init__(*args, **kwargs)
+        self.fields['subalbum_of'].label = _('Parent album')
+        self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED) \
+            .filter(Q(open=True) | Q(profile=self.profile))
+        self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
+        self.fields['lat'].widget = forms.HiddenInput()
+        self.fields['lon'].widget = forms.HiddenInput()
+
+
+class CuratorWholeSetAlbumsSelectionForm(forms.Form):
+    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(CuratorWholeSetAlbumsSelectionForm, self).__init__(*args, **kwargs)
+
+        self.fields['albums'].help_text = None
 
 
 class ResendActivationEmailForm(forms.Form):
@@ -299,3 +312,49 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name')
+
+
+class CommentForm(XtdCommentForm):
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['comment'] = forms.CharField(
+            widget=forms.Textarea(
+                attrs={
+                    'placeholder': _(
+                        'Comment box supports Markdown\n\n'
+
+                        'Paragraphs\n'
+                        'Add two new lines to start a new paragraph.\n\n'
+
+                        'Bold\n'
+                        '**Geotagging** is the first task on Ajapaik.\n\n'
+
+                        'Italic\n'
+                        'Next come *rephotography* and *dating*.\n\n'
+
+                        'Links\n'
+                        'Join the discussion on [Ajapaiklejad FB group]'
+                        '(https://www.facebook.com/groups/ajapaiklejad).\n\n'
+
+                        'Images\n'
+                        '![Ajapaik is gift for EV100]'
+                        '(https://ajapaik.ee/static/images/ev100.png)'
+                    )
+                }
+            ),
+            max_length=settings.COMMENT_MAX_LENGTH)
+
+
+class EditCommentForm(forms.Form):
+    comment_id = forms.IntegerField()
+    text = forms.CharField()
+
+    def clean_comment_id(self):
+        self.comment = get_object_or_404(
+            get_model(), pk=self.cleaned_data['comment_id']
+        )
+
+    def clean(self):
+        text = self.cleaned_data['text']
+        if self.comment.comment == self.cleaned_data['text']:
+            forms.ValidationError(_('Nothing to change.'), code='same_text')

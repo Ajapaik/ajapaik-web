@@ -14,7 +14,7 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
-                <div class="btn-group pull-right" role="group" aria-label="ajapaik-add-album-button-group">
+                <div style="margin-bottom: 20px;" class="btn-group pull-right" role="group" aria-label="ajapaik-add-album-button-group">
                     <button type="button" class="btn btn-danger" onclick="window.close();">
                         {% trans "Close" %}
                     </button>
@@ -28,6 +28,21 @@
 {% endblock %}
 
 {% block specific_js %}
+    <script>
+        $(document).ready(function () {
+            var input = document.getElementById('id_location');
+            if (input) {
+                var options = {};
+                var autocomplete = new window.google.maps.places.Autocomplete(input, options);
+                window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    $('#id_lat').val(place.geometry.location.lat());
+                    $('#id_lon').val(place.geometry.location.lng());
+                    window._gaq.push(['_trackEvent', 'Curator', 'Autocomplete place changed']);
+                });
+            }
+        });
+    </script>
     {% if message %}
         <script>window.close();</script>
     {% endif %}

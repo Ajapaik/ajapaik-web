@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from models import Album, Dating
+from models import Album, Dating, Photo
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
@@ -42,3 +42,23 @@ class DatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dating
         fields = ('id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
+
+
+class BasePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ('id',)
+
+
+class PhotoGeodataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ('lat', 'lon')
+
+
+class PhotoMapMarkerSerializer(BasePhotoSerializer, PhotoGeodataSerializer):
+    rephoto_count = serializers.IntegerField()
+
+    class Meta:
+        model = Photo
+        fields = ('id', 'lat', 'lon', 'azimuth', 'rephoto_count')

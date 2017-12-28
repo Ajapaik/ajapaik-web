@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">{% trans "You can re-order photos by dragging and dropping" %}</div>
+            <div class="row">{% trans "You can re-order photos by dragging and dropping" %}</div>
             <div id="ajapaik-photo-selection-gallery">
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="panel-body">
@@ -64,4 +64,7 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajapaik-selection.js"></script>
     {% endcompress %}
+    {% block autocomplete_stuff %}
+        {% include 'autocomplete_light/static.html' %}
+    {% endblock %}
 {% endblock %}

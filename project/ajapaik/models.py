@@ -1,5 +1,6 @@
 import StringIO
 from contextlib import closing
+from copy import deepcopy
 from datetime import datetime
 from math import degrees
 from time import sleep
@@ -23,14 +24,13 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
-from django.db import IntegrityError
 from django.db.models import Lookup
 from django.db.models import OneToOneField, DateField
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
-from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
+from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
@@ -39,7 +39,7 @@ from oauth2client.django_orm import FlowField, CredentialsField
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
-from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail import get_thumbnail, delete
 
 from project.utils import angle_diff
 from project.utils import average_angle
@@ -48,6 +48,9 @@ from project.utils import average_angle
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
     lookup_name = 'ne'
+
+    def __init__(self, lhs, rhs):
+        super(NotEqual, self).__init__(lhs, rhs)
 
     def as_sql(self, qn, connection):
         lhs, lhs_params = self.process_lhs(qn, connection)
@@ -114,8 +117,8 @@ class AlbumPhoto(Model):
     album = ForeignKey('Album')
     photo = ForeignKey('Photo')
     profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links')
-    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL)
-    created = DateTimeField(auto_now_add=True)
+    type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         db_table = 'project_albumphoto'
@@ -141,8 +144,8 @@ class Album(Model):
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
     photos = ManyToManyField('Photo', through='AlbumPhoto', related_name='albums')
-    lat = FloatField(null=True, blank=True)
-    lon = FloatField(null=True, blank=True)
+    lat = FloatField(null=True, blank=True, db_index=True)
+    lon = FloatField(null=True, blank=True, db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
     cover_photo = ForeignKey('Photo', null=True, blank=True)
     cover_photo_flipped = BooleanField(default=False)
@@ -221,10 +224,10 @@ class Album(Model):
         return qs.distinct('pk')
 
     def get_comment_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().filter(fb_comments_count__gt=0)
+        qs = self.get_all_photos_queryset_with_subalbums().filter(comment_count__gt=0)
         count = 0
         for each in qs:
-            count += each.fb_comments_count
+            count += each.comment_count
 
         return count
 
@@ -295,25 +298,25 @@ class Photo(Model):
     source = ForeignKey('Source', null=True, blank=True)
     device = ForeignKey('Device', null=True, blank=True)
     rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
-    first_rephoto = DateTimeField(null=True, blank=True)
-    latest_rephoto = DateTimeField(null=True, blank=True)
+    first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
+    latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
-    fb_comments_count = IntegerField(default=0)
-    first_comment = DateTimeField(null=True, blank=True)
-    latest_comment = DateTimeField(null=True, blank=True)
+    comment_count = IntegerField(default=0, null=True, blank=True, db_index=True)
+    first_comment = DateTimeField(null=True, blank=True, db_index=True)
+    latest_comment = DateTimeField(null=True, blank=True, db_index=True)
     view_count = PositiveIntegerField(default=0, db_index=True)
     first_view = DateTimeField(null=True, blank=True)
     latest_view = DateTimeField(null=True, blank=True)
     like_count = IntegerField(default=0, db_index=True)
-    first_like = DateTimeField(null=True, blank=True)
-    latest_like = DateTimeField(null=True, blank=True)
+    first_like = DateTimeField(null=True, blank=True, db_index=True)
+    latest_like = DateTimeField(null=True, blank=True, db_index=True)
     geotag_count = IntegerField(default=0, db_index=True)
-    first_geotag = DateTimeField(null=True, blank=True)
-    latest_geotag = DateTimeField(null=True, blank=True)
+    first_geotag = DateTimeField(null=True, blank=True, db_index=True)
+    latest_geotag = DateTimeField(null=True, blank=True, db_index=True)
     dating_count = IntegerField(default=0, db_index=True)
-    first_dating = DateTimeField(null=True, blank=True)
-    latest_dating = DateTimeField(null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
+    first_dating = DateTimeField(null=True, blank=True, db_index=True)
+    latest_dating = DateTimeField(null=True, blank=True, db_index=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     gps_accuracy = FloatField(null=True, blank=True)
     gps_fix_age = FloatField(null=True, blank=True)
@@ -442,9 +445,22 @@ class Photo(Model):
         super(Photo, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
         self.original_lon = self.lon
+        self.original_flip = self.flip
 
     def get_detail_url(self):
         return reverse('photoslug', args=(self.pk,))
+
+    def do_flip(self):
+        # FIXME: Somehow fails silently?
+        photo_path = settings.MEDIA_ROOT + "/" + str(self.image)
+        img = Image.open(photo_path)
+        flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
+        flipped_image.save(photo_path)
+        self.flip = not self.flip
+        # This delete applies to sorl thumbnail
+        delete(self.image, delete_file=False)
+
+        self.light_save()
 
     def watermark(self):
         # For ETERA
@@ -535,8 +551,15 @@ class Photo(Model):
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
+        if self.flip is None:
+            self.flip = False
+        if self.original_flip is None:
+            self.original_flip = False
+        if self.flip != self.original_flip:
+            self.do_flip()
         self.original_lat = self.lat
         self.original_lon = self.lon
+        self.original_flip = self.flip
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
@@ -714,7 +737,7 @@ class Points(Model):
     )
 
     user = ForeignKey('Profile', related_name='points')
-    action = PositiveSmallIntegerField(choices=ACTION_CHOICES)
+    action = PositiveSmallIntegerField(choices=ACTION_CHOICES, db_index=True)
     photo = ForeignKey('Photo', null=True, blank=True)
     album = ForeignKey('Album', null=True, blank=True)
     geotag = ForeignKey('GeoTag', null=True, blank=True)
@@ -778,6 +801,7 @@ class GeoTag(Model):
     # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
+    photo_flipped = BooleanField(default=False)
     user = ForeignKey('Profile', related_name='geotags', null=True, blank=True)
     photo = ForeignKey('Photo', related_name='geotags')
     is_correct = BooleanField(default=False)
@@ -785,7 +809,7 @@ class GeoTag(Model):
     score = IntegerField(null=True, blank=True)
     azimuth_score = IntegerField(null=True, blank=True)
     trustworthiness = FloatField()
-    created = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
     class Meta:
@@ -816,7 +840,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v2.3/me?access_token=%s' % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v2.5/me?access_token=%s' % access_token))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 
@@ -850,26 +874,27 @@ class Profile(Model):
 
     fb_name = CharField(max_length=255, null=True, blank=True)
     fb_link = CharField(max_length=255, null=True, blank=True)
-    fb_id = CharField(max_length=100, null=True, blank=True)
+    fb_id = CharField(max_length=100, null=True, blank=True, db_index=True)
     fb_token = CharField(max_length=511, null=True, blank=True)
     fb_hometown = CharField(max_length=511, null=True, blank=True)
     fb_current_location = CharField(max_length=511, null=True, blank=True)
     fb_birthday = DateField(null=True, blank=True)
-    fb_email = CharField(max_length=255, null=True, blank=True)
+    fb_email = CharField(max_length=255, null=True, blank=True, db_index=True)
     fb_user_friends = TextField(null=True, blank=True)
 
-    google_plus_id = CharField(max_length=100, null=True, blank=True)
-    google_plus_email = CharField(max_length=255, null=True, blank=True)
+    google_plus_id = CharField(max_length=100, null=True, blank=True, db_index=True)
+    google_plus_email = CharField(max_length=255, null=True, blank=True, db_index=True)
     google_plus_link = CharField(max_length=255, null=True, blank=True)
     google_plus_name = CharField(max_length=255, null=True, blank=True)
     google_plus_token = TextField(null=True, blank=True)
     google_plus_picture = CharField(max_length=255, null=True, blank=True)
 
     modified = DateTimeField(auto_now=True)
+    deletion_attempted = DateTimeField(blank=True, null=True, db_index=True)
 
-    score = PositiveIntegerField(default=0)
-    score_rephoto = PositiveIntegerField(default=0)
-    score_recent_activity = PositiveIntegerField(default=0)
+    score = PositiveIntegerField(default=0, db_index=True)
+    score_rephoto = PositiveIntegerField(default=0, db_index=True)
+    score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
     class Meta:
         db_table = 'project_profile'
@@ -897,6 +922,11 @@ class Profile(Model):
             return '%s %s' % (self.first_name, self.last_name)
         elif self.google_plus_name:
             return self.google_plus_name
+        elif self.google_plus_email:
+            try:
+                return self.google_plus_email.split('@')[0]
+            except:
+                return _('Anonymous user')
         elif self.fb_name:
             return self.fb_name
         else:
@@ -906,25 +936,17 @@ class Profile(Model):
         return u'%s' % (self.get_display_name(),)
 
     def update_from_fb_data(self, token, data):
-        name = data.get('name', None)
-        if name:
-            name_parts = name.split(' ')
-            if len(name_parts):
-                self.user.last_name = name_parts[-1]
-                self.user.first_name = ' '.join(name_parts[0:-1])
-                self.user.save()
-        email = data.get('email', None)
-        if email:
-            self.user.email = email
-            self.user.save()
+        if data.get('first_name'):
+            self.user.first_name = data.get('first_name')
+        if data.get('last_name'):
+            self.user.last_name = data.get('last_name')
+        if data.get('email'):
+            self.user.email = data.get('email')
+        self.user.save()
+
         self.fb_token = token
         self.fb_id = data.get('id')
         self.fb_name = data.get('name')
-        if self.fb_name:
-            parts = self.fb_name.split(' ')
-            self.first_name = parts[0]
-            if len(parts) > 1:
-                self.last_name = parts[1]
         self.fb_link = data.get('link')
         self.fb_email = data.get('email')
         try:
@@ -984,7 +1006,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user=self.user).values_list('rephoto_of', flat=True)
+            rephoto_of__isnull=False, user_id=self.user.id).values_list('rephoto_of', flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -1231,3 +1253,51 @@ class Municipality(Model):
 
     def __unicode__(self):
         return '%s' % self.name
+
+
+class MyXtdComment(XtdComment):
+    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
+
+    def save(self, **kwargs):
+        super(MyXtdComment, self).save(**kwargs)
+        photo = Photo.objects.filter(pk=self.object_pk).first()
+        if photo:
+            if not photo.first_comment:
+                photo.first_comment = self.submit_date
+            if not photo.latest_comment or photo.latest_comment < self.submit_date:
+                photo.latest_comment = self.submit_date
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
+            photo.light_save()
+
+    def delete(self, *args, **kwargs):
+        object_pk = deepcopy(self.object_pk)
+        super(MyXtdComment, self).delete(*args, **kwargs)
+        photo = Photo.objects.filter(pk=object_pk).first()
+        if photo:
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
+            if photo.comment_count == 0:
+                photo.first_comment = None
+                photo.latest_comment = None
+            else:
+                first_comment = MyXtdComment.objects.filter(
+                    object_pk=self.object_pk, is_removed=False
+                ).order_by('-submit_date').first()
+                if first_comment:
+                    photo.first_comment = first_comment.submit_date
+                latest_comment = MyXtdComment.objects.filter(
+                    object_pk=self.object_pk, is_removed=False
+                ).order_by('submit_date').first()
+                if latest_comment:
+                    photo.latest_comment = latest_comment.submit_date
+
+            photo.light_save()
+
+    def like_count(self):
+        return self.flags.filter(flag=LIKEDIT_FLAG).count()
+
+    def dislike_count(self):
+        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()

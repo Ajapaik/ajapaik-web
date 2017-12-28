@@ -1,9 +1,9 @@
-.DS_Store
+/project/ajapaik/settings/local.py
+/project/ajapaik/settings/test.py
+/media/
+/.idea/
 *.pyc
-*.pyo
-workspace.xml
-tasks.xml
-static-collected
-local.py
-client_secrets.json
-.idea
+/static-collected/
+/venv/
+/project/ajapaik/client_secrets.json
+/.pycharm_helpers/

@@ -7,8 +7,20 @@ upstream fotodugnad_app_server {
     server unix:///home/fotodugnad/ajapaik-web/fotodugnad.sock;
 }
 
+# Expires map
+map $sent_http_content_type $expires {
+    default                    off;
+    text/html                  epoch;
+    text/css                   max;
+    application/javascript     max;
+    ~image/                    max;
+}
+
 server {
-    listen 80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    expires $expires;
 
     server_name www.fotodugnad.ra.no fotodugnad.ra.no;
 
@@ -25,7 +37,6 @@ server {
 
     location /static {
         alias /home/fotodugnad/ajapaik-web/static-collected;
-        expires 30d;
     }
 
     location ~ ^/favicon.(\w*)$ {
