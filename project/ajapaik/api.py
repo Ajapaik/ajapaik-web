@@ -481,30 +481,30 @@ def api_photo_upload(request):
         new_rephoto.light_save()
         img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
         img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
-        exif = None
-        orientation = None
-        raw_exif = img._getexif()
-        for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation] == 'Orientation':
-                break
-        if raw_exif is not None:
-            exif = dict(raw_exif.items())
-        if exif and orientation:
-            if exif[orientation] == 3:
-                img = img.rotate(180, expand=True)
-                img_unscaled = img.rotate(180, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-            elif exif[orientation] == 6:
-                img = img.rotate(270, expand=True)
-                img_unscaled = img_unscaled.rotate(270, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-            elif exif[orientation] == 8:
-                img = img.rotate(90, expand=True)
-                img_unscaled = img_unscaled.rotate(90, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+        try:
+            image_orientation = img._getexif()[
+                next(
+                    (key for key, value in ExifTags.TAGS.items() if value == 'Orientation'),
+                    None
+                )
+            ]
+        except KeyError:
+            image_orientation = None
+        if image_orientation == 3:
+            img = img.rotate(180, expand=True)
+            img_unscaled = img.rotate(180, expand=True)
+            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+        elif image_orientation == 6:
+            img = img.rotate(270, expand=True)
+            img_unscaled = img_unscaled.rotate(270, expand=True)
+            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
+        elif image_orientation == 8:
+            img = img.rotate(90, expand=True)
+            img_unscaled = img_unscaled.rotate(90, expand=True)
+            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
+            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
         if upload_form.cleaned_data['scale']:
             img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
             rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
