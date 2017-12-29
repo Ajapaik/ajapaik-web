@@ -1,9 +1,13 @@
-/project/ajapaik/settings/local.py
-/project/ajapaik/settings/test.py
 /media/
 /.idea/
-*.pyc
 /static-collected/
 /venv/
-/project/ajapaik/client_secrets.json
 /.pycharm_helpers/
+
+/project/ajapaik/client_secrets.json
+/project/ajapaik/settings/local.py
+/project/ajapaik/settings/test.py
+
+*.pyc
+*.mo
+*.po
