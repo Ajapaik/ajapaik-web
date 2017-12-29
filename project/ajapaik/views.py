@@ -33,6 +33,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
@@ -449,7 +450,7 @@ def rephoto_upload(request, photo_id):
                     except:
                         pass
                 else:
-                    re_photo.date = datetime.datetime.now()
+                    re_photo.date = timezone.now()
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
@@ -1066,7 +1067,7 @@ def upload_photo_selection(request):
                             type=AlbumPhoto.RECURATED
                         )
                         Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-                               created=datetime.datetime.now()).save()
+                               created=timezone.now()).save()
                         new_album_photo_link.save()
                 a.save()
             profile.set_calculated_fields()
@@ -1137,7 +1138,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             request.session['user_view_array'] = []
         if photo_obj.id not in request.session['user_view_array']:
             photo_obj.view_count += 1
-        now = datetime.datetime.now()
+        now = timezone.now()
         if not photo_obj.first_view:
             photo_obj.first_view = now
         photo_obj.latest_view = now
@@ -1469,7 +1470,7 @@ def geotag_add(request):
         initial_lon = tagged_photo.lon
         # Calculate new lat, lon, confidence, guess_level, azimuth, azimuth_confidence, geotag_count for photo
         tagged_photo.set_calculated_fields()
-        tagged_photo.latest_geotag = datetime.datetime.now()
+        tagged_photo.latest_geotag = timezone.now()
         tagged_photo.save()
         processed_tagged_photo = Photo.objects.filter(pk=tagged_photo.id).get()
         ret['estimated_location'] = [processed_tagged_photo.lat, processed_tagged_photo.lon]
@@ -1502,7 +1503,7 @@ def geotag_add(request):
         # ret['is_correct'] = processed_geotag.is_correct
         ret['current_score'] = processed_geotag.score
         Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
-               created=datetime.datetime.now(), photo=processed_geotag.photo).save()
+               created=timezone.now(), photo=processed_geotag.photo).save()
         geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
         ret['new_geotag_count'] = geotags_for_this_photo.distinct('user').count()
         ret['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
@@ -1569,8 +1570,8 @@ def geotag_confirm(request):
                 confirmed_geotag.azimuth_correct = True
             confirmed_geotag.save()
             Points(user=profile, action=Points.GEOTAG, geotag=confirmed_geotag, points=confirmed_geotag.score,
-                   created=datetime.datetime.now(), photo=p).save()
-            p.latest_geotag = datetime.datetime.now()
+                   created=timezone.now(), photo=p).save()
+            p.latest_geotag = timezone.now()
             p.save()
             profile.set_calculated_fields()
             profile.save()
@@ -2014,7 +2015,7 @@ def curator_photo_upload_handler(request):
         else:
             ret["album_id"] = None
         default_album = Album(
-            name=str(profile.id) + "-" + str(datetime.datetime.now()),
+            name=str(profile.id) + "-" + str(timezone.now()),
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
@@ -2202,7 +2203,7 @@ def curator_photo_upload_handler(request):
                                 ap.save()
                                 points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION,
                                                                photo=existing_photo, points=30,
-                                                               album=general_albums[0], created=datetime.datetime.now())
+                                                               album=general_albums[0], created=timezone.now())
                                 points_for_recurating.save()
                                 all_curating_points.append(points_for_recurating)
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
@@ -2393,7 +2394,7 @@ def norwegian_csv_upload(request):
             pass
         extension = 'jpg'
         upload_file_name = 'uploads/%s.%s' % (
-            unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
+            unicode(timezone.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
         fout = open('/var/garage/' + upload_file_name, 'w')
         shutil.copyfileobj(response.raw, fout)
         fout.close()
