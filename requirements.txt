@@ -9,7 +9,7 @@ django-extensions
 django-haystack
 django-mobi
 django-modeltranslation
-django-registration-redux
+django-registration-redux<2.0
 feedparser
 flickrapi
 geopy
@@ -29,4 +29,3 @@ ujson
 uWSGI
 django-comments-xtd==1.7.2
 djangorestframework==3.4.7
-django-subdomains

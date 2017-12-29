@@ -99,7 +99,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'project.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,11 +110,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
-
-SUBDOMAIN_URLCONFS = {
-    None: 'project.ajapaik.urls',
-    'opendata': 'project.ajapaik.urls_opendata'
-}
 
 WSGI_APPLICATION = 'project.ajapaik.wsgihandler.application'
 
@@ -149,15 +143,18 @@ TEMPLATES = [
     },
 ]
 
-ADMIN_TOOL_APPS = (
-    'project.ajapaik',
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_EMAIL_HTML = False
+# FIXME
+# LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
+REGISTRATION_FORM = 'project.ajapaik.forms.UserRegistrationForm'
+
+INSTALLED_APPS = (
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-)
-
-CORE_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -169,13 +166,6 @@ CORE_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admindocs',
     'django.contrib.gis',
-)
-
-LOCAL_APPS = (
-
-)
-
-EXTERNAL_APPS = (
     'django_comments_xtd',
     'django_comments',
     'project.ajapaik',
@@ -189,16 +179,6 @@ EXTERNAL_APPS = (
     'django_bootstrap_dynamic_formsets',
     'rest_framework'
 )
-
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-REGISTRATION_EMAIL_HTML = False
-# FIXME
-# LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'project.ajapaik.forms.UserRegistrationForm'
-
-# TODO: Just use one tuple
-INSTALLED_APPS = ADMIN_TOOL_APPS + CORE_APPS + LOCAL_APPS + EXTERNAL_APPS
 
 ALLOWED_HOSTS = ['*']
 
@@ -278,3 +258,4 @@ COMMENTS_XTD_CONFIRM_EMAIL = True
 COMMENTS_XTD_FORM_CLASS = 'project.ajapaik.forms.CommentForm'
 COMMENTS_XTD_MODEL = 'project.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
+COMMENT_MAX_LENGTH = 5000

@@ -1789,6 +1789,7 @@ def curator_get_album_info(request):
         except ObjectDoesNotExist:
             return HttpResponse("Album does not exist", status=404)
         return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+
     return HttpResponse("No album ID", status=500)
 
 
@@ -1827,8 +1828,6 @@ def curator_update_my_album(request):
 
 def curator_photo_upload_handler(request):
     profile = request.get_user().profile
-
-    etera_token = request.POST.get("eteraToken")
 
     curator_album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
 
@@ -1880,8 +1879,7 @@ def curator_photo_upload_handler(request):
             is_public=False,
         )
         default_album.save()
-        # 15 => unknown copyright
-        unknown_licence = Licence.objects.get(pk=15)
+        # We only have Flickr
         flickr_licence = Licence.objects.get(url='https://www.flickr.com/commons/usage/')
         for k, v in selection.iteritems():
             upload_form = CuratorPhotoUploadForm(v)
@@ -1889,17 +1887,7 @@ def curator_photo_upload_handler(request):
             awarded_curator_points = []
             if upload_form.is_valid():
                 if upload_form.cleaned_data["institution"]:
-                    if upload_form.cleaned_data["institution"] == 'Flickr Commons':
-                        licence = flickr_licence
-                    else:
-                        # For Finna
-                        if upload_form.cleaned_data["licence"]:
-                            licence = Licence.objects.get_or_create(name=upload_form.cleaned_data["licence"])[0]
-                        else:
-                            licence = unknown_licence
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
-                    if upload_form.cleaned_data["institution"] == "ETERA":
-                        upload_form.cleaned_data["institution"] = 'TLÜAR ETERA'
                     try:
                         source = Source.objects.get(description=upload_form.cleaned_data["institution"])
                     except ObjectDoesNotExist:
@@ -1909,33 +1897,12 @@ def curator_photo_upload_handler(request):
                         )
                         source.save()
                 else:
-                    licence = unknown_licence
                     source = Source.objects.get(name="AJP")
                 existing_photo = None
                 if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
-                    if upload_form.cleaned_data["collections"] == "DIGAR":
-                        incoming_muis_id = upload_form.cleaned_data["identifyingNumber"]
-                    else:
-                        incoming_muis_id = upload_form.cleaned_data["id"]
-                    if 'ETERA' in upload_form.cleaned_data["institution"]:
-                        upload_form.cleaned_data["types"] = "Foto"
-                    if '_' in incoming_muis_id:
-                        muis_id = incoming_muis_id.split('_')[0]
-                        muis_media_id = incoming_muis_id.split('_')[1]
-                    else:
-                        muis_id = incoming_muis_id
-                        muis_media_id = None
-                    if upload_form.cleaned_data["collections"] == "DIGAR":
-                        upload_form.cleaned_data["identifyingNumber"] = 'nlib-digar:' + upload_form.cleaned_data[
-                            "identifyingNumber"]
-                        muis_media_id = 1
+                    incoming_id = upload_form.cleaned_data["id"]
                     try:
-                        if muis_media_id:
-                            existing_photo = Photo.objects.filter(
-                                source=source, external_id=muis_id, external_sub_id=muis_media_id).get()
-                        else:
-                            existing_photo = Photo.objects.filter(
-                                source=source, external_id=muis_id).get()
+                        existing_photo = Photo.objects.filter(source=source, external_id=incoming_id).get()
                     except ObjectDoesNotExist:
                         pass
                     if not existing_photo:
@@ -1946,7 +1913,7 @@ def curator_photo_upload_handler(request):
                             new_photo = Photo(
                                 user=profile,
                                 author=upload_form.cleaned_data["creators"].encode('utf-8'),
-                                description=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
+                                title=upload_form.cleaned_data["title"].rstrip().encode('utf-8'),
                                 source=source,
                                 types=upload_form.cleaned_data["types"].encode('utf-8') if upload_form.cleaned_data[
                                     "types"] else None,
@@ -1954,9 +1921,8 @@ def curator_photo_upload_handler(request):
                                 upload_form.cleaned_data["keywords"] else None,
                                 date_text=upload_form.cleaned_data["date"].encode('utf-8') if
                                 upload_form.cleaned_data["date"] else None,
-                                licence=licence,
-                                external_id=muis_id,
-                                external_sub_id=muis_media_id,
+                                licence=flickr_licence,
+                                external_id=incoming_id,
                                 source_key=upload_form.cleaned_data["identifyingNumber"],
                                 source_url=upload_form.cleaned_data["urlToRecord"],
                                 flip=upload_form.cleaned_data["flip"],
@@ -1965,22 +1931,12 @@ def curator_photo_upload_handler(request):
                                 rotated=upload_form.cleaned_data["rotated"]
                             )
                             new_photo.save()
-                            if upload_form.cleaned_data["collections"] == "DIGAR":
-                                new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
-                            else:
-                                opener = urllib2.build_opener()
-                                headers = [("User-Agent",
-                                            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                                if etera_token:
-                                    headers.append(("Authorization", "Bearer " + etera_token))
-                                opener.addheaders = headers
-                                img_response = opener.open(upload_form.cleaned_data["imageUrl"])
-                                if 'ETERA' in new_photo.source.description:
-                                    img = ContentFile(img_response.read())
-                                    new_photo.image_no_watermark.save("etera.jpg", img)
-                                    new_photo.watermark()
-                                else:
-                                    new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+                            opener = urllib2.build_opener()
+                            headers = [("User-Agent",
+                                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                            opener.addheaders = headers
+                            img_response = opener.open(upload_form.cleaned_data["imageUrl"])
+                            new_photo.image.save("flickr.jpg", ContentFile(img_response.read()))
                             if new_photo.invert:
                                 photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
                                 img = Image.open(photo_path)

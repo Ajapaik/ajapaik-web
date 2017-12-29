@@ -4,11 +4,12 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.utils.translation import ugettext as _
+from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
 
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, \
     AlbumPhoto, Licence, Device, PhotoComment, Dating, \
-    DatingConfirmation, NorwegianCSVPhoto, Country, County, Municipality
+    DatingConfirmation, NorwegianCSVPhoto, Country, County, Municipality, MyXtdComment
 
 
 class NorwegianCSVUploadAdmin(admin.ModelAdmin):
@@ -150,6 +151,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Photo, PhotoAdmin)
+# Old FB comments
 admin.site.register(PhotoComment, PhotoCommentAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
@@ -167,3 +169,4 @@ admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Country)
 admin.site.register(County)
 admin.site.register(Municipality)
+admin.site.register(MyXtdComment, XtdCommentsAdmin)

@@ -85,12 +85,14 @@ def _make_fullscreen(photo):
 
 
 def _get_pseudo_slug_for_photo(description, source_key, created):
+    slug = ''
     if description is not None and description != '':
         slug = '-'.join(slugify(description).split('-')[:6])[:60]
     elif source_key is not None and source_key != '':
         slug = slugify(source_key)
-    else:
-        slug = slugify(created.__format__('%Y-%m-%d'))
+    elif created is not None:
+        slug = slugify(created.strftime("%Y-%m-%d"))
+
     return slug
 
 
@@ -462,26 +464,6 @@ class Photo(Model):
 
         self.light_save()
 
-    def watermark(self):
-        # For ETERA
-        padding = 20
-        img = Image.open(self.image_no_watermark)
-        img = img.convert('RGBA')
-        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/TLUAR_watermark.png'))
-        longest_side = max(img.size[0], img.size[1])
-        coeff = float(longest_side) / 1600.00
-        w = int(mark.size[0] * coeff)
-        h = int(mark.size[1] * coeff)
-        mark = mark.resize((w, h))
-        layer = Image.new('RGBA', img.size, (0, 0, 0, 0))
-        position = (img.size[0] - mark.size[0] - padding, padding)
-        layer.paste(mark, position)
-        img = Image.composite(layer, img, layer)
-        tempfile_io = StringIO.StringIO()
-        img.save(tempfile_io, format='JPEG')
-        image_file = InMemoryUploadedFile(tempfile_io, None, 'watermarked.jpg', 'image/jpeg', tempfile_io.len, None)
-        self.image.save('watermarked.jpg', image_file)
-
     @permalink
     def get_absolute_url(self):
         return 'project.ajapaik.views.photoslug', [self.id, self.get_pseudo_slug()]
@@ -580,6 +562,7 @@ class Photo(Model):
         n = points.shape[0]
         sum_lon = numpy.sum(points[:, 1])
         sum_lat = numpy.sum(points[:, 0])
+
         return sum_lon / n, sum_lat / n
 
     @staticmethod
@@ -592,6 +575,7 @@ class Photo(Model):
             if (closest_dist is None) or (dist < closest_dist):
                 closest_point = point
                 closest_dist = dist
+
         return closest_point
 
     # TODO: Cut down on the science library use

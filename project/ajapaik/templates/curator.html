@@ -246,6 +246,7 @@
                 }
             });
             var createResultElement = function (item) {
+                // TODO: For MuIS, probably not needed here
                 if (item.cachedThumbnailUrl !== '14e5c228503ec8e7e004a13d48919768') {
                     fullResultSet[item.id] = item;
                     resultDiv.append(tmpl('ajapaik-curator-result-template', item));
@@ -638,7 +639,6 @@
                     data: {
                         selection: selection,
                         albums: albums,
-                        eteraToken: ETERASession,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (response) {
