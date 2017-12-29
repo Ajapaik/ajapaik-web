@@ -1342,7 +1342,7 @@ def map_objects_by_bounding_box(request):
 
     if form.is_valid():
         album = form.cleaned_data['album']
-        area = form.cleaned_data['area']
+        # area = form.cleaned_data['area']
         limit_by_album = form.cleaned_data['limit_by_album']
         sw_lat = form.cleaned_data['sw_lat']
         sw_lon = form.cleaned_data['sw_lon']
@@ -1358,8 +1358,8 @@ def map_objects_by_bounding_box(request):
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
             qs = qs.filter(id__in=album_photo_ids)
 
-        if area:
-            qs = qs.filter(area=area)
+        # if area:
+            # qs = qs.filter(area=area)
 
         if sw_lat and sw_lon and ne_lat and ne_lon:
             qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
