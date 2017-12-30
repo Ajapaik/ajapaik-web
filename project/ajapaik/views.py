@@ -929,11 +929,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['photo'] = None
         ret['rephotos_by'] = None
         ret['rephotos_by_name'] = None
-        ret['photos_with_comments'] = photos.filter(fb_comments_count__isnull=False).count()
+        ret['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
         ret['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
         qs_for_fb = photos[:5]
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
-                                    'rephoto_count', 'fb_comments_count', 'geotag_count', 'geotag_count',
+                                    'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
                                     'geotag_count')[0:page_size]
         ret['order1'] = 'time'
         ret['order2'] = 'added'
@@ -2050,53 +2050,6 @@ def curator_photo_upload_handler(request):
         ret = {
             "error": error
         }
-
-    return HttpResponse(json.dumps(ret), content_type="application/json")
-
-
-def update_comment_count(request):
-    ret = {}
-    photo_id = request.POST.get('photo_id')
-    comment_id = request.POST.get('comment_id')
-    if photo_id:
-        p = Photo.objects.filter(pk=photo_id).first()
-        if p:
-            if not p.fb_object_id:
-                # FIXME: Possibility to insert false data
-                p.fb_object_id = comment_id.split('_')[0]
-            response = json.loads(requests.get('https://graph.facebook.com/v2.3/comments/?access_token=%s&id=%s' % (
-                APP_ID + '|' + settings.FACEBOOK_APP_SECRET, p.fb_object_id)).text)
-            for comment in response['data']:
-                existing_comment = PhotoComment.objects.filter(fb_comment_id=comment['id']).first()
-                if existing_comment:
-                    existing_comment.text = comment['message']
-                    existing_comment.save()
-                else:
-                    new_photo_comment = PhotoComment(
-                        fb_comment_id=comment['id'],
-                        fb_user_id=comment['from']['id'],
-                        fb_object_id=comment['id'].split('_')[0],
-                        text=comment['message'],
-                        created=comment['created_time'],
-                        photo=p
-                    )
-                    p.latest_comment = datetime.datetime.now()
-                    new_photo_comment.save()
-            p.fb_comments_count = len(response['data'])
-            if p.fb_comments_count == 0:
-                p.latest_comment = None
-                p.first_comment = None
-            else:
-                first_comment = p.comments.order_by('created').first()
-                latest_comment = p.comments.order_by('created').last()
-                if first_comment:
-                    p.first_comment = first_comment.created
-                if latest_comment:
-                    p.latest_comment = latest_comment.created
-            p.light_save()
-            for each in p.albums.all():
-                each.comments_count_with_subalbums = each.get_comment_count_with_subalbums()
-                each.light_save()
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
