@@ -1429,7 +1429,8 @@ def map_objects_by_bounding_box(request):
             # if dating_end:
             # qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
 
-        # qs = qs.order_by('?')[:1000]
+        if form.cleaned_data['count_limit']:
+            qs = qs.order_by('?')[:form.cleaned_data['count_limit']]
 
         data = {
             'photos': PhotoMapMarkerSerializer(qs, many=True).data

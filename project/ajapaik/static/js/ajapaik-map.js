@@ -99,32 +99,7 @@
         },
         centerOnMapAfterLocating = false,
         activateAlbumFilter,
-        deactivateAlbumFilter,
-        random_list_values = function(list, count=1) {
-            if (!list) {
-                return list;
-            }
-            if (count === 1) {
-                return list[Math.floor(Math.random() * list.length)];
-            }
-            else {
-                if (count >= list.length) {
-                    return list;
-                }
-                var ids = [];
-                for (;ids.length <= count;) {
-                    var id = Math.floor(Math.random() * list.length);
-                    if (!(id in ids)) {
-                        ids.push(id);
-                    }
-                }
-                var to_return = []
-                for (var i = 0; i < count; i++) {
-                    to_return.push(list[ids[i]]);
-                }
-                return to_return;
-            }
-        };
+        deactivateAlbumFilter;
 
 
     window.loadPhoto = function (id) {
@@ -400,6 +375,9 @@
                 ne_lon: ne.lng(),
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             };
+            if (window.map.zoom <= markerClustererSettings.maxZoom) {
+                payload.count_limit = 1000;
+            }
             //var momentObj;
             //if (window.datingStart) {
             //    momentObj = moment(window.datingStart + '');
@@ -421,12 +399,7 @@
 
                 if (response.photos) {
                     window.lastMarkerSet = [];
-                    if (window.map.zoom > markerClustererSettings.maxZoom) {
-                        var photos = response.photos;
-                    }
-                    else {
-                        var photos = random_list_values(response.photos, 1000);
-                    }
+                    var photos = response.photos;
                     for (j = 0; j < photos.length; j++) {
                         var currentAzimuth,
                             currentPosition,
@@ -446,11 +419,7 @@
                         } else {
                             currentIcon = locationIcon;
                         }
-                        if (p.rephoto_count) {
-                            currentIcon.fillColor = '#007fff';
-                        } else {
-                            currentIcon.fillColor = 'black';
-                        }
+                        currentIcon.fillColor = p.rephoto_count ? '#007fff' : 'black';
                         var marker = new google.maps.Marker({
                             id: p.id,
                             icon: currentIcon,

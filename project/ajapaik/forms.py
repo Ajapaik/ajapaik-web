@@ -121,6 +121,7 @@ class MapDataRequestForm(forms.Form):
     ne_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     starting = forms.DateField(required=False)
     ending = forms.DateField(required=False)
+    count_limit = forms.IntegerField(min_value=1, required=False)
 
 
 class GameAlbumSelectionForm(forms.Form):
