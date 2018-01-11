@@ -1,6 +1,8 @@
+from django.core.urlresolvers import reverse
 from rest_framework import serializers
 
-from models import Album, Dating, Video, Photo
+from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
+from project.utils import calculate_thumbnail_size
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
@@ -50,20 +52,55 @@ class VideoSerializer(serializers.ModelSerializer):
         exclude = ('created', 'modified')
 
 
-class BasePhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Photo
-        fields = ('id', )
-
-
-class PhotoGeodataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Photo
-        fields = ('lat', 'lon')
-
-
-class PhotoMapMarkerSerializer(BasePhotoSerializer, PhotoGeodataSerializer):
+class PhotoMapMarkerSerializer(serializers.ModelSerializer):
     rephoto_count = serializers.IntegerField()
+
+    url = serializers.SerializerMethodField()
+    permalink = serializers.SerializerMethodField()
+    width = serializers.SerializerMethodField()
+    height = serializers.SerializerMethodField()
+    is_selected = serializers.SerializerMethodField()
+
+    def __init__(self, *args, **kwargs):
+        self.photo_selection = []
+        if 'photo_selection' in kwargs:
+            self.photo_selection = kwargs['photo_selection']
+            # Django REST framework don't happy with unexpected parameters.
+            del(kwargs['photo_selection'])
+        super(PhotoMapMarkerSerializer, self).__init__(*args, **kwargs)
+
+    def get_url(self, instance):
+        return reverse(
+            'project.ajapaik.views.image_thumb',
+            args=(
+                instance.id,
+                400,
+                _get_pseudo_slug_for_photo(instance.description, None, None)
+            )
+        )
+
+    def get_permalink(self, instance):
+        return reverse(
+            'project.ajapaik.views.photoslug',
+            args=(
+                instance.id,
+                _get_pseudo_slug_for_photo(instance.description, None, None)
+            )
+        )
+
+    def get_width(self, instance):
+        return calculate_thumbnail_size(instance.width, instance.height, 400)[0]
+
+    def get_height(self, instance):
+        return calculate_thumbnail_size(instance.width, instance.height, 400)[1]
+
+    def get_is_selected(self, instance):
+        return str(instance.id) in self.photo_selection
+
     class Meta:
         model = Photo
-        fields = ('id', 'lat', 'lon', 'azimuth', 'rephoto_count')
+        fields = (
+            'id', 'lat', 'lon', 'azimuth', 'rephoto_count', 'description',
+            'comment_count', 'url', 'permalink', 'width', 'height',
+            'is_selected'
+        )

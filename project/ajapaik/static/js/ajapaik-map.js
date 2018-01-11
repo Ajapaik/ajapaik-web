@@ -7,99 +7,99 @@
     /*global $*/
     /*global google*/
     /*global commonVgmapi*/
+
+    // Settings and configurations
+    var justifiedGallerySettings = {
+        waitThumbnailsLoad: false,
+        rowHeight: 120,
+        margins: 3,
+        sizeRangeSuffixes: {
+            'lt100': '',
+            'lt240': '',
+            'lt320': '',
+            'lt500': '',
+            'lt640': '',
+            'lt1024': ''
+        }
+    };
+
+    var markerClustererSettings = {
+        minimumClusterSize: 2,
+        maxZoom: 17
+    };
+
+    var arrowIcon = {
+        path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
+        strokeColor: 'white',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fillColor: 'black',
+        fillOpacity: 1,
+        rotation: 0,
+        scale: 1.0,
+        anchor: new google.maps.Point(12, 12)
+    };
+
+    var locationIcon = {
+        path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+        strokeColor: 'white',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fillColor: 'black',
+        fillOpacity: 1,
+        scale: 1.0,
+        anchor: new google.maps.Point(12, 0)
+    };
+
+    var maxGalleryWidth = $(window).width() * 0.2;
+
+    var maxGalleryHeight = $('#ajapaik-map-canvas').height();
+
+    var galleryPanelSettings = {
+        selector: '#ajapaik-map-container',
+        title: false,
+        position: 'top left',
+        size: {
+            height: function () {return maxGalleryHeight;},
+            width: function () {return maxGalleryWidth;}
+        },
+        draggable: false,
+        removeHeader: true,
+        overflow: {
+            horizontal: 'hidden',
+            vertical: 'auto'
+        },
+        id: 'ajapaik-mapview-photo-panel',
+        resizable: false
+    };
+
+    var sidePanelPhotosBunchSize = 20;
+
+
+    // Variables
     var photoId,
-        currentMapBounds,
         limitByAlbum,
-        ne,
-        sw,
-        p,
         photoPanel,
-        i = 0,
-        j = 0,
-        l = 0,
         maxIndex = 2,
         lastHighlightedMarker,
         lastSelectedPaneElement,
-        markerIdsWithinBounds,
-        refreshPane,
-        getPanelContent,
+        photosOnSidePanel = [],
         lastSelectedMarkerId,
-        currentlySelectedMarkerId,
+        currentlySelectedMarker,
         targetPaneElement,
-        markerTemp,
         mc,
         currentMapDataRequest,
-        currentPaneDataRequest,
-        clusteringEndedListener,
-        justifiedGallerySettings = {
-            waitThumbnailsLoad: false,
-            rowHeight: 120,
-            margins: 3,
-            sizeRangeSuffixes: {
-                'lt100': '',
-                'lt240': '',
-                'lt320': '',
-                'lt500': '',
-                'lt640': '',
-                'lt1024': ''
-            }
-        },
-        openPhotoDrawer,
-        guessPanelContainer,
         photoDrawerOpen = false,
-        markerClustererSettings = {
-            minimumClusterSize: 2,
-            maxZoom: 17
-        },
-        setCorrectMarkerIcon,
-        currentIcon,
-        arrowIcon = {
-            path: 'M12 2l-7.5 18.29.71.71 6.79-3 6.79 3 .71-.71z',
-            strokeColor: 'white',
-            strokeOpacity: 1,
-            strokeWeight: 1,
-            fillColor: 'black',
-            fillOpacity: 1,
-            rotation: 0,
-            scale: 1.0,
-            anchor: new google.maps.Point(12, 12)
-        },
-        locationIcon = {
-            path: 'M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-            strokeColor: 'white',
-            strokeOpacity: 1,
-            strokeWeight: 1,
-            fillColor: 'black',
-            fillOpacity: 1,
-            scale: 1.0,
-            anchor: new google.maps.Point(12, 0)
-        },
         markers = [],
-        markerIdToHighlightAfterPageLoad,
-        updateBoundingEdge,
         temporalMapFilterTimeout,
-        maxGalleryWidth = $(window).width() * 0.2,
-        maxGalleryHeight = $('#ajapaik-map-canvas').height(),
-        galleryPanelSettings = {
-            selector: '#ajapaik-map-container',
-            title: false,
-            position: 'top left',
-            size: {
-                height: function () {return maxGalleryHeight;},
-                width: function () {return maxGalleryWidth;}
-            },
-            draggable: false,
-            removeHeader: true,
-            overflow: {
-                horizontal: 'hidden',
-                vertical: 'auto'
-            },
-            id: 'ajapaik-mapview-photo-panel',
-            resizable: false
-        },
-        centerOnMapAfterLocating = false,
-        activateAlbumFilter,
-        deactivateAlbumFilter;
+        centerOnMapAfterLocating = false;
+
+
+    function findMarkerByPhotoId(photoId) {
+        return markers.find(function(marker) {
+            return marker.photoData.id === photoId;
+        });
+    };
 
 
     window.loadPhoto = function (id) {
@@ -167,7 +167,7 @@
     };
 
 
-    openPhotoDrawer = function (content) {
+    var openPhotoDrawer = function (content) {
         var target = $('#ajapaik-photo-modal');
         photoDrawerOpen = true;
         window.syncMapStateToURL();
@@ -197,7 +197,7 @@
     });
 
 
-    updateBoundingEdge = function (edge) {
+    var updateBoundingEdge = function (edge) {
         var scale = Math.pow(2, window.map.getZoom()),
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge),
@@ -213,8 +213,8 @@
     window.syncMapStateToURL = function () {
         // FIXME: Do this more elegantly
         var historyReplacementString = '/map/';
-        if (currentlySelectedMarkerId) {
-            historyReplacementString += 'photo/' + currentlySelectedMarkerId + '/';
+        if (currentlySelectedMarker) {
+            historyReplacementString += 'photo/' + currentlySelectedMarker.photoData.id + '/';
         }
         if (window.currentlySelectedRephotoId) {
             historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
@@ -352,16 +352,15 @@
             if (!window.comingBackFromGuessLocation) {
                 window.deselectMarker();
             } else {
-                markerIdToHighlightAfterPageLoad = currentlySelectedMarkerId;
                 window.comingBackFromGuessLocation = false;
             }
             if (window.urlParamsInitialized) {
-                currentlySelectedMarkerId = null;
+                currentlySelectedMarker = null;
             }
             window.syncMapStateToURL();
-            currentMapBounds = window.map.getBounds();
-            ne = currentMapBounds.getNorthEast();
-            sw = currentMapBounds.getSouthWest();
+            var currentMapBounds = window.map.getBounds();
+            var ne = currentMapBounds.getNorthEast();
+            var sw = currentMapBounds.getSouthWest();
             if (currentMapDataRequest) {
                 currentMapDataRequest.abort();
             }
@@ -378,19 +377,6 @@
             if (window.map.zoom <= markerClustererSettings.maxZoom) {
                 payload.count_limit = 1000;
             }
-            //var momentObj;
-            //if (window.datingStart) {
-            //    momentObj = moment(window.datingStart + '');
-            //    if (momentObj.isValid()) {
-            //        payload.starting = momentObj.format('YYYY-MM-DD');
-            //    }
-            //}
-            //if (window.datingEnd) {
-            //    momentObj = moment(window.datingEnd  + '');
-            //    if (momentObj.isValid()) {
-            //        payload.ending = momentObj.format('YYYY-MM-DD');
-            //    }
-            //}
             currentMapDataRequest = $.post(window.mapDataURL, payload, function (response) {
                 if (mc) {
                     mc.clearMarkers();
@@ -399,52 +385,55 @@
 
                 if (response.photos) {
                     window.lastMarkerSet = [];
-                    var photos = response.photos;
-                    for (j = 0; j < photos.length; j++) {
-                        var currentAzimuth,
-                            currentPosition,
-                            geodesicEndPoint,
-                            angle,
-                            angleFix;
-                        p = response.photos[j];
-                        arrowIcon.rotation = 0;
-                        currentAzimuth = p.azimuth;
-                        currentPosition = new google.maps.LatLng(p.lat, p.lon);
-                        if (currentAzimuth) {
-                            geodesicEndPoint = Math.calculateMapLineEndPoint(currentAzimuth, currentPosition, 2000);
-                            angle = Math.getAzimuthBetweenTwoPoints(currentPosition, geodesicEndPoint);
-                            angleFix = currentAzimuth - angle;
-                            arrowIcon.rotation = currentAzimuth + angleFix;
-                            currentIcon = arrowIcon;
+                    for (var j = 0; j < response.photos.length; j++) {
+                        var photo = response.photos[j];
+                        var currentPosition = new google.maps.LatLng(
+                            photo.lat,
+                            photo.lon
+                        );
+                        var angleFix;
+                        var currentIcon;
+
+                        if (photo.azimuth) {
+                            var geodesicEndPoint = Math.calculateMapLineEndPoint(
+                                photo.azimuth, currentPosition, 2000
+                            );
+                            var angle = Math.getAzimuthBetweenTwoPoints(
+                                currentPosition, geodesicEndPoint
+                            );
+                            angleFix = photo.azimuth - angle;
+                            arrowIcon.rotation = photo.azimuth + angleFix;
+                            currentIcon = $.extend(
+                                true,
+                                arrowIcon,
+                                {
+                                    rotation: photo.azimuth + angleFix
+                                }
+                            )
                         } else {
-                            currentIcon = locationIcon;
+                            currentIcon = $.extend(true, {}, locationIcon);
                         }
-                        currentIcon.fillColor = p.rephoto_count ? '#007fff' : 'black';
+                        currentIcon.fillColor = photo.rephoto_count ? '#007fff' : 'black';
                         var marker = new google.maps.Marker({
-                            id: p.id,
                             icon: currentIcon,
-                            rephotoCount: p.rephoto_count,
                             position: currentPosition,
                             zIndex: 1,
-                            azimuth: currentAzimuth,
                             angleFix: angleFix,
                             map: null,
-                            anchor: new google.maps.Point(0.0, 0.0)
+                            anchor: new google.maps.Point(0.0, 0.0),
+                            photoData: photo
                         });
                         if (angleFix)
-                            window.lastMarkerSet.push(p.id);
-                        (function (id) {
+                            window.lastMarkerSet.push(photo.id);
+
+                        (function(marker) {
                             google.maps.event.addListener(marker, 'click', function () {
-                                window.highlightSelected(id, true);
+                                highlightSelected(marker, true);
                             });
-                        })(p.id);
+                        })(marker);
+
                         markers.push(marker);
                     }
-                }
-                if (response.photos && response.photos.length <= 50) {
-                    markerClustererSettings.gridSize = 0.0000001;
-                } else {
-                    markerClustererSettings.gridSize = 60;
                 }
                 if (mc && mc.clusters_) {
                     mc.clusters_.length = 0;
@@ -452,94 +441,86 @@
                 if (mc) {
                     google.maps.event.clearListeners(mc, 'clusteringend');
                 }
-                mc = new MarkerClusterer(window.map, markers, markerClustererSettings);
-                markerIdsWithinBounds = [];
-                clusteringEndedListener = google.maps.event.addListener(mc, 'clusteringend', function () {
-                    var clusters = mc.clusters_,
-                        currentMarkers;
-                    for (var i = 0; i < clusters.length; i += 1) {
-                        currentMarkers = clusters[i].markers_;
-                        if (currentMarkers.length === 1) {
-                            for (var j = 0; j < currentMarkers.length; j += 1) {
-                                markerIdsWithinBounds.push(currentMarkers[j].id);
+                mc = new MarkerClusterer(
+                    window.map,
+                    markers,
+                    $.extend(
+                        true,
+                        markerClustererSettings,
+                        {gridSize: response.photos.length <= 50 ? 0.0000001 : 60}
+                    )
+                );
+                google.maps.event.addListener(mc, 'clusteringend', function () {
+                    photosOnSidePanel = [];
+                    if (map.zoom > markerClustererSettings.maxZoom) {
+                        photosOnSidePanel = markers.map(
+                            function(marker){return marker.photoData}
+                        );
+                    }
+                    else {
+                        // Filtering only single photos(outside of clusters) to
+                        // show on side panel.
+                        var clusters = mc.clusters_;
+                        for (var i = 0; i < clusters.length; i++) {
+                            var clusterMarkers = clusters[i].markers_;
+                            if (clusterMarkers.length === 1) {
+                                photosOnSidePanel.push(clusterMarkers[0].photoData);
                             }
                         }
                     }
-                    if (window.map.zoom > 17) {
-                        markerIdsWithinBounds = [];
-                        for (i = 0; i < markers.length; i++) {
-                            markerIdsWithinBounds.push(markers[i].id);
-                        }
-                    }
                     $('#ajapaik-photo-pane-content-container').empty();
-                    refreshPane(markerIdsWithinBounds.slice(0, 20));
+                    refreshPane(photosOnSidePanel.slice(0, sidePanelPhotosBunchSize));
                 });
             });
         }
     };
 
 
-    $('#ajapaik-map-container').on('click', 'button[data-action="load-more"]', function(event) {
+    $('#ajapaik-map-container').on('click', 'button[data-action="load-more"]', function (event) {
         var current_bunch = $(event.target).data('bunch-loaded');
         $('#ajapaik-map-container .ajapaik-load-more button').hide();
         $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
-        refreshPane(markerIdsWithinBounds.slice(current_bunch * 20, (current_bunch + 1) * 20))
+        refreshPane(photosOnSidePanel.slice(
+            current_bunch * sidePanelPhotosBunchSize,
+            (current_bunch + 1) * sidePanelPhotosBunchSize
+        ))
         $(event.target).data('bunch-loaded', ++current_bunch)
     });
 
 
-    refreshPane = function (photo_ids) {
-        if (currentPaneDataRequest) {
-            currentPaneDataRequest.abort();
-        }
-        var mapCenter = window.map.getCenter();
-
+    var refreshPane = function (photosToAdd) {
         $('#ajapaik-map-container .ajapaik-load-more button').hide();
         $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
-        currentPaneDataRequest = $.post(
-            window.paneContentsURL,
-            {
-                marker_ids: photo_ids,
-                center_lat: mapCenter.lat(),
-                center_lon: mapCenter.lng(),
-                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-            },
-            function (response) {
-                if (!photoPanel) {
-                    photoPanel = $.jsPanel(galleryPanelSettings);
-                    photoPanel.content.append(
-                        tmpl('ajapaik-map-view-side-panel-template', response)
-                    );
-                }
-                else {
-                    var targetDiv = $('#ajapaik-photo-pane-content-container');
-                    targetDiv.append(
-                        tmpl('ajapaik-map-view-side-panel-element-template', response)
-                    );
-                }
-                var loaded_photos_count = $('#ajapaik-photo-pane-content-container .ajapaik-mapview-pane-photo-container').length;
-                if(loaded_photos_count >= markerIdsWithinBounds.length) {
-                    $('#ajapaik-map-container .ajapaik-load-more button').hide();
-                    $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
-                }
-                else {
-                    $('#ajapaik-map-container .ajapaik-load-more button').show();
-                    $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
-                }
-                // targetDiv.justifiedGallery(justifiedGallerySettings);
-
-                if (markerIdToHighlightAfterPageLoad) {
-                    window.highlightSelected(markerIdToHighlightAfterPageLoad, true);
-                    markerIdToHighlightAfterPageLoad = false;
-                }
-                currentPaneDataRequest = undefined;
-            }
-        );
+        if (!photoPanel) {
+            photoPanel = $.jsPanel(galleryPanelSettings);
+            photoPanel.content.append(
+                tmpl('ajapaik-map-view-side-panel-template', photosToAdd)
+            );
+            $('#ajapaik-photo-pane-content-container').on('click', '.ajapaik-mapview-pane-photo-container img', function(event){
+                var photoId = $(event.target).data('id');
+                highlightSelected(findMarkerByPhotoId(photoId));
+            });
+        }
+        else {
+            var targetDiv = $('#ajapaik-photo-pane-content-container');
+            targetDiv.append(
+                tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd)
+            );
+        }
+        var loaded_photos_count = $('#ajapaik-photo-pane-content-container .ajapaik-mapview-pane-photo-container').length;
+        if(loaded_photos_count >= photosOnSidePanel.length) {
+            $('#ajapaik-map-container .ajapaik-load-more button').hide();
+            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
+        }
+        else {
+            $('#ajapaik-map-container .ajapaik-load-more button').show();
+            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
+        }
     };
 
 
     window.deselectMarker = function () {
-        currentlySelectedMarkerId = null;
+        currentlySelectedMarker = null;
         window.currentlySelectedRephotoId = null;
         $('.ajapaik-mapview-pane-photo-container').find('img').removeClass('translucent-pane-element');
         if (lastHighlightedMarker) {
@@ -550,21 +531,21 @@
     };
 
 
-    window.highlightSelected = function (markerId, fromMarker, event) {
+    var highlightSelected = function (marker, fromMarker, event) {
         if (event) {
             event.preventDefault();
             event.stopPropagation();
         }
-        targetPaneElement = $('#element' + markerId);
-        if (currentlySelectedMarkerId == markerId) {
-            window.loadPhoto(markerId);
-        }
-        if (!targetPaneElement.length) {
-            markerIdToHighlightAfterPageLoad = markerId;
-            refreshPane([markerId]);
+        targetPaneElement = $('#element' + marker.photoData.id);
+        if ((currentlySelectedMarker && currentlySelectedMarker.photoData.id) == marker.photoData.id) {
+            window.loadPhoto(marker.photoData.id);
             return;
         }
-        currentlySelectedMarkerId = markerId;
+        if (!targetPaneElement.length) {
+            refreshPane([marker.photoData]);
+            targetPaneElement = $('#element' + marker.photoData.id);
+        }
+        currentlySelectedMarker = marker;
         window.syncMapStateToURL();
         $('.ajapaik-mapview-pane-photo-container').find('img').addClass('translucent-pane-element');
         targetPaneElement.find('img').removeClass('translucent-pane-element');
@@ -577,18 +558,23 @@
         if (lastSelectedMarkerId && lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
-        lastSelectedMarkerId = markerId;
+        lastSelectedMarkerId = marker.photoData.id;
         lastSelectedPaneElement = targetPaneElement;
-        markerTemp = undefined;
-        for (i = 0; i < markers.length; i += 1) {
-            if (markers[i].id == markerId) {
+        for (var i = 0; i < markers.length; i += 1) {
+            if (markers[i].photoData.id == marker.photoData.id) {
                 targetPaneElement.find('img').attr('src', markers[i].thumb);
                 targetPaneElement.find('.ajapaik-azimuth').show();
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
-                markerTemp = markers[i];
-                if (markers[i].azimuth) {
-                    window.dottedAzimuthLine.setPath([markers[i].position, Math.simpleCalculateMapLineEndPoint(markers[i].azimuth, markers[i].position, 0.02)]);
+                if (markers[i].photoData.azimuth) {
+                    window.dottedAzimuthLine.setPath([
+                        markers[i].position,
+                        Math.simpleCalculateMapLineEndPoint(
+                            markers[i].photoData.azimuth,
+                            markers[i].position,
+                            0.02
+                        )
+                    ]);
                     window.dottedAzimuthLine.setMap(window.map);
                     window.dottedAzimuthLine.setVisible(true);
                 } else {
@@ -599,15 +585,10 @@
                 setCorrectMarkerIcon(markers[i]);
             }
         }
-        if (markerTemp) {
-            lastHighlightedMarker = markerTemp;
-            markerTemp = undefined;
-        }
-        if (fromMarker && targetPaneElement) {
+        lastHighlightedMarker = marker;
+        if (fromMarker && targetPaneElement.length) {
             var scrollElement = $('#ajapaik-mapview-photo-panel').find('.jsPanel-content');
             var currentScrollValue = scrollElement.scrollTop();
-            var targetTop = targetPaneElement.position().top;
-            var targetHeight = targetPaneElement.height();
 
             // Calculating scroll value to palce photo in middle of screen.
             var scrollValue = currentScrollValue + (
@@ -640,15 +621,15 @@
     };
 
 
-    setCorrectMarkerIcon = function (marker) {
+    var setCorrectMarkerIcon = function (marker) {
         if (marker) {
-            if (marker.id == currentlySelectedMarkerId) {
-                if (marker.azimuth) {
+            if (marker.photoData.id == (currentlySelectedMarker && currentlySelectedMarker.photoData.id)) {
+                if (marker.photoData.azimuth) {
                     arrowIcon.scale = 1.5;
                     arrowIcon.strokeWeight = 2;
                     arrowIcon.fillColor = 'white';
-                    arrowIcon.rotation = marker.azimuth + marker.angleFix;
-                    if (marker.rephotoCount) {
+                    arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
+                    if (marker.photoData.rephoto_count) {
                         arrowIcon.strokeColor = '#007fff';
                     } else {
                         arrowIcon.strokeColor = 'black';
@@ -659,7 +640,7 @@
                     locationIcon.strokeWeight = 2;
                     locationIcon.fillColor = 'white';
                     locationIcon.anchor = new google.maps.Point(12, 6);
-                    if (marker.rephotoCount) {
+                    if (marker.photoData.rephoto_count) {
                         locationIcon.strokeColor = '#007fff';
                     } else {
                         locationIcon.strokeColor = 'black';
@@ -667,12 +648,12 @@
                     marker.setIcon(locationIcon);
                 }
             } else {
-                if (marker.azimuth) {
+                if (marker.photoData.azimuth) {
                     arrowIcon.scale = 1.0;
                     arrowIcon.strokeWeight = 1;
                     arrowIcon.strokeColor = 'white';
-                    arrowIcon.rotation = marker.azimuth + marker.angleFix;
-                    if (marker.rephotoCount) {
+                    arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
+                    if (marker.photoData.rephoto_count) {
                         arrowIcon.fillColor = '#007fff';
                     } else {
                         arrowIcon.fillColor = 'black';
@@ -683,7 +664,7 @@
                     locationIcon.strokeWeight = 1;
                     locationIcon.strokeColor = 'white';
                     locationIcon.anchor = new google.maps.Point(12, 0);
-                    if (marker.rephotoCount) {
+                    if (marker.photoData.rephoto_count) {
                         locationIcon.fillColor = '#007fff';
                     } else {
                         locationIcon.fillColor = 'black';
@@ -707,9 +688,9 @@
         } else {
             if (window.preselectPhotoId) {
                 // There's a selected photo specified in the URL, select when ready
-                currentlySelectedMarkerId = window.preselectPhotoId;
+                currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
                 if (window.preselectPhotoLat && window.preselectPhotoLat) {
-                    markerIdToHighlightAfterPageLoad = window.preselectPhotoId;
+                    currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
                 }
             }
             if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
@@ -763,7 +744,7 @@
     };
 
 
-    activateAlbumFilter = function () {
+    var activateAlbumFilter = function () {
         limitByAlbum = true;
         $('#ajapaik-header-album-filter-button-off').hide();
         $('#ajapaik-header-album-filter-button-on').show();
@@ -771,7 +752,7 @@
     };
 
 
-    deactivateAlbumFilter = function () {
+    var deactivateAlbumFilter = function () {
         limitByAlbum = false;
         $('#ajapaik-header-album-filter-button-off').show();
         $('#ajapaik-header-album-filter-button-on').hide();
@@ -783,7 +764,6 @@
         window.updateLeaderboard();
         window.isMapview = true;
         $(window.input).show();
-        guessPanelContainer = $('#ajapaik-guess-panel-container');
         $('#ajapaik-game-description-viewing-warning').hide();
         $('#ajapaik-header-album-filter-button').click(function () {
             if (!limitByAlbum) {
@@ -795,7 +775,7 @@
             window.syncMapStateToURL();
         });
         if (window.preselectPhotoId) {
-            currentlySelectedMarkerId = window.preselectPhotoId;
+            currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
         }
         window.initializeMapStateFromOptionalURLParameters();
         $(document).on('hidden.bs.modal', '#ajapaik-photo-modal', function () {
@@ -837,7 +817,7 @@
         window.paneImageHoverOut = function (e) {
             var myParent = $(e).parent(),
                 icon = myParent.find('.ajapaik-thumbnail-selection-icon');
-            if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarkerId, 10)) {
+            if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarker && currentlySelectedMarker.photoData.id, 10)) {
                 myParent.find('.ajapaik-azimuth').hide();
             }
             if (!icon.hasClass('ajapaik-thumbnail-selection-icon-white')) {
@@ -849,7 +829,7 @@
             return false;
         };
         window.paneRephotoCountHoverOut = function (e) {
-            if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarkerId, 10)) {
+            if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarker && currentlySelectedMarker.photoData.id, 10)) {
                 $(e).parent().find('.ajapaik-azimuth').hide();
             }
             return false;

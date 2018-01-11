@@ -1289,39 +1289,6 @@ def mapview_photo_upload_modal(request, photo_id):
     }))
 
 
-def pane_contents(request):
-    # TODO: Form
-    marker_ids = request.POST.getlist("marker_ids[]")
-
-    data = []
-    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids) \
-            .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?') \
-            .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'comment_count', 'width',
-                         'height'):
-        pseudo_slug = _get_pseudo_slug_for_photo(p[3], None, None)
-        im_url = reverse("project.ajapaik.views.image_thumb", args=(p[0], 400, pseudo_slug))
-        permalink = reverse("project.ajapaik.views.photoslug", args=(p[0], pseudo_slug))
-        width, height = calculate_thumbnail_size(p[6], p[7], 400)
-        in_selection = False
-        if 'photo_selection' in request.session:
-            in_selection = str(p[0]) in request.session['photo_selection']
-        data.append({
-            "id": p[0],
-            "url": im_url,
-            "permalink": permalink,
-            "rephotos": p[1],
-            "flipped": p[2],
-            "description": p[3],
-            "azimuth": p[4],
-            "width": width,
-            "height": height,
-            "comments": p[5],
-            "in_selection": in_selection
-        })
-
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     profile = request.get_user().profile
@@ -1409,9 +1376,11 @@ def map_objects_by_bounding_box(request):
         ne_lon = form.cleaned_data['ne_lon']
         # dating_start = form.cleaned_data['starting']
         # dating_end = form.cleaned_data['ending']
+        count_limit = form.cleaned_data['count_limit']
 
-        qs = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True) \
-            .annotate(rephoto_count=Count('rephotos'))
+        qs = Photo.objects.filter(
+            lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True
+        ).annotate(rephoto_count=Count('rephotos'))
 
         if album and limit_by_album:
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
@@ -1429,11 +1398,15 @@ def map_objects_by_bounding_box(request):
             # if dating_end:
             # qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
 
-        if form.cleaned_data['count_limit']:
-            qs = qs.order_by('?')[:form.cleaned_data['count_limit']]
+        if count_limit:
+            qs = qs.order_by('?')[:count_limit]
 
         data = {
-            'photos': PhotoMapMarkerSerializer(qs, many=True).data
+            'photos': PhotoMapMarkerSerializer(
+                qs,
+                many=True,
+                photo_selection=request.session.get('photo_selection', [])
+            ).data
         }
     else:
         data = {
