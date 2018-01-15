@@ -13,8 +13,8 @@
                     onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                     onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
                     onload="checkLoadedSidePanelPhotos(this)"/>
-                {% if (o[i].rephotos_count) { %}
-                    <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephotos_count%}"
+                {% if (o[i].rephoto_count) { %}
+                    <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephoto_count%}"
                         data-id="{%=o[i].id%}"
                         onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
                         onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
