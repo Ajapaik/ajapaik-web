@@ -1,8 +1,13 @@
+import logging
+
 from django.core.urlresolvers import reverse
 from rest_framework import serializers
 
 from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 from project.utils import calculate_thumbnail_size
+
+
+log = logging.getLogger(__name__)
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
@@ -103,4 +108,52 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
             'id', 'lat', 'lon', 'azimuth', 'rephoto_count', 'description',
             'comment_count', 'url', 'permalink', 'width', 'height',
             'is_selected'
+        )
+
+
+class PhotoWithDistanceSerializer(serializers.ModelSerializer):
+    distance = serializers.IntegerField(source='distance.m', read_only=True)
+    image = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
+    source = serializers.SerializerMethodField()
+    longitude = serializers.FloatField(source='lon')
+    latitude = serializers.FloatField(source='lat')
+    rephotos = serializers.IntegerField(source='rephotos_count')
+    uploads = serializers.IntegerField(source='uploads_count')
+    favorited = serializers.BooleanField()
+
+    def get_image(self, instance):
+        request = self.context.get('request')
+        if request is None:
+            log.warning('%s require request instance to generate absolute '
+                        'image thumbnail path.' % self.__class__.__name__)
+            return
+        relative_url = reverse(
+            "project.ajapaik.views.image_thumb", args=(instance.id,)
+        )
+        return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
+
+    def get_date(self, instance):
+        if instance.date:
+            return instance.date.strftime('%d-%m-%Y')
+        else:
+            return instance.date_text
+
+    def get_source(self, instance):
+        if instance.source:
+            return {
+                'url': instance.source_url,
+                'name': instance.source.description + ' ' + instance.source_key,
+            }
+        else:
+            return {
+                'url': instance.source_url,
+            }
+
+    class Meta:
+        model = Photo
+        fields = (
+            'id', 'distance', 'image', 'width', 'height', 'title', 'date',
+            'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
+            'favorited',
         )

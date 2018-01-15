@@ -2,22 +2,25 @@
 import datetime
 import time
 import urllib2
+import logging
 from StringIO import StringIO
 from json import loads
 
 import pytz
 import requests
+
 from PIL import Image, ExifTags
 from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Case, When, Value, BooleanField, \
+    IntegerField
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
@@ -30,17 +33,35 @@ from rest_framework.decorators import api_view, permission_classes, \
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import exception_handler
+from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, \
-    ApiPhotoUploadForm, ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, \
-    APILoginAuthForm
-from project.ajapaik.models import Album, Photo, Profile, Licence
+from project.ajapaik import forms
+from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
     API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
     FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
 from project.ajapaik import serializers
+
+
+log = logging.getLogger(__name__)
+
+
+# Response statuses
+RESPONSE_STATUSES = {
+    'OK': 0,  # no error
+    'UNKNOWN_ERROR': 1,  # unknown error
+    'INVALID_PARAMETERS': 2,  # invalid input parameter
+    'MISSING_PARAMETERS': 3,  # missing input parameter
+    'ACCESS_DENIED': 4,  # access denied
+    'SESSION_REQUIRED': 5,  # session is required
+    'SESSION_EXPIRED': 6,  # session is expired
+    'INVALID_SESSION': 7,  # session is invalid
+    'USER_ALREADY_EXISTS': 8,  # user exists in the DB already
+    'INVALID_APP_VERSION': 9,  # application version is not supported
+    'MISSING_USER': 10,  # user does not exist
+    'INVALID_PASSWORD': 11,  # wrong password for existing user
+}
 
 
 def custom_exception_handler(exc, context):
@@ -56,7 +77,7 @@ def custom_exception_handler(exc, context):
 class CustomAuthentication(authentication.BaseAuthentication):
     @parser_classes((FormParser,))
     def authenticate(self, request):
-        cat_auth_form = APIAuthForm(request.data)
+        cat_auth_form = forms.APIAuthForm(request.data)
         user = None
         if cat_auth_form.is_valid():
             lang = cat_auth_form.cleaned_data['_l']
@@ -75,9 +96,18 @@ class CustomAuthentication(authentication.BaseAuthentication):
         return user, None
 
 
+class CustomAuthenticationMixin(object):
+    authentication_classes = (CustomAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+
+class CustomParsersMixin(object):
+    parser_classes = (FormParser, MultiPartParser,)
+
+
 @parser_classes((FormParser,))
 def login_auth(request, auth_type='login'):
-    form = APILoginAuthForm(request.data)
+    form = forms.APILoginAuthForm(request.data)
     content = {
         'error': 0,
         'session': None,
@@ -309,7 +339,7 @@ def api_albums(request):
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def api_album_nearest(request):
-    form = ApiAlbumNearestForm(request.data)
+    form = forms.ApiAlbumNearestForm(request.data)
     profile = request.user.profile
     content = {
         'state': str(int(round(time.time() * 1000)))
@@ -371,7 +401,7 @@ def api_album_nearest(request):
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def api_album_state(request):
-    form = ApiAlbumStateForm(request.data)
+    form = forms.ApiAlbumStateForm(request.data)
     profile = request.user.profile
     content = {
         'state': str(int(round(time.time() * 1000)))
@@ -442,7 +472,7 @@ def _fill_missing_pixels(img, scale_factor):
 @permission_classes((IsAuthenticated,))
 def api_photo_upload(request):
     profile = request.user.profile
-    upload_form = ApiPhotoUploadForm(request.data, request.FILES)
+    upload_form = forms.ApiPhotoUploadForm(request.data, request.FILES)
     content = {
         'error': 0
     }
@@ -540,7 +570,7 @@ def api_user_me(request):
         'error': 0,
         'state': str(int(round(time.time() * 1000)))
     }
-    form = ApiUserMeForm(request.data)
+    form = forms.ApiUserMeForm(request.data)
     if form.is_valid():
         content['name'] = profile.get_display_name()
         content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
@@ -562,7 +592,7 @@ def api_user_me(request):
 @authentication_classes((CustomAuthentication,))
 @permission_classes((IsAuthenticated,))
 def api_photo_state(request):
-    form = ApiPhotoStateForm(request.data)
+    form = forms.ApiPhotoStateForm(request.data)
     profile = request.user.profile
     if form.is_valid():
         p = form.cleaned_data['id']
@@ -595,3 +625,86 @@ def api_photo_state(request):
         }
 
     return Response(content)
+
+
+class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to un/like photos by user.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiToggleFavoritePhotoForm(request.data)
+        if form.is_valid():
+            photo = form.cleaned_data['id']
+            is_favorited = True if form.cleaned_data['favorited'] == 'true' else False
+            user_profile = request.get_user().profile
+
+            if is_favorited:
+                try:
+                    # User already have this photo in favorites.
+                    # Nothing to do here.
+                    PhotoLike.objects.get(photo=photo, profile=user_profile)
+                except PhotoLike.DoesNotExist:
+                    # User haven't this photo in favorites.
+                    # Creating like.
+                    photo_like = PhotoLike.objects.create(
+                        photo=photo, profile=user_profile
+                    )
+                    photo_like.save()
+            else:
+                try:
+                    # User already have this photo in favorites.
+                    # Removing it.
+                    photo_like = PhotoLike.objects.get(
+                        photo=photo, profile=request.get_user().profile
+                    )
+                    photo_like.delete()
+                except PhotoLike.DoesNotExist:
+                    # User haven't this photo in favorites.
+                    # Nothing to do here.
+                    pass
+            return Response({'error': RESPONSE_STATUSES['OK']})
+        else:
+            return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
+
+
+class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve user liked photos sorted by distance to specified
+    location.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiFavoritedPhotosForm(request.data)
+        if form.is_valid():
+            user_profile = request.get_user().profile
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            requested_location = GEOSGeometry(
+                'POINT({} {})'.format(longitude, latitude),
+                srid=4326
+            )
+            photos = Photo.objects.filter(likes__profile=user_profile) \
+                .annotate(rephotos_count=Count('rephotos')) \
+                .annotate(uploads_count=Count(
+                    Case(
+                        When(rephotos__user=user_profile, then=1),
+                        output_field=IntegerField()
+                    )
+                )) \
+                .annotate(likes_count=Count('likes')) \
+                .annotate(favorited=Case(
+                    When(likes_count__gt=0, then=Value(True)),
+                    default=Value(False),
+                    output_field=BooleanField())) \
+                .distance(requested_location) \
+                .order_by('distance')
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoWithDistanceSerializer(
+                    photos, many=True, context={'request': request}
+                ).data,
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': [],
+            })

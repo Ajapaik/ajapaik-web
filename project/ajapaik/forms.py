@@ -409,3 +409,14 @@ class EditCommentForm(forms.Form):
         text = self.cleaned_data['text']
         if self.comment.comment == self.cleaned_data['text']:
             forms.ValidationError(_('Nothing to change.'), code='same_text')
+
+
+class ApiToggleFavoritePhotoForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.all())
+    favorited = forms.ChoiceField(choices=(('true', 'True'),
+                                           ('false', 'False')))
+
+
+class ApiFavoritedPhotosForm(forms.Form):
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
+    longitude = forms.FloatField(min_value=-180, max_value=180)
