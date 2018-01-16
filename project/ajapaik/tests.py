@@ -10,7 +10,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
+from mock import patch
 
+from project.ajapaik.curator_drivers.common import CuratorSearchForm
+from project.ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.models import Photo
 
 
@@ -168,3 +171,14 @@ class FunctionalTests(TestCase):
 
         self.assertEquals(user.first_name, 'Lauri')
         self.assertEquals(user.last_name, 'Elias')
+
+    @patch('requests.get')
+    def test_fotis_api_calls_work(self, mocked_get):
+        mocked_get.return_value.ok = True
+        driver = FotisDriver()
+        form = CuratorSearchForm()
+        form.useFotis = True
+        form.fullSearch = 'Pääsuke'
+        self.assertTrue(form.is_valid(), True)
+        result = driver.search(form.cleaned_data)
+        self.assertEqual(len(result), 20)

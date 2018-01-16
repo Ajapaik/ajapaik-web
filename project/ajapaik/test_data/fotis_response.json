@@ -1,0 +1,621 @@
+[
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Hobuj\u00f5u rakendamine setu majapidamises.",
+    "content": null,
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127222"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127222"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127222"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48076",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127222
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Petseri klooster.",
+    "content": "Petseri klooster.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127223"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127223"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127223"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48077",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127223
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Rahvariides setu naised.",
+    "content": null,
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127227"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127227"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127227"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48081",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127227
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setu naised.",
+    "content": "Setu naised.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127228"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127228"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127228"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48082",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127228
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud tantsimas.",
+    "content": "Venelased tantsimas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127229"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127229"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127229"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48083",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127229
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud tantsimas.",
+    "content": "Setud tantsimas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127230"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127230"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127230"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48084",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127230
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setu naised surnuaial.",
+    "content": "Setu naised surnuaial.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127231"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127231"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127231"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48085",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127231
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Osa majapidamishoonest setu talu \u00f5uel.",
+    "content": "Osa majapidamishoonest setu talu \u00f5uel.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127232"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127232"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127232"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48086",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127232
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setu naised p\u00f5llul t\u00f6\u00f6tamas.",
+    "content": "Setu naised p\u00f5llul t\u00f6\u00f6tamas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127233"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127233"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127233"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48087",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127233
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setu mehed uhmris teri purustamas.",
+    "content": "Setu mehed uhmris teri purustamas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127234"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127234"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127234"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48088",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127234
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Turg Setumaal.",
+    "content": "Turg Setumaal.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127235"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127235"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127235"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48089",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127235
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Turg Setumaal.",
+    "content": "Laat V\u00e4rskas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127236"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127236"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127236"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48090",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127236
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud surnuaial.",
+    "content": "Setud surnuaial.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127237"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127237"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127237"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48091",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127237
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud tiigil.",
+    "content": "Setud tiigil.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127238"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127238"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127238"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48092",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127238
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Ristik\u00e4ik Setumaal.",
+    "content": "Ristik\u00e4ik Setumaal.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127239"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127239"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127239"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48093",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127239
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Ristik\u00e4ik Setumaal.",
+    "content": "Ristik\u00e4ik Setumaal.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127240"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127240"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127240"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48094",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127240
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud ikooniga.",
+    "content": "Setud ikooniga.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127241"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127241"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127241"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48095",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127241
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setud tantsimas.",
+    "content": "Setud tantsimas.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127242"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127242"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127242"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48096",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127242
+  },
+  {
+    "author": "P\u00e4\u00e4suke, J.",
+    "content_original": "Setu naised ja mehed.",
+    "content": "Setu naised ja mehed.",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127243"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127243"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127243"
+      }
+    },
+    "location": {
+      "location_text": "Setumaa;;",
+      "adminUnit": null
+    },
+    "reference_code": "EFA.15.0-48097",
+    "dating": {
+      "date_beginning_timestamp": -1798761600,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1913",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 127243
+  },
+  {
+    "author": "Parikas",
+    "content_original": "Eesti Vabariigi s\u00f5jakooli suurt\u00fckiklass ballistika tunnis. Seisavad (vasakult) s\u00f5jakooli \u00fclem alampolkovnik A. Siimon, kadett P\u00e4\u00e4suke, kapten K. Kool, kapten Poosion, alamleitnant Siiak (istub).",
+    "content": "Vabaduss\u00f5da. S\u00f5jakooli suurt\u00fckiklass ballistika tunnis. Seisavad (vasakult): S\u00f5jakooli \u00fclem alampolkovnik Aleksander Simon, vanem portupee kadett Aleksander P\u00e4\u00e4suke, kooli suurt\u00fckipatarei \u00fclem kapten Karl Kohl (Kool), [klasside inspektor alamkapten Heinrich Pavian (Hendrik Pallandi], kooli adjutant alamleitnant Magnus Siiak (istub, m\u00f5\u00f5gaga).",
+    "_links": {
+      "self": {
+        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=131089"
+      },
+      "image": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=131089"
+      },
+      "view": {
+        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=131089"
+      }
+    },
+    "location": {
+      "location_text": "Tallinn;;",
+      "adminUnit": {
+        "bounding_box": {
+          "sw_lon": "21.79",
+          "ne_lon": "28.41",
+          "sw_lat": "57.51",
+          "ne_lat": "59.69"
+        },
+        "type": null,
+        "name": "Eesti",
+        "child": {
+          "name_et": "Tallinn",
+          "bounding_box": {
+            "sw_lon": "24.63959",
+            "ne_lon": "24.82361",
+            "sw_lat": "59.38984",
+            "ne_lat": "59.46633"
+          },
+          "type": "linn"
+        }
+      }
+    },
+    "reference_code": "EFA.3.0-52242",
+    "dating": {
+      "date_beginning_timestamp": -1609459200,
+      "date_beginning_accuracy": "Aasta",
+      "date_beginning": "01.01.1919",
+      "date_end_accuracy": null,
+      "date_end_timestamp": null,
+      "date_end": null
+    },
+    "id": 131089
+  }
+]
