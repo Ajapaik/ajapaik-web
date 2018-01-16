@@ -139,9 +139,11 @@ TEMPLATES = [
         },
         'DIRS': (
             ABSOLUTE_TEMPLATES_PATH,
+            '%s/project/ajapaik/templates' % ABSOLUTE_PROJECT_ROOT
         )
     },
 ]
+
 
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True

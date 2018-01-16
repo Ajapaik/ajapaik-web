@@ -22,6 +22,8 @@ server {
 
     expires $expires;
 
+    add_header Content-Security-Policy upgrade-insecure-requests;
+
     server_name www.fotodugnad.ra.no fotodugnad.ra.no;
 
     access_log /var/log/nginx/fotodugnad.access.log;

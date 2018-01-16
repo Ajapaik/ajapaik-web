@@ -3,4 +3,4 @@ Disallow: /facebook/
 Disallow: /photo-upload-modal/
 Disallow: /submit-dating/
 
-Sitemap: http://fotodugnad.ra.no/sitemap.xml
+Sitemap: https://fotodugnad.ra.no/sitemap.xml

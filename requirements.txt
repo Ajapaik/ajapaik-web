@@ -9,7 +9,7 @@ django-extensions
 django-haystack
 django-mobi
 django-modeltranslation
-django-registration-redux<2.0
+django-registration-redux==1.6
 feedparser
 flickrapi
 geopy
