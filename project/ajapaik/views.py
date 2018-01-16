@@ -47,6 +47,7 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
+from ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.finna import FinnaDriver
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
@@ -1835,6 +1836,7 @@ def curator_search(request):
     flickr_driver = None
     valimimoodul_driver = None
     finna_driver = None
+    fotis_driver = None
     if form.is_valid():
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
@@ -1847,6 +1849,8 @@ def curator_search(request):
                     form.cleaned_data['filterExisting'])
         if form.cleaned_data['useFinna']:
             finna_driver = FinnaDriver()
+        if form.cleaned_data['useFotis']:
+            fotis_driver = FotisDriver()
         if form.cleaned_data['fullSearch']:
             if valimimoodul_driver and not form.cleaned_data['ids']:
                 response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
@@ -1857,6 +1861,10 @@ def curator_search(request):
             if finna_driver:
                 response = _join_2_json_objects(response, finna_driver.transform_response(
                     finna_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
+                    form.cleaned_data['flickrPage']))
+            if fotis_driver:
+                response = _join_2_json_objects(response, fotis_driver.transform_response(
+                    fotis_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
                     form.cleaned_data['flickrPage']))
 
     return HttpResponse(response, content_type="application/json")
