@@ -259,7 +259,7 @@ class ApiPhotoUploadForm(forms.Form):
 
 
 class ApiPhotoStateForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+    id = forms.IntegerField()  # Photo id
 
 
 class ApiUserMeForm(forms.Form):

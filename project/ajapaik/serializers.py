@@ -71,7 +71,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
         if 'photo_selection' in kwargs:
             self.photo_selection = kwargs['photo_selection']
             # Django REST framework don't happy with unexpected parameters.
-            del(kwargs['photo_selection'])
+            del kwargs['photo_selection']
         super(PhotoMapMarkerSerializer, self).__init__(*args, **kwargs)
 
     def get_url(self, instance):
@@ -111,8 +111,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
         )
 
 
-class PhotoWithDistanceSerializer(serializers.ModelSerializer):
-    distance = serializers.IntegerField(source='distance.m', read_only=True)
+class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
@@ -126,7 +125,7 @@ class PhotoWithDistanceSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request is None:
             log.warning('%s require request instance to generate absolute '
-                        'image thumbnail path.' % self.__class__.__name__)
+                        'image thumbnail path.', self.__class__.__name__)
             return
         relative_url = reverse(
             "project.ajapaik.views.image_thumb", args=(instance.id,)
@@ -152,6 +151,17 @@ class PhotoWithDistanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Photo
+        fields = (
+            'id', 'image', 'width', 'height', 'title', 'date',
+            'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
+            'favorited',
+        )
+
+
+class PhotoWithDistanceSerializer(PhotoSerializer):
+    distance = serializers.IntegerField(source='distance.m', read_only=True)
+
+    class Meta(PhotoSerializer.Meta):
         fields = (
             'id', 'distance', 'image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',

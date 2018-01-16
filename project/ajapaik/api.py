@@ -587,44 +587,44 @@ def api_user_me(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_state(request):
-    form = forms.ApiPhotoStateForm(request.data)
-    profile = request.user.profile
-    if form.is_valid():
-        p = form.cleaned_data['id']
-        # FIXME: DRY
-        date = None
-        if p.date:
-            iso = p.date.isoformat()
-            date_parts = iso.split('T')[0].split('-')
-            date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-        elif p.date_text:
-            date = p.date_text
-        content = {
-            'id': p.id,
-            'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb', args=(p.id,))) + '[DIM]/',
-            'width': p.width,
-            'height': p.height,
-            'title': p.description,
-            'date': date,
-            'author': p.author,
-            'source': {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url},
-            'latitude': p.lat,
-            'longitude': p.lon,
-            'rephotos': p.rephotos.count(),
-            'uploads': p.rephotos.filter(user=profile).count(),
-            'error': 0
-        }
-    else:
-        content = {
-            'error': 2
-        }
-
-    return Response(content)
+class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve photo details.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoStateForm(request.data)
+        if form.is_valid():
+            user_profile = request.user.profile
+            photo = Photo.objects.filter(pk=form.cleaned_data['id'], rephoto_of__isnull=True) \
+                .annotate(rephotos_count=Count('rephotos')) \
+                .annotate(uploads_count=Count(
+                    Case(
+                        When(rephotos__user=user_profile, then=1),
+                        output_field=IntegerField()
+                    )
+                )) \
+                .annotate(likes_count=Count('likes')) \
+                .annotate(favorited=Case(
+                    When(likes_count__gt=0, then=Value(True)),
+                    default=Value(False),
+                    output_field=BooleanField())) \
+                .first()
+            if photo is not None:
+                response_data = {'error': RESPONSE_STATUSES['OK']}
+                response_data.update(
+                    serializers.PhotoSerializer(
+                        photo, context={'request': request}
+                    ).data
+                )
+                return Response(response_data)
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+                })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+            })
 
 
 class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):

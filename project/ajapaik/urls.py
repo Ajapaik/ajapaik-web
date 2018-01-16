@@ -109,7 +109,7 @@ urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
     url(r'^api/v1/album/state/$', 'api_album_state'),
     url(r'^api/v1/photo/upload/$', 'api_photo_upload', name='api_photo_upload'),
-    url(r'^api/v1/photo/state/$', 'api_photo_state'),
+    url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
     url(r'^api/v1/photo/favorite/order-by-distance-to-location/$', api.UserFavoritePhotoList.as_view()),
 )
