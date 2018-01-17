@@ -123,12 +123,34 @@ class PhotoSerializer(serializers.ModelSerializer):
     uploads = serializers.IntegerField(source='uploads_count')
     favorited = serializers.BooleanField()
 
+    @classmethod
+    def annotate_photos(cls, photos_queryset, user_profile):
+        '''
+        Helper function to annotate photo with special fields required by this
+        serializer.
+        Adds "rephotos_count", "uploads_count", "favorited". Field "likes_count"
+        added to determine is photo liked(favorited) by user.
+        '''
+        # There is bug in Django about irrelevant selection returned when
+        # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
+        # So if faced some incorect data check what have been assigned to
+        # "instance" variable.
+        return photos_queryset.prefetch_related('source') \
+            .annotate(rephotos_count=Count('rephotos')) \
+            .annotate(uploads_count=Count(
+                Case(
+                    When(rephotos__user=user_profile, then=1),
+                    output_field=IntegerField()
+                )
+            )) \
+            .annotate(likes_count=Count('likes')) \
+            .annotate(favorited=Case(
+                When(likes_count__gt=0, then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField()))
+
     def get_image(self, instance):
-        request = self.context.get('request')
-        if request is None:
-            log.warning('%s require request instance to generate absolute '
-                        'image thumbnail path.', self.__class__.__name__)
-            return
+        request = self.context['request']
         relative_url = reverse(
             "project.ajapaik.views.image_thumb", args=(instance.id,)
         )
@@ -175,39 +197,24 @@ class AlbumDetailsSerializer(serializers.Serializer):
     photos = serializers.SerializerMethodField()
 
     def get_photos(self, instance):
-        request = self.context.get('request')
-        if request is None:
-            log.warning('%s require HTTP request for proper functioning of %s',
-                        self.__class__.__name__,
-                        PhotoSerializer.__class__.__name__)
-            return {}
-
-        user_profile = request.user.profile
-        # There is bug in Django about irrelevant selection returned when
-        # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
-        # So if faced some incorect data check what have been assigned to
-        # photos variable.
         photos = Photo.objects.filter(
             Q(albums=instance)
-            | (Q(albums__subalbum_of=instance) & ~Q(albums__atype=Album.AUTO)),
+            | (Q(albums__subalbum_of=instance)
+               & ~Q(albums__atype=Album.AUTO)),
             rephoto_of__isnull=True
-        ) \
-            .prefetch_related('source') \
-            .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(uploads_count=Count(
-                Case(
-                    When(rephotos__user=user_profile, then=1),
-                    output_field=IntegerField()
-                )
-            ),) \
-            .annotate(likes_count=Count('likes')) \
-            .annotate(favorited=Case(
-                When(likes_count__gt=0, then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()))
-        return PhotoSerializer(instance=photos,
-                               many=True,
-                               context={'request': request}).data
+        )
+        request = self.context['request']
+        photos = PhotoSerializer.annotate_photos(
+            photos,
+            request.user.profile
+        )
+        return PhotoSerializer(
+            instance=photos,
+            many=True,
+            context={
+                'request': request
+            }
+        ).data
 
     class Meta(object):
         model = Album

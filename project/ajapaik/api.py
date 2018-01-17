@@ -407,10 +407,6 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
         }
         if form.is_valid():
             album = form.cleaned_data["id"]
-            # There is bug in Django about irrelevant selection returned when
-            # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
-            # So if you faced some incorect data from this end point first what
-            # you need to do check "get_photos" of "AlbumDetailsSerializer".
             response_data.update(serializers.AlbumDetailsSerializer(
                 instance=album, context={'request': request}).data)
             response_data['error'] = RESPONSE_STATUSES['OK']
@@ -570,21 +566,15 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
         form = forms.ApiPhotoStateForm(request.data)
         if form.is_valid():
             user_profile = request.user.profile
-            photo = Photo.objects.filter(pk=form.cleaned_data['id'], rephoto_of__isnull=True) \
-                .annotate(rephotos_count=Count('rephotos')) \
-                .annotate(uploads_count=Count(
-                    Case(
-                        When(rephotos__user=user_profile, then=1),
-                        output_field=IntegerField()
-                    )
-                )) \
-                .annotate(likes_count=Count('likes')) \
-                .annotate(favorited=Case(
-                    When(likes_count__gt=0, then=Value(True)),
-                    default=Value(False),
-                    output_field=BooleanField())) \
-                .first()
-            if photo is not None:
+            photo = Photo.objects.filter(
+                pk=form.cleaned_data['id'],
+                rephoto_of__isnull=True
+            )
+            if photo:
+                photo = serializers.PhotoSerializer.annotate_photos(
+                    photo,
+                    request.user.profile
+                ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
                     serializers.PhotoSerializer(
@@ -658,20 +648,12 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
                 srid=4326
             )
             photos = Photo.objects.filter(likes__profile=user_profile) \
-                .annotate(rephotos_count=Count('rephotos')) \
-                .annotate(uploads_count=Count(
-                    Case(
-                        When(rephotos__user=user_profile, then=1),
-                        output_field=IntegerField()
-                    )
-                )) \
-                .annotate(likes_count=Count('likes')) \
-                .annotate(favorited=Case(
-                    When(likes_count__gt=0, then=Value(True)),
-                    default=Value(False),
-                    output_field=BooleanField())) \
                 .distance(requested_location) \
                 .order_by('distance')
+            photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
+                photos,
+                request.user.profile
+            )
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'photos': serializers.PhotoWithDistanceSerializer(
