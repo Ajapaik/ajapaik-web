@@ -1,6 +1,8 @@
 import logging
 
 from django.core.urlresolvers import reverse
+from django.db.models import Count, Q, Case, When, Value, BooleanField, \
+    IntegerField
 from rest_framework import serializers
 
 from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
@@ -167,3 +169,46 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
             'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
             'favorited',
         )
+
+
+class AlbumDetailsSerializer(serializers.Serializer):
+    photos = serializers.SerializerMethodField()
+
+    def get_photos(self, instance):
+        request = self.context.get('request')
+        if request is None:
+            log.warning('%s require HTTP request for proper functioning of %s',
+                        self.__class__.__name__,
+                        PhotoSerializer.__class__.__name__)
+            return {}
+
+        user_profile = request.user.profile
+        # There is bug in Django about irrelevant selection returned when
+        # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
+        # So if faced some incorect data check what have been assigned to
+        # photos variable.
+        photos = Photo.objects.filter(
+            Q(albums=instance)
+            | (Q(albums__subalbum_of=instance) & ~Q(albums__atype=Album.AUTO)),
+            rephoto_of__isnull=True
+        ) \
+            .prefetch_related('source') \
+            .annotate(rephotos_count=Count('rephotos')) \
+            .annotate(uploads_count=Count(
+                Case(
+                    When(rephotos__user=user_profile, then=1),
+                    output_field=IntegerField()
+                )
+            ),) \
+            .annotate(likes_count=Count('likes')) \
+            .annotate(favorited=Case(
+                When(likes_count__gt=0, then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField()))
+        return PhotoSerializer(instance=photos,
+                               many=True,
+                               context={'request': request}).data
+
+    class Meta(object):
+        model = Album
+        fields = ('title', 'photos')

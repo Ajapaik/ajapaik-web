@@ -396,53 +396,28 @@ def api_album_nearest(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_album_state(request):
-    form = forms.ApiAlbumStateForm(request.data)
-    profile = request.user.profile
-    content = {
-        'state': str(int(round(time.time() * 1000)))
-    }
-    photos = []
-    if form.is_valid():
-        album = form.cleaned_data["id"]
-        content['title'] = album.name
-        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-        album_photos_qs = album_photos_qs.prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos'))
-        for p in album_photos_qs:
-            date = None
-            if p.date:
-                iso = p.date.isoformat()
-                date_parts = iso.split('T')[0].split('-')
-                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-            elif p.date_text:
-                date = p.date_text
-            photos.append({
-                "id": p.id,
-                "image": request.build_absolute_uri(
-                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
-                "width": p.width,
-                "height": p.height,
-                "title": p.description,
-                "date": date,
-                "author": p.author,
-                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
-                    'url': p.source_url},
-                "latitude": p.lat,
-                "longitude": p.lon,
-                "rephotos": p.rephoto_count,
-                "uploads": p.rephotos.filter(user=profile).count(),
-            })
-        content["photos"] = photos
-    else:
-        content["error"] = 2
-
-    return Response(content)
+class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album details and details of this album photos.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumStateForm(request.data)
+        response_data = {
+            'state': str(int(round(time.time() * 1000)))
+        }
+        if form.is_valid():
+            album = form.cleaned_data["id"]
+            # There is bug in Django about irrelevant selection returned when
+            # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
+            # So if you faced some incorect data from this end point first what 
+            # you need to do check "get_photos" of "AlbumDetailsSerializer".
+            response_data.update(serializers.AlbumDetailsSerializer(
+                instance=album, context={'request': request}).data)
+            response_data['error'] = RESPONSE_STATUSES['OK']
+            return Response(response_data)
+        else:
+            response_data['error'] = RESPONSE_STATUSES['INVALID_PARAMETERS']
+            return Response(response_data)
 
 
 def _crop_image(img, scale_factor):
@@ -613,7 +588,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
                     serializers.PhotoSerializer(
-                        photo, context={'request': request}
+                        instance=photo, context={'request': request}
                     ).data
                 )
                 return Response(response_data)
@@ -700,7 +675,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'photos': serializers.PhotoWithDistanceSerializer(
-                    photos, many=True, context={'request': request}
+                    instance=photos, many=True, context={'request': request}
                 ).data,
             })
         else:
