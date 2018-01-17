@@ -409,7 +409,7 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             album = form.cleaned_data["id"]
             # There is bug in Django about irrelevant selection returned when
             # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
-            # So if you faced some incorect data from this end point first what 
+            # So if you faced some incorect data from this end point first what
             # you need to do check "get_photos" of "AlbumDetailsSerializer".
             response_data.update(serializers.AlbumDetailsSerializer(
                 instance=album, context={'request': request}).data)
