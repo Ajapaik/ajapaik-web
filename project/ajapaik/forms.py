@@ -355,6 +355,5 @@ class EditCommentForm(forms.Form):
         )
 
     def clean(self):
-        text = self.cleaned_data['text']
         if self.comment.comment == self.cleaned_data['text']:
             forms.ValidationError(_('Nothing to change.'), code='same_text')

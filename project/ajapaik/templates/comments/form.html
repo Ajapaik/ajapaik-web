@@ -12,7 +12,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ photo.get_detail_url }}"/>
                 <input type="hidden" name="name" value="{{ user.get_full_name|default:user.username }}"/>
-                <input type="hidden" name="email" value="{{ user.email }}"/>
+                <input type="hidden" name="email" value="{% if user.email %}{{ user.email }}{% elif user.profile.fb_email %}{{ user.profile.fb_email }}{% elif user.profile.google_plus_email %}{{ user.profile.google_plus_email }}{% endif %}"/>
                 {% for field in form %}
                     {% if field.is_hidden %}
                         {{ field }}
