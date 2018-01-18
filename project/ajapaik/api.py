@@ -334,66 +334,72 @@ def api_albums(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_album_nearest(request):
-    form = forms.ApiAlbumNearestForm(request.data)
-    profile = request.user.profile
-    content = {
-        'state': str(int(round(time.time() * 1000)))
-    }
-    photos = []
-    if form.is_valid():
-        album = form.cleaned_data["id"]
-        if album:
-            content["title"] = album.name
-            photos_qs = album.photos.all()
-            for sa in album.subalbums.exclude(atype=Album.AUTO):
-                photos_qs = photos_qs | sa.photos.filter()
-        else:
-            photos_qs = Photo.objects.all()
-        lat = round(form.cleaned_data["latitude"], 4)
-        lon = round(form.cleaned_data["longitude"], 4)
-        ref_location = Point(lon, lat)
-        if form.cleaned_data["range"]:
-            nearby_range = form.cleaned_data["range"]
-        else:
-            nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True,
-                                               geography__distance_lte=(ref_location,
-                                                                        D(m=nearby_range))).distance(
-            ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
-        for p in album_nearby_photos:
-            date = None
-            if p.date:
-                iso = p.date.isoformat()
-                date_parts = iso.split('T')[0].split('-')
-                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-            elif p.date_text:
-                date = p.date_text
-            photos.append({
-                "id": p.id,
-                "image": request.build_absolute_uri(
-                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
-                "width": p.width,
-                "height": p.height,
-                "title": p.description,
-                "date": date,
-                "author": p.author,
-                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
-                    'url': p.source_url},
-                "latitude": p.lat,
-                "longitude": p.lon,
-                "rephotos": p.rephoto_count,
-                "uploads": p.rephotos.filter(user=profile).count(),
-            })
-        content["photos"] = photos
-    else:
-        content["error"] = 2
+class AlbumNearest(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album photos(if album is specified else just
+    photos) in specified radius.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumNearestForm(request.data)
+        if form.is_valid():
+            album = form.cleaned_data["id"]
+            nearby_range = form.cleaned_data["range"] or API_DEFAULT_NEARBY_PHOTOS_RANGE
+            ref_location = Point(
+                round(form.cleaned_data["longitude"], 4),
+                round(form.cleaned_data["latitude"], 4)
+            )
+            if album:
+                photos = Photo.objects.filter(
+                    Q(albums=album)
+                    | (Q(albums__subalbum_of=album)
+                       & ~Q(albums__atype=Album.AUTO)),
+                    rephoto_of__isnull=True
+                ).filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
-    return Response(content)
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.AlbumSerializer(
+                        instance=album,
+                        context={
+                            'request': request,
+                            'photos': photos
+                        }
+                    ).data
+                })
+            else:
+                photos = Photo.objects.filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    rephoto_of__isnull=True,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+
+                photos = serializers.PhotoSerializer.annotate_photos(
+                    photos,
+                    request.user.profile
+                )
+
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.PhotoSerializer(
+                        instance=photos,
+                        many=True,
+                        context={'request': request}
+                    ).data
+                })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
 
 
 class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
@@ -402,18 +408,29 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     def post(self, request, format=None):
         form = forms.ApiAlbumStateForm(request.data)
-        response_data = {
-            'state': str(int(round(time.time() * 1000)))
-        }
         if form.is_valid():
             album = form.cleaned_data["id"]
-            response_data.update(serializers.AlbumDetailsSerializer(
-                instance=album, context={'request': request}).data)
-            response_data['error'] = RESPONSE_STATUSES['OK']
+            photos = Photo.objects.filter(
+                Q(albums=album)
+                | (Q(albums__subalbum_of=album)
+                   & ~Q(albums__atype=Album.AUTO)),
+                rephoto_of__isnull=True
+            )
+            response_data = {
+                'error': RESPONSE_STATUSES['OK']
+            }
+            response_data.update(serializers.AlbumSerializer(
+                instance=album,
+                context={
+                    'request': request,
+                    'photos': photos
+                }
+            ).data)
             return Response(response_data)
         else:
-            response_data['error'] = RESPONSE_STATUSES['INVALID_PARAMETERS']
-            return Response(response_data)
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+            })
 
 
 def _crop_image(img, scale_factor):

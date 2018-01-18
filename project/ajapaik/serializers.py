@@ -193,19 +193,13 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
         )
 
 
-class AlbumDetailsSerializer(serializers.Serializer):
+class AlbumSerializer(serializers.Serializer):
     photos = serializers.SerializerMethodField()
 
     def get_photos(self, instance):
-        photos = Photo.objects.filter(
-            Q(albums=instance)
-            | (Q(albums__subalbum_of=instance)
-               & ~Q(albums__atype=Album.AUTO)),
-            rephoto_of__isnull=True
-        )
         request = self.context['request']
         photos = PhotoSerializer.annotate_photos(
-            photos,
+            self.context['photos'],
             request.user.profile
         )
         return PhotoSerializer(

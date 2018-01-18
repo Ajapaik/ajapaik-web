@@ -235,7 +235,6 @@ class ApiAlbumNearestForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
     range = forms.FloatField(required=False)
-    state = forms.CharField(max_length=255, required=False)
 
 
 class ApiAlbumStateForm(forms.Form):
