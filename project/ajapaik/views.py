@@ -47,7 +47,7 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
-from ajapaik.curator_drivers.fotis import FotisDriver
+from project.ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.finna import FinnaDriver
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
