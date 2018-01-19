@@ -96,9 +96,9 @@ class HaystackPhotoSearchForm(SearchForm):
         if not self.is_valid():
             return self.no_query_found()
         else:
-            sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
-
-        return sqs
+            return super(HaystackPhotoSearchForm, self) \
+                .search() \
+                .models(Photo)
 
 
 class HaystackAlbumSearchForm(SearchForm):
@@ -412,10 +412,20 @@ class EditCommentForm(forms.Form):
 
 class ApiToggleFavoritePhotoForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all())
-    favorited = forms.ChoiceField(choices=(('true', 'True'),
-                                           ('false', 'False')))
+    favorited = forms.BooleanField()
 
 
 class ApiFavoritedPhotosForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
+
+
+class ApiPhotoSearchForm(forms.Form):
+    query = forms.CharField()
+    rephotosOnly = forms.BooleanField(required=False, initial=False)
+
+
+class ApiPhotoInAlbumSearchForm(forms.Form):
+    query = forms.CharField()
+    albumId = forms.ModelChoiceField(queryset=Album.objects.all())
+    rephotosOnly = forms.BooleanField(required=False, initial=False)

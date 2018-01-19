@@ -112,6 +112,7 @@ urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
     url(r'^api/v1/photos/favorite/order-by-distance-to-location/$', api.UserFavoritePhotoList.as_view()),
+    url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),
 )
 
 urlpatterns += patterns('project.ajapaik.delfi',
