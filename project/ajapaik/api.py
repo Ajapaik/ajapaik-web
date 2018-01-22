@@ -775,7 +775,7 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     API endpoint to search for rephotos done by user by given search phrase.
     '''
     def post(self, request, format=None):
-        form = forms.ApiUserRephotoRephotoForm(request.data)
+        form = forms.ApiUserRephotoSearchForm(request.data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
             user_profile = request.user.profile
@@ -806,4 +806,38 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'photos': []
+            })
+
+
+class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for albums by given search phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            user_profile = request.user.profile
+
+            search_results = forms.HaystackAlbumSearchForm({
+                'q': search_phrase
+            }).search()
+
+            albums = Album.objects.filter(
+                id__in=[item.pk for item in search_results]
+            )
+            albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'albums': serializers.AlbumDetailsSerializer(
+                    instance=albums,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'albums': []
             })

@@ -431,5 +431,9 @@ class ApiPhotoInAlbumSearchForm(forms.Form):
     rephotosOnly = forms.BooleanField(required=False, initial=False)
 
 
-class ApiUserRephotoRephotoForm(forms.Form):
+class ApiUserRephotoSearchForm(forms.Form):
+    query = forms.CharField()
+
+
+class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()

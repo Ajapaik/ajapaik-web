@@ -213,3 +213,31 @@ class AlbumSerializer(serializers.Serializer):
     class Meta(object):
         model = Album
         fields = ('title', 'photos')
+
+
+class AlbumDetailsSerializer(serializers.Serializer):
+    image = serializers.SerializerMethodField()
+    stats = serializers.SerializerMethodField()
+
+    def get_image(self, instance):
+        request = self.context['request']
+        return request.build_absolute_uri(
+            reverse('project.ajapaik.api.api_album_thumb', args=(instance.id,))
+        )
+
+    def get_stats(self, instance):
+        return {
+            'rephotos': instance.rephotos_count,
+            # Currently rephotos don't belong to original photo album.
+            'total': instance.photos_count + instance.rephotos_count
+        }
+
+    @classmethod
+    def annotate_albums(cls, albums_queryset):
+        return albums_queryset \
+            .annotate(rephotos_count=Count('photos__rephotos')) \
+            .annotate(photos_count=Count('photos'))
+
+    class Meta(object):
+        model = Album
+        fields = ('id', 'title', 'image', 'stats')
