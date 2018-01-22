@@ -429,3 +429,7 @@ class ApiPhotoInAlbumSearchForm(forms.Form):
     query = forms.CharField()
     albumId = forms.ModelChoiceField(queryset=Album.objects.all())
     rephotosOnly = forms.BooleanField(required=False, initial=False)
+
+
+class ApiUserRephotoRephotoForm(forms.Form):
+    query = forms.CharField()
