@@ -774,7 +774,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photo_search_form = HaystackPhotoSearchForm({'q': q})
             search_query_set = photo_search_form.search()
             results = [r.pk for r in search_query_set]
-            photos = photos.filter(pk__in=results)
+            photos = photos.filter(pk__in=results, rephoto_of__isnull=True)
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':

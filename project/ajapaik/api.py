@@ -700,7 +700,51 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
 
             photos = Photo.objects.filter(
                 id__in=[item.pk for item in search_results],
-                rephoto_of__isnull=(not rephotos_only)
+            )
+            if rephotos_only:
+                photos = photos.filter(
+                    rephoto_of__isnull=False
+                )
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                request.user.profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for photos in album by given phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoInAlbumSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            album = form.cleaned_data['albumId']
+            rephotos_only = form.cleaned_data['rephotosOnly']
+
+            search_results = forms.HaystackPhotoSearchForm({
+                'q': search_phrase
+            }).search()
+
+            # "rephoto_of__albums=album" added bacause to rephoto not setted
+            # albums of original photo.
+            photos = Photo.objects.filter(
+                Q(id__in=[item.pk for item in search_results])
+                & (Q(albums=album) | Q(rephoto_of__albums=album))
             )
             if rephotos_only:
                 photos = photos.filter(
