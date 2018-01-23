@@ -309,12 +309,13 @@ def api_album_thumb(request, album_id, thumb_size=250):
 
 class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
-    API endpoint to get public or albums that overseeing by current user.
+    API endpoint to get albums that: public and not empty, or albums that
+    overseeing by current user(can be empty).
     '''
     def post(self, request, format=None):
         albums = Album.objects.filter(
-            Q(is_public=True) | Q(profile=request.get_user().profile,
-                                  atype=Album.CURATED)
+            Q(is_public=True, photos__isnull=False)
+            | Q(profile=request.get_user().profile, atype=Album.CURATED)
         ).order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 
