@@ -307,40 +307,34 @@ def api_album_thumb(request, album_id, thumb_size=250):
     return response
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_albums(request):
-    error = 0
-    albums = Album.objects.filter(
-        Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
-    ret = []
-    content = {}
-    for a in albums:
-        ret.append({
-            'id': a.id,
-            'title': a.name,
-            'image': request.build_absolute_uri(
-                reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
-            'stats': {
-                'total': a.photo_count_with_subalbums,
-                'rephotos': a.rephoto_count_with_subalbums
-            }
+class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to get public or albums that overseeing by current user.
+    '''
+    def post(self, request, format=None):
+        albums = Album.objects.filter(
+            Q(is_public=True) | Q(profile=request.get_user().profile,
+                                  atype=Album.CURATED)
+        ).order_by('-created')
+        albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'albums': serializers.AlbumDetailsSerializer(
+                instance=albums,
+                many=True,
+                context={'request': request}
+            ).data
         })
-    content['error'] = error
-    content['albums'] = ret
-
-    return Response(content)
 
 
-class AlbumNearest(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album photos(if album is specified else just
     photos) in specified radius.
     '''
     def post(self, request, format=None):
-        form = forms.ApiAlbumNearestForm(request.data)
+        form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
             album = form.cleaned_data["id"]
             nearby_range = form.cleaned_data["range"] or API_DEFAULT_NEARBY_PHOTOS_RANGE

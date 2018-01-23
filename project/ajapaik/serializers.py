@@ -193,7 +193,8 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
         )
 
 
-class AlbumSerializer(serializers.Serializer):
+class AlbumSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(source='name')
     photos = serializers.SerializerMethodField()
 
     def get_photos(self, instance):
@@ -215,7 +216,8 @@ class AlbumSerializer(serializers.Serializer):
         fields = ('title', 'photos')
 
 
-class AlbumDetailsSerializer(serializers.Serializer):
+class AlbumDetailsSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(source='name')
     image = serializers.SerializerMethodField()
     stats = serializers.SerializerMethodField()
 
