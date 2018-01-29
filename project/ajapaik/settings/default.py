@@ -191,6 +191,7 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
+    'applications.photos_upload',
 )
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']

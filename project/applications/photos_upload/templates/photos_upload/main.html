@@ -1,0 +1,141 @@
+{% extends "base_bootstrap.html" %}
+{% load static i18n %}
+
+{% block specific_css %}
+    <link rel="stylesheet" href="{% static 'photos_upload/css/main.css' %}">
+{% endblock specific_css %}
+
+{% block specific_js %}
+    <script src="{% static 'photos_upload/js/main.js' %}"></script>
+{% endblock specific_js %}
+
+{% block layout %}
+    <div id="photos-upload" class="container">
+        <router-view></router-view>
+    </div>
+
+
+    <script type="text/x-template" id="upload-type-form-template">
+        <form>
+            <div class="form-group">
+                <label class="control-label" for="id_action">{% trans 'Action' %}</label>
+                <select v-model="uploadType" class="form-control" id="id_action" name="action" required="required" title="">
+                    <option :value="option.value" v-for="option in uploadTypeOptions">${option.text}</option>
+                </select>
+            </div>
+            <button @click="next" class="btn btn-primary" type="button">{% trans 'Select' %}</button>
+        </form>
+    </script>
+
+    <script type="text/x-template" id="photo-upload-template">
+        <div>
+            <div class="row">
+                <upload-form @got-files="showFiles"></upload-form>
+            </div>
+            <div class="row">
+                <photos-editor v-bind:file-list="fileList"></photos-editor>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="upload-form-template">
+        <div class="col-md-12">
+            <form enctype="multipart/form-data" novalidate>
+                <div class="dropbox">
+                    <input @change="filesChange($event.target.files);" type="file" name="photos" accept="image/*" multiple>
+                    <span class="help-text">{% trans 'Drag photos here or click <b>here</b>'%}</span>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="photos-editor-template">
+        <div class="col-md-12">
+            <div class="row">
+                <h1>{% trans 'Photos preview'%}</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <photos-editor-photo-element v-for="photo in photos" :key="photo.originalFileName" :photo="photo"></photos-editor-photo-element>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="photos-editor-photo-element-template">
+        <div class="row photos-editor">
+            <div class="col-md-6">
+                <img :src="photo.image" class="img-thumbnail" />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <span>{% trans 'Original file name:'%}</span>&nbsp;<span>${photo.originalFileName}</span>
+                </div>
+                <form>
+                    <div class="row">
+                        <label class="control-label" for="photos-editor-name">
+                            {% trans 'Name' %}
+                        </label>
+                        <input v-model="photo.name"
+                               type="text"
+                               class="form-control"
+                               id="photos-editor-name"
+                               title="{% trans 'Enter short photo description' %}">
+                    </div>
+                    <div class="row">
+                        <label class="control-label" for="photos-editor-description">
+                            {% trans 'Description' %}
+                        </label>
+                        <textarea v-model="photo.description"
+                                  class="form-control"
+                                  id="photos-editor-description"
+                                  title="{% trans 'Enter here detailed photo description' %}"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label" for="photos-editor-longitude">
+                                {% trans 'Longitude' %}
+                            </label>
+                            <input v-model="photo.longitude"
+                                   type="number"
+                                   class="form-control"
+                                   id="photos-editor-longitude"
+                                   title="{% trans 'Enter longitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label" for="photos-editor-latitude">
+                                {% trans 'Latitude' %}
+                            </label>
+                            <input v-model="photo.latitude"
+                                   type="number"
+                                   class="form-control"
+                                   id="photos-editor-latitude"
+                                   title="{% trans 'Enter latitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label" for="photos-editor-azimuth">
+                                {% trans 'Azimuth' %}
+                            </label>
+                            <input v-model="photo.azimuth"
+                                   type="number"
+                                   class="form-control"
+                                   id="photos-editor-azimuth"
+                                   title="{% trans 'Enter azimuth where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <input v-model="photo.isUserAuthor" type="checkbox" id="photos-editor-author">
+                                <label class="control-label" for="photos-editor-author">
+                                    {% trans "I'm the author" %}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+
+{% endblock layout %}

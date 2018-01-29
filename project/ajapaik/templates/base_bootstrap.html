@@ -250,6 +250,13 @@
             }
         }
     </script>
+    {% if debug %}
+        <script src="{% static "libs/vue-2.5.13/vue.js" %}"></script>
+        <script src="{% static "libs/vue-router-3.0.1/vue-router.js" %}"></script>
+    {% else %}
+        <script src="{% static "libs/vue-2.5.13/vue.min.js" %}"></script>
+        <script src="{% static "libs/vue-router-3.0.1/vue-router.min.js" %}"></script>
+    {% endif %}
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
 <!-- Google Tag Manager (noscript) -->
