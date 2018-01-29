@@ -613,7 +613,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
         if form.is_valid():
             photo = form.cleaned_data['id']
             is_favorited = form.cleaned_data['favorited']
-            user_profile = request.get_user().profile
+            user_profile = request.user.profile
 
             if is_favorited:
                 try:
@@ -632,7 +632,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
                     # User already have this photo in favorites.
                     # Removing it.
                     photo_like = PhotoLike.objects.get(
-                        photo=photo, profile=request.get_user().profile
+                        photo=photo, profile=user_profile
                     )
                     photo_like.delete()
                 except PhotoLike.DoesNotExist:

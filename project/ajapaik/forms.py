@@ -412,7 +412,7 @@ class EditCommentForm(forms.Form):
 
 class ApiToggleFavoritePhotoForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all())
-    favorited = forms.BooleanField()
+    favorited = forms.BooleanField(required=False)
 
 
 class ApiFavoritedPhotosForm(forms.Form):
