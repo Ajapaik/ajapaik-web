@@ -836,3 +836,25 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'albums': []
             })
+
+
+class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint for getting photos that contains rephotos done by current user.
+    '''
+    def post(self, request, format=None):
+        user_profile = request.user.profile
+
+        photos = Photo.objects.filter(rephotos__user=user_profile)
+        photos = serializers.PhotoSerializer.annotate_photos(
+            photos,
+            user_profile
+        )
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'photos': serializers.PhotoSerializer(
+                instance=photos,
+                many=True,
+                context={'request': request}
+            ).data
+        })
