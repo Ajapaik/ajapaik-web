@@ -112,7 +112,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
     'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
-    'project.ajapaik.user_middleware.UserMiddleware',
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
@@ -191,6 +190,12 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 )
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
@@ -204,7 +209,8 @@ HAYSTACK_CONNECTIONS = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'project.ajapaik.user_middleware.AuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 AUTH_PROFILE_MODULE = 'project.ajapaik.Profile'
@@ -286,4 +292,19 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+
+################################################################################
+### Django-allauth configurations
+################################################################################
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'js_sdk',
+        'SCOPE': [
+            'email',
+            'publish_stream',
+        ],
+    },
 }

@@ -617,12 +617,17 @@ def fetch_stream(request):
 
 # Params for old URL support
 def frontpage(request, album_id=None, page=None):
-    profile = request.get_user().profile
+    if request.user.is_authenticated():
+        profile = request.get_user().profile
+        user_has_likes = profile.likes.count() > 0
+        user_has_rephotos = profile.photos.filter(
+            rephoto_of__isnull=False
+        ).count() > 0
+    else:
+        user_has_likes = False
+        user_has_rephotos = False
     data = _get_filtered_data_for_frontpage(request, album_id, page)
     site = Site.objects.get_current()
-
-    user_has_likes = profile.likes.count() > 0
-    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
 
     if data['rephotos_by_name']:
         title = _('%(name)s - rephotos') % {'name': data['rephotos_by_name']}
@@ -710,7 +715,6 @@ def frontpage_async_albums(request):
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
-    profile = request.get_user().profile
     photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True))
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
@@ -761,9 +765,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(id__in=requested_photos)
         else:
             ret['is_photoset'] = False
-        if my_likes_only:
-            photos = photos.filter(likes__profile=profile)
-        if rephotos_by:
+        if my_likes_only and request.user.is_authenticated():
+            photos = photos.filter(likes__profile=request.user.profile)
+        if rephotos_by and request.user.is_authenticated():
             rephotos_profile = Profile.objects.filter(pk=rephotos_by).first()
             if rephotos_profile:
                 photos = photos.filter(rephotos__user=rephotos_profile)

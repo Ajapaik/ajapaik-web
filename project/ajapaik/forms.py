@@ -49,22 +49,61 @@ class AlbumSelectionFilteringForm(forms.Form):
 
 class GalleryFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
-    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
+
+    photo = forms.ModelChoiceField(
+        queryset=Photo.objects.filter(rephoto_of__isnull=True),
+        required=False
+    )
+
     photos = forms.CharField(required=False)
+
     page = forms.IntegerField(min_value=1, initial=1, required=False)
-    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
-                               required=False)
+
+    order1 = forms.ChoiceField(
+        choices=[(
+            'amount', 'amount'),
+            ('time', 'time'),
+            ('closest', 'closest'),
+        ],
+        initial='time',
+        required=False
+    )
+
     order2 = forms.ChoiceField(
-        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
+        choices=[
+            ('comments', 'comments'),
+            ('geotags', 'geotags'),
+            ('rephotos', 'rephotos'),
+            ('views', 'views'),
+            ('likes', 'likes'),
+            ('added', 'added'),
+            ('datings', 'datings'),
+            ('stills', 'stills'),
+        ],
         initial='added',
-        required=False)
-    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
+        required=False
+    )
+
+    order3 = forms.ChoiceField(
+        choices=[
+            ('reverse', 'reverse'),
+        ],
+        initial=None,
+        required=False
+    )
+
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+
     q = forms.CharField(required=False)
+
     myLikes = forms.BooleanField(required=False)
-    rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
+
+    rephotosBy = forms.ModelChoiceField(
+        queryset=Profile.objects.all(),
+        required=False
+    )
 
     def clean_page(self):
         page = self.cleaned_data['page']

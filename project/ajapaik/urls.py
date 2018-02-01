@@ -11,7 +11,7 @@ from project.ajapaik import views
 from project.ajapaik import api
 
 urlpatterns = patterns('project.ajapaik.views',
-   url(r'^logout/', 'logout'),
+   url(r'^accounts/', include('allauth.urls')),
    url(r'^stream/', 'fetch_stream'),
    url(r'^difficulty-feedback/', 'difficulty_feedback'),
    url(r'^geotag/add/', 'geotag_add'),
