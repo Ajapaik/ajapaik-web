@@ -18,6 +18,7 @@ from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q, Case, When, Value, BooleanField, \
     IntegerField
@@ -449,98 +450,113 @@ def _fill_missing_pixels(img, scale_factor):
     return new_img
 
 
-@api_view(['POST'])
-@parser_classes((FormParser, MultiPartParser))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_upload(request):
-    profile = request.user.profile
-    upload_form = forms.ApiPhotoUploadForm(request.data, request.FILES)
-    content = {
-        'error': 0
-    }
-    if upload_form.is_valid():
-        original_photo = upload_form.cleaned_data['id']
-        lat = upload_form.cleaned_data['latitude']
-        lng = upload_form.cleaned_data['longitude']
-        geography = None
-        if lat and lng:
-            geography = Point(x=lng, y=lat, srid=4326)
-        parsed_date = parser.parse(upload_form.cleaned_data['date'], dayfirst=True, ignoretz=True)
-        # This workaround assumes we're based in a +something timezone, Europe/Tallinn for example,
-        # since the date is sent in as a dd-mm-yyyy string, we don't want any timezone-aware magic
-        tz = pytz.timezone(TIME_ZONE)
-        dt = datetime.datetime.utcnow()
-        offset_seconds = tz.utcoffset(dt).seconds
-        offset_hours = offset_seconds / 3600.0
-        new_rephoto = Photo(
-            image_unscaled=upload_form.cleaned_data['original'],
-            image=upload_form.cleaned_data['original'],
-            rephoto_of=original_photo,
-            lat=lat,
-            lon=lng,
-            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=0 + int(offset_hours)),
-            geography=geography,
-            gps_accuracy=upload_form.cleaned_data['accuracy'],
-            gps_fix_age=upload_form.cleaned_data['age'],
-            cam_scale_factor=upload_form.cleaned_data['scale'],
-            cam_yaw=upload_form.cleaned_data['yaw'],
-            cam_pitch=upload_form.cleaned_data['pitch'],
-            cam_roll=upload_form.cleaned_data['roll'],
-            flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by/2.0/').first(),
-            user=profile,
-        )
-        new_rephoto.light_save()
-        img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
-        img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
-        try:
-            image_orientation = img._getexif()[
-                next(
-                    (key for key, value in ExifTags.TAGS.items() if value == 'Orientation'),
-                    None
-                )
-            ]
-        except KeyError:
-            image_orientation = None
-        if image_orientation == 3:
-            img = img.rotate(180, expand=True)
-            img_unscaled = img.rotate(180, expand=True)
-            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-        elif image_orientation == 6:
-            img = img.rotate(270, expand=True)
-            img_unscaled = img_unscaled.rotate(270, expand=True)
-            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-        elif image_orientation == 8:
-            img = img.rotate(90, expand=True)
-            img_unscaled = img_unscaled.rotate(90, expand=True)
-            img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-            img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-        if upload_form.cleaned_data['scale']:
-            img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
-            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
-            output_file = StringIO()
-            if rounded_scale < 1:
-                cropped_image = _crop_image(img, rounded_scale)
-                cropped_image.save(output_file, 'JPEG', quality=95)
-            elif rounded_scale > 1:
-                filled_image = _fill_missing_pixels(img, rounded_scale)
-                filled_image.save(output_file, 'JPEG', quality=95)
-            new_rephoto.image.delete()
-            new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
-        content['id'] = new_rephoto.pk
-        original_photo.latest_rephoto = new_rephoto.created
-        if not original_photo.first_rephoto:
-            original_photo.first_rephoto = new_rephoto.created
-        original_photo.light_save()
-        profile.update_rephoto_score()
-        profile.save()
-    else:
-        content['error'] = 2
+class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to upload rephoto for a photo.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoUploadForm(request.data, request.FILES)
+        if form.is_valid():
+            user_profile = request.user.profile
+            original_photo = form.cleaned_data['id']
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            rephoto = form.cleaned_data['original']
+            date = form.cleaned_data['date']
+            coordinate_accuracy = form.cleaned_data['accuracy']
+            coordinates_age = form.cleaned_data['age']
+            scale_factor = form.cleaned_data['scale']
+            device_yaw = form.cleaned_data['yaw']
+            device_pitch = form.cleaned_data['pitch']
+            device_roll = form.cleaned_data['roll']
+            is_rephoto_flipped = form.cleaned_data['flip']
 
-    return Response(content)
+            geography = None
+            if latitude and longitude:
+                geography = Point(x=longitude, y=latitude, srid=4326)
+            licence = Licence.objects.filter(
+                url='https://creativecommons.org/licenses/by/2.0/'
+            ).first()
+
+            image = Image.open(rephoto.file)
+
+            if hasattr(image, '_getexif'):  # Present only in JPEGs.
+                exif = image._getexif() or {}  # Reterns None if no EXIF data.
+                image_orientation = exif.get(
+                    next(
+                        (
+                            key for key, value in ExifTags.TAGS.items()
+                            if value == 'Orientation'
+                        ),
+                        None
+                    )
+                )
+                if image_orientation == 2:
+                    image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [3, 4]:
+                    image = image.rotate(180, expand=True)
+                    if image_orientation == 4:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [5, 6]:
+                    image = image.rotate(-90, expand=True)
+                    if image_orientation == 5:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [7, 8]:
+                    image = image.rotate(90, expand=True)
+                    if image_orientation == 7:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+
+            image_unscaled = image
+            if scale_factor and scale_factor < 1:
+                image = _crop_image(image, scale_factor)
+            elif scale_factor and scale_factor > 1:
+                image = _fill_missing_pixels(image, scale_factor)
+
+            image_stream = StringIO()
+            image_unscaled_stream = StringIO()
+            image.save(image_stream, 'JPEG', quality=95)
+            image_unscaled.save(image_unscaled_stream, 'JPEG', quality=95)
+
+            new_rephoto = Photo(
+                image_unscaled=InMemoryUploadedFile(
+                    image_unscaled_stream, None, rephoto.name, 'image/jpeg',
+                    image_unscaled_stream.len, None
+                ),
+                image=InMemoryUploadedFile(
+                    image_stream, None, rephoto.name, 'image/jpeg',
+                    image_stream.len, None
+                ),
+                rephoto_of=original_photo,
+                lat=latitude,
+                lon=longitude,
+                date=date,
+                geography=geography,
+                gps_accuracy=coordinate_accuracy,
+                gps_fix_age=coordinates_age,
+                cam_scale_factor=scale_factor,
+                cam_yaw=device_yaw,
+                cam_pitch=device_pitch,
+                cam_roll=device_roll,
+                flip=is_rephoto_flipped,
+                licence=licence,
+                user=user_profile,
+            )
+            new_rephoto.save()
+
+            original_photo.latest_rephoto = new_rephoto.created
+            if not original_photo.first_rephoto:
+                original_photo.first_rephoto = new_rephoto.created
+            original_photo.save()
+            user_profile.update_rephoto_score()
+            user_profile.save()
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': new_rephoto.pk,
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+            })
 
 
 @api_view(['POST'])
