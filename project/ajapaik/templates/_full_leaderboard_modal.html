@@ -16,7 +16,7 @@
                                 {% with profile=request.user.profile user=request.user %}
                                     <div class="facebook-connected">
                                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
-                                            <a href='{% url "project.ajapaik.views.logout" %}' id='logout-button'>{% trans "Log out" %}</a>.
+                                            <a href="{% url 'account_logout' %}" id="logout-button">{% trans "Log out" %}</a>.
                                         </p>
                                     </div>
                                 {% endwith %}

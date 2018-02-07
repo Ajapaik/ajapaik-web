@@ -6,7 +6,7 @@
             <div>
                 {% if request.user.profile.is_legit %}
                     {% with profile=request.user.profile user=request.user %}
-                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.</p>
+                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>. <a href="{% url 'account_logout' %}" id="logout-button">{% trans "Log out" %}</a>.</p>
                         <div id="files" class="files">
                             <p>
                                 <span id="ajapaik-file-upload-file-preview"></span>
