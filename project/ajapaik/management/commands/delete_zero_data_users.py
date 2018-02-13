@@ -23,15 +23,22 @@ class Command(BaseCommand):
                                           last_name__isnull=True, likes__isnull=True, tour_groups__isnull=True,
                                           owned_tours__isnull=True, tour_rephotos__isnull=True, tour_views__isnull=True,
                                           deletion_attempted__isnull=True)
+        bunch_size = 10
+
         start = 0
-        end = 10000
+        end = bunch_size
+
+        print('bunch size: ', bunch_size)
         while end < 2000000:
             profiles_slice = profiles[start:end]
+            time_started = datetime.datetime.now()
             for each in profiles_slice:
                 try:
                     each.user.delete()
-                except:
+                except Exception as e:
+                    print('Exception:', e)
                     each.deletion_attempted = datetime.datetime.now()
                     each.save()
-            start += 10000
-            end += 10000
+            print('seconds passed: ', (datetime.datetime.now() - time_started).total_seconds())
+            start += bunch_size
+            end += bunch_size

@@ -22,7 +22,6 @@ django-haystack
 django-markup
 django-mobi
 django-modeltranslation
-django-registration-redux
 django-tastypie
 django-test-without-migrations
 djangorestframework==3.4.7

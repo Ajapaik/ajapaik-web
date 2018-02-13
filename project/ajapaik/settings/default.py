@@ -156,10 +156,7 @@ TEMPLATES = [
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
+LOGIN_REDIRECT_URL = '/'
 
 INSTALLED_APPS = (
     'test_without_migrations',
@@ -187,7 +184,6 @@ INSTALLED_APPS = (
     'compressor',
     'modeltranslation',
     'haystack',
-    'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
 
@@ -215,7 +211,7 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_PROFILE_MODULE = 'project.ajapaik.Profile'
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = 'account_login'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
@@ -298,10 +294,26 @@ LOGGING = {
 ################################################################################
 ### Django-allauth configurations
 ################################################################################
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+# Email login/registration settings.
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_USERNAME_REQUIRED = False
+
+# ACCOUNT_SIGNUP_FORM_CLASS = 'project.ajapaik.forms.SignupForm'
+
+# ACCOUNT_FORMS = {
+#     'signup': 'project.ajapaik.forms.SignupForm'
+# }
+
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'METHOD': 'js_sdk',
+        'METHOD': 'oauth2',
         'SCOPE': [
             'email',
             'publish_stream',

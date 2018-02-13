@@ -304,9 +304,6 @@
                 window.location.href = gameURL + '?album=' + window.albumId;
             }
         };
-        $('#logout-button').click(function () {
-            _gaq.push(['_trackEvent', 'Game', 'Logout']);
-        });
         $('.ajapaik-game-specify-location-button').click(function () {
             _gaq.push(['_trackEvent', 'Game', 'Specify location mobile button']);
         });

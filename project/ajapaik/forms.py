@@ -7,9 +7,26 @@ from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
+from allauth.account.forms import SignupForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
     Video, Licence
+
+
+class SignupForm(SignupForm):
+    '''
+    The meaning of existing of this form is to provide old behavior.
+    username == e-mail
+    '''
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget = forms.HiddenInput()
+        self.fields['email'] = forms.EmailField()
+
+    def clean_email(self):
+        email = super(SignupForm, self).clean_email()
+        self.cleaned_data['username'] = self.cleaned_data['email']
+        return email
 
 
 class APILoginAuthForm(forms.Form):

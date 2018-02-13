@@ -807,9 +807,6 @@
                 centerOnMapAfterLocating = false;
             }
         };
-        $('#logout-button').click(function () {
-            window._gaq.push(['_trackEvent', 'Map', 'Logout']);
-        });
         if (window.map !== undefined) {
             window.map.scrollwheel = true;
             window.mapMapviewClickListener = google.maps.event.addListener(window.map, 'click', function () {

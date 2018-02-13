@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load socialaccount %}
 
 <br/>
 <div><b>
@@ -15,21 +16,21 @@
     {% endif %}
 </b></div>
 <div id="{% if type == "leaderboard" %}ajapaik-header-facebook-connect{% elif type == "rephoto_upload" or type == "curator" or type == "video_anonymous" or type == "photo_selection" %}ajapaik-rephoto-upload-facebook-connect{% endif %}" class="facebook-connect">
-    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+    <a href="{% provider_login_url 'facebook' %}" class="ir">{% trans "Connect with Facebook" %}</a>
 </div>
 <div id="{% if type == "leaderboard" %}ajapaik-header-google-connect{% elif type == "rephoto_upload" or type == "curator" or type == "video_anonymous" or type == "photo_selection" %}ajapaik-rephoto-upload-google-connect{% endif %}" class="google-plus-connect">
-    <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
+    <a href="{% provider_login_url 'google' %}" class="ir">{% trans "Connect with Google" %}</a>
 </div>
-<form method="post" action="/accounts/login/" class="form">
+<form method="post" action="{% url 'account_login' %}" class="form">
     {% csrf_token %}
-    <input class="form-control ajapaik-zero-border-radius" id="id_username" maxlength="254" name="username"
-           placeholder="{% trans "E-mail address" %}" required="required" title="" type="text">
+    <input class="form-control ajapaik-zero-border-radius" id="id_login" maxlength="254" name="login"
+           placeholder="{% trans 'E-mail address' %}" required="required" title="" type="email">
     <input class="form-control ajapaik-zero-border-radius" id="id_password" name="password"
            placeholder="{% trans "Password" %}" required="required" title="" type="password">
     <input name="next" type="hidden" value="{% if type == "rephoto_upload" %}{{ next }}{% else %}{{ request.get_full_path }}{% endif %}">
     <br/>
     <div class="col-xs-6">
-        <a href="{% url 'registration_register' %}">
+        <a href="{% url 'account_signup' %}">
             {% trans "Register with e-mail" %}
         </a>
     </div>
