@@ -187,6 +187,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
 
+    # Django allauth and related applications.
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -194,7 +195,10 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
 )
 
-ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
+ALLOWED_HOSTS = [
+    '.ajapaik.ee',
+    '217.146.78.74'
+]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -204,20 +208,22 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
-)
+]
 
 AUTH_PROFILE_MODULE = 'project.ajapaik.Profile'
 
 LOGIN_URL = 'account_login'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-    ),
+    ],
     'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
     'PAGE_SIZE': 10
 }
@@ -318,5 +324,14 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
             'publish_stream',
         ],
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
     },
 }
