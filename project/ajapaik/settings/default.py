@@ -187,6 +187,10 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
 
+    'registration',  # This app is required by
+    # 0081_create_social_network_accounts if it already applied you can remove
+    # this app from INSTALLED_APPS and from virtual environment.
+
     # Django allauth and related applications.
     'allauth',
     'allauth.account',
@@ -303,20 +307,17 @@ LOGGING = {
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 # Email login/registration settings.
+# This group of settings configured email confirmation obligatory for email
+# registered users and optional for user registered with some social account.
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
 ACCOUNT_USERNAME_REQUIRED = False
-
-# ACCOUNT_SIGNUP_FORM_CLASS = 'project.ajapaik.forms.SignupForm'
-
-# ACCOUNT_FORMS = {
-#     'signup': 'project.ajapaik.forms.SignupForm'
-# }
-
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
