@@ -9,6 +9,7 @@ def migrate_users(apps, schema_editor):
     EmailAddress = apps.get_model('account', 'EmailAddress')
     Profile = apps.get_model('ajapaik', 'Profile')
     RegistrationProfile = apps.get_model('registration', 'RegistrationProfile')
+    User = apps.get_model('auth', 'User')
 
     # Social network accounts migration.
     profiles = Profile.objects.filter(
@@ -54,6 +55,22 @@ def migrate_users(apps, schema_editor):
                 user=profile.user
             )
 
+    # Users registered not with social network and not with 'register'
+    # application. Possibly with 'createsuperuser' command.
+    email_registered_users = User.objects.filter(
+        email__ne='',
+        profile__fb_id__isnull=True,
+        profile__google_plus_id__isnull=True,
+        registrationprofile__isnull=True
+    )
+    for user in email_registered_users:
+        EmailAddress.objects.create(
+                email=user.email,
+                verified=True,
+                primary=True,
+                user=user
+            )
+
 
 class Migration(migrations.Migration):
 
@@ -62,6 +79,7 @@ class Migration(migrations.Migration):
         ('registration', '0004_supervisedregistrationprofile'),
         ('socialaccount', '0003_extra_data_default_dict'),
         ('account', '0002_email_max_length'),
+        ('auth', '0006_require_contenttypes_0002'),
     ]
 
     operations = [
