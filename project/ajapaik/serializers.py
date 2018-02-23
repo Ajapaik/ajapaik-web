@@ -239,7 +239,7 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
     class Meta(PhotoSerializer.Meta):
         fields = (
             'id', 'distance', 'image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
+            'author', 'source', 'latitude', 'longitude', 'rephotos',
             'favorited',
         )
 
