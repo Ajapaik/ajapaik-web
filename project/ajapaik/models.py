@@ -598,7 +598,6 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
-        super(Photo, self).save(*args, **kwargs)
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 

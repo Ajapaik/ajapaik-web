@@ -8,6 +8,7 @@ from django.views.generic import RedirectView, TemplateView
 from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from project.ajapaik import views
+from project.ajapaik import api
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -25,7 +26,6 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^map/photo/(?P<photo_id>\d+)/$', 'mapview', name='map'),
    url(r'^map/rephoto/(?P<rephoto_id>\d+)/$', 'mapview', name='map'),
    url(r'^map/photo/(?P<photo_id>\d+)/rephoto/(?P<rephoto_id>\d+)/$', 'mapview', name='map'),
-   url(r'^pane-contents/$', 'pane_contents'),
    url(r'^map-data/$', 'map_objects_by_bounding_box'),
    url(r'^leaderboard/$', 'leaderboard', name='leaderboard'),
    url(r'^leaderboard/album/(?P<album_id>\d+)/$', 'leaderboard', name='album_leaderboard'),
@@ -102,14 +102,21 @@ urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/login/$', 'api_login'),
     url(r'^api/v1/register/$', 'api_register', name='api_register'),
     url(r'^api/v1/logout/$', 'api_logout'),
-    url(r'^api/v1/albums/$', 'api_albums'),
+    url(r'^api/v1/user/me/$', 'api_user_me'),
+    url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
+    url(r'^api/v1/album/state/$', api.AlbumDetails.as_view()),
+    url(r'^api/v1/album/photos/search/$', api.PhotosInAlbumSearch.as_view()),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/$', 'api_album_thumb'),
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', 'api_album_thumb'),
-    url(r'^api/v1/album/nearest/$', 'api_album_nearest'),
-    url(r'^api/v1/album/state/$', 'api_album_state'),
-    url(r'^api/v1/photo/upload/$', 'api_photo_upload', name='api_photo_upload'),
-    url(r'^api/v1/user/me/$', 'api_user_me'),
-    url(r'^api/v1/photo/state/$', 'api_photo_state')
+    url(r'^api/v1/albums/$', api.AlbumList.as_view()),
+    url(r'^api/v1/albums/search/$', api.AlbumsSearch.as_view()),
+    url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
+    url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
+    url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
+    url(r'^api/v1/photos/favorite/order-by-distance-to-location/$', api.UserFavoritePhotoList.as_view()),
+    url(r'^api/v1/photos/filtered/rephotographed-by-user/$', api.PhotosWithUserRephotos.as_view()),
+    url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),
+    url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
 )
 
 urlpatterns += patterns('project.ajapaik.delfi',

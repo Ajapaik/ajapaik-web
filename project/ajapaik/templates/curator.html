@@ -318,7 +318,8 @@
                     useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
                     useFinna = $('#ajapaik-curator-search-use-finna').prop('checked'),
                     useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
-                    useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
+                    useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked'),
+                    useFotis = $('#ajapaik-curator-search-use-fotis').prop('checked');
                 start += 200;
                 $.ajax({
                     type: 'POST',
@@ -335,6 +336,7 @@
                         useFlickr: useFlickr,
                         useFinna: useFinna,
                         useUTLIB: useUTLIB,
+                        useFotis: useFotis,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
@@ -423,7 +425,8 @@
                         useFlickr = $('#ajapaik-curator-search-use-flickr').prop('checked'),
                         useFinna = $('#ajapaik-curator-search-use-finna').prop('checked'),
                         useDIGAR = $('#ajapaik-curator-search-use-digar').prop('checked'),
-                        useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked');
+                        useUTLIB = $('#ajapaik-curator-search-use-utlib').prop('checked'),
+                        useFotis = $('#ajapaik-curator-search-use-fotis').prop('checked');
                 if (useETERA && !ETERASession) {
                     $.ajax({
                         url: "http://www.etera.ee/api/app/config",
@@ -447,6 +450,7 @@
                         useFlickr: useFlickr,
                         useFinna: useFinna,
                         useUTLIB: useUTLIB,
+                        useFotis: useFotis,
                         flickrPage: flickrPage,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },

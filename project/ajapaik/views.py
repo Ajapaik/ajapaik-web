@@ -33,6 +33,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
@@ -46,6 +47,7 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
+from project.ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.finna import FinnaDriver
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
@@ -449,7 +451,7 @@ def rephoto_upload(request, photo_id):
                     except:
                         pass
                 else:
-                    re_photo.date = datetime.datetime.now()
+                    re_photo.date = timezone.now()
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
@@ -772,7 +774,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photo_search_form = HaystackPhotoSearchForm({'q': q})
             search_query_set = photo_search_form.search()
             results = [r.pk for r in search_query_set]
-            photos = photos.filter(pk__in=results)
+            photos = photos.filter(pk__in=results, rephoto_of__isnull=True)
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -1066,7 +1068,7 @@ def upload_photo_selection(request):
                             type=AlbumPhoto.RECURATED
                         )
                         Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-                               created=datetime.datetime.now()).save()
+                               created=timezone.now()).save()
                         new_album_photo_link.save()
                 a.save()
             profile.set_calculated_fields()
@@ -1137,7 +1139,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             request.session['user_view_array'] = []
         if photo_obj.id not in request.session['user_view_array']:
             photo_obj.view_count += 1
-        now = datetime.datetime.now()
+        now = timezone.now()
         if not photo_obj.first_view:
             photo_obj.first_view = now
         photo_obj.latest_view = now
@@ -1288,39 +1290,6 @@ def mapview_photo_upload_modal(request, photo_id):
     }))
 
 
-def pane_contents(request):
-    # TODO: Form
-    marker_ids = request.POST.getlist("marker_ids[]")
-
-    data = []
-    for p in Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, id__in=marker_ids) \
-            .prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos')).order_by('?') \
-            .values_list('id', 'rephoto_count', 'flip', 'description', 'azimuth', 'comment_count', 'width',
-                         'height'):
-        pseudo_slug = _get_pseudo_slug_for_photo(p[3], None, None)
-        im_url = reverse("project.ajapaik.views.image_thumb", args=(p[0], 400, pseudo_slug))
-        permalink = reverse("project.ajapaik.views.photoslug", args=(p[0], pseudo_slug))
-        width, height = calculate_thumbnail_size(p[6], p[7], 400)
-        in_selection = False
-        if 'photo_selection' in request.session:
-            in_selection = str(p[0]) in request.session['photo_selection']
-        data.append({
-            "id": p[0],
-            "url": im_url,
-            "permalink": permalink,
-            "rephotos": p[1],
-            "flipped": p[2],
-            "description": p[3],
-            "azimuth": p[4],
-            "width": width,
-            "height": height,
-            "comments": p[5],
-            "in_selection": in_selection
-        })
-
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):
     profile = request.get_user().profile
@@ -1408,9 +1377,11 @@ def map_objects_by_bounding_box(request):
         ne_lon = form.cleaned_data['ne_lon']
         # dating_start = form.cleaned_data['starting']
         # dating_end = form.cleaned_data['ending']
+        count_limit = form.cleaned_data['count_limit']
 
-        qs = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True) \
-            .annotate(rephoto_count=Count('rephotos'))
+        qs = Photo.objects.filter(
+            lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True
+        ).annotate(rephoto_count=Count('rephotos'))
 
         if album and limit_by_album:
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
@@ -1428,10 +1399,15 @@ def map_objects_by_bounding_box(request):
             # if dating_end:
             # qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
 
-        # qs = qs.order_by('?')[:1000]
+        if count_limit:
+            qs = qs.order_by('?')[:count_limit]
 
         data = {
-            'photos': PhotoMapMarkerSerializer(qs, many=True).data
+            'photos': PhotoMapMarkerSerializer(
+                qs,
+                many=True,
+                photo_selection=request.session.get('photo_selection', [])
+            ).data
         }
     else:
         data = {
@@ -1469,7 +1445,7 @@ def geotag_add(request):
         initial_lon = tagged_photo.lon
         # Calculate new lat, lon, confidence, guess_level, azimuth, azimuth_confidence, geotag_count for photo
         tagged_photo.set_calculated_fields()
-        tagged_photo.latest_geotag = datetime.datetime.now()
+        tagged_photo.latest_geotag = timezone.now()
         tagged_photo.save()
         processed_tagged_photo = Photo.objects.filter(pk=tagged_photo.id).get()
         ret['estimated_location'] = [processed_tagged_photo.lat, processed_tagged_photo.lon]
@@ -1502,7 +1478,7 @@ def geotag_add(request):
         # ret['is_correct'] = processed_geotag.is_correct
         ret['current_score'] = processed_geotag.score
         Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
-               created=datetime.datetime.now(), photo=processed_geotag.photo).save()
+               created=timezone.now(), photo=processed_geotag.photo).save()
         geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
         ret['new_geotag_count'] = geotags_for_this_photo.distinct('user').count()
         ret['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
@@ -1569,8 +1545,8 @@ def geotag_confirm(request):
                 confirmed_geotag.azimuth_correct = True
             confirmed_geotag.save()
             Points(user=profile, action=Points.GEOTAG, geotag=confirmed_geotag, points=confirmed_geotag.score,
-                   created=datetime.datetime.now(), photo=p).save()
-            p.latest_geotag = datetime.datetime.now()
+                   created=timezone.now(), photo=p).save()
+            p.latest_geotag = timezone.now()
             p.save()
             profile.set_calculated_fields()
             profile.save()
@@ -1860,6 +1836,7 @@ def curator_search(request):
     flickr_driver = None
     valimimoodul_driver = None
     finna_driver = None
+    fotis_driver = None
     if form.is_valid():
         if form.cleaned_data['useFlickr']:
             flickr_driver = FlickrCommonsDriver()
@@ -1872,6 +1849,8 @@ def curator_search(request):
                     form.cleaned_data['filterExisting'])
         if form.cleaned_data['useFinna']:
             finna_driver = FinnaDriver()
+        if form.cleaned_data['useFotis']:
+            fotis_driver = FotisDriver()
         if form.cleaned_data['fullSearch']:
             if valimimoodul_driver and not form.cleaned_data['ids']:
                 response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
@@ -1882,6 +1861,10 @@ def curator_search(request):
             if finna_driver:
                 response = _join_2_json_objects(response, finna_driver.transform_response(
                     finna_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
+                    form.cleaned_data['flickrPage']))
+            if fotis_driver:
+                response = _join_2_json_objects(response, fotis_driver.transform_response(
+                    fotis_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
                     form.cleaned_data['flickrPage']))
 
     return HttpResponse(response, content_type="application/json")
@@ -2014,7 +1997,7 @@ def curator_photo_upload_handler(request):
         else:
             ret["album_id"] = None
         default_album = Album(
-            name=str(profile.id) + "-" + str(datetime.datetime.now()),
+            name=str(profile.id) + "-" + str(timezone.now()),
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
@@ -2202,7 +2185,7 @@ def curator_photo_upload_handler(request):
                                 ap.save()
                                 points_for_recurating = Points(user=profile, action=Points.PHOTO_RECURATION,
                                                                photo=existing_photo, points=30,
-                                                               album=general_albums[0], created=datetime.datetime.now())
+                                                               album=general_albums[0], created=timezone.now())
                                 points_for_recurating.save()
                                 all_curating_points.append(points_for_recurating)
                         dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
@@ -2393,7 +2376,7 @@ def norwegian_csv_upload(request):
             pass
         extension = 'jpg'
         upload_file_name = 'uploads/%s.%s' % (
-            unicode(datetime.datetime.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
+            unicode(timezone.now()) + '_' + hashlib.md5(key).hexdigest(), extension)
         fout = open('/var/garage/' + upload_file_name, 'w')
         shutil.copyfileobj(response.raw, fout)
         fout.close()

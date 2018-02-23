@@ -96,9 +96,9 @@ class HaystackPhotoSearchForm(SearchForm):
         if not self.is_valid():
             return self.no_query_found()
         else:
-            sqs = super(HaystackPhotoSearchForm, self).search().models(Photo)
-
-        return sqs
+            return super(HaystackPhotoSearchForm, self) \
+                .search() \
+                .models(Photo)
 
 
 class HaystackAlbumSearchForm(SearchForm):
@@ -121,6 +121,7 @@ class MapDataRequestForm(forms.Form):
     ne_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     starting = forms.DateField(required=False)
     ending = forms.DateField(required=False)
+    count_limit = forms.IntegerField(min_value=1, required=False)
 
 
 class GameAlbumSelectionForm(forms.Form):
@@ -229,12 +230,11 @@ class FrontpagePagingForm(forms.Form):
     page = forms.IntegerField(min_value=1, required=False)
 
 
-class ApiAlbumNearestForm(forms.Form):
+class ApiAlbumNearestPhotosForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
     range = forms.FloatField(required=False)
-    state = forms.CharField(max_length=255, required=False)
 
 
 class ApiAlbumStateForm(forms.Form):
@@ -248,17 +248,20 @@ class ApiPhotoUploadForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     accuracy = forms.FloatField(min_value=0, required=False)
     age = forms.FloatField(min_value=0, required=False)
-    date = forms.CharField(max_length=30)
+
+    # We expecting here a date but in model we have datetime field. So to do
+    # less work we define here DateTimeField.
+    date = forms.DateTimeField(input_formats=['%d-%m-%Y'])
     scale = forms.FloatField()
     yaw = forms.FloatField()
     pitch = forms.FloatField()
     roll = forms.FloatField()
+    flip = forms.BooleanField(required=False)
     original = forms.FileField()
-    flip = forms.IntegerField(min_value=0, max_value=1)
 
 
 class ApiPhotoStateForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+    id = forms.IntegerField()  # Photo id
 
 
 class ApiUserMeForm(forms.Form):
@@ -408,3 +411,32 @@ class EditCommentForm(forms.Form):
         text = self.cleaned_data['text']
         if self.comment.comment == self.cleaned_data['text']:
             forms.ValidationError(_('Nothing to change.'), code='same_text')
+
+
+class ApiToggleFavoritePhotoForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Photo.objects.all())
+    favorited = forms.BooleanField(required=False)
+
+
+class ApiFavoritedPhotosForm(forms.Form):
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
+    longitude = forms.FloatField(min_value=-180, max_value=180)
+
+
+class ApiPhotoSearchForm(forms.Form):
+    query = forms.CharField()
+    rephotosOnly = forms.BooleanField(required=False, initial=False)
+
+
+class ApiPhotoInAlbumSearchForm(forms.Form):
+    query = forms.CharField()
+    albumId = forms.ModelChoiceField(queryset=Album.objects.all())
+    rephotosOnly = forms.BooleanField(required=False, initial=False)
+
+
+class ApiUserRephotoSearchForm(forms.Form):
+    query = forms.CharField()
+
+
+class ApiAlbumSearchForm(forms.Form):
+    query = forms.CharField()

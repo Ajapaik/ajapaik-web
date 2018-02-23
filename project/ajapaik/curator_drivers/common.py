@@ -18,7 +18,8 @@ class CuratorSearchForm(Form):
     useFlickr = BooleanField(initial=False, required=False)
     useUTLIB = BooleanField(initial=False, required=False)
     useFinna = BooleanField(initial=False, required=False)
-    # Also used for Finna
+    useFotis = BooleanField(initial=False, required=False)
+    # Also used for Finna and Fotis
     flickrPage = IntegerField(initial=1, required=False)
     filterExisting = BooleanField(initial=True, required=False)
     ids = NotValidatedMultipleChoiceField(coerce=str, required=False)

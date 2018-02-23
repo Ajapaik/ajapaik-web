@@ -2,22 +2,26 @@
 import datetime
 import time
 import urllib2
+import logging
 from StringIO import StringIO
 from json import loads
 
 import pytz
 import requests
+
 from PIL import Image, ExifTags
 from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Case, When, Value, BooleanField, \
+    IntegerField
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
@@ -30,17 +34,35 @@ from rest_framework.decorators import api_view, permission_classes, \
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import exception_handler
+from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.forms import ApiAlbumNearestForm, ApiAlbumStateForm, \
-    ApiPhotoUploadForm, ApiUserMeForm, ApiPhotoStateForm, APIAuthForm, \
-    APILoginAuthForm
-from project.ajapaik.models import Album, Photo, Profile, Licence
+from project.ajapaik import forms
+from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
     API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
     FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
 from project.ajapaik import serializers
+
+
+log = logging.getLogger(__name__)
+
+
+# Response statuses
+RESPONSE_STATUSES = {
+    'OK': 0,  # no error
+    'UNKNOWN_ERROR': 1,  # unknown error
+    'INVALID_PARAMETERS': 2,  # invalid input parameter
+    'MISSING_PARAMETERS': 3,  # missing input parameter
+    'ACCESS_DENIED': 4,  # access denied
+    'SESSION_REQUIRED': 5,  # session is required
+    'SESSION_EXPIRED': 6,  # session is expired
+    'INVALID_SESSION': 7,  # session is invalid
+    'USER_ALREADY_EXISTS': 8,  # user exists in the DB already
+    'INVALID_APP_VERSION': 9,  # application version is not supported
+    'MISSING_USER': 10,  # user does not exist
+    'INVALID_PASSWORD': 11,  # wrong password for existing user
+}
 
 
 def custom_exception_handler(exc, context):
@@ -56,7 +78,7 @@ def custom_exception_handler(exc, context):
 class CustomAuthentication(authentication.BaseAuthentication):
     @parser_classes((FormParser,))
     def authenticate(self, request):
-        cat_auth_form = APIAuthForm(request.data)
+        cat_auth_form = forms.APIAuthForm(request.data)
         user = None
         if cat_auth_form.is_valid():
             lang = cat_auth_form.cleaned_data['_l']
@@ -75,9 +97,18 @@ class CustomAuthentication(authentication.BaseAuthentication):
         return user, None
 
 
+class CustomAuthenticationMixin(object):
+    authentication_classes = (CustomAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+
+class CustomParsersMixin(object):
+    parser_classes = (FormParser, MultiPartParser,)
+
+
 @parser_classes((FormParser,))
 def login_auth(request, auth_type='login'):
-    form = APILoginAuthForm(request.data)
+    form = forms.APILoginAuthForm(request.data)
     content = {
         'error': 0,
         'session': None,
@@ -277,142 +308,125 @@ def api_album_thumb(request, album_id, thumb_size=250):
     return response
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_albums(request):
-    error = 0
-    albums = Album.objects.filter(
-        Q(is_public=True) | Q(profile=request.get_user().profile, atype=Album.CURATED)).order_by('-created')
-    ret = []
-    content = {}
-    for a in albums:
-        ret.append({
-            'id': a.id,
-            'title': a.name,
-            'image': request.build_absolute_uri(
-                reverse('project.ajapaik.api.api_album_thumb', args=(a.id,))) + '?' + str(time.time()),
-            'stats': {
-                'total': a.photo_count_with_subalbums,
-                'rephotos': a.rephoto_count_with_subalbums
-            }
+class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to get albums that: public and not empty, or albums that
+    overseeing by current user(can be empty).
+    '''
+    def post(self, request, format=None):
+        albums = Album.objects.filter(
+            Q(is_public=True, photos__isnull=False)
+            | Q(profile=request.get_user().profile, atype=Album.CURATED)
+        ).order_by('-created')
+        albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'albums': serializers.AlbumDetailsSerializer(
+                instance=albums,
+                many=True,
+                context={'request': request}
+            ).data
         })
-    content['error'] = error
-    content['albums'] = ret
-
-    return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_album_nearest(request):
-    form = ApiAlbumNearestForm(request.data)
-    profile = request.user.profile
-    content = {
-        'state': str(int(round(time.time() * 1000)))
-    }
-    photos = []
-    if form.is_valid():
-        album = form.cleaned_data["id"]
-        if album:
-            content["title"] = album.name
-            photos_qs = album.photos.all()
-            for sa in album.subalbums.exclude(atype=Album.AUTO):
-                photos_qs = photos_qs | sa.photos.filter()
+class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album photos(if album is specified else just
+    photos) in specified radius.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumNearestPhotosForm(request.data)
+        if form.is_valid():
+            album = form.cleaned_data["id"]
+            nearby_range = form.cleaned_data["range"] or API_DEFAULT_NEARBY_PHOTOS_RANGE
+            ref_location = Point(
+                round(form.cleaned_data["longitude"], 4),
+                round(form.cleaned_data["latitude"], 4)
+            )
+            if album:
+                photos = Photo.objects.filter(
+                    Q(albums=album)
+                    | (Q(albums__subalbum_of=album)
+                       & ~Q(albums__atype=Album.AUTO)),
+                    rephoto_of__isnull=True
+                ).filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.AlbumSerializer(
+                        instance=album,
+                        context={
+                            'request': request,
+                            'photos': photos
+                        }
+                    ).data
+                })
+            else:
+                photos = Photo.objects.filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    rephoto_of__isnull=True,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+
+                photos = serializers.PhotoSerializer.annotate_photos(
+                    photos,
+                    request.user.profile
+                )
+
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.PhotoSerializer(
+                        instance=photos,
+                        many=True,
+                        context={'request': request}
+                    ).data
+                })
         else:
-            photos_qs = Photo.objects.all()
-        lat = round(form.cleaned_data["latitude"], 4)
-        lon = round(form.cleaned_data["longitude"], 4)
-        ref_location = Point(lon, lat)
-        if form.cleaned_data["range"]:
-            nearby_range = form.cleaned_data["range"]
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album details and details of this album photos.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumStateForm(request.data)
+        if form.is_valid():
+            album = form.cleaned_data["id"]
+            photos = Photo.objects.filter(
+                Q(albums=album)
+                | (Q(albums__subalbum_of=album)
+                   & ~Q(albums__atype=Album.AUTO)),
+                rephoto_of__isnull=True
+            )
+            response_data = {
+                'error': RESPONSE_STATUSES['OK']
+            }
+            response_data.update(serializers.AlbumSerializer(
+                instance=album,
+                context={
+                    'request': request,
+                    'photos': photos
+                }
+            ).data)
+            return Response(response_data)
         else:
-            nearby_range = API_DEFAULT_NEARBY_PHOTOS_RANGE
-        album_nearby_photos = photos_qs.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True,
-                                               geography__distance_lte=(ref_location,
-                                                                        D(m=nearby_range))).distance(
-            ref_location).annotate(rephoto_count=Count('rephotos')).order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
-        for p in album_nearby_photos:
-            date = None
-            if p.date:
-                iso = p.date.isoformat()
-                date_parts = iso.split('T')[0].split('-')
-                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-            elif p.date_text:
-                date = p.date_text
-            photos.append({
-                "id": p.id,
-                "image": request.build_absolute_uri(
-                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
-                "width": p.width,
-                "height": p.height,
-                "title": p.description,
-                "date": date,
-                "author": p.author,
-                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
-                    'url': p.source_url},
-                "latitude": p.lat,
-                "longitude": p.lon,
-                "rephotos": p.rephoto_count,
-                "uploads": p.rephotos.filter(user=profile).count(),
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
-        content["photos"] = photos
-    else:
-        content["error"] = 2
-
-    return Response(content)
-
-
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_album_state(request):
-    form = ApiAlbumStateForm(request.data)
-    profile = request.user.profile
-    content = {
-        'state': str(int(round(time.time() * 1000)))
-    }
-    photos = []
-    if form.is_valid():
-        album = form.cleaned_data["id"]
-        content['title'] = album.name
-        album_photos_qs = album.photos.filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            album_photos_qs = album_photos_qs | sa.photos.filter(rephoto_of__isnull=True)
-        album_photos_qs = album_photos_qs.prefetch_related('rephotos').annotate(rephoto_count=Count('rephotos'))
-        for p in album_photos_qs:
-            date = None
-            if p.date:
-                iso = p.date.isoformat()
-                date_parts = iso.split('T')[0].split('-')
-                date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-            elif p.date_text:
-                date = p.date_text
-            photos.append({
-                "id": p.id,
-                "image": request.build_absolute_uri(
-                    reverse("project.ajapaik.views.image_thumb", args=(p.id,))) + '[DIM]/',
-                "width": p.width,
-                "height": p.height,
-                "title": p.description,
-                "date": date,
-                "author": p.author,
-                "source": {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url} if p.source else {
-                    'url': p.source_url},
-                "latitude": p.lat,
-                "longitude": p.lon,
-                "rephotos": p.rephoto_count,
-                "uploads": p.rephotos.filter(user=profile).count(),
-            })
-        content["photos"] = photos
-    else:
-        content["error"] = 2
-
-    return Response(content)
 
 
 def _crop_image(img, scale_factor):
@@ -436,98 +450,113 @@ def _fill_missing_pixels(img, scale_factor):
     return new_img
 
 
-@api_view(['POST'])
-@parser_classes((FormParser, MultiPartParser))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_upload(request):
-    profile = request.user.profile
-    upload_form = ApiPhotoUploadForm(request.data, request.FILES)
-    content = {
-        'error': 0
-    }
-    if upload_form.is_valid():
-        original_photo = upload_form.cleaned_data['id']
-        lat = upload_form.cleaned_data['latitude']
-        lng = upload_form.cleaned_data['longitude']
-        geography = None
-        if lat and lng:
-            geography = Point(x=lng, y=lat, srid=4326)
-        parsed_date = parser.parse(upload_form.cleaned_data['date'], dayfirst=True, ignoretz=True)
-        # This workaround assumes we're based in a +something timezone, Europe/Tallinn for example,
-        # since the date is sent in as a dd-mm-yyyy string, we don't want any timezone-aware magic
-        tz = pytz.timezone(TIME_ZONE)
-        dt = datetime.datetime.utcnow()
-        offset_seconds = tz.utcoffset(dt).seconds
-        offset_hours = offset_seconds / 3600.0
-        new_rephoto = Photo(
-            image_unscaled=upload_form.cleaned_data['original'],
-            image=upload_form.cleaned_data['original'],
-            rephoto_of=original_photo,
-            lat=lat,
-            lon=lng,
-            date=datetime.datetime(parsed_date.year, parsed_date.month, parsed_date.day, hour=0 + int(offset_hours)),
-            geography=geography,
-            gps_accuracy=upload_form.cleaned_data['accuracy'],
-            gps_fix_age=upload_form.cleaned_data['age'],
-            cam_scale_factor=upload_form.cleaned_data['scale'],
-            cam_yaw=upload_form.cleaned_data['yaw'],
-            cam_pitch=upload_form.cleaned_data['pitch'],
-            cam_roll=upload_form.cleaned_data['roll'],
-            flip=upload_form.cleaned_data['flip'],
-            licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by/2.0/').first(),
-            user=profile,
-        )
-        new_rephoto.light_save()
-        img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
-        img_unscaled = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled))
-        exif = None
-        orientation = None
-        raw_exif = img._getexif()
-        for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation] == 'Orientation':
-                break
-        if raw_exif is not None:
-            exif = dict(raw_exif.items())
-        if exif and orientation:
-            if exif[orientation] == 3:
-                img = img.rotate(180, expand=True)
-                img_unscaled = img.rotate(180, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-            elif exif[orientation] == 6:
-                img = img.rotate(270, expand=True)
-                img_unscaled = img_unscaled.rotate(270, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-            elif exif[orientation] == 8:
-                img = img.rotate(90, expand=True)
-                img_unscaled = img_unscaled.rotate(90, expand=True)
-                img.save(MEDIA_ROOT + '/' + str(new_rephoto.image), 'JPEG', quality=95)
-                img_unscaled.save(MEDIA_ROOT + '/' + str(new_rephoto.image_unscaled), 'JPEG', quality=95)
-        if upload_form.cleaned_data['scale']:
-            img = Image.open(MEDIA_ROOT + '/' + str(new_rephoto.image))
-            rounded_scale = round(float(upload_form.cleaned_data['scale']), 6)
-            output_file = StringIO()
-            if rounded_scale < 1:
-                cropped_image = _crop_image(img, rounded_scale)
-                cropped_image.save(output_file, 'JPEG', quality=95)
-            elif rounded_scale > 1:
-                filled_image = _fill_missing_pixels(img, rounded_scale)
-                filled_image.save(output_file, 'JPEG', quality=95)
-            new_rephoto.image.delete()
-            new_rephoto.image.save(str(new_rephoto.image), ContentFile(output_file.getvalue()))
-        content['id'] = new_rephoto.pk
-        original_photo.latest_rephoto = new_rephoto.created
-        if not original_photo.first_rephoto:
-            original_photo.first_rephoto = new_rephoto.created
-        original_photo.light_save()
-        profile.update_rephoto_score()
-        profile.save()
-    else:
-        content['error'] = 2
+class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to upload rephoto for a photo.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoUploadForm(request.data, request.FILES)
+        if form.is_valid():
+            user_profile = request.user.profile
+            original_photo = form.cleaned_data['id']
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            rephoto = form.cleaned_data['original']
+            date = form.cleaned_data['date']
+            coordinate_accuracy = form.cleaned_data['accuracy']
+            coordinates_age = form.cleaned_data['age']
+            scale_factor = form.cleaned_data['scale']
+            device_yaw = form.cleaned_data['yaw']
+            device_pitch = form.cleaned_data['pitch']
+            device_roll = form.cleaned_data['roll']
+            is_rephoto_flipped = form.cleaned_data['flip']
 
-    return Response(content)
+            geography = None
+            if latitude and longitude:
+                geography = Point(x=longitude, y=latitude, srid=4326)
+            licence = Licence.objects.filter(
+                url='https://creativecommons.org/licenses/by/2.0/'
+            ).first()
+
+            image = Image.open(rephoto.file)
+
+            if hasattr(image, '_getexif'):  # Present only in JPEGs.
+                exif = image._getexif() or {}  # Reterns None if no EXIF data.
+                image_orientation = exif.get(
+                    next(
+                        (
+                            key for key, value in ExifTags.TAGS.items()
+                            if value == 'Orientation'
+                        ),
+                        None
+                    )
+                )
+                if image_orientation == 2:
+                    image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [3, 4]:
+                    image = image.rotate(180, expand=True)
+                    if image_orientation == 4:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [5, 6]:
+                    image = image.rotate(-90, expand=True)
+                    if image_orientation == 5:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+                elif image_orientation in [7, 8]:
+                    image = image.rotate(90, expand=True)
+                    if image_orientation == 7:
+                        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+
+            image_unscaled = image
+            if scale_factor and scale_factor < 1:
+                image = _crop_image(image, scale_factor)
+            elif scale_factor and scale_factor > 1:
+                image = _fill_missing_pixels(image, scale_factor)
+
+            image_stream = StringIO()
+            image_unscaled_stream = StringIO()
+            image.save(image_stream, 'JPEG', quality=95)
+            image_unscaled.save(image_unscaled_stream, 'JPEG', quality=95)
+
+            new_rephoto = Photo(
+                image_unscaled=InMemoryUploadedFile(
+                    image_unscaled_stream, None, rephoto.name, 'image/jpeg',
+                    image_unscaled_stream.len, None
+                ),
+                image=InMemoryUploadedFile(
+                    image_stream, None, rephoto.name, 'image/jpeg',
+                    image_stream.len, None
+                ),
+                rephoto_of=original_photo,
+                lat=latitude,
+                lon=longitude,
+                date=date,
+                geography=geography,
+                gps_accuracy=coordinate_accuracy,
+                gps_fix_age=coordinates_age,
+                cam_scale_factor=scale_factor,
+                cam_yaw=device_yaw,
+                cam_pitch=device_pitch,
+                cam_roll=device_roll,
+                flip=is_rephoto_flipped,
+                licence=licence,
+                user=user_profile,
+            )
+            new_rephoto.save()
+
+            original_photo.latest_rephoto = new_rephoto.created
+            if not original_photo.first_rephoto:
+                original_photo.first_rephoto = new_rephoto.created
+            original_photo.save()
+            user_profile.update_rephoto_score()
+            user_profile.save()
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': new_rephoto.pk,
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+            })
 
 
 @api_view(['POST'])
@@ -540,7 +569,7 @@ def api_user_me(request):
         'error': 0,
         'state': str(int(round(time.time() * 1000)))
     }
-    form = ApiUserMeForm(request.data)
+    form = forms.ApiUserMeForm(request.data)
     if form.is_valid():
         content['name'] = profile.get_display_name()
         content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
@@ -557,41 +586,291 @@ def api_user_me(request):
     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_photo_state(request):
-    form = ApiPhotoStateForm(request.data)
-    profile = request.user.profile
-    if form.is_valid():
-        p = form.cleaned_data['id']
-        # FIXME: DRY
-        date = None
-        if p.date:
-            iso = p.date.isoformat()
-            date_parts = iso.split('T')[0].split('-')
-            date = date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]
-        elif p.date_text:
-            date = p.date_text
-        content = {
-            'id': p.id,
-            'image': request.build_absolute_uri(reverse('project.ajapaik.views.image_thumb', args=(p.id,))) + '[DIM]/',
-            'width': p.width,
-            'height': p.height,
-            'title': p.description,
-            'date': date,
-            'author': p.author,
-            'source': {'name': p.source.description + ' ' + p.source_key, 'url': p.source_url},
-            'latitude': p.lat,
-            'longitude': p.lon,
-            'rephotos': p.rephotos.count(),
-            'uploads': p.rephotos.filter(user=profile).count(),
-            'error': 0
-        }
-    else:
-        content = {
-            'error': 2
-        }
+class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve photo details.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoStateForm(request.data)
+        if form.is_valid():
+            user_profile = request.user.profile
+            photo = Photo.objects.filter(
+                pk=form.cleaned_data['id'],
+                rephoto_of__isnull=True
+            )
+            if photo:
+                photo = serializers.PhotoSerializer.annotate_photos(
+                    photo,
+                    request.user.profile
+                ).first()
+                response_data = {'error': RESPONSE_STATUSES['OK']}
+                response_data.update(
+                    serializers.PhotoSerializer(
+                        instance=photo, context={'request': request}
+                    ).data
+                )
+                return Response(response_data)
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+                })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+            })
 
-    return Response(content)
+
+class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to un/like photos by user.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiToggleFavoritePhotoForm(request.data)
+        if form.is_valid():
+            photo = form.cleaned_data['id']
+            is_favorited = form.cleaned_data['favorited']
+            user_profile = request.user.profile
+
+            if is_favorited:
+                try:
+                    # User already have this photo in favorites.
+                    # Nothing to do here.
+                    PhotoLike.objects.get(photo=photo, profile=user_profile)
+                except PhotoLike.DoesNotExist:
+                    # User haven't this photo in favorites.
+                    # Creating like.
+                    photo_like = PhotoLike.objects.create(
+                        photo=photo, profile=user_profile
+                    )
+                    photo_like.save()
+            else:
+                try:
+                    # User already have this photo in favorites.
+                    # Removing it.
+                    photo_like = PhotoLike.objects.get(
+                        photo=photo, profile=user_profile
+                    )
+                    photo_like.delete()
+                except PhotoLike.DoesNotExist:
+                    # User haven't this photo in favorites.
+                    # Nothing to do here.
+                    pass
+            return Response({'error': RESPONSE_STATUSES['OK']})
+        else:
+            return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
+
+
+class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve user liked photos sorted by distance to specified
+    location.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiFavoritedPhotosForm(request.data)
+        if form.is_valid():
+            user_profile = request.get_user().profile
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
+            requested_location = GEOSGeometry(
+                'POINT({} {})'.format(longitude, latitude),
+                srid=4326
+            )
+            photos = Photo.objects.filter(likes__profile=user_profile) \
+                .distance(requested_location) \
+                .order_by('distance')
+            photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
+                photos,
+                request.user.profile
+            )
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoWithDistanceSerializer(
+                    instance=photos, many=True, context={'request': request}
+                ).data,
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': [],
+            })
+
+
+class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for photos by given phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            rephotos_only = form.cleaned_data['rephotosOnly']
+
+            search_results = forms.HaystackPhotoSearchForm({
+                'q': search_phrase
+            }).search()
+
+            photos = Photo.objects.filter(
+                id__in=[item.pk for item in search_results],
+            )
+            if rephotos_only:
+                photos = photos.filter(
+                    rephoto_of__isnull=False
+                )
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                request.user.profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for photos in album by given phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiPhotoInAlbumSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            album = form.cleaned_data['albumId']
+            rephotos_only = form.cleaned_data['rephotosOnly']
+
+            search_results = forms.HaystackPhotoSearchForm({
+                'q': search_phrase
+            }).search()
+
+            # "rephoto_of__albums=album" added bacause to rephoto not setted
+            # albums of original photo.
+            photos = Photo.objects.filter(
+                Q(id__in=[item.pk for item in search_results])
+                & (Q(albums=album) | Q(rephoto_of__albums=album))
+            )
+            if rephotos_only:
+                photos = photos.filter(
+                    rephoto_of__isnull=False
+                )
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                request.user.profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for rephotos done by user by given search phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiUserRephotoSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            user_profile = request.user.profile
+
+            search_results = forms.HaystackPhotoSearchForm({
+                'q': search_phrase
+            }).search()
+
+            photos = Photo.objects.filter(
+                id__in=[item.pk for item in search_results],
+                rephoto_of__isnull=False,
+                user=user_profile
+            )
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                user_profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for albums by given search phrase.
+    '''
+    def post(self, request, format=None):
+        form = forms.ApiAlbumSearchForm(request.data)
+        if form.is_valid():
+            search_phrase = form.cleaned_data['query']
+            user_profile = request.user.profile
+
+            search_results = forms.HaystackAlbumSearchForm({
+                'q': search_phrase
+            }).search()
+
+            albums = Album.objects.filter(
+                id__in=[item.pk for item in search_results]
+            )
+            albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'albums': serializers.AlbumDetailsSerializer(
+                    instance=albums,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'albums': []
+            })
+
+
+class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint for getting photos that contains rephotos done by current user.
+    '''
+    def post(self, request, format=None):
+        user_profile = request.user.profile
+
+        photos = Photo.objects.filter(rephotos__user=user_profile)
+        photos = serializers.PhotoSerializer.annotate_photos(
+            photos,
+            user_profile
+        )
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'photos': serializers.PhotoSerializer(
+                instance=photos,
+                many=True,
+                context={'request': request}
+            ).data
+        })

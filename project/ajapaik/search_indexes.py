@@ -23,7 +23,7 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
         return Photo
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(rephoto_of__isnull=True)
+        return self.get_model().objects.all()
 
 
 class AlbumIndex(indexes.SearchIndex, indexes.Indexable):
