@@ -158,6 +158,7 @@ class RephotoSerializer(serializers.ModelSerializer):
 
 class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    title = serializers.CharField(source='description')
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
     longitude = serializers.FloatField(source='lon')
