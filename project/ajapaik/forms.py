@@ -16,7 +16,7 @@ class APILoginAuthForm(forms.Form):
     type = forms.CharField(max_length=255)
     username = forms.CharField(max_length=255)
     # For Google+ oAuth
-    password = forms.CharField(max_length=1105)
+    password = forms.CharField(max_length=2048)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
