@@ -12,7 +12,8 @@ import requests
 from PIL import Image, ExifTags
 from dateutil import parser
 from allauth.socialaccount.models import SocialAccount
-from django.contrib.auth import authenticate, login
+from allauth.account.adapter import get_adapter
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
@@ -279,7 +280,7 @@ class Login(CustomParsersMixin, APIView):
             return
         return user
 
-    def _authenticate_with_google(self, email):
+    def _authenticate_with_google(self, user_id):
         '''
         Returns user by google account ID.
         '''
@@ -349,7 +350,7 @@ class Login(CustomParsersMixin, APIView):
                     'expires': None,
                 })
 
-            login(request, user)
+            get_adapter(request).login(request, user)
             if not request.session.session_key:
                 request.session.save()
 
