@@ -11,12 +11,13 @@ import requests
 
 from PIL import Image, ExifTags
 from dateutil import parser
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q, Case, When, Value, BooleanField, \
@@ -269,7 +270,7 @@ class Login(CustomParsersMixin, APIView):
 
     def _authenticate_by_email(self, email, password):
         '''
-        Login user with email and password.
+        Authenticate user with email and password.
         '''
         user = authenticate(email=email, password=password)
         if user is not None and not user.is_active:
@@ -280,15 +281,39 @@ class Login(CustomParsersMixin, APIView):
 
     def _authenticate_with_google(self, email):
         '''
-        Login user with google account.
+        Returns user by google account ID.
         '''
-        return
+        try:
+            return SocialAccount.objects.get(
+                provider='google',
+                uid=user_id
+            ).user
+        except MultipleObjectsReturned:
+            log.warning('Multiple social accounts returned while trying to '
+                        'login with google user id. It shouldn\'t happen. '
+                        'Provider and social id must be unique togeser. '
+                        'Check social account with ID: %d', user_id)
+            return
+        except ObjectDoesNotExist:
+            return
 
     def _authenticate_with_facebook(self, user_id):
         '''
-        Login user with facebook user ID.
+        Returns user by facebook user ID.
         '''
-        return
+        try:
+            return SocialAccount.objects.get(
+                provider='facebook',
+                uid=user_id
+            ).user
+        except MultipleObjectsReturned:
+            log.warning('Multiple social accounts returned while trying to '
+                        'login with facebook user id. It shouldn\'t happen. '
+                        'Provider and social id must be unique togeser. '
+                        'Check social account with ID: %d', user_id)
+            return
+        except ObjectDoesNotExist:
+            return
 
     def post(self, request, format=None):
         form = forms.APILoginForm(request.data)
@@ -312,8 +337,28 @@ class Login(CustomParsersMixin, APIView):
                 facebook_user_id = form.cleaned_data['username']
                 user = self._authenticate_with_facebook(facebook_user_id)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
+                # Deprecated. Keeped for back compatibility.
                 user = None
-            return Response({})
+
+            if user is None:
+                # We can't authenticate user with provided login/password pair.
+                return Response({
+                    'error': RESPONSE_STATUSES['MISSING_USER'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
+
+            login(request, user)
+            if not request.session.session_key:
+                request.session.save()
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': user.id,
+                'session': request.session.session_key,
+                'expires': request.session.get_expiry_age(),
+            })
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
