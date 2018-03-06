@@ -43,6 +43,34 @@ class APILoginForm(forms.Form):
     )
 
 
+class APIRegisterForm(forms.Form):
+    REGISTRATION_TYPE_AJAPAIK = 'ajapaik'
+    REGISTRATION_TYPE_GOOGLE = 'google'
+    REGISTRATION_TYPE_FACEBOOK = 'facebook'
+    REGISTRATION_TYPES = [
+        (REGISTRATION_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (REGISTRATION_TYPE_GOOGLE, 'Google'),  # Google login.
+        (REGISTRATION_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
+
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
+
+    type = forms.ChoiceField(choices=REGISTRATION_TYPES)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=1105)
+    firstname = forms.CharField(max_length=255)
+    lastname = forms.CharField(max_length=255)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.ChoiceField(
+        required=False,
+        choices=OS_TYPES,
+        initial=OS_TYPE_ANDROID
+    )
+
+
 class APIAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()

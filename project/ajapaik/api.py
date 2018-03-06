@@ -254,17 +254,9 @@ def login_auth(request, auth_type='login'):
     return content
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@permission_classes((AllowAny,))
-def api_login(request):
-    content = login_auth(request)
-    return Response(content)
-
-
 class Login(CustomParsersMixin, APIView):
     '''
-    API endpoint to login user. Returns
+    API endpoint to login user.
     '''
 
     permission_classes = (AllowAny,)
@@ -369,13 +361,37 @@ class Login(CustomParsersMixin, APIView):
             })
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
-def api_register(request):
-    content = user = login_auth(request, 'register')
-    return Response(content)
+class Register(CustomParsersMixin, APIView):
+    '''
+    API endpoint to register user.
+    '''
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        form = forms.APIRegisterForm(request.data)
+        if form.is_valid():
+            registration_type = form.cleaned_data['type']
+            if registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_AJAPAIK:
+                pass
+            elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_GOOGLE:
+                pass
+            elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_FACEBOOK:
+                pass
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
+
 
 
 @api_view(['POST'])

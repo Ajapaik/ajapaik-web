@@ -100,7 +100,7 @@ urlpatterns = patterns('project.ajapaik.views',
 
 urlpatterns += patterns('project.ajapaik.api',
     url(r'^api/v1/login/$', api.Login.as_view()),
-    url(r'^api/v1/register/$', 'api_register', name='api_register'),
+    url(r'^api/v1/register/$', api.Register.as_view(), name='api_register'),
     url(r'^api/v1/logout/$', 'api_logout'),
     url(r'^api/v1/user/me/$', 'api_user_me'),
     url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
