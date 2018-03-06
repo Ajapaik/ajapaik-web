@@ -107,7 +107,7 @@ class CustomParsersMixin(object):
 
 @parser_classes((FormParser,))
 def login_auth(request, auth_type='login'):
-    form = forms.APILoginAuthForm(request.data)
+    form = forms.APILoginForm(request.data)
     content = {
         'error': 0,
         'session': None,
@@ -258,6 +258,69 @@ def login_auth(request, auth_type='login'):
 def api_login(request):
     content = login_auth(request)
     return Response(content)
+
+
+class Login(CustomParsersMixin, APIView):
+    '''
+    API endpoint to login user. Returns
+    '''
+
+    permission_classes = (AllowAny,)
+
+    def _authenticate_by_email(self, email, password):
+        '''
+        Login user with email and password.
+        '''
+        user = authenticate(email=email, password=password)
+        if user is not None and not user.is_active:
+            # We found user but this user is disabled. "authenticate" does't
+            # checking is user is disabled(at least in Django 1.8).
+            return
+        return user
+
+    def _authenticate_with_google(self, email):
+        '''
+        Login user with google account.
+        '''
+        return
+
+    def _authenticate_with_facebook(self, user_id):
+        '''
+        Login user with facebook user ID.
+        '''
+        return
+
+    def post(self, request, format=None):
+        form = forms.APILoginForm(request.data)
+        if form.is_valid():
+            login_type = form.cleaned_data['type']
+            if login_type == forms.APILoginForm.LOGIN_TYPE_AJAPAIK:
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                if password is None:
+                    return Response({
+                        'error': RESPONSE_STATUSES['MISSING_PARAMETERS'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                user = self._authenticate_by_email(email, password)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
+                email = form.cleaned_data['username']
+                user = self._authenticate_with_google(email)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
+                facebook_user_id = form.cleaned_data['username']
+                user = self._authenticate_with_facebook(facebook_user_id)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
+                user = None
+            return Response({})
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
 
 
 @api_view(['POST'])

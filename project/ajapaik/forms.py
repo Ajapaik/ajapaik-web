@@ -7,38 +7,40 @@ from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
-from allauth.account.forms import SignupForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
     Video, Licence
 
 
-class SignupForm(SignupForm):
-    '''
-    The meaning of existing of this form is to provide old behavior.
-    username == e-mail
-    '''
-    def __init__(self, *args, **kwargs):
-        super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget = forms.HiddenInput()
-        self.fields['email'] = forms.EmailField()
+class APILoginForm(forms.Form):
+    LOGIN_TYPE_AUTO = 'auto'
+    LOGIN_TYPE_AJAPAIK = 'ajapaik'
+    LOGIN_TYPE_GOOGLE = 'google'
+    LOGIN_TYPE_FACEBOOK = 'facebook'
+    LOGIN_TYPES = [
+        (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
+                                    # This depricated behaviour before
+                                    # django-allauth integration.
+        (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
+        (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
 
-    def clean_email(self):
-        email = super(SignupForm, self).clean_email()
-        self.cleaned_data['username'] = self.cleaned_data['email']
-        return email
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
 
-
-class APILoginAuthForm(forms.Form):
-    type = forms.CharField(max_length=255)
+    type = forms.ChoiceField(choices=LOGIN_TYPES)
     username = forms.CharField(max_length=255)
-    # For Google+ oAuth
-    password = forms.CharField(max_length=1105)
+    password = forms.CharField(max_length=1105, required=False)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
-    os = forms.CharField(max_length=255, required=False, initial='android')
-    firstname = forms.CharField(max_length=255, required=False)
-    lastname = forms.CharField(max_length=255, required=False)
+    os = forms.ChoiceField(
+        choices=OS_TYPES,
+        required=False,
+        initial=OS_TYPE_ANDROID
+    )
 
 
 class APIAuthForm(forms.Form):
