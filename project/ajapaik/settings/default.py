@@ -323,7 +323,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'oauth2',
         'SCOPE': [
             'email',
-            'publish_stream',
+            'public_profile',
+            'user_friends',
         ],
     },
     'google': {
