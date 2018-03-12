@@ -330,12 +330,15 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to get albums that: public and not empty, or albums that
     overseeing by current user(can be empty).
     '''
+
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         # Public and not empty condition.
         albums_condition = Q(is_public=True, photos__isnull=False)
 
         # Overseening by current users condition.
-        if request.user.is_authenticated():
+        if request.user is not None and request.user.is_authenticated():
             user_profile = request.user.profile
             albums_condition = albums_condition | Q(profile=user_profile,
                                                     atype=Album.CURATED)
@@ -358,6 +361,9 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     API endpoint to retrieve album photos(if album is specified else just
     photos) in specified radius.
     '''
+
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
@@ -403,7 +409,7 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
-                    request.user.profile
+                    request.user and request.user.profile
                 )
 
                 return Response({
@@ -425,6 +431,9 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
+
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiAlbumStateForm(request.data)
         if form.is_valid():
@@ -616,7 +625,6 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     def post(self, request, format=None):
         form = forms.ApiPhotoStateForm(request.data)
         if form.is_valid():
-            user_profile = request.user.profile
             photo = Photo.objects.filter(
                 pk=form.cleaned_data['id'],
                 rephoto_of__isnull=True
@@ -624,7 +632,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             if photo:
                 photo = serializers.PhotoSerializer.annotate_photos(
                     photo,
-                    request.user.profile
+                    request.user and request.user.profile
                 ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
@@ -703,7 +711,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
                 .order_by('distance')
             photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
@@ -741,7 +749,7 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 )
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
 
             return Response({
@@ -786,7 +794,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 )
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
 
             return Response({

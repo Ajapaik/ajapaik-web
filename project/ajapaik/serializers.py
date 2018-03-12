@@ -1,13 +1,13 @@
 import logging
 
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Q, Case, When, Value, BooleanField, \
-    IntegerField
+from django.db.models import (BooleanField, Case, Count, IntegerField, Q,
+                              Value, When)
 from rest_framework import serializers
 
-from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 from project.utils import calculate_thumbnail_size
 
+from .models import Album, Dating, Photo, Video, _get_pseudo_slug_for_photo
 
 log = logging.getLogger(__name__)
 
@@ -29,7 +29,9 @@ class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
 class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'name', 'description', 'open', 'is_public', 'subalbum_of')
+        fields = (
+            'id', 'name', 'description', 'open', 'is_public', 'subalbum_of'
+        )
 
 
 class FrontpageAlbumSerializer(serializers.ModelSerializer):
@@ -38,9 +40,13 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
-                  'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
-                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album')
+        fields = (
+            'id', 'name', 'cover_photo_height', 'cover_photo_width',
+            'cover_photo_flipped', 'photo_count_with_subalbums', 'cover_photo',
+            'geotagged_photo_count_with_subalbums',
+            'comments_count_with_subalbums', 'rephoto_count_with_subalbums',
+            'is_film_still_album'
+        )
 
 
 class DatingSerializer(serializers.ModelSerializer):
@@ -50,7 +56,10 @@ class DatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dating
-        fields = ('id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
+        fields = (
+            'id', 'comment', 'full_name', 'confirmation_count', 'raw',
+            'this_user_has_confirmed'
+        )
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -145,8 +154,10 @@ class RephotoSerializer(serializers.ModelSerializer):
             }
 
     def get_is_uploaded_by_current_user(self, instance):
-        user_profile = self.context['request'].user.profile
-        return instance.user == user_profile
+        user = self.context['request'].user
+        if user is None:
+            return False
+        return instance.user == user.profile
 
     class Meta:
         model = Photo
@@ -164,35 +175,30 @@ class PhotoSerializer(serializers.ModelSerializer):
     longitude = serializers.FloatField(source='lon')
     latitude = serializers.FloatField(source='lat')
     rephotos = serializers.SerializerMethodField()
-    favorited = serializers.BooleanField()
+    favorited = serializers.SerializerMethodField()
 
     @classmethod
-    def annotate_photos(cls, photos_queryset, user_profile):
+    def annotate_photos(cls, photos_queryset, user_profile=None):
         '''
         Helper function to annotate photo with special fields required by this
         serializer.
-        Adds "rephotos_count", "uploads_count", "favorited". Field "likes_count"
-        added to determine is photo liked(favorited) by user.
+        Field "likes_count" is technical it added to determine is photo
+        liked(favorited).
         '''
         # There is bug in Django about irrelevant selection returned when
         # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
         # So if faced some incorect data check what have been assigned to
         # "instance" variable.
-        return photos_queryset \
+        photos_queryset = photos_queryset \
             .prefetch_related('source') \
-            .prefetch_related('rephotos') \
-            .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(uploads_count=Count(
-                Case(
-                    When(rephotos__user=user_profile, then=1),
-                    output_field=IntegerField()
-                )
-            )) \
-            .annotate(likes_count=Count('likes')) \
-            .annotate(favorited=Case(
-                When(likes_count__gt=0, then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()))
+            .prefetch_related('rephotos')
+        if user_profile is not None:
+            photos_queryset = photos_queryset \
+                .annotate(favorited=Case(
+                    When(likes__user=user_profile, then=Value(True)),
+                    default=Value(False),
+                    output_field=BooleanField()))
+        return photos_queryset
 
     def get_image(self, instance):
         request = self.context['request']
@@ -225,6 +231,9 @@ class PhotoSerializer(serializers.ModelSerializer):
             context={'request': self.context['request']},
         ).data
 
+    def get_favorited(self, instance):
+        return getattr(instance, 'favorited', False)
+
     class Meta:
         model = Photo
         fields = (
@@ -253,7 +262,7 @@ class AlbumSerializer(serializers.ModelSerializer):
         request = self.context['request']
         photos = PhotoSerializer.annotate_photos(
             self.context['photos'],
-            request.user.profile
+            request.user and request.user.profile
         )
         return PhotoSerializer(
             instance=photos,
