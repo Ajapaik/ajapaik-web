@@ -1,53 +1,54 @@
 # coding=utf-8
 import datetime
+import logging
 import time
 import urllib2
-import logging
-from StringIO import StringIO
 from json import loads
+from StringIO import StringIO
 
 import pytz
 import requests
-
-from PIL import Image, ExifTags
-from dateutil import parser
-from allauth.socialaccount.models import SocialAccount
+from allauth.account import app_settings as account_app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.forms import SignupForm
+from allauth.account.models import EmailAddress
+from allauth.account.utils import complete_signup
+from allauth.socialaccount.models import SocialAccount
+from dateutil import parser
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.gis.geos import Point, GEOSGeometry
+from django.contrib.gis.geos import GEOSGeometry, Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Q, Case, When, Value, BooleanField, \
-    IntegerField
+from django.db import IntegrityError
+from django.db.models import (BooleanField, Case, Count, IntegerField, Q,
+                              Value, When)
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from oauth2client import client, crypt
-from rest_framework import generics
-from rest_framework import authentication, exceptions
-from rest_framework.decorators import api_view, permission_classes, \
-    authentication_classes, parser_classes
+from PIL import ExifTags, Image
+from rest_framework import authentication, exceptions, generics
+from rest_framework.decorators import (api_view, authentication_classes,
+                                       parser_classes, permission_classes)
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik import forms
-from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
-from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
-    API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
-    FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
-from project.ajapaik import serializers
-
+from project.ajapaik import forms, serializers
+from project.ajapaik.models import Album, Licence, Photo, PhotoLike, Profile
+from project.ajapaik.settings import (API_DEFAULT_NEARBY_MAX_PHOTOS,
+                                      API_DEFAULT_NEARBY_PHOTOS_RANGE,
+                                      FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
+                                      GOOGLE_CLIENT_ID, MEDIA_ROOT, TIME_ZONE)
 
 log = logging.getLogger(__name__)
-
 
 # Response statuses
 RESPONSE_STATUSES = {
@@ -105,153 +106,6 @@ class CustomAuthenticationMixin(object):
 
 class CustomParsersMixin(object):
     parser_classes = (FormParser, MultiPartParser,)
-
-
-@parser_classes((FormParser,))
-def login_auth(request, auth_type='login'):
-    form = forms.APILoginForm(request.data)
-    content = {
-        'error': 0,
-        'session': None,
-        'expires': 86400
-    }
-    user = None
-
-    if form.is_valid():
-        t = form.cleaned_data['type']
-        uname = form.cleaned_data['username']
-        if t == 'ajapaik' or t == 'auto':
-            # Why do not using some validators?
-            uname = uname[:30]
-        pw = form.cleaned_data['password']
-
-        if t == 'ajapaik':
-            num_same_users = User.objects.filter(username=uname).count()
-            if auth_type == 'register':
-                if num_same_users > 0:
-                    # user exists in the DB already
-                    content['error'] = 8
-                    return content
-                User.objects.create_user(username=uname, password=pw)
-            elif num_same_users == 0:
-                # user does not exists
-                content['error'] = 10
-                return content
-
-            user = authenticate(username=uname, password=pw)
-            if user:
-                # For register
-                profile = user.profile
-            elif auth_type == 'login':
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
-
-        elif t == 'auto':
-            num_same_users = User.objects.filter(username=uname).count()
-            if num_same_users == 0:
-                User.objects.create_user(username=uname, password=pw)
-
-            user = authenticate(username=uname, password=pw)
-            if user:
-                profile = user.profile
-                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
-                    user.first_name = form.cleaned_data['firstname']
-                    user.last_name = form.cleaned_data['lastname']
-                    user.save()
-                profile.merge_from_other(request.get_user().profile)
-            else:
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
-
-        elif t == 'google':
-            # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
-
-            try:
-                idinfo = client.verify_id_token(pw, GOOGLE_CLIENT_ID)
-
-                if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-                    raise crypt.AppIdentityError("Wrong issuer.")
-
-            except crypt.AppIdentityError:
-                content['error'] = 11
-                return content
-
-            profile = Profile.objects.filter(google_plus_email=uname).first()
-            if profile:
-                request_profile = request.get_user().profile
-                if request.user and request.user.is_authenticated():
-                    profile.merge_from_other(request_profile)
-
-                user = profile.user
-                request.set_user(user)
-            else:
-                user = request.get_user()
-                profile = user.profile
-
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            # headers = {'Authorization': 'Bearer ' + pw}
-            # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-            idinfo['id'] = idinfo['sub']
-            profile.update_from_google_plus_data(pw, idinfo)
-
-        elif t == 'fb':
-            # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-                pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
-            parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
-                    'is_valid'):
-                fb_user_id = parsed_reponse['data']['user_id']
-                profile = Profile.objects.filter(fb_id=fb_user_id).first()
-                if profile:
-                    request_profile = request.get_user().profile
-                    if request.user and request.user.is_authenticated():
-                        profile.merge_from_other(request_profile)
-
-                    user = profile.user
-                    request.set_user(user)
-                else:
-                    user = request.get_user()
-                    profile = user.profile
-
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
-                    ','.join(fb_permissions), pw)
-                user_info = requests.get(fb_get_info_url)
-                profile.update_from_fb_data(pw, loads(user_info.text))
-
-            else:
-                content['error'] = 11
-                return content
-
-        if not user and t == 'auto':
-            User.objects.create_user(username=uname, password=pw)
-            user = authenticate(username=uname, password=pw)
-
-        if auth_type == 'register' and request.user:
-            profile.merge_from_other(request.user.profile)
-            if t == 'google':
-                profile.update_from_google_plus_data(parsed_reponse)
-            elif t == 'facebook':
-                profile.update_from_fb_data(parsed_reponse['data'])
-    else:
-        content['error'] = 2
-        return content
-
-    if user:
-        login(request, user)
-        content['id'] = user.id
-
-        if not request.session.session_key:
-            request.session.save()
-        content['session'] = request.session.session_key
-    else:
-        content['error'] = 4
-
-    return content
 
 
 class Login(CustomParsersMixin, APIView):
@@ -373,17 +227,55 @@ class Register(CustomParsersMixin, APIView):
         if form.is_valid():
             registration_type = form.cleaned_data['type']
             if registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_AJAPAIK:
-                pass
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                firstname = form.cleaned_data['firstname']
+                lastname = form.cleaned_data['lastname']
+
+                account_signup_form = SignupForm(data={
+                    'email': email,
+                    'password1': password,
+                    'password2': password,
+                })
+                if not account_signup_form.is_valid():
+                    return Response({
+                        'error': RESPONSE_STATUSES['UNKNOWN_ERROR'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                new_user = account_signup_form.save(request._request)
+
+                new_user.first_name = firstname
+                new_user.last_name = lastname
+                new_user.save()
+
+                complete_signup(
+                    request._request,
+                    new_user,
+                    account_app_settings.EMAIL_VERIFICATION,
+                    None
+                )
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'id': new_user.id,
+                    'session': None,
+                    'expires': None,
+                })
             elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_GOOGLE:
-                pass
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
             elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_FACEBOOK:
-                pass
-            return Response({
-                'error': RESPONSE_STATUSES['OK'],
-                'id': None,
-                'session': None,
-                'expires': None,
-            })
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
