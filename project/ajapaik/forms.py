@@ -334,13 +334,16 @@ class ApiPhotoUploadForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     accuracy = forms.FloatField(min_value=0, required=False)
     age = forms.FloatField(min_value=0, required=False)
-    date = forms.CharField(max_length=30)
+
+    # We expecting here a date but in model we have datetime field. So to do
+    # less work we define here DateTimeField.
+    date = forms.DateTimeField(input_formats=['%d-%m-%Y'])
     scale = forms.FloatField()
     yaw = forms.FloatField()
     pitch = forms.FloatField()
     roll = forms.FloatField()
+    flip = forms.BooleanField(required=False)
     original = forms.FileField()
-    flip = forms.IntegerField(min_value=0, max_value=1)
 
 
 class ApiPhotoStateForm(forms.Form):
