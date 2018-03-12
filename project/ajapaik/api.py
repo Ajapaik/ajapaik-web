@@ -330,10 +330,16 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     overseeing by current user(can be empty).
     '''
     def post(self, request, format=None):
-        albums = Album.objects.filter(
-            Q(is_public=True, photos__isnull=False)
-            | Q(profile=request.get_user().profile, atype=Album.CURATED)
-        ).order_by('-created')
+        # Public and not empty condition.
+        albums_condition = Q(is_public=True, photos__isnull=False)
+
+        # Overseening by current users condition.
+        if request.user.is_authenticated():
+            user_profile = request.user.profile
+            albums_condition = albums_condition | Q(profile=user_profile,
+                                                    atype=Album.CURATED)
+
+        albums = Album.objects.filter(albums_condition).order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
@@ -669,7 +675,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
     def post(self, request, format=None):
         form = forms.ApiFavoritedPhotosForm(request.data)
         if form.is_valid():
-            user_profile = request.get_user().profile
+            user_profile = request.user.profile
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
             requested_location = GEOSGeometry(
