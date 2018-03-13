@@ -778,6 +778,8 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
     API endpoint to search for photos in album by given phrase.
     '''
 
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiPhotoInAlbumSearchForm(request.data)
         if form.is_valid():
@@ -864,11 +866,12 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to search for albums by given search phrase.
     '''
 
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiAlbumSearchForm(request.data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-            user_profile = request.user.profile
 
             search_results = forms.HaystackAlbumSearchForm({
                 'q': search_phrase
