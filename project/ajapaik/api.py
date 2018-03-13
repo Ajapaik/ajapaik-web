@@ -347,8 +347,8 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             if album:
                 photos = Photo.objects.filter(
                     Q(albums=album)
-                    | (Q(albums__subalbum_of=album)
-                       & ~Q(albums__atype=Album.AUTO)),
+                        | (Q(albums__subalbum_of=album)
+                           & ~Q(albums__atype=Album.AUTO)),
                     rephoto_of__isnull=True
                 ).filter(
                     lat__isnull=False,
@@ -751,16 +751,16 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 'q': search_phrase
             }).search()
 
-            # "rephoto_of__albums=album" added bacause to rephoto not setted
-            # albums of original photo.
             photos = Photo.objects.filter(
-                Q(id__in=[item.pk for item in search_results])
-                & (Q(albums=album) | Q(rephoto_of__albums=album))
+                id__in=[item.pk for item in search_results],
+                albums=album
             )
             if rephotos_only:
-                photos = photos.filter(
-                    rephoto_of__isnull=False
-                )
+                # Rephotos only.
+                photos = photos.filter(rephoto_of__isnull=False)
+            else:
+                # Old photos only.
+                photos = photos.filter(rephoto_of__isnull=True)
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 request.user.profile
