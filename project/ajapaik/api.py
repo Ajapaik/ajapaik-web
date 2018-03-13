@@ -1,33 +1,25 @@
 # coding=utf-8
-import datetime
+import logging
 import time
 import urllib2
-import logging
 from StringIO import StringIO
 from json import loads
 
-import pytz
 import requests
-
 from PIL import Image, ExifTags
-from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.core.urlresolvers import reverse
-from django.db.models import Count, Q, Case, When, Value, BooleanField, \
-    IntegerField
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from oauth2client import client, crypt
-from rest_framework import generics
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
     authentication_classes, parser_classes
@@ -38,15 +30,13 @@ from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik import forms
+from project.ajapaik import serializers
 from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
     API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
-    FACEBOOK_APP_ID, MEDIA_ROOT, TIME_ZONE
-from project.ajapaik import serializers
-
+    FACEBOOK_APP_ID
 
 log = logging.getLogger(__name__)
-
 
 # Response statuses
 RESPONSE_STATUSES = {
@@ -313,6 +303,7 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to get albums that: public and not empty, or albums that
     overseeing by current user(can be empty).
     '''
+
     def post(self, request, format=None):
         albums = Album.objects.filter(
             Q(is_public=True, photos__isnull=False)
@@ -335,6 +326,7 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     API endpoint to retrieve album photos(if album is specified else just
     photos) in specified radius.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
@@ -355,8 +347,8 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     lon__isnull=False,
                     geography__distance_lte=(ref_location, D(m=nearby_range))
                 ) \
-                    .distance(ref_location) \
-                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                             .distance(ref_location) \
+                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
@@ -375,8 +367,8 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     rephoto_of__isnull=True,
                     geography__distance_lte=(ref_location, D(m=nearby_range))
                 ) \
-                    .distance(ref_location) \
-                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                             .distance(ref_location) \
+                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
@@ -402,6 +394,7 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiAlbumStateForm(request.data)
         if form.is_valid():
@@ -454,6 +447,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to upload rephoto for a photo.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoUploadForm(request.data, request.FILES)
         if form.is_valid():
@@ -590,6 +584,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve photo details.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoStateForm(request.data)
         if form.is_valid():
@@ -624,6 +619,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
     '''
     API endpoint to un/like photos by user.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiToggleFavoritePhotoForm(request.data)
         if form.is_valid():
@@ -665,6 +661,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
     API endpoint to retrieve user liked photos sorted by distance to specified
     location.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiFavoritedPhotosForm(request.data)
         if form.is_valid():
@@ -699,6 +696,7 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for photos by given phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoSearchForm(request.data)
         if form.is_valid():
@@ -740,6 +738,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
     '''
     API endpoint to search for photos in album by given phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoInAlbumSearchForm(request.data)
         if form.is_valid():
@@ -785,6 +784,7 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     '''
     API endpoint to search for rephotos done by user by given search phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiUserRephotoSearchForm(request.data)
         if form.is_valid():
@@ -824,6 +824,7 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for albums by given search phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiAlbumSearchForm(request.data)
         if form.is_valid():
@@ -858,6 +859,7 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
     '''
     API endpoint for getting photos that contains rephotos done by current user.
     '''
+
     def post(self, request, format=None):
         user_profile = request.user.profile
 

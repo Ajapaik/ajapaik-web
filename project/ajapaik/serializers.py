@@ -190,7 +190,7 @@ class PhotoSerializer(serializers.ModelSerializer):
             )) \
             .annotate(likes_count=Count('likes')) \
             .annotate(favorited=Case(
-                When(likes_count__gt=0, then=Value(True)),
+                When(likes__user=user_profile, then=Value(True)),
                 default=Value(False),
                 output_field=BooleanField()))
 
