@@ -468,9 +468,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             geography = None
             if latitude and longitude:
                 geography = Point(x=longitude, y=latitude, srid=4326)
-            licence = Licence.objects.filter(
-                url='https://creativecommons.org/licenses/by/2.0/'
-            ).first()
+            licence = Licence.objects.get(id=17)  # CC BY 4.0
 
             image = Image.open(rephoto.file)
 
