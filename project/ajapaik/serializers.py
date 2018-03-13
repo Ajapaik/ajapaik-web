@@ -182,17 +182,17 @@ class PhotoSerializer(serializers.ModelSerializer):
         '''
         Helper function to annotate photo with special fields required by this
         serializer.
-        Field "likes_count" is technical it added to determine is photo
-        liked(favorited).
         '''
         # There is bug in Django about irrelevant selection returned when
-        # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
+        # annotating on multiple tables. Check next link for more details:
+        # https://code.djangoproject.com/ticket/10060
         # So if faced some incorect data check what have been assigned to
-        # "instance" variable.
+        # "photos_queryset" variable.
         photos_queryset = photos_queryset \
             .prefetch_related('source') \
             .prefetch_related('rephotos')
         if user_profile is not None:
+            # Determine is photo like by current user.
             photos_queryset = photos_queryset \
                 .annotate(favorited=Case(
                     When(likes__user=user_profile, then=Value(True)),

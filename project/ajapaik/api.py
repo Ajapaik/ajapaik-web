@@ -6,7 +6,6 @@ import urllib2
 from json import loads
 from StringIO import StringIO
 
-import pytz
 import requests
 from allauth.account import app_settings as account_app_settings
 from allauth.account.adapter import get_adapter
@@ -374,16 +373,17 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 round(form.cleaned_data["latitude"], 4)
             )
             if album:
-                photos = Photo.objects.filter(
-                    Q(albums=album)
-                    | (Q(albums__subalbum_of=album)
-                       & ~Q(albums__atype=Album.AUTO)),
-                    rephoto_of__isnull=True
-                ).filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
+                photos = Photo.objects \
+                    .filter(
+                        Q(albums=album)
+                            | (Q(albums__subalbum_of=album)
+                            & ~Q(albums__atype=Album.AUTO)),
+                        rephoto_of__isnull=True
+                    ).filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
                     .distance(ref_location) \
                     .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
@@ -398,12 +398,13 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     ).data
                 })
             else:
-                photos = Photo.objects.filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    rephoto_of__isnull=True,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
+                photos = Photo.objects \
+                    .filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        rephoto_of__isnull=True,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
                     .distance(ref_location) \
                     .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
@@ -486,6 +487,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to upload rephoto for a photo.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoUploadForm(request.data, request.FILES)
         if form.is_valid():
@@ -622,6 +624,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve photo details.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoStateForm(request.data)
         if form.is_valid():
@@ -655,6 +658,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
     '''
     API endpoint to un/like photos by user.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiToggleFavoritePhotoForm(request.data)
         if form.is_valid():
@@ -696,6 +700,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
     API endpoint to retrieve user liked photos sorted by distance to specified
     location.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiFavoritedPhotosForm(request.data)
         if form.is_valid():
@@ -730,6 +735,7 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for photos by given phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoSearchForm(request.data)
         if form.is_valid():
@@ -771,6 +777,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
     '''
     API endpoint to search for photos in album by given phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiPhotoInAlbumSearchForm(request.data)
         if form.is_valid():
@@ -782,16 +789,16 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 'q': search_phrase
             }).search()
 
-            # "rephoto_of__albums=album" added bacause to rephoto not setted
-            # albums of original photo.
             photos = Photo.objects.filter(
-                Q(id__in=[item.pk for item in search_results])
-                & (Q(albums=album) | Q(rephoto_of__albums=album))
+                id__in=[item.pk for item in search_results],
+                albums=album
             )
             if rephotos_only:
-                photos = photos.filter(
-                    rephoto_of__isnull=False
-                )
+                # Rephotos only.
+                photos = photos.filter(rephoto_of__isnull=False)
+            else:
+                # Old photos only.
+                photos = photos.filter(rephoto_of__isnull=True)
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 request.user and request.user.profile
@@ -816,6 +823,7 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     '''
     API endpoint to search for rephotos done by user by given search phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiUserRephotoSearchForm(request.data)
         if form.is_valid():
@@ -855,6 +863,7 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for albums by given search phrase.
     '''
+
     def post(self, request, format=None):
         form = forms.ApiAlbumSearchForm(request.data)
         if form.is_valid():
@@ -889,6 +898,7 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
     '''
     API endpoint for getting photos that contains rephotos done by current user.
     '''
+
     def post(self, request, format=None):
         user_profile = request.user.profile
 
