@@ -16,7 +16,7 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_AUTO = 'auto'
     LOGIN_TYPE_AJAPAIK = 'ajapaik'
     LOGIN_TYPE_GOOGLE = 'google'
-    LOGIN_TYPE_FACEBOOK = 'facebook'
+    LOGIN_TYPE_FACEBOOK = 'fb'
     LOGIN_TYPES = [
         (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
                                     # This depricated behaviour before

@@ -194,10 +194,13 @@ class PhotoSerializer(serializers.ModelSerializer):
         if user_profile is not None:
             # Determine is photo like by current user.
             photos_queryset = photos_queryset \
-                .annotate(favorited=Case(
-                    When(likes__user=user_profile, then=Value(True)),
-                    default=Value(False),
-                    output_field=BooleanField()))
+                .annotate(
+                    favorited=Case(
+                        When(likes__profile=user_profile,
+                             then=Value(True)),
+                        default=Value(False),
+                        output_field=BooleanField())
+                )
         return photos_queryset
 
     def get_image(self, instance):
