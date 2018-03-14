@@ -321,6 +321,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
+        'VERSION': 'v2.6',
         'SCOPE': [
             'email',
             'public_profile',
