@@ -12,6 +12,8 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import SignupForm
 from allauth.account.models import EmailAddress
 from allauth.account.utils import complete_signup
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
 from dateutil import parser
 from django.contrib.auth import authenticate
@@ -144,23 +146,23 @@ class Login(CustomParsersMixin, APIView):
         except ObjectDoesNotExist:
             return
 
-    def _authenticate_with_facebook(self, user_id):
+    def _authenticate_with_facebook(self, request, access_token):
         '''
         Returns user by facebook user ID.
         '''
-        try:
-            return SocialAccount.objects.get(
-                provider='facebook',
-                uid=user_id
-            ).user
-        except MultipleObjectsReturned:
-            log.warning('Multiple social accounts returned while trying to '
-                        'login with facebook user id. It shouldn\'t happen. '
-                        'Provider and social id must be unique togeser. '
-                        'Check social account with ID: %d', user_id)
-            return
-        except ObjectDoesNotExist:
-            return
+        adapter = FacebookOAuth2Adapter(request)
+        app = adapter.get_provider().get_app(request)
+        token = adapter.parse_token({'access_token': access_token})
+        token.app = app
+        login = adapter.complete_login(request, app, token)
+        login.token = token
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
     def post(self, request, format=None):
         form = forms.APILoginForm(request.data)
@@ -181,8 +183,8 @@ class Login(CustomParsersMixin, APIView):
                 email = form.cleaned_data['username']
                 user = self._authenticate_with_google(email)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
-                facebook_user_id = form.cleaned_data['username']
-                user = self._authenticate_with_facebook(facebook_user_id)
+                access_token = form.cleaned_data['password']
+                user = self._authenticate_with_facebook(request._request, access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
                 # Deprecated. Keeped for back compatibility.
                 user = None
@@ -196,9 +198,10 @@ class Login(CustomParsersMixin, APIView):
                     'expires': None,
                 })
 
-            get_adapter(request).login(request, user)
-            if not request.session.session_key:
-                request.session.save()
+            if not user.is_authenticated():
+                get_adapter(request).login(request, user)
+                if not request.session.session_key:
+                    request.session.save()
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
