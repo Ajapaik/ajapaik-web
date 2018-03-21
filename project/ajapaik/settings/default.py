@@ -64,9 +64,6 @@ DATABASES = {
     }
 }
 
-FACEBOOK_APP_KEY = ''
-FACEBOOK_APP_SECRET = ''
-
 TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGE_CODE = 'et'
@@ -268,6 +265,29 @@ COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+
+################################################################################
+### Google services configuration
+################################################################################
+GOOGLE_MAPS_API_KEY = ''
+GOOGLE_ANALYTICS_KEY = ''
+
+GOOGLE_PROJECT_ID = ''
+GOOGLE_CLIENT_ID = ''
+GOOGLE_API_KEY = ''
+
+
+################################################################################
+### Facebook configuration
+################################################################################
+FACEBOOK_APP_KEY = ''
+FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_ID = ''
+
+
+################################################################################
+### Logging configuration
+################################################################################
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -302,7 +322,7 @@ LOGGING = {
 
 
 ################################################################################
-### Django-allauth configurations
+### Django-allauth configuration
 ################################################################################
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
