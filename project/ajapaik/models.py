@@ -1005,47 +1005,6 @@ class Profile(Model):
 
         self.save()
 
-    def update_from_google_plus_data(self, token, data):
-        # TODO: Make form
-        if 'given_name' in data:
-            self.user.first_name = data["given_name"]
-        if 'family_name' in data:
-            self.user.last_name = data["family_name"]
-        if 'email' in data:
-            self.user.email = data["email"]
-
-        self.user.save()
-
-        if isinstance(token, OAuth2Credentials):
-            self.google_plus_token = loads(token.to_json())['access_token']
-        else:
-            self.google_plus_token = token
-        self.google_plus_id = data['id']
-        if 'link' in data:
-            self.google_plus_link = data['link']
-        if 'name' in data:
-            self.google_plus_name = data['name']
-            if self.google_plus_name:
-                parts = self.google_plus_name.split(' ')
-                self.first_name = parts[0]
-                if len(parts) > 1:
-                    self.last_name = parts[1]
-        if 'email' in data:
-            self.google_plus_email = data['email']
-        if 'picture' in data:
-            self.google_plus_picture = data['picture']
-
-        self.save()
-
-    def merge_from_other(self, other):
-        other.photos.update(user=self)
-        other.skips.update(user=self)
-        other.geotags.update(user=self)
-        other.points.update(user=self)
-        other.likes.update(profile=self)
-        other.datings.update(profile=self)
-        other.dating_confirmations.update(profile=self)
-
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
             rephoto_of__isnull=False, user_id=self.user.id).values_list('rephoto_of', flat=True)
