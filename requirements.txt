@@ -32,6 +32,7 @@ flickrapi
 funcsigs
 futures
 geopy
+google-auth
 httplib2
 idna
 ipaddress

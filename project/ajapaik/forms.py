@@ -32,7 +32,7 @@ class APILoginForm(forms.Form):
     ]
 
     type = forms.ChoiceField(choices=LOGIN_TYPES)
-    username = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=2048)
     password = forms.CharField(max_length=2048, required=False)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)

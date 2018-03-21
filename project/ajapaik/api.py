@@ -1,40 +1,33 @@
 # coding=utf-8
-import datetime
 import logging
 import time
 import urllib2
-from json import loads
 from StringIO import StringIO
 
 import requests
 from allauth.account import app_settings as account_app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.forms import SignupForm
-from allauth.account.models import EmailAddress
 from allauth.account.utils import complete_signup
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.models import SocialAccount
-from dateutil import parser
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import GEOSGeometry, Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
-from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
-from django.core.files.base import ContentFile
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.core.urlresolvers import reverse
-from django.db import IntegrityError
-from django.db.models import (BooleanField, Case, Count, IntegerField, Q,
-                              Value, When)
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-from oauth2client import client, crypt
+from google.auth.transport import requests
+from google.oauth2 import id_token
 from PIL import ExifTags, Image
-from rest_framework import authentication, exceptions, generics
+from rest_framework import authentication, exceptions
 from rest_framework.decorators import (api_view, authentication_classes,
                                        parser_classes, permission_classes)
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -47,8 +40,7 @@ from project.ajapaik import forms, serializers
 from project.ajapaik.models import Album, Licence, Photo, PhotoLike, Profile
 from project.ajapaik.settings import (API_DEFAULT_NEARBY_MAX_PHOTOS,
                                       API_DEFAULT_NEARBY_PHOTOS_RANGE,
-                                      FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
-                                      GOOGLE_CLIENT_ID, MEDIA_ROOT, TIME_ZONE)
+                                      GOOGLE_CLIENT_ID)
 
 log = logging.getLogger(__name__)
 
@@ -128,27 +120,41 @@ class Login(CustomParsersMixin, APIView):
             return
         return user
 
-    def _authenticate_with_google(self, user_id):
+    def _authenticate_with_google(self, request, token):
         '''
-        Returns user by google account ID.
+        Returns user by ID token that we get from mobile application after user
+        authentication there.
         '''
-        try:
-            return SocialAccount.objects.get(
-                provider='google',
-                uid=user_id
-            ).user
-        except MultipleObjectsReturned:
-            log.warning('Multiple social accounts returned while trying to '
-                        'login with google user id. It shouldn\'t happen. '
-                        'Provider and social id must be unique togeser. '
-                        'Check social account with ID: %d', user_id)
-            return
-        except ObjectDoesNotExist:
-            return
+        idinfo = id_token.verify_oauth2_token(
+            token, requests.Request(), GOOGLE_CLIENT_ID
+        )
+        adapter = GoogleOAuth2Adapter(request)
+        login = adapter.get_provider().sociallogin_from_response(
+            request,
+            {
+                'email': idinfo['email'],
+                'family_name': idinfo['family_name'],
+                'gender': '',
+                'given_name': idinfo['given_name'],
+                'id': idinfo['sub'],
+                'link': '',
+                'locale': idinfo['locale'],
+                'name': idinfo['name'],
+                'picture': idinfo['picture'],
+                'verified_email': idinfo['email_verified'],
+            }
+        )
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
     def _authenticate_with_facebook(self, request, access_token):
         '''
-        Returns user by facebook user ID.
+        Returns user by facebook access_token.
         '''
         adapter = FacebookOAuth2Adapter(request)
         app = adapter.get_provider().get_app(request)
@@ -180,8 +186,8 @@ class Login(CustomParsersMixin, APIView):
                     })
                 user = self._authenticate_by_email(email, password)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
-                email = form.cleaned_data['username']
-                user = self._authenticate_with_google(email)
+                id_token = form.cleaned_data['username']
+                user = self._authenticate_with_google(request._request, id_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
                 access_token = form.cleaned_data['password']
                 user = self._authenticate_with_facebook(request._request, access_token)
@@ -265,16 +271,9 @@ class Register(CustomParsersMixin, APIView):
                     'session': None,
                     'expires': None,
                 })
-            elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_GOOGLE:
+            else:
                 return Response({
-                    'error': RESPONSE_STATUSES['OK'],
-                    'id': None,
-                    'session': None,
-                    'expires': None,
-                })
-            elif registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_FACEBOOK:
-                return Response({
-                    'error': RESPONSE_STATUSES['OK'],
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                     'id': None,
                     'session': None,
                     'expires': None,
