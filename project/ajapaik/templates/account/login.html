@@ -1,0 +1,64 @@
+{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
+
+{% load i18n %}
+{% load socialaccount %}
+
+{% block layout %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                <h1>{% trans "Log in" %}</h1>
+                <form method="post" action="{% url 'account_login' %}" class="form">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="">
+                    <div class="form-group">
+                        <label class="control-label" for="id_login">
+                            {% trans "E-mail" %}
+                        </label>
+                        <input class="form-control"
+                               autofocus="autofocus"
+                               id="id_login"
+                               maxlength="254"
+                               name="login"
+                               placeholder="{% trans 'E-mail' %}"
+                               required="required"
+                               title=""
+                               type="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="id_password">
+                            {% trans "Password" %}
+                        </label>
+                        <input class="form-control"
+                               id="id_password"
+                               name="password"
+                               placeholder="{% trans "Password" %}"
+                               required="required"
+                               title=""
+                               type="password">
+                    </div>
+                    <button type="submit"
+                            id="ajp-email-login-button"
+                            class="btn btn-primary">
+                        {% trans "Log in" %}
+                    </button>
+                </form>
+                <br/>
+                <a href="{% url 'account_reset_password' %}">{% trans 'Forgot password' %}</a>
+                <br/>
+                <a href="{% url 'account_signup' %}">{% trans 'Register account' %}</a>
+                <br/>
+                <br/>
+                <b>{% trans 'OR' %}</b>
+                <br/>
+                <div class="facebook-connect">
+                    <a href="{% provider_login_url 'facebook' %}" class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+                <br/>
+                <div class="google-plus-connect">
+                    <a href="{% provider_login_url 'google' %}" class="ir">{% trans "Connect with Google" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

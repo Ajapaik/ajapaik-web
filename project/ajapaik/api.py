@@ -3,13 +3,18 @@ import logging
 import time
 import urllib2
 from StringIO import StringIO
-from json import loads
 
 import requests
-from PIL import Image, ExifTags
-from django.contrib.auth import authenticate, login
+from allauth.account import app_settings as account_app_settings
+from allauth.account.adapter import get_adapter
+from allauth.account.forms import SignupForm
+from allauth.account.utils import complete_signup
+from allauth.socialaccount.helpers import complete_social_login
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.gis.geos import Point, GEOSGeometry
+from django.contrib.gis.geos import GEOSGeometry, Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
@@ -19,22 +24,23 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
-from oauth2client import client, crypt
+from google.auth.transport import requests
+from google.oauth2 import id_token
+from PIL import ExifTags, Image
 from rest_framework import authentication, exceptions
-from rest_framework.decorators import api_view, permission_classes, \
-    authentication_classes, parser_classes
+from rest_framework.decorators import (api_view, authentication_classes,
+                                       parser_classes, permission_classes)
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik import forms
-from project.ajapaik import serializers
-from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
-from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
-    API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
-    FACEBOOK_APP_ID
+from project.ajapaik import forms, serializers
+from project.ajapaik.models import Album, Licence, Photo, PhotoLike, Profile
+from project.ajapaik.settings import (API_DEFAULT_NEARBY_MAX_PHOTOS,
+                                      API_DEFAULT_NEARBY_PHOTOS_RANGE,
+                                      GOOGLE_CLIENT_ID)
 
 log = logging.getLogger(__name__)
 
@@ -96,168 +102,190 @@ class CustomParsersMixin(object):
     parser_classes = (FormParser, MultiPartParser,)
 
 
-@parser_classes((FormParser,))
-def login_auth(request, auth_type='login'):
-    form = forms.APILoginAuthForm(request.data)
-    content = {
-        'error': 0,
-        'session': None,
-        'expires': 86400
-    }
-    user = None
+class Login(CustomParsersMixin, APIView):
+    '''
+    API endpoint to login user.
+    '''
 
-    if form.is_valid():
-        t = form.cleaned_data['type']
-        uname = form.cleaned_data['username']
-        if t == 'ajapaik' or t == 'auto':
-            # Why do not using some validators?
-            uname = uname[:30]
-        pw = form.cleaned_data['password']
+    permission_classes = (AllowAny,)
 
-        if t == 'ajapaik':
-            num_same_users = User.objects.filter(username=uname).count()
-            if auth_type == 'register':
-                if num_same_users > 0:
-                    # user exists in the DB already
-                    content['error'] = 8
-                    return content
-                User.objects.create_user(username=uname, password=pw)
-            elif num_same_users == 0:
-                # user does not exists
-                content['error'] = 10
-                return content
+    def _authenticate_by_email(self, email, password):
+        '''
+        Authenticate user with email and password.
+        '''
+        user = authenticate(email=email, password=password)
+        if user is not None and not user.is_active:
+            # We found user but this user is disabled. "authenticate" does't
+            # checking is user is disabled(at least in Django 1.8).
+            return
+        return user
 
-            user = authenticate(username=uname, password=pw)
-            if user:
-                # For register
-                profile = user.profile
-            elif auth_type == 'login':
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
+    def _authenticate_with_google(self, request, token):
+        '''
+        Returns user by ID token that we get from mobile application after user
+        authentication there.
+        '''
+        idinfo = id_token.verify_oauth2_token(
+            token, requests.Request(), GOOGLE_CLIENT_ID
+        )
+        adapter = GoogleOAuth2Adapter(request)
+        login = adapter.get_provider().sociallogin_from_response(
+            request,
+            {
+                'email': idinfo['email'],
+                'family_name': idinfo['family_name'],
+                'gender': '',
+                'given_name': idinfo['given_name'],
+                'id': idinfo['sub'],
+                'link': '',
+                'locale': idinfo['locale'],
+                'name': idinfo['name'],
+                'picture': idinfo['picture'],
+                'verified_email': idinfo['email_verified'],
+            }
+        )
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
-        elif t == 'auto':
-            num_same_users = User.objects.filter(username=uname).count()
-            if num_same_users == 0:
-                User.objects.create_user(username=uname, password=pw)
+    def _authenticate_with_facebook(self, request, access_token):
+        '''
+        Returns user by facebook access_token.
+        '''
+        adapter = FacebookOAuth2Adapter(request)
+        app = adapter.get_provider().get_app(request)
+        token = adapter.parse_token({'access_token': access_token})
+        token.app = app
+        login = adapter.complete_login(request, app, token)
+        login.token = token
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
-            user = authenticate(username=uname, password=pw)
-            if user:
-                profile = user.profile
-                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
-                    user.first_name = form.cleaned_data['firstname']
-                    user.last_name = form.cleaned_data['lastname']
-                    user.save()
-                profile.merge_from_other(request.get_user().profile)
+    def post(self, request, format=None):
+        form = forms.APILoginForm(request.data)
+        if form.is_valid():
+            login_type = form.cleaned_data['type']
+            if login_type == forms.APILoginForm.LOGIN_TYPE_AJAPAIK:
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                if password is None:
+                    return Response({
+                        'error': RESPONSE_STATUSES['MISSING_PARAMETERS'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                user = self._authenticate_by_email(email, password)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
+                id_token = form.cleaned_data['username']
+                user = self._authenticate_with_google(request._request, id_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
+                access_token = form.cleaned_data['password']
+                user = self._authenticate_with_facebook(request._request, access_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
+                # Deprecated. Keeped for back compatibility.
+                user = None
+
+            if user is None:
+                # We can't authenticate user with provided login/password pair.
+                return Response({
+                    'error': RESPONSE_STATUSES['MISSING_USER'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
+
+            if not user.is_authenticated():
+                get_adapter(request).login(request, user)
+                if not request.session.session_key:
+                    request.session.save()
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': user.id,
+                'session': request.session.session_key,
+                'expires': request.session.get_expiry_age(),
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
+
+
+class Register(CustomParsersMixin, APIView):
+    '''
+    API endpoint to register user.
+    '''
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        form = forms.APIRegisterForm(request.data)
+        if form.is_valid():
+            registration_type = form.cleaned_data['type']
+            if registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_AJAPAIK:
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                firstname = form.cleaned_data['firstname']
+                lastname = form.cleaned_data['lastname']
+
+                account_signup_form = SignupForm(data={
+                    'email': email,
+                    'password1': password,
+                    'password2': password,
+                })
+                if not account_signup_form.is_valid():
+                    return Response({
+                        'error': RESPONSE_STATUSES['UNKNOWN_ERROR'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                new_user = account_signup_form.save(request._request)
+
+                new_user.first_name = firstname
+                new_user.last_name = lastname
+                new_user.save()
+
+                complete_signup(
+                    request._request,
+                    new_user,
+                    account_app_settings.EMAIL_VERIFICATION,
+                    None
+                )
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'id': new_user.id,
+                    'session': None,
+                    'expires': None,
+                })
             else:
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
+                return Response({
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
 
-        elif t == 'google':
-            # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
-
-            try:
-                idinfo = client.verify_id_token(pw, GOOGLE_CLIENT_ID)
-
-                if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-                    raise crypt.AppIdentityError("Wrong issuer.")
-
-            except crypt.AppIdentityError:
-                content['error'] = 11
-                return content
-
-            profile = Profile.objects.filter(google_plus_email=uname).first()
-            if profile:
-                request_profile = request.get_user().profile
-                if request.user and request.user.is_authenticated():
-                    profile.merge_from_other(request_profile)
-
-                user = profile.user
-                request.set_user(user)
-            else:
-                user = request.get_user()
-                profile = user.profile
-
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            # headers = {'Authorization': 'Bearer ' + pw}
-            # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-            idinfo['id'] = idinfo['sub']
-            profile.update_from_google_plus_data(pw, idinfo)
-
-        elif t == 'fb':
-            # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-                pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
-            parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
-                    'is_valid'):
-                fb_user_id = parsed_reponse['data']['user_id']
-                profile = Profile.objects.filter(fb_id=fb_user_id).first()
-                if profile:
-                    request_profile = request.get_user().profile
-                    if request.user and request.user.is_authenticated():
-                        profile.merge_from_other(request_profile)
-
-                    user = profile.user
-                    request.set_user(user)
-                else:
-                    user = request.get_user()
-                    profile = user.profile
-
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
-                    ','.join(fb_permissions), pw)
-                user_info = requests.get(fb_get_info_url)
-                profile.update_from_fb_data(pw, loads(user_info.text))
-
-            else:
-                content['error'] = 11
-                return content
-
-        if not user and t == 'auto':
-            User.objects.create_user(username=uname, password=pw)
-            user = authenticate(username=uname, password=pw)
-
-        if auth_type == 'register' and request.user:
-            profile.merge_from_other(request.user.profile)
-            if t == 'google':
-                profile.update_from_google_plus_data(parsed_reponse)
-            elif t == 'facebook':
-                profile.update_from_fb_data(parsed_reponse['data'])
-    else:
-        content['error'] = 2
-        return content
-
-    if user:
-        login(request, user)
-        content['id'] = user.id
-
-        if not request.session.session_key:
-            request.session.save()
-        content['session'] = request.session.session_key
-    else:
-        content['error'] = 4
-
-    return content
-
-
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@permission_classes((AllowAny,))
-def api_login(request):
-    content = login_auth(request)
-    return Response(content)
-
-
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
-def api_register(request):
-    content = user = login_auth(request, 'register')
-    return Response(content)
 
 
 @api_view(['POST'])
@@ -304,11 +332,19 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     overseeing by current user(can be empty).
     '''
 
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
-        albums = Album.objects.filter(
-            Q(is_public=True, photos__isnull=False)
-            | Q(profile=request.get_user().profile, atype=Album.CURATED)
-        ).order_by('-created')
+        # Public and not empty condition.
+        albums_condition = Q(is_public=True, photos__isnull=False)
+
+        # Overseening by current users condition.
+        if request.user is not None and request.user.is_authenticated():
+            user_profile = request.user.profile
+            albums_condition = albums_condition | Q(profile=user_profile,
+                                                    atype=Album.CURATED)
+
+        albums = Album.objects.filter(albums_condition).order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
@@ -327,6 +363,8 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     photos) in specified radius.
     '''
 
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
@@ -337,18 +375,19 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 round(form.cleaned_data["latitude"], 4)
             )
             if album:
-                photos = Photo.objects.filter(
-                    Q(albums=album)
-                        | (Q(albums__subalbum_of=album)
-                           & ~Q(albums__atype=Album.AUTO)),
-                    rephoto_of__isnull=True
-                ).filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                photos = Photo.objects \
+                    .filter(
+                        Q(albums=album)
+                            | (Q(albums__subalbum_of=album)
+                            & ~Q(albums__atype=Album.AUTO)),
+                        rephoto_of__isnull=True
+                    ).filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
@@ -361,18 +400,19 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     ).data
                 })
             else:
-                photos = Photo.objects.filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    rephoto_of__isnull=True,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                photos = Photo.objects \
+                    .filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        rephoto_of__isnull=True,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
-                    request.user.profile
+                    request.user and request.user.profile
                 )
 
                 return Response({
@@ -394,6 +434,8 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
+
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         form = forms.ApiAlbumStateForm(request.data)
@@ -588,7 +630,6 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     def post(self, request, format=None):
         form = forms.ApiPhotoStateForm(request.data)
         if form.is_valid():
-            user_profile = request.user.profile
             photo = Photo.objects.filter(
                 pk=form.cleaned_data['id'],
                 rephoto_of__isnull=True
@@ -596,7 +637,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             if photo:
                 photo = serializers.PhotoSerializer.annotate_photos(
                     photo,
-                    request.user.profile
+                    request.user and request.user.profile
                 ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
@@ -665,7 +706,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
     def post(self, request, format=None):
         form = forms.ApiFavoritedPhotosForm(request.data)
         if form.is_valid():
-            user_profile = request.get_user().profile
+            user_profile = request.user.profile
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
             requested_location = GEOSGeometry(
@@ -677,7 +718,7 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
                 .order_by('distance')
             photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
@@ -716,7 +757,7 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 )
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
 
             return Response({
@@ -738,6 +779,8 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
     '''
     API endpoint to search for photos in album by given phrase.
     '''
+
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         form = forms.ApiPhotoInAlbumSearchForm(request.data)
@@ -762,7 +805,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 photos = photos.filter(rephoto_of__isnull=True)
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                request.user and request.user.profile
             )
 
             return Response({
@@ -825,11 +868,12 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to search for albums by given search phrase.
     '''
 
+    permission_classes = (AllowAny,)
+
     def post(self, request, format=None):
         form = forms.ApiAlbumSearchForm(request.data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-            user_profile = request.user.profile
 
             search_results = forms.HaystackAlbumSearchForm({
                 'q': search_phrase

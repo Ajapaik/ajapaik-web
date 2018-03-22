@@ -64,9 +64,6 @@ DATABASES = {
     }
 }
 
-FACEBOOK_APP_KEY = ''
-FACEBOOK_APP_SECRET = ''
-
 TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGE_CODE = 'et'
@@ -112,7 +109,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
     'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
-    'project.ajapaik.user_middleware.UserMiddleware',
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
@@ -157,10 +153,7 @@ TEMPLATES = [
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = 'project.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'project.ajapaik.then_and_now_tours.UserRegistrationForm'
+LOGIN_REDIRECT_URL = '/'
 
 INSTALLED_APPS = (
     'test_without_migrations',
@@ -188,12 +181,25 @@ INSTALLED_APPS = (
     'compressor',
     'modeltranslation',
     'haystack',
-    'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
+
+    'registration',  # This app is required by
+    # 0081_create_social_network_accounts if it already applied you can remove
+    # this app from INSTALLED_APPS and from virtual environment.
+
+    # Django allauth and related applications.
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 )
 
-ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
+ALLOWED_HOSTS = [
+    '.ajapaik.ee',
+    '217.146.78.74'
+]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -203,19 +209,22 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
-AUTHENTICATION_BACKENDS = (
-    'project.ajapaik.user_middleware.AuthBackend',
-)
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 AUTH_PROFILE_MODULE = 'project.ajapaik.Profile'
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = 'account_login'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-    ),
+    ],
     'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
     'PAGE_SIZE': 10
 }
@@ -256,6 +265,29 @@ COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+
+################################################################################
+### Google services configuration
+################################################################################
+GOOGLE_MAPS_API_KEY = ''
+GOOGLE_ANALYTICS_KEY = ''
+
+GOOGLE_PROJECT_ID = ''
+GOOGLE_CLIENT_ID = ''
+GOOGLE_API_KEY = ''
+
+
+################################################################################
+### Facebook configuration
+################################################################################
+FACEBOOK_APP_KEY = ''
+FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_ID = ''
+
+
+################################################################################
+### Logging configuration
+################################################################################
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -286,4 +318,43 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+
+################################################################################
+### Django-allauth configuration
+################################################################################
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+# Email login/registration settings.
+# This group of settings configured email confirmation obligatory for email
+# registered users and optional for user registered with some social account.
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'VERSION': 'v2.6',
+        'SCOPE': [
+            'email',
+            'public_profile',
+            'user_friends',
+        ],
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
 }
