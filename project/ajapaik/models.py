@@ -756,7 +756,10 @@ class PhotoLike(Model):
 
 class DifficultyFeedback(Model):
     photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks')
+    user_profile = ForeignKey('Profile',
+                              related_name='difficulty_feedbacks',
+                              blank=True,
+                              null=True)
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
     geotag = ForeignKey('GeoTag')

@@ -1466,13 +1466,16 @@ def geotag_add(request):
     if request.user.is_authenticated():
         profile = request.user.profile
     else:
-        return HttpResponse(json.dumps({}), content_type="application/json")  # TODO: Fix incorrect data
+        profile = None
     ret = {}
     if submit_geotag_form.is_valid():
         azimuth_score = 0
         new_geotag = submit_geotag_form.save(commit=False)
         new_geotag.user = profile
-        trust = _calc_trustworthiness(profile.id)
+        if profile is not None:
+            trust = _calc_trustworthiness(profile.id)
+        else:
+            trust = 0.0
         new_geotag.trustworthiness = trust
         tagged_photo = submit_geotag_form.cleaned_data['photo']
         if tagged_photo.flip is None:
@@ -1524,15 +1527,21 @@ def geotag_add(request):
         processed_geotag.save()
         # ret['is_correct'] = processed_geotag.is_correct
         ret['current_score'] = processed_geotag.score
-        Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
-               created=timezone.now(), photo=processed_geotag.photo).save()
+        if profile is not None:
+            Points(user=profile,
+                   action=Points.GEOTAG,
+                   geotag=processed_geotag,
+                   points=processed_geotag.score,
+                   created=timezone.now(),
+                   photo=processed_geotag.photo
+            ).save()
+            profile.set_calculated_fields()
+            profile.save()
         geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
         ret['new_geotag_count'] = geotags_for_this_photo.distinct('user').count()
         ret['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
         # ret['azimuth_tags'] = geotags_for_this_photo.filter(azimuth__isnull=False).count()
         # ret['confidence'] = processed_tagged_photo.confidence
-        profile.set_calculated_fields()
-        profile.save()
         ret['feedback_message'] = ''
         processed_photo = Photo.objects.filter(pk=tagged_photo.pk).first()
         if processed_geotag.origin == GeoTag.GAME and processed_photo:
@@ -1548,8 +1557,10 @@ def geotag_add(request):
             a.geotagged_photo_count_with_subalbums = qs.count()
             a.light_save()
     else:
-        if 'lat' not in submit_geotag_form.cleaned_data and 'lon' not in submit_geotag_form.cleaned_data \
-                and 'photo_id' in submit_geotag_form.data:
+        if 'lat' not in submit_geotag_form.cleaned_data \
+                and 'lon' not in submit_geotag_form.cleaned_data \
+                and 'photo_id' in submit_geotag_form.data \
+                and profile is not None:
             Skip(user=profile, photo_id=submit_geotag_form.data['photo_id']).save()
             if 'user_skip_array' not in request.session:
                 request.session['user_skip_array'] = []
@@ -1779,22 +1790,26 @@ def difficulty_feedback(request):
         user_profile = request.user.profile
     else:
         user_profile = None
-    # FIXME: Form, better error handling
-    if not user_profile:
-        return HttpResponse("Error", status=500)
-    user_trustworthiness = _calc_trustworthiness(user_profile.pk)
-    user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created").first()
+    if user_profile is not None:
+        user_trustworthiness = _calc_trustworthiness(user_profile.pk)
+        user_last_geotag = GeoTag.objects \
+            .filter(user=user_profile) \
+            .order_by("-created") \
+            .first()
+    else:
+        user_trustworthiness = 0.0
+        user_last_geotag = None
     level = request.POST.get("level") or None
     photo_id = request.POST.get("photo_id") or None
-    # FIXME: Why so many lines?
-    if user_profile and level and photo_id and user_last_geotag:
-        feedback_object = DifficultyFeedback()
-        feedback_object.user_profile = user_profile
-        feedback_object.level = level
-        feedback_object.photo_id = photo_id
-        feedback_object.trustworthiness = user_trustworthiness
-        feedback_object.geotag = user_last_geotag
-        feedback_object.save()
+    # TODO: Maybe we shouldn't ignore anonymous user's feedbacks so brutally?
+    if level and photo_id and user_last_geotag:
+        DifficultyFeedback.objects.create(
+            user_profile = user_profile,
+            level = level,
+            photo_id = photo_id,
+            trustworthiness = user_trustworthiness,
+            geotag = user_last_geotag
+        )
         photo = Photo.objects.get(id=photo_id)
         # FIXME: Shouldn't use costly set_calculated_fields here, maybe send extra var to lighten it
         photo.set_calculated_fields()
