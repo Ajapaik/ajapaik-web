@@ -414,7 +414,7 @@ def _get_album_leaderboard50(profile_id, album_id=None):
     return top_users, album.name
 
 
-def _get_all_time_leaderboard50(profile):
+def _get_all_time_leaderboard50(profile=None):
     condition = Q(first_name__isnull=False, last_name__isnull=False)
     if profile is not None:
         condition = condition | Q(pk=profile)
@@ -1617,13 +1617,11 @@ def leaderboard(request, album_id=None):
         else:
             template = 'leaderboard.html'
         site = Site.objects.get_current()
-        return render_to_response(template, RequestContext(request, {  # TODO: Fix incorrect data
+        return render_to_response(template, RequestContext(request, {
             'is_top_50': False,
             'title': _('Leaderboard'),
             'hostname': 'https://%s' % (site.domain,),
-            'leaderboard': [],
-            'album_leaderboard': []
-            ,
+            'all_time_leaderboard': _get_all_time_leaderboard50()[:5],
             'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
         }))
     if album_id:
@@ -1713,7 +1711,7 @@ def all_time_leaderboard(request):
     else:
         profile = None
     atl = _get_all_time_leaderboard50(profile)
-    template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+    template = '_block_leaderboard.html' if request.is_ajax() else 'leaderboard.html'
     site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         'hostname': 'https://%s' % (site.domain,),

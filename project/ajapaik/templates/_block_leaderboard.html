@@ -3,8 +3,12 @@
 {% if not is_top_50 %}
     {% if album_leaderboard %}
         {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard %}
-    {% else %}
+    {% endif %}
+    {% if leaderboard %}
         {% include "_leaderboard_positions.html" with leaderboard=leaderboard is_recent=True %}
+    {% endif %}
+    {% if all_time_leaderboard %}
+        {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard %}
     {% endif %}
 {% else %}
     {% if album_leaderboard %}
@@ -19,7 +23,7 @@
             {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard is_recent=True %}
         </div>
     {% endif %}
-    {% if not album_leaderboard %}
+    {% if all_time_leaderboard %}
         <div class="col-xs-6">
             <h3>{% trans "All time leaderboard" %}</h3>
             {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard %}
