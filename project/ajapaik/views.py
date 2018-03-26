@@ -2575,7 +2575,6 @@ def newsletter(request, slug=None):
     return render_to_response('newsletter.html', RequestContext(request, ret))
 
 
-@login_required
 def submit_dating(request):
     if request.user.is_authenticated():
         profile = request.user.profile
@@ -2583,15 +2582,21 @@ def submit_dating(request):
         profile = None
     form = DatingSubmitForm(request.POST.copy())
     confirm_form = DatingConfirmForm(request.POST)
-    form.data['profile'] = profile.id
     if form.is_valid():
         dating = form.save(commit=False)
-        if not dating.start:
-            dating.start = datetime.datetime.strptime('01011000', '%d%m%Y').date()
-        if not dating.end:
-            dating.end = datetime.datetime.strptime('01013000', '%d%m%Y').date()
+        dating.profile = profile
         p = form.cleaned_data['photo']
-        dating_exists = Dating.objects.filter(profile=profile, raw=dating.raw, photo=p).exists()
+        if profile is not None:
+            dating_exists = Dating.objects.filter(
+                profile=profile,
+                raw=dating.raw,
+                photo=p
+            ).exists()
+        else:
+            dating_exists = Dating.objects.filter(
+                raw=dating.raw,
+                photo=p
+            ).exists()
         if not dating_exists:
             dating.save()
             p.latest_dating = dating.created
@@ -2602,20 +2607,28 @@ def submit_dating(request):
                 confirmation_count += each.confirmations.count()
             p.dating_count = p.datings.count() + confirmation_count
             p.light_save()
-            Points(
-                user=profile,
-                action=Points.DATING,
-                photo=form.cleaned_data['photo'],
-                dating=dating,
-                points=DATING_POINTS,
-                created=dating.created
-            ).save()
+            if profile is not None:
+                Points(
+                    user=profile,
+                    action=Points.DATING,
+                    photo=form.cleaned_data['photo'],
+                    dating=dating,
+                    points=DATING_POINTS,
+                    created=dating.created
+                ).save()
             return HttpResponse('OK')
         return HttpResponse('Dating exists', status=400)
     elif confirm_form.is_valid():
         original_dating = confirm_form.cleaned_data['id']
-        confirmation_exists = DatingConfirmation.objects.filter(confirmation_of=original_dating,
-                                                                profile=profile).exists()
+        if profile is not None:
+            confirmation_exists = DatingConfirmation.objects.filter(
+                confirmation_of=original_dating,
+                profile=profile
+            ).exists()
+        else:
+            confirmation_exists = DatingConfirmation.objects.filter(
+                confirmation_of=original_dating
+            ).exists()
         if not confirmation_exists and original_dating.profile != profile:
             new_confirmation = DatingConfirmation(
                 confirmation_of=original_dating,
@@ -2629,14 +2642,15 @@ def submit_dating(request):
                 confirmation_count += each.confirmations.count()
             p.dating_count = p.datings.count() + confirmation_count
             p.light_save()
-            Points(
-                user=profile,
-                action=Points.DATING_CONFIRMATION,
-                dating_confirmation=new_confirmation,
-                points=DATING_CONFIRMATION_POINTS,
-                photo=p,
-                created=new_confirmation.created
-            ).save()
+            if profile is not None:
+                Points(
+                    user=profile,
+                    action=Points.DATING_CONFIRMATION,
+                    dating_confirmation=new_confirmation,
+                    points=DATING_CONFIRMATION_POINTS,
+                    photo=p,
+                    created=new_confirmation.created
+                ).save()
             return HttpResponse('OK')
         else:
             return HttpResponse('Already confirmed or confirming your own dating', status=400)

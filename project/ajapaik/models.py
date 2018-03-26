@@ -1,7 +1,7 @@
 import StringIO
 from contextlib import closing
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, date
 from json import loads
 from math import degrees
 from time import sleep
@@ -1221,13 +1221,13 @@ class Dating(Model):
     )
 
     photo = ForeignKey('Photo', related_name='datings')
-    profile = ForeignKey('Profile', related_name='datings')
+    profile = ForeignKey('Profile', related_name='datings', blank=True, null=True)
     raw = CharField(max_length=25, null=True, blank=True)
     comment = TextField(blank=True, null=True)
-    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start = DateField(default=date(year=1000, month=1, day=1))
     start_approximate = BooleanField(default=False)
     start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end = DateField(default=date(year=3000, month=1, day=1))
     end_approximate = BooleanField(default=False)
     end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
@@ -1242,7 +1242,10 @@ class Dating(Model):
 
 class DatingConfirmation(Model):
     confirmation_of = ForeignKey('Dating', related_name='confirmations')
-    profile = ForeignKey('Profile', related_name='dating_confirmations')
+    profile = ForeignKey('Profile',
+                          related_name='dating_confirmations',
+                          blank=True,
+                          null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

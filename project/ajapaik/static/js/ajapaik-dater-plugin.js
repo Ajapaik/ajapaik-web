@@ -403,15 +403,25 @@
             var fmt,
                 feedbackStr;
             if (confirmation) {
-                fmt = gettext('Confirming a dating earned you %(points)s points.');
-                feedbackStr = interpolate(fmt, {
-                    points: window.datingConfirmationPointsSetting
-                }, true);
+                if (window.userLoggedIn) {
+                    fmt = gettext('Confirming a dating earned you %(points)s points.');
+                    feedbackStr = interpolate(fmt, {
+                        points: window.datingConfirmationPointsSetting
+                    }, true);
+                } else {
+                    feedbackStr = gettext('Dating confirmed. But if you want ' +
+                                          'to earn points please login.');
+                }
             } else {
-                fmt = gettext('Submitting a dating earned you %(points)s points.');
-                feedbackStr = interpolate(fmt, {
-                    points: window.datingPointsSetting
-                }, true);
+                if (window.userLoggedIn) {
+                    fmt = gettext('Submitting a dating earned you %(points)s points.');
+                    feedbackStr = interpolate(fmt, {
+                        points: window.datingPointsSetting
+                    }, true);
+                } else {
+                    feedbackStr = gettext('Dating submitted. But if you want ' +
+                                          'to earn points please login.');
+                }
             }
             that.$UI.find('#ajp-dater-feedback-well')
                 .html('<h1>' + gettext('Thanks!') + '</h1><p>' + feedbackStr + '</p>').show();
