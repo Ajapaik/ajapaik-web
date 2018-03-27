@@ -12,33 +12,63 @@ def migrate_users(apps, schema_editor):
     User = apps.get_model('auth', 'User')
 
     # Social network accounts migration.
-    profiles = Profile.objects.filter(
-        models.Q(fb_id__isnull=False) | models.Q(google_plus_id__isnull=False)
-    ) \
-        .annotate(
-            provider=models.Case(
-                models.When(fb_id__isnull=False, then=models.Value('facebook')),
-                models.When(google_plus_id__isnull=False, then=models.Value('google')),
-                output_field=models.CharField()
-            )
-        ) \
-        .annotate(
-            social_user_id=models.Case(
-                models.When(fb_id__isnull=False, then=models.F('fb_id')),
-                models.When(google_plus_id__isnull=False, then=models.F('google_plus_id')),
-                output_field=models.CharField()
-            )
-        )
+    facebook_profiles = Profile.objects.filter(fb_id__isnull=False) \
+        .prefetch_related('user')
 
-    for profile in profiles:
+    google_profiles = Profile.objects.filter(google_plus_id__isnull=False) \
+        .prefetch_related('user')
+
+    for profile in facebook_profiles:
         SocialAccount.objects.create(
-            provider=profile.provider,
-            uid=profile.social_user_id,
+            provider='facebook',
+            uid=profile.fb_id,
             date_joined=profile.user.date_joined,
             last_login=profile.user.last_login,
             user=profile.user,
             extra_data={}
         )
+        if not profile.user.email and profile.fb_email:
+            profile.user.email = profile.fb_email
+        if not profile.user.first_name and profile.first_name:
+            profile.user.first_name = profile.first_name
+        if not profile.user.last_name and profile.last_name:
+            profile.user.last_name = profile.last_name
+        email_exists = EmailAddress.objects \
+            .filter(email=profile.fb_email) \
+            .exists()
+        if profile.fb_email and not email_exists:
+            EmailAddress.objects.create(
+                email=profile.fb_email,
+                verified=False,
+                primary=True,
+                user=profile.user
+            )
+
+    for profile in google_profiles:
+        SocialAccount.objects.create(
+            provider='facebook',
+            uid=profile.fb_id,
+            date_joined=profile.user.date_joined,
+            last_login=profile.user.last_login,
+            user=profile.user,
+            extra_data={}
+        )
+        if not profile.user.email and profile.google_plus_email:
+            profile.user.email = profile.google_plus_email
+        if not profile.user.first_name and profile.first_name:
+            profile.user.first_name = profile.first_name
+        if not profile.user.last_name and profile.last_name:
+            profile.user.last_name = profile.last_name
+        email_exists = EmailAddress.objects \
+            .filter(email=profile.google_plus_email) \
+            .exists()
+        if profile.google_plus_email and not email_exists:
+            EmailAddress.objects.create(
+                email=profile.google_plus_email,
+                verified=False,
+                primary=True,
+                user=profile.user
+            )
 
     # E-mail registered accouts migration.
     old_profiles = RegistrationProfile.objects.all()
