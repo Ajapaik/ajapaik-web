@@ -78,12 +78,28 @@ def migrate_users(apps, schema_editor):
             print('No email for user: {user_id} during email accounts '
                   'migration. Skipping...'.format(profile.user.id))
         else:
-            EmailAddress.objects.create(
-                email=profile.user.email,
-                verified=profile.activated,
-                primary=True,
-                user=profile.user
-            )
+            email_address = EmailAddress.objects \
+                .filter(email=profile.user.email)
+            if not email_address:
+                EmailAddress.objects.create(
+                    email=profile.user.email,
+                    verified=profile.activated,
+                    primary=True,
+                    user=profile.user
+                )
+            else:
+                if not email_address.user == profile.user:
+                    print('EmailAddress with email "{email}" already exists '
+                          'and belong to user with id {email_user_id}'
+                          'But we try to process email that belongs to other '
+                          'user(user id {other_user_id})'
+                          .format(email=email_address.email,
+                                  email_user_id=email_address.user.id,
+                                  other_user_id=profile.user.id))
+                else:
+                    # Everything is ok. Email exists but it belong to the same
+                    # user that pointed in RegistrationProfile.
+                    pass
 
     # Users registered not with social network and not with 'register'
     # application. Possibly with 'createsuperuser' command.
