@@ -46,8 +46,8 @@ def migrate_users(apps, schema_editor):
 
     for profile in google_profiles:
         SocialAccount.objects.create(
-            provider='facebook',
-            uid=profile.fb_id,
+            provider='google',
+            uid=profile.google_plus_id,
             date_joined=profile.user.date_joined,
             last_login=profile.user.last_login,
             user=profile.user,
