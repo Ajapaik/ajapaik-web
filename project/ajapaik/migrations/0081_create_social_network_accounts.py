@@ -18,7 +18,9 @@ def migrate_users(apps, schema_editor):
 ################################################################################
     # Users registerd with email.
     email_users = User.objects.filter(
-        email__ne='', profile__fb_email=None, profile__google_plus_email=None
+        models.Q(email__ne=''),
+        (models.Q(profile__google_plus_email__isnull=True) | models.Q(profile__google_plus_email='')),
+        (models.Q(profile__fb_email__isnull=False) | models.Q(profile__fb_email=''))
     )
     for email_user in email_users:
         duplicating_social_users = User.objects.filter(
@@ -26,6 +28,15 @@ def migrate_users(apps, schema_editor):
             | models.Q(profile__fb_email=email_user.email)
         )
         for social_user in duplicating_social_users:
+            if not hasattr(email_user, 'profile'):
+                print('email_user(ID: {user_id}) doesn\'t have profile. '
+                      'Skipping ... '
+                      .format(user_id=email_user.id))
+                continue
+            if not hasattr(social_user, 'profile'):
+                print('social_user(ID: {user_id}) doesn\'t have profile. '
+                      'Skipping ... '.format(user_id=social_user.id))
+                continue
             # Moving contribution data from social user to registered through email.
             email_user.profile.photos.add(*social_user.profile.photos.all())
             email_user.profile.albums.add(*social_user.profile.albums.all())
@@ -42,31 +53,54 @@ def migrate_users(apps, schema_editor):
             email_user.profile.tour_rephotos.add(*social_user.profile.tour_rephotos.all())
             email_user.profile.tour_views.add(*social_user.profile.tour_views.all())
 
-            # Freeing social user
-            social_user.profile.photos.clear()
-            social_user.profile.album_photo_links.clear()
-            social_user.profile.datings.clear()
-            social_user.profile.dating_confirmations.clear()
-            social_user.profile.difficulty_feedbacks.clear()
-            social_user.profile.geotags.clear()
-            social_user.profile.points.clear()
-            social_user.profile.skips.clear()
-            social_user.profile.likes.clear()
-            social_user.profile.tour_groups.clear()
-            social_user.profile.owned_tours.clear()
-            social_user.profile.tour_rephotos.clear()
-            social_user.profile.tour_views.clear()
+            # Creating google SocialAccount.
+            if social_user.profile.google_plus_id:
+                SocialAccount.objects.create(
+                    provider='google',
+                    uid=social_user.profile.google_plus_id,
+                    date_joined=social_user.profile.user.date_joined,
+                    last_login=social_user.profile.user.last_login,
+                    user=social_user.profile.user,
+                    extra_data={}
+                )
+            if not social_user.profile.user.email and social_user.profile.google_plus_email:
+                social_user.profile.user.email = social_user.profile.google_plus_email
+            if not social_user.profile.user.first_name and social_user.profile.first_name:
+                social_user.profile.user.first_name = social_user.profile.first_name
+            if not social_user.profile.user.last_name and social_user.profile.last_name:
+                social_user.profile.user.last_name = social_user.profile.last_name
+
+            if social_user.profile.fb_id:
+                SocialAccount.objects.create(
+                    provider='facebook',
+                    uid=social_user.profile.fb_id,
+                    date_joined=social_user.profile.user.date_joined,
+                    last_login=social_user.profile.user.last_login,
+                    user=social_user.profile.user,
+                    extra_data={}
+                )
+                if not social_user.profile.user.email and social_user.profile.fb_email:
+                    social_user.profile.user.email = social_user.profile.fb_email
+                if not social_user.profile.user.first_name and social_user.profile.first_name:
+                    social_user.profile.user.first_name = social_user.profile.first_name
+                if not social_user.profile.user.last_name and social_user.profile.last_name:
+                    social_user.profile.user.last_name = social_user.profile.last_name
 
             social_user.is_active = False
 
-            email_user.save()
             social_user.save()
 
+        EmailAddress.objects.create(
+            email=email_user.email,
+            verified=True,
+            primary=True,
+            user=email_user
+        )
+
 
 ################################################################################
-### Creating social acconts.
+### Creating social acconts without email.
 ################################################################################
-    # Social network accounts migration.
     facebook_profiles = Profile.objects \
         .filter(fb_id__isnull=False, user__is_active=True) \
         .prefetch_related('user')
@@ -90,17 +124,10 @@ def migrate_users(apps, schema_editor):
             profile.user.first_name = profile.first_name
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
-        email_exists = EmailAddress.objects \
-            .filter(email=profile.fb_email) \
-            .exists()
-        # if profile.fb_email and not email_exists:
         if profile.fb_email:
-            EmailAddress.objects.create(
-                email=profile.fb_email,
-                verified=False,
-                primary=True,
-                user=profile.user
-            )
+            print('Profile have not empty fb_email. It shoud be empty. '
+                  'User ID: {user_id}.'
+                  .format(user_id=profile.user.id))
 
     for profile in google_profiles:
         SocialAccount.objects.create(
@@ -117,17 +144,11 @@ def migrate_users(apps, schema_editor):
             profile.user.first_name = profile.first_name
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
-        email_exists = EmailAddress.objects \
-            .filter(email=profile.google_plus_email) \
-            .exists()
-        # if profile.google_plus_email and not email_exists:
+
         if profile.google_plus_email:
-            EmailAddress.objects.create(
-                email=profile.google_plus_email,
-                verified=False,
-                primary=True,
-                user=profile.user
-            )
+            print('Profile have not empty fb_email. It shoud be empty. '
+                  'User ID: {user_id}.'
+                  .format(user_id=profile.user.id))
 
     # E-mail registered accouts migration.
     old_profiles = RegistrationProfile.objects.all().prefetch_related('user')
@@ -141,7 +162,8 @@ def migrate_users(apps, schema_editor):
             email_address = EmailAddress.objects.get(email=email)
             email_address.verified = profile.activated
             if profile.user != email_address.user:
-                print('Different users for email "{email}". Profile user ID '
+                print('Different users for email "{email}" During '
+                      'RegistrationProfile migration. Profile user ID '
                       '"{profile_user_id}" EmailAddress current user ID '
                       '{email_user_id}.'
                       .format(email=email,
