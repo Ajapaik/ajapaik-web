@@ -124,7 +124,7 @@ def migrate_users(apps, schema_editor):
             profile.user.first_name = profile.first_name
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
-        if profile.fb_email:
+        if not profile.fb_email:
             print('Profile have not empty fb_email. It shoud be empty. '
                   'User ID: {user_id}.'
                   .format(user_id=profile.user.id))
@@ -145,9 +145,9 @@ def migrate_users(apps, schema_editor):
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
 
-        if profile.google_plus_email:
-            print('Profile have not empty fb_email. It shoud be empty. '
-                  'User ID: {user_id}.'
+        if not profile.google_plus_email:
+            print('Profile have not empty google_plus_email. It shoud be '
+                  'empty. User ID: {user_id}.'
                   .format(user_id=profile.user.id))
 
     # E-mail registered accouts migration.
