@@ -1623,20 +1623,17 @@ def leaderboard(request, album_id=None):
     if request.user.is_authenticated():
         profile = request.user.profile
     else:
-        if request.is_ajax():
-            template = '_block_leaderboard.html'
-        else:
-            template = 'leaderboard.html'
-        site = Site.objects.get_current()
-        return render_to_response(template, RequestContext(request, {
-            'is_top_50': False,
-            'title': _('Leaderboard'),
-            'hostname': 'https://%s' % (site.domain,),
-            'all_time_leaderboard': _get_all_time_leaderboard50()[:5],
-            'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
-        }))
+        profile = None
+    if request.is_ajax():
+        template = '_block_leaderboard.html'
+    else:
+        template = 'leaderboard.html'
+    # FIXME: this shouldn't be necessary, there are easier ways to construct URLs
+    site = Site.objects.get_current()
+
     if album_id:
-        # Album leader-board takes into account any users that have any contributions to the album
+        # Album leader-board takes into account any users that have any
+        # contributions to the album.
         album = get_object_or_404(Album, pk=album_id)
         # TODO: Almost identical code is used in many places, put under album model
         album_photos_qs = album.photos.all()
@@ -1656,32 +1653,47 @@ def leaderboard(request, album_id=None):
                 user_score_map[each.user_id] += each.points
             else:
                 user_score_map[each.user_id] = each.points
-        if profile.id not in user_score_map:
+        if profile is not None and profile.id not in user_score_map:
             user_score_map[profile.id] = 0
         sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
         pk_list = [x[0] for x in sorted_scores]
-        current_user_rank = pk_list.index(profile.id)
+        current_user_rank = profile and pk_list.index(profile.id) or len(sorted_scores)
         if current_user_rank == -1:
             current_user_rank = len(sorted_scores)
         current_user_rank += 1
         # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
         clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
         ordering = 'CASE %s END' % clauses
-        top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile.id)) \
+        condition = Q(user_id__in=pk_list)
+        if profile is not None:
+            condition = condition | Q(user_id=profile.id)
+        top_users = Profile.objects \
+            .filter(condition) \
             .extra(select={'ordering': ordering}, order_by=('ordering',))
         start = current_user_rank - 2
         if start < 0:
             start = 0
-        top_users = top_users[start:current_user_rank + 1]
+        if profile is not None:
+            top_users = top_users[start:current_user_rank + 1]
+        else:
+            top_users = top_users[0:5]
         n = current_user_rank
         for each in top_users:
-            if each.user_id == profile.id:
+            if profile is not None and each.user_id == profile.id:
                 each.is_current_user = True
             each.position = n
             each.custom_score = user_score_map[each.user_id]
             n += 1
         album_leaderboard = top_users
     else:
+        if profile is None:
+            return render_to_response(template, RequestContext(request, {
+                'is_top_50': False,
+                'title': _('Leaderboard'),
+                'hostname': 'https://%s' % (site.domain,),
+                'all_time_leaderboard': _get_all_time_leaderboard50()[:5],
+                'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+            }))
         _calculate_recent_activity_scores()
         profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
                                               first_name__isnull=False, last_name__isnull=False).count() + 1
@@ -1699,12 +1711,6 @@ def leaderboard(request, album_id=None):
             each.position = n
             n += 1
         general_leaderboard = nearby_users
-    if request.is_ajax():
-        template = '_block_leaderboard.html'
-    else:
-        template = 'leaderboard.html'
-    # FIXME: this shouldn't be necessary, there are easier ways to construct URLs
-    site = Site.objects.get_current()
     return render_to_response(template, RequestContext(request, {
         'is_top_50': False,
         'title': _('Leaderboard'),

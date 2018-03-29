@@ -524,7 +524,15 @@ var map,
     updateLeaderboard = function () {
         var target = $('.score_container');
         if (window.albumId) {
-            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId);
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: leaderboardUpdateURL + 'album/' + window.albumId,
+        //         data: {},
+        //         success: function(response) {
+        //             target.find('.scoreboard').html(response)
+        //         }
+        //     });
+            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
             target.find('.scoreboard').load(leaderboardUpdateURL);
         }
