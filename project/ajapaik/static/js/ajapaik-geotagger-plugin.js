@@ -1089,9 +1089,19 @@
                     updateLeaderboard();
                     $('input[name="difficulty"]').prop('checked', false);
                     that.lockButton.hide();
+
+                    if (window.userLoggedIn) {
+                        var points_earned_message = gettext('Points awarded') + ': ' + response.current_score;
+                    } else {
+                        var points_earned_message = gettext(
+                            'Your geotag saved. But if you want earning and ' +
+                            'saving points for contribution on Ajapaik ' +
+                            'please login.'
+                        );
+                    }
                     $('#ajp-geotagger-button-controls').hide();
                     $('#ajp-geotagger-confirm-controls').hide();
-                    $('#ajp-geotagger-feedback-points').html(gettext('Points awarded') + ': ' + response.current_score);
+                    $('#ajp-geotagger-feedback-points').html(points_earned_message);
                     $('#ajp-geotagger-feedback-message').html(response.feedback_message);
                     $('#ajp-geotagger-feedback').show();
                     $('#ajp-geotagger-current-stats').hide();
