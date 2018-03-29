@@ -1240,7 +1240,7 @@ var map,
         e.preventDefault();
         var url = window.leaderboardFullURL;
         if (window.albumId) {
-            url += 'album/' + window.albumId;
+            url += 'album/' + window.albumId + '/';
         }
         $.ajax({
             url: url,
