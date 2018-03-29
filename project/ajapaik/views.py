@@ -1253,14 +1253,19 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             photo_obj.in_selection = True
 
     user_confirmed_this_location = 'false'
-    user_has_geotagged = GeoTag.objects.filter(photo=photo_obj, user=profile).exists()
-    if user_has_geotagged:
-        user_has_geotagged = 'true'
+    if profile is not None:
+        user_has_geotagged = GeoTag.objects.filter(photo=photo_obj, user=profile).exists()
+        if user_has_geotagged:
+            user_has_geotagged = 'true'
+        else:
+            user_has_geotagged = 'false'
+        last_user_confirm_geotag_for_this_photo = GeoTag.objects \
+            .filter(type=GeoTag.CONFIRMATION, photo=photo_obj,user=profile) \
+            .order_by('-created') \
+            .first()
     else:
         user_has_geotagged = 'false'
-    last_user_confirm_geotag_for_this_photo = GeoTag.objects.filter(type=GeoTag.CONFIRMATION, photo=photo_obj,
-                                                                    user=profile) \
-        .order_by('-created').first()
+        last_user_confirm_geotag_for_this_photo = None
     if last_user_confirm_geotag_for_this_photo:
         if last_user_confirm_geotag_for_this_photo.lat == photo_obj.lat and last_user_confirm_geotag_for_this_photo.lon == photo_obj.lon:
             user_confirmed_this_location = 'true'
@@ -1278,7 +1283,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
     previous_datings = photo_obj.datings.order_by('created').prefetch_related('confirmations')
     for each in previous_datings:
-        each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
+        if profile is not None:
+            each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
+        else:
+            each.this_user_has_confirmed = False
     serialized_datings = DatingSerializer(previous_datings, many=True).data
     serialized_datings = JSONRenderer().render(serialized_datings)
 

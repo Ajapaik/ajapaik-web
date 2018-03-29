@@ -1109,7 +1109,9 @@
                     window.photoModalPhotoLat = response.estimated_location[0];
                     window.photoModalPhotoLng = response.estimated_location[1];
                     window.photoModalPhotoAzimuth = response.azimuth;
-                    window.photoModalUserHasGeotaggedThisPhoto = true;
+                    if (window.userLoggedIn) {
+                        window.photoModalUserHasGeotaggedThisPhoto = true;
+                    }
                     $('#ajp-geotagger-game-buttons').show();
                     if (response.current_score > 0 && typeof window.reportGeotaggerCorrect === 'function') {
                         window.reportGeotaggerCorrect();
