@@ -1770,7 +1770,8 @@ def top50(request, album_id=None):
         album_leaderboard, album_name = _get_album_leaderboard50(profile_id,
                                                                  album_id)
     else:
-        general_leaderboard = _get_all_time_leaderboard50(profile.pk)
+        profile_id = profile.pk if profile is not None else None
+        general_leaderboard = _get_all_time_leaderboard50(profile_id)
     condition = Q(first_name__isnull=False,
                   last_name__isnull=False,
                   score_recent_activity__gt=0)
