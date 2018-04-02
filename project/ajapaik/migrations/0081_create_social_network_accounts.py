@@ -19,25 +19,33 @@ def migrate_users(apps, schema_editor):
     # Users registerd with email.
     email_users = User.objects.filter(
         models.Q(email__ne=''),
-        (models.Q(profile__google_plus_email__isnull=True) | models.Q(profile__google_plus_email='')),
-        (models.Q(profile__fb_email__isnull=False) | models.Q(profile__fb_email=''))
-    )
+        (
+            models.Q(profile__google_plus_email__isnull=True)
+            | models.Q(profile__google_plus_email=None)
+            | models.Q(profile__google_plus_email='')
+        ),
+        (
+            models.Q(profile__fb_email__isnull=False)
+            | models.Q(profile__fb_email='')
+            | models.Q(profile__fb_email=None)
+        )
+    ).distinct('email')
     for email_user in email_users:
+        if not hasattr(email_user, 'profile'):
+            print('email_user(ID: {user_id}) doesn\'t have profile. '
+                  'Skipping ... '
+                  .format(user_id=email_user.id))
+            continue
         duplicating_social_users = User.objects.filter(
-            models.Q(profile__google_plus_email=email_user.email)
-            | models.Q(profile__fb_email=email_user.email)
+            ~models.Q(id__in=email_users)
+            & (
+                models.Q(profile__google_plus_email=email_user.email)
+                | models.Q(profile__fb_email=email_user.email)
+            )
         )
         for social_user in duplicating_social_users:
-            if not hasattr(email_user, 'profile'):
-                print('email_user(ID: {user_id}) doesn\'t have profile. '
-                      'Skipping ... '
-                      .format(user_id=email_user.id))
-                continue
-            if not hasattr(social_user, 'profile'):
-                print('social_user(ID: {user_id}) doesn\'t have profile. '
-                      'Skipping ... '.format(user_id=social_user.id))
-                continue
-            # Moving contribution data from social user to registered through email.
+            # Moving contribution data from social user to registered through
+            # email.
             email_user.profile.photos.add(*social_user.profile.photos.all())
             email_user.profile.albums.add(*social_user.profile.albums.all())
             email_user.profile.album_photo_links.add(*social_user.profile.album_photo_links.all())
@@ -79,12 +87,12 @@ def migrate_users(apps, schema_editor):
                     user=social_user.profile.user,
                     extra_data={}
                 )
-                if not social_user.profile.user.email and social_user.profile.fb_email:
-                    social_user.profile.user.email = social_user.profile.fb_email
-                if not social_user.profile.user.first_name and social_user.profile.first_name:
-                    social_user.profile.user.first_name = social_user.profile.first_name
-                if not social_user.profile.user.last_name and social_user.profile.last_name:
-                    social_user.profile.user.last_name = social_user.profile.last_name
+            if not social_user.profile.user.email and social_user.profile.fb_email:
+                social_user.profile.user.email = social_user.profile.fb_email
+            if not social_user.profile.user.first_name and social_user.profile.first_name:
+                social_user.profile.user.first_name = social_user.profile.first_name
+            if not social_user.profile.user.last_name and social_user.profile.last_name:
+                social_user.profile.user.last_name = social_user.profile.last_name
 
             social_user.is_active = False
 
@@ -124,10 +132,6 @@ def migrate_users(apps, schema_editor):
             profile.user.first_name = profile.first_name
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
-        if not profile.fb_email:
-            print('Profile have not empty fb_email. It shoud be empty. '
-                  'User ID: {user_id}.'
-                  .format(user_id=profile.user.id))
 
     for profile in google_profiles:
         SocialAccount.objects.create(
@@ -144,11 +148,6 @@ def migrate_users(apps, schema_editor):
             profile.user.first_name = profile.first_name
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
-
-        if not profile.google_plus_email:
-            print('Profile have not empty google_plus_email. It shoud be '
-                  'empty. User ID: {user_id}.'
-                  .format(user_id=profile.user.id))
 
     # E-mail registered accouts migration.
     old_profiles = RegistrationProfile.objects.all().prefetch_related('user')
