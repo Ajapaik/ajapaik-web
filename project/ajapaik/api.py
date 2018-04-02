@@ -185,12 +185,15 @@ class Login(CustomParsersMixin, APIView):
                         'expires': None,
                     })
                 user = self._authenticate_by_email(email, password)
+                get_adapter(request).login(request, user)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
                 id_token = form.cleaned_data['username']
-                user = self._authenticate_with_google(request._request, id_token)
+                user = self._authenticate_with_google(request._request,
+                                                      id_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
                 access_token = form.cleaned_data['password']
-                user = self._authenticate_with_facebook(request._request, access_token)
+                user = self._authenticate_with_facebook(request._request,
+                                                        access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
                 # Deprecated. Keeped for back compatibility.
                 user = None
