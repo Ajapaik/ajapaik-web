@@ -957,7 +957,6 @@ class Profile(Model):
     def is_legit(self):
         if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
             return True
-
         return False
 
     def get_display_name(self):

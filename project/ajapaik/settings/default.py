@@ -109,6 +109,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
     'project.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
+    'project.ajapaik.middleware.IsUserDummyMiddleware',
+    'project.ajapaik.middleware.IsUserContributed',
 )
 
 ROOT_URLCONF = 'project.ajapaik.urls'
