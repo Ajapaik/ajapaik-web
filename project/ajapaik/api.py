@@ -185,7 +185,8 @@ class Login(CustomParsersMixin, APIView):
                         'expires': None,
                     })
                 user = self._authenticate_by_email(email, password)
-                get_adapter(request).login(request, user)
+                if user is not None:
+                    get_adapter(request).login(request, user)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
                 id_token = form.cleaned_data['username']
                 user = self._authenticate_with_google(request._request,
