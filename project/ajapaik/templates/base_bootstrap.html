@@ -268,7 +268,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="alert alert-danger" id="ajapaik-geolocation-error">
   <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>
 </div>
-{% if user.is_dummy %}
+{% if user.is_dummy and user.is_contributed %}
     <div class="alert alert-info text-center">
         <i>{% trans "Register to save your contribution." %}</i>
     </div>
