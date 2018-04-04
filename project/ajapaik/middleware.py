@@ -92,7 +92,10 @@ class IsUserContributed(object):
 
     def process_request(self, request):
         user = request.user
+        if user.is_anonymous():
+            user.is_contributed = False
+            return
         if user.profile.points.all() or user.profile.score:
-            user.is_contibuted = True
+            user.is_contributed = True
         else:
-            user.is_contibuted = False
+            user.is_contributed = False
