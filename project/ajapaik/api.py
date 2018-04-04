@@ -199,7 +199,7 @@ class Login(CustomParsersMixin, APIView):
                 user = None
 
             if user is None:
-                # We can't authenticate user with provided login/password pair.
+                # We can't authenticate user with provided data.
                 return Response({
                     'error': RESPONSE_STATUSES['MISSING_USER'],
                     'id': None,
@@ -207,10 +207,8 @@ class Login(CustomParsersMixin, APIView):
                     'expires': None,
                 })
 
-            if not user.is_authenticated():
-                get_adapter(request).login(request, user)
-                if not request.session.session_key:
-                    request.session.save()
+            if not request.session.session_key:
+                request.session.save()
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],

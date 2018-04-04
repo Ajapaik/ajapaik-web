@@ -66,33 +66,33 @@ def migrate_users(apps, schema_editor):
                 SocialAccount.objects.create(
                     provider='google',
                     uid=social_user.profile.google_plus_id,
-                    date_joined=social_user.profile.user.date_joined,
-                    last_login=social_user.profile.user.last_login,
-                    user=social_user.profile.user,
+                    date_joined=social_user.date_joined,
+                    last_login=social_user.last_login,
+                    user=email_user,
                     extra_data={}
                 )
-            if not social_user.profile.user.email and social_user.profile.google_plus_email:
-                social_user.profile.user.email = social_user.profile.google_plus_email
-            if not social_user.profile.user.first_name and social_user.profile.first_name:
-                social_user.profile.user.first_name = social_user.profile.first_name
-            if not social_user.profile.user.last_name and social_user.profile.last_name:
-                social_user.profile.user.last_name = social_user.profile.last_name
+            if not email_user.email and social_user.profile.google_plus_email:
+                email_user.email = social_user.profile.google_plus_email
+            if not email_user.first_name and social_user.profile.first_name:
+                email_user.first_name = social_user.profile.first_name
+            if not email_user.last_name and social_user.profile.last_name:
+                email_user.last_name = social_user.profile.last_name
 
             if social_user.profile.fb_id:
                 SocialAccount.objects.create(
                     provider='facebook',
                     uid=social_user.profile.fb_id,
-                    date_joined=social_user.profile.user.date_joined,
-                    last_login=social_user.profile.user.last_login,
-                    user=social_user.profile.user,
+                    date_joined=social_user.date_joined,
+                    last_login=social_user.last_login,
+                    user=email_user,
                     extra_data={}
                 )
-            if not social_user.profile.user.email and social_user.profile.fb_email:
-                social_user.profile.user.email = social_user.profile.fb_email
-            if not social_user.profile.user.first_name and social_user.profile.first_name:
-                social_user.profile.user.first_name = social_user.profile.first_name
-            if not social_user.profile.user.last_name and social_user.profile.last_name:
-                social_user.profile.user.last_name = social_user.profile.last_name
+            if not email_user.email and social_user.profile.fb_email:
+                email_user.email = social_user.profile.fb_email
+            if not email_user.first_name and social_user.profile.first_name:
+                email_user.first_name = social_user.profile.first_name
+            if not email_user.last_name and social_user.profile.last_name:
+                email_user.last_name = social_user.profile.last_name
 
             social_user.is_active = False
 
