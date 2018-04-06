@@ -360,3 +360,9 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     },
 }
+
+# We need to allow users to register while being logined with automatically
+# created dummy user(creation of dummy users is deprecated behavior). Then
+# data from dummy user moved to normal user by `transfer_email_user_data` and
+# `transfer_social_user_data` slots.
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
