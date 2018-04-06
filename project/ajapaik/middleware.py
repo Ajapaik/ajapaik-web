@@ -79,9 +79,11 @@ class IsUserDummyMiddleware(object):
 
     def process_request(self, request):
         user = request.user
-        user.is_dummy = self._is_user_dummy(user)
-        if user.is_dummy and (user.profile.points.all() or user.profile.score):
-            user.is_contibuted = True
+        if self._is_user_dummy(user):
+            user.is_dummy = True
+            # Allauth logout user during signup so we need to preserve dummy
+            # user to be able do user data transfer.
+            request.dummy_user = request.user
 
 
 class IsUserContributed(object):
