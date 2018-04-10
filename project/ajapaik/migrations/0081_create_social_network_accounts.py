@@ -61,6 +61,8 @@ def migrate_users(apps, schema_editor):
             email_user.profile.tour_rephotos.add(*social_user.profile.tour_rephotos.all())
             email_user.profile.tour_views.add(*social_user.profile.tour_views.all())
 
+            email_user.comment_comments.add(*social_user.comment_comments.all())
+
             # Creating google SocialAccount.
             if social_user.profile.google_plus_id:
                 SocialAccount.objects.create(
