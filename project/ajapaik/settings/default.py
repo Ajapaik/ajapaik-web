@@ -366,3 +366,5 @@ SOCIALACCOUNT_PROVIDERS = {
 # data from dummy user moved to normal user by `transfer_email_user_data` and
 # `transfer_social_user_data` slots.
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+
+SOCIALACCOUNT_ADAPTER = 'project.ajapaik.allauth_integration.adapters.CustomSocialAccountAdapter'

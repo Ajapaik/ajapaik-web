@@ -79,8 +79,8 @@ class IsUserDummyMiddleware(object):
 
     def process_request(self, request):
         user = request.user
-        if self._is_user_dummy(user):
-            user.is_dummy = True
+        user.is_dummy = self._is_user_dummy(user)
+        if user.is_dummy:
             # Allauth logout user during signup so we need to preserve dummy
             # user to be able do user data transfer.
             request.dummy_user = request.user
