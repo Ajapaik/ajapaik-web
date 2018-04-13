@@ -1,10 +1,4 @@
 def move_user_data(old_user, new_user):
-    is_old_user_dummy = hasattr(old_user, 'is_dummy') and old_user.is_dummy
-    if not is_old_user_dummy or not old_user.is_active:
-        # User is normal user(not dummy) so data moving is not required. Or
-        # user already was processed and marked as inactive.
-        return
-
     # Ajapaik specific data.
     new_user.profile.photos.add(*old_user.profile.photos.all())
     new_user.profile.albums.add(*old_user.profile.albums.all())

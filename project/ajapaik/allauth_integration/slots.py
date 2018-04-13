@@ -14,15 +14,15 @@ def transfer_email_user_data(request, email_address, **kwargs):
     # latest moment. Because user can do some action after registering user
     # and before email confirmation.
     old_user = getattr(request, 'dummy_user', None)
-    if old_user is None:
+    if old_user is None or not old_user.is_active:
         # We haven't old_user so haven't source from which to move data.
+        # Or we have inactive user maybe we already processed this user.
         return
 
     try:
         new_user = User.objects.get(emailaddress__email=email_address)
     except (User.DoesNotExist, User.MultipleObjectsReturned):
         return
-
     move_user_data(old_user=old_user, new_user=new_user)
 
     # We moved data and mark this user as inactive.
