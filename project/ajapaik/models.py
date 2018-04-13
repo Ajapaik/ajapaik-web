@@ -960,19 +960,21 @@ class Profile(Model):
         return False
 
     def get_display_name(self):
-        if self.first_name and self.last_name:
-            return '%s %s' % (self.first_name, self.last_name)
-        elif self.google_plus_name:
-            return self.google_plus_name
-        elif self.fb_name:
-            return self.fb_name
-        elif self.google_plus_email:
-            try:
-                return self.google_plus_email.split('@')[0]
-            except:
-                return _('Anonymous user')
-        else:
-            return _('Anonymous user')
+        if self.user.first_name and self.user.last_name:
+            return u'{} {}'.format(self.user.first_name, self.user.last_name)
+
+        social_accounts = self.user.socialaccount_set. \
+            filter(extra_data__ne='{}') \
+            .order_by('id')
+        social_user_names = [
+            account['name']
+            for account in social_accounts.values_list('extra_data', flat=True)
+            if account.get('name') is not None
+        ]
+        if social_user_names:
+            return social_user_names[0]
+
+        return _('Anonymous user')
 
     def __unicode__(self):
         return u"%s" % (self.get_display_name(),)
