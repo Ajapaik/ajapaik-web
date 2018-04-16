@@ -367,10 +367,17 @@
     {% endif %}
 </nav>
 {% get_current_language as LANGUAGE_CODE %}
-{% if not is_curator and not is_mapview and not is_donate and LANGUAGE_CODE == 'et' %}
+{% if not is_curator and not is_mapview and not is_donate%}
     <div id="ajapaik-donation-header">
         <div class="container">
-            {% trans '<a href="#" id="ajapaik-donation-modal-link">Donate</a> to support Ajapaik' %}
+            {% blocktrans %}
+                Ajapaik is an open source project developed by Estonian Photographic Heritage Society (non-profit organisation).
+                Ajapaik started at an hackathon already in 2011 but the complexity of the application and the amount of content has
+                grown considerably over the years demanding more resources to maintain and develop Ajapaik further.
+                We've received public grant funding from Estonia previously but are really looking for additional financial support.
+                All donations would be highly appreciated, please consider setting up a permanent payment!
+            {% endblocktrans %}
+            <a href="#" id="ajapaik-donation-modal-link">{% trans 'Donate' %}</a>
             <button type="button" class="close" id="ajapaik-close-donation-header-button">&times;</button>
         </div>
     </div>
