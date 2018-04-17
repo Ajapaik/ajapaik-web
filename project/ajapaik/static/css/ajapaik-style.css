@@ -1165,8 +1165,7 @@ a.fullscreen {
 }
 
 #ajapaik-donation-header {
-    background-color: #222;
-    color: white;
+    background-color: yellow;
     font-size: 17px;
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
     padding-top: 10px;
@@ -1176,6 +1175,17 @@ a.fullscreen {
     position: fixed;
     z-index: 1;
     bottom: 0;
+}
+
+#ajapaik-donation-header a {
+    color: blue;
+    text-decoration: none;
+}
+
+#ajapaik-donation-header button {
+    color: black;
+    min-width: 100%;
+    font-size: 125%;
 }
 
 @media (min-width: 320px) {
@@ -2754,19 +2764,6 @@ a[href^="https://maps.google.com/maps"] {
 
 #ajapaik-photoview-add-rephoto-button {
     margin-left: 10px;
-}
-
-#ajapaik-donation-modal-body > a {
-    text-decoration: none;
-}
-
-#ajapaik-donation-modal-link {
-    color: #f1d600;
-}
-
-#ajapaik-close-donation-header-button {
-    color: #fff;
-    opacity: 1;
 }
 
 #ajapaik-header-google-connect {

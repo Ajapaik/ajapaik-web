@@ -370,15 +370,24 @@
 {% if not is_curator and not is_mapview and not is_donate%}
     <div id="ajapaik-donation-header">
         <div class="container">
-            {% blocktrans %}
-                Ajapaik is an open source project developed by Estonian Photographic Heritage Society (non-profit organisation).
-                Ajapaik started at an hackathon already in 2011 but the complexity of the application and the amount of content has
-                grown considerably over the years demanding more resources to maintain and develop Ajapaik further.
-                We've received public grant funding from Estonia previously but are really looking for additional financial support.
-                All donations would be highly appreciated, please consider setting up a permanent payment!
-            {% endblocktrans %}
-            <a href="#" id="ajapaik-donation-modal-link">{% trans 'Donate' %}</a>
-            <button type="button" class="close" id="ajapaik-close-donation-header-button">&times;</button>
+            <div class="row">
+                {% blocktrans %}
+                    Ajapaik is an <a href="https://github.com/Ajapaik/">open source project</a> developed by
+                    <a href="http://fotoparand.org.ee/wp/eng/">Estonian Photographic Heritage Society</a> (non-profit organisation).
+                    Ajapaik started at an hackathon already in 2011 but the complexity of the application and the amount of content has
+                    grown considerably over the years demanding more resources to maintain and develop Ajapaik further.
+                    We've received public grant funding from Estonia previously but are really looking for <b>additional financial support</b>.
+                    All donations would be highly appreciated, please consider setting up a permanent payment!
+                {% endblocktrans %}
+            </div>
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <button type="button" class="btn btn-success" id="ajapaik-donation-modal-link">{% trans 'Donate' %}</button>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <button type="button" class="btn btn-warning" id="ajapaik-close-donation-header-button">{% trans 'Not yet' %}</button>
+                </div>
+            </div>
         </div>
     </div>
 {% endif %}
