@@ -1184,8 +1184,6 @@ a.fullscreen {
 
 #ajapaik-donation-header button {
     color: black;
-    min-width: 100%;
-    font-size: 125%;
 }
 
 @media (min-width: 320px) {
