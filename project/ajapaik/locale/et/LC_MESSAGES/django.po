@@ -888,7 +888,7 @@ msgid ""
 "                    We've received public grant funding from Estonia previously but are really looking for <b>additional financial support</b>.\n"
 "                    All donations would be highly appreciated, please consider setting up a permanent payment!\n"
 "                "
-msgstr "\n                    Ajapaik on <a href=\"https://github.com/Ajapaik/\">avavaraline projekt</a>, mida arendab\n                    <a href=\"http://fotoparand.org.ee/wp/eng/\">MTÜ Eesti Fotopärand</a>.\n                    Ajapaik sai alguse häkatonil juba 2011. aastal, aga rakenduse keerukus ja sisu maht on aja jooksul üha kasvanud\n                    ning see nõuab üha rohkem ressursse, et seda käigus hoida ja edasi arendada.\n                    Oleme varem saanud Eesti-siseselt toetusraha eri allikatest, aga vajame nüüd väga <b>täiendavat rahalist abi</b>.\n                    Kõik annetused on väga hinnatud, võimalusel kaaluge püsimakset Ajapaiga toeks!\n                "
+msgstr "\n                    Ajapaik on <a href=\"https://github.com/Ajapaik/\">avavaraline projekt</a>, mida arendab\n                    <a href=\"http://fotoparand.org.ee/\">MTÜ Eesti Fotopärand</a>.\n                    Ajapaik sai alguse häkatonil juba 2011. aastal, aga rakenduse keerukus ja sisu maht on aja jooksul üha kasvanud\n                    ning see nõuab üha rohkem ressursse, et seda käigus hoida ja edasi arendada.\n                    Oleme varem saanud Eesti-siseselt toetusraha eri allikatest, aga vajame nüüd väga <b>täiendavat rahalist abi</b>.\n                    Kõik annetused on väga hinnatud, võimalusel kaaluge püsimakset Ajapaiga toeks!\n                "
 
 #: project/ajapaik/templates/_header.html:385
 msgid "I'm donating"

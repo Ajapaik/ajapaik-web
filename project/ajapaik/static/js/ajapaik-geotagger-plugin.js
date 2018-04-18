@@ -1094,9 +1094,8 @@
                         var points_earned_message = gettext('Points awarded') + ': ' + response.current_score;
                     } else {
                         var points_earned_message = gettext(
-                            'Your geotag saved. But if you want earning and ' +
-                            'saving points for contribution on Ajapaik ' +
-                            'please login.'
+                            'Your geotag is saved. Please login if You want ' +
+                            'to earn points for your contributions.'
                         );
                     }
                     $('#ajp-geotagger-button-controls').hide();
