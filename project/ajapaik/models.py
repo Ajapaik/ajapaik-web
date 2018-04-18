@@ -400,15 +400,22 @@ class Photo(Model):
         return ret
 
     @staticmethod
-    def get_next_photo_to_geotag(qs, request):
-        profile = request.get_user().profile
-        trustworthiness = _calc_trustworthiness(profile.pk)
+    def get_next_photo_to_geotag(qs, request):  
+        if request.user.is_authenticated():
+            profile = request.user.profile
+            trustworthiness = _calc_trustworthiness(profile.pk)
+        else:
+            profile = None
+            trustworthiness = 0.0
 
         all_photos_set = qs
         photo_ids = frozenset(all_photos_set.values_list('id', flat=True))
 
-        user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
-        user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
+        user_geotags_for_set = GeoTag.objects.filter(photo_id__in=photo_ids)
+        user_skips_for_set = Skip.objects.filter(photo_id__in=photo_ids)
+        if profile is not None:
+            user_geotags_for_set = user_geotags_for_set.filter(user=profile)
+            user_skips_for_set = user_skips_for_set.filter(user=profile)
 
         user_geotagged_photo_ids = list(user_geotags_for_set.distinct('photo_id').values_list('photo_id', flat=True))
         user_skipped_photo_ids = list(user_skips_for_set.distinct('photo_id').values_list('photo_id', flat=True))
@@ -454,20 +461,30 @@ class Photo(Model):
                         nothing_more_to_show = True
         ret = ret_qs.first()
         last_confirm_geotag_by_this_user_for_ret = None
-        if ret:
-            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
-                .order_by('-created').first()
+        ret.user_already_confirmed = False
+        if ret and profile is not None:
+            last_confirm_geotag_by_this_user_for_ret = ret.geotags \
+                .filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
+                .order_by('-created') \
+                .first()
             ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                                                          and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
         if ret:
-            ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
-            ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
-            ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
-            ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
-            ret.view_count += 1
-            ret.light_save()
+            if profile is not None:
+                ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
+                ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
+                ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
+                ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
+
+                ret.view_count += 1
+                ret.light_save()
+            else:
+                ret.user_already_geotagged = False
+                ret.user_likes = False
+                ret.user_loves = False
+                ret.user_like_count = 0
 
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
