@@ -1376,6 +1376,11 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-like-photo-overlay-button', function () {
+        if (!window.userLoggedIn) {
+            $('#ajapaik-photo-modal').modal('toggle');
+            $('#ajapaik-header-profile-button').click();
+            return;
+        }
         var $this = $(this),
             $i = $this.find('i'),
             $likeCount = $this.find('.ajapaik-like-count');
