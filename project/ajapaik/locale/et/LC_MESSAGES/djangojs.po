@@ -6,14 +6,14 @@
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015-2016
-# Vahur Puik <vahur@ajapaik.ee>, 2015-2016
+# Vahur Puik <vahur@ajapaik.ee>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-25 17:40+0200\n"
-"PO-Revision-Date: 2017-12-12 12:59+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2018-04-17 12:57+0300\n"
+"PO-Revision-Date: 2018-04-17 11:16+0000\n"
+"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,58 +32,58 @@ msgstr "Mine minu asukohta"
 msgid "Close"
 msgstr "Sulge"
 
-#: project/ajapaik/static/js/ajapaik-common.js:557
+#: project/ajapaik/static/js/ajapaik-common.js:571
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: project/ajapaik/static/js/ajapaik-common.js:563
+#: project/ajapaik/static/js/ajapaik-common.js:577
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: project/ajapaik/static/js/ajapaik-common.js:566
+#: project/ajapaik/static/js/ajapaik-common.js:580
 msgid "The request to get user location timed out."
 msgstr "Asukohainfot päriti liiga kaua."
 
-#: project/ajapaik/static/js/ajapaik-common.js:569
+#: project/ajapaik/static/js/ajapaik-common.js:583
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: project/ajapaik/static/js/ajapaik-common.js:721
+#: project/ajapaik/static/js/ajapaik-common.js:735
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: project/ajapaik/static/js/ajapaik-common.js:732
-#: project/ajapaik/static/js/ajapaik-common.js:783
+#: project/ajapaik/static/js/ajapaik-common.js:746
+#: project/ajapaik/static/js/ajapaik-common.js:797
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: project/ajapaik/static/js/ajapaik-common.js:764
+#: project/ajapaik/static/js/ajapaik-common.js:778
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:775
+#: project/ajapaik/static/js/ajapaik-common.js:789
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: project/ajapaik/static/js/ajapaik-common.js:802
+#: project/ajapaik/static/js/ajapaik-common.js:816
 msgid "You"
 msgstr "Sina"
 
-#: project/ajapaik/static/js/ajapaik-common.js:806
+#: project/ajapaik/static/js/ajapaik-common.js:820
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: project/ajapaik/static/js/ajapaik-common.js:808
+#: project/ajapaik/static/js/ajapaik-common.js:822
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: project/ajapaik/static/js/ajapaik-common.js:869
+#: project/ajapaik/static/js/ajapaik-common.js:883
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
-#: project/ajapaik/static/js/ajapaik-common.js:1137
-#: project/ajapaik/static/js/ajapaik-common.js:1182
+#: project/ajapaik/static/js/ajapaik-common.js:1148
+#: project/ajapaik/static/js/ajapaik-common.js:1193
 #: project/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "..."
@@ -137,59 +137,67 @@ msgstr "Viga dateeringu salvestamisel."
 msgid "Confirm dating"
 msgstr "Kinnita dateering"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:406
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:407
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "Said dateeringu kinnitamise eest %(points)s punkti."
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:411
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:412
+msgid "Dating confirmed. But if you want to earn points please login."
+msgstr "Dateering kinnitatud. Punktide kogumiseks palun logige sisse."
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "Said dateerimise eest %(points)s punkti."
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:417
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:422
+msgid "Dating submitted. But if you want to earn points please login."
+msgstr "Dateering salvestatud. Panustamise eest punktide kogumiseks logige palun sisse."
+
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "Thanks!"
 msgstr "Aitäh!"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:427
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "YYYY.MM.DD"
 msgstr "AAAA.KK.PP"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:437
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:447
 msgid "Cancel"
 msgstr "Loobu"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:446
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:456
 msgid "Submit"
 msgstr "Saada"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:454
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:464
 msgid "Comment your dating"
 msgstr "Kommenteeri oma dateeringut"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "Kasuta AAAA.KK.PP vormingut (KK.PP ei ole kohustuslikud)"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "Kuupäevavahemikke või enne/pärast märgi kas \"-\" (sidekriipsu) või \"..\" (kahe punkti) abil"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "Approximate date in brackets"
 msgstr "Ligikaudne kuupäev märgi sulgudesse"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: project/ajapaik/static/js/ajapaik-dater-plugin.js:473
+#: project/ajapaik/static/js/ajapaik-dater-plugin.js:483
 msgid "You're anonymous"
 msgstr "Oled anonüümne kasutaja"
 
@@ -556,15 +564,21 @@ msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, see
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
+#: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1097
+msgid ""
+"Your geotag saved. But if you want earning and saving points for "
+"contribution on Ajapaik please login."
+msgstr ""
+
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
 msgstr "Vanalinnad"
 
-#: project/ajapaik/static/js/ajapaik-map.js:794
+#: project/ajapaik/static/js/ajapaik-map.js:763
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: project/ajapaik/static/js/ajapaik-map.js:802
+#: project/ajapaik/static/js/ajapaik-map.js:771
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 
