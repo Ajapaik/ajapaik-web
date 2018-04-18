@@ -7,13 +7,14 @@
 # Lauri Elias, 2015
 # Lauri Elias, 2015
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015-2016
+# Tarmo Toikkanen <tarmo@iki.fi>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-17 12:57+0300\n"
-"PO-Revision-Date: 2018-04-17 10:16+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2018-04-18 12:08+0300\n"
+"PO-Revision-Date: 2018-04-18 11:10+0000\n"
+"Last-Translator: Tarmo Toikkanen <tarmo@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -143,7 +144,7 @@ msgstr "Ajoituksen vahvistamisesta sait %(points)s pistettä."
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:412
 msgid "Dating confirmed. But if you want to earn points please login."
-msgstr ""
+msgstr "Päiväys on varmennettu. Kirjaudu sisään jos haluat saada pisteitä."
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Submitting a dating earned you %(points)s points."
@@ -151,7 +152,7 @@ msgstr "Lähettämisestä ja ajoittamisesta sait %(points)s pistettä."
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:422
 msgid "Dating submitted. But if you want to earn points please login."
-msgstr ""
+msgstr "Päiväys on tallennettu. Kirjaudu sisään jos haluat saada pisteitä."
 
 #: project/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "Thanks!"
@@ -566,9 +567,9 @@ msgstr "Pistesaldo"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1097
 msgid ""
-"Your geotag saved. But if you want earning and saving points for "
-"contribution on Ajapaik please login."
-msgstr ""
+"Your geotag is saved. Please login if You want to earn points for your "
+"contributions."
+msgstr "Geotagi on tallennettu. Kirjaudu sisään jos haluat saada pisteitä."
 
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
 msgid "Vanalinnad"
@@ -608,7 +609,7 @@ msgstr "Kierroksen poistaminen ei onnistu. Siihen liittyy uusintakuvia tai se ei
 
 #: project/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."

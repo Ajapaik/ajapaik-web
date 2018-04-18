@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-17 12:57+0300\n"
-"PO-Revision-Date: 2018-04-17 10:16+0000\n"
+"POT-Creation-Date: 2018-04-18 12:08+0300\n"
+"PO-Revision-Date: 2018-04-18 11:04+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "MIME-Version: 1.0\n"
@@ -564,8 +564,8 @@ msgstr "Opptjente poeng"
 
 #: project/ajapaik/static/js/ajapaik-geotagger-plugin.js:1097
 msgid ""
-"Your geotag saved. But if you want earning and saving points for "
-"contribution on Ajapaik please login."
+"Your geotag is saved. Please login if You want to earn points for your "
+"contributions."
 msgstr ""
 
 #: project/ajapaik/static/js/ajapaik-juks-gmaps.js:56
