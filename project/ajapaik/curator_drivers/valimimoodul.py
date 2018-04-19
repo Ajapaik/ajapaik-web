@@ -36,8 +36,7 @@ class ValimimoodulDriver(object):
             institution_string = 'null,null,null,null'
         request_params = '{"method":"search","params":[{"fullSearch":{"value":"%s"},"id":{"value":"","type":"OR"},' \
                          '"what":{"value":""},"description":{"value":""},"who":{"value":""},"from":{"value":"%s"},' \
-                         '"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200,' \
-                         '"digital":true}],"id":0}' % (
+                         '"number":{"value":""},"luceneQuery":null,"institutionTypes":[%s],"pageSize":200}],"id":0}' % (
                          cleaned_data['fullSearch'].encode('utf-8'), etera_string, institution_string)
         response = post(self.url, data=request_params)
         response.encoding = 'utf-8'
