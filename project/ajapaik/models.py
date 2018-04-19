@@ -661,7 +661,7 @@ class Photo(Model):
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
             for g in unique_user_geotags:
-                key = str(g.lat) + str(g.lon)
+                key = str(g.lat)[:5] + str(g.lon)[:5]
                 if key in geotag_coord_map:
                     geotag_coord_map[key].append(g)
                 else:
@@ -692,7 +692,8 @@ class Photo(Model):
                     trust_sum = 0
                     current_geotags = []
                     for each in a[3]:
-                        g = geotag_coord_map[str(each[1]) + str(each[0])]
+                        # TODO: This :5 slice randomly became necessary after a pip update...probably a deeper flaw here
+                        g = geotag_coord_map[str(each[1])[:5] + str(each[0])[:5]]
                         for gg in g:
                             current_geotags.append(gg)
                             trust_sum += gg.trustworthiness
