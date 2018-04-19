@@ -1165,15 +1165,25 @@ a.fullscreen {
 }
 
 #ajapaik-donation-header {
-    background-color: #222;
-    color: white;
-    border-top: 1px solid white;
+    background-color: yellow;
     font-size: 17px;
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
     padding-top: 10px;
     padding-bottom: 10px;
     display: none;
     width: 100%;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+}
+
+#ajapaik-donation-header a {
+    color: blue;
+    text-decoration: none;
+}
+
+#ajapaik-donation-header button {
+    color: black;
 }
 
 @media (min-width: 320px) {
@@ -1194,11 +1204,6 @@ a.fullscreen {
     #pac-input-mapview {
         width: 90px !important;
     }
-
-    #ajapaik-donation-header {
-        height: 80px;
-        padding-bottom: 80px;
-    }
 }
 
 @media (min-width: 768px) {
@@ -1208,10 +1213,6 @@ a.fullscreen {
 
     #pac-input-mapview {
         width: 90px !important;
-    }
-
-    #ajapaik-donation-header {
-        height: 55px;
     }
 }
 
@@ -1223,12 +1224,6 @@ a.fullscreen {
     #pac-input-mapview {
         width: 200px !important;
     }
-
-    #ajapaik-donation-header {
-        height: 55px;
-        padding-left: 175px;
-        padding-bottom: 60px;
-    }
 }
 
 @media (min-width: 1200px) {
@@ -1238,10 +1233,6 @@ a.fullscreen {
 
     #pac-input-mapview {
         width: 200px !important;
-    }
-
-    #ajapaik-donation-header {
-        height: 44px;
     }
 }
 
@@ -2771,19 +2762,6 @@ a[href^="https://maps.google.com/maps"] {
 
 #ajapaik-photoview-add-rephoto-button {
     margin-left: 10px;
-}
-
-#ajapaik-donation-modal-body > a {
-    text-decoration: none;
-}
-
-#ajapaik-donation-modal-link {
-    color: #f1d600;
-}
-
-#ajapaik-close-donation-header-button {
-    color: #fff;
-    opacity: 1;
 }
 
 #ajapaik-header-google-connect {
