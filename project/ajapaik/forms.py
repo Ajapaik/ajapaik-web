@@ -16,7 +16,7 @@ class APILoginAuthForm(forms.Form):
     type = forms.CharField(max_length=255)
     username = forms.CharField(max_length=255)
     # For Google+ oAuth
-    password = forms.CharField(max_length=1105)
+    password = forms.CharField(max_length=2048)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
     os = forms.CharField(max_length=255, required=False, initial='android')
@@ -248,13 +248,16 @@ class ApiPhotoUploadForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     accuracy = forms.FloatField(min_value=0, required=False)
     age = forms.FloatField(min_value=0, required=False)
-    date = forms.CharField(max_length=30)
+
+    # We expecting here a date but in model we have datetime field. So to do
+    # less work we define here DateTimeField.
+    date = forms.DateTimeField(input_formats=['%d-%m-%Y'])
     scale = forms.FloatField()
     yaw = forms.FloatField()
     pitch = forms.FloatField()
     roll = forms.FloatField()
+    flip = forms.BooleanField(required=False)
     original = forms.FileField()
-    flip = forms.IntegerField(min_value=0, max_value=1)
 
 
 class ApiPhotoStateForm(forms.Form):
@@ -412,7 +415,7 @@ class EditCommentForm(forms.Form):
 
 class ApiToggleFavoritePhotoForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all())
-    favorited = forms.BooleanField()
+    favorited = forms.BooleanField(required=False)
 
 
 class ApiFavoritedPhotosForm(forms.Form):

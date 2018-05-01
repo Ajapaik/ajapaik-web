@@ -113,14 +113,57 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
         )
 
 
+class RephotoSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
+    source = serializers.SerializerMethodField()
+    user_name = serializers.CharField(source='user.user.get_full_name')
+    is_uploaded_by_current_user = serializers.SerializerMethodField()
+
+    def get_image(self, instance):
+        request = self.context['request']
+        relative_url = reverse(
+            "project.ajapaik.views.image_thumb", args=(instance.id,)
+        )
+        return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
+
+    def get_date(self, instance):
+        if instance.date:
+            return instance.date.strftime('%d-%m-%Y')
+        else:
+            return instance.date_text
+
+    def get_source(self, instance):
+        if instance.source:
+            return {
+                'url': instance.source_url,
+                'name': instance.source.description + ' ' + instance.source_key,
+            }
+        else:
+            return {
+                'url': instance.source_url,
+            }
+
+    def get_is_uploaded_by_current_user(self, instance):
+        user_profile = self.context['request'].user.profile
+        return instance.user == user_profile
+
+    class Meta:
+        model = Photo
+        fields = (
+            'image', 'date', 'source', 'user_name',
+            'is_uploaded_by_current_user',
+        )
+
+
 class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    title = serializers.CharField(source='description')
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
     longitude = serializers.FloatField(source='lon')
     latitude = serializers.FloatField(source='lat')
-    rephotos = serializers.IntegerField(source='rephotos_count')
-    uploads = serializers.IntegerField(source='uploads_count')
+    rephotos = serializers.SerializerMethodField()
     favorited = serializers.BooleanField()
 
     @classmethod
@@ -135,7 +178,9 @@ class PhotoSerializer(serializers.ModelSerializer):
         # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
         # So if faced some incorect data check what have been assigned to
         # "instance" variable.
-        return photos_queryset.prefetch_related('source') \
+        return photos_queryset \
+            .prefetch_related('source') \
+            .prefetch_related('rephotos') \
             .annotate(rephotos_count=Count('rephotos')) \
             .annotate(uploads_count=Count(
                 Case(
@@ -145,7 +190,7 @@ class PhotoSerializer(serializers.ModelSerializer):
             )) \
             .annotate(likes_count=Count('likes')) \
             .annotate(favorited=Case(
-                When(likes_count__gt=0, then=Value(True)),
+                When(likes__profile=user_profile, then=Value(True)),
                 default=Value(False),
                 output_field=BooleanField()))
 
@@ -173,11 +218,18 @@ class PhotoSerializer(serializers.ModelSerializer):
                 'url': instance.source_url,
             }
 
+    def get_rephotos(self, instance):
+        return RephotoSerializer(
+            instance=instance.rephotos.all(),
+            many=True,
+            context={'request': self.context['request']},
+        ).data
+
     class Meta:
         model = Photo
         fields = (
             'id', 'image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
+            'author', 'source', 'latitude', 'longitude', 'rephotos',
             'favorited',
         )
 
@@ -188,7 +240,7 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
     class Meta(PhotoSerializer.Meta):
         fields = (
             'id', 'distance', 'image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'rephotos', 'uploads',
+            'author', 'source', 'latitude', 'longitude', 'rephotos',
             'favorited',
         )
 

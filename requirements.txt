@@ -2,7 +2,7 @@ appdirs
 asn1crypto
 cffi
 cryptography
-Django==1.8.18
+Django==1.8.19
 django-admin-tools
 django-appconf
 django-autocomplete-light==2.3.3
@@ -21,7 +21,7 @@ django-haystack
 django-markup
 django-mobi
 django-modeltranslation
-django-registration-redux
+django-registration-redux==1.6
 django-tastypie
 django-test-without-migrations
 djangorestframework==3.4.7
@@ -48,7 +48,7 @@ packaging
 pandas
 pbr
 Pillow
-psycopg2
+psycopg2-binary
 py
 pyasn1
 pyasn1-modules
