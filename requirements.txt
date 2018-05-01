@@ -7,6 +7,7 @@ django-admin-tools
 django-appconf
 django-autocomplete-light==2.3.3
 django-autoslug
+django-allauth==0.33
 django-bootstrap-dynamic-formsets
 django-bootstrap3
 django-bulk-update
@@ -21,7 +22,6 @@ django-haystack
 django-markup
 django-mobi
 django-modeltranslation
-django-registration-redux==1.6
 django-tastypie
 django-test-without-migrations
 djangorestframework==3.4.7
@@ -32,6 +32,7 @@ flickrapi
 funcsigs
 futures
 geopy
+google-auth
 httplib2
 idna
 ipaddress

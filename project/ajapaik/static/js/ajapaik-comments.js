@@ -58,12 +58,12 @@ $(document).ready(function () {
             type: 'POST',
             url: '/comments/post-one/' + photo_id + '/',
             data: form.serialize(),
-            success: function(responce) {
+            success: function(response) {
                 var error_div = form.find("div[data-comment-element='errors']");
                 var comment_textarea = form.find('textarea[name="comment"]');
 
-                if(responce && responce.comment && responce.comment.length){
-                    error_div.html(responce.comment[0]);
+                if(response && response.comment && response.comment.length){
+                    error_div.html(response.comment[0]);
                     error_div.removeClass('hidden');
                 }
                 else {
@@ -96,7 +96,7 @@ $(document).ready(function () {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     comment_id: comment_id
                 },
-                success: function(responce) {
+                success: function(response) {
                     fetchComments();
                 }
             });

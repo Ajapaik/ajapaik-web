@@ -12,16 +12,63 @@ from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
     Video, Licence
 
 
-class APILoginAuthForm(forms.Form):
-    type = forms.CharField(max_length=255)
-    username = forms.CharField(max_length=255)
-    # For Google+ oAuth
-    password = forms.CharField(max_length=2048)
+class APILoginForm(forms.Form):
+    LOGIN_TYPE_AUTO = 'auto'
+    LOGIN_TYPE_AJAPAIK = 'ajapaik'
+    LOGIN_TYPE_GOOGLE = 'google'
+    LOGIN_TYPE_FACEBOOK = 'fb'
+    LOGIN_TYPES = [
+        (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
+                                    # This depricated behaviour before
+                                    # django-allauth integration.
+        (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
+        (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
+
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
+
+    type = forms.ChoiceField(choices=LOGIN_TYPES)
+    username = forms.CharField(max_length=2048)
+    password = forms.CharField(max_length=2048, required=False)
     version = forms.FloatField(required=False)
     length = forms.IntegerField(required=False, initial=0)
-    os = forms.CharField(max_length=255, required=False, initial='android')
-    firstname = forms.CharField(max_length=255, required=False)
-    lastname = forms.CharField(max_length=255, required=False)
+    os = forms.ChoiceField(
+        choices=OS_TYPES,
+        required=False,
+        initial=OS_TYPE_ANDROID
+    )
+
+
+class APIRegisterForm(forms.Form):
+    REGISTRATION_TYPE_AJAPAIK = 'ajapaik'
+    REGISTRATION_TYPE_GOOGLE = 'google'
+    REGISTRATION_TYPE_FACEBOOK = 'facebook'
+    REGISTRATION_TYPES = [
+        (REGISTRATION_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (REGISTRATION_TYPE_GOOGLE, 'Google'),  # Google login.
+        (REGISTRATION_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
+
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
+
+    type = forms.ChoiceField(choices=REGISTRATION_TYPES)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=1105)
+    firstname = forms.CharField(max_length=255)
+    lastname = forms.CharField(max_length=255)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.ChoiceField(
+        required=False,
+        choices=OS_TYPES,
+        initial=OS_TYPE_ANDROID
+    )
 
 
 class APIAuthForm(forms.Form):
@@ -49,22 +96,61 @@ class AlbumSelectionFilteringForm(forms.Form):
 
 class GalleryFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
-    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
+
+    photo = forms.ModelChoiceField(
+        queryset=Photo.objects.filter(rephoto_of__isnull=True),
+        required=False
+    )
+
     photos = forms.CharField(required=False)
+
     page = forms.IntegerField(min_value=1, initial=1, required=False)
-    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
-                               required=False)
+
+    order1 = forms.ChoiceField(
+        choices=[(
+            'amount', 'amount'),
+            ('time', 'time'),
+            ('closest', 'closest'),
+        ],
+        initial='time',
+        required=False
+    )
+
     order2 = forms.ChoiceField(
-        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
+        choices=[
+            ('comments', 'comments'),
+            ('geotags', 'geotags'),
+            ('rephotos', 'rephotos'),
+            ('views', 'views'),
+            ('likes', 'likes'),
+            ('added', 'added'),
+            ('datings', 'datings'),
+            ('stills', 'stills'),
+        ],
         initial='added',
-        required=False)
-    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
+        required=False
+    )
+
+    order3 = forms.ChoiceField(
+        choices=[
+            ('reverse', 'reverse'),
+        ],
+        initial=None,
+        required=False
+    )
+
     lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+
     q = forms.CharField(required=False)
+
     myLikes = forms.BooleanField(required=False)
-    rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
+
+    rephotosBy = forms.ModelChoiceField(
+        queryset=Profile.objects.all(),
+        required=False
+    )
 
     def clean_page(self):
         page = self.cleaned_data['page']

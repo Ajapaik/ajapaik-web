@@ -1,7 +1,7 @@
 import StringIO
 from contextlib import closing
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, date
 from json import loads
 from math import degrees
 from time import sleep
@@ -400,15 +400,22 @@ class Photo(Model):
         return ret
 
     @staticmethod
-    def get_next_photo_to_geotag(qs, request):
-        profile = request.get_user().profile
-        trustworthiness = _calc_trustworthiness(profile.pk)
+    def get_next_photo_to_geotag(qs, request):  
+        if request.user.is_authenticated():
+            profile = request.user.profile
+            trustworthiness = _calc_trustworthiness(profile.pk)
+        else:
+            profile = None
+            trustworthiness = 0.0
 
         all_photos_set = qs
         photo_ids = frozenset(all_photos_set.values_list('id', flat=True))
 
-        user_geotags_for_set = GeoTag.objects.filter(user=profile, photo_id__in=photo_ids)
-        user_skips_for_set = Skip.objects.filter(user=profile, photo_id__in=photo_ids)
+        user_geotags_for_set = GeoTag.objects.filter(photo_id__in=photo_ids)
+        user_skips_for_set = Skip.objects.filter(photo_id__in=photo_ids)
+        if profile is not None:
+            user_geotags_for_set = user_geotags_for_set.filter(user=profile)
+            user_skips_for_set = user_skips_for_set.filter(user=profile)
 
         user_geotagged_photo_ids = list(user_geotags_for_set.distinct('photo_id').values_list('photo_id', flat=True))
         user_skipped_photo_ids = list(user_skips_for_set.distinct('photo_id').values_list('photo_id', flat=True))
@@ -454,20 +461,30 @@ class Photo(Model):
                         nothing_more_to_show = True
         ret = ret_qs.first()
         last_confirm_geotag_by_this_user_for_ret = None
-        if ret:
-            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
-                .order_by('-created').first()
+        ret.user_already_confirmed = False
+        if ret and profile is not None:
+            last_confirm_geotag_by_this_user_for_ret = ret.geotags \
+                .filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
+                .order_by('-created') \
+                .first()
             ret.user_already_confirmed = False
         if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
                                                          and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
             ret.user_already_confirmed = True
         if ret:
-            ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
-            ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
-            ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
-            ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
-            ret.view_count += 1
-            ret.light_save()
+            if profile is not None:
+                ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
+                ret.user_likes = PhotoLike.objects.filter(profile=profile, photo=ret, level=1).exists()
+                ret.user_loves = PhotoLike.objects.filter(profile=profile, photo=ret, level=2).exists()
+                ret.user_like_count = PhotoLike.objects.filter(photo=ret).distinct('profile').count()
+
+                ret.view_count += 1
+                ret.light_save()
+            else:
+                ret.user_already_geotagged = False
+                ret.user_likes = False
+                ret.user_loves = False
+                ret.user_like_count = 0
 
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
@@ -757,7 +774,10 @@ class PhotoLike(Model):
 
 class DifficultyFeedback(Model):
     photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks')
+    user_profile = ForeignKey('Profile',
+                              related_name='difficulty_feedbacks',
+                              blank=True,
+                              null=True)
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
     geotag = ForeignKey('GeoTag')
@@ -955,23 +975,24 @@ class Profile(Model):
     def is_legit(self):
         if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
             return True
-
         return False
 
     def get_display_name(self):
-        if self.first_name and self.last_name:
-            return '%s %s' % (self.first_name, self.last_name)
-        elif self.google_plus_name:
-            return self.google_plus_name
-        elif self.fb_name:
-            return self.fb_name
-        elif self.google_plus_email:
-            try:
-                return self.google_plus_email.split('@')[0]
-            except:
-                return _('Anonymous user')
-        else:
-            return _('Anonymous user')
+        if self.user.first_name and self.user.last_name:
+            return u'{} {}'.format(self.user.first_name, self.user.last_name)
+
+        social_accounts = self.user.socialaccount_set. \
+            filter(extra_data__ne='{}') \
+            .order_by('id')
+        social_user_names = [
+            account['name']
+            for account in social_accounts.values_list('extra_data', flat=True)
+            if account.get('name') is not None
+        ]
+        if social_user_names:
+            return social_user_names[0]
+
+        return _('Anonymous user')
 
     def __unicode__(self):
         return u"%s" % (self.get_display_name(),)
@@ -1005,47 +1026,6 @@ class Profile(Model):
             self.fb_user_friends = user_friends
 
         self.save()
-
-    def update_from_google_plus_data(self, token, data):
-        # TODO: Make form
-        if 'given_name' in data:
-            self.user.first_name = data["given_name"]
-        if 'family_name' in data:
-            self.user.last_name = data["family_name"]
-        if 'email' in data:
-            self.user.email = data["email"]
-
-        self.user.save()
-
-        if isinstance(token, OAuth2Credentials):
-            self.google_plus_token = loads(token.to_json())['access_token']
-        else:
-            self.google_plus_token = token
-        self.google_plus_id = data['id']
-        if 'link' in data:
-            self.google_plus_link = data['link']
-        if 'name' in data:
-            self.google_plus_name = data['name']
-            if self.google_plus_name:
-                parts = self.google_plus_name.split(' ')
-                self.first_name = parts[0]
-                if len(parts) > 1:
-                    self.last_name = parts[1]
-        if 'email' in data:
-            self.google_plus_email = data['email']
-        if 'picture' in data:
-            self.google_plus_picture = data['picture']
-
-        self.save()
-
-    def merge_from_other(self, other):
-        other.photos.update(user=self)
-        other.skips.update(user=self)
-        other.geotags.update(user=self)
-        other.points.update(user=self)
-        other.likes.update(profile=self)
-        other.datings.update(profile=self)
-        other.dating_confirmations.update(profile=self)
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
@@ -1260,13 +1240,13 @@ class Dating(Model):
     )
 
     photo = ForeignKey('Photo', related_name='datings')
-    profile = ForeignKey('Profile', related_name='datings')
+    profile = ForeignKey('Profile', related_name='datings', blank=True, null=True)
     raw = CharField(max_length=25, null=True, blank=True)
     comment = TextField(blank=True, null=True)
-    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start = DateField(default=date(year=1000, month=1, day=1))
     start_approximate = BooleanField(default=False)
     start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end = DateField(default=date(year=3000, month=1, day=1))
     end_approximate = BooleanField(default=False)
     end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
@@ -1281,7 +1261,10 @@ class Dating(Model):
 
 class DatingConfirmation(Model):
     confirmation_of = ForeignKey('Dating', related_name='confirmations')
-    profile = ForeignKey('Profile', related_name='dating_confirmations')
+    profile = ForeignKey('Profile',
+                          related_name='dating_confirmations',
+                          blank=True,
+                          null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

@@ -18,8 +18,6 @@ from django.template import RequestContext
 from django.utils.timezone import utc
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
-from registration.forms import RegistrationFormUniqueEmail
-from registration.signals import user_registered
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail, delete
@@ -151,17 +149,6 @@ class CreateTourMarkersForm(forms.Form):
     neLon = forms.FloatField(min_value=-180, max_value=180)
 
 
-class UserRegistrationForm(RegistrationFormUniqueEmail):
-    username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
-    first_name = forms.CharField(label=_('First name'), max_length=30)
-    last_name = forms.CharField(label=_('Last name'), max_length=30)
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        self.cleaned_data['username'] = email
-        return email
-
-
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -198,19 +185,6 @@ class TourGroupInlineForm(autocomplete_light.ModelForm):
 
 
 TourGroupFormset = inlineformset_factory(Tour, TourGroup, form=TourGroupInlineForm, extra=1)
-
-
-# Signals
-def user_created(sender, user, request, **kwargs):
-    form = UserRegistrationForm(request.POST)
-    user = User.objects.filter(username=form.data['email']).first()
-    if user:
-        user.first_name = form.data['first_name']
-        user.last_name = form.data['last_name']
-        user.save()
-
-
-user_registered.connect(user_created)
 
 
 # User checks

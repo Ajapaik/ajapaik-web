@@ -15,9 +15,10 @@
                             {% if request.user.profile.is_legit %}
                                 {% with profile=request.user.profile user=request.user %}
                                     <div class="facebook-connected">
-                                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
-                                            <a href='{% url "project.ajapaik.views.logout" %}' id='logout-button'>{% trans "Log out" %}</a>.
-                                        </p>
+                                        <form method="post" action="{% url 'account_logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit">{% trans 'Sign Out' %}</button>
+                                        </form>
                                     </div>
                                 {% endwith %}
                             {% else %}

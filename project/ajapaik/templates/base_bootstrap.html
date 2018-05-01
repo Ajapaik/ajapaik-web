@@ -275,6 +275,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="alert alert-danger" id="ajapaik-geolocation-error">
   <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>
 </div>
+{% if user.is_dummy and user.is_contributed %}
+    <div class="alert alert-info text-center">
+        <i>{% trans "Register to save your contribution." %}</i>
+    </div>
+{% endif %}
 <div class="alert alert-info" id="ajapaik-sorting-error">
   <strong>{% trans "Sorting" %}:</strong> <span id="ajapaik-sorting-error-message"></span>
 </div>
@@ -286,7 +291,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
 {% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
-    <footer class="footer text-center">
+    <footer class="footer navbar-fixed-bottom text-center">
         <div class="container-fluid">
             <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-contact">
                 <div class="row">

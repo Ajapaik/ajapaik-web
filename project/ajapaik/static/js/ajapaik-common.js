@@ -524,7 +524,15 @@ var map,
     updateLeaderboard = function () {
         var target = $('.score_container');
         if (window.albumId) {
-            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId);
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: leaderboardUpdateURL + 'album/' + window.albumId,
+        //         data: {},
+        //         success: function(response) {
+        //             target.find('.scoreboard').html(response)
+        //         }
+        //     });
+            target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId + '/');
         } else {
             target.find('.scoreboard').load(leaderboardUpdateURL);
         }
@@ -1232,7 +1240,7 @@ var map,
         e.preventDefault();
         var url = window.leaderboardFullURL;
         if (window.albumId) {
-            url += 'album/' + window.albumId;
+            url += 'album/' + window.albumId + '/';
         }
         $.ajax({
             url: url,
@@ -1368,6 +1376,11 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-like-photo-overlay-button', function () {
+        if (!window.userLoggedIn) {
+            $('#ajapaik-photo-modal').modal('toggle');
+            $('#ajapaik-header-profile-button').click();
+            return;
+        }
         var $this = $(this),
             $i = $this.find('i'),
             $likeCount = $this.find('.ajapaik-like-count');
