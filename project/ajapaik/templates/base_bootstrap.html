@@ -425,7 +425,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
+    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key=AIzaSyBHl2qOOLdHrYgsKAEi-TqsP-DkQYe1NEc"></script>
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}
         <script src="{% static "js/jquery-2.2.4.js" %}"></script>
