@@ -30,7 +30,7 @@ from PIL import ExifTags, Image
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import (api_view, authentication_classes,
                                        parser_classes, permission_classes)
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
@@ -99,7 +99,7 @@ class CustomAuthenticationMixin(object):
 
 
 class CustomParsersMixin(object):
-    parser_classes = (FormParser, MultiPartParser,)
+    parser_classes = (FormParser, MultiPartParser, JSONParser)
 
 
 class Login(CustomParsersMixin, APIView):
@@ -337,8 +337,15 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
+        form = forms.ApiAlbumList(request.data)
+        if not form.is_valid():
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'albums': []
+            })
+        include_empty = form.cleaned_data['include_empty']
         # Public and not empty condition.
-        albums_condition = Q(is_public=True, photos__isnull=False)
+        albums_condition = Q(is_public=True, photos__isnull=include_empty)
 
         # Overseening by current users condition.
         if request.user is not None and request.user.is_authenticated():
@@ -918,5 +925,47 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
                 instance=photos,
                 many=True,
                 context={'request': request}
+            ).data
+        })
+
+
+class UserProfile(APIView):
+    '''
+    API endpoint for getting user data.
+    '''
+
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format=None):
+        user = request.user
+        if user.is_authenticated() and user.is_active:
+            return Response({
+                'status_code': RESPONSE_STATUSES['OK'],
+                'user': serializers.UserProfileSerializer(
+                    instance=user,
+                    many=False,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'status_code': RESPONSE_STATUSES['OK'],
+                'user': {}
+            })
+
+
+class LicenceList(APIView):
+    '''
+    API endpoint to get licences.
+    '''
+
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format=None):
+        return Response({
+            'status_code': RESPONSE_STATUSES['OK'],
+            'licences': serializers.LicenceSerializer(
+                instance=Licence.objects.filter(is_public=True),
+                many=True
             ).data
         })

@@ -526,3 +526,7 @@ class ApiUserRephotoSearchForm(forms.Form):
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
+
+
+class ApiAlbumList(forms.Form):
+    include_empty = forms.BooleanField(required=False, initial=False)

@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db.models import (BooleanField, Case, Count, IntegerField, Q,
                               Value, When)
@@ -7,7 +8,8 @@ from rest_framework import serializers
 
 from project.utils import calculate_thumbnail_size
 
-from .models import Album, Dating, Photo, Video, _get_pseudo_slug_for_photo
+from .models import (Album, Dating, Licence, Photo, Video,
+                     _get_pseudo_slug_for_photo)
 
 log = logging.getLogger(__name__)
 
@@ -307,3 +309,28 @@ class AlbumDetailsSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Album
         fields = ('id', 'title', 'image', 'stats')
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    session_id = serializers.SerializerMethodField()
+
+    def get_session_id(self, instance):
+        request = self.context['request']
+        return request.session.session_key
+
+    class Meta(object):
+        model = get_user_model()
+        fields = ('id', 'session_id')
+
+
+class LicenceSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    url = serializers.CharField()
+    image_url = serializers.CharField()
+    is_public = serializers.BooleanField()
+
+    class Meta(object):
+        model = Licence
+        fields = ('id', 'name', 'url', 'image_url', 'is_public')

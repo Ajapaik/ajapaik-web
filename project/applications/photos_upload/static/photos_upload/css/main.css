@@ -25,3 +25,7 @@
     transform: translate(-50%,-50%);
     position: absolute;
 }
+
+select {
+    max-width: inherit;
+}
