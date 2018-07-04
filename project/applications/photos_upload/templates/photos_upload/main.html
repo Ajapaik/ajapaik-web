@@ -41,23 +41,104 @@
     </script>
 
     <script type="text/x-template" id="upload-form-template">
-        <div class="col-md-12">
-            <form enctype="multipart/form-data" novalidate>
-                <div class="dropbox">
-                    <input @change="filesChange($event.target.files);" type="file" name="photos" accept="image/*" multiple>
-                    <span class="help-text">{% trans 'Drag photos here or click <b>here</b>'%}</span>
-                </div>
-            </form>
-        </div>
+        <form enctype="multipart/form-data" novalidate>
+            <div class="dropbox">
+                <input @change="filesChange($event.target.files);" type="file" name="photos" accept="image/*" multiple>
+                <span class="help-text">{% trans 'Drag photos here or click <b>here</b>'%}</span>
+            </div>
+        </form>
     </script>
 
     <script type="text/x-template" id="photos-editor-template">
-        <div class="col-md-12">
-            <div class="row">
+        <el-row>
+            <el-row>
+                <p class="text-warning">
+                    {% trans 'Warning: If there any photo data present it will be lost by rewriting, when you will start typing in this form.' %}
+                </p>
+                <form>
+                    <el-row>
+                        <p><b>{% trans 'Name' %}:</b></p>
+                        <el-input
+                            v-model="name"
+                            placeholder="{% trans 'Start typing to edit short description for all photos.' %}">
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <p><b>{% trans 'Description' %}:</b></p>
+                        <el-input
+                            v-model="description"
+                            type="textarea"
+                            :autosize="{ minRows: 4, maxRows: 8}"
+                            placeholder="{% trans 'Start typing to edit detailed description for all photos.' %}">
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Longitude' %}:</b></p>
+                            <el-input-number
+                                v-model="longitude"
+                                size="small"
+                                placeholder="{% trans 'Start typing to edit longitude for all photos.' %}">
+                            </el-input-number>
+                        </el-col>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Latitude' %}:</b></p>
+                            <el-input-number
+                                v-model="latitude"
+                                size="small"
+                                placeholder="{% trans 'Start typing to edit latitude for all photos.' %}">
+                            </el-input-number>
+                        </el-col>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Azimuth' %}:</b></p>
+                            <el-input-number
+                                v-model="azimuth"
+                                size="small"
+                                placeholder="{% trans 'Start typing to edit azimuth for all photos.' %}">
+                            </el-input-number>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-checkbox v-model="isUserAuthor">{% trans "I'm the author" %}</el-checkbox>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="12">
+                            <p><b>{% trans 'Licence' %}:</b></p>
+                            <el-select
+                                v-model="selectedLicence"
+                                placeholder="{% trans 'Select licence for photo' %}">
+                                <el-option
+                                    v-for="licence in $store.state.licences"
+                                    :key="licence.id"
+                                    :value="licence.id"
+                                    :label="licence.name">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                        <el-col :span="12">
+                            <p><b>{% trans 'Albums' %}:</b></p>
+                            <el-select
+                                v-model="selectedAlbums"
+                                multiple
+                                filterable
+                                reserve-keyword
+                                placeholder="{% trans 'Please enter album name' %}">
+                                <el-option
+                                    v-for="album in availableAlbums"
+                                    :key="album.id"
+                                    :label="album.title"
+                                    :value="album.id">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                    </el-row>
+                </form>
+            </el-row>
+            <el-row>
                 <h1>{% trans 'Photos preview'%}</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-10">
+            </el-row>
+            <el-row>
+                <el-col :span="24">
                     <photos-editor-photo-element
                             v-for="photo in $store.state.photos"
                             :key="photo.originalFileName"
@@ -65,110 +146,100 @@
                             :albums="availableAlbums"
                             :licences="licences">
                     </photos-editor-photo-element>
-                </div>
-            </div>
-        </div>
+                </el-col>
+            </el-row>
+        </el-row>
     </script>
 
     <script type="text/x-template" id="photos-editor-photo-element-template">
-        <div class="row photos-editor">
-            <div class="col-md-6">
+        <el-row>
+            <el-col :span="12">
                 <img :src="photo.image" class="img-thumbnail" />
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <span>{% trans 'Original file name:'%}</span>&nbsp;<span>${photo.originalFileName}</span>
-                </div>
+            </el-col>
+            <el-col :span="12">
+                <el-row>
+                    <p><b>{% trans 'Original file name:'%}</b>&nbsp;<i>${photo.originalFileName}</i></p>
+                </el-row>
                 <form>
-                    <div class="row">
-                        <label class="control-label">
-                            <input v-model="photo.name"
-                                   type="text"
-                                   class="form-control"
-                                   title="{% trans 'Enter short photo description' %}">
-                            {% trans 'Name' %}
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label class="control-label">
-                            <textarea v-model="photo.description"
-                                      class="form-control"
-                                      title="{% trans 'Enter here detailed photo description' %}">
-                            </textarea>
-                            {% trans 'Description' %}
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="control-label">
-                                <input v-model="photo.longitude"
-                                       type="number"
-                                       class="form-control"
-                                       title="{% trans 'Enter longitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
-                                {% trans 'Longitude' %}
-                            </label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="control-label">
-                                <input v-model="photo.latitude"
-                                       type="number"
-                                       class="form-control"
-                                       title="{% trans 'Enter latitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
-                                {% trans 'Latitude' %}
-                            </label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="control-label">
-                                <input v-model="photo.azimuth"
-                                       type="number"
-                                       class="form-control"
-                                       title="{% trans 'Enter azimuth where photo was taken. If not set we will try to get it from photo metadata.' %}">
-                                {% trans 'Azimuth' %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <label class="control-label">
-                                    <input v-model="photo.isUserAuthor" type="checkbox">
-                                    {% trans "I'm the author" %}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <label class="control-label">
-                                    {% trans 'Licence' %}
-                                    <select name="licences" v-model="photo.licence">
-                                        <option v-for="licence in $store.state.licences" :value="licence.id">${licence.name}</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <el-select
-                                    v-model="photo.albums"
-                                    multiple
-                                    filterable
-                                    reserve-keyword
-                                    placeholder="Please enter a keyword">
-                                    <el-option
-                                        v-for="album in albums"
-                                        :key="album.id"
-                                        :label="album.title"
-                                        :value="album.id">
-                                    </el-option>
-                                </el-select>
-                            </div>
-                        </div>
-                    </div>
+                    <el-row>
+                        <p><b>{% trans 'Name' %}:</b></p>
+                        <el-input
+                            v-model="photo.name"
+                            placeholder="{% trans 'Enter short photo description' %}">
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <p><b>{% trans 'Description' %}:</b></p>
+                        <el-input
+                            v-model="photo.description"
+                            type="textarea"
+                            :autosize="{ minRows: 4, maxRows: 8}"
+                            placeholder="{% trans 'Enter here detailed photo description' %}">
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Longitude' %}:</b></p>
+                            <el-input-number
+                                v-model="photo.longitude"
+                                size="small"
+                                placeholder="{% trans 'Enter longitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                            </el-input-number>
+                        </el-col>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Latitude' %}:</b></p>
+                            <el-input-number
+                                v-model="photo.latitude"
+                                size="small"
+                                placeholder="{% trans 'Enter latitude of place where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                            </el-input-number>
+                        </el-col>
+                        <el-col :span="7">
+                            <p><b>{% trans 'Azimuth' %}:</b></p>
+                            <el-input-number
+                                v-model="photo.azimuth"
+                                size="small"
+                                placeholder="{% trans 'Enter azimuth where photo was taken. If not set we will try to get it from photo metadata.' %}">
+                            </el-input-number>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-checkbox v-model="photo.isUserAuthor">{% trans "I'm the author" %}</el-checkbox>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="12">
+                            <p><b>{% trans 'Licence' %}:</b></p>
+                            <el-select
+                                v-model="photo.licence"
+                                placeholder="{% trans 'Select licence for photo' %}">
+                                <el-option
+                                    v-for="licence in $store.state.licences"
+                                    :key="licence.id"
+                                    :value="licence.id"
+                                    :label="licence.name">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                        <el-col :span="12">
+                            <p><b>{% trans 'Albums' %}:</b></p>
+                            <el-select
+                                v-model="photo.albums"
+                                multiple
+                                filterable
+                                reserve-keyword
+                                placeholder="{% trans 'Please enter album name' %}">
+                                <el-option
+                                    v-for="album in albums"
+                                    :key="album.id"
+                                    :label="album.title"
+                                    :value="album.id">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                    </el-row>
                 </form>
-            </div>
-        </div>
+            </el-col>
+        </el-row>
     </script>
 
 {% endblock layout %}

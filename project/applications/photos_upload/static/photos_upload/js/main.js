@@ -111,6 +111,15 @@ Vue.component('photos-editor', {
         return {
             availableAlbums: [],
             licences: [],
+
+            name: '',
+            description: '',
+            longitude: 0,
+            latitude: 0,
+            azimuth: 0,
+            isUserAuthor: false,
+            selectedLicence: null,
+            selectedAlbums: []
         };
     },
     created: function() {
