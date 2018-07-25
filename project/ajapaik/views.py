@@ -2677,19 +2677,21 @@ def submit_dating(request):
         return HttpResponse('Invalid data', status=400)
 
 
-@login_required
 def get_datings(request, photo_id):
-    photo = Photo.objects.filter(pk=photo_id).first()
-    profile = request.user.profile
-    ret = {}
-    if photo:
-        datings = photo.datings.order_by('created').prefetch_related('confirmations')
-        for each in datings:
-            each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
-        datings_serialized = DatingSerializer(datings, many=True).data
-        ret['datings'] = datings_serialized
-
-    return HttpResponse(json.dumps(ret), content_type='application/json')
+    if request.user.is_authenticated():
+        profile = request.user.profile
+    else:
+        profile = None
+    photo = get_object_or_404(Photo, id=photo_id)
+    datings = photo.datings.order_by('created').prefetch_related('confirmations')
+    for dating in datings:
+        if profile is not None:
+            dating.this_user_has_confirmed = dating.confirmations \
+                                                .filter(profile=profile) \
+                                                .exists()
+        else:
+            dating.this_user_has_confirmed = False
+    return JsonResponse(DatingSerializer(datings, many=True).data, safe=False)
 
 
 @login_required
