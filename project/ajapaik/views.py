@@ -1174,14 +1174,22 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         original_thumb_size = get_thumbnail(photo_obj.image, '1024x1024').size
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
-        if geotag_count > 0:
-            correct_geotags_from_authenticated_users = profile and geotags.exclude(user__pk=profile.user_id).filter(
-                Q(user__first_name__isnull=False, user__last_name__isnull=False, is_correct=True))[:3] or []
-            if len(correct_geotags_from_authenticated_users) > 0:
-                for each in correct_geotags_from_authenticated_users:
-                    first_geotaggers.append([each.user.get_display_name(), each.lat, each.lon, each.azimuth])
-            first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
+        is_current_user_geotaget = geotags. \
+            filter(user__pk=profile.user_id) \
+            .exists()
+        if profile is not None and is_current_user_geotaget:
+            geotags = geotags.exclude(user__pk=profile.user_id)
+        for geotag in geotags:
+            if geotag.user is not None:
+                name = geotag.user.get_display_name()
+            else:
+                name = _('Anonymous user')
+            first_geotaggers.append([name,
+                                     geotag.lat,
+                                     geotag.lon,
+                                     geotag.azimuth])
+        first_geotaggers = json.dumps(first_geotaggers)
         first_rephoto = photo_obj.rephotos.all().first()
         if 'user_view_array' not in request.session:
             request.session['user_view_array'] = []
