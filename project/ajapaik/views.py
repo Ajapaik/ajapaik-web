@@ -1175,10 +1175,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
-        is_current_user_geotaget = geotags. \
-            filter(user__pk=profile.user_id) \
-            .exists()
-        if profile is not None and is_current_user_geotaget:
+        if profile is not None and geotags.filter(user__pk=profile.user_id).exists():
             geotags = geotags.exclude(user__pk=profile.user_id)
         for geotag in geotags:
             if geotag.user is not None:
