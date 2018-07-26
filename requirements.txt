@@ -48,7 +48,7 @@ olefile
 packaging
 pandas
 pbr
-Pillow
+Pillow==4.1.1
 psycopg2
 py
 pyasn1
