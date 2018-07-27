@@ -196,7 +196,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'mediawiki_allauth',
+    'project.mediawiki_allauth',
 )
 
 ALLOWED_HOSTS = [
