@@ -25,11 +25,9 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         user = super(CustomSocialAccountAdapter, self).save_user(
             request, sociallogin, form
         )
+        old_user = None
         if dummy_user_id is not None:
-            try:
-                old_user = User.objects.get(id=dummy_user_id)
-            except (User.DoesNotExist, User.MultipleObjectsReturned):
-                old_user = None
+            old_user = User.objects.filter(id=dummy_user_id).first()
         if old_user is not None:
             move_user_data(old_user=old_user, new_user=user)
             old_user.is_active = False
