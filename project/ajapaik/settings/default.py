@@ -22,6 +22,9 @@ DATING_CONFIRMATION_POINTS = 50
 CURATOR_FLICKR_ENABLED = False
 CURATOR_THEN_AND_NOW_CREATION_DISABLED = True
 
+FLICKR_API_KEY = ''
+FLICKR_API_SECRET = ''
+
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
