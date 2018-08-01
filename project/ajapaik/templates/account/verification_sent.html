@@ -1,0 +1,16 @@
+{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
+
+{% load i18n %}
+{% load bootstrap3 %}
+{% load socialaccount %}
+
+{% block layout %}
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+         <h1>{% trans "Verify Your E-mail Address" %}</h1>
+         <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+      </div>
+   </div>
+</div>
+{% endblock %}
