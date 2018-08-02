@@ -1505,10 +1505,13 @@ a.fullscreen {
 .ajapaik-mapview-pane-photo-container > .caption {
     max-height: 50%;
 }
+/*
+2018-08-02: Commented out by Zache, remove this if it is not needed.
 
 ul.errorlist {
     display: none;
 }
+*/
 
 .ajapaik-flip-photo-overlay-button {
     width: 48px;
