@@ -2221,8 +2221,8 @@ msgstr "Kommentaari postitamine ei õnnestunud."
 #~ msgid "feedback"
 #~ msgstr "feedback"
 
-#~ msgid "First name"
-#~ msgstr "First name"
+msgid "First name"
+msgstr "Eesnimi"
 
-#~ msgid "Last name"
-#~ msgstr "Last name"
+msgid "Last name"
+msgstr "Perenimi"

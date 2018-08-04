@@ -2391,8 +2391,8 @@ msgstr "Sorry but we fail to post your comment."
 #~ msgid "feedback"
 #~ msgstr "feedback"
 
-#~ msgid "First name"
-#~ msgstr "First name"
+msgid "First name"
+msgstr "First name"
 
-#~ msgid "Last name"
-#~ msgstr "Last name"
+msgid "Last name"
+msgstr "Last name"
