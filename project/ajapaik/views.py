@@ -452,7 +452,6 @@ def rephoto_upload(request, photo_id):
             token = request.POST.get('fb_access_token')
             profile, fb_data = Profile.facebook.get_user(token)
             if profile is None:
-                user = request.get_user()
                 profile = user.profile
                 profile.update_from_fb_data(token, fb_data)
         if not profile.fb_id and not profile.google_plus_id and not user.email:
@@ -1606,7 +1605,7 @@ def geotag_confirm(request):
             .order_by('-created').first()
         if not last_confirm_geotag_by_this_user_for_p or (p.lat and p.lon and (
                         last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
-            trust = _calc_trustworthiness(request.get_user().id)
+            trust = _calc_trustworthiness(request.user.id)
             confirmed_geotag = GeoTag(
                 lat=p.lat,
                 lon=p.lon,

@@ -770,17 +770,22 @@ var map,
                 });
                 minimapLargeCTAButton = null;
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
-                var minimapConfirmGeotagButton = document.createElement('button');
-                $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
-                    .addClass('ajapaik-minimap-confirm-geotag-button')
-                    .data('id', window.photoModalCurrentlyOpenPhotoId).data('trigger', 'hover')
-                    .data('placement', 'top').data('toggle', 'popover')
-                    .data('content', gettext('Confirm correct location'))
-                    .html('<i class="material-icons notranslate">beenhere</i>').popover();
-                if (window.photoModalUserHasConfirmedThisLocation) {
-                    $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
+
+                // Show only if user is logged in
+                if ($('#ajp-email-login-button').length==0) {
+                    var minimapConfirmGeotagButton = document.createElement('button');
+                    $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
+                        .addClass('ajapaik-minimap-confirm-geotag-button')
+                        .data('id', window.photoModalCurrentlyOpenPhotoId).data('trigger', 'hover')
+                        .data('placement', 'top').data('toggle', 'popover')
+                        .data('content', gettext('Confirm correct location'))
+                        .html('<i class="material-icons notranslate">beenhere</i>').popover();
+                    if (window.photoModalUserHasConfirmedThisLocation) {
+                        $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
+                    }
+                    window.miniMap.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
                 }
-                window.miniMap.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
+
                 var minimapStartGuessButton = document.createElement('button');
                 $(minimapStartGuessButton).addClass('btn').addClass('btn-default')
                     .addClass('ajapaik-minimap-start-guess-button')
