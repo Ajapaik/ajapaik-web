@@ -772,7 +772,7 @@ var map,
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
 
                 // Show only if user is logged in
-                if ($('#ajp-email-login-button').length==0) {
+                if (window.userLoggedIn) {
                     var minimapConfirmGeotagButton = document.createElement('button');
                     $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-default')
                         .addClass('ajapaik-minimap-confirm-geotag-button')
