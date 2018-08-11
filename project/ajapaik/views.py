@@ -2686,16 +2686,20 @@ def get_datings(request, photo_id):
         profile = request.user.profile
     else:
         profile = None
-    photo = get_object_or_404(Photo, id=photo_id)
-    datings = photo.datings.order_by('created').prefetch_related('confirmations')
-    for dating in datings:
-        if profile is not None:
-            dating.this_user_has_confirmed = dating.confirmations \
+    ret = { 'datings' : [] }
+    photo = Photo.objects.filter(pk=photo_id).first()
+    if photo:
+        datings = photo.datings.order_by('created').prefetch_related('confirmations')
+        for dating in datings:
+            if profile is not None:
+                dating.this_user_has_confirmed = dating.confirmations \
                                                 .filter(profile=profile) \
                                                 .exists()
-        else:
-            dating.this_user_has_confirmed = False
-    return JsonResponse(DatingSerializer(datings, many=True).data, safe=False)
+            else:
+                dating.this_user_has_confirmed = False
+        datings_serialized = DatingSerializer(datings, many=True).data
+        ret['datings'] = datings_serialized
+    return JsonResponse(ret, safe=False)
 
 
 @login_required
