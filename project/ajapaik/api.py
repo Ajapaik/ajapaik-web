@@ -37,7 +37,7 @@ from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik import forms, serializers
-from project.ajapaik.models import Album, Licence, Photo, PhotoLike, Profile
+from project.ajapaik.models import Album, Licence, Photo, PhotoLike, Profile, GeoTag
 from project.ajapaik.settings import (API_DEFAULT_NEARBY_MAX_PHOTOS,
                                       API_DEFAULT_NEARBY_PHOTOS_RANGE,
                                       GOOGLE_CLIENT_ID)
@@ -584,6 +584,29 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             original_photo.latest_rephoto = new_rephoto.created
             if not original_photo.first_rephoto:
                 original_photo.first_rephoto = new_rephoto.created
+
+            if latitude and longitude:
+                rephoto_geotag = GeoTag(
+                    lat=latitude,
+                    lon=longitude,
+                    origin=GeoTag.REPHOTO,
+                    type=GeoTag.ANDROIDAPP,
+                    map_type=GeoTag.NO_MAP,
+                    photo=original_photo,
+                    trustworthiness=0,
+                    is_correct=False,
+                    geography=geography,
+                    photo_flipped=is_rephoto_flipped,
+                )
+                rephoto_geotag.save()
+                # Investigate why this will always set geotag.is_correct=True 
+                # original_photo.set_calculated_fields()
+                original_photo.latest_geotag = new_rephoto.created
+                for a in original_photo.albums.all():
+                    qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
+                    a.geotagged_photo_count_with_subalbums = qs.count()
+                    a.light_save()
+
             original_photo.save()
             user_profile.update_rephoto_score()
             user_profile.save()
