@@ -321,11 +321,15 @@ class ApiAlbumNearestPhotosForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
     range = forms.FloatField(required=False)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
 
 
 class ApiAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True))
     state = forms.CharField(max_length=255, required=False)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
 
 
 class ApiPhotoUploadForm(forms.Form):
