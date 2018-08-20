@@ -336,19 +336,22 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 round(form.cleaned_data["longitude"], 4),
                 round(form.cleaned_data["latitude"], 4)
             )
+            start = form.cleaned_data["start"] or 0
+            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS )
             if album:
-                photos = Photo.objects.filter(
-                    Q(albums=album)
-                        | (Q(albums__subalbum_of=album)
-                           & ~Q(albums__atype=Album.AUTO)),
-                    rephoto_of__isnull=True
-                ).filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                photos = Photo.objects \
+                    .filter(
+                        Q(albums=album)
+                            | (Q(albums__subalbum_of=album)
+                            & ~Q(albums__atype=Album.AUTO)),
+                        rephoto_of__isnull=True
+                    ).filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[start:end]
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
@@ -361,14 +364,15 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     ).data
                 })
             else:
-                photos = Photo.objects.filter(
-                    lat__isnull=False,
-                    lon__isnull=False,
-                    rephoto_of__isnull=True,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+                photos = Photo.objects \
+                    .filter(
+                        lat__isnull=False,
+                        lon__isnull=False,
+                        rephoto_of__isnull=True,
+                        geography__distance_lte=(ref_location, D(m=nearby_range))
+                    ) \
+                    .distance(ref_location) \
+                    .order_by('distance')[start:end]
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
@@ -399,12 +403,15 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
         form = forms.ApiAlbumStateForm(request.data)
         if form.is_valid():
             album = form.cleaned_data["id"]
+            start = form.cleaned_data["start"] or 0
+            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS )
+
             photos = Photo.objects.filter(
                 Q(albums=album)
                 | (Q(albums__subalbum_of=album)
                    & ~Q(albums__atype=Album.AUTO)),
                 rephoto_of__isnull=True
-            )[:API_DEFAULT_NEARBY_MAX_PHOTOS]
+            )[start:end]
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
             }
