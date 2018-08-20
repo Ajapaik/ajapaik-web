@@ -404,7 +404,7 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 | (Q(albums__subalbum_of=album)
                    & ~Q(albums__atype=Album.AUTO)),
                 rephoto_of__isnull=True
-            )
+            )[:API_DEFAULT_NEARBY_MAX_PHOTOS]
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
             }
