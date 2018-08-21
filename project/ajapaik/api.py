@@ -673,13 +673,16 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
             user_profile = request.get_user().profile
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
+            start = form.cleaned_data["start"] or 0
+            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*5 )
+
             requested_location = GEOSGeometry(
                 'POINT({} {})'.format(longitude, latitude),
                 srid=4326
             )
             photos = Photo.objects.filter(likes__profile=user_profile) \
                 .distance(requested_location) \
-                .order_by('distance')
+                .order_by('distance')[start:end]
             photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
                 photos,
                 request.user.profile
