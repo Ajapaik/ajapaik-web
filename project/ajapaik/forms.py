@@ -511,7 +511,8 @@ class ApiToggleFavoritePhotoForm(forms.Form):
 class ApiFavoritedPhotosForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
-
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
 
 class ApiPhotoSearchForm(forms.Form):
     query = forms.CharField()
