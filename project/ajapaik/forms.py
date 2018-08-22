@@ -442,6 +442,9 @@ class ApiPhotoInAlbumSearchForm(forms.Form):
 class ApiUserRephotoSearchForm(forms.Form):
     query = forms.CharField()
 
+class ApiUserRephotosForm(forms.Form):
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
