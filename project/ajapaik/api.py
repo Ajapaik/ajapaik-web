@@ -938,18 +938,31 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
     '''
 
     def post(self, request, format=None):
-        user_profile = request.user.profile
+        form = forms.ApiUserRephotosForm(request.data)
+        if form.is_valid():
+            user_profile = request.user.profile
+            start = form.cleaned_data["start"] or 0
+            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*10 )
 
-        photos = Photo.objects.filter(rephotos__user=user_profile)
-        photos = serializers.PhotoSerializer.annotate_photos(
-            photos,
-            user_profile
-        )
-        return Response({
-            'error': RESPONSE_STATUSES['OK'],
-            'photos': serializers.PhotoSerializer(
-                instance=photos,
-                many=True,
-                context={'request': request}
-            ).data
-        })
+            photos = Photo.objects.filter(
+                     rephotos__user=user_profile
+                 ).order_by('-created')[start:end]
+
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                user_profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
