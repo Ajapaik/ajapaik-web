@@ -391,7 +391,7 @@ LEAFLET_CONFIG = {
             'auto-include': True,
         },
         'easy-button': {
-            'js': '/static/js/easy-button.js',
+            'js': '/static/js/leaflet.easy-button.js',
             'auto-include': True,
         }
     }
