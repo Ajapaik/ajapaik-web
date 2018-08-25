@@ -91,6 +91,12 @@
                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('width', '4.5em');
                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().parent().css('background-color', 'white');
             }, 500);
+
+// For slow networks (500 ms failed in train)
+	    setTimeout(function () {
+               map.invalidateSize();
+            }, 1000);
+
         },
         getCoordinateLink : function(point) {
             var link=$("<a>");
