@@ -1,9 +1,9 @@
-{% load i18n cache compress ajapaik_templatetags static %}
+{% load i18n cache compress ajapaik_templatetags static leaflet_tags %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
-    <title>
+    <title> 
         {% if title %}
             {{ title }} - {% trans "Timepatch (Ajapaik)" %}
         {% else %}
@@ -226,6 +226,8 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
+        {% leaflet_css %}
+
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script type="text/javascript">
@@ -430,7 +432,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
-    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
+    {% if not is_frontpage and not is_photoview or is_game or is_mapview %}
+       <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization"></script>
+    {% else %}
+       {% leaflet_js %}
+    {% endif %}
+
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
     {% compress js %}
         <script src="{% static "js/jquery-2.2.4.js" %}"></script>
@@ -460,9 +467,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
-        <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-ga.js" %}"></script>
+    {% if not is_frontpage and not is_photoview or is_game or is_mapview %}
+        <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
+    {% else %}
+        <script src="{% static "js/ajapaik-common-nogooglemaps.js" %}"></script>
+        <!--script src="{% static "js/ajapaik-geotagger-plugin-placeholder.js" %}"></script-->
+        <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
+    {% endif %}
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
     {% endcompress %}
     <script type="text/javascript">

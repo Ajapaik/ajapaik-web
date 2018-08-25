@@ -66,7 +66,7 @@
         window.frontpageAsyncURL = '{% url "project.ajapaik.views.frontpage_async_data" %}';
         window.frontpageAlbumsAsyncURL = '{% url "project.ajapaik.views.frontpage_async_albums" %}';
         window.nextPhotoLoading = false;
-        window.photos = window.getQueryParameterByName('photos');
+/*        window.photos = window.getQueryParameterByName('photos');*/
         window.userClosedRephotoTools = false;
         window.useButtonLink = true;
         window.currentlySelectedPhotoId = '{{ photo.0 }}';
@@ -109,7 +109,7 @@
         <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
         <script src="{% static "js/ajapaik-video.js" %}"></script>
     {% endcompress %}
-    <script>
+    <!--script>
         $('#ajp-geotagging-container').AjapaikGeotagger();
-    </script>
+    </script-->
 {% endblock %}

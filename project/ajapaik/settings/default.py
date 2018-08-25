@@ -200,6 +200,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'project.mediawiki_allauth',
+    'leaflet'
 )
 
 ALLOWED_HOSTS = [
@@ -373,3 +374,26 @@ SOCIALACCOUNT_PROVIDERS = {
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 
 SOCIALACCOUNT_ADAPTER = 'project.ajapaik.allauth_integration.adapters.CustomSocialAccountAdapter'
+
+LEAFLET_CONFIG = {
+    'PLUGINS': {
+        'leaflet-fullscreen': {
+            'css': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css',
+            'js': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',
+            'auto-include': True,
+        },
+        'leaflet-rotatedMarker': {
+            'js': '/static/js/leaflet.rotatedMarker.js',
+            'auto-include': True,
+        },
+        'leaflet-geometryutil': {
+            'js': '/static/js/leaflet.geometryutil.js',
+            'auto-include': True,
+        },
+        'easy-button': {
+            'js': '/static/js/easy-button.js',
+            'auto-include': True,
+        }
+    }
+}
+
