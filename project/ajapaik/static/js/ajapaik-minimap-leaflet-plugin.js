@@ -7,10 +7,14 @@
         var that = this;
         this.node = node;
 
+        this.options = $.extend({}, options);
+        // Do not show map if isMobile is true
+        if (options.isMobile) {
+            return;
+        }
         // Create map only if we have coordinates
-        if (options.latitude && options.longitude)
+        else if (options.latitude && options.longitude)
         {
-            this.options = $.extend({}, options);
             this.UI = $([
                 '<div id="ajapaik-minimap-disabled-overlay"></div>',
                 '<div id="ajapaik-photo-modal-map-canvas"></div>',
