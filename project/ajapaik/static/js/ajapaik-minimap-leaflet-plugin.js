@@ -63,7 +63,7 @@
             };
 // Show map layers
             map.addLayer(osm);
-            map.setView(that.initialMapCenter, 13);
+            map.setView(that.initialMapCenter, 14);
 
             // Draw pointer and markerline if we know direction
             if (that.options.azimuth) {
