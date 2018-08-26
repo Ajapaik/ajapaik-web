@@ -55,7 +55,7 @@
 // OSM layer
             var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	    var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-            var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 17, attribution: osmAttrib});
+            var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
 
             that.initialMapCenter = {
                 lat: that.options.latitude,
@@ -63,7 +63,7 @@
             };
 // Show map layers
             map.addLayer(osm);
-            map.setView(that.initialMapCenter, 14);
+            map.setView(that.initialMapCenter, 16);
 
             // Draw pointer and markerline if we know direction
             if (that.options.azimuth) {
