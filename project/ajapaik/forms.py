@@ -324,6 +324,14 @@ class ApiAlbumNearestPhotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+class ApiFinnaNearestPhotosForm(forms.Form):
+    id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85)
+    longitude = forms.FloatField(min_value=-180, max_value=180)
+    range = forms.FloatField(required=False)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
+
 
 class ApiAlbumStateForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True))
@@ -333,7 +341,7 @@ class ApiAlbumStateForm(forms.Form):
 
 
 class ApiPhotoUploadForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
+    id = forms.CharField(max_length=255)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     accuracy = forms.FloatField(min_value=0, required=False)
@@ -504,7 +512,7 @@ class EditCommentForm(forms.Form):
 
 
 class ApiToggleFavoritePhotoForm(forms.Form):
-    id = forms.ModelChoiceField(queryset=Photo.objects.all())
+    id = forms.CharField(max_length=255)
     favorited = forms.BooleanField(required=False)
 
 
