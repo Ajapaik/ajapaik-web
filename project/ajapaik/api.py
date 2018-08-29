@@ -474,8 +474,7 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     def post(self, request, format=None):
         if request.user:
             user_profile = request.user.profile or None
-        else:
-            user_profile =  User.objects.get(pk=17345994).profile
+
         form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
             album = form.cleaned_data["id"]
