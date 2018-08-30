@@ -331,6 +331,8 @@ class ApiFinnaNearestPhotosForm(forms.Form):
     range = forms.FloatField(required=False)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
+    query = forms.CharField(max_length=255,required=False)
+    album = forms.CharField(max_length=255,required=False)
 
 
 class ApiAlbumStateForm(forms.Form):
