@@ -377,42 +377,52 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     search_url = 'https://api.finna.fi/api/v1/search'
     page_size = 21
 
+    def _get_finna_results(self, lat, lon, query, album, distance):
+        print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
+
+        finna_filters = [
+            'free_online_boolean:"1"',
+            '~format:"0/Place/"',
+            '~format:"0/Image/"',
+            '~usage_rights_str_mv:"usage_B"',
+            '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
+        ]
+
+        if album == "1918":
+            finna_filters.append('~era_facet:"1918"')
+
+
+        finna_result_json=get(self.search_url, {
+            'lookfor': query,
+            'type': 'AllFields',
+            'limit': self.page_size,
+            'lng': 'en-gb',
+            'streetsearch' : 1,
+            'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
+                        'year', 'summary', 'rawData'],
+            'filter[]': finna_filters
+        })
+
+        finna_result=finna_result_json.json()
+        if 'records' in finna_result:
+           return finna_result['records']
+        elif distance < 1000:
+           return self._get_finna_results(lat, lon, query, album, distance*100)
+        else:
+           return []
+
     def post(self, request, format=None):
         form = forms.ApiFinnaNearestPhotosForm(request.data)
-
 
         if form.is_valid():
             lon=round(form.cleaned_data["longitude"], 4)
             lat=round(form.cleaned_data["latitude"], 4)
-            print >>sys.stderr, ('query %s' % form.cleaned_data["query"])
-
-            finna_filters = [
-                    'free_online_boolean:"1"',
-                    '~format:"0/Place/"',
-                    '~format:"0/Image/"',
-                    '~usage_rights_str_mv:"usage_B"',
-                    '{!geofilt sfield=location_geo pt=%f,%f d=0.1}' % (lat, lon)
-                ]
-
-            finna_fake_album=form.cleaned_data["album"] 
-            if finna_fake_album == "1918":
-                finna_filters.append('~era_facet:"1918"')
-
-
-            finna_result=get(self.search_url, {
-                'lookfor': form.cleaned_data["query"],
-                'type': 'AllFields',
-                'limit': self.page_size,
-                'lng': 'en-gb',
-                'streetsearch' : 1,
-                'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
-                        'year', 'summary', 'rawData'],
-                'filter[]': finna_filters
-                })
+            query=form.cleaned_data["query"] or ""
+            album=form.cleaned_data["album"] or ""
 
             photos=[]
-            results=finna_result.json();
-            for p in results['records']:
+            records=self._get_finna_results(lat, lon, query, album, 0.1)
+            for p in records:
                 comma=', '
                 authors=[]
                 if 'authors' in p:
