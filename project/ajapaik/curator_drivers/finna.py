@@ -15,10 +15,9 @@ def find_finna_photo_by_url(record_url, profile):
     print >>sys.stderr, ('find_finna_photo_by_url %s' % record_url)
     photo=None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
-        print >>sys.stderr, ('find_finna_photo_by_url pre match')
         m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url) 
         if m:
-            print >>sys.stderr, ('find_finna_photo_by_url first match')
+            print >>sys.stderr, ('find_finna_photo_by_url() url ok')
             # Already in database?
             external_id=m.group(2) 
             photo = Photo.objects.filter(
@@ -27,15 +26,13 @@ def find_finna_photo_by_url(record_url, profile):
 
             # Import if not found
             if not photo:
-                print >>sys.stderr, ('find_finna_photo_by_url second match')
+                print >>sys.stderr, ('find_finna_photo_by_url() url not in database')
                 photo=import_finna_photo(external_id, profile)
 
     return photo
 
 
 def import_finna_photo(id, profile):
-    print >>sys.stderr, ('_importFinnaPhoto %s' % id) 
-
     record_url='https://api.finna.fi/v1/record'
     finna_result=get(record_url, {
         'id': id,
@@ -44,7 +41,7 @@ def import_finna_photo(id, profile):
     results=finna_result.json();
     p=results.get('records', None)
 
-    print >>sys.stderr, ('_importFinnaPhoto00 save %s' % 'https://api.finna.fi/v1/record?id=' + id) 
+    print >>sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id) 
 
     if p and p[0]:
         p=p[0]
@@ -56,8 +53,6 @@ def import_finna_photo(id, profile):
                 institution = p['source'][0]['translated']
             elif 'value' in p['source'][0]:
                 institution = p['source'][0]['value']
-
-        print >>sys.stderr, ('_importFinnaPhoto0a save %s' % id) 
 
         geography = None
         if 'geoLocations' in p:
@@ -71,14 +66,11 @@ def import_finna_photo(id, profile):
                     geography=Point(x=float(lon), y=float(lat), srid=4326)
                     break
 
-        print >>sys.stderr, ('_importFinnaPhoto0.1 save %s' % id) 
-
         licence = Licence.objects.get(pk=15) # 15 = unknown licence
         if 'imageRights' in p and 'copyright' in p['imageRights']:
             licence_str = p['imageRights']['copyright']
             if licence_str:
                 licence = Licence.objects.get_or_create(name=licence)[0]
-        print >>sys.stderr, ('_importFinnaPhoto0.2 save %s' % id) 
 
         authors=[]
         if 'authors' in p:
@@ -86,17 +78,17 @@ def import_finna_photo(id, profile):
                 for k,each in p['authors']['primary'].items():
                     authors.append(k)
 
-        source=None
-        try:
-            source = Source.objects.get(description=institution)
-        except ObjectDoesNotExist:
+
+        source = Source.objects.filter(description=institution).first()
+        if not source: 
+            print >>sys.stderr, ('Saving missing source "%s"' % institution) 
             source = Source(
                          name=institution,
                          description=institution
                      )
             source.save()
-        source = Source.objects.get(description=institution)
-        print >>sys.stderr, ('_importFinnaPhoto0.3 save %s' % source) 
+
+        source = Source.objects.filter(description=institution).first()
 
         external_id=p['id']        # muis_id
         external_sub_id=None       # muis_media_id
@@ -120,23 +112,13 @@ def import_finna_photo(id, profile):
                         geography=geography
                     )
 
-        print >>sys.stderr, ('_importFinnaPhoto3.1a save %s' % source) 
         opener = urllib2.build_opener()
-        print >>sys.stderr, ('_importFinnaPhoto3.2 save %s' % source) 
         opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-        print >>sys.stderr, ('_importFinnaPhoto3.3 save %s' % source) 
-
         img_url='https://www.finna.fi' +  p['images'][0];
         img_response = opener.open(img_url)
-        print >>sys.stderr, ('_importFinnaPhoto3.4 save %s' % img_url) 
+        new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
 
-        try:
-            new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
-            print >>sys.stderr, ('_importFinnaPhoto3.5 save %s' % source) 
-        except Exception as e:
-            print >>sys.stderr, e.reason 
-
-        print >>sys.stderr, ('_importFinnaPhoto5 save %s' % source) 
+        print >>sys.stderr, ('import_finna_photo saving file') 
         new_photo.save()
 
         if p.get('latitude') and p.get('longitude') and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
@@ -162,9 +144,7 @@ def import_finna_photo(id, profile):
                     pk=id
                 ).first()
 
-        print >>sys.stderr, ('_importFinnaPhoto6 save %d' % new_photo.id ) 
-#        print >>sys.stderr, ('_importFinnaPhoto7 save %d' % photo.id ) 
-
+        print >>sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id ) 
         return photo
 
 
