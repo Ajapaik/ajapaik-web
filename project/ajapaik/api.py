@@ -375,7 +375,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
 
     permission_classes = (AllowAny,)
     search_url = 'https://api.finna.fi/api/v1/search'
-    page_size = 30
+    page_size = 21
 
     def post(self, request, format=None):
         form = forms.ApiFinnaNearestPhotosForm(request.data)
