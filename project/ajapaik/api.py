@@ -47,9 +47,7 @@ import re
 import sys
 from django.core.files.base import ContentFile
 
-
-from project.ajapaik.curator_drivers.finna import find_finna_photo_by_url, import_finna_photo
-
+from project.ajapaik.curator_drivers.finna import finna_find_photo_by_url
 
 log = logging.getLogger(__name__)
 
@@ -638,7 +636,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                     pk=id
                 ).first()
             else:
-                photo = find_finna_photo_by_url(id, user_profile)
+                photo = finna_find_photo_by_url(id, user_profile)
 
             if not photo:
                 print >>sys.stderr, ('rephotoupload failed')
@@ -758,7 +756,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 for a in original_photo.albums.all():
                     qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
                     a.geotagged_photo_count_with_subalbums = qs.count()
-                    a.light_save()
+                    a.save()
 
             original_photo.save()
             user_profile.update_rephoto_score()
@@ -854,7 +852,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
                     pk=id
                 ).first()
             else:
-                photo = find_finna_photo_by_url(id, user_profile)
+                photo = finna_find_photo_by_url(id, user_profile)
 
             if photo :
                 is_favorited = form.cleaned_data['favorited']

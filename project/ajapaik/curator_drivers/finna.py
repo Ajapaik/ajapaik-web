@@ -11,7 +11,28 @@ from django.core.files.base import ContentFile
 from project.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 from django.contrib.gis.geos import GEOSGeometry, Point
 
-def find_finna_photo_by_url(record_url, profile):
+
+def finna_add_to_album(photo, target_album):
+    print >>sys.stderr, ('add_to_album %s' % target_album)
+
+    if target_album and target_album != "":
+        album = Album.objects.filter(name=target_album).first()
+
+        if not album:
+            print >>sys.stderr, ('ObjectDoesNotExist')
+            album = Album(name=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
+            album.save()
+
+        ap_found=AlbumPhoto.objects.filter(album=album, photo=photo).first()
+        if not ap_found:
+            ap = AlbumPhoto(album=album, photo=photo)
+            ap.save()
+
+        # update counts
+        album.save()
+
+
+def finna_find_photo_by_url(record_url, profile):
     print >>sys.stderr, ('find_finna_photo_by_url %s' % record_url)
     photo=None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
@@ -27,12 +48,15 @@ def find_finna_photo_by_url(record_url, profile):
             # Import if not found
             if not photo:
                 print >>sys.stderr, ('find_finna_photo_by_url() url not in database')
-                photo=import_finna_photo(external_id, profile)
+                photo=finna_import_photo(external_id, profile)
+
+            if photo:
+                finna_add_to_album(photo, "Wiki Loves Monuments")
 
     return photo
 
 
-def import_finna_photo(id, profile):
+def finna_import_photo(id, profile):
     record_url='https://api.finna.fi/v1/record'
     finna_result=get(record_url, {
         'id': id,
