@@ -751,7 +751,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 )
                 rephoto_geotag.save()
                 # Investigate why this will always set geotag.is_correct=True 
-                # original_photo.set_calculated_fields()
+                original_photo.set_calculated_fields()
                 original_photo.latest_geotag = new_rephoto.created
                 for a in original_photo.albums.all():
                     qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
