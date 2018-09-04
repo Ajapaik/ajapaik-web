@@ -80,3 +80,4 @@ uWSGI
 uwsgitop
 django-subdomains
 Werkzeug
+django-leaflet

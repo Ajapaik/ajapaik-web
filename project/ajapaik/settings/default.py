@@ -191,6 +191,7 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
+    'leaflet'
 )
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
@@ -285,5 +286,27 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
+    }
+}
+
+LEAFLET_CONFIG = {
+    'PLUGINS': {
+        'leaflet-fullscreen': {
+            'css': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css',
+            'js': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',
+            'auto-include': True,
+        },
+        'leaflet-rotatedMarker': {
+            'js': '/static/js/leaflet.rotatedMarker.js',
+            'auto-include': True,
+        },
+        'leaflet-geometryutil': {
+            'js': '/static/js/leaflet.geometryutil.js',
+            'auto-include': True,
+        },
+        'easy-button': {
+            'js': '/static/js/leaflet.easy-button.js',
+            'auto-include': True,
+        }
     }
 }

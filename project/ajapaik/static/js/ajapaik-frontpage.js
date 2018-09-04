@@ -45,7 +45,7 @@
                     } else {
                         fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     }
-                    showPhotoMapIfApplicable();
+//                    showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                     FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
                     $('#ajapaik-video-modal').hide();
@@ -439,7 +439,7 @@
             window.locationToolsOpen = false;
             window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
-            showPhotoMapIfApplicable();
+//            showPhotoMapIfApplicable();
             if (window.startGuessScrollTop) {
                 setTimeout(function () {
                     $(window).scrollTop(window.startGuessScrollTop);
@@ -536,7 +536,7 @@
                             }
                         }
                     });
-                    showPhotoMapIfApplicable();
+//                    showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                 },
                 error: function () {
@@ -588,7 +588,7 @@
         }
         // Page element functionality
         photoModal.on('shown.bs.modal', function () {
-            showPhotoMapIfApplicable();
+//            showPhotoMapIfApplicable();
             $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
             syncStateToUrl();

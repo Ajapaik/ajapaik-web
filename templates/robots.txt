@@ -2,5 +2,9 @@ User-agent: *
 Disallow: /facebook/
 Disallow: /photo-upload-modal/
 Disallow: /submit-dating/
+Disallow: /geotag/
+Disallow: /comments/
+Disallow: /leaderboard/
+Disallow: /frontpage-async/
 
 Sitemap: https://ajapaik.ee/sitemap.xml

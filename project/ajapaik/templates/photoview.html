@@ -100,10 +100,12 @@
                             data-share="true"></div>
                     </div>
                     <div class="row ajapaik-height-48 ajapaik-margin-top-10">
+{% if not is_frontpage and not is_photoview or is_game or is_mapview %}
                         <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
                         title="{% trans "Pick the shooting location!" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
                         </a>
+{% endif %}
                         <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="pull-left"
                         title="{% trans "Date this image" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
@@ -299,11 +301,11 @@
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
                     mainPhoto = $('#ajapaik-photoview-main-photo'),
                     originalFullscreen = $('#ajapaik-full-screen-image');
-            $('#ajp-geotagging-container').AjapaikGeotagger();
+//            $('#ajp-geotagging-container').AjapaikGeotagger();
             $('#ajp-dater-container').AjapaikDater();
-            window.showPhotoMapIfApplicable(true);
+//            window.showPhotoMapIfApplicable(true);
             mainPhoto.on('load', function () {
-                window.showPhotoMapIfApplicable(true);
+//                window.showPhotoMapIfApplicable(true);
             });
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
@@ -460,7 +462,7 @@
                 $('body').removeClass('ajapaik-body-game-map');
                 $('#ajp-geotagging-container').hide();
                 window.locationToolsOpen = false;
-                window.showPhotoMapIfApplicable(true);
+//                window.showPhotoMapIfApplicable(true);
                 $('.footer').show();
             };
             $('#ajapaik-photoview-start-dating-button').click(function (e) {
@@ -500,6 +502,10 @@
                 });
             };
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
+
+            // Leaflet map
+            var options=get_photoviewModalOptions();
+            $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
         });
     </script>
     <script src="{% static 'js/ajapaik-comments.js' %}"></script>
