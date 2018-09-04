@@ -814,7 +814,7 @@ class Points(Model):
 
 
 class GeoTag(Model):
-    MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG = range(6)
+    MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG, ANDROIDAPP = range(7)
     # FIXME: EXIF and GPS have never been used
     TYPE_CHOICES = (
         (MAP, _('Map')),
@@ -823,6 +823,7 @@ class GeoTag(Model):
         (CONFIRMATION, _('Confirmation')),
         (STREETVIEW, _('StreetView')),
         (SOURCE_GEOTAG, _('Source geotag')),
+        (ANDROIDAPP, _('Android app')),
     )
     # TODO: Different ways of tagging
     # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)
@@ -831,13 +832,14 @@ class GeoTag(Model):
     #     (OBJECT, _('Object')),
     #     (APPROXIMATE, _('Approximate')),
     # )
-    GAME, MAP_VIEW, GALLERY, PERMALINK, SOURCE = range(5)
+    GAME, MAP_VIEW, GALLERY, PERMALINK, SOURCE, REPHOTO = range(6)
     ORIGIN_CHOICES = (
         (GAME, _('Game')),
         (MAP_VIEW, _('Map view')),
         (GALLERY, _('Gallery')),
         (PERMALINK, _('Permalink')),
         (SOURCE, _('Source')),
+        (REPHOTO, _('Rephoto')),
     )
     GOOGLE_MAP, GOOGLE_SATELLITE, OPEN_STREETMAP, JUKS, NO_MAP = range(5)
     MAP_TYPE_CHOICES = (

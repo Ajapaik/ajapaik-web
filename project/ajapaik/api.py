@@ -14,7 +14,7 @@ from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.db.models import Q
+from django.db.models import Q, Count, Case, When, Value
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
@@ -31,10 +31,13 @@ from sorl.thumbnail import get_thumbnail
 
 from project.ajapaik import forms
 from project.ajapaik import serializers
-from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike
+from project.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag
 from project.ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
     API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
     FACEBOOK_APP_ID
+
+import sys
+from project.ajapaik.curator_drivers.finna import finna_find_photo_by_url
 
 log = logging.getLogger(__name__)
 
@@ -320,6 +323,116 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             ).data
         })
 
+class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album photos(if album is specified else just
+    photos) in specified radius.
+    '''
+
+    permission_classes = (AllowAny,)
+    search_url = 'https://api.finna.fi/api/v1/search'
+    page_size = 30
+
+    def _get_finna_results(self, lat, lon, query, album, distance):
+        print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
+
+        finna_filters = [
+            'free_online_boolean:"1"',
+            '~format:"0/Place/"',
+            '~format:"0/Image/"',
+            '~usage_rights_str_mv:"usage_B"',
+            '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
+        ]
+
+        if album == "1918":
+            finna_filters.append('~era_facet:"1918"')
+
+
+        finna_result_json=requests.get(self.search_url, {
+            'lookfor': query,
+            'type': 'AllFields',
+            'limit': self.page_size,
+            'lng': 'en-gb',
+            'streetsearch' : 1,
+            'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
+                        'year', 'summary', 'rawData'],
+            'filter[]': finna_filters
+        })
+
+        finna_result=finna_result_json.json()
+        if 'records' in finna_result:
+           return finna_result['records']
+        elif distance < 1000:
+           return self._get_finna_results(lat, lon, query, album, distance*100)
+        else:
+           return []
+
+    def post(self, request, format=None):
+        form = forms.ApiFinnaNearestPhotosForm(request.data)
+
+        if form.is_valid():
+            lon=round(form.cleaned_data["longitude"], 4)
+            lat=round(form.cleaned_data["latitude"], 4)
+            query=form.cleaned_data["query"] or ""
+            album=form.cleaned_data["album"] or ""
+
+            photos=[]
+            records=self._get_finna_results(lat, lon, query, album, 0.1)
+            for p in records:
+                comma=', '
+                authors=[]
+                if 'authors' in p:
+                    if p['authors']['primary']:
+                        for k,each in p['authors']['primary'].items():
+                            authors.append(k)
+
+                if 'geoLocations' in p:
+                    for each in p['geoLocations']:
+                        if 'POINT' in each:
+                            point_parts = each.split(' ')
+                            lon = point_parts[0][6:]
+                            lat = point_parts[1][:-1]
+                            p['longitude'] = lon
+                            p['latitude'] = lat
+                            break
+
+                ir_description=''
+                image_rights=p.get('imageRights', None)
+                if image_rights :
+                    ir_description=image_rights.get('description')
+
+                photo= {
+                    'id':'https://www.finna.fi%s' % p.get('recordPage', None),
+                    'image':'https://www.finna.fi/Cover/Show?id=%s' % p.get('id', None) ,
+                    'height':768,
+                    'width':583,
+                    'title':p.get('title', None),
+                    'date':p.get('year', None),
+                    'author':comma.join(authors),
+                    'source': {
+                                  'url': 'https://www.finna.fi%s' % p.get('recordPage', None),
+                                  'name': ir_description
+                              },
+                    'azimuth':None,
+                    'rephotos':[],
+                    'favorited':False
+                }
+                photos.append(photo)
+
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': photos
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'photos': []
+            })
+
+
+        return HttpResponse(response, content_type="application/json")
+
 
 class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
@@ -328,6 +441,9 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     '''
 
     def post(self, request, format=None):
+        if request.user:
+            user_profile = request.user.profile or None
+
         form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
             album = form.cleaned_data["id"]
@@ -352,6 +468,10 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     ) \
                     .distance(ref_location) \
                     .order_by('distance')[start:end]
+
+#                    .filter(
+#                        Q(likes__profile=user_profile) | Q(likes__isnull=True)
+#                    ) \
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
@@ -456,10 +576,29 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
 
     def post(self, request, format=None):
+        print >>sys.stderr, ('rephotoupload')
         form = forms.ApiPhotoUploadForm(request.data, request.FILES)
         if form.is_valid():
             user_profile = request.user.profile
-            original_photo = form.cleaned_data['id']
+
+            print >>sys.stderr, ('form.isvalid()')
+            id = form.cleaned_data['id']
+            if id.isdigit():
+                id = int(id)
+                photo = Photo.objects.filter(
+                    pk=id
+                ).first()
+            else:
+                photo = finna_find_photo_by_url(id, user_profile)
+
+            if not photo:
+                print >>sys.stderr, ('rephotoupload failed')
+                return Response({
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                })
+            
+ 
+            original_photo = photo
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
             rephoto = form.cleaned_data['original']
@@ -516,6 +655,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             image.save(image_stream, 'JPEG', quality=95)
             image_unscaled.save(image_unscaled_stream, 'JPEG', quality=95)
 
+            print >>sys.stderr, ('new_rephoto')
             new_rephoto = Photo(
                 image_unscaled=InMemoryUploadedFile(
                     image_unscaled_stream, None, rephoto.name, 'image/jpeg',
@@ -541,10 +681,34 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 user=user_profile,
             )
             new_rephoto.save()
+            print >>sys.stderr, ('original_photo')
 
             original_photo.latest_rephoto = new_rephoto.created
             if not original_photo.first_rephoto:
                 original_photo.first_rephoto = new_rephoto.created
+
+            if latitude and longitude:
+                rephoto_geotag = GeoTag(
+                    lat=latitude,
+                    lon=longitude,
+                    origin=GeoTag.REPHOTO,
+                    type=GeoTag.ANDROIDAPP,
+                    map_type=GeoTag.NO_MAP,
+                    photo=original_photo,
+                    trustworthiness=0,
+                    is_correct=False,
+                    geography=geography,
+                    photo_flipped=is_rephoto_flipped,
+                )
+                rephoto_geotag.save()
+                # Investigate why this will always set geotag.is_correct=True 
+                original_photo.set_calculated_fields()
+                original_photo.latest_geotag = new_rephoto.created
+                for a in original_photo.albums.all():
+                    qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
+                    a.geotagged_photo_count_with_subalbums = qs.count()
+                    a.save()
+
             original_photo.save()
             user_profile.update_rephoto_score()
             user_profile.save()
@@ -627,35 +791,51 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
 
     def post(self, request, format=None):
         form = forms.ApiToggleFavoritePhotoForm(request.data)
-        if form.is_valid():
-            photo = form.cleaned_data['id']
-            is_favorited = form.cleaned_data['favorited']
-            user_profile = request.user.profile
 
-            if is_favorited:
-                try:
-                    # User already have this photo in favorites.
-                    # Nothing to do here.
-                    PhotoLike.objects.get(photo=photo, profile=user_profile)
-                except PhotoLike.DoesNotExist:
-                    # User haven't this photo in favorites.
-                    # Creating like.
-                    photo_like = PhotoLike.objects.create(
-                        photo=photo, profile=user_profile
-                    )
-                    photo_like.save()
+        photo = None
+
+        if form.is_valid():
+            user_profile = request.user.profile
+            id = form.cleaned_data['id']
+
+            if id.isdigit():
+                id = int(id)
+                photo = Photo.objects.filter(
+                    pk=id
+                ).first()
             else:
-                try:
-                    # User already have this photo in favorites.
-                    # Removing it.
-                    photo_like = PhotoLike.objects.get(
-                        photo=photo, profile=user_profile
-                    )
-                    photo_like.delete()
-                except PhotoLike.DoesNotExist:
-                    # User haven't this photo in favorites.
-                    # Nothing to do here.
-                    pass
+                photo = finna_find_photo_by_url(id, user_profile)
+
+            if photo :
+                is_favorited = form.cleaned_data['favorited']
+
+                if is_favorited:
+                    try:
+                        # User already have this photo in favorites.
+                        # Nothing to do here.
+                        PhotoLike.objects.get(photo=photo, profile=user_profile)
+
+                    except PhotoLike.DoesNotExist:
+                        # User haven't this photo in favorites.
+                        # Creating like.
+                        photo_like = PhotoLike.objects.create(
+                            photo=photo, profile=user_profile
+                        )
+                        photo_like.save()
+                else:
+                    try:
+                        # User already have this photo in favorites.
+                        # Removing it.
+                        photo_like = PhotoLike.objects.get(
+                            photo=photo, profile=user_profile
+                        )
+                        photo_like.delete()
+                    except PhotoLike.DoesNotExist:
+                        # User haven't this photo in favorites.
+                        # Nothing to do here.
+                        pass
+
+
             return Response({'error': RESPONSE_STATUSES['OK']})
         else:
             return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
@@ -704,6 +884,8 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for photos by given phrase.
     '''
+
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         form = forms.ApiPhotoSearchForm(request.data)
@@ -877,7 +1059,7 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
 
             photos = Photo.objects.filter(
                      rephotos__user=user_profile
-                 ).order_by('-created')[start:end]
+                 ).order_by('created')[start:end]
 
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
