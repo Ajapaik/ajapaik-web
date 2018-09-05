@@ -345,7 +345,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
 
     permission_classes = (AllowAny,)
     search_url = 'https://api.finna.fi/api/v1/search'
-    page_size = 30
+    page_size = 50
 
     def _get_finna_results(self, lat, lon, query, album, distance):
         print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
@@ -355,6 +355,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             '~format:"0/Place/"',
             '~format:"0/Image/"',
             '~usage_rights_str_mv:"usage_B"',
+            '-author_facet:"Koivisto Andreas"',  # Raumalla tulee liikaa kuvia maasta 
             '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
         ]
 
@@ -388,9 +389,14 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             lat=round(form.cleaned_data["latitude"], 4)
             query=form.cleaned_data["query"] or ""
             album=form.cleaned_data["album"] or ""
+            if query == "":
+               distance=0.1
+            else:
+               distance=100000
+
 
             photos=[]
-            records=self._get_finna_results(lat, lon, query, album, 0.1)
+            records=self._get_finna_results(lat, lon, query, album, distance)
             for p in records:
                 comma=', '
                 authors=[]
@@ -405,30 +411,52 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                             point_parts = each.split(' ')
                             lon = point_parts[0][6:]
                             lat = point_parts[1][:-1]
-                            p['longitude'] = lon
-                            p['latitude'] = lat
-                            break
+                            try:
+                                p['longitude'] = float(lon)
+                                p['latitude'] = float(lat)
+                                break
+                            except:
+                                p['longitude'] = None
+                                p['latitude'] = None
 
                 ir_description=''
                 image_rights=p.get('imageRights', None)
                 if image_rights :
                     ir_description=image_rights.get('description')
 
+                title=p.get('title', '')
+                if 'rawData' in p and 'title_alt' in p['rawData']:
+                    # Title_alt is used by Helsinki city museum
+                    title_alt=next(iter(p['rawData']['title_alt'] or []), None)
+                    if title < title_alt:
+                        title=title_alt
+                elif 'rawData' in p and 'geographic' in p['rawData']:
+                    # Museovirasto + others
+                    title_geo=next(iter(p['rawData']['geographic'] or []), None)
+                    if title_geo :
+                        title='%s ; %s' % (title, title_geo)
+
+                # BUG: No date in android app so we add it here to the title text
+                year = p.get('year', None)
+                if year:
+                    title = '%s (%s)' % (title, p.get('year', ''))
+
+                # Coordinate's are disabled because center coordinates aren't good enough
                 photo= {
                     'id':'https://www.finna.fi%s' % p.get('recordPage', None),
                     'image':'https://www.finna.fi/Cover/Show?id=%s' % p.get('id', None) ,
                     'height':768,
                     'width':583,
-                    'title':p.get('title', None),
+                    'title':title,
                     'date':p.get('year', None),
                     'author':comma.join(authors),
                     'source': {
                                   'url': 'https://www.finna.fi%s' % p.get('recordPage', None),
                                   'name': ir_description
                               },
-                    'azimuth':None,
-                    'latitude': p.get('latitude', None),
-                    'longitude': p.get('longitude', None),
+#                    'azimuth':None,
+#                    'latitude': p.get('latitude', None),
+#                    'longitude': p.get('longitude', None),
                     'rephotos':[],
                     'favorited':False
                 }
