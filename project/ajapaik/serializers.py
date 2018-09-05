@@ -145,6 +145,8 @@ class RephotoSerializer(serializers.ModelSerializer):
             }
 
     def get_is_uploaded_by_current_user(self, instance):
+        if not self.context['request'].user:
+            return False
         user_profile = self.context['request'].user.profile
         return instance.user == user_profile
 
@@ -190,7 +192,7 @@ class PhotoSerializer(serializers.ModelSerializer):
             )) \
             .annotate(likes_count=Count('likes')) \
             .annotate(favorited=Case(
-                When(likes__profile=user_profile, then=Value(True)),
+                When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False), then=Value(True)),
                 default=Value(False),
                 output_field=BooleanField()))
 
@@ -251,9 +253,11 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     def get_photos(self, instance):
         request = self.context['request']
+        user_profile=request.user.profile if request.user else None
+
         photos = PhotoSerializer.annotate_photos(
             self.context['photos'],
-            request.user.profile
+            user_profile
         )
         return PhotoSerializer(
             instance=photos,

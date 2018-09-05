@@ -307,11 +307,18 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     overseeing by current user(can be empty).
     '''
 
-    def post(self, request, format=None):
-        albums = Album.objects.filter(
-            Q(is_public=True, photos__isnull=False)
-            | Q(profile=request.get_user().profile, atype=Album.CURATED)
-        ).order_by('-created')
+    permission_classes = (AllowAny,)
+    def _handle_request(self, data, request):
+        if request.user:
+            user_profile=request.user.profile
+            filter_rule = Q(is_public=True, photos__isnull=False) \
+                          | Q(profile=user_profile, atype=Album.CURATED)
+        else:
+            filter_rule = Q(is_public=True, photos__isnull=False)
+
+        albums = Album.objects\
+            .filter(filter_rule)\
+            .order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
@@ -322,6 +329,13 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 context={'request': request}
             ).data
         })
+
+    def post(self, request, format=None):
+        return self._handle_request(request.data, request)
+
+    def get(self, request, format=None):
+        return self._handle_request(request.GET, request)
+
 
 class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
@@ -367,9 +381,8 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
         else:
            return []
 
-    def post(self, request, format=None):
-        form = forms.ApiFinnaNearestPhotosForm(request.data)
-
+    def _handle_request(self, data):
+        form = forms.ApiFinnaNearestPhotosForm(data)
         if form.is_valid():
             lon=round(form.cleaned_data["longitude"], 4)
             lat=round(form.cleaned_data["latitude"], 4)
@@ -414,6 +427,8 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                                   'name': ir_description
                               },
                     'azimuth':None,
+                    'latitude': p.get('latitude', None),
+                    'longitude': p.get('longitude', None),
                     'rephotos':[],
                     'favorited':False
                 }
@@ -429,10 +444,13 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'photos': []
             })
-
-
         return HttpResponse(response, content_type="application/json")
 
+    def post(self, request, format=None):
+        return self._handle_request(request.data)
+
+    def get(self, request, format=None):
+        return self._handle_request(request.GET)
 
 class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
@@ -440,11 +458,11 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     photos) in specified radius.
     '''
 
-    def post(self, request, format=None):
-        if request.user:
-            user_profile = request.user.profile or None
+    permission_classes = (AllowAny,)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiAlbumNearestPhotosForm(data)
+        user_profile = user.profile if user else None
 
-        form = forms.ApiAlbumNearestPhotosForm(request.data)
         if form.is_valid():
             album = form.cleaned_data["id"]
             nearby_range = form.cleaned_data["range"] or API_DEFAULT_NEARBY_PHOTOS_RANGE
@@ -496,7 +514,7 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
-                    request.user.profile
+                    user_profile
                 )
 
                 return Response({
@@ -513,14 +531,24 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 'photos': []
             })
 
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
+
 
 class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
 
-    def post(self, request, format=None):
-        form = forms.ApiAlbumStateForm(request.data)
+    permission_classes = (AllowAny,)
+    def _handle_request(self, data, request):
+        form = forms.ApiAlbumStateForm(data)
         if form.is_valid():
             album = form.cleaned_data["id"]
             start = form.cleaned_data["start"] or 0
@@ -547,6 +575,12 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
+
+    def post(self, request, format=None):
+        return self._handle_request(request.data, request)
+
+    def get(self, request, format=None):
+        return self._handle_request(request.GET, request)
 
 
 def _crop_image(img, scale_factor):
@@ -753,11 +787,11 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve photo details.
     '''
-
-    def post(self, request, format=None):
-        form = forms.ApiPhotoStateForm(request.data)
+    permission_classes = (AllowAny,)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiPhotoStateForm(data)
         if form.is_valid():
-            user_profile = request.user.profile
+            user_profile = user.profile if user else None
             photo = Photo.objects.filter(
                 pk=form.cleaned_data['id'],
                 rephoto_of__isnull=True
@@ -765,7 +799,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             if photo:
                 photo = serializers.PhotoSerializer.annotate_photos(
                     photo,
-                    request.user.profile
+                    user_profile
                 ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
@@ -783,6 +817,13 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
 
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
 
 class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
