@@ -100,9 +100,9 @@
                             data-share="true"></div>
                     </div>
                     <div class="row ajapaik-height-48 ajapaik-margin-top-10">
-{% if not is_frontpage and not is_photoview or is_game or is_mapview %}
-                        <a id="ajapaik-photoview-start-geotagging-button" data-id="{{ photo.id }}" class="pull-left"
-                        title="{% trans "Pick the shooting location!" %}" href="#">
+{% if not is_frontpage and is_photoview or is_game or is_mapview %}
+                        <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="pull-left"
+                        title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank" rel="nofollow">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
                         </a>
 {% endif %}
