@@ -1,3 +1,5 @@
+## [Join Ajapaik Slack](https://join.slack.com/t/ajapaik/shared_invite/enQtNDE4NzkzMDEyOTYwLTQ2Mjc3ZmIwNGJmMjNjNTVjMGRmZDhkZjVlMzdhYjMxZDhkOTVmZTQ2MzFlNjNiYTJhNmY1ZjA0NjJkODg2ZTg)!
+
 This is the open-sourced Django project code for https://ajapaik.ee/
 
 Verified working on Python 2.7.13, instructions for installing from source (consider compiling with 

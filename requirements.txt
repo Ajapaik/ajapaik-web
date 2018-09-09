@@ -40,6 +40,7 @@ lxml
 Markdown
 meld3
 mock
+mwoauth==0.3.2
 ndg-httpsclient
 numpy
 oauth2client==1.4.12
@@ -48,8 +49,8 @@ olefile
 packaging
 pandas
 pbr
-Pillow
-psycopg2-binary
+Pillow==4.1.1
+psycopg2
 py
 pyasn1
 pyasn1-modules

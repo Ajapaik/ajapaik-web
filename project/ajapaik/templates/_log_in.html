@@ -21,6 +21,9 @@
 <div id="{% if type == "leaderboard" %}ajapaik-header-google-connect{% elif type == "rephoto_upload" or type == "curator" or type == "video_anonymous" or type == "photo_selection" %}ajapaik-rephoto-upload-google-connect{% endif %}" class="google-plus-connect">
     <a href="{% provider_login_url 'google' %}" class="ir">{% trans "Connect with Google" %}</a>
 </div>
+<div class="mediawiki-connect">
+    <a href="{% provider_login_url 'mediawiki' %}" class="ir">{% trans "Connect with MediaWiki" %}</a>
+</div>
 <form method="post" action="{% url 'account_login' %}" class="form">
     {% csrf_token %}
     <input class="form-control ajapaik-zero-border-radius" id="id_login" maxlength="254" name="login"

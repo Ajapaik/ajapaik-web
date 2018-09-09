@@ -1174,14 +1174,19 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         original_thumb_size = get_thumbnail(photo_obj.image, '1024x1024').size
         geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
         geotag_count = geotags.count()
-        if geotag_count > 0:
-            correct_geotags_from_authenticated_users = profile and geotags.exclude(user__pk=profile.user_id).filter(
-                Q(user__first_name__isnull=False, user__last_name__isnull=False, is_correct=True))[:3] or []
-            if len(correct_geotags_from_authenticated_users) > 0:
-                for each in correct_geotags_from_authenticated_users:
-                    first_geotaggers.append([each.user.get_display_name(), each.lat, each.lon, each.azimuth])
-            first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
+        if profile is not None and geotags.filter(user__pk=profile.user_id).exists():
+            geotags = geotags.exclude(user__pk=profile.user_id)
+        for geotag in geotags:
+            if geotag.user is not None:
+                name = geotag.user.get_display_name()
+            else:
+                name = _('Anonymous user')
+            first_geotaggers.append([name,
+                                     geotag.lat,
+                                     geotag.lon,
+                                     geotag.azimuth])
+        first_geotaggers = json.dumps(first_geotaggers)
         first_rephoto = photo_obj.rephotos.all().first()
         if 'user_view_array' not in request.session:
             request.session['user_view_array'] = []
@@ -2677,19 +2682,21 @@ def submit_dating(request):
         return HttpResponse('Invalid data', status=400)
 
 
-@login_required
 def get_datings(request, photo_id):
-    photo = Photo.objects.filter(pk=photo_id).first()
-    profile = request.user.profile
-    ret = {}
-    if photo:
-        datings = photo.datings.order_by('created').prefetch_related('confirmations')
-        for each in datings:
-            each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
-        datings_serialized = DatingSerializer(datings, many=True).data
-        ret['datings'] = datings_serialized
-
-    return HttpResponse(json.dumps(ret), content_type='application/json')
+    if request.user.is_authenticated():
+        profile = request.user.profile
+    else:
+        profile = None
+    photo = get_object_or_404(Photo, id=photo_id)
+    datings = photo.datings.order_by('created').prefetch_related('confirmations')
+    for dating in datings:
+        if profile is not None:
+            dating.this_user_has_confirmed = dating.confirmations \
+                                                .filter(profile=profile) \
+                                                .exists()
+        else:
+            dating.this_user_has_confirmed = False
+    return JsonResponse(DatingSerializer(datings, many=True).data, safe=False)
 
 
 @login_required

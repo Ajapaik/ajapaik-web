@@ -176,6 +176,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     source = serializers.SerializerMethodField()
     longitude = serializers.FloatField(source='lon')
     latitude = serializers.FloatField(source='lat')
+    azimuth = serializers.FloatField()
     rephotos = serializers.SerializerMethodField()
     favorited = serializers.SerializerMethodField()
 
@@ -242,8 +243,8 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = (
-            'id', 'image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'rephotos',
+            'id', 'image', 'width', 'height', 'title', 'date', 'author',
+            'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
             'favorited',
         )
 
