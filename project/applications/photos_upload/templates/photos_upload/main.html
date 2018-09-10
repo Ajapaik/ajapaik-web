@@ -60,7 +60,8 @@
                         <p><b>{% trans 'Name' %}:</b></p>
                         <el-input
                             v-model="name"
-                            placeholder="{% trans 'Start typing to edit short description for all photos.' %}">
+                            placeholder="{% trans 'Start typing to edit short description for all photos.' %}"
+                            @input="update_names">
                         </el-input>
                     </el-row>
                     <el-row>
@@ -69,7 +70,8 @@
                             v-model="description"
                             type="textarea"
                             :autosize="{ minRows: 4, maxRows: 8}"
-                            placeholder="{% trans 'Start typing to edit detailed description for all photos.' %}">
+                            placeholder="{% trans 'Start typing to edit detailed description for all photos.' %}"
+                            @input="update_descriptions">
                         </el-input>
                     </el-row>
                     <el-row>
