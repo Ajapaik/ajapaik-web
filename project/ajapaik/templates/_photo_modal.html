@@ -432,8 +432,10 @@
         });
 
         // Leaflet-map
-        var options=get_photoviewModalOptions();
-        $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
+	if (typeof get_photoviewModalOptions === "function") {
+            var options=get_photoviewModalOptions();
+            $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
+        }
     });
 </script>
 {% block specific_js %}
