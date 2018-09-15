@@ -94,7 +94,7 @@ def finna_import_photo(id, profile):
         if 'imageRights' in p and 'copyright' in p['imageRights']:
             licence_str = p['imageRights']['copyright']
             if licence_str:
-                licence = Licence.objects.get_or_create(name=licence)[0]
+                licence = Licence.objects.get_or_create(name=licence_str)[0]
 
         authors=[]
         if 'authors' in p:
