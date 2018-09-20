@@ -19,6 +19,7 @@
                 '<div id="ajapaik-minimap-disabled-overlay"></div>',
                 '<div id="ajapaik-photo-modal-map-canvas"></div>',
                 '<div id="ajapaik-photo-modal-map-textbox"></div>',
+                '<div id="ajapaik-photo-modal-map-state"></div>',
             ].join('\n'));
 
             $(this.node).html(this.UI);
@@ -69,14 +70,17 @@
             if (that.options.azimuth) {
                 var marker = this.getMarkerArrow(that.initialMapCenter, that.options);
                 marker.addTo(map);
+                that.options.marker=marker;
 
                 var markerline=this.getMarkerLine(that.initialMapCenter, that.options);
                 map.addLayer(markerline);
+                that.options.markerline=markerline;
             }
             else
             {
                 var marker = this.getMarker(that.initialMapCenter);
                 marker.addTo(map);
+                that.options.marker=marker;
             }
 
 // Topright corner user count
@@ -84,6 +88,9 @@
                var geotaggingUserCount=this.getGeotaggingUserCountButton(that.options);
                geotaggingUserCount.addTo(map);
             }
+
+            var startGeotaggingButton = this.getStartGeotaggingButton(that.options);
+            startGeotaggingButton.addTo(map);
 // global reference to map for ajapaik-common-nogooglemaps.js
             window.ajapaikminimap=map;
 
@@ -101,6 +108,8 @@
                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('pointer-events', 'none');
                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('width', '4.5em');
                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().parent().css('background-color', 'white');
+               $("i.ajapaik-minimap-start-geotagging").parent().parent().css('width', '4em');
+               $("i.ajapaik-minimap-start-geotagging").parent().parent().parent().css('background-color', 'white');
             }, 500);
 
 // For slow networks (500 ms failed in train)
@@ -177,7 +186,238 @@
                 var button=L.easyButton(html_value, function() {});
                 button.disable();
                 return button;
-        }
+        },
+
+        getStartGeotaggingButton : function(options) {
+                var e=$("<i>add_location</i>");
+		e.css("font-size", "300%");
+		e.css("padding-top", "0.1em");
+		e.addClass("ajapaik-minimap-start-geotagging");
+		e.addClass("material-icons");
+                e.addClass('notranslate');
+
+                var html_value=$("<div>").append(e).html();
+                options.position='bottomright';
+		options.onStartCrosshairGeotagging=this.doStartCrosshairGeotagging;
+		options.onStartCameraGeotagging=this.doStartCameraGeotagging;
+
+                var button=L.easyButton(html_value, this.doStartGeotagging, 'geotaggingbutton', options);
+                return button;
+        },
+        getSubmitGeotaggingButton : function(options) {
+                var e=$("<i>submit</i>");
+		e.css("font-size", "300%");
+		e.css("padding-top", "0.1em");
+		e.addClass("ajapaik-minimap-start-geotagging");
+		e.addClass("material-icons");
+                e.addClass('notranslate');
+
+                var html_value=$("<div>").append(e).html();
+                options.position='bottomright';
+
+                var button=L.easyButton(html_value, this.doSubmitGeotagging, 'geotaggingbutton', options);
+                return button;
+        },
+
+        getCancelGeotaggingButton : function(options) {
+                var e=$("<i>cancel</i>");
+		e.css("font-size", "300%");
+		e.css("padding-top", "0.1em");
+		e.addClass("ajapaik-minimap-start-geotagging");
+		e.addClass("material-icons");
+                e.addClass('notranslate');
+
+                var html_value=$("<div>").append(e).html();
+                options.position='bottomright';
+
+                var button=L.easyButton(html_value, this.doCancelGeotagging, 'geotaggingbutton', options);
+                return button;
+        },
+
+	doCancelGeotagging : function (eb_this) {
+
+	},
+
+	doSubmitGeotagging : function (eb_this) {
+
+	},
+
+
+	doStartCrosshairGeotagging : function(eb_this) {
+                var that=eb_this.options.context;
+                var map=window.ajapaikminimap;
+
+                if (that.options.mode=='crosshair') return;
+	
+                const defaults = {
+                      crosshairHTML: '<img alt="Center of the map; crosshair location" title="Crosshair" src="/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg" width="38px" />'
+                }
+
+                if (that.options.cameramarker) {
+			map.setView(that.options.cameramarker.getCameraLatLng());
+			that.options.targetLatLng=that.options.cameramarker.getTargetLatLng();
+			that.options.cameramarker.remove();
+		}
+                that.options.mode='crosshair';
+                that.options.crosshairmarker=L.geotagPhoto.crosshair(defaults)
+                that.options.crosshairmarker.addTo(map)
+                    .on('input', function (event) {
+//                        var point = getCrosshairPoint()
+                    })
+        },
+        doStartCameraGeotagging : function(eb_this) {
+                var that=eb_this.options.context;
+                map=window.ajapaikminimap;
+                var azimuth = that.options.azimuth ? that.options.azimuth : 0 ;
+
+                if (that.options.mode=='camera') {
+	                var northWest = map.getBounds().getNorthWest();
+        	        var northEast = map.getBounds().getNorthEast();
+                	var southWest = map.getBounds().getSouthWest();
+			var dist_nwne=northWest.distanceTo(northEast) / 3;
+			var dist_nwsw=northWest.distanceTo(southWest) / 3;
+			var dist=(dist_nwne>dist_nwsw ? dist_nwsw : dist_nwne);
+
+			azimuth=L.GeometryUtil.bearing(that.options.cameramarker.getCameraLatLng(),that.options.cameramarker.getTargetLatLng());
+	                var destinationPoint= L.GeometryUtil.destination(that.options.cameramarker.getCameraLatLng(), azimuth, dist);
+			map.setView(that.options.cameramarker.getCameraLatLng());
+
+			that.options.cameramarker.setTargetLatLng(destinationPoint);
+			return;
+		}
+
+                that.options.mode='camera';
+
+                var initialMapCenter = {
+                   lat: that.options.latitude,
+                   lng: that.options.longitude
+                };
+
+                if (that.options.crosshairmarker) {
+			initialMapCenter=that.options.crosshairmarker.getCrosshairLatLng();
+			that.options.crosshairmarker.removeFrom(map);
+		}
+
+
+
+		var destinationPoint;
+
+		if (that.options.targetLatLng) {
+			destinationPoint=that.options.targetLatLng;
+		}
+		else
+		{
+	                var center = map.getCenter();
+        	        var northWest = map.getBounds().getNorthWest();
+                	var northEast = map.getBounds().getNorthEast();
+                	var southWest = map.getBounds().getSouthWest();
+
+			var dist_nwne=northWest.distanceTo(northEast) / 3;
+			var dist_nwsw=northWest.distanceTo(southWest) / 3;
+			var dist=(dist_nwne>dist_nwsw ? dist_nwsw : dist_nwne);
+
+	                destinationPoint= L.GeometryUtil.destination(initialMapCenter, azimuth, dist);
+		}
+                var cameraPoint = [initialMapCenter.lng, initialMapCenter.lat];
+    	        var targetPoint = [destinationPoint.lng, destinationPoint.lat];
+
+
+
+                var points = {
+                    type: 'Feature',
+                    properties: {
+                        angle: 20
+                    },
+                    geometry: {
+                        type: 'GeometryCollection',
+                        geometries: [
+                            {
+                                type: 'Point',
+                                coordinates: cameraPoint
+                            },
+                            {
+                                type: 'Point',
+                                coordinates: targetPoint
+                            }
+                        ]
+                    }
+                }
+                var options = {
+                    cameraIcon: L.icon({
+                    iconUrl: '/static/images/camera.svg',
+                    iconSize: [38, 38],
+                    iconAnchor: [19, 19]
+                }),
+                targetIcon: L.icon({
+                    iconUrl: '/static/images/marker.svg',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16]
+                }),
+                angleIcon: L.icon({
+                    iconUrl: '/static/images/marker.svg',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16]
+                }),
+                control:false,
+                angleMarker: false,
+                minangle:1,
+                controlCameraImg: '/static/images/camera-icon.svg',
+                controlCrosshairImg: '/static/images/crosshair-icon.svg',
+                };
+
+                var geotagPhotoCamera = L.geotagPhoto.camera(points, options)
+                geotagPhotoCamera.addTo(map)
+                .on('change', function (event) {
+                //    updateSidebar()
+                })
+                .on('input', function (event) {
+                //    updateSidebar()
+                })
+                geotagPhotoCamera.setAngle(1)
+                that.options.cameramarker=geotagPhotoCamera;
+                 var fieldOfView = geotagPhotoCamera.getFieldOfView()
+//               alert(JSON.stringify(initialMapCenter) + "\n" + JSON.stringify(fieldOfView, null, 2))
+ 	},
+
+        doStartGeotagging : function() {
+//		alert(this.options.marker);
+                if (this.options.mode=='map') {
+                    this.options.mode='camera';
+                    if (this.options.marker) this.options.marker.remove();
+                    if (this.options.markerline) this.options.markerline.remove();
+                    var map=window.ajapaikminimap;
+                    var button_options={
+                        position: 'topleft', 
+                        controlCameraImg: '/static/images/camera-icon.svg', 
+                        controlCrosshairImg: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg',
+                        context:this
+                    }
+                    var tb_temp={};
+                    tb_temp.options=button_options;
+		    alert("foo");
+                    this.options.onStartCrosshairGeotagging(tb_temp);
+
+                    var html_value="<a><img src='"+ button_options.controlCameraImg +"'/></a>";
+                    var button=L.easyButton(html_value, this.options.onStartCameraGeotagging, 'camerageotaggingbutton', button_options);
+//                    button.on('click', this.doStartCameraGeotagging, this)
+                    button.addTo(map)
+
+                    html_value="<a><img height='25px' src='"+ button_options.controlCrosshairImg +"'/></a>";
+                    button=L.easyButton(html_value, this.options.onStartCrosshairGeotagging, 'crosshairgeotaggingbutton', button_options);
+//                    button.on('click', this.doStartCrosshairGeotagging, this)
+                    button.addTo(map)
+		    this.remove();
+
+		    button=this.getCancelGeotaggingButton(button_options);
+		    button.addTo(map);
+
+		    button=this.getSubmitGeotaggingButton(button_options);
+		    button.addTo(map);
+
+
+		}
+	},
+
     };
 
     // FIXME: Supports only one minimap. 
