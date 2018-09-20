@@ -502,16 +502,17 @@
                 $('.ajapaik-result-item').removeClass('ajapaik-curator-selected-image');
                 window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
             });
-            var escapeRegExp = function (string) {
+            window.escapeRegExp = function (string) {
                 return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
             };
-            var replaceAll = function (string, find, replace) {
-                return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+            window.replaceAll = function (string, find, replace) {
+                return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
             window.photoPermalink = '{% url "project.ajapaik.views.photoslug" %}';
             window.formatId = function (id) {
-                id = replaceAll(id, ':', '');
-                id = replaceAll(id, '.', '');
+                id = '' + id;
+                id = window.replaceAll(id, ':', '');
+                id = window.replaceAll(id, '.', '');
                 id = id.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "")
 
                 return id;

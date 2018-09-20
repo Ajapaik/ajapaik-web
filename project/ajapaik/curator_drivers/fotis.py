@@ -50,15 +50,16 @@ class FotisDriver(object):
                 continue
             else:
                 # TODO: Handle weird dating format
+                image_url = p['_links']['image']['href'].replace('http://', 'https://')
                 transformed_item = {
                     'isFotisResult': True,
                     'id': p['id'],
                     'identifyingNumber': p['reference_code'],
                     'title': p['content'] if p['content'] else p['content_original'],
                     'institution': 'Fotis',
-                    'cachedThumbnailUrl': p['_links']['image']['href'],
-                    'imageUrl': p['_links']['image']['href'],
-                    'urlToRecord': p['_links']['view']['href'],
+                    'cachedThumbnailUrl': image_url,
+                    'imageUrl': image_url,
+                    'urlToRecord': p['_links']['view']['href'].replace('http://', 'https://'),
                     'creators': p['author']
                 }
                 if existing_photo:
