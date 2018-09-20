@@ -355,7 +355,12 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             '~format:"0/Place/"',
             '~format:"0/Image/"',
             '~usage_rights_str_mv:"usage_B"',
+            '-topic_facet:"ilmakuvat"',
+            '-topic_facet:"arkeologia"',
+            '-topic_facet:"lentokoneet"',
+            '-topic_facet:"ilmakulkuneuvot lentokoneet"',
             '-author_facet:"Koivisto Andreas"',  # Raumalla tulee liikaa kuvia maasta 
+            '-author_facet:"Kauppinen Anne"',  # Vantaan ruokakuvat 
             '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
         ]
 
