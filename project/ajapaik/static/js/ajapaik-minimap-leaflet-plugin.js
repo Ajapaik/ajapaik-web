@@ -198,6 +198,7 @@
 
                 var html_value=$("<div>").append(e).html();
                 options.position='bottomright';
+		options.mode='map';
 		options.onStartCrosshairGeotagging=this.doStartCrosshairGeotagging;
 		options.onStartCameraGeotagging=this.doStartCameraGeotagging;
 
@@ -380,6 +381,7 @@
  	},
 
         doStartGeotagging : function() {
+		alert("dasda");
 //		alert(this.options.marker);
                 if (this.options.mode=='map') {
                     this.options.mode='camera';
