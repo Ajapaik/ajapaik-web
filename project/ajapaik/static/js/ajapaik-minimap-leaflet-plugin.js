@@ -124,13 +124,13 @@
             var pointerIcon = new L.icon({
                  iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Ic_navigation_48px.svg/200px-Ic_navigation_48px.svg.png',
                  iconSize:     [48, 48], // size of the icon
-                 iconAnchor:   [24, 0], // point of the icon which will correspond to marker's location
+                 iconAnchor:   [24, 24], // point of the icon which will correspond to marker's location
                  popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor
             });
 
             var markerOptions={
                 icon: pointerIcon,
-                rotationAngle:options.azimuth
+                rotationAngle:options.azimuth+2
             }
             return L.marker(point, markerOptions);
         },
