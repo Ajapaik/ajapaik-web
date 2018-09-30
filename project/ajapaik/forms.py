@@ -255,6 +255,10 @@ class ApiAlbumStateForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+class ApiAlbumSourceForm(forms.Form):
+    query = forms.CharField(max_length=255,required=True)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
 
 class ApiPhotoUploadForm(forms.Form):
     id = forms.CharField(max_length=255)

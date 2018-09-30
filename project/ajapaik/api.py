@@ -615,6 +615,53 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     def get(self, request, format=None):
         return self._handle_request(request.GET, request)
 
+class SourceDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to retrieve album details and details of this album photos.
+    '''
+
+    permission_classes = (AllowAny,)
+    def _handle_request(self, data, request):
+        form = forms.ApiAlbumSourceForm(data)
+        if form.is_valid():
+            query = form.cleaned_data["query"]
+            start = form.cleaned_data["start"] or 0
+            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*1000 )
+
+            photos = Photo.objects.filter(
+		source_url__contains=query,
+                rephoto_of__isnull=True,
+                lat__isnull=False,
+                lon__isnull=False,
+            )[start:end]
+            response_data = {
+                'error': RESPONSE_STATUSES['OK']
+            }
+
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                None
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+            })
+
+    def post(self, request, format=None):
+        return self._handle_request(request.data, request)
+
+    def get(self, request, format=None):
+        return self._handle_request(request.GET, request)
+
 
 def _crop_image(img, scale_factor):
     new_size = tuple([int(x * scale_factor) for x in img.size])
