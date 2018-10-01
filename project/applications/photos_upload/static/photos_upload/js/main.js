@@ -3,6 +3,17 @@ const store = new Vuex.Store({
         photos: [],
         user: {},
         licences: [],
+        massiveEditFormData: {
+            name: '',
+            description: '',
+            // Geographical centre of Estonia
+            latitude: 58.657777777777774,  // 58°39'28"N
+            longitude: 25.573888888888888,  // 25°34'26"E
+            azimuth: 0,
+            isUserAuthor: false,
+            selectedLicence: null,
+            selectedAlbums: []
+        }
     },
     mutations: {
         addPhotoFromFile: (state, {file}) => {
@@ -35,24 +46,60 @@ const store = new Vuex.Store({
 
         setLicences: (state, licences) => {state.licences = licences;},
 
-        massive_name_editing: (state, {name}) => {
+        massive_name_editing: (state, name) => {
+            state.massiveEditFormData.name = name;
             for(var i = 0; i < state.photos.length; i++) {
                 photo = state.photos[i];
-                photo.name = `${name} ${i + 1}`;
-            }
-        },
-
-        reset_names: (state) => {
-            for(var i = 0; i < state.photos.length; i++) {
-                photo = state.photos[i];
-                photo.name = photo.originalFileName;
+                if (name) {
+                    photo.name = `${name} ${i + 1}`;
+                } else {
+                    photo.name = photo.originalFileName;
+                }
             }
         },
 
         massive_description_editing: (state, description) => {
+            state.massiveEditFormData.description = description;
             for(var i = 0; i < state.photos.length; i++) {
-                photo = state.photos[i];
-                photo.description = description;
+                state.photos[i].description = description;
+            }
+        },
+
+        massive_longitude_editing: (state, longitude) => {
+            state.massiveEditFormData.longitude = longitude;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].longitude = longitude;
+            }
+        },
+
+        massive_latitude_editing: (state, latitude) => {
+            state.massiveEditFormData.latitude = latitude;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].latitude = latitude;
+            }
+        },
+        massive_azimuth_editing: (state, azimuth) => {
+            state.massiveEditFormData.azimuth = azimuth;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].azimuth = azimuth;
+            }
+        },
+        massive_is_author_editing: (state, isUserAuthor) => {
+            state.massiveEditFormData.isUserAuthor = isUserAuthor;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].isUserAuthor = isUserAuthor;
+            }
+        },
+        massive_selected_licence_editing: (state, selectedLicence) => {
+            state.massiveEditFormData.selectedLicence = selectedLicence;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].licence = selectedLicence;
+            }
+        },
+        massive_selected_albums_editing: (state, selectedAlbums) => {
+            state.massiveEditFormData.selectedAlbums = selectedAlbums;
+            for(var i = 0; i < state.photos.length; i++) {
+                state.photos[i].albums = selectedAlbums;
             }
         },
     },
@@ -73,7 +120,7 @@ const store = new Vuex.Store({
             ])
                 .then( values => {
                     /* Mount application after fetching all required data. */
-                    new Vue({ router }).$mount('#photos-upload')
+                    new Vue({ router, store }).$mount('#photos-upload')
                 });
         }
     }
@@ -132,17 +179,41 @@ Vue.component('photos-editor', {
         return {
             availableAlbums: [],
             licences: [],
-
-            name: '',
-            description: '',
-            // Geographical centre of Estonia
-            latitude: 58.657777777777774,  // 58°39'28"N
-            longitude: 25.573888888888888,  // 25°34'26"E
-            azimuth: 0,
-            isUserAuthor: false,
-            selectedLicence: null,
-            selectedAlbums: []
         };
+    },
+    computed: {
+        name: {
+            get () {return this.$store.state.massiveEditFormData.name;},
+            set (name) {this.$store.commit('massive_name_editing', name);}
+        },
+        description: {
+            get () {return this.$store.state.massiveEditFormData.description;},
+            set (description) {this.$store.commit('massive_description_editing', description);}
+        },
+        longitude: {
+            get () {return this.$store.state.massiveEditFormData.longitude;},
+            set (longitude) {this.$store.commit('massive_longitude_editing', longitude);}
+        },
+        latitude: {
+            get () {return this.$store.state.massiveEditFormData.latitude;},
+            set (latitude) {this.$store.commit('massive_latitude_editing', latitude);}
+        },
+        azimuth: {
+            get () {return this.$store.state.massiveEditFormData.azimuth;},
+            set (azimuth) {this.$store.commit('massive_azimuth_editing', azimuth);}
+        },
+        isUserAuthor: {
+            get () {return this.$store.state.massiveEditFormData.isUserAuthor;},
+            set (isUserAuthor) {this.$store.commit('massive_is_author_editing', isUserAuthor);}
+        },
+        selectedLicence: {
+            get () {return this.$store.state.massiveEditFormData.selectedLicence;},
+            set (selectedLicence) {this.$store.commit('massive_selected_licence_editing', selectedLicence);}
+        },
+        selectedAlbums: {
+            get () {return this.$store.state.massiveEditFormData.selectedAlbums;},
+            set (selectedAlbums) {this.$store.commit('massive_selected_albums_editing', selectedAlbums);}
+        },
     },
     created: function() {
         let data = {
@@ -153,19 +224,7 @@ Vue.component('photos-editor', {
         axios.post('/api/v1/albums/', data)
             .then(response => {this.availableAlbums = response.data.albums})
     },
-    methods: {
-        update_names: (name) => {
-            if (name) {
-                store.commit('massive_name_editing', {name: name});
-            }
-            else {
-                store.commit('reset_names');
-            }
-        },
-        update_descriptions: (description) => {
-            store.commit('massive_description_editing', description);
-        }
-    },
+    methods: {},
 });
 
 
