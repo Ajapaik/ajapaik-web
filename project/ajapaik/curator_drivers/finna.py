@@ -94,7 +94,13 @@ def finna_import_photo(id, profile):
         if 'imageRights' in p and 'copyright' in p['imageRights']:
             licence_str = p['imageRights']['copyright']
             if licence_str:
-                licence = Licence.objects.get_or_create(name=licence_str)[0]
+                licence = Licence.objects.filter(name=licence_str).first()
+                if not licence:
+                    licence = Licence(
+                         name=licence_str
+                    )
+                    licence.save()
+
 
         authors=[]
         if 'authors' in p:
@@ -114,7 +120,7 @@ def finna_import_photo(id, profile):
 
         source = Source.objects.filter(description=institution).first()
 
-        external_id=p['id']        # muis_id
+        external_id=p['id'][:99]        # muis_id
         external_sub_id=None       # muis_media_id
         if '_' in p['id']:
             external_id = p['id'].split('_')[0]
@@ -195,9 +201,9 @@ class FinnaDriver(object):
                         'year', 'summary', 'rawData'],
             'filter[]': [
 		'free_online_boolean:"1"',
-		'~format:"0/Place/"',
-		'~format:"0/Image/"',
-		'~usage_rights_str_mv:"usage_B"',
+#		'~format:"0/Place/"',
+#		'~format:"0/Image/"',
+#		'~usage_rights_str_mv:"usage_B"',
 	],
 
         }).text)
@@ -252,6 +258,8 @@ class FinnaDriver(object):
 	                for k,each in p['authors']['primary'].items():
                             authors.append(k)
 
+                # Cut long
+                p['id']=p['id'][:99]
                 transformed_item = {
                     'isFinnaResult': True,
                     'id': p['id'],

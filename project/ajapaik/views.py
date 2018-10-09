@@ -2017,7 +2017,12 @@ def curator_photo_upload_handler(request):
                     else:
                         # For Finna
                         if upload_form.cleaned_data["licence"]:
-                            licence = Licence.objects.get_or_create(name=upload_form.cleaned_data["licence"])[0]
+                            licence = Licence.objects.filter(name=upload_form.cleaned_data["licence"]).first()
+                            if not licence:
+                                licence = Licence(
+                                    name=upload_form.cleaned_data["licence"]
+                                )
+                                licence.save()
                         else:
                             licence = unknown_licence
                     upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
