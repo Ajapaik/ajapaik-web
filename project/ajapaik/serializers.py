@@ -7,10 +7,14 @@ from rest_framework import serializers
 
 from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 from project.utils import calculate_thumbnail_size
-
+from django.utils import timezone
 
 log = logging.getLogger(__name__)
 
+class DateTimeTzAwareField(serializers.DateTimeField):
+    def to_representation(self, value):
+        value = timezone.localtime(value)
+        return super(DateTimeTzAwareField, self).to_representation(value)
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
     class Meta:
@@ -115,7 +119,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
 
 class RephotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    date = serializers.SerializerMethodField()
+    date = DateTimeTzAwareField(format='%d-%m-%Y')
     source = serializers.SerializerMethodField()
     user_name = serializers.CharField(source='user.user.get_full_name')
     is_uploaded_by_current_user = serializers.SerializerMethodField()
