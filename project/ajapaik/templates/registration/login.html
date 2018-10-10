@@ -24,8 +24,8 @@
                         {% trans "Log in" %}
                     </button>
                 </form>
-                <br/>
-                <a href="{% url "auth_password_reset" %}">{% trans "Forgot password" %}</a>
+                <br class="forgot_password_link" />
+                <a class="forgot_password_link" href="{% url "auth_password_reset" %}">{% trans "Forgot password" %}</a>
                 <br/>
                 <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
                 <br/>
