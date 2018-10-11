@@ -128,9 +128,10 @@
                  popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor
             });
 
+            var azimuth_fixed=this.ajapaikAzimuthToLeafletAzimuth(point, options.azimuth);
             var markerOptions={
                 icon: pointerIcon,
-                rotationAngle:options.azimuth+2
+                rotationAngle:azimuth_fixed
             }
             return L.marker(point, markerOptions);
         },
@@ -148,8 +149,49 @@
             return L.marker(point, {icon: pointerIcon });
         },
 
+        ajapaikAzimuthToLeafletAzimuth(point, azimuth) {
+            var destinationPoint_ajapaik = this.simpleCalculateMapLineEndPoint(point, azimuth, 0.2);
+            var azimuth_ajapaik=this.radiansToDegrees(this.getAzimuthBetweenTwoPoints(point, destinationPoint_ajapaik));
+
+            var destinationPoint_leaflet= L.GeometryUtil.destination(point, azimuth, 1000);
+            var azimuth_leaflet = this.radiansToDegrees(this.getAzimuthBetweenTwoPoints(point, destinationPoint_leaflet));
+
+            var azimuth_fixed = azimuth_ajapaik-(azimuth_leaflet-azimuth_ajapaik);
+            return azimuth_fixed;
+        },
+
+	// copied from ajapaik-geotagger-plugin.js
+        getAzimuthBetweenTwoPoints: function (p1, p2) {
+            var x = p2.lat - p1.lat,
+                y = p2.lng - p1.lng;
+            return Math.atan2(y, x);
+        },
+
+	// copied from ajapaik-geotagger-plugin.js
+        radiansToDegrees: function (rad) {
+            var ret = rad * (180 / Math.PI);
+            if (ret < 0) {
+                ret += 360;
+            }
+            return ret;
+        },
+
+	// copied from ajapaik-geotagger-plugin.js
+        degreesToRadians: function (deg) {
+            return deg * Math.PI / 180;
+        },
+
+	// modified from ajapaik-geotagger-plugin.js
+	simpleCalculateMapLineEndPoint: function (startPoint, azimuth, lineLength) {
+            azimuth = this.degreesToRadians(azimuth);
+            var newLat = (Math.cos(azimuth) * lineLength) + startPoint.lat,
+                newLng = (Math.sin(azimuth) * lineLength) + startPoint.lng;
+
+            return L.latLng(newLat, newLng)
+        },
+
         getMarkerLine : function(startingPoint, options) {
-                var destinationPoint= L.GeometryUtil.destination(startingPoint, options.azimuth, 500000);
+                var destinationPoint = this.simpleCalculateMapLineEndPoint(startingPoint, options.azimuth, 0.2);
 		var pointList = [startingPoint, destinationPoint];
                 var markerline = new L.Polyline(
                                                 pointList,
