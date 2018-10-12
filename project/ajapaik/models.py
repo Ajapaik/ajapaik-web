@@ -493,8 +493,8 @@ class Photo(Model):
         self.flip = not self.flip
         # This delete applies to sorl thumbnail
         delete(self.image, delete_file=False)
-
         self.light_save()
+        self.original_flip = self.flip
 
     def watermark(self):
         # For ETERA
@@ -590,7 +590,6 @@ class Photo(Model):
             self.do_flip()
         self.original_lat = self.lat
         self.original_lon = self.lon
-        self.original_flip = self.flip
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
@@ -598,6 +597,7 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
+        super(Photo, self).save(*args, **kwargs)
         if not DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
