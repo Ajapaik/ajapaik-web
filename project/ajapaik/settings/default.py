@@ -382,6 +382,11 @@ LEAFLET_CONFIG = {
             'js': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',
             'auto-include': True,
         },
+        'leaflet-GeotagPhoto': {
+            'css': 'https://unpkg.com/leaflet-geotag-photo/dist/Leaflet.GeotagPhoto.css',
+            'js' : 'https://unpkg.com/leaflet-geotag-photo/dist/Leaflet.GeotagPhoto.min.js',
+            'auto-include': True,
+        },
         'leaflet-rotatedMarker': {
             'js': '/static/js/leaflet.rotatedMarker.js',
             'auto-include': True,
