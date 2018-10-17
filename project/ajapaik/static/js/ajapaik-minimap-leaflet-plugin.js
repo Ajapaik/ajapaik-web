@@ -6,6 +6,7 @@
     var AjapaikMinimap = function (node, options) {
         var that = this;
         this.node = node;
+	var testi="testi";
 
         this.options = $.extend({}, options);
         // Do not show map if isMobile is true
@@ -55,7 +56,7 @@
 
 // OSM layer
             var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	    var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+	    var osmAttrib='Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
             var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
 
             that.initialMapCenter = {
@@ -201,37 +202,39 @@
 		options.mode='map';
 		options.onStartCrosshairGeotagging=this.doStartCrosshairGeotagging;
 		options.onStartCameraGeotagging=this.doStartCameraGeotagging;
+                options.context=this;
+
 
                 var button=L.easyButton(html_value, this.doStartGeotagging, 'geotaggingbutton', options);
                 return button;
         },
+
         getSubmitGeotaggingButton : function(options) {
-                var e=$("<i>submit</i>");
-		e.css("font-size", "300%");
-		e.css("padding-top", "0.1em");
-		e.addClass("ajapaik-minimap-start-geotagging");
+                var e=$("<a>done</a>");
+//		e.css("font-size", "300%");
+//		e.css("padding-top", "0.1em");
+//		e.addClass("ajapaik-minimap-start-geotagging");
 		e.addClass("material-icons");
                 e.addClass('notranslate');
 
                 var html_value=$("<div>").append(e).html();
                 options.position='bottomright';
 
-                var button=L.easyButton(html_value, this.doSubmitGeotagging, 'geotaggingbutton', options);
+                var button=L.easyButton(html_value, this.doSubmitGeotagging, 'submitgeotaggingbutton', options);
                 return button;
         },
 
         getCancelGeotaggingButton : function(options) {
-                var e=$("<i>cancel</i>");
-		e.css("font-size", "300%");
-		e.css("padding-top", "0.1em");
-		e.addClass("ajapaik-minimap-start-geotagging");
+                var e=$("<a>cancel</a>");
+//		e.css("font-size", "300%");
+//		e.css("padding-top", "0.1em");
+//		e.addClass("ajapaik-minimap-start-geotagging");
 		e.addClass("material-icons");
                 e.addClass('notranslate');
 
                 var html_value=$("<div>").append(e).html();
                 options.position='bottomright';
-
-                var button=L.easyButton(html_value, this.doCancelGeotagging, 'geotaggingbutton', options);
+                var button=L.easyButton(html_value, this.doCancelGeotagging, 'cancelgeotaggingbutton', options);
                 return button;
         },
 
@@ -240,7 +243,34 @@
 	},
 
 	doSubmitGeotagging : function (eb_this) {
+		var that=eb_this.options.context;
+		var center;
+		if (that.options.crosshairmarker)
+		{
+			center=that.options.crosshairmarker.getCrosshairLatLng();
+		}
+		else
+		{
+			center=that.options.cameramarker.getCameraLatLng();
+		}
+		alert(center.lat + "; "+ center.lng);
 
+ 		var data = {
+                    lat: lat,
+                    lon: lon,
+                    type: 0,
+                    zoom_level: this.map.getZoom(),
+                    photo: this.options.currentPhotoId,
+                    hint_used: this.hintUsed,
+                    photo_flipped: this.photoFlipped,
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                };
+/*		$.ajax({
+                	type: 'POST',
+                	url: saveLocationURL,
+                	data: data,
+                	success: function (response) { alert("foo"); }
+		});*/ 
 	},
 
 
@@ -361,7 +391,7 @@
                 }),
                 control:false,
                 angleMarker: false,
-                minangle:1,
+                minangle:10,
                 controlCameraImg: '/static/images/camera-icon.svg',
                 controlCrosshairImg: '/static/images/crosshair-icon.svg',
                 };
@@ -374,14 +404,13 @@
                 .on('input', function (event) {
                 //    updateSidebar()
                 })
-                geotagPhotoCamera.setAngle(1)
+                geotagPhotoCamera.setAngle(45)
                 that.options.cameramarker=geotagPhotoCamera;
                  var fieldOfView = geotagPhotoCamera.getFieldOfView()
 //               alert(JSON.stringify(initialMapCenter) + "\n" + JSON.stringify(fieldOfView, null, 2))
  	},
 
         doStartGeotagging : function() {
-		alert("dasda");
 //		alert(this.options.marker);
                 if (this.options.mode=='map') {
                     this.options.mode='camera';
@@ -392,29 +421,28 @@
                         position: 'topleft', 
                         controlCameraImg: '/static/images/camera-icon.svg', 
                         controlCrosshairImg: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg',
-                        context:this
+			context:this.options.context
                     }
                     var tb_temp={};
                     tb_temp.options=button_options;
-		    alert("foo");
                     this.options.onStartCrosshairGeotagging(tb_temp);
 
                     var html_value="<a><img src='"+ button_options.controlCameraImg +"'/></a>";
                     var button=L.easyButton(html_value, this.options.onStartCameraGeotagging, 'camerageotaggingbutton', button_options);
-//                    button.on('click', this.doStartCameraGeotagging, this)
                     button.addTo(map)
 
                     html_value="<a><img height='25px' src='"+ button_options.controlCrosshairImg +"'/></a>";
                     button=L.easyButton(html_value, this.options.onStartCrosshairGeotagging, 'crosshairgeotaggingbutton', button_options);
-//                    button.on('click', this.doStartCrosshairGeotagging, this)
-                    button.addTo(map)
+                    button.addTo(map);
+
+
+		    var cancelbutton=this.options.context.getCancelGeotaggingButton(button_options);
+		    var submitbutton=this.options.context.getSubmitGeotaggingButton(button_options);
+                    cancelbutton.addTo(map);
+                    submitbutton.addTo(map);
+
 		    this.remove();
-
-		    button=this.getCancelGeotaggingButton(button_options);
-		    button.addTo(map);
-
-		    button=this.getSubmitGeotaggingButton(button_options);
-		    button.addTo(map);
+		    $(".leaflet-left").css("top", $(".leaflet-right").css("top"));
 
 
 		}
