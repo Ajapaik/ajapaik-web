@@ -216,6 +216,7 @@
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
     <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="https://ajapaik.ee/feed/photos/"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% leaflet_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "css/bootstrap-3.3.7.css" %}">
         <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}">
@@ -226,8 +227,6 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
-        {% leaflet_css %}
-
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script type="text/javascript">
