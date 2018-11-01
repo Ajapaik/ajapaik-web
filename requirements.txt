@@ -14,7 +14,7 @@ django-comments-xtd==1.7.2
 django-compressor
 django-conditional-aggregates
 django-contrib-comments
-django-debug-toolbar
+django-debug-toolbar==1.9.1
 django-extensions
 django-gcm
 django-haystack
@@ -81,3 +81,4 @@ uwsgitop
 django-subdomains
 Werkzeug
 django-leaflet
+opencv-python-headless

@@ -1,0 +1,62 @@
+from default import *
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'ajapaik',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost'
+    }
+}
+
+ALLOWED_HOSTS = [
+    'localhost'
+]
+
+SECRET_KEY = 'zek%+^%%7#^&rqgjoa_b^jdvw+4g7mt_@)^j07j774tq%4f-d5'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+GOOGLE_API_KEY = 'YOUR_KEY'
+GOOGLE_CLIENT_ID = 'YOUR_ID'
+GOOGLE_ANALYTICS_KEY = 'UA-21689048-2'
+GOOGLE_PLUS_OAUTH2_CALLBACK_URL = 'http://localhost:8000/oauth2callback'
+
+FLICKR_API_KEY = 'YOUR_KEY'
+FLICKR_API_SECRET = 'YOUR_SECRET'
+
+FACEBOOK_APP_KEY = 'YOUR_KEY'
+FACEBOOK_APP_SECRET = 'YOUR_SECRET'
+FACEBOOK_APP_ID = '201052296573134'
+
+SITE_ID = 2
+
+DEBUG = True
+
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '590e8a199b417a'
+EMAIL_HOST_PASSWORD = 'YOUR_PASSWORD'
+EMAIL_USE_TLS = False

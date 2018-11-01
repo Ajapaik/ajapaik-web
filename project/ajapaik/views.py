@@ -305,12 +305,10 @@ def _get_album_choices(qs=None, start=None, end=None):
 def _calculate_recent_activity_scores():
     c = min(5000, Points.objects.all().count())
     recent_actions = []
-    try:
+    if c > 0:
         five_thousand_actions_ago = Points.objects.order_by('-created')[c - 1].created
         recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
             .annotate(total_points=Sum('points'))
-    except IndexError:
-        pass
     recent_action_dict = {}
     for each in recent_actions:
         recent_action_dict[each['user_id']] = each['total_points']
@@ -631,6 +629,8 @@ def frontpage(request, album_id=None, page=None):
     else:
         title = _('Timepatch (Ajapaik)')
 
+    last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
+
     return render_to_response('frontpage.html', RequestContext(request, {
         'is_frontpage': True,
         'title': title,
@@ -658,7 +658,7 @@ def frontpage(request, album_id=None, page=None):
         # 'total': data['total'],
         # 'photos': data['photos'],
         'is_photoset': data['is_photoset'],
-        'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id
+        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
     }))
 
 
@@ -1766,14 +1766,17 @@ def public_add_area(request):
 
 @ensure_csrf_cookie
 def curator(request):
-    last_created_album = Album.objects.filter(is_public=True).order_by('-created')[0]
+    last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
     # FIXME: Ugly
-    curator_random_image_ids = AlbumPhoto.objects.filter(
-        album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
+    curator_random_image_ids = None
+    if last_created_album:
+        curator_random_image_ids = AlbumPhoto.objects.filter(
+            album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
     if not curator_random_image_ids or len(curator_random_image_ids) < 5:
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
+
     return render_to_response('curator.html', RequestContext(request, {
         'description':
             _('Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!'),
