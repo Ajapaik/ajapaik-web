@@ -432,7 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        {% leaflet_js %}
 {% endif %}
     <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
-    {% compress js %}
+    <!-- compress js -->
         <script src="{% static "js/jquery-2.2.4.js" %}"></script>
         <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
         <script src="{% static "js/bootstrap-3.3.7.js" %}"></script>
@@ -469,7 +469,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
 {% endif %}
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
-    {% endcompress %}
+    <!-- endcompress -->
     <script type="text/javascript">
         window.cookieconsent_options = {
             message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
