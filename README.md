@@ -4,7 +4,7 @@ Verified working on Python 2.7.13, instructions for installing from source (cons
 --enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
 Requires installation of (at least on Ubuntu):
-libxslt-dev libpq-dev python-dev libgeos-dev supervisor certbot default-jre sendmail
+libxslt-dev libpq-dev python-dev libgeos-dev supervisor certbot default-jre sendmail cmake
 
 On your local machine cp local.py.example local.py to get a quick start.
 
@@ -35,7 +35,10 @@ You may want to create and activate a virtualenv first:
 <ul><li>pip install -r requirements.txt</li></ul>
 
 Let Django handle the database creation, in the project root:
-<ul><li>python project/manage.py migrate</li></ul>
+<ul>
+<li>python project/manage.py migrate</li>
+<li>python project/manage.py loaddata licence</li>
+</ul>
 
 You'll need your own local settings in project/ajapaik/settings/local.py.
 You should at least override or specify the following keys:

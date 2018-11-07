@@ -26,7 +26,8 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         'Tartu': 'Tartu',
         'Valga': 'Valga',
         'Viljandi': 'Viljandi',
-        'Võru': 'Voru'
+        'Võru': 'Voru',
+        'Puurmanni & Tahkuna': 'sandbox'
     };
     this.juksMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {

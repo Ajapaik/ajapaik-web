@@ -95,6 +95,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
    url(r'^privacy/$', 'privacy', name='privacy'),
    url(r'^terms/$', 'terms', name='terms'),
+   url(r'^face-recognition-add-subject/$', 'face_recognition_add_subject', name='face_recognition_add_subject'),
 )
 
 

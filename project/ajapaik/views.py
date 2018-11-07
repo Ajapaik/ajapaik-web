@@ -1,11 +1,11 @@
 # encoding: utf-8
 import datetime
 import json
+import logging
 import operator
 import shutil
 import unicodedata
 import urllib2
-import logging
 from StringIO import StringIO
 from copy import deepcopy
 from math import ceil
@@ -36,21 +36,19 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, \
-    csrf_protect
-from django.views.generic.base import TemplateView, View
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.generic.base import View
 from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
 from django_comments.views.comments import post_comment
-from django_comments.views.utils import next_redirect
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
-from project.ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.curator_drivers.common import CuratorSearchForm
 from project.ajapaik.curator_drivers.finna import FinnaDriver
 from project.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
+from project.ajapaik.curator_drivers.fotis import FotisDriver
 from project.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
@@ -58,7 +56,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
-    EditCommentForm
+    EditCommentForm, FaceRecognitionGuessForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
     Newsletter, Dating, DatingConfirmation, Video
@@ -70,9 +68,7 @@ from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, 
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
-
 from .utils import get_comment_replies
-
 
 log = logging.getLogger(__name__)
 
@@ -583,7 +579,7 @@ def fetch_stream(request):
                                                                                    type=GeoTag.CONFIRMATION).order_by(
                 '-created').first()
             if last_confirm_geotag_by_this_user_for_photo and (
-                            form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
+                    form_photo.lat == last_confirm_geotag_by_this_user_for_photo.lat
                     and form_photo.lon == last_confirm_geotag_by_this_user_for_photo.lon):
                 form_photo.user_already_confirmed = True
             form_photo.user_already_geotagged = form_photo.geotags.filter(user_id=profile.id).exists()
@@ -1246,6 +1242,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
+    face_recognition_form = FaceRecognitionGuessForm({'photo': photo_obj.id})
+
     return render(request, template, {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
@@ -1254,6 +1252,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,
         "fb_url": request.build_absolute_uri(reverse("project.ajapaik.views.photoslug", args=(photo_obj.id,))),
+        # FIXME
         "licence": Licence.objects.get(id=17),  # CC BY 4.0
         "area": photo_obj.area,
         "album": album,
@@ -1276,7 +1275,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_has_likes": user_has_likes,
         "user_has_rephotos": user_has_rephotos,
         "next_photo": next_photo,
-        "previous_photo": previous_photo
+        "previous_photo": previous_photo,
+        "face_recognition_form": face_recognition_form
     })
 
 
@@ -1437,7 +1437,7 @@ def geotag_add(request):
         if new_geotag.photo_flipped:
             most_trustworthy_geotag = tagged_photo.geotags.order_by('-trustworthiness').first()
             if not most_trustworthy_geotag or (
-                        most_trustworthy_geotag
+                    most_trustworthy_geotag
                     and most_trustworthy_geotag.trustworthiness < new_geotag.trustworthiness):
                 tagged_photo.do_flip()
         new_geotag.save()
@@ -1524,7 +1524,7 @@ def geotag_confirm(request):
         last_confirm_geotag_by_this_user_for_p = p.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
             .order_by('-created').first()
         if not last_confirm_geotag_by_this_user_for_p or (p.lat and p.lon and (
-                        last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
+                last_confirm_geotag_by_this_user_for_p.lat != p.lat and last_confirm_geotag_by_this_user_for_p.lon != p.lon)):
             trust = _calc_trustworthiness(request.get_user().id)
             confirmed_geotag = GeoTag(
                 lat=p.lat,
@@ -1886,7 +1886,7 @@ def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
         Album.objects.filter(((Q(profile=user_profile) | Q(is_public=True)) & ~Q(atype=Album.AUTO)) | (
-            Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
+                Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
@@ -2207,8 +2207,8 @@ def curator_photo_upload_handler(request):
         if general_albums:
             for ga in general_albums:
                 requests.post("https://graph.facebook.com/v2.5/?id=" + (
-                    request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
-                        ga.id)) + "&scrape=true")
+                        request.build_absolute_uri(reverse("project.ajapaik.views.game")) + "?album=" + str(
+                    ga.id)) + "&scrape=true")
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
@@ -2753,6 +2753,7 @@ class PostComment(View):
                 })
         return JsonResponse(form.errors)
 
+
 class EditComment(View):
     form_class = django_comments.get_form()
 
@@ -2796,6 +2797,7 @@ class DeleteComment(View):
             'status': 200
         })
 
+
 ################################################################################
 
 
@@ -2805,3 +2807,8 @@ def privacy(request):
 
 def terms(request):
     return render_to_response('terms.html', RequestContext(request, {}))
+
+
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
+def face_recognition_add_subject(request):
+    pass

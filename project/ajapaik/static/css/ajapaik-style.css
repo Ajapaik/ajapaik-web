@@ -2764,6 +2764,10 @@ a[href^="https://maps.google.com/maps"] {
     margin-left: 10px;
 }
 
+#ajapaik-photoview-facial-recognition-button {
+    margin-left: 10px;
+}
+
 #ajapaik-header-google-connect {
     margin-left: 0;
 }

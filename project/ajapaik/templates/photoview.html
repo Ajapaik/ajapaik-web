@@ -31,18 +31,18 @@
                     <div id="ajapaik-photoview-main-photo-container">
                         <a class="fullscreen" id="ajapaik-full-screen-link">
                             <img id="ajapaik-photoview-main-photo" class="img-responsive col-xs-12"
-                                alt="{{ photo.description }}"
-                                src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+                                 alt="{{ photo.description }}"
+                                 src="{% url 'project.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
                         </a>
                         {% if previous_photo %}
                             <a class="ajapaik-photo-modal-previous-button"
-                            href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.get_pseudo_slug %}">
+                               href="{% url 'project.ajapaik.views.photoslug' previous_photo.pk previous_photo.get_pseudo_slug %}">
                                 <i class="material-icons notranslate">navigate_before</i>
                             </a>
                         {% endif %}
                         {% if next_photo %}
                             <a class="ajapaik-photo-modal-next-button"
-                            href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.get_pseudo_slug %}">
+                               href="{% url 'project.ajapaik.views.photoslug' next_photo.pk next_photo.get_pseudo_slug %}">
                                 <i class="material-icons notranslate">navigate_next</i>
                             </a>
                         {% endif %}
@@ -86,8 +86,9 @@
                         {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
                         {% if photo.source_url %}
                             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                            href='{{ photo.source_url }}' target="_blank">
-                                {{ photo.source.description }} {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+                               href='{{ photo.source_url }}' target="_blank">
+                                {{ photo.source.description }}
+                                {% if photo.source_key %}{{ photo.source_key }}{% endif %}
                             </a>
                         {% elif photo.source.description %}
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
@@ -95,35 +96,46 @@
                     </div>
                     <div class="row" id="ajapaik-photo-modal-like">
                         <div class="fb-like" data-href="
+
+
                                 {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-                            data-layout="standard" data-action="like" data-show-faces="true"
-                            data-share="true"></div>
+                             data-layout="standard" data-action="like" data-show-faces="true"
+                             data-share="true"></div>
                     </div>
                     <div class="row ajapaik-height-48 ajapaik-margin-top-10">
-{% if not is_frontpage and is_photoview or is_game or is_mapview %}
-                        <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="pull-left"
-                        title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank" rel="nofollow">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
-                        </a>
-{% endif %}
+                        {% if not is_frontpage and is_photoview or is_game or is_mapview %}
+                            <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}"
+                               class="pull-left"
+                               title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}"
+                               target="_blank" rel="nofollow">
+                                <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
+                            </a>
+                        {% endif %}
                         <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="pull-left"
-                        title="{% trans "Date this image" %}" href="#">
+                           title="{% trans "Date this image" %}" href="#">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
                             <span class="badge">{{ datings_count }}</span>
                         </a>
                         <a title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" href="#"
-                        class="pull-left">
+                           class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
+                        </a>
+                        <a title="{% trans "Facial recognition" %}" id="ajapaik-photoview-facial-recognition-button"
+                           href="#"
+                           class="pull-left">
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">tag_faces</i>
                         </a>
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">share</i>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
                                         <a href="
+
+
                                                 {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}
                                                 {{ photo.get_absolute_url }}{% endif %}
@@ -142,7 +154,7 @@
                             {% if forloop.first %}
                                 <div class="col-xs-1">
                                     <i class="material-icons notranslate ajapaik-photo-modal-album-icon"
-                                    title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+                                       title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
                                         {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
                                 </div>
                             {% endif %}
@@ -150,11 +162,11 @@
                                 <div class="col-xs-11">{% else %}
                                 <div class="col-xs-offset-1 col-xs-11">{% endif %}
                         <a class="ajapaik-photo-album-link"
-                        href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
+                           href="{% url 'project.ajapaik.views.frontpage' %}?album={{ a.id }}">
                             {{ a.name }}
                         </a>
                         <div class="ajapaik-photo-modal-album-more-button" role="button"
-                            title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
+                             title="{% trans 'Album details' %}" data-id="{{ a.id }}"></div>
                         <div class="ajapaik-photo-modal-photo-curator">
                             &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
                             <p class="hidden"> {{ a.this_photo_curator.get_display_name }}</p>
@@ -186,14 +198,14 @@
                             {% endif %}
                         </div>
                         <span id="ajapaik-photo-modal-specify-location" data-id="{{ photo.id }}"
-                            title="{% trans "Pick the shooting location!" %}" style="display: none;"></span>
+                              title="{% trans "Pick the shooting location!" %}" style="display: none;"></span>
                     {% else %}
                         <div class="col-xs-6">
                             <div id="ajapaik-photoview-rephoto-container">
                                 <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
                                     <img id="ajapaik-photoview-rephoto" class="img-responsive col-xs-12"
-                                        alt="{{ photo.description }} {% trans "rephoto" %}"
-                                        src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
+                                         alt="{{ photo.description }} {% trans "rephoto" %}"
+                                         src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
                                 </a>
                                 <button class="btn btn-default ajapaik-overlay-button ajapaik-close-rephoto-overlay-button"
                                         id="ajapaik-close-rephoto-overlay-button"
@@ -211,7 +223,7 @@
                                 {% endif %}
                                 <div class="row">
                                     <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                                    href='{{ rephoto.source_url }}' target="_blank">
+                                       href='{{ rephoto.source_url }}' target="_blank">
                                         {{ rephoto.source.description }} {{ rephoto.source_key }}
                                     </a>
                                 </div>
@@ -221,17 +233,17 @@
                             {% elif rephoto.user.fb_name %}
                                 <div class="row">
                                     <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                                    href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
+                                       href="{{ rephoto.user.fb_link }}">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
                                 </div>
                             {% elif rephoto.user.google_plus_name %}
                                 <div class="row">
                                     <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                                    href="{{ rephoto.user.google_plus_link }}">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
+                                       href="{{ rephoto.user.google_plus_link }}">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
                                 </div>
                             {% else %}
                                 <div class="row">
                                     <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                                    href="#">{{ rephoto.user.get_display_name }}</a>&nbsp;{% include '_licence.html' %}
+                                       href="#">{{ rephoto.user.get_display_name }}</a>&nbsp;{% include '_licence.html' %}
                                 </div>
                             {% endif %}
                             {% if rephoto.date %}
@@ -249,11 +261,11 @@
                     {% for rephoto in photo.rephotos.all %}
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
                             <a href="{% url 'project.ajapaik.views.photoslug' rephoto.id rephoto.get_pseudo_slug %}"
-                            class="col-xs-12">
+                               class="col-xs-12">
                                 <img src="{% url 'project.ajapaik.views.image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
-                                    class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
-                                    alt="{{ photo.description }} {% trans "rephoto" %}"
-                                    title="{{ photo.description }} {% trans "rephoto" %}"/>
+                                     class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
+                                     alt="{{ photo.description }} {% trans "rephoto" %}"
+                                     title="{{ photo.description }} {% trans "rephoto" %}"/>
                             </a>
                         </div>
                     {% endfor %}
@@ -262,6 +274,7 @@
         </div>
     </div>
     {% include "_full_leaderboard_modal.html" %}
+    {% include "_face_recognition_modal.html" %}
     <div id="ajp-geotagging-container"></div>
 {% endblock %}
 
@@ -286,6 +299,10 @@
         window.currentPhotoSourceName = '{{ photo.source.description }}';
         window.currentPhotoSourceKey = '{{ photo.source_key }}';
         window.currentPhotoSourceURL = '{{ photo.source_url }}';
+        window.currentPhotoOriginalWidth = '{{ photo.width }}';
+        window.currentPhotoOriginalHeight = '{{ photo.height }}';
+        window.currentPhotoDetectedFaces = JSON.parse('{{ photo.detected_faces|safe }}');
+        window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -299,8 +316,9 @@
         window.updateLeaderboard();
         $(document).ready(function () {
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-                    mainPhoto = $('#ajapaik-photoview-main-photo'),
-                    originalFullscreen = $('#ajapaik-full-screen-image');
+                faceRecognitionModal = $('#ajapaik-face-recognition-modal'),
+                mainPhoto = $('#ajapaik-photoview-main-photo'),
+                originalFullscreen = $('#ajapaik-full-screen-image');
 //            $('#ajp-geotagging-container').AjapaikGeotagger();
             $('#ajp-dater-container').AjapaikDater();
 //            window.showPhotoMapIfApplicable(true);
@@ -381,12 +399,12 @@
             });
             $(document).on('click', '#ajapaik-photoview-header-game-button', function () {
                 var albumId = $('#id_album').val(),
-                        gameURL = '{% url 'project.ajapaik.views.game' %}';
+                    gameURL = '{% url 'project.ajapaik.views.game' %}';
                 window.location.href = gameURL + '?album=' + albumId;
             });
             $(document).on('click', '#ajapaik-photoview-header-map-button', function () {
                 var albumId = $('#id_album').val(),
-                        mapURL = '{% url 'project.ajapaik.views.mapview' %}';
+                    mapURL = '{% url 'project.ajapaik.views.mapview' %}';
                 window.location.href = mapURL + '?album=' + albumId;
             });
             $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
@@ -402,6 +420,11 @@
                     targetDiv.addClass('ajapaik-photo-bw');
                 }
             });
+            $(document).on('click', '.ajapaik-photoview-detected-face', function (e) {
+                e.stopPropagation();
+                console.log($(this).data());
+                faceRecognitionModal.modal();
+            });
             window.uploadCompleted = function (response) {
                 $('#ajapaik-rephoto-upload-modal').modal('toggle');
                 if (response && response.new_id) {
@@ -416,7 +439,7 @@
             });
             window.startGuessLocation = function (photoId) {
                 var startLat,
-                        startLon;
+                    startLon;
                 if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                     startLat = window.photoModalPhotoLat;
                     startLon = window.photoModalPhotoLng;
@@ -475,6 +498,41 @@
                     window.reportDaterOpen();
                 }
             });
+            $('#ajapaik-photoview-facial-recognition-button').click(function (e) {
+                e.preventDefault();
+                var photoContainer = $('#ajapaik-photoview-main-photo-container');
+                if (window.currentPhotoDetectedFaces.length === 0) {
+                    alert(window.noFacesDetectedTranslation);
+                }
+                window.currentPhotoDetectedFaces.forEach(function (face) {
+                    // (top, right, bottom, left)
+                    var currentPhotoActualDimensions = photoContainer.get(0).getBoundingClientRect(),
+                        // Do scaling
+                        widthScale = currentPhotoActualDimensions.width / window.currentPhotoOriginalWidth,
+                        heightScale = currentPhotoActualDimensions.height / window.currentPhotoOriginalHeight,
+                        leftTop = [face[3] * widthScale, face[0] * heightScale],
+                        width = (face[1] - face[3]) * widthScale,
+                        height = (face[2] - face[0]) * heightScale;
+                    // TODO: Remember all the faces drawn, redraw or erase when necessary
+                    $('<div>', {
+                        class: 'ajapaik-photoview-detected-face',
+                        data: {
+                            originalTop: face[0],
+                            originalRight: face[1],
+                            originalBottom: face[2],
+                            originalLeft: face[3]
+                        },
+                        css: {
+                            position: 'absolute',
+                            left: leftTop[0] + 'px',
+                            top: leftTop[1] + 'px',
+                            width: width + 'px',
+                            height: height + 'px',
+                            border: '3px solid white'
+                        }
+                    }).appendTo(photoContainer);
+                });
+            });
             window.startDater = function (photoId) {
                 $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
                     photoId: photoId,
@@ -505,10 +563,14 @@
 
             // Leaflet map
             if (typeof get_photoviewModalOptions === "function") {
-                var options=get_photoviewModalOptions();
+                var options = get_photoviewModalOptions();
                 $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
             }
         });
     </script>
     <script src="{% static 'js/ajapaik-comments.js' %}"></script>
+{% endblock %}
+
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
 {% endblock %}

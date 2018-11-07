@@ -210,6 +210,7 @@ def login_auth(request, auth_type='login'):
 
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
+                # FIXME: Shouldn't 2.5 be dead long ago?
                 fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
                     ','.join(fb_permissions), pw)
                 user_info = requests.get(fb_get_info_url)

@@ -82,3 +82,4 @@ django-subdomains
 Werkzeug
 django-leaflet
 opencv-python-headless
+face_recognition

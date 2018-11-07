@@ -1,15 +1,15 @@
 import autocomplete_light
 from django import forms
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
-    Video, Licence
+    Video, Licence, FaceRecognitionUserGuess
 
 
 class APILoginAuthForm(forms.Form):
@@ -238,6 +238,7 @@ class ApiAlbumNearestPhotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+
 class ApiFinnaNearestPhotosForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
@@ -245,8 +246,8 @@ class ApiFinnaNearestPhotosForm(forms.Form):
     range = forms.FloatField(required=False)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
-    query = forms.CharField(max_length=255,required=False)
-    album = forms.CharField(max_length=255,required=False)
+    query = forms.CharField(max_length=255, required=False)
+    album = forms.CharField(max_length=255, required=False)
 
 
 class ApiAlbumStateForm(forms.Form):
@@ -255,10 +256,12 @@ class ApiAlbumStateForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+
 class ApiAlbumSourceForm(forms.Form):
-    query = forms.CharField(max_length=255,required=True)
+    query = forms.CharField(max_length=255, required=True)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
+
 
 class ApiPhotoUploadForm(forms.Form):
     id = forms.CharField(max_length=255)
@@ -442,6 +445,7 @@ class ApiFavoritedPhotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+
 class ApiPhotoSearchForm(forms.Form):
     query = forms.CharField()
     rephotosOnly = forms.BooleanField(required=False, initial=False)
@@ -456,9 +460,20 @@ class ApiPhotoInAlbumSearchForm(forms.Form):
 class ApiUserRephotoSearchForm(forms.Form):
     query = forms.CharField()
 
+
 class ApiUserRephotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
+
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
+
+
+class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
+    subject = autocomplete_light.ModelChoiceField('FaceRecognitionSubjectAutocomplete', label=_('Subject'),
+                                                  required=True)
+
+    class Meta:
+        model = FaceRecognitionUserGuess
+        fields = ('subject',)
