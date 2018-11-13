@@ -223,9 +223,11 @@
         <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
+        <link rel="stylesheet" href="{% static "libs/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" %}">
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
@@ -457,6 +459,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
+        <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}"></script>
         <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
@@ -469,6 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
 {% endif %}
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>
     <!-- endcompress -->
     <script type="text/javascript">
         window.cookieconsent_options = {

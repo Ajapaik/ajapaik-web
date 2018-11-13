@@ -95,10 +95,7 @@
                         {% endif %}
                     </div>
                     <div class="row" id="ajapaik-photo-modal-like">
-                        <div class="fb-like" data-href="
-
-
-                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                        <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
                              data-layout="standard" data-action="like" data-show-faces="true"
                              data-share="true"></div>
                     </div>
@@ -120,10 +117,15 @@
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        <a title="{% trans "Facial recognition" %}" id="ajapaik-photoview-facial-recognition-button"
+                        <a title="{% trans "Show faces" %}" id="ajapaik-photoview-facial-recognition-show-button"
                            href="#"
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">tag_faces</i>
+                        </a>
+                        <a title="{% trans "Tag a new face" %}" id="ajapaik-photoview-facial-recognition-add-button"
+                           href="#"
+                           class="pull-left">
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_add</i>
                         </a>
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
@@ -133,10 +135,7 @@
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <a href="
-
-
-                                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                                        <a href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}
                                                 {{ photo.get_absolute_url }}{% endif %}
                                         </a>
@@ -146,6 +145,7 @@
                         </div>
                     </div>
                     <div class="row" id="ajp-dater-container"></div>
+                    <div class="row" id="ajp-face-tagger-container"></div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
                         <br>
@@ -301,7 +301,7 @@
         window.currentPhotoSourceURL = '{{ photo.source_url }}';
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
-        window.currentPhotoDetectedFaces = JSON.parse('{{ photo.detected_faces|safe }}');
+        window.currentPhotoDetectedFaces = JSON.parse('{{ face_recognition_rectangles|safe }}');
         window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
@@ -321,6 +321,7 @@
                 originalFullscreen = $('#ajapaik-full-screen-image');
 //            $('#ajp-geotagging-container').AjapaikGeotagger();
             $('#ajp-dater-container').AjapaikDater();
+            $('#ajp-face-tagger-container').AjapaikFaceTagger();
 //            window.showPhotoMapIfApplicable(true);
             mainPhoto.on('load', function () {
 //                window.showPhotoMapIfApplicable(true);
@@ -498,7 +499,7 @@
                     window.reportDaterOpen();
                 }
             });
-            $('#ajapaik-photoview-facial-recognition-button').click(function (e) {
+            $('#ajapaik-photoview-facial-recognition-show-button').click(function (e) {
                 e.preventDefault();
                 var photoContainer = $('#ajapaik-photoview-main-photo-container');
                 if (window.currentPhotoDetectedFaces.length === 0) {
@@ -533,6 +534,26 @@
                     }).appendTo(photoContainer);
                 });
             });
+            window.handleFaceCoordinatesChanged = function (img, selection) {
+                console.log(selection);
+            };
+            $('#ajapaik-photoview-facial-recognition-add-button').click(function (e) {
+                e.preventDefault();
+                var target = $('#ajapaik-photoview-main-photo'),
+                    currentActualSize = target.get(0).getBoundingClientRect();
+                console.log(currentActualSize);
+                target.imgAreaSelect({
+                    handles: true,
+                    onSelectEnd: handleFaceCoordinatesChanged
+                });
+                if ($('#ajp-face-tagger-container').is(':visible')) {
+                    window.stopFaceTagger();
+                    //window.reportCloseDater();
+                } else {
+                    window.startFaceTagger();
+                    //window.reportDaterOpen();
+                }
+            });
             window.startDater = function (photoId) {
                 $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
                     photoId: photoId,
@@ -545,6 +566,17 @@
                 $('#ajp-dater-feedback').empty();
                 $('#ajp-dater-container').hide();
                 $('#ajp-dater-feedback-well').hide();
+            };
+            window.startFaceTagger = function () {
+                $('#ajp-face-tagger-container').show().data('AjapaikFaceTagger').initializeFaceTaggerState({
+
+                });
+            };
+            window.stopFaceTagger = function () {
+                //$('#ajp-dater-input').val(null);
+                $('#ajp-face-tagger-feedback').empty();
+                $('#ajp-face-tagger-container').hide();
+                $('#ajp-face-tagger-feedback-well').hide();
             };
             window.updateDatings = function () {
                 $.ajax({

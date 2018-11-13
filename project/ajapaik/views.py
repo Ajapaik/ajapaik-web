@@ -1243,6 +1243,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     desc = ' '.join(filter(None, strings))
 
     face_recognition_form = FaceRecognitionGuessForm({'photo': photo_obj.id})
+    face_recognition_existing_rectangles_json = json.dumps(
+        [json.loads(x.coordinates) for x in photo_obj.face_recognition_rectangles.all()]
+    )
 
     return render(request, template, {
         "photo": photo_obj,
@@ -1276,6 +1279,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_has_rephotos": user_has_rephotos,
         "next_photo": next_photo,
         "previous_photo": previous_photo,
+        "face_recognition_rectangles": face_recognition_existing_rectangles_json,
         "face_recognition_form": face_recognition_form
     })
 

@@ -358,7 +358,6 @@ class Photo(Model):
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
     then_and_now_rephoto = ForeignKey('TourRephoto', null=True, blank=True)
-    detected_faces = TextField(null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -1462,9 +1461,15 @@ class MyXtdComment(XtdComment):
         return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
 
 
-# TODO: How can users request deletions of detected faces? Add their own rectangle suggestions?
 class FaceRecognitionSubject(Model):
+    MALE, FEMALE = range(2)
+    GENDER_CHOICES = (
+        (FEMALE, _('Female')),
+        (MALE, _('Male'))
+    )
     name = CharField(max_length=255)
+    date_of_birth = DateField(blank=True, null=True)
+    gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     user = ForeignKey('Profile')
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
@@ -1473,14 +1478,44 @@ class FaceRecognitionSubject(Model):
         db_table = 'project_face_recognition_subject'
 
     def __unicode__(self):
-        return u'%s - %s' % (self.id, self.name)
+        return u'%s' % self.name
+
+
+class FaceRecognitionRectangle(Model):
+    photo = ForeignKey(Photo, related_name='face_recognition_rectangles')
+    # If no user is attached, means OpenCV detected it
+    user = ForeignKey('Profile', blank=True, null=True, related_name='face_recognition_rectangles')
+    is_rejected = BooleanField(default=False)
+    coordinates = TextField()
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_face_recognition_rectangle'
+
+    def __unicode__(self):
+        return u'%s - %s - %s - %s' % (self.id, self.photo, self.user, self.is_rejected)
+
+
+class FaceRecognitionRectangleFeedback(Model):
+    rectangle = ForeignKey(FaceRecognitionRectangle, related_name='feedback')
+    user = ForeignKey('Profile', related_name='face_recognition_rectangle_feedback')
+    # So users could downvote bad rectangles
+    is_correct = BooleanField(default=False)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_face_recognition_rectangle_feedback'
+
+    def __unicode__(self):
+        return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.is_correct)
 
 
 class FaceRecognitionUserGuess(Model):
-    subject = ForeignKey(FaceRecognitionSubject)
-    photo = ForeignKey(Photo)
-    user = ForeignKey('Profile')
-    coordinates = TextField()
+    subject = ForeignKey(FaceRecognitionSubject, related_name='guesses')
+    rectangle = ForeignKey(FaceRecognitionRectangle, related_name='guesses')
+    user = ForeignKey('Profile', related_name='face_recognition_guesses')
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -1488,4 +1523,4 @@ class FaceRecognitionUserGuess(Model):
         db_table = 'project_face_recognition_user_guess'
 
     def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.id, self.subject, self.photo, self.user)
+        return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.subject)

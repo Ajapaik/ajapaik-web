@@ -1,0 +1,118 @@
+#ajp-face-tagger-container {
+    height: 100%;
+    width: 100%;
+    display: none;
+    margin-top: 10px;
+}
+
+#ajp-face-tagger-panel {
+    border-radius: 0;
+    position: relative;
+}
+
+#ajp-face-tagger-panel > .panel-body > .well {
+    border-radius: 0;
+    border: none;
+}
+
+#ajp-face-tagger-form {
+    max-width: 400px;
+}
+
+/*#ajp-face-tagger-input {*/
+    /*max-width: 50%;*/
+    /*border-radius: 0;*/
+/*}*/
+
+#ajp-face-tagger-form > .form-group > input {
+    border-radius : 0;
+}
+
+#ajp-face-tagger-form > .btn-group > button {
+    border-radius : 0;
+}
+
+#ajp-face-tagger-close-tutorial-button {
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#ajp-face-tagger-open-tutorial-button {
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    background-color: rgba(0, 0, 0, .8);
+    display: none;
+}
+
+#ajp-face-tagger-feedback {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#ajp-face-tagger-anonymous-user-well > i {
+    cursor: pointer;
+}
+
+#ajp-face-tagger-anonymous-user-well > span {
+    position: relative;
+    bottom: 6px;
+    left: 10px;
+}
+
+#ajp-face-tagger-tutorial-well {
+    position: relative;
+}
+
+#ajp-face-tagger-tutorial-well > span > ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/*#ajapaik-photoview-start-dating-button {*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*#ajapaik-photoview-start-dating-button > .badge {*/
+    /*margin-left: -25px;*/
+    /*margin-bottom: 4px;*/
+/*}*/
+
+/*#ajapaik-photo-modal-start-dating-button {*/
+    /*position: relative;*/
+/*}*/
+
+/*#ajapaik-photo-modal-start-dating-button > .badge {*/
+    /*position: absolute;*/
+    /*bottom: 32px;*/
+    /*left: 0;*/
+/*}*/
+
+#ajp-face-tagger-feedback-well {
+    display: none;
+}
+
+/*.ajp-dater-confirm-button {*/
+    /*position: relative;*/
+    /*top: 5px;*/
+    /*left: 5px;*/
+/*}*/
+
+/*.ajp-dater-confirm-button.done {*/
+    /*color: #007fff;*/
+/*}*/

@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='photo',
-            name='detected_faces',
-            field=models.TextField(null=True, blank=True),
-        ),
         migrations.AlterField(
             model_name='geotag',
             name='origin',
