@@ -56,10 +56,10 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
-    EditCommentForm, FaceRecognitionGuessForm
+    EditCommentForm, FaceRecognitionGuessForm, FaceRectangleSubmitForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
+    Newsletter, Dating, DatingConfirmation, Video, FaceRecognitionRectangle
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
@@ -2811,8 +2811,3 @@ def privacy(request):
 
 def terms(request):
     return render_to_response('terms.html', RequestContext(request, {}))
-
-
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
-def face_recognition_add_subject(request):
-    pass

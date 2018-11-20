@@ -534,18 +534,8 @@
                     }).appendTo(photoContainer);
                 });
             });
-            window.handleFaceCoordinatesChanged = function (img, selection) {
-                console.log(selection);
-            };
             $('#ajapaik-photoview-facial-recognition-add-button').click(function (e) {
                 e.preventDefault();
-                var target = $('#ajapaik-photoview-main-photo'),
-                    currentActualSize = target.get(0).getBoundingClientRect();
-                console.log(currentActualSize);
-                target.imgAreaSelect({
-                    handles: true,
-                    onSelectEnd: handleFaceCoordinatesChanged
-                });
                 if ($('#ajp-face-tagger-container').is(':visible')) {
                     window.stopFaceTagger();
                     //window.reportCloseDater();
@@ -568,15 +558,18 @@
                 $('#ajp-dater-feedback-well').hide();
             };
             window.startFaceTagger = function () {
+                var target = $('#ajapaik-photoview-main-photo');
                 $('#ajp-face-tagger-container').show().data('AjapaikFaceTagger').initializeFaceTaggerState({
-
-                });
+                    photoId: window.photoId
+                }, target);
             };
             window.stopFaceTagger = function () {
+                var target = $('#ajapaik-photoview-main-photo');
                 //$('#ajp-dater-input').val(null);
                 $('#ajp-face-tagger-feedback').empty();
                 $('#ajp-face-tagger-container').hide();
                 $('#ajp-face-tagger-feedback-well').hide();
+                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').stopTagging(target);
             };
             window.updateDatings = function () {
                 $.ajax({

@@ -477,3 +477,14 @@ class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
     class Meta:
         model = FaceRecognitionUserGuess
         fields = ('subject',)
+
+
+# TODO: Split forms by topic?
+class FaceRectangleSubmitForm(forms.Form):
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of_id__isnull=True))
+    x1 = forms.IntegerField()
+    y1 = forms.IntegerField()
+    x2 = forms.IntegerField()
+    y2 = forms.IntegerField()
+    seen_width = forms.IntegerField()
+    seen_height = forms.IntegerField()

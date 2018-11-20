@@ -9,6 +9,7 @@ from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from project.ajapaik import views
 from project.ajapaik import api
+from project.ajapaik.split_views import face_recognition
 
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
@@ -95,7 +96,8 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
    url(r'^privacy/$', 'privacy', name='privacy'),
    url(r'^terms/$', 'terms', name='terms'),
-   url(r'^face-recognition-add-subject/$', 'face_recognition_add_subject', name='face_recognition_add_subject'),
+   url(r'^face-recognition-add-subject/$', face_recognition.add_subject, name='face_recognition_add_subject'),
+   url(r'^face-recognition-add-rectangle/$', face_recognition.add_rectangle, name='face_recognition_add_rectangle'),
 )
 
 

@@ -1,6 +1,8 @@
 (function ($) {
     'use strict';
     /*global gettext*/
+    /*global submitFaceRectangleURL*/
+    /*global docCookies*/
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -31,6 +33,8 @@
             "                   <input id='ajp-face-tagger-x2-input' type='text' class='form-control' placeholder=''>",
             "                   <input id='ajp-face-tagger-y1-input' type='text' class='form-control' placeholder=''>",
             "                   <input id='ajp-face-tagger-y2-input' type='text' class='form-control' placeholder=''>",
+            "                   <input id='ajp-face-tagger-photo-real-width' type='text' class='form-control' placeholder=''>",
+            "                   <input id='ajp-face-tagger-photo-real-height' type='text' class='form-control' placeholder=''>",
             "               </div>",
             "           </div>",
             "           <div id='ajp-face-tagger-feedback'></div>",
@@ -89,56 +93,39 @@
             });
         };
         this.submit = function () {
-            that.giveFeedback();
-            if (!that.invalid) {
-                var payload = {
-                        photo: that.photo,
-                        raw: that.userInput,
-                        start_approximate: that.fromApproximate,
-                        end_approximate: that.toApproximate,
-                        csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                    },
-                    comment = that.$UI.find('#ajp-dater-comment').val();
-                if (comment) {
-                    payload.comment = comment;
+            //that.giveFeedback();
+            var payload = {
+                photo: that.photo,
+                x1: that.$UI.find('#ajp-face-tagger-x1-input').val(),
+                y1: that.$UI.find('#ajp-face-tagger-y1-input').val(),
+                x2: that.$UI.find('#ajp-face-tagger-x2-input').val(),
+                y2: that.$UI.find('#ajp-face-tagger-y2-input').val(),
+                seen_width: that.$UI.find('#ajp-face-tagger-photo-real-width').val(),
+                seen_height: that.$UI.find('#ajp-face-tagger-photo-real-height').val(),
+                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+            };
+            $.ajax({
+                type: 'POST',
+                url: submitFaceRectangleURL,
+                data: payload,
+                success: function () {
+                    // if (typeof window.updateDatings === 'function') {
+                    //     window.updateDatings();
+                    // }
+                    that.giveDatingSubmittedFeedback();
+                    that.$UI.find('#ajp-dater-feedback').hide();
+                    that.$UI.find('#ajp-dater-submit-button').hide();
+                    that.$UI.find('#ajp-dater-comment').hide();
+                    that.$UI.find('#ajp-dater-input').hide();
+                    that.$UI.find('#ajp-dater-toggle-comment-button').hide();
+                    that.$UI.find('#ajp-dater-previous-datings-well').show();
+                    that.disableFeedback = true;
+                },
+                error: function () {
+                    that.$UI.find('#ajp-dater-feedback-well').hide();
+                    $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
                 }
-                payload = that.getAccuracyID(payload);
-                if (that.from) {
-                    payload.start = that.from.format('YYYY-MM-DD');
-                }
-                if (that.to) {
-                    payload.end = that.to.format('YYYY-MM-DD');
-                }
-                if (payload.comment && typeof window.reportDaterSubmitWithComment === 'function') {
-                    window.reportDaterSubmitWithComment();
-                } else if (typeof window.reportDaterSubmit === 'function') {
-                    window.reportDaterSubmit();
-                }
-                if (payload.start || payload.end) {
-                    $.ajax({
-                        type: 'POST',
-                        url: submitDatingURL,
-                        data: payload,
-                        success: function () {
-                            if (typeof window.updateDatings === 'function') {
-                                window.updateDatings();
-                            }
-                            that.giveDatingSubmittedFeedback();
-                            that.$UI.find('#ajp-dater-feedback').hide();
-                            that.$UI.find('#ajp-dater-submit-button').hide();
-                            that.$UI.find('#ajp-dater-comment').hide();
-                            that.$UI.find('#ajp-dater-input').hide();
-                            that.$UI.find('#ajp-dater-toggle-comment-button').hide();
-                            that.$UI.find('#ajp-dater-previous-datings-well').show();
-                            that.disableFeedback = true;
-                        },
-                        error: function () {
-                            that.$UI.find('#ajp-dater-feedback-well').hide();
-                            $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
-                        }
-                    });
-                }
-            }
+            });
         };
         this.giveDatingSubmittedFeedback = function (confirmation) {
             var fmt,
@@ -178,7 +165,7 @@
                 e.preventDefault();
                 that.submit();
             });
-            that.$UI.find('#ajp-face-tagger-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="ajp-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="ajp-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="ajp-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
+            that.$UI.find('#ajp-face-tagger-tutorial-well span').html('<ul><li>' + gettext('Drag a rectangle on the photo where you want a new face to be tagged. Please mark only the face, try not to include fancy hats, haircuts or necklines as this will confuse automatic detection later.') + '</li></ul>');
             if (docCookies.getItem('ajapaik_closed_face_tagger_instructions') === 'true') {
                 that.$UI.find('#ajp-face-tagger-tutorial-well').hide();
                 that.$UI.find('#ajp-face-tagger-open-tutorial-button').show();
@@ -201,10 +188,29 @@
                 docCookies.setItem('ajapaik_closed_face_tagger_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
         },
-        initializeFaceTaggerState: function (state) {
+        handleFaceCoordinatesChanged: function (img, selection) {
+            var that = window.faceTaggerReference,
+                imgRealSize = img.getBoundingClientRect();
+            that.$UI.find('#ajp-face-tagger-x1-input').val(selection.x1);
+            that.$UI.find('#ajp-face-tagger-y1-input').val(selection.y1);
+            that.$UI.find('#ajp-face-tagger-x2-input').val(selection.x2);
+            that.$UI.find('#ajp-face-tagger-y2-input').val(selection.y2);
+            that.$UI.find('#ajp-face-tagger-photo-real-width').val(imgRealSize.width);
+            that.$UI.find('#ajp-face-tagger-photo-real-height').val(imgRealSize.height);
+        },
+        initializeFaceTaggerState: function (state, target) {
             var that = this,
                 loginDiv = that.$UI.find('#ajp-face-tagger-anonymous-user-well');
+            // In case some handler or the like overrides our 'this'
+            window.faceTaggerReference = that;
             this.photo = state.photoId;
+            setTimeout(function () {
+                target.imgAreaSelect({
+                    handles: true,
+                    onSelectEnd: that.handleFaceCoordinatesChanged
+                });
+            }, 0);
+
             that.$UI.find('#ajp-face-tagger-submit-button').show();
             //that.$UI.find('#ajp-dater-input').show();
             that.$UI.find('#ajp-face-tagger-feedback-well').hide();
@@ -216,6 +222,11 @@
             // setTimeout(function () {
             //     that.$UI.find('#ajp-dater-input').focus();
             // }, 0);
+        },
+        stopTagging: function (target) {
+            target.imgAreaSelect({
+                disable: true
+            });
         }
     };
     $.fn.AjapaikFaceTagger = function (options) {

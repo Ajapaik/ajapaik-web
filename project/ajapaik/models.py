@@ -1486,6 +1486,7 @@ class FaceRecognitionRectangle(Model):
     # If no user is attached, means OpenCV detected it
     user = ForeignKey('Profile', blank=True, null=True, related_name='face_recognition_rectangles')
     is_rejected = BooleanField(default=False)
+    # (top, right, bottom, left)
     coordinates = TextField()
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
