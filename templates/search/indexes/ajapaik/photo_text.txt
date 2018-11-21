@@ -13,3 +13,4 @@
 {{ object.source }}
 {{ object.source_key }}
 {{ object.address }}
+{{ object.people }}

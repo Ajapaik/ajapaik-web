@@ -9,7 +9,7 @@ from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
-    Video, Licence, FaceRecognitionUserGuess
+    Video, Licence
 
 
 class APILoginAuthForm(forms.Form):
@@ -468,23 +468,3 @@ class ApiUserRephotosForm(forms.Form):
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
-
-
-class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
-    subject = autocomplete_light.ModelChoiceField('FaceRecognitionSubjectAutocomplete', label=_('Subject'),
-                                                  required=True)
-
-    class Meta:
-        model = FaceRecognitionUserGuess
-        fields = ('subject',)
-
-
-# TODO: Split forms by topic?
-class FaceRectangleSubmitForm(forms.Form):
-    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of_id__isnull=True))
-    x1 = forms.IntegerField()
-    y1 = forms.IntegerField()
-    x2 = forms.IntegerField()
-    y2 = forms.IntegerField()
-    seen_width = forms.IntegerField()
-    seen_height = forms.IntegerField()

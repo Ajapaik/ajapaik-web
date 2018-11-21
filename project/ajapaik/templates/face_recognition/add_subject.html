@@ -1,0 +1,34 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n bootstrap3 %}
+
+{% block header %}{% endblock header %}
+
+{% block feedback %}{% endblock %}
+
+{% block layout %}
+    <div class="container">
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <div style="margin-bottom: 20px;" class="btn-group pull-right" role="group" aria-label="ajapaik-add-face-recogntion-subject-button-group">
+                    <button type="button" class="btn btn-danger" onclick="window.close();">
+                        {% trans "Close" %}
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        {% trans "Add" %}
+                    </button>
+                </div>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    {% if message %}
+        <script>window.close();</script>
+    {% endif %}
+{% endblock %}

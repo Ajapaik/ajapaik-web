@@ -96,8 +96,12 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
    url(r'^privacy/$', 'privacy', name='privacy'),
    url(r'^terms/$', 'terms', name='terms'),
+   # TODO: Group using URL part?
+   # TODO: Modernize urls.py to what it's supposed to look like in Django 1.8 out-of-the-box
    url(r'^face-recognition-add-subject/$', face_recognition.add_subject, name='face_recognition_add_subject'),
    url(r'^face-recognition-add-rectangle/$', face_recognition.add_rectangle, name='face_recognition_add_rectangle'),
+   url(r'^face-recognition-add-rectangle-feedback/$', face_recognition.add_rectangle_feedback,
+       name='face_recognition_add_rectangle_feedback'),
 )
 
 
@@ -135,6 +139,7 @@ urlpatterns += patterns('project.ajapaik.bbox_api',
     url(r'^bbox/v1/$', PhotosView.as_view())
 )
 
+# TODO: Remove this experiment from our codebase
 urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/$', 'frontpage'),
     url(r'^then-and-now-tours/create-tour-1/$', 'create_tour_step_1'),

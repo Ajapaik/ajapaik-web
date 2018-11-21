@@ -274,7 +274,7 @@
         </div>
     </div>
     {% include "_full_leaderboard_modal.html" %}
-    {% include "_face_recognition_modal.html" %}
+    {% include "face_recognition/_guessing_modal.html" %}
     <div id="ajp-geotagging-container"></div>
 {% endblock %}
 
@@ -423,8 +423,11 @@
             });
             $(document).on('click', '.ajapaik-photoview-detected-face', function (e) {
                 e.stopPropagation();
-                console.log($(this).data());
                 faceRecognitionModal.modal();
+            });
+            $(document).on('click', '.ajapaik-photoview-remove-detected-face', function (e) {
+                e.stopPropagation();
+                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').reportBadRectangle($(this).data('id'))
             });
             window.uploadCompleted = function (response) {
                 $('#ajapaik-rephoto-upload-modal').modal('toggle');
@@ -500,6 +503,7 @@
                 }
             });
             $('#ajapaik-photoview-facial-recognition-show-button').click(function (e) {
+                // TODO: Move to face-tagger plugin so we can reuse it on the photo modal
                 e.preventDefault();
                 var photoContainer = $('#ajapaik-photoview-main-photo-container');
                 if (window.currentPhotoDetectedFaces.length === 0) {
@@ -511,18 +515,12 @@
                         // Do scaling
                         widthScale = currentPhotoActualDimensions.width / window.currentPhotoOriginalWidth,
                         heightScale = currentPhotoActualDimensions.height / window.currentPhotoOriginalHeight,
-                        leftTop = [face[3] * widthScale, face[0] * heightScale],
-                        width = (face[1] - face[3]) * widthScale,
-                        height = (face[2] - face[0]) * heightScale;
+                        leftTop = [face.coordinates[3] * widthScale, face.coordinates[0] * heightScale],
+                        width = (face.coordinates[1] - face.coordinates[3]) * widthScale,
+                        height = (face.coordinates[2] - face.coordinates[0]) * heightScale;
                     // TODO: Remember all the faces drawn, redraw or erase when necessary
                     $('<div>', {
                         class: 'ajapaik-photoview-detected-face',
-                        data: {
-                            originalTop: face[0],
-                            originalRight: face[1],
-                            originalBottom: face[2],
-                            originalLeft: face[3]
-                        },
                         css: {
                             position: 'absolute',
                             left: leftTop[0] + 'px',
@@ -530,7 +528,23 @@
                             width: width + 'px',
                             height: height + 'px',
                             border: '3px solid white'
-                        }
+                        },
+                        title: gettext('Click to tell us who this is.')
+                    }).appendTo(photoContainer);
+                    $('<div>', {
+                        class: 'ajapaik-photoview-remove-detected-face',
+                        data: {
+                            id: face.id
+                        },
+                        css: {
+                            position: 'absolute',
+                            left: leftTop[0] - 10 + 'px',
+                            top: leftTop[1] - 10 + 'px',
+                            color: 'white',
+                            cursor: 'pointer'
+                        },
+                        title: gettext('This rectangle is wrong, remove it!'),
+                        html: '<i class="material-icons notranslate">close</i>'
                     }).appendTo(photoContainer);
                 });
             });

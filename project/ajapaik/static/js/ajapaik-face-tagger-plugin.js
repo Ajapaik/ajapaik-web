@@ -1,7 +1,10 @@
 (function ($) {
     'use strict';
+    /*global window*/
+    /*global document*/
     /*global gettext*/
     /*global submitFaceRectangleURL*/
+    /*global submitFaceRectangleFeedbackURL*/
     /*global docCookies*/
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
@@ -10,10 +13,8 @@
             // Currently unused
         }, options);
         // TODO: Update tutorial text as to what the user must do next
-        // TODO: When a rectangle is sent, display thanks feedback
-        // TODO: Submit button actually sends the rectangle, it's validated on the server and saved
-        // TODO: Browser refreshes after sending or rectangles get reloaded async? Refresh would be easier
-        // TODO: There's a button to downvote a rectangle somewhere...how to do this? Separate 'report' button in the form and then the user chooses which rectangle?
+        // TODO: Notify users they must be logged in to do any of this
+        // TODO: Change cursor to something else when starting cropping to avoid confusion with full screen functionality
         this.UI = $([
             "<div class='panel panel-default' id='ajp-face-tagger-panel'>",
             "   <div class='panel-body'>",
@@ -67,31 +68,6 @@
                 feedbackDiv.html(feedbackStr);
             }
         };
-        this.submitConfirmation = function (id) {
-            if (typeof window.reportDaterConfirmSubmit === 'function') {
-                window.reportDaterConfirmSubmit();
-            }
-            $.ajax({
-                type: 'POST',
-                url: submitDatingURL,
-                data: {
-                    id: id,
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                },
-                success: function () {
-                    if (typeof window.updateDatings === 'function') {
-                        window.updateDatings();
-                    }
-                    that.giveDatingSubmittedFeedback(true);
-                    that.$UI.find('#ajp-dater-feedback').hide();
-                    that.disableFeedback = true;
-                },
-                error: function () {
-                    that.$UI.find('#ajp-dater-feedback-well').hide();
-                    $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
-                }
-            });
-        };
         this.submit = function () {
             //that.giveFeedback();
             var payload = {
@@ -112,18 +88,17 @@
                     // if (typeof window.updateDatings === 'function') {
                     //     window.updateDatings();
                     // }
-                    that.giveDatingSubmittedFeedback();
-                    that.$UI.find('#ajp-dater-feedback').hide();
-                    that.$UI.find('#ajp-dater-submit-button').hide();
-                    that.$UI.find('#ajp-dater-comment').hide();
-                    that.$UI.find('#ajp-dater-input').hide();
-                    that.$UI.find('#ajp-dater-toggle-comment-button').hide();
-                    that.$UI.find('#ajp-dater-previous-datings-well').show();
-                    that.disableFeedback = true;
+                    //that.giveDatingSubmittedFeedback();
+                    //that.$UI.find('#ajp-face-tagger-feedback').hide();
+                    //that.$UI.find('#ajp-face-tagger-submit-button').hide();
+                    //that.$UI.find('#ajp-face-tagger-input').hide();
+                    //that.disableFeedback = true;
+                    // TODO: This is easy for now, let's implement proper feedback-giving later
+                    document.location.reload();
                 },
                 error: function () {
-                    that.$UI.find('#ajp-dater-feedback-well').hide();
-                    $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
+                    that.$UI.find('#ajp-face-tagger-feedback-well').hide();
+                    $('#ajp-dater-feedback').html(gettext('Something went wrong sending your data.'));
                 }
             });
         };
@@ -226,6 +201,24 @@
         stopTagging: function (target) {
             target.imgAreaSelect({
                 disable: true
+            });
+        },
+        reportBadRectangle: function (id) {
+            var that = this;
+            $.ajax({
+                type: 'POST',
+                url: submitFaceRectangleFeedbackURL,
+                data: {
+                    rectangle: id,
+                    is_correct: false
+                },
+                success: function () {
+                    document.location.reload();
+                },
+                error: function () {
+                    that.$UI.find('#ajp-face-tagger-feedback-well').hide();
+                    $('#ajp-face-tagger-feedback').html(gettext('Something went wrong sending your data.'));
+                }
             });
         }
     };

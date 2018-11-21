@@ -1470,6 +1470,7 @@ class FaceRecognitionSubject(Model):
     name = CharField(max_length=255)
     date_of_birth = DateField(blank=True, null=True)
     gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+    photos = ManyToManyField('Photo', related_name='people')
     user = ForeignKey('Profile')
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
@@ -1485,9 +1486,12 @@ class FaceRecognitionRectangle(Model):
     photo = ForeignKey(Photo, related_name='face_recognition_rectangles')
     # If no user is attached, means OpenCV detected it
     user = ForeignKey('Profile', blank=True, null=True, related_name='face_recognition_rectangles')
+    # TODO: Decide whether to use deleted or this
     is_rejected = BooleanField(default=False)
     # (top, right, bottom, left)
     coordinates = TextField()
+    # Users can have it deleted, but we'll keep the record in our DB in case of malice
+    deleted = DateTimeField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 

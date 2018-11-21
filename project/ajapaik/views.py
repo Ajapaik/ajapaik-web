@@ -56,15 +56,16 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
-    EditCommentForm, FaceRecognitionGuessForm, FaceRectangleSubmitForm
+    EditCommentForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video, FaceRecognitionRectangle
+    Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
 from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, \
     CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
+from project.ajapaik.split_forms.face_recognition import FaceRecognitionGuessForm
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
@@ -1244,7 +1245,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
     face_recognition_form = FaceRecognitionGuessForm({'photo': photo_obj.id})
     face_recognition_existing_rectangles_json = json.dumps(
-        [json.loads(x.coordinates) for x in photo_obj.face_recognition_rectangles.all()]
+        [{'id': x.id, 'coordinates': json.loads(x.coordinates)} for x in photo_obj.face_recognition_rectangles
+            .filter(deleted__isnull=True)]
     )
 
     return render(request, template, {
