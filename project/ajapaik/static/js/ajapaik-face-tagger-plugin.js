@@ -15,7 +15,6 @@
         }, options);
         // TODO: Update tutorial text as to what the user must do next
         // TODO: Notify users they must be logged in to do any of this
-        // TODO: Change cursor to something else when starting cropping to avoid confusion with full screen functionality
         this.UI = $([
             "<div class='panel panel-default' id='ajp-face-tagger-panel'>",
             "   <div class='panel-body'>",
