@@ -4,10 +4,10 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content ajapaik-zero-border-radius">
             <div class="container">
-                <form method="post" action=".." class="form">
+                <form method="post" action="{% url 'face_recognition_guess_subject' %}" class="form">
                     {% csrf_token %}
                     {% bootstrap_form face_recognition_form %}
-                    <button type="submit" class="btn btn-success pull-right">
+                    <button type="submit" id="ajapaik-face-recognition-modal-submit-button" class="btn btn-success pull-right">
                         {% trans "Send" %}
                     </button>
                 </form>

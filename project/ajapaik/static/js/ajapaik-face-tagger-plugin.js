@@ -5,6 +5,7 @@
     /*global gettext*/
     /*global submitFaceRectangleURL*/
     /*global submitFaceRectangleFeedbackURL*/
+    /*global submitFaceGuessURL*/
     /*global docCookies*/
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
@@ -217,6 +218,26 @@
                 },
                 error: function () {
                     that.$UI.find('#ajp-face-tagger-feedback-well').hide();
+                    $('#ajp-face-tagger-feedback').html(gettext('Something went wrong sending your data.'));
+                }
+            });
+        },
+        guessSubject: function (rectangleId, subjectId) {
+            var that = this;
+            $.ajax({
+                type: 'POST',
+                url: submitFaceGuessURL,
+                data: {
+                    rectangle: rectangleId,
+                    subject: subjectId,
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function () {
+                    // TODO: Don't reload, do updates to components async
+                    document.location.reload();
+                },
+                error: function () {
+                    //that.$UI.find('#ajp-face-tagger-feedback-well').hide();
                     $('#ajp-face-tagger-feedback').html(gettext('Something went wrong sending your data.'));
                 }
             });

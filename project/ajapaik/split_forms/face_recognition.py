@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from project.ajapaik.models import FaceRecognitionUserGuess, Photo, FaceRecognitionRectangleFeedback, \
-    FaceRecognitionSubject
+    FaceRecognitionSubject, FaceRecognitionRectangle
 
 
 class FaceRecognitionAddSubjectForm(forms.ModelForm):
@@ -15,10 +15,11 @@ class FaceRecognitionAddSubjectForm(forms.ModelForm):
 class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
     subject = autocomplete_light.ModelChoiceField('FaceRecognitionSubjectAutocomplete', label=_('Subject'),
                                                   required=True)
+    rectangle = forms.ModelChoiceField(queryset=FaceRecognitionRectangle.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
         model = FaceRecognitionUserGuess
-        fields = ('subject',)
+        fields = ('subject', 'rectangle')
 
 
 class FaceRecognitionRectangleFeedbackForm(forms.ModelForm):

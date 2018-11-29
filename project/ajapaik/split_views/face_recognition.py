@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from project.ajapaik.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback
+from project.ajapaik.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess
 from project.ajapaik.split_forms.face_recognition import FaceRecognitionRectangleSubmitForm, \
     FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
@@ -37,6 +37,15 @@ def add_subject(request):
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def guess_subject(request):
     form = FaceRecognitionGuessForm(request.POST.copy())
+    if form.is_valid():
+        # TODO: Clean up
+        FaceRecognitionUserGuess(
+            subject=form.cleaned_data['subject'],
+            rectangle=form.cleaned_data['rectangle'],
+            user_id=request.user.id
+        ).save()
+        form.cleaned_data['subject'].photos.add(form.cleaned_data['rectangle'].photo)
+        form.cleaned_data['subject'].save()
 
     return HttpResponse('OK')
 
@@ -59,7 +68,7 @@ def add_rectangle(request):
         FaceRecognitionRectangle(
             photo=form.cleaned_data['photo'],
             coordinates=json.dumps(coordinates),
-            user_id=request.user.user_id
+            user_id=request.user.id
         ).save()
 
         return HttpResponse('OK')
@@ -67,7 +76,7 @@ def add_rectangle(request):
         return HttpResponse('Invalid data', status=400)
 
 
-# Essentially means 'complain and get it deleted'
+# Essentially means 'complain to get it deleted'
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_rectangle_feedback(request):
     form = FaceRecognitionRectangleFeedbackForm(request.POST.copy())
@@ -79,6 +88,7 @@ def add_rectangle_feedback(request):
             is_correct=form.cleaned_data['is_correct']
         )
         new_feedback.save()
+        # TODO: Allow the owner to delete their rectangle at will, others should go through some manual vetting process?
         if not new_feedback.is_correct:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()

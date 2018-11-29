@@ -59,7 +59,7 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     EditCommentForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
+    Newsletter, Dating, DatingConfirmation, Video, FaceRecognitionSubject
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
@@ -1243,7 +1243,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
-    face_recognition_form = FaceRecognitionGuessForm({'photo': photo_obj.id})
+    face_recognition_form = FaceRecognitionGuessForm()
     face_recognition_existing_rectangles_json = json.dumps(
         [{'id': x.id, 'coordinates': json.loads(x.coordinates)} for x in photo_obj.face_recognition_rectangles
             .filter(deleted__isnull=True)]
@@ -1282,7 +1282,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "next_photo": next_photo,
         "previous_photo": previous_photo,
         "face_recognition_rectangles": face_recognition_existing_rectangles_json,
-        "face_recognition_form": face_recognition_form
+        "face_recognition_form": face_recognition_form,
+        "people": [x.name for x in photo_obj.people.all()]
     })
 
 

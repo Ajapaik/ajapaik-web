@@ -102,6 +102,8 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^face-recognition-add-rectangle/$', face_recognition.add_rectangle, name='face_recognition_add_rectangle'),
    url(r'^face-recognition-add-rectangle-feedback/$', face_recognition.add_rectangle_feedback,
        name='face_recognition_add_rectangle_feedback'),
+   url(r'^face-recognition-guess-subject/$', face_recognition.guess_subject,
+       name='face_recognition_guess_subject'),
 )
 
 

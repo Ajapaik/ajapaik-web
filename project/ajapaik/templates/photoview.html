@@ -94,8 +94,13 @@
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
                         {% endif %}
                     </div>
+                    <div class="row">
+                        <!--TODO: Highlight rectangle when name hovered?-->
+                        <p>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</p>
+                    </div>
                     <div class="row" id="ajapaik-photo-modal-like">
-                        <div class="fb-like" data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                        <div class="fb-like" data-href="
+                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
                              data-layout="standard" data-action="like" data-show-faces="true"
                              data-share="true"></div>
                     </div>
@@ -117,15 +122,10 @@
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        <a title="{% trans "Show faces" %}" id="ajapaik-photoview-facial-recognition-show-button"
-                           href="#"
-                           class="pull-left">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">tag_faces</i>
-                        </a>
                         <a title="{% trans "Tag a new face" %}" id="ajapaik-photoview-facial-recognition-add-button"
                            href="#"
                            class="pull-left">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_add</i>
+                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
                         </a>
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
@@ -135,7 +135,8 @@
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
                                 <li role="presentation" class="disabled-link">
                                     <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <a href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                                        <a href="
+                                                {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}
                                                 {{ photo.get_absolute_url }}{% endif %}
                                         </a>
@@ -302,7 +303,9 @@
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         window.currentPhotoDetectedFaces = JSON.parse('{{ face_recognition_rectangles|safe }}');
-        window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
+        //window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
+        window.currentlyDrawnFaceRectangles = [];
+        window.currentlyDrawnFaceRectangleRemoveButtons = [];
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -317,6 +320,7 @@
         $(document).ready(function () {
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
                 faceRecognitionModal = $('#ajapaik-face-recognition-modal'),
+                mainPhotoContainer = $('#ajapaik-photoview-main-photo-container'),
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-full-screen-image');
 //            $('#ajp-geotagging-container').AjapaikGeotagger();
@@ -354,18 +358,31 @@
             if (window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
-            $(document).on('mouseover', '#ajapaik-photoview-main-photo-container', function () {
+            // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly
+            $(document).on('mouseenter', '#ajapaik-photoview-main-photo-container', function () {
+                console.log('mouse in container');
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').show();
                 }
                 $('.ajapaik-thumbnail-selection-icon').show();
+                if (currentPhotoDetectedFaces.length > 0) {
+                    window.drawFaceRectangles();
+                }
             });
-            $(document).on('mouseout', '#ajapaik-photoview-main-photo-container', function () {
+            $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
+                console.log('mouse out container');
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').hide();
                 }
                 $('.ajapaik-thumbnail-selection-icon').hide();
+                if (currentPhotoDetectedFaces.length > 0) {
+                    window.removeFaceRectangles();
+                }
             });
+            /*$(document).on('mousein', '.ajapaik-photoview-detected-face', function (e) {
+                console.log('mouse in rectangle');
+                e.stopPropagation();
+            });*/
             $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
                 if (!window.isMobile) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
@@ -423,11 +440,23 @@
             });
             $(document).on('click', '.ajapaik-photoview-detected-face', function (e) {
                 e.stopPropagation();
+                console.log($(this).data());
                 faceRecognitionModal.modal();
+                faceRecognitionModal.find('#id_rectangle').val($(this).data('id'));
             });
             $(document).on('click', '.ajapaik-photoview-remove-detected-face', function (e) {
                 e.stopPropagation();
-                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').reportBadRectangle($(this).data('id'))
+                if (confirm(gettext('Are you sure you wish to have this face removed?'))) {
+                    $('#ajp-face-tagger-container').data('AjapaikFaceTagger').reportBadRectangle($(this).data('id'))
+                }
+            });
+            $(document).on('click', '#ajapaik-face-recognition-modal-submit-button', function (e) {
+                e.preventDefault();
+                var $form = $('#ajapaik-face-recognition-modal').find('form'),
+                    rectangleId = $form.find('#id_rectangle').val(),
+                    subjectId = $form.find('#id_subject').val();
+                // TODO: Cache this DOM element?
+                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').guessSubject(rectangleId, subjectId);
             });
             window.uploadCompleted = function (response) {
                 $('#ajapaik-rephoto-upload-modal').modal('toggle');
@@ -502,59 +531,71 @@
                     window.reportDaterOpen();
                 }
             });
-            $('#ajapaik-photoview-facial-recognition-show-button').click(function (e) {
-                // TODO: Move to face-tagger plugin so we can reuse it on the photo modal
-                e.preventDefault();
-                var photoContainer = $('#ajapaik-photoview-main-photo-container');
-                if (window.currentPhotoDetectedFaces.length === 0) {
-                    alert(window.noFacesDetectedTranslation);
-                }
+            // TODO: Move to face-tagger JS?
+            window.removeFaceRectangles = function () {
+                window.currentlyDrawnFaceRectangles.forEach(function ($each) {
+                    $each.remove();
+                });
+                window.currentlyDrawnFaceRectangleRemoveButtons.forEach(function ($each) {
+                    $each.remove();
+                });
+            };
+            window.drawFaceRectangles = function () {
                 window.currentPhotoDetectedFaces.forEach(function (face) {
                     // (top, right, bottom, left)
-                    var currentPhotoActualDimensions = photoContainer.get(0).getBoundingClientRect(),
+                    var currentPhotoActualDimensions = mainPhotoContainer.get(0).getBoundingClientRect(),
                         // Do scaling
                         widthScale = currentPhotoActualDimensions.width / window.currentPhotoOriginalWidth,
                         heightScale = currentPhotoActualDimensions.height / window.currentPhotoOriginalHeight,
                         leftTop = [face.coordinates[3] * widthScale, face.coordinates[0] * heightScale],
                         width = (face.coordinates[1] - face.coordinates[3]) * widthScale,
-                        height = (face.coordinates[2] - face.coordinates[0]) * heightScale;
-                    // TODO: Remember all the faces drawn, redraw or erase when necessary
-                    $('<div>', {
-                        class: 'ajapaik-photoview-detected-face',
-                        css: {
-                            position: 'absolute',
-                            left: leftTop[0] + 'px',
-                            top: leftTop[1] + 'px',
-                            width: width + 'px',
-                            height: height + 'px',
-                            border: '3px solid white'
-                        },
-                        title: gettext('Click to tell us who this is.')
-                    }).appendTo(photoContainer);
-                    $('<div>', {
-                        class: 'ajapaik-photoview-remove-detected-face',
-                        data: {
-                            id: face.id
-                        },
-                        css: {
-                            position: 'absolute',
-                            left: leftTop[0] - 10 + 'px',
-                            top: leftTop[1] - 10 + 'px',
-                            color: 'white',
-                            cursor: 'pointer'
-                        },
-                        title: gettext('This rectangle is wrong, remove it!'),
-                        html: '<i class="material-icons notranslate">close</i>'
-                    }).appendTo(photoContainer);
+                        height = (face.coordinates[2] - face.coordinates[0]) * heightScale,
+                        $faceRectangle = $('<div>', {
+                            class: 'ajapaik-photoview-detected-face',
+                            data: {
+                              id: face.id
+                            },
+                            css: {
+                                position: 'absolute',
+                                left: leftTop[0] + 'px',
+                                top: leftTop[1] + 'px',
+                                width: width + 'px',
+                                height: height + 'px',
+                                border: '3px solid white'
+                            },
+                            title: gettext('Click to tell us who this is.')
+                        }),
+                        $faceRectangleRemoveButton = $('<div>', {
+                            class: 'ajapaik-photoview-remove-detected-face',
+                            data: {
+                                id: face.id
+                            },
+                            css: {
+                                position: 'absolute',
+                                left: leftTop[0] - 10 + 'px',
+                                top: leftTop[1] - 10 + 'px',
+                                color: 'white',
+                                cursor: 'pointer'
+                            },
+                            title: gettext('This rectangle is wrong, remove it!'),
+                            html: '<i class="material-icons notranslate">close</i>'
+                        });
+                    window.currentlyDrawnFaceRectangles.push($faceRectangle);
+                    window.currentlyDrawnFaceRectangleRemoveButtons.push($faceRectangleRemoveButton);
+                    $faceRectangle.appendTo(mainPhotoContainer);
+                    $faceRectangleRemoveButton.appendTo(mainPhotoContainer);
                 });
-            });
+            };
             $('#ajapaik-photoview-facial-recognition-add-button').click(function (e) {
                 e.preventDefault();
                 if ($('#ajp-face-tagger-container').is(':visible')) {
                     window.stopFaceTagger();
+                    $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
                     //window.reportCloseDater();
                 } else {
+                    // TODO: Make sure old rectangles won't ruin our experience here, remove them just in case
                     window.startFaceTagger();
+                    $('#ajapaik-full-screen-link').css('cursor', 'crosshair');
                     //window.reportDaterOpen();
                 }
             });
@@ -572,18 +613,16 @@
                 $('#ajp-dater-feedback-well').hide();
             };
             window.startFaceTagger = function () {
-                var target = $('#ajapaik-photoview-main-photo');
                 $('#ajp-face-tagger-container').show().data('AjapaikFaceTagger').initializeFaceTaggerState({
                     photoId: window.photoId
-                }, target);
+                }, mainPhoto);
             };
             window.stopFaceTagger = function () {
-                var target = $('#ajapaik-photoview-main-photo');
                 //$('#ajp-dater-input').val(null);
                 $('#ajp-face-tagger-feedback').empty();
                 $('#ajp-face-tagger-container').hide();
                 $('#ajp-face-tagger-feedback-well').hide();
-                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').stopTagging(target);
+                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').stopTagging(mainPhoto);
             };
             window.updateDatings = function () {
                 $.ajax({
