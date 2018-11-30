@@ -6,13 +6,15 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from project.ajapaik.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess
-from project.ajapaik.split_forms.face_recognition import FaceRecognitionRectangleSubmitForm, \
-    FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm
+# FIXME: It's crazy we're importing this from an experimental sub-project
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
+from project.face_recognition.forms import FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm, \
+    FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm
+from project.face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
+    FaceRecognitionRectangleFeedback
+from project.face_recognition.serializers import FaceRecognitionRectangleSerializer
 
 
-# Probably a good idea to not allow anonymous contributions. So easy to mess with our data that way,
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_subject(request):
     context = {}
@@ -36,18 +38,28 @@ def add_subject(request):
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def guess_subject(request):
-    form = FaceRecognitionGuessForm(request.POST.copy())
-    if form.is_valid():
-        # TODO: Clean up
-        FaceRecognitionUserGuess(
-            subject=form.cleaned_data['subject'],
-            rectangle=form.cleaned_data['rectangle'],
-            user_id=request.user.id
-        ).save()
-        form.cleaned_data['subject'].photos.add(form.cleaned_data['rectangle'].photo)
-        form.cleaned_data['subject'].save()
+    status = 200
+    if request.method == 'POST':
+        form = FaceRecognitionGuessForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            rectangle = form.cleaned_data['rectangle']
+            FaceRecognitionUserGuess(
+                subject=subject,
+                rectangle=rectangle,
+                user_id=request.user.id
+            ).save()
+            # TODO: Does this create duplicate rows?
+            subject.photos.add(rectangle.photo)
+            status = 201
+            # subject.save()
 
-    return HttpResponse('OK')
+    return HttpResponse('OK', status=status)
+
+
+def get_subjects(request):
+    # TODO: Get list of known subjects to refresh photoview or modal asych?
+    pass
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
@@ -76,6 +88,15 @@ def add_rectangle(request):
         return HttpResponse('Invalid data', status=400)
 
 
+def get_rectangles(request, photo_id=None):
+    # TODO: Does this work?
+    rectangles = []
+    if photo_id:
+        rectangles = FaceRecognitionRectangle.objects.filter(photo_id=photo_id).all()
+
+    return FaceRecognitionRectangleSerializer(rectangles, many=True)
+
+
 # Essentially means 'complain to get it deleted'
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_rectangle_feedback(request):
@@ -88,8 +109,8 @@ def add_rectangle_feedback(request):
             is_correct=form.cleaned_data['is_correct']
         )
         new_feedback.save()
-        # TODO: Allow the owner to delete their rectangle at will, others should go through some manual vetting process?
-        if not new_feedback.is_correct:
+        # Allow the owner to delete their own rectangle at will
+        if not new_feedback.is_correct and rectangle.user_id == request.user.id:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()
 

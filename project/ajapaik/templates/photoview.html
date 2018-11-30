@@ -302,10 +302,10 @@
         window.currentPhotoSourceURL = '{{ photo.source_url }}';
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
+        // TODO: Should move to face-tagger or not?
         window.currentPhotoDetectedFaces = JSON.parse('{{ face_recognition_rectangles|safe }}');
         //window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
-        window.currentlyDrawnFaceRectangles = [];
-        window.currentlyDrawnFaceRectangleRemoveButtons = [];
+
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -531,61 +531,7 @@
                     window.reportDaterOpen();
                 }
             });
-            // TODO: Move to face-tagger JS?
-            window.removeFaceRectangles = function () {
-                window.currentlyDrawnFaceRectangles.forEach(function ($each) {
-                    $each.remove();
-                });
-                window.currentlyDrawnFaceRectangleRemoveButtons.forEach(function ($each) {
-                    $each.remove();
-                });
-            };
-            window.drawFaceRectangles = function () {
-                window.currentPhotoDetectedFaces.forEach(function (face) {
-                    // (top, right, bottom, left)
-                    var currentPhotoActualDimensions = mainPhotoContainer.get(0).getBoundingClientRect(),
-                        // Do scaling
-                        widthScale = currentPhotoActualDimensions.width / window.currentPhotoOriginalWidth,
-                        heightScale = currentPhotoActualDimensions.height / window.currentPhotoOriginalHeight,
-                        leftTop = [face.coordinates[3] * widthScale, face.coordinates[0] * heightScale],
-                        width = (face.coordinates[1] - face.coordinates[3]) * widthScale,
-                        height = (face.coordinates[2] - face.coordinates[0]) * heightScale,
-                        $faceRectangle = $('<div>', {
-                            class: 'ajapaik-photoview-detected-face',
-                            data: {
-                              id: face.id
-                            },
-                            css: {
-                                position: 'absolute',
-                                left: leftTop[0] + 'px',
-                                top: leftTop[1] + 'px',
-                                width: width + 'px',
-                                height: height + 'px',
-                                border: '3px solid white'
-                            },
-                            title: gettext('Click to tell us who this is.')
-                        }),
-                        $faceRectangleRemoveButton = $('<div>', {
-                            class: 'ajapaik-photoview-remove-detected-face',
-                            data: {
-                                id: face.id
-                            },
-                            css: {
-                                position: 'absolute',
-                                left: leftTop[0] - 10 + 'px',
-                                top: leftTop[1] - 10 + 'px',
-                                color: 'white',
-                                cursor: 'pointer'
-                            },
-                            title: gettext('This rectangle is wrong, remove it!'),
-                            html: '<i class="material-icons notranslate">close</i>'
-                        });
-                    window.currentlyDrawnFaceRectangles.push($faceRectangle);
-                    window.currentlyDrawnFaceRectangleRemoveButtons.push($faceRectangleRemoveButton);
-                    $faceRectangle.appendTo(mainPhotoContainer);
-                    $faceRectangleRemoveButton.appendTo(mainPhotoContainer);
-                });
-            };
+
             $('#ajapaik-photoview-facial-recognition-add-button').click(function (e) {
                 e.preventDefault();
                 if ($('#ajp-face-tagger-container').is(':visible')) {

@@ -3,7 +3,7 @@ from autocomplete_light import AutocompleteModelBase
 from django.contrib.auth.models import User
 
 from project.ajapaik.models import Profile, Photo, Tour, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
-    Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter, TourGroup, TourRephoto, FaceRecognitionSubject
+    Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter, TourGroup, TourRephoto
 
 al.register(Profile,
             search_fields=['user__pk', 'first_name', 'last_name', 'user__email', 'fb_name', 'google_plus_name'],
@@ -266,21 +266,3 @@ al.register(Newsletter,
                 'class': 'modern-style',
             },
             )
-
-
-class FaceRecognitionSubjectAutocomplete(AutocompleteModelBase):
-    model = FaceRecognitionSubject
-    name = 'FaceRecognitionSubjectAutocomplete'
-    search_fields = ['pk', 'name']
-    limit_choices = 1000
-    attrs = {
-        'data-autocomplete-minimum-characters': 2,
-    }
-    widget_attrs = {
-        'data-widget-maximum-values': 4,
-        'class': 'modern-style',
-    }
-    add_another_url_name = 'face_recognition_add_subject'
-
-
-al.register(FaceRecognitionSubjectAutocomplete)

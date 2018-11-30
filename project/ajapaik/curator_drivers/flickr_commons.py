@@ -33,11 +33,11 @@ class FlickrCommonsDriver(object):
                 transformed_item = {
                     'isFlickrResult': True,
                     'cachedThumbnailUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_t.jpg' % (
-                    p['farm'], p['server'], p['id'], p['secret']),
+                        p['farm'], p['server'], p['id'], p['secret']),
                     'title': p['title'],
                     'institution': 'Flickr Commons',
                     'imageUrl': 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg' % (
-                    p['farm'], p['server'], p['id'], p['secret']),
+                        p['farm'], p['server'], p['id'], p['secret']),
                     'id': p['id'],
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],

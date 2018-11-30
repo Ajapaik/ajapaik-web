@@ -11,8 +11,7 @@ from sorl.thumbnail import delete as sorl_delete
 from project.ajapaik import settings
 from project.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
     AlbumPhoto, Licence, Device, Newsletter, Dating, Tour, TourRephoto, \
-    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto, MyXtdComment, FaceRecognitionSubject, \
-    FaceRecognitionUserGuess, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback
+    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto, MyXtdComment
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -190,22 +189,6 @@ class MyUserAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(User, fields='__all__')
 
 
-class FaceRecognitionRectangleAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(FaceRecognitionRectangle, fields='__all__')
-
-
-class FaceRecognitionRectangleFeedbackAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(FaceRecognitionRectangleFeedback, fields='__all__')
-
-
-class FaceRecognitionSubjectAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(FaceRecognitionSubject, fields='__all__')
-
-
-class FaceRecognitionUserGuessAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(FaceRecognitionUserGuess, fields='__all__')
-
-
 try:
     admin.site.unregister(User)
 except NotRegistered:
@@ -236,7 +219,3 @@ admin.site.register(TourGroup, TourGroupAdmin)
 admin.site.register(TourRephoto, TourRephotoAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(MyXtdComment, XtdCommentsAdmin)
-admin.site.register(FaceRecognitionRectangle, FaceRecognitionRectangleAdmin)
-admin.site.register(FaceRecognitionRectangleFeedback, FaceRecognitionRectangleFeedbackAdmin)
-admin.site.register(FaceRecognitionSubject, FaceRecognitionSubjectAdmin)
-admin.site.register(FaceRecognitionUserGuess, FaceRecognitionUserGuessAdmin)

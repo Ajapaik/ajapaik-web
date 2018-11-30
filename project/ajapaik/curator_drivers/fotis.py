@@ -19,7 +19,6 @@ class FotisDriver(object):
                           '&filter[or][][content][like]=%s' \
                           '&filter[or][][author][like]=%s' \
                           '&filter[or][][location][like]=%s'
-        self.page_size = 20
 
     def search(self, cleaned_data):
         response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],

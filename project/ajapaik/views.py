@@ -59,14 +59,14 @@ from project.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     EditCommentForm
 from project.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video, FaceRecognitionSubject
+    Newsletter, Dating, DatingConfirmation, Video
 from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
 from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, \
     CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
-from project.ajapaik.split_forms.face_recognition import FaceRecognitionGuessForm
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
+from project.face_recognition.forms import FaceRecognitionGuessForm
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -1243,6 +1243,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
+    # FIXME: Tight coupling to sub-app
     face_recognition_form = FaceRecognitionGuessForm()
     face_recognition_existing_rectangles_json = json.dumps(
         [{'id': x.id, 'coordinates': json.loads(x.coordinates)} for x in photo_obj.face_recognition_rectangles

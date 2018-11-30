@@ -9,8 +9,8 @@ from project.ajapaik.bbox_api import PhotosView
 from project.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from project.ajapaik import views
 from project.ajapaik import api
-from project.ajapaik.split_views import face_recognition
 
+# TODO: Modernize urls.py to what it's supposed to look like in Django 1.8 out-of-the-box
 urlpatterns = patterns('project.ajapaik.views',
    url(r'^logout/', 'logout'),
    url(r'^stream/', 'fetch_stream'),
@@ -95,15 +95,7 @@ urlpatterns = patterns('project.ajapaik.views',
    url(r'^user-upload/$', 'user_upload', name='user_upload'),
    url(r'^user-upload-add-album/$', 'user_upload_add_album', name='user_upload_add_album'),
    url(r'^privacy/$', 'privacy', name='privacy'),
-   url(r'^terms/$', 'terms', name='terms'),
-   # TODO: Group using URL part?
-   # TODO: Modernize urls.py to what it's supposed to look like in Django 1.8 out-of-the-box
-   url(r'^face-recognition-add-subject/$', face_recognition.add_subject, name='face_recognition_add_subject'),
-   url(r'^face-recognition-add-rectangle/$', face_recognition.add_rectangle, name='face_recognition_add_rectangle'),
-   url(r'^face-recognition-add-rectangle-feedback/$', face_recognition.add_rectangle_feedback,
-       name='face_recognition_add_rectangle_feedback'),
-   url(r'^face-recognition-guess-subject/$', face_recognition.guess_subject,
-       name='face_recognition_guess_subject'),
+   url(r'^terms/$', 'terms', name='terms')
 )
 
 
@@ -158,7 +150,8 @@ urlpatterns += patterns('project.ajapaik.then_and_now_tours',
     url(r'^then-and-now-tours/get-gallery-photos/(?P<tour_id>\d+)/$', 'get_gallery_photos'),
     url(r'^then-and-now-tours/detail/(?P<tour_id>\d+)/(?P<photo_id>\d+)/$', 'detail'),
     url(r'^then-and-now-tours/detail/(?P<tour_id>\d+)/(?P<photo_id>\d+)/(?P<rephoto_id>\d+)/$', 'detail'),
-    url(r'^then-and-now-tours/rephoto-thumb/(?P<rephoto_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', 'rephoto_thumb'),
+    url(r'^then-and-now-tours/rephoto-thumb/(?P<rephoto_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$',
+        'rephoto_thumb'),
     url(r'^then-and-now-tours/rephoto-thumb/(?P<rephoto_id>\d+)/(?P<pseudo_slug>.*)/$', 'rephoto_thumb'),
     url(r'^then-and-now-tours/gallery/(?P<tour_id>\d+)/$', 'gallery'),
     url(r'^then-and-now-tours/camera/upload/$', 'camera_upload'),
@@ -204,6 +197,7 @@ urlpatterns += patterns('',
     url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True), name='feed'),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+).xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^face-recognition/', include('project.face_recognition.urls')),
 )
 
 handler500 = 'project.ajapaik.views.custom_500'

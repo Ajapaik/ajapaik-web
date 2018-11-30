@@ -1,29 +1,28 @@
-from json import dumps, loads
-from math import ceil
-from numpy import mean, median
-
-from requests import get
 import re
 import sys
-from time import sleep
 import urllib2
+from json import dumps, loads
+from math import ceil
+
+from django.contrib.gis.geos import Point
 from django.core.files.base import ContentFile
+from requests import get
+
 from project.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
-from django.contrib.gis.geos import GEOSGeometry, Point
 
 
 def finna_add_to_album(photo, target_album):
-    print >>sys.stderr, ('add_to_album %s' % target_album)
+    print >> sys.stderr, ('add_to_album %s' % target_album)
 
     if target_album and target_album != "":
         album = Album.objects.filter(name=target_album).first()
 
         if not album:
-            print >>sys.stderr, ('ObjectDoesNotExist')
+            print >> sys.stderr, ('ObjectDoesNotExist')
             album = Album(name=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
             album.save()
 
-        ap_found=AlbumPhoto.objects.filter(album=album, photo=photo).first()
+        ap_found = AlbumPhoto.objects.filter(album=album, photo=photo).first()
         if not ap_found:
             ap = AlbumPhoto(album=album, photo=photo)
             ap.save()
@@ -33,22 +32,22 @@ def finna_add_to_album(photo, target_album):
 
 
 def finna_find_photo_by_url(record_url, profile):
-    print >>sys.stderr, ('find_finna_photo_by_url %s' % record_url)
-    photo=None
+    print >> sys.stderr, ('find_finna_photo_by_url %s' % record_url)
+    photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
-        m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url) 
+        m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url)
         if m:
-            print >>sys.stderr, ('find_finna_photo_by_url() url ok')
+            print >> sys.stderr, ('find_finna_photo_by_url() url ok')
             # Already in database?
-            external_id=m.group(2) 
+            external_id = m.group(2)
             photo = Photo.objects.filter(
-                    external_id=external_id,
-                ).first()
+                external_id=external_id,
+            ).first()
 
             # Import if not found
             if not photo:
-                print >>sys.stderr, ('find_finna_photo_by_url() url not in database')
-                photo=finna_import_photo(external_id, profile)
+                print >> sys.stderr, ('find_finna_photo_by_url() url not in database')
+                photo = finna_import_photo(external_id, profile)
 
             if photo:
                 finna_add_to_album(photo, "Wiki Loves Monuments")
@@ -57,21 +56,22 @@ def finna_find_photo_by_url(record_url, profile):
 
 
 def finna_import_photo(id, profile):
-    record_url='https://api.finna.fi/v1/record'
-    finna_result=get(record_url, {
+    record_url = 'https://api.finna.fi/v1/record'
+    finna_result = get(record_url, {
         'id': id,
-        'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage', 'year', 'summary', 'rawData'],
+        'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage', 'year',
+                    'summary', 'rawData'],
     })
-    results=finna_result.json();
-    p=results.get('records', None)
+    results = finna_result.json()
+    p = results.get('records', None)
 
-    print >>sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id) 
+    print >> sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id)
 
     if p and p[0]:
-        p=p[0]
-        comma=", "
+        p = p[0]
+        comma = ", "
 
-        institution=None
+        institution = None
         if p['source']:
             if 'translated' in p['source'][0]:
                 institution = p['source'][0]['translated']
@@ -87,72 +87,71 @@ def finna_import_photo(id, profile):
                     lat = point_parts[1][:-1]
                     p['longitude'] = lon
                     p['latitude'] = lat
-                    geography=Point(x=float(lon), y=float(lat), srid=4326)
+                    geography = Point(x=float(lon), y=float(lat), srid=4326)
                     break
 
-        licence = Licence.objects.get(pk=15) # 15 = unknown licence
+        licence = Licence.objects.get(pk=15)  # 15 = unknown licence
         if 'imageRights' in p and 'copyright' in p['imageRights']:
             licence_str = p['imageRights']['copyright']
             if licence_str:
                 licence = Licence.objects.filter(name=licence_str).first()
                 if not licence:
                     licence = Licence(
-                         name=licence_str
+                        name=licence_str
                     )
                     licence.save()
 
-
-        authors=[]
+        authors = []
         if 'authors' in p:
             if p['authors']['primary']:
-                for k,each in p['authors']['primary'].items():
+                for k, each in p['authors']['primary'].items():
                     authors.append(k)
 
-
         source = Source.objects.filter(description=institution).first()
-        if not source: 
-            print >>sys.stderr, ('Saving missing source "%s"' % institution) 
+        if not source:
+            print >> sys.stderr, ('Saving missing source "%s"' % institution)
             source = Source(
-                         name=institution,
-                         description=institution
-                     )
+                name=institution,
+                description=institution
+            )
             source.save()
 
         source = Source.objects.filter(description=institution).first()
 
-        external_id=p['id'][:99]        # muis_id
-        external_sub_id=None       # muis_media_id
+        external_id = p['id'][:99]  # muis_id
+        external_sub_id = None  # muis_media_id
         if '_' in p['id']:
             external_id = p['id'].split('_')[0]
             external_sub_id = p["id"].split('_')[1]
 
         new_photo = Photo(
-                        user=profile,
-                        author=comma.join(authors),
-                        description=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
-                        source=source,
-                        types=None,
-                        keywords=None,
-                        date_text=p.get('year').encode('utf-8') if p.get('year', None) else None,
-                        licence=licence,
-                        external_id=external_id,
-                        external_sub_id=external_sub_id,
-                        source_key=p.get('id', None),
-                        source_url='https://www.finna.fi' + p.get('recordPage'),
-                        geography=geography
-                    )
+            user=profile,
+            author=comma.join(authors),
+            description=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
+            source=source,
+            types=None,
+            keywords=None,
+            date_text=p.get('year').encode('utf-8') if p.get('year', None) else None,
+            licence=licence,
+            external_id=external_id,
+            external_sub_id=external_sub_id,
+            source_key=p.get('id', None),
+            source_url='https://www.finna.fi' + p.get('recordPage'),
+            geography=geography
+        )
 
         opener = urllib2.build_opener()
-        opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-        img_url='https://www.finna.fi' +  p['images'][0];
+        opener.addheaders = [("User-Agent",
+                              "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+        img_url = 'https://www.finna.fi' + p['images'][0];
         img_response = opener.open(img_url)
         new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
 
-        print >>sys.stderr, ('import_finna_photo saving file') 
+        print >> sys.stderr, ('import_finna_photo saving file')
         new_photo.save()
 
         if p.get('latitude') and p.get('longitude') and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
-                                                     photo__source_key=new_photo.source_key).exists():
+                                                                                  photo__source_key=new_photo.source_key).exists():
             source_geotag = GeoTag(
                 lat=p.get('latitude'),
                 lon=p.get('longitude'),
@@ -169,12 +168,12 @@ def finna_import_photo(id, profile):
             new_photo.set_calculated_fields()
 
         new_photo.save()
-        id=int(new_photo.id)
+        id = int(new_photo.id)
         photo = Photo.objects.filter(
-                    pk=id
-                ).first()
+            pk=id
+        ).first()
 
-        print >>sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id ) 
+        print >> sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id)
         return photo
 
 
@@ -200,16 +199,16 @@ class FinnaDriver(object):
             'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
                         'year', 'summary', 'rawData'],
             'filter[]': [
-		'free_online_boolean:"1"',
-#		'~format:"0/Place/"',
-#		'~format:"0/Image/"',
-#		'~usage_rights_str_mv:"usage_B"',
-	],
+                'free_online_boolean:"1"',
+                #		'~format:"0/Place/"',
+                #		'~format:"0/Image/"',
+                #		'~usage_rights_str_mv:"usage_B"',
+            ],
 
         }).text)
 
     def transform_response(self, response, remove_existing=False, finna_page=1):
-        description2=""
+        description2 = ""
         ids = [p['id'] for p in response['records']]
         page_count = int(ceil(float(response['resultCount']) / float(self.page_size)))
         transformed = {
@@ -241,25 +240,25 @@ class FinnaDriver(object):
                             p['latitude'] = lat
                             break
 
-#                if ('latitude' not in p or 'longitude' not in p) and 'rawData' in p and 'center_coords' in p['rawData']: 
-#                    point_parts = p['rawData']['center_coords'].split(' ')
-#                    lon = point_parts[0]
-#                    lat = point_parts[1]
-#                    p['longitude'] = lon
-#                    p['latitude'] = lat
+                #                if ('latitude' not in p or 'longitude' not in p) and 'rawData' in p and 'center_coords' in p['rawData']:
+                #                    point_parts = p['rawData']['center_coords'].split(' ')
+                #                    lon = point_parts[0]
+                #                    lat = point_parts[1]
+                #                    p['longitude'] = lon
+                #                    p['latitude'] = lat
 
                 licence = None
                 if 'imageRights' in p and 'copyright' in p['imageRights']:
                     licence = p['imageRights']['copyright']
 
-                authors=[]
+                authors = []
                 if 'authors' in p:
                     if p['authors']['primary']:
-	                for k,each in p['authors']['primary'].items():
+                        for k, each in p['authors']['primary'].items():
                             authors.append(k)
 
                 # Cut long
-                p['id']=p['id'][:99]
+                p['id'] = p['id'][:99]
                 transformed_item = {
                     'isFinnaResult': True,
                     'id': p['id'],
@@ -273,7 +272,7 @@ class FinnaDriver(object):
                     'urlToRecord': 'https://www.finna.fi' + p['recordPage'],
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),
-                    'creators': safe_list_get(authors,0, None),
+                    'creators': safe_list_get(authors, 0, None),
                     'licence': licence,
                     'description': description2 or p.get('summary', None),
                 }

@@ -1,6 +1,7 @@
 (function ($) {
     'use strict';
     /*global window*/
+    /*global console*/
     /*global document*/
     /*global gettext*/
     /*global submitFaceRectangleURL*/
@@ -13,6 +14,10 @@
         this.options = $.extend({
             // Currently unused
         }, options);
+        this.currentlyDrawnFaceRectangles = [];
+        this.currentlyDrawnFaceRectangleRemoveButtons = [];
+        this.imageContainer = null;
+        this.imageElement = null;
         // TODO: Update tutorial text as to what the user must do next
         // TODO: Notify users they must be logged in to do any of this
         this.UI = $([
@@ -68,7 +73,7 @@
                 feedbackDiv.html(feedbackStr);
             }
         };
-        this.submit = function () {
+        this.submitRectangle = function () {
             //that.giveFeedback();
             var payload = {
                 photo: that.photo,
@@ -102,6 +107,85 @@
                 }
             });
         };
+        this.loadRectangles = function () {
+            $.ajax({
+                type: 'GET',
+                // FIXME: Assuming module is installed
+                url: '/face-recognition/get-rectangles/' + that.photo,
+                success: function (response) {
+                    // if (typeof window.updateDatings === 'function') {
+                    //     window.updateDatings();
+                    // }
+                    //that.giveDatingSubmittedFeedback();
+                    //that.$UI.find('#ajp-face-tagger-feedback').hide();
+                    //that.$UI.find('#ajp-face-tagger-submit-button').hide();
+                    //that.$UI.find('#ajp-face-tagger-input').hide();
+                    //that.disableFeedback = true;
+                    // TODO: This is easy for now, let's implement proper feedback-giving later
+                    document.location.reload();
+                },
+                error: function () {
+                    that.$UI.find('#ajp-face-tagger-feedback-well').hide();
+                    $('#ajp-dater-feedback').html(gettext('Something went wrong sending your data.'));
+                }
+            });
+        };
+        this.removeFaceRectangles = function () {
+            var that = this;
+            that.currentlyDrawnFaceRectangles.forEach(function ($each) {
+                $each.remove();
+            });
+            that.currentlyDrawnFaceRectangleRemoveButtons.forEach(function ($each) {
+                $each.remove();
+            });
+        };
+            this.drawFaceRectangles = function () {
+                var that = this;
+                window.currentPhotoDetectedFaces.forEach(function (face) {
+                    // (top, right, bottom, left)
+                    var currentPhotoActualDimensions = mainPhotoContainer.get(0).getBoundingClientRect(),
+                        // Do scaling
+                        widthScale = currentPhotoActualDimensions.width / window.currentPhotoOriginalWidth,
+                        heightScale = currentPhotoActualDimensions.height / window.currentPhotoOriginalHeight,
+                        leftTop = [face.coordinates[3] * widthScale, face.coordinates[0] * heightScale],
+                        width = (face.coordinates[1] - face.coordinates[3]) * widthScale,
+                        height = (face.coordinates[2] - face.coordinates[0]) * heightScale,
+                        $faceRectangle = $('<div>', {
+                            class: 'ajapaik-photoview-detected-face',
+                            data: {
+                              id: face.id
+                            },
+                            css: {
+                                position: 'absolute',
+                                left: leftTop[0] + 'px',
+                                top: leftTop[1] + 'px',
+                                width: width + 'px',
+                                height: height + 'px',
+                                border: '3px solid white'
+                            },
+                            title: gettext('Click to tell us who this is.')
+                        }),
+                        $faceRectangleRemoveButton = $('<div>', {
+                            class: 'ajapaik-photoview-remove-detected-face',
+                            data: {
+                                id: face.id
+                            },
+                            css: {
+                                position: 'absolute',
+                                left: leftTop[0] - 10 + 'px',
+                                top: leftTop[1] - 10 + 'px',
+                                color: 'white',
+                                cursor: 'pointer'
+                            },
+                            title: gettext('This rectangle is wrong, remove it!'),
+                            html: '<i class="material-icons notranslate">close</i>'
+                        });
+                    window.currentlyDrawnFaceRectangles.push($faceRectangle);
+                    window.currentlyDrawnFaceRectangleRemoveButtons.push($faceRectangleRemoveButton);
+                    $faceRectangle.appendTo(mainPhotoContainer);
+                    $faceRectangleRemoveButton.appendTo(mainPhotoContainer);
+                });
+            };
         this.giveDatingSubmittedFeedback = function (confirmation) {
             var fmt,
                 feedbackStr;
@@ -162,6 +246,14 @@
                 }
                 docCookies.setItem('ajapaik_closed_face_tagger_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
+            $(document).on('click', '.imgareaselect-selection', function () {
+                // As per requirements, the area is sent to the backend and name tagging activates when the user clicks
+                // on their own specified rectangle (means they're okay with it)
+                console.log('click');
+                that.submitRectangle();
+                that.loadRectangles();
+                // TODO: trigger click on the rectangle the user just added
+            });
         },
         handleFaceCoordinatesChanged: function (img, selection) {
             var that = window.faceTaggerReference,
@@ -203,6 +295,7 @@
                 disable: true
             });
         },
+        // TODO: Move to constructor?
         reportBadRectangle: function (id) {
             var that = this;
             $.ajax({

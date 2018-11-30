@@ -3,7 +3,8 @@ from json import dumps
 import face_recognition
 from django.core.management.base import BaseCommand
 
-from project.ajapaik.models import Photo, Album, FaceRecognitionRectangle
+from project.ajapaik.models import Photo, Album
+from project.face_recognition.models import FaceRecognitionRectangle
 
 
 class Command(BaseCommand):
