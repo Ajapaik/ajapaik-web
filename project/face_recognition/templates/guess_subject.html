@@ -1,0 +1,12 @@
+{% load i18n bootstrap3 static ajapaik_templatetags %}
+
+
+<div class="container">
+    <form method="post" action="{% url 'face_recognition_guess_subject' %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="ajapaik-face-recognition-form-submit-button" class="btn btn-success pull-right">
+            {% trans "Send" %}
+        </button>
+    </form>
+</div>

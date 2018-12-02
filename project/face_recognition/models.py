@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -42,6 +44,9 @@ class FaceRecognitionRectangle(models.Model):
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.id, self.photo, self.user)
+
+    def decode_coordinates(self):
+        return json.loads(self.coordinates)
 
 
 class FaceRecognitionRectangleFeedback(models.Model):

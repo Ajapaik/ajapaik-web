@@ -2,7 +2,6 @@ import autocomplete_light
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-# TODO: Separate apps are kind of pointless if they start importing each other
 from project.ajapaik.models import Photo
 from project.face_recognition.models import FaceRecognitionSubject, FaceRecognitionRectangle, \
     FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback

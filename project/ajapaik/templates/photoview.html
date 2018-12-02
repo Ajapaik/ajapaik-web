@@ -122,9 +122,8 @@
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        <a title="{% trans "Tag a new face" %}" id="ajapaik-photoview-facial-recognition-add-button"
-                           href="#"
-                           class="pull-left">
+                        <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
+                           id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
                         </a>
                         <div class="dropdown pull-left">
@@ -146,7 +145,6 @@
                         </div>
                     </div>
                     <div class="row" id="ajp-dater-container"></div>
-                    <div class="row" id="ajp-face-tagger-container"></div>
                     {% if albums %}
                         <div class="row" style="margin-top: 10px;">
                         <br>
@@ -275,7 +273,6 @@
         </div>
     </div>
     {% include "_full_leaderboard_modal.html" %}
-    {% include "face_recognition/_guessing_modal.html" %}
     <div id="ajp-geotagging-container"></div>
 {% endblock %}
 
@@ -302,10 +299,6 @@
         window.currentPhotoSourceURL = '{{ photo.source_url }}';
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
-        // TODO: Should move to face-tagger or not?
-        window.currentPhotoDetectedFaces = JSON.parse('{{ face_recognition_rectangles|safe }}');
-        //window.noFacesDetectedTranslation = '{% trans 'No faces detected.' %}';
-
         window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
         window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
         window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -319,17 +312,18 @@
         window.updateLeaderboard();
         $(document).ready(function () {
             var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-                faceRecognitionModal = $('#ajapaik-face-recognition-modal'),
                 mainPhotoContainer = $('#ajapaik-photoview-main-photo-container'),
                 mainPhoto = $('#ajapaik-photoview-main-photo'),
                 originalFullscreen = $('#ajapaik-full-screen-image');
-//            $('#ajp-geotagging-container').AjapaikGeotagger();
+            //$('#ajp-geotagging-container').AjapaikGeotagger();
             $('#ajp-dater-container').AjapaikDater();
-            $('#ajp-face-tagger-container').AjapaikFaceTagger();
-//            window.showPhotoMapIfApplicable(true);
-            mainPhoto.on('load', function () {
-//                window.showPhotoMapIfApplicable(true);
-            });
+            mainPhotoContainer.AjapaikFaceTagger();
+            // FIXME: This isn't doing the singleton thing it's supposed to?
+            mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: window.photoId});
+            //window.showPhotoMapIfApplicable(true);
+            //mainPhoto.on('load', function () {
+            //  window.showPhotoMapIfApplicable(true);
+            //});
             $('.dropdown-toggle').dropdown();
             $('.disabled-link').click(function (event) {
                 event.preventDefault();
@@ -358,31 +352,22 @@
             if (window.isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
             }
-            // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly
+            // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
             $(document).on('mouseenter', '#ajapaik-photoview-main-photo-container', function () {
-                console.log('mouse in container');
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').show();
                 }
                 $('.ajapaik-thumbnail-selection-icon').show();
-                if (currentPhotoDetectedFaces.length > 0) {
-                    window.drawFaceRectangles();
-                }
+                // === this
+                mainPhotoContainer.data('AjapaikFaceTagger').loadRectangles();
             });
             $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
-                console.log('mouse out container');
                 if (!window.isMobile) {
                     $('.ajapaik-flip-photo-overlay-button').hide();
                 }
                 $('.ajapaik-thumbnail-selection-icon').hide();
-                if (currentPhotoDetectedFaces.length > 0) {
-                    window.removeFaceRectangles();
-                }
+                mainPhotoContainer.data('AjapaikFaceTagger').removeRectanglesAndButtons();
             });
-            /*$(document).on('mousein', '.ajapaik-photoview-detected-face', function (e) {
-                console.log('mouse in rectangle');
-                e.stopPropagation();
-            });*/
             $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
                 if (!window.isMobile) {
                     $('#ajapaik-close-rephoto-overlay-button').show();
@@ -437,26 +422,6 @@
                 } else {
                     targetDiv.addClass('ajapaik-photo-bw');
                 }
-            });
-            $(document).on('click', '.ajapaik-photoview-detected-face', function (e) {
-                e.stopPropagation();
-                console.log($(this).data());
-                faceRecognitionModal.modal();
-                faceRecognitionModal.find('#id_rectangle').val($(this).data('id'));
-            });
-            $(document).on('click', '.ajapaik-photoview-remove-detected-face', function (e) {
-                e.stopPropagation();
-                if (confirm(gettext('Are you sure you wish to have this face removed?'))) {
-                    $('#ajp-face-tagger-container').data('AjapaikFaceTagger').reportBadRectangle($(this).data('id'))
-                }
-            });
-            $(document).on('click', '#ajapaik-face-recognition-modal-submit-button', function (e) {
-                e.preventDefault();
-                var $form = $('#ajapaik-face-recognition-modal').find('form'),
-                    rectangleId = $form.find('#id_rectangle').val(),
-                    subjectId = $form.find('#id_subject').val();
-                // TODO: Cache this DOM element?
-                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').guessSubject(rectangleId, subjectId);
             });
             window.uploadCompleted = function (response) {
                 $('#ajapaik-rephoto-upload-modal').modal('toggle');
@@ -531,19 +496,13 @@
                     window.reportDaterOpen();
                 }
             });
-
-            $('#ajapaik-photoview-facial-recognition-add-button').click(function (e) {
+            $('#ajapaik-photoview-face-recognition-add-face-button').click(function (e) {
                 e.preventDefault();
-                if ($('#ajp-face-tagger-container').is(':visible')) {
-                    window.stopFaceTagger();
-                    $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
-                    //window.reportCloseDater();
-                } else {
-                    // TODO: Make sure old rectangles won't ruin our experience here, remove them just in case
-                    window.startFaceTagger();
-                    $('#ajapaik-full-screen-link').css('cursor', 'crosshair');
-                    //window.reportDaterOpen();
-                }
+                // TODO: Detect if tagging is ongoing
+                $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
+                mainPhotoContainer.data('AjapaikFaceTagger').startTagging();
+                //mainPhotoContainer.AjapaikFaceTagger().stopTagging();
+                //$('#ajapaik-full-screen-link').css('cursor', 'crosshair');
             });
             window.startDater = function (photoId) {
                 $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
@@ -557,18 +516,6 @@
                 $('#ajp-dater-feedback').empty();
                 $('#ajp-dater-container').hide();
                 $('#ajp-dater-feedback-well').hide();
-            };
-            window.startFaceTagger = function () {
-                $('#ajp-face-tagger-container').show().data('AjapaikFaceTagger').initializeFaceTaggerState({
-                    photoId: window.photoId
-                }, mainPhoto);
-            };
-            window.stopFaceTagger = function () {
-                //$('#ajp-dater-input').val(null);
-                $('#ajp-face-tagger-feedback').empty();
-                $('#ajp-face-tagger-container').hide();
-                $('#ajp-face-tagger-feedback-well').hide();
-                $('#ajp-face-tagger-container').data('AjapaikFaceTagger').stopTagging(mainPhoto);
             };
             window.updateDatings = function () {
                 $.ajax({
@@ -584,9 +531,8 @@
                 });
             };
             window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
-
             // Leaflet map
-            if (typeof get_photoviewModalOptions === "function") {
+            if (typeof get_photoviewModalOptions === 'function') {
                 var options = get_photoviewModalOptions();
                 $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
             }

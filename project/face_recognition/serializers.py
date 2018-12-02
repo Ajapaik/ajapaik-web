@@ -4,6 +4,8 @@ from project.face_recognition.models import FaceRecognitionRectangle
 
 
 class FaceRecognitionRectangleSerializer(serializers.ModelSerializer):
+    coordinates = serializers.ReadOnlyField(source='decode_coordinates')
+
     class Meta:
         model = FaceRecognitionRectangle
         fields = ('id', 'coordinates',)

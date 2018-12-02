@@ -66,7 +66,6 @@ from project.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, Cu
 from project.ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, \
     CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
-from project.face_recognition.forms import FaceRecognitionGuessForm
 from project.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -1243,13 +1242,6 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
-    # FIXME: Tight coupling to sub-app
-    face_recognition_form = FaceRecognitionGuessForm()
-    face_recognition_existing_rectangles_json = json.dumps(
-        [{'id': x.id, 'coordinates': json.loads(x.coordinates)} for x in photo_obj.face_recognition_rectangles
-            .filter(deleted__isnull=True)]
-    )
-
     return render(request, template, {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
@@ -1282,8 +1274,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_has_rephotos": user_has_rephotos,
         "next_photo": next_photo,
         "previous_photo": previous_photo,
-        "face_recognition_rectangles": face_recognition_existing_rectangles_json,
-        "face_recognition_form": face_recognition_form,
+        # TODO: Needs more data than just the names
         "people": [x.name for x in photo_obj.people.all()]
     })
 

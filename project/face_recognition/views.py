@@ -7,6 +7,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 # FIXME: It's crazy we're importing this from an experimental sub-project
+from rest_framework.renderers import JSONRenderer
+
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.face_recognition.forms import FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm
@@ -33,7 +35,7 @@ def add_subject(request):
         context['form'] = form
 
         # TODO: Form needs datepicker?
-        return render_to_response('face_recognition/add_subject.html', RequestContext(request, context))
+        return render_to_response('add_subject.html', RequestContext(request, context))
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
@@ -77,30 +79,33 @@ def add_rectangle(request):
             int(form.cleaned_data['y2'] * height_scale),
             int(form.cleaned_data['x1'] * width_scale)
         ]
-        FaceRecognitionRectangle(
+        new_rectangle = FaceRecognitionRectangle(
             photo=form.cleaned_data['photo'],
             coordinates=json.dumps(coordinates),
             user_id=request.user.id
-        ).save()
+        )
+        new_rectangle.save()
 
-        return HttpResponse('OK')
+        # TODO: DRY
+        return HttpResponse(JSONRenderer().render({'id': new_rectangle.id}), content_type='application/json')
     else:
         return HttpResponse('Invalid data', status=400)
 
 
 def get_rectangles(request, photo_id=None):
-    # TODO: Does this work?
     rectangles = []
     if photo_id:
-        rectangles = FaceRecognitionRectangle.objects.filter(photo_id=photo_id).all()
+        rectangles = FaceRecognitionRectangleSerializer(
+            FaceRecognitionRectangle.objects.filter(photo_id=photo_id, deleted__isnull=True).all(), many=True).data
 
-    return FaceRecognitionRectangleSerializer(rectangles, many=True)
+    return HttpResponse(JSONRenderer().render(rectangles), content_type='application/json')
 
 
 # Essentially means 'complain to get it deleted'
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_rectangle_feedback(request):
     form = FaceRecognitionRectangleFeedbackForm(request.POST.copy())
+    deleted = False
     if form.is_valid():
         rectangle = form.cleaned_data['rectangle']
         new_feedback = FaceRecognitionRectangleFeedback(
@@ -110,10 +115,22 @@ def add_rectangle_feedback(request):
         )
         new_feedback.save()
         # Allow the owner to delete their own rectangle at will
+        # TODO: Some kind of review process to delete rectangles not liked by N people?
         if not new_feedback.is_correct and rectangle.user_id == request.user.id:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()
+            deleted = True
+            # TODO: Also update Photo.people or implement asking of people some other way
 
-        return HttpResponse('OK')
+        # TODO: DRY
+        return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json')
     else:
-        return HttpResponse('Invalid data', status=400)
+        return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json', status=400)
+
+
+def get_guess_form_html(request, rectangle_id):
+    form = FaceRecognitionGuessForm(initial={
+        'rectangle': rectangle_id
+    })
+
+    return render_to_response('guess_subject.html', RequestContext(request, {'form': form}))
