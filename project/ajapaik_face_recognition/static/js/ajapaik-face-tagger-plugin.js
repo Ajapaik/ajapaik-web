@@ -1,11 +1,9 @@
 (function ($) {
     'use strict';
     /*global window*/
-    /*global console*/
     /*global document*/
     /*global gettext*/
     /*global confirm*/
-    /*global docCookies*/
     /*global setTimeout*/
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
@@ -14,14 +12,15 @@
             // Currently unused
         }, options);
         this.faces = [];
+        this.isInCropMode = false;
         this.$drawnFaceElements = [];
-        this.$drawnFaceRemoveButtonElements = [];
         this.newRectangleX1 = null;
         this.newRectangleX2 = null;
         this.newRectangleY1 = null;
         this.newRectangleY2 = null;
         this.photoRealWidthAtTimeOfDrawing = null;
         this.photoRealHeightAtTimeOfDrawing = null;
+        this.currentlyOpenRectangleId = null;
         // TODO: Notify users they must be logged in to do any of this
         this.loadRectangles = function () {
             // TODO: Some kind of caching? Seems a bit wasteful to reload on each hover. Good enough for now I guess
@@ -39,8 +38,7 @@
             });
         };
         this.submitRectangle = function () {
-            // TODO: Correct place for this?
-            that.stopTagging();
+            that.stopCropping();
             var payload = {
                 photo: that.photo,
                 x1: that.newRectangleX1,
@@ -49,7 +47,7 @@
                 y2: that.newRectangleY2,
                 seen_width: that.photoRealWidthAtTimeOfDrawing,
                 seen_height: that.photoRealHeightAtTimeOfDrawing,
-                csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
             };
             $.ajax({
                 type: 'POST',
@@ -73,7 +71,8 @@
                 url: '/face-recognition/add-rectangle-feedback/',
                 data: {
                     rectangle: id,
-                    is_correct: false
+                    is_correct: false,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
                     if (response.deleted) {
@@ -95,7 +94,7 @@
                 data: {
                     rectangle: rectangleId,
                     subject: subjectId,
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function () {
                     $.notify(gettext('Thanks you for your contribution!'), {type: 'success'});
@@ -110,10 +109,8 @@
             that.$drawnFaceElements.forEach(function ($each) {
                 $each.remove();
             });
-            that.$drawnFaceRemoveButtonElements.forEach(function ($each) {
-                $each.remove();
-            });
             $('.popover').popover('hide');
+            that.currentlyOpenRectangleId = null;
         };
         this.loadGuessFormHtml = function (rectangleId, responseDiv) {
             $.ajax({
@@ -158,34 +155,37 @@
                             border: '3px solid white'
                         },
                         // TODO: If we know already, display peoples' names
-                    }),
-                    $faceRectangleRemoveButton = $('<div>', {
-                        class: 'ajapaik-face-rectangle-remove',
-                        data: {
-                            id: face.id
-                        },
-                        css: {
-                            position: 'absolute',
-                            left: leftTop[0] - 10 + 'px',
-                            top: leftTop[1] - 10 + 'px',
-                            color: 'white',
-                            cursor: 'pointer'
-                        },
-                        title: gettext('This rectangle is wrong, remove it!'),
-                        html: '<i class="material-icons notranslate">close</i>'
                     });
-                // TODO: Load form into this
                 $faceRectangle.popover({
                     html: true,
                     title: gettext('Who is this?'),
                 });
+                $faceRectangle.on('show.bs.popover', function () {
+                    // Hide other popovers from the page
+                    $('.popover').popover('hide');
+                });
                 $faceRectangle.on('shown.bs.popover', function () {
+                    that.$drawnFaceElements.forEach(function ($each) {
+                        $each.hide();
+                    });
+                    $faceRectangle.show();
+                    that.currentlyOpenRectangleId = face.id;
                     that.loadGuessFormHtml(face.id, divId);
                 });
+                $faceRectangle.hover(function () {
+                    that.$drawnFaceElements.forEach(function ($each) {
+                        $each.hide();
+                    });
+                    $faceRectangle.show();
+                }, function () {
+                    that.$drawnFaceElements.forEach(function ($each) {
+                        if (!that.currentlyOpenRectangleId) {
+                            $each.show();
+                        }
+                    });
+                });
                 that.$drawnFaceElements.push($faceRectangle);
-                that.$drawnFaceRemoveButtonElements.push($faceRectangleRemoveButton);
                 $faceRectangle.appendTo(node);
-                $faceRectangleRemoveButton.appendTo(node);
             });
         };
         this.handleNewRectangleDrawn = function (img, selection) {
@@ -196,9 +196,6 @@
             that.newRectangleY2 = selection.y2;
             that.photoRealWidthAtTimeOfDrawing = imgRealSize.width;
             that.photoRealHeightAtTimeOfDrawing = imgRealSize.height;
-            // FIXME
-            //that.stopTagging();
-            // Submit it right away, users can delete their rectangle if it's off
             that.submitRectangle();
         };
         this.initializeTagger();
@@ -207,15 +204,9 @@
         constructor: AjapaikFaceTagger,
         initializeTagger: function () {
             var that = this;
-            // $(document).on('click', '.ajapaik-face-rectangle', function (e) {
-            //     e.stopPropagation();
-            //     var $this = $(this),
-            //         id = $this.data('id');
-            //     //faceRecognitionModal.modal();
-            //     //faceRecognitionModal.find('#id_rectangle').val($(this).data('id'));
-            // });
-            $(document).on('click', '.ajapaik-face-rectangle-remove', function (e) {
+            $(document).on('click', '.ajapaik-face-recognition-form-remove-rectangle-button', function (e) {
                 e.stopPropagation();
+                e.preventDefault();
                 var id = $(this).data('id');
                 if (window.noConfirmRectangleId == id) {
                     // Don't bother users with confirmations if they're deleting their own rectangle right away
@@ -234,68 +225,38 @@
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);
             });
-            // TODO: Cancel drawing
-            // that.$UI.find('#ajp-face-tagger-cancel-button').attr('title', gettext('Cancel')).click(function (e) {
-            //     e.preventDefault();
-            //     if (typeof window.stopFaceTagger === 'function') {
-            //         window.stopFaceTagger();
-            //         if (typeof window.reportCloseFaceTagger === 'function') {
-            //             window.reportCloseFaceTagger();
-            //         }
-            //     }
-            // });
-            // TODO: Some tutorial and hiding functionality for it?
-            // if (docCookies.getItem('ajapaik_closed_face_tagger_instructions') === 'true') {
-            //     that.$UI.find('#ajp-face-tagger-tutorial-well').hide();
-            //     that.$UI.find('#ajp-face-tagger-open-tutorial-button').show();
-            // }
-            // that.$UI.find('#ajp-face-tagger-close-tutorial-button').click(function () {
-            //     that.$UI.find('#ajp-face-tagger-tutorial-well').hide();
-            //     that.$UI.find('#ajp-face-tagger-open-tutorial-button').show();
-            //     docCookies.setItem('ajapaik_closed_face_tagger_instructions', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
-            // });
-            // that.$UI.find('#ajp-face-tagger-open-tutorial-button').click(function () {
-            //     that.$UI.find('#ajp-face-tagger-tutorial-well').show();
-            //     that.$UI.find('#ajp-face-tagger-open-tutorial-button').hide();
-            //     if (typeof window.reportFaceTaggerOpenTutorial === 'function') {
-            //         window.reportFaceTaggerOpenTutorial();
-            //     }
-            //     docCookies.setItem('ajapaik_closed_face_tagger_instructions', false, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
-            // });
         },
         initializeFaceTaggerState: function (state) {
             var that = this;
             that.photo = state.photoId;
-            // Make sure everything is loaded beforehand
-
-
-            // $(document).on('click', '#ajapaik-face-recognition-modal-submit-button', function (e) {
-            //     e.preventDefault();
-            //     var $form = $('#ajapaik-face-recognition-modal').find('form'),
-            //         rectangleId = $form.find('#id_rectangle').val(),
-            //         subjectId = $form.find('#id_subject').val();
-            //     // TODO: Cache this DOM element?
-            //     $('#ajp-face-tagger-container').data('AjapaikFaceTagger').guessSubject(rectangleId, subjectId);
-            // });
-            // setTimeout(function () {
-            //     that.$UI.find('#ajp-dater-input').focus();
-            // }, 0);
         },
         // TODO: Move also to constructor?
-        startTagging: function () {
+        startCropping: function () {
             var that = this;
+            that.isInCropMode = true;
             setTimeout(function () {
                 $(that.node).imgAreaSelect({
                     onSelectEnd: that.handleNewRectangleDrawn
                 });
             }, 0);
         },
-        stopTagging: function () {
+        stopCropping: function () {
             var that = this;
+            that.isInCropMode = false;
+            $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
             $(that.node).imgAreaSelect({
                 disable: true,
                 hide: true
             });
+        },
+        toggleCropping: function () {
+            var that = this;
+            $('#ajapaik-full-screen-link').css('cursor', 'crosshair');
+            if (that.isInCropMode) {
+                that.stopCropping();
+            } else {
+                that.startCropping();
+            }
         }
     };
     $.fn.AjapaikFaceTagger = function (options) {

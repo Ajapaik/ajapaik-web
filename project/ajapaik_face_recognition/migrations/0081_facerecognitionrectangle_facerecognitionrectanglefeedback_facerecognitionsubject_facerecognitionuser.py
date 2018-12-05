@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('is_correct', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('rectangle', models.ForeignKey(related_name='feedback', to='face_recognition.FaceRecognitionRectangle')),
+                ('rectangle', models.ForeignKey(related_name='feedback', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
                 ('user', models.ForeignKey(related_name='face_recognition_rectangle_feedback', to='ajapaik.Profile')),
             ],
             options={
@@ -61,8 +61,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('rectangle', models.ForeignKey(related_name='guesses', to='face_recognition.FaceRecognitionRectangle')),
-                ('subject', models.ForeignKey(related_name='guesses', to='face_recognition.FaceRecognitionSubject')),
+                ('rectangle', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
+                ('subject', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionSubject')),
                 ('user', models.ForeignKey(related_name='face_recognition_guesses', to='ajapaik.Profile')),
             ],
             options={

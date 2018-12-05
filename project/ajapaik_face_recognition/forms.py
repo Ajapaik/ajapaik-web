@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from project.ajapaik.models import Photo
-from project.face_recognition.models import FaceRecognitionSubject, FaceRecognitionRectangle, \
+from project.ajapaik_face_recognition.models import FaceRecognitionSubject, FaceRecognitionRectangle, \
     FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback
 
 

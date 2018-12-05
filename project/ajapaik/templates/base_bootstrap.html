@@ -526,6 +526,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="https://script.crazyegg.com/pages/scripts/0070/6290.js" async="async"></script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
-{% block autocomplete_stuff %}{% endblock %}
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
+{% endblock %}
 </body>
 </html>

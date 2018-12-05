@@ -1095,7 +1095,7 @@ def videoslug(request, video_id, pseudo_slug=None):
         'video': video,
     }))
 
-
+@ensure_csrf_cookie
 def photoslug(request, photo_id=None, pseudo_slug=None):
     # Because of some bad design decisions, we have a URL /photo, let's just give a random photo
     if photo_id is None:

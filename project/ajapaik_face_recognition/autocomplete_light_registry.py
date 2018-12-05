@@ -1,7 +1,7 @@
 import autocomplete_light.shortcuts as al
 from autocomplete_light import AutocompleteModelBase
 
-from project.face_recognition.models import FaceRecognitionSubject
+from project.ajapaik_face_recognition.models import FaceRecognitionSubject
 
 
 class FaceRecognitionSubjectAutocomplete(AutocompleteModelBase):

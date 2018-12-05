@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from project.face_recognition import views
+from project.ajapaik_face_recognition import views
 
 urlpatterns = [
     url(r'^add-subject/$', views.add_subject, name='face_recognition_add_subject'),

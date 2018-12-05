@@ -1,7 +1,7 @@
 import autocomplete_light
 from django.contrib import admin
 
-from project.face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
+from project.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
     FaceRecognitionSubject, FaceRecognitionUserGuess
 
 

@@ -466,7 +466,10 @@
                         nextButton = $('.ajapaik-photo-modal-next-button'),
                         previousButton = $('.ajapaik-photo-modal-previous-button'),
                         originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
-                        rephotoColumn = $('#ajapaik-photo-modal-rephoto-column');
+                        rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
+                        mainPhotoContainer = $('#ajapaik-modal-photo-container');
+                    mainPhotoContainer.AjapaikFaceTagger();
+                    mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: id});
                     if (!nextId) {
                         nextButton.addClass('ajapaik-photo-modal-next-button-disabled');
                     } else {

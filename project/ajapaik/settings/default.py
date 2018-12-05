@@ -192,7 +192,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
     'leaflet',
-    'project.face_recognition'
+    'project.ajapaik_face_recognition'
 )
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']

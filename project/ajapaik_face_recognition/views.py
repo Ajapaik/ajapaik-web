@@ -10,11 +10,11 @@ from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
 
 from project.ajapaik.then_and_now_tours import user_has_confirmed_email
-from project.face_recognition.forms import FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm, \
+from project.ajapaik_face_recognition.forms import FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm
-from project.face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
+from project.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
     FaceRecognitionRectangleFeedback
-from project.face_recognition.serializers import FaceRecognitionRectangleSerializer
+from project.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
@@ -133,4 +133,7 @@ def get_guess_form_html(request, rectangle_id):
         'rectangle': rectangle_id
     })
 
-    return render_to_response('guess_subject.html', RequestContext(request, {'form': form}))
+    return render_to_response('guess_subject.html', RequestContext(request, {
+        'rectangle_id': rectangle_id,
+        'form': form
+    }))

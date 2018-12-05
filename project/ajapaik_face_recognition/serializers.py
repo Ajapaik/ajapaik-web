@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from project.face_recognition.models import FaceRecognitionRectangle
+from project.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 class FaceRecognitionRectangleSerializer(serializers.ModelSerializer):

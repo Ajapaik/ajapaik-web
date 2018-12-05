@@ -498,11 +498,7 @@
             });
             $('#ajapaik-photoview-face-recognition-add-face-button').click(function (e) {
                 e.preventDefault();
-                // TODO: Detect if tagging is ongoing
-                $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
-                mainPhotoContainer.data('AjapaikFaceTagger').startTagging();
-                //mainPhotoContainer.AjapaikFaceTagger().stopTagging();
-                //$('#ajapaik-full-screen-link').css('cursor', 'crosshair');
+                mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
             });
             window.startDater = function (photoId) {
                 $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
@@ -539,8 +535,4 @@
         });
     </script>
     <script src="{% static 'js/ajapaik-comments.js' %}"></script>
-{% endblock %}
-
-{% block autocomplete_stuff %}
-    {% include 'autocomplete_light/static.html' %}
 {% endblock %}

@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('face_recognition', '0081_facerecognitionrectangle_facerecognitionrectanglefeedback_facerecognitionsubject_facerecognitionuser'),
+        ('ajapaik_face_recognition', '0081_facerecognitionrectangle_facerecognitionrectanglefeedback_facerecognitionsubject_facerecognitionuser'),
     ]
 
     operations = [
