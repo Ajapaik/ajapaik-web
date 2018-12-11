@@ -16,6 +16,7 @@ class FaceRecognitionSubject(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     photos = models.ManyToManyField(Photo, related_name='people')
+    face_encoding = models.TextField(blank=True, null=True)
     user = models.ForeignKey(Profile)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -30,6 +31,10 @@ class FaceRecognitionSubject(models.Model):
 
 class FaceRecognitionRectangle(models.Model):
     photo = models.ForeignKey(Photo, related_name='face_recognition_rectangles')
+    subject_consensus = models.ForeignKey(FaceRecognitionSubject, null=True, blank=True,
+                                          related_name='crowdsourced_rectangles')
+    subject_ai_guess = models.ForeignKey(FaceRecognitionSubject, null=True, blank=True,
+                                         related_name='ai_detected_rectangles')
     # If no user is attached, means OpenCV detected it
     user = models.ForeignKey(Profile, blank=True, null=True, related_name='face_recognition_rectangles')
     # (top, right, bottom, left)

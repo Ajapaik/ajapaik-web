@@ -1,11 +1,11 @@
 import datetime
 import json
+from collections import Counter, OrderedDict
 
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
 # FIXME: It's crazy we're importing this from an experimental sub-project
 from rest_framework.renderers import JSONRenderer
 
@@ -38,6 +38,10 @@ def add_subject(request):
         return render_to_response('add_subject.html', RequestContext(request, context))
 
 
+class OrderedCounter(Counter, OrderedDict):
+    pass
+
+
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def guess_subject(request):
     status = 200
@@ -46,15 +50,24 @@ def guess_subject(request):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             rectangle = form.cleaned_data['rectangle']
-            FaceRecognitionUserGuess(
+            new_guess = FaceRecognitionUserGuess(
                 subject=subject,
                 rectangle=rectangle,
                 user_id=request.user.id
-            ).save()
-            # TODO: Does this create duplicate rows?
+            )
+            new_guess.save()
+            # TODO: Verify this works correctly once we have more data
+            guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle)\
+                .distinct('user').order_by('user', '-created').all()
+            subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
+            rectangle.subject_consensus = subject_counts.keys()[0]
+            rectangle.save()
+            # TODO: Is this needed?
             subject.photos.add(rectangle.photo)
             status = 201
-            # subject.save()
+
+            return HttpResponse(JSONRenderer().render({'id': new_guess.id}), content_type='application/json',
+                                status=status)
 
     return HttpResponse('OK', status=status)
 
@@ -69,15 +82,15 @@ def add_rectangle(request):
     form = FaceRecognitionRectangleSubmitForm(request.POST.copy())
     if form.is_valid():
         photo = form.cleaned_data['photo']
-        width_scale = form.cleaned_data['seen_width'] / photo.width
-        height_scale = form.cleaned_data['seen_height'] / photo.height
+        width_scale = float(form.cleaned_data['seen_width']) / float(photo.width)
+        height_scale = float(form.cleaned_data['seen_height']) / float(photo.height)
         # jQuery plugin gives x1, y1 topLeft, x2, y2 bottomRight
         # DB stores (top, right, bottom, left)
         coordinates = [
-            int(form.cleaned_data['y1'] * height_scale),
-            int(form.cleaned_data['x2'] * width_scale),
-            int(form.cleaned_data['y2'] * height_scale),
-            int(form.cleaned_data['x1'] * width_scale)
+            int(float(form.cleaned_data['y1']) / height_scale),
+            int(float(form.cleaned_data['x2']) / width_scale),
+            int(float(form.cleaned_data['y2']) / height_scale),
+            int(float(form.cleaned_data['x1']) / width_scale)
         ]
         new_rectangle = FaceRecognitionRectangle(
             photo=form.cleaned_data['photo'],

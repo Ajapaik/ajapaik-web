@@ -171,6 +171,10 @@
                     $faceRectangle.show();
                     that.currentlyOpenRectangleId = face.id;
                     that.loadGuessFormHtml(face.id, divId);
+                    setTimeout(function () {
+                        $('#id_subject-autocomplete').focus();
+                    }, 300);
+
                 });
                 $faceRectangle.hover(function () {
                     that.$drawnFaceElements.forEach(function ($each) {
@@ -204,6 +208,9 @@
         constructor: AjapaikFaceTagger,
         initializeTagger: function () {
             var that = this;
+            // Avoid duplicate handlers
+            $(document).off('click', '.ajapaik-face-recognition-form-remove-rectangle-button');
+            $(document).off('click', '.ajapaik-face-recognition-form-submit-button');
             $(document).on('click', '.ajapaik-face-recognition-form-remove-rectangle-button', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -220,7 +227,7 @@
             $(document).on('click', '.ajapaik-face-recognition-form-submit-button', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                var $form = $(this).parent(),
+                var $form = $(this).parent().parent(),
                     subject = $form.find('#id_subject').val(),
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);

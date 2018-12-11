@@ -539,7 +539,7 @@
                             }
                         }
                     });
-//                    showPhotoMapIfApplicable();
+                    // showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                 },
                 error: function () {

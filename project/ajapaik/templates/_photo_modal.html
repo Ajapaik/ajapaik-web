@@ -429,12 +429,11 @@
             e.preventDefault();
             mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
         });
-        // FIXME: Listeners get duplicated, very bad bug
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
-        $(document).on('mouseenter', '#ajapaik-modal-photo-container', function () {
+        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
             $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').loadRectangles();
         });
-        $(document).on('mouseleave', '#ajapaik-modal-photo-container', function () {
+        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
             $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').removeRectanglesAndButtons();
         });
         window.startDater = function (photoId) {

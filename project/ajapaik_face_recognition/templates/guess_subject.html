@@ -8,10 +8,12 @@
         <div class="btn-group pull-right" role="group" aria-label="ajapaik-face-recognition-guess-form-buttons">
             <button title="{% trans "This rectangle is bad, I think it should be removed." %}"
                     class="btn btn-danger ajapaik-face-recognition-form-remove-rectangle-button"
+                    type="button"
                     data-id="{{ rectangle_id }}">
                 {% trans "Delete" %}
             </button>
             <button class="btn btn-success ajapaik-face-recognition-form-submit-button"
+                    type="submit"
                     title="{% trans "Submit guess" %}">
                 {% trans "Send" %}
             </button>
