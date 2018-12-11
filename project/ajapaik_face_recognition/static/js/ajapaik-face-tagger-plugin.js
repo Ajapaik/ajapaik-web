@@ -173,6 +173,7 @@
                     that.loadGuessFormHtml(face.id, divId);
                     setTimeout(function () {
                         $('#id_subject-autocomplete').focus();
+                        $('#add_id_subject').show();
                     }, 300);
 
                 });
