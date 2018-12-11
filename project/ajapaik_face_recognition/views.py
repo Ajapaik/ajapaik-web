@@ -60,7 +60,7 @@ def guess_subject(request):
             guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle)\
                 .distinct('user').order_by('user', '-created').all()
             subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
-            rectangle.subject_consensus = subject_counts.keys()[0]
+            rectangle.subject_consensus_id = subject_counts.keys()[0]
             rectangle.save()
             # TODO: Is this needed?
             subject.photos.add(rectangle.photo)
