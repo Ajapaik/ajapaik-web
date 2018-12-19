@@ -19,23 +19,24 @@ from project.ajapaik_face_recognition.serializers import FaceRecognitionRectangl
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_subject(request):
-    context = {}
+    form = FaceRecognitionAddSubjectForm()
+    context = {'form': form}
+    status = 200
     if request.method == 'POST':
         form = FaceRecognitionAddSubjectForm(request.POST.copy())
+        context['form'] = form
         if form.is_valid():
             new_subject = form.save(commit=False)
             new_subject.user_id = request.user.id
             new_subject.save()
 
-            return HttpResponse('OK')
+            status = 201
+            context['message'] = 'OK'
         else:
-            return HttpResponse('Invalid data', status=400)
-    else:
-        form = FaceRecognitionAddSubjectForm()
-        context['form'] = form
+            status = 400
+            context['message'] = 'Invalid data'
 
-        # TODO: Form needs datepicker?
-        return render_to_response('add_subject.html', RequestContext(request, context))
+    return render_to_response('add_subject.html', RequestContext(request, context), status=status)
 
 
 class OrderedCounter(Counter, OrderedDict):

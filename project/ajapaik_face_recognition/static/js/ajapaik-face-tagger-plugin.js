@@ -5,6 +5,7 @@
     /*global gettext*/
     /*global confirm*/
     /*global setTimeout*/
+    /*global screen*/
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -22,7 +23,7 @@
         this.photoRealHeightAtTimeOfDrawing = null;
         this.currentlyOpenRectangleId = null;
         // TODO: Notify users they must be logged in to do any of this
-        this.loadRectangles = function () {
+        this.loadRectangles = function (idToClickAfterLoading) {
             // TODO: Some kind of caching? Seems a bit wasteful to reload on each hover. Good enough for now I guess
             that.removeRectanglesAndButtons();
             $.ajax({
@@ -30,7 +31,7 @@
                 url: '/face-recognition/get-rectangles/' + that.photo + '/',
                 success: function (response) {
                     that.faces = response;
-                    that.drawRectangles();
+                    that.drawRectangles(idToClickAfterLoading);
                 },
                 error: function () {
                     $.notify(gettext('Failed to load faces, sorry.'), {type: 'danger'});
@@ -54,11 +55,11 @@
                 url: '/face-recognition/add-rectangle/',
                 data: payload,
                 success: function (response) {
-                    $.notify(gettext('Rectangle added, thanks!'), {type: 'success'});
+                    $.notify(gettext('Annotation added, thanks!'), {type: 'success'});
                     // Attach to window to make sure it's persistent
                     // TODO: Investigate why state gets erased?
                     window.noConfirmRectangleId = response.id;
-                    that.loadRectangles();
+                    that.loadRectangles(response.id);
                 },
                 error: function () {
                     $.notify(gettext('Failed to record your rectangle, sorry.'), {type: 'danger'});
@@ -76,9 +77,9 @@
                 },
                 success: function (response) {
                     if (response.deleted) {
-                        $.notify(gettext('Thanks for the feedback! Bad rectangle deleted.'), {type: 'success'});
+                        $.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
                     } else {
-                        $.notify(gettext('Thanks for the feedback!'), {type: 'success'});
+                        $.notify(gettext('Thank you!'), {type: 'success'});
                     }
                     that.loadRectangles();
                 },
@@ -97,7 +98,7 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function () {
-                    $.notify(gettext('Thanks you for your contribution!'), {type: 'success'});
+                    $.notify(gettext('Thank you!'), {type: 'success'});
                     that.loadRectangles();
                 },
                 error: function () {
@@ -129,7 +130,7 @@
                 }
             });
         };
-        this.drawRectangles = function () {
+        this.drawRectangles = function (idToClickAfterDrawing) {
             that.faces.forEach(function (face) {
                 // (top, right, bottom, left)
                 var currentPhotoActualDimensions = that.node.getBoundingClientRect(),
@@ -159,6 +160,8 @@
                 $faceRectangle.popover({
                     html: true,
                     title: gettext('Who is this?'),
+                    // TODO: How to make this trigger on hover all the while not breaking the hover functionality a few lines down?
+                    trigger: 'click'
                 });
                 $faceRectangle.on('show.bs.popover', function () {
                     // Hide other popovers from the page
@@ -175,8 +178,15 @@
                         $('#id_subject-autocomplete').focus();
                         $('#add_id_subject').show();
                     }, 300);
-
                 });
+                // $faceRectangle.on('hidden.bs.popover', function () {
+                //     that.currentlyOpenRectangleId = null;
+                //     that.$drawnFaceElements.forEach(function ($each) {
+                //         if (!that.currentlyOpenRectangleId) {
+                //             $each.show();
+                //         }
+                //     });
+                // });
                 $faceRectangle.hover(function () {
                     that.$drawnFaceElements.forEach(function ($each) {
                         $each.hide();
@@ -192,6 +202,11 @@
                 that.$drawnFaceElements.push($faceRectangle);
                 $faceRectangle.appendTo(node);
             });
+            if (idToClickAfterDrawing) {
+                setTimeout(function () {
+                    $('#ajapaik-face-rectangle-' + idToClickAfterDrawing).click();
+                }, 1000);
+            }
         };
         this.handleNewRectangleDrawn = function (img, selection) {
             var imgRealSize = img.getBoundingClientRect();
@@ -199,9 +214,54 @@
             that.newRectangleX2 = selection.x2;
             that.newRectangleY1 = selection.y1;
             that.newRectangleY2 = selection.y2;
-            that.photoRealWidthAtTimeOfDrawing = imgRealSize.width;
-            that.photoRealHeightAtTimeOfDrawing = imgRealSize.height;
+            that.photoRealWidthAtTimeOfDrawing = parseInt(imgRealSize.width);
+            that.photoRealHeightAtTimeOfDrawing = parseInt(imgRealSize.height);
             that.submitRectangle();
+        };
+        // FIXME: Copied from addanother.js because of how we implemented async popup form loading
+        var id_to_windowname = function (text) {
+            text = text.replace(/\./g, '__dot__');
+            text = text.replace(/\-/g, '__dash__');
+            text = text.replace(/\[/g, '__braceleft__');
+            text = text.replace(/\]/g, '__braceright__');
+            return text;
+        };
+        this.showAddAnotherPopup = function (triggeringLink) {
+            var name = triggeringLink.attr('id').replace(/^add_/, '');
+            name = id_to_windowname(name);
+            var href = triggeringLink.attr('href');
+
+            if (href.indexOf('?') === -1) {
+                href += '?';
+            }
+
+            href += '&winName=' + name;
+
+            var height = 500;
+            var width = 800;
+            var left = (screen.width / 2) - (width / 2);
+            var top = (screen.height / 2) - (height / 2);
+            var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left)
+
+            function removeOverlay() {
+                if (win.closed) {
+                    $('#yourlabs_overlay').remove();
+                } else {
+                    setTimeout(removeOverlay, 500);
+                }
+            }
+
+            $('body').append('<div id="yourlabs_overlay"></div');
+            $('#yourlabs_overlay').click(function () {
+                win.close();
+                $(this).remove();
+            });
+
+            setTimeout(removeOverlay, 1500);
+
+            win.focus();
+
+            return false;
         };
         this.initializeTagger();
     };
@@ -232,6 +292,22 @@
                     subject = $form.find('#id_subject').val(),
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);
+            });
+            // Had to be copied to be a global trigger from addanother.js
+            $(document).on('click', '#add_id_subject', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                that.showAddAnotherPopup($(this));
+            });
+            $(document).on('keydown', function (e) {
+                if (e.keyCode === 27) {
+                    // escape
+                    if (that.isInCropMode) {
+                        // Whichever is present
+                        $('#ajapaik-photoview-face-recognition-add-face-button').click();
+                        $('#ajapaik-photo-modal-face-recognition-add-face-button').click();
+                    }
+                }
             });
         },
         initializeFaceTaggerState: function (state) {

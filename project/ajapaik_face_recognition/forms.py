@@ -8,9 +8,13 @@ from project.ajapaik_face_recognition.models import FaceRecognitionSubject, Face
 
 
 class FaceRecognitionAddSubjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(FaceRecognitionAddSubjectForm, self).__init__(*args, **kwargs)
+        self.fields['gender'].widget = forms.RadioSelect(choices=FaceRecognitionSubject.GENDER_CHOICES)
+
     class Meta:
         model = FaceRecognitionSubject
-        fields = ('name', 'date_of_birth', 'gender')
+        fields = ('name', 'date_of_birth', 'gender', 'is_public_figure')
 
 
 class FaceRecognitionGuessForm(autocomplete_light.ModelForm):

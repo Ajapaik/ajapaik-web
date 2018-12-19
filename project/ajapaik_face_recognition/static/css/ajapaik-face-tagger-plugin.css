@@ -5,3 +5,11 @@
 .alert {
     z-index: 100000 !important;
 }
+
+.ajapaik-face-recognition-form-submit-button {
+    float: right;
+}
+
+.ajapaik-face-recognition-form-remove-rectangle-button {
+    float: left;
+}

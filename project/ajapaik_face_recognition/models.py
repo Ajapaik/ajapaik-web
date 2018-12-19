@@ -15,6 +15,7 @@ class FaceRecognitionSubject(models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+    is_public_figure = models.BooleanField(default=False)
     photos = models.ManyToManyField(Photo, related_name='people')
     face_encoding = models.TextField(blank=True, null=True)
     user = models.ForeignKey(Profile)
