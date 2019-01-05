@@ -1,6 +1,13 @@
 This is the open-sourced Django project code for https://ajapaik.ee/
 
-Verified working on Python 2.7.13, instructions for installing from source (consider compiling with 
+docker build -t ajapaik .
+docker run -d --name ajapaik -p 8001:80 ajapaik
+
+Need to peek inside?
+docker exec -it ajapaik bash
+
+
+Verified working on Python 2.7.13, instructions for installing from source if need be (consider compiling with 
 --enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
 
 Requires installation of (at least on Ubuntu):
@@ -25,6 +32,13 @@ Last tried-working with OpenCV 3.2.0.
 
 scikit-learn, pandas and numpy may require more involved installation than pip -r. These are currently
 only required for DBSCAN geotag clustering, but may be used for various machine learning purposes in the future.
+
+Installing Postgres:
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+
+May be of help:
+ALTER USER ajapaik WITH PASSWORD 'seekrit';
+GRANT ALL PRIVILEGES ON DATABASE ajapaik TO ajapaik;
 
 Ajapaik depends on Postgres PostGIS functionality, with a fresh-enough Postgres, installation should be easy:
 http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS23UbuntuPGSQL96Apt
@@ -57,3 +71,15 @@ You should at least override or specify the following keys:
 Running tests:
 source venv/bin/activate
 python project/manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
+
+TODO: upgrade to Ubuntu 18.04
+TODO: upgrade to Python 3
+TODO: upgrade to Postgres 11
+TODO: upgrade to Django 1.11
+TODO: kill Postgis
+TODO: cut down use of sciency libraries if possible
+TODO: py.test
+TODO: Dockerize
+TODO: kill then-and-now-tours?
+TODO: try out mypy - needs to be run on Python 3 even if checking 2 code
+TODO: try out PyPy - cannot be done because of lacking OpenCV support https://pypi.org/project/cvbuilder/
