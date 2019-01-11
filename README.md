@@ -79,7 +79,5 @@ TODO: upgrade to Django 1.11
 TODO: kill Postgis
 TODO: cut down use of sciency libraries if possible
 TODO: py.test
-TODO: Dockerize
 TODO: kill then-and-now-tours?
 TODO: try out mypy - needs to be run on Python 3 even if checking 2 code
-TODO: try out PyPy - cannot be done because of lacking OpenCV support https://pypi.org/project/cvbuilder/

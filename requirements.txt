@@ -1,2 +1,5 @@
 Django==1.8.19
 uwsgi
+opencv-python
+face_recognition
+scikit-learn

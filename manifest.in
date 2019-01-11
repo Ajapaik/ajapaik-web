@@ -1,0 +1,6 @@
+include LICENSE.md
+include README.md
+recursive-include project/ajapaik/static *
+recursive-include project/ajapaik/templates *
+recursive-include project/ajapaik-face-recognition/static *
+recursive-include project/ajapaik-face-recognition/templates *

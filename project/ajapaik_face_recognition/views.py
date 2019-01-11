@@ -13,7 +13,7 @@ from project.ajapaik.then_and_now_tours import user_has_confirmed_email
 from project.ajapaik_face_recognition.forms import FaceRecognitionAddSubjectForm, FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm
 from project.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
-    FaceRecognitionRectangleFeedback
+    FaceRecognitionRectangleFeedback, FaceRecognitionSubject
 from project.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
 
 
@@ -58,7 +58,7 @@ def guess_subject(request):
             )
             new_guess.save()
             # TODO: Verify this works correctly once we have more data
-            guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle)\
+            guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle) \
                 .distinct('user').order_by('user', '-created').all()
             subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
             rectangle.subject_consensus_id = subject_counts.keys()[0]
@@ -151,3 +151,18 @@ def get_guess_form_html(request, rectangle_id):
         'rectangle_id': rectangle_id,
         'form': form
     }))
+
+
+def people_albums(request, page=1):
+    page_size = 50
+    start = (page - 1) * page_size
+    end = page * page_size
+    subjects = FaceRecognitionSubject.objects.all()[start:end]
+
+    return render_to_response('subjects.html', RequestContext(request, {
+        'subjects': subjects,
+    }))
+
+
+def person_album(request, face_recognition_subject_id):
+    pass
