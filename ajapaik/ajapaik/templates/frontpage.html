@@ -1,0 +1,115 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress static %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/ajapaik-video.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.1.css" %}"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container-fluid" id="ajapaik-frontpage-container">
+        <div class="row">
+            <div id="ajapaik-album-selection" class="ajapaik-invisible{% if show_photos %} hidden{% endif %}"></div>
+            <div id="ajapaik-frontpage-historic-photos"
+                 class="ajapaik-invisible{% if not show_photos %} hidden{% endif %}"></div>
+        </div>
+    </div>
+    <div id="ajp-geotagging-container"></div>
+    <div class="modal fade" id="ajapaik-video-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div class="modal fade" id="ajapaik-anonymous-login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content ajapaik-zero-border-radius">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>{% trans "Authentication" %}</h4>
+                </div>
+                <div class="modal-body">
+                    {% include "_log_in.html" with type="video_anonymous" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "_info_modal.html" %}
+    {% include "_full_leaderboard_modal.html" %}
+    {% include "_rephoto_upload_modal.html" %}
+    {% include "_filtering_tutorial_modal.html" %}
+    <div class="full-box original-full-box">
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-full-screen-image" alt=""/>
+        </div>
+    </div>
+    <div class="full-box rephoto-full-box">
+        <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+            <img id="ajapaik-rephoto-full-screen-image" alt=""/>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        window.title = '{{ title }}';
+        window.currentPage = parseInt('{{ page }}', 10);
+        window.maxPage = parseInt('{{ max_page }}', 10);
+        window.nextPageOnModalClose = false;
+        window.previousPageOnModalClose = false;
+        window.photoURL = '{% url "ajapaik.ajapaik.views.photoslug" %}';
+        window.photoThumbURL = '{% url "ajapaik.ajapaik.views.image_thumb" %}';
+        window.frontpageAsyncURL = '{% url "ajapaik.ajapaik.views.frontpage_async_data" %}';
+        window.frontpageAlbumsAsyncURL = '{% url "ajapaik.ajapaik.views.frontpage_async_albums" %}';
+        window.nextPhotoLoading = false;
+        /* window.photos = window.getQueryParameterByName('photos'); */ // Kimmo: 23.8.2018. This doesn't work and it is not in use? Check and remove if this is not needed
+        window.userClosedRephotoTools = false;
+        window.useButtonLink = true;
+        window.currentlySelectedPhotoId = '{{ photo.0 }}';
+        window.albumId = null;
+        window.userLat = null;
+        window.userLon = null;
+        window.order1 = '{{ order1 }}';
+        window.order2 = '{{ order2 }}';
+        window.order3 = '{{ order3 }}';
+        window.start = '{{ start }}';
+        window.end = '{{ end }}';
+        window.total = '{{ total }}';
+        window.isFrontpage = '{{ is_frontpage|safe }}' === 'True';
+        window.showPhotos = '{{ show_photos|safe }}' === 'True';
+        window.myLikes = '{{ my_likes_only|safe }}' === 'True';
+        {% if rephotos_by %}
+            window.rephotosBy = '{{ rephotos_by|safe }}';
+        {% endif %}
+        {% if rephotos_by_name %}
+            window.rephotosByName = '{{ rephotos_by_name|safe }}';
+        {% endif %}
+        {% if album %}
+            window.albumId = {{ album.0 }};
+            window.albumName = '{{ album.1 }}';
+            {% if album.3 and album.4 %}
+                window.albumLat = {{ album.3|safe }};
+                window.albumLon = {{ album.4|safe }};
+            {% endif %}
+        {% endif %}
+        window.linkToGame = true;
+        window.linkToMap = true;
+        window.linkToGallery = true;
+        window.fbShareGallery = true;
+    </script>
+    {% include "js_templates/frontpage_album_template.html" %}
+    {% include "js_templates/frontpage_photo_template.html" %}
+    {% include "js_templates/frontpage_video_template.html" %}
+    {% compress js %}
+        <script src="{% static "js/jquery.justifiedGallery-3.6.1.js" %}"></script>
+        <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
+        <script src="{% static "js/ajapaik-video.js" %}"></script>
+    {% endcompress %}
+    <!--script>
+        $('#ajp-geotagging-container').AjapaikGeotagger();
+    </script-->
+{% endblock %}

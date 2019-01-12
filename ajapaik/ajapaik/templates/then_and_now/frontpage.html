@@ -1,0 +1,94 @@
+{% extends "then_and_now/base.html" %}
+
+{% load static compress i18n %}
+
+{% block layout %}
+    <div class="col-xs-offset-1 col-xs-10">
+        <img id="tan-frontpage-ajapaik-logo" src="{% static "images/ajapaik_266px.png" %}" title="{% trans "Ajapaik logo" %}">
+        <div class="row tan-font-size-48px" id="tan-frontpage-title">{% trans "Then & Now Tours" %}</div>
+        <br>
+        <br>
+        {% if not user.is_authenticated %}
+            <div class="row tan-text-center">
+                <img class="img-responsive" src="{% static 'images/then-and-now-frontpage-image.png' %}"
+                     id="tan-frontpage-image">
+            </div>
+        {% else %}
+            <div class="row tan-text-center">
+                <p class="tan-font-size-24px">{% trans "Signed in as" %} <b>{{ user.profile.get_display_name }}</b></p>
+            </div>
+        {% endif %}
+        <br>
+        {% if user.is_authenticated %}
+            <div class="row tan-text-center">
+                <form>
+                    <div class="form-inline" id="tan-frontpage-album-from-group">
+                        <label class="sr-only"
+                               for="tan-frontpage-tour-id-input">{% trans "Tour ID" %}</label>
+                        <input type="number" class="form-control" id="tan-frontpage-tour-id-input"
+                               placeholder="{% trans "Tour ID" %}">
+                        <button type="submit" id="tan-frontpage-tour-id-submit"
+                            class="btn tan-double-border tan-button-text">{% trans "Go" %}</button>
+                    </div>
+                </form>
+                <button id="tan-frontpage-make-tour-button" class="btn tan-double-border tan-button-text">
+                    {% trans "Create tour!" %}
+                </button>
+                <button id="tan-frontpage-my-tours-button" class="btn tan-double-border tan-button-text">
+                    {% trans "My tours" %}
+                </button>
+            </div>
+        {% endif %}
+        <br>
+        <br>
+        <div class="row tan-text-center">
+            {% if user.is_authenticated %}
+                <a href="{% url 'django.contrib.auth.views.logout' %}?next=/then-and-now-tours/">{% trans "Log out" %}</a>
+            {% else %}
+                <div class="row">
+                    <a href="{% url 'django.contrib.auth.views.login' %}?next=/then-and-now-tours/" class="btn tan-double-border tan-button-text">
+                        {% trans "Log in" %}
+                    </a>
+                </div>
+                <br/>
+                <div class="row">
+                    <a href="{% url 'registration_register' %}?next=/then-and-now-tours/">{% trans "Register account" %}</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row tan-text-center">
+            <br/>
+            <br/>
+            {% get_language_info for LANGUAGE_CODE as lang %}
+            <form action="/i18n/setlang/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {#<input name="next" type="hidden" value="{{ redirect_to }}"/>#}
+                    <label for="tan-language-selection" class="sr-only">{% trans "Select language" %}</label>
+                    <select id="tan-language-selection" name="language" onchange="this.form.submit();">
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            {% if language.code != 'fi' %}
+                                <option value="{{ language.code }}"
+                                        title="{% trans language.name %} ({{ language.name_local }}) - {{ language.code|upper }}"
+                                        {% if language.code == lang.code %}
+                                        selected="selected"{% endif %}>{{ language.name_local|title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var mapRedirectURL = '{% url 'ajapaik.ajapaik.then_and_now_tours.map_view' %}',
+            newTourURL = '{% url 'ajapaik.ajapaik.then_and_now_tours.create_tour_step_1' %}',
+            myToursLink = '{% url 'ajapaik.ajapaik.then_and_now_tours.my_tours' %}'
+    </script>
+    {% compress js %}
+        <script src="{% static 'js/then-and-now-frontpage.js' %}"></script>
+    {% endcompress %}
+{% endblock %}

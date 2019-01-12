@@ -1,6 +1,8 @@
-FROM python:2 AS builder
+FROM python:3 AS builder
 
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
+
+ENV PYTHONBUFFERED 0
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
@@ -10,14 +12,24 @@ WORKDIR /home/docker/ajapaik
 
 COPY . .
 
-RUN pip install --upgrade pip && pip install wheel uwsgi && pip install -e .
+RUN cp ajapaik/ajapaik/settings/local.py.example ajapaik/ajapaik/settings/local.py
 
-RUN pip wheel --wheel-dir=./wheels/ project
+RUN pip install wheel uwsgi && \
+    pip install -e .
+
+RUN pip wheel --wheel-dir=./wheels/ .
 
 RUN pip wheel --wheel-dir=./wheels/ uwsgi
 
 # Lightweight deployment image this time
-FROM python:2-slim AS deployer
+FROM python:3-slim AS deployer
+
+ENV PYTHONBUFFERED 0
+
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends uwsgi nano telnet memcached binutils libproj-dev gdal-bin && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/docker/ajapaik
 
@@ -25,7 +37,9 @@ COPY --from=builder /home/docker/ajapaik/wheels/ ./wheels
 
 COPY --from=builder /home/docker/ajapaik/uwsgi.ini .
 
-RUN pip install --no-index --find-links=./wheels project uwsgi
+COPY --from=builder /home/docker/ajapaik/wsgi.py .
+
+RUN pip install --no-index --find-links=./wheels ajapaik uwsgi
 
 EXPOSE 8000
 

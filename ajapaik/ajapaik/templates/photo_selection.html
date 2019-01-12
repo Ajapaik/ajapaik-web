@@ -1,0 +1,74 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress ajapaik_templatetags %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container-fluid">
+        {% if request.user.profile.is_legit %}
+            <div class="panel panel-default" id="ajapaik-selection-top-panel">
+                <div class="panel-body">
+                    <div class="alert alert-success hidden"></div>
+                    <div class="alert alert-error hidden"></div>
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <button id="ajapaik-photo-selection-create-tan-tour-button" data-toggle="popover"
+                                data-trigger="hover" data-placement="bottom"
+                                data-content="{% blocktrans count counter=count_with_location %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} image.{% plural %}Only pictures with locations can be selected for tours. Currently {{ count_with_location }} images.{% endblocktrans %}"
+                                type="button"
+                                class="btn{% if at_least_one_photo_has_location %} btn-warning{% else %} btn-disabled{% endif %}{% if then_and_now_disabled %} hidden{% endif %}">
+                            {% trans "Create Then and Now Tour" %}
+                        </button>
+                        <button id="ajapaik-photo-selection-create-album-button" type="button"
+                                class="btn btn-success">{% trans "Add to album" %}</button>
+                        <button id="ajapaik-photo-selection-clear-selection-button" type="button"
+                                class="btn btn-primary">{% trans "Clear selection" %}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">{% trans "You can re-order photos by dragging and dropping" %}</div>
+            <div id="ajapaik-photo-selection-gallery">
+                <div class="panel panel-default" id="ajapaik-selection-middle-panel">
+                    <div class="panel-body">
+                        {% for p in photos %}
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                                 id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;"
+                                 data-id="{{ p.0 }}">
+                                <a href="{% url "ajapaik.ajapaik.views.photoslug" p.0 %}"
+                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
+                                    <img src="{% url "ajapaik.ajapaik.views.image_thumb" p.0 250 %}"
+                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}"
+                                         class="img-responsive ajapaik-photo-selection-thumbnail">
+                                    <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="full-box original-full-box">
+                <div class="full-pic" id="ajapaik-fullscreen-image-container">
+                    <img id="ajapaik-full-screen-image" alt=""/>
+                </div>
+            </div>
+            <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+            {% include "_info_modal.html" %}
+            {% include "_full_leaderboard_modal.html" %}
+            {% include "_rephoto_upload_modal.html" %}
+            {% include "_album_creation_modal.html" %}
+            {% include "js_templates/curator_album_selection_option.html" %}
+            {% include "js_templates/curator_album_selection_separator.html" %}
+        {% else %}
+            {% include "_log_in.html" with type="photo_selection" %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block specific_js %}
+    <script>
+        window.isSelection = true;
+    </script>
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/ajapaik-selection.js"></script>
+    {% endcompress %}
+{% endblock %}

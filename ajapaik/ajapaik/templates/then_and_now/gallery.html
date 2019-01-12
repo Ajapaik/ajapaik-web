@@ -1,0 +1,20 @@
+{% extends "then_and_now/base.html" %}
+
+{% load static compress %}
+
+{% block layout %}
+    <div id="tan-gallery-container"></div>
+    {% include 'then_and_now/js_templates/gallery_photo.html' %}
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        var getPhotosURL = '{% url 'ajapaik.ajapaik.then_and_now_tours.get_gallery_photos' tour.pk %}',
+            currentUserID = parseInt('{{ request.user.pk }}', 10),
+            isFixedTour = '{{ tour.photoset_type }}' === 'FIXED';
+    </script>
+    {% compress js %}
+        <script src="{% static "js/tmpl.js" %}"></script>
+        <script src="{% static 'js/then-and-now-gallery.js' %}"></script>
+    {% endcompress %}
+{% endblock %}
