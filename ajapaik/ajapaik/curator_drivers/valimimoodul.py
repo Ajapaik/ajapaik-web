@@ -1,16 +1,16 @@
 # encoding: utf-8
 from json import loads, dumps
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from requests import post
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
-from ajapaik.settings import AJAPAIK_VALIMIMOODUL_URL, MEDIA_URL
 
 
 class ValimimoodulDriver(object):
     def __init__(self):
-        self.url = AJAPAIK_VALIMIMOODUL_URL
+        self.url = settings.AJAPAIK_VALIMIMOODUL_URL
 
     def search(self, cleaned_data):
         institution_string = ''
@@ -73,7 +73,7 @@ class ValimimoodulDriver(object):
                 each['isETERASecondImage'] = False
                 if each['collections'] == 'DIGAR':
                     current_id = each['imageUrl'].split('=')[-1]
-                    each['imageUrl'] = MEDIA_URL + 'uploads/DIGAR_' + current_id + '_1.jpg'
+                    each['imageUrl'] = settings.MEDIA_URL + 'uploads/DIGAR_' + current_id + '_1.jpg'
                     each['identifyingNumber'] = current_id
                     each['urlToRecord'] = 'http://www.digar.ee/id/nlib-digar:' + current_id
                     each['institution'] = 'Rahvusraamatukogu'

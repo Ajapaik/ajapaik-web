@@ -7,6 +7,7 @@ from urllib.request import urlopen
 
 import requests
 from PIL import Image, ExifTags
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
@@ -31,13 +32,8 @@ from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag
-from ajapaik.settings import API_DEFAULT_NEARBY_PHOTOS_RANGE, \
-    API_DEFAULT_NEARBY_MAX_PHOTOS, FACEBOOK_APP_SECRET, GOOGLE_CLIENT_ID, \
-    FACEBOOK_APP_ID
-
-import sys
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag
 
 log = logging.getLogger(__name__)
 
@@ -161,7 +157,7 @@ def login_auth(request, auth_type='login'):
             # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
 
             try:
-                idinfo = client.verify_id_token(pw, GOOGLE_CLIENT_ID)
+                idinfo = client.verify_id_token(pw, settings.GOOGLE_CLIENT_ID)
 
                 if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                     raise crypt.AppIdentityError("Wrong issuer.")
@@ -191,9 +187,10 @@ def login_auth(request, auth_type='login'):
         elif t == 'fb':
             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
             response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-                pw, FACEBOOK_APP_ID + '|' + FACEBOOK_APP_SECRET))
+                pw, settings.FACEBOOK_APP_ID + '|' + settings.FACEBOOK_APP_SECRET))
             parsed_reponse = loads(response.text)
-            if FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data', {}).get(
+            if settings.FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data',
+                                                                                                               {}).get(
                     'is_valid'):
                 fb_user_id = parsed_reponse['data']['user_id']
                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
@@ -309,16 +306,17 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
 
     permission_classes = (AllowAny,)
+
     def _handle_request(self, data, request):
         if request.user:
-            user_profile=request.user.profile
+            user_profile = request.user.profile
             filter_rule = Q(is_public=True, photos__isnull=False) \
                           | Q(profile=user_profile, atype=Album.CURATED)
         else:
             filter_rule = Q(is_public=True, photos__isnull=False)
 
-        albums = Album.objects\
-            .filter(filter_rule)\
+        albums = Album.objects \
+            .filter(filter_rule) \
             .order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 
@@ -349,7 +347,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     page_size = 50
 
     def _get_finna_results(self, lat, lon, query, album, distance):
-        #print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
+        # print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
 
         finna_filters = [
             'free_online_boolean:"1"',
@@ -368,47 +366,45 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
         if album == "1918":
             finna_filters.append('~era_facet:"1918"')
 
-
-        finna_result_json=requests.get(self.search_url, {
+        finna_result_json = requests.get(self.search_url, {
             'lookfor': query,
             'type': 'AllFields',
             'limit': self.page_size,
             'lng': 'en-gb',
-            'streetsearch' : 1,
+            'streetsearch': 1,
             'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
                         'year', 'summary', 'rawData'],
             'filter[]': finna_filters
         })
 
-        finna_result=finna_result_json.json()
+        finna_result = finna_result_json.json()
         if 'records' in finna_result:
-           return finna_result['records']
+            return finna_result['records']
         elif distance < 1000:
-           return self._get_finna_results(lat, lon, query, album, distance*100)
+            return self._get_finna_results(lat, lon, query, album, distance * 100)
         else:
-           return []
+            return []
 
     def _handle_request(self, data):
         form = forms.ApiFinnaNearestPhotosForm(data)
         if form.is_valid():
-            lon=round(form.cleaned_data["longitude"], 4)
-            lat=round(form.cleaned_data["latitude"], 4)
-            query=form.cleaned_data["query"] or ""
-            album=form.cleaned_data["album"] or ""
+            lon = round(form.cleaned_data["longitude"], 4)
+            lat = round(form.cleaned_data["latitude"], 4)
+            query = form.cleaned_data["query"] or ""
+            album = form.cleaned_data["album"] or ""
             if query == "":
-               distance=0.1
+                distance = 0.1
             else:
-               distance=100000
+                distance = 100000
 
-
-            photos=[]
-            records=self._get_finna_results(lat, lon, query, album, distance)
+            photos = []
+            records = self._get_finna_results(lat, lon, query, album, distance)
             for p in records:
-                comma=', '
-                authors=[]
+                comma = ', '
+                authors = []
                 if 'authors' in p:
                     if p['authors']['primary']:
-                        for k,each in p['authors']['primary'].items():
+                        for k, each in p['authors']['primary'].items():
                             authors.append(k)
 
                 if 'geoLocations' in p:
@@ -425,22 +421,22 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                                 p['longitude'] = None
                                 p['latitude'] = None
 
-                ir_description=''
-                image_rights=p.get('imageRights', None)
-                if image_rights :
-                    ir_description=image_rights.get('description')
+                ir_description = ''
+                image_rights = p.get('imageRights', None)
+                if image_rights:
+                    ir_description = image_rights.get('description')
 
-                title=p.get('title', '')
+                title = p.get('title', '')
                 if 'rawData' in p and 'title_alt' in p['rawData']:
                     # Title_alt is used by Helsinki city museum
-                    title_alt=next(iter(p['rawData']['title_alt'] or []), None)
+                    title_alt = next(iter(p['rawData']['title_alt'] or []), None)
                     if title < title_alt:
-                        title=title_alt
+                        title = title_alt
                 elif 'rawData' in p and 'geographic' in p['rawData']:
                     # Museovirasto + others
-                    title_geo=next(iter(p['rawData']['geographic'] or []), None)
-                    if title_geo :
-                        title='%s ; %s' % (title, title_geo)
+                    title_geo = next(iter(p['rawData']['geographic'] or []), None)
+                    if title_geo:
+                        title = '%s ; %s' % (title, title_geo)
 
                 # BUG: No date in android app so we add it here to the title text
                 year = p.get('year', None)
@@ -448,26 +444,25 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                     title = '%s (%s)' % (title, p.get('year', ''))
 
                 # Coordinate's are disabled because center coordinates aren't good enough
-                photo= {
-                    'id':'https://www.finna.fi%s' % p.get('recordPage', None),
-                    'image':'https://www.finna.fi/Cover/Show?id=%s' % p.get('id', None) ,
-                    'height':768,
-                    'width':583,
-                    'title':title,
-                    'date':p.get('year', None),
-                    'author':comma.join(authors),
+                photo = {
+                    'id': 'https://www.finna.fi%s' % p.get('recordPage', None),
+                    'image': 'https://www.finna.fi/Cover/Show?id=%s' % p.get('id', None),
+                    'height': 768,
+                    'width': 583,
+                    'title': title,
+                    'date': p.get('year', None),
+                    'author': comma.join(authors),
                     'source': {
-                                  'url': 'https://www.finna.fi%s' % p.get('recordPage', None),
-                                  'name': ir_description
-                              },
-#                    'azimuth':None,
-#                    'latitude': p.get('latitude', None),
-#                    'longitude': p.get('longitude', None),
-                    'rephotos':[],
-                    'favorited':False
+                        'url': 'https://www.finna.fi%s' % p.get('recordPage', None),
+                        'name': ir_description
+                    },
+                    #                    'azimuth':None,
+                    #                    'latitude': p.get('latitude', None),
+                    #                    'longitude': p.get('longitude', None),
+                    'rephotos': [],
+                    'favorited': False
                 }
                 photos.append(photo)
-
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
@@ -486,6 +481,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     def get(self, request, format=None):
         return self._handle_request(request.GET)
 
+
 class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album photos(if album is specified else just
@@ -493,37 +489,38 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
     '''
 
     permission_classes = (AllowAny,)
+
     def _handle_request(self, data, user, request):
         form = forms.ApiAlbumNearestPhotosForm(data)
         user_profile = user.profile if user else None
 
         if form.is_valid():
             album = form.cleaned_data["id"]
-            nearby_range = form.cleaned_data["range"] or API_DEFAULT_NEARBY_PHOTOS_RANGE
+            nearby_range = form.cleaned_data["range"] or settings.API_DEFAULT_NEARBY_PHOTOS_RANGE
             ref_location = Point(
                 round(form.cleaned_data["longitude"], 4),
                 round(form.cleaned_data["latitude"], 4)
             )
             start = form.cleaned_data["start"] or 0
-            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS )
+            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
             if album:
                 photos = Photo.objects \
-                    .filter(
-                        Q(albums=album)
-                            | (Q(albums__subalbum_of=album)
-                            & ~Q(albums__atype=Album.AUTO)),
-                        rephoto_of__isnull=True
-                    ).filter(
-                        lat__isnull=False,
-                        lon__isnull=False,
-                        geography__distance_lte=(ref_location, D(m=nearby_range))
-                    ) \
-                    .distance(ref_location) \
-                    .order_by('distance')[start:end]
+                             .filter(
+                    Q(albums=album)
+                    | (Q(albums__subalbum_of=album)
+                       & ~Q(albums__atype=Album.AUTO)),
+                    rephoto_of__isnull=True
+                ).filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                             .distance(ref_location) \
+                             .order_by('distance')[start:end]
 
-#                    .filter(
-#                        Q(likes__profile=user_profile) | Q(likes__isnull=True)
-#                    ) \
+                #                    .filter(
+                #                        Q(likes__profile=user_profile) | Q(likes__isnull=True)
+                #                    ) \
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
@@ -537,14 +534,14 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 })
             else:
                 photos = Photo.objects \
-                    .filter(
-                        lat__isnull=False,
-                        lon__isnull=False,
-                        rephoto_of__isnull=True,
-                        geography__distance_lte=(ref_location, D(m=nearby_range))
-                    ) \
-                    .distance(ref_location) \
-                    .order_by('distance')[start:end]
+                             .filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    rephoto_of__isnull=True,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                             .distance(ref_location) \
+                             .order_by('distance')[start:end]
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
@@ -574,19 +571,19 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
         return self._handle_request(request.GET, user, request)
 
 
-
 class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
 
     permission_classes = (AllowAny,)
+
     def _handle_request(self, data, request):
         form = forms.ApiAlbumStateForm(data)
         if form.is_valid():
             album = form.cleaned_data["id"]
             start = form.cleaned_data["start"] or 0
-            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS )
+            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
 
             photos = Photo.objects.filter(
                 Q(albums=album)
@@ -616,21 +613,23 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     def get(self, request, format=None):
         return self._handle_request(request.GET, request)
 
+
 class SourceDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
 
     permission_classes = (AllowAny,)
+
     def _handle_request(self, data, request):
         form = forms.ApiAlbumSourceForm(data)
         if form.is_valid():
             query = form.cleaned_data["query"]
             start = form.cleaned_data["start"] or 0
-            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*1000 )
+            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 1000)
 
             photos = Photo.objects.filter(
-		source_url__contains=query,
+                source_url__contains=query,
                 rephoto_of__isnull=True,
                 lat__isnull=False,
                 lon__isnull=False,
@@ -691,12 +690,12 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
 
     def post(self, request, format=None):
-        #print >>sys.stderr, ('rephotoupload')
+        # print >>sys.stderr, ('rephotoupload')
         form = forms.ApiPhotoUploadForm(request.data, request.FILES)
         if form.is_valid():
             user_profile = request.user.profile
 
-            #print >>sys.stderr, ('form.isvalid()')
+            # print >>sys.stderr, ('form.isvalid()')
             id = form.cleaned_data['id']
             if id.isdigit():
                 id = int(id)
@@ -707,12 +706,11 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 photo = finna_find_photo_by_url(id, user_profile)
 
             if not photo:
-                #print >>sys.stderr, ('rephotoupload failed')
+                # print >>sys.stderr, ('rephotoupload failed')
                 return Response({
                     'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 })
-            
- 
+
             original_photo = photo
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
@@ -770,7 +768,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             image.save(image_stream, 'JPEG', quality=95)
             image_unscaled.save(image_unscaled_stream, 'JPEG', quality=95)
 
-            #print >>sys.stderr, ('new_rephoto')
+            # print >>sys.stderr, ('new_rephoto')
             new_rephoto = Photo(
                 image_unscaled=InMemoryUploadedFile(
                     image_unscaled_stream, None, rephoto.name, 'image/jpeg',
@@ -796,7 +794,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 user=user_profile,
             )
             new_rephoto.save()
-            #print >>sys.stderr, ('original_photo')
+            # print >>sys.stderr, ('original_photo')
 
             original_photo.latest_rephoto = new_rephoto.created
             if not original_photo.first_rephoto:
@@ -869,6 +867,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to retrieve photo details.
     '''
     permission_classes = (AllowAny,)
+
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoStateForm(data)
         if form.is_valid():
@@ -906,6 +905,7 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
         user = request.user or None
         return self._handle_request(request.GET, user, request)
 
+
 class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to un/like photos by user.
@@ -928,7 +928,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
             else:
                 photo = finna_find_photo_by_url(id, user_profile)
 
-            if photo :
+            if photo:
                 is_favorited = form.cleaned_data['favorited']
 
                 if is_favorited:
@@ -957,7 +957,6 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
                         # Nothing to do here.
                         pass
 
-
             return Response({'error': RESPONSE_STATUSES['OK']})
         else:
             return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
@@ -976,15 +975,15 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
             latitude = form.cleaned_data['latitude']
             longitude = form.cleaned_data['longitude']
             start = form.cleaned_data["start"] or 0
-            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*5 )
+            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 5)
 
             requested_location = GEOSGeometry(
                 'POINT({} {})'.format(longitude, latitude),
                 srid=4326
             )
             photos = Photo.objects.filter(likes__profile=user_profile) \
-                .distance(requested_location) \
-                .order_by('distance')[start:end]
+                         .distance(requested_location) \
+                         .order_by('distance')[start:end]
             photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
                 photos,
                 request.user.profile
@@ -1177,11 +1176,11 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
         if form.is_valid():
             user_profile = request.user.profile
             start = form.cleaned_data["start"] or 0
-            end = start + ( form.cleaned_data["limit"] or API_DEFAULT_NEARBY_MAX_PHOTOS*10 )
+            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 10)
 
             photos = Photo.objects.filter(
-                     rephotos__user=user_profile
-                 ).order_by('created')[start:end]
+                rephotos__user=user_profile
+            ).order_by('created')[start:end]
 
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,

@@ -4,6 +4,7 @@ import random
 
 import autocomplete_light
 from django import forms
+from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
@@ -25,8 +26,6 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.models import TourRephoto, Photo, Tour, TourPhotoOrder, TourGroup, Profile, Licence, TourUniqueView
-from ajapaik.settings import THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST, THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT, \
-    THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
 
 
 # Forms
@@ -241,11 +240,11 @@ class MapPhotoSerializer(serializers.ModelSerializer):
 
     def get_permalink(self, obj):
         return self.context['request'].build_absolute_uri(
-                reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(self.tour.pk, obj.pk)))
+            reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(self.tour.pk, obj.pk)))
 
     def get_image_url(self, obj):
         return self.context['request'].build_absolute_uri(
-                reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
+            reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
 
     def get_tour_photo_order(self, obj):
         if obj.pk in self.tour_photo_order:
@@ -277,7 +276,7 @@ class CreateTourStep2PhotoMarkerSerializer(serializers.ModelSerializer):
 
     def get_image_url(self, obj):
         return self.context['request'].build_absolute_uri(
-                reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 250, obj.get_pseudo_slug())))
+            reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 250, obj.get_pseudo_slug())))
 
     def photo_is_in_selection(self, obj):
         return str(obj.pk) in self.selection
@@ -301,11 +300,11 @@ class GalleryPhotoSerializer(serializers.ModelSerializer):
 
     def get_permalink(self, obj):
         return self.context['request'].build_absolute_uri(
-                reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(self.tour.pk, obj.pk)))
+            reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(self.tour.pk, obj.pk)))
 
     def get_image_url(self, obj):
         return self.context['request'].build_absolute_uri(
-                reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
+            reverse('ajapaik.ajapaik.views.image_thumb', args=(obj.pk, 50, obj.get_pseudo_slug())))
 
     def get_completed_users(self, obj):
         if obj.pk in self.completion_data:
@@ -344,19 +343,19 @@ def generate_ordered_tour(request):
     form = OrderedTourForm(request.POST)
     if form.is_valid():
         tour = Tour(
-                name=_('Fixed tour'),
-                user=profile,
-                ordered=True,
-                photo_set_type=Tour.FIXED
+            name=_('Fixed tour'),
+            user=profile,
+            ordered=True,
+            photo_set_type=Tour.FIXED
         )
         tour.save()
         i = 0
         for each in Photo.objects.filter(pk__in=form.cleaned_data['ids'], lat__isnull=False, lon__isnull=False).all():
             tour.photos.add(each)
             TourPhotoOrder(
-                    photo=each,
-                    tour=tour,
-                    order=i
+                photo=each,
+                tour=tour,
+                order=i
             ).save()
             i += 1
         return HttpResponse(json.dumps({'tour': tour.pk}), content_type='application/json')
@@ -391,9 +390,9 @@ def get_map_markers(request, tour_id):
         if tour.photo_set_type == Tour.OPEN and form.cleaned_data['lat'] and form.cleaned_data['lng']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
-                    rephoto_of__isnull=True,
-                    geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
-                    geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
+                rephoto_of__isnull=True,
+                geography__distance_lte=(user_location, D(m=settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
+                geography__distance_gte=(user_location, D(m=settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
             )
     tour_photo_order = list(
         TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
@@ -423,9 +422,9 @@ def get_gallery_photos(request, tour_id):
         if tour.photo_set_type == Tour.OPEN and form.cleaned_data['lng'] and form.cleaned_data['lat']:
             user_location = Point(form.cleaned_data['lng'], form.cleaned_data['lat'])
             photos = Photo.objects.filter(
-                    rephoto_of__isnull=True,
-                    geography__distance_lte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
-                    geography__distance_gte=(user_location, D(m=THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
+                rephoto_of__isnull=True,
+                geography__distance_lte=(user_location, D(m=settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST)),
+                geography__distance_gte=(user_location, D(m=settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST)),
             )
     tour_photo_order = list(
         TourPhotoOrder.objects.filter(tour=tour).order_by('-order').values_list('photo_id', flat=True))
@@ -509,7 +508,7 @@ def detail(request, tour_id, photo_id, rephoto_id=None):
     tour_photo_order = list(
         TourPhotoOrder.objects.filter(tour=tour).order_by('order').values_list('photo_id', flat=True))
     rephoto_order = list(
-            TourRephoto.objects.filter(tour=tour, original=photo).order_by('created').values_list('id', flat=True))
+        TourRephoto.objects.filter(tour=tour, original=photo).order_by('created').values_list('id', flat=True))
     if photo.id in tour_photo_order:
         current_photo_index = tour_photo_order.index(photo.id)
     ret = {
@@ -583,22 +582,22 @@ def camera_upload(request):
     if form.is_valid():
         tour = form.cleaned_data['tour']
         tour_rephoto = TourRephoto(
-                image=form.cleaned_data['image'],
-                original=form.cleaned_data['original'],
-                tour=tour,
-                user=profile
+            image=form.cleaned_data['image'],
+            original=form.cleaned_data['original'],
+            tour=tour,
+            user=profile
         )
         tour_rephoto.save()
         if profile.send_then_and_now_photos_to_ajapaik:
             now = datetime.datetime.now()
             Photo(
-                    image=form.cleaned_data['image'],
-                    then_and_now_rephoto=tour_rephoto,
-                    user=profile,
-                    description=form.cleaned_data['original'].description,
-                    licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
-                    rephoto_of=form.cleaned_data['original'],
-                    date=now
+                image=form.cleaned_data['image'],
+                then_and_now_rephoto=tour_rephoto,
+                user=profile,
+                description=form.cleaned_data['original'].description,
+                licence=Licence.objects.filter(url='https://creativecommons.org/licenses/by-sa/4.0/').first(),
+                rephoto_of=form.cleaned_data['original'],
+                date=now
             ).save()
             form.cleaned_data['original'].latest_rephoto = now
             form.cleaned_data['original'].light_save()
@@ -771,13 +770,13 @@ def create_tour_step_2(request, tour_id):
                 lng = form.cleaned_data['lng']
                 center = Point(lng, lat)
                 how_many = form.cleaned_data['random_count']
-                min_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
-                max_dist = THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
+                min_dist = settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST
+                max_dist = settings.THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST
                 if not how_many:
-                    how_many = THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
+                    how_many = settings.THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT
                 photo_set = Photo.objects.filter(rephoto_of__isnull=True,
                                                  geography__distance_lte=(center, D(m=max_dist)),
-                                                 geography__distance_gte=(center, D(m=min_dist)),)
+                                                 geography__distance_gte=(center, D(m=min_dist)), )
                 total = photo_set.count()
                 if how_many <= total:
                     sample = random.sample(photo_set, how_many)
@@ -936,7 +935,8 @@ def delete_rephoto(request):
     if rephoto.user == profile or rephoto.tour.user == profile:
         rephoto.image.delete()
         rephoto.delete()
-        return redirect(reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(rephoto.tour.pk, rephoto.original.pk,)))
+        return redirect(
+            reverse('ajapaik.ajapaik.then_and_now_tours.detail', args=(rephoto.tour.pk, rephoto.original.pk,)))
 
     return HttpResponse('Error', status=403)
 
@@ -951,4 +951,5 @@ def toggle_rephoto_open(request):
         request.session['then_and_now_rephoto_open'] = False
     request.session.modified = True
 
-    return HttpResponse(json.dumps({'open': request.session['then_and_now_rephoto_open']}), content_type='application/json')
+    return HttpResponse(json.dumps({'open': request.session['then_and_now_rephoto_open']}),
+                        content_type='application/json')

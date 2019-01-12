@@ -2,12 +2,12 @@
 # http://docs.djangoproject.com/en/dev/topics/auth/
 from functools import partial
 
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 from ajapaik.ajapaik.models import Action
-from ajapaik.settings import BOT_USER_AGENTS, BOT_USERNAME
 
 
 def get_user(request):
@@ -16,8 +16,8 @@ def get_user(request):
     else:
         if request.META \
                 and 'HTTP_USER_AGENT' in request.META \
-                and any(s in request.META['HTTP_USER_AGENT'] for s in BOT_USER_AGENTS):
-            user = authenticate(username=BOT_USERNAME)
+                and any(s in request.META['HTTP_USER_AGENT'] for s in settings.BOT_USER_AGENTS):
+            user = authenticate(username=settings.BOT_USERNAME)
         else:
             session_id = request.session._get_or_create_session_key()
             user = authenticate(username=session_id)
@@ -63,7 +63,7 @@ class AuthBackend(object):
             except ObjectDoesNotExist:
                 return None
 
-        if username == BOT_USERNAME:
+        if username == settings.BOT_USERNAME:
             bot_username = u'_bot_%s' % (username)
             try:
                 user = User.objects.get(username=bot_username)

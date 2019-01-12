@@ -1,11 +1,12 @@
 from urllib.request import build_opener
 
+import requests
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.management import BaseCommand
 from django.utils import translation
-import ajapaik.settings
-import requests
+
 from ajapaik.ajapaik.models import Area, Album, Source, Photo, AlbumPhoto
 
 
@@ -37,7 +38,7 @@ class Command(BaseCommand):
         qf_buf = []
         qf_buf.append("TYPE:IMAGE")
         arguments = {
-            'wskey': ajapaik.settings.EUROPEANA_API_KEY,
+            'wskey': settings.EUROPEANA_API_KEY,
             'query': query_term,
             'qf': qf_buf,
             'start': str(start),
@@ -73,7 +74,8 @@ class Command(BaseCommand):
         ret = []
         for i in xrange(0, item_count):
             if "dataProvider" in query_result["items"][i] and "id" in query_result["items"][i]:
-                if not self._resource_already_exists(query_result["items"][i]["dataProvider"][0], query_result["items"][i]["id"]):
+                if not self._resource_already_exists(query_result["items"][i]["dataProvider"][0],
+                                                     query_result["items"][i]["id"]):
                     new_photo = Photo(
                         area=area,
                         source=Source.objects.get(description=query_result["items"][i]["dataProvider"][0]),
@@ -87,7 +89,8 @@ class Command(BaseCommand):
                     if "title" in query_result["items"][i]:
                         new_photo.description = query_result["items"][i]["title"][0]
                     opener = build_opener()
-                    opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                    opener.addheaders = [("User-Agent",
+                                          "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
                     try:
                         img_response = opener.open(query_result["items"][i]["edmIsShownBy"][0])
                         new_photo.image.save("europeana.jpg", ContentFile(img_response.read()))

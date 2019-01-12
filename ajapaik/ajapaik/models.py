@@ -1,8 +1,8 @@
-from io import StringIO
 import os
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
+from io import StringIO
 from json import loads
 from math import degrees
 from time import sleep
@@ -11,6 +11,7 @@ from urllib.request import urlopen
 import numpy
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -41,7 +42,6 @@ from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
-from ajapaik.settings import GOOGLE_API_KEY, DEBUG, STATIC_ROOT, MEDIA_ROOT
 from ajapaik.utils import angle_diff
 from ajapaik.utils import average_angle
 
@@ -219,7 +219,7 @@ class Album(Model):
         super(Album, self).save(*args, **kwargs)
         if self.subalbum_of:
             self.subalbum_of.save()
-        if not DEBUG:
+        if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def get_historic_photos_queryset_with_subalbums(self):
@@ -484,7 +484,7 @@ class Photo(Model):
 
     def do_flip(self):
         # FIXME: Somehow fails silently?
-        photo_path = MEDIA_ROOT + "/" + str(self.image)
+        photo_path = settings.MEDIA_ROOT + "/" + str(self.image)
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
@@ -499,7 +499,7 @@ class Photo(Model):
         padding = 20
         img = Image.open(self.image_no_watermark)
         img = img.convert('RGBA')
-        mark = Image.open(os.path.join(STATIC_ROOT, 'images/TLUAR_watermark.png'))
+        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/TLUAR_watermark.png'))
         longest_side = max(img.size[0], img.size[1])
         coeff = float(longest_side) / 1600.00
         w = int(mark.size[0] * coeff)
@@ -509,7 +509,7 @@ class Photo(Model):
         position = (img.size[0] - mark.size[0] - padding, padding)
         layer.paste(mark, position)
         img = Image.composite(layer, img, layer)
-        tempfile_io = StringIO.StringIO()
+        tempfile_io = StringIO()
         img.save(tempfile_io, format='JPEG')
         image_file = InMemoryUploadedFile(tempfile_io, None, 'watermarked.jpg', 'image/jpeg', tempfile_io.len, None)
 
@@ -541,7 +541,7 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + GOOGLE_API_KEY
+        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + settings.GOOGLE_API_KEY
         lat = None
         lon = None
         if self.lat and self.lon:
@@ -596,7 +596,7 @@ class Photo(Model):
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
         super(Photo, self).save(*args, **kwargs)
-        if not DEBUG:
+        if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
 
     def light_save(self, *args, **kwargs):
@@ -657,7 +657,7 @@ class Photo(Model):
                 lon = []
                 lat = []
                 members = []
-                for i, cluster in clusters.iteritems():
+                for i, cluster in clusters.items():
                     if len(cluster) < 3:
                         representative_point = (cluster[0][1], cluster[0][0])
                     else:

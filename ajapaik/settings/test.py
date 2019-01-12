@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from local import *
+from ajapaik.settings.local import *
 
 DATABASES = {
     'default': {

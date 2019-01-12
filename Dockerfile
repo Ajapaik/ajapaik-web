@@ -2,17 +2,14 @@ FROM python:3 AS builder
 
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
-ENV PYTHONBUFFERED 0
-
 RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends cmake build-essential
 
 WORKDIR /home/docker/ajapaik
 
 COPY . .
 
-RUN cp ajapaik/ajapaik/settings/local.py.example ajapaik/ajapaik/settings/local.py
+# RUN cp ajapaik/settings/local.py.example ajapaik/settings/local.py
 
 RUN pip install wheel uwsgi && \
     pip install -e .
@@ -23,8 +20,6 @@ RUN pip wheel --wheel-dir=./wheels/ uwsgi
 
 # Lightweight deployment image this time
 FROM python:3-slim AS deployer
-
-ENV PYTHONBUFFERED 0
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \

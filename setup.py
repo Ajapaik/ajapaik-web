@@ -29,6 +29,7 @@ setup(
         'django-leaflet',
         'django-modeltranslation',
         #'face_recognition',
+        'flickrapi',
         'Pillow',
         'requests',
         'numpy',

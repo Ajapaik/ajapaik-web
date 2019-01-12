@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 import codecs
-import sys
 
+from django.conf import settings
 from django.core.management import BaseCommand
 from django.db.models import Q
 
 from ajapaik.ajapaik.models import Profile, Photo, Points, PhotoComment, PhotoLike, _calc_trustworthiness
-from ajapaik.settings import ABSOLUTE_PROJECT_ROOT
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 
 class Command(BaseCommand):
@@ -18,8 +14,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         profiles = Profile.objects.filter(
             Q(score__gt=0) | Q(first_name__isnull=False, last_name__isnull=False)).distinct('user_id')
-        results = codecs.open(ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/results/results.txt', 'w',
-                              'utf-8')
+        results = codecs.open(
+            settings.ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/results/results.txt', 'w',
+            'utf-8')
         results.write(
             'id\temail\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\tlatest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\tlatest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\tfb_comment_count\tfavorite_count\n')
         for p in profiles:

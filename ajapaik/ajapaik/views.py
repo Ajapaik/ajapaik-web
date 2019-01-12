@@ -5,8 +5,8 @@ import logging
 import operator
 import shutil
 import unicodedata
-from io import StringIO
 from copy import deepcopy
+from io import StringIO
 from math import ceil
 from time import strftime, strptime
 from urllib.request import build_opener
@@ -41,6 +41,7 @@ from django.views.generic.base import View
 from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
 from django_comments.views.comments import post_comment
+from pytz import unicode
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
@@ -63,12 +64,10 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
-from ajapaik.settings import DATING_POINTS, DATING_CONFIRMATION_POINTS, \
-    CURATOR_FLICKR_ENABLED, CURATOR_THEN_AND_NOW_CREATION_DISABLED
 from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
-from .utils import get_comment_replies
+from .utils import get_comment_repliesd
 
 log = logging.getLogger(__name__)
 
@@ -1095,6 +1094,7 @@ def videoslug(request, video_id, pseudo_slug=None):
         'video': video,
     }))
 
+
 @ensure_csrf_cookie
 def photoslug(request, photo_id=None, pseudo_slug=None):
     # Because of some bad design decisions, we have a URL /photo, let's just give a random photo
@@ -1782,9 +1782,9 @@ def curator(request):
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
         'hostname': 'https://%s' % (site.domain,),
-        'then_and_now_disabled': CURATOR_THEN_AND_NOW_CREATION_DISABLED,
+        'then_and_now_disabled': settings.CURATOR_THEN_AND_NOW_CREATION_DISABLED,
         'is_curator': True,
-        'CURATOR_FLICKR_ENABLED': CURATOR_FLICKR_ENABLED,
+        'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'whole_set_albums_selection_form': CuratorWholeSetAlbumsSelectionForm()
     }))
@@ -1963,14 +1963,14 @@ def curator_photo_upload_handler(request):
     # if selection_json is not None:
     #     # Query again to block porn
     #     parsed_selection = json.loads(selection_json)
-    #     ids = [k for k, v in parsed_selection.iteritems()]
+    #     ids = [k for k, v in parsed_selection.items()]
     #     response = _curator_get_records_by_ids(ids)
     #     parsed_response = json.loads(response.text)["result"]
     #     parsed_kv = {}
     #     for each in parsed_response:
     #         parsed_kv[each["id"]] = each
-    #     for k, v in parsed_selection.iteritems():
-    #         for sk, sv in parsed_kv[k].iteritems():
+    #     for k, v in parsed_selection.items():
+    #         for sk, sv in parsed_kv[k].items():
     #             # Some fields we don't want overwritten
     #             # FIXME: This now defeats the purpose of re-querying...
     #             if parsed_selection[k]["collections"] == 'DIGAR' and (sk == 'imageUrl' or sk == 'identifyingNumber'
@@ -2008,7 +2008,7 @@ def curator_photo_upload_handler(request):
         # 15 => unknown copyright
         unknown_licence = Licence.objects.get(pk=15)
         flickr_licence = Licence.objects.get(url='https://www.flickr.com/commons/usage/')
-        for k, v in selection.iteritems():
+        for k, v in selection.items():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []
@@ -2478,7 +2478,7 @@ def submit_dating(request):
                 action=Points.DATING,
                 photo=form.cleaned_data['photo'],
                 dating=dating,
-                points=DATING_POINTS,
+                points=settings.DATING_POINTS,
                 created=dating.created
             ).save()
             return HttpResponse('OK')
@@ -2504,7 +2504,7 @@ def submit_dating(request):
                 user=profile,
                 action=Points.DATING_CONFIRMATION,
                 dating_confirmation=new_confirmation,
-                points=DATING_CONFIRMATION_POINTS,
+                points=settings.DATING_CONFIRMATION_POINTS,
                 photo=p,
                 created=new_confirmation.created
             ).save()
@@ -2581,24 +2581,6 @@ def generate_still_from_video(request):
 
     return HttpResponse(json.dumps(ret), content_type='application/json')
 
-
-# to_hex = lambda x: ''.join([hex(ord(c))[2:].zfill(2) for c in x])
-#
-# def maksekeskus_payment(request):
-#     if request.method == 'POST':
-#         form = DonationAmountForm(request.POST)
-#         if form.is_valid():
-#             json_str = json.dumps({
-#                 'shop': '123',
-#                 'amount': form.cleaned_data['amount']
-#             })
-#             redirect_form = DonationForm(initial={
-#                 'json': json_str,
-#                 'mac': str(to_hex(hashlib.sha1((json_str + MAKSEKESKUS_SECRET).encode('utf-8')).digest())).upper()
-#             })
-#             return render_to_response('maksekeskus_redirect.html', RequestContext(request, {'form': redirect_form}))
-#
-#     return redirect('/')
 
 def donate(request):
     ret = {

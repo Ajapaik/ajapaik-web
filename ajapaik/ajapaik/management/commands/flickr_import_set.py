@@ -1,11 +1,12 @@
 import json
 from urllib.request import build_opener, urlopen, Request
 
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.utils import translation
+
 from ajapaik.ajapaik.models import Source, Licence, Album, Photo, AlbumPhoto, GeoTag
-from ajapaik.settings import FLICKR_API_KEY
 
 
 # This script was made for a single use, review before running
@@ -24,7 +25,7 @@ class Command(BaseCommand):
         translation.activate('en')
         set_id = '72157652352869904'
         page = 1
-        set_url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' + FLICKR_API_KEY + '&photoset_id=' + set_id + '&extras=license,owner_name,geo,tags&format=json&nojsoncallback=1&page=' + str(
+        set_url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' + settings.FLICKR_API_KEY + '&photoset_id=' + set_id + '&extras=license,owner_name,geo,tags&format=json&nojsoncallback=1&page=' + str(
             page)
         # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
         image_url_template = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg'
@@ -83,7 +84,6 @@ class Command(BaseCommand):
                         album.cover_photo = new_photo
                         album.light_save()
                 except:
-                    print
-                    "Problem loading image %s" % photo['id']
+                    # print "Problem loading image %s" % photo['id']
                     continue
         album.save()
