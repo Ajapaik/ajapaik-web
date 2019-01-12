@@ -217,7 +217,6 @@
                         syncPagingButtons();
                         var targetDiv = $('#ajapaik-album-selection');
                         targetDiv.empty();
-                        response.albums = JSON.parse(response.albums);
                         for (var i = 0, l = response.albums.length; i < l; i += 1) {
                             targetDiv.append(tmpl('ajapaik-frontpage-album-template', response.albums[i]));
                         }

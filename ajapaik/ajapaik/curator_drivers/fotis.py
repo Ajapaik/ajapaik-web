@@ -18,7 +18,7 @@ class FotisDriver(object):
                           '?filter[or][][reference_code][like]=%s' \
                           '&filter[or][][content][like]=%s' \
                           '&filter[or][][author][like]=%s' \
-                          '&filter[or][][location][like]=%s'
+                          '&filter[or][][location][like]=%s' \
 
     def search(self, cleaned_data):
         response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
@@ -49,16 +49,18 @@ class FotisDriver(object):
                 continue
             else:
                 # TODO: Handle weird dating format
-                image_url = p['_links']['image']['href'].replace('http://', 'https://')
+                # FIXME: Fotis SSL is broken, don't use https URLs until they figure it out
+                # image_url = p['_links']['image']['href'].replace('http://', 'https://')
                 transformed_item = {
                     'isFotisResult': True,
                     'id': p['id'],
                     'identifyingNumber': p['reference_code'],
                     'title': p['content'] if p['content'] else p['content_original'],
                     'institution': 'Fotis',
-                    'cachedThumbnailUrl': image_url,
-                    'imageUrl': image_url,
-                    'urlToRecord': p['_links']['view']['href'].replace('http://', 'https://'),
+                    'cachedThumbnailUrl': p['_links']['image']['href'],
+                    'imageUrl': p['_links']['image']['href'],
+                    # 'urlToRecord': p['_links']['view']['href'].replace('http://', 'https://'),
+                    'urlToRecord': p['_links']['view']['href'],
                     'creators': p['author']
                 }
                 if existing_photo:

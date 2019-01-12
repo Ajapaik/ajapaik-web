@@ -18,9 +18,9 @@ On your local machine cp local.py.example local.py to get a quick start.
 Fix for 'django.contrib.gis.geos.error.GEOSException: Could not parse version info string "3.6.2-CAPI-1.10.2 4d2925d6"':
 https://stackoverflow.com/questions/18643998/geodjango-geosexception-error
 
-project/ajapaik/client_secrets.json needs to contain your Google credentials.
+ajapaik/ajapaik/client_secrets.json needs to contain your Google credentials.
 
-Use 'python project/manage.py createsuperuser' to make yourself a test user if need be.
+Use 'python manage.py createsuperuser' to make yourself a test user if need be.
 
 Installing certbot (geolocation doesn't work without HTTPS): https://certbot.eff.org/
 
@@ -50,11 +50,11 @@ You may want to create and activate a virtualenv first:
 
 Let Django handle the database creation, in the project root:
 <ul>
-<li>python project/manage.py migrate</li>
-<li>python project/manage.py loaddata licence</li>
+<li>python manage.py migrate</li>
+<li>python manage.py loaddata licence</li>
 </ul>
 
-You'll need your own local settings in project/ajapaik/settings/local.py.
+You'll need your own local settings in ajapaik/settings/local.py.
 You should at least override or specify the following keys:
 <ul>
   <li>ADMINS</li>
@@ -70,10 +70,9 @@ You should at least override or specify the following keys:
 
 Running tests:
 source venv/bin/activate
-python project/manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
+python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 
 TODO: upgrade to Ubuntu 18.04
-TODO: upgrade to Python 3
 TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
 TODO: kill Postgis

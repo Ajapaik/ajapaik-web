@@ -23,7 +23,7 @@ CURATOR_THEN_AND_NOW_CREATION_DISABLED = True
 
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
-ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..'))
+ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
 
 if not ABSOLUTE_PROJECT_ROOT in sys.path:
@@ -121,7 +121,7 @@ SUBDOMAIN_URLCONFS = {
     'opendata': 'ajapaik.ajapaik.urls_opendata'
 }
 
-WSGI_APPLICATION = 'ajapaik.ajapaik.wsgihandler.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATES = [
     {
@@ -162,11 +162,10 @@ LOGIN_REDIRECT_URL = 'ajapaik.ajapaik.then_and_now_tours.frontpage'
 REGISTRATION_FORM = 'ajapaik.ajapaik.then_and_now_tours.UserRegistrationForm'
 
 INSTALLED_APPS = (
-    # 'test_without_migrations',
-    # 'admin_tools',
-    # 'admin_tools.theming',
-    # 'admin_tools.menu',
-    # 'admin_tools.dashboard',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -194,7 +193,7 @@ INSTALLED_APPS = (
     'ajapaik.ajapaik_face_recognition'
 )
 
-ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74']
+ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74', '127.0.0.1']
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -219,13 +218,6 @@ REST_FRAMEWORK = {
     ),
     'EXCEPTION_HANDLER': 'ajapaik.ajapaik.api.custom_exception_handler',
     'PAGE_SIZE': 10
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
 }
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'

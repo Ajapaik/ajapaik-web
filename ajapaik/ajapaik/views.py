@@ -67,7 +67,7 @@ from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, Cu
 from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
-from .utils import get_comment_repliesd
+from .utils import get_comment_replies
 
 log = logging.getLogger(__name__)
 
@@ -699,7 +699,7 @@ def frontpage_async_albums(request):
         ret['total'] = total
         ret['max_page'] = max_page
         ret['page'] = page
-        ret['albums'] = JSONRenderer().render(serializer.data)
+        ret['albums'] = serializer.data
 
     return HttpResponse(json.dumps(ret), content_type="application/json")
 
@@ -905,7 +905,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                                         'rephoto_count',
                                         'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
                      start:end]
-        photos = map(list, photos)
+        #photos = map(list, photos)
+        photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
                                                                                                          flat=True)
@@ -2013,6 +2014,7 @@ def curator_photo_upload_handler(request):
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
+                #print (upload_form.cleaned_data)
                 if upload_form.cleaned_data["institution"]:
                     if upload_form.cleaned_data["institution"] == 'Flickr Commons':
                         licence = flickr_licence
@@ -2116,7 +2118,7 @@ def curator_photo_upload_handler(request):
                                 img = Image.open(photo_path)
                                 inverted_grayscale_image = ImageOps.invert(img).convert('L')
                                 inverted_grayscale_image.save(photo_path)
-                            if new_photo.rotated > 0:
+                            if new_photo.rotated is not None and new_photo.rotated > 0:
                                 photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
                                 img = Image.open(photo_path)
                                 rot = img.rotate(new_photo.rotated, expand=1)
@@ -2174,7 +2176,7 @@ def curator_photo_upload_handler(request):
                             created_album_photo_links.append(ap)
                             ret["photos"][k]["success"] = True
                             all_curating_points.append(points_for_curating)
-                        except:
+                        except Exception as e:
                             if new_photo:
                                 new_photo.image.delete()
                                 new_photo.delete()
@@ -2183,7 +2185,7 @@ def curator_photo_upload_handler(request):
                             for cp in awarded_curator_points:
                                 cp.delete()
                             ret["photos"][k] = {}
-                            ret["photos"][k]["error"] = _("Error uploading file")
+                            ret["photos"][k]["error"] = _("Error uploading file: %s" % e)
                     else:
                         if len(general_albums) > 0:
                             for a in general_albums:
@@ -2201,8 +2203,8 @@ def curator_photo_upload_handler(request):
                         ret["photos"][k] = {}
                         ret["photos"][k]["success"] = True
                         ret["photos"][k]["message"] = _("Photo already exists in Ajapaik")
-                        # else:
-                        #     print upload_form.errors
+            else:
+                print(upload_form.errors)
         if general_albums:
             for ga in general_albums:
                 requests.post("https://graph.facebook.com/v2.5/?id=" + (

@@ -1694,7 +1694,7 @@ ul.errorlist {
     display: inline-block;
     position: relative;
     padding-left: 0;
-    padding-right: 0;
+    padding-right: 5%;
 }
 
 #ajapaik-photo-modal-map-canvas {
@@ -1725,7 +1725,7 @@ ul.errorlist {
 }
 
 #ajapaik-photo-modal-specify-location {
-
+    margin-right: 2%;
 }
 
 .ajapaik-game-specify-location-button > i {

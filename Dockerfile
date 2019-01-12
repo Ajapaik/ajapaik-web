@@ -23,7 +23,7 @@ FROM python:3-slim AS deployer
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends uwsgi nano telnet memcached binutils libproj-dev gdal-bin && \
+    apt-get install -y --no-install-recommends uwsgi nano telnet binutils libproj-dev gdal-bin && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/docker/ajapaik

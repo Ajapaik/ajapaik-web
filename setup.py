@@ -1,4 +1,5 @@
 import os
+
 from setuptools import find_packages, setup
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
@@ -16,21 +17,29 @@ setup(
         'django-autocomplete-light==2.3.3',
         'django-comments-xtd==1.7.2',
         'django-contrib-comments==1.8.0',
+        'django-debug-toolbar==1.9.1',
         'django-haystack==2.7.0',
         'django-registration-redux==1.6',
         'djangorestframework==3.4.7',
         'oauth2client==1.4.12',
         'six==1.10',
+        'django-admin-tools',
         'django-bootstrap3',
         'django-bootstrap-dynamic-formsets',
         'django-bulk-update',
         'django-compressor',
         'django-extensions',
         'django-leaflet',
+        'django-mobi',
         'django-modeltranslation',
-        #'face_recognition',
+        'django-subdomains',
+        'face_recognition',
+        'feedparser',
         'flickrapi',
+        'geopy',
         'Pillow',
+        'pyOpenSSL',
+        'pysolr',
         'requests',
         'numpy',
         'opencv-python',

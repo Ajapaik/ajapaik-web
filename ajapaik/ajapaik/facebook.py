@@ -7,6 +7,7 @@ from urllib.request import urlopen
 
 from django.conf import settings
 from django.shortcuts import redirect
+from idna import unicode
 
 from ajapaik.ajapaik.models import Profile
 
@@ -77,7 +78,7 @@ def facebook_handler(request, stage):
             try:
                 token = loads(url_read(token_url(request, code)))
                 data = loads(url_read(profile_url(token)))
-            except Exception, e:
+            except Exception as e:
                 request.log_action("facebook.url_read.exception", {"message": unicode(e)})
                 raise
             try:

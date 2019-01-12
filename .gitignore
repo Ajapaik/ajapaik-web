@@ -5,5 +5,5 @@
 *.pyc
 /static-collected/
 /venv/
-/project/ajapaik/client_secrets.json
+/ajapaik/ajapaik/client_secrets.json
 /.pycharm_helpers/
