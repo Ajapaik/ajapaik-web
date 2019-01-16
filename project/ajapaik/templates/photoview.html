@@ -179,7 +179,7 @@
                         <div id="ajapaik-photo-modal-map-container" class="col-xs-3">
                             <div id="ajapaik-minimap-disabled-overlay"></div>
                             <div id="ajapaik-photo-modal-map-canvas"></div>
-                            {% if photo.address %}
+                            {% if photo.address and photo.lat and photo.lon %}
                                 <div class="row">
                                     <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
                                 </div>
