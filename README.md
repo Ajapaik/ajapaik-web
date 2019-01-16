@@ -75,8 +75,7 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 TODO: upgrade to Ubuntu 18.04
 TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
-TODO: kill Postgis
-TODO: cut down use of sciency libraries if possible
 TODO: py.test
 TODO: kill then-and-now-tours?
 TODO: try out mypy - needs to be run on Python 3 even if checking 2 code
+TODO: Spatialite for sqlite? Can use in automated tests?

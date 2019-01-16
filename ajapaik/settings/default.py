@@ -198,7 +198,7 @@ ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74', '127.0.0.1']
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/collection1',
+        'URL': 'http://solr/solr/collection1',
         'TIMEOUT': 60 * 5,
     }
 }

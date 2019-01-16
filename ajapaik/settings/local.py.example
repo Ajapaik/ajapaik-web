@@ -6,7 +6,7 @@ DATABASES = {
         'NAME': 'ajapaik',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost'
+        'HOST': 'db'
     }
 }
 

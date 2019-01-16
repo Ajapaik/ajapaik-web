@@ -1,33 +1,42 @@
 version: '3'
 
+volumes:
+  solr:
+
 services:
   db:
-    image: postgres:9
+    image: 'mdillon/postgis:9.6-alpine'
+    container_name: 'postgres'
     expose:
       - 5432
-#    volumes:
-#      - pg_data:/var/lib/postgresql/data
-#      - pg_backups:/pg_backups
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=ajapaik
+  # TODO: Start using 7-alpine
   solr:
-    image: 'solr:7-alpine'
-#    working_dir: /solr/solr-4.2.1/example
-#    command: java -jar start.jar
+    image: 'geerlingguy/solr:4.10.4'
+    container_name: 'solr'
     ports:
       - '8983:8983'
-#    volumes:
-#      - /allura-data/solr:/solr/solr-4.2.1/example/solr/collection1/data
+    volumes:
+      - "solr:/solr-4.10.4/example/solr/collection1/conf"
   app:
     build: .
+    image: 'laurielias/ajapaik-web:latest'
+    container_name: 'ajapaik'
     ports:
       - '8000:8000'
     depends_on:
       - db
       - solr
+    links:
+      - db
+      - solr
+    volumes:
+      - "solr:/home/docker/ajapaik/solr"
 #  nginx:
-#    image: nginx:latest
+#    image: 'nginx'
 #    links:
 #      - flaskapp:uwsgi
 #    ports:
@@ -36,3 +45,5 @@ services:
 #    volumes:
 #      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 # TODO: Valimimoodul
+# TODO: Expose via socket file?
+# TODO: Expose compressed static files via volume mount?
