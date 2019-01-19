@@ -16,8 +16,13 @@ services:
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'
+    restart: always
     volumes:
-      - 'solr-configs:/opt/solr/server/solr/tester/conf'
+      - './solr-tester:/opt/solr/server/solr/tester'
+#    depends_on:
+#      - app
+    ports:
+      - '8983:8983'
   # TODO: Mount media
   app:
     build: .
@@ -26,14 +31,13 @@ services:
     entrypoint: '/usr/local/bin/docker-entrypoint-dev.sh'
     ports:
       - '8000:8000'
-    depends_on:
-      - db
-      - solr
     links:
       - db
       - solr
+    depends_on:
+      - db
     volumes:
-      - 'solr-configs:/home/docker/ajapaik/solr'
+     # - 'solr-configs:/home/docker/ajapaik/solr'
       - './:/home/docker/ajapaik'
 # TODO: Valimimoodul
 # TODO: Expose via socket file?

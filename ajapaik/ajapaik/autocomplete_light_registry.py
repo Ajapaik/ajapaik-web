@@ -139,7 +139,7 @@ class PublicAlbumAutocomplete(AutocompleteModelBase):
     add_another_url_name = 'user_upload_add_album'
 
     def choices_for_request(self):
-        self.choices = self.choices.filter(atype=Album.CURATED)
+        self.choices = self.choices.filter(atype__in=[Album.CURATED, Album.PERSON])
 
         return super(PublicAlbumAutocomplete, self).choices_for_request()
 
