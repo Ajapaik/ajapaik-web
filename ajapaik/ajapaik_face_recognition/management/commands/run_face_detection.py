@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from ajapaik.ajapaik.models import Photo, Album
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
-
+# TODO: Use multiprocessing here to make it at least a little bit faster on the CPU-only server
 class Command(BaseCommand):
     help = 'Will run face detection on all photos in our database, specify an album ID if you don\'t want to run on ~100k images'
     args = 'album_id'

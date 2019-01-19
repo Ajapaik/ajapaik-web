@@ -284,9 +284,9 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 def _get_album_choices(qs=None, start=None, end=None):
     if qs:
-        albums = qs.prefetch_related("cover_photo").order_by("-created")[start:end]
+        albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
     else:
-        albums = Album.objects.filter(is_public=True).prefetch_related("cover_photo").order_by("-created")[start:end]
+        albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
     for a in albums:
         if a.cover_photo:
             a.cover_photo_width, a.cover_photo_height = calculate_thumbnail_size(a.cover_photo.width,
@@ -674,6 +674,8 @@ def frontpage_async_albums(request):
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
         albums = Album.objects.filter(is_public=True, cover_photo__isnull=False)
+        if form.cleaned_data['person_albums_only']:
+            albums = albums.filter(atype=Album.PERSON)
         q = form.cleaned_data['q']
         if q:
             album_search_form = HaystackAlbumSearchForm({'q': q})
@@ -701,7 +703,7 @@ def frontpage_async_albums(request):
         ret['page'] = page
         ret['albums'] = serializer.data
 
-    return HttpResponse(json.dumps(ret), content_type="application/json")
+    return HttpResponse(json.dumps(ret), content_type='application/json')
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):

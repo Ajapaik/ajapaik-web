@@ -1,30 +1,29 @@
 version: '3'
 
 volumes:
-  solr:
+  solr-configs:
 
 services:
   db:
     image: 'mdillon/postgis:9.6-alpine'
     container_name: 'postgres'
+    restart: always
     expose:
       - 5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DATABASE=ajapaik
-  # TODO: Start using 7-alpine
   solr:
-    image: 'geerlingguy/solr:4.10.4'
+    image: 'solr:6-alpine'
     container_name: 'solr'
-    ports:
-      - '8983:8983'
     volumes:
-      - "solr:/solr-4.10.4/example/solr/collection1/conf"
+      - 'solr-configs:/opt/solr/server/solr/tester/conf'
+  # TODO: Mount media
   app:
     build: .
     image: 'laurielias/ajapaik-web:latest'
     container_name: 'ajapaik'
+    entrypoint: '/usr/local/bin/docker-entrypoint-dev.sh'
     ports:
       - '8000:8000'
     depends_on:
@@ -34,16 +33,8 @@ services:
       - db
       - solr
     volumes:
-      - "solr:/home/docker/ajapaik/solr"
-#  nginx:
-#    image: 'nginx'
-#    links:
-#      - flaskapp:uwsgi
-#    ports:
-#      - "80:80"
-#      - "8080:8080"
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - 'solr-configs:/home/docker/ajapaik/solr'
+      - './:/home/docker/ajapaik'
 # TODO: Valimimoodul
 # TODO: Expose via socket file?
 # TODO: Expose compressed static files via volume mount?

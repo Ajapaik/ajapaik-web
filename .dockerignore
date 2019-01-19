@@ -1,3 +1,5 @@
 /venv/
 /.tx/
 /ajapaik.egg-info/
+/.git/
+/.idea/

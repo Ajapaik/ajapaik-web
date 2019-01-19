@@ -3,22 +3,24 @@ FROM python:3 AS builder
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends cmake build-essential
+    apt-get install -y --fix-missing cmake build-essential gfortran git wget curl graphicsmagick \
+    libgraphicsmagick1-dev libatlas-dev libavcodec-dev libavformat-dev libgtk2.0-dev libjpeg-dev liblapack-dev \
+    libswscale-dev pkg-config python3-dev python3-numpy software-properties-common zip
 
 WORKDIR /home/docker/ajapaik
 
 COPY requirements.txt .
 
-RUN pip wheel --wheel-dir=./wheels/ -r requirements.txt
-
 RUN pip wheel --wheel-dir=./wheels/ uwsgi
+
+RUN pip wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
 FROM python:3-slim AS deployer
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends uwsgi nano telnet dos2unix python-opencv binutils libproj-dev \
+    apt-get install -y --no-install-recommends uwsgi nano telnet python-opencv binutils libproj-dev \
     gdal-bin libglib2.0-0 libsm6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -42,15 +44,15 @@ COPY templates ./templates
 
 COPY ajapaik/settings/local.py.example ajapaik/settings/local.py
 
-COPY ajapaik-solr-schema.xml ./solr/schema.xml
+COPY solr ./solr
 
-COPY docker-entrypoint.sh .
+COPY docker-entrypoint.sh /usr/local/bin
 
-RUN dos2unix docker-entrypoint.sh
+COPY docker-entrypoint-dev.sh /usr/local/bin
 
 # TODO: Figure out
 # RUN touch ajapaik/ajapaik/client_secrets.json
 
 EXPOSE 8000
 
-ENTRYPOINT ["/home/docker/ajapaik/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]

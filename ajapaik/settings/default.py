@@ -54,11 +54,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'prod_database_name',
-        'USER': 'prod_user',
-        'PASSWORD': 'prod_p@ssword',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
         'CONN_MAX_AGE': 600,
     }
 }
@@ -66,7 +66,7 @@ DATABASES = {
 FACEBOOK_APP_KEY = ''
 FACEBOOK_APP_SECRET = ''
 
-TIME_ZONE = 'Europe/Helsinki'
+TIME_ZONE = 'Europe/Tallinn'
 
 LANGUAGE_CODE = 'et'
 
@@ -198,9 +198,9 @@ ALLOWED_HOSTS = ['.ajapaik.ee', '217.146.78.74', '127.0.0.1']
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://solr/solr/collection1',
-        'TIMEOUT': 60 * 5,
-    }
+        'URL': 'http://solr:8983/solr/tester',
+        'ADMIN_URL': 'http://solr:8983/solr/admin/cores'
+    },
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -222,6 +222,7 @@ REST_FRAMEWORK = {
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# TODO: Use django-mailgun
 
 AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
 

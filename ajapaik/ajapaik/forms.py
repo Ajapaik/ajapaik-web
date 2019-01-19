@@ -45,6 +45,7 @@ class AlbumSelectionForm(forms.Form):
 class AlbumSelectionFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
+    person_albums_only = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):

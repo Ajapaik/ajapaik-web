@@ -153,11 +153,12 @@ class AlbumPhoto(Model):
 
 
 class Album(Model):
-    CURATED, FAVORITES, AUTO = range(3)
+    CURATED, FAVORITES, AUTO, PERSON = range(4)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (FAVORITES, 'Favorites'),
         (AUTO, 'Auto'),
+        (PERSON, 'Person')
     )
 
     name = CharField(_('Name'), max_length=255)
