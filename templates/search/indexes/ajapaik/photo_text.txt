@@ -12,5 +12,7 @@
 {{ object.types }}
 {{ object.source }}
 {{ object.source_key }}
-{{ object.address }}
+{% if object.lat and object.lon %}
+    {{ object.address }}
+{% endif %}
 {{ object.people }}

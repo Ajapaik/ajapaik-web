@@ -1,6 +1,7 @@
 import datetime
 import json
 from collections import Counter, OrderedDict
+from typing import Optional, Iterable
 
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse, HttpRequest
@@ -9,6 +10,7 @@ from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
 
 # FIXME: It's crazy we're importing this from an experimental hackathon sub-app
+from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
 from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
@@ -16,7 +18,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, Fa
     FaceRecognitionRectangleFeedback
 from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
 
-
+# TODO: These are API endpoint basically - move to api.py and implement with DRF?
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_subject(request: HttpRequest) -> HttpResponse:
     form = FaceRecognitionAddPersonForm()
@@ -26,7 +28,7 @@ def add_subject(request: HttpRequest) -> HttpResponse:
         form = FaceRecognitionAddPersonForm(request.POST.copy())
         context['form'] = form
         if form.is_valid():
-            new_album = form.save(commit=False)
+            new_album: Album = form.save(commit=False)
             new_album.profile_id = request.user.id
             new_album.save()
 
@@ -39,8 +41,18 @@ def add_subject(request: HttpRequest) -> HttpResponse:
     return render_to_response('add_subject.html', RequestContext(request, context), status=status)
 
 
-class OrderedCounter(Counter, OrderedDict):
-    pass
+def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]:
+    class OrderedCounter(Counter, OrderedDict):
+        pass
+
+    guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle) \
+        .distinct('user').order_by('user', '-created').all()
+    subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
+    dict_keys = subject_counts.keys()
+    if len(dict_keys) == 0:
+        return None
+
+    return dict_keys[0]
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
@@ -49,23 +61,25 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = FaceRecognitionGuessForm(request.POST)
         if form.is_valid():
-            subject_album = form.cleaned_data['subject_album']
-            rectangle = form.cleaned_data['rectangle']
+            subject_album: Album = form.cleaned_data['subject_album']
+            rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
             new_guess = FaceRecognitionUserGuess(
                 subject_album=subject_album,
                 rectangle=rectangle,
                 user_id=request.user.id
             )
             new_guess.save()
-            # TODO: Verify this works correctly once we have more data
-            guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle) \
-                .distinct('user').order_by('user', '-created').all()
-            subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
-            rectangle.subject_consensus_id = subject_counts.keys()[0]
+            consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
+            current_consensus_album = Album.objects.filter(pk=rectangle.subject_consensus_id).first()
+            if consensus_subject != rectangle.subject_consensus_id:
+                # Consensus was either None or it changed
+                if current_consensus_album:
+                    current_consensus_album.photos.remove(rectangle.photo)
+                if rectangle.photo not in subject_album.photos:
+                    AlbumPhoto(photo=rectangle.photo, album=subject_album).save()
+                    status = 201
+            rectangle.subject_consensus_id = consensus_subject
             rectangle.save()
-            # TODO: presumably the first guess is enough to add a photo to an album, when should we remove though?
-            subject_album.photos.add(rectangle.photo)
-            status = 201
 
             return HttpResponse(JSONRenderer().render({'id': new_guess.id}), content_type='application/json',
                                 status=status)
@@ -73,21 +87,16 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
     return HttpResponse('OK', status=status)
 
 
-def get_subjects(request):
-    # TODO: Get list of known subjects to refresh photoview or modal asych?
-    pass
-
-
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
-def add_rectangle(request):
+def add_rectangle(request: HttpRequest) -> HttpResponse:
     form = FaceRecognitionRectangleSubmitForm(request.POST.copy())
     if form.is_valid():
-        photo = form.cleaned_data['photo']
-        width_scale = float(form.cleaned_data['seen_width']) / float(photo.width)
-        height_scale = float(form.cleaned_data['seen_height']) / float(photo.height)
+        photo: Photo = form.cleaned_data['photo']
+        width_scale: float = float(form.cleaned_data['seen_width']) / float(photo.width)
+        height_scale: float = float(form.cleaned_data['seen_height']) / float(photo.height)
         # jQuery plugin gives x1, y1 topLeft, x2, y2 bottomRight
         # DB stores (top, right, bottom, left)
-        coordinates = [
+        coordinates: Iterable[int] = [
             int(float(form.cleaned_data['y1']) / height_scale),
             int(float(form.cleaned_data['x2']) / width_scale),
             int(float(form.cleaned_data['y2']) / height_scale),
@@ -99,11 +108,13 @@ def add_rectangle(request):
             user_id=request.user.id
         )
         new_rectangle.save()
-
-        # TODO: DRY
-        return HttpResponse(JSONRenderer().render({'id': new_rectangle.id}), content_type='application/json')
+        response_content = JSONRenderer().render({'id': new_rectangle.id})
+        status = 201
     else:
-        return HttpResponse('Invalid data', status=400)
+        response_content = 'Invalid data'
+        status = 400
+
+    return HttpResponse(response_content, content_type='application/json', status=status)
 
 
 def get_rectangles(request, photo_id=None):
@@ -135,17 +146,15 @@ def add_rectangle_feedback(request):
             rectangle.save()
             deleted = True
             # TODO: Also update Photo.people or implement asking of people some other way
-
-        # TODO: DRY
-        return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json')
+        status = 200
     else:
-        return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json', status=400)
+        status = 400
+
+    return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json', status=status)
 
 
-def get_guess_form_html(request, rectangle_id):
-    form = FaceRecognitionGuessForm(initial={
-        'rectangle': rectangle_id
-    })
+def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse:
+    form = FaceRecognitionGuessForm(initial={'rectangle': rectangle_id})
 
     return render_to_response('guess_subject.html', RequestContext(request, {
         'rectangle_id': rectangle_id,

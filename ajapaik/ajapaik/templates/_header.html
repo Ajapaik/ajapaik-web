@@ -157,6 +157,13 @@
                         <i class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                     </a>
                 </li>
+                <li class="pull-left">
+                    <a role="button" title="{% trans 'List face recognition albums' %}"
+                       href="/?person_albums_only=1"
+                       id="ajapaik-header-people-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
+                        <i class="notranslate material-icons ajapaik-gray-button{% ifequal request.GET.person_albums_only '1' %} ajapaik-text-white{% endifequal %}">people</i>
+                    </a>
+                </li>
                 <li class="pull-left hidden-xs">
                     <a role="button" title="{% trans 'Add photos' %}" href="{% url "ajapaik.ajapaik.views.photo_upload_choice" %}"
                        class="ajapaik-padding-top-6px">

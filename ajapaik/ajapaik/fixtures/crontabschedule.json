@@ -1,0 +1,14 @@
+[
+  {
+    "model": "django_celery_beat.crontabschedule",
+    "fields": {
+      "minute": "0",
+      "hour": "4",
+      "day_of_week": "*",
+      "day_of_month": "*",
+      "month_of_year": "*",
+      "timezone": "UTC"
+    },
+    "pk": 1
+  }
+]

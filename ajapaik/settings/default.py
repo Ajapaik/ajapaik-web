@@ -190,6 +190,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_bootstrap_dynamic_formsets',
     'leaflet',
+    'django_celery_beat',
     'ajapaik.ajapaik_face_recognition'
 )
 
@@ -365,4 +366,21 @@ BOT_USER_AGENTS = {
     'YandexImages',
     'YandexImageResizer',
     'Wget'
+}
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
+# Since Celery makes us use Redis anyway, use it some more
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'redis:6379',
+        'OPTIONS': {
+            'DB': 1,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'PICKLE_VERSION': -1,
+        },
+    },
 }

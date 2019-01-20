@@ -3,6 +3,7 @@ version: '3'
 volumes:
   solr-configs:
 
+# Meant for local development
 services:
   db:
     image: 'mdillon/postgis:9.6-alpine'
@@ -15,7 +16,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  # TODO: Make sure index works on run?
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'
@@ -26,7 +26,9 @@ services:
 #      - app
     ports:
       - '8983:8983'
-  # TODO: Mount media
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis'
   app:
     build: .
     image: 'laurielias/ajapaik-web:latest'
@@ -40,9 +42,11 @@ services:
     depends_on:
       - db
     volumes:
-     # - 'solr-configs:/home/docker/ajapaik/solr'
+#      - 'solr-configs:/home/docker/ajapaik/solr'
       - './:/home/docker/ajapaik'
+#      - './media:/home/docker/ajapaik/media'
 # TODO: Valimimoodul
 # TODO: Expose via socket file?
 # TODO: Expose compressed static files via volume mount?
 # TODO: pod that runs periodic tasks (celery?)
+# TODO: pod for vanalinnad.moo.com?
