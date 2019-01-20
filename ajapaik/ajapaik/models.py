@@ -161,6 +161,12 @@ class Album(Model):
         (PERSON, 'Person')
     )
 
+    MALE, FEMALE = range(2)
+    GENDER_CHOICES = (
+        (FEMALE, _('Female')),
+        (MALE, _('Male'))
+    )
+
     name = CharField(_('Name'), max_length=255)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
@@ -183,6 +189,10 @@ class Album(Model):
     geotagged_photo_count_with_subalbums = IntegerField(default=0)
     comments_count_with_subalbums = IntegerField(default=0)
     is_film_still_album = BooleanField(default=False)
+    date_of_birth = DateField(blank=True, null=True)
+    gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+    is_public_figure = BooleanField(default=False)
+    face_encoding = TextField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -194,6 +204,9 @@ class Album(Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+
+    def __str__(self):
+        return self.__unicode__()
 
     def __init__(self, *args, **kwargs):
         super(Album, self).__init__(*args, **kwargs)
@@ -220,8 +233,7 @@ class Album(Model):
         super(Album, self).save(*args, **kwargs)
         if self.subalbum_of:
             self.subalbum_of.save()
-        if not settings.DEBUG:
-            connections['default'].get_unified_index().get_index(Album).update_object(self)
+        connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def get_historic_photos_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True)
@@ -976,6 +988,9 @@ class Profile(Model):
 
     def __unicode__(self):
         return u"%s" % (self.get_display_name(),)
+
+    def __str__(self):
+        return self.__unicode__()
 
     def update_from_fb_data(self, token, data):
         if data.get('first_name'):

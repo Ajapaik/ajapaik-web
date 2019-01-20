@@ -680,7 +680,7 @@ def frontpage_async_albums(request):
         if q:
             album_search_form = HaystackAlbumSearchForm({'q': q})
             search_query_set = album_search_form.search()
-            results = [r.pk for r in search_query_set]
+            results = [r.pk for r in search_query_set.all()]
             albums = albums.filter(pk__in=results)
         total = albums.count()
         if start < 0:

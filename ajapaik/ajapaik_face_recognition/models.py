@@ -3,9 +3,10 @@ import json
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from ajapaik.ajapaik.models import Photo, Profile
+from ajapaik.ajapaik.models import Photo, Profile, Album
 
 
+# TODO: Delete this once we can (migrations are okay, etc.)
 class FaceRecognitionSubject(models.Model):
     MALE, FEMALE = range(2)
     GENDER_CHOICES = (
@@ -28,10 +29,10 @@ class FaceRecognitionSubject(models.Model):
 
 class FaceRecognitionRectangle(models.Model):
     photo = models.ForeignKey(Photo, related_name='face_recognition_rectangles')
-    subject_consensus = models.ForeignKey(FaceRecognitionSubject, null=True, blank=True,
-                                          related_name='crowdsourced_rectangles')
-    subject_ai_guess = models.ForeignKey(FaceRecognitionSubject, null=True, blank=True,
-                                         related_name='ai_detected_rectangles')
+    subject_consensus = models.ForeignKey(Album, null=True, blank=True,
+                                          related_name='face_recognition_crowdsourced_rectangles')
+    subject_ai_guess = models.ForeignKey(Album, null=True, blank=True,
+                                         related_name='face_recognition_ai_detected_rectangles')
     # If no user is attached, means OpenCV detected it
     user = models.ForeignKey(Profile, blank=True, null=True, related_name='face_recognition_rectangles')
     # (top, right, bottom, left)
@@ -61,8 +62,8 @@ class FaceRecognitionRectangleFeedback(models.Model):
 
 
 class FaceRecognitionUserGuess(models.Model):
-    subject = models.ForeignKey(FaceRecognitionSubject, related_name='guesses')
-    rectangle = models.ForeignKey(FaceRecognitionRectangle, related_name='guesses')
+    subject_album = models.ForeignKey(Album, related_name='face_recognition_guesses')
+    rectangle = models.ForeignKey(FaceRecognitionRectangle, related_name='face_recognition_guesses')
     # Empty user means OpenCV recognized the face automatically
     user = models.ForeignKey(Profile, related_name='face_recognition_guesses', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)

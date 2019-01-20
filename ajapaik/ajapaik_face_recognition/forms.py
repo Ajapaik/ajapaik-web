@@ -2,29 +2,28 @@ import autocomplete_light
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from ajapaik.ajapaik.models import Photo
+from ajapaik.ajapaik.models import Photo, Album
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionSubject, FaceRecognitionRectangle, \
     FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback
 
 
-class FaceRecognitionAddSubjectForm(forms.ModelForm):
+class FaceRecognitionAddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(FaceRecognitionAddSubjectForm, self).__init__(*args, **kwargs)
+        super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
         self.fields['gender'].widget = forms.RadioSelect(choices=FaceRecognitionSubject.GENDER_CHOICES)
 
     class Meta:
-        model = FaceRecognitionSubject
+        model = Album
         fields = ('name', 'date_of_birth', 'gender', 'is_public_figure')
 
 
 class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
-    subject = autocomplete_light.ModelChoiceField('FaceRecognitionSubjectAutocomplete', label=_('Subject'),
-                                                  required=True)
+    subject_album = autocomplete_light.ModelChoiceField('PublicAlbumAutocomplete', label=_('Subject'), required=True)
     rectangle = forms.ModelChoiceField(queryset=FaceRecognitionRectangle.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
         model = FaceRecognitionUserGuess
-        fields = ('subject', 'rectangle')
+        fields = ('subject_album', 'rectangle')
 
 
 class FaceRecognitionRectangleFeedbackForm(forms.ModelForm):

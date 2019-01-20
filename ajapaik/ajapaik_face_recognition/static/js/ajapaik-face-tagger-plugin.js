@@ -94,7 +94,7 @@
                 url: '/face-recognition/guess-subject/',
                 data: {
                     rectangle: rectangleId,
-                    subject: subjectId,
+                    subject_album: subjectId,
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function () {
