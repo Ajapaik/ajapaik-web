@@ -164,7 +164,7 @@ server {
     }
 
     location / {
-        include uwsgi_params;
+        include ../uwsgi_params;
         uwsgi_pass unix:/home/ajapaik/ajapaik-web/run/ajapaik.ee.sock;
     }
 }
@@ -218,7 +218,7 @@ server {
     }
 
     location / {
-        include uwsgi_params;
+        include ../uwsgi_params;
         uwsgi_pass unix:/home/ajapaik/ajapaik-web/run/ajapaik.ee.sock;
     }
 }

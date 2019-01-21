@@ -1,0 +1,2 @@
+access_log /var/log/timepatch.net.access.log;
+error_log /var/log/timepatch.net.error.log;

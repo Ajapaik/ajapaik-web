@@ -1,5 +1,7 @@
 FROM python:3 AS builder
 
+# TODO: Consider gcr.io/distroless/python3:latest?
+
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
 RUN apt-get update && \
