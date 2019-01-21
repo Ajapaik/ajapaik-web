@@ -77,6 +77,4 @@ TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
 TODO: py.test
 TODO: kill then-and-now-tours?
-TODO: try out mypy - needs to be run on Python 3 even if checking 2 code
 TODO: Spatialite for sqlite? Can use in automated tests?
-TODO: build_solr_schema

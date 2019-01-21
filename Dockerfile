@@ -1,4 +1,5 @@
-FROM python:3 AS builder
+FROM laurielias:python-3-dlib AS builder
+# dlib takes awful long to install
 
 # TODO: Consider gcr.io/distroless/python3:latest?
 
@@ -51,6 +52,8 @@ COPY solr ./solr
 COPY docker-entrypoint.sh /usr/local/bin
 
 COPY docker-entrypoint-dev.sh /usr/local/bin
+
+COPY fix-celery.sh /usr/local/bin
 
 # TODO: Figure out
 # RUN touch ajapaik/ajapaik/client_secrets.json
