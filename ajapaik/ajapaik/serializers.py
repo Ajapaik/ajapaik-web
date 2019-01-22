@@ -37,6 +37,7 @@ class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
 
 
 class FrontpageAlbumSerializer(serializers.ModelSerializer):
+    # TODO: Think about what to do about the search thing
     cover_photo_height = serializers.IntegerField()
     cover_photo_width = serializers.IntegerField()
 

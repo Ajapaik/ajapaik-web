@@ -22,8 +22,6 @@ services:
     restart: always
     volumes:
       - './solr:/opt/solr/server/solr/tester'
-#    depends_on:
-#      - app
     ports:
       - '8983:8983'
   redis:
@@ -36,11 +34,12 @@ services:
     entrypoint: '/usr/local/bin/docker-entrypoint-dev.sh'
     ports:
       - '8000:8000'
-    links:
-      - db
-      - solr
     depends_on:
       - db
+      - solr
+      - redis
+    environment:
+      - PYTHONBUFFERED=0
     volumes:
 #      - 'solr-configs:/home/docker/ajapaik/solr'
       - './:/home/docker/ajapaik'

@@ -1,4 +1,4 @@
-FROM laurielias:python-3-dlib AS builder
+FROM laurielias/python-3.6-dlib:latest AS builder
 # dlib takes awful long to install
 
 # TODO: Consider gcr.io/distroless/python3:latest?
@@ -19,7 +19,7 @@ RUN pip wheel --wheel-dir=./wheels/ uwsgi
 RUN pip wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
-FROM python:3-slim AS deployer
+FROM python:3.6-slim AS deployer
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
@@ -29,17 +29,11 @@ RUN apt-get update && \
 
 WORKDIR /home/docker/ajapaik
 
-COPY --from=builder /home/docker/ajapaik/wheels/ ./wheels
+COPY --from=builder /home/docker/ajapaik/wheels ./wheels
 
-COPY requirements.txt .
+COPY requirements.txt uwsgi.ini wsgi.py manage.py ./
 
 RUN pip install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels
-
-COPY uwsgi.ini .
-
-COPY wsgi.py .
-
-COPY manage.py .
 
 COPY ajapaik ./ajapaik
 
@@ -49,11 +43,9 @@ COPY ajapaik/settings/local.py.example ajapaik/settings/local.py
 
 COPY solr ./solr
 
-COPY docker-entrypoint.sh /usr/local/bin
+COPY docker-entrypoint.sh docker-entrypoint-dev.sh fix-celery.sh /usr/local/bin/
 
-COPY docker-entrypoint-dev.sh /usr/local/bin
-
-COPY fix-celery.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-dev.sh /usr/local/bin/fix-celery.sh
 
 # TODO: Figure out
 # RUN touch ajapaik/ajapaik/client_secrets.json

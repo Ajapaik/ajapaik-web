@@ -97,6 +97,14 @@
 
     <field name="name_en" type="text_en" indexed="true" stored="true" multiValued="false" />
 
+{#    <field name="created" type="date" indexed="true" stored="true" multiValued="false" />#}
+{##}
+{#    <field name="cover_photo" type="text_en" indexed="false" stored="true" multiValued="false" />#}
+{##}
+{#    <field name="cover_photo_width" type="int" indexed="false" stored="true" multiValued="false" />#}
+{##}
+{#    <field name="cover_photo_height" type="int" indexed="false" stored="true" multiValued="false" />#}
+
     <field name="description_et" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="description_fi" type="text_en" indexed="true" stored="true" multiValued="false" />

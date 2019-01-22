@@ -19,10 +19,12 @@ class FotisDriver(object):
                           '&filter[or][][content][like]=%s' \
                           '&filter[or][][author][like]=%s' \
                           '&filter[or][][location][like]=%s' \
+                          '&page=%s'
 
     def search(self, cleaned_data):
         response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                          cleaned_data['fullSearch'], cleaned_data['fullSearch']))
+                                          cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+                                          cleaned_data['flickrPage']), )
         response_headers = response.headers
         results = loads(response.text)
 

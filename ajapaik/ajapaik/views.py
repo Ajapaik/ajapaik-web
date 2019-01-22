@@ -41,6 +41,7 @@ from django.views.generic.base import View
 from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
 from django_comments.views.comments import post_comment
+from haystack.inputs import AutoQuery
 from pytz import unicode
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -68,6 +69,8 @@ from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
+from haystack.forms import SearchForm
+from haystack.query import SearchQuerySet
 
 log = logging.getLogger(__name__)
 
@@ -283,8 +286,10 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 
 def _get_album_choices(qs=None, start=None, end=None):
+    # TODO: Sort out
     if qs:
-        albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
+        #albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
+        albums = qs.order_by('-created')[start:end]
     else:
         albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
     for a in albums:
@@ -673,15 +678,20 @@ def frontpage_async_albums(request):
             page = 1
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
-        albums = Album.objects.filter(is_public=True, cover_photo__isnull=False)
+        albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
+                                      atype__in=[Album.CURATED, Album.PERSON])
         if form.cleaned_data['person_albums_only']:
             albums = albums.filter(atype=Album.PERSON)
+        # sqs = SearchQuerySet().models(Album)
         q = form.cleaned_data['q']
         if q:
-            album_search_form = HaystackAlbumSearchForm({'q': q})
-            search_query_set = album_search_form.search()
-            results = [r.pk for r in search_query_set.all()]
-            albums = albums.filter(pk__in=results)
+            # TODO: Try Python 3.6 to fix StopIteration bug here?
+            sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(form.cleaned_data['q']))
+            #sqs = SearchForm({'q': q, 'searchqueryset': albums, 'load_all': True}).search().all()
+            # album_search_form = HaystackAlbumSearchForm({'q': q})
+            # search_query_set = album_search_form.search()
+            # results = [r.pk for r in search_query_set.all()]
+            albums = albums.filter(pk__in=[r.pk for r in sqs])
         total = albums.count()
         if start < 0:
             start = 0
@@ -2649,7 +2659,7 @@ def user_upload_add_album(request):
         form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():
             album = form.save(commit=False)
-            album.atype = Album.CURATED
+            #album.atype = Album.CURATED
             album.profile = request.user.profile
             album.save()
             ret['message'] = _('Album created')
