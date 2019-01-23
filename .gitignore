@@ -7,3 +7,4 @@
 /venv/
 /ajapaik/ajapaik/client_secrets.json
 /.pycharm_helpers/
+*.mo
