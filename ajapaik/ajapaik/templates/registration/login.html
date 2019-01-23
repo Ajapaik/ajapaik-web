@@ -1,4 +1,4 @@
-{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
+{% extends "base_bootstrap.html" %}
 
 {% load i18n %}
 
@@ -19,7 +19,7 @@
                         <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
                             required="required" title="" type="password">
                     </div>
-                    <input name="next" type="hidden" value="{% if is_then_and_now %}{% url "ajapaik.ajapaik.then_and_now_tours.frontpage" %}{% elif is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}{% url "ajapaik.ajapaik.views.frontpage" %}{% endif %}">
+                    <input name="next" type="hidden" value="{% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}{% url "ajapaik.ajapaik.views.frontpage" %}{% endif %}">
                     <button type="submit" id="ajp-email-login-button" class="btn btn-primary">
                         {% trans "Log in" %}
                     </button>
@@ -34,12 +34,12 @@
                 <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next={% if is_then_and_now %}/then-and-now-tours/{% elif is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/facebook/login?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next={% if is_then_and_now %}/then-and-now-tours/{% elif is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/google-login/?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>

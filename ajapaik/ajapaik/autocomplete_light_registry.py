@@ -2,8 +2,8 @@ import autocomplete_light.shortcuts as al
 from autocomplete_light import AutocompleteModelBase
 from django.contrib.auth.models import User
 
-from ajapaik.ajapaik.models import Profile, Photo, Tour, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
-    Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter, TourGroup, TourRephoto
+from ajapaik.ajapaik.models import Profile, Photo, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
+    Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter
 
 al.register(Profile,
             search_fields=['user__pk', 'first_name', 'last_name', 'user__email', 'fb_name', 'google_plus_name'],
@@ -49,39 +49,6 @@ al.register(Photo,
             },
             name='LocatedPhotosAutocomplete',
             choices=Photo.objects.filter(lat__isnull=False, lon__isnull=False)
-            )
-
-al.register(Tour,
-            search_fields=['pk', 'name'],
-            attrs={
-                'data-autocomplete-minimum-characters': 2,
-            },
-            widget_attrs={
-                'data-widget-maximum-values': 4,
-                'class': 'modern-style',
-            },
-            )
-
-al.register(TourGroup,
-            search_fields=['pk', 'name'],
-            attrs={
-                'data-autocomplete-minimum-characters': 2,
-            },
-            widget_attrs={
-                'data-widget-maximum-values': 4,
-                'class': 'modern-style',
-            },
-            )
-
-al.register(TourRephoto,
-            search_fields=['pk', ],
-            attrs={
-                'data-autocomplete-minimum-characters': 2,
-            },
-            widget_attrs={
-                'data-widget-maximum-values': 4,
-                'class': 'modern-style',
-            },
             )
 
 al.register(Points,

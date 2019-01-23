@@ -19,7 +19,6 @@ DATING_POINTS = 150
 DATING_CONFIRMATION_POINTS = 50
 
 CURATOR_FLICKR_ENABLED = False
-CURATOR_THEN_AND_NOW_CREATION_DISABLED = True
 
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
@@ -137,7 +136,6 @@ TEMPLATES = [
                 'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 'ajapaik.ajapaik.context_processors.analytics',
-                'ajapaik.ajapaik.context_processors.is_then_and_now',
                 'ajapaik.ajapaik.context_processors.is_user_upload',
             ),
             'loaders': (
@@ -158,8 +156,8 @@ TEMPLATES = [
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = 'ajapaik.ajapaik.then_and_now_tours.frontpage'
-REGISTRATION_FORM = 'ajapaik.ajapaik.then_and_now_tours.UserRegistrationForm'
+LOGIN_REDIRECT_URL = 'ajapaik.ajapaik.views.frontpage'
+REGISTRATION_FORM = 'ajapaik.ajapaik.forms.UserRegistrationForm'
 
 INSTALLED_APPS = (
     'admin_tools',
@@ -229,10 +227,6 @@ AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/Ajap
 
 API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
 API_DEFAULT_NEARBY_MAX_PHOTOS = 50
-
-THEN_AND_NOW_TOUR_RANDOM_PHOTO_MIN_DIST = 200
-THEN_AND_NOW_TOUR_RANDOM_PHOTO_MAX_DIST = 700
-THEN_AND_NOW_TOUR_DEFAULT_PHOTO_COUNT = 10
 
 AJAPAIK_BENEFICIARY_NAME = 'MTÜ EESTI FOTOPÄRAND'
 AJAPAIK_BENEFICIARY_ACCT = 'EE072200221048847282'

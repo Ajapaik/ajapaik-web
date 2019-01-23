@@ -370,7 +370,6 @@ class Photo(Model):
     cam_roll = FloatField(null=True, blank=True)
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
-    then_and_now_rephoto = ForeignKey('TourRephoto', null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -956,8 +955,6 @@ class Profile(Model):
     score_rephoto = PositiveIntegerField(default=0, db_index=True)
     score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
-    send_then_and_now_photos_to_ajapaik = BooleanField(default=False)
-
     class Meta:
         db_table = 'project_profile'
 
@@ -1307,91 +1304,6 @@ class DatingConfirmation(Model):
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
 
-
-class Tour(Model):
-    FIXED, OPEN, NEARBY_RANDOM = range(3)
-    PHOTOSET_TYPE_CHOICES = (
-        (OPEN, _('Open tour')),
-        (FIXED, _('Fixed photo set')),
-        (NEARBY_RANDOM, _('Random with nearby pictures')),
-    )
-
-    photos = ManyToManyField('Photo', related_name='tours')
-    name = CharField(max_length=255, blank=True, null=True)
-    description = TextField(blank=True, null=True)
-    user = ForeignKey('Profile', related_name='owned_tours')
-    ordered = BooleanField(default=False)
-    grouped = BooleanField(default=False)
-    photo_set_type = PositiveSmallIntegerField(choices=PHOTOSET_TYPE_CHOICES, default=FIXED)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta(object):
-        db_table = 'thenandnow_tour'
-
-    def __unicode__(self):
-        return '%s - %s' % (self.pk, self.user.pk)
-
-    def delete(self, **kwargs):
-        for each in self.tour_rephotos.all():
-            each.image.delete()
-            each.delete()
-        super(Tour, self).delete()
-
-
-class TourGroup(Model):
-    tour = ForeignKey('Tour', related_name='tour_groups')
-    name = CharField(choices=((x, x) for x in list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')), max_length=1)
-    max_members = IntegerField()
-    members = ManyToManyField('Profile', related_name='tour_groups')
-
-    def __unicode__(self):
-        return '%s - %s' % (self.tour.pk, self.name,)
-
-    class Meta(object):
-        unique_together = ('name', 'tour',)
-
-
-class TourPhoto(Model):
-    photo = ForeignKey('Photo')
-    tour = ForeignKey('Tour')
-    order = IntegerField(default=0)
-
-    class Meta:
-        db_table = 'thenandnow_tourphoto'
-
-
-class TourPhotoOrder(Model):
-    photo = ForeignKey('Photo')
-    tour = ForeignKey('Tour')
-    order = IntegerField(default=0)
-
-    class Meta:
-        db_table = 'thenandnow_tourphotoorder'
-
-
-class TourUniqueView(Model):
-    tour = ForeignKey('Tour', related_name='tour_views')
-    profile = ForeignKey('Profile', related_name='tour_views')
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'thenandnow_touruniqueview'
-        unique_together = ('tour', 'profile')
-
-
-class TourRephoto(Model):
-    image = ImageField(upload_to='then-and-now', height_field='height', width_field='width')
-    tour = ForeignKey('Tour', related_name='tour_rephotos')
-    original = ForeignKey('Photo', related_name='tour_rephotos')
-    user = ForeignKey('Profile', related_name='tour_rephotos')
-    width = IntegerField(blank=True, null=True)
-    height = IntegerField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'thenandnow_tourrephoto'
 
 
 class Video(Model):

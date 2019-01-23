@@ -65,7 +65,6 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
-from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -76,6 +75,16 @@ log = logging.getLogger(__name__)
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+# User checks
+def user_has_confirmed_email(user):
+    ok = True
+    if not hasattr(user, 'email'):
+        ok = False
+    else:
+        if not user.email:
+            ok = False
+
+    return ok and user.is_active
 
 @cache_control(max_age=604800)
 def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
@@ -685,12 +694,8 @@ def frontpage_async_albums(request):
         # sqs = SearchQuerySet().models(Album)
         q = form.cleaned_data['q']
         if q:
-            # TODO: Try Python 3.6 to fix StopIteration bug here?
+            # TODO: Haystack 2.8.x upgrade requires Django 1.11.x, after that we could move to Python 3.7
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(form.cleaned_data['q']))
-            #sqs = SearchForm({'q': q, 'searchqueryset': albums, 'load_all': True}).search().all()
-            # album_search_form = HaystackAlbumSearchForm({'q': q})
-            # search_query_set = album_search_form.search()
-            # results = [r.pk for r in search_query_set.all()]
             albums = albums.filter(pk__in=[r.pk for r in sqs])
         total = albums.count()
         if start < 0:
@@ -1795,7 +1800,6 @@ def curator(request):
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
         'hostname': 'https://%s' % (site.domain,),
-        'then_and_now_disabled': settings.CURATOR_THEN_AND_NOW_CREATION_DISABLED,
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,

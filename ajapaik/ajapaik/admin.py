@@ -10,8 +10,8 @@ from sorl.thumbnail import delete as sorl_delete
 
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
-    AlbumPhoto, Licence, Device, Newsletter, Dating, Tour, TourRephoto, \
-    DatingConfirmation, Video, TourGroup, NorwegianCSVPhoto, MyXtdComment
+    AlbumPhoto, Licence, Device, Newsletter, Dating, \
+    DatingConfirmation, Video, NorwegianCSVPhoto, MyXtdComment
 
 
 class CSVUploadAdmin(admin.ModelAdmin):
@@ -39,23 +39,6 @@ class AlbumPhotoInline(admin.TabularInline):
         if db_field.name == 'album':
             formfield.choices = formfield.choices
         return formfield
-
-
-class TourGroupInline(admin.TabularInline):
-    model = TourGroup
-    extra = 1
-
-
-class TourAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Tour, fields='__all__')
-
-
-class TourGroupAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourGroup, fields='__all__')
-
-
-class TourRephotoAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(TourRephoto, fields='__all__')
 
 
 class DatingAdmin(ModelAdmin):
@@ -214,8 +197,5 @@ admin.site.register(Device, DeviceAdmin)
 admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
-admin.site.register(Tour, TourAdmin)
-admin.site.register(TourGroup, TourGroupAdmin)
-admin.site.register(TourRephoto, TourRephotoAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(MyXtdComment, XtdCommentsAdmin)

@@ -43,11 +43,7 @@ class Command(BaseCommand):
             geotags__isnull=True,
             points__isnull=True,
             skips__isnull=True,
-            likes__isnull=True,
-            tour_groups__isnull=True,
-            owned_tours__isnull=True,
-            tour_rephotos__isnull=True,
-            tour_views__isnull=True,
+            likes__isnull=True
         )
 
         start = 0

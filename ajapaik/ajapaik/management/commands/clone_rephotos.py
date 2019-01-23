@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db.utils import ConnectionDoesNotExist
 
 from ajapaik.ajapaik.models import Photo, Licence, Profile, Source, Device, \
-    Area, Video, TourRephoto
+    Area, Video
 
 
 class Command(BaseCommand):
@@ -105,15 +105,6 @@ class Command(BaseCommand):
                     except Licence.DoesNotExist:
                         pass
                 rephoto_data['video_id'] = production_video
-
-                production_tour = None
-                if rephoto.then_and_now_rephoto:
-                    try:
-                        production_tour = TourRephoto.objects.using('production') \
-                            .get(name=rephoto.then_and_now_rephoto.name).id
-                    except Licence.DoesNotExist:
-                        pass
-                rephoto_data['then_and_now_rephoto_id'] = production_tour
 
                 rephoto_data['image'] = rephoto.image
                 rephoto_data['image_unscaled'] = rephoto.image_unscaled

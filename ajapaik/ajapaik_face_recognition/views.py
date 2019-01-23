@@ -9,9 +9,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
 
-# FIXME: It's crazy we're importing this from an experimental hackathon sub-app
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
-from ajapaik.ajapaik.then_and_now_tours import user_has_confirmed_email
+from ajapaik.ajapaik.views import user_has_confirmed_email
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \

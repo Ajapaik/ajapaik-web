@@ -7,9 +7,20 @@ from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 from haystack.forms import SearchForm
+from registration.forms import RegistrationFormUniqueEmail
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
     Video, Licence
+
+class UserRegistrationForm(RegistrationFormUniqueEmail):
+    username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
+    first_name = forms.CharField(label=_('First name'), max_length=30)
+    last_name = forms.CharField(label=_('Last name'), max_length=30)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        self.cleaned_data['username'] = email
+        return email
 
 
 class APILoginAuthForm(forms.Form):

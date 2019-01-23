@@ -76,5 +76,4 @@ TODO: upgrade to Ubuntu 18.04
 TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
 TODO: py.test
-TODO: kill then-and-now-tours?
 TODO: Spatialite for sqlite? Can use in automated tests?

@@ -8,7 +8,6 @@
         var areaLat,
             areaLng;
         $('#ajapaik-selection-middle-panel').find('.panel-body').sortable();
-        $('#ajapaik-photo-selection-create-tan-tour-button').popover();
         window.updateLeaderboard();
         var openPhotoDrawer = function (content) {
             var fullScreenImage = $('#ajapaik-full-screen-image');
@@ -146,28 +145,6 @@
             $('#ajapaik-choose-albums-modal').modal();
             window.loadSelectableAlbums();
             window.loadPossibleParentAlbums();
-        });
-        $(document).on('click', '#ajapaik-photo-selection-create-tan-tour-button', function () {
-            if (!$(this).hasClass('btn-disabled')) {
-                var ids = [];
-                $('.ajapaik-photo-selection-thumbnail-link').map(function (i, e) {
-                    ids.push($(e).data('id'));
-                });
-                $.ajax({
-                    url: '/then-and-now-tours/generate-ordered-tour/',
-                    traditional: true,
-                    method: 'POST',
-                    data: {
-                        ids: ids,
-                        csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                    },
-                    success: function (response) {
-                        if (response.tour) {
-                            location.href = '/then-and-now-tours/map/' + response.tour + '/';
-                        }
-                    }
-                });
-            }
         });
         $(document).on('click', '.ajapaik-remove-from-selection-button', function (e) {
             e.stopPropagation();
