@@ -123,13 +123,14 @@ class Area(Model):
 
 
 class AlbumPhoto(Model):
-    CURATED, RECURATED, MANUAL, STILL, UPLOADED = range(5)
+    CURATED, RECURATED, MANUAL, STILL, UPLOADED, FACE_TAGGED = range(6)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (RECURATED, 'Re-curated'),
         (MANUAL, 'Manual'),
         (STILL, 'Still'),
-        (UPLOADED, 'Uploaded')
+        (UPLOADED, 'Uploaded'),
+        (FACE_TAGGED, 'Face tagged')
     )
 
     album = ForeignKey('Album')
@@ -140,9 +141,15 @@ class AlbumPhoto(Model):
 
     class Meta:
         db_table = 'project_albumphoto'
+        # FIXME: May be causing bugs elsewhere
+        # ordering = ['-created']
 
     def __unicode__(self):
-        return u'%d - %d' % (self.album.id, self.photo.id)
+        return u'%d - %d - %s - %s' % (
+        self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], self.profile.get_display_name())
+
+    def __str__(self):
+        return self.__unicode__()
 
     def delete(self, *args, **kwargs):
         if self.album.atype == Album.CURATED:
@@ -1303,7 +1310,6 @@ class DatingConfirmation(Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
-
 
 
 class Video(Model):

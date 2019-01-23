@@ -3,14 +3,14 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from ajapaik.ajapaik.models import Photo, Album
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionSubject, FaceRecognitionRectangle, \
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
     FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback
 
 
 class FaceRecognitionAddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
-        self.fields['gender'].widget = forms.RadioSelect(choices=FaceRecognitionSubject.GENDER_CHOICES)
+        self.fields['gender'].widget = forms.RadioSelect(choices=Album.GENDER_CHOICES)
 
     class Meta:
         model = Album

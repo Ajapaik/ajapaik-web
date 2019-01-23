@@ -18,7 +18,7 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     source = indexes.CharField(model_attr='source__description', null=True)
     source_key = indexes.CharField(model_attr='source_key', null=True)
     address = indexes.CharField(model_attr='address', null=True)
-    people = indexes.MultiValueField()
+    # people = indexes.MultiValueField()
 
     def get_model(self):
         return Photo
@@ -26,8 +26,8 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         return self.get_model().objects.all()
 
-    def prepare_people(self, obj):
-        return [subject.name for subject in obj.people.all()]
+    # def prepare_people(self, obj):
+    #     return [subject.name for subject in obj.people.all()]
 
 
 class AlbumIndex(indexes.SearchIndex, indexes.Indexable):

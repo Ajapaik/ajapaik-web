@@ -77,3 +77,7 @@ TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
 TODO: py.test
 TODO: Spatialite for sqlite? Can use in automated tests?
+TODO: command for regular stats exports
+TODO: command for regular DB backups
+TODO: document Transifex usage
+TODO: refactor this readme

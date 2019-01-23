@@ -42,6 +42,7 @@ from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
 from django_comments.views.comments import post_comment
 from haystack.inputs import AutoQuery
+from haystack.query import SearchQuerySet
 from pytz import unicode
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
@@ -55,8 +56,8 @@ from ajapaik.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
     CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm, HaystackPhotoSearchForm, AlbumInfoModalForm, PhotoLikeForm, \
-    AlbumSelectionFilteringForm, HaystackAlbumSearchForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
+    SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
+    AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
     EditCommentForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
@@ -68,12 +69,11 @@ from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, Cu
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
-from haystack.forms import SearchForm
-from haystack.query import SearchQuerySet
 
 log = logging.getLogger(__name__)
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 
 # User checks
 def user_has_confirmed_email(user):
@@ -85,6 +85,7 @@ def user_has_confirmed_email(user):
             ok = False
 
     return ok and user.is_active
+
 
 @cache_control(max_age=604800)
 def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
@@ -297,7 +298,7 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
     if qs:
-        #albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
+        # albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
         albums = qs.order_by('-created')[start:end]
     else:
         albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
@@ -783,10 +784,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         photos_with_rephotos = None
         q = filter_form.cleaned_data['q']
         if q and show_photos:
-            photo_search_form = HaystackPhotoSearchForm({'q': q})
-            search_query_set = photo_search_form.search()
-            results = [r.pk for r in search_query_set]
-            photos = photos.filter(pk__in=results, rephoto_of__isnull=True)
+            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
+            photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -922,7 +921,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                                         'rephoto_count',
                                         'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
                      start:end]
-        #photos = map(list, photos)
+        # photos = map(list, photos)
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
@@ -1293,7 +1292,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "next_photo": next_photo,
         "previous_photo": previous_photo,
         # TODO: Needs more data than just the names
-        "people": [x.name for x in photo_obj.people.all()]
+        # "people": [x.name for x in photo_obj.people.all()]
     })
 
 
@@ -2030,7 +2029,7 @@ def curator_photo_upload_handler(request):
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
-                #print (upload_form.cleaned_data)
+                # print (upload_form.cleaned_data)
                 if upload_form.cleaned_data["institution"]:
                     if upload_form.cleaned_data["institution"] == 'Flickr Commons':
                         licence = flickr_licence
@@ -2663,7 +2662,7 @@ def user_upload_add_album(request):
         form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():
             album = form.save(commit=False)
-            #album.atype = Album.CURATED
+            # album.atype = Album.CURATED
             album.profile = request.user.profile
             album.save()
             ret['message'] = _('Album created')

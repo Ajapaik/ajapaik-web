@@ -6,11 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
-from haystack.forms import SearchForm
 from registration.forms import RegistrationFormUniqueEmail
 
 from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
     Video, Licence
+
 
 class UserRegistrationForm(RegistrationFormUniqueEmail):
     username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
@@ -101,26 +101,6 @@ class GalleryFilteringForm(forms.Form):
         if order3 is None:
             return self.fields['order3'].initial
         return order3
-
-
-class HaystackPhotoSearchForm(SearchForm):
-    def search(self):
-        if not self.is_valid():
-            return self.no_query_found()
-        else:
-            return super(HaystackPhotoSearchForm, self) \
-                .search() \
-                .models(Photo)
-
-
-class HaystackAlbumSearchForm(SearchForm):
-    def search(self):
-        sqs = super(HaystackAlbumSearchForm, self).search().models(Album)
-
-        if not self.is_valid():
-            return self.no_query_found()
-
-        return sqs
 
 
 class MapDataRequestForm(forms.Form):

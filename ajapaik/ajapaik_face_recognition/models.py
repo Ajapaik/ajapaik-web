@@ -1,30 +1,8 @@
 import json
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 from ajapaik.ajapaik.models import Photo, Profile, Album
-
-
-# TODO: Delete this once we can (migrations are okay, etc.)
-class FaceRecognitionSubject(models.Model):
-    MALE, FEMALE = range(2)
-    GENDER_CHOICES = (
-        (FEMALE, _('Female')),
-        (MALE, _('Male'))
-    )
-    name = models.CharField(max_length=255)
-    date_of_birth = models.DateField(blank=True, null=True)
-    gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
-    is_public_figure = models.BooleanField(default=False)
-    photos = models.ManyToManyField(Photo, related_name='people')
-    face_encoding = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(Profile)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return u'%s' % self.name
 
 
 class FaceRecognitionRectangle(models.Model):

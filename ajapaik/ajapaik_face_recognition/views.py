@@ -1,5 +1,6 @@
 import datetime
 import json
+import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
@@ -16,6 +17,9 @@ from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
     FaceRecognitionRectangleFeedback
 from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
+
+log = logging.getLogger(__name__)
+
 
 # TODO: These are API endpoint basically - move to api.py and implement with DRF?
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
@@ -46,8 +50,8 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
 
     guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle) \
         .distinct('user').order_by('user', '-created').all()
-    subject_counts = OrderedCounter(g.subject.id for g in guesses_so_far_for_this_rectangle)
-    dict_keys = subject_counts.keys()
+    subject_counts = OrderedCounter(g.subject_album.id for g in guesses_so_far_for_this_rectangle)
+    dict_keys = list(subject_counts)
     if len(dict_keys) == 0:
         return None
 
@@ -59,6 +63,7 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
     status = 200
     if request.method == 'POST':
         form = FaceRecognitionGuessForm(request.POST)
+        log.info(form.data)
         if form.is_valid():
             subject_album: Album = form.cleaned_data['subject_album']
             rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
@@ -74,8 +79,10 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
                 # Consensus was either None or it changed
                 if current_consensus_album:
                     current_consensus_album.photos.remove(rectangle.photo)
-                if rectangle.photo not in subject_album.photos:
-                    AlbumPhoto(photo=rectangle.photo, album=subject_album).save()
+                if rectangle.photo not in subject_album.photos.all():
+                    AlbumPhoto(photo=rectangle.photo, album=subject_album, type=AlbumPhoto.FACE_TAGGED,
+                               profile=request.user.profile).save()
+                    subject_album.save()
                     status = 201
             rectangle.subject_consensus_id = consensus_subject
             rectangle.save()

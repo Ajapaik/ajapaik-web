@@ -6,6 +6,7 @@
     /*global confirm*/
     /*global setTimeout*/
     /*global screen*/
+    // TODO: Disable other hotkeys like dating while face tagging
     var AjapaikFaceTagger = function (node, options) {
         var that = this;
         this.node = node;
@@ -176,7 +177,7 @@
                     that.loadGuessFormHtml(face.id, divId);
                     setTimeout(function () {
                         $('#id_subject-autocomplete').focus();
-                        $('#add_id_subject').show();
+                        $('#add_id_subject_album').show();
                     }, 300);
                 });
                 // $faceRectangle.on('hidden.bs.popover', function () {
@@ -289,12 +290,12 @@
                 e.stopPropagation();
                 e.preventDefault();
                 var $form = $(this).parent().parent(),
-                    subject = $form.find('#id_subject').val(),
+                    subject = $form.find('#id_subject_album').val(),
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);
             });
             // Had to be copied to be a global trigger from addanother.js
-            $(document).on('click', '#add_id_subject', function (e) {
+            $(document).on('click', '#add_id_subject_album', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 that.showAddAnotherPopup($(this));

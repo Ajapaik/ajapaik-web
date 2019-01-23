@@ -43,9 +43,9 @@ COPY ajapaik/settings/local.py.example ajapaik/settings/local.py
 
 COPY solr ./solr
 
-COPY docker-entrypoint.sh docker-entrypoint-dev.sh fix-celery.sh /usr/local/bin/
+COPY docker-entrypoint.sh docker-entrypoint-dev.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-dev.sh /usr/local/bin/fix-celery.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-dev.sh
 
 # TODO: Figure out
 # RUN touch ajapaik/ajapaik/client_secrets.json

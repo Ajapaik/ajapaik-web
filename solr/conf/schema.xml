@@ -131,7 +131,7 @@
 
     <field name="address" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="people" type="text_en" indexed="true" stored="true" multiValued="true" />
+{#    <field name="people" type="text_en" indexed="true" stored="true" multiValued="true" />#}
 
     <uniqueKey>id</uniqueKey>
 
