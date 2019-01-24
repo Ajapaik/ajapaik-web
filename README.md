@@ -1,37 +1,68 @@
-This is the open-sourced Django project code for https://ajapaik.ee/
+#This is the open-sourced Django project code for https://ajapaik.ee/
 
-docker build -t ajapaik .
-docker run -d --name ajapaik -p 8001:80 ajapaik
+## Running locally
+```bash
+docker pull laurielias/ajapaik-web:python-3.6-latest
+docker-compose up
+```
 
-Need to peek inside?
+## Build it yourself and launch
+python-3.6-dlib is just python:3.6 with dlib and its dependencies installed. (compiling takes 10+ minutes otherwise)
+```bash
+docker pull laurielias/python-3.6-dlib
+docker-compose up --build
+```
+
+## Push new image
+```bash
+docker push laurielias/ajapaik-web:python-3.6-latest
+```
+
+## Debug the container
+If need be override the entrypoint in docker-compose.yml to tail -f /dev/null or the like. 
+(in case the current entrypoint crashes, for example)
+```bash
 docker exec -it ajapaik bash
+```
 
+## Starting with a fresh DB, add a Django superuser
+In the container:
+```bash
+python manage.py createsuperuser
+```
 
-Verified working on Python 2.7.13, instructions for installing from source if need be (consider compiling with 
---enable-optimizations): https://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/
+## Deploy on our server
+Make sure you have local.py (mostly secret Django settings) and client_secrets.json (Google credentials) in your 
+project root. They will be mounted into the container on startup. Make sure the nginx on the host knows how to
+proxy traffic to this container. Also symlink the media directory (the one with all the photos) into your project root,
+same for the Postgres data directory. Push/pull images again to update.
+```bash
+docker-compose up -f docker-compose.dev.yml
+```
+TODO: upgrade our host system to Ubuntu 18.04 (10 years of LTS)
+TODO: automate regular DB and media/uploads, media/videos backups
 
-Requires installation of (at least on Ubuntu):
-libxslt-dev libpq-dev python-dev libgeos-dev supervisor certbot default-jre sendmail cmake
+## Update Juks' Vanalinnad data
+```bash
+wget -r --no-parent -A empty.json,layers.xml http://vanalinnad.mooo.com/vector/places/
+wget -r --no-parent -A *.jpg http://vanalinnad.mooo.com/raster/places/
+```
+
+## Translations via Transifex
+```bash
+python manage.py makemessages -a
+python manage.py makemessages -a -d djangojs
+tx push -s -t
+tx pull -s -t
+python manage.py compilemessages
+```
+You can push the .po files to Github so others would get fresh translations without this dance.
+
 
 On your local machine cp local.py.example local.py to get a quick start.
 
 Fix for 'django.contrib.gis.geos.error.GEOSException: Could not parse version info string "3.6.2-CAPI-1.10.2 4d2925d6"':
 https://stackoverflow.com/questions/18643998/geodjango-geosexception-error
-
-ajapaik/ajapaik/client_secrets.json needs to contain your Google credentials.
-
-Use 'python manage.py createsuperuser' to make yourself a test user if need be.
-
-Installing certbot (geolocation doesn't work without HTTPS): https://certbot.eff.org/
-
-Requires Solr for searching. Known to work with Solr 4.10.4.
-
-Requires OpenCV for film-still generation. Easiest installation is probably 'sudo apt install python-opencv', can try:
-http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
-Last tried-working with OpenCV 3.2.0.
-
-scikit-learn, pandas and numpy may require more involved installation than pip -r. These are currently
-only required for DBSCAN geotag clustering, but may be used for various machine learning purposes in the future.
 
 Installing Postgres:
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
@@ -44,15 +75,6 @@ Ajapaik depends on Postgres PostGIS functionality, with a fresh-enough Postgres,
 http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS23UbuntuPGSQL96Apt
 http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS24UbuntuPGSQL10Apt
 
-The necessary Python modules can be installed by running the following command in the project root.
-You may want to create and activate a virtualenv first:
-<ul><li>pip install -r requirements.txt</li></ul>
-
-Let Django handle the database creation, in the project root:
-<ul>
-<li>python manage.py migrate</li>
-<li>python manage.py loaddata licence</li>
-</ul>
 
 You'll need your own local settings in ajapaik/settings/local.py.
 You should at least override or specify the following keys:
@@ -72,12 +94,9 @@ Running tests:
 source venv/bin/activate
 python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 
-TODO: upgrade to Ubuntu 18.04
+
 TODO: upgrade to Postgres 11
 TODO: upgrade to Django 1.11
 TODO: py.test
 TODO: Spatialite for sqlite? Can use in automated tests?
 TODO: command for regular stats exports
-TODO: command for regular DB backups
-TODO: document Transifex usage
-TODO: refactor this readme

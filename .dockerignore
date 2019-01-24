@@ -4,3 +4,5 @@
 /.git/
 /.idea/
 /media/
+/ajapaik/settings/local.py
+/ajapaik/ajapaik/client_secrets.json

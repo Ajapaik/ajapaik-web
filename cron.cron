@@ -1,4 +1,0 @@
-15 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py clearsessions
-30 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py reverse_geocode_photos
-45 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py run_face_detection
-00 5 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py update_index
