@@ -3,7 +3,8 @@
 add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
 add_header X-Content-Type-Options nosniff;
 add_header X-Xss-Protection '1; mode=block' always;
-add_header Referrer-Policy 'no-referrer';
+# TODO: Check if this is what broke CSRF protection
+#add_header Referrer-Policy 'no-referrer';
 
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;
