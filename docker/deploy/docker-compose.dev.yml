@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 # dev environment on our server
 services:
@@ -29,6 +29,9 @@ services:
       - db
       - solr
       - redis
+    volumes:
+      - ./run:/home/docker/ajapaik/run
+      - ./media:/home/docker/ajapaik/media
 
     # TODO: expose via socket file
     # TODO: expose compressed static files via volume mount

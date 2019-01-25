@@ -1,8 +1,3 @@
-upstream django {
-    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
-    server 127.0.0.1:8000;
-}
-
 server {
     listen 80;
     listen [::]:80;
@@ -36,11 +31,9 @@ server {
 
     include security-hardening.nginx;
 
-    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee-0001/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee-0001/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee-0001/chain.pem;
-
-    resolver 8.8.8.8 8.8.4.4 valid=86400;
+    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee/chain.pem;
 
     include dev.ajapaik.ee-logs.nginx;
 
@@ -55,15 +48,13 @@ server {
 
     include security-hardening.nginx;
 
-    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee-0001/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee-0001/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee-0001/chain.pem;
+    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee/chain.pem;
 
     include dev.ajapaik.ee-logs.nginx;
 
-    include expiry-map.nginx;
-
-    expires $expires;
+    #expires $expires;
 
     if ($host !~* ^(dev.ajapaik.ee|www.dev.ajapaik.ee)$ ) {
         return 444;
@@ -89,8 +80,9 @@ server {
     }
 
     location / {
-        include ../uwsgi_params;
+        include uwsgi_params;
         # TODO: start using sockets
-        uwsgi_pass django;
+        #uwsgi_pass django;
+        uwsgi_pass unix:/home/ajapaik/ajapaik-web-dev/run/app.sock;
     }
 }

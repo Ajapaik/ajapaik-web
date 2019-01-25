@@ -1,4 +1,5 @@
-#This is the open-sourced Django project code for https://ajapaik.ee/
+## [Join Ajapaik Slack](https://join.slack.com/t/ajapaik/shared_invite/enQtNDE4NzkzMDEyOTYwLTQ2Mjc3ZmIwNGJmMjNjNTVjMGRmZDhkZjVlMzdhYjMxZDhkOTVmZTQ2MzFlNjNiYTJhNmY1ZjA0NjJkODg2ZTg)!
+This is the open-sourced Django project code for https://ajapaik.ee/
 
 ## Running locally
 ```bash
@@ -100,3 +101,6 @@ TODO: upgrade to Django 1.11
 TODO: py.test
 TODO: Spatialite for sqlite? Can use in automated tests?
 TODO: command for regular stats exports
+TODO: clean up stale Docker stuff once in a while
+TODO: fix CSRF
+TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11

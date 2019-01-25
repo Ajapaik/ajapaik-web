@@ -22,7 +22,7 @@ FROM python:3.6-slim AS deployer
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends uwsgi nano telnet python-opencv binutils libproj-dev \
-    gdal-bin libglib2.0-0 libsm6 libxrender-dev gettext && \
+    gdal-bin libglib2.0-0 libsm6 libxrender-dev gettext procps && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/docker/ajapaik
