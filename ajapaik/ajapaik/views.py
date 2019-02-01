@@ -35,7 +35,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import cache_control, cache_page
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.generic.base import View
 from django_comments.models import CommentFlag
@@ -120,6 +120,7 @@ def image_full(request, photo_id=None, pseudo_slug=None):
     return HttpResponse(content, content_type='image/jpg')
 
 
+@cache_page(10 * 60)
 def get_general_info_modal_content(request):
     profile = request.get_user().profile
     photo_qs = Photo.objects.filter(rephoto_of__isnull=True)
@@ -127,19 +128,19 @@ def get_general_info_modal_content(request):
     user_rephoto_qs = rephoto_qs.filter(user=profile)
     geotags_qs = GeoTag.objects.filter()
     ret = {
-        "total_photo_count": photo_qs.count(),
-        "contributing_users": geotags_qs.distinct('user').count(),
-        "total_photos_tagged": photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
-        "rephoto_count": rephoto_qs.count(),
-        "rephotographing_users": rephoto_qs.order_by('user').distinct('user').count(),
-        "rephotographed_photo_count": rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
-        "user_geotagged_photos": geotags_qs.filter(user=profile).distinct('photo').count(),
-        "user_rephotos": user_rephoto_qs.count(),
-        "user_rephotographed_photos": user_rephoto_qs.order_by(
+        'total_photo_count': photo_qs.count(),
+        'contributing_users': geotags_qs.distinct('user').count(),
+        'total_photos_tagged': photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
+        'rephoto_count': rephoto_qs.count(),
+        'rephotographing_users': rephoto_qs.order_by('user').distinct('user').count(),
+        'rephotographed_photo_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
+        'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
+        'user_rephotos': user_rephoto_qs.count(),
+        'user_rephotographed_photos': user_rephoto_qs.order_by(
             'rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
-    return render_to_response("_general_info_modal_content.html", RequestContext(request, ret))
+    return render_to_response('_general_info_modal_content.html', RequestContext(request, ret))
 
 
 def get_album_info_modal_content(request):

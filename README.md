@@ -40,8 +40,8 @@ same for the Postgres data directory. Push/pull images again to update.
 ```bash
 docker-compose up -f docker-compose.dev.yml
 ```
-TODO: upgrade our host system to Ubuntu 18.04 (10 years of LTS)
-TODO: automate regular DB and media/uploads, media/videos backups
+- TODO: upgrade our host system to Ubuntu 18.04 (10 years of LTS)
+- TODO: automate regular DB and media/uploads, media/videos backups
 
 ## Update Juks' Vanalinnad data
 ```bash
@@ -59,7 +59,7 @@ python manage.py compilemessages
 ```
 You can push the .po files to Github so others would get fresh translations without this dance.
 
-
+---
 On your local machine cp local.py.example local.py to get a quick start.
 
 Fix for 'django.contrib.gis.geos.error.GEOSException: Could not parse version info string "3.6.2-CAPI-1.10.2 4d2925d6"':
@@ -94,13 +94,13 @@ You should at least override or specify the following keys:
 Running tests:
 source venv/bin/activate
 python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
+---
 
-
-TODO: upgrade to Postgres 11
-TODO: upgrade to Django 1.11
-TODO: py.test
-TODO: Spatialite for sqlite? Can use in automated tests?
-TODO: command for regular stats exports
-TODO: clean up stale Docker stuff once in a while
-TODO: fix CSRF
-TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
+- TODO: upgrade to Postgres 11
+- TODO: upgrade to Django 1.11
+- TODO: py.test
+- TODO: Spatialite for sqlite? Can use in automated tests?
+- TODO: command for regular stats exports
+- TODO: clean up stale Docker stuff once in a while
+- TODO: fix CSRF
+- TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
