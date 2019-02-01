@@ -102,5 +102,7 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: Spatialite for sqlite? Can use in automated tests?
 - TODO: command for regular stats exports
 - TODO: clean up stale Docker stuff once in a while
-- TODO: fix CSRF
 - TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
+- TODO: automate stats queries or at least document them better (should be possible with a Google Sheets API key?)
+- TODO: try if integrating Solr tighter will help search (the current solution where everything that matches 'Tartu' is retrieved into an array of IDs no longer performs)
+- TODO: decide between Celery beat & just running cron jobs on the host machine
