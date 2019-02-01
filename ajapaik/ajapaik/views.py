@@ -21,6 +21,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -120,24 +121,33 @@ def image_full(request, photo_id=None, pseudo_slug=None):
     return HttpResponse(content, content_type='image/jpg')
 
 
-@cache_page(10 * 60)
 def get_general_info_modal_content(request):
     profile = request.get_user().profile
     photo_qs = Photo.objects.filter(rephoto_of__isnull=True)
     rephoto_qs = Photo.objects.filter(rephoto_of__isnull=False)
     user_rephoto_qs = rephoto_qs.filter(user=profile)
     geotags_qs = GeoTag.objects.filter()
+    cached_data = cache.get('general_info_modal_cache', None)
+    if cached_data is None:
+        cached_data = {
+            'photos_count': photo_qs.count(),
+            'contributing_users_count': geotags_qs.distinct('user').count(),
+            'photos_geotagged_count': photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
+            'rephotos_count': rephoto_qs.count(),
+            'rephotographing_users_count': rephoto_qs.order_by('user').distinct('user').count(),
+            'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
+        }
+        cache.set('general_info_modal_cache', cached_data, settings.GENERAL_INFO_MODAL_CACHE_TTL)
     ret = {
-        'total_photo_count': photo_qs.count(),
-        'contributing_users': geotags_qs.distinct('user').count(),
-        'total_photos_tagged': photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
-        'rephoto_count': rephoto_qs.count(),
-        'rephotographing_users': rephoto_qs.order_by('user').distinct('user').count(),
-        'rephotographed_photo_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
+        'total_photo_count': cached_data['photos_count'],
+        'contributing_users': cached_data['contributing_users_count'],
+        'total_photos_tagged': cached_data['photos_geotagged_count'],
+        'rephoto_count': cached_data['rephotos_count'],
+        'rephotographing_users': cached_data['rephotographing_users_count'],
+        'rephotographed_photo_count': cached_data['photos_with_rephotos_count'],
         'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
         'user_rephotos': user_rephoto_qs.count(),
-        'user_rephotographed_photos': user_rephoto_qs.order_by(
-            'rephoto_of_id').distinct('rephoto_of_id').count()
+        'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
     return render_to_response('_general_info_modal_content.html', RequestContext(request, ret))

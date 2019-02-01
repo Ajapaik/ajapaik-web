@@ -378,3 +378,5 @@ CACHES = {
         },
     },
 }
+
+GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
