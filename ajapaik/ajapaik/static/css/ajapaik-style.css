@@ -1164,28 +1164,6 @@ a.fullscreen {
     margin-top: 0;
 }
 
-#ajapaik-donation-header {
-    background-color: yellow;
-    font-size: 17px;
-    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: none;
-    width: 100%;
-    position: fixed;
-    z-index: 10;
-    bottom: 0;
-}
-
-#ajapaik-donation-header a {
-    color: blue;
-    text-decoration: none;
-}
-
-#ajapaik-donation-header button {
-    color: black;
-}
-
 @media (min-width: 320px) {
     #ajapaik-header-title {
         max-width: 80px;
