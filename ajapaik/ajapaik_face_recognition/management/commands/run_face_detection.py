@@ -9,6 +9,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 def analyse_single_photo(photo: Photo) -> None:
+    print('Processing photo %s' % photo.pk)
     image = face_recognition.load_image_file(photo.image)
     detected_faces = face_recognition.face_locations(image)
     for detected_face in detected_faces:
@@ -24,5 +25,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(face_recognition_rectangles__user__isnull=True).all()
+        print('Found %s photos to run on' % photos.count())
         with multiprocessing.Pool() as pool:
             pool.map(analyse_single_photo, photos)

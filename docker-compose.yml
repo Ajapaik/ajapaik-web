@@ -7,10 +7,12 @@ services:
     container_name: 'postgres'
     restart: always
     ports:
-      - '5432:5432'
+      - '5433:5432'
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    #volumes:
+    #  - ./db_dumps:/db_dumps
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'
@@ -35,7 +37,7 @@ services:
       - solr
       - redis
     environment:
-      - PYTHONBUFFERED=0
+      - PYTHONBUFFERED=1
     volumes:
       - ./:/home/docker/ajapaik
       # TODO: figure out how to mount local.py and client_secrets.json, maybe have env variables in local.py and

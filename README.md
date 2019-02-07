@@ -14,6 +14,12 @@ docker pull laurielias/python-3.6-dlib
 docker-compose up --build
 ```
 
+## Restore data from a dump
+```bash
+    # Data only, no integrity checks while loading it in, no privileges
+    pg_restore -f rephoto_20190207.sql -a -x -h localhost -p 5432 --disable-triggers
+``` 
+
 ## Push new image
 ```bash
 docker push laurielias/ajapaik-web:python-3.6-latest
@@ -106,3 +112,4 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: automate stats queries or at least document them better (should be possible with a Google Sheets API key?)
 - TODO: try if integrating Solr tighter will help search (the current solution where everything that matches 'Tartu' is retrieved into an array of IDs no longer performs)
 - TODO: decide between Celery beat & just running cron jobs on the host machine
+- TODO: private photo collections

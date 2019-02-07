@@ -19,7 +19,7 @@ services:
     image: 'redis:alpine'
     container_name: 'redis'
   app:
-    build: .
+    build: ../../
     image: 'laurielias/ajapaik-web:python-3.6-latest'
     container_name: 'ajapaik'
     entrypoint: '/usr/local/bin/docker-entrypoint.sh'
