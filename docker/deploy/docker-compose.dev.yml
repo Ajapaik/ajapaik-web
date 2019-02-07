@@ -1,6 +1,6 @@
 version: '2'
 
-# dev environment on our server
+# dev environment on our main host
 services:
   db:
     image: 'mdillon/postgis:11-alpine'
@@ -9,6 +9,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgresql:/var/lib/postgresql
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'
@@ -23,8 +25,6 @@ services:
     image: 'laurielias/ajapaik-web:python-3.6-latest'
     container_name: 'ajapaik'
     entrypoint: '/usr/local/bin/docker-entrypoint.sh'
-    ports:
-      - '8000:8000'
     depends_on:
       - db
       - solr
@@ -32,7 +32,3 @@ services:
     volumes:
       - ./run:/home/docker/ajapaik/run
       - ./media:/home/docker/ajapaik/media
-
-    # TODO: expose via socket file
-    # TODO: expose compressed static files via volume mount
-    # TODO: share a DB, share a Redis, share a Solr?

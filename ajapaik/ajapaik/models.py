@@ -199,7 +199,7 @@ class Album(Model):
     date_of_birth = DateField(blank=True, null=True)
     gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     is_public_figure = BooleanField(default=False)
-    face_encoding = TextField(blank=True, null=True)
+    face_encodings = TextField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -377,6 +377,7 @@ class Photo(Model):
     cam_roll = FloatField(null=True, blank=True)
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
+    face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
 
     original_lat = None
     original_lon = None

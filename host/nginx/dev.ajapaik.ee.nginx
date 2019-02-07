@@ -12,35 +12,6 @@ server {
 }
 
 server {
-    listen 80;
-    listen [::]:80;
-
-    # TODO: Shouldn't CNAMEs handle this BS?
-    server_name www.dev.ajapaik.ee;
-
-    include dev.ajapaik.ee-logs.nginx;
-
-    return 301 https://dev.ajapaik.ee$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-
-    server_name www.dev.ajapaik.ee;
-
-    include security-hardening.nginx;
-
-    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee/chain.pem;
-
-    include dev.ajapaik.ee-logs.nginx;
-
-    return 301 https://dev.ajapaik.ee$request_uri;
-}
-
-server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
@@ -81,8 +52,6 @@ server {
 
     location / {
         include uwsgi_params;
-        # TODO: start using sockets
-        #uwsgi_pass django;
         uwsgi_pass unix:/home/ajapaik/ajapaik-web-dev/run/app.sock;
     }
 }

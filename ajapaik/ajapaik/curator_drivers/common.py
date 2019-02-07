@@ -3,7 +3,7 @@ from django.forms import Form, CharField, BooleanField, IntegerField, TypedMulti
 
 class NotValidatedMultipleChoiceField(TypedMultipleChoiceField):
     def to_python(self, value):
-        return map(self.coerce, value)
+        return list(map(self.coerce, value))
 
     def validate(self, value):
         pass

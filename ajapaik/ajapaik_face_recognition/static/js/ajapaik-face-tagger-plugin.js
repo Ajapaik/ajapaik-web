@@ -148,6 +148,7 @@
                         data: {
                             id: face.id
                         },
+                        html: face.subject_name,
                         css: {
                             position: 'absolute',
                             left: leftTop[0] + 'px',

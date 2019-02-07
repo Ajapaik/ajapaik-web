@@ -932,7 +932,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                                         'rephoto_count',
                                         'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
                      start:end]
-        # photos = map(list, photos)
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
@@ -1000,7 +999,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['my_likes_only'] = False
         ret['rephotos_by'] = None
         ret['total'] = photos.count()
-        photos = map(list, photos)
+        photos = [list(each) for each in photos]
         for p in photos:
             p[1], p[2] = calculate_thumbnail_size(p[1], p[2], 400)
             if 'photo_selection' in request.session:
@@ -1049,7 +1048,7 @@ def list_photo_selection(request):
         photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height',
                                                                                              'flip', 'description',
                                                                                              'lat', 'lon')
-        photos = map(list, photos)
+        photos = [list(each) for each in photos]
         for p in photos:
             if p[5] and p[6]:
                 at_least_one_photo_has_location = True

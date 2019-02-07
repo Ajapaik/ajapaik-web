@@ -11,8 +11,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    #volumes:
-    #  - ./db_dumps:/db_dumps
+    volumes:
+      - ./postgresql:/var/lib/postgresql
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'

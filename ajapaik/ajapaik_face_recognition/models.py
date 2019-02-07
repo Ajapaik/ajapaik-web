@@ -15,6 +15,7 @@ class FaceRecognitionRectangle(models.Model):
     user = models.ForeignKey(Profile, blank=True, null=True, related_name='face_recognition_rectangles')
     # (top, right, bottom, left)
     coordinates = models.TextField()
+    face_encoding = models.TextField(null=True, blank=True)
     # Users can have it deleted, but we'll keep records in our DB in case of malice
     deleted = models.DateTimeField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -25,6 +26,16 @@ class FaceRecognitionRectangle(models.Model):
 
     def decode_coordinates(self):
         return json.loads(self.coordinates)
+
+    def get_subject_name(self):
+        # Prefer what people think
+        subject_album = None
+        if self.subject_consensus:
+            subject_album: Album = self.subject_consensus
+        elif self.subject_ai_guess:
+            subject_album: Album = self.subject_ai_guess
+
+        return subject_album.name if subject_album else None
 
 
 class FaceRecognitionRectangleFeedback(models.Model):

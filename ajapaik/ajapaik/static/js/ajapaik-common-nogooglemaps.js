@@ -564,6 +564,17 @@ if (typeof(google) !== "undefined" && typeof(google.maps) !== "undefined")
         }
     });
 
+    $(document).on('click', '#ajapaik-header-people-button', function (e) {
+        e.preventDefault();
+        var uri = URI(window.location);
+        if (uri.query().indexOf('person_albums_only') == -1) {
+            uri.addQuery('person_albums_only', 1)
+        } else {
+            uri.removeQuery('person_albums_only');
+        }
+        window.location.href = uri;
+    });
+
     handleGeolocation = function (position) {
         $('#ajapaik-geolocation-error').hide();
         window.location.href = '/map?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude + '&limitToAlbum=0&zoom=15';

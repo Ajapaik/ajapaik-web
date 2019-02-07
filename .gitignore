@@ -1,6 +1,7 @@
 /ajapaik/settings/local.py
 /ajapaik/settings/test.py
 /media/
+/postgresql/
 /.idea/
 *.pyc
 /static-collected/

@@ -21,7 +21,9 @@
                                     <i class="material-icons notranslate pull-left">photo_album</i>
                                 {% endif %}
                                 <span id="ajapaik-header-title" class="pull-left">
-                                    {{ album.1 }} <i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i>
+                                    {{ album.1 }} <i id="ajapaik-header-arrow-drop-down"
+                                                     class="material-icons notranslate"
+                                                     title="{% trans 'Click to choose' %}">arrow_drop_down</i>
                                 </span>
                                 <i id="ajapaik-header-album-more" class="material-icons notranslate"
                                    title="{% trans 'Album details' %}">more</i>
@@ -157,15 +159,19 @@
                         <i class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                     </a>
                 </li>
-                <li class="pull-left">
-                    <a role="button" title="{% trans 'List face recognition albums' %}"
-                       href="/?person_albums_only=1"
-                       id="ajapaik-header-people-button" class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
-                        <i class="notranslate material-icons ajapaik-gray-button{% ifequal request.GET.person_albums_only '1' %} ajapaik-text-white{% endifequal %}">people</i>
-                    </a>
-                </li>
+                {% if is_frontpage %}
+                    <li class="pull-left">
+                        <a role="button" title="{% trans 'List face recognition albums' %}"
+                           href="#"
+                           id="ajapaik-header-people-button"
+                           class="ajapaik-padding-top-6px ajapaik-margin-right-minus-20px">
+                            <i class="notranslate material-icons ajapaik-gray-button{% ifequal request.GET.person_albums_only '1' %} ajapaik-text-white{% endifequal %}">people</i>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="pull-left hidden-xs">
-                    <a role="button" title="{% trans 'Add photos' %}" href="{% url "ajapaik.ajapaik.views.photo_upload_choice" %}"
+                    <a role="button" title="{% trans 'Add photos' %}"
+                       href="{% url "ajapaik.ajapaik.views.photo_upload_choice" %}"
                        class="ajapaik-padding-top-6px">
                         <i class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
@@ -283,7 +289,8 @@
                             <div class="col-xs-12" id="ajapaik-curator-filter-options">
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <input type="checkbox" id="ajapaik-curator-search-filter-existing" checked="checked">
+                                        <input type="checkbox" id="ajapaik-curator-search-filter-existing"
+                                               checked="checked">
                                     </span>
                                     <label class="form-control" for="ajapaik-curator-search-filter-existing">
                                         {% trans "Filter existing" %}
