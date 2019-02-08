@@ -1,0 +1,57 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name dev.ajapaik.ee;
+
+    include dev.ajapaik.ee-logs.nginx;
+
+    location / {
+        return 301 https://dev.ajapaik.ee$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name dev.ajapaik.ee;
+
+    include security-hardening.nginx;
+
+    ssl_certificate /etc/letsencrypt/live/dev.ajapaik.ee/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dev.ajapaik.ee/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/dev.ajapaik.ee/chain.pem;
+
+    include dev.ajapaik.ee-logs.nginx;
+
+    #expires $expires;
+
+    if ($host !~* ^(dev.ajapaik.ee|www.dev.ajapaik.ee)$ ) {
+        return 444;
+    }
+
+    # Probably okay to load everything through Django's runserver on dev
+    #location /media  {
+    #    alias /home/ajapaik/ajapaik-web-dev/media;
+    #}
+    #
+    #location /static {
+    #    alias /home/ajapaik/ajapaik-web-dev/static-collected;
+    #    expires 30d;
+    #}
+
+    location ~ ^/favicon.(\w*)$ {
+        alias /home/ajapaik/ajapaik-web/static-collected/favicon.$1;
+    }
+
+    # Serve Juks' old maps directly
+    location /vanalinnad.mooo.com {
+        root /home/ajapaik;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/ajapaik/ajapaik-web-dev/run/app.sock;
+    }
+}

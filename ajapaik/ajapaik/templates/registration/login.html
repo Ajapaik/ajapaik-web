@@ -1,0 +1,48 @@
+{% extends "base_bootstrap.html" %}
+
+{% load i18n %}
+
+{% block layout %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                <h1>{% trans "Log in" %}</h1>
+                <form method="post" action="." class="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label" for="id_username">{% trans "E-mail" %}</label>
+                        <input class="form-control" id="id_username" maxlength="254" name="username"
+                            placeholder="{% trans "E-mail" %}" required="required" title="" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="id_password">{% trans "Password" %}</label>
+                        <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
+                            required="required" title="" type="password">
+                    </div>
+                    <input name="next" type="hidden" value="{% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}{% url "ajapaik.ajapaik.views.frontpage" %}{% endif %}">
+                    <button type="submit" id="ajp-email-login-button" class="btn btn-primary">
+                        {% trans "Log in" %}
+                    </button>
+                </form>
+                <br class="forgot_password_link" />
+                <a class="forgot_password_link" href="{% url "auth_password_reset" %}">{% trans "Forgot password" %}</a>
+                <br/>
+                <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
+                <br/>
+                <br/>
+                <b>{% trans "OR" %}</b>
+                <br/>
+                {# TODO: next handling #}
+                <div class="facebook-connect">
+                    <a href="/facebook/login?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                       class="ir">{% trans "Connect with Facebook" %}</a>
+                </div>
+                <br/>
+                <div class="google-plus-connect">
+                    <a href="/google-login/?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                       class="ir">{% trans "Connect with Google" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

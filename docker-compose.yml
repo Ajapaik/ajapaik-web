@@ -1,0 +1,48 @@
+version: '3'
+
+# Meant for local development
+services:
+  db:
+    image: 'mdillon/postgis:11-alpine'
+    container_name: 'postgres'
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgresql:/var/lib/postgresql
+  solr:
+    image: 'solr:6-alpine'
+    container_name: 'solr'
+    restart: always
+    volumes:
+      - './docker/solr:/opt/solr/server/solr/tester'
+    ports:
+      - '8983:8983'
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis'
+  app:
+    # TODO: Mount secrets
+    build: .
+    image: laurielias/ajapaik-web:python-3.6-latest
+    container_name: ajapaik
+    entrypoint: /usr/local/bin/docker-entrypoint-dev.sh
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+      - solr
+      - redis
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./:/home/docker/ajapaik
+      # TODO: figure out how to mount local.py and client_secrets.json, maybe have env variables in local.py and
+      # do a sed replace on client_secrets?
+
+
+# TODO: Valimimoodul
+# TODO: pod that runs periodic tasks? (Celery)

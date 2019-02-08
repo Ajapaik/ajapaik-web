@@ -1,0 +1,525 @@
+{% load i18n cache compress ajapaik_templatetags static leaflet_tags %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
+      prefix="fb: http://www.facebook.com/2008/fbml">
+<head>
+    <title>
+        {% if title %}
+            {{ title }} - {% trans "Timepatch (Ajapaik)" %}
+        {% else %}
+            {% trans "Timepatch (Ajapaik)" %}
+        {% endif %}
+    </title>
+    <meta name="description" content="
+        {% if is_frontpage %}
+            {% if album %}
+                {% trans 'Gallery of old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Historic photo gallery' %}
+            {% endif %}
+        {% elif is_mapview %}
+            {% if album %}
+                {% trans 'Mapped old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Mapped old historic photos' %}
+            {% endif %}
+        {% elif is_game %}
+            {% if album %}
+                {% trans 'Help geotag old historic photos from the album' %} {{ album.1 }}
+            {% else %}
+                {% trans 'Help geotag old historic photos' %}
+            {% endif %}
+        {% elif is_photoview %}
+            {% if rephoto %}
+                {% trans 'Before and after view of' %} {{ rephoto.description }}
+            {% elif photo %}
+                {% trans 'Historic photo of' %} {{ photo.description }}
+            {% endif %}
+        {% elif is_curator%}
+            {% trans 'Curate historic photos from museums into Ajapaik for geotagging and rephotographing' %}
+        {% else %}
+            {% trans 'Ajapaik shows how places have changed over time' %}
+        {% endif %}
+        ">
+    <meta name="keywords" content="
+        {% if is_frontpage %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos' %},{{ album.2 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos' %}
+            {% endif %}
+        {% elif is_mapview %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos,map,geotagged,location' %},{{ album.4 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos,map,geotagged,location' %}
+            {% endif %}
+        {% elif is_game %}
+            {% if album %}
+                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %},{{ album.4 }}
+            {% else %}
+                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %}
+            {% endif %}
+        {% elif is_photoview %}
+            {% if rephoto %}
+                {% trans 'historic,picture,old,photo,before,after' %},{{ rephoto.tags }}
+            {% elif photo %}
+                {% trans 'historic,picture,old,photo' %},{{ photo.tags }}
+            {% endif %}
+        {% elif is_curator %}
+            {% trans 'search,museum,old,photos,pictures,historic' %}
+        {% else %}
+            {% trans 'historic,pictures,old,photos' %}
+        {% endif %}
+        ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
+    <meta name="msvalidate.01" content="0AFAD3D32395E8F3F75621502B39878C" />
+    <meta property="fb:app_id" content="201052296573134"/>
+    <meta name="msApplication-ID" content="Ajapaik.Ajapaik"/>
+    <meta name="msApplication-PackageFamilyName" content="Ajapaik.Ajapaik_a85z4fx5ppqzw"/>
+    <meta name="msApplication-MinVersion" content="1.0.0.8"/>
+    <meta name="application-name" content="Ajapaik"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-notification" content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://ajapaik.ee/feed/photos/&amp;id=5; cycle=1"/>
+    <meta charset="UTF-8"/>
+    {% if title %}
+        <meta property="og:title" content="{{ title }}"/>
+        {% if rephotos_by_name %}
+            <meta property="og:description" content="{% blocktrans %}Gallery of rephotographs by {{ rephotos_by_name }}{% endblocktrans %}"/>
+        {% elif description %}
+            <meta property="og:description" content="{{ description }}"/>
+        {% elif not description and is_game and album %}
+            <meta property="og:description" content="{% blocktrans with album_photo_count as album_photo_count %}Album has {{ album_photo_count }} historic pictures. Let's put pictures on the map!{% endblocktrans %}"/>
+        {% elif not description and is_game %}
+            <meta property="og:description" content="{% trans "Let's put pictures on the map" %}"/>
+        {% elif not description and is_mapview %}
+            <meta property="og:description" content="
+                {% blocktrans count counter=total_photo_count %}
+                    Album has {{ counter }} photo,
+                {% plural %}
+                    Album has {{ counter }} photos,
+                {% endblocktrans %}
+                {% blocktrans count counter=geotagging_user_count %}
+                    {{ counter }} user has put
+                {% plural %}
+                    {{ counter }} users have put
+                {% endblocktrans %}
+                {% if total_photo_count == geotagged_photo_count %}
+                    {% trans "all the pictures on the map." %}
+                {% else %}
+                    {% blocktrans count counter=geotagged_photo_count %}
+                        {{ counter }} picture on the map.
+                    {% plural %}
+                        {{ counter }} pictures on the map.
+                    {% endblocktrans %}
+                {% endif %}
+            "/>
+        {% endif %}
+        <meta property="og:type" content="website"/>
+        {% if rephotos_by_name %}
+            <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.frontpage' %}?order1=time&order2=rephotos&page=1&rephotosBy={{ rephotos_by }}"/>
+        {% elif photo or rephoto %}
+            {% if photo and is_frontpage %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ photo.0 }}"/>
+            {% elif not photo and rephoto and is_frontpage %}
+                <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
+            {% else %}
+                {% if is_photoview and not rephoto %}
+                    <meta property="og:url" content="{{ hostname }}/foto/{{ photo.id }}/"/>
+                {% elif is_photoview and rephoto %}
+                    <meta property="og:url" content="{{ hostname }}/foto/{{ rephoto.id }}/"/>
+                {% else %}
+                    <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+                {% endif %}
+            {% endif %}
+        {% elif selected_photo %}
+            <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.mapview' %}photo/{{ selected_photo.id }}/"/>
+        {% elif album %}
+            {% if is_mapview %}
+                <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.mapview' %}?album={{ album.0 }}"/>
+            {% elif is_frontpage %}
+                {% if album %}
+                    <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.frontpage' %}?album={{ album.0 }}"/>
+                {% else %}
+                    <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.frontpage' %}"/>
+                {% endif %}
+            {% else %}
+                 <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.game' %}?album={{ album.0 }}"/>
+            {% endif %}
+        {% else %}
+            <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
+        {% endif %}
+        {% if selected_photo %}
+            <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" selected_photo.pk selected_photo.get_pseudo_slug %}">
+            <meta property="og:image:type" content="image/jpeg"/>
+            <meta property="og:image:width" content="{{ selected_photo.width }}" />
+            <meta property="og:image:height" content="{{ selected_photo.height }}" />
+        {% else %}
+            {% if not is_photoview and not is_game %}
+                {% if rephoto %}
+                    <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" rephoto.0 rephoto.1 %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ rephoto.2 }}" />
+                    <meta property="og:image:height" content="{{ rephoto.3 }}" />
+                {% else %}
+                    {% if photo %}
+                        <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" photo.0 photo.1 %}"/>
+                        <meta property="og:image:type" content="image/jpeg"/>
+                        <meta property="og:image:width" content="{{ photo.2 }}" />
+                        <meta property="og:image:height" content="{{ photo.3 }}" />
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                {% if rephoto %}
+                    <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" rephoto.pk rephoto.get_pseudo_slug %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ rephoto.width }}" />
+                    <meta property="og:image:height" content="{{ rephoto.height }}" />
+                {% else %}
+                    {% if photo %}
+                        <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" photo.pk photo.get_pseudo_slug %}"/>
+                        <meta property="og:image:type" content="image/jpeg"/>
+                        <meta property="og:image:width" content="{{ photo.width }}" />
+                        <meta property="og:image:height" content="{{ photo.height }}" />
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            {% if facebook_share_photos %}
+                {% for p in facebook_share_photos %}
+                    <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" p.0 p.1 %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ p.2 }}" />
+                    <meta property="og:image:height" content="{{ p.3 }}" />
+                {% endfor %}
+            {% endif %}
+            {% if curator_random_images %}
+                {% for each in curator_random_images %}
+                    <meta property="og:image" content="{{ hostname }}{% url "ajapaik.ajapaik.views.image_full" each.pk each.get_pseudo_slug %}"/>
+                    <meta property="og:image:type" content="image/jpeg"/>
+                    <meta property="og:image:width" content="{{ each.width }}" />
+                    <meta property="og:image:height" content="{{ each.height }}" />
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        <meta property="og:locale" content="et_EE"/>
+        <meta property="og:locale:alternate" content="ru_RU"/>
+        <meta property="og:locale:alternate" content="en_US"/>
+        <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}"/>
+    {% endif %}
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
+    <![endif]-->
+    <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
+    <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (FeedBurner)" href="http://feeds.ajapaik.ee/Ajapaik"/>
+    <link rel="alternate" type="application/atom+xml" title="Ajapaik (API)" href="https://ajapaik.ee/feed/photos/"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% leaflet_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/bootstrap-3.3.7.css" %}">
+        <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}">
+        <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}">
+        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
+        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
+        <link rel="stylesheet" href="{% static "libs/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" %}">
+        <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
+    {% endcompress %}
+    {% block specific_css %}{% endblock %}
+    <script type="text/javascript">
+        // From https://www.themarketingtechnologist.co/migrating-to-google-tag-manager-without-changing-hard-coded-_gaq-push-events/
+        if (typeof _gaq === 'undefined' || typeof _gaq !== 'object') {
+            var _gaq = {};
+            _gaq.push = function (array) {
+                if (array[0] === '_trackPageview') {
+                    dataLayer.push({
+                        'event': 'pageview',
+                        'pagePath': array[1]
+                    });
+                } else if (array[0] === '_trackEvent') {
+                    dataLayer.push({
+                        'event': 'event',
+                        'category': array[1],
+                        'action': array[2],
+                        'label': array[3],
+                        'value': array[4]
+                    });
+                }
+            }
+        }
+    </script>
+</head>
+<body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQJJQH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="ajapaik-loading-overlay">
+    <div class="ajapaik-spinner"></div>
+</div>
+<div id="fb-root"></div>
+<form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
+    <input type="hidden" value="" name="language" id="ajapaik-language" />
+    <input type="hidden" value="{{ request.get_full_path }}" name="next" />
+    {% csrf_token %}
+</form>
+<div class="alert alert-danger" id="ajapaik-geolocation-error">
+  <strong>{% trans "Geolocation error" %}:</strong> <span id="ajapaik-geolocation-error-message"></span>
+</div>
+<div class="alert alert-info" id="ajapaik-sorting-error">
+  <strong>{% trans "Sorting" %}:</strong> <span id="ajapaik-sorting-error-message"></span>
+</div>
+{% include "_general_info_modal.html" %}
+{% block header %}
+    {% include "_header.html" %}
+{% endblock header %}
+{% block layout %}{% endblock layout %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
+    <footer class="footer text-center">
+        <div class="container-fluid">
+            <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-contact">
+                <div class="row">
+                    <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
+                </div>
+                <div class="row">
+                    <a class="pull-left" id="ajapaik-photographic-heritage-link" target="_blank" href="http://fotopärand.org.ee/">{% trans "Estonian Photographic Heritage Society" %}</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-newsletter">
+                <div class="row">
+                    {% if LANGUAGE_CODE == 'et' %}
+                        <a id="ajapaik-footer-newsletter-link" href="{% url "ajapaik.ajapaik.views.newsletter" %}">{% trans "Newsletter" %}</a>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <a href="{% url 'ajapaik.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
+                </div>
+            </div>
+            <nav class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                {% if not is_newsletter and not is_photoview %}
+                    <ul class="pager" id="ajapaik-pager">
+                        <li>
+                            <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'ajapaik.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
+                                &lt;
+                            </a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#" id="ajapaik-pager-stats">
+                                {{ start|add:1 }} – {{ end }} / {{ total }}
+                            </a>
+                        </li>
+                        <li>
+                            <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'ajapaik.ajapaik.views.frontpage' %}{% add_get page=page|add:1 %}">
+                                &gt;
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </nav>
+            <div class="col-lg-2 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-links">
+                <div class="row">
+                    <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
+                </div>
+                <div class="row">
+                    <a class="pull-right" target="_blank" href="//www.hotjar.com/?utm_source=badge">
+                        <img id="ajapaik-hotjar-footer-logo" src="//static.hotjar.com/b/hotjar-badge.png"
+                             alt="Hotjar - Unlimited insights from your web and mobile sites" />
+                    </a>
+                </div>
+                {#<div class="row">#}
+                {#    <a class="pull-right" id="ajapaik-privacy-policy-link" href="{% url 'privacy' %}">{% trans "Privacy policy" %}</a>#}
+                {#</div>#}
+                {#<div class="row">#}
+                {#    <a class="pull-right" id="ajapaik-terms-of-service-link" href="{% url 'terms' %}">{% trans "Terms of service" %}</a>#}
+                {#</div>#}
+            </div>
+        </div>
+    </footer>
+{% endif %}
+{% block global_js %}
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({appId: "201052296573134", status: !0, cookie: !0, xfbml: !0, version: 'v2.3'});
+            try {
+                FB.Event.subscribe("edge.create", function (a) {
+                    _gaq.push(["_trackEvent", "Facebook", "Like added", a])
+                }),
+                FB.Event.subscribe("edge.remove", function (a) {
+                    _gaq.push(["_trackEvent", "Facebook", "Like removed", a])
+                }),
+                FB.Event.subscribe("message.send", function (a) {
+                    _gaq.push(["_trackEvent", "Facebook", "Message sent", a])
+                }),
+                FB.Event.subscribe("comment.create", function (a) {
+                    _gaq.push(["_trackEvent", "Facebook", "Comment added", a.href]);
+                    var parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                    }, function () {
+                    });
+                }),
+                FB.Event.subscribe("comment.remove", function (a) {
+                    _gaq.push(["_trackEvent", "Facebook", "Comment removed", a.href]);
+                    var parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                    }, function () {
+                    });
+                }), FB.Event.subscribe("auth.prompt", function () {
+                    _gaq.push(["_trackEvent", "Facebook", "Login prompt"])
+                }), FB.Event.subscribe("auth.login", function () {
+                    _gaq.push(["_trackEvent", "Facebook", "Login success"])
+                }), FB.Event.subscribe("auth.logout", function () {
+                    _gaq.push(["_trackEvent", "Facebook", "Logged out"])
+                })
+            } catch (b) {
+                console.log(b)
+            }
+        };
+        (function () {
+            var b = document.createElement("script");
+            b.async = !0;
+            b.src = document.location.protocol + "//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}{% if LANGUAGE_CODE == 'fi' %}fi_FI{% else %}{% if LANGUAGE_CODE == 'no' %}nb_NO{% else %}en_US{% endif %}{% endif %}{% endif %}{% endif %}/sdk.js";
+            document.getElementById("fb-root").appendChild(b)
+        })();
+    </script>
+    <script>
+        var isMobile = '{{ request.mobile }}' === 'True',
+            isMapview = false,
+            isGame = false,
+            isFrontpage = false,
+            currentLocale = '{{ LANGUAGE_CODE }}',
+            saveLocationURL = '{% url 'ajapaik.ajapaik.views.geotag_add' %}',
+            difficultyFeedbackURL = '{% url 'ajapaik.ajapaik.views.difficulty_feedback' %}',
+            confirmLocationURL = '{% url 'ajapaik.ajapaik.views.geotag_confirm' %}',
+            leaderboardUpdateURL = '{% url 'ajapaik.ajapaik.views.leaderboard' %}',
+            leaderboardFullURL = '{% url 'ajapaik.ajapaik.views.top50' %}',
+            photoSelectionURL = '{% url 'ajapaik.ajapaik.views.photo_selection' %}',
+            photoLikeURL = '{% url 'ajapaik.ajapaik.views.update_like_state' %}',
+            generalInfoModalURL = '{% url 'ajapaik.ajapaik.views.get_general_info_modal_content' %}',
+            submitDatingURL = '{% url 'ajapaik.ajapaik.views.submit_dating' %}',
+            infoModalURL = '{% url 'ajapaik.ajapaik.views.get_album_info_modal_content' %}',
+            photoUploadModalURL = '{% url 'ajapaik.ajapaik.views.mapview_photo_upload_modal' %}',
+            curatorSelectableAlbumsURL = '{% url 'ajapaik.ajapaik.views.curator_selectable_albums' %}',
+            curatorSelectableParentAlbumsURL = '{% url 'ajapaik.ajapaik.views.curator_selectable_parent_albums' %}',
+            mapviewURL = '{% url 'ajapaik.ajapaik.views.mapview' %}',
+            gameURL = '{% url 'ajapaik.ajapaik.views.game' %}',
+            lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
+            hotkeysActive = true,
+        {% if request.user.profile.is_legit %}
+            userIsSocialConnected = true;
+        {% else %}
+            userIsSocialConnected = false;
+        {% endif %}
+    </script>
+    {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows #}
+    {# we probably don't need jquery-ui, if we rework that, we will no longer need datetimepicker, we don't need jsPanel #}
+    {# just for showing the sidepanels in game and map mode, we don't need mobile detect if we give up jsPanel #}
+    {# we need to reduce the weight to accommodate mobile #}
+    <script src="{% url 'django.views.i18n.javascript_catalog' %}?_={% now "U" %}"></script>
+{% if not is_frontpage and not is_photoview or is_game or is_mapview  %}
+    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key=AIzaSyBHl2qOOLdHrYgsKAEi-TqsP-DkQYe1NEc"></script>
+    {% else %}
+       {% leaflet_js %}
+{% endif %}
+    <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
+    <!-- compress js -->
+        <script src="{% static "js/jquery-2.2.4.js" %}"></script>
+        <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
+        <script src="{% static "js/bootstrap-3.3.7.js" %}"></script>
+        <script src="{% static "js/moment-with-locales-2.18.1.js" %}"></script>
+        <script src="{% static "js/cookieconsent-3.0.4.js" %}"></script>
+        <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.js" %}"></script>
+        <script src="{% static "js/bootstrap-notify-3.1.3.js" %}"></script>
+        <script src="{% static "js/tmpl.js" %}"></script>
+        <script src="{% static "js/ajapaik-cookie.js" %}"></script>
+        <script src="{% static "js/mobile-detect-0.4.3.js" %}"></script>
+        <script src="{% static "js/bigscreen-2.0.5.js" %}"></script>
+        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-1.0.4.js" %}"></script>
+        <script src="{% static "js/lazysizes-1.3.0.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-1.10.0.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-meta-1.0.2.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-1.0.0.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-map-1.0.2.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-ios-1.0.3.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-orientation-1.1.0.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
+        <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}"></script>
+        <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
+        <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
+        <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
+        <script src="{% static "js/ajapaik-ga.js" %}"></script>
+{% if not is_frontpage and not is_photoview or is_game or is_mapview  %}
+        <script src="{% static "js/ajapaik-common.js" %}"></script>
+        <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
+{% else %}
+        <script src="{% static "js/ajapaik-common-nogooglemaps.js" %}"></script>
+        <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
+{% endif %}
+        <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>
+    <!-- endcompress -->
+    <script type="text/javascript">
+        window.cookieconsent_options = {
+            message: '{% trans "This website uses cookies to ensure you get the best experience on our website" %}',
+            dismiss: '{% trans "Got it!" %}',
+            learnMore: '{% trans "More info" %}',
+            link: null,
+            theme: 'dark-bottom'
+        };
+    </script>
+    <script type="text/javascript">
+        {% if request.user.profile %}
+            window.currentProfileId = {{ request.user.profile.pk }};
+            window.currentProfileName = '{{ request.user.profile.get_display_name }}';
+            {% if request.user.profile.fb_email %}
+                window.currentProfileEmail = '{{ request.user.profile.fb_email }}';
+            {% elif request.user.profile.google_plus_email %}
+                window.currentProfileEmail = '{{ request.user.profile.google_plus_email }}';
+            {% elif request.user.email %}
+                window.currentProfileEmail = '{{ request.user.email }}';
+            {% endif %}
+        {% endif %}
+        window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
+        window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
+    </script>
+    <script>
+        var dataLayer = window.dataLayer || [],
+            userLoggedIn = !!window.currentProfileId;
+        dataLayer.push({
+            'event': 'user',
+            'logged_in': userLoggedIn,
+            'email': window.currentProfileEmail,
+            'userId': window.currentProfileId,
+            'name': window.currentProfileName
+        });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
+{% endblock %}
+{% block specific_js %}{% endblock %}
+{% block autocomplete_stuff %}
+    {% include 'autocomplete_light/static.html' %}
+{% endblock %}
+</body>
+</html>

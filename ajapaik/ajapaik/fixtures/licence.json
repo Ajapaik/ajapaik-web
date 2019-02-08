@@ -1,0 +1,58 @@
+[
+  {
+    "fields": {
+      "name_et": "Test Flickr",
+      "name_ru": "",
+      "name_sv": "",
+      "name": "Test",
+      "name_no": "",
+      "url": "https://www.flickr.com/commons/usage/",
+      "name_de": "",
+      "image_url": "",
+      "name_fi": "",
+      "is_public": true,
+      "name_en": "",
+      "name_nl": ""
+    },
+    "model": "ajapaik.licence",
+    "pk": 1
+  },
+    {
+    "fields": {
+      "name_et": "Test 1",
+      "name_ru": "",
+      "name_sv": "",
+      "name": "Test",
+      "name_no": "",
+      "url": "",
+      "name_de": "",
+      "image_url": "",
+      "name_fi": "",
+      "is_public": true,
+      "name_en": "",
+      "name_nl": ""
+    },
+    "model": "ajapaik.licence",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "name_et": "Test 2",
+      "name_ru": "",
+      "name_sv": "",
+      "name": "Test",
+      "name_no": "",
+      "url": "",
+      "name_de": "",
+      "image_url": "",
+      "name_fi": "",
+      "is_public": true,
+      "name_en": "",
+      "name_nl": ""
+    },
+    "model": "ajapaik.licence",
+    "pk": 17
+  }
+]
+
+

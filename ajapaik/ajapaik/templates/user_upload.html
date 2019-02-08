@@ -1,0 +1,67 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n bootstrap3 %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container ajapaik-margin-top-30" style="height: 5000px;">
+        <img class="img-responsive" id="upload-preview" src="">
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        <form action="" method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <p id="ajapaik-user-upload-waive-rights-text" style="display: none;">
+                {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
+            </p>
+            {% buttons %}
+                <div class="btn-group pull-right" role="group" aria-label="ajapaik-add-album-button-group">
+                    <button type="submit" name="geotag" value="false" class="btn btn-primary">
+                        {% trans "Upload" %}
+                    </button>
+                    <button type="submit" name="geotag" value="true" class="btn btn-success">
+                        {% trans "Upload and mark on map" %}
+                    </button>
+                </div>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        function previewImage() {
+            var fr = new FileReader();
+            fr.readAsDataURL(document.getElementById('id_image').files[0]);
+            $('#upload-preview').show();
+            fr.onload = function (oFREvent) {
+                document.getElementById('upload-preview').src = oFREvent.target.result;
+            };
+        }
+        $(document).ready(function () {
+            $('#id_albums-autocomplete').attr('required', false);
+            $('#id_image').on('change', (function () {
+                previewImage();
+            }));
+            $('#id_uploader_is_author').on('change', (function () {
+                var state = $(this).is(':checked'),
+                    licenceText = $('#ajapaik-user-upload-waive-rights-text'),
+                    licenceSelection = $('#id_licence').parent(),
+                    authorInput = $('#id_author').parent();
+                if (state) {
+                    licenceText.show();
+                    licenceSelection.hide();
+                    authorInput.hide();
+                } else {
+                    licenceText.hide();
+                    licenceSelection.show();
+                    authorInput.show();
+                }
+            }));
+            $('#id_uploader_is_author').change();
+        });
+    </script>
+{% endblock %}

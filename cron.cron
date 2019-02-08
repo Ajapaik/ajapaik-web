@@ -1,4 +1,0 @@
-0 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py refresh_albums
-15 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py clearsessions
-30 4 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py reverse_geocode_photos
-00 5 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python project/manage.py update_index

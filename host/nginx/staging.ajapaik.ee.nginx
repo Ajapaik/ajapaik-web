@@ -1,0 +1,76 @@
+server {
+    listen 80;
+
+    server_name www.staging.ajapaik.ee staging.ajapaik.ee;
+
+    return 301 https://staging.ajapaik.ee$request_uri;
+}
+
+server {
+    listen 80;
+
+    server_name opendata.staging.ajapaik.ee;
+
+    return 301 https://opendata.staging.ajapaik.ee$request_uri;
+}
+
+server {
+    listen 443;
+
+    server_name staging.ajapaik.ee;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/staging.ajapaik.ee/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/staging.ajapaik.ee/privkey.pem;
+
+    access_log /var/log/staging.ajapaik.ee.access.log;
+    error_log /var/log/staging.ajapaik.ee.error.log;
+
+    location /media  {
+        alias /home/ajapaik/ajapaik-web-staging/media;
+    }
+
+    location /static {
+        alias /home/ajapaik/ajapaik-web-staging/static-collected;
+    }
+    
+    location /dump {
+        alias /home/ajapaik/ajapaik-web-staging/dump;
+    }
+
+    # Serve Juks's old maps directly
+    location /vanalinnad.mooo.com {
+        root /home/ajapaik;
+    }
+
+    location / {
+        include ../uwsgi_params;
+        uwsgi_pass unix:/home/ajapaik/ajapaik-web-staging/run/staging.ajapaik.ee.sock;
+    }
+}
+
+server {
+    listen 443;
+
+    server_name opendata.staging.ajapaik.ee;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/staging.ajapaik.ee/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/staging.ajapaik.ee/privkey.pem;
+
+    access_log /var/log/staging.ajapaik.ee.access.log;
+    error_log /var/log/staging.ajapaik.ee.error.log;
+
+    location /media  {
+        alias /home/ajapaik/ajapaik-web-staging/media;
+    }
+
+    location /static {
+        alias /home/ajapaik/ajapaik-web-staging/static-collected;
+    }
+
+    location / {
+        include ../uwsgi_params;
+        uwsgi_pass unix:/home/ajapaik/ajapaik-web-staging/run/staging.ajapaik.ee.sock;
+    }
+}

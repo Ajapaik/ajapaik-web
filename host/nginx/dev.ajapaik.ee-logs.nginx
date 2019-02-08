@@ -1,0 +1,2 @@
+access_log /var/log/dev.ajapaik.ee.access.log;
+error_log /var/log/dev.ajapaik.ee.error.log;

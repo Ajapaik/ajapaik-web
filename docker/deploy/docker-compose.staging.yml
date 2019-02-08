@@ -1,0 +1,4 @@
+# TODO: Use host DB, at least for now
+# TODO: Mount images
+# TODO: expose compressed static files via volume mount
+# TODO: share a DB, share a Redis, share a Solr?

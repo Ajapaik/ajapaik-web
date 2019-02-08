@@ -1,0 +1,35 @@
+version: '2'
+
+# dev environment on our main host
+services:
+  db:
+    image: 'mdillon/postgis:11-alpine'
+    container_name: 'postgres'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./../../postgresql:/var/lib/postgresql
+  solr:
+    image: 'solr:6-alpine'
+    container_name: 'solr'
+    restart: always
+    volumes:
+      - './docker/solr:/opt/solr/server/solr/tester'
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis'
+  app:
+    build: ../../
+    image: 'laurielias/ajapaik-web:python-3.6-latest'
+    container_name: 'ajapaik'
+    entrypoint: '/usr/local/bin/docker-entrypoint.sh'
+    depends_on:
+      - db
+      - solr
+      - redis
+    volumes:
+      - ./../../run:/home/docker/ajapaik/run
+      - ./../../media:/home/docker/ajapaik/media
+      - ./../../ajapaik/settings:/home/docker/ajapaik/ajapaik/settings
