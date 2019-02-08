@@ -10,7 +10,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./postgresql:/var/lib/postgresql
+      - ./../../postgresql:/var/lib/postgresql
   solr:
     image: 'solr:6-alpine'
     container_name: 'solr'
@@ -30,5 +30,6 @@ services:
       - solr
       - redis
     volumes:
-      - ./run:/home/docker/ajapaik/run
-      - ./media:/home/docker/ajapaik/media
+      - ./../../run:/home/docker/ajapaik/run
+      - ./../../media:/home/docker/ajapaik/media
+      - ./../../ajapaik/settings:/home/docker/ajapaik/ajapaik/settings
