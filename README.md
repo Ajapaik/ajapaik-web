@@ -113,3 +113,4 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: try if integrating Solr tighter will help search (the current solution where everything that matches 'Tartu' is retrieved into an array of IDs no longer performs)
 - TODO: decide between Celery beat & just running cron jobs on the host machine
 - TODO: private photo collections
+- TODO: venv/lib/python3.6/site-packages/oauth2client/xsrfutil.py line 114 just returns True to work around a bug

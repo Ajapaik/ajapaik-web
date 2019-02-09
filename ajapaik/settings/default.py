@@ -192,7 +192,7 @@ INSTALLED_APPS = (
     'ajapaik.ajapaik_face_recognition'
 )
 
-ALLOWED_HOSTS = ['.ajapaik.ee', '.timepatch.net', '127.0.0.1']
+ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
 
 HAYSTACK_CONNECTIONS = {
     'default': {
