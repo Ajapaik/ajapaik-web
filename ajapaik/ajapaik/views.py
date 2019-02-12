@@ -474,7 +474,9 @@ def rephoto_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
+                re_photo.phash()
                 photo.save()
+                photo.phash()
                 for each in photo.albums.all():
                     each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
                     each.light_save()
@@ -2174,6 +2176,7 @@ def curator_photo_upload_handler(request):
                                 new_photo.latest_geotag = source_geotag.created
                                 new_photo.set_calculated_fields()
                             new_photo.save()
+                            new_photo.phash()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
                                                          user=profile, created=new_photo.created,
                                                          album=general_albums[0])
@@ -2646,6 +2649,7 @@ def user_upload(request):
                 photo.author = request.user.profile.get_display_name()
                 photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
             photo.save()
+            photo.phash()
             for each in form.cleaned_data['albums']:
                 AlbumPhoto(
                     photo=photo,

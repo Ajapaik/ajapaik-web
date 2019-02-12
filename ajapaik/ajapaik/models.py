@@ -42,6 +42,7 @@ from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
+from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff
 from ajapaik.utils import average_angle
 
@@ -378,6 +379,7 @@ class Photo(Model):
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
+    perceptual_hash = CharField(max_length=64, null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -513,6 +515,11 @@ class Photo(Model):
         delete(self.image, delete_file=False)
         self.light_save()
         self.original_flip = self.flip
+
+    def phash(self):
+        img = Image.open(settings.MEDIA_ROOT + "/" + str(self.image))
+        self.perceptual_hash = phash(img)
+        self.save()
 
     def watermark(self):
         # For ETERA
