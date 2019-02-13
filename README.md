@@ -114,3 +114,4 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: decide between Celery beat & just running cron jobs on the host machine
 - TODO: private photo collections
 - TODO: venv/lib/python3.6/site-packages/oauth2client/xsrfutil.py line 114 just returns True to work around a bug
+- TODO: implement this answer for keeps https://stackoverflow.com/questions/18643998/geodjango-geosexception-error

@@ -32,12 +32,12 @@ def finna_add_to_album(photo, target_album):
 
 
 def finna_find_photo_by_url(record_url, profile):
-    #print >> sys.stderr, ('find_finna_photo_by_url %s' % record_url)
+    print('find_finna_photo_by_url %s' % record_url, file=sys.stderr)
     photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
         m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url)
         if m:
-            #print >> sys.stderr, ('find_finna_photo_by_url() url ok')
+            print('find_finna_photo_by_url() url ok' % record_url, file=sys.stderr)
             # Already in database?
             external_id = m.group(2)
             photo = Photo.objects.filter(
@@ -46,7 +46,7 @@ def finna_find_photo_by_url(record_url, profile):
 
             # Import if not found
             if not photo:
-                #print >> sys.stderr, ('find_finna_photo_by_url() url not in database')
+                print('find_finna_photo_by_url() url not in database' % record_url, file=sys.stderr)
                 photo = finna_import_photo(external_id, profile)
 
             if photo:

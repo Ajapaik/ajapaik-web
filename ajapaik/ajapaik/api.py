@@ -1,7 +1,8 @@
 # coding=utf-8
 import logging
+import sys
 import time
-from io import StringIO
+import io
 from json import loads
 from urllib.request import urlopen
 
@@ -690,12 +691,11 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
 
     def post(self, request, format=None):
-        # print >>sys.stderr, ('rephotoupload')
+        print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.data, request.FILES)
         if form.is_valid():
             user_profile = request.user.profile
-
-            # print >>sys.stderr, ('form.isvalid()')
+            print('form.isvalid()', file=sys.stderr)
             id = form.cleaned_data['id']
             if id.isdigit():
                 id = int(id)
@@ -706,7 +706,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 photo = finna_find_photo_by_url(id, user_profile)
 
             if not photo:
-                # print >>sys.stderr, ('rephotoupload failed')
+                print('rephotoupload failed', file=sys.stderr)
                 return Response({
                     'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 })
@@ -763,20 +763,20 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             elif scale_factor and scale_factor > 1:
                 image = _fill_missing_pixels(image, scale_factor)
 
-            image_stream = StringIO()
-            image_unscaled_stream = StringIO()
+            image_stream = io.BytesIO()
+            image_unscaled_stream = io.BytesIO()
             image.save(image_stream, 'JPEG', quality=95)
             image_unscaled.save(image_unscaled_stream, 'JPEG', quality=95)
 
-            # print >>sys.stderr, ('new_rephoto')
+            print('new_rephoto', file=sys.stderr)
             new_rephoto = Photo(
                 image_unscaled=InMemoryUploadedFile(
                     image_unscaled_stream, None, rephoto.name, 'image/jpeg',
-                    image_unscaled_stream.len, None
+                    sys.getsizeof(image_unscaled_stream), None
                 ),
                 image=InMemoryUploadedFile(
                     image_stream, None, rephoto.name, 'image/jpeg',
-                    image_stream.len, None
+                    sys.getsizeof(image_stream), None
                 ),
                 rephoto_of=original_photo,
                 lat=latitude,
@@ -794,8 +794,7 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 user=user_profile,
             )
             new_rephoto.save()
-            # print >>sys.stderr, ('original_photo')
-
+            print('original_photo', file=sys.stderr)
             original_photo.latest_rephoto = new_rephoto.created
             if not original_photo.first_rephoto:
                 original_photo.first_rephoto = new_rephoto.created
