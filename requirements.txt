@@ -6,6 +6,7 @@ django-debug-toolbar==1.9.1
 django-haystack==2.7.0
 django-registration-redux==1.6
 djangorestframework==3.4.7
+markdown<3
 oauth2client==1.4.12
 redis==2.10.6
 six==1.10

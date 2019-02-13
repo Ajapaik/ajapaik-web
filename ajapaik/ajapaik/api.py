@@ -677,8 +677,8 @@ def _crop_image(img, scale_factor):
 
 def _fill_missing_pixels(img, scale_factor):
     new_size = tuple([int(x * scale_factor) for x in img.size])
-    x0 = (new_size[0] - img.size[0]) / 2
-    y0 = (new_size[1] - img.size[1]) / 2
+    x0 = int((new_size[0] - img.size[0]) / 2)
+    y0 = int((new_size[1] - img.size[1]) / 2)
     new_img = Image.new('RGB', new_size, color=(255, 255, 255))
     new_img.paste(img, (x0, y0))
 
