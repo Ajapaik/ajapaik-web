@@ -517,9 +517,9 @@ class Photo(Model):
         self.original_flip = self.flip
 
     def phash(self):
-        img = Image.open(settings.MEDIA_ROOT + "/" + str(self.image))
+        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
-        self.save()
+        self.light_save()
 
     def watermark(self):
         # For ETERA

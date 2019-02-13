@@ -474,13 +474,13 @@ def rephoto_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
-                re_photo.phash()
                 photo.save()
-                photo.phash()
                 for each in photo.albums.all():
                     each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
                     each.light_save()
                 re_photo.image.save('rephoto.jpg', file_obj)
+                # Image saved to disk, can analyse now
+                re_photo.phash()
                 new_id = re_photo.pk
                 img = Image.open(settings.MEDIA_ROOT + '/' + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
