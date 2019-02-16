@@ -1,5 +1,4 @@
 import datetime
-import multiprocessing
 from json import dumps
 
 import face_recognition
@@ -20,16 +19,13 @@ def analyse_single_photo(photo: Photo) -> None:
     except:
         return
     for detected_face in detected_faces:
-        try:
-            new_rectangle = FaceRecognitionRectangle(
-                photo=photo,
-                coordinates=dumps(detected_face)
-            )
-            new_rectangle.save()
-            photo.face_detection_attempted_at = datetime.datetime.now()
-            photo.light_save()
-        except:
-            continue
+        new_rectangle = FaceRecognitionRectangle(
+            photo=photo,
+            coordinates=dumps(detected_face)
+        )
+        new_rectangle.save()
+    photo.face_detection_attempted_at = datetime.datetime.now()
+    photo.light_save()
 
 
 class Command(BaseCommand):
@@ -38,5 +34,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.filter(face_detection_attempted_at__isnull=True).all()
         print('Found %s photos to run on' % photos.count())
-        with multiprocessing.Pool() as pool:
-            pool.map(analyse_single_photo, photos)
+        for photo in photos:
+            analyse_single_photo(photo)

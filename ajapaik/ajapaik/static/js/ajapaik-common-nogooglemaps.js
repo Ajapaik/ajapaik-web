@@ -567,10 +567,10 @@ if (typeof(google) !== "undefined" && typeof(google.maps) !== "undefined")
     $(document).on('click', '#ajapaik-header-people-button', function (e) {
         e.preventDefault();
         var uri = URI(window.location);
-        if (uri.query().indexOf('person_albums_only') == -1) {
-            uri.addQuery('person_albums_only', 1)
+        if (uri.query().indexOf('people') == -1) {
+            uri.addQuery('people', 1)
         } else {
-            uri.removeQuery('person_albums_only');
+            uri.removeQuery('people');
         }
         window.location.href = uri;
     });

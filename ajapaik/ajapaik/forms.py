@@ -56,7 +56,7 @@ class AlbumSelectionForm(forms.Form):
 class AlbumSelectionFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
-    person_albums_only = forms.BooleanField(initial=False, required=False)
+    people = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):
@@ -77,6 +77,7 @@ class GalleryFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     myLikes = forms.BooleanField(required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
+    people = forms.BooleanField(initial=False, required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']
@@ -358,7 +359,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
 
     class Meta:
         model = Album
-        fields = ('subalbum_of', 'atype', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
+        fields = ('subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
 
     def __init__(self, *args, **kwargs):
         # TODO: Show person fields if applicable
@@ -370,8 +371,8 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
-        self.fields['atype'].label = _('Album type')
-        self.fields['atype'].choices = [(Album.PERSON, _('Person')), (Album.CURATED, _('Anything else'))]
+        # self.fields['atype'].label = _('Album type')
+        # self.fields['atype'].choices = [(Album.PERSON, _('Person')), (Album.CURATED, _('Anything else'))]
 
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):

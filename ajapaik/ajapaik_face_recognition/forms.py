@@ -18,7 +18,7 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
 
 
 class FaceRecognitionGuessForm(autocomplete_light.ModelForm):
-    subject_album = autocomplete_light.ModelChoiceField('PublicAlbumAutocomplete', label=_('Subject'), required=True)
+    subject_album = autocomplete_light.ModelChoiceField('SubjectAlbumAutocomplete', label=_('Subject'), required=True)
     rectangle = forms.ModelChoiceField(queryset=FaceRecognitionRectangle.objects.all(), widget=forms.HiddenInput())
 
     class Meta:

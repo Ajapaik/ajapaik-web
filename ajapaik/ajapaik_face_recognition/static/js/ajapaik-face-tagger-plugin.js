@@ -124,6 +124,7 @@
                     // TODO: Can this be simpler?
                     setTimeout(function () {
                         $('#' + responseDiv).siblings('.popover').children('.popover-content').html(response);
+                        $('#id_subject_album-autocomplete').focus();
                     }, 0);
                 },
                 error: function () {
@@ -148,7 +149,6 @@
                         data: {
                             id: face.id
                         },
-                        html: face.subject_name,
                         css: {
                             position: 'absolute',
                             left: leftTop[0] + 'px',
@@ -159,6 +159,9 @@
                         },
                         // TODO: If we know already, display peoples' names
                     });
+                if (face.subject_name) {
+                    $faceRectangle.html('<div class="ajapaik-face-rectangle-text">' + face.subject_name + '</div>')
+                }
                 $faceRectangle.popover({
                     html: true,
                     title: gettext('Who is this?'),
@@ -180,14 +183,15 @@
                         $('#id_subject-autocomplete').focus();
                         $('#add_id_subject_album').show();
                     }, 300);
+                    window.hotkeysActive = false;
                 });
                 // $faceRectangle.on('hidden.bs.popover', function () {
-                //     that.currentlyOpenRectangleId = null;
-                //     that.$drawnFaceElements.forEach(function ($each) {
-                //         if (!that.currentlyOpenRectangleId) {
-                //             $each.show();
-                //         }
-                //     });
+                    // that.currentlyOpenRectangleId = null;
+                    // that.$drawnFaceElements.forEach(function ($each) {
+                    //     if (!that.currentlyOpenRectangleId) {
+                    //         $each.show();
+                    //     }
+                    // });
                 // });
                 $faceRectangle.hover(function () {
                     that.$drawnFaceElements.forEach(function ($each) {
@@ -282,7 +286,7 @@
                     // Don't bother users with confirmations if they're deleting their own rectangle right away
                     that.reportBadRectangle(id);
                 } else {
-                    if (confirm(gettext('Are you sure you wish to have this face removed?'))) {
+                    if (confirm(gettext('Are you sure you wish to have this annotation removed?'))) {
                         that.reportBadRectangle(id);
                     }
                 }
@@ -325,6 +329,8 @@
                     onSelectEnd: that.handleNewRectangleDrawn
                 });
             }, 0);
+            $('.ajapaik-photo-modal-previous-button').css('pointer-events', 'none');
+            $('.ajapaik-photo-modal-next-button').css('pointer-events', 'none');
         },
         stopCropping: function () {
             var that = this;
@@ -334,6 +340,8 @@
                 disable: true,
                 hide: true
             });
+            $('.ajapaik-photo-modal-previous-button').css('pointer-events', 'auto');
+            $('.ajapaik-photo-modal-next-button').css('pointer-events', 'auto');
         },
         toggleCropping: function () {
             var that = this;

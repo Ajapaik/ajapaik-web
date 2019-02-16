@@ -700,11 +700,11 @@ def frontpage_async_albums(request):
             page = 1
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
-        albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
-                                      atype__in=[Album.CURATED, Album.PERSON])
-        if form.cleaned_data['person_albums_only']:
-            albums = albums.filter(atype=Album.PERSON)
-        # sqs = SearchQuerySet().models(Album)
+        if form.cleaned_data['people']:
+            albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
+        else:
+            albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
+                                          atype=Album.CURATED)
         q = form.cleaned_data['q']
         if q:
             # TODO: Haystack 2.8.x upgrade requires Django 1.11.x, after that we could move to Python 3.7
@@ -780,6 +780,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
+        if filter_form.cleaned_data['people']:
+            photos = photos.filter(face_recognition_rectangles__isnull=False)
         if requested_photos:
             requested_photos = requested_photos.split(',')
             ret['is_photoset'] = True
@@ -1902,10 +1904,10 @@ def curator_search(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(Q(profile=user_profile, atype=Album.CURATED)).order_by("-created"), many=True
+        Album.objects.filter(Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])).order_by('-created'), many=True
     )
 
-    return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+    return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
 
 def curator_selectable_albums(request):
@@ -2673,7 +2675,7 @@ def user_upload_add_album(request):
         form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():
             album = form.save(commit=False)
-            # album.atype = Album.CURATED
+            album.atype = Album.CURATED
             album.profile = request.user.profile
             album.save()
             ret['message'] = _('Album created')

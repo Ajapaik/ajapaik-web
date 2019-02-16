@@ -13,3 +13,12 @@
 .ajapaik-face-recognition-form-remove-rectangle-button {
     float: left;
 }
+
+.ajapaik-face-rectangle-text {
+    position: absolute;
+    background-color: white;
+    height: 25px;
+    bottom: -25px;
+    min-width: 100%;
+    overflow: hidden;
+}

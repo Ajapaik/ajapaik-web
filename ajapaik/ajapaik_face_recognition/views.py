@@ -32,6 +32,9 @@ def add_subject(request: HttpRequest) -> HttpResponse:
         context['form'] = form
         if form.is_valid():
             new_album: Album = form.save(commit=False)
+            new_album.atype = Album.PERSON
+            new_album.is_public = True
+            new_album.open = True
             new_album.profile_id = request.user.id
             new_album.save()
 

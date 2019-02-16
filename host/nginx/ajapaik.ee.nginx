@@ -109,6 +109,10 @@ server {
         alias /home/ajapaik/ajapaik-web/static-collected/favicon.$1;
     }
 
+    location ~ ^/robots.txt$ {
+        alias /home/ajapaik/ajapaik-web/templates/robots.txt;
+    }
+
     # Serve Juks's old maps directly
     location /vanalinnad.mooo.com {
         root /home/ajapaik;

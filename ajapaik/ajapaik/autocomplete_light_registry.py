@@ -113,6 +113,29 @@ class PublicAlbumAutocomplete(AutocompleteModelBase):
 
 al.register(PublicAlbumAutocomplete)
 
+
+class SubjectAlbumAutocomplete(AutocompleteModelBase):
+    model = Album
+    name = 'SubjectAlbumAutocomplete'
+    search_fields = ['pk', 'name_en', 'name_et', 'name_fi', 'name_nl', 'name_ru', 'name_sv', 'name_no', 'name_de']
+    limit_choices = 1000
+    attrs = {
+        'data-autocomplete-minimum-characters': 2,
+    }
+    widget_attrs = {
+        'data-widget-maximum-values': 4,
+        'class': 'modern-style',
+    }
+    add_another_url_name = 'face_recognition_add_subject'
+
+    def choices_for_request(self):
+        self.choices = self.choices.filter(atype__in=[Album.PERSON])
+
+        return super(SubjectAlbumAutocomplete, self).choices_for_request()
+
+
+al.register(SubjectAlbumAutocomplete)
+
 al.register(AlbumPhoto,
             search_fields=['pk', ],
             attrs={
