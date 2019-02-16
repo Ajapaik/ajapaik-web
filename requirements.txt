@@ -39,4 +39,5 @@ pandas
 psycopg2-binary
 scikit-learn
 sorl-thumbnail
+transifex-client
 typing
