@@ -1262,6 +1262,9 @@ class Newsletter(Model):
     def __unicode__(self):
         return '%s' % self.slug
 
+    def __str__(self):
+        return self.__unicode__()
+
     def save(self, *args, **kwargs):
         super(Newsletter, self).save(*args, **kwargs)
         if not self.slug:

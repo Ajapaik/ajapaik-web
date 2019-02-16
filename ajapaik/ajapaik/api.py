@@ -21,6 +21,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
+from haystack.inputs import AutoQuery
+from haystack.query import SearchQuerySet
 from oauth2client import client, crypt
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
@@ -1056,12 +1058,10 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
 
-            search_results = forms.HaystackPhotoSearchForm({
-                'q': search_phrase
-            }).search()
+            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
             photos = Photo.objects.filter(
-                id__in=[item.pk for item in search_results],
+                id__in=[item.pk for item in sqs],
                 albums=album
             )
             if rephotos_only:
@@ -1101,12 +1101,10 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             search_phrase = form.cleaned_data['query']
             user_profile = request.user.profile
 
-            search_results = forms.HaystackPhotoSearchForm({
-                'q': search_phrase
-            }).search()
+            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
             photos = Photo.objects.filter(
-                id__in=[item.pk for item in search_results],
+                id__in=[item.pk for item in sqs],
                 rephoto_of__isnull=False,
                 user=user_profile
             )
@@ -1141,12 +1139,10 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             search_phrase = form.cleaned_data['query']
             user_profile = request.user.profile
 
-            search_results = forms.HaystackAlbumSearchForm({
-                'q': search_phrase
-            }).search()
+            sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(search_phrase))
 
             albums = Album.objects.filter(
-                id__in=[item.pk for item in search_results]
+                id__in=[item.pk for item in sqs]
             )
             albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
 

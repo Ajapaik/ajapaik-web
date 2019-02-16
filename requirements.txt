@@ -8,6 +8,7 @@ django-registration-redux==1.6
 djangorestframework==3.4.7
 markdown<3
 oauth2client==1.4.12
+Pillow<4.2
 redis==2.10.6
 six==1.10
 cmake
@@ -29,7 +30,6 @@ flickrapi
 geopy
 hiredis
 mypy
-Pillow
 pyOpenSSL
 pysolr
 requests

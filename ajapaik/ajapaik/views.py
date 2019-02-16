@@ -100,6 +100,7 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
     if p.rephoto_of:
         original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
         thumb_str = str(original_thumb.size[0]) + 'x' + str(original_thumb.size[1])
+        # TODO: see if restricting Pillow version fixes this
         im = get_thumbnail(p.image, thumb_str, upscale=True, downscale=True, crop='center')
     else:
         im = get_thumbnail(p.image, thumb_str, upscale=False)

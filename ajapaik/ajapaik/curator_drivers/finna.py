@@ -209,8 +209,12 @@ class FinnaDriver(object):
 
     def transform_response(self, response, remove_existing=False, finna_page=1):
         description2 = ""
-        ids = [p['id'] for p in response['records']]
-        page_count = int(ceil(float(response['resultCount']) / float(self.page_size)))
+        ids = None
+        page_count = 0
+        if 'records' in response:
+            ids = [p['id'] for p in response['records']]
+        if 'resultCount' in response:
+            page_count = int(ceil(float(response['resultCount']) / float(self.page_size)))
         transformed = {
             'result': {
                 'firstRecordViews': [],
@@ -218,6 +222,8 @@ class FinnaDriver(object):
                 'pages': page_count
             }
         }
+        if not ids:
+            return transformed
         existing_photos = Photo.objects.filter(source__description='Finna', external_id__in=ids).all()
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
