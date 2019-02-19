@@ -14,7 +14,8 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
-                <div style="margin-bottom: 20px;" class="btn-group pull-right" role="group" aria-label="ajapaik-add-face-recogntion-subject-button-group">
+                <div style="margin-bottom: 20px;" class="btn-group pull-right" role="group"
+                     aria-label="ajapaik-add-face-recogntion-subject-button-group">
                     <button type="button" class="btn btn-danger" onclick="window.close();">
                         {% trans "Close" %}
                     </button>
@@ -23,12 +24,21 @@
                     </button>
                 </div>
             {% endbuttons %}
+            <script>
+
+            </script>
         </form>
     </div>
 {% endblock %}
 
 {% block specific_js %}
     {% if message %}
-        <script>window.close();</script>
+        <script>
+            // window.faceRecognitionSubjectAdded('{{ message }}');
+            // window.docCookies.setItem('ajapaik_last_added_subject_id', '{{ message }}', 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
+            window.setTimeout(function () {
+                window.close();
+            });
+        </script>
     {% endif %}
 {% endblock %}

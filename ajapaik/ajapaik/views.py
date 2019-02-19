@@ -67,6 +67,7 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -1272,6 +1273,15 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
+    rectangles_for_this_photo_with_names = FaceRecognitionRectangle.objects.filter(photo=photo_obj)\
+        .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False))
+    people = []
+    for rectangle in rectangles_for_this_photo_with_names:
+        if rectangle.subject_consensus:
+            people.append(rectangle.subject_consensus.name)
+        elif rectangle.subject_ai_guess:
+            people.append(rectangle.subject_ai_guess.name)
+
     return render(request, template, {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
@@ -1305,7 +1315,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "next_photo": next_photo,
         "previous_photo": previous_photo,
         # TODO: Needs more data than just the names
-        # "people": [x.name for x in photo_obj.people.all()]
+        "people": people
     })
 
 

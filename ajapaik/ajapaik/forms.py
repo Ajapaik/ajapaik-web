@@ -359,7 +359,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
 
     class Meta:
         model = Album
-        fields = ('subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
+        fields = ('atype', 'subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
 
     def __init__(self, *args, **kwargs):
         # TODO: Show person fields if applicable
@@ -371,8 +371,8 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
-        # self.fields['atype'].label = _('Album type')
-        # self.fields['atype'].choices = [(Album.PERSON, _('Person')), (Album.CURATED, _('Anything else'))]
+        self.fields['atype'].label = _('Album type')
+        self.fields['atype'].choices = [(Album.PERSON, _('Person')), (Album.CURATED, _('Anything else'))]
 
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):

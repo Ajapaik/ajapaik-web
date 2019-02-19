@@ -15,6 +15,7 @@
         }, options);
         this.faces = [];
         this.isInCropMode = false;
+        this.isGuessPopoverOpen = false;
         this.$drawnFaceElements = [];
         this.newRectangleX1 = null;
         this.newRectangleX2 = null;
@@ -25,6 +26,9 @@
         this.currentlyOpenRectangleId = null;
         // TODO: Notify users they must be logged in to do any of this
         this.loadRectangles = function (idToClickAfterLoading) {
+            if (that.isGuessPopoverOpen) {
+                return false;
+            }
             // TODO: Some kind of caching? Seems a bit wasteful to reload on each hover. Good enough for now I guess
             that.removeRectanglesAndButtons();
             $.ajax({
@@ -108,6 +112,9 @@
             });
         };
         this.removeRectanglesAndButtons = function () {
+            if (that.isGuessPopoverOpen) {
+                return false;
+            }
             that.$drawnFaceElements.forEach(function ($each) {
                 $each.remove();
             });
@@ -125,6 +132,7 @@
                     setTimeout(function () {
                         $('#' + responseDiv).siblings('.popover').children('.popover-content').html(response);
                         $('#id_subject_album-autocomplete').focus();
+                        that.isGuessPopoverOpen = true;
                     }, 0);
                 },
                 error: function () {
@@ -186,12 +194,12 @@
                     window.hotkeysActive = false;
                 });
                 // $faceRectangle.on('hidden.bs.popover', function () {
-                    // that.currentlyOpenRectangleId = null;
-                    // that.$drawnFaceElements.forEach(function ($each) {
-                    //     if (!that.currentlyOpenRectangleId) {
-                    //         $each.show();
-                    //     }
-                    // });
+                // that.currentlyOpenRectangleId = null;
+                // that.$drawnFaceElements.forEach(function ($each) {
+                //     if (!that.currentlyOpenRectangleId) {
+                //         $each.show();
+                //     }
+                // });
                 // });
                 $faceRectangle.hover(function () {
                     that.$drawnFaceElements.forEach(function ($each) {
@@ -247,7 +255,7 @@
             var width = 800;
             var left = (screen.width / 2) - (width / 2);
             var top = (screen.height / 2) - (height / 2);
-            var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left)
+            var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
 
             function removeOverlay() {
                 if (win.closed) {
@@ -257,7 +265,7 @@
                 }
             }
 
-            $('body').append('<div id="yourlabs_overlay"></div');
+            $('body').append('<div id="yourlabs_overlay"></div>');
             $('#yourlabs_overlay').click(function () {
                 win.close();
                 $(this).remove();
@@ -278,6 +286,7 @@
             // Avoid duplicate handlers
             $(document).off('click', '.ajapaik-face-recognition-form-remove-rectangle-button');
             $(document).off('click', '.ajapaik-face-recognition-form-submit-button');
+            $(document).off('click', '.ajapaik-face-recognition-form-cancel-button');
             $(document).on('click', '.ajapaik-face-recognition-form-remove-rectangle-button', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -298,11 +307,21 @@
                     subject = $form.find('#id_subject_album').val(),
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);
+                that.isGuessPopoverOpen = false;
+            });
+            $(document).on('click', '.ajapaik-face-recognition-form-cancel-button', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $('.popover').popover('hide');
+                that.isGuessPopoverOpen = false;
             });
             // Had to be copied to be a global trigger from addanother.js
             $(document).on('click', '#add_id_subject_album', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                // Workaround for getting data out of now closed programmatically generated iframe
+                // window.docCookies.setItem('ajapaik_last_added_subject_id', null,
+                //     'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
                 that.showAddAnotherPopup($(this));
             });
             $(document).on('keydown', function (e) {

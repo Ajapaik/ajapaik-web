@@ -39,10 +39,9 @@ def add_subject(request: HttpRequest) -> HttpResponse:
             new_album.save()
 
             status = 201
-            context['message'] = 'OK'
+            context['message'] = new_album.pk
         else:
             status = 400
-            context['message'] = 'Invalid data'
 
     return render_to_response('add_subject.html', RequestContext(request, context), status=status)
 
@@ -150,7 +149,8 @@ def add_rectangle_feedback(request):
         new_feedback.save()
         # Allow the owner to delete their own rectangle at will
         # TODO: Some kind of review process to delete rectangles not liked by N people?
-        if not new_feedback.is_correct and rectangle.user_id == request.user.id:
+        #  and rectangle.user_id == request.user.id
+        if not new_feedback.is_correct:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()
             deleted = True

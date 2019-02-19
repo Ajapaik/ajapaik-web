@@ -1,7 +1,7 @@
 30 03 01 Jan,Mar,May,Jul,Sep,Nov * /home/ajapaik/ajapaik-web/host/update-ssl-certs.sh
 15 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py clearsessions
 30 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py reverse_geocode_photos
-45 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py run_face_detection
-00 05 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py update_index
+45 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py update_index
+00 05 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py run_face_detection
 
 # TODO: DB backup

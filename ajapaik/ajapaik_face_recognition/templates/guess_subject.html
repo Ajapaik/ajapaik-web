@@ -5,16 +5,24 @@
     <form method="post" action="{% url 'face_recognition_guess_subject' %}" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button class="btn btn-success ajapaik-face-recognition-form-submit-button"
-                type="submit"
-                title="{% trans "Submit guess" %}">
-            {% trans "Send" %}
-        </button>
-        <button title="{% trans "This rectangle is bad, I think it should be removed." %}"
-                class="btn btn-danger ajapaik-face-recognition-form-remove-rectangle-button"
-                type="button"
-                data-id="{{ rectangle_id }}">
-            {% trans "Delete annotation" %}
-        </button>
+        <div class="btn-group">
+            <button title="{% trans "This rectangle is bad, I think it should be removed." %}"
+                    class="btn btn-danger ajapaik-face-recognition-form-remove-rectangle-button"
+                    type="button"
+                    title="{% trans "Delete annotation" %}"
+                    data-id="{{ rectangle_id }}">
+                {% trans "Delete" %}
+            <button class="btn btn-default ajapaik-face-recognition-form-cancel-button"
+                    type="button"
+                    title="{% trans "Cancel" %}">
+                {% trans "Cancel" %}
+            </button>
+            </button>
+            <button class="btn btn-primary ajapaik-face-recognition-form-submit-button"
+                    type="submit"
+                    title="{% trans "Submit guess" %}">
+                {% trans "Send" %}
+            </button>
+        </div>
     </form>
 </div>

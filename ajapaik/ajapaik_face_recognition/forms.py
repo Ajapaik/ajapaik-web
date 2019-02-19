@@ -10,11 +10,12 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
 class FaceRecognitionAddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = _('Subject name')
         self.fields['gender'].widget = forms.RadioSelect(choices=Album.GENDER_CHOICES)
 
     class Meta:
         model = Album
-        fields = ('name', 'date_of_birth', 'gender', 'is_public_figure')
+        fields = ('name', 'gender', 'is_public_figure')
 
 
 class FaceRecognitionGuessForm(autocomplete_light.ModelForm):

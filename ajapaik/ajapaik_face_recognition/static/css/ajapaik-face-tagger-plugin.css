@@ -17,8 +17,12 @@
 .ajapaik-face-rectangle-text {
     position: absolute;
     background-color: white;
-    height: 25px;
-    bottom: -25px;
-    min-width: 100%;
+    height: 24px;
+    line-height: 12px;
+    bottom: -24px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 100%;
     overflow: hidden;
+    text-align: center;
 }

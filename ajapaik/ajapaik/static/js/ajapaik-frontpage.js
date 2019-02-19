@@ -47,7 +47,9 @@
                     }
 //                    showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
-                    FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
+                    if (window.FB) {
+                        window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
+                    }
                     $('#ajapaik-video-modal').hide();
                 });
             },
