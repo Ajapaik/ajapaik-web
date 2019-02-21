@@ -12,6 +12,7 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
         super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = _('Subject name')
         self.fields['gender'].widget = forms.RadioSelect(choices=Album.GENDER_CHOICES)
+        self.fields['is_public_figure'].label = _('Is public figure')
 
     class Meta:
         model = Album
