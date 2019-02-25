@@ -5,6 +5,7 @@ django-contrib-comments==1.8.0
 django-debug-toolbar==1.9.1
 django-haystack==2.7.0
 django-registration-redux==1.6
+django-modeltranslation<0.13
 djangorestframework==3.4.7
 markdown<3
 oauth2client==1.4.12
@@ -21,7 +22,6 @@ django-compressor
 django-extensions
 django-leaflet
 django-mobi
-django-modeltranslation
 django-redis-cache
 django-subdomains
 face_recognition
