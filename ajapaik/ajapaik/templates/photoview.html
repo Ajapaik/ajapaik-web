@@ -122,10 +122,12 @@
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                           id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="pull-left">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
-                        </a>
+                        {% if request.user.profile.is_legit %}
+                            <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
+                               id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="pull-left">
+                               <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                            </a>
+                        {% endif %}
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
