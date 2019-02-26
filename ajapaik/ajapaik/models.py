@@ -145,8 +145,13 @@ class AlbumPhoto(Model):
         # ordering = ['-created']
 
     def __unicode__(self):
+        if self.profile:
+            profilename = self.profile.get_display_name()
+        else:
+            profilename = 'None'
+
         return u'%d - %d - %s - %s' % (
-        self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], self.profile.get_display_name())
+        self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], profilename)
 
     def __str__(self):
         return self.__unicode__()
