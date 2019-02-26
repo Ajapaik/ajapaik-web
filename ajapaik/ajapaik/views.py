@@ -2046,7 +2046,7 @@ def curator_photo_upload_handler(request):
         default_album.save()
         # 15 => unknown copyright
         unknown_licence = Licence.objects.get(pk=15)
-        flickr_licence = Licence.objects.get(url='https://www.flickr.com/commons/usage/')
+        flickr_licence = Licence.objects.filter(url='https://www.flickr.com/commons/usage/').first()
         for k, v in selection.items():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
