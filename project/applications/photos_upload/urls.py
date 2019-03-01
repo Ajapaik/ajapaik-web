@@ -1,8 +1,11 @@
+"""
+Application urls.
+"""
 from django.conf.urls import url
 
-from . import views
-
+from . import api, views
 
 urlpatterns = [
-    url('^photos/$', views.MainView.as_view(), name='mass-photo-upload-main'),
+    url('^upload/photos/$', views.MainView.as_view()),
+    url('^api/v2/upload/photos/$', api.PhotoMassiveUpload.as_view()),
 ]

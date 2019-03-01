@@ -180,6 +180,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'sorl.thumbnail',
     'rest_framework',
+    'rest_framework.authtoken',
     'compressor',
     'modeltranslation',
     'haystack',
@@ -228,8 +229,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
     ],
     'EXCEPTION_HANDLER': 'project.ajapaik.api.custom_exception_handler',
     'PAGE_SIZE': 10

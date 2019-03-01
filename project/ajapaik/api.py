@@ -20,17 +20,19 @@ from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
+from django.views.generic.base import View
 from google.auth.transport import requests
 from google.oauth2 import id_token
 from PIL import ExifTags, Image
 from rest_framework import authentication, exceptions
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import (api_view, authentication_classes,
                                        parser_classes, permission_classes)
-from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
@@ -94,7 +96,7 @@ class CustomAuthentication(authentication.BaseAuthentication):
 
 
 class CustomAuthenticationMixin(object):
-    authentication_classes = (CustomAuthentication,)
+    authentication_classes = (CustomAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
 
 
@@ -929,26 +931,22 @@ class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIV
         })
 
 
-class UserProfile(APIView):
+class UserProfile(View):
     '''
     API endpoint for getting user data.
     '''
 
-    permission_classes = (AllowAny,)
+    # permission_classes = (AllowAny,)
 
-    def get(self, request, format=None):
+    def get(self, request, *args, **kwargs):
         user = request.user
         if user.is_authenticated() and user.is_active:
-            return Response({
+            return JsonResponse({
                 'status_code': RESPONSE_STATUSES['OK'],
-                'user': serializers.UserProfileSerializer(
-                    instance=user,
-                    many=False,
-                    context={'request': request}
-                ).data
+                'user': serializers.UserProfileSerializer(instance=user).data
             })
         else:
-            return Response({
+            return JsonResponse({
                 'status_code': RESPONSE_STATUSES['OK'],
                 'user': {}
             })

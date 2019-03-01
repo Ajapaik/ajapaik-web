@@ -2,9 +2,9 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from django.db.models import (BooleanField, Case, Count, IntegerField, Q,
-                              Value, When)
+from django.db.models import BooleanField, Case, Count, Value, When
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from project.utils import calculate_thumbnail_size
 
@@ -314,15 +314,15 @@ class AlbumDetailsSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
-    session_id = serializers.SerializerMethodField()
+    authentication_token = serializers.SerializerMethodField()
 
-    def get_session_id(self, instance):
-        request = self.context['request']
-        return request.session.session_key
+    def get_authentication_token(self, instance):
+        token, status = Token.objects.get_or_create(user=instance)
+        return token.key
 
     class Meta(object):
         model = get_user_model()
-        fields = ('id', 'session_id')
+        fields = ('id', 'authentication_token')
 
 
 class LicenceSerializer(serializers.ModelSerializer):

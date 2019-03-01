@@ -139,13 +139,23 @@
             </el-row>
             <el-row>
                 <el-col :span="24">
-                    <photos-editor-photo-element
+                    <form>
+                        <el-button
+                            :type="uploadButtonType"
+                            :icon="uploadButtonIcon"
+                            :disabled="$store.state.uploadStatus === 'uploading'"
+                            @click="startUpload"
+                            plain>
+                            Upload
+                        </el-button>
+                        <photos-editor-photo-element
                             v-for="photo in $store.state.photos"
                             :key="photo.originalFileName"
                             :photo="photo"
                             :albums="availableAlbums"
                             :licences="licences">
-                    </photos-editor-photo-element>
+                        </photos-editor-photo-element>
+                    </form>
                 </el-col>
             </el-row>
         </el-row>

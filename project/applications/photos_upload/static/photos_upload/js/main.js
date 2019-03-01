@@ -3,31 +3,41 @@ const store = new Vuex.Store({
         photos: [],
         user: {},
         licences: [],
-        massiveEditFormData: {
+        templateData: {
             name: '',
             description: '',
             // Geographical centre of Estonia
-            latitude: 58.657777777777774,  // 58°39'28"N
             longitude: 25.573888888888888,  // 25°34'26"E
+            latitude: 58.657777777777774,  // 58°39'28"N
             azimuth: 0,
             isUserAuthor: false,
             selectedLicence: null,
             selectedAlbums: []
-        }
+        },
+        uploadStatus: 'waiting',  // Possible values:
+                                  // waiting - waiting for user start upload of
+                                  //           photos.
+                                  // uploading - photos upload in progress.
+                                  // success - photos successfully uploaded.
+                                  // failure - malfunction during photos upload.
     },
     mutations: {
         addPhotoFromFile: (state, {file}) => {
+            var name = file.name;
+            if (state.templateData.name) {
+                name = `${state.templateData.name} ${state.photos.length + 1}`;
+            }
             let photo = {
                 originalFileName: file.name,
-                name: file.name,
+                name: name,
                 image: null,
-                description: null,
-                longitude: null,
-                latitude: null,
-                azimuth: null,
-                isUserAuthor: false,
-                licence: null,
-                albums: [],
+                description: state.templateData.description,
+                longitude: state.templateData.longitude,
+                latitude: state.templateData.latitude,
+                azimuth: state.templateData.azimuth,
+                isUserAuthor: state.templateData.isUserAuthor,
+                licence: state.templateData.selectedLicence,
+                albums: state.templateData.selectedAlbums,
                 raw_file: file,
             };
             let reader = new FileReader();
@@ -47,7 +57,7 @@ const store = new Vuex.Store({
         setLicences: (state, licences) => {state.licences = licences;},
 
         massive_name_editing: (state, name) => {
-            state.massiveEditFormData.name = name;
+            state.templateData.name = name;
             for(var i = 0; i < state.photos.length; i++) {
                 photo = state.photos[i];
                 if (name) {
@@ -59,49 +69,50 @@ const store = new Vuex.Store({
         },
 
         massive_description_editing: (state, description) => {
-            state.massiveEditFormData.description = description;
+            state.templateData.description = description;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].description = description;
             }
         },
 
         massive_longitude_editing: (state, longitude) => {
-            state.massiveEditFormData.longitude = longitude;
+            state.templateData.longitude = longitude;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].longitude = longitude;
             }
         },
 
         massive_latitude_editing: (state, latitude) => {
-            state.massiveEditFormData.latitude = latitude;
+            state.templateData.latitude = latitude;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].latitude = latitude;
             }
         },
         massive_azimuth_editing: (state, azimuth) => {
-            state.massiveEditFormData.azimuth = azimuth;
+            state.templateData.azimuth = azimuth;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].azimuth = azimuth;
             }
         },
         massive_is_author_editing: (state, isUserAuthor) => {
-            state.massiveEditFormData.isUserAuthor = isUserAuthor;
+            state.templateData.isUserAuthor = isUserAuthor;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].isUserAuthor = isUserAuthor;
             }
         },
         massive_selected_licence_editing: (state, selectedLicence) => {
-            state.massiveEditFormData.selectedLicence = selectedLicence;
+            state.templateData.selectedLicence = selectedLicence;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].licence = selectedLicence;
             }
         },
         massive_selected_albums_editing: (state, selectedAlbums) => {
-            state.massiveEditFormData.selectedAlbums = selectedAlbums;
+            state.templateData.selectedAlbums = selectedAlbums;
             for(var i = 0; i < state.photos.length; i++) {
                 state.photos[i].albums = selectedAlbums;
             }
         },
+        setUploadStatus: (state, status) => {state.uploadStatus = status;}
     },
     actions: {
         fetchUserProfile: async (context) => {
@@ -122,6 +133,30 @@ const store = new Vuex.Store({
                     /* Mount application after fetching all required data. */
                     new Vue({ router, store }).$mount('#photos-upload')
                 });
+        },
+        uploadPhotos: (context) => {
+            context.commit('setUploadStatus', 'uploading');
+            var authentication_token = context.state.user.authentication_token;
+            for(var i=0; i < context.state.photos.length; i++) {
+                var formData = new FormData()
+                for(var key in context.state.photos[i]) {
+                    formData.append(key, context.state.photos[i][key]);
+                }
+                axios.post('/api/v2/upload/photos/', formData, {
+                    headers: {
+                        'Authorization': `Token ${authentication_token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                    .then(response => {
+                        console.log(response);
+                        context.commit('setUploadStatus', 'success');
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        context.commit('setUploadStatus', 'failure');
+                    })
+            }
         }
     }
 });
@@ -183,48 +218,70 @@ Vue.component('photos-editor', {
     },
     computed: {
         name: {
-            get () {return this.$store.state.massiveEditFormData.name;},
+            get () {return this.$store.state.templateData.name;},
             set (name) {this.$store.commit('massive_name_editing', name);}
         },
         description: {
-            get () {return this.$store.state.massiveEditFormData.description;},
+            get () {return this.$store.state.templateData.description;},
             set (description) {this.$store.commit('massive_description_editing', description);}
         },
         longitude: {
-            get () {return this.$store.state.massiveEditFormData.longitude;},
+            get () {return this.$store.state.templateData.longitude;},
             set (longitude) {this.$store.commit('massive_longitude_editing', longitude);}
         },
         latitude: {
-            get () {return this.$store.state.massiveEditFormData.latitude;},
+            get () {return this.$store.state.templateData.latitude;},
             set (latitude) {this.$store.commit('massive_latitude_editing', latitude);}
         },
         azimuth: {
-            get () {return this.$store.state.massiveEditFormData.azimuth;},
+            get () {return this.$store.state.templateData.azimuth;},
             set (azimuth) {this.$store.commit('massive_azimuth_editing', azimuth);}
         },
         isUserAuthor: {
-            get () {return this.$store.state.massiveEditFormData.isUserAuthor;},
+            get () {return this.$store.state.templateData.isUserAuthor;},
             set (isUserAuthor) {this.$store.commit('massive_is_author_editing', isUserAuthor);}
         },
         selectedLicence: {
-            get () {return this.$store.state.massiveEditFormData.selectedLicence;},
+            get () {return this.$store.state.templateData.selectedLicence;},
             set (selectedLicence) {this.$store.commit('massive_selected_licence_editing', selectedLicence);}
         },
         selectedAlbums: {
-            get () {return this.$store.state.massiveEditFormData.selectedAlbums;},
+            get () {return this.$store.state.templateData.selectedAlbums;},
             set (selectedAlbums) {this.$store.commit('massive_selected_albums_editing', selectedAlbums);}
+        },
+        uploadButtonType: {
+            get () {
+                if (this.$store.state.uploadStatus === 'waiting')
+                    return 'primary';
+                if (this.$store.state.uploadStatus === 'success')
+                    return 'success';
+                if (this.$store.state.uploadStatus === 'failure')
+                    return 'danger';
+            },
+        },
+        uploadButtonIcon: {
+            get () {
+                if (this.$store.state.uploadStatus === 'uploading')
+                    return 'el-icon-loading';
+                else
+                    return 'el-icon-upload2';
+            },
         },
     },
     created: function() {
-        let data = {
-            include_empty: true,
-            _u: this.$store.state.user.id,
-            _s: this.$store.state.user.session_id
-        };
-        axios.post('/api/v1/albums/', data)
+        var authentication_token = this.$store.state.user.authentication_token;
+        axios.post(
+            '/api/v1/albums/',
+            {include_empty: true},
+            {headers: {Authorization: `Token: ${authentication_token}`}}
+        )
             .then(response => {this.availableAlbums = response.data.albums})
     },
-    methods: {},
+    methods: {
+        startUpload: function(event) {
+            this.$store.dispatch('uploadPhotos');
+        },
+    },
 });
 
 
