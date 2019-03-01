@@ -10,7 +10,7 @@ from sorl.thumbnail import delete as sorl_delete
 
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
-    AlbumPhoto, Licence, Device, Newsletter, Dating, \
+    AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, NorwegianCSVPhoto, MyXtdComment
 
 
@@ -160,10 +160,6 @@ class DeviceAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Device, fields='__all__')
 
 
-class NewsletterAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Newsletter, fields='__all__')
-
-
 class VideoAdmin(admin.ModelAdmin):
     form = autocomplete_light.modelform_factory(Video, fields='__all__')
 
@@ -194,7 +190,6 @@ admin.site.register(Licence, LicenceAdmin)
 admin.site.register(CSVPhoto, CSVUploadAdmin)
 admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
-admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Video, VideoAdmin)

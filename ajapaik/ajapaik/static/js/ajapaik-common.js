@@ -183,7 +183,7 @@ var map,
         if (allowedMapTypes[mapType]) {
             mapOpts.mapTypeId = allowedMapTypes[mapType];
         } else {
-            mapOpts.mapTypeId = allowedMapTypes.OSM;
+            mapOpts.mapTypeId = allowedMapTypes.roadmap;
         }
 
         map = new google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
@@ -1006,9 +1006,6 @@ var map,
         } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
         }
-    });
-    $(document).on('click', '#ajapaik-footer-newsletter-link', function () {
-        _gaq.push(['_trackEvent', 'Footer', 'Newsletter link click']);
     });
     $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
         e.preventDefault();

@@ -1015,12 +1015,10 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
 
-            search_results = forms.HaystackPhotoSearchForm({
-                'q': search_phrase
-            }).search()
+            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
             photos = Photo.objects.filter(
-                id__in=[item.pk for item in search_results],
+                id__in=[item.pk for item in sqs],
             )
             if rephotos_only:
                 photos = photos.filter(

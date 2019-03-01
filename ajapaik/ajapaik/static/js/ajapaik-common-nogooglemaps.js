@@ -1036,9 +1036,6 @@ if (typeof(google) !== "undefined" && typeof(google.maps) !== "undefined")
             _gaq.push(['_trackEvent', 'Map', 'Rephoto source link click']);
         }
     });
-    $(document).on('click', '#ajapaik-footer-newsletter-link', function () {
-        _gaq.push(['_trackEvent', 'Footer', 'Newsletter link click']);
-    });
     $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();

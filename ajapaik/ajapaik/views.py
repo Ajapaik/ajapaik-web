@@ -62,8 +62,8 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
     EditCommentForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, \
-    Newsletter, Dating, DatingConfirmation, Video
+    Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
+    Dating, DatingConfirmation, Video
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
@@ -2474,21 +2474,6 @@ def norwegian_csv_upload(request):
     album.save()
 
     return HttpResponse(failed)
-
-
-def newsletter(request, slug=None):
-    ret = {
-        'is_newsletter': True,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
-    }
-    if slug:
-        ret['newsletter'] = Newsletter.objects.get(slug=slug)
-        ret['template'] = 'newsletters/' + ret['newsletter'].slug + '.html'
-    else:
-        ret['newsletters'] = Newsletter.objects.order_by('created')
-
-    return render_to_response('newsletter.html', RequestContext(request, ret))
-
 
 def submit_dating(request):
     profile = request.get_user().profile

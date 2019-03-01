@@ -280,7 +280,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
-{% if is_frontpage or is_order or is_photoview or is_newsletter and not newsletter %}
+{% if is_frontpage or is_order or is_photoview %}
     <footer class="footer text-center">
         <div class="container-fluid">
             <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-contact">
@@ -293,16 +293,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-newsletter">
                 <div class="row">
-                    {% if LANGUAGE_CODE == 'et' %}
-                        <a id="ajapaik-footer-newsletter-link" href="{% url "ajapaik.ajapaik.views.newsletter" %}">{% trans "Newsletter" %}</a>
-                    {% endif %}
-                </div>
-                <div class="row">
                     <a href="{% url 'ajapaik.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
                 </div>
             </div>
             <nav class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                {% if not is_newsletter and not is_photoview %}
+                {% if not is_photoview %}
                     <ul class="pager" id="ajapaik-pager">
                         <li>
                             <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'ajapaik.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">

@@ -60,8 +60,12 @@
         title: false,
         position: 'top left',
         size: {
-            height: function () {return maxGalleryHeight;},
-            width: function () {return maxGalleryWidth;}
+            height: function () {
+                return maxGalleryHeight;
+            },
+            width: function () {
+                return maxGalleryWidth;
+            }
         },
         draggable: false,
         removeHeader: true,
@@ -97,7 +101,7 @@
 
 
     function findMarkerByPhotoId(photoId) {
-        return markers.find(function(marker) {
+        return markers.find(function (marker) {
             return marker.photoData.id === photoId;
         });
     };
@@ -246,6 +250,7 @@
         if (window.guessLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
+        // TODO: Take datings into use, they've been live long enough
         //if (window.datingStart) {
         //    historyReplacementString += '&starting=' + window.datingStart;
         //}
@@ -429,7 +434,7 @@
                         if (angleFix)
                             window.lastMarkerSet.push(photo.id);
 
-                        (function(marker) {
+                        (function (marker) {
                             google.maps.event.addListener(marker, 'click', function () {
                                 highlightSelected(marker, true);
                             });
@@ -459,10 +464,11 @@
                     }
                     if (map.zoom > markerClustererSettings.maxZoom) {
                         photosOnSidePanel = markers.map(
-                            function(marker){return marker.photoData}
+                            function (marker) {
+                                return marker.photoData
+                            }
                         );
-                    }
-                    else {
+                    } else {
                         // Filtering only single photos(outside of clusters) to
                         // show on side panel.
                         var clusters = mc.clusters_;
@@ -486,22 +492,21 @@
         refreshPane(photosOnSidePanel.slice(
             current_bunch * sidePanelPhotosBunchSize,
             (current_bunch + 1) * sidePanelPhotosBunchSize
-        ))
+        ));
         $(event.target).data('bunch-loaded', ++current_bunch)
     });
 
-    window.checkLoadedSidePanelPhotos = function(element) {
+    window.checkLoadedSidePanelPhotos = function (element) {
         var photos_count = $('#ajapaik-photo-pane-content-container .ajapaik-mapview-pane-photo-container').length;
         if (photos_count <= ++loadedPhotosCount) {
-            if(photos_count >= photosOnSidePanel.length) {
+            if (photos_count >= photosOnSidePanel.length) {
                 $('#ajapaik-map-container .ajapaik-load-more button').hide();
-            }
-            else {
+            } else {
                 $('#ajapaik-map-container .ajapaik-load-more button').show();
             }
             $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
         }
-    }
+    };
 
     function refreshPane(photosToAdd) {
         if (!photoPanel) {
@@ -509,12 +514,11 @@
             photoPanel.content.append(
                 tmpl('ajapaik-map-view-side-panel-template', photosToAdd)
             );
-            $('#ajapaik-photo-pane-content-container').on('click', '.ajapaik-mapview-pane-photo-container img', function(event){
+            $('#ajapaik-photo-pane-content-container').on('click', '.ajapaik-mapview-pane-photo-container img', function (event) {
                 var photoId = $(event.target).data('id');
                 highlightSelected(findMarkerByPhotoId(photoId));
             });
-        }
-        else {
+        } else {
             var targetDiv = $('#ajapaik-photo-pane-content-container');
             targetDiv.append(
                 tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd)
@@ -523,8 +527,7 @@
         if (photosToAdd.length == 0) {
             $('#ajapaik-map-container .ajapaik-load-more button').hide();
             $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
-        }
-        else{
+        } else {
             $('#ajapaik-map-container .ajapaik-load-more button').hide();
             $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
         }

@@ -3,7 +3,7 @@ from autocomplete_light import AutocompleteModelBase
 from django.contrib.auth.models import User
 
 from ajapaik.ajapaik.models import Profile, Photo, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
-    Video, PhotoComment, Source, Skip, Area, Licence, Device, Newsletter
+    Video, PhotoComment, Source, Skip, Area, Licence, Device
 
 al.register(Profile,
             search_fields=['user__pk', 'first_name', 'last_name', 'user__email', 'fb_name', 'google_plus_name'],
@@ -237,17 +237,6 @@ al.register(Licence,
 
 al.register(Device,
             search_fields=['pk', 'camera_make', 'camera_model'],
-            attrs={
-                'data-autocomplete-minimum-characters': 2,
-            },
-            widget_attrs={
-                'data-widget-maximum-values': 4,
-                'class': 'modern-style',
-            },
-            )
-
-al.register(Newsletter,
-            search_fields=['pk', ],
             attrs={
                 'data-autocomplete-minimum-characters': 2,
             },
