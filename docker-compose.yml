@@ -30,6 +30,7 @@ services:
     image: laurielias/ajapaik-web:python-3.6-latest
     container_name: ajapaik
     entrypoint: /usr/local/bin/docker-entrypoint-dev.sh
+    # entrypoint: tail -f /dev/null
     ports:
       - '8000:8000'
     depends_on:

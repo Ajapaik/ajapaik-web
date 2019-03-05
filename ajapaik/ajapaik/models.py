@@ -496,6 +496,9 @@ class Photo(Model):
     def __unicode__(self):
         return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
 
+    def __str__(self):
+        return self.__unicode__()
+
     def __init__(self, *args, **kwargs):
         super(Photo, self).__init__(*args, **kwargs)
         self.original_lat = self.lat
