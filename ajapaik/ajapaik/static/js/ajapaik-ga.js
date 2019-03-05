@@ -124,6 +124,12 @@
     window.reportVideoviewAlbumLinkClick = function () {
         _gaq.push(['_trackEvent', 'video-permalink', 'album-link', null, 0, false]);
     };
+    window.reportDonationOneTimeBankLinkClick = function (bank) {
+        _gaq.push(['_trackEvent', 'General', 'donation-one-time-bank-link-click', bank, 25, false]);
+    };
+    window.reportDonationStandingBankLinkClick = function (bank) {
+        _gaq.push(['_trackEvent', 'General', 'donation-standing-bank-link-click', bank, 25, false]);
+    };
     window.reportEmailLoginClick = function () {
         _gaq.push(['_trackEvent', 'Login', 'email', null, 0, false]);
     };

@@ -283,17 +283,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% if is_frontpage or is_order or is_photoview %}
     <footer class="footer text-center">
         <div class="container-fluid">
-            <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-contact">
+            <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-contact">
                 <div class="row">
                     <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
                 </div>
                 <div class="row">
                     <a class="pull-left" id="ajapaik-photographic-heritage-link" target="_blank" href="http://fotopärand.org.ee/">{% trans "Estonian Photographic Heritage Society" %}</a>
                 </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs" id="ajapaik-footer-newsletter">
                 <div class="row">
-                    <a href="{% url 'ajapaik.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
+                    <a class="pull-left" href="{% url 'ajapaik.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
                 </div>
             </div>
             <nav class="col-lg-6 col-md-4 col-sm-4 col-xs-12">

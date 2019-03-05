@@ -203,6 +203,7 @@ class Album(Model):
     date_of_birth = DateField(blank=True, null=True)
     gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     is_public_figure = BooleanField(default=False)
+    wikidata_qid = CharField(_('Wikidata identifier'), max_length=255, blank=True, null=True)
     face_encodings = TextField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)

@@ -282,7 +282,7 @@ var map,
                 // Resizing of map cause double firing of 'idle' event. I
                 // think we need refactor map loading and resize map in some
                 // other place.
-                if(firstResizeDone) {
+                if (firstResizeDone) {
                     window.toggleVisiblePaneElements();
                 }
                 firstResizeDone = true;
@@ -361,8 +361,8 @@ var map,
             endLatRadians = Math.asin(Math.sin(startLatRadians) * Math.cos(angularDistance) +
                 Math.cos(startLatRadians) * Math.sin(angularDistance) * Math.cos(bearingRadians)),
             endLonRadians = startLonRadians + Math.atan2(Math.sin(bearingRadians) * Math.sin(angularDistance) *
-                    Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
-                    Math.sin(endLatRadians));
+                Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
+                Math.sin(endLatRadians));
 
         return new google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
     };
@@ -408,13 +408,12 @@ var map,
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
 
-    var update_comment_likes = function(link) {
-        var update_badge = function(badge, count) {
+    var update_comment_likes = function (link) {
+        var update_badge = function (badge, count) {
             badge.text('(' + count + ')');
             if (count <= 0) {
                 badge.addClass('hidden');
-            }
-            else {
+            } else {
                 badge.removeClass('hidden');
             }
         };
@@ -1577,6 +1576,18 @@ var map,
             _gaq.push(['_trackEvent', 'Gallery', 'Album caption info click']);
         } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Mapview', 'Album caption info click']);
+        }
+    });
+
+    $('.ajp-bank-link-standing').click(function () {
+        if (window.reportDonationStandingBankLinkClick) {
+            window.reportDonationStandingBankLinkClick($(this).data('bank'));
+        }
+    });
+
+    $('.ajp-bank-link-one-time').click(function () {
+        if (window.reportDonationOneTimeBankLinkClick) {
+            window.reportDonationOneTimeBankLinkClick($(this).data('bank'));
         }
     });
 
