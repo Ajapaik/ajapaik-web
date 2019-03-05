@@ -15,7 +15,7 @@ CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
 FLOW = flow_from_clientsecrets(
     CLIENT_SECRETS,
-    scope='https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email',
+    scope='https://www.googleapis.com/auth/userinfo.email',
     redirect_uri=settings.GOOGLE_PLUS_OAUTH2_CALLBACK_URL)
 
 
