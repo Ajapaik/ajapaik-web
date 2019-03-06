@@ -43,3 +43,4 @@ class Command(BaseCommand):
                     AlbumPhoto(photo=new_picture, album=album).save()
                     line_count += 1
             print(f'Processed {line_count} lines.')
+        album.save()

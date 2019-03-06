@@ -319,6 +319,7 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             filter_rule = Q(is_public=True, photos__isnull=False)
 
         albums = Album.objects \
+            .exclude(atype=Album.PERSON) \
             .filter(filter_rule) \
             .order_by('-created')
         albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)

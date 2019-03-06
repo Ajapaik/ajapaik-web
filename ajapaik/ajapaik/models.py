@@ -29,7 +29,6 @@ from django.db.models import OneToOneField, DateField, FileField
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
-from django.utils.dateformat import DateFormat
 from django.utils.translation import ugettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
@@ -178,7 +177,7 @@ class Album(Model):
         (MALE, _('Male'))
     )
 
-    name = CharField(_('Name'), max_length=255)
+    name = CharField(_('Name'), max_length=255, db_index=True)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
     subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums')
@@ -1251,6 +1250,9 @@ class Licence(Model):
 
     def __unicode__(self):
         return '%s' % self.name
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class GoogleMapsReverseGeocode(Model):

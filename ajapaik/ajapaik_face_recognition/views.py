@@ -72,7 +72,8 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
             new_guess = FaceRecognitionUserGuess(
                 subject_album=subject_album,
                 rectangle=rectangle,
-                user_id=request.user.id
+                user_id=request.user.id,
+                origin=FaceRecognitionUserGuess.USER
             )
             new_guess.save()
             consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
@@ -113,7 +114,8 @@ def add_rectangle(request: HttpRequest) -> HttpResponse:
         new_rectangle = FaceRecognitionRectangle(
             photo=form.cleaned_data['photo'],
             coordinates=json.dumps(coordinates),
-            user_id=request.user.id
+            user_id=request.user.id,
+            origin=FaceRecognitionRectangle.USER
         )
         new_rectangle.save()
         response_content = JSONRenderer().render({'id': new_rectangle.id})
