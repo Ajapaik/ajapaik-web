@@ -6,6 +6,7 @@ import face_recognition
 from django.core.management import BaseCommand
 
 
+# TODO: Can remove
 def analyse_single_photo(photo: dict) -> None:
     print('Processing photo %s' % photo['pk'])
     image = face_recognition.load_image_file(

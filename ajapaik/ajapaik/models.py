@@ -215,7 +215,10 @@ class Album(Model):
         db_table = 'project_album'
 
     def __unicode__(self):
-        return u"%s" % self.name
+        if self.atype == Album.PERSON and self.date_of_birth:
+            return u'%s (%s %s)' % (self.name, _('b.'), self.date_of_birth)
+
+        return u'%s' % self.name
 
     def __str__(self):
         return self.__unicode__()

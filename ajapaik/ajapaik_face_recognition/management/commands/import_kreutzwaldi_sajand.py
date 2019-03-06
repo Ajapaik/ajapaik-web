@@ -10,6 +10,7 @@ from django.core.management.base import BaseCommand
 from ajapaik.ajapaik.models import Album, Photo, AlbumPhoto
 
 
+# TODO: Remove once we're 100% okay with the album
 class Command(BaseCommand):
     help = 'Will import all photos from kreutzwaldi_sajand.csv into album 22614'
 

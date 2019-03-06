@@ -7,6 +7,7 @@ from django.core.management.base import BaseCommand
 from ajapaik.ajapaik.models import Album
 
 
+# TODO: Can remove
 class Command(BaseCommand):
     help = 'Will set Wikidata QID for some of our person albums'
 
