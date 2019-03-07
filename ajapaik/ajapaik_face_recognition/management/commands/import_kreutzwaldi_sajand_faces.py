@@ -30,6 +30,8 @@ class Command(BaseCommand):
                     line_count += 1
                 else:
                     name = row[1].strip()
+                    # image_width = int(row[2])
+                    # image_height = int(row[3])
                     # Top left
                     face_start_x = int(row[4])
                     face_start_y = int(row[5])
@@ -67,8 +69,8 @@ class Command(BaseCommand):
                         origin=FaceRecognitionUserGuess.PICASA
                     )
                     imported_guess.save()
-                    image = face_recognition.load_image_file(photo.image)
                     detected_faces = None
+                    image = face_recognition.load_image_file(photo.image)
                     try:
                         detected_faces = face_recognition.face_locations(image)
                     except:
