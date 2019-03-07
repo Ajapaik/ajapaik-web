@@ -251,14 +251,14 @@ class Album(Model):
 
     def get_historic_photos_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True)
-        for sa in self.subalbums.filter(atype=Album.CURATED):
+        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
 
         return qs.distinct('id')
 
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
-        for sa in self.subalbums.filter(atype=Album.CURATED):
+        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
 
         return qs.distinct('id')
@@ -270,7 +270,7 @@ class Album(Model):
 
     def get_all_photos_queryset_with_subalbums(self):
         qs = self.photos.all()
-        for sa in self.subalbums.filter(atype=Album.CURATED):
+        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             qs = qs | sa.photos.all()
 
         photo_ids = qs.values_list('pk', flat=True)
