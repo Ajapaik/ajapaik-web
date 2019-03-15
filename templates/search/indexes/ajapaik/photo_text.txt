@@ -15,3 +15,8 @@
 {% if object.lat and object.lon %}
     {{ object.address }}
 {% endif %}
+{% if object.people %}
+    {% for person_album in object.people %}
+        {{ person_album.name }}
+    {% endfor %}
+{% endif %}

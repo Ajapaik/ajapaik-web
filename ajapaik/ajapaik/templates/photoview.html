@@ -94,10 +94,12 @@
                             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
                         {% endif %}
                     </div>
-                    <div class="row">
-                        <!--TODO: Highlight rectangle when name hovered?-->
-                        <p>{% trans "People claimed to be on this photo" %}: {{ people|join:', ' }}</p>
-                    </div>
+                    {% if people %}
+                        <div class="row">
+                            <!--TODO: Highlight rectangle when name hovered?-->
+                            <p>{% trans "People claimed to be on this photo" %}: {{ people|join:', ' }}</p>
+                        </div>
+                    {% endif %}
                     <div class="row" id="ajapaik-photo-modal-like">
                         <div class="fb-like" data-href="
                                 {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
@@ -122,12 +124,10 @@
                            class="pull-left">
                             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                         </a>
-                        {% if request.user.profile.is_legit %}
-                            <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                               id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="pull-left">
-                               <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
-                            </a>
-                        {% endif %}
+                        <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
+                           id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="pull-left">
+                           <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                        </a>
                         <div class="dropdown pull-left">
                             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
