@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
+    # 'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,12 +126,12 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': (
                 'django.contrib.auth.context_processors.auth',
-                'django.core.context_processors.debug',
-                'django.core.context_processors.i18n',
-                'django.core.context_processors.media',
-                'django.core.context_processors.static',
-                'django.core.context_processors.tz',
-                'django.core.context_processors.request',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 'ajapaik.ajapaik.context_processors.analytics',
                 'ajapaik.ajapaik.context_processors.is_user_upload',
@@ -154,7 +154,7 @@ TEMPLATES = [
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = 'ajapaik.ajapaik.views.frontpage'
+LOGIN_REDIRECT_URL = '/'
 REGISTRATION_FORM = 'ajapaik.ajapaik.forms.UserRegistrationForm'
 
 INSTALLED_APPS = (
@@ -187,7 +187,14 @@ INSTALLED_APPS = (
     'django_bootstrap_dynamic_formsets',
     'leaflet',
     'django_celery_beat',
-    'ajapaik.ajapaik_face_recognition'
+    'ajapaik.ajapaik_face_recognition',
+
+    # Django allauth and related applications.
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 )
 
 ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
@@ -346,3 +353,42 @@ CACHES = {
 }
 
 GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
+
+################################################################################
+### Django-allauth configuration
+################################################################################
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+# Email login/registration settings.
+# This group of settings configured email confirmation obligatory for email
+# registered users and optional for user registered with some social account.
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'VERSION': 'v2.6',
+        'SCOPE': [
+            'email',
+            'public_profile',
+            'user_friends',
+        ],
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        }
+    },
+}
+

@@ -61,10 +61,10 @@
         window.maxPage = parseInt('{{ max_page }}', 10);
         window.nextPageOnModalClose = false;
         window.previousPageOnModalClose = false;
-        window.photoURL = '{% url "ajapaik.ajapaik.views.photoslug" %}';
-        window.photoThumbURL = '{% url "ajapaik.ajapaik.views.image_thumb" %}';
-        window.frontpageAsyncURL = '{% url "ajapaik.ajapaik.views.frontpage_async_data" %}';
-        window.frontpageAlbumsAsyncURL = '{% url "ajapaik.ajapaik.views.frontpage_async_albums" %}';
+        window.photoURL = '{% url "foto" %}';
+        window.photoThumbURL = '{% url "image_thumb" %}';
+        window.frontpageAsyncURL = '{% url "frontpage_async_data" %}';
+        window.frontpageAlbumsAsyncURL = '{% url "frontpage_async_albums" %}';
         window.nextPhotoLoading = false;
         /* window.photos = window.getQueryParameterByName('photos'); */ // Kimmo: 23.8.2018. This doesn't work and it is not in use? Check and remove if this is not needed
         window.userClosedRephotoTools = false;

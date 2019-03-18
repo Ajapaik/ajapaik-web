@@ -1,4 +1,4 @@
-from django.template import Library, Node, resolve_variable
+from django.template import Library, Node, Variable
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
@@ -13,7 +13,7 @@ class AddGetParameter(Node):
         self.values = values
 
     def render(self, context):
-        req = resolve_variable('request', context)
+        req = Variable('request').resolve(context)
         params = req.GET.copy()
         for key, value in self.values.items():
             params[key] = value.resolve(context)

@@ -331,8 +331,8 @@ class PhotoUploadChoiceForm(forms.Form):
     ])
 
 
-class UserPhotoUploadForm(autocomplete_light.ModelForm):
-    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
+class UserPhotoUploadForm(autocomplete_light.shortcuts.ModelForm):
+    albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
     licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True),
                                      required=False)
     uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
@@ -376,7 +376,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
 
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
-    albums = autocomplete_light.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
+    albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
 
     def __init__(self, *args, **kwargs):
         super(CuratorWholeSetAlbumsSelectionForm, self).__init__(*args, **kwargs)

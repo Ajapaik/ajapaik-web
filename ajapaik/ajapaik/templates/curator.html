@@ -247,9 +247,9 @@
                 loadMyAlbums();
                 $('.ajapaik-navbar').autoHidingNavbar();
             });
-            var gameUrl = '{% url "ajapaik.ajapaik.views.game" %}',
+            var gameUrl = '{% url "game" %}',
                 resultCount = 0,
-                url = '{% url "ajapaik.ajapaik.views.curator_search" %}',
+                url = '{% url "curator_search" %}',
                 start = 200,
                 resultIds = [],
                 fullResultSet = {},
@@ -287,7 +287,7 @@
             var loadMyAlbums = function () {
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "ajapaik.ajapaik.views.curator_my_album_list" %}',
+                    url: '{% url "curator_my_album_list" %}',
                     data: {
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
@@ -508,7 +508,7 @@
             window.replaceAll = function (string, find, replace) {
                 return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
-            window.photoPermalink = '{% url "ajapaik.ajapaik.views.photoslug" %}';
+            window.photoPermalink = '{% url "foto" %}';
             window.formatId = function (id) {
                 id = '' + id;
                 id = window.replaceAll(id, ':', '');
@@ -676,7 +676,7 @@
                 var targetId = $(this)[0].dataset.id;
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "ajapaik.ajapaik.views.curator_get_album_info" %}',
+                    url: '{% url "curator_get_album_info" %}',
                     data: {
                         albumId: targetId,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -707,7 +707,7 @@
                 $('#ajapaik-curator-edit-album-error').hide();
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "ajapaik.ajapaik.views.curator_update_my_album" %}',
+                    url: '{% url "curator_update_my_album" %}',
                     data: {
                         albumId: targetId,
                         name: $('#ajapaik-curator-change-album-name').val(),
@@ -744,7 +744,7 @@
                 $('#ajapaik-loading-overlay').show();
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "ajapaik.ajapaik.views.curator_photo_upload_handler" %}',
+                    url: '{% url "curator_photo_upload_handler" %}',
                     data: {
                         selection: selection,
                         albums: albums,

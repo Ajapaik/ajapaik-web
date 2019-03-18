@@ -20,7 +20,7 @@
             {% else %}
                 <h6>{% trans "Album curated by" %} Ajapaik</h6>
             {% endif %}
-            <h6><a href="{% url "ajapaik.ajapaik.views.top50" %}" id="ajapaik-info-window-leaderboard-link" data-id="{{ album.id }}">{% trans "Contributors' leaderboard" %}</a></h6>
+            <h6><a href="{% url 'top50' %}" id="ajapaik-info-window-leaderboard-link" data-id="{{ album.id }}">{% trans "Contributors' leaderboard" %}</a></h6>
         </div>
         <div class="modal-body" id="ajapaik-info-modal-body">
             <div class="row">
@@ -98,7 +98,7 @@
             <br>
             {% if nearby_albums %}
                 <div class="row">
-                    {% trans "Some nearby albums" %}: {% for a in nearby_albums %}<a class="ajapaik-album-info-modal-album-link" href="{% url 'ajapaik.ajapaik.views.frontpage' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% trans "Some nearby albums" %}: {% for a in nearby_albums %}<a class="ajapaik-album-info-modal-album-link" href="{% url 'frontpage' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </div>
             {% endif %}

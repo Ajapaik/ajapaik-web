@@ -28,9 +28,9 @@
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
                                  id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;"
                                  data-id="{{ p.0 }}">
-                                <a href="{% url "ajapaik.ajapaik.views.photoslug" p.0 %}"
+                                <a href="{% url "foto" p.0 %}"
                                    class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
-                                    <img src="{% url "ajapaik.ajapaik.views.image_thumb" p.0 250 %}"
+                                    <img src="{% url "image_thumb" p.0 250 %}"
                                          width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}"
                                          class="img-responsive ajapaik-photo-selection-thumbnail">
                                     <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>

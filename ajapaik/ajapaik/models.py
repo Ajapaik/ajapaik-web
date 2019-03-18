@@ -34,8 +34,8 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
-from oauth2client.client import OAuth2Credentials
-from oauth2client.django_orm import FlowField, CredentialsField
+# from oauth2client.client import OAuth2Credentials
+# from oauth2client.django_orm import FlowField, CredentialsField
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
@@ -1007,67 +1007,67 @@ class Profile(Model):
     def __str__(self):
         return self.__unicode__()
 
-    def update_from_fb_data(self, token, data):
-        if data.get('first_name'):
-            self.user.first_name = data.get('first_name')
-        if data.get('last_name'):
-            self.user.last_name = data.get('last_name')
-        if data.get('email'):
-            self.user.email = data.get('email')
-        self.user.save()
+    # def update_from_fb_data(self, token, data):
+    #     if data.get('first_name'):
+    #         self.user.first_name = data.get('first_name')
+    #     if data.get('last_name'):
+    #         self.user.last_name = data.get('last_name')
+    #     if data.get('email'):
+    #         self.user.email = data.get('email')
+    #     self.user.save()
 
-        self.fb_token = token
-        self.fb_id = data.get('id')
-        self.fb_name = data.get('name')
-        self.fb_link = data.get('link')
-        self.fb_email = data.get('email')
-        try:
-            self.fb_birthday = datetime.strptime(data.get('birthday'), '%m/%d/%Y')
-        except TypeError:
-            pass
-        location = data.get('location')
-        if location is not None and 'name' in location:
-            self.fb_current_location = location['name']
-        hometown = data.get('hometown')
-        if hometown is not None and 'name' in hometown:
-            self.fb_hometown = data.get('hometown')['name']
-        user_friends = data.get('user_friends')
-        if user_friends is not None:
-            self.fb_user_friends = user_friends
+    #     self.fb_token = token
+    #     self.fb_id = data.get('id')
+    #     self.fb_name = data.get('name')
+    #     self.fb_link = data.get('link')
+    #     self.fb_email = data.get('email')
+    #     try:
+    #         self.fb_birthday = datetime.strptime(data.get('birthday'), '%m/%d/%Y')
+    #     except TypeError:
+    #         pass
+    #     location = data.get('location')
+    #     if location is not None and 'name' in location:
+    #         self.fb_current_location = location['name']
+    #     hometown = data.get('hometown')
+    #     if hometown is not None and 'name' in hometown:
+    #         self.fb_hometown = data.get('hometown')['name']
+    #     user_friends = data.get('user_friends')
+    #     if user_friends is not None:
+    #         self.fb_user_friends = user_friends
 
-        self.save()
+    #     self.save()
 
-    def update_from_google_plus_data(self, token, data):
-        # TODO: Make form
-        if 'given_name' in data:
-            self.user.first_name = data["given_name"]
-        if 'family_name' in data:
-            self.user.last_name = data["family_name"]
-        if 'email' in data:
-            self.user.email = data["email"]
+    # def update_from_google_plus_data(self, token, data):
+    #     # TODO: Make form
+    #     if 'given_name' in data:
+    #         self.user.first_name = data["given_name"]
+    #     if 'family_name' in data:
+    #         self.user.last_name = data["family_name"]
+    #     if 'email' in data:
+    #         self.user.email = data["email"]
 
-        self.user.save()
+    #     self.user.save()
 
-        if isinstance(token, OAuth2Credentials):
-            self.google_plus_token = loads(token.to_json())['access_token']
-        else:
-            self.google_plus_token = token
-        self.google_plus_id = data['id']
-        if 'link' in data:
-            self.google_plus_link = data['link']
-        if 'name' in data:
-            self.google_plus_name = data['name']
-            if self.google_plus_name:
-                parts = self.google_plus_name.split(' ')
-                self.first_name = parts[0]
-                if len(parts) > 1:
-                    self.last_name = parts[1]
-        if 'email' in data:
-            self.google_plus_email = data['email']
-        if 'picture' in data:
-            self.google_plus_picture = data['picture']
+    #     if isinstance(token, OAuth2Credentials):
+    #         self.google_plus_token = loads(token.to_json())['access_token']
+    #     else:
+    #         self.google_plus_token = token
+    #     self.google_plus_id = data['id']
+    #     if 'link' in data:
+    #         self.google_plus_link = data['link']
+    #     if 'name' in data:
+    #         self.google_plus_name = data['name']
+    #         if self.google_plus_name:
+    #             parts = self.google_plus_name.split(' ')
+    #             self.first_name = parts[0]
+    #             if len(parts) > 1:
+    #                 self.last_name = parts[1]
+    #     if 'email' in data:
+    #         self.google_plus_email = data['email']
+    #     if 'picture' in data:
+    #         self.google_plus_picture = data['picture']
 
-        self.save()
+    #     self.save()
 
     def merge_from_other(self, other):
         other.photos.update(user=self)
@@ -1143,21 +1143,21 @@ class Profile(Model):
 
 
 # For Google login
-class FlowModel(Model):
-    id = OneToOneField(User, primary_key=True)
-    flow = FlowField()
+# class FlowModel(Model):
+#     id = OneToOneField(User, primary_key=True)
+#     flow = FlowField()
 
-    class Meta(object):
-        db_table = 'project_flowmodel'
+#     class Meta(object):
+#         db_table = 'project_flowmodel'
 
 
 # For Google login
-class CredentialsModel(Model):
-    id = OneToOneField(User, primary_key=True)
-    credential = CredentialsField()
+# class CredentialsModel(Model):
+#     id = OneToOneField(User, primary_key=True)
+#     credential = CredentialsField()
 
-    class Meta(object):
-        db_table = 'project_credentialsmodel'
+#     class Meta(object):
+#         db_table = 'project_credentialsmodel'
 
 
 class Source(Model):

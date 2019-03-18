@@ -1,4 +1,4 @@
-django==1.8.19
+django==1.11.20
 django-autocomplete-light==2.3.3
 django-comments-xtd==1.7.2
 django-contrib-comments==1.8.0
@@ -7,12 +7,11 @@ django-haystack==2.7.0
 django-registration-redux==1.6
 django-modeltranslation<0.13
 djangorestframework==3.4.7
-markdown<3
-oauth2client==1.4.12
+markdown<3oauth2client==1.4.12
 Pillow<4.2
 redis==2.10.6
-six==1.10
 cmake
+django-allauth
 django-admin-tools
 django-bootstrap3
 django-bootstrap-dynamic-formsets
@@ -41,3 +40,8 @@ scikit-learn
 sorl-thumbnail
 transifex-client
 typing
+
+# legacy packages
+oauth2client==2.2.0
+jsonpickle
+

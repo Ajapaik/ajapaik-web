@@ -23,7 +23,7 @@ from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
-from oauth2client import client, crypt
+# from oauth2client import client, crypt
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
     authentication_classes, parser_classes
@@ -98,186 +98,186 @@ class CustomParsersMixin(object):
     parser_classes = (FormParser, MultiPartParser,)
 
 
-@parser_classes((FormParser,))
-def login_auth(request, auth_type='login'):
-    form = forms.APILoginAuthForm(request.data)
-    content = {
-        'error': 0,
-        'session': None,
-        'expires': 86400
-    }
-    user = None
+# @parser_classes((FormParser,))
+# def login_auth(request, auth_type='login'):
+#     form = forms.APILoginAuthForm(request.data)
+#     content = {
+#         'error': 0,
+#         'session': None,
+#         'expires': 86400
+#     }
+#     user = None
 
-    if form.is_valid():
-        t = form.cleaned_data['type']
-        uname = form.cleaned_data['username']
-        if t == 'ajapaik' or t == 'auto':
-            # Why do not using some validators?
-            uname = uname[:30]
-        pw = form.cleaned_data['password']
+#     if form.is_valid():
+#         t = form.cleaned_data['type']
+#         uname = form.cleaned_data['username']
+#         if t == 'ajapaik' or t == 'auto':
+#             # Why do not using some validators?
+#             uname = uname[:30]
+#         pw = form.cleaned_data['password']
 
-        if t == 'ajapaik':
-            num_same_users = User.objects.filter(username=uname).count()
-            if auth_type == 'register':
-                if num_same_users > 0:
-                    # user exists in the DB already
-                    content['error'] = 8
-                    return content
-                User.objects.create_user(username=uname, password=pw)
-            elif num_same_users == 0:
-                # user does not exists
-                content['error'] = 10
-                return content
+#         if t == 'ajapaik':
+#             num_same_users = User.objects.filter(username=uname).count()
+#             if auth_type == 'register':
+#                 if num_same_users > 0:
+#                     # user exists in the DB already
+#                     content['error'] = 8
+#                     return content
+#                 User.objects.create_user(username=uname, password=pw)
+#             elif num_same_users == 0:
+#                 # user does not exists
+#                 content['error'] = 10
+#                 return content
 
-            user = authenticate(username=uname, password=pw)
-            if user:
-                # For register
-                profile = user.profile
-            elif auth_type == 'login':
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
+#             user = authenticate(username=uname, password=pw)
+#             if user:
+#                 # For register
+#                 profile = user.profile
+#             elif auth_type == 'login':
+#                 # user exists but password is incorrect
+#                 content['error'] = 11
+#                 return content
 
-        elif t == 'auto':
-            num_same_users = User.objects.filter(username=uname).count()
-            if num_same_users == 0:
-                User.objects.create_user(username=uname, password=pw)
+#         elif t == 'auto':
+#             num_same_users = User.objects.filter(username=uname).count()
+#             if num_same_users == 0:
+#                 User.objects.create_user(username=uname, password=pw)
 
-            user = authenticate(username=uname, password=pw)
-            if user:
-                profile = user.profile
-                if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
-                    user.first_name = form.cleaned_data['firstname']
-                    user.last_name = form.cleaned_data['lastname']
-                    user.save()
-                profile.merge_from_other(request.get_user().profile)
-            else:
-                # user exists but password is incorrect
-                content['error'] = 11
-                return content
+#             user = authenticate(username=uname, password=pw)
+#             if user:
+#                 profile = user.profile
+#                 if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
+#                     user.first_name = form.cleaned_data['firstname']
+#                     user.last_name = form.cleaned_data['lastname']
+#                     user.save()
+#                 profile.merge_from_other(request.get_user().profile)
+#             else:
+#                 # user exists but password is incorrect
+#                 content['error'] = 11
+#                 return content
 
-        elif t == 'google':
-            # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
+#         elif t == 'google':
+#             # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
 
-            try:
-                idinfo = client.verify_id_token(pw, settings.GOOGLE_CLIENT_ID)
+#             try:
+#                 idinfo = client.verify_id_token(pw, settings.GOOGLE_CLIENT_ID)
 
-                if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-                    raise crypt.AppIdentityError("Wrong issuer.")
+#                 if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+#                     raise crypt.AppIdentityError("Wrong issuer.")
 
-            except crypt.AppIdentityError:
-                content['error'] = 11
-                return content
+#             except crypt.AppIdentityError:
+#                 content['error'] = 11
+#                 return content
 
-            profile = Profile.objects.filter(google_plus_email=uname).first()
-            if profile:
-                request_profile = request.get_user().profile
-                if request.user and request.user.is_authenticated():
-                    profile.merge_from_other(request_profile)
+#             profile = Profile.objects.filter(google_plus_email=uname).first()
+#             if profile:
+#                 request_profile = request.get_user().profile
+#                 if request.user and request.user.is_authenticated():
+#                     profile.merge_from_other(request_profile)
 
-                user = profile.user
-                request.set_user(user)
-            else:
-                user = request.get_user()
-                profile = user.profile
+#                 user = profile.user
+#                 request.set_user(user)
+#             else:
+#                 user = request.get_user()
+#                 profile = user.profile
 
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            # headers = {'Authorization': 'Bearer ' + pw}
-            # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-            idinfo['id'] = idinfo['sub']
-            profile.update_from_google_plus_data(pw, idinfo)
+#             user.backend = 'django.contrib.auth.backends.ModelBackend'
+#             # headers = {'Authorization': 'Bearer ' + pw}
+#             # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
+#             idinfo['id'] = idinfo['sub']
+#             profile.update_from_google_plus_data(pw, idinfo)
 
-        elif t == 'fb':
-            # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-            response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-                pw, settings.FACEBOOK_APP_ID + '|' + settings.FACEBOOK_APP_SECRET))
-            parsed_reponse = loads(response.text)
-            if settings.FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data',
-                                                                                                               {}).get(
-                    'is_valid'):
-                fb_user_id = parsed_reponse['data']['user_id']
-                profile = Profile.objects.filter(fb_id=fb_user_id).first()
-                if profile:
-                    request_profile = request.get_user().profile
-                    if request.user and request.user.is_authenticated():
-                        profile.merge_from_other(request_profile)
+#         elif t == 'fb':
+#             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
+#             response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
+#                 pw, settings.FACEBOOK_APP_ID + '|' + settings.FACEBOOK_APP_SECRET))
+#             parsed_reponse = loads(response.text)
+#             if settings.FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data',
+#                                                                                                                {}).get(
+#                     'is_valid'):
+#                 fb_user_id = parsed_reponse['data']['user_id']
+#                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
+#                 if profile:
+#                     request_profile = request.get_user().profile
+#                     if request.user and request.user.is_authenticated():
+#                         profile.merge_from_other(request_profile)
 
-                    user = profile.user
-                    request.set_user(user)
-                else:
-                    user = request.get_user()
-                    profile = user.profile
+#                     user = profile.user
+#                     request.set_user(user)
+#                 else:
+#                     user = request.get_user()
+#                     profile = user.profile
 
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-                # FIXME: Shouldn't 2.5 be dead long ago?
-                fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
-                    ','.join(fb_permissions), pw)
-                user_info = requests.get(fb_get_info_url)
-                profile.update_from_fb_data(pw, loads(user_info.text))
+#                 user.backend = 'django.contrib.auth.backends.ModelBackend'
+#                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
+#                 # FIXME: Shouldn't 2.5 be dead long ago?
+#                 fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
+#                     ','.join(fb_permissions), pw)
+#                 user_info = requests.get(fb_get_info_url)
+#                 profile.update_from_fb_data(pw, loads(user_info.text))
 
-            else:
-                content['error'] = 11
-                return content
+#             else:
+#                 content['error'] = 11
+#                 return content
 
-        if not user and t == 'auto':
-            User.objects.create_user(username=uname, password=pw)
-            user = authenticate(username=uname, password=pw)
+#         if not user and t == 'auto':
+#             User.objects.create_user(username=uname, password=pw)
+#             user = authenticate(username=uname, password=pw)
 
-        if auth_type == 'register' and request.user:
-            profile.merge_from_other(request.user.profile)
-            if t == 'google':
-                profile.update_from_google_plus_data(parsed_reponse)
-            elif t == 'facebook':
-                profile.update_from_fb_data(parsed_reponse['data'])
-    else:
-        content['error'] = 2
-        return content
+#         if auth_type == 'register' and request.user:
+#             profile.merge_from_other(request.user.profile)
+#             if t == 'google':
+#                 profile.update_from_google_plus_data(parsed_reponse)
+#             elif t == 'facebook':
+#                 profile.update_from_fb_data(parsed_reponse['data'])
+#     else:
+#         content['error'] = 2
+#         return content
 
-    if user:
-        login(request, user)
-        content['id'] = user.id
+#     if user:
+#         login(request, user)
+#         content['id'] = user.id
 
-        if not request.session.session_key:
-            request.session.save()
-        content['session'] = request.session.session_key
-    else:
-        content['error'] = 4
+#         if not request.session.session_key:
+#             request.session.save()
+#         content['session'] = request.session.session_key
+#     else:
+#         content['error'] = 4
 
-    return content
-
-
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@permission_classes((AllowAny,))
-def api_login(request):
-    content = login_auth(request)
-    return Response(content)
+#     return content
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
-def api_register(request):
-    content = user = login_auth(request, 'register')
-    return Response(content)
+# @api_view(['POST'])
+# @parser_classes((FormParser,))
+# @permission_classes((AllowAny,))
+# def api_login(request):
+#     content = login_auth(request)
+#     return Response(content)
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_logout(request):
-    try:
-        session_id = request.data['_s']
-    except KeyError:
-        return Response({'error': 4})
-    try:
-        Session.objects.get(pk=session_id).delete()
-        return Response({'error': 0})
-    except ObjectDoesNotExist:
-        return Response({'error': 2})
+# @api_view(['POST'])
+# @parser_classes((FormParser,))
+# @authentication_classes((CustomAuthentication,))
+# @permission_classes((AllowAny,))
+# def api_register(request):
+#     content = user = login_auth(request, 'register')
+#     return Response(content)
+
+
+# @api_view(['POST'])
+# @parser_classes((FormParser,))
+# @authentication_classes((CustomAuthentication,))
+# @permission_classes((IsAuthenticated,))
+# def api_logout(request):
+#     try:
+#         session_id = request.data['_s']
+#     except KeyError:
+#         return Response({'error': 4})
+#     try:
+#         Session.objects.get(pk=session_id).delete()
+#         return Response({'error': 0})
+#     except ObjectDoesNotExist:
+#         return Response({'error': 2})
 
 
 @never_cache

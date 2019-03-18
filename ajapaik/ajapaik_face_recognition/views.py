@@ -6,7 +6,7 @@ from typing import Optional, Iterable
 
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
 
@@ -43,7 +43,7 @@ def add_subject(request: HttpRequest) -> HttpResponse:
         else:
             status = 400
 
-    return render_to_response('add_subject.html', RequestContext(request, context), status=status)
+    return render(request, 'add_subject.html', context, status=status)
 
 
 def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]:
@@ -166,8 +166,8 @@ def add_rectangle_feedback(request):
 
 def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse:
     form = FaceRecognitionGuessForm(initial={'rectangle': rectangle_id})
-
-    return render_to_response('guess_subject.html', RequestContext(request, {
+    context = {
         'rectangle_id': rectangle_id,
         'form': form
-    }))
+    }
+    return render(request, 'guess_subject.html', context)

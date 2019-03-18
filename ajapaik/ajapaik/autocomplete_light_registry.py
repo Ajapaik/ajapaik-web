@@ -1,5 +1,5 @@
 import autocomplete_light.shortcuts as al
-from autocomplete_light import AutocompleteModelBase
+from autocomplete_light.shortcuts import AutocompleteModelBase
 from django.contrib.auth.models import User
 
 from ajapaik.ajapaik.models import Profile, Photo, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \

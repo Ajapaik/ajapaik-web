@@ -38,9 +38,9 @@
     <script>
         $('#ajp-geotagging-container').AjapaikGeotagger();
         var title = '{{ title }}',
-            leaderboardFullURL = "{% url "ajapaik.ajapaik.views.top50" %}",
-            difficultyFeedbackURL = "{% url "ajapaik.ajapaik.views.difficulty_feedback" %}",
-            mapDataURL = "{% url "ajapaik.ajapaik.views.map_objects_by_bounding_box" %}";
+            leaderboardFullURL = "{% url "top50" %}",
+            difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
+            mapDataURL = "{% url "map_objects_by_bounding_box" %}";
             {% if album %}
                 var albumId = '{{ album.0 | safe }}';
                 {% if album.1 and album.2 %}

@@ -101,9 +101,11 @@
                         {% if request.user.profile.is_legit %}
                             {% with profile=request.user.profile user=request.user %}
                                 <div class="facebook-connected">
-                                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.
-                                        <a href='/logout' id='logout-button'>{% trans "Log out" %}</a>.
-                                    </p>
+                                    <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.</p>
+                                    <form method="post" action="{% url 'account_logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit">{% trans 'Sign Out' %}</button>
+                                    </form>
                                 </div>
                             {% endwith %}
                         {% else %}
@@ -170,9 +172,7 @@
                     </li>
                 {% endif %}
                 <li class="pull-left hidden-xs">
-                    <a role="button" title="{% trans 'Add photos' %}"
-                       href="{% url "ajapaik.ajapaik.views.photo_upload_choice" %}"
-                       class="ajapaik-padding-top-6px">
+                    <a role="button" title="{% trans 'Add photos' %}" href="{% url 'photo_upload_choice' %}" class="ajapaik-padding-top-6px">
                         <i class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
                     </a>
                 </li>
@@ -191,9 +191,9 @@
             <!-- pull-right keeps the drop-down in line -->
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown pull-right">
+                    {% get_current_language as LANGUAGE_CODE %}
                     {% get_language_info for LANGUAGE_CODE as lang %}
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white"
-                       title="{% trans 'Choose language' %}">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white" title="{% trans 'Choose language' %}">
                         {{ lang.code|upper }}
                     </a>
                     <ul class="dropdown-menu">

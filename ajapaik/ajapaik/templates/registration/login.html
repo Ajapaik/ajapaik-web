@@ -19,7 +19,7 @@
                         <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
                             required="required" title="" type="password">
                     </div>
-                    <input name="next" type="hidden" value="{% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}{% url "ajapaik.ajapaik.views.frontpage" %}{% endif %}">
+                    <input name="next" type="hidden" value="{% if is_user_upload %}{% url 'user_upload' %}{% else %}{% url 'frontpage' %}{% endif %}">
                     <button type="submit" id="ajp-email-login-button" class="btn btn-primary">
                         {% trans "Log in" %}
                     </button>
@@ -27,19 +27,19 @@
                 <br class="forgot_password_link" />
                 <a class="forgot_password_link" href="{% url "auth_password_reset" %}">{% trans "Forgot password" %}</a>
                 <br/>
-                <a href="{% url 'registration_register' %}">{% trans "Register account" %}</a>
+                <a href="{% url 'account_signup' %}">{% trans "Register account" %}</a>
                 <br/>
                 <br/>
                 <b>{% trans "OR" %}</b>
                 <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/facebook/login?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next={% if is_user_upload %}{% url "ajapaik.ajapaik.views.user_upload" %}{% else %}/{% endif %}"
+                    <a href="/google-login/?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>

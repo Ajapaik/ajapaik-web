@@ -100,11 +100,11 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        var permalinkURL = '{% url 'ajapaik.ajapaik.views.photoslug' %}',
-            streamURL = '{% url 'ajapaik.ajapaik.views.fetch_stream' %}',
-            difficultyFeedbackURL = '{% url 'ajapaik.ajapaik.views.difficulty_feedback' %}',
-            gameURL = '{% url 'ajapaik.ajapaik.views.game' %}',
-            mapURL = '{% url 'ajapaik.ajapaik.views.mapview' %}',
+        var permalinkURL = '{% url 'foto' %}',
+            streamURL = '{% url 'fetch_stream' %}',
+            difficultyFeedbackURL = '{% url 'difficulty_feedback' %}',
+            gameURL = '{% url 'game' %}',
+            mapURL = '{% url 'map' %}',
             areaId = '{{ area.id|safe }}',
             albumId = '{{ album.0|safe }}';
         {% if photo %}

@@ -42,11 +42,11 @@ class AlbumPhotoInline(admin.TabularInline):
 
 
 class DatingAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Dating, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Dating, fields='__all__')
 
 
 class DatingConfirmationAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(DatingConfirmation, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(DatingConfirmation, fields='__all__')
 
 
 class PhotoAdmin(ModelAdmin):
@@ -117,55 +117,55 @@ class PhotoAdmin(ModelAdmin):
 
     inlines = (AlbumPhotoInline,)
 
-    form = autocomplete_light.modelform_factory(Photo, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Photo, fields='__all__')
 
 
 class SkipAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Skip, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Skip, fields='__all__')
 
 
 class GeoTagAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(GeoTag, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(GeoTag, fields='__all__')
 
 
 class ProfileAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Profile, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Profile, fields='__all__')
 
 
 class PointsAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Points, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Points, fields='__all__')
 
 
 class AlbumAdmin(ModelAdmin):
-    form = autocomplete_light.modelform_factory(Album, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Album, fields='__all__')
 
 
 class SourceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Source, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Source, fields='__all__')
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(AlbumPhoto, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(AlbumPhoto, fields='__all__')
 
 
 class AreaAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Area, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Area, fields='__all__')
 
 
 class LicenceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Licence, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Licence, fields='__all__')
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Device, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Device, fields='__all__')
 
 
 class VideoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(Video, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(Video, fields='__all__')
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    form = autocomplete_light.modelform_factory(User, fields='__all__')
+    form = autocomplete_light.shortcuts.modelform_factory(User, fields='__all__')
 
 
 try:

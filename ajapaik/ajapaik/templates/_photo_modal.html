@@ -20,8 +20,8 @@
                                     <i class="material-icons notranslate">navigate_before</i>
                                 </div>
                                 <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
-                                   href="{% url 'ajapaik.ajapaik.views.photoslug' photo.id photo.get_pseudo_slug %}">
-                                    <img src="{% url 'ajapaik.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"
+                                   href="{% url 'foto' photo.id photo.get_pseudo_slug %}">
+                                    <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                          alt="{{ photo.description }}" title="{{ photo.description }}"
                                          class="img-responsive col-xs-12"
                                          id="ajapaik-modal-photo"/>
@@ -74,8 +74,8 @@
                             <div id="ajapaik-modal-rephoto-container-container" class="col-xs-12">
                                 <div id="ajapaik-modal-rephoto-container">
                                     <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
-                                       href="{% url 'ajapaik.ajapaik.views.photoslug' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
-                                        <img src="{% url 'ajapaik.ajapaik.views.image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
+                                       href="{% url 'foto' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
+                                        <img src="{% url 'image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
                                              class="col-xs-12 img-responsive" id="ajapaik-modal-rephoto"
                                              alt="{{ photo.description }}" title="{{ photo.description }}"/>
                                         <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik-zero-border-radius"
@@ -98,7 +98,7 @@
                                     <div class="row ajapaik-photo-modal-rephoto-thumb"
                                          id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
                                         <img class="img-responsive col-xs-12"
-                                             src="{% url 'ajapaik.ajapaik.views.image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                                             src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                              data-id="{{ rephoto.id }}"/>
                                     </div>
                                 {% endfor %}
@@ -127,8 +127,9 @@
                             <div class="row" id="ajapaik-photo-modal-description">
                                 <div title="{{ photo.description }}">
                                     {% if photo.video %}
-                                        <a href="{% url "ajapaik.ajapaik.views.frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t=
-                                                {{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
+                                        <a href="{% url 'frontpage' %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ photo.video_timestamp|div:1000 }}">
+                                            {{ photo.description }}
+                                        </a>
                                     {% else %}
                                         {{ photo.description }}
                                     {% endif %}
@@ -292,9 +293,9 @@
                                 <div class="row ajapaik-no-left-margin-row" style="min-height: 36px;">
                                     <a class="ajapaik-photo-album-link"
                                        href="{% if is_mapview %}
-                                                  {% url 'ajapaik.ajapaik.views.mapview' %}?album={{ a.id }}
+                                                  {% url 'map' %}?album={{ a.id }}
                                               {% elif is_frontpage or is_selection %}
-                                                  {% url 'ajapaik.ajapaik.views.frontpage' %}?album={{ a.id }}
+                                                  {% url 'frontpage' %}?album={{ a.id }}
                                               {% endif %}">{{ a.name }}</a>
                                     <div class="ajapaik-photo-modal-album-more-button"
                                          role="button"
@@ -337,10 +338,10 @@
     window.isMapview = '{{ is_mapview|safe }}';
     window.isMapview = window.isMapview === 'True';
     // TODO: Clean
-    window.photoModalCurrentImageUrl = '{% url 'ajapaik.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
+    window.photoModalCurrentImageUrl = '{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}';
     window.currentPhotoOriginalWidth = '{{ photo.width }}';
     window.currentPhotoOriginalHeight = '{{ photo.height }}';
-    window.currentPhotoURL = '{% url 'ajapaik.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}';
+    window.currentPhotoURL = '{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}';
     window.photoModalCurrentPhotoFlipped = false;
     window.photoModalRephotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
@@ -391,9 +392,9 @@
     {% for rephoto in photo.rephotos.all %}
         window.photoModalRephotoArray.push({
             id: {{ rephoto.id }},
-            url: '{% url 'ajapaik.ajapaik.views.image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}',
+            url: '{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}',
             fb_url: '{{ hostname }}{{ rephoto.get_detail_url }}',
-            fullscreen_url: '{% url 'ajapaik.ajapaik.views.image_full' rephoto.pk rephoto.get_pseudo_slug %}',
+            fullscreen_url: '{% url 'image_full' rephoto.pk rephoto.get_pseudo_slug %}',
             fullscreen_width: '{{ rephoto.width }}',
             fullscreen_height: '{{ rephoto.height }}',
             {% if rephoto.date %}
@@ -455,7 +456,7 @@
         };
         window.updateDatings = function () {
             $.ajax({
-                url: '{% url 'ajapaik.ajapaik.views.get_datings' photo.id %}',
+                url: '{% url 'get_datings' photo.id %}',
                 success: function (result) {
                     $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
                     $('#ajapaik-photo-modal-start-dating-button').find('.badge').html(result.datings.length);

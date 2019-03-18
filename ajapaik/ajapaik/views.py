@@ -31,7 +31,6 @@ from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -152,7 +151,7 @@ def get_general_info_modal_content(request):
         'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
-    return render_to_response('_general_info_modal_content.html', RequestContext(request, ret))
+    return render(request, '_general_info_modal_content.html', ret)
 
 
 def get_album_info_modal_content(request):
@@ -221,7 +220,7 @@ def get_album_info_modal_content(request):
         ret['share_gallery_link'] = request.build_absolute_uri(
             reverse('ajapaik.ajapaik.views.frontpage')) + '?album=' + album_id_str
 
-        return render_to_response('_info_modal_content.html', RequestContext(request, ret))
+        return render(request, '_info_modal_content.html', ret)
 
     return HttpResponse('Error')
 
@@ -437,13 +436,13 @@ def rephoto_upload(request, photo_id):
         profile = request.get_user().profile
         user = request.get_user()
         # FIXME: Our interfaces block non-authenticated uploading, but clearly it's possible
-        if 'fb_access_token' in request.POST:
-            token = request.POST.get('fb_access_token')
-            profile, fb_data = Profile.facebook.get_user(token)
-            if profile is None:
-                user = request.get_user()
-                profile = user.profile
-                profile.update_from_fb_data(token, fb_data)
+        # if 'fb_access_token' in request.POST:
+        #     token = request.POST.get('fb_access_token')
+        #     profile, fb_data = Profile.facebook.get_user(token)
+        #     if profile is None:
+        #         user = request.get_user()
+        #         profile = user.profile
+        #         profile.update_from_fb_data(token, fb_data)
         if not profile.fb_id and not profile.google_plus_id and not user.email:
             return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
         if 'user_file[]' in request.FILES.keys():
@@ -587,7 +586,7 @@ def game(request):
     ret["user_has_likes"] = user_has_likes
     ret["user_has_rephotos"] = user_has_rephotos
 
-    return render_to_response("game.html", RequestContext(request, ret))
+    return render(request, "game.html", ret)
 
 
 def fetch_stream(request):
@@ -654,35 +653,38 @@ def frontpage(request, album_id=None, page=None):
 
     last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
 
-    return render_to_response('frontpage.html', RequestContext(request, {
-        'is_frontpage': True,
-        'title': title,
-        'hostname': 'https://%s' % (site.domain,),
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-        'facebook_share_photos': data['fb_share_photos'],
-        'album': data['album'],
-        # 'albums': albums,
-        'photo': data['photo'],
-        # 'start': data['start'],
-        # 'end': data['end'],
-        'page': data['page'],
-        'order1': data['order1'],
-        'order2': data['order2'],
-        'order3': data['order3'],
-        'user_has_likes': user_has_likes,
-        'user_has_rephotos': user_has_rephotos,
-        'my_likes_only': data['my_likes_only'],
-        'rephotos_by': data['rephotos_by'],
-        'rephotos_by_name': data['rephotos_by_name'],
-        'photos_with_comments': data['photos_with_comments'],
-        'photos_with_rephotos': data['photos_with_rephotos'],
-        'show_photos': data['show_photos'],
-        # 'max_page': data['max_page'],
-        # 'total': data['total'],
-        # 'photos': data['photos'],
-        'is_photoset': data['is_photoset'],
-        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
-    }))
+    context = {
+            'request': request,
+            'is_frontpage': True,
+            'title': title,
+            'hostname': 'https://%s' % (site.domain,),
+            'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+            'facebook_share_photos': data['fb_share_photos'],
+            'album': data['album'],
+            # 'albums': albums,
+            'photo': data['photo'],
+            # 'start': data['start'],
+            # 'end': data['end'],
+            'page': data['page'],
+            'order1': data['order1'],
+            'order2': data['order2'],
+            'order3': data['order3'],
+            'user_has_likes': user_has_likes,
+            'user_has_rephotos': user_has_rephotos,
+            'my_likes_only': data['my_likes_only'],
+            'rephotos_by': data['rephotos_by'],
+            'rephotos_by_name': data['rephotos_by_name'],
+            'photos_with_comments': data['photos_with_comments'],
+            'photos_with_rephotos': data['photos_with_rephotos'],
+            'show_photos': data['show_photos'],
+            # 'max_page': data['max_page'],
+            # 'total': data['total'],
+            # 'photos': data['photos'],
+            'is_photoset': data['is_photoset'],
+            'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
+        }
+
+    return render(request, 'frontpage.html', context)
 
 
 def frontpage_async_data(request):
@@ -1058,14 +1060,15 @@ def list_photo_selection(request):
                 at_least_one_photo_has_location = True
                 count_with_location += 1
             p[1], p[2] = calculate_thumbnail_size_max_height(p[1], p[2], 300)
-
-    return render_to_response('photo_selection.html', RequestContext(request, {
+    context = {
         'is_selection': True,
         'photos': photos,
         'at_least_one_photo_has_location': at_least_one_photo_has_location,
         'count_with_location': count_with_location,
         'whole_set_albums_selection_form': whole_set_albums_selection_form
-    }))
+    }
+
+    return render(request, 'photo_selection.html', context)
 
 
 def upload_photo_selection(request):
@@ -1121,9 +1124,7 @@ def videoslug(request, video_id, pseudo_slug=None):
     else:
         template = 'videoview.html'
 
-    return render_to_response(template, RequestContext(request, {
-        'video': video,
-    }))
+    return render(request, template, {'video': video,})
 
 
 @ensure_csrf_cookie
@@ -1281,8 +1282,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             people.append(rectangle.subject_consensus.name)
         elif rectangle.subject_ai_guess:
             people.append(rectangle.subject_ai_guess.name)
-
-    return render(request, template, {
+    context = {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
         "datings_count": previous_datings.count(),
@@ -1316,17 +1316,20 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "previous_photo": previous_photo,
         # TODO: Needs more data than just the names
         "people": people
-    })
+    }
+
+    return render(request, template, context)
 
 
 def mapview_photo_upload_modal(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
     licence = Licence.objects.get(id=17)  # CC BY 4.0
-    return render_to_response('_photo_upload_modal.html', RequestContext(request, {
+    context = {
         'photo': photo,
         'licence': licence,
         'next': request.META["HTTP_REFERER"]
-    }))
+    }
+    return render(request, '_photo_upload_modal.html', context)
 
 
 @ensure_csrf_cookie
@@ -1400,7 +1403,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     else:
         ret["title"] = _("Browse photos on map")
 
-    return render_to_response("mapview.html", RequestContext(request, ret))
+    return render(request, "mapview.html", ret)
 
 
 def map_objects_by_bounding_box(request):
@@ -1669,14 +1672,15 @@ def leaderboard(request, album_id=None):
         template = 'leaderboard.html'
     # FIXME: this shouldn't be necessary, there are easier ways to construct URLs
     site = Site.objects.get_current()
-    return render_to_response(template, RequestContext(request, {
+    context = {
         'is_top_50': False,
         'title': _('Leaderboard'),
         'hostname': 'https://%s' % (site.domain,),
         'leaderboard': general_leaderboard,
         'album_leaderboard': album_leaderboard,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
-    }))
+    }
+    return render(request, template, context)
 
 
 def all_time_leaderboard(request):
@@ -1684,12 +1688,13 @@ def all_time_leaderboard(request):
     atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
     site = Site.objects.get_current()
-    return render_to_response(template, RequestContext(request, {
+    context = {
         'hostname': 'https://%s' % (site.domain,),
         'all_time_leaderboard': atl,
         'title': _('Leaderboard'),
         'is_top_50': True
-    }))
+    }
+    return render(request, template, context)
 
 
 def top50(request, album_id=None):
@@ -1716,7 +1721,7 @@ def top50(request, album_id=None):
     else:
         template = 'leaderboard.html'
     site = Site.objects.get_current()
-    return render_to_response(template, RequestContext(request, {
+    context = {
         'activity_leaderboard': activity_leaderboard,
         'album_name': album_name,
         'album_leaderboard': album_leaderboard,
@@ -1725,7 +1730,8 @@ def top50(request, album_id=None):
         'title': _('Leaderboard'),
         'is_top_50': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
-    }))
+    }
+    return render(request, template, context)
 
 
 def difficulty_feedback(request):
@@ -1755,15 +1761,11 @@ def difficulty_feedback(request):
 
 
 def custom_404(request):
-    response = render_to_response("404.html", {}, context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
+    return render(request, '404.html', status=404)
 
 
 def custom_500(request):
-    response = render_to_response("500.html", {}, context_instance=RequestContext(request))
-    response.status_code = 500
-    return response
+    return render(request, '500.html', status=500)
 
 
 def public_add_album(request):
@@ -1815,10 +1817,9 @@ def curator(request):
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
-
-    return render_to_response('curator.html', RequestContext(request, {
-        'description':
-            _('Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!'),
+    context = {
+        'description': _('Search for old photos, add them to Ajapaik, '
+                         'determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
         'title': _('Timepatch (Ajapaik) - curate'),
         'hostname': 'https://%s' % (site.domain,),
@@ -1826,7 +1827,9 @@ def curator(request):
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'whole_set_albums_selection_form': CuratorWholeSetAlbumsSelectionForm()
-    }))
+    }
+
+    return render(request, 'curator.html', context)
 
 
 def _curator_get_records_by_ids(ids):
@@ -2608,10 +2611,7 @@ def generate_still_from_video(request):
 
 
 def donate(request):
-    ret = {
-        'is_donate': True
-    }
-    return render_to_response('donate.html', RequestContext(request, ret))
+    return render(request, 'donate.html', {'is_donate': True})
 
 
 def photo_upload_choice(request):
@@ -2629,7 +2629,7 @@ def photo_upload_choice(request):
         'is_upload_choice': True
     }
 
-    return render_to_response('photo_upload_choice.html', RequestContext(request, ret))
+    return render(request, 'photo_upload_choice.html', ret)
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
@@ -2660,7 +2660,7 @@ def user_upload(request):
         form = UserPhotoUploadForm()
     ret['form'] = form
 
-    return render_to_response('user_upload.html', RequestContext(request, ret))
+    return render(request, 'user_upload.html', ret)
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
@@ -2678,7 +2678,7 @@ def user_upload_add_album(request):
         form = UserPhotoUploadAddAlbumForm(profile=request.user.profile)
     ret['form'] = form
 
-    return render_to_response('user_upload_add_album.html', RequestContext(request, ret))
+    return render(request, 'user_upload_add_album.html', ret)
 
 
 ################################################################################
@@ -2808,8 +2808,8 @@ class DeleteComment(View):
 
 
 def privacy(request):
-    return render_to_response('privacy.html', RequestContext(request, {}))
+    return render(request, 'privacy.html')
 
 
 def terms(request):
-    return render_to_response('terms.html', RequestContext(request, {}))
+    return render(request, 'terms.html')

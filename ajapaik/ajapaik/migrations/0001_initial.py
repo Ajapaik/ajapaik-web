@@ -5,7 +5,7 @@ from django.db import models, migrations
 import django.core.validators
 import django.contrib.gis.db.models.fields
 from django.conf import settings
-import oauth2client.django_orm
+import oauth2client.contrib.django_orm
 import django_extensions.db.fields.json
 
 
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
             name='CredentialsModel',
             fields=[
                 ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('credential', oauth2client.django_orm.CredentialsField(null=True)),
+                ('credential', oauth2client.contrib.django_orm.CredentialsField(null=True)),
             ],
             options={
                 'db_table': 'project_credentialsmodel',
@@ -152,7 +152,7 @@ class Migration(migrations.Migration):
             name='FlowModel',
             fields=[
                 ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('flow', oauth2client.django_orm.FlowField(null=True)),
+                ('flow', oauth2client.contrib.django_orm.FlowField(null=True)),
             ],
             options={
                 'db_table': 'project_flowmodel',
