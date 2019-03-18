@@ -11,6 +11,7 @@ from urllib.request import urlopen
 import numpy
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -24,7 +25,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
-from django.db.models import Lookup
+from django.db.models import Lookup, Q
 from django.db.models import OneToOneField, DateField, FileField
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
@@ -392,6 +393,20 @@ class Photo(Model):
     class Meta:
         ordering = ['-id']
         db_table = 'project_photo'
+
+    @property
+    def people(self):
+        people_albums = []
+        rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects\
+            .filter(photo=self, deleted__isnull=True)\
+            .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False)).all()
+        for rectangle in rectangles:
+            if rectangle.subject_consensus:
+                people_albums.append(rectangle.subject_consensus)
+            elif rectangle.subject_ai_guess:
+                people_albums.append(rectangle.subject_ai_guess)
+
+        return set(people_albums)
 
     @staticmethod
     def get_game_json_format_photo(photo):

@@ -31,6 +31,7 @@
             }
             // TODO: Some kind of caching? Seems a bit wasteful to reload on each hover. Good enough for now I guess
             that.removeRectanglesAndButtons();
+            window.hotkeysActive = true;
             $.ajax({
                 type: 'GET',
                 url: '/face-recognition/get-rectangles/' + that.photo + '/',
@@ -86,6 +87,7 @@
                     } else {
                         $.notify(gettext('Thank you!'), {type: 'success'});
                     }
+                    that.isGuessPopoverOpen = false;
                     that.loadRectangles();
                 },
                 error: function () {
@@ -172,6 +174,7 @@
                 }
                 $faceRectangle.popover({
                     html: true,
+                    placement: 'bottom',
                     title: gettext('Who is this?'),
                     // TODO: How to make this trigger on hover all the while not breaking the hover functionality a few lines down?
                     trigger: 'click'
@@ -303,7 +306,7 @@
             $(document).on('click', '.ajapaik-face-recognition-form-submit-button', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                var $form = $(this).parent().parent(),
+                var $form = $(this).parent().parent().parent().parent(),
                     subject = $form.find('#id_subject_album').val(),
                     rectangle = $form.find('#id_rectangle').val();
                 that.submitGuess(rectangle, subject);

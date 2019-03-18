@@ -5,24 +5,35 @@
     <form method="post" action="{% url 'face_recognition_guess_subject' %}" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <div class="btn-group">
-            <button title="{% trans "This rectangle is bad, I think it should be removed." %}"
-                    class="btn btn-danger ajapaik-face-recognition-form-remove-rectangle-button"
-                    type="button"
-                    title="{% trans "Delete annotation" %}"
-                    data-id="{{ rectangle_id }}">
-                {% trans "Delete" %}
-            <button class="btn btn-default ajapaik-face-recognition-form-cancel-button"
-                    type="button"
-                    title="{% trans "Cancel" %}">
-                {% trans "Cancel" %}
-            </button>
-            </button>
-            <button class="btn btn-primary ajapaik-face-recognition-form-submit-button"
-                    type="submit"
-                    title="{% trans "Submit guess" %}">
-                {% trans "Send" %}
-            </button>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-primary ajapaik-face-recognition-form-submit-button"
+                            type="submit"
+                            title="{% trans "Submit guess" %}">
+                        {% trans "Send" %}
+                    </button>
+                    <button class="btn btn-default ajapaik-face-recognition-form-cancel-button"
+                            type="button"
+                            title="{% trans "Cancel" %}">
+                        {% trans "Cancel" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="btn-group pull-right">
+                    <button title="{% trans "This rectangle is bad, I think it should be removed." %}"
+                            class="btn btn-danger ajapaik-face-recognition-form-remove-rectangle-button"
+                            type="button"
+                            title="{% trans "Delete annotation" %}"
+                            data-id="{{ rectangle_id }}">
+                        {% trans "Delete" %}
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
 </div>

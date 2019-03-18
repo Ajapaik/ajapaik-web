@@ -784,7 +784,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
         if filter_form.cleaned_data['people']:
-            photos = photos.filter(face_recognition_rectangles__isnull=False)
+            photos = photos.filter(face_recognition_rectangles__isnull=False,
+                                   face_recognition_rectangles__deleted__isnull=True)
         if requested_photos:
             requested_photos = requested_photos.split(',')
             ret['is_photoset'] = True
@@ -1274,14 +1275,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
-    rectangles_for_this_photo_with_names = FaceRecognitionRectangle.objects.filter(photo=photo_obj)\
-        .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False))
-    people = []
-    for rectangle in rectangles_for_this_photo_with_names:
-        if rectangle.subject_consensus:
-            people.append(rectangle.subject_consensus.name)
-        elif rectangle.subject_ai_guess:
-            people.append(rectangle.subject_ai_guess.name)
+    people = [x.name for x in photo_obj.people]
+
     context = {
         "photo": photo_obj,
         "previous_datings": serialized_datings,
@@ -2670,7 +2665,6 @@ def user_upload_add_album(request):
         form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():
             album = form.save(commit=False)
-            album.atype = Album.CURATED
             album.profile = request.user.profile
             album.save()
             ret['message'] = _('Album created')

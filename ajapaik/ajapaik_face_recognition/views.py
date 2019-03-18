@@ -4,14 +4,12 @@ import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
-from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
 
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
-from ajapaik.ajapaik.views import user_has_confirmed_email
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
@@ -22,7 +20,6 @@ log = logging.getLogger(__name__)
 
 
 # TODO: These are API endpoint basically - move to api.py and implement with DRF?
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_subject(request: HttpRequest) -> HttpResponse:
     form = FaceRecognitionAddPersonForm()
     context = {'form': form}
@@ -60,12 +57,10 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
     return dict_keys[0]
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def guess_subject(request: HttpRequest) -> HttpResponse:
     status = 200
     if request.method == 'POST':
         form = FaceRecognitionGuessForm(request.POST)
-        log.info(form.data)
         if form.is_valid():
             subject_album: Album = form.cleaned_data['subject_album']
             rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
@@ -96,7 +91,6 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
     return HttpResponse('OK', status=status)
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_rectangle(request: HttpRequest) -> HttpResponse:
     form = FaceRecognitionRectangleSubmitForm(request.POST.copy())
     if form.is_valid():
@@ -137,7 +131,6 @@ def get_rectangles(request, photo_id=None):
 
 
 # Essentially means 'complain to get it deleted'
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/')
 def add_rectangle_feedback(request):
     form = FaceRecognitionRectangleFeedbackForm(request.POST.copy())
     deleted = False
