@@ -529,7 +529,10 @@ def game(request):
     user_has_likes = profile.likes.count() > 0
     user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
     area_selection_form = AreaSelectionForm(request.GET)
-    album_selection_form = AlbumSelectionForm(request.GET)
+    album_selection_form = AlbumSelectionForm(
+        request.GET,
+        initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
+    )
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     game_photo_selection_form = GamePhotoSelectionForm(request.GET)
     album = None
@@ -1220,7 +1223,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
             previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
     else:
-        album_selection_form = AlbumSelectionForm()
+        album_selection_form = AlbumSelectionForm(
+            initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
+        )
         if not request.is_ajax():
             next_photo = Photo.objects.filter(pk__gt=photo_obj.pk).order_by('pk').first()
             previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()

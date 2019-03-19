@@ -3,9 +3,11 @@
 /media/
 /postgresql/
 /.idea/
-*.pyc
 /static-collected/
 /venv/
 /ajapaik/ajapaik/client_secrets.json
 /.pycharm_helpers/
+
+*.pyc
 *.mo
+*.log
