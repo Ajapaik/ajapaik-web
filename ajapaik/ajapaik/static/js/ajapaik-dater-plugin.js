@@ -34,7 +34,7 @@
             "           <span></span>",
             "           <button id='ajp-dater-close-tutorial-button'><i class='material-icons notranslate'>close</i></button>",
             "       </div>",
-            "       <div class='well hidden' id='ajp-dater-anonymous-user-well'>",
+            "       <div class='well d-none' id='ajp-dater-anonymous-user-well'>",
             "           <i class='material-icons notranslate'>account_circle</i><span></span>",
             "       </div>",
             "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons notranslate'>info</i></button>",
@@ -43,14 +43,14 @@
             "           <div class='form-inline'>",
             "               <div class='form-group'>",
             "                   <input id='ajp-dater-input' type='text' class='form-control' placeholder=''>",
-            "                   <div class='btn btn-default' id='ajp-dater-toggle-comment-button'><i class='material-icons notranslate'>comment</i></div>",
+            "                   <div class='btn btn-secondary' id='ajp-dater-toggle-comment-button'><i class='material-icons notranslate'>comment</i></div>",
             "               </div>",
             "           </div>",
             "           <div id='ajp-dater-feedback'></div>",
-            "           <input class='form-control hidden' placeholder='' type='text' id='ajp-dater-comment'>",
-            "           <div class='btn-group' role='group'>",
-            "               <button type='button' id='ajp-dater-cancel-button' class='btn btn-default'><i class='material-icons notranslate'>close</i></button>",
-            "               <button type='submit' id='ajp-dater-submit-button' class='btn btn-default'><i class='material-icons notranslate'>check</i></button>",
+            "           <input class='form-control d-none' placeholder='' type='text' id='ajp-dater-comment'>",
+            "           <div class='btn-group w-100' role='group'>",
+            "               <button type='button' id='ajp-dater-cancel-button' class='btn btn-danger w-50'><i class='material-icons notranslate'>close</i></button>",
+            "               <button type='submit' id='ajp-dater-submit-button' class='btn btn-success w-50'><i class='material-icons notranslate'>check</i></button>",
             "           </div>",
             "       </form>",
             "   </div>",
@@ -396,7 +396,7 @@
                     userStr = gettext('Anonymous user');
                 }
                 reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
-                previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
+                previousDatings.append('<div><b>' + userStr + '</b>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge" style="left:0px;">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
             });
         };
         this.giveDatingSubmittedFeedback = function (confirmation) {
@@ -455,8 +455,8 @@
             that.$UI.find('#ajp-dater-toggle-comment-button').click(function (e) {
                 e.preventDefault();
                 var target = that.$UI.find('#ajp-dater-comment');
-                target.toggleClass('hidden');
-                if (!target.hasClass('hidden') && typeof window.reportDaterOpenComment === 'function') {
+                target.toggleClass('d-none');
+                if (!target.hasClass('d-none') && typeof window.reportDaterOpenComment === 'function') {
                     window.reportDaterOpenComment();
                 }
             });
@@ -521,9 +521,9 @@
             that.$UI.find('#ajp-dater-toggle-comment-button').show();
             that.$UI.find('#ajp-dater-feedback-well').hide();
             if (userIsSocialConnected) {
-                loginDiv.addClass('hidden');
+                loginDiv.addClass('d-none');
             } else {
-                loginDiv.removeClass('hidden');
+                loginDiv.removeClass('d-none');
             }
             if (state.previousDatings.length > 0) {
                 that.buildPreviousDatingsDiv(state.previousDatings);

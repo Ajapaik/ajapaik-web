@@ -1,8 +1,8 @@
 {% load i18n %}
 
-<div class="modal-dialog">
-    <div class="modal-content ajapaik-zero-border-radius">
-        <div class="modal-header">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header d-inline-block">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,7 +13,7 @@
             {% if album_curators %}
                 <h6>{% trans "Album curated by" %}
                     {% for curator in album_curators %}
-                        <a target="_blank" href="{% if curator.fb_link %}{{ curator.fb_link }}{% elif curator.google_plus_link %}{{ curator.google_plus_link }}{% endif %}">
+                        <a target="_blank" href="{% if curator.fb_link %}{{ curator.fb_link }}{% elif curator.google_plus_link %}{{ curator.google_plus_link }}{% endif %}" rel="noopener">
                             {{ curator.get_display_name }}</a>{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </h6>
@@ -22,7 +22,7 @@
             {% endif %}
             <h6><a href="{% url "ajapaik.ajapaik.views.top50" %}" id="ajapaik-info-window-leaderboard-link" data-id="{{ album.id }}">{% trans "Contributors' leaderboard" %}</a></h6>
         </div>
-        <div class="modal-body" id="ajapaik-info-modal-body">
+        <div class="modal-body m-3" id="ajapaik-info-modal-body">
             <div class="row">
                 {% blocktrans count counter=total_photo_count %}
                     Album has {{ counter }} historic picture,
@@ -95,6 +95,25 @@
                     {% endblocktrans %}
                 </div>
             {% endif %}
+            {% if similar_photo_count > 0 %}
+                <div class="row">
+                    {% blocktrans count counter=total_similar_photo_count %}
+                        There is {{ counter }} similar photo
+                    {% plural %}
+                        There are {{ counter }} similar photos
+                    {% endblocktrans %}
+                    {% blocktrans count counter=confirmed_similar_photo_count %}
+                        There is confirmed {{ counter }} similar photo
+                    {% plural %}
+                        There are confirmed {{ counter }} similar photos
+                    {% endblocktrans %}
+                    {% blocktrans count counter=similar_photo_count %}
+                        There is unconfirmed {{ counter }} similar photo
+                    {% plural %}
+                        There are unconfirmed {{ counter }} similar photos
+                    {% endblocktrans %}
+                </div>
+            {% endif %}
             <br>
             {% if nearby_albums %}
                 <div class="row">
@@ -103,58 +122,48 @@
                 </div>
             {% endif %}
         </div>
-        <div class="modal-footer">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" id="ajapaik-sharing-dropdown-button"
-                            class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button
-                            ajapaik-zero-border-radius"
-                            data-toggle="dropdown" aria-expanded="false">
-                        {% trans "Share" %}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu " role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
-                        <li role="presentation" class="disabled-link">
-                            <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                {% if fb_share_gallery %}
-                                    <a href="{{ share_gallery_link }}">{{ share_gallery_link }}</a>
-                                {% elif fb_share_map %}
-                                    <a href="{{ share_map_link }}">{{ share_map_link }}</a>
-                                {% else %}
-                                    <a href="{{ share_game_link }}">{{ share_game_link }}</a>
-                                {% endif %}
-                            </div>
-                        </li>
-                        <li role="presentation">
-                            <div id="ajapaik-info-modal-like" role="menuitem" tabindex="-1">
-                                {% if fb_share_gallery %}
-                                    <div class="fb-like" data-href="{{ share_gallery_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                {% elif fb_share_map %}
-                                    <div class="fb-like" data-href="{{ share_map_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                {% else %}
-                                    <div class="fb-like" data-href="{{ share_game_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                {% endif %}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group">
-                    {% if link_to_map %}
-                        <a class="btn btn-primary ajapaik-zero-border-radius" href="{{ share_map_link }}&fromModal=1">{% trans "Show on map" %}</a>
-                    {% else %}
-                        <a class="btn btn-primary ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Back to map" %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="btn-group btn-group-justified" id="ajapaik-info-modal-game-button" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    {% if link_to_game %}
-                        <a class="btn btn-success ajapaik-zero-border-radius" href="{{ share_game_link }}">{% trans "Geotag pictures" %}</a>
-                    {% else %}
-                        <a class="btn btn-success ajapaik-zero-border-radius" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
-                    {% endif %}
-                </div>
-            </div>
+        <div class="modal-footer d-flex">
+            <button type="button" id="ajapaik-sharing-dropdown-button"
+                    class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button
+                    ajapaik"
+                    data-toggle="dropdown" aria-expanded="false">
+                {% trans "Share" %}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu p-2" role="menu" aria-labelledby="ajapaik-sharing-dropdown-button">
+                <li role="presentation" class="disabled-link">
+                    <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                        {% if fb_share_gallery %}
+                            <a href="{{ share_gallery_link }}">{{ share_gallery_link }}</a>
+                        {% elif fb_share_map %}
+                            <a href="{{ share_map_link }}">{{ share_map_link }}</a>
+                        {% else %}
+                            <a href="{{ share_game_link }}">{{ share_game_link }}</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li role="presentation">
+                    <div id="ajapaik-info-modal-like" role="menuitem" tabindex="-1">
+                        {% if fb_share_gallery %}
+                            <div class="fb-like" data-href="{{ share_gallery_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        {% elif fb_share_map %}
+                            <div class="fb-like" data-href="{{ share_map_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        {% else %}
+                            <div class="fb-like" data-href="{{ share_game_link }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+            {% if link_to_map %}
+                <a class="btn btn-primary ajapaik" href="{{ share_map_link }}&fromModal=1">{% trans "Show on map" %}</a>
+            {% else %}
+                <a class="btn btn-primary ajapaik" data-dismiss="modal">{% trans "Back to map" %}</a>
+            {% endif %}
+            {% if link_to_game %}
+                <a class="btn btn-success ajapaik" href="{{ share_game_link }}">{% trans "Geotag pictures" %}</a>
+            {% else %}
+                <a class="btn btn-success ajapaik" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
+            {% endif %}
         </div>
     </div>
 </div>

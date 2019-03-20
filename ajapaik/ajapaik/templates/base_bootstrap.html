@@ -72,7 +72,7 @@
             {% trans 'historic,pictures,old,photos' %}
         {% endif %}
         ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
     <meta name="msvalidate.01" content="0AFAD3D32395E8F3F75621502B39878C" />
@@ -88,6 +88,8 @@
         <meta property="og:title" content="{{ title }}"/>
         {% if rephotos_by_name %}
             <meta property="og:description" content="{% blocktrans %}Gallery of rephotographs by {{ rephotos_by_name }}{% endblocktrans %}"/>
+        {% elif similar_photos_by_name %}
+            <meta property="og:description" content="{% blocktrans %}Gallery of similar photos by {{ similar_photos_by_name }}{% endblocktrans %}"/>
         {% elif description %}
             <meta property="og:description" content="{{ description }}"/>
         {% elif not description and is_game and album %}
@@ -120,6 +122,8 @@
         <meta property="og:type" content="website"/>
         {% if rephotos_by_name %}
             <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.frontpage' %}?order1=time&order2=rephotos&page=1&rephotosBy={{ rephotos_by }}"/>
+        {% elif similar_photos_by_name %}
+            <meta property="og:url" content="{{ hostname }}{% url 'ajapaik.ajapaik.views.frontpage' %}?order1=time&order2=similar_photos&page=1&similar_photos_By={{ similar_photos_By }}"/>
         {% elif photo or rephoto %}
             {% if photo and is_frontpage %}
                 <meta property="og:url" content="{{ hostname }}?photo={{ photo.0 }}"/>
@@ -209,7 +213,7 @@
         <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}"/>
     {% endif %}
     <!--[if lt IE 9]>
-        <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
+        <script src="{% static 'js/html5shiv-3.7.3.js' %}" defer></script>
     <![endif]-->
     <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}"/>
     <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}"/>
@@ -218,17 +222,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {% leaflet_css %}
     {% compress css %}
-        <link rel="stylesheet" href="{% static "css/bootstrap-3.3.7.css" %}">
-        <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}">
-        <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}">
-        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
-        <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
-        <link rel="stylesheet" href="{% static "libs/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" %}">
-        <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
+        <link rel="stylesheet" href="{% static "libs/bootstrap/css/bootstrap.min.css" %}" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}" media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/ media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/ media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/ media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/ media="none" onload="if(media!='all')media='all'">
+        <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/ media="none" onload="if(media!='all')media='all'">
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script type="text/javascript">
@@ -280,60 +281,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
-{% if is_frontpage or is_order or is_photoview %}
-    <footer class="footer text-center">
-        <div class="container-fluid">
-            <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-contact">
-                <div class="row">
-                    <a class="pull-left" href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
-                </div>
-                <div class="row">
-                    <a class="pull-left" id="ajapaik-photographic-heritage-link" target="_blank" href="http://fotopärand.org.ee/">{% trans "Estonian Photographic Heritage Society" %}</a>
-                </div>
-                <div class="row">
-                    <a class="pull-left" href="{% url 'ajapaik.ajapaik.views.donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
-                </div>
-            </div>
-            <nav class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-                {% if not is_photoview %}
-                    <ul class="pager" id="ajapaik-pager">
-                        <li>
-                            <a id="ajapaik-paging-previous-button" {% if page < 2 %}class="ajapaik-invisible"{% endif %} href="{% url 'ajapaik.ajapaik.views.frontpage' %}{% add_get page=page|add:-1 %}">
-                                &lt;
-                            </a>
-                        </li>
-                        <li class="disabled">
-                            <a href="#" id="ajapaik-pager-stats">
-                                {{ start|add:1 }} – {{ end }} / {{ total }}
-                            </a>
-                        </li>
-                        <li>
-                            <a id="ajapaik-paging-next-button" {% if page == max_page %}class="ajapaik-invisible"{% endif %} href="{% url 'ajapaik.ajapaik.views.frontpage' %}{% add_get page=page|add:1 %}">
-                                &gt;
-                            </a>
-                        </li>
-                    </ul>
-                {% endif %}
-            </nav>
-            <div class="col-lg-2 col-md-4 col-sm-4 hidden-xs" id="ajapaik-footer-links">
-                <div class="row">
-                    <a class="pull-right" id="ajapaik-sift-pics-link" target="_blank" href="http://sift.pics/">{% trans "See also – Sift.pics" %}</a>
-                </div>
-                <div class="row">
-                    <a class="pull-right" target="_blank" href="//www.hotjar.com/?utm_source=badge">
-                        <img id="ajapaik-hotjar-footer-logo" src="//static.hotjar.com/b/hotjar-badge.png"
-                             alt="Hotjar - Unlimited insights from your web and mobile sites" />
-                    </a>
-                </div>
-                {#<div class="row">#}
-                {#    <a class="pull-right" id="ajapaik-privacy-policy-link" href="{% url 'privacy' %}">{% trans "Privacy policy" %}</a>#}
-                {#</div>#}
-                {#<div class="row">#}
-                {#    <a class="pull-right" id="ajapaik-terms-of-service-link" href="{% url 'terms' %}">{% trans "Terms of service" %}</a>#}
-                {#</div>#}
-            </div>
-        </div>
-    </footer>
+{% if is_frontpage or is_order or is_photoview or is_newsletter or is_comparephoto and not newsletter %}
+    {% block footer %}
+        {% include "_footer.html" %}
+    {% endblock footer %}
 {% endif %}
 {% block global_js %}
     <script>
@@ -382,7 +333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         (function () {
             var b = document.createElement("script");
             b.async = !0;
-            b.src = document.location.protocol + "//connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}{% if LANGUAGE_CODE == 'fi' %}fi_FI{% else %}{% if LANGUAGE_CODE == 'no' %}nb_NO{% else %}en_US{% endif %}{% endif %}{% endif %}{% endif %}/sdk.js";
+            b.src = "https://connect.facebook.net/{% if LANGUAGE_CODE == 'et' %}et_EE{% else %}{% if LANGUAGE_CODE == 'ru' %}ru_RU{% else %}{% if LANGUAGE_CODE == 'fi' %}fi_FI{% else %}{% if LANGUAGE_CODE == 'no' %}nb_NO{% else %}en_US{% endif %}{% endif %}{% endif %}{% endif %}/sdk.js";
             document.getElementById("fb-root").appendChild(b)
         })();
     </script>
@@ -425,47 +376,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% else %}
        {% leaflet_js %}
 {% endif %}
-    <script src="{% static "js/jquery.URI-1.15.1.min.js" %}"></script>
+    <script src="{% static "js/jquery.URI-1.19.1.min.js" %}" defer></script>
     <!-- compress js -->
-        <script src="{% static "js/jquery-2.2.4.js" %}"></script>
+        <script src="{% static "js/jquery-3.3.1.js" %}"></script>
         <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
-        <script src="{% static "js/bootstrap-3.3.7.js" %}"></script>
-        <script src="{% static "js/moment-with-locales-2.18.1.js" %}"></script>
-        <script src="{% static "js/cookieconsent-3.0.4.js" %}"></script>
-        <script src="{% static "libs/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.js" %}"></script>
-        <script src="{% static "js/bootstrap-notify-3.1.3.js" %}"></script>
-        <script src="{% static "js/tmpl.js" %}"></script>
-        <script src="{% static "js/ajapaik-cookie.js" %}"></script>
+        <script src="{% static "js/popper.min.js" %}" defer></script>
+        <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}" defer></script>
+        <script src="{% static "js/moment-with-locales-2.18.1.min.js" %}" defer></script>
+        <script src="{% static "js/cookieconsent-3.1.0.min.js" %}" defer></script>
+        <script src="{% static "libs/bootstrap-datetimepicker-4.17.47/js/bootstrap-datetimepicker.js" %}" defer></script>
+        <script src="{% static "js/bootstrap-notify-4.0.0.js" %}" defer></script>
+        <script src="{% static "js/tmpl.js" %}" defer></script>
+        <script src="{% static "js/ajapaik-cookie.js" %}" defer></script>
         <script src="{% static "js/mobile-detect-0.4.3.js" %}"></script>
-        <script src="{% static "js/bigscreen-2.0.5.js" %}"></script>
-        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-1.0.4.js" %}"></script>
-        <script src="{% static "js/lazysizes-1.3.0.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-1.10.0.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-meta-1.0.2.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-1.0.0.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-map-1.0.2.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-ios-1.0.3.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-orientation-1.1.0.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.js" %}"></script>
-        <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}"></script>
-        <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
-        <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
+        <script src="{% static "js/bigscreen-2.0.5.min.js" %}"></script>
+        <script src="{% static "js/jquery.bootstrap-autohidingnavbar-4.0.0.min.js" %}" defer></script>
+        <script src="{% static "js/lazysizes-1.3.0.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-1.10.0.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-meta-1.0.2.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-1.0.0.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-exif-map-1.0.2.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-ios-1.0.3.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-orientation-1.1.0.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}" defer></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js" %}" defer></script>
+        <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}" defer></script>
+        <script src="{% static "js/bootstrap-confirmation.min.js" %}" defer></script>
+        <script src="{% static "js/ajapaik-keyboard-controls.js" %}" defer></script>
         <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
-        <script src="{% static "js/ajapaik-ga.js" %}"></script>
+        <script src="{% static "js/ajapaik-ga.js" %}" defer></script>
 {% if not is_frontpage and not is_photoview or is_game or is_mapview  %}
         <script src="{% static "js/ajapaik-common.js" %}"></script>
         <script src="{% static "js/ajapaik-geotagger-plugin.js" %}"></script>
 {% else %}
         <script src="{% static "js/ajapaik-common-nogooglemaps.js" %}"></script>
-        <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}" defer></script>
 {% endif %}
-        <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
-        <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-dater-plugin.js" %}" defer></script>
+        <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}" defer></script>
     <!-- endcompress -->
     <script type="text/javascript">
         window.cookieconsent_options = {

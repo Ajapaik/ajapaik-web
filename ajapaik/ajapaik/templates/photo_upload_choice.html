@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container ajapaik-margin-top-100">
-        <form action="" method="post">
+    <div class="container pt-5">
+        <form action="" method="post" class="pt-5">
             {% csrf_token %}
             {% bootstrap_form form %}
             <button class="btn btn-primary">{% trans "Select" %}</button>

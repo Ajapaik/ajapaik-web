@@ -1,0 +1,126 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress static %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/ajapaik-video.css" %}"/>
+        <link rel="stylesheet" href="{% static "libs/justifiedGallery/css/justifiedGallery-3.6.1.min.css" %}"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+{% block layout %}
+<div class="container pt-5">
+    <div class="row pt-2">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-right text-sm-right text-center">
+            <img class="mw-100 mh-100 align-bottom" id="ajapaik-photoview-main-photo"
+                                    alt="{{ photo.description }}"
+                                    src="{% url 'ajapaik.ajapaik.views.image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+            <div style="display:grid">
+                {% if photo.author %}
+                <b>{{ photo.author }}</b>
+                {% endif %}
+                {% if photo.description %}
+                    <br>{{ photo.description }}
+                {% endif %}
+                {% if photo.date %}
+                    <br>{{ photo.date }}
+                {% elif photo.date_text %}
+                    <br>{{ photo.date_text }}
+                {% endif %}
+            <div>
+                    {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+                    {% if photo.source_url %}
+                    <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                        href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
+                        {{ photo.source.description }}
+                        {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+                    </a>
+                    {% elif photo.source.description %}
+                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left text-center">
+            <img class="mw-100 mh-100 align-bottom" id="ajapaik-photoview-main-photo"
+                                    alt="{{ photo2.description }}"
+                                    src="{% url 'ajapaik.ajapaik.views.image_thumb' photo2.id 800 photo.get_pseudo_slug %}"/>
+            <div>
+                {% if photo2.author %}
+                <b>{{ photo2.author }}</b>
+                {% endif %}
+                {% if photo2.description %}
+                {{ photo2.description }}
+                {% endif %}
+                {% if photo2.date %}
+                {{ photo2.date }}
+                {% elif photo2.date_text %}
+                {{ photo2.date_text }}
+                {% endif %}
+            </div>
+            {% if photo2.licence %}{% include "_licence.html" with licence=photo2.licence %}{% endif %}
+            {% if photo2.source_url %}
+            <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
+                {{ photo2.source.description }}
+                {% if photo2.source_key %}{{ photo2.source_key }}{% endif %}
+            </a>
+            {% elif photo2.source.description %}
+            {{ photo2.source.description }}{% if photo2.source_key %} {{ photo2.source_key }}{% endif %}
+            {% endif %}
+        </div>
+        <div id="not_similar" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
+            <button class="btn btn-danger m-2 w-50">
+                Ei ole sarnased
+            </button>
+        </div>
+        <div id="similar" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-left text-sm-left text-center px-0">
+            <button class="btn btn-success m-2 w-50">
+                On Sarnased
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+        {% include "_footer.html" %}
+{% endblock %}
+{% block specific_js %}
+    <script>
+        $('#similar').click(function(){
+            $.ajax({
+                type: 'PUT',
+                url: '/compare_photo/' + '{{ photo.id }}/' + '{{photo2.id}}',
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    alert("Lisamine õnnestus");
+                    window.location.href = '{{next_action}}';
+                },
+                error: function () {
+                    alert("Lisamine ebaõnnestus");
+                }
+            });
+        });
+        $('#not_similar').click(function(){
+            $.ajax({
+                type: 'DELETE',
+                url: '/compare_photo/' + '{{ photo.id }}/' + '{{photo2.id}}',
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    alert("Kustutamine õnnestus");
+                    window.location.href = '{{next_action}}';
+                },
+                error: function () {
+                    alert("Kustutamine ebaõnnestus");
+                }
+            });
+        });
+    </script>
+{% endblock %}

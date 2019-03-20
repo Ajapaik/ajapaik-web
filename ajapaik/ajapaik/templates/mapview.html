@@ -4,21 +4,24 @@
 {% block specific_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/justifiedGallery-3.6.1.css" %}"/>
+        <link rel="stylesheet" href="{% static "libs/justifiedGallery/css/justifiedGallery-3.6.1.min.css" %}"/>
     {% endcompress %}
 {% endblock %}
 
 {% block header %}
-    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
     {% include "_info_modal.html" %}
     {% include "_rephoto_upload_modal.html" %}
-    <input id="pac-input-mapview" class="controls" type="text" placeholder={% trans "Search box" %}>
-    <div id="ajapaik-map-container">
-        <div id="ajapaik-map-canvas" class="ajapaik-map-canvas-mapview"></div>
+    <div class="w-100">
+        {% include "_header.html" %}
+        <div id="ajapaik-map-container">
+            <input id="pac-input-mapview" class="controls float-right" type="text" placeholder={% trans "Search box" %}>
+            <div id="ajapaik-map-canvas" class="ajapaik-map-canvas-mapview" {% if not album %}style="top:59px !important;" {% endif %}>
+            </div>
+        </div>
     </div>
     <div id="ajp-geotagging-container"></div>
     {% include "_full_leaderboard_modal.html" %}
@@ -67,7 +70,7 @@
         <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
         <script src="{% static "libs/jsPanel-2.5.2/jspanel/jquery.jspanel.js" %}"></script>
         <script src="{% static "js/ajapaik-map.js" %}"></script>
-        <script src="{% static "js/jquery.justifiedGallery-3.6.1.js" %}"></script>
+        <script src="{% static "libs/justifiedGallery/js/jquery.justifiedGallery-3.6.1.min.js" %}"></script>
     {% endcompress %}
     {% include "js_templates/map_view_side_panel.html" %}
     {% include "js_templates/map_view_side_panel_element.html" %}

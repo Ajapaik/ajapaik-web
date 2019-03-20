@@ -96,6 +96,7 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',

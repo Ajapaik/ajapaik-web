@@ -7,7 +7,7 @@
                     alt="{%=o[i].description%}"
                     title="{%=o[i].description%}"
                     data-id="{%=o[i].id%}"
-                    class="img-responsive"
+                    class="img-fluid"
                     height="{%=o[i].height%}"
                     width="{%=o[i].width%}"
                     onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
@@ -21,7 +21,7 @@
                     </div>
                 {% } %}
                 {% if (userIsSocialConnected) { %}
-                    <button class="ajapaik-thumbnail-selection-icon{% if (o[i].is_selected) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[i].id%}">
+                    <button class="ajapaik-thumbnail-selection-icon{% if (o[i].is_selected) { %} ajapaik-thumbnail-selection-icon-blue{% } %}" data-id="{%=o[i].id%}">
                         <i class="material-icons notranslate">check_circle</i>
                     </button>
                 {% } %}

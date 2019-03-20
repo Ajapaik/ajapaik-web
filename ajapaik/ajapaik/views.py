@@ -28,8 +28,7 @@ from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count, F
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -185,6 +184,12 @@ def get_album_info_modal_content(request):
             ret['user_made_all_rephotos'] = True
         else:
             ret['user_made_all_rephotos'] = False
+        
+        similar_photo_count = album.similar_photo_count_with_subalbums
+        confirmed_similar_photo_count = album.confirmed_similar_photo_count_with_subalbums
+        ret['similar_photo_count'] = similar_photo_count
+        ret['confirmed_similar_photo_count'] = confirmed_similar_photo_count
+        ret['total_similar_photo_count'] = similar_photo_count + confirmed_similar_photo_count
 
         # Get all users that have either curated into selected photo set or re-curated into selected album
         album_photo_ids = album_photo_ids
@@ -481,6 +486,8 @@ def rephoto_upload(request, photo_id):
                     each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
                     each.light_save()
                 re_photo.image.save('rephoto.jpg', file_obj)
+                # Image saved to disk, can analyse now
+                re_photo.phash()
                 new_id = re_photo.pk
                 img = Image.open(settings.MEDIA_ROOT + '/' + str(re_photo.image))
                 _extract_and_save_data_from_exif(re_photo)
@@ -676,6 +683,7 @@ def frontpage(request, album_id=None, page=None):
         'rephotos_by_name': data['rephotos_by_name'],
         'photos_with_comments': data['photos_with_comments'],
         'photos_with_rephotos': data['photos_with_rephotos'],
+        'photos_with_similar_photos': data['photos_with_similar_photos'],
         'show_photos': data['show_photos'],
         # 'max_page': data['max_page'],
         # 'total': data['total'],
@@ -731,7 +739,6 @@ def frontpage_async_albums(request):
         ret['max_page'] = max_page
         ret['page'] = page
         ret['albums'] = serializer.data
-
     return HttpResponse(json.dumps(ret), content_type='application/json')
 
 
@@ -925,18 +932,18 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if order1 == 'amount' and order2 == 'geotags':
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
-                                        'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
-                     start:end]
+                                        'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 
+                                        'flip')[start:end]
         elif order1 == 'closest' and lat and lon:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
-                                        'comment_count', 'geotag_count', 'distance', 'geotag_count', 'flip')[
-                     start:end]
+                                        'comment_count', 'geotag_count', 'distance', 'geotag_count',
+                                        'flip')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count',
-                                        'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 'flip')[
-                     start:end]
+                                        'comment_count', 'geotag_count', 'geotag_count', 'geotag_count',
+                                        'flip')[start:end]
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
             album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
@@ -977,6 +984,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['end'] = end
         ret['photos_with_comments'] = photos_with_comments
         ret['photos_with_rephotos'] = photos_with_rephotos
+        ret['photos_with_similar_photos'] = photos
         ret['order1'] = order1
         ret['order2'] = order2
         ret['order3'] = order3
@@ -993,6 +1001,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         ret['rephotos_by_name'] = None
         ret['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
         ret['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
+        ret['photos_with_similar_photos'] = photos.filter(Q(similar_photos__isnull=False) | Q(confirmed_similar_photos__isnull=False))
         qs_for_fb = photos[:5]
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                     'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
@@ -1073,6 +1082,7 @@ def upload_photo_selection(request):
     form = SelectionUploadForm(request.POST)
     album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
     ret = {
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'error': False
     }
     profile = request.get_user().profile
@@ -1274,6 +1284,15 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         strings = [photo_obj.source.description, photo_obj.source_key]
     desc = ' '.join(filter(None, strings))
 
+    next_similar_photo = photo_obj
+    if next_photo is not None:
+        next_similar_photo = next_photo
+    if len(photo_obj.similar_photos.all()) > 0:
+        next_similar_photo = photo_obj.similar_photos.first()
+    elif len(photo_obj.confirmed_similar_photos.all()) > 0:
+        next_similar_photo = photo_obj.confirmed_similar_photos.first()
+    compare_photo_url = request.build_absolute_uri(reverse("ajapaik.ajapaik.views.compare_photo", args=(photo_obj.id,next_similar_photo.id)))
+
     people = [x.name for x in photo_obj.people]
 
     return render(request, template, {
@@ -1308,6 +1327,9 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "user_has_rephotos": user_has_rephotos,
         "next_photo": next_photo,
         "previous_photo": previous_photo,
+        "total_similar_photos_count": len(photo_obj.similar_photos.all()) + len(photo_obj.confirmed_similar_photos.all()),
+        "confirmed_similar_photos_count": len(photo_obj.confirmed_similar_photos.all()),
+        "compare_photo_url" : compare_photo_url,
         # TODO: Needs more data than just the names
         "people": people
     })
@@ -2181,6 +2203,7 @@ def curator_photo_upload_handler(request):
                                 new_photo.latest_geotag = source_geotag.created
                                 new_photo.set_calculated_fields()
                             new_photo.save()
+                            new_photo.phash()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
                                                          user=profile, created=new_photo.created,
                                                          album=general_albums[0])
@@ -2620,15 +2643,54 @@ def photo_upload_choice(request):
         form = PhotoUploadChoiceForm()
     ret = {
         'form': form,
-        'is_upload_choice': True
+        'is_upload_choice': True,
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }
 
     return render_to_response('photo_upload_choice.html', RequestContext(request, ret))
 
+def compare_photo(request, photo_id=None, photo_id_2=None):
+    photo_obj = get_object_or_404(Photo, id=photo_id)
+    photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
+
+    if request.method == 'PUT':
+        if photo_id == photo_id_2:
+            return JsonResponse({'status': 500})
+        photo_obj.similar_photos.remove(photo_obj2)
+        photo_obj.confirmed_similar_photos.add(photo_obj2)
+        photo_obj.save()
+        photo_obj2.save()
+        return JsonResponse({'status': 200})
+    if request.method == 'DELETE':
+        photo_obj.confirmed_similar_photos.remove(photo_obj2)
+        photo_obj.similar_photos.remove(photo_obj2)
+        photo_obj.save()
+        return JsonResponse({'status': 200})
+    else:
+        similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())
+        if similar_photos == None or len(similar_photos) < 1:
+            next_action = request.build_absolute_uri(reverse("ajapaik.ajapaik.views.photoslug", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+        else:
+            next_photo = similar_photos.first()
+            next_action = request.build_absolute_uri(reverse("ajapaik.ajapaik.views.compare_photo", args=(photo_obj.id,next_photo.id)))
+    form = PhotoUploadChoiceForm()
+
+    ret = {
+        'is_comparephoto': True,
+        'form': form,
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'photo': photo_obj,
+        'photo2': photo_obj2,
+        'next_action': next_action
+    }
+    return render_to_response('compare_photo.html', RequestContext(request, ret))
+
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
-    ret = {}
+    ret = {
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+    }
     if request.method == 'POST':
         form = UserPhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -2638,6 +2700,7 @@ def user_upload(request):
                 photo.author = request.user.profile.get_display_name()
                 photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
             photo.save()
+            photo.phash()
             for each in form.cleaned_data['albums']:
                 AlbumPhoto(
                     photo=photo,
@@ -2659,7 +2722,9 @@ def user_upload(request):
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
 def user_upload_add_album(request):
-    ret = {}
+    ret = {
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+    }
     if request.method == 'POST':
         form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
         if form.is_valid():

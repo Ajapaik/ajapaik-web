@@ -44,6 +44,7 @@ urlpatterns = patterns('ajapaik.ajapaik.views',
    url(r'^photo/$', 'photoslug'),
    url(r'^photo/(?P<photo_id>\d+)/$', 'photoslug'),
    url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', 'photoslug'),
+   url(r'^compare_photo/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$', 'compare_photo'),
    url(r'^video/(?P<video_id>\d+)/(?P<pseudo_slug>.*)/$', 'videoslug'),
    url(r'^video-still/$', 'generate_still_from_video'),
    # Legacy URLs

@@ -1,9 +1,9 @@
 {% load i18n comments comments_xtd %}
 
-<ul class="media-list" id="comments">
+<ul class="media-list pl-2" id="comments">
     {% for comment in comment_list %}
         <li class="media" id="c{{ comment.id }}"
-            style="margin-left:{{ comment.level }}00px; border-left:5px solid #ddd">
+            style="margin-left:{{ comment.level }}00px">
             <div class="media-left">
                 <a href="{{ comment.url }}">
                     {% if comment.user.profile.fb_id or comment.user.profile.google_plus_picture %}
@@ -19,11 +19,11 @@
                     {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                     <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Like" %}
-                        <span class="{% if comment.like_count <= 0 %}hidden{% endif %}" id="ajapaik-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>
+                        <span class="{% if comment.like_count <= 0 %}d-none{% endif %}" id="ajapaik-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>
                     </a>
                     <a href="{% url 'comments-xtd-dislike' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Dislike" %}
-                        <span class="{% if comment.dislike_count <= 0 %}hidden{% endif %}" id="ajapaik-comments-dislike-count-{{ comment.pk }}">({{ comment.dislike_count }})</span>
+                        <span class="{% if comment.dislike_count <= 0 %}d-none{% endif %}" id="ajapaik-comments-dislike-count-{{ comment.pk }}">({{ comment.dislike_count }})</span>
                     </a>
                     {% if comment.allow_thread %}
                         <a href="{{ comment.get_reply_url }}" data-action="reply" data-comment-id="{{ comment.pk }}">{% trans "Reply" %}</a>
@@ -47,30 +47,28 @@
                     {% endif %}
                 </h6>
                 <div class="comment-text" data-comment-text="{{ comment.comment }}">
-                    <p>
-                        {{ comment.comment|render_markup_comment }}
-                    </p>
+                    {{ comment.comment|render_markup_comment }}
                 </div>
                 <!-- Editing form block start -->
-                <div class='form-group comment-edit-form-{{ comment.pk }} hidden'>
+                <div class='form-group comment-edit-form-{{ comment.pk }} d-none'>
                     <form method="POST" action="#" class="form-horizontal">
                         {% csrf_token %}
                         <input type="hidden" name="comment_id" value="{{ comment.pk }}">
-                        <div class="alert alert-danger hidden" data-comment-element="errors"></div>
+                        <div class="alert alert-danger d-none" data-comment-element="errors"></div>
                         <div class="col-md-12">
                             <div class='form-group comment-box'>
                                 <textarea cols="40" maxlength="3000" name="text" placeholder="{% trans 'supports Markdown' %}" rows="10"></textarea>
                             </div>
                             <div class='form-group'>
                                 <button class="btn btn-primary" type="submit" data-action="edit" data-comment-id="{{comment.pk}}">{% trans 'Save' %}</button>
-                                <button class="btn btn-default" type="button" data-action="cancel" data-comment-id="{{comment.pk}}">{% trans 'Cancel' %}</button>
+                                <button class="btn btn-secondary" type="button" data-action="cancel" data-comment-id="{{comment.pk}}">{% trans 'Cancel' %}</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <!-- Editing form block end -->
                 <!-- Reply form block start -->
-                <div class='form-group comment-reply-form-{{ comment.pk }} hidden'>
+                <div class='form-group comment-reply-form-{{ comment.pk }} d-none'>
                     <form method="POST" action="#" class="form-horizontal">
                         {% csrf_token %}
                         <input type="hidden" name="reply_to" value="{{ comment.pk }}">
@@ -82,14 +80,14 @@
                         {{ reply_form.object_pk }}
                         {{ reply_form.timestamp }}
                         {{ reply_form.security_hash }}
-                        <div class="alert alert-danger hidden" data-comment-element="errors"></div>
-                        <div class="col-md-11 pull-right">
+                        <div class="alert alert-danger d-none" data-comment-element="errors"></div>
+                        <div class="col-md-11 float-right">
                             <div class='form-group comment-box'>
                                 <textarea cols="40" maxlength="3000" name="comment" placeholder="{% trans 'supports Markdown' %}" rows="10"></textarea>
                             </div>
                             <div class='form-group'>
                                 <button class="btn btn-primary" type="submit" data-action="reply" data-comment-id="{{comment.pk}}">{% trans 'Reply' %}</button>
-                                <button class="btn btn-default" type="button" data-action="cancel" data-comment-id="{{comment.pk}}">{% trans 'Cancel' %}</button>
+                                <button class="btn btn-secondary" type="button" data-action="cancel" data-comment-id="{{comment.pk}}">{% trans 'Cancel' %}</button>
                             </div>
                         </div>
                     </form>

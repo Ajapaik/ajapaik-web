@@ -47,8 +47,6 @@
             sourceKey: currentPhoto.sourceKey,
             sourceName: currentPhoto.sourceName,
             sourceURL: currentPhoto.sourceURL,
-            fullScreenWidth: currentPhoto.large.size[0],
-            fullScreenHeight: currentPhoto.large.size[1],
             startLat: startLat,
             startLng: startLon,
             photoId: currentPhoto.id,
@@ -205,19 +203,6 @@
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
-                if (window.fullscreenEnabled) {
-                    fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
-                        .on('load', function () {
-                        window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
-                        fullScreenImage.unbind('load');
-                    });
-                } else {
-                    fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
-                        .on('load', function () {
-                        window.prepareFullscreen(currentPhoto.large.size[0], currentPhoto.large.size[1]);
-                        fullScreenImage.unbind('load');
-                    });
-                }
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
                 modalPhoto.removeClass('ajapaik-photo-flipped');
                 flipOverlayButtons.removeClass('active');
@@ -289,6 +274,7 @@
         });
         if (!isMobile) {
             $('.ajapaik-flip-photo-overlay-button').hide();
+            $('.ajapaik-similar-photo-overlay-button').hide();
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
         // FIXME: Only place coordinates are in reverse order
@@ -359,12 +345,14 @@
         $('#ajapaik-game-modal-body').hover(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show();
+                $('.ajapaik-similar-photo-overlay-button').show();
                 $('.ajapaik-photo-modal-next-button').show();
                 $('.ajapaik-photo-modal-previous-button').show();
             }
         }, function () {
             if (!isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide();
+                $('.ajapaik-similar-photo-overlay-button').hide();
                 $('.ajapaik-photo-modal-next-button').hide();
                 $('.ajapaik-photo-modal-previous-button').hide();
             }

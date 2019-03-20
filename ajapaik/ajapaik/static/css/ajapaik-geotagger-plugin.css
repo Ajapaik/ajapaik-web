@@ -1,6 +1,9 @@
 #ajp-geotagging-container {
-    height: 100%;
-    width: 100%;
+    position: absolute;
+    top: 58px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: none;
 }
 
@@ -32,20 +35,6 @@
 
 #ajp-geotagger-map-container {
     height: 100%;
-}
-
-@media (max-width: 992px) {
-    #ajp-geotagger-map-container {
-        max-height: 70%;
-    }
-
-    #ajp-geotagger-panel {
-        max-height: 30%;
-    }
-
-    #ajp-geotagger-button-controls {
-        float: right;
-    }
 }
 
 #ajp-geotagger-login-container {
@@ -143,7 +132,13 @@
     max-height: 40px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 498px) {
+    #ajp-geotagging-container {
+        top:108px;
+    }
+}
+
+@media (max-width: 768px) {
     #ajp-geotagger-description {
         -webkit-line-clamp: 1;
         max-height: 20px;
@@ -153,7 +148,18 @@
         max-height: 20px;
     }
     #ajp-geotagger-image-thumb {
-        max-height: 150px !important;
+        max-height: 150px !important;   
+    }
+    #ajp-geotagger-map-container {
+        max-height: 70%;
+    }
+
+    #ajp-geotagger-panel {
+        max-height: 30%;
+    }
+
+    #ajp-geotagger-button-controls {
+        float: right;
     }
 }
 

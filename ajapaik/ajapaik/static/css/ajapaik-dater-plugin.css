@@ -24,7 +24,7 @@
     border-radius: 0;
 }
 
-#ajp-dater-form > .form-group > input {
+#ajp-dater-form > .form-control > input {
     border-radius : 0;
 }
 
@@ -115,14 +115,10 @@
     margin-bottom: 4px;
 }
 
+ajapaik-photo-modal
+
 #ajapaik-photo-modal-start-dating-button {
     position: relative;
-}
-
-#ajapaik-photo-modal-start-dating-button > .badge {
-    position: absolute;
-    bottom: 32px;
-    left: 0;
 }
 
 #ajp-dater-feedback-well {

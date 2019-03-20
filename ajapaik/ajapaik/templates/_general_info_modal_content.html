@@ -1,12 +1,12 @@
 {% load i18n %}
 
-<div class="modal-dialog">
-    <div class="modal-content ajapaik-zero-border-radius">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
         <div class="modal-header">
+            <h4>{% trans "Ajapaik shows how places have changed over time" %}</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h4>{% trans "Ajapaik shows how places have changed over time" %}</h4>
         </div>
         <div class="modal-body">
             <div class="container-fluid">
@@ -14,56 +14,56 @@
                     {% trans "Discover how places looked like years ago by" %}
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">{% trans "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik," %}</div>
+                    <div class="col-12">{% trans "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik," %}</div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">{% trans "* geotagging pictures from places you are familiar with and" %}</div>
+                    <div class="col-12">{% trans "* geotagging pictures from places you are familiar with and" %}</div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">{% trans "* rephotographing the historic views from places you visit." %}</div>
+                    <div class="col-12">{% trans "* rephotographing the historic views from places you visit." %}</div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     {% blocktrans %}
-                        Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which
+                        Ajapaik has <b class="px-1">{{ total_photo_count }}</b> historic pictures, out of which
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b>{{ total_photos_tagged }}</b> pictures have been put on the map by
+                        <b class="px-1">{{ total_photos_tagged }}</b> pictures have been put on the map by
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b>{{ contributing_users }}</b> users and
+                        <b class="px-1">{{ contributing_users }}</b> users and
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b>{{ rephoto_count }}</b> rephotographs for
+                        <b class="px-1">{{ rephoto_count }}</b> rephotographs for
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b>{{ rephotographed_photo_count }}</b> pictures made by
+                        <b class="px-1">{{ rephotographed_photo_count }}</b> pictures made by
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b>{{ rephotographing_users }}</b> users.
+                        <b class="px-1">{{ rephotographing_users }}</b> users.
                     {% endblocktrans %}
                 </div>
                 <br/>
                 {% if user_geotagged_photos > 0 %}
                     <div class="row">
                         {% blocktrans count counter=user_geotagged_photos %}
-                            You have suggested location for <b>{{ user_geotagged_photos }}</b> picture.
+                            You have suggested location for <b class="px-1">{{ user_geotagged_photos }}</b> picture.
                         {% plural %}
-                            You have suggested locations for <b>{{ user_geotagged_photos }}</b> pictures.
+                            You have suggested locations for <b class="px-1">{{ user_geotagged_photos }}</b> pictures.
                         {% endblocktrans %}
                     </div>
                 {% endif %}
                 {% if user_rephotos > 0 %}
                     <div class="row">
                         {% blocktrans count counter=user_rephotographed_photos %}
-                            You have made <b>{{ user_rephotos }}</b> rephoto for
+                            You have made <b class="px-1">{{ user_rephotos }}</b> rephoto for
                         {% plural %}
-                            You have made <b>{{ user_rephotos }}</b> rephotos for
+                            You have made <b class="px-1">{{ user_rephotos }}</b> rephotos for
                         {% endblocktrans %}
                         {% blocktrans count counter=user_rephotographed_photos %}
-                            <b>{{ user_rephotographed_photos }}</b> picture.
+                            <b class="px-1">{{ user_rephotographed_photos }}</b> picture.
                         {% plural %}
-                            <b>{{ user_rephotographed_photos }}</b> pictures.
+                            <b class="px-1">{{ user_rephotographed_photos }}</b> pictures.
                         {% endblocktrans %}
                     </div>
                 {% endif %}
@@ -79,7 +79,7 @@
                                 https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
                             {% else %}
                                 https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                            {% endif %}">
+                            {% endif %}" rel="noopener">
                                 <img class="media-object" src="{{ STATIC_URL }}images/ev100.png"
                                     alt="{% trans "EV100 logo" %}">
                             </a>
@@ -92,7 +92,7 @@
                                     https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
                                 {% else %}
                                     https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                                {% endif %}">
+                                {% endif %}" rel="noopener">
                                     {% trans "Ajapaik is a gift for the 100th birthday of the Republic of Estonia" %}
                                 </a>
                             </h4>
@@ -101,28 +101,18 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <h4>{% trans "Supporters of Ajapaik" %}</h4>
+                <h4>{% trans "Supporters of Ajapaik" %}</h4>
+                <div class="row d-block" style="font-size:0">
+                    <a class="d-inline-block w-50" href="https://www.kulka.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "KulKa logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kulka.png">
+                    </a>
+                    <a class="d-inline-block w-50" href="https://www.hm.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-ministry-of-education.png">
+                    </a>
                 </div>
-                <div class="row vertical-align">
-                    <div class="col-xs-6">
-                        <a href="https://www.kulka.ee/" target="_blank">
-                            <img alt="{% trans "KulKa logo" %}" class="img-responsive" src="{{ STATIC_URL }}images/logo-kulka.png">
-                        </a>
-                    </div>
-                    <div class="col-xs-6">
-                        <a href="https://www.hm.ee/" target="_blank">
-                            <img alt="{% trans "Ministry of Education logo" %}" class="img-responsive" src="{{ STATIC_URL }}images/logo-ministry-of-education.png">
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <a href="https://www.kysk.ee/" target="_blank">
-                            <img alt="{% trans "KYSK logo" %}" class="img-responsive" src="{{ STATIC_URL }}images/logo-kysk.png">
-                        </a>
-                    </div>
-                </div>
+                <a href="https://www.kysk.ee/" target="_blank" rel="noopener">
+                    <img alt="{% trans "KYSK logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kysk.png">
+                </a>
             </div>
         </div>
     </div>

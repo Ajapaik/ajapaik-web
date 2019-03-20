@@ -132,7 +132,7 @@
                 success: function (response) {
                     // TODO: Can this be simpler?
                     setTimeout(function () {
-                        $('#' + responseDiv).siblings('.popover').children('.popover-content').html(response);
+                        $('body').children('.popover').children('.popover-body').html(response);
                         $('#id_subject_album-autocomplete').focus();
                         that.isGuessPopoverOpen = true;
                     }, 0);
