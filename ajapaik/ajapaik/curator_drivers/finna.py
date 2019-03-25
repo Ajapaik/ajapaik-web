@@ -88,11 +88,21 @@ def finna_import_photo(id, profile):
                     geography = Point(x=float(lon), y=float(lat), srid=4326)
                     break
 
+
+        title=p.get('title').rstrip()
+
         summary=""
         if 'summary' in p:
            for each in p['summary']: 
               if len(each.rstrip())>len(summary):
-                 summary=each.rstrip()
+                 summary=re.sub("--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$", "", each).rstrip()
+
+        if title in summary:
+           description=summary
+        elif len(title) < 20:
+           description=title + "; " + summary
+        else:
+           description=title
 
         address=""
         if 'rawData' in p and 'geographic' in p['rawData']:
@@ -139,7 +149,7 @@ def finna_import_photo(id, profile):
             user=profile,
             author=comma.join(authors),
             title=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
-            description=summary,
+            description=description,
             address=address,
             source=source,
             types=None,
