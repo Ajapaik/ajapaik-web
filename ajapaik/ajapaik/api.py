@@ -3,6 +3,7 @@ import logging
 import sys
 import time
 import io
+import re
 from json import loads
 from urllib.request import urlopen
 
@@ -898,6 +899,40 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
+
+class FetchFinnaPhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    permission_classes = (AllowAny,)
+
+    def _handle_request(self, data, user, request):
+        form = forms.ApiFetchFinnaPhoto(data)
+
+        if form.is_valid():
+            if user:
+               user_profile = user.profile
+            else:
+               user_profile = None
+
+            id = form.cleaned_data['id']
+
+            # Limit only to Helsinki city museum photos for now
+            m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(hkm\..*?)( |\?|#|$)', id)
+            if m:
+                photo = finna_find_photo_by_url(id, user_profile)
+                if photo:
+                   return Response({'error': RESPONSE_STATUSES['OK']})
+                else:
+                   return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
+        return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
+
 
     def post(self, request, format=None):
         user = request.user or None
