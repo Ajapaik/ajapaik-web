@@ -13,10 +13,10 @@ from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, So
 
 def finna_add_to_album(photo, target_album):
     if target_album and target_album != "":
-        album = Album.objects.filter(name=target_album).first()
+        album = Album.objects.filter(name_en=target_album).first()
 
         if not album:
-            album = Album(name=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
+            album = Album(name_en=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
             album.save()
 
         ap_found = AlbumPhoto.objects.filter(album=album, photo=photo).first()
