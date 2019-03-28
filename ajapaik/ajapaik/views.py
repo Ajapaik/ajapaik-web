@@ -657,35 +657,28 @@ def frontpage(request, album_id=None, page=None):
     last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
 
     context = {
-            'request': request,
-            'is_frontpage': True,
-            'title': title,
-            'hostname': 'https://%s' % (site.domain,),
-            'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-            'facebook_share_photos': data['fb_share_photos'],
-            'album': data['album'],
-            # 'albums': albums,
-            'photo': data['photo'],
-            # 'start': data['start'],
-            # 'end': data['end'],
-            'page': data['page'],
-            'order1': data['order1'],
-            'order2': data['order2'],
-            'order3': data['order3'],
-            'user_has_likes': user_has_likes,
-            'user_has_rephotos': user_has_rephotos,
-            'my_likes_only': data['my_likes_only'],
-            'rephotos_by': data['rephotos_by'],
-            'rephotos_by_name': data['rephotos_by_name'],
-            'photos_with_comments': data['photos_with_comments'],
-            'photos_with_rephotos': data['photos_with_rephotos'],
-            'show_photos': data['show_photos'],
-            # 'max_page': data['max_page'],
-            # 'total': data['total'],
-            # 'photos': data['photos'],
-            'is_photoset': data['is_photoset'],
-            'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
-        }
+        'is_frontpage': True,
+        'title': title,
+        'hostname': 'https://%s' % (site.domain,),
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'facebook_share_photos': data['fb_share_photos'],
+        'album': data['album'],
+        'photo': data['photo'],
+        'page': data['page'],
+        'order1': data['order1'],
+        'order2': data['order2'],
+        'order3': data['order3'],
+        'user_has_likes': user_has_likes,
+        'user_has_rephotos': user_has_rephotos,
+        'my_likes_only': data['my_likes_only'],
+        'rephotos_by': data['rephotos_by'],
+        'rephotos_by_name': data['rephotos_by_name'],
+        'photos_with_comments': data['photos_with_comments'],
+        'photos_with_rephotos': data['photos_with_rephotos'],
+        'show_photos': data['show_photos'],
+        'is_photoset': data['is_photoset'],
+        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
+    }
 
     return render(request, 'frontpage.html', context)
 

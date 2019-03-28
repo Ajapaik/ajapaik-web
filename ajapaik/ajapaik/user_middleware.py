@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.deprecation import MiddlewareMixin
 
 from ajapaik.ajapaik.models import Action
 
@@ -14,9 +15,7 @@ def get_user(request):
     if request.user and request.user.is_authenticated():
         return request.user
     else:
-        if request.META \
-                and 'HTTP_USER_AGENT' in request.META \
-                and any(s in request.META['HTTP_USER_AGENT'] for s in settings.BOT_USER_AGENTS):
+        if any(s in request.META.get('HTTP_USER_AGENT', []) for s in settings.BOT_USER_AGENTS):
             user = authenticate(username=settings.BOT_USERNAME)
         else:
             session_id = request.session._get_or_create_session_key()
@@ -34,14 +33,14 @@ def set_user(request, user):
     return user
 
 
-class UserMiddleware(object):
+class UserMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request.get_user = partial(get_user, request)
         request.set_user = partial(set_user, request)
         request.log_action = partial(Action.log, request=request)
 
 
-class AuthBackend(object):
+class AuthBackend(MiddlewareMixin):
     supports_object_permissions = False
     supports_anonymous_user = False
     supports_inactive_user = True

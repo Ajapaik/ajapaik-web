@@ -1,10 +1,12 @@
-from django.utils.cache import patch_vary_headers
-from django.utils import translation
 from django.shortcuts import redirect
+from django.utils import translation
+from django.utils.cache import patch_vary_headers
+from django.utils.deprecation import MiddlewareMixin
+
 from ajapaik import settings
 
 
-class ForceDefaultLanguageMiddleware(object):
+class ForceDefaultLanguageMiddleware(MiddlewareMixin):
     """
     Ignore Accept-Language HTTP headers
 
@@ -18,7 +20,7 @@ class ForceDefaultLanguageMiddleware(object):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
-class SessionBasedLocaleWithRedirectMiddleware(object):
+class SessionBasedLocaleWithRedirectMiddleware(MiddlewareMixin):
     """
     This Middleware saves the desired content language in the user session.
     The SessionMiddleware has to be activated.

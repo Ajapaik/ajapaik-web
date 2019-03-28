@@ -94,22 +94,19 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
-MIDDLEWARE_CLASSES = (
-    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mobi.middleware.MobileDetectionMiddleware',
+    # 'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
+    # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'ajapaik.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
-)
+]
 
 ROOT_URLCONF = 'ajapaik.ajapaik.urls'
 
@@ -209,6 +206,7 @@ HAYSTACK_CONNECTIONS = {
 
 AUTHENTICATION_BACKENDS = (
     'ajapaik.ajapaik.user_middleware.AuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 AUTH_PROFILE_MODULE = 'ajapaik.ajapaik.Profile'
@@ -374,7 +372,6 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
-        'VERSION': 'v2.6',
         'SCOPE': [
             'email',
             'public_profile',
@@ -391,4 +388,3 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     },
 }
-
