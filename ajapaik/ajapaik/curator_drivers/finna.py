@@ -12,14 +12,11 @@ from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, So
 
 
 def finna_add_to_album(photo, target_album):
-    #print >> sys.stderr, ('add_to_album %s' % target_album)
-
     if target_album and target_album != "":
-        album = Album.objects.filter(name=target_album).first()
+        album = Album.objects.filter(name_en=target_album).first()
 
         if not album:
-            #print >> sys.stderr, ('ObjectDoesNotExist')
-            album = Album(name=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
+            album = Album(name_en=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
             album.save()
 
         ap_found = AlbumPhoto.objects.filter(album=album, photo=photo).first()
@@ -32,12 +29,10 @@ def finna_add_to_album(photo, target_album):
 
 
 def finna_find_photo_by_url(record_url, profile):
-    print('find_finna_photo_by_url %s' % record_url, file=sys.stderr)
     photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
         m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url)
         if m:
-            print('find_finna_photo_by_url() url ok' % record_url, file=sys.stderr)
             # Already in database?
             external_id = m.group(2)
             photo = Photo.objects.filter(
@@ -46,11 +41,14 @@ def finna_find_photo_by_url(record_url, profile):
 
             # Import if not found
             if not photo:
-                print('find_finna_photo_by_url() url not in database' % record_url, file=sys.stderr)
                 photo = finna_import_photo(external_id, profile)
 
-            if photo:
-                finna_add_to_album(photo, "Wiki Loves Monuments")
+            m = re.search('hkm\.', record_url)
+
+            if photo and m:
+                finna_add_to_album(photo, "Helsinki")
+            elif photo:
+                finna_add_to_album(photo, "Finland")
 
     return photo
 
@@ -90,6 +88,29 @@ def finna_import_photo(id, profile):
                     geography = Point(x=float(lon), y=float(lat), srid=4326)
                     break
 
+
+        title=p.get('title').rstrip()
+
+        summary=""
+        if 'summary' in p:
+           for each in p['summary']: 
+              if len(each.rstrip())>len(summary):
+                 summary=re.sub("--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$", "", each).rstrip()
+
+        if title in summary:
+           description=summary
+        elif len(title) < 20:
+           description=title + "; " + summary
+        else:
+           description=title
+
+        address=""
+        if 'rawData' in p and 'geographic' in p['rawData']:
+           for each in p['rawData']['geographic']: 
+              if len(each.rstrip())>len(address):
+                 address=each.rstrip()
+
+
         licence = Licence.objects.get(pk=15)  # 15 = unknown licence
         if 'imageRights' in p and 'copyright' in p['imageRights']:
             licence_str = p['imageRights']['copyright']
@@ -127,7 +148,9 @@ def finna_import_photo(id, profile):
         new_photo = Photo(
             user=profile,
             author=comma.join(authors),
-            description=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
+            title=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
+            description=description,
+            address=address,
             source=source,
             types=None,
             keywords=None,
@@ -246,6 +269,18 @@ class FinnaDriver(object):
                             p['latitude'] = lat
                             break
 
+                summary=""
+                if 'summary' in p:
+                   for each in p['summary']: 
+                      if len(each.rstrip())>len(summary):
+                         summary=each.rstrip()
+
+                address=""
+                if 'rawData' in p and 'geographic' in p['rawData']:
+                   for each in p['rawData']['geographic']: 
+                      if len(each.rstrip())>len(address):
+                         address=each.rstrip()
+
                 #                if ('latitude' not in p or 'longitude' not in p) and 'rawData' in p and 'center_coords' in p['rawData']:
                 #                    point_parts = p['rawData']['center_coords'].split(' ')
                 #                    lon = point_parts[0]
@@ -271,6 +306,8 @@ class FinnaDriver(object):
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
                     'title': p['title'],
+                    'description': summary,
+                    'address': address,
                     'institution': institution,
                     'date': p.get('year', None),
                     'cachedThumbnailUrl': 'https://www.finna.fi' + p['images'][0],

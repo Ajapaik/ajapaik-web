@@ -72,6 +72,17 @@ var map,
     handleAlbumChange,
     updateStatDiv;
 
+if(docCookies.getItem("hasSeenArticle13Modal") !== "True" && Date.now() < new Date(2019,02,22)){
+    var d = new Date();
+    d.setTime(d.getTime() + 86400000);
+    document.cookie = "hasSeenArticle13Modal=True; expires="+d;
+    $('#ajapaik-article-13-info-modal').modal();
+}
+
+$(document).on('click', '#ajapaik-close-article-13-info-modal', function (e) {
+    e.stopPropagation();
+    $('#ajapaik-article-13-info-modal').modal('toggle');
+});
 
 (function ($) {
     'use strict';
