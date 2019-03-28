@@ -63,14 +63,19 @@ def migrate_users(apps, schema_editor):
         .prefetch_related('user')
 
     for profile in facebook_profiles:
-        SocialAccount.objects.create(
-            provider='facebook',
-            uid=profile.fb_id,
-            date_joined=profile.user.date_joined,
-            last_login=profile.user.last_login,
-            user=profile.user,
-            extra_data={}
-        )
+        try:
+            with transaction.atomic():
+                SocialAccount.objects.create(
+                    provider='facebook',
+                    uid=profile.fb_id,
+                    date_joined=profile.user.date_joined,
+                    last_login=profile.user.last_login,
+                    user=profile.user,
+                    extra_data={}
+                )
+        except IntegrityError:
+            # We have already such facebook account. Skipping ...
+            print('We have already {} facebook account. Skipping ...'.format(profile.fb_id))
         if not profile.user.email and profile.fb_email:
             profile.user.email = profile.fb_email
         if not profile.user.first_name and profile.first_name:
@@ -87,14 +92,19 @@ def migrate_users(apps, schema_editor):
         .prefetch_related('user')
 
     for profile in google_profiles:
-        SocialAccount.objects.create(
-            provider='google',
-            uid=profile.google_plus_id,
-            date_joined=profile.user.date_joined,
-            last_login=profile.user.last_login,
-            user=profile.user,
-            extra_data={}
-        )
+        try:
+            with transaction.atomic():
+                SocialAccount.objects.create(
+                    provider='google',
+                    uid=profile.google_plus_id,
+                    date_joined=profile.user.date_joined,
+                    last_login=profile.user.last_login,
+                    user=profile.user,
+                    extra_data={}
+                )
+        except IntegrityError:
+            # We have already such google account. Skipping ...
+            print('We have already {} google account. Skipping ...'.format(profile.google_plus_id))
         if not profile.user.email and profile.google_plus_email:
             profile.user.email = profile.google_plus_email
         if not profile.user.first_name and profile.first_name:
