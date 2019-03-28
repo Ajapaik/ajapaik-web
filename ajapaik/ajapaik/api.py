@@ -1045,11 +1045,12 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
 
     permission_classes = (AllowAny,)
 
-    def post(self, request, format=None):
-        form = forms.ApiPhotoSearchForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiPhotoSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
+            profile=user.profile if user else None
 
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1062,7 +1063,7 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 )
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                profile
             )
 
             return Response({
@@ -1079,18 +1080,28 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'photos': []
             })
 
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
 
 class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
     API endpoint to search for photos in album by given phrase.
     '''
+    permission_classes = (AllowAny,)
 
-    def post(self, request, format=None):
-        form = forms.ApiPhotoInAlbumSearchForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiPhotoInAlbumSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
+            profile=user.profile if user else None
 
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1106,7 +1117,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 photos = photos.filter(rephoto_of__isnull=True)
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-                request.user.profile
+                profile
             )
 
             return Response({
@@ -1122,6 +1133,14 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'photos': []
             })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
 
 
 class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
