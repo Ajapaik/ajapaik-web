@@ -107,7 +107,7 @@ class ValimimoodulDriver(object):
                                           Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
                                               .values_list('id', 'name')]
                         for e in each['albums']:
-                            e[0] = reverse('ajapaik.ajapaik.views.frontpage') + '?album=' + str(e[0])
+                            e[0] = reverse('frontpage') + '?album=' + str(e[0])
                 else:
                     each['ajapaikId'] = False
                     check_dict[each['id']] = True

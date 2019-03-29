@@ -209,16 +209,18 @@ def get_album_info_modal_content(request):
         ret['album_curators'] = album_curators
 
         if album.lat and album.lon:
-            ret['nearby_albums'] = Album.objects.filter(geography__distance_lte=(
-                Point(album.lon, album.lat), D(m=50000)), is_public=True, atype=Album.CURATED).exclude(
-                id=album.id).order_by('?')[:3]
+            ret['nearby_albums'] = Album.objects \
+                .filter(
+                    geography__distance_lte=(Point(album.lon, album.lat), D(m=50000)),
+                    is_public=True,
+                    atype=Album.CURATED,
+                    id__ne=album.id
+                ) \
+                .order_by('?')[:3]
         album_id_str = str(album.id)
-        ret['share_game_link'] = request.build_absolute_uri(
-            reverse('ajapaik.ajapaik.views.game')) + '?album=' + album_id_str
-        ret['share_map_link'] = request.build_absolute_uri(
-            reverse('ajapaik.ajapaik.views.mapview')) + '?album=' + album_id_str
-        ret['share_gallery_link'] = request.build_absolute_uri(
-            reverse('ajapaik.ajapaik.views.frontpage')) + '?album=' + album_id_str
+        ret['share_game_link'] = request.build_absolute_uri(reverse('game')) + '?album=' + album_id_str
+        ret['share_map_link'] = request.build_absolute_uri(reverse('map')) + '?album=' + album_id_str
+        ret['share_gallery_link'] = request.build_absolute_uri(reverse('frontpage')) + '?album=' + album_id_str
 
         return render(request, '_info_modal_content.html', ret)
 
@@ -1282,8 +1284,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "original_thumb_size": original_thumb_size,
         "user_confirmed_this_location": user_confirmed_this_location,
         "user_has_geotagged": user_has_geotagged,
-        "fb_url": request.build_absolute_uri(reverse("ajapaik.ajapaik.views.photoslug", args=(photo_obj.id,))),
-        # FIXME
+        "fb_url": request.build_absolute_uri(reverse('foto', args=(photo_obj.id,))),
         "licence": Licence.objects.get(id=17),  # CC BY 4.0
         "area": photo_obj.area,
         "album": album,
@@ -2241,9 +2242,11 @@ def curator_photo_upload_handler(request):
                 print(upload_form.errors)
         if general_albums:
             for ga in general_albums:
-                requests.post("https://graph.facebook.com/v2.5/?id=" + (
-                        request.build_absolute_uri(reverse("ajapaik.ajapaik.views.game")) + "?album=" + str(
-                    ga.id)) + "&scrape=true")
+                requests.post(
+                    'https://graph.facebook.com/v2.5/?id='+ (request.build_absolute_uri(reverse('game'))
+                    + "?album=" + str(ga.id))
+                    + "&scrape=true"
+                )
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         ret["total_points_for_curating"] = total_points_for_curating
@@ -2582,8 +2585,7 @@ def generate_still_from_video(request):
                 )
                 still.save()
                 still.source_key = still.id
-                still.source_url = request.build_absolute_uri(
-                    reverse('ajapaik.ajapaik.views.photoslug', args=(still.id, still.get_pseudo_slug())))
+                still.source_url = request.build_absolute_uri(reverse('foto', args=(still.id, still.get_pseudo_slug())))
                 still.image.save(unicodedata.normalize('NFKD', description).encode('ascii', 'ignore') + '.jpeg',
                                  File(tmp))
                 still.light_save()

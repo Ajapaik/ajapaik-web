@@ -83,21 +83,14 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
 
     def get_url(self, instance):
         return reverse(
-            'ajapaik.ajapaik.views.image_thumb',
-            args=(
-                instance.id,
-                400,
-                _get_pseudo_slug_for_photo(instance.description, None, None)
-            )
+            'image_thumb',
+            args=(instance.id, 400, _get_pseudo_slug_for_photo(instance.description, None, None))
         )
 
     def get_permalink(self, instance):
         return reverse(
-            'ajapaik.ajapaik.views.photoslug',
-            args=(
-                instance.id,
-                _get_pseudo_slug_for_photo(instance.description, None, None)
-            )
+            'foto',
+            args=(instance.id, _get_pseudo_slug_for_photo(instance.description, None, None))
         )
 
     def get_width(self, instance):
@@ -127,9 +120,7 @@ class RephotoSerializer(serializers.ModelSerializer):
 
     def get_image(self, instance):
         request = self.context['request']
-        relative_url = reverse(
-            "ajapaik.ajapaik.views.image_thumb", args=(instance.id,)
-        )
+        relative_url = reverse('image_thumb', args=(instance.id,))
         return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
 
     def get_date(self, instance):
@@ -204,9 +195,7 @@ class PhotoSerializer(serializers.ModelSerializer):
 
     def get_image(self, instance):
         request = self.context['request']
-        relative_url = reverse(
-            "ajapaik.ajapaik.views.image_thumb", args=(instance.id,)
-        )
+        relative_url = reverse('image_thumb', args=(instance.id,))
         return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
 
     def get_date(self, instance):

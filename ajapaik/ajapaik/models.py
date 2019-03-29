@@ -80,7 +80,7 @@ def _calc_trustworthiness(user_id):
 
 def _make_fullscreen(photo):
     return {
-        'url': reverse('ajapaik.ajapaik.views.image_full', args=(photo.pk, photo.get_pseudo_slug())),
+        'url': reverse('image_full', args=(photo.pk, photo.get_pseudo_slug())),
         'size': [photo.width, photo.height]
     }
 
@@ -424,8 +424,10 @@ class Photo(Model):
             'lat': photo.lat,
             'lon': photo.lon,
             'azimuth': photo.azimuth,
-            'big': {'url': reverse('ajapaik.ajapaik.views.image_thumb', args=(photo.pk, 800)),
-                    'size': [image.width, image.height]},
+            'big': {
+                'url': reverse('image_thumb', args=(photo.pk, 800)),
+                'size': [image.width, image.height]
+            },
             'flip': photo.flip,
             'large': _make_fullscreen(photo),
             'totalGeotags': photo.geotags.distinct('user').count(),
@@ -560,9 +562,8 @@ class Photo(Model):
 
         self.image.save('watermarked.jpg', image_file)
 
-    @permalink
     def get_absolute_url(self):
-        return 'ajapaik.ajapaik.views.photoslug', [self.id, self.get_pseudo_slug()]
+        return reverse('foto', args=(self.id, self.get_pseudo_slug()))
 
     def get_pseudo_slug(self):
         if self.description is not None and self.description != '':
@@ -1353,9 +1354,8 @@ class Video(Model):
     def __unicode__(self):
         return '%s' % (self.name,)
 
-    @permalink
     def get_absolute_url(self):
-        return 'ajapaik.ajapaik.views.videoslug', [self.id, self.slug]
+        return reverse('videoslug', args=(self.id, self.slug))
 
 
 class MyXtdComment(XtdComment):

@@ -95,10 +95,12 @@ def photo_info(request):
             'latitude': location.y,
             'longitude': location.x,
             'source': source_str,
-            'url': request.build_absolute_uri(reverse('ajapaik.ajapaik.views.photoslug',
-                                                      args=(photo.id, photo.get_pseudo_slug()))),
-            'thumbUrl': request.build_absolute_uri(reverse('ajapaik.ajapaik.views.image_thumb',
-                                                           args=(photo.id, 400, photo.get_pseudo_slug())))
+            'url': request.build_absolute_uri(
+                reverse('foto', args=(photo.id, photo.get_pseudo_slug()))
+            ),
+            'thumbUrl': request.build_absolute_uri(
+                reverse('image_thumb', args=(photo.id, 400, photo.get_pseudo_slug()))
+            )
         })
 
     return Response({})

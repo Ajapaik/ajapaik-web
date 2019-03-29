@@ -12,10 +12,7 @@ from ajapaik.ajapaik import api, delfi, juks, views
 from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 
-# TODO: Modernize urls.py to what it's supposed to look like in Django 1.8 out-of-the-box
-# urlpatterns = patterns('ajapaik.ajapaik.views',
 urlpatterns = [
-    # url(r'^logout/', views.logout),
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
     url(r'^difficulty-feedback/', views.difficulty_feedback, name='difficulty_feedback'),
     url(r'^geotag/add/', views.geotag_add, name='geotag_add'),
@@ -47,7 +44,7 @@ urlpatterns = [
     url(r'^photo/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug),
-    url(r'^video/(?P<video_id>\d+)/(?P<pseudo_slug>.*)/$', views.videoslug),
+    url(r'^video/(?P<video_id>\d+)/(?P<pseudo_slug>.*)/$', views.videoslug, name='videoslug'),
     url(r'^video-still/$', views.generate_still_from_video),
     # Legacy URLs
     url(r'^foto_thumb/$', views.image_thumb),
@@ -99,12 +96,7 @@ urlpatterns = [
     url(r'^terms/$', views.terms, name='terms')
 ]
 
-
-# urlpatterns += patterns('ajapaik.ajapaik.api',
 urlpatterns += [
-    # url(r'^api/v1/login/$', 'api_login'),
-    # url(r'^api/v1/register/$', 'api_register', name='api_register'),
-    # url(r'^api/v1/logout/$', 'api_logout'),
     url(r'^api/v1/user/me/$', api.api_user_me),
     url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/finna/nearest/$', api.FinnaNearestPhotos.as_view()),
@@ -125,7 +117,6 @@ urlpatterns += [
     url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
 ]
 
-# urlpatterns += patterns('ajapaik.ajapaik.delfi'
 urlpatterns += [
     url(r'^delfi-api/v1/photo/$', delfi.photo_info),
     url(r'^delfi_api/v1/photo/$', delfi.photo_info),
@@ -133,12 +124,10 @@ urlpatterns += [
     url(r'^delfi_api/v1/photos_bbox/$', delfi.photos_bbox),
 ]
 
-# urlpatterns += patterns('ajapaik.ajapaik.bbox_api',
 urlpatterns += [
     url(r'^bbox/v1/$', PhotosView.as_view())
 ]
 
-# urlpatterns += patterns('ajapaik.ajapaik.juks',
 urlpatterns += [
     url(r'^juks/empty-json/$', juks.empty_json),
     url(r'^juks/layers/$', juks.layers),
@@ -149,7 +138,6 @@ sitemaps = {
     'static_pages': StaticViewSitemap
 }
 
-# urlpatterns += patterns('',
 urlpatterns += [
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
@@ -162,9 +150,6 @@ urlpatterns += [
     url(r'^comments/edit-one/$', login_required(views.EditComment.as_view()), name='comments-edit-one'),
     url(r'^comments/like-count/(?P<comment_id>\d+)/$', views.get_comment_like_count, name='comments-like-count'),
     url(r'^comments/', include('django_comments_xtd.urls')),
-    # url(r'^facebook/(?P<stage>[a-z_]+)/', 'ajapaik.ajapaik.facebook.facebook_handler'),
-    # url(r'^google-login', 'ajapaik.ajapaik.google_plus.google_login'),
-    # url(r'^oauth2callback', 'ajapaik.ajapaik.google_plus.auth_return'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(packages=['ajapaik'], domain='djangojs'), name='javascript-catalog'),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
@@ -178,13 +163,10 @@ handler500 = 'ajapaik.ajapaik.views.custom_500'
 handler404 = 'ajapaik.ajapaik.views.custom_404'
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
-    # urlpatterns += patterns('', 
     urlpatterns += [
         url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-
     ]
 else:
-    # urlpatterns += patterns('', 
     urlpatterns += [
         url(r'^robots\.txt$', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')),
     ]
