@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^photo-upload-modal/(?P<photo_id>\d+)/$', views.mapview_photo_upload_modal, name='mapview_photo_upload_modal'),
     url(r'^foto/$', views.photoslug, name='foto'),
     url(r'^foto/(?P<photo_id>\d+)/$', views.photoslug, name='foto'),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name='foto'),
     url(r'^photo/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug),
