@@ -1,5 +1,6 @@
 FROM laurielias/python-3.6-dlib:latest AS builder
-# dlib takes awful long to install
+
+ENV DEBIAN_FRONTEND noninteractive
 
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
@@ -18,6 +19,8 @@ RUN pip wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
 FROM python:3.6-slim AS deployer
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \

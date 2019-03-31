@@ -397,8 +397,8 @@ class Photo(Model):
     @property
     def people(self):
         people_albums = []
-        rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects\
-            .filter(photo=self, deleted__isnull=True)\
+        rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects \
+            .filter(photo=self, deleted__isnull=True) \
             .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False)).all()
         for rectangle in rectangles:
             if rectangle.subject_consensus:
@@ -410,6 +410,8 @@ class Photo(Model):
 
     @staticmethod
     def get_game_json_format_photo(photo):
+        if photo is None:
+            return {}
         # TODO: proper JSON serialization
         image = get_thumbnail(photo.image, '1024x1024', upscale=False)
         source_str = ''
