@@ -9,7 +9,9 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 def analyse_single_photo(photo: Photo) -> None:
-    print('Processing photo %s' % photo.pk)
+    if photo.width > 5000 or photo.height > 5000:
+        print('Skipping too big photo %s' % photo.pk)
+        return
     try:
         image = face_recognition.load_image_file(photo.image)
     except:

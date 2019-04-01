@@ -16,8 +16,8 @@ docker-compose up --build
 
 ## Restore data from a dump
 ```bash
-    # Data only, no integrity checks while loading it in, no privileges
-    pg_restore -f rephoto_20190207.sql -a -x -h localhost -p 5432 --disable-triggers
+# Data only, no integrity checks while loading it in, no privileges
+    pg_restore -f rephoto_20190207.sql -a -x -h localhost -p 5432 --disable-triggers	pg_restore -f rephoto_20190207.sql -a -x -h localhost -p 5432 --disable-triggers
 ``` 
 
 ## Push new image

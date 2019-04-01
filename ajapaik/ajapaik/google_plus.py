@@ -27,9 +27,10 @@ def google_login(request):
         request.session['google_plus_next'] = request.GET['next']
         next_uri = request.GET['next']
         request.session.modified = True
-    if credential is None or credential.invalid == True:
+    if credential is None or isinstance(credential, str) or credential.invalid == True:
         FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY, request.user)
         authorize_url = FLOW.step1_get_authorize_url()
+
         return HttpResponseRedirect(authorize_url)
 
     return HttpResponseRedirect(next_uri)
