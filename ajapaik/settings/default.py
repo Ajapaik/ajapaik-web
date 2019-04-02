@@ -369,6 +369,10 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+# Autologin, after email confirmation, only works when confirming the email
+# address immediately after signing up, assuming users didn’t close their
+# browser or used some sort of private browsing mode.
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 ACCOUNT_FORMS = {
     'signup': 'ajapaik.ajapaik.forms.SignupForm',
