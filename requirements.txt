@@ -1,10 +1,10 @@
 django==1.11.20
 django-autocomplete-light==2.3.3
-django-comments-xtd==1.7.2
-django-contrib-comments==1.8.0
+django-comments-xtd<2
+bleach
+bleach-whitelist
 django-debug-toolbar==1.9.1
 django-haystack==2.7.0
-django-registration-redux==1.6
 django-modeltranslation<0.13
 djangorestframework==3.4.7
 Pillow<4.2
@@ -43,4 +43,4 @@ typing
 # legacy packages
 oauth2client==2.2.0
 jsonpickle
-
+django-registration-redux==1.6
