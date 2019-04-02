@@ -64,4 +64,8 @@ EMAIL_USE_TLS = False
 CELERY_BROKER_URL = None
 CELERY_RESULT_BACKEND = None
 
-CACHES = None
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}

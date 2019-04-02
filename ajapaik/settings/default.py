@@ -199,8 +199,7 @@ ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://solr:8983/solr/tester',
-        'ADMIN_URL': 'http://solr:8983/solr/admin/cores'
+        'URL': 'http://127.0.0.1:8983/solr/collection1',
     },
 }
 
@@ -337,18 +336,18 @@ CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 # Since Celery makes us use Redis anyway, use it some more
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'redis:6379',
-        'OPTIONS': {
-            'DB': 1,
-            'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-            'PICKLE_VERSION': -1,
-        },
-    },
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'redis_cache.RedisCache',
+#         'LOCATION': 'redis:6379',
+#         'OPTIONS': {
+#             'DB': 1,
+#             'PARSER_CLASS': 'redis.connection.HiredisParser',
+#             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+#             'PICKLE_VERSION': -1,
+#         },
+#     },
+# }
 
 GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 
