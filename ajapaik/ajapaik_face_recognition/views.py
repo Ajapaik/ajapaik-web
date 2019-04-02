@@ -76,7 +76,7 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
             if consensus_subject != rectangle.subject_consensus_id:
                 # Consensus was either None or it changed
                 if current_consensus_album:
-                    current_consensus_album.photos.remove(rectangle.photo)
+                    AlbumPhoto.objects.filter(album=current_consensus_album, photo=rectangle.photo).delete()
                 if rectangle.photo not in subject_album.photos.all():
                     AlbumPhoto(photo=rectangle.photo, album=subject_album, type=AlbumPhoto.FACE_TAGGED,
                                profile=request.user.profile).save()
