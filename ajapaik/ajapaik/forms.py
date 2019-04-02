@@ -1,4 +1,5 @@
 import autocomplete_light
+from allauth.account.forms import SignupForm as AllauthSignupForm
 from django import forms
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -6,21 +7,20 @@ from django.utils.translation import ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
-from registration.forms import RegistrationFormUniqueEmail
 
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
-    Video, Licence
+from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
+                     Profile, Video)
 
 
-class UserRegistrationForm(RegistrationFormUniqueEmail):
-    username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
+class SignupForm(AllauthSignupForm):
     first_name = forms.CharField(label=_('First name'), max_length=30)
     last_name = forms.CharField(label=_('Last name'), max_length=30)
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        self.cleaned_data['username'] = email
-        return email
+    def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return user
 
 
 class APILoginAuthForm(forms.Form):

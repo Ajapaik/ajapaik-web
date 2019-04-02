@@ -370,6 +370,10 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
 
+ACCOUNT_FORMS = {
+    'signup': 'ajapaik.ajapaik.forms.SignupForm',
+}
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
