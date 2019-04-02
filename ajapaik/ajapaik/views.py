@@ -1754,14 +1754,6 @@ def difficulty_feedback(request):
     return HttpResponse("OK")
 
 
-def custom_404(request):
-    return render(request, '404.html', status=404)
-
-
-def custom_500(request):
-    return render(request, '500.html', status=500)
-
-
 def public_add_album(request):
     # FIXME: ModelForm
     add_album_form = AddAlbumForm(request.POST)

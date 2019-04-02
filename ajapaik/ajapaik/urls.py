@@ -74,7 +74,7 @@ urlpatterns = [
     url(r'^frontpage-async/$', views.frontpage_async_data, name='frontpage_async_data'),
     url(r'^frontpage-async-albums/$', views.frontpage_async_albums, name='frontpage_async_albums'),
     url(r'^curator/$', views.curator, name='curator'),
-    url(r'^curator-album-info/$', views.curator_get_album_info, name='curator_get_album_info"'),
+    url(r'^curator-album-info/$', views.curator_get_album_info, name='curator_get_album_info'),
     url(r'^curator-update-my-album/$', views.curator_update_my_album, name='curator_update_my_album'),
     url(r'^curator-album-list/$', views.curator_my_album_list, name='curator_my_album_list'),
     url(r'^curator-selectable-albums/$', views.curator_selectable_albums, name='curator_selectable_albums'),
@@ -158,9 +158,6 @@ urlpatterns += [
     url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^face-recognition/', include('ajapaik.ajapaik_face_recognition.urls')),
 ]
-
-handler500 = 'ajapaik.ajapaik.views.custom_500'
-handler404 = 'ajapaik.ajapaik.views.custom_404'
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += [
