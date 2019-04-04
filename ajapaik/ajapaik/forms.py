@@ -431,6 +431,9 @@ class EditCommentForm(forms.Form):
             forms.ValidationError(_('Nothing to change.'), code='same_text')
 
 
+class ApiFetchFinnaPhoto(forms.Form):
+    id = forms.CharField(max_length=255)
+
 class ApiToggleFavoritePhotoForm(forms.Form):
     id = forms.CharField(max_length=255)
     favorited = forms.BooleanField(required=False)

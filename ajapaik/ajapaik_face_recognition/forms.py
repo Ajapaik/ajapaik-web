@@ -36,9 +36,9 @@ class FaceRecognitionRectangleFeedbackForm(forms.ModelForm):
 
 class FaceRecognitionRectangleSubmitForm(forms.Form):
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of_id__isnull=True))
-    x1 = forms.IntegerField()
-    y1 = forms.IntegerField()
-    x2 = forms.IntegerField()
-    y2 = forms.IntegerField()
-    seen_width = forms.IntegerField()
-    seen_height = forms.IntegerField()
+    x1 = forms.IntegerField(min_value=1)
+    y1 = forms.IntegerField(min_value=1)
+    x2 = forms.IntegerField(min_value=1)
+    y2 = forms.IntegerField(min_value=1)
+    seen_width = forms.IntegerField(min_value=1)
+    seen_height = forms.IntegerField(min_value=1)
