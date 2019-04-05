@@ -475,3 +475,12 @@ class ApiWikidocsAlbumsSearchForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
+
+class ApiWikidocsAlbumSearchForm(forms.Form):
+    query = forms.CharField(required=False)
+    id = forms.CharField(required=True)
+    language = forms.CharField(required=False)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
