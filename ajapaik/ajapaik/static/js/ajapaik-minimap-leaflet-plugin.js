@@ -17,7 +17,7 @@
         {
             this.UI = $([
                 '<div id="ajapaik-minimap-disabled-overlay"></div>',
-                '<div id="ajapaik-photo-modal-map-canvas"></div>',
+                '<div id="ajapaik-photo-modal-map-canvas" style="height:99%;"></div>',
                 '<div id="ajapaik-photo-modal-map-textbox"></div>',
             ].join('\n'));
 
@@ -40,16 +40,7 @@
         constructor: AjapaikMinimap,
         initializeMap: function () {
             var that = this;
-            if (that.options.isMobile) {
-                $(that.node).removeClass('col-xs-3').addClass('col-xs-9');
-                that.options.height=250;
-            }
-            else
-            {
-                that.options.height=480;
-            }
             that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
-            $(that.node).css('height', that.options.height + 'px');
             var map = L.map('ajapaik-photo-modal-map-canvas', { fullscreenControl: true });
 
 // OSM layer

@@ -29,10 +29,10 @@ $(document).ready(function () {
             if(comments_count) {
                 comments_count.html(count);
                 if(count === 0) {
-                    comments_count.addClass('hidden');
+                    comments_count.addClass('d-none');
                 }
                 else {
-                    comments_count.removeClass('hidden');
+                    comments_count.removeClass('d-none');
                 }
             }
         };
@@ -64,10 +64,10 @@ $(document).ready(function () {
 
                 if(responce && responce.comment && responce.comment.length){
                     error_div.html(responce.comment[0]);
-                    error_div.removeClass('hidden');
+                    error_div.removeClass('d-none');
                 }
                 else {
-                    error_div.addClass('hidden');
+                    error_div.addClass('d-none');
                     comment_textarea.val('');
                 }
                 fetchComments();
@@ -112,8 +112,8 @@ $(document).ready(function () {
         var reply_form_div = $('#ajapaik-comment-list div[class~="comment-reply-form-' + comment_id + '"]');
 
         // Hide all forms and show only requested.
-        all_reply_form_divs.addClass('hidden');
-        reply_form_div.removeClass('hidden');
+        all_reply_form_divs.addClass('d-none');
+        reply_form_div.removeClass('d-none');
 
         event.preventDefault();
     });
@@ -122,7 +122,7 @@ $(document).ready(function () {
     // Exit reply form (cancel button pressed).
     $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
         var all_reply_form_divs = $('#ajapaik-comment-list div[class*="comment-reply-form-"]');
-        all_reply_form_divs.addClass('hidden');
+        all_reply_form_divs.addClass('d-none');
     });
 
 
@@ -147,9 +147,9 @@ $(document).ready(function () {
         comment_textarea.val(comment_text);
 
         // Hide all forms and show only requested.
-        all_edit_form_divs.addClass('hidden');
-        comment_container.addClass('hidden');
-        edit_form_div.removeClass('hidden');
+        all_edit_form_divs.addClass('d-none');
+        comment_container.addClass('d-none');
+        edit_form_div.removeClass('d-none');
 
         event.preventDefault();
     });
@@ -161,8 +161,8 @@ $(document).ready(function () {
         var all_edit_form_divs = $('#ajapaik-comment-list div[class*="comment-edit-form-"]');
         var comment_container = $('#c' + comment_id + ' .comment-text');
 
-        comment_container.removeClass('hidden');
-        all_edit_form_divs.addClass('hidden');
+        comment_container.removeClass('d-none');
+        all_edit_form_divs.addClass('d-none');
     });
 
 

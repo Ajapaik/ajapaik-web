@@ -78,6 +78,7 @@ class GalleryFilteringForm(forms.Form):
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     q = forms.CharField(required=False)
     myLikes = forms.BooleanField(required=False)
+    similarPhotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
 

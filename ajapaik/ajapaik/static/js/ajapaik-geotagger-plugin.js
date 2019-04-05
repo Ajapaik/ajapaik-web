@@ -280,62 +280,60 @@
         };
         // UI
         this.UI = $([
-            "<div class='row ajp-full-height'>",
-            "    <div class='col-xs-12 col-sm-12 col-md-9 ajp-full-height ajp-no-padding' id='ajp-geotagger-map-container'>",
+            "<div class='row ajp-full-height mx-0'>",
+            "    <div class='col-12 col-md-9 ajp-full-height ajp-no-padding' id='ajp-geotagger-map-container'>",
             "        <div id='ajp-geotagger-map-canvas'></div>",
             "    </div>",
-            "    <div class='col-xs-12 col-sm-12 col-md-3 ajp-no-padding ajp-cols-bottom' id='ajp-geotagger-panel'>",
-            "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding'>",
+            "    <div class='col-12 col-md-3 ajp-no-padding ajp-cols-bottom' id='ajp-geotagger-panel'>",
+            "        <div class='col-6 col-sm-6 col-md-12 ajp-no-padding'>",
             "           <a id='ajp-geotagger-full-screen-link'>",
             "               <img id='ajp-geotagger-image-thumb' class='ajp-image-responsive'>",
+            "               <button type='button' id='ajp-geotagger-flip-button' class='btn btn-secondary ajp-no-border-radius'>",
+            "                   <i class='material-icons notranslate'>flip</i>",
+            "               </button>", 
             "           </a>",
-            "           <button type='button' id='ajp-geotagger-flip-button' class='btn btn-default ajp-no-border-radius'>",
-            "               <i class='material-icons notranslate'>flip</i>",
-            "            </button>",
             "        </div>",
-            "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-button-controls'>",
-            "            <button type='button' id='ajp-geotagger-description-button' class='btn btn-default ajp-no-border-radius'>",
+            "        <div id='ajp-geotagger-button-controls'>",
+            "            <button type='button' id='ajp-geotagger-description-button' class='btn btn-secondary ajp-no-border-radius'>",
             "               <i class='material-icons notranslate'>subject</i>",
             "            </button>",
-            "            <p id='ajp-geotagger-description' class='hidden'></p>",
-            "            <p id='ajp-geotagger-source' class='hidden'><a href='' target='_blank' title=''></a></p>",
-            "            <div class='col-xs-6 col-sm-6 col-md-12' id='ajp-geotagger-stats-container'>",
+            "            <p id='ajp-geotagger-description' class='d-none'></p>",
+            "            <p id='ajp-geotagger-source' class='d-none'><a href='' target='_blank' title=''></a></p>",
+            "            <div class='col-6 col-md-12' id='ajp-geotagger-stats-container'>",
             "               <i class='material-icons notranslate'>people</i><span id='ajp-geotagger-current-stats'></span>",
             "            </div>",
-            "            <div class='col-xs-6 col-sm-6 col-md-12 hidden-sm hidden-xs' id='ajp-geotagger-login-container'>",
+            "            <div class='col-6 col-sm-6 col-md-12 d-none d-block-xs d-block-sm' id='ajp-geotagger-login-container'>",
             "               <i class='material-icons notranslate'>account_circle</i><span id='ajp-geotagger-current-login'></span>",
             "               <div class='row' id='ajp-geotagger-email-login-notice'></div>",
             "            </div>",
             "        </div>",
-            "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-feedback'>",
+            "        <div id='ajp-geotagger-feedback'>",
             "            <div class='panel'>",
             "                <div class='panel-body'>",
             "                    <p id='ajp-geotagger-feedback-thanks'></p>",
-            "                    <p id='ajp-geotagger-feedback-message' class='hidden-xs'></p>",
+            "                    <p id='ajp-geotagger-feedback-message' class='d-none d-block-xs'></p>",
             "                    <p id='ajp-geotagger-feedback-points'></p>",
-            "                    <p id='ajp-geotagger-feedback-difficulty-prompt' class='hidden-xs'></p>",
-            "                    <form id='ajp-geotagger-feedback-difficulty-form' class='hidden-xs'>",
+            "                    <p id='ajp-geotagger-feedback-difficulty-prompt' class='d-none d-block-xs'></p>",
+            "                    <form id='ajp-geotagger-feedback-difficulty-form' class='d-none d-block-xs'>",
             "                        <span></span>",
             "                        <input type='radio' name='difficulty' value='1'>",
             "                        <input type='radio' name='difficulty' value='2'>",
             "                        <input type='radio' name='difficulty' value='3'>",
             "                        <span></span>",
             "                    </form>",
-            "                    <div class='col-xs-12 col-sm-12 col-lg-offset-6 col-lg-6 col-md-12'>",
+            "                    <div>",
             "                        <button class='btn btn-primary btn-block' id='ajp-geotagger-feedback-next-button'></button>",
             "                    </div>",
             "                </div>",
             "            </div>",
             "        </div>",
-            "        <div class='col-xs-6 col-sm-6 col-md-12 ajp-no-padding' id='ajp-geotagger-confirm-controls'>",
-            "            <div class='btn-group btn-group-justified' role='group' id='ajp-geotagger-game-buttons' aria-label='ajp-geotagger-game-buttons'>",
-            "                <div class='btn-group' role='group'>",
-            "                    <button type='button' id='ajp-geotagger-skip-button' class='btn btn-default ajp-no-border-radius'>",
+            "        <div id='ajp-geotagger-confirm-controls' class='d-inline-block w-100'>",
+            "            <div class='btn-group btn-group d-flex' role='group' id='ajp-geotagger-game-buttons' aria-label='ajp-geotagger-game-buttons'>",
+            "                <div class='btn-group w-100' role='group'>",
+            "                    <button type='button' id='ajp-geotagger-skip-button' class='btn btn-secondary ajp-no-border-radius w-50'>",
             "                        <i class='material-icons notranslate'>close</i>",
             "                    </button>",
-            "                </div>",
-            "                <div class='btn-group' role='group'>",
-            "                    <button type='button' id='ajp-geotagger-save-button' class='btn btn-disabled ajp-no-border-radius'>",
+            "                    <button type='button' id='ajp-geotagger-save-button' class='btn btn-success ajp-no-border-radius w-50'>",
             "                        <i class='material-icons notranslate'>done</i>",
             "                    </button>",
             "                </div>",
@@ -356,9 +354,6 @@
             emailNotice = $('#ajp-geotagger-email-login-notice');
         $('#ajp-geotagger-full-screen-link').click(function () {
             if (BigScreen.enabled) {
-                fullScreenElement.attr('src', that.options.fullScreenSrc).load(function () {
-                    that.prepareFullScreen();
-                });
                 BigScreen.request(fullScreenElement.get(0));
                 that.fullScreenActive = true;
                 if (typeof window.reportGeotaggerFullScreenOpen === 'function') {
@@ -398,9 +393,9 @@
         initializeMap: function () {
             var modeSelectionButtonGroup = $([
                     "<div class='btn-group' id='ajp-geotagger-mode-selection' role='group' aria-label='...'>",
-                        "<button type='button' id='ajp-geotagger-approximate-mode-button' class='btn btn-default'></button>",
-                        "<button type='button' id='ajp-geotagger-vantage-point-mode-button' class='btn btn-default active'></button>",
-                        "<button type='button' id='ajp-geotagger-object-mode-button' class='btn btn-default'></button>",
+                        "<button type='button' id='ajp-geotagger-approximate-mode-button' class='btn btn-secondary'></button>",
+                        "<button type='button' id='ajp-geotagger-vantage-point-mode-button' class='btn btn-secondary active'></button>",
+                        "<button type='button' id='ajp-geotagger-object-mode-button' class='btn btn-secondary'></button>",
                     "</div>"
                 ].join('\n')),
                 searchBox = $([
@@ -409,12 +404,12 @@
                 feedbackNextButton = $('#ajp-geotagger-feedback-next-button'),
                 that = this;
             this.lockButton = $([
-                    "<div class='btn btn-default' id='ajp-geotagger-lock-button'></div>"
+                    "<div class='btn btn-secondary' id='ajp-geotagger-lock-button'></div>"
                 ].join('\n'));
             this.mapInstructions = $([
                 "<div id='ajp-geotagger-map-instruction-text'>",
                 "   <p></p>",
-                "   <button id='ajp-geotagger-close-instructions-button' class='btn btn-default'>",
+                "   <button id='ajp-geotagger-close-instructions-button' class='btn btn-secondary'>",
                 "       <i class='material-icons notranslate'>close</i>",
                 "   </button>",
                 "</div>"
@@ -434,7 +429,7 @@
                 this.streetViewOptions
             );
             this.streetPanoramaExtraCloseButton = $([
-                "<button class='btn btn-default' id='ajp-extra-close-streetview-button'></button>"
+                "<button class='btn btn-secondary' id='ajp-extra-close-streetview-button'></button>"
             ].join('\n'));
             this.streetPanoramaExtraCloseButton.html(gettext('Close')).click(function () {
                 that.streetPanorama.setVisible(false);
@@ -464,7 +459,7 @@
             };
             this.vgmapi.getCityData(cityDataDoneCallback);
             if (isMobile) {
-                this.lockButton.addClass('hidden');
+                this.lockButton.addClass('d-none');
             }
             this.lockButton.attr('title', gettext('Toggle map center lock')).click(function () {
                 if (that.options.mode === 'vantage') {
@@ -486,10 +481,10 @@
             });
             this.mapShowSearchButton.click(function () {
                 var box = $('#ajp-geotagger-search-box');
-                box.toggleClass('hidden');
+                box.toggleClass('d-none');
                 google.maps.event.trigger(that.map, 'resize');
 
-                if (typeof window.reportGeotaggerShowSearch === 'function' && !box.hasClass('hidden')) {
+                if (typeof window.reportGeotaggerShowSearch === 'function' && !box.hasClass('d-none')) {
                     window.reportGeotaggerShowSearch(that.options.currentPhotoId);
                 }
             });
@@ -694,7 +689,7 @@
             window.addEventListener('resize', this.windowResizeListenerFunction);
             this.azimuthLine.setMap(this.map);
             this.geotaggerImageThumb = $('#ajp-geotagger-image-thumb');
-            this.geotaggerImageThumb.load(function () {
+            this.geotaggerImageThumb.on('load', function () {
                 setTimeout(function () {
                     $(window).trigger('resize');
                 }, 0);
@@ -714,22 +709,6 @@
             google.maps.event.addListener(this.map, 'click', this.mapClickListenerFunction);
             google.maps.event.addListener(this.realMarker, 'drag', this.mapMarkerDragListenerFunction);
             google.maps.event.addListener(this.realMarker, 'dragend', this.mapMarkerDragendListenerFunction);
-        },
-        prepareFullScreen: function () {
-            var image = $('#ajp-geotagger-full-screen-image'),
-                aspectRatio = this.options.fullScreenWidth / this.options.fullScreenHeight,
-                newWidth = parseInt(screen.height * aspectRatio, 10),
-                newHeight = parseInt(screen.width / aspectRatio, 10);
-            if (newWidth > screen.width) {
-                newWidth = screen.width;
-            } else {
-                newHeight = screen.height;
-            }
-            image.css('margin-left', (screen.width - newWidth) / 2 + 'px');
-            image.css('margin-top', (screen.height - newHeight) / 2 + 'px');
-            image.css('width', newWidth);
-            image.css('height', newHeight);
-            image.css('opacity', 1);
         },
         // FIXME: Getting less and less DRY
         switchToApproximateMode: function () {
@@ -768,8 +747,8 @@
         initializeGeotaggerState: function (options) {
             this.geotaggerImageThumb.attr('src', options.thumbSrc).removeClass('ajp-photo-flipped');
             $('#ajp-geotagger-full-screen-image').removeClass('ajp-photo-flipped');
-            this.description.html(options.description).addClass('hidden');
-            this.source.addClass('hidden').find('a').attr('title', options.sourceName + ' ' + options.sourceKey)
+            this.description.html(options.description).addClass('d-none');
+            this.source.addClass('d-none').find('a').attr('title', options.sourceName + ' ' + options.sourceKey)
                 .attr('href', options.sourceURL).html(options.sourceName + ' ' + options.sourceKey);
             $('#ajp-geotagger-current-stats').html(options.uniqueGeotagCount).show();
             $('#ajp-geotagger-feedback').hide();
@@ -821,7 +800,7 @@
             }
             $('#ajp-geotagger-guess-marker').show();
             if (isMobile) {
-                $('#ajp-geotagger-search-box').addClass('hidden');
+                $('#ajp-geotagger-search-box').addClass('d-none');
             } else {
                 $('#ajp-geotagger-show-search-button').hide();
             }
@@ -955,26 +934,18 @@
                 geotaggerPanel = $('#ajp-geotagger-panel'),
                 thumbHeight = this.geotaggerImageThumb.height();
             if (window.matchMedia("(min-width: 992px)").matches) {
-                confirmControls.removeClass('col-xs-offset-6 col-sm-offset-6');
+                confirmControls.removeClass('col-offset-6 col-sm-offset-6');
                 targetParent.css('width', geotaggerPanel.width()).css('height', 'auto');
-                newMargin = geotaggerPanel.height() - buttonControls.height() - thumbHeight - 90;
-                if (newMargin > 0) {
-                    confirmControls.css('margin-top', newMargin + 'px');
-                }
                 geotaggerPanel.css('max-height', '100%').css('height', '100%');
             } else {
                 geotaggerPanel.css('max-height', '30%').css('height', '100%');
                 targetParent.css('height', geotaggerPanel.height() + 'px').css('width', '50%');
-                newMargin = thumbHeight - buttonControls.height() - 41;
-                if (newMargin > 0) {
-                    confirmControls.css('margin-top', newMargin + 'px');
-                }
                 // On small screens, don't constrain whole interface to screen height
                 geotaggerPanel.css('max-height', '100%').css('height', 'auto');
                 if (thumbHeight < buttonControls.height()) {
-                    confirmControls.addClass('col-xs-offset-6 col-sm-offset-6');
+                    confirmControls.addClass('col-offset-6 col-sm-offset-6');
                 } else {
-                    confirmControls.removeClass('col-xs-offset-6 col-sm-offset-6');
+                    confirmControls.removeClass('col-offset-6 col-sm-offset-6');
                 }
             }
         },
@@ -993,8 +964,8 @@
         },
         showDescriptions: function () {
             this.descriptionButton.hide();
-            this.description.removeClass('hidden');
-            this.source.removeClass('hidden');
+            this.description.removeClass('d-none');
+            this.source.removeClass('d-none');
             this.hintUsed = true;
             this.fitGuessPhotosToContainers();
         },

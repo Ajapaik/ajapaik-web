@@ -6,34 +6,32 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container-fluid">
+    <div class="container-fluid pt-5">
         {% if request.user.profile.is_legit %}
-            <div class="panel panel-default" id="ajapaik-selection-top-panel">
-                <div class="panel-body">
-                    <div class="alert alert-success hidden"></div>
-                    <div class="alert alert-error hidden"></div>
-                    <div class="btn-group pull-right" role="group" aria-label="...">
-                        <button id="ajapaik-photo-selection-create-album-button" type="button"
-                                class="btn btn-success">{% trans "Add to album" %}</button>
-                        <button id="ajapaik-photo-selection-clear-selection-button" type="button"
-                                class="btn btn-primary">{% trans "Clear selection" %}</button>
-                    </div>
+            <div class="panel panel-default pt-3" id="ajapaik-selection-top-panel">
+                <div class="panel-body d-inline-flex">
+                    <button id="ajapaik-photo-selection-create-album-button" type="button"
+                        class="btn btn-success">{% trans "Add to album" %}</button>
+                    <button id="ajapaik-photo-selection-clear-selection-button" type="button"
+                        class="btn btn-primary">{% trans "Clear selection" %}</button>
+                    <div class="alert-success p-2 d-none"></div>
+                    <div class="alert alert-error d-none"></div>
                 </div>
             </div>
             <div class="row">{% trans "You can re-order photos by dragging and dropping" %}</div>
             <div id="ajapaik-photo-selection-gallery">
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
-                    <div class="panel-body">
+                    <div class="row panel-body">
                         {% for p in photos %}
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-                                 id="ajapaik-frontpage-image-container-{{ p.0 }}" style="min-height: 330px;"
-                                 data-id="{{ p.0 }}">
-                                <a href="{% url "foto" p.0 %}"
-                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.0 }}">
-                                    <img src="{% url "image_thumb" p.0 250 %}"
-                                         width="{{ p.1 }}" height="{{ p.2 }}" alt="{{ p.4 }}"
-                                         class="img-responsive ajapaik-photo-selection-thumbnail">
-                                    <div class="ajapaik-remove-from-selection-button" data-id="{{ p.0 }}"></div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="text-align: center"
+                                 id="ajapaik-frontpage-image-container-{{ p.id }}" style="min-height: 330px;"
+                                 data-id="{{ p.id }}">
+                                <a href="{% url "photo" p.id %}"
+                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.id }}">
+                                    <img src="{% url "image_thumb" p.id 250 %}"
+                                         width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.4 }}"
+                                         class="img-fluid ajapaik-photo-selection-thumbnail">
+                                    <div class="ajapaik-remove-from-selection-button" data-id="{{ p.id }}"></div>
                                 </a>
                             </div>
                         {% endfor %}
@@ -62,6 +60,7 @@
         window.isSelection = true;
     </script>
     {% compress js %}
+        <!--<script src="{{ STATIC_URL }}js/jquery-ui-1.12.1.js"></script>-->
         <script src="{{ STATIC_URL }}js/ajapaik-selection.js"></script>
     {% endcompress %}
 {% endblock %}

@@ -13,7 +13,6 @@
             var fullScreenImage = $('#ajapaik-full-screen-image');
             $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
                 fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
-                window.prepareFullscreen(window.photoModalFullscreenImageSize[0], window.photoModalFullscreenImageSize[1], '#ajapaik-full-screen-image');
                 window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
             });
         };
@@ -70,7 +69,7 @@
             });
         });
         window.closePhotoDrawer = function () {
-            $('#ajapaik-photo-modal').modal('toggle');
+            $('#ajapaik-photo-modal').modal('hide');
         };
         window.startGuessLocation = function (photoId) {
             if (window.albumId) {
@@ -114,11 +113,11 @@
                     if (response.error) {
                         $('#ajapaik-curator-upload-error').show();
                         $('#ajapaik-curator-upload-error-message').html(response.error);
-                        $('#ajapaik-selection-top-panel').find('.alert-error').html(response.error).removeClass('hidden');
-                        $('#ajapaik-selection-top-panel').find('.alert-success').html('').addClass('hidden');
+                        $('#ajapaik-selection-top-panel').find('.alert-error').html(response.error).removeClass('d-none');
+                        $('#ajapaik-selection-top-panel').find('.alert-success').html('').addClass('d-none');
                     } else {
-                        $('#ajapaik-selection-top-panel').find('.alert-error').html('').addClass('hidden');
-                        $('#ajapaik-selection-top-panel').find('.alert-success').html(response.message).removeClass('hidden');
+                        $('#ajapaik-selection-top-panel').find('.alert-error').html('').addClass('d-none');
+                        $('#ajapaik-selection-top-panel').find('.alert-success').html(response.message).removeClass('d-none');
                         $('#ajapaik-curator-upload-error').hide();
                         $('#ajapaik-curator-upload-error-message').html(window.gettext('System error'));
                         $('#ajapaik-choose-albums-modal').modal('hide');
@@ -136,7 +135,7 @@
                 error: function () {
                     $('#ajapaik-loading-overlay').hide();
                     $('#ajapaik-curator-upload-error').show();
-                    $('#ajapaik-selection-top-panel').find('.alert-error').html(window.gettext('System error')).removeClass('hidden');
+                    $('#ajapaik-selection-top-panel').find('.alert-error').html(window.gettext('System error')).removeClass('d-none');
                     window._gaq.push(['_trackEvent', 'Selection', 'Upload error']);
                 }
             });
@@ -158,9 +157,9 @@
                 var len = Object.keys(response).length,
                     target = $('#ajapaik-header-selection-indicator');
                 if (len > 0) {
-                    target.removeClass('hidden');
+                    target.removeClass('d-none');
                 } else {
-                    target.addClass('hidden');
+                    target.addClass('d-none');
                 }
                 target.find('span').html(len);
             });

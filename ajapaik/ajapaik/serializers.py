@@ -45,7 +45,7 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
                   'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
-                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album')
+                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album', 'similar_photo_count_with_subalbums', 'confirmed_similar_photo_count_with_subalbums')
 
 
 class DatingSerializer(serializers.ModelSerializer):
@@ -89,7 +89,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
 
     def get_permalink(self, instance):
         return reverse(
-            'foto',
+            'photo',
             args=(instance.id, _get_pseudo_slug_for_photo(instance.description, None, None))
         )
 
@@ -164,6 +164,8 @@ class PhotoSerializer(serializers.ModelSerializer):
     azimuth = serializers.FloatField()
     rephotos = serializers.SerializerMethodField()
     favorited = serializers.BooleanField()
+    similar_photos = serializers.SerializerMethodField()
+    confirmed_similar_photos = serializers.SerializerMethodField()
 
     @classmethod
     def annotate_photos(cls, photos_queryset, user_profile):
@@ -181,6 +183,8 @@ class PhotoSerializer(serializers.ModelSerializer):
             .prefetch_related('source') \
             .prefetch_related('rephotos') \
             .annotate(rephotos_count=Count('rephotos')) \
+            .annotate(similar_photos=Count('similar_photos')) \
+            .annotate(confirmed_similar_photos=Count('confirmed_similar_photos')) \
             .annotate(uploads_count=Count(
                 Case(
                     When(rephotos__user=user_profile, then=1),
@@ -218,6 +222,20 @@ class PhotoSerializer(serializers.ModelSerializer):
     def get_rephotos(self, instance):
         return RephotoSerializer(
             instance=instance.rephotos.all(),
+            many=True,
+            context={'request': self.context['request']},
+        ).data
+
+    def get_similar_photos(self, instance):
+        return RephotoSerializer(
+            instance=instance.similar_photos.all(),
+            many=True,
+            context={'request': self.context['request']},
+        ).data
+
+    def get_confirmed_similar_photos(self, instance):
+        return RephotoSerializer(
+            instance=instance.confirmed_similar_photos.all(),
             many=True,
             context={'request': self.context['request']},
         ).data

@@ -6,7 +6,7 @@
             {% } %}
             <div class="row">
                 <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
-                   target="_blank">
+                   target="_blank" rel="noopener nofollow">
                     {%=o.source%} {%=o.sourceKey%}
                 </a>
             </div>
@@ -16,7 +16,7 @@
             {% } else { %}
                 {% if (o.FBUserName) { %}
                     <div class="row">
-                        <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
+                        <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                             {%=o.FBUserName%}
                         </a>
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
@@ -24,7 +24,7 @@
                 {% } else { %}
                     {% if (o.GooglePlusName) { %}
                         <div class="row">
-                            <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
+                            <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                                 {%=o.GooglePlusName%}
                             </a>
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
@@ -32,7 +32,7 @@
                     {% } else { %}
                         {% if (o.FullName) { %}
                             <div class="row">
-                                <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos">
+                                <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                                     {%=o.FullName%}
                                 </a>
                                 {% endverbatim %}{% include "_licence.html" %}{% verbatim %}

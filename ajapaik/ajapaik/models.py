@@ -42,6 +42,7 @@ from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
+from ajapaik.ajapaik.phash import phash, hammingdistance
 from ajapaik.utils import angle_diff
 from ajapaik.utils import average_angle
 
@@ -94,7 +95,6 @@ def _get_pseudo_slug_for_photo(description, source_key, created):
         slug = slugify(created.__format__('%Y-%m-%d'))
 
     return slug
-
 
 # TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
 def _user_post_save(sender, instance, **kwargs):
@@ -207,6 +207,8 @@ class Album(Model):
     face_encodings = TextField(blank=True, null=True)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
+    similar_photo_count_with_subalbums = IntegerField(default=0)
+    confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
 
     original_lat = None
     original_lon = None
@@ -287,12 +289,31 @@ class Album(Model):
             count += each.comment_count
 
         return count
+    
+    def get_similar_photos_count_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
+        count = 0
+        for each in qs:
+            count += len(each.similar_photos.all())
+
+        return count
+
+    def get_confirmed_similar_photos_count_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().exclude(confirmed_similar_photos__isnull=True)
+        count = 0
+        for each in qs:
+            count += len(each.confirmed_similar_photos.all())
+
+        return count
 
     def set_calculated_fields(self):
         self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().count()
         self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().count()
         self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().count()
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
+        self.similar_photo_count_with_subalbums = self.get_similar_photos_count_with_subalbums()
+        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photos_count_with_subalbums()
+
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
@@ -386,9 +407,15 @@ class Photo(Model):
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
-
+    perceptual_hash = CharField(max_length=64, null=True, blank=True)
+    similar_photos = ManyToManyField('self', blank=True,  related_name='similar_photos')
+    confirmed_similar_photos = ManyToManyField('self', blank=True,  related_name='confirmed_similar_photos')
+    
     original_lat = None
     original_lon = None
+
+    def get_total_similar(self):
+        return len(self.similar_photos.all()) + len(self.confirmed_similar_photos.all())
 
     class Meta:
         ordering = ['-id']
@@ -397,8 +424,8 @@ class Photo(Model):
     @property
     def people(self):
         people_albums = []
-        rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects\
-            .filter(photo=self, deleted__isnull=True)\
+        rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects \
+            .filter(photo=self, deleted__isnull=True) \
             .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False)).all()
         for rectangle in rectangles:
             if rectangle.subject_consensus:
@@ -410,6 +437,8 @@ class Photo(Model):
 
     @staticmethod
     def get_game_json_format_photo(photo):
+        if photo is None:
+            return {}
         # TODO: proper JSON serialization
         image = get_thumbnail(photo.image, '1024x1024', upscale=False)
         source_str = ''
@@ -527,7 +556,7 @@ class Photo(Model):
 
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
-        return reverse('foto', args=(self.pk,))
+        return reverse('photo', args=(self.pk,))
 
     def do_flip(self):
         # FIXME: Somehow fails silently?
@@ -540,6 +569,19 @@ class Photo(Model):
         delete(self.image, delete_file=False)
         self.light_save()
         self.original_flip = self.flip
+
+    def phash(self):
+        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+        self.perceptual_hash = phash(img)
+        # Ideally we should be able to query by hamming distance, and do no additional filtering on site
+        ids = []
+        photos = Photo.objects.exclude(perceptual_hash__isnull = True)
+        for photo in photos:
+            if(hammingdistance(self.perceptual_hash,photo.perceptual_hash) < 7 and not photo.image == self.image):
+                ids.append(photo.id)
+        photos2 = Photo.objects.filter(id__in=ids)
+        self.similar_photos.add(*photos2)
+        self.light_save()
 
     def watermark(self):
         # For ETERA
@@ -563,7 +605,7 @@ class Photo(Model):
         self.image.save('watermarked.jpg', image_file)
 
     def get_absolute_url(self):
-        return reverse('foto', args=(self.id, self.get_pseudo_slug()))
+        return reverse('photo', args=(self.id, self.get_pseudo_slug()))
 
     def get_pseudo_slug(self):
         if self.description is not None and self.description != '':

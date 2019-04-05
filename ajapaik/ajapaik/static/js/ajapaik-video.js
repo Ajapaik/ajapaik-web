@@ -55,7 +55,7 @@
         };
     doc.on('click', '#ajapaik-video-modal-close-button', function (e) {
         e.preventDefault();
-        $('#ajapaik-video-modal').modal('toggle');
+        $('#ajapaik-video-modal').modal('hide');
     });
     doc.on('click', '.ajapaik-frontpage-video-container', function (e) {
         e.preventDefault();

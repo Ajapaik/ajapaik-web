@@ -6,19 +6,19 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container ajapaik-margin-top-30" style="height: 5000px;">
-        <img class="img-responsive" id="upload-preview" src="">
+    <div class="container pt-5 w-50">
+        <img class="img-fluid" id="upload-preview" src="">
         {% if message %}
-            <div class="alert alert-success">{{ message }}</div>
+            <div class="alert-success p-3">{{ message }}</div>
         {% endif %}
         <form action="" method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             {% bootstrap_form form %}
             <p id="ajapaik-user-upload-waive-rights-text" style="display: none;">
-                {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
+                {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener nofollow">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
             </p>
             {% buttons %}
-                <div class="btn-group pull-right" role="group" aria-label="ajapaik-add-album-button-group">
+                <div class="btn-group float-right" role="group" aria-label="ajapaik-add-album-button-group">
                     <button type="submit" name="geotag" value="false" class="btn btn-primary">
                         {% trans "Upload" %}
                     </button>

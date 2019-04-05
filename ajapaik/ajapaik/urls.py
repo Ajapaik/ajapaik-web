@@ -38,9 +38,9 @@ urlpatterns = [
     url(r'^photo/like/$', views.update_like_state, name='update_like_state'),
     url(r'^photo-upload-modal/$', views.mapview_photo_upload_modal, name='mapview_photo_upload_modal'),
     url(r'^photo-upload-modal/(?P<photo_id>\d+)/$', views.mapview_photo_upload_modal, name='mapview_photo_upload_modal'),
-    url(r'^foto/$', views.photoslug, name='foto'),
-    url(r'^foto/(?P<photo_id>\d+)/$', views.photoslug, name='foto'),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name='foto'),
+    url(r'^photo/$', views.photoslug, name='photo'),
+    url(r'^foto/(?P<photo_id>\d+)/$', views.photoslug, name='photo'),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name='photo'),
     url(r'^photo/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug),
     url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug),
@@ -93,7 +93,8 @@ urlpatterns = [
     url(r'^user-upload/$', views.user_upload, name='user_upload'),
     url(r'^user-upload-add-album/$', views.user_upload_add_album, name='user_upload_add_album'),
     url(r'^privacy/$', views.privacy, name='privacy'),
-    url(r'^terms/$', views.terms, name='terms')
+    url(r'^terms/$', views.terms, name='terms'),
+    url(r'^compare_photo/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photo, name='compare_photo')
 ]
 
 urlpatterns += [
@@ -159,8 +160,8 @@ urlpatterns += [
     url(r'^face-recognition/', include('ajapaik.ajapaik_face_recognition.urls')),
 ]
 
-handler500 = 'ajapaik.ajapaik.views.custom_500'
-handler404 = 'ajapaik.ajapaik.views.custom_404'
+handler500 = 'custom_500'
+handler404 = 'custom_404'
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += [

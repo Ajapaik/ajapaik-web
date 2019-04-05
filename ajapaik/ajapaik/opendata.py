@@ -16,9 +16,20 @@ class RephotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = '__all__'
 
+class SimilarPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = '__all__'
+
+class ConfirmedSimilarPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = '__all__'
 
 class PhotoSerializer(serializers.ModelSerializer):
     rephotos = RephotoSerializer(many=True, read_only=True)
+    similar_photos = SimilarPhotoSerializer(many=True, read_only=True)
+    confirmed_similar_photos = ConfirmedSimilarPhotoSerializer(many=True, read_only=True)
     geotags = serializers.SerializerMethodField()
 
     def get_geotags(self, obj):

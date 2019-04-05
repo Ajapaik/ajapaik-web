@@ -7,163 +7,158 @@
 
 {% block layout %}
     {% include "_full_leaderboard_modal.html" %}
-    <div class="container" id="ajapaik-curator-container">
-        <div class="col-xs-12">
-            {% if request.user.profile.is_legit %}
-                {% include "_album_creation_modal.html" %}
-                <div class="modal fade" id="ajapaik-curator-feedback-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">{% trans "Thank you!" %}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>{% trans "Your photos have now been added to Ajapaik and can be interacted with as usual." %}</p>
+    <div class="container{% if not request.user.profile.is_legit %} pb-3 w-50{% endif %}" id="ajapaik-curator-container">
+        {% if request.user.profile.is_legit %}
+            {% include "_album_creation_modal.html" %}
+            <div class="modal fade" id="ajapaik-curator-feedback-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{% trans "Thank you!" %}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans "Your photos have now been added to Ajapaik and can be interacted with as usual." %}</p>
 
-                                <p>{% trans "Points awarded for curating" %}: <span
-                                        id="ajapaik-curator-points-awarded"></span></p>
+                            <p>{% trans "Points awarded for curating" %}: <span
+                                    id="ajapaik-curator-points-awarded"></span></p>
 
-                                <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank"
-                                                                                                   id="ajapaik-curator-album-play-link"></a>
-                                </p>
+                            <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank"
+                                                                                                id="ajapaik-curator-album-play-link"></a>
+                            </p>
 
-                                <p>{% trans "Tell your friends on Facebook" %}:</p>
+                            <p>{% trans "Tell your friends on Facebook" %}:</p>
 
-                                <p id="ajapaik-curator-share-button-container"></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    {% trans "Close" %}
-                                </button>
-                            </div>
+                            <p id="ajapaik-curator-share-button-container"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                {% trans "Close" %}
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12" id="ajapaik-curator-search-results"></div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12" id="ajapaik-curator-selection"></div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12" id="ajapaik-curator-my-albums"></div>
-                </div>
-                <div class="modal fade" id="ajapaik-curator-edit-my-album-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content ajapaik-margin-top-100">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title">{% trans "Edit your album" %}</h4>
+            </div>
+            <div id="ajapaik-curator-search-results"></div>
+            <div class="row" id="ajapaik-curator-selection"></div>
+            <div id="ajapaik-curator-my-albums"></div>
+            <div class="modal fade" id="ajapaik-curator-edit-my-album-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content mt-5">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">{% trans "Edit your album" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12" id="ajapaik-curator-edit-album-error" style="display: none;">
+                                    <div class="alert alert-danger" role="alert">
+                                        <span class="glyphicon glyphicon-exclamation-sign"
+                                                aria-hidden="true"></span>
+                                        <span id="ajapaik-curator-edit-album-error-message">{% trans "Error" %}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-xs-12" id="ajapaik-curator-edit-album-error" style="display: none;">
-                                        <div class="alert alert-danger" role="alert">
-                                            <span class="glyphicon glyphicon-exclamation-sign"
-                                                  aria-hidden="true"></span>
-                                            <span id="ajapaik-curator-edit-album-error-message">{% trans "Error" %}</span>
-                                        </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label for="ajapaik-curator-change-album-name">{% trans "Name" %}</label>
+                                        </span>
+                                        <input class="form-control" type="text"
+                                                id="ajapaik-curator-change-album-name">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-change-album-name">{% trans "Name" %}</label>
-                                            </span>
-                                            <input class="form-control" type="text"
-                                                   id="ajapaik-curator-change-album-name">
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
+                                        </span>
+                                        <textarea class="form-control"
+                                                    id="ajapaik-curator-change-album-description"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
-                                            </span>
-                                            <textarea class="form-control"
-                                                      id="ajapaik-curator-change-album-description"></textarea>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-change-album-open">
+                                        </span>
+                                        <label class="form-control"
+                                                for="ajapaik-curator-change-album-open">{% trans "Open album (anyone can add photos)" %}</label>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="ajapaik-curator-change-album-open">
-                                            </span>
-                                            <label class="form-control"
-                                                   for="ajapaik-curator-change-album-open">{% trans "Open album (anyone can add photos)" %}</label>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id="ajapaik-curator-change-album-public">
+                                        </span>
+                                        <label class="form-control"
+                                                for="ajapaik-curator-change-album-public">{% trans "Visible (shown in selection)" %}</label>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="ajapaik-curator-change-album-public">
-                                            </span>
-                                            <label class="form-control"
-                                                   for="ajapaik-curator-change-album-public">{% trans "Visible (shown in selection)" %}</label>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label for="ajapaik-curator-edit-form-change-album-parent">{% trans "Parent album" %}</label>
+                                        </span>
+                                        <select id="ajapaik-curator-edit-form-change-album-parent"
+                                                class="form-control"></select>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-edit-form-change-album-parent">{% trans "Parent album" %}</label>
-                                            </span>
-                                            <select id="ajapaik-curator-edit-form-change-album-parent"
-                                                    class="form-control"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
+                            </div>
+                            <br>
 
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label for="ajapaik-curator-change-area-name">{% trans "Place" %}</label>
+                                        </span>
+                                        <input class="form-control" type="text"
+                                                id="ajapaik-curator-change-area-name">
+                                        <input type="hidden" id="ajapaik-curator-change-area-name-hidden">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <label for="ajapaik-curator-change-area-name">{% trans "Place" %}</label>
-                                            </span>
-                                            <input class="form-control" type="text"
-                                                   id="ajapaik-curator-change-area-name">
-                                            <input type="hidden" id="ajapaik-curator-change-area-name-hidden">
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="ajapaik-curator-change-album-id">
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    {% trans "Close" %}
-                                </button>
-                                <button type="button" class="btn btn-success"
-                                        id="ajapaik-curator-confirm-album-edit-button">
-                                    {% trans "Save" %}
-                                </button>
-                            </div>
+                            <input type="hidden" id="ajapaik-curator-change-album-id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                {% trans "Close" %}
+                            </button>
+                            <button type="button" class="btn btn-success"
+                                    id="ajapaik-curator-confirm-album-edit-button">
+                                {% trans "Save" %}
+                            </button>
                         </div>
                     </div>
                 </div>
-            {% else %}
-                {% include "_log_in.html" with type="curator" %}
-            {% endif %}
-        </div>
+            </div>
+        {% else %}
+            {% include "_log_in.html" with type="curator" %}
+        {% endif %}
     </div>
 {% endblock layout %}
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}
 {% block specific_js %}
     <script>
         function base64Encode(str) {
@@ -238,7 +233,7 @@
                     var changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
                     window.google.maps.event.addListener(changeAutocomplete, 'place_changed', function () {
                         var place = changeAutocomplete.getPlace();
-                        $('#ajapaik-curator-change-area-name-hidden').val(place.name);
+                        $('#ajapaik-curator-change-area-name-d-none').val(place.name);
                         changeAreaLat = place.geometry.location.lat();
                         changeAreaLng = place.geometry.location.lng();
                         window._gaq.push(['_trackEvent', 'Curator', 'Change autocomplete place changed']);
@@ -508,7 +503,7 @@
             window.replaceAll = function (string, find, replace) {
                 return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
-            window.photoPermalink = '{% url "foto" %}';
+            window.photoPermalink = '{% url "photo" %}';
             window.formatId = function (id) {
                 id = '' + id;
                 id = window.replaceAll(id, ':', '');
@@ -639,21 +634,19 @@
             });
             $(document).on('click', '#ajapaik-curator-gallery-switch', function () {
                 $('.ajapaik-curator-selection-controls').hide();
-                $('.ajapaik-curator-selection-item').removeClass('row').addClass('thumbnail').addClass('col-xs-2');
-                $('.ajapaik-curator-selection-image').removeClass('col-xs-6').addClass('ajapaik-curator-selection-image-min-max');
+                $('.ajapaik-curator-selection-item').removeClass('row').addClass('thumbnail').addClass('col-2');
                 window._gaq.push(['_trackEvent', 'Curator', 'Gallery mode']);
             });
             $(document).on('click', '#ajapaik-curator-list-switch', function () {
                 $('.ajapaik-curator-selection-controls').show();
-                $('.ajapaik-curator-selection-item').addClass('row').removeClass('thumbnail').removeClass('col-xs-2');
-                $('.ajapaik-curator-selection-image').addClass('col-xs-6').removeClass('ajapaik-curator-selection-image-min-max');
+                $('.ajapaik-curator-selection-item').addClass('row').removeClass('thumbnail').removeClass('col-2');
                 window._gaq.push(['_trackEvent', 'Curator', 'List mode']);
             });
             $(document).on('click', '#ajapaik-curator-submit-selection', function () {
                 $('#ajapaik-curator-upload-error').hide();
                 // TODO: Album area selection
                 $('#ajapaik-curator-add-area-name').val(null);
-                $('#ajapaik-curator-add-area-name-hidden').val(null);
+                $('#ajapaik-curator-add-area-name-d-none').val(null);
                 window.areaLat = null;
                 window.areaLng = null;
                 $('#ajapaik-choose-albums-modal').modal('show');
@@ -767,7 +760,7 @@
                             $('#ajapaik-curator-points-awarded').html(response.total_points_for_curating);
                             $('#ajapaik-curator-add-album-name').val(null);
                             $('#ajapaik-curator-add-album-description').val(null);
-                            $('#ajapaik-curator-add-area-name-hidden').val(null);
+                            $('#ajapaik-curator-add-area-name-d-none').val(null);
                             $('#ajapaik-curator-create-new-album-checkbox').val(false);
                             feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                                 $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));

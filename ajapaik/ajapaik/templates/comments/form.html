@@ -5,7 +5,7 @@
 {% else %}
     <h4>{% trans "Your comment" %}</h4>
     <div class="well">
-        <div class="hidden" data-comment-element="preview"></div>
+        <div class="d-none" data-comment-element="preview"></div>
         <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
             action="{% comment_form_target %}" class="form-horizontal" id="ajapaik-comment-form">
             <fieldset>
@@ -18,7 +18,7 @@
                         {{ field }}
                     {% endif %}
                 {% endfor %}
-                <div class="alert alert-danger hidden" data-comment-element="errors"></div>
+                <div class="alert alert-danger d-none" data-comment-element="errors"></div>
                 <div style="display:none">{{ form.honeypot }}</div>
                 <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
                     <div class="comment-box col-lg-12 col-md-12">

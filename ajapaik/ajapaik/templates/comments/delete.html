@@ -8,7 +8,7 @@
 {% block layout %}
     <div style="background: #eee; padding: 20px 10px 1px;">
         <h1>{% trans "Really remove this comment?" %}</h1>
-        <blockquote>{{ comment|linebreaks }}</blockquote>
+        <div class="blockquote">{{ comment|linebreaks }}</div>
         <form action="." method="post">{% csrf_token %}
             {% if next %}
                 <div><input type="hidden" name="next" value="{{ next }}" id="next"/></div>{% endif %}

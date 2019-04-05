@@ -4,9 +4,9 @@
 {% block layout %}
     <div class="container" style="padding-top: 100px;">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="single">
-                    <div class="score_container ajapaik-score-container-static">
+                    <div class="score_container ajapaik-score-container-static d-block">
                         <ul class="scoreboard" style="overflow-y:auto;padding-right:10px;">
                             {% include "_block_leaderboard.html" %}
                         </ul>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row" style="margin-top: 50px;">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <a href="/">{% trans "Back home" %}</a>
             </div>
         </div>

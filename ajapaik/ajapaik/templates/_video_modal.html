@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="modal-dialog modal-lg modal-xxl" id="mapview-photo-modal-dialog">
+<div class="modal-dialog modal-xxl mx-auto" id="mapview-photo-modal-dialog">
     <div class="modal-content">
         <div class="modal-header ajapaik-no-bottom-border-modal-header" id="ajapaik-video-modal-header">
             <button id="ajapaik-video-modal-close-button" type="button" class="close" aria-label="Close">
@@ -10,20 +10,20 @@
         <div class="modal-body" id="ajapaik-video-modal-body">
             <video id="ajapaik-modal-video" controls autoplay src="{{ video.file.url }}"></video>
             <div id="ajapaik-video-modal-speed-buttons" class="btn-group" role="group">
-                <button type="button" data-speed="0.25" class="btn btn-default">0.25x</button>
-                <button type="button" data-speed="0.5" class="btn btn-default">0.5x</button>
-                <button type="button" data-speed="1" class="btn btn-default active">1x</button>
-                <button type="button" data-speed="1.25" class="btn btn-default">1.25x</button>
-                <button type="button" data-speed="1.5" class="btn btn-default">1.5x</button>
-                <button type="button" data-speed="2" class="btn btn-default">2x</button>
-                <button type="button" data-speed="3" class="btn btn-default">3x</button>
-                <button type="button" data-speed="4" class="btn btn-default">4x</button>
+                <button type="button" data-speed="0.25" class="btn btn-secondary">0.25x</button>
+                <button type="button" data-speed="0.5" class="btn btn-secondary">0.5x</button>
+                <button type="button" data-speed="1" class="btn btn-secondary active">1x</button>
+                <button type="button" data-speed="1.25" class="btn btn-secondary">1.25x</button>
+                <button type="button" data-speed="1.5" class="btn btn-secondary">1.5x</button>
+                <button type="button" data-speed="2" class="btn btn-secondary">2x</button>
+                <button type="button" data-speed="3" class="btn btn-secondary">3x</button>
+                <button type="button" data-speed="4" class="btn btn-secondary">4x</button>
             </div>
         </div>
         <div class="modal-footer">
             {% if not request.user.profile.is_legit %}
                 <div class="row">
-                    <div id="ajapaik-video-modal-anaonymous-warning" class="pull-left">
+                    <div id="ajapaik-video-modal-anaonymous-warning" class="float-left">
                         {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
                     </div>
                 </div>
@@ -45,13 +45,13 @@
                         <div class="row">
                             <a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
                                target="_blank" href="{{ video.source_url }}"
-                               title="{{ video.source.description }}"
-                               class="pull-left">{{ video.source.description }} {{ video.source_key }}</a>
+                               rel="noopener nofollow" title="{{ video.source.description }}"
+                               class="float-left">{{ video.source.description }} {{ video.source_key }}</a>
                         </div>
                     {% endif %}
                 </div>
                 <div class="col-xs-3">
-                    <button id="ajapaik-video-modal-still-button" class="btn disabled pull-right"><i
+                    <button id="ajapaik-video-modal-still-button" class="btn disabled float-right"><i
                             class="material-icons notranslate">camera</i></button>
                 </div>
             </div>

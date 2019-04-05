@@ -1,12 +1,12 @@
 {% verbatim %}
     <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
-        <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[13]%}" class="ajapaik-frontpage-image-container"
-        id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;">
-            <img alt="{%=o[3]%}" title="{%=o[3]%}" src="" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[13]%}"
-                class="ajapaik-frontpage-image lazyload img-responsive" data-id="{%=o[0]%}"
+        <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[14]%}" class="ajapaik-frontpage-image-container"
+        id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;" rel="noopener">
+            <img alt="{%=o[3]%}" title="{%=o[3]%}" src="" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[15]%}"
+                class="ajapaik-frontpage-image lazyload img-fluid" data-id="{%=o[0]%}"
                 width="{%=o[1]%}" height="{%=o[2]%}"/>
             {% if (userIsSocialConnected) { %}
-                <button class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-white{% } %}" data-id="{%=o[0]%}">
+                <button class="ajapaik-thumbnail-selection-icon{% if (o[11] == 1) { %} ajapaik-thumbnail-selection-icon-blue{% } %}" data-id="{%=o[0]%}">
                     <i class="material-icons notranslate">check_circle</i>
                 </button>
             {% } %}
@@ -34,7 +34,12 @@
                         title="{%=gettext('Image has rephotos')%}">
                     </div>
                 {% } %}
-                <span class="ajapaik-frontpage-comments-count {% if (!o[8] || o[8] == 0) { %}hidden{% } %}" title="{%=gettext('Comments')%}">
+                {% if (o[13] > 0 | o[14] > 0) { %}
+                    <div class="ajapaik-frontpage-similar-photo-count"
+                        title="{%=gettext('Image has similar photos')%}">
+                    </div>
+                {% } %}
+                <span class="ajapaik-frontpage-comments-count {% if (!o[8] || o[8] == 0) { %}d-none{% } %}" title="{%=gettext('Comments')%}">
                 </span>
             </div>
             <div class="caption ajapaik-caption">{%=o[3]%}</div>
