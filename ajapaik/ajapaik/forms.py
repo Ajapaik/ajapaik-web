@@ -467,3 +467,11 @@ class ApiUserRephotosForm(forms.Form):
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
+
+class ApiWikidocsAlbumsSearchForm(forms.Form):
+    query = forms.CharField(required=False)
+    language = forms.CharField(required=False)
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+    start = forms.IntegerField(required=False)
+    limit = forms.IntegerField(required=False)
