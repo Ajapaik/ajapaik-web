@@ -450,7 +450,7 @@
             window.photoModalPhotoAzimuth = null;
             $.ajax({
                 cache: false,
-                url: '/foto/' + id + '/?isFrontpage=1',
+                url: '/photo/' + id + '/?isFrontpage=1',
                 success: function (result) {
                     window.nextPhotoLoading = false;
                     openPhotoDrawer(result);

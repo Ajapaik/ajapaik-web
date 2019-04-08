@@ -1,6 +1,6 @@
 {% extends "base_bootstrap.html" %}
 
-{% load i18n bootstrap3 %}
+{% load i18n bootstrap4 %}
 
 {% block layout %}
     <div class="container pt-5">
@@ -18,11 +18,11 @@
                 <b>{% trans "OR" %}</b>
                 <br/>
                 <div class="facebook-connect mt-2">
-                    <a href="/facebook/login?next=/" class="ir">{% trans "Connect with Facebook" %}</a>
+                    <a href="{% provider_login_url 'facebook' %}?next=/" class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next=/" class="ir">{% trans "Connect with Google" %}</a>
+                    <a href="{% provider_login_url 'google' %}/?next=/" class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>
         </div>

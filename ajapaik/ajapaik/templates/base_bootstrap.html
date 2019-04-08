@@ -131,9 +131,9 @@
                 <meta property="og:url" content="{{ hostname }}?photo={{ rephoto.rephoto_of.id }}"/>
             {% else %}
                 {% if is_photoview and not rephoto %}
-                    <meta property="og:url" content="{{ hostname }}/foto/{{ photo.id }}/"/>
+                    <meta property="og:url" content="{{ hostname }}/photo/{{ photo.id }}/"/>
                 {% elif is_photoview and rephoto %}
-                    <meta property="og:url" content="{{ hostname }}/foto/{{ rephoto.id }}/"/>
+                    <meta property="og:url" content="{{ hostname }}/photo/{{ rephoto.id }}/"/>
                 {% else %}
                     <meta property="og:url" content="{{ hostname }}{{ request.path }}"/>
                 {% endif %}

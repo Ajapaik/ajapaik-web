@@ -33,13 +33,13 @@
             </a>
             {% if previous_photo %}
                 <a class="ajapaik-photo-modal-previous-button"
-                    href="{% url `foto' previous_photo.pk previous_photo.get_pseudo_slug %}">
+                    href="{% url 'photo' previous_photo.pk previous_photo.get_pseudo_slug %}">
                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
                 </a>
             {% endif %}
             {% if next_photo %}
                 <a class="ajapaik-photo-modal-next-button"
-                    href="{% url `foto' next_photo.pk next_photo.get_pseudo_slug %}">
+                    href="{% url 'photo' next_photo.pk next_photo.get_pseudo_slug %}">
                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
                 </a>
             {% endif %}
@@ -127,7 +127,7 @@
         <div id="ajapaik-photoview-rephoto-selection" class="col-auto h-100 px-0">
             {% for similar_photo in photo.similar_photos.all %}
                 <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                    <a href="{% url `foto' similar_photo.id similar_photo.get_pseudo_slug %}">
+                    <a href="{% url 'photo' similar_photo.id similar_photo.get_pseudo_slug %}">
                         <img src="{% url 'image_thumb' similar_photo.id 250 similar_photo.get_pseudo_slug %}"
                             class="img-fluid ajapaik-photoview-rephoto-thumb"
                             alt="{{ photo.description }} {% trans "similar photo" %}"
@@ -139,7 +139,7 @@
             {% endfor %}
             {% for confirmed_similar_photo in photo.confirmed_similar_photos.all %}
                 <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                    <a href="{% url `foto' confirmed_similar_photo.id confirmed_similar_photo.get_pseudo_slug %}">
+                    <a href="{% url 'photo' confirmed_similar_photo.id confirmed_similar_photo.get_pseudo_slug %}">
                         <img src="{% url 'image_thumb' confirmed_similar_photo.id 250 confirmed_similar_photo.get_pseudo_slug %}"
                             class="img-fluid ajapaik-photoview-rephoto-thumb"
                             alt="{{ photo.description }} {% trans "confirmed similar photo" %}"
@@ -156,7 +156,7 @@
                 <div id="ajapaik-photoview-rephoto-selection">
                     {% for rephoto in photo.rephotos.all %}
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                            <a href="{% url `foto' rephoto.id rephoto.get_pseudo_slug %}"
+                            <a href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}"
                             class="col-xs-12">
                                 <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                     class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
@@ -412,7 +412,7 @@
     });
     $(document).on('click', '#ajapaik-photoview-header-map-button', function () {
         var albumId = $('#id_album').val(),
-            mapURL = '{% url 'mapview' %}';
+            mapURL = '{% url 'map' %}';
         window.location.href = mapURL + '?album=' + albumId;
     });
     $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {

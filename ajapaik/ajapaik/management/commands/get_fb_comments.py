@@ -23,10 +23,10 @@ class Command(BaseCommand):
             first = True
             for p in photo_batch:
                 if first:
-                    or_clause += "https://ajapaik.ee/foto/" + str(p.id) + '/'
+                    or_clause += "https://ajapaik.ee/photo/" + str(p.id) + '/'
                     first = False
                 else:
-                    or_clause += ",https://ajapaik.ee/foto/" + str(p.id) + '/'
+                    or_clause += ",https://ajapaik.ee/photo/" + str(p.id) + '/'
             if len(or_clause) > 4:
                 response = json.loads(requests.get(
                     'https://graph.facebook.com/v2.5/?format=json&access_token=%s&%s' % (

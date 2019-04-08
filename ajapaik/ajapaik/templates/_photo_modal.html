@@ -16,7 +16,7 @@
                                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
                                 </div>
                                 <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
-                                   href="{% url `foto' photo.id photo.get_pseudo_slug %}">
+                                   href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
                                     <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                          class="w-100" alt="{{ photo.description }}" title="{{ photo.description }}"
                                          id="ajapaik-modal-photo"/>
@@ -78,7 +78,7 @@
                             <div id="ajapaik-modal-rephoto-container-container">
                                 <div id="ajapaik-modal-rephoto-container">
                                     <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
-                                       href="{% url `foto' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
+                                       href="{% url 'photo' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
                                         <img src="{% url 'image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
                                             class="w-100"
                                             id="ajapaik-modal-rephoto"

@@ -1,0 +1,30 @@
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/utils.py", line 146, in perform_login
+ajapaik  |     send_email_confirmation(request, user, signup=signup)
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/utils.py", line 314, in send_email_confirmation
+ajapaik  |     signup=signup)
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/models.py", line 60, in send_confirmation
+ajapaik  |     confirmation.send(request, signup=signup)
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/models.py", line 166, in send
+ajapaik  |     get_adapter(request).send_confirmation_mail(request, self, signup)
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/adapter.py", line 450, in send_confirmation_mail
+ajapaik  |     ctx)
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/allauth/account/adapter.py", line 137, in send_mail
+ajapaik  |     msg.send()
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/django/core/mail/message.py", line 348, in send
+ajapaik  |     return self.get_connection(fail_silently).send_messages([self])
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/django/core/mail/backends/smtp.py", line 104, in send_messages
+ajapaik  |     new_conn_created = self.open()
+ajapaik  |   File "/usr/local/lib/python3.6/site-packages/django/core/mail/backends/smtp.py", line 64, in open
+ajapaik  |     self.connection = self.connection_class(self.host, self.port, **connection_params)
+ajapaik  |   File "/usr/local/lib/python3.6/smtplib.py", line 251, in __init__
+ajapaik  |     (code, msg) = self.connect(host, port)
+ajapaik  |   File "/usr/local/lib/python3.6/smtplib.py", line 336, in connect
+ajapaik  |     self.sock = self._get_socket(host, port, self.timeout)
+ajapaik  |   File "/usr/local/lib/python3.6/smtplib.py", line 307, in _get_socket
+ajapaik  |     self.source_address)
+ajapaik  |   File "/usr/local/lib/python3.6/socket.py", line 724, in create_connection
+ajapaik  |     raise err
+ajapaik  |   File "/usr/local/lib/python3.6/socket.py", line 713, in create_connection
+ajapaik  |     sock.connect(sa)
+ajapaik  | OSError: [Errno 113] No route to host
+ajapaik  | [06/Apr/2019 00:51:23] "POST /accounts/login/ HTTP/1.1" 500 21529

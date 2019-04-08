@@ -34,12 +34,13 @@
                 <br/>
                 {# TODO: next handling #}
                 <div class="facebook-connect">
-                    <a href="/facebook/login?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
+                        href="{% provider_login_url 'facebook' %}"
+                    <a href="{% provider_login_url 'facebook' %}?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Facebook" %}</a>
                 </div>
                 <br/>
                 <div class="google-plus-connect">
-                    <a href="/google-login/?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
+                    <a href="{% provider_login_url 'google' %}?next={% if is_user_upload %}{% url 'user_upload' %}{% else %}/{% endif %}"
                        class="ir">{% trans "Connect with Google" %}</a>
                 </div>
             </div>

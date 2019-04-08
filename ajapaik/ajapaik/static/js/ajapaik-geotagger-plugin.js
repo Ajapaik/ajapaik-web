@@ -327,7 +327,7 @@
             "                </div>",
             "            </div>",
             "        </div>",
-            "        <div id='ajp-geotagger-confirm-controls' class='d-inline-block w-100'>",
+            "        <div id='ajp-geotagger-confirm-controls' class='w-100'>",
             "            <div class='btn-group btn-group d-flex' role='group' id='ajp-geotagger-game-buttons' aria-label='ajp-geotagger-game-buttons'>",
             "                <div class='btn-group w-100' role='group'>",
             "                    <button type='button' id='ajp-geotagger-skip-button' class='btn btn-secondary ajp-no-border-radius w-50'>",

@@ -16,10 +16,10 @@
     {% endif %}
 </b></div>
 <div class="facebook-connect mt-1">
-    <a href="/facebook/login" class="ir">{% trans "Connect with Facebook" %}</a>
+    <a href="{% provider_login_url 'facebook' %}" class="ir">{% trans "Connect with Facebook" %}</a>
 </div>
 <div class="google-plus-connect ml-0 my-1">
-    <a href="/google-login/" class="ir">{% trans "Connect with Google" %}</a>
+    <a href="{% provider_login_url 'google' %}" class="ir">{% trans "Connect with Google" %}</a>
 </div>
 <form method="post" action="{% url 'account_login' %}" class="form">
     {% csrf_token %}
@@ -29,7 +29,7 @@
            placeholder="{% trans "Password" %}" required="required" title="" type="password" autocomplete="current-password">
     <input name="next" type="hidden" value="{% if type == "rephoto_upload" %}{{ next }}{% else %}{{ request.get_full_path }}{% endif %}">
     <br/>
-    <a class="d-inline-block w-50 pr-2" href="{% url 'registration_register' %}">
+    <a class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
         {% trans "Register with e-mail" %}
     </a>
     <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button">
