@@ -41,3 +41,5 @@ scikit-learn
 sorl-thumbnail
 transifex-client
 typing
+bleach
+bleach-whitelist
