@@ -387,6 +387,7 @@ class CuratorWholeSetAlbumsSelectionForm(forms.Form):
 class CommentForm(XtdCommentForm):
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['email'] = forms.EmailField(label=_("Email address"), required=False)
         self.fields['comment'] = forms.CharField(
             widget=forms.Textarea(
                 attrs={
