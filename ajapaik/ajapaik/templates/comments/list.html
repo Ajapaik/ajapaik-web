@@ -16,7 +16,8 @@
             </div>
             <div class="media-body">
                 <h6 class="media-heading">
-                    {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
+                    <!-- FIXME 20190409 REMOVE comment.user.profile.fb_name failback WHEN ALLAUTH IS MERGED AND THIS IS FIXED -->
+                    {{ comment.user.profile.fb_name|default:comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                     <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Like" %}
                         <span class="{% if comment.like_count <= 0 %}hidden{% endif %}" id="ajapaik-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>
