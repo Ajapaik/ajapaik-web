@@ -21,17 +21,6 @@
     {% endif %}
 
     <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if request.user.profile.is_legit %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
     {% if request.user.profile.is_legit %}
     {% block content %}
     {% endblock %}
@@ -42,6 +31,23 @@
     {% block extra_body %}
     {% endblock %}
     {% endif %}
+    </div>
+
+    <div class='allauth-menu'>
+      <strong>Menu:</strong>
+      <ul>
+        {% if request.user.profile.is_legit %}
+        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <li><a href="{% url 'account_change_password' %}">Change password</a>
+        <li><a href="{% url 'socialaccount_connections' %}">Socialaccount connections</a>
+        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}">Sign In</a></li>
+        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
 
             </div>
         </div>

@@ -2837,6 +2837,12 @@ input[type="search"]::-webkit-search-cancel-button {
     display: inline-block;
 }
 
-#signup_form > p > label, .login > p > label {
+#signup_form > p > label, 
+.login > p > label,
+.password_change > p > label {
     width: 10em;
+}
+
+.allauth-menu {
+    margin-top:1em;
 }
