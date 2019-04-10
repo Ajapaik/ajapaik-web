@@ -20,7 +20,7 @@
     </div>
     {% endif %}
 
-    <div>
+    <!--div>
       <strong>Menu:</strong>
       <ul>
         {% if request.user.profile.is_legit %}
@@ -31,17 +31,12 @@
         <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
         {% endif %}
       </ul>
-    </div>
-    {% if request.user.profile.is_legit %}
+    </div-->
     {% block content %}
     {% endblock %}
-    {% endif %}
     {% endblock %}
-
-    {% if request.user.profile.is_legit %}
     {% block extra_body %}
     {% endblock %}
-    {% endif %}
 
             </div>
         </div>
