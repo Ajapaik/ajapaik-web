@@ -99,186 +99,206 @@ class CustomParsersMixin(object):
     parser_classes = (FormParser, MultiPartParser,)
 
 
-# @parser_classes((FormParser,))
-# def login_auth(request, auth_type='login'):
-#     form = forms.APILoginAuthForm(request.data)
-#     content = {
-#         'error': 0,
-#         'session': None,
-#         'expires': 86400
-#     }
-#     user = None
+class Login(CustomParsersMixin, APIView):
+    '''
+    API endpoint to login user.
+    '''
 
-#     if form.is_valid():
-#         t = form.cleaned_data['type']
-#         uname = form.cleaned_data['username']
-#         if t == 'ajapaik' or t == 'auto':
-#             # Why do not using some validators?
-#             uname = uname[:30]
-#         pw = form.cleaned_data['password']
+    permission_classes = (AllowAny,)
 
-#         if t == 'ajapaik':
-#             num_same_users = User.objects.filter(username=uname).count()
-#             if auth_type == 'register':
-#                 if num_same_users > 0:
-#                     # user exists in the DB already
-#                     content['error'] = 8
-#                     return content
-#                 User.objects.create_user(username=uname, password=pw)
-#             elif num_same_users == 0:
-#                 # user does not exists
-#                 content['error'] = 10
-#                 return content
+    def _authenticate_by_email(self, email, password):
+        '''
+        Authenticate user with email and password.
+        '''
+        user = authenticate(email=email, password=password)
+        if user is not None and not user.is_active:
+            # We found user but this user is disabled. "authenticate" does't
+            # checking is user is disabled(at least in Django 1.8).
+            return
+        return user
 
-#             user = authenticate(username=uname, password=pw)
-#             if user:
-#                 # For register
-#                 profile = user.profile
-#             elif auth_type == 'login':
-#                 # user exists but password is incorrect
-#                 content['error'] = 11
-#                 return content
+    def _authenticate_with_google(self, request, token):
+        '''
+        Returns user by ID token that we get from mobile application after user
+        authentication there.
+        '''
+        idinfo = id_token.verify_oauth2_token(
+            token, requests.Request(), GOOGLE_CLIENT_ID
+        )
+        adapter = GoogleOAuth2Adapter(request)
+        login = adapter.get_provider().sociallogin_from_response(
+            request,
+            {
+                'email': idinfo['email'],
+                'family_name': idinfo['family_name'],
+                'gender': '',
+                'given_name': idinfo['given_name'],
+                'id': idinfo['sub'],
+                'link': '',
+                'locale': idinfo['locale'],
+                'name': idinfo['name'],
+                'picture': idinfo['picture'],
+                'verified_email': idinfo['email_verified'],
+            }
+        )
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
-#         elif t == 'auto':
-#             num_same_users = User.objects.filter(username=uname).count()
-#             if num_same_users == 0:
-#                 User.objects.create_user(username=uname, password=pw)
+    def _authenticate_with_facebook(self, request, access_token):
+        '''
+        Returns user by facebook access_token.
+        '''
+        adapter = FacebookOAuth2Adapter(request)
+        app = adapter.get_provider().get_app(request)
+        token = adapter.parse_token({'access_token': access_token})
+        token.app = app
+        login = adapter.complete_login(request, app, token)
+        login.token = token
+        login.state = {
+            'auth_params': '',
+            'process': 'login',
+            'scope': ''
+        }
+        complete_social_login(request, login)
+        return login.user
 
-#             user = authenticate(username=uname, password=pw)
-#             if user:
-#                 profile = user.profile
-#                 if form.cleaned_data['firstname'] and form.cleaned_data['lastname']:
-#                     user.first_name = form.cleaned_data['firstname']
-#                     user.last_name = form.cleaned_data['lastname']
-#                     user.save()
-#                 profile.merge_from_other(request.get_user().profile)
-#             else:
-#                 # user exists but password is incorrect
-#                 content['error'] = 11
-#                 return content
+    def post(self, request, format=None):
+        form = forms.APILoginForm(request.data)
+        if form.is_valid():
+            login_type = form.cleaned_data['type']
+            if login_type == forms.APILoginForm.LOGIN_TYPE_AJAPAIK:
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                if password is None:
+                    return Response({
+                        'error': RESPONSE_STATUSES['MISSING_PARAMETERS'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                user = self._authenticate_by_email(email, password)
+                if user is not None:
+                    get_adapter(request).login(request, user)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
+                id_token = form.cleaned_data['username']
+                user = self._authenticate_with_google(request._request,
+                                                      id_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
+                access_token = form.cleaned_data['password']
+                user = self._authenticate_with_facebook(request._request,
+                                                        access_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
+                # Deprecated. Keeped for back compatibility.
+                user = None
 
-#         elif t == 'google':
-#             # response = requests.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % pw)
+            if user is None:
+                # We can't authenticate user with provided data.
+                return Response({
+                    'error': RESPONSE_STATUSES['MISSING_USER'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
 
-#             try:
-#                 idinfo = client.verify_id_token(pw, settings.GOOGLE_CLIENT_ID)
+            if not request.session.session_key:
+                request.session.save()
 
-#                 if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-#                     raise crypt.AppIdentityError("Wrong issuer.")
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'id': user.id,
+                'session': request.session.session_key,
+                'expires': request.session.get_expiry_age(),
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
 
-#             except crypt.AppIdentityError:
-#                 content['error'] = 11
-#                 return content
+class Register(CustomParsersMixin, APIView):
+    '''
+    API endpoint to register user.
+    '''
 
-#             profile = Profile.objects.filter(google_plus_email=uname).first()
-#             if profile:
-#                 request_profile = request.get_user().profile
-#                 if request.user and request.user.is_authenticated():
-#                     profile.merge_from_other(request_profile)
+    permission_classes = (AllowAny,)
 
-#                 user = profile.user
-#                 request.set_user(user)
-#             else:
-#                 user = request.get_user()
-#                 profile = user.profile
+    def post(self, request, format=None):
+        form = forms.APIRegisterForm(request.data)
+        if form.is_valid():
+            registration_type = form.cleaned_data['type']
+            if registration_type == forms.APIRegisterForm.REGISTRATION_TYPE_AJAPAIK:
+                email = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                firstname = form.cleaned_data['firstname']
+                lastname = form.cleaned_data['lastname']
 
-#             user.backend = 'django.contrib.auth.backends.ModelBackend'
-#             # headers = {'Authorization': 'Bearer ' + pw}
-#             # user_info = requests.get('https://www.googleapis.com/oauth2/v1/userinfo', headers=headers)
-#             idinfo['id'] = idinfo['sub']
-#             profile.update_from_google_plus_data(pw, idinfo)
+                account_signup_form = SignupForm(data={
+                    'email': email,
+                    'password1': password,
+                    'password2': password,
+                })
+                if not account_signup_form.is_valid():
+                    return Response({
+                        'error': RESPONSE_STATUSES['UNKNOWN_ERROR'],
+                        'id': None,
+                        'session': None,
+                        'expires': None,
+                    })
+                new_user = account_signup_form.save(request._request)
 
-#         elif t == 'fb':
-#             # response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (pw, APP_ID + '|' + FACEBOOK_APP_SECRET))
-#             response = requests.get('https://graph.facebook.com/debug_token?input_token=%s&access_token=%s' % (
-#                 pw, settings.FACEBOOK_APP_ID + '|' + settings.FACEBOOK_APP_SECRET))
-#             parsed_reponse = loads(response.text)
-#             if settings.FACEBOOK_APP_ID == parsed_reponse.get('data', {}).get('app_id') and parsed_reponse.get('data',
-#                                                                                                                {}).get(
-#                     'is_valid'):
-#                 fb_user_id = parsed_reponse['data']['user_id']
-#                 profile = Profile.objects.filter(fb_id=fb_user_id).first()
-#                 if profile:
-#                     request_profile = request.get_user().profile
-#                     if request.user and request.user.is_authenticated():
-#                         profile.merge_from_other(request_profile)
+                new_user.first_name = firstname
+                new_user.last_name = lastname
+                new_user.save()
 
-#                     user = profile.user
-#                     request.set_user(user)
-#                 else:
-#                     user = request.get_user()
-#                     profile = user.profile
-
-#                 user.backend = 'django.contrib.auth.backends.ModelBackend'
-#                 fb_permissions = ['id', 'name', 'first_name', 'last_name', 'link', 'email']
-#                 # FIXME: Shouldn't 2.5 be dead long ago?
-#                 fb_get_info_url = "https://graph.facebook.com/v2.5/me?fields=%s&access_token=%s" % (
-#                     ','.join(fb_permissions), pw)
-#                 user_info = requests.get(fb_get_info_url)
-#                 profile.update_from_fb_data(pw, loads(user_info.text))
-
-#             else:
-#                 content['error'] = 11
-#                 return content
-
-#         if not user and t == 'auto':
-#             User.objects.create_user(username=uname, password=pw)
-#             user = authenticate(username=uname, password=pw)
-
-#         if auth_type == 'register' and request.user:
-#             profile.merge_from_other(request.user.profile)
-#             if t == 'google':
-#                 profile.update_from_google_plus_data(parsed_reponse)
-#             elif t == 'facebook':
-#                 profile.update_from_fb_data(parsed_reponse['data'])
-#     else:
-#         content['error'] = 2
-#         return content
-
-#     if user:
-#         login(request, user)
-#         content['id'] = user.id
-
-#         if not request.session.session_key:
-#             request.session.save()
-#         content['session'] = request.session.session_key
-#     else:
-#         content['error'] = 4
-
-#     return content
-
-
-# @api_view(['POST'])
-# @parser_classes((FormParser,))
-# @permission_classes((AllowAny,))
-# def api_login(request):
-#     content = login_auth(request)
-#     return Response(content)
-
-
-# @api_view(['POST'])
-# @parser_classes((FormParser,))
-# @authentication_classes((CustomAuthentication,))
-# @permission_classes((AllowAny,))
-# def api_register(request):
-#     content = user = login_auth(request, 'register')
-#     return Response(content)
+                complete_signup(
+                    request._request,
+                    new_user,
+                    account_app_settings.EMAIL_VERIFICATION,
+                    None
+                )
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'id': new_user.id,
+                    'session': None,
+                    'expires': None,
+                })
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
 
 
-# @api_view(['POST'])
-# @parser_classes((FormParser,))
-# @authentication_classes((CustomAuthentication,))
-# @permission_classes((IsAuthenticated,))
-# def api_logout(request):
-#     try:
-#         session_id = request.data['_s']
-#     except KeyError:
-#         return Response({'error': 4})
-#     try:
-#         Session.objects.get(pk=session_id).delete()
-#         return Response({'error': 0})
-#     except ObjectDoesNotExist:
-#         return Response({'error': 2})
+@api_view(['POST'])
+@parser_classes((FormParser,))
+@authentication_classes((CustomAuthentication,))
+@permission_classes((IsAuthenticated,))
+def api_logout(request):
+    try:
+        session_id = request.data['_s']
+    except KeyError:
+        return Response({'error': 4})
+    try:
+        Session.objects.get(pk=session_id).delete()
+        return Response({'error': 0})
+    except ObjectDoesNotExist:
+        return Response({'error': 2})
 
 
 @never_cache
