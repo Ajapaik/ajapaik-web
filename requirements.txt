@@ -39,6 +39,7 @@ scikit-learn
 sorl-thumbnail
 transifex-client
 typing
+markdown<3
 
 # legacy packages
 oauth2client==2.2.0
