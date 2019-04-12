@@ -40,6 +40,7 @@ sorl-thumbnail
 transifex-client
 typing
 markdown<3
+google-auth
 
 # legacy packages
 oauth2client==2.2.0
