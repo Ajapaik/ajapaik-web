@@ -1,4 +1,5 @@
 import autocomplete_light
+from allauth.account.forms import SignupForm as AllauthSignupForm
 from django import forms
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -6,34 +7,20 @@ from django.utils.translation import ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
-from registration.forms import RegistrationFormUniqueEmail
 
-from .models import Area, Album, Photo, GeoTag, PhotoLike, Profile, Dating, \
-    Video, Licence
+from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
+                     Profile, Video)
 
 
-class UserRegistrationForm(RegistrationFormUniqueEmail):
-    username = forms.CharField(max_length=254, required=False, widget=forms.HiddenInput())
+class SignupForm(AllauthSignupForm):
     first_name = forms.CharField(label=_('First name'), max_length=30)
     last_name = forms.CharField(label=_('Last name'), max_length=30)
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        self.cleaned_data['username'] = email
-        return email
-
-
-class APILoginAuthForm(forms.Form):
-    type = forms.CharField(max_length=255)
-    username = forms.CharField(max_length=255)
-    # For Google+ oAuth
-    password = forms.CharField(max_length=2048)
-    version = forms.FloatField(required=False)
-    length = forms.IntegerField(required=False, initial=0)
-    os = forms.CharField(max_length=255, required=False, initial='android')
-    firstname = forms.CharField(max_length=255, required=False)
-    lastname = forms.CharField(max_length=255, required=False)
-
+    def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return user
 
 class APIAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
@@ -41,6 +28,63 @@ class APIAuthForm(forms.Form):
     _l = forms.CharField(max_length=2, required=False)
     _v = forms.FloatField(required=False)
 
+
+class APILoginForm(forms.Form):
+    LOGIN_TYPE_AUTO = 'auto'
+    LOGIN_TYPE_AJAPAIK = 'ajapaik'
+    LOGIN_TYPE_GOOGLE = 'google'
+    LOGIN_TYPE_FACEBOOK = 'fb'
+    LOGIN_TYPES = [
+        (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
+                                    # This depricated behaviour before
+                                    # django-allauth integration.
+        (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
+        (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
+
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
+
+    type = forms.ChoiceField(choices=LOGIN_TYPES)
+    username = forms.CharField(max_length=2048)
+    password = forms.CharField(max_length=2048, required=False)
+    version = forms.FloatField(required=False)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.ChoiceField(
+        choices=OS_TYPES,
+        required=False,
+        initial=OS_TYPE_ANDROID
+    )
+
+class APIRegisterForm(forms.Form):
+    REGISTRATION_TYPE_AJAPAIK = 'ajapaik'
+    REGISTRATION_TYPE_GOOGLE = 'google'
+    REGISTRATION_TYPE_FACEBOOK = 'facebook'
+    REGISTRATION_TYPES = [
+        (REGISTRATION_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
+        (REGISTRATION_TYPE_GOOGLE, 'Google'),  # Google login.
+        (REGISTRATION_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+    ]
+
+    OS_TYPE_ANDROID = 'android'
+    OS_TYPES = [
+        (OS_TYPE_ANDROID, 'Android'),
+    ]
+
+    type = forms.ChoiceField(choices=REGISTRATION_TYPES)
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=1105)
+    firstname = forms.CharField(max_length=255)
+    lastname = forms.CharField(max_length=255)
+    length = forms.IntegerField(required=False, initial=0)
+    os = forms.ChoiceField(
+        required=False,
+        choices=OS_TYPES,
+        initial=OS_TYPE_ANDROID
+    )
 
 # TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):

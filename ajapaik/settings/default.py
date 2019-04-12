@@ -201,8 +201,7 @@ ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://solr:8983/solr/tester',
-        'ADMIN_URL': 'http://solr:8983/solr/admin/cores'
+        'URL': 'http://127.0.0.1:8983/solr/collection1',
     },
 }
 
@@ -339,18 +338,18 @@ CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 # Since Celery makes us use Redis anyway, use it some more
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'redis:6379',
-        'OPTIONS': {
-            'DB': 1,
-            'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-            'PICKLE_VERSION': -1,
-        },
-    },
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'redis_cache.RedisCache',
+#         'LOCATION': 'redis:6379',
+#         'OPTIONS': {
+#             'DB': 1,
+#             'PARSER_CLASS': 'redis.connection.HiredisParser',
+#             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+#             'PICKLE_VERSION': -1,
+#         },
+#     },
+# }
 
 GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 
@@ -362,6 +361,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
+ACCOUNT_USER_DISPLAY = lambda user: user.profile.fb_name if (user.profile and user.profile.fb_name) else user.get_full_name()
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -371,6 +371,14 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+# Autologin, after email confirmation, only works when confirming the email
+# address immediately after signing up, assuming users didn’t close their
+# browser or used some sort of private browsing mode.
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_FORMS = {
+    'signup': 'ajapaik.ajapaik.forms.SignupForm',
+}
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

@@ -98,6 +98,9 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+    url(r'^api/v1/login/$', api.Login.as_view()),
+    url(r'^api/v1/register/$', api.Register.as_view(), name='api_register'),
+    url(r'^api/v1/logout/$', api.api_logout),
     url(r'^api/v1/user/me/$', api.api_user_me),
     url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/finna/nearest/$', api.FinnaNearestPhotos.as_view()),
@@ -159,9 +162,6 @@ urlpatterns += [
     url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^face-recognition/', include('ajapaik.ajapaik_face_recognition.urls')),
 ]
-
-handler500 = 'custom_500'
-handler404 = 'custom_404'
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += [
