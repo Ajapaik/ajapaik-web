@@ -1342,6 +1342,7 @@ position: absolute;
 }
 
 #ajapaik-modal-photo {
+  min-height: 200px;
   margin: 0 auto;
   padding: 0 !important;
 }
@@ -1352,13 +1353,20 @@ position: absolute;
 }
 
 #ajapaik-photo-modal-map-container {
+  min-height: 200px;
   display: inline-block;
   position: relative;
 }
 
 #ajapaik-photo-modal-map-canvas {
-  width: 100%;
-  height: 99%;
+  min-height: 200px;
+  height: calc(100% - 40px);
+  max-height: 99%;
+  position: relative;
+}
+
+.modal-content{
+  max-width: 99vw !important;
 }
 
 #ajapaik-game-show-description {

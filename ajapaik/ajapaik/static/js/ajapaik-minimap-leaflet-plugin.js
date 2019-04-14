@@ -17,7 +17,7 @@
         {
             this.UI = $([
                 '<div id="ajapaik-minimap-disabled-overlay"></div>',
-                '<div id="ajapaik-photo-modal-map-canvas" style="height:99%;"></div>',
+                '<div id="ajapaik-photo-modal-map-canvas"></div>',
                 '<div id="ajapaik-photo-modal-map-textbox"></div>',
             ].join('\n'));
 

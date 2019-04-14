@@ -203,6 +203,17 @@
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
                 modalPhoto.on('load', photoLoadModalResizeFunction);
+                if (window.fullscreenEnabled) {
+                    fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                        .on('load', function () {
+                        fullScreenImage.unbind('load');
+                    });
+                } else {
+                    fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
+                        .on('load', function () {
+                        fullScreenImage.unbind('load');
+                    });
+                }
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
                 modalPhoto.removeClass('ajapaik-photo-flipped');
                 flipOverlayButtons.removeClass('active');

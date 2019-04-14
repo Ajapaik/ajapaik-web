@@ -989,7 +989,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
-        $('#ajapaik-modal-photo-container-container').removeClass('col-9').addClass('col-12');
+        $('#ajapaik-modal-photo-container-container').addClass('col-12');
         if (!window.isFrontpage) {
             window.syncMapStateToURL();
         }

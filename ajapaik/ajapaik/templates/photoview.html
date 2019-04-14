@@ -26,7 +26,7 @@
 {% endif %}
 <div class="container pt-5" id="ajapaik-photoview-container">
     <div class="row">
-        <div id="ajapaik-photoview-main-photo-container" class="col-auto h-100 p-0 mr-3 mw-50">
+        <div id="ajapaik-photoview-main-photo-container" class="ajapaik-photo col-auto h-100 p-0 mr-3 mw-50">
             <a class="fullscreen" id="ajapaik-full-screen-link">
                 <img id="ajapaik-photoview-main-photo" alt="{{ photo.description }}"
                     src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />

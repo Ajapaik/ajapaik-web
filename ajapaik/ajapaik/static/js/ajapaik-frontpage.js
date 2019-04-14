@@ -489,7 +489,7 @@
                         $('#ajapaik-photo-modal-rephoto-info-column').hide();
                     }
                     if ((!window.photoModalPhotoLat && !window.photoModalPhotoLng) || (window.photoModalRephotoArray.length > 0 && !window.userClosedRephotoTools)) {
-                        $('#ajapaik-modal-photo-container-container').removeClass('col-9').addClass('col-12');
+                        $('#ajapaik-modal-photo-container-container').addClass('col-12');
                         $('#ajapaik-photo-modal-map-container').hide();
                     }
                     if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {

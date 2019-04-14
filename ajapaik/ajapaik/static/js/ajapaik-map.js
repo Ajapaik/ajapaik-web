@@ -131,7 +131,7 @@
                     }
                     $('#ajapaik-photo-modal-rephoto-info-column').hide();
                 } else {
-                    $('#ajapaik-modal-photo-container-container').removeClass('col-9').addClass('col-12');
+                    $('#ajapaik-modal-photo-container-container').addClass('col-12');
                 }
                 if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                     $('#ajapaik-photo-modal-date-row').show();

@@ -9,8 +9,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div id="ajapaik-photo-modal-original-photo-column" class="col-xl-6 col-lg-6 col-md-6">
-                        <div id="ajapaik-modal-photo-container-container" class="float-left">
-                            <div id="ajapaik-modal-photo-container">
+                        <div id="ajapaik-modal-photo-container-container">
+                            <div id="ajapaik-modal-photo-container" class="ajapaik-photo float-left">
                                 <div class="ajapaik-photo-modal-previous-button"
                                      {% if not request.mobile %}style="display: none;"{% endif %}>
                                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="ajapaik-photo-modal-map-container" class="col-xl-6 col-lg-6 col-md-6" style="display: none;">
+                    <div id="ajapaik-photo-modal-map-container" class="col-xl-6 col-lg-6 col-md-6 px-0 px-md-3" style="display: none;">
                         <div id="ajapaik-minimap-disabled-overlay"></div>
                         <div id="ajapaik-photo-modal-map-canvas"></div>
                     </div>
@@ -111,192 +111,199 @@
                         {% endif %}
                     {% endif %}
                 </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="container-fluid text-left">
-                <!-- start of old photo info -->
-                <div id="ajapaik-photo-modal-original-photo-info-column" class="d-grid">
-                    {% if photo.author %}
-                        <b id="ajapaik-photo-modal-author">{{ photo.author }}</b>
-                    {% endif %}
-                    {% if photo.description %}
-                        <div id="ajapaik-photo-modal-description title="{{ photo.description }}">
-                            {% if photo.video %}
-                                <a href="{% url "frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t=
-                                        {{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
-                            {% else %}
-                                {{ photo.description }}
+                <div class="modal-footer row p-0 pt-2">
+                    <div class="container-fluid text-left">
+                        <!-- start of old photo info -->
+                        <div id="ajapaik-photo-modal-original-photo-info-column" class="d-grid">
+                            {% if photo.author %}
+                                <b id="ajapaik-photo-modal-author">{{ photo.author }}</b>
                             {% endif %}
-                        </div>
-                    {% endif %}
-                    {% if photo.date %}
-                            {{ photo.date }}
-                    {% elif photo.date_text %}
-                            {{ photo.date_text }}
-                    {% endif %}
-                    {% if photo.licence %}
-                        {% include "_licence.html" with licence=photo.licence %}
-                    {% endif %}
-                    {% if photo.source_url %}
-                        <div class="d-inline-block" id="ajapaik-photo-modal-source">
-                            <a href='{{ photo.source_url }}'
-                                target="_blank" rel="noopener nofollow">
-                                {{ photo.source.description }}{% if photo.source_key %}
-                                    {{ photo.source_key }}{% endif %}
-                            </a>
-                        </div>
-                    {% elif photo.source.description %}
-                        <div class="d-inline-block" id="ajapaik-photo-modal-source">
-                            {{ photo.source.description }}{% if photo.source_key %}
-                                {{ photo.source_key }}{% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-                <!-- end of old photo info -->
-                <!-- start of new photo info -->
-                {% if photo.rephotos.all|length > 0 %}
-                    <div id="ajapaik-photo-modal-rephoto-info-column">
-                        {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
-                            {% if photo.rephotos.all.0.author %}
-                                <b>{{ photo.rephotos.all.0.author }}</b>
-                                {% if photo.rephotos.all.0.licence %}
-                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
-                                {% endif %}
-                            {% endif %}
-                                <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
-                                    target="_blank" rel="noopener nofollow">
-                                    {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
-                                </a>
-                        {% else %}
-                            {% if photo.rephotos.all.0.author %}
-                                <b>{{ photo.rephotos.all.0.author }}</b>
-                                {% if photo.rephotos.all.0.licence %}
-                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
-                                {% endif %}
-                            {% else %}
-                                {% if photo.rephotos.all.0.user %}
-                                    <a target="_blank"
-                                        href="{% url 'frontpage_photos' %}?rephotosBy={{ photo.rephotos.all.0.user.id }}&order1=time&order2=rephotos" rel="noopener nofollow">
-                                        {{ photo.rephotos.all.0.user.get_display_name }}
-                                    </a>
-                                    {% if photo.rephotos.all.0.licence %}
-                                        {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                            {% if photo.description %}
+                                <div id="ajapaik-photo-modal-description title="{{ photo.description }}">
+                                    {% if photo.video %}
+                                        <a href="{% url "frontpage" %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t=
+                                                {{ photo.video_timestamp|div:1000 }}">{{ photo.description }}</a>
+                                    {% else %}
+                                        {{ photo.description }}
                                     {% endif %}
-                                {% else %}
-                                    <b>{% trans "Unknown author" %}</b>
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-                        {% if photo.rephotos.all.0.date %}
-                            {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
-                        {% endif %}
-                    </div>
-                {% endif %}
-                <!-- end of new photo info -->
-                <!-- start of FB like block -->
-                <div class="fb-like" data-href="{{ hostname }}{{ photo.get_detail_url }}"
-                        data-layout="standard" data-action="like" data-show-faces="true"
-                        data-share="true"></div>
-                <!-- end of FB like block -->
-                <!-- start of toolbox block -->
-                <div class="row ajp-dater-hide-when-dater-visible ml-1">
-                    <div class="ajapaik-mt-1">
-                        {% if is_frontpage and is_photoview or is_game or is_mapview %}
-                            <a id="ajapaik-photo-modal-specify-location_game" class="no-text-decoration float-left"
-                               data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"
-                               href="/geotag/?photo={{ photo.id }}" target="_blank" rel="nofollow">
-                                <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
-                            </a>
-                        {% endif %}
-                        <a id="ajapaik-photo-modal-start-dating-button" class="no-text-decoration float-left"
-                           data-id="{{ photo.id }}" title="{% trans "Date this image" %}" href="#">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
-                            <span class="badge">{{ datings_count }}</span>
-                        </a>
-                        <a id="ajapaik-photo-modal-add-rephoto" class="no-text-decoration float-left" href="#"
-                           title="{% trans "Add rephoto" %}">
-                            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
-                        </a>
-                        {% if request.user.profile.is_legit %}
-                            <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                               id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
-                               <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
-                            </a>
-                            <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-left"
-                               title="{% trans "Discuss" %}" href="#">
-                               <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
-                               <span class="badge hidden">0</span>
-                            </a>
-                        {% endif %}
-                        <div class="dropdown float-left" id="ajapaik-photo-modal-dropdown">
-                            <a id="ajapaik-photo-modal-share" role="button" title="{% trans "Share" %}"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">share</i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
-                                aria-labelledby="ajapaik-sharing-dropdown-button">
-                                <li role="presentation" class="disabled-link">
-                                    <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
-                                        <a class="no-text-decoration" href="{{ hostname }}{{ photo.get_detail_url }}">
-                                            {{ hostname }}{{ photo.get_detail_url }}</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of toolbox block -->
-                <!-- start of dater block -->
-                <div class="row" id="ajp-dater-container"></div>
-                <!-- end of dater block -->
-                <!-- start of albums block -->
-                {% if albums|length > 0 %}
-                    <div class="row ajp-dater-hide-when-dater-visible ml-1">
-                        <br>
-                        <div class="col-auto">
-                            <i class="material-icons notranslate ajapaik-photo-modal-album-icon float-left"
-                               title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
-                            </i>
-                        </div>
-                        <div class="col-auto">
-                            {% for a in albums %}
-                                <div class="ajapaik-no-left-margin-row d-flex" style="min-height: 36px;">
-                                    <a class="ajapaik-photo-album-link float-left"
-                                       href="{% if is_mapview %}
-                                                  {% url 'map' %}?album={{ a.id }}
-                                              {% elif is_frontpage or is_selection %}
-                                                  {% url 'frontpage' %}?album={{ a.id }}
-                                              {% endif %}">{{ a.name }}</a>
-                                    <div class="ajapaik-photo-modal-album-more-button float-left"
-                                         role="button"
-                                         title="{% trans 'Album details' %}"
-                                         data-id="{{ a.id }}">
-                                    </div>
-                                    <div class="ajapaik-photo-modal-photo-curator">
-                                        &nbsp;<i title="{% trans "Curator" %}"
-                                                 class="material-icons notranslate ajapaik-text-gray">account_circle</i>
-                                        <p class="d-none">{{ a.this_photo_curator.get_display_name }}</p>
-                                    </div>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
+                            {% if photo.date %}
+                                    {{ photo.date }}
+                            {% elif photo.date_text %}
+                                    {{ photo.date_text }}
+                            {% endif %}
+                            {% if photo.licence %}
+                                {% include "_licence.html" with licence=photo.licence %}
+                            {% endif %}
+                            {% if photo.source_url %}
+                                <div class="d-inline-block" id="ajapaik-photo-modal-source">
+                                    <a href='{{ photo.source_url }}'
+                                        target="_blank" rel="noopener nofollow">
+                                        {{ photo.source.description }}{% if photo.source_key %}
+                                            {{ photo.source_key }}{% endif %}
+                                    </a>
+                                </div>
+                            {% elif photo.source.description %}
+                                <div class="d-inline-block" id="ajapaik-photo-modal-source">
+                                    {{ photo.source.description }}{% if photo.source_key %}
+                                        {{ photo.source_key }}{% endif %}
+                                </div>
+                            {% endif %}
                         </div>
-                    </div>
-                {% endif %}
-                <!-- end of albums block -->
-                <!-- start of comment block -->
-                <div class="row pt-2" id="ajapaik-comments-container">
-                    <div class="col-md-12" id="ajapaik-comment-list"></div>
-                    <div class="col-md-12" id="ajapaik-new-comment-form-container">
-                        {% if rephoto %}
-                            {% render_comment_form for rephoto %}
-                        {% else %}
-                            {% render_comment_form for photo %}
+                        <!-- end of old photo info -->
+                        <!-- start of new photo info -->
+                        {% if photo.rephotos.all|length > 0 %}
+                            <div id="ajapaik-photo-modal-rephoto-info-column">
+                                {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
+                                    {% if photo.rephotos.all.0.author %}
+                                        <b>{{ photo.rephotos.all.0.author }}</b>
+                                        {% if photo.rephotos.all.0.licence %}
+                                            {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                        {% endif %}
+                                    {% endif %}
+                                        <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
+                                            target="_blank" rel="noopener nofollow">
+                                            {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
+                                        </a>
+                                {% else %}
+                                    {% if photo.rephotos.all.0.author %}
+                                        <b>{{ photo.rephotos.all.0.author }}</b>
+                                        {% if photo.rephotos.all.0.licence %}
+                                            {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% if photo.rephotos.all.0.user %}
+                                            <a target="_blank"
+                                                href="{% url 'frontpage_photos' %}?rephotosBy={{ photo.rephotos.all.0.user.id }}&order1=time&order2=rephotos" rel="noopener nofollow">
+                                                {{ photo.rephotos.all.0.user.get_display_name }}
+                                            </a>
+                                            {% if photo.rephotos.all.0.licence %}
+                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                            {% endif %}
+                                        {% else %}
+                                            <b>{% trans "Unknown author" %}</b>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                                {% if photo.rephotos.all.0.date %}
+                                    {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
+                                {% endif %}
+                            </div>
                         {% endif %}
+                        <!-- end of new photo info -->
+                        <!-- start of FB like block -->
+                        <div class="fb-like" 
+                            data-href="{{ hostname }}{{ photo.get_detail_url }}"
+                            {% if request.mobile %}
+                                data-layout="button_count"
+                            {% endif %}
+                            data-layout="button_count"
+                            data-action="like"
+                            data-show-faces="true"
+                            data-share="true">
+                        </div>
+                        <!-- end of FB like block -->
+                        <!-- start of toolbox block -->
+                        <div class="row ajp-dater-hide-when-dater-visible ml-1">
+                            <div class="ajapaik-mt-1">
+                                {% if is_frontpage and is_photoview or is_game or is_mapview %}
+                                    <a id="ajapaik-photo-modal-specify-location_game" class="no-text-decoration float-left"
+                                       data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"
+                                       href="/geotag/?photo={{ photo.id }}" target="_blank" rel="nofollow">
+                                        <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_location</i>
+                                    </a>
+                                {% endif %}
+                                <a id="ajapaik-photo-modal-start-dating-button" class="no-text-decoration float-left"
+                                   data-id="{{ photo.id }}" title="{% trans "Date this image" %}" href="#">
+                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
+                                    <span class="badge">{{ datings_count }}</span>
+                                </a>
+                                <a id="ajapaik-photo-modal-add-rephoto" class="no-text-decoration float-left" href="#"
+                                   title="{% trans "Add rephoto" %}">
+                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
+                                </a>
+                                {% if request.user.profile.is_legit %}
+                                    <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
+                                       id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
+                                       <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                                    </a>
+                                    <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-left"
+                                       title="{% trans "Discuss" %}" href="#">
+                                       <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
+                                       <span class="badge hidden">0</span>
+                                    </a>
+                                {% endif %}
+                                <div class="dropdown float-left" id="ajapaik-photo-modal-dropdown">
+                                    <a id="ajapaik-photo-modal-share" role="button" title="{% trans "Share" %}"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                                        <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">share</i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                        aria-labelledby="ajapaik-sharing-dropdown-button">
+                                        <li role="presentation" class="disabled-link">
+                                            <div role="menuitem" tabindex="-1" id="ajapaik-grab-link">
+                                                <a class="no-text-decoration" href="{{ hostname }}{{ photo.get_detail_url }}">
+                                                    {{ hostname }}{{ photo.get_detail_url }}</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of toolbox block -->
+                        <!-- start of dater block -->
+                        <div class="row" id="ajp-dater-container"></div>
+                        <!-- end of dater block -->
+                        <!-- start of albums block -->
+                        {% if albums|length > 0 %}
+                            <div class="row ajp-dater-hide-when-dater-visible ml-1">
+                                <br>
+                                <div class="col-auto">
+                                    <i class="material-icons notranslate ajapaik-photo-modal-album-icon float-left"
+                                       title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+                                        {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
+                                    </i>
+                                </div>
+                                <div class="col-auto">
+                                    {% for a in albums %}
+                                        <div class="ajapaik-no-left-margin-row d-flex" style="min-height: 36px;">
+                                            <a class="ajapaik-photo-album-link float-left"
+                                               href="{% if is_mapview %}
+                                                          {% url 'map' %}?album={{ a.id }}
+                                                      {% elif is_frontpage or is_selection %}
+                                                          {% url 'frontpage' %}?album={{ a.id }}
+                                                      {% endif %}">{{ a.name }}</a>
+                                            <div class="ajapaik-photo-modal-album-more-button float-left"
+                                                 role="button"
+                                                 title="{% trans 'Album details' %}"
+                                                 data-id="{{ a.id }}">
+                                            </div>
+                                            <div class="ajapaik-photo-modal-photo-curator">
+                                                &nbsp;<i title="{% trans "Curator" %}"
+                                                         class="material-icons notranslate ajapaik-text-gray">account_circle</i>
+                                                <p class="d-none">{{ a.this_photo_curator.get_display_name }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <!-- end of albums block -->
+                        <!-- start of comment block -->
+                        <div class="row pt-2" id="ajapaik-comments-container">
+                            <div class="col-md-12" id="ajapaik-comment-list"></div>
+                            <div class="col-md-12" id="ajapaik-new-comment-form-container">
+                                {% if rephoto %}
+                                    {% render_comment_form for rephoto %}
+                                {% else %}
+                                    {% render_comment_form for photo %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- end of comment block -->
                     </div>
                 </div>
-                <!-- end of comment block -->
             </div>
         </div>
     </div>

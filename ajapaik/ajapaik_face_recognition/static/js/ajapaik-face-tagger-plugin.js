@@ -123,7 +123,7 @@
             $('.popover').popover('hide');
             that.currentlyOpenRectangleId = null;
         };
-        this.loadGuessFormHtml = function (rectangleId, responseDiv) {
+        this.loadGuessFormHtml = function (rectangleId) {
             $.ajax({
                 type: 'GET',
                 url: '/face-recognition/guess-subject-form/' + rectangleId + '/',
@@ -132,7 +132,7 @@
                 success: function (response) {
                     // TODO: Can this be simpler?
                     setTimeout(function () {
-                        $('body').children('.popover').children('.popover-body').html(response);
+                        $('.ajapaik-photo').children('.popover').children('.popover-body').html(response);
                         $('#id_subject_album-autocomplete').focus();
                         that.isGuessPopoverOpen = true;
                     }, 0);
@@ -173,6 +173,7 @@
                     $faceRectangle.html('<div class="ajapaik-face-rectangle-text">' + face.subject_name + '</div>')
                 }
                 $faceRectangle.popover({
+                    container: '.ajapaik-photo',
                     html: true,
                     placement: 'bottom',
                     title: gettext('Who is this?'),
@@ -189,7 +190,7 @@
                     });
                     $faceRectangle.show();
                     that.currentlyOpenRectangleId = face.id;
-                    that.loadGuessFormHtml(face.id, divId);
+                    that.loadGuessFormHtml(face.id);
                     setTimeout(function () {
                         $('#id_subject-autocomplete').focus();
                         $('#add_id_subject_album').show();
