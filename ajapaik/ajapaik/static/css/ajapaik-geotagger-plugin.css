@@ -24,10 +24,6 @@
     width: 100%;
 }
 
-.ajp-no-padding {
-    padding: 0 !important;
-}
-
 #ajp-geotagger-panel {
     background-color: rgba(0, 0, 0, .8);
     height: 100%;
@@ -67,7 +63,7 @@
 }
 
 #ajp-geotagger-game-buttons {
-
+    float: left;
 }
 
 #ajp-geotagger-skip-button {
