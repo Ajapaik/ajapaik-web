@@ -1814,6 +1814,7 @@ def public_add_area(request):
 
 
 @ensure_csrf_cookie
+@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=curator')
 def curator(request):
     last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
     # FIXME: Ugly

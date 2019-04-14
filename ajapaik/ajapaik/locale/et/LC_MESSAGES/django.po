@@ -1306,7 +1306,7 @@ msgstr "Redigeeri"
 #: ajapaik/ajapaik/templates/comments/list.html:62
 #: ajapaik/ajapaik/templates/comments/list.html:88
 msgid "supports Markdown"
-msgstr "toetab Markdown vormingut"
+msgstr "Toetab Markdown vormingut"
 
 #: ajapaik/ajapaik/templates/comments/list.html:65
 #: ajapaik/ajapaik/templates/curator.html:155
