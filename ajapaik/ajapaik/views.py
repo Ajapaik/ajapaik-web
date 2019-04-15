@@ -1226,14 +1226,18 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         album_selection_form = AlbumSelectionForm({"album": album.id})
         if not request.is_ajax():
             next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').last()
+            if previous_photo == None:
+                previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
         )
         if not request.is_ajax():
             next_photo = Photo.objects.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').last()
+            if previous_photo == None:
+                previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()
 
     if album:
         album = (album.id, album.lat, album.lon)
@@ -1292,7 +1296,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         next_similar_photo = photo_obj.similar_photos.first()
     elif len(photo_obj.confirmed_similar_photos.all()) > 0:
         next_similar_photo = photo_obj.confirmed_similar_photos.first()
-    compare_photo_url = request.build_absolute_uri(reverse("compare_photo", args=(photo_obj.id,next_similar_photo.id)))
+    compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
 
     people = [x.name for x in photo_obj.people]
 
@@ -1329,7 +1333,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         "previous_photo": previous_photo,
         "total_similar_photos_count": len(photo_obj.similar_photos.all()) + len(photo_obj.confirmed_similar_photos.all()),
         "confirmed_similar_photos_count": len(photo_obj.confirmed_similar_photos.all()),
-        "compare_photo_url" : compare_photo_url,
+        "compare_photos_url" : compare_photos_url,
         # TODO: Needs more data than just the names
         "people": people
     }
@@ -2643,7 +2647,7 @@ def photo_upload_choice(request):
 
     return render(request, 'photo_upload_choice.html', ret)
 
-def compare_photo(request, photo_id=None, photo_id_2=None):
+def compare_photos(request, photo_id=None, photo_id_2=None):
     photo_obj = get_object_or_404(Photo, id=photo_id)
     photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
 
@@ -2663,10 +2667,10 @@ def compare_photo(request, photo_id=None, photo_id_2=None):
     else:
         similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())
         if similar_photos == None or len(similar_photos) < 1:
-            next_action = request.build_absolute_uri(reverse("photoslug", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+            next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
         else:
-            next_photo = similar_photos.first()
-            next_action = request.build_absolute_uri(reverse("compare_photo", args=(photo_obj.id,next_photo.id)))
+            next_similar_photo = similar_photos.first()
+            next_action = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
     form = PhotoUploadChoiceForm()
 
     ret = {
@@ -2677,7 +2681,7 @@ def compare_photo(request, photo_id=None, photo_id_2=None):
         'photo2': photo_obj2,
         'next_action': next_action
     }
-    return render_to_response('compare_photo.html', RequestContext(request, ret))
+    return render(request, 'compare_photos.html', ret)
 
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
