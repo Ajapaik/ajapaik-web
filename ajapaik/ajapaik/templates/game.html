@@ -17,7 +17,7 @@
                     <div id="ajapaik-modal-photo-container" class="ajapaik-photo col-xl-8 col-lg-8 col-md-6 col-sm-6 col-xs-6">
                         <div id="ajapaik-game-modal-photo-container">
                             <button class="ajapaik-photo-modal-previous-button ajapaik-game-previous-photo-button"
-                                    {% if not request.mobile %}style="display: none;"{% endif %}>
+                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
                             </button>
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="" href="">
@@ -25,7 +25,7 @@
                                         alt="{% trans "Game modal photo" %}"/>
                             </a>
                             <button class="ajapaik-photo-modal-next-button ajapaik-game-next-photo-button"
-                                    {% if not request.mobile %}style="display: none;"{% endif %}>
+                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
                             </button>
                             <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button">

@@ -12,7 +12,7 @@
                         <div id="ajapaik-modal-photo-container-container">
                             <div id="ajapaik-modal-photo-container" class="ajapaik-photo float-left">
                                 <div class="ajapaik-photo-modal-previous-button"
-                                     {% if not request.mobile %}style="display: none;"{% endif %}>
+                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
                                 </div>
                                 <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
@@ -22,7 +22,7 @@
                                          id="ajapaik-modal-photo"/>
                                 </a>
                                 <div class="ajapaik-photo-modal-next-button"
-                                     {% if not request.mobile %}style="display: none;"{% endif %}>
+                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                     <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
                                 </div>
                                 {% if request.user.profile.is_legit %}
@@ -32,7 +32,7 @@
                                     </button>
                                 {% endif %}
                                 <button class="ajapaik-flip-photo-overlay-button"
-                                        {% if not request.mobile %}style="display: none;"{% endif %}
+                                        {% if request.user_agent.is_pc %}style="display: none;"{% endif %}
                                         title="{% trans "Flip photo" %}">
                                     <i class="material-icons notranslate">flip</i>
                                 </button>
@@ -49,7 +49,7 @@
                                     {% if total_similar_photos_count > 0 %}
                                     <a class="btn ajapaik-similar-photo-overlay-button"
                                         href="{{ compare_photos_url }}"
-                                        id="ajapaik-similar-photo-overlay-button" {% if not request.mobile %}style="display: none;{% if photo.rephotos.all.0 %}right:48px;{% endif %}"{% endif %} {% if request.mobile and photo.rephotos.all.0 %}style="right:48px;"{% endif %}>
+                                        id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;{% if photo.rephotos.all.0 %}right:48px;{% endif %}"{% endif %} {% if not request.user_agent.is_pc and photo.rephotos.all.0 %}style="right:48px;"{% endif %}>
                                         <i class="material-icons notranslate">burst_mode</i>
                                         <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>
                                     </a>
@@ -57,7 +57,7 @@
                                     {% if photo.rephotos.all.0 %}
                                         <button class="ajapaik-overlay-button"
                                                 id="ajapaik-show-rephoto-selection-overlay-button"
-                                                {% if not request.mobile %}style="display: none;"{% endif %}>
+                                                {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                             {% if photo.rephotos.all|length < 10 %}
                                                 <i class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</i>
                                             {% else %}
@@ -85,12 +85,12 @@
                                              alt="{{ photo.description }}" title="{{ photo.description }}"/>
                                         <button class="ajapaik-overlay-button ajapaik-close-rephoto-overlay-button ajapaik"
                                                 id="ajapaik-close-rephoto-overlay-button"
-                                                {% if not request.mobile %}style="display: none;"{% endif %}>
+                                                {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                             <i class="material-icons notranslate">close</i>
                                         </button>
                                         <button class="ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button ajapaik"
                                                 id="ajapaik-invert-rephoto-overlay-button"
-                                                {% if not request.mobile %}style="display: none;"{% endif %}>
+                                                {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                             <i class="material-icons notranslate">invert_colors</i>
                                         </button>
                                     </a>
@@ -195,10 +195,10 @@
                         <!-- start of FB like block -->
                         <div class="fb-like" 
                             data-href="{{ hostname }}{{ photo.get_detail_url }}"
-                            {% if request.mobile %}
+                            {% if not request.user_agent.is_pc %}
                                 data-layout="button_count"
                             {% endif %}
-                            data-layout="button_count"
+                            data-layout="standard"
                             data-action="like"
                             data-show-faces="true"
                             data-share="true">

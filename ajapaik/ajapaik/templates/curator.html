@@ -451,6 +451,9 @@
                     },
                     success: function (msg) {
                         $('#ajapaik-loading-overlay').hide();
+                        if (msg.result === undefined) {
+                            return;
+                        }
                         if (msg.result.ids) {
                             resultIds = msg.result.ids;
                             resultCount = resultIds.length;

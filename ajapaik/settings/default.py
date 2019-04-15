@@ -108,6 +108,7 @@ MIDDLEWARE_CLASSES = (
     # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'ajapaik.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware'
 )
 
 ROOT_URLCONF = 'ajapaik.ajapaik.urls'
@@ -187,6 +188,7 @@ INSTALLED_APPS = (
     'leaflet',
     'django_celery_beat',
     'ajapaik.ajapaik_face_recognition',
+    'django_user_agents',
 
     # Django allauth and related applications.
     'allauth',

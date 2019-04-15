@@ -66,7 +66,7 @@
             {% if total_similar_photos_count > 0 %}
                 <a class="btn ajapaik-similar-photo-overlay-button"
                     href="{{ compare_photos_url }}"
-                    id="ajapaik-similar-photo-overlay-button" {% if not request.mobile %}style="display: none;" {% endif %}>
+                    id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}>
                     <i class="material-icons notranslate">burst_mode</i>
                     <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>
                 </a>
@@ -79,10 +79,10 @@
                     src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
             </a>
             <button class="btn btn-secondary ajapaik-overlay-button ajapaik-close-rephoto-overlay-button"
-                id="ajapaik-close-rephoto-overlay-button" {% if not request.mobile %}style="display: none;" {% endif %}><i
+                id="ajapaik-close-rephoto-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
                     class="material-icons notranslate">close</i></button>
             <button class="btn btn-secondary ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button"
-                id="ajapaik-invert-rephoto-overlay-button" {% if not request.mobile %}style="display: none;" {% endif %}><i
+                id="ajapaik-invert-rephoto-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
                     class="material-icons notranslate">invert_colors</i></button>
             {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
             {% if rephoto.author %}
@@ -171,7 +171,7 @@
         <div id="ajapaik-photo-modal-map-container" class="col-auto">
             <div id="ajapaik-minimap-disabled-overlay"></div>
             <div id="ajapaik-photo-modal-map-canvas"></div>
-            {% if photo.address and photo.lat and photo.lon and not request.mobile %}
+            {% if photo.address and photo.lat and photo.lon and request.user_agent.is_pc %}
                 <div class="row">
                     <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
                 </div>

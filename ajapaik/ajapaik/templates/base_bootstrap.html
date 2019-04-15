@@ -338,7 +338,7 @@
         })();
     </script>
     <script>
-        var isMobile = '{{ request.mobile }}' === 'True',
+        var isMobile = '{{ request.user_agent.is_pc }}' === 'False',
             isMapview = false,
             isGame = false,
             isFrontpage = false,
