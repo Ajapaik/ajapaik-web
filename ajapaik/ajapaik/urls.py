@@ -94,7 +94,7 @@ urlpatterns = [
     url(r'^user-upload-add-album/$', views.user_upload_add_album, name='user_upload_add_album'),
     url(r'^privacy/$', views.privacy, name='privacy'),
     url(r'^terms/$', views.terms, name='terms'),
-    url(r'^compare_photo/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photo, name='compare_photo')
+    url(r'^compare_photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photos, name='compare_photos')
 ]
 
 urlpatterns += [

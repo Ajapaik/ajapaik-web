@@ -1,5 +1,5 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n compress ajapaik_templatetags %}
+{% load i18n compress ajapaik_templatetags static %}
 
 {% block header %}
     {% include "_header.html" %}
@@ -22,16 +22,16 @@
             <div id="ajapaik-photo-selection-gallery">
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="row panel-body">
-                        {% for p in photos %}
+                        {% for photo in photos %}
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="text-align: center"
-                                 id="ajapaik-frontpage-image-container-{{ p.id }}" style="min-height: 330px;"
-                                 data-id="{{ p.id }}">
-                                <a href="{% url "photo" p.id %}"
-                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ p.id }}">
-                                    <img src="{% url "image_thumb" p.id 250 %}"
-                                         width="{{ p.width }}" height="{{ p.height }}" alt="{{ p.4 }}"
-                                         class="img-fluid ajapaik-photo-selection-thumbnail">
-                                    <div class="ajapaik-remove-from-selection-button" data-id="{{ p.id }}"></div>
+                                 id="ajapaik-frontpage-image-container-{{ photo.0 }}" style="min-height: 330px;"
+                                 data-id="{{ photo.0 }}">
+                                <a href="{% url 'photo' photo.0 photo.get_pseudo_slug %}"
+                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ photo.0 }}">
+                                    <img src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
+                                            width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.0 }}"
+                                            class="img-fluid ajapaik-photo-selection-thumbnail">
+                                    <div class="ajapaik-remove-from-selection-button" data-id="{{ photo.0 }}"></div>
                                 </a>
                             </div>
                         {% endfor %}

@@ -48,7 +48,7 @@
                                 <div class="d-block float-right">
                                     {% if total_similar_photos_count > 0 %}
                                     <a class="btn ajapaik-similar-photo-overlay-button"
-                                        href="{{ compare_photo_url }}"
+                                        href="{{ compare_photos_url }}"
                                         id="ajapaik-similar-photo-overlay-button" {% if not request.mobile %}style="display: none;{% if photo.rephotos.all.0 %}right:48px;{% endif %}"{% endif %} {% if request.mobile and photo.rephotos.all.0 %}style="right:48px;"{% endif %}>
                                         <i class="material-icons notranslate">burst_mode</i>
                                         <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>

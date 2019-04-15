@@ -93,7 +93,7 @@
         $('#similar').click(function(){
             $.ajax({
                 type: 'PUT',
-                url: '/compare_photo/' + '{{ photo.id }}/' + '{{photo2.id}}',
+                url: '/compare_photos/' + '{{ photo.id }}/' + '{{photo2.id}}',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
@@ -109,7 +109,7 @@
         $('#not_similar').click(function(){
             $.ajax({
                 type: 'DELETE',
-                url: '/compare_photo/' + '{{ photo.id }}/' + '{{photo2.id}}',
+                url: '/compare_photos/' + '{{ photo.id }}/' + '{{photo2.id}}',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
