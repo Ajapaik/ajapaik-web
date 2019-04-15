@@ -901,10 +901,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             }
         };
 
-        $(document).on('click', '.ajapaik-minimap-start-guess-button', function () {
-            $('#ajapaik-photo-modal-specify-location').click();
-        });
-
         $(window).resize(function () {
             window.resizeMinimap();
             window.positionMinimapCTAButton();
@@ -1383,7 +1379,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 $this.addClass('big');
             }
             $likeCount.html(response.likeCount);
-            $('#ajapaik-frontpage-show-liked-link').parent().removeClass('disabled');
+            $('#ajapaik-frontpage-show-liked-link').removeClass('disabled');
         });
     });
 
@@ -1424,7 +1420,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         }
     });
 
-    $(document).on('click', '#ajapaik-photo-modal-specify-location', function (e) {
+    $(document).on('click', '#ajapaik-photo-modal-specify-location, .ajapaik-minimap-start-guess-button', function (e) {
         e.preventDefault();
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
