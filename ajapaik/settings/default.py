@@ -94,7 +94,7 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -109,7 +109,7 @@ MIDDLEWARE = (
     'ajapaik.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware'
-)
+]
 
 ROOT_URLCONF = 'ajapaik.ajapaik.urls'
 
