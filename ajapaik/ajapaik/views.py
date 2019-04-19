@@ -57,7 +57,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
     SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
-    PhotoUploadChoiceForm, UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
+    UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
     EditCommentForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
@@ -482,6 +482,7 @@ def rephoto_upload(request, photo_id):
                 if re_photo.cam_scale_factor:
                     re_photo.cam_scale_factor = round(float(re_photo.cam_scale_factor), 6)
                 re_photo.save()
+                photo.Image = photo.crop()
                 photo.save()
                 for each in photo.albums.all():
                     each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
@@ -2202,6 +2203,7 @@ def curator_photo_upload_handler(request):
                                 source_geotag.save()
                                 new_photo.latest_geotag = source_geotag.created
                                 new_photo.set_calculated_fields()
+                            new_photo.image
                             new_photo.save()
                             new_photo.phash()
                             points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
@@ -2630,17 +2632,7 @@ def donate(request):
 
 
 def photo_upload_choice(request):
-    if request.method == 'POST':
-        form = PhotoUploadChoiceForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data['action'] == 'import':
-                return redirect('curator')
-            else:
-                return redirect('user_upload')
-    else:
-        form = PhotoUploadChoiceForm()
     ret = {
-        'form': form,
         'is_upload_choice': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }
@@ -2671,11 +2663,8 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
         else:
             next_similar_photo = similar_photos.first()
             next_action = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
-    form = PhotoUploadChoiceForm()
-
     ret = {
         'is_comparephoto': True,
-        'form': form,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'photo': photo_obj,
         'photo2': photo_obj2,

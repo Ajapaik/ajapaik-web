@@ -1,5 +1,5 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n bootstrap4 %}
+{% load i18n %}
 
 {% block header %}
     {% include "_header.html" %}
@@ -7,11 +7,20 @@
 
 {% block layout %}
     <div class="container pt-5">
-        <form action="" method="post" class="pt-5">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn btn-primary">{% trans "Select" %}</button>
-        </form>
+        <div class="text-center d-block">
+            <a href="{% url "curator" %}" class="btn btn-primary btn-lg mt-5 d-inline-block">
+                <h3 class="ajapaik-text-white">
+                    {% trans "Import from public collections" %}
+                </h3>
+            </a>
+        </div>
+        <div class="text-center d-block">
+            <a href="{% url "user_upload" %}" class="btn btn-primary btn-lg mt-3 d-inline-block">
+                <h3 class="ajapaik-text-white">
+                    {% trans "Upload yourself" %}
+                </h3>
+            </a>
+        </div>
     </div>
 {% endblock %}
 

@@ -71,7 +71,6 @@ class FotisDriver(object):
                     transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
                         .values_list('id', 'name')
                 transformed['result']['firstRecordViews'].append(transformed_item)
-
         transformed = dumps(transformed)
 
         return transformed

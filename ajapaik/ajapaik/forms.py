@@ -371,13 +371,6 @@ class VideoStillCaptureForm(forms.Form):
     timestamp = forms.IntegerField()
 
 
-class PhotoUploadChoiceForm(forms.Form):
-    action = forms.ChoiceField(choices=[
-        ('import', _('Import from public collections')),
-        ('upload', _('Upload yourself'))
-    ])
-
-
 class UserPhotoUploadForm(autocomplete_light.shortcuts.ModelForm):
     albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
     licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True),
