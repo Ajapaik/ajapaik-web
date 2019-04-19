@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'modeltranslation',
     'haystack',
     'registration',
+    'bootstrap4',
     'django_bootstrap_dynamic_formsets',
     'leaflet',
     'django_celery_beat',
