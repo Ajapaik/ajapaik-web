@@ -221,7 +221,7 @@ var map,
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
             $(myLocationButton)
-                .addClass('btn btn-secondary btn-sm')
+                .addClass('btn btn-light btn-sm')
                 .prop('id', 'ajapaik-mapview-my-location-button')
                 .prop('title', gettext('Go to my location'))
                 .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
@@ -867,7 +867,7 @@ var map,
                     }
                 });
             }
-            $('#ajapaik-modal-photo-container-container').removeClass('col-12').addClass('col-9');
+            $('#ajapaik-modal-photo-container').removeClass('col-12').addClass('col-9');
         }
     };
 
@@ -955,7 +955,7 @@ var map,
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
-        $('#ajapaik-modal-photo-container-container').addClass('col-12');
+        $('#ajapaik-modal-photo-container').addClass('col-12');
         if (!window.isFrontpage) {
             window.syncMapStateToURL();
         }
