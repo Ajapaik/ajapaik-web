@@ -94,7 +94,7 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
