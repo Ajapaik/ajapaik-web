@@ -27,7 +27,7 @@
                                  id="ajapaik-frontpage-image-container-{{ photo.0 }}" style="min-height: 330px;"
                                  data-id="{{ photo.0 }}">
                                 <a href="{% url 'photo' photo.0 photo.get_pseudo_slug %}"
-                                   class="thumbnail ajapaik-photo-selection-thumbnail-link" data-id="{{ photo.0 }}">
+                                   class="thumbnail ajapaik-photo-selection-thumbnail-link d-block" data-id="{{ photo.0 }}">
                                     <img src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
                                             width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.0 }}"
                                             class="img-fluid ajapaik-photo-selection-thumbnail">
