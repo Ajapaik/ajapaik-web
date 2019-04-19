@@ -5,6 +5,7 @@ django-admin-tools
 django-allauth
 django-autocomplete-light==2.3.3
 django-bootstrap-dynamic-formsets
+django-bootstrap4
 django-bulk-update
 django-celery-beat
 django-comments-xtd<2
