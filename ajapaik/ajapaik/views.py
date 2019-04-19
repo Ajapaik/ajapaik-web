@@ -2608,7 +2608,7 @@ def generate_still_from_video(request):
                 still.save()
                 still.source_key = still.id
                 still.source_url = request.build_absolute_uri(reverse('photo', args=(still.id, still.get_pseudo_slug())))
-                still.image.save(unicodedata.normalize('NFKD', description).encode('ascii', 'ignore') + '.jpeg',
+                still.image.save(unicodedata.normalize('NFKD', description).encode('ascii', 'ignore').decode('ascii') + '.jpeg',
                                  File(tmp))
                 still.light_save()
                 AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()

@@ -1348,7 +1348,7 @@ position: absolute;
 }
 
 #ajapaik-photo-modal-dialog {
-  min-width: calc(40vw + 150px);
+  min-width: 70vw;
   width: 95vw !important;
   padding-left: 2%;
 }
