@@ -1342,24 +1342,25 @@ position: absolute;
 }
 
 #ajapaik-modal-photo {
-  min-height: 200px;
+  min-height: 180px;
   margin: 0 auto;
   padding: 0 !important;
 }
 
 #ajapaik-photo-modal-dialog {
+  min-width: calc(40vw + 150px);
   width: 95vw !important;
   padding-left: 2%;
 }
 
 #ajapaik-photo-modal-map-container {
-  min-height: 200px;
+  min-height: 180px;
   display: inline-block;
   position: relative;
 }
 
 #ajapaik-photo-modal-map-canvas {
-  min-height: 200px;
+  min-height: 180px;
   height: calc(100% - 40px);
   max-height: 99%;
   position: relative;

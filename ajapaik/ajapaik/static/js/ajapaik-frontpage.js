@@ -235,7 +235,7 @@
                     title;
                 selectedModeDiv.find('i').hide();
                 albumSelectionDiv.addClass('ajapaik-invisible d-none');
-                historicPhotoGalleryDiv.show();
+                historicPhotoGalleryDiv.removeClass('ajapaik-invisible d-none');
                 if (!window.showPhotos) {
                     title = gettext('Albums');
                     albumSelectionDiv.removeClass('ajapaik-invisible d-none');
