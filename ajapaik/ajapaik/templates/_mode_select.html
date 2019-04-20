@@ -20,19 +20,23 @@
             <div class="dropdown-menu with-album ajapaik-dropdown" id="ajapaik-frontpage-mode-select">
                 <a href="#" class="dropdown-item" class="dropdown-item" id="ajapaik-frontpage-show-albums-link"
                     data-mode="albums" title="{% trans "Show albums" %}">
-                    <i class="material-icons notranslate">collections_bookmark</i> {% trans "Albums" %}
+                    <i class="material-icons notranslate">collections_bookmark</i>
+                        <span class="ajapaik-bottom-4px">{% trans "Albums" %}</span>
                 </a>
                 <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-pictures-link"
                     data-mode="pictures" title="{% trans "Show pictures" %}">
-                    <i class="material-icons notranslate">collections</i> {% trans "All pictures" %}
+                    <i class="material-icons notranslate">collections</i>
+                        <span class="ajapaik-bottom-4px">{% trans "All pictures" %}</span>
                 </a>
                 <a href="#" id="ajapaik-frontpage-show-liked-link"
                     data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
-                    <i class="material-icons notranslate">favorite</i> {% trans "My favorites" %}
+                    <i class="material-icons notranslate">favorite</i>
+                        <span class="ajapaik-bottom-4px">{% trans "My favorites" %}</span>
                 </a>
                 <a href="#" id="ajapaik-frontpage-show-rephotographed-link"
                     data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
-                    <i class="material-icons notranslate">library_add</i> {% trans "My rephotos" %}
+                    <i class="material-icons notranslate">library_add</i> 
+                        <span class="ajapaik-bottom-4px">{% trans "My rephotos" %}</span>
                 </a>
             </div>
         </div>
@@ -62,16 +66,20 @@
         </a>
         <div class="dropdown-menu ajapaik-dropdown" id="ajapaik-frontpage-mode-select">
             <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-albums-link" data-mode="albums title="{% trans "Show albums" %}">
-                <i class="material-icons notranslate">collections_bookmark</i> {% trans "Albums" %}
+                <i class="material-icons notranslate">collections_bookmark</i>
+                    <span class="ajapaik-bottom-4px">{% trans "Albums" %}</span>
             </a>
             <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-pictures-link" data-mode="pictures" title="{% trans "Show pictures" %}">
-                <i class="material-icons notranslate">collections</i> {% trans "All pictures" %}
+                <i class="material-icons notranslate">collections</i>
+                    <span class="ajapaik-bottom-4px">{% trans "All pictures" %}</span>
             </a>
             <a href="#" id="ajapaik-frontpage-show-liked-link" data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
-                <i class="material-icons notranslate">favorite</i> {% trans "My favorites" %}
+                <i class="material-icons notranslate">favorite</i>
+                    <span class="ajapaik-bottom-4px">{% trans "My favorites" %}</span>
             </a>
             <a href="#" id="ajapaik-frontpage-show-rephotographed-link" data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
-                <i class="material-icons notranslate">library_add</i> {% trans "My rephotos" %}
+                <i class="material-icons notranslate">library_add</i>
+                    <span class="ajapaik-bottom-4px">{% trans "My rephotos" %}</span>
             </a>
         </div>
     </div>

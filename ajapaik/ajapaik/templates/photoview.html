@@ -50,7 +50,7 @@
                 data-id="{{ photo.id }}">
                 <i class="material-icons notranslate">check_circle</i>
             </button>
-            <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button" style="display: none;">
+            <button class="ajapaik-flip-photo-overlay-button" style="display: none;">
                 <i class="material-icons notranslate">flip</i>
             </button>
             <button
@@ -64,12 +64,14 @@
                 {% endif %}
             </button>
             {% if total_similar_photos_count > 0 %}
-                <a class="btn ajapaik-similar-photo-overlay-button"
-                    href="{{ compare_photos_url }}"
-                    id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}>
-                    <i class="material-icons notranslate">burst_mode</i>
-                    <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>
-                </a>
+                <div class="ajapaik-image-bottom-right">
+                    <a class="btn ajapaik-similar-photo-overlay-button"
+                        href="{{ compare_photos_url }}"
+                        id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}>
+                        <i class="material-icons notranslate">burst_mode</i>
+                        <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>
+                    </a>
+                </div>
             {% endif %}
         </div>
         {% if rephoto %}
@@ -78,49 +80,12 @@
                 <img id="ajapaik-photoview-rephoto" alt="{{ photo.description }} {% trans "rephoto" %}"
                     src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
             </a>
-            <button class="btn btn-secondary ajapaik-overlay-button ajapaik-close-rephoto-overlay-button"
-                id="ajapaik-close-rephoto-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+            <button class="btn ajapaik-close-rephoto-overlay-button"
+                {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
                     class="material-icons notranslate">close</i></button>
-            <button class="btn btn-secondary ajapaik-overlay-button ajapaik-invert-rephoto-overlay-button"
-                id="ajapaik-invert-rephoto-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+            <button class="btn ajapaik-invert-rephoto-overlay-button"
+                {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
                     class="material-icons notranslate">invert_colors</i></button>
-            {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
-            {% if rephoto.author %}
-            <div class="row"><b>{{ rephoto.author }}</b>
-                {% if rephoto.licence %}
-                    {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
-                {% endif %}
-                <div class="row">
-                    <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                        href='{{ rephoto.source_url }}' target="_blank" rel="noopener">
-                        {{ rephoto.source.description }} {{ rephoto.source_key }}
-                    </a>
-                </div>
-            {% elif rephoto.author %}
-                <div class="row"><b>{{ rephoto.author }}</b>{% if rephoto.licence %}
-                    {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
-            {% elif rephoto.user.fb_name %}
-                <div class="row">
-                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                        href="{{ rephoto.user.fb_link }}" rel="noopener nofollow">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
-                </div>
-            {% elif rephoto.user.google_plus_name %}
-                <div class="row">
-                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                        href="{{ rephoto.user.google_plus_link }}" rel="noopener nofollow">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
-                </div>
-            {% else %}
-                <div class="row">
-                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
-                        href="#" rel="noopener">{{ rephoto.user.get_display_name }}</a>&nbsp;{% include '_licence.html' %}
-                </div>
-            {% endif %}
-            {% if rephoto.date %}
-                <div class="row">
-                    {% trans "Date taken" %}&nbsp;
-                    <div id="ajapaik-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>
-                </div>
-            {% endif %}
         </div>
         {% endif %}
         {% if not rephoto and total_similar_photos_count > 0 %}
@@ -190,18 +155,57 @@
         {% elif photo.date_text %}
         {{ photo.date_text }}
         {% endif %}
-        <div">
-            {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-            {% if photo.source_url %}
-            <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                href='{{ photo.source_url }}' target="_blank" rel="noopener">
-                {{ photo.source.description }}
-                {% if photo.source_key %}{{ photo.source_key }}{% endif %}
-            </a>
-            {% elif photo.source.description %}
-            {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+        {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
+        {% if rephoto.author %}
+        {% if rephoto %}
+            <div class="row"><b>{{ rephoto.author }}</b>
+                {% if rephoto.licence %}
+                    {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
+                {% endif %}
+                <div class="row">
+                    <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                        href='{{ rephoto.source_url }}' target="_blank" rel="noopener">
+                        {{ rephoto.source.description }} {{ rephoto.source_key }}
+                    </a>
+                </div>
+            {% elif rephoto.author %}
+                <div class="row"><b>{{ rephoto.author }}</b>{% if rephoto.licence %}
+                    {% include "_licence.html" with licence=rephoto.licence %}{% endif %}</div>
+            {% elif rephoto.user.fb_name %}
+                <div class="row">
+                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
+                        href="{{ rephoto.user.fb_link }}" rel="noopener nofollow">{{ rephoto.user.fb_name }}</a>&nbsp;{% include '_licence.html' %}
+                </div>
+            {% elif rephoto.user.google_plus_name %}
+                <div class="row">
+                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
+                        href="{{ rephoto.user.google_plus_link }}" rel="noopener nofollow">{{ rephoto.user.google_plus_name }}</a>&nbsp;{% include '_licence.html' %}
+                </div>
+            {% else %}
+                <div class="row">
+                    <a id="ajapaik-photo-modal-rephoto-user-link" target="_blank"
+                        href="#" rel="noopener">{{ rephoto.user.get_display_name }}</a>&nbsp;{% include '_licence.html' %}
+                </div>
             {% endif %}
-    </div>
+            {% if rephoto.date %}
+                <div class="row">
+                    {% trans "Date taken" %}&nbsp;
+                    <div id="ajapaik-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>
+                </div>
+            {% endif %}
+            <div">
+                {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+                {% if photo.source_url %}
+                <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                    href='{{ photo.source_url }}' target="_blank" rel="noopener">
+                    {{ photo.source.description }}
+                    {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+                </a>
+                {% elif photo.source.description %}
+                {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                {% endif %}
+        </div>
+    {% endif %}
     {% if people %}
         <div class="row">
             <!--TODO: Highlight rectangle when name hovered?-->
@@ -257,17 +261,19 @@
 <i class="col-1 material-icons notranslate ajapaik-photo-modal-album-icon float-left"
     title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
     {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
-{% for a in albums %}
-    <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
-        {{ a.name }}
-    </a>
-    <div class="ajapaik-photo-modal-album-more-button float-left" role="button" title="{% trans 'Album details' %}"
-        data-id="{{ a.id }}"></div>
-    <div class="ajapaik-photo-modal-photo-curator">
-        &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
-        <p class="d-none"> {{ a.this_photo_curator.get_display_name }}</p>
-    </div>
-{% endfor %}
+<div class="col-auto">
+    {% for a in albums %}
+        <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
+            {{ a.name }}
+        </a>
+        <div class="ajapaik-photo-modal-album-more-button float-left" role="button" title="{% trans 'Album details' %}"
+            data-id="{{ a.id }}"></div>
+        <div class="ajapaik-photo-modal-photo-curator">
+            &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
+            <p class="d-none"> {{ a.this_photo_curator.get_display_name }}</p>
+        </div>
+    {% endfor %}
+</div>
 {% endif %}
 <div class="mx-2" id="ajapaik-comments-container">
     <div id="ajapaik-comment-list"></div>
@@ -377,14 +383,14 @@
     });
     $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
-            $('#ajapaik-close-rephoto-overlay-button').show();
-            $('#ajapaik-invert-rephoto-overlay-button').show();
+            $('.ajapaik-close-rephoto-overlay-button').show();
+            $('.ajapaik-invert-rephoto-overlay-button').show();
         }
     });
     $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
-            $('#ajapaik-close-rephoto-overlay-button').hide();
-            $('#ajapaik-invert-rephoto-overlay-button').hide();
+            $('.ajapaik-close-rephoto-overlay-button').hide();
+            $('.ajapaik-invert-rephoto-overlay-button').hide();
         }
     });
     $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
@@ -417,11 +423,11 @@
             mapURL = '{% url 'map' %}';
         window.location.href = mapURL + '?album=' + albumId;
     });
-    $(document).on('click', '#ajapaik-close-rephoto-overlay-button', function (e) {
+    $(document).on('click', '.ajapaik-close-rephoto-overlay-button', function (e) {
         e.stopPropagation();
         window.location.href = '/photo/' + {{ photo.id }} + '/{{ photo.get_pseudo_slug }}';
     });
-    $(document).on('click', '#ajapaik-invert-rephoto-overlay-button', function (e) {
+    $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
         e.stopPropagation();
         var targetDiv = $('#ajapaik-photoview-rephoto');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {

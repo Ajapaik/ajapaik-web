@@ -481,15 +481,12 @@
                     }
                     if (window.userClosedRephotoTools) {
                         $('#ajapaik-rephoto-selection').hide();
-                        $('#ajapaik-modal-photo-container-container').removeClass('col-12').addClass('col-9');
                         $('#ajapaik-photo-modal-map-container').show();
                         rephotoColumn.hide();
-                        $('#ajapaik-photo-modal-original-photo-info-column').removeClass('col-5').removeClass('col-6').addClass('col-12');
-                        originalPhotoColumn.removeClass('col-5').removeClass('col-6').addClass('col-12');
                         $('#ajapaik-photo-modal-rephoto-info-column').hide();
+                        $('.ajapaik-photo-modal-original-photo-column').removeClass("col-lg-6").addClass("col-lg-12");
                     }
                     if ((!window.photoModalPhotoLat && !window.photoModalPhotoLng) || (window.photoModalRephotoArray.length > 0 && !window.userClosedRephotoTools)) {
-                        $('#ajapaik-modal-photo-container-container').addClass('col-12');
                         $('#ajapaik-photo-modal-map-container').hide();
                     }
                     if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
@@ -505,7 +502,7 @@
                             $this.find('.ajapaik-flip-photo-overlay-button').show();
                             $this.find('.ajapaik-similar-photo-overlay-button').show();
                             if (window.userClosedRephotoTools) {
-                                $('#ajapaik-show-rephoto-selection-overlay-button').show();
+                                $('.ajapaik-show-rephoto-selection-overlay-button').show();
                             }
                         }
                     }, function () {
@@ -518,22 +515,22 @@
                                 $this.find('.ajapaik-like-photo-overlay-button').hide();
                             }
                             $this.find('.ajapaik-flip-photo-overlay-button').hide();
-                            $this.find('#ajapaik-show-rephoto-selection-overlay-button').hide();
+                            $this.find('.ajapaik-show-rephoto-selection-overlay-button').hide();
                             $this.find('.ajapaik-similar-photo-overlay-button').hide();
                         }
                     });
                     rephotoColumn.hover(function () {
                         if (!window.isMobile) {
                             if (!window.userClosedRephotoTools) {
-                                $('#ajapaik-close-rephoto-overlay-button').show();
-                                $('#ajapaik-invert-rephoto-overlay-button').show();
+                                $('.ajapaik-close-rephoto-overlay-button').show();
+                                $('.ajapaik-invert-rephoto-overlay-button').show();
                             }
                         }
                     }, function () {
                         if (!window.isMobile) {
                             if (!window.userClosedRephotoTools) {
-                                $('#ajapaik-close-rephoto-overlay-button').hide();
-                                $('#ajapaik-invert-rephoto-overlay-button').hide();
+                                $('.ajapaik-close-rephoto-overlay-button').hide();
+                                $('.ajapaik-invert-rephoto-overlay-button').hide();
                             }
                         }
                     });
@@ -684,8 +681,11 @@
                     window.showPhotos = true;
                     var currentUrl1 = window.URI(window.location.href);
                     currentUrl1.removeSearch('photos');
+                    if(window.albumId > 0){
+                        window.location.href = currentUrl1.query().replace("album="+window.albumId+"&","?");
+                        window.albumId = undefined;
+                    }
                     window.history.replaceState(null, window.title, currentUrl1);
-                    //window.albumId = null;
                     //window.updateFrontpagePhotosAsync();
                     break;
                 case 'albums':

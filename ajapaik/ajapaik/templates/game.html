@@ -7,7 +7,7 @@
 {% block layout %}
     <div class="modal fade" id="ajapaik-game-photo-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-xxl mx-auto pt-3">
-            <div class="modal-content">
+            <div class="modal-content pr-3">
                 <div class="modal-header" id="ajapaik-game-modal-header">
                     <button id="ajapaik-game-close-game-modal" type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -28,7 +28,7 @@
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
                             </button>
-                            <button class="ajapaik-overlay-button ajapaik-flip-photo-overlay-button">
+                            <button class="ajapaik-flip-photo-overlay-button">
                                 <i class="material-icons notranslate">flip</i>
                             </button>
                             <button class="ajapaik-like-photo-overlay-button">

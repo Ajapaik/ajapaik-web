@@ -124,8 +124,7 @@
         </div>
         <div class="modal-footer d-flex">
             <button type="button" id="ajapaik-sharing-dropdown-button"
-                    class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button
-                    ajapaik"
+                    class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button ajapaik-text-white"
                     data-toggle="dropdown" aria-expanded="false">
                 {% trans "Share" %}
                 <span class="caret"></span>
@@ -155,14 +154,14 @@
                 </li>
             </ul>
             {% if link_to_map %}
-                <a class="btn btn-primary ajapaik" href="{{ share_map_link }}&fromModal=1">{% trans "Show on map" %}</a>
+                <a class="btn btn-primary ajapaik ajapaik-text-white" href="{{ share_map_link }}&fromModal=1">{% trans "Show on map" %}</a>
             {% else %}
-                <a class="btn btn-primary ajapaik" data-dismiss="modal">{% trans "Back to map" %}</a>
+                <a class="btn btn-primary ajapaik  ajapaik-text-white" data-dismiss="modal">{% trans "Back to map" %}</a>
             {% endif %}
             {% if link_to_game %}
-                <a class="btn btn-success ajapaik" href="{{ share_game_link }}">{% trans "Geotag pictures" %}</a>
+                <a class="btn btn-success" href="{{ share_game_link }}">{% trans "Geotag pictures" %}</a>
             {% else %}
-                <a class="btn btn-success ajapaik" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
+                <a class="btn btn-success" data-dismiss="modal">{% trans "Geotag pictures" %}</a>
             {% endif %}
         </div>
     </div>

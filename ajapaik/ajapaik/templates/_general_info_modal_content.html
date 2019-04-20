@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <div class="container-fluid">
+            <div id="ajapaik-general-info-modal-content" class="container-fluid">
                 <div class="row">
                     {% trans "Discover how places looked like years ago by" %}
                 </div>
@@ -25,45 +25,45 @@
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     {% blocktrans %}
-                        Ajapaik has <b class="px-1">{{ total_photo_count }}</b> historic pictures, out of which
+                        Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b class="px-1">{{ total_photos_tagged }}</b> pictures have been put on the map by
+                        <b>{{ total_photos_tagged }}</b> pictures have been put on the map by
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b class="px-1">{{ contributing_users }}</b> users and
+                        <b>{{ contributing_users }}</b> users and
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b class="px-1">{{ rephoto_count }}</b> rephotographs for
+                        <b>{{ rephoto_count }}</b> rephotographs for
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b class="px-1">{{ rephotographed_photo_count }}</b> pictures made by
+                        <b>{{ rephotographed_photo_count }}</b> pictures made by
                     {% endblocktrans %}
                     {% blocktrans %}
-                        <b class="px-1">{{ rephotographing_users }}</b> users.
+                        <b>{{ rephotographing_users }}</b> users.
                     {% endblocktrans %}
                 </div>
                 <br/>
                 {% if user_geotagged_photos > 0 %}
                     <div class="row">
                         {% blocktrans count counter=user_geotagged_photos %}
-                            You have suggested location for <b class="px-1">{{ user_geotagged_photos }}</b> picture.
+                            You have suggested location for <b>{{ user_geotagged_photos }}</b> picture.
                         {% plural %}
-                            You have suggested locations for <b class="px-1">{{ user_geotagged_photos }}</b> pictures.
+                            You have suggested locations for <b>{{ user_geotagged_photos }}</b> pictures.
                         {% endblocktrans %}
                     </div>
                 {% endif %}
                 {% if user_rephotos > 0 %}
                     <div class="row">
                         {% blocktrans count counter=user_rephotographed_photos %}
-                            You have made <b class="px-1">{{ user_rephotos }}</b> rephoto for
+                            You have made <b>{{ user_rephotos }}</b> rephoto for
                         {% plural %}
-                            You have made <b class="px-1">{{ user_rephotos }}</b> rephotos for
+                            You have made <b>{{ user_rephotos }}</b> rephotos for
                         {% endblocktrans %}
                         {% blocktrans count counter=user_rephotographed_photos %}
-                            <b class="px-1">{{ user_rephotographed_photos }}</b> picture.
+                            <b>{{ user_rephotographed_photos }}</b> picture.
                         {% plural %}
-                            <b class="px-1">{{ user_rephotographed_photos }}</b> pictures.
+                            <b>{{ user_rephotographed_photos }}</b> pictures.
                         {% endblocktrans %}
                     </div>
                 {% endif %}

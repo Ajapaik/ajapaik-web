@@ -17,7 +17,7 @@
                                     <div class="facebook-connected">
                                         <form method="post" action="{% url 'account_logout' %}">
                                             {% csrf_token %}
-                                            <button type="submit">{% trans 'Sign Out' %}</button>
+                                            <button class="btn btn-light btn-block d-inline-block" type="submit">{% trans 'Sign Out' %}</button>
                                         </form>
                                     </div>
                                 {% endwith %}

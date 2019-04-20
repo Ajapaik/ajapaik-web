@@ -236,13 +236,6 @@
     height: 100%;
 }
 
-#ajp-geotagger-full-screen-image {
-    min-width: 128px;
-    min-height: 128px;
-    opacity: 0;
-    cursor: zoom-out;
-}
-
 #ajp-geotagger-lock-button {
     background-color: #fff;
     background-repeat: no-repeat;

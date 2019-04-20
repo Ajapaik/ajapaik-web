@@ -308,7 +308,7 @@
             "            </div>",
             "        </div>",
             "        <div id='ajp-geotagger-feedback'>",
-            "            <div class='panel'>",
+            "            <div class='panel px-3'>",
             "                <div class='panel-body'>",
             "                    <p id='ajp-geotagger-feedback-thanks'></p>",
             "                    <p id='ajp-geotagger-feedback-message'></p>",
@@ -354,6 +354,7 @@
             emailNotice = $('#ajp-geotagger-email-login-notice');
         $('#ajp-geotagger-full-screen-link').click(function () {
             if (BigScreen.enabled) {
+                fullScreenElement.attr('src', that.options.fullScreenSrc);
                 BigScreen.request(fullScreenElement.get(0));
                 that.fullScreenActive = true;
                 if (typeof window.reportGeotaggerFullScreenOpen === 'function') {

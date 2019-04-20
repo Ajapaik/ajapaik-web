@@ -26,7 +26,7 @@
         this.isRange = false;
         this.invalid = false;
         this.UI = $([
-            "<div class='panel panel-default' id='ajp-dater-panel'>",
+            "<div class='col-lg-6 col-md-8 col-sm-12 panel panel-default' id='ajp-dater-panel'>",
             "   <div class='panel-body'>",
             "       <div class='well' id='ajp-dater-previous-datings-well'>",
             "       </div>",

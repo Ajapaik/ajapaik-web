@@ -3,7 +3,7 @@
 {% if not user.profile.is_legit %}
     <a href="javaScript:void(0);" id="ajapaik-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
 {% else %}
-    <h4>{% trans "Your comment" %}</h4>
+    <h4 class="pl-3">{% trans "Your comment" %}</h4>
     <div class="well">
         <div class="d-none" data-comment-element="preview"></div>
         <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
@@ -21,7 +21,7 @@
                 <div class="alert alert-danger d-none" data-comment-element="errors"></div>
                 <div style="display:none">{{ form.honeypot }}</div>
                 <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
-                    <div class="comment-box col-lg-12 col-md-12">
+                    <div class="comment-box col-xl-6 col-lg-8 col-md-12 col-xs-12">
                         {{ form.comment }}
                     </div>
                 </div>

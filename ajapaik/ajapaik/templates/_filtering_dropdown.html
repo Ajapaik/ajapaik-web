@@ -1,5 +1,5 @@
 {% load i18n %}
-<a href="#" id="ajapaik-filtering-dropdown" data-toggle="dropdown" class="dropdown ajapaik-no-background {% if not show_photos %} d-none{% endif %}" title="{% trans 'Filtering' %}">
+<a href="#" id="ajapaik-filtering-dropdown" data-toggle="dropdown" class="ajapaik-header-button dropdown ajapaik-no-background {% if not show_photos %} d-none{% endif %}" title="{% trans 'Filtering' %}">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="32"
             height="36" fill="#888" viewBox="0 0 24 24">
         <path {% if order2 != 'added' %}class="ajapaik-white"{% endif %} id="ajapaik-header-filter-icon" fill="#888"

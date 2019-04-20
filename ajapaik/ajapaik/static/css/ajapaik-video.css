@@ -49,7 +49,7 @@
 
 #ajapaik-header-movie-indicator {
     position: relative;
-    top: 2px;
+    top: -2px;
 }
 
 #ajapaik-video-modal-info-column {

@@ -1,11 +1,3 @@
-@keyframes "rotate" {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 html {
   position: relative;
   min-height: 100%;
@@ -170,7 +162,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   margin-bottom: 0 !important;
 }
 
-#ajapaik-header-right-section{
+#ajapaik-header-right-section {
   position: absolute;
   top: 8px;
   right: 0px;
@@ -265,6 +257,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   border-radius: 0;
   width: 100%;
   max-width: 100%;
+}
+
+.ajapaik-header-button {
+  font-size: 0;
 }
 
 .ajapaik-photo-flipped {
@@ -509,6 +505,8 @@ path:hover {
 
 #ajapaik-header-album-more {
   margin-left: 5px;
+  position: relative;
+  bottom: 3px;
 }
 
 .ajapaik-album-selection-photo-count > span,
@@ -528,7 +526,7 @@ path:hover {
   background-size: 18px;
   display: inline-block;
   line-height: 24px;
-  width: 48px;
+  max-width: 68px;
   height: 24px;
   background: url(../images/material-design-icons/ic_image_gray_24px.svg) no-repeat;
 }
@@ -1018,10 +1016,16 @@ a.fullscreen {
   position: relative;
 }
 
-.ajapaik-frontpage-azimuth{
+.ajapaik-frontpage-azimuth {
   position: relative;
   bottom: 3px;
 }
+
+.ajapaik-bottom-4px {
+  position: relative;
+  bottom: 4px;
+}
+
 
 .ajapaik-frontpage-location-known {
   background: url(../images/material-design-icons/ic_location_on_24px.svg) no-repeat center;
@@ -1163,21 +1167,30 @@ a.fullscreen {
   max-height: 50%;
 }
 
-.ajapaik-overlay-button,
-.ajapaik-flip-photo-overlay-button,
+.ajapaik-close-rephoto-overlay-button,
+.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-show-rephoto-selection-overlay-button,
 .ajapaik-like-photo-overlay-button,
-.ajapaik-similar-photo-overlay-button {
+.ajapaik-similar-photo-overlay-button,
+.ajapaik-flip-photo-overlay-button {
   color: rgb(0,0,0);
   background-color: rgba(255, 255, 255, 0.3);
   width: 48px;
   height: 48px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
 
-.ajapaik-overlay-button,
+.ajapaik-like-photo-overlay-button {
+  bottom: 48px;
+}
+
+.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-close-rephoto-overlay-button,
 .ajapaik-flip-photo-overlay-button,
-.ajapaik-like-photo-overlay-button,
-.ajapaik-similar-photo-overlay-button {
-position: absolute;
+.ajapaik-like-photo-overlay-button {
+  position: absolute;
 }
 
 .ajapaik-flip-photo-overlay-button {
@@ -1190,14 +1203,24 @@ position: absolute;
 .ajapaik-similar-photo-overlay-button {
   border-radius: 0;
   border: none;
-  bottom: 0;
+}
+
+.ajapaik-like-photo-overlay-button {
+  bottom: 0px;
+  position: absolute;
 }
 .ajapaik-like-photo-overlay-button {
   left: 0;
 }
-.ajapaik-similar-photo-overlay-button {
-  right: 0;
+
+.ajapaik-image-bottom-right {
+  position: absolute;
+  right: 0px;
+  width: 96px;
+  height: 48px;
+  bottom: 0px;
 }
+
 .ajapaik-flip-photo-overlay-button:hover,
 .ajapaik-like-photo-overlay-button:hover,
 .ajapaik-flip-photo-overlay-button.active,
@@ -1207,13 +1230,18 @@ position: absolute;
 .ajapaik-similar-photo-overlay-button:hover,
 .ajapaik-thumbnail-selection-icon:hover,
 .ajapaik-thumbnail-selection-icon-blue,
-#ajapaik-show-rephoto-selection-overlay-button:hover,
-#ajapaik-show-rephoto-selection-overlay-button:active {
+.ajapaik-show-rephoto-selection-overlay-button:hover,
+.ajapaik-show-rephoto-selection-overlay-button:active {
   color: #007fff;
 }
 
 .ajapaik-like-photo-overlay-button > i {
   font-size: 24px;
+}
+
+.ajapaik-like-photo-overlay-button > span {
+  position: relative;
+  bottom: 5px;
 }
 
 .ajapaik-like-photo-overlay-button.big > i {
@@ -1225,13 +1253,14 @@ position: absolute;
 }
 
 .ajapaik-like-photo-overlay-button.active.big {
+  width: 60px;
   color: #981D2A;
 }
 
-#ajapaik-show-rephoto-selection-overlay-button {
+.ajapaik-show-rephoto-selection-overlay-button {
+  top: 0px;
+  position: relative;
   background-color: rgba(255, 255, 255, 0.3);
-  bottom: 0;
-  right: 0;
   border: none;
 }
 
@@ -1315,33 +1344,35 @@ position: absolute;
   margin: 10px;
 }
 
-#ajapaik-modal-photo {
-  min-height: 180px;
+#ajapaik-modal-photo,
+#ajapaik-modal-rephoto {
+  min-width: 45vmin;
+  max-height: 90vh;
   margin: 0 auto;
   padding: 0 !important;
 }
 
 #ajapaik-photo-modal-dialog,
 #ajapaik-video-modal-dialog {
-  min-width: 70vw;
+  min-width:  calc(65vw + 150px);
   width: 95vw !important;
   padding-left: 2%;
 }
 
 #ajapaik-photo-modal-map-container {
-  min-height: 180px;
+ /* min-height: 50vh;*/
   display: inline-block;
   position: relative;
 }
 
 #ajapaik-photo-modal-map-canvas {
-  min-height: 180px;
+ /* min-height: calc(70vh - 160px);*/
   height: calc(100% - 40px);
   max-height: 99%;
   position: relative;
 }
 
-.modal-content{
+.modal-content {
   max-width: 99vw !important;
 }
 
@@ -1370,8 +1401,7 @@ position: absolute;
 
 #ajapaik-photo-modal-discuss {
   position: relative;
-  top: 5px;
-  margin-left: 8px;
+  top: 3px;
 }
 #ajapaik-photo-modal-discuss > .badge {
   position: absolute;
@@ -1382,7 +1412,6 @@ position: absolute;
 #ajapaik-photo-modal-dropdown {
   float: right;
   top: 5px;
-  margin-left: 8px;
 }
 
 #ajapaik-photo-modal-geotag-count {
@@ -1449,6 +1478,7 @@ position: absolute;
 
 #ajapaik-modal-rephoto-container,
 #ajapaik-modal-photo-container {
+  max-width: calc(90vw - 30px);
   position: relative;
   display: inline-block;
 }
@@ -1464,7 +1494,8 @@ position: absolute;
 }
 
 .ajapaik-photo-modal-rephoto-thumb {
-  margin: 0 auto 3%;
+  width: 20%;
+  margin: 0;
 }
 .ajapaik-photo-modal-rephoto-thumb img {
   margin: 0 auto;
@@ -1479,6 +1510,19 @@ position: absolute;
 
 #ajapaik-photo-modal-rephoto-date-taken {
   display: inline;
+}
+
+#ajapaik-photo-modal-start-dating-button,
+#ajapaik-photoview-start-dating-button {
+  width: 48px;
+}
+
+#ajapaik-photoview-start-dating-button > span,
+#ajapaik-photo-modal-start-dating-button > span {
+  position: absolute;
+  right: 2px;
+  left: initial;
+  bottom: 8px;
 }
 
 #ajapaik-mapview-photo-panel {
@@ -1583,6 +1627,7 @@ position: absolute;
   width:100%;
   display:block;
   object-fit:contain;
+  cursor: zoom-out;
 }
 
 .ajapaik-fileupload-datepicker-container {
@@ -1590,9 +1635,16 @@ position: absolute;
 }
 
 #ajapaik-rephoto-selection {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 300px;
+  max-height: 20%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  float: left;
+  text-align: left;
+  z-index: 3000;
 }
 
 #ajapaik-photoview-container {
@@ -1621,7 +1673,7 @@ position: absolute;
 #ajapaik-game-photo-description,
 #ajapaik-curator-my-albums,
 #ajapaik-change-language-form,
-.ul.errorlist,
+ul.errorlist,
 .ajapaik-curator-load-more,
 .ajapaik-curator-new-album-creation-field {
   display: none;
@@ -1840,6 +1892,15 @@ a[href^="http://maps.google.com/maps"] {
   margin: 0 auto;
 }
 
+@keyframes rotate {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
 .ajapaik-icon {
   height: 24px;
   width: 24px;
@@ -1847,9 +1908,7 @@ a[href^="http://maps.google.com/maps"] {
 }
 
 #ajapaik-photo-modal-original-photo-column,
-#ajapaik-photo-modal-rephoto-column,
-#ajapaik-modal-photo-container-container,
-#ajapaik-modal-rephoto-container-container {
+#ajapaik-photo-modal-rephoto-column {
   padding: 0;
 }
 
@@ -1946,7 +2005,8 @@ a[href^="http://maps.google.com/maps"] {
   min-width: 20%;
 }
 
-#ajapaik-game-modal-header {
+#ajapaik-game-modal-header,
+.ajapaik-no-border {
   border: none;
 }
 
@@ -1964,6 +2024,7 @@ a[href^="http://maps.google.com/maps"] {
 }
 
 #ajapaik-game-close-game-modal {
+  padding-right: 0;
   z-index: 2000 !important;
 }
 
@@ -2014,7 +2075,7 @@ a[href^="http://maps.google.com/maps"] {
   color: #fff;
 }
 
-.ajapaik-dropdown{
+.ajapaik-dropdown {
   background-color: rgba(0, 0, 0, .8);
   border-radius: 0;
   margin-top: 10px;
@@ -2035,7 +2096,7 @@ a[href^="http://maps.google.com/maps"] {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-footer a{
+footer a {
     color:#fff;
 }
 
@@ -2116,7 +2177,7 @@ footer a{
   color: #666;
   font-weight: 600;
 }
-#ajapaik-pager-stats{
+#ajapaik-pager-stats {
   cursor: not-allowed;
 }
 
@@ -2150,6 +2211,10 @@ footer a{
 
 .ajapaik-curator-submit-single {
   height: 43px;
+}
+
+.ajp-dater-hide-when-dater-visible{
+  padding: 12px 9px 12px
 }
 
 #ajp-geotagger-feedback-thanks {
@@ -2191,7 +2256,8 @@ input[type=search]::-webkit-search-cancel-button {
   position: relative;
   background-color: black;
   color: white;
-  left: -20px;
+  left: -18px;
+  font-size: 12px;
 }
 
 .curator-badge {
@@ -2245,6 +2311,11 @@ input[type=search]::-webkit-search-cancel-button {
   #pac-input-mapview {
     width: 200px !important;
   }
+
+  .ajapaik-header-button,
+  .ajapaik-header-right-button {
+    padding-right: 10px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -2260,7 +2331,7 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 @media (max-width: 713px) {
-  #ajapaik-album-filter-box{
+  #ajapaik-album-filter-box {
     width:calc(95vw - 235px);
   }
   #ajapaik-photo-filter-box {
@@ -2276,7 +2347,7 @@ input[type=search]::-webkit-search-cancel-button {
 @media (max-width: 440px) {
   #ajapaik-album-filter-box,
   #ajapaik-photo-filter-box {
-    width: calc(70vw - 120px);
+    width: calc(70vw - 145px);
   }
   #ajapaik-map-canvas {
     top: 109px;
@@ -2295,4 +2366,19 @@ input[type=search]::-webkit-search-cancel-button {
 
 .allauth-menu {
     margin-top:1em;
+}
+
+#ajapaik-filtering-dropdown:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#ajapaik-general-info-modal-content > .row > b {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.ajapaik-photo-modal-rephoto-thumb,
+.primaryAction{
+  cursor: pointer;
 }

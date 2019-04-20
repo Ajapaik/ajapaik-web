@@ -1,6 +1,6 @@
 {% load i18n comments comments_xtd %}
 
-<ul class="media-list pl-2" id="comments">
+<ul class="media-list pl-2 pt-2" id="comments">
     {% for comment in comment_list %}
         <li class="media" id="c{{ comment.id }}"
             style="margin-left:{{ comment.level }}00px">
