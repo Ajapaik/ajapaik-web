@@ -43,8 +43,10 @@ def finna_find_photo_by_url(record_url, profile):
         if m:
             # Already in database?
             external_id = m.group(2)
+            # Detect old imports where ':' character is urlencoded
+            external_id_urlencoded_1 = external_id.replace(":", "%3A")
             photo = Photo.objects.filter(
-                external_id=external_id,
+                external_id__in=[external_id, external_id_urlencoded_1],
             ).first()
 
             # Import if not found
