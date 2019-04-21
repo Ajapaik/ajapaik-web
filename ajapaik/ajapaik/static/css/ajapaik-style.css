@@ -1498,7 +1498,6 @@ a.fullscreen {
 
 #ajapaik-modal-rephoto-container,
 #ajapaik-modal-photo-container {
-  max-width: calc(90vw - 30px);
   position: relative;
   display: inline-block;
 }
