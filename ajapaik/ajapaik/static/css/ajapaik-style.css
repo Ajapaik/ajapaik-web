@@ -591,7 +591,7 @@ path:hover {
 
 #ajapaik-map-canvas {
   position: absolute;
-  top: 59px;
+  top: 58px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1543,7 +1543,7 @@ a.fullscreen {
 }
 
 #ajapaik-mapview-photo-panel {
-  top: 59px !important;
+  top: 58px !important;
   padding-right: 10px !important;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -2219,6 +2219,10 @@ footer a {
   cursor: pointer;
 }
 
+.ajapaik-album-filter-list-item {
+  padding: 13px 0px 6px 12px;
+}
+
 #ajapaik-photographic-heritage-link {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -2407,4 +2411,17 @@ input[type=search]::-webkit-search-cancel-button {
 .ajapaik-photo-modal-rephoto-thumb,
 .primaryAction {
   cursor: pointer;
+}
+
+div.gm-style-mtc > div:nth-of-type(2) {
+  top: auto !important;
+  left: 0 !important;
+  bottom: 40px;
+  min-width: 100%;
+}
+
+div.gm-style-mtc > div:nth-of-type(2) > div > label {
+  top: 8px;
+  position: relative;
+  font-size: 13px;
 }

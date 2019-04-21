@@ -760,7 +760,7 @@ var map,
                 var minimapGeotaggingUserNumber = document.createElement('div');
                 var minimapGeotaggingUserNumberSpan = document.createElement('span');
                 $(minimapGeotaggingUserNumberSpan).text(window.photoModalGeotaggingUserCount);
-                $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown')
+                $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown pr-2')
                     .prop('title', gettext('Geotagged by this many users'));
                 minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserNumberSpan);
                 var minimapGeotaggingUserIcon = document.createElement('div');
