@@ -14,7 +14,7 @@
                     {% endif %}
                 </a>
             </div>
-            <div class="media-body">
+            <div class="media-body pl-2">
                 <h6 class="media-heading">
                     {{ comment.name }}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                     <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">

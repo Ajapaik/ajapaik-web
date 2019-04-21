@@ -85,7 +85,7 @@
                                         <i class="material-icons notranslate">invert_colors</i>
                                     </button>
                                 </a>
-                                {% if photo.rephotos.all|length > 1 %}
+                                {% if photo.rephotos.all|length > 2 %}
                                     <div id="ajapaik-rephoto-selection" style="display:none;">
                                         {% for rephoto in photo.rephotos.all %}
                                             <div class="ajapaik-photo-modal-rephoto-thumb"
@@ -223,11 +223,11 @@
                                    title="{% trans "Add rephoto" %}">
                                     <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                                 </a>
+                                <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
+                                    id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
+                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                                </a>
                                 {% if request.user.profile.is_legit %}
-                                    <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                                       id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
-                                       <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
-                                    </a>
                                     <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-left"
                                        title="{% trans "Discuss" %}" href="#">
                                        <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">comment</i>
@@ -456,6 +456,7 @@
     
         if(window.userClosedRephotoTools === true){
             $('#ajapaik-photo-modal-original-photo-column').removeClass("col-lg-6").addClass("col-lg-6");
+            $('#ajapaik-photo-modal-original-photo-info-column').removeClass("col-lg-6").addClass("col-lg-12");
         }
     });
 </script>

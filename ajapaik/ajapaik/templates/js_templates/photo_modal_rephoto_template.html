@@ -8,7 +8,7 @@
         <button class="btn ajapaik-invert-rephoto-overlay-button"
              {% if (!isMobile) { %}
             style="display: none;"{% } %}><i class="material-icons notranslate">invert_colors</i></button>
-        {% if (o[0]){ %}
+        {% if (o[0] && o[0].length > 1){ %}
             <div id="ajapaik-rephoto-selection" style="display:none;">
                 {% for(rephoto of o[0]){ %}
                     <div class="ajapaik-photo-modal-rephoto-thumb" id="ajapaik-rephoto-thumb-{%=rephoto.id%}" data-id="{%=rephoto.id%}">

@@ -60,6 +60,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   background: none !important;
 }
 
+.ajapaik-filtering-choice {
+  padding: 3px 20px;
+}
+
 #ajapaik-album-selection-navmenu {
   z-index: 100;
   width: 100%;
@@ -1357,8 +1361,8 @@ a.fullscreen {
 
 #ajapaik-modal-photo,
 #ajapaik-modal-rephoto {
-  min-width: 45vmin;
-  max-height: 90vh;
+  min-width: 35vmin;
+  max-height: calc(90vh - 50px);
   margin: 0 auto;
   padding: 0 !important;
 }
@@ -2322,6 +2326,10 @@ input[type=search]::-webkit-search-cancel-button {
     width: 200px !important;
   }
 
+  .ajapaik-header-title {
+    width: calc(50vw - 490px)
+  }
+
   .ajapaik-header-button,
   .ajapaik-header-right-button {
     padding-right: 10px;
@@ -2350,7 +2358,7 @@ input[type=search]::-webkit-search-cancel-button {
   .ajapaik-black-dropdown-menu,
   .footer,
   #ajapaik-frontpage-container {
-    top: 109px;
+    top: 108px;
   }
 }
 
@@ -2360,7 +2368,7 @@ input[type=search]::-webkit-search-cancel-button {
     width: calc(70vw - 145px);
   }
   #ajapaik-map-canvas {
-    top: 109px;
+    top: 108px;
   }
 }
 
@@ -2384,8 +2392,8 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 #ajapaik-general-info-modal-content > .row > b {
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .ajapaik-photo-modal-rephoto-thumb,

@@ -462,6 +462,7 @@
                         nextButton = $('.ajapaik-photo-modal-next-button'),
                         previousButton = $('.ajapaik-photo-modal-previous-button'),
                         originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
+                        originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column'),
                         rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
                         mainPhotoContainer = $('#ajapaik-modal-photo-container');
                     mainPhotoContainer.AjapaikFaceTagger();
@@ -484,7 +485,8 @@
                         $('#ajapaik-photo-modal-map-container').show();
                         rephotoColumn.hide();
                         $('#ajapaik-photo-modal-rephoto-info-column').hide();
-                        $('.ajapaik-photo-modal-original-photo-column').removeClass("col-lg-6").addClass("col-lg-12");
+                        originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
+                        originalPhotoInfoColumn.removeClass("col-lg-6").addClass("col-lg-12");
                     }
                     if ((!window.photoModalPhotoLat && !window.photoModalPhotoLng) || (window.photoModalRephotoArray.length > 0 && !window.userClosedRephotoTools)) {
                         $('#ajapaik-photo-modal-map-container').hide();

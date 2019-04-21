@@ -946,8 +946,10 @@ var map,
         userClosedRephotoTools = false;
         var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
             rephotoInfoColumn = $('#ajapaik-photo-modal-rephoto-info-column'),
-            originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
-            rephotoDiv = $('#ajapaik-modal-rephoto-container');
+            originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column'),
+            rephotoDiv = $('#ajapaik-modal-rephoto-container'),
+            originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+            originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         rephotoInfoColumn.show();
         rephotoColumn.show();
@@ -981,7 +983,9 @@ var map,
         $('.ajapaik-show-rephoto-selection-overlay-button').show();
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+        let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
         originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
+        originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
         if (window.isFrontpage || window.isPhotoview) {
