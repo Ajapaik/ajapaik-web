@@ -1644,7 +1644,7 @@ a.fullscreen {
   bottom: 0px;
   left: 0px;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: hidden;
   display: flex;
   float: left;
   text-align: left;
