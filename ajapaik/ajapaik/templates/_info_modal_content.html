@@ -116,7 +116,7 @@
             {% endif %}
             <br>
             {% if nearby_albums %}
-                <div class="row">
+                <div class="row d-block">
                     {% trans "Some nearby albums" %}: {% for a in nearby_albums %}<a class="ajapaik-album-info-modal-album-link" href="{% url 'frontpage' %}?album={{ a.id }}">{{ a.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </div>

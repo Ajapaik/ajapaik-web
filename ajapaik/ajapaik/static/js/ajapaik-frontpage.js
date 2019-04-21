@@ -660,7 +660,7 @@
             e.stopPropagation();
             window.location.href = $(this).attr('data-href');
         });
-        $('#ajapaik-frontpage-mode-select').find('a').click(function (e) {
+        $('#ajapaik-mode-select').find('a').click(function (e) {
             e.preventDefault();
             var $this = $(this),
                 selectedMode = $this.data('mode');

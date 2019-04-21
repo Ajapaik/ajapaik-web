@@ -80,24 +80,20 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   -webkit-appearance: none;
 }
 
-#ajapaik-mode-select,
-#ajapaik-frontpage-mode-select {
+#ajapaik-mode-select {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 0;
 }
-#ajapaik-mode-select > a,
-#ajapaik-frontpage-mode-select > a {
+#ajapaik-mode-select > a {
   font-size: 20px;
   color: #fff;
   background: none !important;
 }
-#ajapaik-mode-select > a.disabled,
-#ajapaik-frontpage-mode-select > a.disabled {
+#ajapaik-mode-select > a.disabled {
   color: #888 !important;
 }
 
-#ajapaik-mode-select.with-album,
-#ajapaik-frontpage-mode-select.with-album {
+#ajapaik-mode-select.with-album {
   margin-top: 12px;
 }
 
@@ -887,7 +883,7 @@ a.fullscreen {
   list-style: none;
   line-height: 12px;
   border-bottom: 1px solid #efefef;
-  padding: 0 15px;
+  padding-right: 40px;
   height: 31px;
 }
 
@@ -2102,7 +2098,7 @@ a[href^="http://maps.google.com/maps"] {
 .navbar-hidden .navbar-brand,
 .navbar-hidden .score_container,
 .navbar-hidden .ajapaik-black-dropdown-menu.show,
-.navbar-hidden #ajapaik-frontpage-mode-select,
+.navbar-hidden #ajapaik-mode-select,
 .navbar-hidden #ajapaik-header-album-name {
   display: none !important;
 }
@@ -2346,7 +2342,7 @@ input[type=search]::-webkit-search-cancel-button {
   #ajapaik-modal-photo,
   #ajapaik-modal-rephoto {
     min-width: calc(75vmin - 480px);
-    min-height: 50vh;
+    min-height: 42vh;
   }
 }
 
