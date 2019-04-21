@@ -212,13 +212,13 @@
             <p>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</p>#}
         </div>
     {% endif %}
-    <div class="row" id="ajapaik-photo-modal-like">
+    <div class="row pl-3" id="ajapaik-photo-modal-like">
         <div class="fb-like"
             data-href="
                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
             data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
-    <div class="row ajapaik-height-48 mt-2">
+    <div class="row ajapaik-height-48 mt-2 pl-2">
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}
         <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="float-left"
             title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
@@ -258,7 +258,7 @@
 </div>
 <div class="mb-3" id="ajp-dater-container"></div>
 {% if albums.all|length > 0 %}
-<i class="col-1 material-icons notranslate ajapaik-photo-modal-album-icon float-left"
+<i class="col-auto material-icons notranslate ajapaik-photo-modal-album-icon float-left pl-0"
     title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
     {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
 <div class="col-auto">

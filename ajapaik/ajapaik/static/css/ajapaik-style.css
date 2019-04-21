@@ -73,6 +73,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   min-width: 70px;
   max-width: 240px;
   width: 25vw;
+  -webkit-appearance: none;
 }
 
 #ajapaik-mode-select,

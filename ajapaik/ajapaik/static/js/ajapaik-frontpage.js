@@ -683,10 +683,6 @@
                     window.showPhotos = true;
                     var currentUrl1 = window.URI(window.location.href);
                     currentUrl1.removeSearch('photos');
-                    if(window.albumId > 0){
-                        window.location.href = currentUrl1.query().replace("album="+window.albumId+"&","?");
-                        window.albumId = undefined;
-                    }
                     window.history.replaceState(null, window.title, currentUrl1);
                     //window.updateFrontpagePhotosAsync();
                     break;
