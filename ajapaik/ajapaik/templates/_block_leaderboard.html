@@ -7,22 +7,32 @@
         {% include "_leaderboard_positions.html" with leaderboard=leaderboard is_recent=True %}
     {% endif %}
 {% else %}
-    {% if album_leaderboard %}
-        <div class="col-xs-6">
-            <h3>{% blocktrans with album_name as album_name %}Album {{ album_name }} leaderboard{% endblocktrans %}</h3>
-            {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard %}
-        </div>
-    {% endif %}
-    {% if activity_leaderboard %}
-        <div class="col-xs-6">
-            <h3>{% trans "Recent activity leaderboard" %}</h3>
-            {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard is_recent=True %}
-        </div>
-    {% endif %}
-    {% if not album_leaderboard %}
-        <div class="col-xs-6">
-            <h3>{% trans "All time leaderboard" %}</h3>
-            {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard %}
-        </div>
-    {% endif %}
+    <div class="row">
+        {% if activity_leaderboard %}
+            <h3 class="col-6 pl-0">{% trans "Recent activity leaderboard" %}</h3>
+        {% endif %}
+        {% if album_leaderboard %}
+            <h3 class="col-6 pr-0">{% blocktrans with album_name as album_name %}Album {{ album_name }} leaderboard{% endblocktrans %}</h3>
+        {% endif %}
+        {% if not album_leaderboard %}
+            <h3 class="col-6 pr-0">{% trans "All time leaderboard" %}</h3>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if activity_leaderboard %}
+            <div class="col-6 pl-0">
+                {% include "_leaderboard_positions.html" with leaderboard=activity_leaderboard is_recent=True %}
+            </div>
+        {% endif %}
+        {% if album_leaderboard %}
+            <div class="col-6 pr-0">
+                {% include "_leaderboard_positions.html" with leaderboard=album_leaderboard %}
+            </div>
+        {% endif %}
+        {% if not album_leaderboard %}
+            <div class="col-6 pr-0">
+                {% include "_leaderboard_positions.html" with leaderboard=all_time_leaderboard %}
+            </div>
+        {% endif %}
+    </div>
 {% endif %}
