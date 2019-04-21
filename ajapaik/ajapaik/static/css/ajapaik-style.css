@@ -1371,9 +1371,12 @@ a.fullscreen {
 
 #ajapaik-photo-modal-dialog,
 #ajapaik-video-modal-dialog {
-  min-width:  calc(65vw + 150px);
-  width: 95vw !important;
-  padding-left: 2%;
+  position: relative;
+  display: table;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: auto;
+  min-width: calc(65vw + 150px);
 }
 
 #ajapaik-photo-modal-map-container {

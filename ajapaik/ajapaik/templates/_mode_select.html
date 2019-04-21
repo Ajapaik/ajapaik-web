@@ -1,7 +1,7 @@
 {% load i18n ajapaik_templatetags %}
 {% if album %}
     {% if is_mapview or is_game or is_frontpage %}
-        <div class="dropdown float-left pl-2 pt-3" id="ajapaik-header-album-name">
+        <div class="dropdown float-left pt-3" id="ajapaik-header-album-name">
             <a href="#" class="dropdown ajapaik-no-background ajapaik-text-white" data-toggle="dropdown"
                 class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
                 {% if album.5 %}
@@ -62,7 +62,10 @@
             <i id="ajapaik-header-image-icon" class="material-icons notranslate">insert_image</i>
             <i id="ajapaik-header-likes-icon" class="material-icons notranslate">favorite</i>
             <i id="ajapaik-header-rephotos-icon" class="material-icons notranslate">library_add</i>
-            <span id="ajapaik-header-title" title=""><i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i></span>
+            <i class="material-icons notranslate float-left">photo_album</i>
+            <span id="ajapaik-header-title" title="">
+                <i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i>
+            </span>
         </a>
         <div class="dropdown-menu ajapaik-dropdown" id="ajapaik-frontpage-mode-select">
             <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-albums-link" data-mode="albums" title="{% trans "Show albums" %}">
