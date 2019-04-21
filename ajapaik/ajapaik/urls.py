@@ -111,6 +111,8 @@ urlpatterns += [
     url(r'^api/v1/album_thumb/(?P<album_id>\d+)/(?P<thumb_size>.*)/$', api.api_album_thumb),
     url(r'^api/v1/albums/$', api.AlbumList.as_view()),
     url(r'^api/v1/albums/search/$', api.AlbumsSearch.as_view()),
+    url(r'^api/v1/wikidocumentaries/$', api.WikidocsAlbumsSearch.as_view()),
+    url(r'^api/v1/wikidocumentaries/photos/$', api.WikidocsAlbumSearch.as_view()),
     url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),

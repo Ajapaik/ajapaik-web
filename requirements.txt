@@ -1,5 +1,3 @@
-bleach
-bleach-whitelist
 cmake
 django-admin-tools
 django-allauth
@@ -47,3 +45,5 @@ user-agents
 oauth2client==2.2.0
 jsonpickle
 django-registration-redux==1.6
+bleach
+bleach-whitelist

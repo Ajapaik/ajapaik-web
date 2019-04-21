@@ -1243,6 +1243,147 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'albums': []
             })
 
+# Show Wikidata items as albums
+class WikidocsAlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for albums by given search phrase.
+    '''
+
+    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs.php';
+    permission_classes = (AllowAny,)
+
+    def _handle_request(self, data, user, request):
+        form = forms.ApiWikidocsAlbumsSearchForm(data)
+        if form.is_valid():
+            lon = form.cleaned_data["longitude"]
+            lat = form.cleaned_data["latitude"] 
+            language = form.cleaned_data["language"] or request.LANGUAGE_CODE 
+            query = form.cleaned_data["query"] or ""
+            start = form.cleaned_data["start"] or 0
+            limit = form.cleaned_data["limit"] or 50
+
+#            user_profile = user.profile or None
+            res = requests.get(self.search_url, {
+                'lat': lat,
+                'lon': lon,
+                'search': query,
+                'start': 0,
+                'limit': limit,
+                'language':language
+            });
+            albums=[];
+            for p in res.json():
+                try:
+                    album = {
+                         'id': p.get('id'),
+                         'image': p.get('image'),
+                         'title': p.get('title'),
+                         'lang': p.get('lang'),
+                         'search': p.get('lat'),
+                         'type': 'wikidocumentaries',
+                         'stats': {
+                             'rephotos': p.get('rephotos', 0),
+                             'total': p.get('total',0),
+                         },
+                    }
+                    albums.append(album)
+                except:
+                    pass
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'albums': albums
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'albums': []
+            })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
+# Photos under single Wikidata item id 
+class WikidocsAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+    '''
+    API endpoint to search for albums by given search phrase.
+    '''
+
+    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs_qid_album.php';
+    permission_classes = (AllowAny,)
+
+    def _handle_request(self, data, user, request):
+        form = forms.ApiWikidocsAlbumSearchForm(data)
+        if form.is_valid():
+            lon = form.cleaned_data["longitude"]
+            lat = form.cleaned_data["latitude"] 
+            language = form.cleaned_data["language"] or request.LANGUAGE_CODE 
+            query = form.cleaned_data["query"] or ""
+            id = form.cleaned_data["id"] or ""
+            start = form.cleaned_data["start"] or 0
+            limit = form.cleaned_data["limit"] or 50
+
+#            user_profile = user.profile or None
+            res = requests.get(self.search_url, {
+                'lat': lat,
+                'lon': lon,
+                'search': query,
+                'qid': id,
+                'start': 0,
+                'limit': limit,
+                'language':language
+            });
+            photos=[];
+            for p in res.json():
+                try:
+                # Coordinate's are disabled because center coordinates aren't good enough
+                    photo = {
+                        'id': p.get('id'),
+                        'image': p.get('thumbURL'),
+                        'height': 768,
+                        'width': 583,
+                        'title': p.get('title'),
+                        'date': p.get('year'),
+                        'author': p.get('authors'),
+                        'source': {
+                            'url': p.get('infoURL'),
+                            'name': p.get('institutions'),
+                            'license': p.get('license')
+                        },
+                        'azimuth':None,
+                        'latitude': p.get('latitude', None),
+                        'longitude': p.get('longitude', None),
+                        'rephotos': [],
+                        'favorited': False
+                    }
+                    photos.append(photo)
+                except:
+                    pass
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': photos
+            })
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'albums': []
+            })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
+
 
 class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     '''
