@@ -1035,6 +1035,12 @@ a.fullscreen {
   background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
 }
 
+.ajapaik-map-rephoto-count{
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
 .ajapaik-rephoto-count {
   background-color: rgba(0, 0, 0, 0.4);
 }
