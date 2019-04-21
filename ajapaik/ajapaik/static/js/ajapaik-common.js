@@ -508,6 +508,9 @@ var map,
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
+            if(window.location.search.substring(0,7) == "?people"){
+                window.location.href = '/';
+            }
             if (!window.isFrontpage) {
                 if (window.isSelection) {
                     window.history.go(-1);
