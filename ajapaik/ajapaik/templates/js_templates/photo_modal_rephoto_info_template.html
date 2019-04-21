@@ -18,7 +18,7 @@
                     <div class="row">
                         <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                             {%=o.FBUserName%}
-                        </a>
+                        </a><br>
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
@@ -26,7 +26,7 @@
                         <div class="row">
                             <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                                 {%=o.GooglePlusName%}
-                            </a>
+                            </a><br>
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
@@ -34,7 +34,7 @@
                             <div class="row">
                                 <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
                                     {%=o.FullName%}
-                                </a>
+                                </a><br>
                                 {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                             </div>
                         {% } else { %}

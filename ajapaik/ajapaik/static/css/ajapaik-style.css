@@ -1648,7 +1648,6 @@ a.fullscreen {
   display: flex;
   float: left;
   text-align: left;
-  z-index: 3000;
 }
 
 #ajapaik-photoview-container {

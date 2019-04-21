@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div id="ajapaik-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
-                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo float-left pr-2">
+                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo float-left">
                             <div class="ajapaik-photo-modal-previous-button">
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
                             </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     {% if photo.rephotos.all.0 %}
-                        <div id="ajapaik-photo-modal-rephoto-column" class="pl-3 col-lg-6 col-xl-6 col-md-12 col-xs-12">
+                        <div id="ajapaik-photo-modal-rephoto-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
                             <div id="ajapaik-modal-rephoto-container" class="float-left">
                                 <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
                                     href="{% url 'photo' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
@@ -86,16 +86,16 @@
                                     </button>
                                 </a>
                                 {% if photo.rephotos.all|length > 1 %}
-                                <div id="ajapaik-rephoto-selection" style="display:none;">
-                                    {% for rephoto in photo.rephotos.all %}
-                                        <div class="ajapaik-photo-modal-rephoto-thumb"
-                                             id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
-                                            <img class="img-fluid"
-                                                 src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
-                                                 data-id="{{ rephoto.id }}"/>
-                                        </div>
-                                    {% endfor %}
-                                </div>
+                                    <div id="ajapaik-rephoto-selection" style="display:none;">
+                                        {% for rephoto in photo.rephotos.all %}
+                                            <div class="ajapaik-photo-modal-rephoto-thumb"
+                                                id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
+                                                <img class="img-fluid"
+                                                    src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                                                    data-id="{{ rephoto.id }}"/>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -452,6 +452,10 @@
         if (typeof get_photoviewModalOptions === "function") {
             var options = get_photoviewModalOptions();
             $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
+        }
+    
+        if(window.userClosedRephotoTools === true){
+            $('#ajapaik-photo-modal-original-photo-column').removeClass("col-lg-6").addClass("col-lg-6");
         }
     });
 </script>
