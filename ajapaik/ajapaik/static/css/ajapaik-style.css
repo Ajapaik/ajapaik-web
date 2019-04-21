@@ -92,7 +92,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   background: none !important;
 }
 #ajapaik-mode-select > a.disabled,
-#ajapaik-frontpage-mode-select > a.disabled  {
+#ajapaik-frontpage-mode-select > a.disabled {
   color: #888 !important;
 }
 
@@ -1040,7 +1040,7 @@ a.fullscreen {
   background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
 }
 
-.ajapaik-map-rephoto-count{
+.ajapaik-map-rephoto-count {
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -1283,12 +1283,12 @@ a.fullscreen {
   bottom: 0;
 }
 
-.ajapaik-invert-rephoto-overlay-button{
+.ajapaik-invert-rephoto-overlay-button {
   z-index: 3001;
 }
 
 .ajapaik-invert-rephoto-overlay-button,
-.ajapaik-close-rephoto-overlay-button  {
+.ajapaik-close-rephoto-overlay-button {
   border: none;
   right: 0;
   border-radius: 0;
@@ -1362,7 +1362,8 @@ a.fullscreen {
 #ajapaik-modal-photo,
 #ajapaik-modal-rephoto {
   min-width: 35vmin;
-  max-height: calc(90vh - 50px);
+  max-height: 70vh;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 !important;
 }
@@ -2227,7 +2228,7 @@ footer a {
   height: 43px;
 }
 
-.ajp-dater-hide-when-dater-visible{
+.ajp-dater-hide-when-dater-visible {
   padding: 12px 9px 12px
 }
 
@@ -2334,6 +2335,12 @@ input[type=search]::-webkit-search-cancel-button {
   .ajapaik-header-right-button {
     padding-right: 10px;
   }
+
+  #ajapaik-modal-photo,
+  #ajapaik-modal-rephoto {
+    min-width: calc(75vmin - 480px);
+    min-height: 50vh;
+  }
 }
 
 @media (max-width: 992px) {
@@ -2397,6 +2404,6 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .ajapaik-photo-modal-rephoto-thumb,
-.primaryAction{
+.primaryAction {
   cursor: pointer;
 }
