@@ -1272,6 +1272,10 @@ a.fullscreen {
   bottom: 0;
 }
 
+.ajapaik-invert-rephoto-overlay-button{
+  z-index: 3001;
+}
+
 .ajapaik-invert-rephoto-overlay-button,
 .ajapaik-close-rephoto-overlay-button  {
   border: none;

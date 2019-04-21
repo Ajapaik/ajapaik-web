@@ -957,7 +957,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         for (var i = 0; i < window.photoModalRephotoArray.length; i += 1) {
             if (window.photoModalRephotoArray[i].id == targetId) {
                 fullscreenDiv.attr('data-src', window.photoModalRephotoArray[i].fullscreen_url);
-                photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[i]));
+                photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,i]));
                 infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                 currentlySelectedRephotoId = targetId;
                 var commentsDiv = $('#ajapaik-rephoto-comments');
@@ -986,7 +986,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         rephotoInfoColumn.show();
         rephotoColumn.show();
         currentlySelectedRephotoId = window.photoModalRephotoArray[0]['id'];
-        rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', window.photoModalRephotoArray[0]));
+        rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
         if (!window.isFrontpage) {
@@ -1013,9 +1013,9 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('#ajapaik-photo-modal-rephoto-column').hide();
         $('#ajapaik-rephoto-selection').hide();
         $('.ajapaik-show-rephoto-selection-overlay-button').show();
+        $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
         originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
-        $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
         if (window.isFrontpage || window.isPhotoview) {

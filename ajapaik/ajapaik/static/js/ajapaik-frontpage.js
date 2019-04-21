@@ -524,6 +524,7 @@
                             if (!window.userClosedRephotoTools) {
                                 $('.ajapaik-close-rephoto-overlay-button').show();
                                 $('.ajapaik-invert-rephoto-overlay-button').show();
+                                $('#ajapaik-rephoto-selection').show();
                             }
                         }
                     }, function () {
@@ -531,6 +532,7 @@
                             if (!window.userClosedRephotoTools) {
                                 $('.ajapaik-close-rephoto-overlay-button').hide();
                                 $('.ajapaik-invert-rephoto-overlay-button').hide();
+                                $('#ajapaik-rephoto-selection').hide();
                             }
                         }
                     });

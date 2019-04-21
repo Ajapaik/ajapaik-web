@@ -86,9 +86,9 @@
                                     </button>
                                 </a>
                                 {% if photo.rephotos.all|length > 1 %}
-                                <div id="ajapaik-rephoto-selection">
+                                <div id="ajapaik-rephoto-selection" style="display:none;">
                                     {% for rephoto in photo.rephotos.all %}
-                                        <div class="ajapaik-photo-modal-rephoto-thumb d-none"
+                                        <div class="ajapaik-photo-modal-rephoto-thumb"
                                              id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
                                             <img class="img-fluid"
                                                  src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
@@ -153,32 +153,32 @@
                             <!-- end of old photo info -->
                             <!-- start of new photo info -->
                             {% if photo.rephotos.all|length > 0 %}
-                                <div class="col-6" id="ajapaik-photo-modal-rephoto-info-column pl-0">
+                                <div class="col-6" id="ajapaik-photo-modal-rephoto-info-column">
                                     {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
                                         {% if photo.rephotos.all.0.author %}
-                                            <b>{{ photo.rephotos.all.0.author }}</b>
+                                            <b>{{ photo.rephotos.all.0.author }}</b><br>
                                             {% if photo.rephotos.all.0.licence %}
-                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
                                             {% endif %}
                                         {% endif %}
                                             <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
                                                 target="_blank" rel="noopener nofollow">
                                                 {{ photo.rephotos.all.0.source.desription }} {{ photo.rephotos.all.0.source_key }}
-                                            </a>
+                                            </a><br>
                                     {% else %}
                                         {% if photo.rephotos.all.0.author %}
-                                            <b>{{ photo.rephotos.all.0.author }}</b>
+                                            <b>{{ photo.rephotos.all.0.author }}</b><br>
                                             {% if photo.rephotos.all.0.licence %}
-                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
                                             {% endif %}
                                         {% else %}
                                             {% if photo.rephotos.all.0.user %}
                                                 <a target="_blank"
                                                     href="{% url 'frontpage_photos' %}?rephotosBy={{ photo.rephotos.all.0.user.id }}&order1=time&order2=rephotos" rel="noopener nofollow">
                                                     {{ photo.rephotos.all.0.user.get_display_name }}
-                                                </a>
+                                                </a><br>
                                                 {% if photo.rephotos.all.0.licence %}
-                                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
+                                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
                                                 {% endif %}
                                             {% else %}
                                                 <b>{% trans "Unknown author" %}</b>
@@ -205,7 +205,7 @@
                         </div>
                         <!-- end of FB like block -->
                         <!-- start of toolbox block -->
-                        <div class="row ajp-dater-hide-when-dater-visible pt-4 ml-1 w-100">
+                        <div class="row ajp-dater-hide-when-dater-visible pt-4 w-100">
                             <div class="ajapaik-mt-1">
                                 {% if is_frontpage and is_photoview or is_game or is_mapview %}
                                     <a id="ajapaik-photo-modal-specify-location_game" style="width:42px;" class="no-text-decoration float-left"
