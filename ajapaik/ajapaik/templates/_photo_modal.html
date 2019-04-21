@@ -108,7 +108,7 @@
                     <div class="container-fluid text-left">
                         <!-- start of old photo info -->
                         <div class=row>
-                            <div id="ajapaik-photo-modal-original-photo-info-column" class="col-6 d-grid">
+                            <div id="ajapaik-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
                                 {% if photo.author %}
                                     <b id="ajapaik-photo-modal-author">{{ photo.author }}</b><br>
                                 {% endif %}
@@ -152,7 +152,7 @@
                             <!-- end of old photo info -->
                             <!-- start of new photo info -->
                             {% if photo.rephotos.all|length > 0 %}
-                                <div class="col-6" id="ajapaik-photo-modal-rephoto-info-column">
+                                <div class="col-xs-12 col-md-12 col-lg-6" id="ajapaik-photo-modal-rephoto-info-column">
                                     {% if photo.rephotos.all.0.source and photo.rephotos.all.0.source_key and photo.rephotos.all.0.source_url %}
                                         {% if photo.rephotos.all.0.author %}
                                             <b>{{ photo.rephotos.all.0.author }}</b><br>

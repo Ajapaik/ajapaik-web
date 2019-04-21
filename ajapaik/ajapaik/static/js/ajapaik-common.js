@@ -637,14 +637,6 @@ var map,
         }
     });
 
-    window.setSameSize = function(selector,target) {
-        $(document).ready(function() {
-            $(target).css({
-              'width': ($(selector).width() + 'px !important')
-            });
-          });
-    };
-
     window.resizeMinimap = function () {
         var mapContainer = $('#ajapaik-photo-modal-map-container'),
             modalPhoto = $('#ajapaik-modal-photo'),
@@ -913,12 +905,10 @@ var map,
     });
 
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
-        window.setSameSize()
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-rephoto-info-column'),
             photoDiv = $('#ajapaik-modal-rephoto-container'),
             fullscreenDiv = $('#ajapaik-rephoto-full-screen-image');
-        window.setSameSize(photoDiv,infoDiv);
         if (!targetId) {
             targetId = currentlySelectedRephotoId;
         }

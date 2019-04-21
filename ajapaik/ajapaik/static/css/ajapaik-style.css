@@ -1273,6 +1273,7 @@ a.fullscreen {
   position: relative;
   background-color: rgba(255, 255, 255, 0.3);
   border: none;
+  float: right;
 }
 
 .ajapaik-close-rephoto-overlay-button {
