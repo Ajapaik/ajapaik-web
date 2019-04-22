@@ -41,7 +41,7 @@ from allauth.account.utils import complete_signup
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from google.auth.transport import requests
+from google.auth.transport import requests as google_auth_requests
 from google.oauth2 import id_token
 
 from ajapaik.ajapaik import forms
@@ -133,7 +133,7 @@ class Login(CustomParsersMixin, APIView):
         authentication there.
         '''
         idinfo = id_token.verify_oauth2_token(
-            token, requests.Request(), settings.GOOGLE_CLIENT_ID
+            token, google_auth_requests.Request(), settings.GOOGLE_CLIENT_ID
         )
         adapter = GoogleOAuth2Adapter(request)
         login = adapter.get_provider().sociallogin_from_response(
