@@ -980,6 +980,10 @@ a.fullscreen {
   padding-left: 0 !important;
 }
 
+#ajapaik-photoview-main-photo {
+  max-height: 70vh;
+}
+
 #ajapaik-game-modal-photo {
   width: auto;
 }
@@ -1036,7 +1040,7 @@ a.fullscreen {
   background: url(../images/material-design-icons/ic_location_off_24px.svg) no-repeat center;
 }
 
-.ajapaik-map-rephoto-count {
+#ajapaik-map-rephoto-count {
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -1376,14 +1380,13 @@ a.fullscreen {
 }
 
 #ajapaik-photo-modal-map-container {
- /* min-height: 50vh;*/
   display: inline-block;
   position: relative;
 }
 
 #ajapaik-photo-modal-map-canvas {
  /* min-height: calc(70vh - 160px);*/
-  height: calc(100% - 40px);
+  height: calc(100% - 20px);
   max-height: 99%;
   position: relative;
 }
@@ -1525,6 +1528,15 @@ a.fullscreen {
 
 #ajapaik-photo-modal-rephoto-date-taken {
   display: inline;
+}
+
+#ajapaik-photoview-start-dating-button > #ajapaik-photoview-datings-count {
+  position: relative;
+  margin: 0;
+  left: 32px;
+  top: -26px;
+  right: auto;
+  bottom: auto;
 }
 
 #ajapaik-photo-modal-start-dating-button,
@@ -1699,6 +1711,7 @@ ul.errorlist,
 }
 
 .ajapaik-photoview-rephoto-thumb {
+  width: 100%;
   margin-bottom: 2%;
 }
 
@@ -2422,4 +2435,8 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   top: 8px;
   position: relative;
   font-size: 13px;
+}
+
+.fb-iframe-widget {
+  height: 50px;
 }

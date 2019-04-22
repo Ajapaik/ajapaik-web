@@ -508,8 +508,9 @@ var map,
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
-            if(window.location.search.substring(0,7) == "?people"){
-                window.location.href = '/';
+            let uri = URI(window.location);
+            if (uri.query().indexOf('people') !== -1) {
+                window.location.href = uri.removeQuery('people');
             }
             if (!window.isFrontpage) {
                 if (window.isSelection) {
@@ -704,6 +705,7 @@ var map,
                 $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button')
                     .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
                 $('.ajapaik-minimap-start-guess-CTA-button').remove();
+                var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
                 $(minimapLargeCTAButton).attr('data-id', window.photoModalCurrentlyOpenPhotoId);
                 mapContainer.append(minimapLargeCTAButton);
                 window.positionMinimapCTAButton();
@@ -973,7 +975,7 @@ var map,
         e.stopPropagation();
         $('#ajapaik-photo-modal-rephoto-column').hide();
         $('#ajapaik-rephoto-selection').hide();
-        $('.ajapaik-show-rephoto-selection-overlay-button').show();
+        $('.ajapaik-show-rephoto-selection-overlay-button').show("fade", 250);
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
         let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');

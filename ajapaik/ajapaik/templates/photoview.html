@@ -88,7 +88,7 @@
                     class="material-icons notranslate">invert_colors</i></button>
         </div>
         {% endif %}
-        {% if not rephoto and total_similar_photos_count > 0 %}
+        {% if not rephoto and total_similar_photos_count > 0 and photo.rephotos.all|length < 1 %}
         <div id="ajapaik-photoview-rephoto-selection" class="col-auto h-100 px-0">
             {% for similar_photo in photo.similar_photos.all %}
                 <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
@@ -117,12 +117,11 @@
         </div>
         {% endif %}
         {% if not rephoto and photo.rephotos.all|length > 0 %}
-            <div class="col-xs-2">
+            <div class="col-xs-3">
                 <div id="ajapaik-photoview-rephoto-selection">
                     {% for rephoto in photo.rephotos.all %}
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                            <a href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}"
-                            class="col-xs-12">
+                            <a href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                     class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
                                     alt="{{ photo.description }} {% trans "rephoto" %}"
@@ -133,10 +132,10 @@
                 </div>
             </div>
         {% endif %}
-        <div id="ajapaik-photo-modal-map-container" class="col-auto">
+        <div id="ajapaik-photo-modal-map-container" style="display:none;{% if total_similar_photos_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %}">
             <div id="ajapaik-minimap-disabled-overlay"></div>
             <div id="ajapaik-photo-modal-map-canvas"></div>
-            {% if photo.address and photo.lat and photo.lon and request.user_agent.is_pc %}
+            {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
                 <div class="row">
                     <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
                 </div>
@@ -230,7 +229,7 @@
         <a id="ajapaik-photoview-start-dating-button" data-id="{{ photo.id }}" class="float-left"
             title="{% trans "Date this image" %}" href="#">
             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">event</i>
-            <span class="badge">{{ datings_count }}</span>
+            <span id="ajapaik-photoview-datings-count" class="badge">{{ datings_count }}</span>
         </a>
         <a title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" href="#" class="float-left ml-2">
             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
@@ -258,11 +257,11 @@
     </div>
     <div class="mb-3" id="ajp-dater-container"></div>
     {% if albums.all|length > 0 %}
-        <div class="pl-2">
+        <div class="pl-2 pt-3">
         <i class="col-auto material-icons notranslate ajapaik-photo-modal-album-icon float-left pl-0"
             title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
             {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
-        <div class="col-auto">
+        <div class="col-auto ml-5">
             {% for a in albums %}
                 <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
                     {{ a.name }}
@@ -290,6 +289,7 @@
 </div>
 {% include "_full_leaderboard_modal.html" %}
 <div id="ajp-geotagging-container"></div>
+</div>
 {% endblock %}
 
 {% block specific_js %}
@@ -362,14 +362,14 @@
         }
     });
     if (window.isMobile) {
-        $('.ajapaik-flip-photo-overlay-button').show();
-        $('.ajapaik-similar-photo-overlay-button').show();
+        $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
+        $('.ajapaik-similar-photo-overlay-button').show("fade", 250);
     }
     // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
     $(document).on('mouseenter', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').show();
-            $('.ajapaik-similar-photo-overlay-button').show();
+            $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
+            $('.ajapaik-similar-photo-overlay-button').show("fade", 250);
         }
         $('.ajapaik-thumbnail-selection-icon').show();
         // === this
@@ -377,22 +377,22 @@
     });
     $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').hide();
-            $('.ajapaik-similar-photo-overlay-button').hide();
+            $('.ajapaik-flip-photo-overlay-button').hide("fade", 250);
+            $('.ajapaik-similar-photo-overlay-button').hide("fade", 250);
         }
         $('.ajapaik-thumbnail-selection-icon').hide();
         mainPhotoContainer.data('AjapaikFaceTagger').removeRectanglesAndButtons();
     });
     $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
-            $('.ajapaik-close-rephoto-overlay-button').show();
-            $('.ajapaik-invert-rephoto-overlay-button').show();
+            $('.ajapaik-close-rephoto-overlay-button').show("fade", 250);
+            $('.ajapaik-invert-rephoto-overlay-button').show("fade", 250);
         }
     });
     $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
-            $('.ajapaik-close-rephoto-overlay-button').hide();
-            $('.ajapaik-invert-rephoto-overlay-button').hide();
+            $('.ajapaik-close-rephoto-overlay-button').hide("fade", 250);
+            $('.ajapaik-invert-rephoto-overlay-button').hide("fade", 250);
         }
     });
     $(document).on('click', '#ajapaik-photoview-add-rephoto-button', function () {
@@ -542,6 +542,11 @@
         });
     };
     window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
+    // Leaflet map
+    if (typeof get_photoviewModalOptions === 'function') {
+        var options = get_photoviewModalOptions();
+        $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
+    }
 });
 </script>
 <script src="{% static 'js/ajapaik-comments.js' %}"></script>

@@ -521,8 +521,9 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
-            if(window.location.search.substring(0,7) == "?people"){
-                window.location.href = '/';
+            let uri = URI(window.location);
+            if (uri.query().indexOf('people') !== -1) {
+                window.location.href = uri.removeQuery('people');
             }
             if (!window.isFrontpage) {
                 if (window.isSelection) {
@@ -1006,7 +1007,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         e.stopPropagation();
         $('#ajapaik-photo-modal-rephoto-column').hide();
         $('#ajapaik-rephoto-selection').hide();
-        $('.ajapaik-show-rephoto-selection-overlay-button').show();
+        $('.ajapaik-show-rephoto-selection-overlay-button').show("fade", 250);
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
         let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
@@ -1024,6 +1025,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             window.showPhotoMapIfApplicable();
         } else {
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
                 $('#ajapaik-photo-modal-map-container').show();
                 if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
                     window.ajapaikminimap.invalidateSize();

@@ -40,7 +40,7 @@
         constructor: AjapaikMinimap,
         initializeMap: function () {
             var that = this;
-            that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
+            that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');	            that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
             var map = L.map('ajapaik-photo-modal-map-canvas', { fullscreenControl: true });
 
 // OSM layer

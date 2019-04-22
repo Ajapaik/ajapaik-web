@@ -9,7 +9,7 @@
                         <p>{% trans "User" %} <b>{{ user.get_full_name }}</b></p>
                         <form method="post" action="{% url 'account_logout' %}">
                             {% csrf_token %}
-                            <button type="submit">{% trans 'Sign Out' %}</button>
+                            <button class="btn btn-default" type="submit">{% trans 'Sign Out' %}</button>
                         </form>
                         <div id="files" class="files">
                             <p>

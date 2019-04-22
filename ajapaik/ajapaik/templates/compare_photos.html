@@ -20,15 +20,15 @@
                                     src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
             <div style="display:grid">
                 {% if photo.author %}
-                <b>{{ photo.author }}</b>
+                <b>{{ photo.author }}</b><br>
                 {% endif %}
                 {% if photo.description %}
-                    <br>{{ photo.description }}
+                    {{ photo.description }}<br>
                 {% endif %}
                 {% if photo.date %}
-                    <br>{{ photo.date }}
+                    {{ photo.date }}<br>
                 {% elif photo.date_text %}
-                    <br>{{ photo.date_text }}
+                    {{ photo.date_text }}<br>
                 {% endif %}
             <div>
                     {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
@@ -50,15 +50,15 @@
                                     src="{% url 'image_thumb' photo2.id 800 photo.get_pseudo_slug %}"/>
             <div>
                 {% if photo2.author %}
-                <b>{{ photo2.author }}</b>
+                <b>{{ photo2.author }}</b><br>
                 {% endif %}
                 {% if photo2.description %}
-                {{ photo2.description }}
+                {{ photo2.description }}<br>
                 {% endif %}
                 {% if photo2.date %}
-                {{ photo2.date }}
+                {{ photo2.date }}<br>
                 {% elif photo2.date_text %}
-                {{ photo2.date_text }}
+                {{ photo2.date_text }}<br>
                 {% endif %}
             </div>
             {% if photo2.licence %}{% include "_licence.html" with licence=photo2.licence %}{% endif %}

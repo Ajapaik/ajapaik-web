@@ -575,7 +575,7 @@ class Photo(Model):
         self.perceptual_hash = phash(img)
         # Ideally we should be able to query by hamming distance, and do no additional filtering on site
         ids = []
-        photos = Photo.objects.exclude(perceptual_hash__isnull = True).exclude(id = self.id).exclude(rephoto_of__isnull = True)
+        photos = Photo.objects.exclude(perceptual_hash__isnull = True).filter(rephoto_of__isnull = True)
         for photo in photos:
             if(hammingdistance(self.perceptual_hash,photo.perceptual_hash) < 7):
                 ids.append(photo.id)
