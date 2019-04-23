@@ -868,29 +868,32 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             })
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @parser_classes((FormParser,))
 @authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
+@permission_classes((AllowAny,))
 def api_user_me(request):
-    profile = request.user.profile
     content = {
         'error': 0,
         'state': str(int(round(time.time() * 1000)))
     }
-    form = forms.ApiUserMeForm(request.data)
-    if form.is_valid():
-        content['name'] = profile.get_display_name()
-        content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
-        general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
-        general_user_rank = 0
-        for i in range(0, len(general_user_leaderboard)):
-            if general_user_leaderboard[i].user_id == profile.user_id:
-                general_user_rank = (i + 1)
-                break
-        content['rank'] = general_user_rank
-    else:
-        content['error'] = 2
+
+    if request.user:
+        profile = request.user.profile
+        if profile.is_legit():
+            form = forms.ApiUserMeForm(request.data)
+            if form.is_valid():
+                content['name'] = profile.get_display_name()
+                content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
+                general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
+                general_user_rank = 0
+                for i in range(0, len(general_user_leaderboard)):
+                    if general_user_leaderboard[i].user_id == profile.user_id:
+                        general_user_rank = (i + 1)
+                        break
+                content['rank'] = general_user_rank
+            else:
+                content['error'] = 2
 
     return Response(content)
 
