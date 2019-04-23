@@ -207,7 +207,7 @@
     {% if people %}
         <div>
             <!--TODO: Highlight rectangle when name hovered?-->
-            <p>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</p>
+            <span>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</span>
         </div>
     {% endif %}
     <div id="ajapaik-photo-modal-like">
