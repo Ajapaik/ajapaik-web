@@ -135,12 +135,10 @@
         <div id="ajapaik-photo-modal-map-container" style="display:none;{% if total_similar_photos_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %}">
             <div id="ajapaik-minimap-disabled-overlay"></div>
             <div id="ajapaik-photo-modal-map-canvas"></div>
-            {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
-                <div class="row">
-                    <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
-                </div>
-            {% endif %}
         </div>
+        {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
+            <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
+        {% endif %}
     </div>
     <div class="row" style="display:grid">
         {% if photo.author %}
@@ -216,7 +214,7 @@
         <div class="fb-like"
             data-href="
                             {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-            data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            {% if not request.user_agent.is_pc %}data-layout="button_count"{% endif %} data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
     <div class="ajapaik-height-48 mt-2">
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}

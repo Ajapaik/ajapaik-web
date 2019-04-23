@@ -960,6 +960,7 @@ a.fullscreen {
   margin: 0 auto;
 }
 
+#ajapaik-compareview-main-photo-container,
 #ajapaik-photoview-main-photo-container {
   display: inline-block;
   position: relative;
@@ -972,6 +973,7 @@ a.fullscreen {
   text-decoration: none;
 }
 
+#ajapaik-compareview-main-photo,
 #ajapaik-photoview-main-photo,
 #ajapaik-photoview-rephoto
 #ajapaik-game-modal-photo {
@@ -980,7 +982,13 @@ a.fullscreen {
   padding-left: 0 !important;
 }
 
+#ajapaik-compareview-main-photo {
+  width: 100%;
+}
+
+#ajapaik-compareview-main-photo,
 #ajapaik-photoview-main-photo {
+  min-height: 30vh;
   max-height: 70vh;
 }
 
@@ -1646,7 +1654,6 @@ a.fullscreen {
   right:0;
   max-width:100%;
   max-height:100%;
-  height:100%;
   margin:auto;
   overflow:auto;
   opacity:1;
@@ -1736,6 +1743,15 @@ ul.errorlist,
 .ajapaik-upload-photo-button {
   margin-left: 5px !important;
   display: inline-block;
+}
+
+.fb-like.fb_iframe_widget {
+  height: 30px !important;
+}
+
+.fb-like.fb_iframe_widget > span,
+.fb-like.fb_iframe_widget > span > iframe {
+  min-width: 300px !important;
 }
 
 .dropdown .fb_iframe_widget span {
