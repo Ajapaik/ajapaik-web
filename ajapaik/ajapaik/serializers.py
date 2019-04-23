@@ -172,8 +172,9 @@ class PhotoSerializer(serializers.ModelSerializer):
         '''
         Helper function to annotate photo with special fields required by this
         serializer.
-        Adds "rephotos_count", "uploads_count", "favorited". Field "likes_count"
-        added to determine is photo liked(favorited) by user.
+        Adds "rephotos_count", "similar_photos_count", "confirmed_similar_photos_count",
+        "uploads_count", "favorited". 
+        Field "likes_count" added to determine is photo liked(favorited) by user.
         '''
         # There is bug in Django about irrelevant selection returned when
         # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
@@ -182,9 +183,11 @@ class PhotoSerializer(serializers.ModelSerializer):
         return photos_queryset \
             .prefetch_related('source') \
             .prefetch_related('rephotos') \
+            .prefetch_related('similar_photos') \
+            .prefetch_related('confirmed_similar_photos') \
             .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(similar_photos=Count('similar_photos')) \
-            .annotate(confirmed_similar_photos=Count('confirmed_similar_photos')) \
+            .annotate(similar_photos_count=Count('similar_photos')) \
+            .annotate(confirmed_similar_photos_count=Count('confirmed_similar_photos')) \
             .annotate(uploads_count=Count(
                 Case(
                     When(rephotos__user=user_profile, then=1),
@@ -245,7 +248,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
-            'favorited',
+            'similar_photos', 'confirmed_similar_photos', 'favorited',
         )
 
 
@@ -256,7 +259,7 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
         fields = (
             'id', 'distance', 'image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
-            'favorited',
+            'similar_photos','confirmed_similar_photos','favorited',
         )
 
 
