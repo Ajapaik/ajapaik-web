@@ -10,6 +10,14 @@ from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 
+def finna_cut_title(title, shortTitle):
+    if title == None:
+        return None
+
+    title=title.rstrip()
+    if shortTitle and len(title)>255:
+       title=shortTitle.rstrip()
+    return title[:255]
 
 def finna_add_to_album(photo, target_album):
     if target_album and target_album != "":
@@ -35,8 +43,10 @@ def finna_find_photo_by_url(record_url, profile):
         if m:
             # Already in database?
             external_id = m.group(2)
+            # Detect old imports where ':' character is urlencoded
+            external_id_urlencoded_1 = external_id.replace(":", "%3A")
             photo = Photo.objects.filter(
-                external_id=external_id,
+                external_id__in=[external_id, external_id_urlencoded_1],
             ).first()
 
             # Import if not found
@@ -57,7 +67,7 @@ def finna_import_photo(id, profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {
         'id': id,
-        'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage', 'year',
+        'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage', 'year',
                     'summary', 'rawData'],
     })
     results = finna_result.json()
@@ -148,7 +158,7 @@ def finna_import_photo(id, profile):
         new_photo = Photo(
             user=profile,
             author=comma.join(authors),
-            title=p.get('title').rstrip().encode('utf-8') if p.get('title', None) else None,
+            title=finna_cut_title(p.get('title', None), p.get('title_short', None)),
             description=description,
             address=address,
             source=source,
@@ -219,7 +229,7 @@ class FinnaDriver(object):
             'page': cleaned_data['flickrPage'],
             'limit': self.page_size,
             'lng': 'en-gb',
-            'field[]': ['id', 'title', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
+            'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
                         'year', 'summary', 'rawData'],
             'filter[]': [
                 'free_online_boolean:"1"',
@@ -305,7 +315,7 @@ class FinnaDriver(object):
                     'id': p['id'],
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
-                    'title': p['title'],
+                    'title':finna_cut_title(p.get('title', None), p.get('shortTitle', None)),
                     'description': summary,
                     'address': address,
                     'institution': institution,
