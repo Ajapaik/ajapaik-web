@@ -1393,8 +1393,7 @@ a.fullscreen {
 }
 
 #ajapaik-photo-modal-map-canvas {
- /* min-height: calc(70vh - 160px);*/
-  height: calc(100% - 20px);
+  height: calc(100% - 25px);
   max-height: 99%;
   position: relative;
 }
