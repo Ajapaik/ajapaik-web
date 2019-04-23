@@ -132,7 +132,7 @@
                 </div>
             </div>
         {% endif %}
-        <div id="ajapaik-photo-modal-map-container" style="display:none;{% if total_similar_photos_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %}">
+        <div id="ajapaik-photo-modal-map-container" style="display:none;{% if total_similar_photos_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
             <div id="ajapaik-minimap-disabled-overlay"></div>
             <div id="ajapaik-photo-modal-map-canvas"></div>
         </div>
@@ -259,7 +259,7 @@
         <i class="col-auto material-icons notranslate ajapaik-photo-modal-album-icon float-left pl-0"
             title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
             {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
-        <div class="col-auto ml-5">
+        <div class="col-auto ml-5" style="max-width:80vw;">
             {% for a in albums %}
                 <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
                     {{ a.name }}
