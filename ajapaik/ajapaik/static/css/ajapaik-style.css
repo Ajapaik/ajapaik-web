@@ -964,6 +964,7 @@ a.fullscreen {
 #ajapaik-photoview-main-photo-container {
   display: inline-block;
   position: relative;
+  min-height: 30vh;
 }
 
 .no-text-decoration {
@@ -1511,6 +1512,7 @@ a.fullscreen {
 #ajapaik-modal-photo-container {
   padding-left: 0;
   padding-right: 0;
+  min-height: 42vh;
 }
 
 #ajapaik-modal-body,
