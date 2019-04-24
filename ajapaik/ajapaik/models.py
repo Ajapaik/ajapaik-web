@@ -570,7 +570,7 @@ class Photo(Model):
         self.light_save()
         self.original_flip = self.flip
 
-    def phash(self):
+    def find_similar(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
         query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 10)'
