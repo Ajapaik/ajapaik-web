@@ -45,14 +45,15 @@ class ImageHash(object):
 
 def binary_array_to_signed_integer(binaryArray):
     result = ""
-    for i in binaryArray[1:]:
+    for i in binaryArray:
         if i:
             result += '1'
         else:
             result += '0'
         
-        if [binaryArray[0]] == 1:
-            return -1 * int(result,base=2)
+    if (result[0] == '1'):
+        temp = result[1:].replace('1','2').replace('0','1').replace('2','0')
+        return (-1 * int(temp, base=2) - 1)
     return int(result, base=2)
 
 
