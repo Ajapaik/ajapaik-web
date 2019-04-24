@@ -202,7 +202,9 @@
                 window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
-                modalPhoto.on('load', photoLoadModalResizeFunction);
+                if(!window.isMobile){
+                    modalPhoto.on('load', photoLoadModalResizeFunction);
+                }
                 if (window.fullscreenEnabled) {
                     fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
                         .on('load', function () {
