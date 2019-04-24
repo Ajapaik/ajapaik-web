@@ -12,4 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         newPhotos =  Photo.objects.filter(perceptual_hash__isnull=True)
         for newPhoto in newPhotos:
-            newPhoto.find_similar()
+            try:
+                newPhoto.find_similar()
+            except Exception:
+                continue

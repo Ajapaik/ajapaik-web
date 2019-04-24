@@ -573,7 +573,7 @@ class Photo(Model):
     def find_similar(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
-        query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 10)'
+        query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8)'
         photos = Photo.objects.raw(query,[str(self.perceptual_hash)])
         for similar in photos:
             self.similar_photos.add(similar)
