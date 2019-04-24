@@ -13,7 +13,7 @@ class ImageHash(object):
         self.hash = binary_array
 
     def __str__(self):
-        return binary_array_to_binary_string(self.hash.flatten())
+        return binary_array_to_signed_integer(self.hash.flatten())
 
     def __repr__(self):
         return repr(self.hash)
@@ -43,15 +43,17 @@ class ImageHash(object):
         return sum([2 ** (i % 8) for i, v in enumerate(self.hash.flatten()) if v])
 
 
-def binary_array_to_binary_string(binaryArray):
+def binary_array_to_signed_integer(binaryArray):
     result = ""
-    for i in binaryArray:
+    for i in binaryArray[1:]:
         if i:
             result += '1'
         else:
             result += '0'
-            
-    return result
+        
+        if [binaryArray[0]] == 1:
+            return -1 * int(result,base=2)
+    return int(result, base=2)
 
 
 def phash(image, hash_size=8, highfreq_factor=4):
@@ -76,8 +78,3 @@ def phash(image, hash_size=8, highfreq_factor=4):
     result = ImageHash(diff)
 
     return result.__str__()
-
-def hammingdistance(s1, s2):
-    """Calculate the Hamming distance between two bit strings"""
-    assert len(s1) == len(s2)
-    return sum(c1 != c2 for c1, c2 in zip(s1, s2))

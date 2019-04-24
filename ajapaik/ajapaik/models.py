@@ -16,7 +16,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, \
+from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, BigIntegerField, \
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
     PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, PositiveIntegerField
 from django.contrib.gis.geos import Point
@@ -42,7 +42,7 @@ from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
-from ajapaik.ajapaik.phash import phash, hammingdistance
+from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff
 from ajapaik.utils import average_angle
 
@@ -407,7 +407,7 @@ class Photo(Model):
     video = ForeignKey('Video', null=True, blank=True, related_name='stills')
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
-    perceptual_hash = CharField(max_length=64, null=True, blank=True)
+    perceptual_hash = BigIntegerField(null=True, blank=True)
     similar_photos = ManyToManyField('self', blank=True,  related_name='similar_photos')
     confirmed_similar_photos = ManyToManyField('self', blank=True,  related_name='confirmed_similar_photos')
     
@@ -573,14 +573,10 @@ class Photo(Model):
     def phash(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
-        # Ideally we should be able to query by hamming distance, and do no additional filtering on site
-        ids = []
-        photos = Photo.objects.exclude(perceptual_hash__isnull = True).filter(rephoto_of__isnull = True)
-        for photo in photos:
-            if(hammingdistance(self.perceptual_hash,photo.perceptual_hash) < 7):
-                ids.append(photo.id)
-        photos2 = Photo.objects.filter(id__in=ids)
-        self.similar_photos.add(*photos2)
+        query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 7)'
+        photos = Photo.objects.raw(query,[str(self.perceptual_hash)])
+        for similar in photos:
+            self.similar_photos.add(similar)
         self.light_save()
 
     def watermark(self):
@@ -1039,7 +1035,7 @@ class Profile(Model):
         return self.user_id
 
     def is_legit(self):
-        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all() ):
+        if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
             return True
 
         return False
