@@ -3,6 +3,17 @@ from __future__ import (absolute_import, division, print_function)
 import numpy
 from PIL import Image
 
+"""
+Copyright (c) 2013-2016, Johannes Buchner
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
 
 class ImageHash(object):
     """
@@ -12,40 +23,9 @@ class ImageHash(object):
     def __init__(self, binary_array):
         self.hash = binary_array
 
-    def __str__(self):
-        return binary_array_to_signed_integer(self.hash.flatten())
-
-    def __repr__(self):
-        return repr(self.hash)
-
-    def __sub__(self, other):
-        if other is None:
-            raise TypeError('Other hash must not be None.')
-        if self.hash.size != other.hash.size:
-            raise TypeError('ImageHashes must be of the same shape.', self.hash.shape, other.hash.shape)
-        
-        return numpy.count_nonzero(self.hash.flatten() != other.hash.flatten())
-
-    def __eq__(self, other):
-        if other is None:
-            return False
-        
-        return numpy.array_equal(self.hash.flatten(), other.hash.flatten())
-
-    def __ne__(self, other):
-        if other is None:
-            return False
-        
-        return not numpy.array_equal(self.hash.flatten(), other.hash.flatten())
-
-    def __hash__(self):
-        # this returns a 8 bit integer, intentionally shortening the information
-        return sum([2 ** (i % 8) for i, v in enumerate(self.hash.flatten()) if v])
-
-
-def binary_array_to_signed_integer(binaryArray):
+def __signed_integer__(self):
     result = ""
-    for i in binaryArray:
+    for i in self:
         if i:
             result += '1'
         else:
@@ -58,11 +38,6 @@ def binary_array_to_signed_integer(binaryArray):
 
 
 def phash(image, hash_size=8, highfreq_factor=4):
-    """
-    Perceptual Hash computation.
-    Implementation follows http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html
-    @image must be a PIL instance.
-    """
 
     if hash_size < 2:
         raise ValueError("Hash size must be greater than or equal to 2")
@@ -78,4 +53,4 @@ def phash(image, hash_size=8, highfreq_factor=4):
     diff = dctlowfreq > med
     result = ImageHash(diff)
 
-    return result.__str__()
+    return result.__hash__()
