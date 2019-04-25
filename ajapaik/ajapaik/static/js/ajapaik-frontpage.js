@@ -636,7 +636,6 @@
             window.loadPhoto($(this).data('id'));
         });
 
-        $('.ajapaik-navbar').autoHidingNavbar();
         $(document).on('click', '#ajapaik-paging-previous-button', function (e) {
             e.preventDefault();
             if (window.currentPage > 1) {

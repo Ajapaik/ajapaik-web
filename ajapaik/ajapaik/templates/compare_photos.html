@@ -12,42 +12,45 @@
     {% include "_header.html" %}
 {% endblock %}
 {% block layout %}
-<div class="container pt-5">
+<div class="container pt-5" style="min-height:87vh;">
+    {% include "_photo_comparision_modal.html" %}
     <div class="row pt-2">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-right text-sm-right text-center">
-            <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo"
-                                    alt="{{ photo.description }}"
-                                    src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
-            <div style="display:grid">
-                {% if photo.author %}
-                <b>{{ photo.author }}</b><br>
-                {% endif %}
-                {% if photo.description %}
-                    {{ photo.description }}<br>
-                {% endif %}
-                {% if photo.date %}
-                    {{ photo.date }}<br>
-                {% elif photo.date_text %}
-                    {{ photo.date_text }}<br>
-                {% endif %}
-            <div>
-                    {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                    {% if photo.source_url %}
-                    <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                        href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
-                        {{ photo.source.description }}
-                        {% if photo.source_key %}{{ photo.source_key }}{% endif %}
-                    </a>
-                    {% elif photo.source.description %}
-                    {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-md-left text-center">
+            <div class="img-wrapper float-right">
+                <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo"
+                                        alt="{{ photo.description }}"
+                                        src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+                <div>
+                    {% if photo.author %}
+                    <b>{{ photo.author }}</b><br>
                     {% endif %}
+                    {% if photo.description %}
+                        {{ photo.description }}<br>
+                    {% endif %}
+                    {% if photo.date %}
+                        {{ photo.date }}<br>
+                    {% elif photo.date_text %}
+                        {{ photo.date_text }}<br>
+                    {% endif %}
+                    <div>
+                        {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+                        {% if photo.source_url %}
+                        <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                            href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
+                            {{ photo.source.description }}
+                            {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+                        </a>
+                        {% elif photo.source.description %}
+                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left text-center">
-            <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo"
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-md-left text-center">
+            <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo"
                                     alt="{{ photo2.description }}"
-                                    src="{% url 'image_thumb' photo2.id 800 photo.get_pseudo_slug %}"/>
+                                    src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
             <div>
                 {% if photo2.author %}
                 <b>{{ photo2.author }}</b><br>
@@ -72,13 +75,23 @@
             {{ photo2.source.description }}{% if photo2.source_key %} {{ photo2.source_key }}{% endif %}
             {% endif %}
         </div>
-        <div id="not_similar" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
-            <button class="btn btn-danger m-2 w-50">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
+            <button id="not_similar" class="btn btn-danger m-2 w-50">
                 Ei ole sarnased
             </button>
         </div>
-        <div id="similar" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-left text-sm-left text-center px-0">
-            <button class="btn btn-success m-2 w-50">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-left text-sm-left text-center px-0">
+            <button id="similar" class="btn btn-success m-2 w-50">
+                On Sarnased
+            </button>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
+            <button id="previous" class="btn btn-default m-2 w-50">
+                Ei ole sarnased
+            </button>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-left text-sm-left text-center px-0">
+            <button id="next" class="btn btn-default m-2 w-50">
                 On Sarnased
             </button>
         </div>
@@ -90,6 +103,7 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        photoComparisionModal = $('#ajapaik-photo-comparision-modal');
         window.isCompareView = true;
         $('#similar').click(function(){
             $.ajax({
@@ -115,8 +129,11 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
-                    alert("Kustutamine õnnestus");
-                    window.location.href = '{{next_action}}';
+                    photoComparisionModal.modal('show').on('shown.bs.modal', function () {
+                        $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
+                        window.FB.XFBML.parse();
+                    });
+                    //window.location.href = '{{next_action}}';
                 },
                 error: function () {
                     alert("Kustutamine ebaõnnestus");

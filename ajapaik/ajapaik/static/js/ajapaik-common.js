@@ -69,6 +69,8 @@ var map,
     handleAlbumChange,
     updateStatDiv;
 
+$('.ajapaik-navbar').autoHidingNavbar();
+
 (function ($) {
     'use strict';
 

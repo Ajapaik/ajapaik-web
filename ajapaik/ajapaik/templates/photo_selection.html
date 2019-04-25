@@ -18,16 +18,16 @@
                     <div class="alert alert-error d-none"></div>
                 </div>
             </div>
-            <div class="row">{% trans "You can re-order photos by dragging and dropping" %}</div>
+            <div class="row d-none">{% trans "You can re-order photos by dragging and dropping" %}</div>
             <div id="ajapaik-photo-selection-gallery">
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="row panel-body">
                         {% for photo in photos %}
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="text-align: center"
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="margin:20px; text-align: center; border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white;"
                                  id="ajapaik-frontpage-image-container-{{ photo.0 }}" style="min-height: 330px;"
                                  data-id="{{ photo.0 }}">
                                 <a href="{% url 'photo' photo.0 photo.get_pseudo_slug %}"
-                                   class="thumbnail ajapaik-photo-selection-thumbnail-link d-block" data-id="{{ photo.0 }}">
+                                   class="thumbnail ajapaik-photo-selection-thumbnail-link d-block h-100" data-id="{{ photo.0 }}">
                                     <img src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
                                             width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.0 }}"
                                             class="img-fluid ajapaik-photo-selection-thumbnail">
@@ -60,7 +60,6 @@
         window.isSelection = true;
     </script>
     {% compress js %}
-        <!--<script src="{{ STATIC_URL }}js/jquery-ui-1.12.1.js"></script>-->
         <script src="{{ STATIC_URL }}js/ajapaik-selection.js"></script>
     {% endcompress %}
 {% endblock %}

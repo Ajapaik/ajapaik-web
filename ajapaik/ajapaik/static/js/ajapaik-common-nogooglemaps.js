@@ -53,6 +53,8 @@ var map,
     updateStatDiv,
     streetViewOptions;
 
+$('.ajapaik-navbar').autoHidingNavbar();
+
 if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     streetViewOptions = {
         panControl: true,

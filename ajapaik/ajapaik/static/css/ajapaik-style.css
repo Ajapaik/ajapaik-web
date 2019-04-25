@@ -975,6 +975,7 @@ a.fullscreen {
 }
 
 #ajapaik-compareview-main-photo,
+#ajapaik-compareview-secondary-photo,
 #ajapaik-photoview-main-photo,
 #ajapaik-photoview-rephoto
 #ajapaik-game-modal-photo {
@@ -983,13 +984,23 @@ a.fullscreen {
   padding-left: 0 !important;
 }
 
+#ajapaik-compareview-secondary-photo {
+ object-position: left;
+}
+
 #ajapaik-compareview-main-photo {
-  width: 100%;
+  object-position: right;
 }
 
 #ajapaik-compareview-main-photo,
+#ajapaik-compareview-secondary-photo,
 #ajapaik-photoview-main-photo {
   min-height: 30vh;
+  object-fit: contain;
+  max-height: 70vh;
+}
+
+#ajapaik-photoview-main-photo {
   max-height: 70vh;
 }
 
@@ -2125,12 +2136,15 @@ a[href^="http://maps.google.com/maps"] {
   margin-top: 10px;
 }
 
-.navbar-hidden .navbar-brand,
 .navbar-hidden .score_container,
 .navbar-hidden .ajapaik-black-dropdown-menu.show,
-.navbar-hidden #ajapaik-mode-select,
-.navbar-hidden #ajapaik-header-album-name {
+.navbar-hidden #ajapaik-mode-select {
   display: none !important;
+}
+
+.navbar-hidden .navbar-brand {
+  transform: translate(0,-25px);
+  transition-duration: 0.25s;
 }
 
 .footer {
