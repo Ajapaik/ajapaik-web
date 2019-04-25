@@ -2638,6 +2638,46 @@ def photo_upload_choice(request):
 
     return render(request, 'photo_upload_choice.html', context)
 
+def compare_all_photos(request, photo_id=None, photo_id_2=None):
+    photo_obj = get_object_or_404(Photo, id=photo_id)
+    photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
+
+    if request.method == 'PUT':
+        if photo_id == photo_id_2:
+            return JsonResponse({'status': 500})
+        photo_obj.similar_photos.remove(photo_obj2)
+        photo_obj.confirmed_similar_photos.add(photo_obj2)
+        photo_obj.save()
+        photo_obj2.save()
+        return JsonResponse({'status': 200})
+    if request.method == 'DELETE':
+        photo_obj.confirmed_similar_photos.remove(photo_obj2)
+        photo_obj.similar_photos.remove(photo_obj2)
+        photo_obj.save()
+        photo_obj2.save()
+        return JsonResponse({'status': 200})
+    else:
+        similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())
+        case = ""
+        if similar_photos == None or len(similar_photos) < 1:
+            all_photos_with_similar = Photo.objects.exclude(id=photo_obj2.id).exclude(id=photo_obj.id).exclude(similar_photos__isnull=True).all()
+            if len(all_photos_with_similar) < 1:
+                next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+            else:
+                next_similar_photo = all_photos_with_similar.first().similar_photos.first()
+                next_action = request.build_absolute_uri(reverse("compare_all_photos", args=(next_similar_photo.id,next_similar_photo.similar_photos.first().id)))
+        else:
+            next_similar_photo = similar_photos.first()
+            next_action = request.build_absolute_uri(reverse("compare_all_photos", args=(photo_obj.id,next_similar_photo.id)))
+    context = {
+        'is_comparephoto': True,
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'photo': photo_obj,
+        'photo2': photo_obj2,
+        'next_action': next_action
+    }
+    return render(request, 'compare_photos.html', context)
+
 def compare_photos(request, photo_id=None, photo_id_2=None):
     photo_obj = get_object_or_404(Photo, id=photo_id)
     photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
@@ -2654,6 +2694,7 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
         photo_obj.confirmed_similar_photos.remove(photo_obj2)
         photo_obj.similar_photos.remove(photo_obj2)
         photo_obj.save()
+        photo_obj2.save()
         return JsonResponse({'status': 200})
     else:
         similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())

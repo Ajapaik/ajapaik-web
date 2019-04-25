@@ -111,7 +111,24 @@
                         // $('#ajapaik-photoview-start-dating-button').click();
                     }
                 }
+
+                if (window.isCompareView !== undefined && window.isCompareView === true) {
+                    var targets;
+                    if (e.keyCode === 45) {
+                        // left
+                        targets = $('#similar');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
+                    } else if (e.keyCode === 46) {
+                        // right
+                        targets = $('#not_similar');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
+                }
             }
+        }
         });
     });
 }(jQuery));
