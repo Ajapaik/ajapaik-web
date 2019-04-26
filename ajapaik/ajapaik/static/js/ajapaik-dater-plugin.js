@@ -28,7 +28,7 @@
         this.UI = $([
             "<div class='col-lg-6 col-md-8 col-sm-12 card' id='ajp-dater-panel'>",
             "   <div class='card-body'>",
-            "       <div class='well' id='ajp-dater-previous-datings-well'>",
+            "       <div class='well pb-3' id='ajp-dater-previous-datings-well'>",
             "       </div>",
             "       <div class='well' id='ajp-dater-tutorial-well'>",
             "           <span></span>",
