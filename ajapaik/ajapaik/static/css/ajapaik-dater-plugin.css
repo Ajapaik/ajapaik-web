@@ -10,7 +10,7 @@
     position: relative;
 }
 
-#ajp-dater-panel > .panel-body > .well {
+#ajp-dater-panel > .card-body > .card {
     border-radius: 0;
     border: none;
 }
@@ -70,29 +70,29 @@
     border-radius: 0;
 }
 
-#ajp-dater-previous-datings-well {
+#ajp-dater-previous-datings-card {
     display: none;
 }
 
-#ajp-dater-previous-datings-well > div > i {
+#ajp-dater-previous-datings-card > div > i {
     cursor: pointer;
 }
 
-#ajp-dater-anonymous-user-well > i {
+#ajp-dater-anonymous-user-card > i {
     cursor: pointer;
 }
 
-#ajp-dater-anonymous-user-well > span {
+#ajp-dater-anonymous-user-card > span {
     position: relative;
     bottom: 6px;
     left: 10px;
 }
 
-#ajp-dater-tutorial-well {
+#ajp-dater-tutorial-card {
     position: relative;
 }
 
-#ajp-dater-tutorial-well > span > ul {
+#ajp-dater-tutorial-card > span > ul {
     list-style-type: none;
     padding: 0;
 }
@@ -119,7 +119,7 @@
     position: relative;
 }
 
-#ajp-dater-feedback-well {
+#ajp-dater-feedback-card {
     display: none;
 }
 

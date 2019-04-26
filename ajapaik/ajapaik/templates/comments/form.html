@@ -4,7 +4,7 @@
     <a href="javaScript:void(0);" id="ajapaik-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
 {% else %}
     <h4 class="pl-3">{% trans "Your comment" %}</h4>
-    <div class="well">
+    <div>
         <div class="d-none" data-comment-element="preview"></div>
         <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
             action="{% comment_form_target %}" class="form-horizontal" id="ajapaik-comment-form">

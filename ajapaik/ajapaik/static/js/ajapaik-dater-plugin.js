@@ -28,17 +28,17 @@
         this.UI = $([
             "<div class='col-lg-6 col-md-8 col-sm-12 card' id='ajp-dater-panel'>",
             "   <div class='card-body'>",
-            "       <div class='well pb-3' id='ajp-dater-previous-datings-well'>",
+            "       <div class='card pb-3' id='ajp-dater-previous-datings-card'>",
             "       </div>",
-            "       <div class='well' id='ajp-dater-tutorial-well'>",
+            "       <div class='card' id='ajp-dater-tutorial-card'>",
             "           <span></span>",
             "           <button id='ajp-dater-close-tutorial-button'><i class='material-icons notranslate'>close</i></button>",
             "       </div>",
-            "       <div class='well d-none' id='ajp-dater-anonymous-user-well'>",
+            "       <div class='card d-none' id='ajp-dater-anonymous-user-card'>",
             "           <i class='material-icons notranslate'>account_circle</i><span></span>",
             "       </div>",
             "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons notranslate'>info</i></button>",
-            "       <div class='well' id='ajp-dater-feedback-well'></div>",
+            "       <div class='card' id='ajp-dater-feedback-card'></div>",
             "       <form class='form' id='ajp-dater-form'>",
             "           <div class='form-inline'>",
             "               <div class='form-group'>",
@@ -311,7 +311,7 @@
                     that.disableFeedback = true;
                 },
                 error: function () {
-                    that.$UI.find('#ajp-dater-feedback-well').hide();
+                    that.$UI.find('#ajp-dater-feedback-card').hide();
                     $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
                 }
             });
@@ -357,11 +357,11 @@
                             that.$UI.find('#ajp-dater-comment').hide();
                             that.$UI.find('#ajp-dater-input').hide();
                             that.$UI.find('#ajp-dater-toggle-comment-button').hide();
-                            that.$UI.find('#ajp-dater-previous-datings-well').show();
+                            that.$UI.find('#ajp-dater-previous-datings-card').show();
                             that.disableFeedback = true;
                         },
                         error: function () {
-                            that.$UI.find('#ajp-dater-feedback-well').hide();
+                            that.$UI.find('#ajp-dater-feedback-card').hide();
                             $('#ajp-dater-feedback').html(gettext('Server received invalid data.'));
                         }
                     });
@@ -372,7 +372,7 @@
             var userStr,
                 commentStr,
                 reparsedInput,
-                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well'),
+                previousDatings = that.$UI.find('#ajp-dater-previous-datings-card'),
                 addClass;
             previousDatings.empty();
             $.each(datings, function (k, v) {
@@ -413,7 +413,7 @@
                     points: window.datingPointsSetting
                 }, true);
             }
-            that.$UI.find('#ajp-dater-feedback-well')
+            that.$UI.find('#ajp-dater-feedback-card')
                 .html('<h1>' + gettext('Thanks!') + '</h1><p>' + feedbackStr + '</p>').show();
         };
         this.$UI = $(this.node);
@@ -460,22 +460,22 @@
                     window.reportDaterOpenComment();
                 }
             });
-            that.$UI.find('#ajp-dater-tutorial-well span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="ajp-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="ajp-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="ajp-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
+            that.$UI.find('#ajp-dater-tutorial-card span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="ajp-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="ajp-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="ajp-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
-                that.$UI.find('#ajp-dater-tutorial-well').hide();
+                that.$UI.find('#ajp-dater-tutorial-card').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
             }
             that.$UI.find('#ajp-dater-close-tutorial-button').click(function () {
-                that.$UI.find('#ajp-dater-tutorial-well').hide();
+                that.$UI.find('#ajp-dater-tutorial-card').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
                 docCookies.setItem('ajapaik_closed_dater_instructions', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
-            that.$UI.find('#ajp-dater-anonymous-user-well').find('span').html(gettext('You\'re anonymous'));
-            that.$UI.find('#ajp-dater-anonymous-user-well').find('i').click(function () {
+            that.$UI.find('#ajp-dater-anonymous-user-card').find('span').html(gettext('You\'re anonymous'));
+            that.$UI.find('#ajp-dater-anonymous-user-card').find('i').click(function () {
                 $('#ajapaik-header-profile-button').click();
             });
             that.$UI.find('#ajp-dater-open-tutorial-button').click(function () {
-                that.$UI.find('#ajp-dater-tutorial-well').show();
+                that.$UI.find('#ajp-dater-tutorial-card').show();
                 that.$UI.find('#ajp-dater-open-tutorial-button').hide();
                 if (typeof window.reportDaterOpenTutorial === 'function') {
                     window.reportDaterOpenTutorial();
@@ -513,13 +513,13 @@
         },
         initializeDaterState: function (state) {
             var that = this,
-                loginDiv = that.$UI.find('#ajp-dater-anonymous-user-well'),
-                previousDatings = that.$UI.find('#ajp-dater-previous-datings-well');
+                loginDiv = that.$UI.find('#ajp-dater-anonymous-user-card'),
+                previousDatings = that.$UI.find('#ajp-dater-previous-datings-card');
             this.photo = state.photoId;
             that.$UI.find('#ajp-dater-submit-button').show();
             that.$UI.find('#ajp-dater-input').show();
             that.$UI.find('#ajp-dater-toggle-comment-button').show();
-            that.$UI.find('#ajp-dater-feedback-well').hide();
+            that.$UI.find('#ajp-dater-feedback-card').hide();
             if (userIsSocialConnected) {
                 loginDiv.addClass('d-none');
             } else {
