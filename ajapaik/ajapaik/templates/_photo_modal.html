@@ -413,10 +413,9 @@
         $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
             $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').loadRectangles();
         });
-        /*$(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
+        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
             $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').removeRectanglesAndButtons();
         });
-        */
         window.startDater = function (photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
             $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
