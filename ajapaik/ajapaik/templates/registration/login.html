@@ -11,12 +11,12 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label class="col-form-label">{% trans "E-mail" %}</label>
-                        <input class="form-control" maxlength="254" name="username"
+                        <input class="form-control" id="id_username" maxlength="254" name="username"
                             placeholder="{% trans "E-mail" %}" required="required" title="" type="text" autocomplete="username">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">{% trans "Password" %}</label>
-                        <input class="form-control" name="password" placeholder="{% trans "Password" %}"
+                        <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
                             required="required" title="" type="password" autocomplete="current-password">
                     </div>
                     <input name="next" type="hidden" value="{% if is_user_upload %}{% url "user_upload" %}{% else %}{% url "frontpage" %}{% endif %}">
