@@ -984,6 +984,10 @@ a.fullscreen {
   padding-left: 0 !important;
 }
 
+#ajapaik-photoview-rephoto {
+  max-height: 70vh;
+}
+
 #ajapaik-compareview-secondary-photo {
  object-position: left;
 }

@@ -129,11 +129,8 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
-                    photoComparisionModal.modal('show').on('shown.bs.modal', function () {
-                        $($(this).find('#ajapaik-curator-share-button-container')).empty().append(tmpl('ajapaik-curator-share-set-button', {gameLink: albumPlayLink}));
-                        window.FB.XFBML.parse();
-                    });
-                    //window.location.href = '{{next_action}}';
+                    alert("Kustutamine õnnestus");
+                    window.location.href = '{{next_action}}';
                 },
                 error: function () {
                     alert("Kustutamine ebaõnnestus");

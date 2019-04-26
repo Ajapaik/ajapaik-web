@@ -53,7 +53,7 @@
                                 <a class="btn ajapaik-similar-photo-overlay-button"
                                     href="{{ compare_photos_url }}"
                                     id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none"{% endif %}>
-                                    <i class="material-icons notranslate">burst_mode</i>
+                                    <i class="material-icons notranslate w-100">burst_mode</i>
                                     <span style="top:-10px; position: relative;">{% if total_similar_photos_count > 9 %}9+{% else %}{{ confirmed_similar_photos_count }}/{{ total_similar_photos_count }}{% endif %}</span>
                                 </a>
                                 {% endif %}
