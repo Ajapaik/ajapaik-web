@@ -26,8 +26,8 @@
         this.isRange = false;
         this.invalid = false;
         this.UI = $([
-            "<div class='col-lg-6 col-md-8 col-sm-12 panel panel-default' id='ajp-dater-panel'>",
-            "   <div class='panel-body'>",
+            "<div class='col-lg-6 col-md-8 col-sm-12 card' id='ajp-dater-panel'>",
+            "   <div class='card-body'>",
             "       <div class='well' id='ajp-dater-previous-datings-well'>",
             "       </div>",
             "       <div class='well' id='ajp-dater-tutorial-well'>",
@@ -43,7 +43,7 @@
             "           <div class='form-inline'>",
             "               <div class='form-group'>",
             "                   <input id='ajp-dater-input' type='text' class='form-control' placeholder=''>",
-            "                   <div class='btn btn-secondary' id='ajp-dater-toggle-comment-button'><i class='material-icons notranslate'>comment</i></div>",
+            "                   <div class='btn' id='ajp-dater-toggle-comment-button'><i class='material-icons notranslate'>comment</i></div>",
             "               </div>",
             "           </div>",
             "           <div id='ajp-dater-feedback'></div>",
