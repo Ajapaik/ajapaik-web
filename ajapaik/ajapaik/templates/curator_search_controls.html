@@ -57,25 +57,33 @@
                                     checked="checked">
                                 {% trans "Filter existing" %}
                         </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-muis" checked="checked">
+                        <span class="m-2 d-none">
+                            <input type="checkbox" id="ajapaik-curator-search-use-muis">
                             {% trans "MUIS" %}
                         </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-digar" checked="checked">
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-digar">
                             {% trans "DIGAR" %}
                         </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-mka" checked="checked">
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-mka">
                             {% trans "MKA" %}
                         </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-etera">
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-etera">
                             {% trans "ETERA" %}
                         </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-utlib" checked="checked">
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-utlib">
                             {% trans "UTLIB" %}
+                        </span>
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-use-fotis" checked>
+                            {% trans "Fotis" %}
+                        </span>
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-use-finna">
+                            {% trans "Finna" %}
                         </span>
                         {% if CURATOR_FLICKR_ENABLED %}
                             <span class="m-2">
@@ -83,14 +91,6 @@
                             {% trans "Flickr Commons" %}
                             </span>
                         {% endif %}
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-finna">
-                            {% trans "Finna" %}
-                        </span>
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-fotis">
-                            {% trans "Fotis" %}
-                        </span>
                     </div>
                 </div>
             </div>
