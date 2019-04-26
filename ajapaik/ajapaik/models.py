@@ -1035,7 +1035,7 @@ class Profile(Model):
         return self.user_id
 
     def is_legit(self):
-        if self.user.is_active and (self.fb_id or self.google_plus_id or self.user.email):
+        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all() ):
             return True
 
         return False

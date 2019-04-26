@@ -10,12 +10,12 @@
                 <form method="post" action="." class="form">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label class="col-form-label">{% trans "E-mail" %}</label>
+                        <label class="col-form-label" for="id_username">{% trans "E-mail" %}</label>
                         <input class="form-control" id="id_username" maxlength="254" name="username"
                             placeholder="{% trans "E-mail" %}" required="required" title="" type="text" autocomplete="username">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">{% trans "Password" %}</label>
+                        <label class="col-form-label" for="id_password">{% trans "Password" %}</label>
                         <input class="form-control" id="id_password" name="password" placeholder="{% trans "Password" %}"
                             required="required" title="" type="password" autocomplete="current-password">
                     </div>

@@ -23,7 +23,7 @@
 </div>
 <form method="post" action="{% url 'account_login' %}" class="form">
     {% csrf_token %}
-    <input class="form-control" id="id_username" maxlength="254" name="username"
+    <input class="form-control" id="id_login" maxlength="254" name="login"
            placeholder="{% trans "E-mail address" %}" required="required" title="" type="text" autocomplete="username">
     <input class="form-control" id="id_password" name="password"
            placeholder="{% trans "Password" %}" required="required" title="" type="password" autocomplete="current-password">
