@@ -2216,6 +2216,7 @@ footer a {
   height: 24px;
   background-size: 24px;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .ajapaik-photo-album-link {
