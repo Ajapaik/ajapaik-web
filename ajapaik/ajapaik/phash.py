@@ -26,7 +26,7 @@ class ImageHash(object):
 def binaryhash_to_signed_integer(hash):
     result = ""
     for i in hash:
-        if i is True:
+        if i:
             result += '1'
         else:
             result += '0'
