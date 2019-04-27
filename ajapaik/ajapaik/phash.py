@@ -23,14 +23,13 @@ class ImageHash(object):
     def __init__(self, binary_array):
         self.hash = binary_array
 
-def __signed_integer__(self):
+def binaryhash_to_signed_integer(hash):
     result = ""
-    for i in self:
-        if i:
+    for i in hash:
+        if i is True:
             result += '1'
         else:
             result += '0'
-        
     if (result[0] == '1'):
         temp = result[1:].replace('1','2').replace('0','1').replace('2','0')
         return (-1 * int(temp, base=2) - 1)
@@ -53,4 +52,4 @@ def phash(image, hash_size=8, highfreq_factor=4):
     diff = dctlowfreq > med
     result = ImageHash(diff)
 
-    return result.__hash__()
+    return binaryhash_to_signed_integer(result.hash)
