@@ -579,6 +579,16 @@ class Photo(Model):
             self.similar_photos.add(similar)
         self.light_save()
 
+    def find_similar_for_existing_photo(self):
+        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+        self.perceptual_hash = phash(img)
+        query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
+        photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
+        for similar in photos:
+            if similar not in self.confirmed_similar_photos:
+                self.similar_photos.add(similar)
+        self.light_save()
+
     def watermark(self):
         # For ETERA
         padding = 20

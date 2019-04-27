@@ -52,4 +52,4 @@ def phash(image, hash_size=8, highfreq_factor=4):
     diff = dctlowfreq > med
     result = ImageHash(diff)
 
-    return binaryhash_to_signed_integer(result.hash)
+    return binaryhash_to_signed_integer(result.hash.flatten())
