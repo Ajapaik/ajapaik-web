@@ -1694,9 +1694,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 case 'rephotos':
                     window.location.href = '/?order1=time&order2=added&page=1&rephotosBy=' + window.currentProfileId;
                     break;
-                case 'similar_photos':
-                    window.location.href = '/?order1=time&order2=added&page=1&similarPhotosBy=' + window.currentProfileId;
-                    break;
             }
         }
     });

@@ -135,7 +135,8 @@ def get_general_info_modal_content(request):
 			'photos_geotagged_count': photo_qs.filter(lat__isnull=False, lon__isnull=False).count(),
 			'rephotos_count': rephoto_qs.count(),
 			'rephotographing_users_count': rephoto_qs.order_by('user').distinct('user').count(),
-			'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
+			'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
+			'photos_with_similar_photo_count': photo_qs.exclude(Q(similar_photos=None) & Q(similar_photos=None)).count()
 		}
 		cache.set('general_info_modal_cache', cached_data, settings.GENERAL_INFO_MODAL_CACHE_TTL)
 	context = {
@@ -143,6 +144,7 @@ def get_general_info_modal_content(request):
 		'contributing_users': cached_data['contributing_users_count'],
 		'total_photos_tagged': cached_data['photos_geotagged_count'],
 		'rephoto_count': cached_data['rephotos_count'],
+		'photos_with_similar_photo_count': cached_data['photos_with_similar_photo_count'],
 		'rephotographing_users': cached_data['rephotographing_users_count'],
 		'rephotographed_photo_count': cached_data['photos_with_rephotos_count'],
 		'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
@@ -744,7 +746,7 @@ def frontpage_async_albums(request):
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
 	profile = request.get_user().profile
-	photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True))
+	photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True),similar_photo_count=Count('similar_photos', distinct=True))
 	filter_form = GalleryFilteringForm(request.GET)
 	page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 	context = {}
@@ -805,6 +807,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				photos = photos.filter(rephotos__user=rephotos_profile)
 		photos_with_comments = None
 		photos_with_rephotos = None
+		photos_with_similar_photos = None
 		q = filter_form.cleaned_data['q']
 		if q and show_photos:
 			sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
@@ -848,6 +851,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 					photos = photos.order_by('dating_count')
 				else:
 					photos = photos.order_by('-dating_count')
+			elif order2 == 'similar_photos':
+				if order3 == 'reverse':
+					photos = photos.order_by('similar_photo_count')
+				else:
+					photos = photos.order_by('-similar_photo_count')
 		elif order1 == 'time':
 			if order2 == 'rephotos':
 				if order3 == 'reverse':
@@ -905,6 +913,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 					photos = photos.order_by('-created')
 				if order1 == 'time':
 					default_ordering = True
+			elif order2 == 'similar_photos':
+				if order3 == 'reverse':
+					photos = photos.order_by('similar_photo_count')
+				else:
+					photos = photos.order_by('-similar_photo_count')
 		else:
 			if order3 == 'reverse':
 				photos = photos.order_by('created')
@@ -989,7 +1002,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		context['end'] = end
 		context['photos_with_comments'] = photos_with_comments
 		context['photos_with_rephotos'] = photos_with_rephotos
-		context['photos_with_similar_photos'] = photos
+		context['photos_with_similar_photos'] = photos_with_similar_photos
 		context['order1'] = order1
 		context['order2'] = order2
 		context['order3'] = order3
@@ -1336,8 +1349,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"user_has_rephotos": user_has_rephotos,
 		"next_photo": next_photo,
 		"previous_photo": previous_photo,
-		"total_similar_photos_count": len(photo_obj.similar_photos.all()) + len(photo_obj.confirmed_similar_photos.all()),
-		"confirmed_similar_photos_count": len(photo_obj.confirmed_similar_photos.all()),
+		"total_similar_photo_count": len(photo_obj.similar_photos.all()) + len(photo_obj.confirmed_similar_photos.all()),
+		"confirmed_similar_photo_count": len(photo_obj.confirmed_similar_photos.all()),
 		"compare_photos_url" : compare_photos_url,
 		# TODO: Needs more data than just the names
 		"people": people

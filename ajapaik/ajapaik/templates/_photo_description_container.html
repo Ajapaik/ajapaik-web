@@ -1,0 +1,29 @@
+{% load i18n %}
+<div>
+    {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
+        <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
+    {% endif %}
+    {% if photo.author %}
+    <b>{{ photo.author }}</b>
+    {% endif %}
+    {% if photo.description %}
+    {{ photo.description }}
+    {% endif %}
+    {% if photo.date %}
+    {{ photo.date }}
+    {% elif photo.date_text %}
+    {{ photo.date_text }}
+    {% endif %}
+    <div>
+        {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+        {% if photo.source_url %}
+        <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+            href='{{ photo.source_url }}' target="_blank" rel="noopener">
+            {{ photo.source.description }}
+            {% if photo.source_key %}{{ photo.source_key }}{% endif %}
+        </a>
+        {% elif photo.source.description %}
+        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
+        {% endif %}
+    </div>
+</div>

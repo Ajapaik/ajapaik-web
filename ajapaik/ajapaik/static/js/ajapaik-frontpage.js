@@ -143,6 +143,8 @@
                     orderingString += ' ' + gettext('viewed');
                 } else if (window.order2 === 'stills') {
                     $('#ajapaik-stills-filter-icon').attr('class', 'ajapaik-filter-white');
+                } else if (window.order2 === 'similar_photos') {
+                    $('#ajapaik-similar-photos-filter-icon').attr('class', 'ajapaik-filter-white');
                 }
                 if (window.order1 !== 'closest') {
                     orderingString += ' ' + gettext('pictures');

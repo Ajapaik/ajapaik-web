@@ -114,7 +114,7 @@ class GalleryFilteringForm(forms.Form):
                                required=False)
     order2 = forms.ChoiceField(
         choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills')],
+                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills'),('similar_photos','similar_photos')],
         initial='added',
         required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)

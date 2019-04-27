@@ -172,7 +172,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         '''
         Helper function to annotate photo with special fields required by this
         serializer.
-        Adds "rephotos_count", "similar_photos_count", "confirmed_similar_photos_count",
+        Adds "rephotos_count", "similar_photo_count", "confirmed_similar_photo_count",
         "uploads_count", "favorited". 
         Field "likes_count" added to determine is photo liked(favorited) by user.
         '''
@@ -186,8 +186,8 @@ class PhotoSerializer(serializers.ModelSerializer):
             .prefetch_related('similar_photos') \
             .prefetch_related('confirmed_similar_photos') \
             .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(similar_photos_count=Count('similar_photos')) \
-            .annotate(confirmed_similar_photos_count=Count('confirmed_similar_photos')) \
+            .annotate(similar_photo_count=Count('similar_photos')) \
+            .annotate(confirmed_similar_photo_count=Count('confirmed_similar_photos')) \
             .annotate(uploads_count=Count(
                 Case(
                     When(rephotos__user=user_profile, then=1),

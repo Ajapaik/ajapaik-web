@@ -1333,7 +1333,7 @@ a.fullscreen {
   background-size: 48px;
   position: absolute;
   left: 10px;
-  top: 50%;
+  top: calc(50% - 24px);
   z-index: 1;
   border: none;
 }
@@ -1355,7 +1355,7 @@ a.fullscreen {
   background-size: 48px;
   position: absolute;
   right: 10px;
-  top: 50%;
+  top: calc(50% - 24px);
   border: none;
 }
 .ajapaik-photo-modal-next-button:hover {
@@ -1750,6 +1750,7 @@ ul.errorlist,
   display: inline;
 }
 
+#ajapaik-photoview-similar-photo-selection,
 #ajapaik-photoview-rephoto-selection {
   text-align: center;
   overflow-y: scroll;

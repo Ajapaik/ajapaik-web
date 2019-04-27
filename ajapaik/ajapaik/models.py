@@ -290,7 +290,7 @@ class Album(Model):
 
         return count
     
-    def get_similar_photos_count_with_subalbums(self):
+    def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
         count = 0
         for each in qs:
@@ -298,7 +298,7 @@ class Album(Model):
 
         return count
 
-    def get_confirmed_similar_photos_count_with_subalbums(self):
+    def get_confirmed_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().exclude(confirmed_similar_photos__isnull=True)
         count = 0
         for each in qs:
@@ -311,8 +311,8 @@ class Album(Model):
         self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().count()
         self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().count()
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
-        self.similar_photo_count_with_subalbums = self.get_similar_photos_count_with_subalbums()
-        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photos_count_with_subalbums()
+        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
+        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
 
 
     def light_save(self, *args, **kwargs):
