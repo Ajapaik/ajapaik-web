@@ -581,9 +581,12 @@ class Photo(Model):
 
     def find_similar_for_existing_photo(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
-        self.perceptual_hash = phash(img)
-        query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
-        photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
+        if not self.lat is None and self.lon is None:
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s'
+            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id,(self.lat + 0.0001),(self.lon + 0.0001),(self.lat - 0.0001),(self.lon - 0.0001)])
+        else:
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
+            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
         for similar in photos:
             if similar not in self.confirmed_similar_photos:
                 self.similar_photos.add(similar)
