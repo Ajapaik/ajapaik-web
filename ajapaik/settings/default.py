@@ -8,7 +8,7 @@ gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
-DEBUG = False
+DEBUG = True
 
 DEFER_JAVASCRIPT = False
 
@@ -85,6 +85,7 @@ USE_L10N = False
 
 USE_TZ = True
 
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -96,6 +97,7 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 MIDDLEWARE = [
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'djdev_panel.middleware.DebugMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
