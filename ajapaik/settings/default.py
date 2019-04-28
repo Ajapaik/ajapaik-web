@@ -8,7 +8,7 @@ gettext = lambda s: s
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
-DEBUG = True
+DEBUG = False
 
 DEFER_JAVASCRIPT = False
 
@@ -97,7 +97,6 @@ SECRET_KEY = '!!! paste your own secret key here !!!'
 MIDDLEWARE = [
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'djdev_panel.middleware.DebugMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
