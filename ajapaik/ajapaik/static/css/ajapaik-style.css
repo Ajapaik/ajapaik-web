@@ -1697,6 +1697,7 @@ a.fullscreen {
 }
 
 #ajapaik-photoview-container {
+  min-height: 85vh;
   margin-top: 20px;
   margin-left: 10px;
 }
