@@ -1409,7 +1409,7 @@ a.fullscreen {
 }
 
 #ajapaik-photo-modal-map-canvas {
-  height: calc(100% - 25px);
+  height: calc(100% - 65px);
   max-height: 99%;
   position: relative;
 }
@@ -2476,4 +2476,9 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 
 .fb-iframe-widget {
   height: 50px;
+}
+
+#ajapaik-photoview-main-photo-wrapper,
+#ajapaik-photoview-rephoto-wrapper {
+  display: table;
 }

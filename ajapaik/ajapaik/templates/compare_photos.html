@@ -20,7 +20,7 @@
                 <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo"
                                         alt="{{ photo.description }}"
                                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
-                <div>
+                <div style="max-width:400px;">
                     {% if photo.author %}
                     <b>{{ photo.author }}</b><br>
                     {% endif %}
@@ -51,7 +51,7 @@
             <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo"
                                     alt="{{ photo2.description }}"
                                     src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
-            <div>
+            <div  style="max-width:400px;">
                 {% if photo2.author %}
                 <b>{{ photo2.author }}</b><br>
                 {% endif %}
