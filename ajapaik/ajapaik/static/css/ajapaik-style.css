@@ -1526,12 +1526,13 @@ a.fullscreen {
 #ajapaik-modal-photo-container {
   position: relative;
   display: inline-block;
+  max-height: 70vh;
 }
 
 #ajapaik-modal-photo-container {
   padding-left: 0;
   padding-right: 0;
-  min-height: 42vh;
+  min-height: 25vh;
 }
 
 #ajapaik-modal-body,
