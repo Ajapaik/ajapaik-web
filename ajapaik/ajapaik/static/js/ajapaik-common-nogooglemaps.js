@@ -1746,9 +1746,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         if (!window.audioContext) {
             window.audioContext = new AudioContext();
             if (window.audioContext.state !== 'running') {
-                window.audioContext.resume().then(() => {
-                    console.log('Playback resumed successfully');
-                });
+                window.audioContext.resume();
             }
         }
     });
