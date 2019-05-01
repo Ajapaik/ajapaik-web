@@ -18,7 +18,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   margin-right: 0 !important;
 }
 
-.dropdown-toggle > ::after {
+.dropdown-toggle > : : after {
   font-size: 0;
 }
 
@@ -156,7 +156,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 .ajapaik-navbar {
-  position:fixed;
+  position: fixed;
   background: rgba(0, 0, 0, 0.8) none;
   border-width: 0 0 0 0;
   z-index: 100;
@@ -204,7 +204,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 .ajapaik-brand {
-  top:10px;
+  top: 10px;
   float: left;
   background: url(../images/ajapaik_266px.png) no-repeat;
   position: absolute;
@@ -309,20 +309,20 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-minimap-confirm-geotag-button {
   margin-left: 10px;
 }
-.ajapaik-minimap-confirm-geotag-button:hover {
+.ajapaik-minimap-confirm-geotag-button: hover {
   color: #333;
 }
-.ajapaik-minimap-confirm-geotag-button:focus {
+.ajapaik-minimap-confirm-geotag-button: focus {
   color: #333;
 }
 
 .ajapaik-minimap-confirm-geotag-button-done {
   color: #007fff;
 }
-.ajapaik-minimap-confirm-geotag-button-done:hover {
+.ajapaik-minimap-confirm-geotag-button-done: hover {
   color: #007fff;
 }
-.ajapaik-minimap-confirm-geotag-button-done:focus {
+.ajapaik-minimap-confirm-geotag-button-done: focus {
   color: #007fff;
 }
 
@@ -404,7 +404,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 #ajapaik-feedback-div a {
   display: block;
@@ -421,7 +421,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   border-left: solid 1px #333;
   border-right: solid 1px #fff;
 }
-#ajapaik-feedback-div a:hover {
+#ajapaik-feedback-div a: hover {
   background: #06c;
 }
 
@@ -438,11 +438,11 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   background-position: center !important;
 }
 
-path:hover {
+path: hover {
   fill: white;
 }
 
-.ajapaik-fixed-gray:hover {
+.ajapaik-fixed-gray: hover {
   fill: #888 !important;
 }
 
@@ -473,7 +473,7 @@ path:hover {
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width:calc(30vw - 250px);
+  max-width: calc(30vw - 250px);
 }
 
 #ajapaik-header-about-button {
@@ -970,7 +970,7 @@ a.fullscreen {
 .no-text-decoration {
   text-decoration: none;
 }
-.no-text-decoration:hover {
+.no-text-decoration: hover {
   text-decoration: none;
 }
 
@@ -1002,6 +1002,7 @@ a.fullscreen {
   min-height: 30vh;
   object-fit: contain;
   max-height: 70vh;
+  background: black;
 }
 
 #ajapaik-photoview-main-photo {
@@ -1256,17 +1257,17 @@ a.fullscreen {
   bottom: 0px;
 }
 
-.ajapaik-flip-photo-overlay-button:hover,
-.ajapaik-like-photo-overlay-button:hover,
+.ajapaik-flip-photo-overlay-button: hover,
+.ajapaik-like-photo-overlay-button: hover,
 .ajapaik-flip-photo-overlay-button.active,
-.ajapaik-close-rephoto-overlay-button:hover,
-.ajapaik-invert-rephoto-overlay-button:hover,
-.ajapaik-similar-photo-overlay-button:active,
-.ajapaik-similar-photo-overlay-button:hover,
-.ajapaik-thumbnail-selection-icon:hover,
+.ajapaik-close-rephoto-overlay-button: hover,
+.ajapaik-invert-rephoto-overlay-button: hover,
+.ajapaik-similar-photo-overlay-button: active,
+.ajapaik-similar-photo-overlay-button: hover,
+.ajapaik-thumbnail-selection-icon: hover,
 .ajapaik-thumbnail-selection-icon-blue,
-.ajapaik-show-rephoto-selection-overlay-button:hover,
-.ajapaik-show-rephoto-selection-overlay-button:active {
+.ajapaik-show-rephoto-selection-overlay-button: hover,
+.ajapaik-show-rephoto-selection-overlay-button: active {
   color: #007fff;
 }
 
@@ -1337,7 +1338,7 @@ a.fullscreen {
   z-index: 1;
   border: none;
 }
-.ajapaik-photo-modal-previous-button:hover {
+.ajapaik-photo-modal-previous-button: hover {
   color: #007fff;
 }
 
@@ -1358,7 +1359,7 @@ a.fullscreen {
   top: calc(50% - 24px);
   border: none;
 }
-.ajapaik-photo-modal-next-button:hover {
+.ajapaik-photo-modal-next-button: hover {
   color: #007fff;
 }
 
@@ -1551,7 +1552,7 @@ a.fullscreen {
 .ajapaik-licence {
   text-decoration: none;
 }
-.ajapaik-licence:hover {
+.ajapaik-licence: hover {
   text-decoration: none;
 }
 
@@ -1668,20 +1669,20 @@ a.fullscreen {
 #ajapaik-rephoto-full-screen-image,
 #ajapaik-full-screen-image,
 #ajp-geotagger-full-screen-image {
-  position:inherit;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  max-width:100%;
-  max-height:100%;
-  margin:auto;
-  overflow:auto;
-  opacity:1;
-  height:auto;
-  width:100%;
-  display:block;
-  object-fit:contain;
+  position: inherit;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  overflow: auto;
+  opacity: 1;
+  height: auto;
+  width: 100%;
+  display: block;
+  object-fit: contain;
   cursor: zoom-out;
 }
 
@@ -1838,8 +1839,8 @@ ul.errorlist,
   text-overflow: ellipsis;
   margin-top: 50px;
 }
-#pac-input:focus,
-#pac-input-mapview:focus {
+#pac-input: focus,
+#pac-input-mapview: focus {
   border-color: #4d90fe;
   margin-right: -1px;
   padding-right: 14px;
@@ -1876,7 +1877,7 @@ ul.errorlist,
   display: none;
 }
 
-a[href^="http://maps.google.com/maps"] {
+a[href^="http: //maps.google.com/maps"] {
   display: none !important;
 }
 
@@ -2166,7 +2167,7 @@ a[href^="http://maps.google.com/maps"] {
 }
 
 footer a {
-    color:#fff;
+    color: #fff;
 }
 
 #ajapaik-photo-modal-no-location,
@@ -2196,9 +2197,9 @@ footer a {
   font-size: 36px;
   color: #888;
 }
-.ajapaik-album-selection-game-button:hover > i,
-.ajapaik-album-selection-album-more-button:hover > i,
-.ajapaik-album-selection-map-button:hover > i {
+.ajapaik-album-selection-game-button: hover > i,
+.ajapaik-album-selection-album-more-button: hover > i,
+.ajapaik-album-selection-map-button: hover > i {
   color: white;
 }
 
@@ -2213,7 +2214,7 @@ footer a {
 .ajapaik-album-selection-album-more-button {
   background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
 }
-.ajapaik-album-selection-album-more-button:hover {
+.ajapaik-album-selection-album-more-button: hover {
   background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
@@ -2260,7 +2261,7 @@ footer a {
   color: #888;
   font-size: 36px;
 }
-.ajapaik-gray-button:hover {
+.ajapaik-gray-button: hover {
   color: #fff;
 }
 
@@ -2307,7 +2308,7 @@ footer a {
 input[type=search] {
   -webkit-appearance: searchfield;
 }
-input[type=search]::-webkit-search-cancel-button {
+input[type=search]: : -webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
 }
 
@@ -2358,6 +2359,14 @@ input[type=search]::-webkit-search-cancel-button {
 @media (min-width: 768px) {
   #pac-input-mapview {
     width: 90px !important;
+  }
+
+  .img-wrapper {
+    float: right;
+  }
+
+  .compare-photo-description {
+    max-width: 400px;
   }
 }
 
@@ -2416,7 +2425,7 @@ input[type=search]::-webkit-search-cancel-button {
 
 @media (max-width: 713px) {
   #ajapaik-album-filter-box {
-    width:calc(95vw - 235px);
+    width: calc(95vw - 235px);
   }
   #ajapaik-photo-filter-box {
     width: calc(40vw + 16px);
@@ -2449,10 +2458,10 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .allauth-menu {
-    margin-top:1em;
+    margin-top: 1em;
 }
 
-#ajapaik-filtering-dropdown:hover {
+#ajapaik-filtering-dropdown: hover {
   cursor: pointer;
   text-decoration: none;
 }
@@ -2467,14 +2476,14 @@ input[type=search]::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
-div.gm-style-mtc > div:nth-of-type(2) {
+div.gm-style-mtc > div: nth-of-type(2) {
   top: auto !important;
   left: 0 !important;
   bottom: 40px;
   min-width: 100%;
 }
 
-div.gm-style-mtc > div:nth-of-type(2) > div > label {
+div.gm-style-mtc > div: nth-of-type(2) > div > label {
   top: 8px;
   position: relative;
   font-size: 13px;

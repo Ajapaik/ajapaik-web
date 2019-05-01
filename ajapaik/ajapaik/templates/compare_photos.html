@@ -15,65 +15,27 @@
 <div class="container pt-5" style="min-height:87vh;">
     {% include "_photo_comparision_modal.html" %}
     <div class="row pt-2">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-md-left text-center">
-            <div class="img-wrapper float-right">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
+            <div class="img-wrapper">
                 <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo"
                                         alt="{{ photo.description }}"
                                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
-                <div style="max-width:400px;">
-                    {% if photo.author %}
-                    <b>{{ photo.author }}</b><br>
-                    {% endif %}
-                    {% if photo.description %}
-                        {{ photo.description }}<br>
-                    {% endif %}
-                    {% if photo.date %}
-                        {{ photo.date }}<br>
-                    {% elif photo.date_text %}
-                        {{ photo.date_text }}<br>
-                    {% endif %}
-                    <div>
-                        {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-                        {% if photo.source_url %}
-                        <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                            href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
-                            {{ photo.source.description }}
-                            {% if photo.source_key %}{{ photo.source_key }}{% endif %}
-                        </a>
-                        {% elif photo.source.description %}
-                        {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-                        {% endif %}
-                    </div>
+                <div class="compare-photo-description">
+                        {% with photo=photo|default:photo %}
+                            {% include "_photo_description_container.html" %}
+                        {% endwith %}
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-md-left text-center">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
             <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo"
                                     alt="{{ photo2.description }}"
                                     src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
-            <div  style="max-width:400px;">
-                {% if photo2.author %}
-                <b>{{ photo2.author }}</b><br>
-                {% endif %}
-                {% if photo2.description %}
-                {{ photo2.description }}<br>
-                {% endif %}
-                {% if photo2.date %}
-                {{ photo2.date }}<br>
-                {% elif photo2.date_text %}
-                {{ photo2.date_text }}<br>
-                {% endif %}
+            <div class="compare-photo-description">
+                    {% with photo=photo2|default:photo2 %}
+                        {% include "_photo_description_container.html" %}
+                    {% endwith %}
             </div>
-            {% if photo2.licence %}{% include "_licence.html" with licence=photo2.licence %}{% endif %}
-            {% if photo2.source_url %}
-            <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                href='{{ photo.source_url }}' target="_blank" rel="noopener nofollow">
-                {{ photo2.source.description }}
-                {% if photo2.source_key %}{{ photo2.source_key }}{% endif %}
-            </a>
-            {% elif photo2.source.description %}
-            {{ photo2.source.description }}{% if photo2.source_key %} {{ photo2.source_key }}{% endif %}
-            {% endif %}
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
             <button id="not_similar" class="btn btn-danger m-2 w-50">
