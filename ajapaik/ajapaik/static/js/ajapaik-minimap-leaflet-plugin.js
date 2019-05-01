@@ -186,8 +186,8 @@
                     color: 'red',
                     weight: 3,
                     opacity: 0.5,
-                    smoothFactor: 1,>
-                    dashArray: '7,7'>
+                    smoothFactor: 1,
+                    dashArray: '7,7'
                 });
             return markerline;
         },

@@ -268,7 +268,8 @@
 </div>
 <div id="fb-root"></div>
 <form action="/i18n/setlang/" method="post" id="ajapaik-change-language-form">
-    <input type="hidden" value="" name="language" id="ajapaik-language" />
+    <input type="hidden" value="" name="language" id="ajapaik-language"/>
+    <input type="hidden" value="{{ request.get_full_path }}" name="next"/>
     {% csrf_token %}
 </form>
 <div class="alert alert-danger" id="ajapaik-geolocation-error">

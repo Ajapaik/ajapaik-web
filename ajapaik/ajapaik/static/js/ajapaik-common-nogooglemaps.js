@@ -1618,7 +1618,9 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         e.preventDefault();
         $('#ajapaik-language').val($(this).attr('data-lang-code'));
         $('input[name=csrfmiddlewaretoken]').val(docCookies.getItem('csrftoken'));
-        $('input[name=next]').val(window.pathname + window.search)
+        if( window.location !== undefined && window.location.search !== undefined ) {
+            $('input[name=next]').val(window.location.pathname + window.location.search)
+        }
         $('#ajapaik-change-language-form').submit();
     });
 

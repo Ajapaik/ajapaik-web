@@ -95,17 +95,15 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE = [
-    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
-    # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware'
 ]
