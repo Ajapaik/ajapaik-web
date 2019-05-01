@@ -1578,6 +1578,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         e.preventDefault();
         $('#ajapaik-language').val($(this).attr('data-lang-code'));
         $('input[name=csrfmiddlewaretoken]').val(docCookies.getItem('csrftoken'));
+        $('input[name=next]').val(window.pathname + window.search)
         $('#ajapaik-change-language-form').submit();
     });
 

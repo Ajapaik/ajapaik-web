@@ -1894,6 +1894,10 @@ a[href^="http: //maps.google.com/maps"] {
   opacity: 0.5;
 }
 
+#ajapaik-curator-selection {
+  margin-top: 12px;
+}
+
 #ajapaik-curator-selection-size,
 #ajapaik-curator-my-albums-size,
 #ajapaik-curator-result-count {
