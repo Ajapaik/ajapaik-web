@@ -137,7 +137,7 @@
                                     {% include "_licence.html" with licence=photo.licence %}
                                 {% endif %}
                                 {% if photo.source_url %}
-                                    <br>
+                                    &nbsp;
                                     <div class="d-inline-block" id="ajapaik-photo-modal-source">
                                         <a href='{{ photo.source_url }}'
                                             target="_blank" rel="noopener nofollow">
@@ -146,7 +146,7 @@
                                         </a>
                                     </div>
                                 {% elif photo.source.description %}
-                                    <br>
+                                    &nbsp;
                                     <div class="d-inline-block" id="ajapaik-photo-modal-source">
                                         {{ photo.source.description }}{% if photo.source_key %}
                                             {{ photo.source_key }}{% endif %}
@@ -161,7 +161,7 @@
                                         {% if photo.rephotos.all.0.author %}
                                             <b>{{ photo.rephotos.all.0.author }}</b><br>
                                             {% if photo.rephotos.all.0.licence %}
-                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
+                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
                                             {% endif %}
                                         {% endif %}
                                             <a id="ajapaik-photo-modal-source" href='{{ photo.rephotos.all.0.source_url }}'
@@ -172,7 +172,7 @@
                                         {% if photo.rephotos.all.0.author %}
                                             <b>{{ photo.rephotos.all.0.author }}</b><br>
                                             {% if photo.rephotos.all.0.licence %}
-                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
+                                                {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
                                             {% endif %}
                                         {% else %}
                                             {% if photo.rephotos.all.0.user %}
@@ -181,7 +181,7 @@
                                                     {{ photo.rephotos.all.0.user.get_display_name }}
                                                 </a><br>
                                                 {% if photo.rephotos.all.0.licence %}
-                                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}<br>
+                                                    {% include "_licence.html" with licence=photo.rephotos.all.0.licence %}
                                                 {% endif %}
                                             {% else %}
                                                 <b>{% trans "Unknown author" %}</b>
