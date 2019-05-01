@@ -98,7 +98,6 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -107,7 +106,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobi.middleware.MobileDetectionMiddleware',
-    'ajapaik.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
 )
 

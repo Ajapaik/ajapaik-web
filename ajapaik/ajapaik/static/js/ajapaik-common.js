@@ -1705,4 +1705,15 @@ var map,
         return false;
     });
 
+    $(document).on('click', 'a', function () {
+        if (!window.audioContext) {
+            window.audioContext = new AudioContext();
+            if (window.audioContext.state !== 'running') {
+                window.audioContext.resume().then(() => {
+                    console.log('Playback resumed successfully');
+                });
+            }
+        }
+    });
+
 }(jQuery));
