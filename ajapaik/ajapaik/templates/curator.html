@@ -635,16 +635,6 @@
                 }
                 window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
             });
-            $(document).on('click', '#ajapaik-curator-gallery-switch', function () {
-                $('.ajapaik-curator-selection-controls').hide();
-                $('.ajapaik-curator-selection-item').removeClass('row').addClass('thumbnail').addClass('col-2');
-                window._gaq.push(['_trackEvent', 'Curator', 'Gallery mode']);
-            });
-            $(document).on('click', '#ajapaik-curator-list-switch', function () {
-                $('.ajapaik-curator-selection-controls').show();
-                $('.ajapaik-curator-selection-item').addClass('row').removeClass('thumbnail').removeClass('col-2');
-                window._gaq.push(['_trackEvent', 'Curator', 'List mode']);
-            });
             $(document).on('click', '#ajapaik-curator-submit-selection', function () {
                 $('#ajapaik-curator-upload-error').hide();
                 // TODO: Album area selection

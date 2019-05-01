@@ -4,6 +4,9 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         $(document).on('keydown', function (e) {
+            if($("#id_login,#id_password").is(":focus")) {
+                return;
+            }
             if (window.hotkeysActive) {
                 if (window.isGame || window.isFrontpage) {
                     var buttons;

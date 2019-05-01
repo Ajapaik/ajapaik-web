@@ -18,7 +18,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   margin-right: 0 !important;
 }
 
-.dropdown-toggle > : : after {
+.dropdown-toggle > ::after {
   font-size: 0;
 }
 
@@ -309,20 +309,20 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 .ajapaik-minimap-confirm-geotag-button {
   margin-left: 10px;
 }
-.ajapaik-minimap-confirm-geotag-button: hover {
+.ajapaik-minimap-confirm-geotag-button:hover {
   color: #333;
 }
-.ajapaik-minimap-confirm-geotag-button: focus {
+.ajapaik-minimap-confirm-geotag-button:focus {
   color: #333;
 }
 
 .ajapaik-minimap-confirm-geotag-button-done {
   color: #007fff;
 }
-.ajapaik-minimap-confirm-geotag-button-done: hover {
+.ajapaik-minimap-confirm-geotag-button-done:hover {
   color: #007fff;
 }
-.ajapaik-minimap-confirm-geotag-button-done: focus {
+.ajapaik-minimap-confirm-geotag-button-done:focus {
   color: #007fff;
 }
 
@@ -421,7 +421,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   border-left: solid 1px #333;
   border-right: solid 1px #fff;
 }
-#ajapaik-feedback-div a: hover {
+#ajapaik-feedback-div a:hover {
   background: #06c;
 }
 
@@ -438,11 +438,11 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   background-position: center !important;
 }
 
-path: hover {
+path:hover {
   fill: white;
 }
 
-.ajapaik-fixed-gray: hover {
+.ajapaik-fixed-gray:hover {
   fill: #888 !important;
 }
 
@@ -970,7 +970,7 @@ a.fullscreen {
 .no-text-decoration {
   text-decoration: none;
 }
-.no-text-decoration: hover {
+.no-text-decoration:hover {
   text-decoration: none;
 }
 
@@ -1257,18 +1257,23 @@ a.fullscreen {
   bottom: 0px;
 }
 
-.ajapaik-flip-photo-overlay-button: hover,
-.ajapaik-like-photo-overlay-button: hover,
+.ajapaik-flip-photo-overlay-button:hover ,
+.ajapaik-like-photo-overlay-button:hover ,
 .ajapaik-flip-photo-overlay-button.active,
-.ajapaik-close-rephoto-overlay-button: hover,
-.ajapaik-invert-rephoto-overlay-button: hover,
-.ajapaik-similar-photo-overlay-button: active,
-.ajapaik-similar-photo-overlay-button: hover,
-.ajapaik-thumbnail-selection-icon: hover,
+.ajapaik-close-rephoto-overlay-button:hover ,
+.ajapaik-invert-rephoto-overlay-button:hover ,
+.ajapaik-similar-photo-overlay-button:active ,
+.ajapaik-similar-photo-overlay-button:hover ,
+.ajapaik-thumbnail-selection-icon:hover ,
 .ajapaik-thumbnail-selection-icon-blue,
-.ajapaik-show-rephoto-selection-overlay-button: hover,
-.ajapaik-show-rephoto-selection-overlay-button: active {
+.ajapaik-show-rephoto-selection-overlay-button:hover ,
+.ajapaik-show-rephoto-selection-overlay-button:active {
   color: #007fff;
+  cursor: pointer;
+}
+
+.ajapaik-thumbnail-selection-icon:hover {
+  cursor: pointer;
 }
 
 .ajapaik-like-photo-overlay-button > i {
@@ -1338,7 +1343,7 @@ a.fullscreen {
   z-index: 1;
   border: none;
 }
-.ajapaik-photo-modal-previous-button: hover {
+.ajapaik-photo-modal-previous-button:hover {
   color: #007fff;
 }
 
@@ -1359,7 +1364,7 @@ a.fullscreen {
   top: calc(50% - 24px);
   border: none;
 }
-.ajapaik-photo-modal-next-button: hover {
+.ajapaik-photo-modal-next-button:hover {
   color: #007fff;
 }
 
@@ -1552,7 +1557,7 @@ a.fullscreen {
 .ajapaik-licence {
   text-decoration: none;
 }
-.ajapaik-licence: hover {
+.ajapaik-licence:hover {
   text-decoration: none;
 }
 
@@ -1839,8 +1844,8 @@ ul.errorlist,
   text-overflow: ellipsis;
   margin-top: 50px;
 }
-#pac-input: focus,
-#pac-input-mapview: focus {
+#pac-input:focus,
+#pac-input-mapview:focus {
   border-color: #4d90fe;
   margin-right: -1px;
   padding-right: 14px;
@@ -1893,10 +1898,6 @@ a[href^="http: //maps.google.com/maps"] {
 #ajapaik-curator-my-albums-size,
 #ajapaik-curator-result-count {
   margin-left: 5px;
-}
-
-#ajapaik-curator-selection {
-  margin-top: 100px;
 }
 
 #ajapaik-curator-my-albums {
@@ -2006,14 +2007,6 @@ a[href^="http: //maps.google.com/maps"] {
 
 .ajapaik-curator-selection-button-row {
   margin-bottom: 10px;
-}
-
-#ajapaik-curator-gallery-switch,
-#ajapaik-curator-list-switch {
-  border: 1px solid;
-  padding: 2px;
-  background-color: #fff;
-  cursor: pointer;
 }
 
 .ajapaik-curator-selection-image.rotate90 {
@@ -2197,9 +2190,9 @@ footer a {
   font-size: 36px;
   color: #888;
 }
-.ajapaik-album-selection-game-button: hover > i,
-.ajapaik-album-selection-album-more-button: hover > i,
-.ajapaik-album-selection-map-button: hover > i {
+.ajapaik-album-selection-game-button:hover  > i,
+.ajapaik-album-selection-album-more-button:hover  > i,
+.ajapaik-album-selection-map-button:hover  > i {
   color: white;
 }
 
@@ -2214,7 +2207,7 @@ footer a {
 .ajapaik-album-selection-album-more-button {
   background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
 }
-.ajapaik-album-selection-album-more-button: hover {
+.ajapaik-album-selection-album-more-button:hover {
   background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
@@ -2261,7 +2254,7 @@ footer a {
   color: #888;
   font-size: 36px;
 }
-.ajapaik-gray-button: hover {
+.ajapaik-gray-button:hover {
   color: #fff;
 }
 
@@ -2308,7 +2301,7 @@ footer a {
 input[type=search] {
   -webkit-appearance: searchfield;
 }
-input[type=search]: : -webkit-search-cancel-button {
+input[type=search]::-webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
 }
 
@@ -2461,7 +2454,7 @@ input[type=search]: : -webkit-search-cancel-button {
     margin-top: 1em;
 }
 
-#ajapaik-filtering-dropdown: hover {
+#ajapaik-filtering-dropdown:hover {
   cursor: pointer;
   text-decoration: none;
 }
@@ -2476,14 +2469,14 @@ input[type=search]: : -webkit-search-cancel-button {
   cursor: pointer;
 }
 
-div.gm-style-mtc > div: nth-of-type(2) {
+div.gm-style-mtc > div:nth-of-type(2) {
   top: auto !important;
   left: 0 !important;
   bottom: 40px;
   min-width: 100%;
 }
 
-div.gm-style-mtc > div: nth-of-type(2) > div > label {
+div.gm-style-mtc > div:nth-of-type(2) > div > label {
   top: 8px;
   position: relative;
   font-size: 13px;

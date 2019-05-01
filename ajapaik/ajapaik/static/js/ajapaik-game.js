@@ -219,11 +219,11 @@
                 fullScreenImage.removeClass('ajapaik-photo-flipped');
                 modalPhoto.removeClass('ajapaik-photo-flipped');
                 flipOverlayButtons.removeClass('active');
-                //if (currentPhoto.flip) {
-                    //fullScreenImage.addClass('ajapaik-photo-flipped');
-                    //modalPhoto.addClass('ajapaik-photo-flipped');
-                    //flipOverlayButtons.addClass('active');
-                //}
+                if (currentPhoto.flip) {
+                    fullScreenImage.addClass('ajapaik-photo-flipped');
+                    modalPhoto.addClass('ajapaik-photo-flipped');
+                    flipOverlayButtons.addClass('active');
+                }
                 var azimuthIndicator = $('#ajapaik-photo-modal-location-with-azimuth'),
                     locationIndicator = $('#ajapaik-photo-modal-location-without-azimuth'),
                     noLocationIndicator = $('#ajapaik-photo-modal-no-location');
@@ -340,11 +340,11 @@
                 var div = $('#ajapaik-fullscreen-image-container'),
                     img = div.find('img');
                 img.attr('src', img.attr('data-src'));
-                // if (currentPhoto.flip) {
-                //     img.addClass('ajapaik-photo-flipped');
-                // } else {
-                //     img.removeClass('ajapaik-photo-flipped');
-                // }
+                if (currentPhoto.flip) {
+                     img.addClass('ajapaik-photo-flipped');
+                } else {
+                     img.removeClass('ajapaik-photo-flipped');
+                }
                 window.BigScreen.request(div[0]);
                 $('#ajapaik-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;

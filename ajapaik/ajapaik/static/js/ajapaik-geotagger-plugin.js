@@ -349,12 +349,12 @@
         ].join('\n'));
         // Build UI, initialize map
         $(this.node).html(this.UI);
-        var fullScreenElement = $('#ajp-geotagger-full-screen-image'),
+        var fullScreenElement = $('#ajp-geotagger-full-screen-container'),
             loginDiv = $('#ajp-geotagger-current-login'),
             emailNotice = $('#ajp-geotagger-email-login-notice');
         $('#ajp-geotagger-full-screen-link').click(function () {
             if (BigScreen.enabled) {
-                fullScreenElement.attr('src', that.options.fullScreenSrc);
+                fullScreenElement.children(1).attr('src', that.options.fullScreenSrc);
                 BigScreen.request(fullScreenElement.get(0));
                 that.fullScreenActive = true;
                 if (typeof window.reportGeotaggerFullScreenOpen === 'function') {
