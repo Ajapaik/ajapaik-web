@@ -137,7 +137,6 @@
                                     {% include "_licence.html" with licence=photo.licence %}
                                 {% endif %}
                                 {% if photo.source_url %}
-                                    &nbsp;
                                     <div class="d-inline-block" id="ajapaik-photo-modal-source">
                                         <a href='{{ photo.source_url }}'
                                             target="_blank" rel="noopener nofollow">
@@ -146,7 +145,6 @@
                                         </a>
                                     </div>
                                 {% elif photo.source.description %}
-                                    &nbsp;
                                     <div class="d-inline-block" id="ajapaik-photo-modal-source">
                                         {{ photo.source.description }}{% if photo.source_key %}
                                             {{ photo.source_key }}{% endif %}
