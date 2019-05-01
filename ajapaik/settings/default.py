@@ -106,7 +106,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'ajapaik.ajapaik.middleware.ForceDefaultLanguageMiddleware',
     # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
-    'ajapaik.ajapaik.middleware.SessionBasedLocaleWithRedirectMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware'
 ]

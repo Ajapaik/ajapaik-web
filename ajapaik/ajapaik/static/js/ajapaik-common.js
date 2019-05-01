@@ -1672,4 +1672,13 @@ $('.ajapaik-navbar').autoHidingNavbar();
         return false;
     });
 
+    $(document).on('click', 'a', function () {
+        if (!window.audioContext) {
+            window.audioContext = new AudioContext();
+            if (window.audioContext.state !== 'running') {
+                window.audioContext.resume();
+            }
+        }
+    });
+
 }(jQuery));

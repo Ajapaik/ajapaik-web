@@ -1712,4 +1712,13 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         return false;
     });
 
+    $(document).on('click', 'a', function () {
+        if (!window.audioContext) {
+            window.audioContext = new AudioContext();
+            if (window.audioContext.state !== 'running') {
+                window.audioContext.resume();
+            }
+        }
+    });
+
 }(jQuery));
