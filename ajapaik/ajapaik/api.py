@@ -947,16 +947,20 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
     '''
     API endpoint to un/like photos by user.
     '''
+    permission_classes = (AllowAny,)
 
-    def post(self, request, format=None):
-        form = forms.ApiToggleFavoritePhotoForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiToggleFavoritePhotoForm(data)
 
         photo = None
 
         if form.is_valid():
-            user_profile = request.user.profile
-            id = form.cleaned_data['id']
+            if user:
+                user_profile = user.profile
+            else:
+                user_profile = None
 
+            id = form.cleaned_data['id']
             if id.isdigit():
                 id = int(id)
                 photo = Photo.objects.filter(
@@ -965,7 +969,7 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
             else:
                 photo = finna_find_photo_by_url(id, user_profile)
 
-            if photo:
+            if user_profile and photo:
                 is_favorited = form.cleaned_data['favorited']
 
                 if is_favorited:
@@ -997,6 +1001,16 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
             return Response({'error': RESPONSE_STATUSES['OK']})
         else:
             return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
+
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
 
 
 class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
