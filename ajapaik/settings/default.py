@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
 )
 
+# Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
 ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
 
 HAYSTACK_CONNECTIONS = {
@@ -356,6 +357,7 @@ GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 ### Django-allauth configuration
 ################################################################################
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email

@@ -907,8 +907,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
     });
 
-    $('#ajapaik-comment-form-register-link').click(function () {
-        $('#ajapaik-header-profile-button').click();
+    $('#ajapaik-comment-form-register-link').click(function (e) {
+        e.preventDefault();
+        window.openPhotoUploadModal();
     });
 
     $(document).on('click', '.ajapaik-photo-modal-rephoto-thumb', function () {
