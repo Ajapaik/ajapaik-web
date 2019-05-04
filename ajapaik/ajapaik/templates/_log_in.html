@@ -16,10 +16,10 @@
     {% endif %}
 </b></div>
 <div id="{% if type == "leaderboard" %}ajapaik-header-facebook-connect{% elif type == "rephoto_upload" or type == "curator" or type == "video_anonymous" or type == "photo_selection" %}ajapaik-rephoto-upload-facebook-connect{% endif %}" class="facebook-connect">
-    <a href="{% provider_login_url 'facebook' %}" class="ir">{% trans "Connect with Facebook" %}</a>
+    <a href="{% provider_login_url 'facebook' %}?next={% if type == "rephoto_upload" %}{{ next|urlencode }}{% else %}{{ request.get_full_path|urlencode }}{% endif %}" class="ir">{% trans "Connect with Facebook" %}</a>
 </div>
 <div id="{% if type == "leaderboard" %}ajapaik-header-google-connect{% elif type == "rephoto_upload" or type == "curator" or type == "video_anonymous" or type == "photo_selection" %}ajapaik-rephoto-upload-google-connect{% endif %}" class="google-plus-connect">
-    <a href="{% provider_login_url 'google' %}" class="ir">{% trans "Connect with Google" %}</a>
+    <a href="{% provider_login_url 'google' %}?next={% if type == "rephoto_upload" %}{{ next|urlencode }}{% else %}{{ request.get_full_path|urlencode }}{% endif %}" class="ir">{% trans "Connect with Google" %}</a>
 </div>
 <form method="post" action="{% url 'account_login' %}" class="form">
     {% csrf_token %}

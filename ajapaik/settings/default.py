@@ -355,6 +355,7 @@ GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 ### Django-allauth configuration
 ################################################################################
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
