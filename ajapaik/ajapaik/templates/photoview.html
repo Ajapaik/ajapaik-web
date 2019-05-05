@@ -327,13 +327,13 @@
         $('.ajapaik-thumbnail-selection-icon').hide();
         mainPhotoContainer.data('AjapaikFaceTagger').removeRectanglesAndButtons();
     });
-    $(document).on('mouseover', '#ajapaik-photoview-rephoto-container', function () {
+    $(document).on('mouseenter', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
             $('.ajapaik-close-rephoto-overlay-button').show("fade", 250);
             $('.ajapaik-invert-rephoto-overlay-button').show("fade", 250);
         }
     });
-    $(document).on('mouseout', '#ajapaik-photoview-rephoto-container', function () {
+    $(document).on('mouseleave', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
             $('.ajapaik-close-rephoto-overlay-button').hide("fade", 250);
             $('.ajapaik-invert-rephoto-overlay-button').hide("fade", 250);
