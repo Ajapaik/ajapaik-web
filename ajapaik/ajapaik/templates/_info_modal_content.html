@@ -95,25 +95,27 @@
                     {% endblocktrans %}
                 </div>
             {% endif %}
-            {% if similar_photo_count > 0 %}
-                <div class="row">
-                    {% blocktrans count counter=total_similar_photo_count %}
-                        There is {{ counter }} similar photo
-                    {% plural %}
-                        There are {{ counter }} similar photos
-                    {% endblocktrans %}
-                    {% blocktrans count counter=confirmed_similar_photo_count %}
-                        There is confirmed {{ counter }} similar photo
-                    {% plural %}
-                        There are confirmed {{ counter }} similar photos
-                    {% endblocktrans %}
-                    {% blocktrans count counter=similar_photo_count %}
-                        There is unconfirmed {{ counter }} similar photo
-                    {% plural %}
-                        There are unconfirmed {{ counter }} similar photos
-                    {% endblocktrans %}
-                </div>
-            {% endif %}
+            <!--
+                {% if similar_photo_count > 0 %}
+                    <div class="row">
+                        {% blocktrans count counter=total_similar_photo_count %}
+                            There is {{ counter }} similar photo
+                        {% plural %}
+                            There are {{ counter }} similar photos
+                        {% endblocktrans %}
+                        {% blocktrans count counter=confirmed_similar_photo_count %}
+                            There is confirmed {{ counter }} similar photo
+                        {% plural %}
+                            There are confirmed {{ counter }} similar photos
+                        {% endblocktrans %}
+                        {% blocktrans count counter=similar_photo_count %}
+                            There is unconfirmed {{ counter }} similar photo
+                        {% plural %}
+                            There are unconfirmed {{ counter }} similar photos
+                        {% endblocktrans %}
+                    </div>
+                {% endif %}
+            -->
             <br>
             {% if nearby_albums %}
                 <div class="row d-block">
