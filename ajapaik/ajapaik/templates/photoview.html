@@ -29,7 +29,7 @@
         <div class="ajapaik-photoview-main-photo-wrapper" class="ajapaik-photo col-auto h-100 p-0 mr-3 mw-50">
             <div class="ajapaik-photo" id="ajapaik-photoview-main-photo-container">
                 <a class="fullscreen" id="ajapaik-full-screen-link">
-                    <img id="ajapaik-photoview-main-photo" alt="{{ photo.description }}"
+                    <img id="ajapaik-photoview-main-photo" {% if rephoto %}class="ajapaik-max-48vw" {% endif %}alt="{{ photo.description }}"
                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
                 </a>
                 {% if previous_photo %}
@@ -83,7 +83,7 @@
             <div id="ajapaik-photoview-rephoto-wrapper">
                 <div id="ajapaik-photoview-rephoto-container">
                     <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
-                        <img id="ajapaik-photoview-rephoto" alt="{{ photo.description }} {% trans "rephoto" %}"
+                        <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw" alt="{{ photo.description }} {% trans "rephoto" %}"
                             src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
                     </a>
                     <button class="btn ajapaik-close-rephoto-overlay-button"
