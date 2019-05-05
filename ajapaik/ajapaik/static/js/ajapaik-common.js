@@ -1052,23 +1052,23 @@ $('.ajapaik-navbar').autoHidingNavbar();
     };
     // Hover on dynamic elements doesn't work...
     $(document).on('mouseenter', '.ajapaik-frontpage-image', function () {
-        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
     });
     $(document).on('mouseleave', '.ajapaik-frontpage-image', function () {
         var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
         if (!icon.hasClass('ajapaik-thumbnail-selection-icon-blue')) {
-            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide("fade", 250);
         }
     });
     $(document).on('mouseenter', '.ajapaik-thumbnail-selection-icon', function (e) {
         $(this).show();
     });
     $(document.body).delegate('.ajapaik-frontpage-image', 'hover', function () {
-        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show();
+        $(this).parent().find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
     }, function () {
         var icon = $(this).parent().find('.ajapaik-thumbnail-selection-icon');
         if (!icon.hasClass('ajapaik-thumbnail-selection-icon-blue')) {
-            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide();
+            $(this).parent().find('.ajapaik-thumbnail-selection-icon').hide("fade", 250);
         }
     });
     $(document).on('click', '#ajapaik-photo-modal-add-rephoto', function (e) {

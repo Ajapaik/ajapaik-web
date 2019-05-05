@@ -466,7 +466,8 @@
                         originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
                         originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column'),
                         rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
-                        mainPhotoContainer = $('#ajapaik-modal-photo-container');
+                        mainPhotoContainer = $('#ajapaik-modal-photo-container'),
+                        rephotoContainer = $('#ajapaik-modal-rephoto-container');
                     mainPhotoContainer.AjapaikFaceTagger();
                     mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: id});
                     if (!nextId) {
@@ -496,7 +497,7 @@
                     if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                         $('#ajapaik-photo-modal-date-row').show();
                     }
-                    originalPhotoColumn.hover(function () {
+                    mainPhotoContainer.hover(function () {
                         if (!window.isMobile) {
                             var $this = $(this);
                             $this.find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
@@ -523,7 +524,7 @@
                             $this.find('.ajapaik-similar-photo-overlay-button').hide("fade", 250);
                         }
                     });
-                    rephotoColumn.hover(function () {
+                    rephotoContainer.hover(function () {
                         if (!window.isMobile) {
                             if (!window.userClosedRephotoTools) {
                                 $('.ajapaik-close-rephoto-overlay-button').show("fade", 250);
