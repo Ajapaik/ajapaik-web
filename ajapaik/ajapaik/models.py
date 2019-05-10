@@ -25,8 +25,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
-from django.db.models import Lookup, Q
-from django.db.models import OneToOneField, DateField, FileField
+from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
@@ -289,21 +288,25 @@ class Album(Model):
             count += each.comment_count
 
         return count
-    
+
+    def get_confirmed_similar_photo_count_with_subalbums(self):
+        qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
+        count = 0
+        for each in qs:
+            for similarity in each.similar_photos:
+                temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
+                if temp is not None and temp.confirmed is True:
+                    count += 1
+        return count
+
     def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
         count = 0
         for each in qs:
-            count += len(each.similar_photos.all())
-
-        return count
-
-    def get_confirmed_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().exclude(confirmed_similar_photos__isnull=True)
-        count = 0
-        for each in qs:
-            count += len(each.confirmed_similar_photos.all())
-
+            for similarity in each.similar_photos:
+                temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
+                if temp is not None:
+                    count += 1
         return count
 
     def set_calculated_fields(self):
@@ -313,7 +316,6 @@ class Album(Model):
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
         self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
         self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
-
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
@@ -408,14 +410,13 @@ class Photo(Model):
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
     perceptual_hash = BigIntegerField(null=True, blank=True)
-    similar_photos = ManyToManyField('self', blank=True,  related_name='similar_photos')
-    confirmed_similar_photos = ManyToManyField('self', blank=True,  related_name='confirmed_similar_photos')
-    
+    similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
+
     original_lat = None
     original_lon = None
 
     def get_total_similar(self):
-        return len(self.similar_photos.all()) + len(self.confirmed_similar_photos.all())
+        return len(self.similar_photos.all())
 
     class Meta:
         ordering = ['-id']
@@ -576,7 +577,8 @@ class Photo(Model):
         query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
         photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
         for similar in photos:
-            self.similar_photos.add(similar)
+            ImageSimilarity.add_or_update(self,similar)
+            similar.light_save()
         self.light_save()
 
     def find_similar_for_existing_photo(self):
@@ -588,9 +590,10 @@ class Photo(Model):
             query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
             photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
         for similar in photos:
-            if similar not in self.confirmed_similar_photos:
-                self.similar_photos.add(similar)
-        self.light_save()
+            list1 = ImageSimilarity.objects.filter(Q(from_photo=self.id) & Q(to_photo=similar.id))
+            list2 = ImageSimilarity.objects.filter(Q(from_photo=similar.id) & Q(to_photo=self.id))
+            if (len(list1) < 1 or len(list2) < 1):
+                ImageSimilarity.add_or_update(self,similar)
 
     def watermark(self):
         # For ETERA
@@ -812,6 +815,40 @@ class Photo(Model):
                         self.azimuth = None
                         self.azimuth_confidence = None
 
+class ImageSimilarity(Model):
+    from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="from_photo")
+    to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="to_photo")
+    confirmed = BooleanField()
+    DUPLICATE, SIMILAR = range(2)
+    SIMILARITY_TYPES = (
+        (DUPLICATE, _('Duplicate')),
+        (SIMILAR, _('Similar'))
+    )
+    similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
+    
+    def __add_or_update__(self):
+        qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
+        qs2 = ImageSimilarity.objects.filter(from_photo=self.to_photo).filter(to_photo=self.from_photo)
+        if len(qs) > 0:
+            for item in qs:
+                item.confirmed = self.confirmed
+                item.similarity_type = self.similarity_type
+                item.save()
+        else:
+            self.save()
+        if len(qs2) > 0:
+            for item in qs2:
+                item.confirmed = self.confirmed
+                item.similarity_type = self.similarity_type
+                item.save()
+        else:
+            self.save()
+    
+    def add_or_update(photo_obj,photo_obj2,confirmed=False,similarity_type=None):
+        imageSimilarity = ImageSimilarity(from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type)
+        imageSimilarity2 = ImageSimilarity(from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type)
+        imageSimilarity.__add_or_update__()
+        imageSimilarity2.__add_or_update__()
 
 class PhotoMetadataUpdate(Model):
     photo = ForeignKey('Photo', related_name='metadata_updates')

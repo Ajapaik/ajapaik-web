@@ -29,6 +29,7 @@ from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse, JsonResponse
+from django.http.multipartparser import MultiPartParser
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -61,7 +62,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	EditCommentForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
-	Dating, DatingConfirmation, Video
+	Dating, DatingConfirmation, Video, ImageSimilarity
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
@@ -186,11 +187,8 @@ def get_album_info_modal_content(request):
 		else:
 			context['user_made_all_rephotos'] = False
 		
-		similar_photo_count = album.similar_photo_count_with_subalbums
-		confirmed_similar_photo_count = album.confirmed_similar_photo_count_with_subalbums
-		context['similar_photo_count'] = similar_photo_count
-		context['confirmed_similar_photo_count'] = confirmed_similar_photo_count
-		context['total_similar_photo_count'] = similar_photo_count + confirmed_similar_photo_count
+		context['similar_photo_count'] = album.similar_photo_count_with_subalbums
+		context['confirmed_similar_photo_count'] = album.confirmed_similar_photo_count_with_subalbums
 
 		# Get all users that have either curated into selected photo set or re-curated into selected album
 		album_photo_ids = album_photo_ids
@@ -941,7 +939,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		end = int(end)
 		max_page = ceil(float(total) / float(page_size))
 		qs_for_fb = photos[:5]
-		photosWihSimilar = photos.exclude(Q(similar_photos__isnull=True) & Q(confirmed_similar_photos__isnull=True))
+		photosWihSimilar = photos.exclude(similar_photos__isnull=True)
 		# FIXME: Stupid
 		if order1 == 'amount' and order2 == 'geotags':
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
@@ -1309,12 +1307,11 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	if next_photo is not None:
 		next_similar_photo = next_photo
 	if len(photo_obj.similar_photos.all()) > 0:
-		next_similar_photo = photo_obj.similar_photos.first()
-	elif len(photo_obj.confirmed_similar_photos.all()) > 0:
-		next_similar_photo = photo_obj.confirmed_similar_photos.first()
+		next_similar_photo = photo_obj.similar_photos.all().first()
 	compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
 
 	people = [x.name for x in photo_obj.people]
+	all_similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id)
 
 	context = {
 		"photo": photo_obj,
@@ -1347,8 +1344,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"user_has_rephotos": user_has_rephotos,
 		"next_photo": next_photo,
 		"previous_photo": previous_photo,
-		"total_similar_photo_count": len(photo_obj.similar_photos.all()) + len(photo_obj.confirmed_similar_photos.all()),
-		"confirmed_similar_photo_count": len(photo_obj.confirmed_similar_photos.all()),
+		"total_similar_photo_count": len(all_similar_photos.all()),
+		"confirmed_similar_photo_count": len(all_similar_photos.filter(confirmed=True).all()),
 		"compare_photos_url" : compare_photos_url,
 		# TODO: Needs more data than just the names
 		"people": people
@@ -2655,70 +2652,56 @@ def photo_upload_choice(request):
 	return render(request, 'photo_upload_choice.html', context)
 
 def compare_all_photos(request, photo_id=None, photo_id_2=None):
-	photo_obj = get_object_or_404(Photo, id=photo_id)
-	photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
-
-	if request.method == 'PUT':
-		if photo_id == photo_id_2:
-			return JsonResponse({'status': 500})
-		photo_obj.similar_photos.remove(photo_obj2)
-		photo_obj.confirmed_similar_photos.add(photo_obj2)
-		photo_obj.save()
-		photo_obj2.save()
-		return JsonResponse({'status': 200})
-	if request.method == 'DELETE':
-		photo_obj.confirmed_similar_photos.remove(photo_obj2)
-		photo_obj.similar_photos.remove(photo_obj2)
-		photo_obj.save()
-		photo_obj2.save()
-		return JsonResponse({'status': 200})
-	else:
-		similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())
-		case = ""
-		if similar_photos == None or len(similar_photos) < 1:
-			all_photos_with_similar = Photo.objects.exclude(id=photo_obj2.id).exclude(id=photo_obj.id).exclude(similar_photos__isnull=True).all()
-			if len(all_photos_with_similar) < 1:
-				next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
-			else:
-				next_similar_photo = all_photos_with_similar.first().similar_photos.first()
-				next_action = request.build_absolute_uri(reverse("compare_all_photos", args=(next_similar_photo.id,next_similar_photo.similar_photos.first().id)))
-		else:
-			next_similar_photo = similar_photos.first()
-			next_action = request.build_absolute_uri(reverse("compare_all_photos", args=(photo_obj.id,next_similar_photo.id)))
-	context = {
-		'is_comparephoto': True,
-		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-		'photo': photo_obj,
-		'photo2': photo_obj2,
-		'next_action': next_action
-	}
-	return render(request, 'compare_photos.html', context)
+	return compare_photos_generic(request,photo_id,photo_id_2,"compare_all_photos", True)
 
 def compare_photos(request, photo_id=None, photo_id_2=None):
+	return compare_photos_generic(request,photo_id,photo_id_2)
+
+def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare_photos", compareAll = False):
 	photo_obj = get_object_or_404(Photo, id=photo_id)
 	photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
+	first_photo_criterion = Q(from_photo=photo_obj) & Q(to_photo=photo_obj2)
+	second_photo_criterion = Q(from_photo=photo_obj2) & Q(to_photo=photo_obj)
+	master_criterion = Q(first_photo_criterion | second_photo_criterion)
 
-	if request.method == 'PUT':
-		if photo_id == photo_id_2:
-			return JsonResponse({'status': 500})
-		photo_obj.similar_photos.remove(photo_obj2)
-		photo_obj.confirmed_similar_photos.add(photo_obj2)
+	if request.method == 'POST':
+		if photo_id == photo_id_2 or photo_obj is None or photo_obj2 is None:
+			return JsonResponse({'status': 400})
+		inputs = [photo_obj,photo_obj2]
+		if request.POST['confirmed'] is not None:
+			inputs += '1'
+		else:
+			inputs += '0'
+		if request.POST['similarity_type'] is not None:
+			inputs += request.POST['similarity_type']
+		ImageSimilarity.add_or_update(*inputs)
 		photo_obj.save()
 		photo_obj2.save()
 		return JsonResponse({'status': 200})
 	if request.method == 'DELETE':
-		photo_obj.confirmed_similar_photos.remove(photo_obj2)
-		photo_obj.similar_photos.remove(photo_obj2)
-		photo_obj.save()
-		photo_obj2.save()
+		if photo_id == photo_id_2 or photo_obj is None or photo_obj2 is None:
+			return JsonResponse({'status': 400})
+		imageSimilarity = ImageSimilarity.objects.filter(master_criterion)
+		for item in imageSimilarity:
+			item.delete()
 		return JsonResponse({'status': 200})
 	else:
-		similar_photos = photo_obj.similar_photos.exclude(id=photo_obj2.id).exclude(id__in=photo_obj.confirmed_similar_photos.all())
-		if similar_photos == None or len(similar_photos) < 1:
+		similar_photos = ImageSimilarity.objects.exclude(master_criterion & Q(confirmed=False))
+		first_photo_similar = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False))
+		second_photo_similar = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False))
+		if(len(first_photo_similar) > 0):
+			next_pair = first_photo_similar.first()
+		elif(compareAll is True and len(second_photo_similar) > 0):
+			next_pair = second_photo_similar.first()
+		else:
+			if compareAll is True:
+				next_pair = similar_photos.first()
+			else:
+				next_pair = None
+		if next_pair is None:
 			next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 		else:
-			next_similar_photo = similar_photos.first()
-			next_action = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
+			next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
 	context = {
 		'is_comparephoto': True,
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
@@ -2726,13 +2709,13 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
 		'photo2': photo_obj2,
 		'next_action': next_action
 	}
-	return render(request, 'compare_photos.html', context)
-
+	return render(request,'compare_photos.html', context)
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
 	context = {
-		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+		'is_user_upload': True
 	}
 	if request.method == 'POST':
 		form = UserPhotoUploadForm(request.POST, request.FILES)
@@ -2743,7 +2726,7 @@ def user_upload(request):
 				photo.author = request.user.profile.get_display_name()
 				photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
 			photo.save()
-			#photo.find_similar()
+			# photo.find_similar()
 			for each in form.cleaned_data['albums']:
 				AlbumPhoto(
 					photo=photo,

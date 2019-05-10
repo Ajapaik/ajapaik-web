@@ -37,14 +37,19 @@
                     {% endwith %}
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-right text-sm-right text-center px-0">
-            <button id="not_similar" class="btn btn-danger m-2 w-50">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-right text-md-right text-center px-0">
+            <button id="not_similar" class="btn btn-danger m-2 w-75">
                 Ei ole sarnased
             </button>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-xl-left text-sm-left text-center px-0">
-            <button id="similar" class="btn btn-success m-2 w-50">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center px-0">
+            <button id="similar" class="btn btn-primary m-2 w-75">
                 On Sarnased
+            </button>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-left text-md-left text-center px-0">
+            <button id="duplicate" class="btn btn-success m-2 w-75">
+                On Sama Kaader
             </button>
         </div>
     </div>
@@ -57,12 +62,15 @@
     <script>
         photoComparisionModal = $('#ajapaik-photo-comparision-modal');
         window.isCompareView = true;
-        $('#similar').click(function(){
+
+        ConfirmImageSimilarity = function(confirmed,similarity_type){
             $.ajax({
-                type: 'PUT',
-                url: '/compare_photos/' + '{{ photo.id }}/' + '{{photo2.id}}/',
+                type: 'POST',
+                url: '/compare_photos/' + '{{ photo.id }}/' + '{{ photo2.id }}/',
                 data: {
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                    confirmed: confirmed,
+                    similarity_type: similarity_type
                 },
                 success: function (response) {
                     alert("Lisamine õnnestus");
@@ -72,6 +80,12 @@
                     alert("Lisamine ebaõnnestus");
                 }
             });
+        }
+        $('#similar').click(function(){
+            ConfirmImageSimilarity(true,0)
+        });
+        $('#duplicate').click(function(){
+            ConfirmImageSimilarity(true,1)
         });
         $('#not_similar').click(function(){
             $.ajax({
