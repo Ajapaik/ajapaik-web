@@ -799,8 +799,8 @@ a.fullscreen {
   position: fixed;
   right: 0;
   top: 59px;
-  width: 300px;
-  padding: 0 7px 7px;
+  width: 316px;
+  padding: 12px;
   background: #fff;
   display: none;
 }

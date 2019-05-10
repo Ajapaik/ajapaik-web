@@ -661,7 +661,7 @@ def frontpage(request, album_id=None, page=None):
 	elif data['album']:
 		title = data['album'][1]
 	else:
-		title = _('Timepatch (Ajapaik)')
+		title = _('')
 
 	last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
 
@@ -1847,7 +1847,6 @@ def curator(request):
 		'description': _('Search for old photos, add them to Ajapaik, '
 						 'determine their locations and share the resulting album!'),
 		'curator_random_images': curator_random_images,
-		'title': _('Timepatch (Ajapaik) - curate'),
 		'hostname': 'https://%s' % (site.domain,),
 		'is_curator': True,
 		'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,

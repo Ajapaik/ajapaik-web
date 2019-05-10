@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+    <div class="modal-content pb-2">
         <div class="modal-header">
             <h4>{% trans "Ajapaik shows how places have changed over time" %}</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -69,37 +69,6 @@
                 {% endif %}
                 <div class="row">{% trans "General statistics refresh every 10 minutes" %}.</div>
                 <div class="row">&nbsp;</div>
-                <div class="row">
-                    <div class="media" id="ajapaik-ev-100-media">
-                        <div class="media-left">
-                            {% get_current_language as LANGUAGE_CODE %}
-                            <a title="{% trans "Ajapaik on EV100" %}" target="_blank" href="{% if LANGUAGE_CODE == "et" %}
-                                https://ev100.ee/et/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                            {% elif LANGUAGE_CODE == "ru" %}
-                                https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                            {% else %}
-                                https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                            {% endif %}" rel="noopener">
-                                <img class="media-object" src="{{ STATIC_URL }}images/ev100.png"
-                                    alt="{% trans "EV100 logo" %}">
-                            </a>
-                        </div>
-                        <div class="media-body media-middle pt-5">
-                            <h4 class="media-heading">
-                                <a title="{% trans "Ajapaik on EV100" %}" target="_blank"
-                                href="{% if LANGUAGE_CODE == "et" %}https://ev100.ee/et/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                                {% elif LANGUAGE_CODE == "ru" %}
-                                    https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                                {% else %}
-                                    https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                                {% endif %}" rel="noopener">
-                                    {% trans "Ajapaik is a gift for the 100th birthday of the Republic of Estonia" %}
-                                </a>
-                            </h4>
-                            {% trans "Show us your support by signing up as a contributor at the EV100 page" %}
-                        </div>
-                    </div>
-                </div>
                 <br>
                 <h4>{% trans "Supporters of Ajapaik" %}</h4>
                 <div class="row d-block" style="font-size:0">
@@ -107,12 +76,25 @@
                         <img alt="{% trans "KulKa logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kulka.png">
                     </a>
                     <a class="d-inline-block w-50" href="https://www.kul.ee/" target="_blank" rel="noopener">
-                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-ministry-of-culture.png">
+                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-ministry-of-culture{% if LANGUAGE_CODE == "et" %}_et{% endif %}.png">
                     </a>
                 </div>
-                <a href="https://www.kysk.ee/" target="_blank" rel="noopener">
-                    <img alt="{% trans "KYSK logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kysk.png">
-                </a>
+                <div class="row d-block" style="font-size:0">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <a class="d-inline-block w-25" target="_blank" href="{% if LANGUAGE_CODE == "et" %}
+                        https://ev100.ee/et/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% elif LANGUAGE_CODE == "ru" %}
+                        https://ev100.ee/ru/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% else %}
+                        https://ev100.ee/en/ajapaik-%E2%80%93-selgitame-koos-v%C3%A4lja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% endif %}" rel="noopener">
+                        <img class="w-100 media-object" src="{{ STATIC_URL }}images/ev100.png"
+                            alt="{% trans "EV100 logo" %}">
+                    </a>
+                    <a class="d-inline-block w-75" href="https://www.kysk.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "KYSK logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kysk.png">
+                    </a>
+                </div>
             </div>
         </div>
     </div>
