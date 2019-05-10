@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-01 03:30+0300\n"
+"POT-Creation-Date: 2019-05-10 22:40+0300\n"
 "PO-Revision-Date: 2018-04-18 11:04+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
@@ -22,74 +22,74 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:561
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:568
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:544
 msgid "User denied the request for Geolocation."
 msgstr "Bruker avviste forespørsel om lokasjon"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:567
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:574
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:550
 msgid "Location information is unavailable."
 msgstr "Lokasjonsinformasjon er ikke tilgjengelig."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:594
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:570
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:577
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
 msgid "The request to get user location timed out."
 msgstr "Tidsavbrudd for forespørselen om lokasjon."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:597
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:573
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:580
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "An unknown error occurred."
 msgstr "En ukjent feil oppstod."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1172
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1217
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1135
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1180
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1145
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1190
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1105
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1150
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Ikke valgt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:229
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:228
 msgid "Go to my location"
 msgstr "Gå til min lokasjon"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:265
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:264
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Lukk"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:725
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:708
 msgid "Pick the shooting location!"
 msgstr "Velg sted for fotografering!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:736
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:787
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:719
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
 msgid "Geotagged by this many users"
 msgstr "Geotagget av så mange brukere"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:752
 msgid "Confirm correct location"
 msgstr "Bekreft stedsinformasjon"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:763
 msgid "Submit your own location"
 msgstr "Registrer stedsinformasjon"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:806
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:790
 msgid "You"
 msgstr "Deg"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:810
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:794
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonym bruker"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:812
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:796
 msgid "Anonymous users"
 msgstr "Anonymer brukere"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:873
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:857
 msgid "Current location"
 msgstr "Gjeldende lokasjon"
 
@@ -275,8 +275,8 @@ msgid "Points"
 msgstr "Poeng"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:123
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:139
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:138
 msgid "System error"
 msgstr "Systemfeil"
 
@@ -352,103 +352,101 @@ msgstr "Dette albumet inneholder en film"
 msgid "Picture already in album(s)"
 msgstr "Bilde allerede i album"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:104
 msgid "Earliest"
 msgstr "Tidligst"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Latest"
 msgstr "Senest"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:111
 msgid "Least"
 msgstr "Minst"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
 msgid "Most"
 msgstr "Mest"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:118
 msgid "Pictures furthest from you"
 msgstr "Bilder lengst fra deg"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
 msgid "Pictures closest to you"
 msgstr "Bilder nærmest til deg"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:125
 msgid "commented"
 msgstr "kommentert"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:128
 msgid "rephotographed"
 msgstr "refotografert"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
 msgid "added"
 msgstr "lagt til"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
 msgid "geotagged"
 msgstr "geotagget"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
 msgid "liked"
 msgstr "likt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
 msgid "dated"
 msgstr "datert"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
 msgid "viewed"
 msgstr "sett på"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:150
 msgid "pictures"
 msgstr "bilder"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
 msgid "By reverse timestamp"
 msgstr "Etter omvendt tidsangivelse"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "By timestamp"
 msgstr "Etter tidsangivelse"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "Pictures from the map"
 msgstr "Bilder fra kartet"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:242
 msgid "Albums"
 msgstr "Album"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:248
 msgid "My favorites"
 msgstr "Mine favoritter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:253
 msgid "My rephotos"
 msgstr "Mine refoto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
 msgid "Rephotos by %(user)s"
 msgstr "Refoto av %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:261
 msgid "All photos"
 msgstr "Alle foto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:326
-msgid "Picture set has no rephotos"
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
+#, fuzzy
+#| msgid "Picture set has no rephotos"
+msgid "Picture set has no "
 msgstr "Bildesettet har ingen refoto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
-msgid "Picture set has no comments"
-msgstr "Bildesettet har ingen kommentarer"
-
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
@@ -456,78 +454,78 @@ msgstr ""
 "Du har sett alle bildene i dette albumet, og vi viser deg nå tilfeldige "
 "bilder."
 
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:191
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
 msgstr "Du har sett alle bildene i dette albumet."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
 msgid "You're anonymous."
 msgstr "Du er anonym."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
 msgid " You can now log in with your e-mail."
 msgstr "Du kan nå logge inn med din epostadresse"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
 msgid "Toggle map center lock"
 msgstr "Veksle kartsentreringslås"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
 msgid "Approximate"
 msgstr "Omtrent"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
 msgid "Vantage point"
 msgstr "Utkikkspunkt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
 msgstr "Objekt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:925
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
 msgid ""
 "Grab and drag the MAP so that the marker is where the photographer was "
 "standing."
 msgstr ""
 "Klikk og dra i kart slik at markøren blir plassert der fotografen stod."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
 msgstr "Søkeboks"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
 msgstr "Takk!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
 msgstr "Gjennomsnittlig gjetning"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
 msgid "Your guess"
 msgstr "Din gjetning"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
 msgstr "Hvor mye har dette motivet forandret seg?"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
 msgid "Continue"
 msgstr "Fortsett"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
 msgid "a little"
 msgstr "litt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "a lot"
 msgstr "mye"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag map to correct the "
@@ -536,8 +534,8 @@ msgstr ""
 "Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet "
 "for å låse opp retning og dra kartet til den korrekte lokasjonen."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
 msgid ""
 "Click on the map to lock the direction of the view or click yellow button to "
 "save only the location."
@@ -545,7 +543,7 @@ msgstr ""
 "Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun "
 "lagre lokasjon."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag MARKER to correct the "
@@ -554,14 +552,14 @@ msgstr ""
 "Klikk på den grønne knappen for å lagre både lokasjon og retning. Klikk på "
 "kartet for å låse opp retningen og dra MARKØREN til den riktige lokasjonen."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid ""
 "Now you can drag the MARKER where the photographer was standing and the MAP "
 "separately."
 msgstr ""
 "Nå kan du dra MARKØREN til der fotografen stod og du kan også flytte KARTET"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
 msgid ""
 "Drag the map so that the circle covers the approximate location, click save "
 "when ready."
@@ -569,7 +567,7 @@ msgstr ""
 "Dra kartet slik at sirkelen dekker den omtrentlige lokasjonen og klik på "
 "Lagre når du er ferdig."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
@@ -577,7 +575,7 @@ msgstr ""
 "Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre "
 "når du er ferdig."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
 msgstr "Opptjente poeng"
 
@@ -585,11 +583,11 @@ msgstr "Opptjente poeng"
 msgid "Vanalinnad"
 msgstr "Vanalinnad"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:766
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Remove album filter"
 msgstr "Fjern albumfilter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:774
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:768
 msgid "Apply album filter"
 msgstr "Aktiver albumfilter"
 
@@ -625,13 +623,16 @@ msgstr ""
 msgid "Failed retrieving person tagging form, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:178
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:301
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
+
+#~ msgid "Picture set has no comments"
+#~ msgstr "Bildesettet har ingen kommentarer"
 
 #~ msgid "zoom in more to view markers."
 #~ msgstr "zoom inn for å vise markører."

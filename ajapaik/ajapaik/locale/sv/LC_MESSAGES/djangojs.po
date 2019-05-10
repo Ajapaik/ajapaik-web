@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-01 03:30+0300\n"
+"POT-Creation-Date: 2019-05-10 22:40+0300\n"
 "PO-Revision-Date: 2018-04-18 11:04+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
@@ -22,74 +22,74 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:561
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:568
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:544
 msgid "User denied the request for Geolocation."
 msgstr "Användaren avslog förfrågan om plats information."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:567
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:574
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:550
 msgid "Location information is unavailable."
 msgstr "Plats information är inte tillgänglig."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:594
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:570
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:577
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
 msgid "The request to get user location timed out."
 msgstr "Förfrågan om plats information tog för lång tid."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:597
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:573
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:580
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "An unknown error occurred."
 msgstr "Ett okänt fel inträffade"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1172
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1217
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1135
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1180
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1145
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1190
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1105
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1150
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Ej vald"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:229
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:228
 msgid "Go to my location"
 msgstr "Gå till min plats"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:265
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:264
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Stäng"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:725
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:708
 msgid "Pick the shooting location!"
 msgstr "Välj fotograferingsplatsen!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:736
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:787
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:719
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
 msgid "Geotagged by this many users"
 msgstr "Geotaggad av så här många användare"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:752
 msgid "Confirm correct location"
 msgstr "Bekräfta nuvarande plats"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:763
 msgid "Submit your own location"
 msgstr "Bidra med en egen plats"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:806
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:790
 msgid "You"
 msgstr "Du"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:810
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:794
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonym användare"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:812
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:796
 msgid "Anonymous users"
 msgstr "Anonyma användare"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:873
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:857
 msgid "Current location"
 msgstr "Nuvarande plats"
 
@@ -271,8 +271,8 @@ msgid "Points"
 msgstr "Poäng"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:123
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:139
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:138
 msgid "System error"
 msgstr "System fel"
 
@@ -348,218 +348,216 @@ msgstr ""
 msgid "Picture already in album(s)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:104
 msgid "Earliest"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Latest"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:111
 msgid "Least"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
 msgid "Most"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:118
 msgid "Pictures furthest from you"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
 msgid "Pictures closest to you"
 msgstr "Bilder närmast dig"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:125
 msgid "commented"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:128
 msgid "rephotographed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
 msgid "added"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
 msgid "geotagged"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
 msgid "liked"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
 msgid "dated"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
 msgid "viewed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:150
 msgid "pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
 msgid "By reverse timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "By timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "Pictures from the map"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:242
 msgid "Albums"
 msgstr "Album"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:248
 msgid "My favorites"
 msgstr "Mina favoriter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:253
 msgid "My rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
 msgid "Rephotos by %(user)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:261
 msgid "All photos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:326
-msgid "Picture set has no rephotos"
-msgstr ""
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
+#, fuzzy
+#| msgid "Pictures closest to you"
+msgid "Picture set has no "
+msgstr "Bilder närmast dig"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
-msgid "Picture set has no comments"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
 "You've seen all the pictures in this album, we are now showing you random "
 "photos."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:191
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
 msgid "You're anonymous."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
 msgid " You can now log in with your e-mail."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
 msgid "Toggle map center lock"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
 msgid "Approximate"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
 msgid "Vantage point"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
 msgstr "Objekt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:925
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
 msgid ""
 "Grab and drag the MAP so that the marker is where the photographer was "
 "standing."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
 msgstr "Tack ska du ha!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
 msgid "Your guess"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
 msgid "a little"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "a lot"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag map to correct the "
 "location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
 msgid ""
 "Click on the map to lock the direction of the view or click yellow button to "
 "save only the location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag MARKER to correct the "
 "location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid ""
 "Now you can drag the MARKER where the photographer was standing and the MAP "
 "separately."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
 msgid ""
 "Drag the map so that the circle covers the approximate location, click save "
 "when ready."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
 msgstr ""
 
@@ -567,11 +565,11 @@ msgstr ""
 msgid "Vanalinnad"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:766
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Remove album filter"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:774
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:768
 msgid "Apply album filter"
 msgstr ""
 
@@ -607,11 +605,11 @@ msgstr ""
 msgid "Failed retrieving person tagging form, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:178
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:301
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
 
