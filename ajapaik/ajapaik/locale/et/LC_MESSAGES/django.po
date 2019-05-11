@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 10:23+0300\n"
-"PO-Revision-Date: 2019-05-11 03:31+0000\n"
+"POT-Creation-Date: 2019-05-11 19:51+0300\n"
+"PO-Revision-Date: 2019-05-11 13:47+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
@@ -1616,25 +1616,25 @@ msgstr[1] ""
 msgid "Timepatch (Ajapaik)"
 msgstr "Ajapaik"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:276
+#: ajapaik/ajapaik/templates/base_bootstrap.html:282
 msgid "Geolocation error"
 msgstr "Viga asukoha määramisel"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:279
+#: ajapaik/ajapaik/templates/base_bootstrap.html:285
 msgid "Sorting"
 msgstr "Sorteerimine"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:427
+#: ajapaik/ajapaik/templates/base_bootstrap.html:429
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:428
+#: ajapaik/ajapaik/templates/base_bootstrap.html:430
 msgid "Got it!"
 msgstr "Mis siis ikka!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:429
+#: ajapaik/ajapaik/templates/base_bootstrap.html:431
 msgid "More info"
 msgstr "Rohkem infot"
 

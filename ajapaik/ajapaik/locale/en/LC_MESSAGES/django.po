@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 10:23+0300\n"
+"POT-Creation-Date: 2019-05-11 19:51+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -1643,15 +1643,15 @@ msgstr[1] ""
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:276
+#: ajapaik/ajapaik/templates/base_bootstrap.html:282
 msgid "Geolocation error"
 msgstr "Geolocation error"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:279
+#: ajapaik/ajapaik/templates/base_bootstrap.html:285
 msgid "Sorting"
 msgstr "Sorting"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:427
+#: ajapaik/ajapaik/templates/base_bootstrap.html:429
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
@@ -1659,11 +1659,11 @@ msgstr ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:428
+#: ajapaik/ajapaik/templates/base_bootstrap.html:430
 msgid "Got it!"
 msgstr "Got it!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:429
+#: ajapaik/ajapaik/templates/base_bootstrap.html:431
 msgid "More info"
 msgstr "More info"
 
