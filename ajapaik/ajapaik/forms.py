@@ -412,7 +412,7 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
         self.fields['atype'].label = _('Album type')
-        self.fields['atype'].choices = [(Album.PERSON, _('Person')), (Album.CURATED, _('Anything else'))]
+        self.fields['atype'].choices = [(Album.CURATED, _('Anything else')), (Album.PERSON, _('Person'))]
 
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
