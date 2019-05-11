@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 10:07+0300\n"
+"POT-Creation-Date: 2019-05-11 10:23+0300\n"
 "PO-Revision-Date: 2019-05-11 03:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
@@ -1318,6 +1318,10 @@ msgstr "Unustasid salasõna?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
 msgstr "Teated"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:33
+msgid "Menu"
+msgstr "Menüü"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
