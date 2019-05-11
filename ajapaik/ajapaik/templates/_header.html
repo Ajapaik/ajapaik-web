@@ -27,8 +27,7 @@
                     </svg>
                 </a>
                 {% if album %}
-                    <a role="button" class="ajapaik-header-button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album=
-                            {{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %}>
+                    <a role="button" class="ajapaik-header-button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %}>
                         <i class="material-icons notranslate ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
                     </a>
                 {% endif %}
