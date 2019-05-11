@@ -1,5 +1,4 @@
 MAILTO="lauri@ajapaik.ee"
-00 02 * * 4 cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py find_similar_photos
 00 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py refresh_albums
 15 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py clearsessions
 30 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py reverse_geocode_photos
