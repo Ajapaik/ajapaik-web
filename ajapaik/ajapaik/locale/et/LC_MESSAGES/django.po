@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:39+0300\n"
-"PO-Revision-Date: 2019-05-10 21:01+0000\n"
+"POT-Creation-Date: 2019-05-11 10:07+0300\n"
+"PO-Revision-Date: 2019-05-11 03:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
@@ -612,6 +612,7 @@ msgstr "Vaata ka – Sift.pics"
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:109
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
 msgstr "Logi välja"
 
@@ -1313,6 +1314,22 @@ msgstr "Oled anonüümne kasutaja. Nüüd saad konto luua ka meiliaadressiga."
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot Password?"
 msgstr "Unustasid salasõna?"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:14
+msgid "Messages"
+msgstr "Teated"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:35
+msgid "Change E-mail"
+msgstr "Vaheta E-maili aadressi"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:37
+msgid "Change password"
+msgstr "Muuda salasõna"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:38
+msgid "Socialaccount connections"
+msgstr "Ühendatud sotsiaalkontod"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10

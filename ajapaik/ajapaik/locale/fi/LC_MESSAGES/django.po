@@ -9,6 +9,7 @@
 # Lauri Elias, 2015
 # Lauri Elias, 2015
 # MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
+# MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
 # Meri Vainio <merivainio@gmail.com>, 2018
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015-2016
 # Tarmo Toikkanen <tarmo@iki.fi>, 2018
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:39+0300\n"
-"PO-Revision-Date: 2019-05-10 21:47+0000\n"
-"Last-Translator: zache <kimmo.virtanen@gmail.com>\n"
+"POT-Creation-Date: 2019-05-11 10:07+0300\n"
+"PO-Revision-Date: 2019-05-11 03:48+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -616,6 +617,7 @@ msgstr "Tutustu myös – Sift.pics"
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:109
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
 msgstr "Kirjaudu ulos"
 
@@ -1330,6 +1332,22 @@ msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 msgid "Forgot Password?"
 msgstr "Salasana unohtunut"
 
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:14
+msgid "Messages"
+msgstr "Viestien"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:35
+msgid "Change E-mail"
+msgstr "Vaihda sähköpostiosoite"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:37
+msgid "Change password"
+msgstr "Vaihda salasana"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:38
+msgid "Socialaccount connections"
+msgstr "Tunnusten yhteydet"
+
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
@@ -1373,10 +1391,9 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"\"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
-"\"\n"
-"\"up</a>\\n\"\n"
-"\"for a %(site_name)s account and sign in below:\""
+"Kirjaudu sisään käyttäen kirjautumispalvelua tai <a href=\"%(signup_url)s"
+"\">rekisteröi</a> %(site_name)s-tili ja kirjaudu sisään alla olevalla "
+"lomakkeella:"
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format

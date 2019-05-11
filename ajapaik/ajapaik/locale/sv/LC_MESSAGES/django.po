@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:39+0300\n"
+"POT-Creation-Date: 2019-05-11 10:07+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
@@ -590,6 +590,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:109
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
 msgstr ""
 
@@ -1205,6 +1206,24 @@ msgstr ""
 #| msgid "Change Password"
 msgid "Forgot Password?"
 msgstr "Password"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:14
+msgid "Messages"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:35
+msgid "Change E-mail"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:37
+#, fuzzy
+#| msgid "change password"
+msgid "Change password"
+msgstr "Forgot password"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:38
+msgid "Socialaccount connections"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
