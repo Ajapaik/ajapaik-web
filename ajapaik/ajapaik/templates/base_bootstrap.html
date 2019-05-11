@@ -257,6 +257,12 @@
             }
         }
     </script>
+        <!-- compress js -->
+            <script src="{% static "js/jquery-3.3.1.js" %}"></script>
+            <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
+            <script src="{% static "js/popper.min.js" %}"></script>
+            <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
+        <!-- endcompress -->
 </head>
 <body class="{% if is_game or is_mapview %}ajapaik-flex ajapaik-body-game-map{% endif %}{% if is_frontpage %} ajapaik-body-frontpage{% endif %}{% if is_photoview %} ajapaik-body-photoview{% endif %}">
 <!-- Google Tag Manager (noscript) -->
@@ -381,10 +387,6 @@
 {% endif %}
     <script src="{% static "js/jquery.URI-1.19.1.min.js" %}"></script>
     <!-- compress js -->
-        <script src="{% static "js/jquery-3.3.1.js" %}"></script>
-        <script src="{% static "js/jquery-ui-1.12.1.js" %}"></script>
-        <script src="{% static "js/popper.min.js" %}"></script>
-        <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
         <script src="{% static "js/moment-with-locales-2.18.1.min.js" %}"></script>
         <script src="{% static "js/cookieconsent-3.1.0.min.js" %}" defer></script>
         <script src="{% static "libs/bootstrap-datetimepicker-4.17.47/js/bootstrap-datetimepicker.js" %}"></script>

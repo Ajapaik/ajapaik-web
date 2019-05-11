@@ -1015,7 +1015,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		context['rephotos_by_name'] = None
 		context['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
 		context['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
-		context['photos_with_similar_photos'] = photos.filter(Q(similar_photos__isnull=False) | Q(confirmed_similar_photos__isnull=False))
+		context['photos_with_similar_photos'] = photos.filter(similar_photos__isnull=False)
 		qs_for_fb = photos[:5]
 		photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 									'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
