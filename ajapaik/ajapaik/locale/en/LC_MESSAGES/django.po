@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 10:07+0300\n"
+"POT-Creation-Date: 2019-05-11 10:23+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -1347,6 +1347,10 @@ msgstr "Forgot password"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:33
+msgid "Menu"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
