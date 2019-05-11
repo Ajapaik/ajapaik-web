@@ -275,7 +275,7 @@ class AlbumDetailsSerializer(serializers.ModelSerializer):
     def get_image(self, instance):
         request = self.context['request']
         return request.build_absolute_uri(
-            reverse('ajapaik.ajapaik.api.api_album_thumb', args=(instance.id,))
+            reverse('api_album_thumb', args=(instance.id,))
         )
 
     def get_stats(self, instance):
