@@ -26,7 +26,7 @@
                         {% trans "Dislike" %}
                         <span class="{% if comment.dislike_count <= 0 %}d-none{% endif %}" id="ajapaik-comments-dislike-count-{{ comment.pk }}">({{ comment.dislike_count }})</span>
                     </a>
-                    {% if comment.allow_thread %}
+                    {% if comment.allow_thread and user.profile.is_legit %}
                         <a href="{{ comment.get_reply_url }}" data-action="reply" data-comment-id="{{ comment.pk }}">{% trans "Reply" %}</a>
                     {% endif %}
                     {% if comment.user == user %}

@@ -20,37 +20,31 @@
                 <button type="button" data-speed="4" class="btn btn-secondary">4x</button>
             </div>
         </div>
-        <div class="modal-footer">
-            {% if not request.user.profile.is_legit %}
-                <div class="row">
-                    <div id="ajapaik-video-modal-anaonymous-warning" class="float-left">
-                        {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
-                    </div>
-                </div>
-            {% endif %}
+        <div class="modal-footer container d-block">
             <div class="row">
-                <div class="col-xs-9" id="ajapaik-video-modal-info-column">
+                {% if not request.user.profile.is_legit %}
+                <div id="ajapaik-video-modal-anaonymous-warning" class="col-sm-12">
+                    {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
+                </div>
+                {% endif %}
+                <div class="col-sm-9" id="ajapaik-video-modal-info-column">
                     {% if video.author %}
-                        <div class="row">
-                            <b>{{ video.author }}</b>
-                        </div>
+                        <b>{{ video.author }}</b>
                     {% endif %}
-                    <div class="row">{{ video.name }}</div>
+                    <div>
+                        {{ video.name }}
+                    </div>
                     {% if video.date %}
-                        <div class="row">
-                            {{ video.date|date:"Y" }}
-                        </div>
+                        {{ video.date|date:"Y" }}
                     {% endif %}
                     {% if video.source and video.source_key and video.source_url %}
-                        <div class="row">
-                            <a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
-                               target="_blank" href="{{ video.source_url }}"
-                               rel="noopener nofollow" title="{{ video.source.description }}"
-                               class="float-left">{{ video.source.description }} {{ video.source_key }}</a>
-                        </div>
+                        <a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
+                            target="_blank" href="{{ video.source_url }}"
+                            rel="noopener nofollow" title="{{ video.source.description }}"
+                            class="float-left">{{ video.source.description }} {{ video.source_key }}</a>
                     {% endif %}
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                     <button id="ajapaik-video-modal-still-button" class="btn disabled float-right"><i
                             class="material-icons notranslate">camera</i></button>
                 </div>
