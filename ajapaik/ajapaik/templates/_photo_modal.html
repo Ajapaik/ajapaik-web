@@ -88,7 +88,7 @@
                                         <i class="material-icons notranslate">invert_colors</i>
                                     </button>
                                 </a>
-                                {% if photo.rephotos.all|length > 2 %}
+                                {% if photo.rephotos.all|length > 1 %}
                                     <div id="ajapaik-rephoto-selection" style="display:none;">
                                         {% for rephoto in photo.rephotos.all %}
                                             <div class="ajapaik-photo-modal-rephoto-thumb"
