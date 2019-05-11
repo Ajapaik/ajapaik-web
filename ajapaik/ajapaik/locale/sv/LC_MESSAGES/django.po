@@ -5,11 +5,12 @@
 # Translators:
 # Translators:
 # Albin Larsson <albin.post@gmail.com>, 2017
+#: ajapaik/ajapaik/views.py:664
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 22:38+0300\n"
+"POT-Creation-Date: 2019-05-11 05:19+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
@@ -104,11 +105,11 @@ msgid "Album type"
 msgstr "Tour type"
 
 #: ajapaik/ajapaik/forms.py:415
-msgid "Person"
+msgid "Anything else"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:415
-msgid "Anything else"
+msgid "Person"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:430
@@ -710,53 +711,32 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
-msgid "General statistics refresh every 10 minutes"
+msgid "General statistics refresh every 10 minutes."
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:89
-msgid "Ajapaik on EV100"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:84
-msgid "EV100 logo"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:96
-msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:99
-msgid "Show us your support by signing up as a contributor at the EV100 page"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:104
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
 msgid "Supporters of Ajapaik"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:107
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
 msgid "KulKa logo"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:110
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:79
 msgid "Ministry of Education logo"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:114
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:92
+msgid "EV100 logo"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:95
 msgid "KYSK logo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:4
 msgid "Back to homepage"
 msgstr "Tillbaka till startsidan"
-
-#: ajapaik/ajapaik/templates/_header.html:5
-#: ajapaik/ajapaik/templates/base_bootstrap.html:8
-#: ajapaik/ajapaik/templates/base_bootstrap.html:10
-#: ajapaik/ajapaik/templates/base_bootstrap.html:213
-#: ajapaik/ajapaik/views.py:664
-msgid "Timepatch (Ajapaik)"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:13
 msgid "Search album"
@@ -1481,6 +1461,10 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
+#: ajapaik/ajapaik/templates/base_bootstrap.html:213
+msgid "Timepatch (Ajapaik)"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/base_bootstrap.html:276
 msgid "Geolocation error"
 msgstr ""
@@ -1970,45 +1954,41 @@ msgid ""
 "share the resulting album!"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1850
-msgid "Timepatch (Ajapaik) - curate"
-msgstr ""
-
-#: ajapaik/ajapaik/views.py:2200
+#: ajapaik/ajapaik/views.py:2199
 msgid "OK"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2257
+#: ajapaik/ajapaik/views.py:2256
 #, python-format
 msgid "Error uploading file: %s"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2274
+#: ajapaik/ajapaik/views.py:2273
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2294
+#: ajapaik/ajapaik/views.py:2293
 msgid "Please add photos to your album"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2296
+#: ajapaik/ajapaik/views.py:2295
 msgid "Not enough data submitted"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2611
+#: ajapaik/ajapaik/views.py:2610
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2741
+#: ajapaik/ajapaik/views.py:2740
 msgid "Photo uploaded"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2760
+#: ajapaik/ajapaik/views.py:2759
 msgid "Album created"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2842
+#: ajapaik/ajapaik/views.py:2841
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 

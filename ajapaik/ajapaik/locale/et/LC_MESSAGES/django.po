@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Translators:
 # Translators:
@@ -11,18 +11,20 @@
 # MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
 # MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
 # Vahur Puik <vahur@ajapaik.ee>, 2015-2019
+#: ajapaik/ajapaik/views.py:664
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 22:38+0300\n"
+"POT-Creation-Date: 2019-05-11 05:19+0300\n"
 "PO-Revision-Date: 2019-05-10 21:01+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -103,20 +105,18 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr "Kui album on seotud kindla kohaga, siis määra siin koht"
 
 #: ajapaik/ajapaik/forms.py:414
-#| msgid "Album created"
 msgid "Album type"
 msgstr "Albumi liik"
-
-#: ajapaik/ajapaik/forms.py:415
-msgid "Person"
-msgstr "Isik"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
 msgstr "Kõik muu"
 
+#: ajapaik/ajapaik/forms.py:415
+msgid "Person"
+msgstr "Isik"
+
 #: ajapaik/ajapaik/forms.py:430
-#| msgid "E-mail address"
 msgid "Email address"
 msgstr "E-maili aadress"
 
@@ -134,11 +134,29 @@ msgid ""
 "Next come *rephotography* and *dating*.\n"
 "\n"
 "Links\n"
-"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n"
+"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/"
+"groups/ajapaiklejad).\n"
 "\n"
 "Images\n"
 "![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Kommenteerimisel saab kasutada Markdown vormingut\n\nLõigud\nEnne uut lõiku lisada 2 reavahetust.\n\nRasvane kiri\n**Asukohamärgendamine** on Ajapaigas esimene ülesanne.\n\nKursiivkiri\nJärgmiseks on *ülepildistamine* ja *dateeringute täpsustamine*.\n\nLingid\nLiituge [Ajapaiklejate FB grupiga](https://www.facebook.com/groups/ajapaiklejad).\n\nPildid\n![Ajapaik on EV100 kingitus](https://ajapaik.ee/static/images/ev100.png)"
+msgstr ""
+"Kommenteerimisel saab kasutada Markdown vormingut\n"
+"\n"
+"Lõigud\n"
+"Enne uut lõiku lisada 2 reavahetust.\n"
+"\n"
+"Rasvane kiri\n"
+"**Asukohamärgendamine** on Ajapaigas esimene ülesanne.\n"
+"\n"
+"Kursiivkiri\n"
+"Järgmiseks on *ülepildistamine* ja *dateeringute täpsustamine*.\n"
+"\n"
+"Lingid\n"
+"Liituge [Ajapaiklejate FB grupiga](https://www.facebook.com/groups/"
+"ajapaiklejad).\n"
+"\n"
+"Pildid\n"
+"![Ajapaik on EV100 kingitus](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:471
 msgid "Nothing to change."
@@ -362,13 +380,16 @@ msgstr "Ajalooline foto"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-"
-"z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society "
-"(MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, "
-"foundations and religious associations benefiting from income tax "
-"incentives. We declare your donations and You will get income tax refunds "
-"for that."
-msgstr "Ajapaika arendab <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>MTÜ Eesti Fotopärand</a>, mis kuulub tulumaksusoodustusega mittetulundusühingute, sihtasutuste ja usuliste ühenduste nimekirja. Teie annetused deklareeritakse ning Te saate nende pealt tulumaksutagastust."
+"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
+"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
+"Fotopärand)</a> listed in the list of non-profit associations, foundations "
+"and religious associations benefiting from income tax incentives. We declare "
+"your donations and You will get income tax refunds for that."
+msgstr ""
+"Ajapaika arendab <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' "
+"target='_blank'>MTÜ Eesti Fotopärand</a>, mis kuulub tulumaksusoodustusega "
+"mittetulundusühingute, sihtasutuste ja usuliste ühenduste nimekirja. Teie "
+"annetused deklareeritakse ning Te saate nende pealt tulumaksutagastust."
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
@@ -476,7 +497,9 @@ msgstr "Ajapaiga Brave'i viide"
 msgid ""
 "Try the Brave browser - it's based on Chromium and you can award your "
 "favourite sites with cryptocurrency."
-msgstr "Proovige Brave veebilehitsejat, mis on loodud Chromiumi baasil ning mille abil saate oma lemmiksaite krüptovaluutaga toetada."
+msgstr ""
+"Proovige Brave veebilehitsejat, mis on loodud Chromiumi baasil ning mille "
+"abil saate oma lemmiksaite krüptovaluutaga toetada."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -515,7 +538,6 @@ msgid "Sort by rephotos' time added or amount"
 msgstr "Sorteeri ülepildistuste lisamise aja või koguse järgi"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:93
-#| msgid "Sort by rephotos' time added or amount"
 msgid "Sort by similar photos' time added or amount"
 msgstr "Sorteeri sarnaste piltide lisamise aja või koguse järgi"
 
@@ -606,7 +628,9 @@ msgstr "Selleks, et avastada, kuidas kohad nägid välja aastate eest,"
 msgid ""
 "* searching historic view pictures from Estonian museums' collections and "
 "curating selected images to Ajapaik,"
-msgstr "* otsi vanu pilte Eesti muuseumide kogudest ja kureeri valitud pildid Ajapaika,"
+msgstr ""
+"* otsi vanu pilte Eesti muuseumide kogudest ja kureeri valitud pildid "
+"Ajapaika,"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
@@ -620,17 +644,23 @@ msgstr "* mine pildista ajaloolised vaated üle."
 #, python-format
 msgid ""
 "\n"
-"                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                        Ajapaik has <b>%(total_photo_count)s</b> historic "
+"pictures, out of which\n"
 "                    "
-msgstr "\nAjapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest"
+msgstr ""
+"\n"
+"Ajapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:30
 #, python-format
 msgid ""
 "\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n"
+"                        <b>%(total_photos_tagged)s</b> pictures have been "
+"put on the map by\n"
 "                    "
-msgstr "\n<b>%(total_photos_tagged)s</b> pilti on ära kaardistatud"
+msgstr ""
+"\n"
+"<b>%(total_photos_tagged)s</b> pilti on ära kaardistatud"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:33
 #, python-format
@@ -638,7 +668,9 @@ msgid ""
 "\n"
 "                        <b>%(contributing_users)s</b> users and\n"
 "                    "
-msgstr "\n<b>%(contributing_users)s</b> kasutaja abiga, ning"
+msgstr ""
+"\n"
+"<b>%(contributing_users)s</b> kasutaja abiga, ning"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:36
 #, python-format
@@ -646,15 +678,20 @@ msgid ""
 "\n"
 "                        <b>%(rephoto_count)s</b> rephotographs for\n"
 "                    "
-msgstr "\n<b>%(rephoto_count)s</b> ülepildistust"
+msgstr ""
+"\n"
+"<b>%(rephoto_count)s</b> ülepildistust"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:39
 #, python-format
 msgid ""
 "\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made by\n"
+"                        <b>%(rephotographed_photo_count)s</b> pictures made "
+"by\n"
 "                    "
-msgstr "\n<b>%(rephotographed_photo_count)s</b> pildile, mille on teinud "
+msgstr ""
+"\n"
+"<b>%(rephotographed_photo_count)s</b> pildile, mille on teinud "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:42
 #, python-format
@@ -662,33 +699,47 @@ msgid ""
 "\n"
 "                        <b>%(rephotographing_users)s</b> users.\n"
 "                    "
-msgstr "\n<b>%(rephotographing_users)s</b> kasutajat."
+msgstr ""
+"\n"
+"<b>%(rephotographing_users)s</b> kasutajat."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:49
 #, python-format
 msgid ""
 "\n"
-"                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n"
+"                            You have suggested location for <b>"
+"%(user_geotagged_photos)s</b> picture.\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n"
+"                            You have suggested locations for <b>"
+"%(user_geotagged_photos)s</b> pictures.\n"
 "                        "
-msgstr[0] "\nOled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
-msgstr[1] "\nOled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+msgstr[0] ""
+"\n"
+"Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+msgstr[1] ""
+"\n"
+"Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
 #, python-format
 msgid ""
 "\n"
-"                            You have made <b>%(user_rephotos)s</b> rephoto for\n"
+"                            You have made <b>%(user_rephotos)s</b> rephoto "
+"for\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            You have made <b>%(user_rephotos)s</b> rephotos for\n"
+"                            You have made <b>%(user_rephotos)s</b> rephotos "
+"for\n"
 "                        "
-msgstr[0] "\nOled teinud <b>%(user_rephotos)s</b> ülepildistust "
-msgstr[1] "\nOled teinud <b>%(user_rephotos)s</b> ülepildistust "
+msgstr[0] ""
+"\n"
+"Oled teinud <b>%(user_rephotos)s</b> ülepildistust "
+msgstr[1] ""
+"\n"
+"Oled teinud <b>%(user_rephotos)s</b> ülepildistust "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
 #, python-format
@@ -700,57 +751,42 @@ msgid_plural ""
 "\n"
 "                            <b>%(user_rephotographed_photos)s</b> pictures.\n"
 "                        "
-msgstr[0] "\n<b>%(user_rephotographed_photos)s</b> pildile."
-msgstr[1] "\n<b>%(user_rephotographed_photos)s</b> pildile."
+msgstr[0] ""
+"\n"
+"<b>%(user_rephotographed_photos)s</b> pildile."
+msgstr[1] ""
+"\n"
+"<b>%(user_rephotographed_photos)s</b> pildile."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
-msgid "General statistics refresh every 10 minutes"
+#, fuzzy
+#| msgid "General statistics refresh every 10 minutes"
+msgid "General statistics refresh every 10 minutes."
 msgstr "Üldine statistika värskendub 10 minuti tagant."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:89
-msgid "Ajapaik on EV100"
-msgstr "Ajapaik EV100 lehel"
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:84
-msgid "EV100 logo"
-msgstr "EV100 logo"
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:96
-msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
-msgstr "Ajapaik on kingitus Eesti Vabariigi 100. sünnipäevaks"
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:99
-msgid "Show us your support by signing up as a contributor at the EV100 page"
-msgstr "Näita üles toetust registreerudes panustajana EV100 leheküljel"
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:104
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
 msgid "Supporters of Ajapaik"
 msgstr "Ajapaiga toetajad"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:107
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
 msgid "KulKa logo"
 msgstr "Kultuutkapitali logo"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:110
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:79
 msgid "Ministry of Education logo"
 msgstr "Haridusministeeriumi logo"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:114
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:92
+msgid "EV100 logo"
+msgstr "EV100 logo"
+
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:95
 msgid "KYSK logo"
 msgstr "KÜSKi logo"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 msgid "Back to homepage"
 msgstr "Tagasi avalehele"
-
-#: ajapaik/ajapaik/templates/_header.html:5
-#: ajapaik/ajapaik/templates/base_bootstrap.html:8
-#: ajapaik/ajapaik/templates/base_bootstrap.html:10
-#: ajapaik/ajapaik/templates/base_bootstrap.html:213
-#: ajapaik/ajapaik/views.py:664
-msgid "Timepatch (Ajapaik)"
-msgstr "Ajapaik"
 
 #: ajapaik/ajapaik/templates/_header.html:13
 msgid "Search album"
@@ -838,8 +874,12 @@ msgid_plural ""
 "\n"
 "                    Album has %(counter)s historic pictures,\n"
 "                "
-msgstr[0] "\nAlbumis on %(counter)s ajalooline pilt,"
-msgstr[1] "\nAlbumis on %(counter)s ajaloolist pilti,"
+msgstr[0] ""
+"\n"
+"Albumis on %(counter)s ajalooline pilt,"
+msgstr[1] ""
+"\n"
+"Albumis on %(counter)s ajaloolist pilti,"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:106
@@ -852,8 +892,14 @@ msgid_plural ""
 "\n"
 "                    %(counter)s users have put\n"
 "                "
-msgstr[0] "\n                            %(counter)s kasutaja on pannud\n                        "
-msgstr[1] "\n                            %(counter)s kasutajat on pannud\n                        "
+msgstr[0] ""
+"\n"
+"                            %(counter)s kasutaja on pannud\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            %(counter)s kasutajat on pannud\n"
+"                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:38
 #: ajapaik/ajapaik/templates/base_bootstrap.html:112
@@ -871,8 +917,14 @@ msgid_plural ""
 "\n"
 "                        %(counter)s pictures on the map.\n"
 "                    "
-msgstr[0] "\n                                %(counter)s pildi kaardile.\n                            "
-msgstr[1] "\n                                %(counter)s pilti kaardile.\n                            "
+msgstr[0] ""
+"\n"
+"                                %(counter)s pildi kaardile.\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                %(counter)s pilti kaardile.\n"
+"                            "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -896,8 +948,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s pictures in this album.\n"
 "                        "
-msgstr[0] "\n                                %(counter)s pildile selles albumis.\n                            "
-msgstr[1] "\n                                %(counter)s pildile selles albumis.\n                            "
+msgstr[0] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:66
 #, python-format
@@ -909,8 +967,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s users have made\n"
 "                        "
-msgstr[0] "\n                                    %(counter)s kasutaja on teinud\n                                "
-msgstr[1] "\n                                    %(counter)s kasutajat on teinud\n                                "
+msgstr[0] ""
+"\n"
+"                                    %(counter)s kasutaja on teinud\n"
+"                                "
+msgstr[1] ""
+"\n"
+"                                    %(counter)s kasutajat on teinud\n"
+"                                "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:71
 #, python-format
@@ -922,8 +986,14 @@ msgid_plural ""
 "\n"
 "                            %(counter)s rephotographs\n"
 "                        "
-msgstr[0] "\n                                    %(counter)s ülepildistuse\n                                "
-msgstr[1] "\n                                    %(counter)s ülepildistust\n                                "
+msgstr[0] ""
+"\n"
+"                                    %(counter)s ülepildistuse\n"
+"                                "
+msgstr[1] ""
+"\n"
+"                                    %(counter)s ülepildistust\n"
+"                                "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:76
 #, python-format
@@ -935,8 +1005,14 @@ msgid_plural ""
 "\n"
 "                            for %(counter)s picture in the album.\n"
 "                        "
-msgstr[0] "\n                                %(counter)s pildile selles albumis.\n                            "
-msgstr[1] "\n                                %(counter)s pildile selles albumis.\n                            "
+msgstr[0] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:86
 #, python-format
@@ -948,8 +1024,14 @@ msgid_plural ""
 "\n"
 "                        You have made %(counter)s rephotos\n"
 "                    "
-msgstr[0] "\n                                Sina oled teinud %(counter)s ülepildistuse\n                            "
-msgstr[1] "\n                                Sina oled teinud %(counter)s ülepildistust\n                            "
+msgstr[0] ""
+"\n"
+"                                Sina oled teinud %(counter)s ülepildistuse\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                Sina oled teinud %(counter)s ülepildistust\n"
+"                            "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:91
 #, python-format
@@ -961,17 +1043,17 @@ msgid_plural ""
 "\n"
 "                        for %(counter)s picures in the album.\n"
 "                    "
-msgstr[0] "\n                                %(counter)s pildile selles albumis.\n                            "
-msgstr[1] "\n                                %(counter)s pildile selles albumis.\n                            "
+msgstr[0] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                %(counter)s pildile selles albumis.\n"
+"                            "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:101
 #, python-format
-#| msgid ""
-#| "                      %(counter)s rephotograph\n"
-#| "                  "
-#| msgid_plural ""
-#| "                      %(counter)s rephotographs\n"
-#| "                  "
 msgid ""
 "\n"
 "                            There is %(counter)s similar photo\n"
@@ -980,8 +1062,14 @@ msgid_plural ""
 "\n"
 "                            There are %(counter)s similar photos\n"
 "                        "
-msgstr[0] "\n                            On %(counter)s sarnane pilt\n                        "
-msgstr[1] "\n                            On %(counter)s sarnast pilti\n                        "
+msgstr[0] ""
+"\n"
+"                            On %(counter)s sarnane pilt\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            On %(counter)s sarnast pilti\n"
+"                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:112
 msgid "Some nearby albums"
@@ -1155,7 +1243,9 @@ msgstr "Lisa ülepildistus"
 msgid ""
 "Tag a new face - clicking this button will enable you to draw a face "
 "rectangle on the main image"
-msgstr "Märgi pildil nägu – nuppu vajutades saab pildile tõmmata inimese näo ümber kasti"
+msgstr ""
+"Märgi pildil nägu – nuppu vajutades saab pildile tõmmata inimese näo ümber "
+"kasti"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:244
 msgid "Discuss"
@@ -1190,9 +1280,11 @@ msgstr "Vali fail..."
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
 msgid ""
 "Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to"
-" you under the"
-msgstr "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
+"picture was taken and upload it. Uploaded rephotograph will be attributed to "
+"you under the"
+msgstr ""
+"Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia "
+"ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
 msgid "licence"
@@ -1221,13 +1313,11 @@ msgstr "Oled anonüümne kasutaja. Nüüd saad konto luua ka meiliaadressiga."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-#| msgid "Forgot password"
 msgid "Forgot Password?"
 msgstr "Unustasid salasõna?"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#| msgid "E-mail address"
 msgid "Confirm E-mail Address"
 msgstr "Kinnita e-posti aadress"
 
@@ -1236,24 +1326,26 @@ msgstr "Kinnita e-posti aadress"
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
-msgstr "Palun kinnita, et <a href=\"mailto:%(email)s\">%(email)s</a> on kasutaja %(user_display)s e-posti aadress."
+msgstr ""
+"Palun kinnita, et <a href=\"mailto:%(email)s\">%(email)s</a> on kasutaja "
+"%(user_display)s e-posti aadress."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
-#| msgid "Confirmation"
 msgid "Confirm"
 msgstr "Kinnita"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr "E-posti kinnitamislink on aegunud või vigane. Palun <a href=\"%(email_url)s\">algata uus e-posti kinnitamine</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"E-posti kinnitamislink on aegunud või vigane. Palun <a href=\"%(email_url)s"
+"\">algata uus e-posti kinnitamine</a>."
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-#| msgid "Signed in as"
 msgid "Sign In"
 msgstr "Logi sisse"
 
@@ -1261,16 +1353,23 @@ msgstr "Logi sisse"
 #, python-format
 msgid ""
 "Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
 "for a %(site_name)s account and sign in below:"
-msgstr "Palun logi sisse mõnega\noma olemasolevatest kontodest. Või <a href=\"%(signup_url)s\">registreeri</a>\nuus %(site_name)s konto ja logi sisse allpool:"
+msgstr ""
+"Palun logi sisse mõnega\n"
+"oma olemasolevatest kontodest. Või <a href=\"%(signup_url)s\">registreeri</"
+"a>\n"
+"uus %(site_name)s konto ja logi sisse allpool:"
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Kui Sa ei ole kontot veel loonud, siis palun\n<a href=\"%(signup_url)s\">registreeru</a>."
+msgstr ""
+"Kui Sa ei ole kontot veel loonud, siis palun\n"
+"<a href=\"%(signup_url)s\">registreeru</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
@@ -1281,24 +1380,28 @@ msgstr "Password"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:15
 msgid ""
-"Forgotten your password? Enter your e-mail address below, and we'll send you"
-" an e-mail allowing you to reset it."
-msgstr "Oled oma salasõna unustanud? Sisesta oma e-posti aadress ja saadame sulle e-kirja salasõna lähtestamiseks."
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Oled oma salasõna unustanud? Sisesta oma e-posti aadress ja saadame sulle e-"
+"kirja salasõna lähtestamiseks."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
-#| msgid "Password"
 msgid "Reset My Password"
 msgstr "Lähtesta salasõna"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Palun võta meiega ühendust, kui Sul on salasõna lähtestamisega probleeme."
+msgstr ""
+"Palun võta meiega ühendust, kui Sul on salasõna lähtestamisega probleeme."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr "Saatsime Sulle e-kirja. Palun võta meiega ühendust, kui sa seda mõne minuti jooksul kätte ei saa."
+msgstr ""
+"Saatsime Sulle e-kirja. Palun võta meiega ühendust, kui sa seda mõne minuti "
+"jooksul kätte ei saa."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1315,9 +1418,11 @@ msgstr "Kehtetu autentimistähis"
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
-"reset</a>."
-msgstr "Salasõna lähtestamise link oli kehtetu, ilmselt on seda juba kasutatud.  Palun algata <a href=\"%(passwd_reset_url)s\">uus salasõna lähtestamine</a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Salasõna lähtestamise link oli kehtetu, ilmselt on seda juba kasutatud.  "
+"Palun algata <a href=\"%(passwd_reset_url)s\">uus salasõna lähtestamine</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -1415,7 +1520,9 @@ msgstr "Ajalooline foto:"
 msgid ""
 "Curate historic photos from museums into Ajapaik for geotagging and "
 "rephotographing"
-msgstr "Kureeri ajaloolised fotod muuseumitest Ajapaika nende kaardile märkimiseks ja ülepildistamiseks"
+msgstr ""
+"Kureeri ajaloolised fotod muuseumitest Ajapaika nende kaardile märkimiseks "
+"ja ülepildistamiseks"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
@@ -1452,16 +1559,16 @@ msgstr "Ülepildistused, mille autoriks on %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:92
 #, python-format
-#| msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgid "Gallery of similar photos by %(similar_photos_by_name)s"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 #, python-format
 msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the"
-" map!"
-msgstr "Albumis on %(album_photo_count)s ajaloolist pilti. Paneme pildid kaardile!"
+"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
+"map!"
+msgstr ""
+"Albumis on %(album_photo_count)s ajaloolist pilti. Paneme pildid kaardile!"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:98
 msgid "Let's put pictures on the map"
@@ -1477,8 +1584,18 @@ msgid_plural ""
 "\n"
 "                    Album has %(counter)s photos,\n"
 "                "
-msgstr[0] "\n                            Albumis on %(counter)s foto,\n                        "
-msgstr[1] "\n                            Albumis on %(counter)s fotot,\n                        "
+msgstr[0] ""
+"\n"
+"                            Albumis on %(counter)s foto,\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            Albumis on %(counter)s fotot,\n"
+"                        "
+
+#: ajapaik/ajapaik/templates/base_bootstrap.html:213
+msgid "Timepatch (Ajapaik)"
+msgstr "Ajapaik"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:276
 msgid "Geolocation error"
@@ -1566,7 +1683,8 @@ msgstr "Salvesta"
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
 "usual."
-msgstr "Album piltidega on lisatud Ajapaika, piltidele saab mängus asukohti määrata."
+msgstr ""
+"Album piltidega on lisatud Ajapaika, piltidele saab mängus asukohti määrata."
 
 #: ajapaik/ajapaik/templates/curator.html:25
 msgid "Points awarded for curating"
@@ -1598,7 +1716,9 @@ msgstr "Nähtav (valikumenüüs kuvatud)"
 
 #: ajapaik/ajapaik/templates/curator.html:125
 msgid "If the photos are from the same place, specify a location here"
-msgstr "Kui albumisse valitud pildid on mingist ühest kohast (nt linnast, alevist, külast), siis soovitatav on siit koht määrata."
+msgstr ""
+"Kui albumisse valitud pildid on mingist ühest kohast (nt linnast, alevist, "
+"külast), siis soovitatav on siit koht määrata."
 
 #: ajapaik/ajapaik/templates/curator.html:132
 msgid "Place"
@@ -1808,7 +1928,6 @@ msgstr "ülepildistus"
 
 #: ajapaik/ajapaik/templates/photoview.html:109
 #: ajapaik/ajapaik/templates/photoview.html:110
-#| msgid "Original photo"
 msgid "similar photo"
 msgstr "sarnane "
 
@@ -1886,7 +2005,9 @@ msgstr "Ühendatud kontod"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr "Saad oma kontole sisse logida ükskõik millisega järgmistest kolmandate osapoolte kontodest:"
+msgstr ""
+"Saad oma kontole sisse logida ükskõik millisega järgmistest kolmandate "
+"osapoolte kontodest:"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
 msgid ""
@@ -1899,19 +2020,17 @@ msgstr "Lisa kolmanda osapoole konto"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
-#| msgid ""
-#| "ser)s, the copyright holder of this work, irrevocably grant anyone  right "
-#| "use this work under the <a "
-#| "href=\"https://creativecommons./licenses/by-4.0/\" "
-#| "target=\"_blank\">Creative Commons Attribution reAlike 4.0 licenseC-BY-"
-#| "SA)</a>."
 msgid ""
-"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the"
-" right to use this work under the <a "
-"href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" "
-"rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 "
-"license (CC-BY-SA)</a>."
-msgstr "Mina, %(user)s, annan käesolevaga pöördumatult kõigile õiguse kasutada seda enda loodud teost <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commonsi rahvusvahelise litsentsi \"Autorile viitamine + jagamine samadel tingimustel 4.0\" (CC-BY-SA)</a> alusel."
+"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the "
+"right to use this work under the <a href=\"https://creativecommons.org/"
+"licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative "
+"Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr ""
+"Mina, %(user)s, annan käesolevaga pöördumatult kõigile õiguse kasutada seda "
+"enda loodud teost <a href=\"https://creativecommons.org/licenses/by-sa/4.0/"
+"\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commonsi "
+"rahvusvahelise litsentsi \"Autorile viitamine + jagamine samadel tingimustel "
+"4.0\" (CC-BY-SA)</a> alusel."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -1960,7 +2079,9 @@ msgstr "Vaata fotosid kaardil"
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
-msgstr "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha tulevikus."
+msgstr ""
+"Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha "
+"tulevikus."
 
 #: ajapaik/ajapaik/views.py:1571
 msgid "The photo has been mapped to a new location thanks to you."
@@ -1974,57 +2095,53 @@ msgstr "Sinu pakkumine oli esimene."
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
-msgstr "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit teistega!"
+msgstr ""
+"Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit "
+"teistega!"
 
-#: ajapaik/ajapaik/views.py:1850
-msgid "Timepatch (Ajapaik) - curate"
-msgstr "Ajapaiga kuraator"
-
-#: ajapaik/ajapaik/views.py:2200
+#: ajapaik/ajapaik/views.py:2199
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2257
+#: ajapaik/ajapaik/views.py:2256
 #, python-format
 msgid "Error uploading file: %s"
 msgstr "Faili üleslaadimise viga: %s"
 
-#: ajapaik/ajapaik/views.py:2274
+#: ajapaik/ajapaik/views.py:2273
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: ajapaik/ajapaik/views.py:2294
+#: ajapaik/ajapaik/views.py:2293
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: ajapaik/ajapaik/views.py:2296
+#: ajapaik/ajapaik/views.py:2295
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: ajapaik/ajapaik/views.py:2611
+#: ajapaik/ajapaik/views.py:2610
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Kaader filmist \"%(film)s\" %(time)s"
 
-#: ajapaik/ajapaik/views.py:2741
+#: ajapaik/ajapaik/views.py:2740
 msgid "Photo uploaded"
 msgstr "Pilt on üles laetud"
 
-#: ajapaik/ajapaik/views.py:2760
+#: ajapaik/ajapaik/views.py:2759
 msgid "Album created"
 msgstr "Album on loodud"
 
-#: ajapaik/ajapaik/views.py:2842
+#: ajapaik/ajapaik/views.py:2841
 msgid "Sorry but we fail to post your comment."
 msgstr "Kommentaari postitamine ei õnnestunud."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
-#| msgid "Subject"
 msgid "Subject name"
 msgstr "Isiku nimi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
-#| msgid "Is public"
 msgid "Is public figure"
 msgstr "Tegemist on avaliku tegelasega"
 
@@ -2065,6 +2182,19 @@ msgstr "inglise"
 #: ajapaik/settings/default.py:73
 msgid "Finnish"
 msgstr "soome"
+
+#~ msgid "Ajapaik on EV100"
+#~ msgstr "Ajapaik EV100 lehel"
+
+#~ msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
+#~ msgstr "Ajapaik on kingitus Eesti Vabariigi 100. sünnipäevaks"
+
+#~ msgid ""
+#~ "Show us your support by signing up as a contributor at the EV100 page"
+#~ msgstr "Näita üles toetust registreerudes panustajana EV100 leheküljel"
+
+#~ msgid "Timepatch (Ajapaik) - curate"
+#~ msgstr "Ajapaiga kuraator"
 
 #~ msgid "Log out"
 #~ msgstr "Log out"
@@ -2165,10 +2295,12 @@ msgstr "soome"
 
 #~ msgid ""
 #~ "Any picture near the user can be rephotographed. Suitable for competition "
-#~ "between groups (you can choose the number of groups and their maximum size)"
+#~ "between groups (you can choose the number of groups and their maximum "
+#~ "size)"
 #~ msgstr ""
 #~ "Any picture near the user can be rephotographed. Suitable for competition "
-#~ "between groups (you can choose the number of groups and their maximum size)"
+#~ "between groups (you can choose the number of groups and their maximum "
+#~ "size)"
 
 #~ msgid "Handpicked"
 #~ msgstr "Handpicked"
@@ -2353,7 +2485,9 @@ msgstr "soome"
 #~ msgid "Added rephoto to Ajapaik"
 #~ msgstr "Added rephoto to Ajapaik"
 
-#~ msgid "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support Ajapaik"
+#~ msgid ""
+#~ "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
+#~ "Ajapaik"
 #~ msgstr ""
 #~ "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
 #~ "Ajapaik"

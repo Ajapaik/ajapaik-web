@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Translators:
 # zache <kimmo.virtanen@gmail.com>, 2019
@@ -15,14 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 22:40+0300\n"
+"POT-Creation-Date: 2019-05-11 05:19+0300\n"
 "PO-Revision-Date: 2019-05-10 21:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
+"heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
@@ -185,7 +186,8 @@ msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr "Merkitse aikahaarukka tai ennen/jälkeen joko \"-\" tai \"..\" -merkinnällä"
+msgstr ""
+"Merkitse aikahaarukka tai ennen/jälkeen joko \"-\" tai \"..\" -merkinnällä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -223,13 +225,17 @@ msgstr "Poista valinta"
 msgid ""
 "Picture is already in Ajapaik. You can still add it to your album, no "
 "curation points awarded"
-msgstr "Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä kuratointipisteitä"
+msgstr ""
+"Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä "
+"kuratointipisteitä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid ""
 "Are you sure you want to create an album with less than 5 photos? We "
 "recommend to create albums with at least 10 or more pictures."
-msgstr "Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuvaa? Suosittelemme luomaan yli 10 kuvan albumeita."
+msgstr ""
+"Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuvaa? "
+"Suosittelemme luomaan yli 10 kuvan albumeita."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -442,7 +448,6 @@ msgid "All photos"
 msgstr "Kaikki kuvat"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
-#| msgid "Picture set has no rephotos"
 msgid "Picture set has no "
 msgstr "Kuvasarjassa ei ole"
 
@@ -486,7 +491,9 @@ msgstr "Kohde"
 msgid ""
 "Grab and drag the MAP so that the marker is where the photographer was "
 "standing."
-msgstr "Raahaa KARTTAA, kun haluat liikuttaa paikkamerkkiä siihen, missä kuvaaja seisoi."
+msgstr ""
+"Raahaa KARTTAA, kun haluat liikuttaa paikkamerkkiä siihen, missä kuvaaja "
+"seisoi."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -527,39 +534,53 @@ msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag map to correct the "
 "location."
-msgstr "Klikkaamalla vihreätä nappia voit tallentaa sekä sijainnin että kamerakulman. Klikkaamalla karttaa voit vapauttaa kamerakulman ja raahata kartan sopivaan sijaintiin."
+msgstr ""
+"Klikkaamalla vihreätä nappia voit tallentaa sekä sijainnin että "
+"kamerakulman. Klikkaamalla karttaa voit vapauttaa kamerakulman ja raahata "
+"kartan sopivaan sijaintiin."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
 msgid ""
-"Click on the map to lock the direction of the view or click yellow button to"
-" save only the location."
-msgstr "Klikkaamalla karttaa voit lukita kamerakulman. Klikkaamalla keltaista nappia voit tallentaa pelkän sijainnin."
+"Click on the map to lock the direction of the view or click yellow button to "
+"save only the location."
+msgstr ""
+"Klikkaamalla karttaa voit lukita kamerakulman. Klikkaamalla keltaista nappia "
+"voit tallentaa pelkän sijainnin."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid ""
 "Click the green button to save both the location and the direction of the "
 "view. Click on the map to unlock the direction, drag MARKER to correct the "
 "location."
-msgstr "Klikkaamalla vihreätä nappia voit tallentaa sekä sijainnin että kamerakulman. Klikkaamalla karttaa voit vapauttaa kamerakulman, raahaamalla PAIKKAMERKKIÄ voit korjata sijainnin."
+msgstr ""
+"Klikkaamalla vihreätä nappia voit tallentaa sekä sijainnin että "
+"kamerakulman. Klikkaamalla karttaa voit vapauttaa kamerakulman, raahaamalla "
+"PAIKKAMERKKIÄ voit korjata sijainnin."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid ""
 "Now you can drag the MARKER where the photographer was standing and the MAP "
 "separately."
-msgstr "Nyt voit raahata kuvaajan paikkaa osoittavaa PAIKKAMERKKIÄ sekä KARTTAA erikseen."
+msgstr ""
+"Nyt voit raahata kuvaajan paikkaa osoittavaa PAIKKAMERKKIÄ sekä KARTTAA "
+"erikseen."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
 msgid ""
 "Drag the map so that the circle covers the approximate location, click save "
 "when ready."
-msgstr "Raahaa karttaa niin, että ympyrä peittää arvioidun sijainnin, klikkaa Tallenna, kun olet valmis."
+msgstr ""
+"Raahaa karttaa niin, että ympyrä peittää arvioidun sijainnin, klikkaa "
+"Tallenna, kun olet valmis."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid ""
 "Drag the map so that the marker is on top of the object you see on the "
 "picture, click save when ready."
-msgstr "Raahaa karttaa niin, että paikkamerkki on kuvassa näkyvän kohteen päällä. Klikkaa Tallenna, kun olet valmis."
+msgstr ""
+"Raahaa karttaa niin, että paikkamerkki on kuvassa näkyvän kohteen päällä. "
+"Klikkaa Tallenna, kun olet valmis."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
