@@ -29,7 +29,7 @@ from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneFiel
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
