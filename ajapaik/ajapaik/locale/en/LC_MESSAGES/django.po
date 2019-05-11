@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:19+0300\n"
+"POT-Creation-Date: 2019-05-11 05:39+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -776,8 +776,6 @@ msgstr[1] ""
 "                        "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
-#, fuzzy
-#| msgid "General statistics refresh every 10 minutes"
 msgid "General statistics refresh every 10 minutes."
 msgstr "General statistics refresh every 10 minutes"
 
