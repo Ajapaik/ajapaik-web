@@ -35,7 +35,9 @@
                         {{ video.name }}
                     </div>
                     {% if video.date %}
-                        {{ video.date|date:"Y" }}
+                        <div>
+                            {{ video.date|date:"Y" }}
+                        </div>
                     {% endif %}
                     {% if video.source and video.source_key and video.source_url %}
                         <a id="ajapaik-video-modal-source-link" data-id="{{ video.id }}"
