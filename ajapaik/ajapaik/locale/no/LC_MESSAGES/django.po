@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-12 15:11+0300\n"
+"POT-Creation-Date: 2019-05-13 00:51+0300\n"
 "PO-Revision-Date: 2019-05-12 00:13+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
@@ -94,7 +94,7 @@ msgstr "Beskrivelse mangler"
 msgid "Missing licence"
 msgstr "Lisens mangler"
 
-#: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator.html:114
+#: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
 msgstr "Foreldrealbum"
 
@@ -151,12 +151,12 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:70
+#: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:69
 msgid "Name"
 msgstr "Navn"
 
-#: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:349
-#: ajapaik/ajapaik/templates/curator.html:81
+#: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:350
+#: ajapaik/ajapaik/templates/curator.html:78
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -176,136 +176,136 @@ msgstr ""
 msgid "b."
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:335
+#: ajapaik/ajapaik/models.py:336
 msgid "Image"
 msgstr "Bilde"
 
-#: ajapaik/ajapaik/models.py:350
+#: ajapaik/ajapaik/models.py:351
 msgid "Author"
 msgstr "Forfatter"
 
-#: ajapaik/ajapaik/models.py:824
+#: ajapaik/ajapaik/models.py:825
 msgid "Duplicate"
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:825
+#: ajapaik/ajapaik/models.py:826
 msgid "Similar"
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:919
+#: ajapaik/ajapaik/models.py:920
 msgid "Geotag"
 msgstr "Geotag"
 
-#: ajapaik/ajapaik/models.py:920 ajapaik/ajapaik/models.py:974
+#: ajapaik/ajapaik/models.py:921 ajapaik/ajapaik/models.py:975
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Refoto"
 
-#: ajapaik/ajapaik/models.py:921
+#: ajapaik/ajapaik/models.py:922
 msgid "Photo upload"
 msgstr "Opplasting av foto"
 
-#: ajapaik/ajapaik/models.py:922
+#: ajapaik/ajapaik/models.py:923
 msgid "Photo curation"
 msgstr "Utvalg av foto"
 
-#: ajapaik/ajapaik/models.py:923
+#: ajapaik/ajapaik/models.py:924
 msgid "Photo re-curation"
 msgstr "Foto re-kuratering"
 
-#: ajapaik/ajapaik/models.py:924
+#: ajapaik/ajapaik/models.py:925
 msgid "Dating"
 msgstr "Datering"
 
-#: ajapaik/ajapaik/models.py:925
+#: ajapaik/ajapaik/models.py:926
 msgid "Dating confirmation"
 msgstr "Bekreftelse av datering"
 
-#: ajapaik/ajapaik/models.py:926
+#: ajapaik/ajapaik/models.py:927
 msgid "Film still"
 msgstr "Stillbilde"
 
-#: ajapaik/ajapaik/models.py:952
+#: ajapaik/ajapaik/models.py:953
 msgid "Map"
 msgstr "Kart"
 
-#: ajapaik/ajapaik/models.py:953
+#: ajapaik/ajapaik/models.py:954
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:954
+#: ajapaik/ajapaik/models.py:955
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:955
+#: ajapaik/ajapaik/models.py:956
 msgid "Confirmation"
 msgstr "Bekreftelse"
 
-#: ajapaik/ajapaik/models.py:956
+#: ajapaik/ajapaik/models.py:957
 msgid "StreetView"
 msgstr "Gatebilde"
 
-#: ajapaik/ajapaik/models.py:957
+#: ajapaik/ajapaik/models.py:958
 msgid "Source geotag"
 msgstr "Geotagg bilde"
 
-#: ajapaik/ajapaik/models.py:958
+#: ajapaik/ajapaik/models.py:959
 msgid "Android app"
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:969
+#: ajapaik/ajapaik/models.py:970
 msgid "Game"
 msgstr "Spill"
 
-#: ajapaik/ajapaik/models.py:970
+#: ajapaik/ajapaik/models.py:971
 msgid "Map view"
 msgstr "Kartvisning"
 
-#: ajapaik/ajapaik/models.py:971
+#: ajapaik/ajapaik/models.py:972
 msgid "Gallery"
 msgstr "Galleri"
 
-#: ajapaik/ajapaik/models.py:972
+#: ajapaik/ajapaik/models.py:973
 msgid "Permalink"
 msgstr "Permalenke"
 
-#: ajapaik/ajapaik/models.py:973
+#: ajapaik/ajapaik/models.py:974
 msgid "Source"
 msgstr "Kilde"
 
-#: ajapaik/ajapaik/models.py:978
+#: ajapaik/ajapaik/models.py:979
 msgid "Google map"
 msgstr "Google kart"
 
-#: ajapaik/ajapaik/models.py:979
+#: ajapaik/ajapaik/models.py:980
 msgid "Google satellite"
 msgstr "Google satellitt"
 
-#: ajapaik/ajapaik/models.py:980
+#: ajapaik/ajapaik/models.py:981
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:981
+#: ajapaik/ajapaik/models.py:982
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:982
+#: ajapaik/ajapaik/models.py:983
 msgid "No map"
 msgstr "Uten kart"
 
-#: ajapaik/ajapaik/models.py:1104 ajapaik/ajapaik/models.py:1106
+#: ajapaik/ajapaik/models.py:1105 ajapaik/ajapaik/models.py:1107
 msgid "Anonymous user"
 msgstr "Anonym bruker"
 
-#: ajapaik/ajapaik/models.py:1377
+#: ajapaik/ajapaik/models.py:1378
 msgid "Day"
 msgstr "Dag"
 
-#: ajapaik/ajapaik/models.py:1378
+#: ajapaik/ajapaik/models.py:1379
 msgid "Month"
 msgstr "Måned"
 
-#: ajapaik/ajapaik/models.py:1379
+#: ajapaik/ajapaik/models.py:1380
 msgid "Year"
 msgstr "År"
 
@@ -1154,7 +1154,7 @@ msgstr "Takk"
 #: ajapaik/ajapaik/templates/_photo_comparision_modal.html:13
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:44
 #: ajapaik/ajapaik/templates/curator.html:38
-#: ajapaik/ajapaik/templates/curator.html:144
+#: ajapaik/ajapaik/templates/curator.html:130
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
@@ -1634,7 +1634,7 @@ msgid "supports Markdown"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:64
-#: ajapaik/ajapaik/templates/curator.html:148
+#: ajapaik/ajapaik/templates/curator.html:134
 msgid "Save"
 msgstr "Lagre"
 
@@ -1677,7 +1677,7 @@ msgstr "Du kan begynne å geotagge nytt innhold her"
 msgid "Tell your friends on Facebook"
 msgstr "Tips dine venner på Facebook"
 
-#: ajapaik/ajapaik/templates/curator.html:54
+#: ajapaik/ajapaik/templates/curator.html:51
 msgid "Edit your album"
 msgstr "Rediger ditt album"
 
@@ -1685,19 +1685,19 @@ msgstr "Rediger ditt album"
 msgid "Error"
 msgstr "Feil"
 
-#: ajapaik/ajapaik/templates/curator.html:95
+#: ajapaik/ajapaik/templates/curator.html:89
 msgid "Open album (anyone can add photos)"
 msgstr "Åpent album (alle kan legge til foto)"
 
-#: ajapaik/ajapaik/templates/curator.html:106
+#: ajapaik/ajapaik/templates/curator.html:97
 msgid "Visible (shown in selection)"
 msgstr "Synlig (vist i utvalg)"
 
-#: ajapaik/ajapaik/templates/curator.html:125
+#: ajapaik/ajapaik/templates/curator.html:113
 msgid "If the photos are from the same place, specify a location here"
 msgstr "Hvis foto er fra samme sted, spesifiser her"
 
-#: ajapaik/ajapaik/templates/curator.html:132
+#: ajapaik/ajapaik/templates/curator.html:119
 msgid "Place"
 msgstr "Sted"
 
@@ -2095,15 +2095,15 @@ msgstr "Ikke tilstrekkelig med data sendt inn"
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Stillbilde fra \"%(film)s\" på %(time)s"
 
-#: ajapaik/ajapaik/views.py:2745
+#: ajapaik/ajapaik/views.py:2739
 msgid "Photo uploaded"
 msgstr "Foto lastet opp"
 
-#: ajapaik/ajapaik/views.py:2764
+#: ajapaik/ajapaik/views.py:2758
 msgid "Album created"
 msgstr "Album er opprettet"
 
-#: ajapaik/ajapaik/views.py:2846
+#: ajapaik/ajapaik/views.py:2840
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 
