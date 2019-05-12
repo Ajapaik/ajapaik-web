@@ -23,7 +23,7 @@
         <div class="modal-footer container d-block">
             <div class="row">
                 {% if not request.user.profile.is_legit %}
-                <div id="ajapaik-video-modal-anonymous-warning" class="col-sm-12">
+                <div id="ajapaik-video-modal-anonymous-warning" class="col-sm-12 ml-0">
                     {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajapaik-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
                 </div>
                 {% endif %}
