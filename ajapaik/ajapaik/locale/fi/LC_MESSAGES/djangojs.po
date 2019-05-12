@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-12 03:23+0300\n"
+"POT-Creation-Date: 2019-05-12 15:11+0300\n"
 "PO-Revision-Date: 2019-05-10 21:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -51,8 +51,8 @@ msgstr "Tuntematon virhe."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1145
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1190
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1105
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1150
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1107
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1152
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Ei valittu"
