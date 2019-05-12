@@ -879,7 +879,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
     };
 
     $(window).resize(function () {
-        window.resizeMinimap();
+        if(!$("#ajapaik-modal-rephoto-container").is(":visible")){
+            window.resizeMinimap();
+        }
         window.positionMinimapCTAButton();
     });
 
