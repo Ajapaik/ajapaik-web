@@ -293,19 +293,20 @@ class Album(Model):
         qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
         count = 0
         for each in qs:
-            for similarity in each.similar_photos:
+            for similarity in each.similar_photos.all():
                 temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                if temp is not None and temp.confirmed is True:
-                    count += 1
+                for item in temp:
+                    if item is not None and item.confirmed is True:
+                        count += 1
         return count
 
     def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
         count = 0
         for each in qs:
-            for similarity in each.similar_photos:
+            for similarity in each.similar_photos.all():
                 temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                if temp is not None:
+                for item in temp:
                     count += 1
         return count
 

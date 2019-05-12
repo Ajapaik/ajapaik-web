@@ -71,11 +71,11 @@
         </a>
     </script>
     <script id="ajapaik-curator-my-album-template" type="text/x-tmpl">
-        <div class="row">
-            <a href="{%=o.gameLink%}">{%=o.name%} - {%=o.photo_count%} {%=gettext('photos')%}</a>
-            <button title="{%=gettext('Edit')%}" type="button" class="btn btn-outline-secondary  btn-sm ajapaik-curator-edit-album-button" data-id="{%=o.id%}">
-                <i class="glyphicon glyphicon-pencil"></i>
-            </button>
+        <div class="row my-1 mr-2">
+            <a class="mt-3 mr-2" style="font-size:18px;" href="{%=o.gameLink%}">{%=o.name%} - {%=o.photo_count%} {%=gettext('photos')%}</a>
+            <div style="cursor:pointer;color:#343a40;" title="{%=gettext('Edit')%}" class="ajapaik-curator-edit-album-button mt-2 pt-2" data-id="{%=o.id%}">
+                <i class="material-icons notranslate">edit</i>
+            </div>
         </div>
     </script>
     <script id="ajapaik-curator-share-set-button" type="text/x-tmpl">

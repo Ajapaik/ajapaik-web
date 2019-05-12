@@ -48,10 +48,10 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content mt-5">
                         <div class="modal-header">
+                            <h4 class="modal-title">{% trans "Edit your album" %}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">{% trans "Edit your album" %}</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -63,78 +63,64 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row pt-3">
                                 <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <label for="ajapaik-curator-change-album-name">{% trans "Name" %}</label>
-                                        </span>
-                                        <input class="form-control" type="text"
-                                                id="ajapaik-curator-change-album-name">
-                                    </div>
+                                    <span class="input-group-addon">
+                                        <label for="ajapaik-curator-change-album-name">{% trans "Name" %}</label>
+                                    </span>
+                                    <input class="form-control" type="text"
+                                            id="ajapaik-curator-change-album-name">
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-12">
+                                    <span class="input-group-addon">
+                                        <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
+                                    </span>
+                                    <textarea class="form-control"
+                                                id="ajapaik-curator-change-album-description"></textarea>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-12">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" id="ajapaik-curator-change-album-open">
+                                    </span>
+                                    {% trans "Open album (anyone can add photos)" %}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <label for="ajapaik-curator-change-album-description">{% trans "Description" %}</label>
-                                        </span>
-                                        <textarea class="form-control"
-                                                    id="ajapaik-curator-change-album-description"></textarea>
-                                    </div>
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" id="ajapaik-curator-change-album-public">
+                                    </span>
+                                    {% trans "Visible (shown in selection)" %}
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row pt-3">
                                 <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id="ajapaik-curator-change-album-open">
-                                        </span>
-                                        <label class="form-control"
-                                                for="ajapaik-curator-change-album-open">{% trans "Open album (anyone can add photos)" %}</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id="ajapaik-curator-change-album-public">
-                                        </span>
-                                        <label class="form-control"
-                                                for="ajapaik-curator-change-album-public">{% trans "Visible (shown in selection)" %}</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <label for="ajapaik-curator-edit-form-change-album-parent">{% trans "Parent album" %}</label>
-                                        </span>
-                                        <select id="ajapaik-curator-edit-form-change-album-parent"
-                                                class="form-control"></select>
-                                    </div>
+                                    <span class="input-group-addon">
+                                        <label for="ajapaik-curator-edit-form-change-album-parent">{% trans "Parent album" %}</label>
+                                    </span>
+                                    <select id="ajapaik-curator-edit-form-change-album-parent"
+                                            class="form-control"></select>
                                 </div>
                             </div>
                             <br>
 
-                            <div class="row">
+                            <div class="row pt-1">
                                 <div class="col-12">
                                     <p>{% trans "If the photos are from the same place, specify a location here" %}</p>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row pt-1">
                                 <div class="col-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <label for="ajapaik-curator-change-area-name">{% trans "Place" %}</label>
-                                        </span>
-                                        <input class="form-control" type="text"
-                                                id="ajapaik-curator-change-area-name">
-                                        <input type="hidden" id="ajapaik-curator-change-area-name-hidden">
-                                    </div>
+                                    <span class="input-group-addon">
+                                        <label for="ajapaik-curator-change-area-name">{% trans "Place" %}</label>
+                                    </span>
+                                    <input class="form-control" type="text"
+                                            id="ajapaik-curator-change-area-name">
+                                    <input type="hidden" id="ajapaik-curator-change-area-name-hidden">
                                 </div>
                             </div>
                             <input type="hidden" id="ajapaik-curator-change-album-id">
