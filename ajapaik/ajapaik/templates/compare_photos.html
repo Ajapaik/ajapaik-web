@@ -70,7 +70,9 @@
             secondaryPhoto.siblings().width(secondaryPhoto.width());
         }
 
-        resizeDescription();
+        $( document ).ready(function() {
+            resizeDescription();
+        });
 
         $( window ).resize(function() {
             resizeDescription();

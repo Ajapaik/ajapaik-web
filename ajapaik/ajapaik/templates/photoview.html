@@ -245,7 +245,9 @@
         rephoto.siblings().width(rephoto.width());
     }
 
-    resizeDescription();
+    $( document ).ready(function() {
+        resizeDescription();
+    });
 
     $( window ).resize(function() {
         resizeDescription();
