@@ -116,22 +116,28 @@
                 }
 
                 if (window.isCompareView !== undefined && window.isCompareView === true) {
-                    var targets;
-                    if (e.keyCode === 45) {
-                        // left
-                        targets = $('#similar');
-                        if (targets.length > 0) {
-                            targets[0].click();
-                        }
-                    } else if (e.keyCode === 46) {
-                        // right
+                    let targets;
+                    if (e.keyCode === 49) {
+                        // not similar
                         targets = $('#not_similar');
                         if (targets.length > 0) {
                             targets[0].click();
                         }
+                    } else if (e.keyCode === 50) {
+                        // similar
+                        targets = $('#similar');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
+                    } else if (e.keyCode === 51) {
+                        // duplicate
+                        targets = $('#duplicate');
+                        if (targets.length > 0) {
+                            targets[0].click();
+                        }
+                    }
                 }
             }
-        }
         });
     });
 }(jQuery));

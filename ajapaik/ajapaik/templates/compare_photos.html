@@ -37,19 +37,22 @@
                     {% endwith %}
             </div>
         </div>
+        <div class="w-100 py-3 text-center">
+            {% trans "Please click on the respective button to confirm image relationship" %} {% if request.user_agent.is_pc %}{% trans "In addition to buttons, keyboard can be used to insert image relationships." %}{% endif %}
+        </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-right text-md-right text-center px-0">
             <button id="not_similar" class="btn btn-danger m-2 w-75">
-                Ei ole sarnased
+                {% trans "The images are not similar" %}{% if request.user_agent.is_pc %} (1){% endif %}
             </button>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center px-0">
             <button id="similar" class="btn btn-primary m-2 w-75">
-                On Sarnased
+                {% trans "The images are similar" %}{% if request.user_agent.is_pc %} (2){% endif %}
             </button>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-left text-md-left text-center px-0">
             <button id="duplicate" class="btn btn-success m-2 w-75">
-                On Sama Kaader
+                {% trans "The images depict the same frame" %}{% if request.user_agent.is_pc %} (3){% endif %}
             </button>
         </div>
     </div>
