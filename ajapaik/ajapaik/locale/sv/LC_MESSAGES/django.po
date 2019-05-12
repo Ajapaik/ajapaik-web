@@ -4,15 +4,16 @@
 #
 # Translators:
 # Translators:
+# Translators:
 # Albin Larsson <albin.post@gmail.com>, 2017
 #: ajapaik/ajapaik/views.py:664
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 10:07+0300\n"
-"PO-Revision-Date: 2019-02-16 22:56+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2019-05-12 03:22+0300\n"
+"PO-Revision-Date: 2019-05-12 00:13+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -99,10 +100,8 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:414
-#, fuzzy
-#| msgid "Tour type"
 msgid "Album type"
-msgstr "Tour type"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
@@ -588,7 +587,7 @@ msgid "See also – Sift.pics"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/_header.html:109
+#: ajapaik/ajapaik/templates/_header.html:108
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
@@ -757,49 +756,49 @@ msgstr ""
 msgid "Geotag pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:35
+#: ajapaik/ajapaik/templates/_header.html:34
 #: ajapaik/ajapaik/templates/_info_modal_content.html:149
 msgid "Show on map"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:41
+#: ajapaik/ajapaik/templates/_header.html:40
 msgid "List face recognition albums"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:47
+#: ajapaik/ajapaik/templates/_header.html:46
 msgid "Add photos"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:52
+#: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik/templates/_header.html:55
 msgid "Current selection"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:66
+#: ajapaik/ajapaik/templates/_header.html:65
 msgid "Choose language"
 msgstr "Välj språk"
 
-#: ajapaik/ajapaik/templates/_header.html:78
+#: ajapaik/ajapaik/templates/_header.html:77
 msgid "About Ajapaik"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:81
+#: ajapaik/ajapaik/templates/_header.html:80
 msgid "Ajapaik on Facebook"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:87
+#: ajapaik/ajapaik/templates/_header.html:86
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:95 ajapaik/ajapaik/views.py:1710
+#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1710
 #: ajapaik/ajapaik/views.py:1727 ajapaik/ajapaik/views.py:1763
 msgid "Leaderboard"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:106
+#: ajapaik/ajapaik/templates/_header.html:105
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
@@ -1202,13 +1201,15 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-#, fuzzy
-#| msgid "Change Password"
 msgid "Forgot Password?"
-msgstr "Password"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:33
+msgid "Menu"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
@@ -1216,10 +1217,8 @@ msgid "Change E-mail"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
-#, fuzzy
-#| msgid "change password"
 msgid "Change password"
-msgstr "Forgot password"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
@@ -1251,10 +1250,8 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-#, fuzzy
-#| msgid "Signed in as"
 msgid "Sign In"
-msgstr "Signed in as"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
@@ -1286,10 +1283,8 @@ msgid ""
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
-#, fuzzy
-#| msgid "Change Password"
 msgid "Reset My Password"
-msgstr "Password"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
@@ -1484,26 +1479,26 @@ msgstr[1] ""
 msgid "Timepatch (Ajapaik)"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:276
+#: ajapaik/ajapaik/templates/base_bootstrap.html:282
 msgid "Geolocation error"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:279
+#: ajapaik/ajapaik/templates/base_bootstrap.html:285
 msgid "Sorting"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:427
+#: ajapaik/ajapaik/templates/base_bootstrap.html:429
 msgid ""
 "This website uses cookies to ensure you get the best experience on our "
 "website"
 msgstr ""
 "Den här webbplatsen använder cookies för att ge dig den bästa upplevelsen"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:428
+#: ajapaik/ajapaik/templates/base_bootstrap.html:430
 msgid "Got it!"
 msgstr "Jag fattar!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:429
+#: ajapaik/ajapaik/templates/base_bootstrap.html:431
 msgid "More info"
 msgstr "Mer info"
 
@@ -1566,6 +1561,27 @@ msgstr ""
 #: ajapaik/ajapaik/templates/curator.html:148
 msgid "Save"
 msgstr "Spara"
+
+#: ajapaik/ajapaik/templates/compare_photos.html:41
+msgid "Please click on the respective button to confirm image relationship"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:41
+msgid ""
+"In addition to buttons, keyboard can be used to insert image relationships."
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:45
+msgid "The images are not similar"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:50
+msgid "The images are similar"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:55
+msgid "The images depict the same frame"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:23
 msgid ""
@@ -1755,7 +1771,7 @@ msgstr ""
 msgid "Private "
 msgstr ""
 
-#: ajapaik/ajapaik/templates/frontpage.html:33
+#: ajapaik/ajapaik/templates/frontpage.html:30
 msgid "Authentication"
 msgstr ""
 
@@ -1999,15 +2015,15 @@ msgstr ""
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2740
+#: ajapaik/ajapaik/views.py:2745
 msgid "Photo uploaded"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2759
+#: ajapaik/ajapaik/views.py:2764
 msgid "Album created"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2841
+#: ajapaik/ajapaik/views.py:2846
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 
@@ -2057,8 +2073,46 @@ msgstr "Engelska"
 msgid "Finnish"
 msgstr ""
 
+#~ msgid "Ajapaik on EV100"
+#~ msgstr "Ajapaik on EV100"
+
+#~ msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
+#~ msgstr "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
+
+#~ msgid ""
+#~ "Show us your support by signing up as a contributor at the EV100 page"
+#~ msgstr ""
+#~ "Show us your support by signing up as a contributor at the EV100 page"
+
+#~ msgid "Timepatch (Ajapaik) - curate"
+#~ msgstr "Timepatch (Ajapaik) - curate"
+
+#~ msgid "Log out"
+#~ msgstr "Log out"
+
 #~ msgid "Toggle navigation"
-#~ msgstr "Skifta navigering"
+#~ msgstr "Toggle navigation"
+
+#~ msgid "Select"
+#~ msgstr "Select"
+
+#~ msgid "Norwegian"
+#~ msgstr "Norwegian"
+
+#~ msgid "Newsletter"
+#~ msgstr "Newsletter"
+
+#~ msgid "Subscribe to our newsletter"
+#~ msgstr "Subscribe to our newsletter"
+
+#~ msgid "Your name"
+#~ msgstr "Your name"
+
+#~ msgid "Subscribe"
+#~ msgstr "Subscribe"
+
+#~ msgid "Newsletter archive"
+#~ msgstr "Newsletter archive"
 
 #~ msgid "Open tour"
 #~ msgstr "Open tour"
@@ -2270,6 +2324,9 @@ msgstr ""
 
 #~ msgid "Tour complete!"
 #~ msgstr "Tour complete!"
+
+#~ msgid "Tour type"
+#~ msgstr "Tour type"
 
 #~ msgid "Number of random pictures"
 #~ msgstr "Number of random pictures"

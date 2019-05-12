@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:39+0300\n"
-"PO-Revision-Date: 2018-04-18 11:04+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2019-05-12 03:23+0300\n"
+"PO-Revision-Date: 2019-05-10 17:08+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -441,10 +441,8 @@ msgid "All photos"
 msgstr "Alle foto"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
-#, fuzzy
-#| msgid "Picture set has no rephotos"
 msgid "Picture set has no "
-msgstr "Bildesettet har ingen refoto"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""

@@ -8,6 +8,7 @@
 # Lauri Elias, 2015
 # Lauri Elias, 2015
 # MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
+# MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
 # Susanna Ånäs <susanna.anas@gmail.com>, 2015-2016
 # Tarmo Toikkanen <tarmo@iki.fi>, 2018
 # zache <kimmo.virtanen@gmail.com>, 2019
@@ -15,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 19:51+0300\n"
+"POT-Creation-Date: 2019-05-12 03:23+0300\n"
 "PO-Revision-Date: 2019-05-10 21:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"

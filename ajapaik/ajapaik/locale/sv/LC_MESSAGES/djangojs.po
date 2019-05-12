@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 05:39+0300\n"
-"PO-Revision-Date: 2018-04-18 11:04+0000\n"
-"Last-Translator: Lauri Elias\n"
+"POT-Creation-Date: 2019-05-12 03:23+0300\n"
+"PO-Revision-Date: 2019-05-10 17:08+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -437,10 +437,8 @@ msgid "All photos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
-#, fuzzy
-#| msgid "Pictures closest to you"
 msgid "Picture set has no "
-msgstr "Bilder närmast dig"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
@@ -613,8 +611,23 @@ msgstr ""
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
 
+#~ msgid "Picture set has no comments"
+#~ msgstr "Picture set has no comments"
+
+#~ msgid "zoom in more to view markers."
+#~ msgstr "zoom in more to view markers."
+
+#~ msgid "Unable to get location data"
+#~ msgstr "Unable to get location data"
+
 #~ msgid "Are you sure?"
-#~ msgstr "Är du säker?"
+#~ msgstr "Are you sure?"
+
+#~ msgid "Sending failed"
+#~ msgstr "Sending failed"
+
+#~ msgid "Cannot delete tour, has rephotos or does not belong to you."
+#~ msgstr "Cannot delete tour, has rephotos or does not belong to you."
 
 #~ msgid "We doubt about it."
 #~ msgstr "Others have different opinion."

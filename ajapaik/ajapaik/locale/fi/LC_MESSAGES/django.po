@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 19:51+0300\n"
-"PO-Revision-Date: 2019-05-11 13:48+0000\n"
+"POT-Creation-Date: 2019-05-12 03:22+0300\n"
+"PO-Revision-Date: 2019-05-12 00:13+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/fi/)\n"
@@ -615,7 +615,7 @@ msgid "See also – Sift.pics"
 msgstr "Tutustu myös – Sift.pics"
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/_header.html:109
+#: ajapaik/ajapaik/templates/_header.html:108
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
@@ -828,49 +828,49 @@ msgstr "Näytä ruudukkona"
 msgid "Geotag pictures"
 msgstr "Paikanna kuvia"
 
-#: ajapaik/ajapaik/templates/_header.html:35
+#: ajapaik/ajapaik/templates/_header.html:34
 #: ajapaik/ajapaik/templates/_info_modal_content.html:149
 msgid "Show on map"
 msgstr "Näytä kartalla"
 
-#: ajapaik/ajapaik/templates/_header.html:41
+#: ajapaik/ajapaik/templates/_header.html:40
 msgid "List face recognition albums"
 msgstr "Luettelo kasvojentunnistuksen albumeista"
 
-#: ajapaik/ajapaik/templates/_header.html:47
+#: ajapaik/ajapaik/templates/_header.html:46
 msgid "Add photos"
 msgstr "Lisää kuvia"
 
-#: ajapaik/ajapaik/templates/_header.html:52
+#: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
 msgstr "Newsletters"
 
-#: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik/templates/_header.html:55
 msgid "Current selection"
 msgstr "Valinnat"
 
-#: ajapaik/ajapaik/templates/_header.html:66
+#: ajapaik/ajapaik/templates/_header.html:65
 msgid "Choose language"
 msgstr "Valitse kieli"
 
-#: ajapaik/ajapaik/templates/_header.html:78
+#: ajapaik/ajapaik/templates/_header.html:77
 msgid "About Ajapaik"
 msgstr "Tietoa Ajapaikista"
 
-#: ajapaik/ajapaik/templates/_header.html:81
+#: ajapaik/ajapaik/templates/_header.html:80
 msgid "Ajapaik on Facebook"
 msgstr "Ajapaik Facebookissa"
 
-#: ajapaik/ajapaik/templates/_header.html:87
+#: ajapaik/ajapaik/templates/_header.html:86
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:95 ajapaik/ajapaik/views.py:1710
+#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1710
 #: ajapaik/ajapaik/views.py:1727 ajapaik/ajapaik/views.py:1763
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:106
+#: ajapaik/ajapaik/templates/_header.html:105
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
@@ -1721,6 +1721,27 @@ msgstr "tukee Markdownia"
 msgid "Save"
 msgstr "Tallenna"
 
+#: ajapaik/ajapaik/templates/compare_photos.html:41
+msgid "Please click on the respective button to confirm image relationship"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:41
+msgid ""
+"In addition to buttons, keyboard can be used to insert image relationships."
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:45
+msgid "The images are not similar"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:50
+msgid "The images are similar"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/compare_photos.html:55
+msgid "The images depict the same frame"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/curator.html:23
 msgid ""
 "Your photos have now been added to Ajapaik and can be interacted with as "
@@ -1910,7 +1931,7 @@ msgstr "Julkinen"
 msgid "Private "
 msgstr "Yksityinen"
 
-#: ajapaik/ajapaik/templates/frontpage.html:33
+#: ajapaik/ajapaik/templates/frontpage.html:30
 msgid "Authentication"
 msgstr "Autentikointi"
 
@@ -2164,15 +2185,15 @@ msgstr "Tietoja ei ole lisätty tarpeeksi"
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:2740
+#: ajapaik/ajapaik/views.py:2745
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:2759
+#: ajapaik/ajapaik/views.py:2764
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:2841
+#: ajapaik/ajapaik/views.py:2846
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
@@ -2223,17 +2244,18 @@ msgid "Finnish"
 msgstr "suomi"
 
 #~ msgid "Ajapaik on EV100"
-#~ msgstr "Ajapaik EV100:ssa"
+#~ msgstr "Ajapaik on EV100"
 
 #~ msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
-#~ msgstr "Ajapaik on 100-vuotislahja Viron tasavallalle"
+#~ msgstr "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
 
 #~ msgid ""
 #~ "Show us your support by signing up as a contributor at the EV100 page"
-#~ msgstr "Tue meitä kirjautumalla osallistujaksi EV100-sivulla"
+#~ msgstr ""
+#~ "Show us your support by signing up as a contributor at the EV100 page"
 
 #~ msgid "Timepatch (Ajapaik) - curate"
-#~ msgstr "Timepatch (Ajapaik) - kuratoi"
+#~ msgstr "Timepatch (Ajapaik) - curate"
 
 #~ msgid "Log out"
 #~ msgstr "Log out"

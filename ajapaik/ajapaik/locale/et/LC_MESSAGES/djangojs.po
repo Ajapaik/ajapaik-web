@@ -6,14 +6,15 @@
 # Translators:
 # Lauri Elias, 2015
 # Lauri Elias, 2015-2016
+# MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
 # Vahur Puik <vahur@ajapaik.ee>, 2015-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 19:51+0300\n"
-"PO-Revision-Date: 2019-05-10 16:18+0000\n"
-"Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
+"POT-Creation-Date: 2019-05-12 03:23+0300\n"
+"PO-Revision-Date: 2019-05-10 23:17+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
 "heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -445,10 +446,8 @@ msgid "All photos"
 msgstr "Kõik fotod"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
-#, fuzzy
-#| msgid "Picture set has no rephotos"
 msgid "Picture set has no "
-msgstr "Pildivalimis ei ole refotosi"
+msgstr "Pildivalimis ei ole "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
