@@ -66,11 +66,11 @@
         resizeDescription = function() {
             let mainPhoto = $("#ajapaik-compareview-main-photo");
             let secondaryPhoto = $("#ajapaik-compareview-secondary-photo");
-            mainPhoto.siblings().width(mainPhoto.width());
-            secondaryPhoto.siblings().width(secondaryPhoto.width());
+            mainPhoto.siblings().width(mainPhoto.width() || 320);
+            secondaryPhoto.siblings().width(secondaryPhoto.width() || 320);
         }
 
-        $( document ).ready(function() {
+        $( window ).on('load', function() {
             resizeDescription();
         });
 

@@ -241,11 +241,11 @@
     resizeDescription = function() {
         let mainPhoto = $("#ajapaik-photoview-main-photo-container");
         let rephoto = $("#ajapaik-photoview-rephoto-container");
-        mainPhoto.siblings().width(mainPhoto.width());
-        rephoto.siblings().width(rephoto.width());
+        mainPhoto.siblings().width(mainPhoto.width() || 320);
+        rephoto.siblings().width(rephoto.width() || 320);
     }
 
-    $( document ).ready(function() {
+    $( window ).on('load', function() {
         resizeDescription();
     });
 
