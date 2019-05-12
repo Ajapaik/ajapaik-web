@@ -960,7 +960,6 @@ a.fullscreen {
   margin: 0 auto;
 }
 
-#ajapaik-compareview-main-photo-container,
 #ajapaik-photoview-main-photo-container,
 #ajapaik-photoview-rephoto {
   display: inline-block;
@@ -998,8 +997,6 @@ a.fullscreen {
   object-position: right;
 }
 
-#ajapaik-compareview-main-photo,
-#ajapaik-compareview-secondary-photo,
 #ajapaik-photoview-main-photo,
 #ajapaik-photoview-rephoto {
   min-height: 30vh;
@@ -2367,10 +2364,7 @@ input[type=search]::-webkit-search-cancel-button {
   
   #ajapaik-compareview-main-photo,
   #ajapaik-compareview-secondary-photo {
-    min-height: 30vh;
-    object-fit: contain;
     max-height: 70vh;
-    object-position: bottom;
   }
 
   .compare-photo-description {
@@ -2436,14 +2430,9 @@ input[type=search]::-webkit-search-cancel-button {
     width: 100%;
   }
 
-  #ajapaik-compareview-main-photo,
-  #ajapaik-compareview-secondary-photo {
-    height: auto !important;
-  }
 }
 
 @media (max-width: 713px) {
-  #ajapaik-compareview-main-photo-container,
   #ajapaik-photoview-main-photo-container,
   #ajapaik-photoview-main-photo,
   #ajapaik-photoview-rephoto {
