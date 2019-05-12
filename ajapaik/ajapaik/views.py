@@ -2701,11 +2701,16 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 			next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 		else:
 			next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
+	
+	height = photo_obj.height
+	if photo_obj.height < photo_obj2.height:
+		height = photo_obj2.height
 	context = {
 		'is_comparephoto': True,
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
 		'photo': photo_obj,
 		'photo2': photo_obj2,
+		'height': height,
 		'next_action': next_action
 	}
 	return render(request,'compare_photos.html', context)

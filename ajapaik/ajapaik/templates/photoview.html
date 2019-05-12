@@ -238,6 +238,19 @@
 
 {% block specific_js %}
 <script>
+    resizeDescription = function() {
+        let mainPhoto = $("#ajapaik-photoview-main-photo-container");
+        let rephoto = $("#ajapaik-photoview-rephoto-container");
+        mainPhoto.siblings().width(mainPhoto.width());
+        rephoto.siblings().width(rephoto.width());
+    }
+
+    resizeDescription();
+
+    $( window ).resize(function() {
+        resizeDescription();
+    });
+
     window.albumId = '{{ album.id }}';
     window.photoId = '{{ photo.id }}';
     window.previousDatings = {{ previous_datings | safe }};

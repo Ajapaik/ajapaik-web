@@ -2364,10 +2364,19 @@ input[type=search]::-webkit-search-cancel-button {
   .img-wrapper {
     float: right;
   }
+  
+  #ajapaik-compareview-main-photo,
+  #ajapaik-compareview-secondary-photo {
+    min-height: 30vh;
+    object-fit: contain;
+    max-height: 70vh;
+    object-position: bottom;
+  }
 
   .compare-photo-description {
-    max-width: 400px;
+    max-width: 45vw;
   }
+
 }
 
 @media (min-width: 992px) {
@@ -2425,6 +2434,11 @@ input[type=search]::-webkit-search-cancel-button {
 @media (max-width: 767px) {
   .modal-dialog-center {
     width: 100%;
+  }
+
+  #ajapaik-compareview-main-photo,
+  #ajapaik-compareview-secondary-photo {
+    height: auto !important;
   }
 }
 

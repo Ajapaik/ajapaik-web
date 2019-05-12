@@ -1,5 +1,5 @@
 {% load i18n %}
-<div style="max-width:400px;">
+<div>
     {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
         <div class="w-100">
             <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
