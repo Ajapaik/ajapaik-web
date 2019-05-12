@@ -2685,7 +2685,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 			item.delete()
 		return JsonResponse({'status': 200})
 	else:
-		similar_photos = ImageSimilarity.objects.exclude(master_criterion & Q(confirmed=False))
+		similar_photos = ImageSimilarity.objects.exclude(master_criterion | Q(confirmed=True))
 		first_photo_similar = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False))
 		second_photo_similar = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False))
 		if(len(first_photo_similar) > 0):
