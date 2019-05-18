@@ -85,15 +85,14 @@
             } else {
                 mainPhoto.height(secondaryPhoto.height());
             }
+            resizeDescription();
         }
 
         $( window ).on('load', function() {
-            resizeDescription();
             resizePhotos();
         });
 
         $( window ).resize(function() {
-            resizeDescription();
             resizePhotos();
         });
 
