@@ -829,17 +829,22 @@ class ImageSimilarity(Model):
     
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
+        iterator = 0
         if len(qs) > 0:
             for item in qs:
-                item.confirmed = self.confirmed
-                item.similarity_type = self.similarity_type
-                item.save()
+                if iterator > 1:
+                    item.delete()
+                else:
+                    item.confirmed = self.confirmed
+                    item.similarity_type = self.similarity_type
+                    item.save()
+                iterator += 1
         else:
             self.save()
     
     def add_or_update(photo_obj,photo_obj2,confirmed=False,similarity_type=None):
-        imageSimilarity = ImageSimilarity(from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type)
-        imageSimilarity2 = ImageSimilarity(from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type)
+        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type)
+        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type)
         imageSimilarity.__add_or_update__()
         imageSimilarity2.__add_or_update__()
 
