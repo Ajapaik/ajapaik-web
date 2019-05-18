@@ -110,7 +110,6 @@
                     similarity_type: similarity_type
                 },
                 success: function (response) {
-                    alert("Lisamine õnnestus");
                     window.location.href = '{{next_action}}';
                 },
                 error: function () {
@@ -132,7 +131,6 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
-                    alert("Kustutamine õnnestus");
                     window.location.href = '{{next_action}}';
                 },
                 error: function () {
