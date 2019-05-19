@@ -584,11 +584,13 @@ class Photo(Model):
 
     def find_similar_for_existing_photo(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+        if self.rephoto_of_id is not None:
+            return
         if not self.lat is None and self.lon is None:
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s'
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s'
             photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id,(self.lat + 0.0001),(self.lon + 0.0001),(self.lat - 0.0001),(self.lon - 0.0001)])
         else:
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s'
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id IS NULL'
             photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
         for similar in photos:
             list1 = ImageSimilarity.objects.filter(Q(from_photo=self.id) & Q(to_photo=similar.id))
@@ -835,14 +837,16 @@ class ImageSimilarity(Model):
                 if iterator > 1:
                     item.delete()
                 else:
-                    item.confirmed = self.confirmed
-                    item.similarity_type = self.similarity_type
+                    if self.confirmed is not None:
+                        item.confirmed = self.confirmed
+                    if self.similarity_type is not None:
+                        item.similarity_type = self.similarity_type
                     item.save()
                 iterator += 1
         else:
             self.save()
     
-    def add_or_update(photo_obj,photo_obj2,confirmed=False,similarity_type=None):
+    def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None):
         imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type)
         imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type)
         imageSimilarity.__add_or_update__()
