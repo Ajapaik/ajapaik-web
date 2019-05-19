@@ -845,6 +845,7 @@ class ImageSimilarity(Model):
                     item.save()
                 iterator += 1
         else:
+            self.confirmed = False
             self.save()
     
     def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None):
