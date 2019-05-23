@@ -1,0 +1,554 @@
+# Translation of Ajapaik Web app - JavaScript to Brazilian Portuguese (português do Brasil)
+# Exported from translatewiki.net
+#
+# Author: Eduardo Addad de Oliveira
+# --
+# This file is part of the Ajapaik Project
+# This file is distributed under the same license as the Ajapaik package.
+#
+msgid ""
+msgstr ""
+""
+"PO-Revision-Date: 2019-05-23 12:08:02+0000\n"
+"X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt-BR\n"
+"X-Generator: MediaWiki 1.33.0-alpha; Translate 2019-04-24\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:561
+msgid "User denied the request for Geolocation."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:567
+msgid "Location information is unavailable."
+msgstr "As informações de localização estão indisponíveis."
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:594
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:570
+msgid "The request to get user location timed out."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:597
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:573
+msgid "An unknown error occurred."
+msgstr "Ocorreu um erro desconhecido."
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1172
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1217
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1135
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1180
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+msgid "Not selected"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:229
+msgid "Go to my location"
+msgstr "Ir para minha localização"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:265
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
+msgid "Close"
+msgstr "Fechar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:725
+msgid "Pick the shooting location!"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:736
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:787
+msgid "Geotagged by this many users"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
+msgid "Confirm correct location"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
+msgid "Submit your own location"
+msgstr "Enviar sua própria localização"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:806
+msgid "You"
+msgstr "Você"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:810
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
+msgid "Anonymous user"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:812
+msgid "Anonymous users"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:873
+msgid "Current location"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
+msgid "Between approximately %(from)s and approximately %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
+msgid "Between approximately %(from)s and %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
+msgid "Between %(from)s and approximately %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
+msgid "Between %(from)s and %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
+msgid "After approximately %(from)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
+msgid "After %(from)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
+msgid "Before approximately %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
+msgid "Before %(to)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
+msgid "Approximately %(date)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
+msgid "Invalid input, see help text."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:315
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:365
+msgid "Server received invalid data."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
+msgid "Confirm dating"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
+msgid "Confirming a dating earned you %(points)s points."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:411
+msgid "Submitting a dating earned you %(points)s points."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
+msgid "Thanks!"
+msgstr "Obrigado!"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
+msgid "YYYY.MM.DD"
+msgstr "AAAA.MM.DD"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:437
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:446
+msgid "Submit"
+msgstr "Enviar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
+msgid "Comment your dating"
+msgstr "Comente seu namoro"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "1878 | 1902.02"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "Mark date ranges or before/after with either \"-\" or \"..\""
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "Approximate date in brackets"
+msgstr "Data aproximada entre parênteses"
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+msgid "(1944) | (1940.05)..1941.08.21)"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
+msgid "You're anonymous"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
+msgid "Invert colors"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
+msgid "Flip"
+msgstr "Virar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
+msgid "Mark stereophoto"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
+msgid "Remove from selection"
+msgstr "Remover da seleção"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
+msgid "Description"
+msgstr "Descrição"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
+msgid "Author"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
+msgid "Source"
+msgstr "Fonte"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Size"
+msgstr "Tamanho"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
+msgid "Institution"
+msgstr "Instituição"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
+msgid "Number"
+msgstr "Número"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+msgid "Date"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
+msgid "URL"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
+msgid "Title"
+msgstr "Título"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
+msgid "Licence"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+msgid "Points"
+msgstr "Pontos"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:123
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:139
+msgid "System error"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
+msgid "photos"
+msgstr "fotos"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
+msgid "Source ID"
+msgstr "ID da fonte"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
+msgid "Image has no location info"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
+msgid "Image has only location, no view direction"
+msgstr "A imagem tem apenas localização, sem direção da vista"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
+msgid "Image has location and view direction info"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
+msgid "Image has rephotos"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Add this picture to album (not the whole set)"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
+msgid "Rotate"
+msgstr "Girar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
+msgid "Pictures in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
+msgid "Pictures geotagged"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
+msgid "Rephotos in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
+msgid "Comments in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+msgid "Album details"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
+msgid "Show pictures on map"
+msgstr "Mostrar fotos no mapa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
+msgid "Geotag pictures in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
+msgid "Unknown author"
+msgstr "Autor desconhecido"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "This album contains a film"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+msgid "Picture already in album(s)"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
+msgid "Earliest"
+msgstr "Mais antigo"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
+msgid "Latest"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
+msgid "Least"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
+msgid "Most"
+msgstr "Mais"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+msgid "Pictures furthest from you"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
+msgid "Pictures closest to you"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
+msgid "commented"
+msgstr "comentado"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
+msgid "rephotographed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
+msgid "added"
+msgstr "adicionado"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
+msgid "geotagged"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
+msgid "liked"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+msgid "dated"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+msgid "viewed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+msgid "pictures"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+msgid "By reverse timestamp"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+msgid "By timestamp"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+msgid "Pictures from the map"
+msgstr "Fotos do mapa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+msgid "Albums"
+msgstr "Álbuns"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+msgid "My favorites"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+msgid "My rephotos"
+msgstr "Minhas refotografias"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+msgid "Rephotos by %(user)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
+msgid "All photos"
+msgstr "Todas as fotos"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:326
+msgid "Picture set has no rephotos"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
+msgid "Picture set has no comments"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-game.js:191
+msgid "You have seen all the pictures from this album."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
+msgid "You're anonymous."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
+msgid " You can now log in with your e-mail."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
+msgid "Toggle map center lock"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
+msgid "Approximate"
+msgstr "Aproximado"
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
+msgid "Vantage point"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
+msgid "Object"
+msgstr "Objeto"
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:925
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
+msgid "Search box"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
+msgid "Thank you!"
+msgstr "Obrigado!"
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
+msgid "Median guess"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
+msgid "Your guess"
+msgstr "Seu palpite"
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+msgid "How much has the depicted location changed?"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
+msgid "Continue"
+msgstr "Continuar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
+msgid "a little"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
+msgid "a lot"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Arraste o mapa para que o marcador fique no topo do objeto que você vê na foto, clique em salvar quando estiver pronto."
+
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
+msgid "Points awarded"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
+msgid "Vanalinnad"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:766
+msgid "Remove album filter"
+msgstr "Remover o filtro de álbuns"
+
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:774
+msgid "Apply album filter"
+msgstr ""
+
+#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
+msgid "'"
+msgstr "'"
+
