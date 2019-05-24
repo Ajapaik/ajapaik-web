@@ -2410,12 +2410,19 @@ input[type=search]::-webkit-search-cancel-button {
   #ajapaik-modal-photo,
   #ajapaik-modal-rephoto {
     min-width: calc(75vmin - 480px);
-    min-height: 42vh;
+    min-height: 25vh;
   }
 
   #ajapaik-photoview-main-photo.ajapaik-max-48vw,
   #ajapaik-photoview-rephoto.ajapaik-max-48vw {
     max-width: 48vw;
+  }
+}
+
+@media (min-width: 1920px) {
+  #ajapaik-modal-photo,
+  #ajapaik-modal-rephoto {
+    min-height: 30vh;
   }
 }
 
