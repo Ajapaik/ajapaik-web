@@ -78,6 +78,10 @@
     cursor: pointer;
 }
 
+#ajp-dater-anonymous-user-card {
+    display: block;
+}
+
 #ajp-dater-anonymous-user-card > i {
     cursor: pointer;
 }

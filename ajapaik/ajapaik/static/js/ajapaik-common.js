@@ -984,8 +984,10 @@ $('.ajapaik-navbar').autoHidingNavbar();
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
         let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
         let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
-        originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
-        originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        if (!window.isMapview) {
+            originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
+            originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        }
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
         if (window.isFrontpage || window.isPhotoview) {
@@ -996,6 +998,10 @@ $('.ajapaik-navbar').autoHidingNavbar();
         userClosedRephotoTools = true;
         if (window.showPhotoMapIfApplicable) {
             window.showPhotoMapIfApplicable();
+        } else {
+            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+            }
         }
     });
     $(document).on('click', '#ajapaik-grab-link', function (e) {

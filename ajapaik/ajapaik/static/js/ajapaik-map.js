@@ -114,17 +114,13 @@
             url: '/photo/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
-                var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
-                    mainPhotoContainer = $('#ajapaik-modal-photo-container'),
+                var mainPhotoContainer = $('#ajapaik-modal-photo-container'),
                     rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
-                    rephotoContainer = $('#ajapaik-modal-rephoto-container'),
-                    originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+                    rephotoContainer = $('#ajapaik-modal-rephoto-container');
                 if (window.photoHistory && window.photoHistory.length > 0) {
                     $('.ajapaik-photo-modal-previous-button').removeClass('disabled');
                 }
                 if (window.userClosedRephotoTools) {
-                    originalPhotoInfoColumn.removeClass("col-lg-6").addClass("col-lg-12");
-                    originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
                     $('#ajapaik-rephoto-selection').hide();
                     rephotoColumn.hide();
                     $('#ajapaik-photo-modal-rephoto-info-column').hide();
