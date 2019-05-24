@@ -1,6 +1,6 @@
 {% load i18n ajapaik_templatetags comments static %}
 
-<div class="modal-dialog modal-xxl" id="ajapaik-photo-modal-dialog">
+<div class="modal-dialog modal-xxl" id="ajapaik-photo-modal-dialog" {% if not photo.rephotos.all.0 and not photo.lat and not photo.lon %}style="min-width: calc(40vw + 150px);"{% endif %}>
     <div class="modal-content">
         <div class="modal-header ajapaik-no-border">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row" style="margin:0 auto;">
                     <div id="ajapaik-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon %}6{% else %}12{% endif %} col-md-12 col-xs-12">
-                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo float-left">
+                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo {% if photo.rephotos.all.0 or photo.lat and photo.lon %}float-left{% else %}margin-auto{% endif %}">
                             {% if not is_mapview %}
                             <div class="ajapaik-photo-modal-previous-button">
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
