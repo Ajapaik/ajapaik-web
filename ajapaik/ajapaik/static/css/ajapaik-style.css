@@ -1406,7 +1406,7 @@ a.fullscreen {
   overflow-y: auto;
   overflow-x: auto;
   width: auto;
-  min-width: calc(65vw + 150px);
+  min-width: fit-content;
 }
 
 #ajapaik-photo-modal-map-container {
