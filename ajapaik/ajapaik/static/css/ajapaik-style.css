@@ -1204,7 +1204,8 @@ a.fullscreen {
 }
 
 .ajapaik-close-rephoto-overlay-button,
-.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-compare-similar-overlay-button,
+.ajapaik-compare-similar-overlay-button,
 .ajapaik-show-rephoto-selection-overlay-button,
 .ajapaik-like-photo-overlay-button,
 .ajapaik-similar-photo-overlay-button,
@@ -1223,6 +1224,7 @@ a.fullscreen {
 }
 
 .ajapaik-invert-rephoto-overlay-button,
+.ajapaik-compare-similar-overlay-button,
 .ajapaik-close-rephoto-overlay-button,
 .ajapaik-flip-photo-overlay-button,
 .ajapaik-like-photo-overlay-button {
@@ -1235,6 +1237,8 @@ a.fullscreen {
   top: 0;
   right: 0;
 }
+
+.ajapaik-compare-similar-overlay-button,
 .ajapaik-like-photo-overlay-button,
 .ajapaik-similar-photo-overlay-button {
   border-radius: 0;
@@ -1257,6 +1261,8 @@ a.fullscreen {
   bottom: 0px;
 }
 
+.ajapaik-compare-similar-overlay-button:hover,
+.ajapaik-compare-similar-overlay-button:active,
 .ajapaik-flip-photo-overlay-button:hover ,
 .ajapaik-like-photo-overlay-button:hover ,
 .ajapaik-flip-photo-overlay-button.active,
@@ -1312,6 +1318,17 @@ a.fullscreen {
 
 .ajapaik-invert-rephoto-overlay-button {
   bottom: 0;
+}
+
+.ajapaik-compare-similar-overlay-button {
+  display: block;
+  transition: opacity 0.2s ease-out;
+  right: 0px;
+}
+
+.ajapaik-compare-similar-overlay-button > i {
+  position: relative;
+  top: 12px;
 }
 
 .ajapaik-invert-rephoto-overlay-button {
@@ -1479,9 +1496,8 @@ a.fullscreen {
   display: block;
   height: 24px;
   width: 24px;
-  position: relative;
-  float: right;
-  right: 24px;
+  position: absolute;
+  left: 0px;
 }
 
 #ajapaik-photo-modal-location-with-azimuth {
@@ -1745,6 +1761,7 @@ ul.errorlist,
   margin-bottom: 100px;
 }
 
+.ajapaik-photoview-similar-thumb,
 .ajapaik-photoview-rephoto-thumb {
   width: 100%;
   margin-bottom: 2%;
@@ -1764,9 +1781,11 @@ ul.errorlist,
 
 #ajapaik-photoview-similar-photo-selection,
 #ajapaik-photoview-rephoto-selection {
+  height: 0px;
+  display: none;
   text-align: center;
   overflow-y: scroll;
-  max-height: 500px;
+  overflow-x: hidden;
 }
 
 .ajapaik-upload-photo-button {
@@ -1981,6 +2000,7 @@ a[href^="http: //maps.google.com/maps"] {
 
 #ajapaik-photo-modal-original-photo-column,
 #ajapaik-photo-modal-rephoto-column {
+  max-width: fit-content;
   padding: 0;
 }
 
@@ -2517,4 +2537,8 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 #ajapaik-photoview-main-photo-wrapper,
 #ajapaik-photoview-rephoto-wrapper {
   display: table;
+}
+
+.ajapaik-photoview-similar-image-row:hover .ajapaik-compare-similar-overlay-button {
+  opacity: 1 !important;
 }

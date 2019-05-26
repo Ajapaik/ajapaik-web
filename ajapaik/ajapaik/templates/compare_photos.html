@@ -12,8 +12,8 @@
     {% include "_header.html" %}
 {% endblock %}
 {% block layout %}
+{% include "_similar_images_tutorial_modal.html" %}
 <div class="container pt-5" style="min-height:87vh;">
-    {% include "_photo_comparision_modal.html" %}
     <div class="row pt-2">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
             <div class="img-wrapper">
@@ -37,22 +37,19 @@
                     {% endwith %}
             </div>
         </div>
-        <div class="w-100 py-3 text-center">
-            {% trans "Please click on the respective button to confirm image relationship" %}. {% if request.user_agent.is_pc %}{% trans "In addition to buttons, keyboard can be used to insert image relationships." %}{% endif %}
-        </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-right text-md-right text-center px-0">
             <button id="not_similar" class="btn btn-danger m-2 w-75">
-                {% trans "The images are not similar" %}{% if request.user_agent.is_pc %} (1){% endif %}
+                {% trans "No content overlap" %}{% if request.user_agent.is_pc %} (1){% endif %}
             </button>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center px-0">
             <button id="similar" class="btn btn-primary m-2 w-75">
-                {% trans "The images are similar" %}{% if request.user_agent.is_pc %} (2){% endif %}
+                {% trans "Overlapping content" %}{% if request.user_agent.is_pc %} (2){% endif %}
             </button>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-xl-left text-md-left text-center px-0">
             <button id="duplicate" class="btn btn-success m-2 w-75">
-                {% trans "The images depict the same frame" %}{% if request.user_agent.is_pc %} (3){% endif %}
+                {% trans "Same shot" %}{% if request.user_agent.is_pc %} (3){% endif %}
             </button>
         </div>
     </div>
@@ -63,6 +60,13 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        if(!docCookies.getItem("similarityModalShown")) {
+            let d = new Date();
+            d.setTime(d.getTime() + 86400000);
+            document.cookie = 'similarityModalShown=True;expires=' + d + ';path=/'; 
+            $('#ajapaikSimilarImagesTutorialModal').modal();
+        }
+
         let height1 = '{{ photo.height }}'
         let height2 = '{{ photo2.height }}'
         let width1 = '{{ photo.width }}'
@@ -106,7 +110,8 @@
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,
-                    similarity_type: similarity_type
+                    similarity_type: similarity_type,
+                    profile: window.currentProfileId
                 },
                 success: function (response) {
                     window.location.href = '{{next_action}}';
@@ -116,26 +121,14 @@
                 }
             });
         }
-        $('#similar').click(function(){
+        $('#not_similar').click(function(){
             ConfirmImageSimilarity(true,0)
         });
-        $('#duplicate').click(function(){
+        $('#similar').click(function(){
             ConfirmImageSimilarity(true,1)
         });
-        $('#not_similar').click(function(){
-            $.ajax({
-                type: 'DELETE',
-                url: '/compare_photos/' + '{{ photo.id }}/' + '{{photo2.id}}/',
-                data: {
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                },
-                success: function (response) {
-                    window.location.href = '{{next_action}}';
-                },
-                error: function () {
-                    alert("Kustutamine ebaõnnestus");
-                }
-            });
+        $('#duplicate').click(function(){
+            ConfirmImageSimilarity(true,2)
         });
     </script>
 {% endblock %}

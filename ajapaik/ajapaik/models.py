@@ -411,6 +411,7 @@ class Photo(Model):
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
     perceptual_hash = BigIntegerField(null=True, blank=True)
+    hasSimilar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
 
     original_lat = None
@@ -823,13 +824,88 @@ class ImageSimilarity(Model):
     from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="from_photo")
     to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="to_photo")
     confirmed = BooleanField()
-    DUPLICATE, SIMILAR = range(2)
+    DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
-        (DUPLICATE, _('Duplicate')),
-        (SIMILAR, _('Similar'))
+        (DIFFERENT, _('Different')),
+        (SIMILAR, _('Similar')),
+        (DUPLICATE, _('Duplicate'))
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
+    user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    modified = DateTimeField(auto_now=True)
     
+    
+    def __add_or_update__(self):
+        qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
+        iterator = 0
+        if len(qs) > 0:
+            for item in qs:
+                if iterator > 1:
+                    item.delete()
+                else:
+                    guess = ImageSimilarityGuess(image_similarity=item, guesser=self.user_last_modified, similarity_type=self.similarity_type)
+                    guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('created'   )
+                    if self.confirmed is not None:
+                        item.confirmed = self.confirmed
+                    if self.similarity_type is not None:
+                        firstGuess = 0
+                        secondGuess = 1
+                        if self.similarity_type == 0:
+                            firstGuess = 2
+                        if self.similarity_type == 1:
+                            secondGuess = 2   
+                        if len(guesses.filter(similarity_type=self.similarity_type)) >= (len(guesses.filter(similarity_type=secondGuess)) -1) \
+                            and len (guesses.filter(similarity_type=self.similarity_type)) >= (len(guesses.filter(similarity_type=firstGuess)) - 1):
+                            guess.guesser = self.user_last_modified
+                            item.similarity_type = self.similarity_type
+                    item.user_last_modified = self.user_last_modified
+                    item.save()
+                    firstSimilar = ImageSimilarity.objects.filter(from_photo_id=item.from_photo.id).exclude(similarity_type=0).first()
+                    secondSimilar = ImageSimilarity.objects.filter(from_photo_id=item.to_photo.id).exclude(similarity_type=0).first()
+                    if firstSimilar is not None:
+                        item.from_photo.hasSimilar = True
+                    else:
+                        item.from_photo.hasSimilar = False
+                    item.from_photo.save()
+                    if secondSimilar is not None:
+                        item.to_photo.hasSimilar = True
+                    else:
+                        item.to_photo.hasSimilar = False
+                    item.to_photo.save()
+                    guess.save()
+                iterator += 1
+        else:
+            self.confirmed = False
+            self.from_photo.hasSimilar = not (self.similarity_type == 0)
+            self.to_photo.hasSimilar = not (self.similarity_type == 0)
+            self.from_photo.save
+            self.to_photo.save
+            self.save()
+            if self.user_last_modified is not None:
+                guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
+                guess.save()
+
+
+    def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None, profile=None):
+        guesser = Profile.objects.filter(user_id=profile).first()
+        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
+        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
+        imageSimilarity.__add_or_update__()
+        imageSimilarity2.__add_or_update__()
+
+class ImageSimilarityGuess(Model):
+    image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name="image_similarity")
+    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name="guesser")
+    DIFFERENT, SIMILAR, DUPLICATE = range(3)
+    SIMILARITY_TYPES = (
+        (DIFFERENT, _('Different')),
+        (SIMILAR, _('Similar')),
+        (DUPLICATE, _('Duplicate'))
+    )
+    similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
+
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
         iterator = 0
@@ -847,12 +923,6 @@ class ImageSimilarity(Model):
         else:
             self.confirmed = False
             self.save()
-    
-    def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None):
-        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type)
-        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type)
-        imageSimilarity.__add_or_update__()
-        imageSimilarity2.__add_or_update__()
 
 class PhotoMetadataUpdate(Model):
     photo = ForeignKey('Photo', related_name='metadata_updates')

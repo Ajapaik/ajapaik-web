@@ -671,11 +671,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         var mapContainer = $('#ajapaik-photo-modal-map-container'),
             modalPhoto = $('#ajapaik-modal-photo'),
             photoviewPhoto = $('#ajapaik-photoview-main-photo');
-            if (modalPhoto.length > 0) {
-                mapContainer.css('height', modalPhoto.height() + 'px');
-            } else if (photoviewPhoto.length > 0) {
-                mapContainer.css('height', photoviewPhoto.height() + 'px');
-            }
+            mapContainer.css('height', (photoviewPhoto.height() || modalPhoto.height()) + 'px');
     };
 
     window.positionMinimapCTAButton = function () {

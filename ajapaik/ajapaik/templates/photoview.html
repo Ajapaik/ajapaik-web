@@ -63,13 +63,13 @@
                     {% endif %}
                     <span class="ajapaik-like-count">{{ photo.like_count }}</span>
                 </button>
-                {% if total_similar_photo_count > 0 %}
+                {% if similar_photo_count > 0 %}
                     <div class="ajapaik-image-bottom-right">
                         <a class="btn ajapaik-similar-photo-overlay-button float-right"
                             href="{{ compare_photos_url }}"
-                            id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;" {% endif %}>
+                            id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                             <i class="material-icons notranslate w-100">burst_mode</i>
-                            <span style="top:-10px; position: relative;">{% if total_similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ total_similar_photo_count }}{% endif %}</span>
+                            <span style="top:-10px; position: relative;">{% if similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photo_count }}{% endif %}</span>
                         </a>
                     </div>
                 {% endif %}
@@ -99,32 +99,34 @@
             </div>
         </div>
         {% endif %}
-        {% if not rephoto and total_similar_photo_count > 0 and photo.rephotos.all|length < 1 %}
-            <div id="ajapaik-photoview-similar-photo-selection" class="col-auto h-100 px-0">
-                {% for similar_photo in photo.similar_photos.all %}
-                    <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                        <a class="w-100" href="{% url 'photo' similar_photo.id similar_photo.get_pseudo_slug %}">
-                            <img src="{% url 'image_thumb' similar_photo.id 250 similar_photo.get_pseudo_slug %}"
-                                class="img-fluid ajapaik-photoview-rephoto-thumb"
-                                alt="{{ photo.description }} {% trans "similar photo" %}"
-                                title="{{ photo.description }} {% trans "similar photo" %}" />
-                        </a>
-                        <i class="material-icons notranslate ajapaik-photoview-similar-photo-icon"
+        {% if not rephoto and similar_photo_count > 0 and photo.rephotos.all|length < 1 %}
+            <div id="ajapaik-photoview-similar-photo-selection" class="col-auto px-0">
+                <div>
+                    {% for similarity in similar_photos.all %}
+                        <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row ajapaik-photoview-similar-image-row">
+                            <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}">
+                                <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
+                                    class="img-fluid ajapaik-photoview-similar-thumb"
+                                    {% if similarity.similarity_type == 1 %}
+                                    alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
+                                    title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
+                                    {% else %}
+                                    alt="{{ similarity.to_photo.description }}  {% trans "duplicate photo" %}"
+                                    title="{{ similarity.to_photo.description }} {% trans "duplicate photo" %}"
+                                    {% endif %}/>
+                            </a>
+                            {% if similarity.confirmed == False %}
+                                <i class="material-icons notranslate ajapaik-photoview-similar-photo-icon"
                                 style="color:darkblue;">help_circle</i>
-                    </div>
-                {% endfor %}
-                {% for confirmed_similar_photo in photo.confirmed_similar_photos.all %}
-                    <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
-                        <a class="w-100" href="{% url 'photo' confirmed_similar_photo.id confirmed_similar_photo.get_pseudo_slug %}">
-                            <img src="{% url 'image_thumb' confirmed_similar_photo.id 250 confirmed_similar_photo.get_pseudo_slug %}"
-                                class="img-fluid ajapaik-photoview-rephoto-thumb"
-                                alt="{{ photo.description }} {% trans "confirmed similar photo" %}"
-                                title="{{ photo.description }} {% trans "confirmed similar photo" %}" />
-                        </a>
-                        <i class="material-icons notranslate ajapaik-photoview-similar-photo-icon"
-                            style="color:green;">check_circle</i>
-                    </div>
-                {% endfor %}
+                            {% endif %}
+                            <a href="{% url 'compare_photos' similarity.from_photo.id similarity.to_photo_id %}"
+                                class="btn ajapaik-compare-similar-overlay-button"
+                                {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
+                                    <i class="material-icons notranslate">compare</i>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         {% endif %}
         {% if not rephoto and photo.rephotos.all|length > 0 %}
@@ -141,7 +143,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <div id="ajapaik-photo-modal-map-container" style="display:none;{% if total_similar_photo_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
+        <div id="ajapaik-photo-modal-map-container" style="display:none;{% if similar_photo_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
             <div id="ajapaik-minimap-disabled-overlay"></div>
             <div id="ajapaik-photo-modal-map-canvas"></div>
         </div>
@@ -239,8 +241,14 @@
 {% block specific_js %}
 <script>
     resizeDescription = function() {
+        let similarPhotosContainer = $('#ajapaik-photoview-similar-photo-selection');
+        let rephotosContainer = $('#ajapaik-photoview-rephoto-selection');
         let mainPhoto = $("#ajapaik-photoview-main-photo-container");
         let rephoto = $("#ajapaik-photoview-rephoto-container");
+        rephotosContainer.height(mainPhoto.height() || 500);
+        similarPhotosContainer.height(mainPhoto.height() || 500);
+        rephotosContainer.show();
+        similarPhotosContainer.show();
         mainPhoto.siblings().width(mainPhoto.width() || 320);
         rephoto.siblings().width(rephoto.width() || 320);
     }

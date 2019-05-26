@@ -62,7 +62,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	EditCommentForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
-	Dating, DatingConfirmation, Video, ImageSimilarity
+	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
@@ -939,23 +939,22 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		end = int(end)
 		max_page = ceil(float(total) / float(page_size))
 		qs_for_fb = photos[:5]
-		photosWihSimilar = photos.exclude(similar_photos__isnull=True)
 		# FIXME: Stupid
 		if order1 == 'amount' and order2 == 'geotags':
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 
-										'flip')[start:end]
+										'flip','hasSimilar')[start:end]
 		elif order1 == 'closest' and lat and lon:
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'distance', 'geotag_count',
-										'flip')[start:end]
+										'flip','hasSimilar')[start:end]
 		else:
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count',
-										'flip')[start:end]
+										'flip','hasSimilar')[start:end]
 		photos = [list(i) for i in photos]
 		if default_ordering and album and album.ordered:
 			album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
@@ -972,8 +971,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			else:
 				p[11] = 0
 			p.append(_get_pseudo_slug_for_photo(p[3], None, None))
-			# Will hold the flag for hasSimilar, not used for now until replacing objects with arrays is removed
-			p.append(0)
 		if album:
 			context['album'] = (
 				album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
@@ -1306,15 +1303,17 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	next_similar_photo = photo_obj
 	if next_photo is not None:
 		next_similar_photo = next_photo
-	if len(photo_obj.similar_photos.all()) > 0:
-		next_similar_photo = photo_obj.similar_photos.all().first()
 	compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
+	imageSimilarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
+	if len(imageSimilarities) > 0:
+		compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,imageSimilarities.first().to_photo_id)))
 
 	people = [x.name for x in photo_obj.people]
-	all_similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id)
+	similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id).exclude(similarity_type=0)
 
 	context = {
 		"photo": photo_obj,
+		"similar_photos": similar_photos,
 		"previous_datings": serialized_datings,
 		"datings_count": previous_datings.count(),
 		"original_thumb_size": original_thumb_size,
@@ -1344,8 +1343,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"user_has_rephotos": user_has_rephotos,
 		"next_photo": next_photo,
 		"previous_photo": previous_photo,
-		"total_similar_photo_count": len(all_similar_photos.all()),
-		"confirmed_similar_photo_count": len(all_similar_photos.filter(confirmed=True).all()),
+		"similar_photo_count": len(similar_photos.all()),
+		"confirmed_similar_photo_count": len(similar_photos.filter(confirmed=True).all()),
 		"compare_photos_url" : compare_photos_url,
 		# TODO: Needs more data than just the names
 		"people": people
@@ -2668,28 +2667,26 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 			return JsonResponse({'status': 400})
 		inputs = [photo_obj,photo_obj2]
 		if request.POST['confirmed'] is not None:
-			inputs += '1'
+			inputs.append(1)
 		else:
 			inputs += '0'
 		if request.POST['similarity_type'] is not None:
-			inputs += request.POST['similarity_type']
+			inputs.append(request.POST['similarity_type'])
+		if request.POST['profile'] is not None:
+			inputs.append(request.POST['profile'])
 		ImageSimilarity.add_or_update(*inputs)
-		return JsonResponse({'status': 200})
-	if request.method == 'DELETE':
-		if photo_id == photo_id_2 or photo_obj is None or photo_obj2 is None:
-			return JsonResponse({'status': 400})
-		imageSimilarity = ImageSimilarity.objects.filter(master_criterion)
-		for item in imageSimilarity:
-			item.delete()
 		return JsonResponse({'status': 200})
 	else:
 		similar_photos = ImageSimilarity.objects.exclude(master_criterion | Q(confirmed=True))
-		first_photo_similar = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False))
-		second_photo_similar = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False))
-		if(len(first_photo_similar) > 0):
-			next_pair = first_photo_similar.first()
-		elif(compareAll is True and len(second_photo_similar) > 0):
-			next_pair = second_photo_similar.first()
+		first_photo = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False)).first()
+		second_photo = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False)).first()
+		similarity_history = None
+		if(first_photo is not None):
+			similarity_history = ImageSimilarityGuess.objects.filter(image_similarity_id = first_photo.id).first()
+			next_pair = first_photo
+		elif(compareAll is True and second_photo is not None):
+			similarity_history = ImageSimilarityGuess.objects.filter(image_similarity_id = second_photo.id).first()
+			next_pair = second_photo
 		else:
 			if compareAll is True:
 				next_pair = similar_photos.first()
@@ -2698,6 +2695,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		if next_pair is None:
 			next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 		else:
+			similarity_history = ImageSimilarityGuess.objects.filter(image_similarity_id = next_pair.id)
 			next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
 
 	context = {
@@ -2705,6 +2703,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
 		'photo': photo_obj,
 		'photo2': photo_obj2,
+		'similarity_history': similarity_history,
 		'next_action': next_action
 	}
 	return render(request,'compare_photos.html', context)

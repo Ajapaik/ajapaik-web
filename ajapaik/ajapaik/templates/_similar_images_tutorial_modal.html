@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="modal fade" id="ajapaikSimilarImagesTutorialModal" style="z-index:9999;" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xxl" style="display:flex;">
+        <div class="modal-content p-3" style="min-height:120px; max-height: 75%;">
+            <div class="modal-header">
+                <h4>{% trans "Compare images" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p>
+               {% trans "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped." %}
+            </p>
+            </br>
+            <b>
+                {% if request.user_agent.is_pc %}{% trans "The decision can also be made on keyboard (1, 2, 3)." %}{% endif %}
+            </b>
+            <button class="btn btn-success w-100">
+                OK
+            </button>
+        </div>
+    </div>
+</div> 
