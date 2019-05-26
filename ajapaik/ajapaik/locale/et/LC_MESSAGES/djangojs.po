@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-13 00:52+0300\n"
+"POT-Creation-Date: 2019-05-26 05:03+0300\n"
 "PO-Revision-Date: 2019-05-10 23:17+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
@@ -45,10 +45,10 @@ msgstr "Asukohainfot päriti liiga kaua."
 msgid "An unknown error occurred."
 msgstr "Muu viga asukohapäringuga."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1145
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1190
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1107
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1152
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1141
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1186
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1109
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1154
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
 msgstr "Pole valitud"
@@ -62,37 +62,37 @@ msgstr "Mine minu asukohta"
 msgid "Close"
 msgstr "Sulge"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:708
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:704
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:719
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:715
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:767
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:752
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:748
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:763
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:759
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:790
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:786
 msgid "You"
 msgstr "Sina"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:794
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:790
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:796
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:792
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:857
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:853
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
@@ -447,7 +447,7 @@ msgstr "Kõik fotod"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:332
 msgid "Picture set has no "
-msgstr "Pildivalimis ei ole "
+msgstr "Pildivalimis ei ole"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
@@ -587,11 +587,11 @@ msgstr "Saadud punktid"
 msgid "Vanalinnad"
 msgstr "Vanalinnad"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:756
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:764
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 
@@ -636,7 +636,7 @@ msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Olete kindel, et soovite selle märgendi eemaldada?"
 
 #~ msgid "Picture set has no comments"
-#~ msgstr "Pildivalimis ei ole kommentaare"
+#~ msgstr "Picture set has no comments"
 
 #~ msgid "zoom in more to view markers."
 #~ msgstr "zoom in more to view markers."
