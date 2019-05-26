@@ -67,6 +67,10 @@
             $('#ajapaikSimilarImagesTutorialModal').modal();
         }
 
+        $('#close-similar-modal').on('click', function() {
+            $('#ajapaikSimilarImagesTutorialModal').modal('close');
+        });
+
         let height1 = '{{ photo.height }}'
         let height2 = '{{ photo2.height }}'
         let width1 = '{{ photo.width }}'

@@ -845,7 +845,7 @@ class ImageSimilarity(Model):
                     item.delete()
                 else:
                     guess = ImageSimilarityGuess(image_similarity=item, guesser=self.user_last_modified, similarity_type=self.similarity_type)
-                    guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('created'   )
+                    guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
                     if self.confirmed is not None:
                         item.confirmed = self.confirmed
                     if self.similarity_type is not None:
