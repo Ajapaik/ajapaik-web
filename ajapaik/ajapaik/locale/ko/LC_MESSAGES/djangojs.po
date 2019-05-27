@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-23 12:08:02+0000\n"
+"PO-Revision-Date: 2019-05-27 14:32:12+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:561
 msgid "User denied the request for Geolocation."
-msgstr ""
+msgstr "사용자는 지리 위치를 위한 요청을 거절했습니다."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:567
@@ -69,7 +69,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Submit your own location"
-msgstr ""
+msgstr "내 위치 제출하기"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:806
 msgid "You"
@@ -251,7 +251,7 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
-msgstr ""
+msgstr "제목"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Licence"
@@ -305,7 +305,7 @@ msgstr "앨범 내 사진"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures geotagged"
-msgstr ""
+msgstr "지리 정보가 추가된 사진"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Rephotos in album"
@@ -405,7 +405,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
 msgid "Pictures from the map"
-msgstr ""
+msgstr "지도의 사진"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
 msgid "Albums"

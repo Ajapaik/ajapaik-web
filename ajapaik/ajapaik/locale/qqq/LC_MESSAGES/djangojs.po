@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Message documentation (Message documentation)
 # Exported from translatewiki.net
 #
+# Author: Robby
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -8,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-23 12:08:18+0000\n"
+"PO-Revision-Date: 2019-05-27 14:32:29+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,7 +52,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:265
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
-msgstr ""
+msgstr "{{Identical|Close}}"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:725
 msgid "Pick the shooting location!"
@@ -464,7 +465,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
 msgid "Object"
-msgstr ""
+msgstr "{{Identical|Object}}"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779

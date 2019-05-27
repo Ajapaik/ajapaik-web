@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Message documentation (Message documentation)
 # Exported from translatewiki.net
 #
+# Author: Robby
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -8,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-23 12:08:19+0000\n"
+"PO-Revision-Date: 2019-05-27 14:32:29+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1286,7 +1287,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:66
 #: ajapaik/ajapaik/templates/curator.html:155
 msgid "Save"
-msgstr ""
+msgstr "\n{{Identical|Save}}"
 
 #: ajapaik/ajapaik/templates/curator.html:21
 msgid "Thank you!"

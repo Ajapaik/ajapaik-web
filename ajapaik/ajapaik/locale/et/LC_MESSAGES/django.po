@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Estonian (eesti)
 # Exported from translatewiki.net
 #
+# Author: Puik
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-01 03:30+0300\n"
-"PO-Revision-Date: 2019-05-23 12:08:02+0000\n"
+"PO-Revision-Date: 2019-05-27 14:32:12+0000\n"
 "Last-Translator: Vahur Puik <vahur@ajapaik.ee>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -40,11 +41,11 @@ msgstr "Kaardi piirid peavad olema väljendatud numbrites"
 
 #: ajapaik/ajapaik/forms.py:17
 msgid "First name"
-msgstr "First name"
+msgstr "Eesnimi"
 
 #: ajapaik/ajapaik/forms.py:18
 msgid "Last name"
-msgstr "Last name"
+msgstr "Perekonnanimi"
 
 #: ajapaik/ajapaik/forms.py:47 ajapaik/ajapaik/forms.py:109
 #: ajapaik/ajapaik/forms.py:130
