@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-27 14:32:12+0000\n"
+"PO-Revision-Date: 2019-05-30 17:12:28+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -724,7 +724,7 @@ msgstr "Montri ĉe mapo"
 
 #: ajapaik/ajapaik/templates/_header.html:164
 msgid "List face recognition albums"
-msgstr ""
+msgstr "Listi albumojn de vizaĝorekono"
 
 #: ajapaik/ajapaik/templates/_header.html:173
 msgid "Add photos"
@@ -859,7 +859,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr ""
+msgstr "Vi ne jam faris ajnan sugeston pri la lokoj de la bildoj en ĉi tiu albumo."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
 msgid "You have made a location suggestion for"
@@ -870,18 +870,18 @@ msgid "all the pictures from this album."
 msgstr "ĉiuj bildoj en ĉi tiu albumon."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:55
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            %(counter)s picture in this album.\n                        "
 msgid_plural "\n                            %(counter)s pictures in this album.\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            %(counter)s bildon en ĉi tiu albumo.\n                        "
+msgstr[1] "\n                            %(counter)s bildojn en ĉi tiu albumo.\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:66
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            %(counter)s user has made\n                        "
 msgid_plural "\n                            %(counter)s users have made\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            %(counter)s uzanto faris\n                        "
+msgstr[1] "\n                            %(counter)s uzantoj faris\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:71
 #, python-format
@@ -1126,11 +1126,11 @@ msgstr "Mapitaj antikvaj historiaj fotoj"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:28
 msgid "Help geotag old historic photos from the album"
-msgstr ""
+msgstr "Helpi markadon de antikvaj historiaj fotoj en la albumo per geografiaj etikedoj"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:30
 msgid "Help geotag old historic photos"
-msgstr ""
+msgstr "Helpi markadon de antikvaj historiaj fotoj per geografiaj etikedoj"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:34
 msgid "Before and after view of"
@@ -1142,7 +1142,7 @@ msgstr "Historia foto de"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr ""
+msgstr "Kuratori antikvajn fotojn el muzeoj al Ajapaik por markado per geografiaj etikedoj kaj refotografado"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
@@ -1272,7 +1272,7 @@ msgstr "Forigi"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr ""
+msgstr "Ĉu vi certas ke vi volas forigi ĉi tiun komenton kaj ĉiujn respondojn al ĝi?"
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
@@ -1326,7 +1326,7 @@ msgstr "Videbla (montrata en elektito)"
 
 #: ajapaik/ajapaik/templates/curator.html:132
 msgid "If the photos are from the same place, specify a location here"
-msgstr ""
+msgstr "Se la fotoj devenas de la sama loko, specifu lokon ĉi tie"
 
 #: ajapaik/ajapaik/templates/curator.html:139
 msgid "Place"

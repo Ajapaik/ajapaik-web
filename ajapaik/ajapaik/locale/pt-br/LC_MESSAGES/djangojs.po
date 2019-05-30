@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-27 14:32:13+0000\n"
+"PO-Revision-Date: 2019-05-30 17:12:29+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:812
 msgid "Anonymous users"
-msgstr ""
+msgstr "Usuários anônimos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:873
 msgid "Current location"
@@ -522,7 +522,7 @@ msgstr "Clique no botão verde para salvar a localização e a direção da exib
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr ""
+msgstr "Agora você pode arrastar o MARCADOR onde o fotógrafo estava em pé e o MAP separadamente."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."

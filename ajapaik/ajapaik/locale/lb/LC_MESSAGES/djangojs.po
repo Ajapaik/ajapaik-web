@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-27 14:32:13+0000\n"
+"PO-Revision-Date: 2019-05-30 17:12:29+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -505,7 +505,7 @@ msgstr "e bëssen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
 msgid "a lot"
-msgstr ""
+msgstr "vill"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."

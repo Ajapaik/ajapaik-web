@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-27 14:32:13+0000\n"
+"PO-Revision-Date: 2019-05-30 17:12:29+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1625,7 +1625,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
-msgstr ""
+msgstr "제목"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

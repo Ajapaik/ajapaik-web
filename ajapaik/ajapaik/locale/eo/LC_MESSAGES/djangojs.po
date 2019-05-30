@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-05-27 14:32:12+0000\n"
+"PO-Revision-Date: 2019-05-30 17:12:28+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:561
 msgid "User denied the request for Geolocation."
-msgstr ""
+msgstr "Uzanto malpermesis la peton por Geografia lokado."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:567
@@ -30,7 +30,7 @@ msgstr "Informo pri loko ne estas havebla."
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:594
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:570
 msgid "The request to get user location timed out."
-msgstr ""
+msgstr "La peto por la loko de la uzanto postulis troon da tempo."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:597
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:573
@@ -526,7 +526,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr ""
+msgstr "Trenu la mapon tien ke la cirklo kovras la proksimuma lokon, kaj alklaku 'Konservi' kiam la mapo estas preta."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
