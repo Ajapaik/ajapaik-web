@@ -10,7 +10,7 @@ from urllib.request import urlopen
 import requests
 from PIL import Image, ExifTags
 from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
@@ -74,42 +74,9 @@ def custom_exception_handler(exc, context):
     # TODO: Error handling
     if response is not None:
         response.data['error'] = 7
-
     return response
 
-
-class CustomAuthentication(authentication.BaseAuthentication):
-    @parser_classes((FormParser,))
-    def authenticate(self, request):
-        cat_auth_form = forms.APIAuthForm(request.data)
-        user = None
-        if cat_auth_form.is_valid():
-            lang = cat_auth_form.cleaned_data['_l']
-            if lang:
-                activate(lang)
-            user_id = cat_auth_form.cleaned_data['_u']
-            session_id = cat_auth_form.cleaned_data['_s']
-            if not session_id or not user_id:
-                return None
-            try:
-                Session.objects.get(session_key=session_id)
-                user = User.objects.get(pk=user_id)
-            except (User.DoesNotExist, Session.DoesNotExist):
-                raise exceptions.AuthenticationFailed('No user/session')
-
-        return user, None
-
-
-class CustomAuthenticationMixin(object):
-    authentication_classes = (CustomAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-
-class CustomParsersMixin(object):
-    parser_classes = (FormParser, MultiPartParser,)
-
-
-class Login(CustomParsersMixin, APIView):
+class Login(APIView):
     '''
     API endpoint to login user.
     '''
@@ -232,7 +199,7 @@ class Login(CustomParsersMixin, APIView):
                 'expires': None,
             })
 
-class Register(CustomParsersMixin, APIView):
+class Register(APIView):
     '''
     API endpoint to register user.
     '''
@@ -295,20 +262,21 @@ class Register(CustomParsersMixin, APIView):
             })
 
 
-@api_view(['POST'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((IsAuthenticated,))
-def api_logout(request):
-    try:
-        session_id = request.data['_s']
-    except KeyError:
-        return Response({'error': 4})
-    try:
-        Session.objects.get(pk=session_id).delete()
-        return Response({'error': 0})
-    except ObjectDoesNotExist:
-        return Response({'error': 2})
+class AjapaikAPIView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        return self._handle_request(request.data, request.user, request)
+
+    def get(self, request, format=None):
+        return self._handle_request(request.GET, request.user, request)
+
+
+class api_logout(AjapaikAPIView):
+    def _handle_request(self, data, user, request):
+        errorcode = 0 if user.is_authenticated else 2
+        logout(request)
+        return Response({'error': errorcode})
 
 
 @never_cache
@@ -333,17 +301,14 @@ def api_album_thumb(request, album_id, thumb_size=250):
     return response
 
 
-class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class AlbumList(AjapaikAPIView):
     '''
     API endpoint to get albums that: public and not empty, or albums that
     overseeing by current user(can be empty).
     '''
-
-    permission_classes = (AllowAny,)
-
-    def _handle_request(self, data, request):
-        if request.user:
-            user_profile = request.user.profile
+    def _handle_request(self, data, user, request):
+        if user.is_authenticated:
+            user_profile = user.profile
             filter_rule = Q(is_public=True, photos__isnull=False) \
                           | Q(profile=user_profile, atype=Album.CURATED)
         else:
@@ -364,20 +329,12 @@ class AlbumList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             ).data
         })
 
-    def post(self, request, format=None):
-        return self._handle_request(request.data, request)
-
-    def get(self, request, format=None):
-        return self._handle_request(request.GET, request)
-
-
-class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class FinnaNearestPhotos(AjapaikAPIView):
     '''
     API endpoint to retrieve album photos(if album is specified else just
     photos) in specified radius.
     '''
 
-    permission_classes = (AllowAny,)
     search_url = 'https://api.finna.fi/api/v1/search'
     page_size = 50
 
@@ -420,7 +377,7 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
         else:
             return []
 
-    def _handle_request(self, data):
+    def _handle_request(self, data, user, request):
         form = forms.ApiFinnaNearestPhotosForm(data)
         if form.is_valid():
             lon = round(form.cleaned_data["longitude"], 4)
@@ -510,24 +467,16 @@ class FinnaNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             })
         return HttpResponse(response, content_type="application/json")
 
-    def post(self, request, format=None):
-        return self._handle_request(request.data)
 
-    def get(self, request, format=None):
-        return self._handle_request(request.GET)
-
-
-class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class AlbumNearestPhotos(AjapaikAPIView):
     '''
     API endpoint to retrieve album photos(if album is specified else just
     photos) in specified radius.
     '''
 
-    permission_classes = (AllowAny,)
-
     def _handle_request(self, data, user, request):
         form = forms.ApiAlbumNearestPhotosForm(data)
-        user_profile = user.profile if user else None
+        user_profile = user.profile if user.is_authenticated else None 
 
         if form.is_valid():
             album = form.cleaned_data["id"]
@@ -597,23 +546,12 @@ class AlbumNearestPhotos(CustomAuthenticationMixin, CustomParsersMixin, APIView)
                 'photos': []
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class AlbumDetails(AjapaikAPIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
 
-    permission_classes = (AllowAny,)
-
-    def _handle_request(self, data, request):
+    def _handle_request(self, data, user, request):
         form = forms.ApiAlbumStateForm(data)
         if form.is_valid():
             album = form.cleaned_data["id"]
@@ -642,21 +580,12 @@ class AlbumDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
 
-    def post(self, request, format=None):
-        return self._handle_request(request.data, request)
-
-    def get(self, request, format=None):
-        return self._handle_request(request.GET, request)
-
-
-class SourceDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class SourceDetails(AjapaikAPIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''
 
-    permission_classes = (AllowAny,)
-
-    def _handle_request(self, data, request):
+    def _handle_request(self, data, user, request):
         form = forms.ApiAlbumSourceForm(data)
         if form.is_valid():
             query = form.cleaned_data["query"]
@@ -691,13 +620,6 @@ class SourceDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
 
-    def post(self, request, format=None):
-        return self._handle_request(request.data, request)
-
-    def get(self, request, format=None):
-        return self._handle_request(request.GET, request)
-
-
 def _crop_image(img, scale_factor):
     new_size = tuple([int(x * scale_factor) for x in img.size])
     left = (img.size[0] - new_size[0]) / 2
@@ -719,7 +641,7 @@ def _fill_missing_pixels(img, scale_factor):
     return new_img
 
 
-class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class RephotoUpload(APIView):
     '''
     API endpoint to upload rephoto for a photo.
     '''
@@ -867,47 +789,41 @@ class RephotoUpload(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
             })
 
+class api_user_me(AjapaikAPIView):
+    def _handle_request(self, data, user, request):
+        content = {
+            'error': 0,
+            'state': str(int(round(time.time() * 1000)))
+        }
 
-@api_view(['POST', 'GET'])
-@parser_classes((FormParser,))
-@authentication_classes((CustomAuthentication,))
-@permission_classes((AllowAny,))
-def api_user_me(request):
-    content = {
-        'error': 0,
-        'state': str(int(round(time.time() * 1000)))
-    }
+        if user.is_authenticated:
+            profile = user.profile
+            if profile.is_legit():
+                form = forms.ApiUserMeForm(data)
+                if form.is_valid():
+                    content['name'] = profile.get_display_name()
+                    content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
+                    general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
+                    general_user_rank = 0
+                    for i in range(0, len(general_user_leaderboard)):
+                        if general_user_leaderboard[i].user_id == profile.user_id:
+                            general_user_rank = (i + 1)
+                            break
+                    content['rank'] = general_user_rank
+                else:
+                    content['error'] = 2
 
-    if request.user:
-        profile = request.user.profile
-        if profile.is_legit():
-            form = forms.ApiUserMeForm(request.data)
-            if form.is_valid():
-                content['name'] = profile.get_display_name()
-                content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
-                general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
-                general_user_rank = 0
-                for i in range(0, len(general_user_leaderboard)):
-                    if general_user_leaderboard[i].user_id == profile.user_id:
-                        general_user_rank = (i + 1)
-                        break
-                content['rank'] = general_user_rank
-            else:
-                content['error'] = 2
-
-    return Response(content)
+        return Response(content)
 
 
-class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class PhotoDetails(AjapaikAPIView):
     '''
     API endpoint to retrieve photo details.
     '''
-    permission_classes = (AllowAny,)
-
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoStateForm(data)
         if form.is_valid():
-            user_profile = user.profile if user else None
+            user_profile = user.profile if user.is_authenticated else None
             photo = Photo.objects.filter(
                 pk=form.cleaned_data['id'],
                 rephoto_of__isnull=True
@@ -933,23 +849,12 @@ class PhotoDetails(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-class FetchFinnaPhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
-    permission_classes = (AllowAny,)
-
+class FetchFinnaPhoto(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiFetchFinnaPhoto(data)
 
         if form.is_valid():
-            if user:
+            if user.is_authenticated:
                user_profile = user.profile
             else:
                user_profile = None
@@ -966,28 +871,21 @@ class FetchFinnaPhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                    return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
         return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
 
-
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class ToggleUserFavoritePhoto(AjapaikAPIView):
     '''
     API endpoint to un/like photos by user.
     '''
 
-    def post(self, request, format=None):
-        form = forms.ApiToggleFavoritePhotoForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiToggleFavoritePhotoForm(data)
 
         photo = None
 
-        if form.is_valid():
-            user_profile = request.user.profile
+        if form.is_valid(): 
+            if user.is_anonymous:
+                return Response({'error': RESPONSE_STATUSES['OK']})
+
+            user_profile = user.profile
             id = form.cleaned_data['id']
 
             if id.isdigit():
@@ -1032,38 +930,44 @@ class ToggleUserFavoritePhoto(CustomAuthenticationMixin, CustomParsersMixin, API
             return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS']})
 
 
-class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class UserFavoritePhotoList(AjapaikAPIView):
     '''
     API endpoint to retrieve user liked photos sorted by distance to specified
     location.
     '''
 
-    def post(self, request, format=None):
-        form = forms.ApiFavoritedPhotosForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiFavoritedPhotosForm(data)
         if form.is_valid():
-            user_profile = request.get_user().profile
-            latitude = form.cleaned_data['latitude']
-            longitude = form.cleaned_data['longitude']
-            start = form.cleaned_data["start"] or 0
-            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 5)
+            if user.is_authenticated:
+                user_profile = user.profile
+                latitude = form.cleaned_data['latitude']
+                longitude = form.cleaned_data['longitude']
+                start = form.cleaned_data["start"] or 0
+                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 5)
 
-            requested_location = GEOSGeometry(
-                'POINT({} {})'.format(longitude, latitude),
-                srid=4326
-            )
-            photos = Photo.objects.filter(likes__profile=user_profile) \
+                requested_location = GEOSGeometry(
+                    'POINT({} {})'.format(longitude, latitude),
+                    srid=4326
+                )
+                photos = Photo.objects.filter(likes__profile=user_profile) \
                          .distance(requested_location) \
                          .order_by('distance')[start:end]
-            photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
-                photos,
-                request.user.profile
-            )
-            return Response({
-                'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoWithDistanceSerializer(
-                    instance=photos, many=True, context={'request': request}
-                ).data,
-            })
+                photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
+                    photos,
+                    user.profile
+                )
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.PhotoWithDistanceSerializer(
+                        instance=photos, many=True, context={'request': request}
+                    ).data,
+                })
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': [],
+                }) 
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
@@ -1071,19 +975,17 @@ class UserFavoritePhotoList(CustomAuthenticationMixin, CustomParsersMixin, APIVi
             })
 
 
-class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class PhotosSearch(AjapaikAPIView):
     '''
     API endpoint to search for photos by given phrase.
     '''
-
-    permission_classes = (AllowAny,)
 
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
-            profile=user.profile if user else None
+            profile=user.profile if user.is_authenticated else None
 
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1113,20 +1015,10 @@ class PhotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'photos': []
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class PhotosInAlbumSearch(AjapaikAPIView):
     '''
     API endpoint to search for photos in album by given phrase.
     '''
-    permission_classes = (AllowAny,)
 
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoInAlbumSearchForm(data)
@@ -1134,7 +1026,7 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
             search_phrase = form.cleaned_data['query']
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
-            profile=user.profile if user else None
+            profile=user.profile if user.is_authenticated else None
 
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1167,46 +1059,41 @@ class PhotosInAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 'photos': []
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class UserRephotosSearch(AjapaikAPIView):
     '''
     API endpoint to search for rephotos done by user by given search phrase.
     '''
 
-    def post(self, request, format=None):
-        form = forms.ApiUserRephotoSearchForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiUserRephotoSearchForm(data)
         if form.is_valid():
-            search_phrase = form.cleaned_data['query']
-            user_profile = request.user.profile
+            if user.is_authenticated:
+                search_phrase = form.cleaned_data['query']
+                sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
-            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
+                photos = Photo.objects.filter(
+                    id__in=[item.pk for item in sqs],
+                    rephoto_of__isnull=False,
+                    user=user.profile
+                )
+                photos = serializers.PhotoSerializer.annotate_photos(
+                    photos,
+                    user.profile
+                )
 
-            photos = Photo.objects.filter(
-                id__in=[item.pk for item in sqs],
-                rephoto_of__isnull=False,
-                user=user_profile
-            )
-            photos = serializers.PhotoSerializer.annotate_photos(
-                photos,
-                user_profile
-            )
-
-            return Response({
-                'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
-                    instance=photos,
-                    many=True,
-                    context={'request': request}
-                ).data
-            })
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.PhotoSerializer(
+                        instance=photos,
+                        many=True,
+                        context={'request': request}
+                    ).data
+                })
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': []
+                })
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
@@ -1214,16 +1101,17 @@ class UserRephotosSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView)
             })
 
 
-class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class AlbumsSearch(AjapaikAPIView):
     '''
     API endpoint to search for albums by given search phrase.
     '''
+    permission_classes = (AllowAny,)
 
-    def post(self, request, format=None):
-        form = forms.ApiAlbumSearchForm(request.data)
+    def _handle_request(self, data, user, request):
+        form = forms.ApiAlbumSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-            user_profile = request.user.profile
+            user_profile = user.profile if user.is_authenticated else None
 
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(search_phrase))
 
@@ -1247,13 +1135,12 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
             })
 
 # Show Wikidata items as albums
-class WikidocsAlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class WikidocsAlbumsSearch(AjapaikAPIView):
     '''
     API endpoint to search for albums by given search phrase.
     '''
 
     search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs.php';
-    permission_classes = (AllowAny,)
 
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumsSearchForm(data)
@@ -1303,22 +1190,13 @@ class WikidocsAlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIVie
                 'albums': []
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
 # Photos under single Wikidata item id 
-class WikidocsAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class WikidocsAlbumSearch(AjapaikAPIView):
     '''
     API endpoint to search for albums by given search phrase.
     '''
 
     search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs_qid_album.php';
-    permission_classes = (AllowAny,)
 
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumSearchForm(data)
@@ -1378,45 +1256,40 @@ class WikidocsAlbumSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView
                 'albums': []
             })
 
-    def post(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.data, user, request)
-
-    def get(self, request, format=None):
-        user = request.user or None
-        return self._handle_request(request.GET, user, request)
-
-
-
-class PhotosWithUserRephotos(CustomAuthenticationMixin, CustomParsersMixin, APIView):
+class PhotosWithUserRephotos(AjapaikAPIView):
     '''
     API endpoint for getting photos that contains rephotos done by current user.
     '''
+    def _handle_request(self, data, user, request):
 
-    def post(self, request, format=None):
-        form = forms.ApiUserRephotosForm(request.data)
+        form = forms.ApiUserRephotosForm(data)
         if form.is_valid():
-            user_profile = request.user.profile
-            start = form.cleaned_data["start"] or 0
-            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 10)
+            if user.is_authenticated:
+                start = form.cleaned_data["start"] or 0
+                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 10)
 
-            photos = Photo.objects.filter(
-                rephotos__user=user_profile
-            ).order_by('created')[start:end]
+                photos = Photo.objects.filter(
+                    rephotos__user=user.profile
+                ).order_by('created')[start:end]
 
-            photos = serializers.PhotoSerializer.annotate_photos(
-                photos,
-                user_profile
-            )
+                photos = serializers.PhotoSerializer.annotate_photos(
+                    photos,
+                    user.profile
+                )
 
-            return Response({
-                'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
-                    instance=photos,
-                    many=True,
-                    context={'request': request}
-                ).data
-            })
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': serializers.PhotoSerializer(
+                        instance=photos,
+                        many=True,
+                        context={'request': request}
+                    ).data
+                })
+            else:
+                return Response({
+                    'error': RESPONSE_STATUSES['OK'],
+                    'photos': []
+                })
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
