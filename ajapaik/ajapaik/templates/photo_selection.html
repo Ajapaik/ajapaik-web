@@ -8,14 +8,26 @@
 {% block layout %}
     <div class="container-fluid pt-5">
         {% if request.user.profile.is_legit %}
-            <div class="panel panel-default pt-3" id="ajapaik-selection-top-panel">
-                <div class="panel-body d-inline-flex">
-                    <button id="ajapaik-photo-selection-create-album-button" type="button"
-                        class="btn btn-success">{% trans "Add to album" %}</button>
-                    <button id="ajapaik-photo-selection-clear-selection-button" type="button"
-                        class="btn btn-primary">{% trans "Clear selection" %}</button>
-                    <div class="alert-success p-2 d-none"></div>
-                    <div class="alert alert-error d-none"></div>
+            <div class="container panel panel-default pt-3" id="ajapaik-selection-top-panel">
+                <div class="row panel-body d-inline-flex">
+                    <div class="col-auto mb-3 pr-0">
+                        <button id="ajapaik-photo-selection-create-album-button" type="button"
+                            class="btn btn-success">{% trans "Add to album" %}</button>
+                        <div class="alert-success d-none"></div>
+                        <div class="alert alert-error d-none"></div>
+                    </div>
+                    <div class="col-auto mb-3 pr-0">
+                        <button id="ajapaik-photo-selection-clear-selection-button" type="button"
+                            class="btn btn-primary">{% trans "Clear selection" %}</button>
+                    </div>
+                    <div class="col-auto mb-3 pr-0">
+                        <button id="ajapaik-photo-selection-add-similarity" type="button"
+                            class="btn btn-primary">{% trans "Images have overlapping content" %}</button>
+                    </div>
+                    <div class="col-auto mb-3 pr-0">
+                        <button id="ajapaik-photo-selection-add-duplicate" type="button"
+                            class="btn btn-primary">{% trans "All images are of the same shot" %}</button>
+                    </div>
                 </div>
             </div>
             <div class="row d-none">{% trans "You can re-order photos by dragging and dropping" %}</div>
@@ -41,6 +53,11 @@
             <div class="full-box original-full-box">
                 <div class="full-pic" id="ajapaik-fullscreen-image-container">
                     <img id="ajapaik-full-screen-image" alt=""/>
+                </div>
+            </div>
+            <div class="full-box rephoto-full-box">
+                <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+                    <img id="ajapaik-rephoto-full-screen-image" alt=""/>
                 </div>
             </div>
             <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>

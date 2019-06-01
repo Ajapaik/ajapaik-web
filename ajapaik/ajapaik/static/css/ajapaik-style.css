@@ -1209,7 +1209,8 @@ a.fullscreen {
 .ajapaik-show-rephoto-selection-overlay-button,
 .ajapaik-like-photo-overlay-button,
 .ajapaik-similar-photo-overlay-button,
-.ajapaik-flip-photo-overlay-button {
+.ajapaik-flip-photo-overlay-button,
+.ajapaik-invert-rephoto-overlay-button {
   color: rgb(0,0,0);
   background-color: rgba(255, 255, 255, 0.3);
   width: 48px;

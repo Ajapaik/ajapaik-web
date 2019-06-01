@@ -466,8 +466,7 @@
                         originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
                         originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column'),
                         rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
-                        mainPhotoContainer = $('#ajapaik-modal-photo-container'),
-                        rephotoContainer = $('#ajapaik-modal-rephoto-container');
+                        mainPhotoContainer = $('#ajapaik-modal-photo-container');
                     mainPhotoContainer.AjapaikFaceTagger();
                     mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: id});
                     if (!nextId) {
@@ -499,50 +498,6 @@
                     if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                         $('#ajapaik-photo-modal-date-row').show();
                     }
-                    mainPhotoContainer.hover(function () {
-                        if (!window.isMobile) {
-                            var $this = $(this);
-                            $this.find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
-                            $this.find('.ajapaik-photo-modal-previous-button').show("fade", 250);
-                            $this.find('.ajapaik-photo-modal-next-button').show("fade", 250);
-                            $this.find('.ajapaik-like-photo-overlay-button').show("fade", 250);
-                            $this.find('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-                            $this.find('.ajapaik-similar-photo-overlay-button').show("fade", 250);
-                            if (window.userClosedRephotoTools) {
-                                $('.ajapaik-show-rephoto-selection-overlay-button').show("fade", 250);
-                            }
-                        }
-                    }, function () {
-                        if (!window.isMobile) {
-                            var $this = $(this);
-                            $this.find('.ajapaik-thumbnail-selection-icon').hide("fade", 250);
-                            $this.find('.ajapaik-photo-modal-previous-button').hide("fade", 250);
-                            $this.find('.ajapaik-photo-modal-next-button').hide("fade", 250);
-                            if (window.photoModalOpenedTime + 2000 < Date.now()) {
-                                $this.find('.ajapaik-like-photo-overlay-button').hide("fade", 250);
-                            }
-                            $this.find('.ajapaik-flip-photo-overlay-button').hide("fade", 250);
-                            $this.find('.ajapaik-show-rephoto-selection-overlay-button').hide("fade", 250);
-                            $this.find('.ajapaik-similar-photo-overlay-button').hide("fade", 250);
-                        }
-                    });
-                    rephotoContainer.hover(function () {
-                        if (!window.isMobile) {
-                            if (!window.userClosedRephotoTools) {
-                                $('.ajapaik-close-rephoto-overlay-button').show("fade", 250);
-                                $('.ajapaik-invert-rephoto-overlay-button').show("fade", 250);
-                                $('#ajapaik-rephoto-selection').show("fade", 250);
-                            }
-                        }
-                    }, function () {
-                        if (!window.isMobile) {
-                            if (!window.userClosedRephotoTools) {
-                                $('.ajapaik-close-rephoto-overlay-button').hide("fade", 250);
-                                $('.ajapaik-invert-rephoto-overlay-button').hide("fade", 250);
-                                $('#ajapaik-rephoto-selection').hide("fade", 250);
-                            }
-                        }
-                    });
                     // showPhotoMapIfApplicable();
                     $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                 },
@@ -563,9 +518,6 @@
                 syncFilteringHighlights();
                 window.updateFrontpagePhotosAsync();
             }
-        };
-        window.flipPhoto = function () {
-            window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
         };
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('hide');
