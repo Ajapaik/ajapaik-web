@@ -53,10 +53,14 @@ var map,
     streetviewPanoChangedListener,
     photoModalCurrentlyOpenPhotoId,
     currentlySelectedRephotoId,
+    currentlySelectedSimilarPhotoId,
     photoModalFullscreenImageUrl,
     photoModalRephotoFullscreenImageUrl,
+    photoModalSimilarFullscreenImageUrl,
     photoModalRephotoArray,
-    userClosedRephotoTools = false,
+    photoModalSimilarPhotoArray,
+    userClosedRephotoTools = true,
+    userClosedSimilarPhotoTools = true,
     fullscreenEnabled = false,
     currentPhotoDescription = false,
     comingBackFromGuessLocation = false,
@@ -482,6 +486,26 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
     });
 
+    $(document).on('click', '#ajapaik-similar-photo-full-screen-link', function (e) {
+        e.preventDefault();
+        if (window.BigScreen.enabled) {
+            var div = $('#ajapaik-similar-fullscreen-image-container'),
+                img = div.find('img');
+            img.attr('src', img.attr('data-src')).show();
+            window.BigScreen.request(div[0]);
+            fullscreenEnabled = true;
+            if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Similar full-screen']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Mapview', 'Similar full-screen']);
+            } else if (window.isGallery) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Similar full-screen']);
+            } else if (window.isPhotoview) {
+                _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
+            }
+        }
+    });
+
     getGeolocation = function getLocation(callback) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(callback, geolocationError);
@@ -514,7 +538,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }
-            if (!window.isFrontpage) {
+            if (!window.isFrontpage && !window.isSelection) {
                 if (window.isSelection) {
                     window.history.go(-1);
                 } else {
@@ -681,8 +705,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
             currentIcon;
         var container = $('#ajapaik-modal-photo-container'),
             mapContainer = $('#ajapaik-photo-modal-map-container');
-        if (!window.isMobile && mapContainer.length > 0 && (!photoModalRephotoArray ||
-            photoModalRephotoArray.length === 0 || userClosedRephotoTools)) {
+        if (!window.isMobile && mapContainer.length > 0 && ((!photoModalRephotoArray ||
+            photoModalRephotoArray.length === 0 || userClosedRephotoTools) && (!photoModalSimilarPhotoArray || photoModalSimilarPhotoArray.length == 0 && userClosedSimilarPhotoTools))) {
             if (isPhotoview) {
                 mapContainer.css('height', $('#ajapaik-photoview-main-photo').height());
             } else {
@@ -875,7 +899,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
     };
 
     $(window).resize(function () {
-        if(!$("#ajapaik-modal-rephoto-container").is(":visible")){
+        if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible")){
             window.resizeMinimap();
         }
         window.positionMinimapCTAButton();
@@ -940,6 +964,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
     $(document).on('click', '.ajapaik-show-rephoto-selection-overlay-button', function () {
         $(this).hide();
         userClosedRephotoTools = false;
+        $('.ajapaik-close-similar-photo-overlay-button').click();
+        userClosedSimilarPhotoTools = true;
         var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
             rephotoInfoColumn = $('#ajapaik-photo-modal-rephoto-info-column'),
             originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column'),
@@ -953,7 +979,59 @@ $('.ajapaik-navbar').autoHidingNavbar();
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', [window.photoModalRephotoArray,0]));
         $('#ajapaik-photo-modal-map-container').hide();
-        if (!window.isFrontpage) {
+        if (!window.isFrontpage && !window.isSelection) {
+            window.syncMapStateToURL();
+        }
+    });
+    $(document).on('click', '.ajapaik-photo-modal-similar-photo-thumb', function () {
+        var targetId = $(this).data('id'),
+            infoDiv = $('#ajapaik-photo-modal-similar-photo-info-column'),
+            photoDiv = $('#ajapaik-modal-similar-photo-container'),
+            fullscreenDiv = $('#ajapaik-similar-photo-full-screen-image');
+        if (!targetId) {
+            targetId = currentlySelectedSimilarPhotoId;
+        }
+        infoDiv.show();
+        for (var i = 0; i < window.photoModalSimilarPhotoArray.length; i += 1) {
+            if (window.photoModalSimilarPhotoArray[i].id == targetId) {
+                fullscreenDiv.attr('data-src', window.photoModalSimilarPhotoArray[i].fullscreen_url);
+                photoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,i]));
+                infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
+                currentlySelectedSimilarPhotoId = targetId;
+                window.FB.XFBML.parse();
+                if (window.isFrontpage) {
+
+                } else {
+                    window.syncMapStateToURL();
+                }
+                break;
+            }
+        }
+    });
+    $(document).on('click', '.ajapaik-show-similar-photo-selection-overlay-button', function () {
+        $(this).hide();
+        userClosedSimilarPhotoTools = false;
+        $('.ajapaik-close-rephoto-overlay-button').click()
+        userClosedRephotoTools = true;
+        var similarPhotoColum = $('#ajapaik-photo-modal-similar-photo-column'),
+            similarPhotoInfoColumn = $('#ajapaik-photo-modal-similar-photo-info-column'),
+            similarPhotoDiv = $('#ajapaik-modal-similar-photo-container'),
+            originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
+            originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+            
+        if (window.photoModalSimilarPhotoArray !== undefined && window.photoModalSimilarPhotoArray.length > 1) {
+            $('#ajapaik-similar-photo-selection').show();
+        }
+
+        originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        similarPhotoInfoColumn.show();
+        similarPhotoColum.show();
+        currentlySelectedSimilarPhotoId = window.photoModalSimilarPhotoArray[0]['id'];
+        similarPhotoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,0]));
+        similarPhotoInfoColumn.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[0]));
+        $('#ajapaik-photo-modal-map-container').hide();
+        if (!window.isFrontpage && !window.isSelection) {
             window.syncMapStateToURL();
         }
     });
@@ -986,12 +1064,41 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
-        if (window.isFrontpage || window.isPhotoview) {
+        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
 
         } else {
             window.syncMapStateToURL();
         }
         userClosedRephotoTools = true;
+        if (window.showPhotoMapIfApplicable) {
+            window.showPhotoMapIfApplicable();
+        } else {
+            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+            }
+        }
+    });
+    $(document).on('click', '.ajapaik-close-similar-photo-overlay-button', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#ajapaik-photo-modal-similar-photo-column').hide();
+        $('#ajapaik-similar-photo-selection').hide();
+        $('.ajapaik-show-similar-photo-selection-overlay-button').show("fade", 250);
+        $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
+        let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+        let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+        if (!window.isMapview) {
+            originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
+            originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        }
+        $('#ajapaik-photo-modal-similar-photo-info-column').hide();
+        currentlySelectedSimilarPhotoId = false;
+        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
+
+        } else {
+            window.syncMapStateToURL();
+        }
+        userClosedSimilarPhotoTools = true;
         if (window.showPhotoMapIfApplicable) {
             window.showPhotoMapIfApplicable();
         } else {
@@ -1642,7 +1749,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
     }
 
     $('#ajapaik-mode-select').find('a').click(function (e) {
-        if (!window.isFrontpage) {
+        if (!window.isFrontpage && !window.isSelection) {
             e.preventDefault();
             var $this = $(this),
                 selectedMode = $this.data('mode');

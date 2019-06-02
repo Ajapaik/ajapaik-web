@@ -1,0 +1,23 @@
+{% verbatim %}
+    <script id="ajapaik-photo-modal-similar-photo-template" type="text/x-tmpl">
+        <a class="fullscreen" id="ajapaik-similar-photo-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
+            <img src="{%=o[0][o[1]].url%}" id="ajapaik-modal-similar-photo" class="img-fluid col-xs-12">
+        </a>
+        <button class="btn ajapaik-close-similar-photo-overlay-button" {% if (!isMobile) { %}
+            style="display: none;"{% } %}><i class="material-icons notranslate">close</i></button>
+        <button class="btn ajapaik-invert-similar-photo-overlay-button"
+             {% if (!isMobile) { %}
+            style="display: none;"{% } %}><i class="material-icons notranslate">invert_colors</i></button>
+        {% if (o[0] && o[0].length > 1){ %}
+            <div id="ajapaik-similar-photo-selection" style="display:none;">
+                {% for(similar of o[0]){ %}
+                    <div class="ajapaik-photo-modal-similar-photo-thumb" id="ajapaik-similar-photo-thumb-{%=similar.id%}" data-id="{%=similar.id%}">
+                        <img class="img-fluid"
+                                src="{%=similar.url%}"
+                                data-id="{%=similar.id%}"/>
+                    </div>
+                {% } %}
+            </div>
+        {% } %}
+    </script>
+{% endverbatim %}

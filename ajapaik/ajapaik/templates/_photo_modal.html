@@ -1,6 +1,6 @@
 {% load i18n ajapaik_templatetags comments static %}
 
-<div class="modal-dialog modal-xxl" id="ajapaik-photo-modal-dialog" {% if not photo.rephotos.all.0 and not photo.lat and not photo.lon %}style="min-width: calc(40vw + 150px);"{% endif %}>
+<div class="modal-dialog modal-xxl" id="ajapaik-photo-modal-dialog" {% if not photo.rephotos.all.0 and not photo.lat and not photo.lon and not photo.similar_photos.all.0 %}style="min-width: calc(40vw + 150px);"{% endif %}>
     <div class="modal-content">
         <div class="modal-header ajapaik-no-border">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,8 +10,8 @@
         <div class="modal-body" id="ajapaik-modal-body">
             <div class="container-fluid">
                 <div class="row" style="margin:0 auto;">
-                    <div id="ajapaik-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon %}6{% else %}12{% endif %} col-md-12 col-xs-12">
-                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo {% if photo.rephotos.all.0 or photo.lat and photo.lon %}float-left{% else %}margin-auto{% endif %}">
+                    <div id="ajapaik-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
+                        <div id="ajapaik-modal-photo-container" class="ajapaik-photo {% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}float-left{% else %}margin-auto{% endif %}">
                             {% if not is_mapview %}
                             <div class="ajapaik-photo-modal-previous-button">
                                 <i class="material-icons ajapaik-icon-48 notranslate">navigate_before</i>
@@ -49,13 +49,11 @@
                                 {% endif %}
                             </button>
                             <div class="d-block text-right ajapaik-image-bottom-right">
-                                {% if total_similar_photo_count > 0 %}
-                                <a class="btn ajapaik-similar-photo-overlay-button"
-                                    href="{{ compare_photos_url }}"
-                                    id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none"{% endif %}>
+                                {% if similar_photo_count > 0 %}
+                                <button class="btn ajapaik-show-similar-photo-selection-overlay-button" id="ajapaik-show-similar-photo-selection-overlay-button" {% if request.user_agent.is_pc %}style="display: none"{% endif %}>
                                     <i class="material-icons notranslate w-100">burst_mode</i>
-                                    <span style="top:-10px; position: relative;">{% if total_similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ total_similar_photo_count }}{% endif %}</span>
-                                </a>
+                                    <span style="top:-10px; position: relative;">{% if similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photo_count }}{% endif %}</span>
+                                </button>
                                 {% endif %}
                                 {% if photo.rephotos.all.0 %}
                                     <button class="ajapaik-show-rephoto-selection-overlay-button"
@@ -70,6 +68,44 @@
                             </div>
                         </div>
                     </div>
+                    {% if similar_photos.0 %}
+                        <div id="ajapaik-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
+                            <div id="ajapaik-modal-similar-photo-container">
+                                <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
+                                    <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
+                                        class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"
+                                        {% if similar_photos.all.0.similarity_type == 1 %}
+                                        alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
+                                        {% else %}
+                                        alt="{{ similar_photos.all.0.to_photo.description }}  {% trans "duplicate photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "duplicate photo" %}"
+                                        {% endif %}/>
+                                    <button class="ajapaik-close-similar-photo-overlay-button"
+                                        {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
+                                        <i class="material-icons notranslate">close</i>
+                                    </button>
+                                </a>
+                                <a href="{% url 'compare_photos' similar_photos.all.0.from_photo.id similar_photos.all.0.to_photo_id %}"
+                                class="btn ajapaik-compare-similar-overlay-button"
+                                {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
+                                    <i class="material-icons notranslate">compare</i>
+                                </a>
+                                {% if similar_photos|length > 1 %}
+                                    <div id="ajapaik-similar-photo-selection" style="display:none;">
+                                        {% for similar in similar_photos %}
+                                            <div class="ajapaik-photo-modal-similar-photo-thumb"
+                                                id="ajapaik-similar-photo-thumb-{{ similar.to_photo.id }}" data-id="{{ similar.to_photo.id }}">
+                                                <img class="img-fluid"
+                                                    src="{% url 'image_thumb' similar.to_photo.id 250 similar.to_photo.get_pseudo_slug %}"
+                                                    data-id="{{ similar.to_photo.id }}"/>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if photo.rephotos.all.0 %}
                         <div id="ajapaik-photo-modal-rephoto-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
                             <div id="ajapaik-modal-rephoto-container" class="float-left">
@@ -112,7 +148,7 @@
                     <div class="container-fluid text-left">
                         <!-- start of old photo info -->
                         <div class="row">
-                            <div id="ajapaik-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
+                            <div id="ajapaik-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
                                 {% if photo.author %}
                                     <div class="w-100">
                                         <b id="ajapaik-photo-modal-author">{{ photo.author }}</b>
@@ -200,6 +236,51 @@
                                     {% endif %}
                                     {% if photo.rephotos.all.0.date %}
                                         {{ photo.rephotos.all.0.date|date:"d.m.Y" }}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% if similar_photos.all|length > 0 %}
+                                <div id="ajapaik-photo-modal-similar-photo-info-column" class="col-lg-6 col-md-12 col-xs-12">
+                                    {% if similar_photos.all.0.to_photo.author %}
+                                        <div class="w-100">
+                                            <b id="ajapaik-photo-modal-author">{{ similar_photos.all.0.to_photo.author }}</b>
+                                        </div>
+                                    {% endif %}
+                                    {% if similar_photos.all.0.to_photo.description %}
+                                        <div id="ajapaik-photo-modal-description" title="{{ similar_photos.all.0.to_photo.description }}">
+                                            {% if similar_photos.all.0.to_photo.video %}
+                                                <a href="{% url "frontpage" %}?album={{ similar_photos.all.0.to_photo.albums.all.0.id }}&video={{ similar_photos.all.0.to_photo.video.id }}&t=
+                                                        {{ similar_photos.all.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.all.0.to_photo.description }}</a>
+                                            {% else %}
+                                                {{ similar_photos.all.0.to_photo.description }}
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% if similar_photos.all.0.to_photo.date %}
+                                        <div class="w-100">
+                                            {{ similar_photos.all.0.to_photo.date }}
+                                        </div>
+                                    {% elif similar_photos.all.0.to_photo.date_text %}
+                                        <div class="w-100">
+                                            {{ similar_photos.all.0.to_photo.date_text }}
+                                        </div>
+                                    {% endif %}
+                                    {% if similar_photos.all.0.to_photo.licence %}
+                                        {% include "_licence.html" with licence=similar_photos.all.0.to_photo.licence %}
+                                    {% endif %}
+                                    {% if similar_photos.all.0.to_photo.source_url %}
+                                        <div class="d-inline-block" id="ajapaik-photo-modal-source">
+                                            <a href='{{ similar_photos.all.0.to_photo.source_url }}'
+                                                target="_blank" rel="noopener nofollow">
+                                                {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
+                                                    {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
+                                            </a>
+                                        </div>
+                                    {% elif similar_photos.all.0.to_photo.source.description %}
+                                        <div class="d-inline-block" id="ajapaik-photo-modal-source">
+                                            {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
+                                                {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
+                                        </div>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -337,9 +418,11 @@
     window.currentPhotoLon = '{{ photo.lon }}';
     window.photoModalCurrentPhotoFlipped = false;
     window.photoModalRephotoArray = [];
+    window.photoModalSimilarPhotoArray = [];
     window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
     window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
     window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
+    window.photoModalSimilarFullscreenImageUrl = '{{ similar_fullscreen.url }}'
     window.photoModalGeotaggingUserCount = {{ geotag_count }};
     window.photoModalAzimuthCount = {{ azimuth_count }};
     window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -407,9 +490,41 @@
             {% endif %}
         });
     {% endfor %}
+    {% for similar in similar_photos.all %}
+    window.photoModalSimilarPhotoArray.push({
+            id: {{ similar.to_photo_id }},
+            url: '{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.get_pseudo_slug %}',
+            fb_url: '{{ hostname }}{{ similar.to_photo.get_detail_url }}',
+            fullscreen_url: '{% url 'image_full' similar.to_photo.pk similar.to_photo.get_pseudo_slug %}',
+            fullscreen_width: '{{ similar.to_photo.width }}',
+            fullscreen_height: '{{ similar.to_photo.height }}',
+            {% if similar.to_photo.date %}
+                date: '{{ similar.to_photo.date|date:"d.m.Y" }}',
+            {% endif %}
+            {% if similar.to_photo.user %}
+                FBUserName: '{% if similar.to_photo.user.fb_name %}{{ similar.to_photo.user.fb_name }}{% endif %}',
+                FBUserLink: '{% if similar.to_photo.user.fb_link %}{{ similar.to_photo.user.fb_link }}{% endif %}',
+                GooglePlusName: '{% if similar.to_photo.user.google_plus_name %}{{ similar.to_photo.user.google_plus_name }}{% endif %}',
+                GooglePlusLink: '{% if similar.to_photo.user.google_plus_link %}{{ similar.to_photo.user.google_plus_link }}{% endif %}',
+                FullName: '{{ similar.to_photo.user.get_display_name }}',
+            {% endif %}
+            {% if similar.to_photo.author %}
+                author: '{{ similar.to_photo.author }}',
+            {% endif %}
+            {% if similar.to_photo.licence %}
+                licence: true,
+            {% endif %}
+            {% if similar.to_photo.source %}
+                source: '{{ similar.to_photo.source.description }}',
+                sourceKey: '{{ similar.to_photo.source_key }}',
+                sourceURL: '{{ similar.to_photo.source_url }}'
+            {% endif %}
+        });
+    {% endfor %}
     $(document).ready(function () {
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
+        $('#ajapaik-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
         $('#ajp-dater-container').AjapaikDater();
         var mainPhotoContainer = $('#ajapaik-modal-photo-container');
@@ -457,6 +572,9 @@
         var rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image');
         rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
+        var similarFullScreenImage = $('#ajapaik-similar-full-screen-image');
+        similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
+
         $('#ajapaik-comment-form-register-link').click(function (event) {
             event.preventDefault();
             window.openPhotoUploadModal();
@@ -470,7 +588,7 @@
     
         let currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
 
-        if(window.userClosedRephotoTools){
+        if(window.userClosedRephotoTools && window.userClosedSimilarPhotoTools){
             if(currentPhotoHasLocation) {
                 $('#ajapaik-photo-modal-original-photo-column').removeClass("col-lg-12").addClass("col-lg-6");
                 $('#ajapaik-photo-modal-original-photo-info-column').removeClass("col-lg-12").addClass("col-lg-6");
@@ -495,7 +613,8 @@
         };
 
         mainPhotoContainer = $('#ajapaik-modal-photo-container'),
-        rephotoContainer = $('#ajapaik-modal-rephoto-container');
+        rephotoContainer = $('#ajapaik-modal-rephoto-container'),
+        similarPhotoContainer = $('#ajapaik-modal-similar-photo-container');
             mainPhotoContainer.hover(function () {
                 if (!window.isMobile) {
                     var $this = $(this);
@@ -504,7 +623,9 @@
                     $this.find('.ajapaik-photo-modal-next-button').show("fade", 250);
                     $this.find('.ajapaik-like-photo-overlay-button').show("fade", 250);
                     $this.find('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-                    $this.find('.ajapaik-similar-photo-overlay-button').show("fade", 250);
+                    if (window.userClosedSimilarPhotoTools) {
+                        $this.find('.ajapaik-show-similar-photo-selection-overlay-button').show("fade", 250);
+                    }
                     if (window.userClosedRephotoTools) {
                         $('.ajapaik-show-rephoto-selection-overlay-button').show("fade", 250);
                     }
@@ -520,7 +641,7 @@
                     }
                     $this.find('.ajapaik-flip-photo-overlay-button').hide("fade", 250);
                     $this.find('.ajapaik-show-rephoto-selection-overlay-button').hide("fade", 250);
-                    $this.find('.ajapaik-similar-photo-overlay-button').hide("fade", 250);
+                    $this.find('.ajapaik-show-similar-photo-selection-overlay-button').hide("fade", 250);
                 }
             });
             rephotoContainer.hover(function () {
@@ -540,10 +661,29 @@
                     }
                 }
             });
+            similarPhotoContainer.hover(function () {
+                if (!window.isMobile) {
+                    if (!window.userClosedSimilarPhotoTools) {
+                        $('.ajapaik-close-similar-photo-overlay-button').show("fade", 250);
+                        $('.ajapaik-invert-similar-photo-overlay-button').show("fade", 250);
+                        $('#ajapaik-similar-photo-selection').show();
+                    }
+                }
+            }, function () {
+                if (!window.isMobile) {
+                    if (!window.userClosedSimilarPhotoTools) {
+                        $('.ajapaik-close-similar-photo-overlay-button').hide("fade", 250);
+                        $('.ajapaik-invert-similar-photo-overlay-button').hide("fade", 250);
+                        $('#ajapaik-similar-photo-selection').hide();
+                    }
+                }
+            });            
     });
 </script>
 {% block specific_js %}
     <script src="{% static 'js/ajapaik-comments.js' %}"></script>
 {% endblock %}
 {% include "js_templates/photo_modal_rephoto_template.html" %}
+{% include "js_templates/photo_modal_similar_photo_template.html" %}
 {% include "js_templates/photo_modal_rephoto_info_template.html" %}
+{% include "js_templates/photo_modal_similar_photo_info_template.html" %}

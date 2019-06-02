@@ -20,14 +20,16 @@
                         <button id="ajapaik-photo-selection-clear-selection-button" type="button"
                             class="btn btn-primary">{% trans "Clear selection" %}</button>
                     </div>
-                    <div class="col-auto mb-3 pr-0">
-                        <button id="ajapaik-photo-selection-add-similarity" type="button"
-                            class="btn btn-primary">{% trans "Images have overlapping content" %}</button>
-                    </div>
-                    <div class="col-auto mb-3 pr-0">
-                        <button id="ajapaik-photo-selection-add-duplicate" type="button"
-                            class="btn btn-primary">{% trans "All images are of the same shot" %}</button>
-                    </div>
+                    {% if photos|length > 1 %}
+                        <div class="col-auto mb-3 pr-0">
+                            <button id="ajapaik-photo-selection-add-similarity" type="button"
+                                class="btn btn-primary">{% trans "Images have overlapping content" %}</button>
+                        </div>
+                        <div class="col-auto mb-3 pr-0">
+                            <button id="ajapaik-photo-selection-add-duplicate" type="button"
+                                class="btn btn-primary">{% trans "All images are of the same shot" %}</button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="row d-none">{% trans "You can re-order photos by dragging and dropping" %}</div>
@@ -58,6 +60,11 @@
             <div class="full-box rephoto-full-box">
                 <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
                     <img id="ajapaik-rephoto-full-screen-image" alt=""/>
+                </div>
+            </div>
+            <div class="full-box similar-full-box">
+                <div class="full-pic" id="ajapaik-similar-fullscreen-image-container">
+                    <img id="ajapaik-similar-full-screen-image" alt=""/>
                 </div>
             </div>
             <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>

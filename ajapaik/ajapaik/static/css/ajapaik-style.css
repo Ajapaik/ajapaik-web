@@ -1204,13 +1204,17 @@ a.fullscreen {
 }
 
 .ajapaik-close-rephoto-overlay-button,
+.ajapaik-close-similar-photo-overlay-button,
 .ajapaik-compare-similar-overlay-button,
 .ajapaik-compare-similar-overlay-button,
 .ajapaik-show-rephoto-selection-overlay-button,
 .ajapaik-like-photo-overlay-button,
-.ajapaik-similar-photo-overlay-button,
+.ajapaik-show-similar-photo-selection-overlay-button,
+.ajapaik-show-similar-photoview-overlay-button,
+.ajapaik-show-rephotos-photoview-overlay-button,
 .ajapaik-flip-photo-overlay-button,
-.ajapaik-invert-rephoto-overlay-button {
+.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-invert-similar-photo-overlay-button {
   color: rgb(0,0,0);
   background-color: rgba(255, 255, 255, 0.3);
   width: 48px;
@@ -1225,8 +1229,10 @@ a.fullscreen {
 }
 
 .ajapaik-invert-rephoto-overlay-button,
+.ajapaik-invert-similar-photo-overlay-button,
 .ajapaik-compare-similar-overlay-button,
 .ajapaik-close-rephoto-overlay-button,
+.ajapaik-close-similar-photo-overlay-button,
 .ajapaik-flip-photo-overlay-button,
 .ajapaik-like-photo-overlay-button {
   position: absolute;
@@ -1241,7 +1247,9 @@ a.fullscreen {
 
 .ajapaik-compare-similar-overlay-button,
 .ajapaik-like-photo-overlay-button,
-.ajapaik-similar-photo-overlay-button {
+.ajapaik-show-similar-photo-selection-overlay-button,
+.ajapaik-show-similar-photoview-overlay-button,
+.ajapaik-show-rephotos-photoview-overlay-button {
   border-radius: 0;
   border: none;
 }
@@ -1267,10 +1275,16 @@ a.fullscreen {
 .ajapaik-flip-photo-overlay-button:hover ,
 .ajapaik-like-photo-overlay-button:hover ,
 .ajapaik-flip-photo-overlay-button.active,
+.ajapaik-close-similar-photo-overlay-button:hover,
 .ajapaik-close-rephoto-overlay-button:hover ,
-.ajapaik-invert-rephoto-overlay-button:hover ,
-.ajapaik-similar-photo-overlay-button:active ,
-.ajapaik-similar-photo-overlay-button:hover ,
+.ajapaik-invert-rephoto-overlay-button:hover,
+.ajapaik-invert-similar-photo-overlay-button:hover,
+.ajapaik-show-rephotos-photoview-overlay-button:active,
+.ajapaik-show-rephotos-photoview-overlay-button:hover,
+.ajapaik-show-similar-photoview-overlay-button:active ,
+.ajapaik-show-similar-photoview-overlay-button:hover ,
+.ajapaik-show-similar-photo-selection-overlay-button:active ,
+.ajapaik-show-similar-photo-selection-overlay-button:hover ,
 .ajapaik-thumbnail-selection-icon:hover ,
 .ajapaik-thumbnail-selection-icon-blue,
 .ajapaik-show-rephoto-selection-overlay-button:hover ,
@@ -1313,11 +1327,13 @@ a.fullscreen {
   float: right;
 }
 
-.ajapaik-close-rephoto-overlay-button {
+.ajapaik-close-rephoto-overlay-button,
+.ajapaik-close-similar-photo-overlay-button {
   top: 0;
 }
 
-.ajapaik-invert-rephoto-overlay-button {
+.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-invert-similar-photo-overlay-button {
   bottom: 0;
 }
 
@@ -1332,12 +1348,15 @@ a.fullscreen {
   top: 12px;
 }
 
-.ajapaik-invert-rephoto-overlay-button {
+.ajapaik-invert-rephoto-overlay-button,
+.ajapaik-invert-similar-photo-overlay-button {
   z-index: 3001;
 }
 
 .ajapaik-invert-rephoto-overlay-button,
-.ajapaik-close-rephoto-overlay-button {
+.ajapaik-invert-similar-photo-overlay-button,
+.ajapaik-close-rephoto-overlay-button,
+.ajapaik-close-similar-photo-overlay-button {
   border: none;
   right: 0;
   border-radius: 0;
@@ -1409,7 +1428,8 @@ a.fullscreen {
 }
 
 #ajapaik-modal-photo,
-#ajapaik-modal-rephoto {
+#ajapaik-modal-rephoto,
+#ajapaik-modal-similar-photo {
   min-width: 35vmin;
   max-height: 70vh;
   max-width: 100%;
@@ -1546,10 +1566,18 @@ a.fullscreen {
 }
 
 #ajapaik-modal-rephoto-container,
+#ajapaik-modal-similar-photo-container,
 #ajapaik-modal-photo-container {
   position: relative;
   display: inline-block;
   max-height: 70vh;
+}
+
+#ajapaik-modal-similar-photo-container {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 
 #ajapaik-modal-photo-container {
@@ -1561,14 +1589,23 @@ a.fullscreen {
 #ajapaik-modal-body,
 #ajapaik-game-modal-body {
   text-align: center;
+  overflow-x: hidden;
 }
 
+.ajapaik-photo-modal-similar-photo-thumb,
 .ajapaik-photo-modal-rephoto-thumb {
   width: 20%;
   margin: 0;
 }
+
+.ajapaik-photo-modal-similar-photo-thumb img,
 .ajapaik-photo-modal-rephoto-thumb img {
   margin: 0 auto;
+  object-fit: contain;
+  object-position: center;
+  height: 100%;
+  width: 100%;
+  background-color: white;
 }
 
 .ajapaik-licence {
@@ -1657,11 +1694,13 @@ a.fullscreen {
   filter: alpha(opacity=40);
 }
 
-#ajapaik-rephoto-full-screen-link {
+#ajapaik-rephoto-full-screen-link,
+#ajapaik-similar-photo-full-screen-link {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
-#ajapaik-rephoto-full-screen-link img {
+#ajapaik-rephoto-full-screen-link img,
+#ajapaik-similar-photo-full-screen-link img {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
@@ -1689,6 +1728,7 @@ a.fullscreen {
 }
 
 #ajapaik-rephoto-full-screen-image,
+#ajapaik-similar-full-screen-image,
 #ajapaik-full-screen-image,
 #ajp-geotagger-full-screen-image {
   position: inherit;
@@ -1712,6 +1752,7 @@ a.fullscreen {
   display: inline-block;
 }
 
+#ajapaik-similar-photo-selection,
 #ajapaik-rephoto-selection {
   max-height: 20%;
   position: absolute;
@@ -2429,7 +2470,8 @@ input[type=search]::-webkit-search-cancel-button {
   }
 
   #ajapaik-modal-photo,
-  #ajapaik-modal-rephoto {
+  #ajapaik-modal-rephoto,
+  #ajapaik-modal-similar-photo {
     min-width: calc(75vmin - 480px);
     min-height: 25vh;
   }
@@ -2442,7 +2484,8 @@ input[type=search]::-webkit-search-cancel-button {
 
 @media (min-width: 1920px) {
   #ajapaik-modal-photo,
-  #ajapaik-modal-rephoto {
+  #ajapaik-modal-rephoto,
+  #ajapaik-modal-similar-photo {
     min-height: 30vh;
   }
 }
@@ -2513,6 +2556,13 @@ input[type=search]::-webkit-search-cancel-button {
   padding-right: 4px;
 }
 
+#ajapaik-modal-similar-photo {
+  height: -webkit-fill-available;
+  object-fit: contain;
+  object-position: top;
+}
+
+.ajapaik-photo-modal-similar-photo-thumb,
 .ajapaik-photo-modal-rephoto-thumb,
 .primaryAction {
   cursor: pointer;

@@ -1311,6 +1311,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	people = [x.name for x in photo_obj.people]
 	similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id).exclude(similarity_type=0)
 
+	similar_fullscreen = None
+	if similar_photos.all().first() is not None:
+		similar_fullscreen = _make_fullscreen(similar_photos.all().first().to_photo)
+
 	context = {
 		"photo": photo_obj,
 		"similar_photos": similar_photos,
@@ -1332,6 +1336,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"azimuth_count": azimuth_count,
 		"fullscreen": _make_fullscreen(photo_obj),
 		"rephoto_fullscreen": rephoto_fullscreen,
+		"similar_fullscreen": similar_fullscreen,
 		"title": title,
 		"description": desc,
 		"rephoto": rephoto,
