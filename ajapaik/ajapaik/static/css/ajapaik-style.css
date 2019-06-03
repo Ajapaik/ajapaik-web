@@ -1427,6 +1427,10 @@ a.fullscreen {
   margin: 10px;
 }
 
+#ajapaik-modal-similar-photo {
+  height: -webkit-fill-available;
+}
+
 #ajapaik-modal-photo,
 #ajapaik-modal-rephoto,
 #ajapaik-modal-similar-photo {
