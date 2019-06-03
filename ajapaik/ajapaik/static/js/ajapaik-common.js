@@ -538,7 +538,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }
-            if (!window.isFrontpage && !window.isSelection) {
+            if (!window.isFrontpage) {
                 if (window.isSelection) {
                     window.history.go(-1);
                 } else {
