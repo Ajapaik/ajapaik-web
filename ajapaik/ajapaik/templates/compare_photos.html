@@ -13,7 +13,7 @@
 {% endblock %}
 {% block layout %}
 {% include "_similar_images_tutorial_modal.html" %}
-<div class="container pt-5" style="min-height:87vh;">
+<div id="compare-photos-container" class="container pt-5" style="min-height:87vh;opacity:0;">
     <div class="row pt-2">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
             <div class="img-wrapper">
@@ -100,6 +100,7 @@
         $( window ).on('load', function() {
             resizePhotos();
             $('#ajapaik-loading-overlay').hide();
+            $('#compare-photos-container').css('opacity','1.0');
         });
 
         $( window ).resize(function() {
