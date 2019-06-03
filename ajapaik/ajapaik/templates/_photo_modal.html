@@ -81,15 +81,14 @@
                                         alt="{{ similar_photos.all.0.to_photo.description }}  {% trans "duplicate photo" %}"
                                         title="{{ similar_photos.all.0.to_photo.description }} {% trans "duplicate photo" %}"
                                         {% endif %}/>
+                                    <button id="modal-compare-similar" class="btn ajapaik-compare-similar-overlay-button"
+                                    {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
+                                        <i class="material-icons notranslate">compare</i>
+                                    </button>
                                     <button class="ajapaik-close-similar-photo-overlay-button"
                                         {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                         <i class="material-icons notranslate">close</i>
                                     </button>
-                                </a>
-                                <a href="{% url 'compare_photos' similar_photos.all.0.from_photo.id similar_photos.all.0.to_photo_id %}"
-                                class="btn ajapaik-compare-similar-overlay-button"
-                                {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
-                                    <i class="material-icons notranslate">compare</i>
                                 </a>
                                 {% if similar_photos|length > 1 %}
                                     <div id="ajapaik-similar-photo-selection" style="display:none;">
@@ -683,19 +682,24 @@
     resizeSimilarImage = function() {
         window.currentPhotoOriginalWidth
         window.currentPhotoOriginalHeight
-        let columnWidth = (0.65 * window.visualViewport.width + 150) / 2 - 32;
-        let imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
-        imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
-        let height;
-        if (columnWidth < window.currentPhotoOriginalWidth) {
-            height = window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth * columnWidth;
+        var height = 320;
+        if (window.visualViewport.width < 978) {
+            height = 'auto';
         }
-        else{
-            height = imgContainerHeight;
-        }
+        else {
 
-        $('#ajapaik-modal-similar-photo-container').height(height);
-        $('#ajapaik-modal-similar-photo').height(height);
+            let columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
+            let imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
+            imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
+            if (columnWidth < window.currentPhotoOriginalWidth) {
+                height = window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth * columnWidth;
+            }
+            else{
+                height = imgContainerHeight;
+            }
+        }
+    $('#ajapaik-modal-similar-photo-container').height(height);
+    $('#ajapaik-modal-similar-photo').height(height);
     }
 
     $('#ajapaik-modal-similar-photo').on('load', function() {
@@ -704,6 +708,15 @@
 
     $(window).on('resize', function() {
         resizeSimilarImage();
+    })
+
+    $('#ajapaik-modal-rephoto').removeClass('ajapaik-photo-bw');
+    $('#ajapaik-rephoto-full-screen-image').removeClass('ajapaik-photo-bw');
+
+    $(document).on('click', '#modal-compare-similar', function() {
+        if(window.photoModalCurrentlyOpenPhotoId !== undefined && window.currentlySelectedSimilarPhotoId !== undefined){
+            window.location.href = window.location.origin + '/compare_photos/' + window.photoModalCurrentlyOpenPhotoId + '/' + window.currentlySelectedSimilarPhotoId;
+        }
     })
 </script>
 {% block specific_js %}

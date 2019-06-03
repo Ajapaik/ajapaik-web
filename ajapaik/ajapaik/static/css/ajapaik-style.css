@@ -1203,6 +1203,15 @@ a.fullscreen {
   max-height: 50%;
 }
 
+#modal-compare-similar {
+  top: 0px;
+  right: 48px;
+}
+
+#modal-compare-similar > i {
+  top: 0px;
+}
+
 .ajapaik-close-rephoto-overlay-button,
 .ajapaik-close-similar-photo-overlay-button,
 .ajapaik-compare-similar-overlay-button,
@@ -2584,6 +2593,10 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 #ajapaik-photoview-main-photo-wrapper,
 #ajapaik-photoview-rephoto-wrapper {
   display: table;
+}
+
+#ajapaik-modal-similar-photo-container:hover #modal-compare-similar {
+  opacity: 1 !important;
 }
 
 .ajapaik-photoview-similar-image-row:hover .ajapaik-compare-similar-overlay-button {

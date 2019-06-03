@@ -3,6 +3,7 @@
         <a class="fullscreen" id="ajapaik-similar-photo-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
             <img src="{%=o[0][o[1]].url%}" id="ajapaik-modal-similar-photo" class="img-fluid col-xs-12">
         </a>
+        <button id="modal-compare-similar" class="btn ajapaik-compare-similar-overlay-button"{% if (!isMobile) { %} style="opacity:0;"{% } %}><i class="material-icons notranslate">compare</i></button>
         <button class="btn ajapaik-close-similar-photo-overlay-button" {% if (!isMobile) { %}
             style="display: none;"{% } %}><i class="material-icons notranslate">close</i></button>
         <button class="btn ajapaik-invert-similar-photo-overlay-button"
