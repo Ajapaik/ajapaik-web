@@ -60,6 +60,7 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        $('#ajapaik-loading-overlay').show();
         if(!docCookies.getItem("similarityModalShown")) {
             let d = new Date();
             d.setTime(d.getTime() + 86400000);
@@ -98,6 +99,7 @@
 
         $( window ).on('load', function() {
             resizePhotos();
+            $('#ajapaik-loading-overlay').hide();
         });
 
         $( window ).resize(function() {
