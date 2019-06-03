@@ -41,6 +41,7 @@
             });
         };
         window.selectionAddSimilarity = function(type) {
+            $('#ajapaik-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
                 let photos = []
                 for (let key in response) {
@@ -60,14 +61,15 @@
                                 profile: window.currentProfileId
                             },
                             success: function () {
-                                
+                                $.notify(gettext('Image similarities mapped, thanks!'), {type: 'success'});
                             },
                             error: function () {
-                                alert("Lisamine ebaõnnestus");
+                                $.notify(gettext('Something went wrong'), {type: 'danger'});
                             }
                         });
                     }
                 }
+                $('#ajapaik-loading-overlay').hide();
             });
         }
         $(document).on('click', '.ajapaik-photo-selection-thumbnail-link', function (e) {
