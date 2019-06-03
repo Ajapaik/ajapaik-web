@@ -1573,13 +1573,6 @@ a.fullscreen {
   max-height: 70vh;
 }
 
-#ajapaik-modal-similar-photo-container {
-  display: block;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-}
-
 #ajapaik-modal-photo-container {
   padding-left: 0;
   padding-right: 0;
@@ -1728,7 +1721,7 @@ a.fullscreen {
 }
 
 #ajapaik-rephoto-full-screen-image,
-#ajapaik-similar-full-screen-image,
+#ajapaik-similar-photo-full-screen-image,
 #ajapaik-full-screen-image,
 #ajp-geotagger-full-screen-image {
   position: inherit;
@@ -2041,7 +2034,8 @@ a[href^="http: //maps.google.com/maps"] {
 }
 
 #ajapaik-photo-modal-original-photo-column,
-#ajapaik-photo-modal-rephoto-column {
+#ajapaik-photo-modal-rephoto-column,
+#ajapaik-photo-modal-similar-photo-column {
   max-width: fit-content;
   padding: 0;
 }
@@ -2557,7 +2551,6 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 #ajapaik-modal-similar-photo {
-  height: -webkit-fill-available;
   object-fit: contain;
   object-position: top;
 }

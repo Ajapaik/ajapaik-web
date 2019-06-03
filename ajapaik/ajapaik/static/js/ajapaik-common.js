@@ -952,7 +952,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 var commentsDiv = $('#ajapaik-rephoto-comments');
                 commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
                 window.FB.XFBML.parse();
-                if (window.isFrontpage) {
+                if (window.isFrontpage || window.isSelection) {
 
                 } else {
                     window.syncMapStateToURL();
@@ -984,6 +984,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
     });
     $(document).on('click', '.ajapaik-photo-modal-similar-photo-thumb', function () {
+        $('#ajapaik-similar-photo-full-screen-image').removeClass('ajapaik-photo-bw')
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-similar-photo-info-column'),
             photoDiv = $('#ajapaik-modal-similar-photo-container'),
@@ -999,7 +1000,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
                 currentlySelectedSimilarPhotoId = targetId;
                 window.FB.XFBML.parse();
-                if (window.isFrontpage) {
+                if (window.isFrontpage || window.isSelection) {
 
                 } else {
                     window.syncMapStateToURL();
@@ -1329,10 +1330,16 @@ $('.ajapaik-navbar').autoHidingNavbar();
         e.preventDefault();
         e.stopPropagation();
         var targetDiv = $('#ajapaik-modal-rephoto');
+        var fullSCreen = $('#ajapaik-rephoto-full-screen-image');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
             targetDiv.addClass('ajapaik-photo-bw');
+        }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
         }
     });
 
@@ -1387,7 +1394,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
     $(document).on('click', '.ajapaik-photo-modal-previous-button', function (e) {
         var $this = $(this);
         if (!isPhotoview) {
-            e.preventDefault();
+            e.preventDefault();  
+            $('#ajapaik-rephoto-full-screen-image').hasClass('ajapaik-photo-bw');
+            $('#ajapaik-similar-photo-full-screen-image').removeClass('ajapaik-photo-bw');
             if (!$this.hasClass('ajapaik-photo-modal-previous-button-disabled')) {
                 var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
                 if (previousId && !window.nextPhotoLoading) {

@@ -28,7 +28,7 @@
             photoModal = $('#ajapaik-photo-modal'),
             fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
-            similarFullScreenImage = $('ajapaik-similar-full-screen-image'),
+            similarFullScreenImage = $('#ajapaik-similar-photo-full-screen-image'),
             openPhotoDrawer = function (content) {
                 photoModal.html(content);
                 photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {

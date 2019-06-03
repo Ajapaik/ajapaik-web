@@ -410,12 +410,19 @@
         window.location.href = '/photo/' + {{ photo.id }} + '/{{ photo.get_pseudo_slug }}';
     });
     $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
+        e.preventDefault();
         e.stopPropagation();
-        var targetDiv = $('#ajapaik-photoview-rephoto');
+        var targetDiv = $('#ajapaik-modal-rephoto');
+        var fullSCreen = $('#ajapaik-rephoto-full-screen-image');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
             targetDiv.addClass('ajapaik-photo-bw');
+        }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
         }
     });
     $(document).on('click', '#ajapaik-show-similar-photoview-overlay-button', function () {

@@ -202,7 +202,7 @@
         window.syncMapStateToURL();
         var fullScreenImage = $('#ajapaik-full-screen-image'),
             rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image'),
-            similarFullScreenImage = $('#ajapaik-similar-full-screen-image');
+            similarFullScreenImage = $('#ajapaik-similar-photo-full-screen-image');
         target.html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
             fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
             rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);

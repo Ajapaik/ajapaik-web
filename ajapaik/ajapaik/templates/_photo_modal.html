@@ -572,7 +572,7 @@
         var rephotoFullScreenImage = $('#ajapaik-rephoto-full-screen-image');
         rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
-        var similarFullScreenImage = $('#ajapaik-similar-full-screen-image');
+        var similarFullScreenImage = $('#ajapaik-similar-photo-full-screen-image');
         similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
         $('#ajapaik-comment-form-register-link').click(function (event) {
@@ -678,6 +678,13 @@
                     }
                 }
             });            
+    });
+
+    $('#ajapaik-modal-photo').on('load', function() {
+        $('#ajapaik-modal-similar-photo').on('load', function() {
+            let height = ($('#ajapaik-modal-photo').height());
+            $('#ajapaik-modal-similar-photo').height(height);
+        });
     });
 </script>
 {% block specific_js %}
