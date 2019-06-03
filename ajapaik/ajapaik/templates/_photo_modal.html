@@ -70,7 +70,7 @@
                     </div>
                     {% if similar_photos.0 %}
                         <div id="ajapaik-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
-                            <div id="ajapaik-modal-similar-photo-container">
+                            <div id="ajapaik-modal-similar-photo-container" class="float-left">
                                 <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
                                     <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
                                         class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"

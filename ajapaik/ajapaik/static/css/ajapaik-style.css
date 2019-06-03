@@ -2036,7 +2036,6 @@ a[href^="http: //maps.google.com/maps"] {
 #ajapaik-photo-modal-original-photo-column,
 #ajapaik-photo-modal-rephoto-column,
 #ajapaik-photo-modal-similar-photo-column {
-  max-width: fit-content;
   padding: 0;
 }
 
