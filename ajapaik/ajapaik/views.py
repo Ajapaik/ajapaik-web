@@ -2661,6 +2661,7 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2)
 
 def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare_photos", compareAll = False):
+	profile = request.get_user().profile
 	photo_obj = get_object_or_404(Photo, id=photo_id)
 	photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
 	first_photo_criterion = Q(from_photo=photo_obj) & Q(to_photo=photo_obj2)
@@ -2671,13 +2672,13 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		if photo_id == photo_id_2 or photo_obj is None or photo_obj2 is None:
 			return JsonResponse({'status': 400})
 		inputs = [photo_obj,photo_obj2]
-		if request.POST['confirmed'] is not None:
+		if 'confirmed' in request.POST:
 			inputs.append(1)
 		else:
 			inputs += '0'
-		if request.POST['similarity_type'] is not None:
+		if 'similarity_type' in request.POST:
 			inputs.append(request.POST['similarity_type'])
-		if request.POST['profile'] is not None:
+		if 'profile' in request.POST:
 			inputs.append(request.POST['profile'])
 		ImageSimilarity.add_or_update(*inputs)
 		return JsonResponse({'status': 200})

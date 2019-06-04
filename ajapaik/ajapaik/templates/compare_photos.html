@@ -121,7 +121,7 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,
                     similarity_type: similarity_type,
-                    profile: 0 || window.currentProfileId
+                    profile: '{{ request.user.profile.pk }}'
                 },
                 success: function (response) {
                     window.location.href = '{{next_action}}';
