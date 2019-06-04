@@ -194,6 +194,10 @@
             $.post(window.photoSelectionURL, data, function (response) {
                 var len = Object.keys(response).length,
                     target = $('#ajapaik-header-selection-indicator');
+                if (len < 2) {
+                    $('#ajapaik-photo-selection-add-similarity').addClass('d-none');
+                    $('#ajapaik-photo-selection-add-duplicate').addClass('d-none');
+                }
                 if (len > 0) {
                     target.removeClass('d-none');
                 } else {
