@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-26 05:03+0300\n"
+"POT-Creation-Date: 2019-06-04 20:42+0300\n"
 "PO-Revision-Date: 2019-05-25 22:57+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
@@ -869,8 +869,8 @@ msgstr "Ajapaik Facebookissa"
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1709
-#: ajapaik/ajapaik/views.py:1726 ajapaik/ajapaik/views.py:1762
+#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1714
+#: ajapaik/ajapaik/views.py:1731 ajapaik/ajapaik/views.py:1767
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -1096,8 +1096,8 @@ msgid "Some nearby albums"
 msgstr "Lähellä olevia albumeita"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:121
-#: ajapaik/ajapaik/templates/_photo_modal.html:250
-#: ajapaik/ajapaik/templates/photoview.html:185
+#: ajapaik/ajapaik/templates/_photo_modal.html:330
+#: ajapaik/ajapaik/templates/photoview.html:191
 msgid "Share"
 msgstr "Jaa"
 
@@ -1171,8 +1171,8 @@ msgid "Click to choose"
 msgstr "Valitse"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
-#: ajapaik/ajapaik/templates/_photo_modal.html:291
-#: ajapaik/ajapaik/templates/photoview.html:213
+#: ajapaik/ajapaik/templates/_photo_modal.html:371
+#: ajapaik/ajapaik/templates/photoview.html:219
 msgid "Album details"
 msgstr "Albumin tiedot"
 
@@ -1223,29 +1223,43 @@ msgstr "Summittainen osoite"
 msgid "Flip photo"
 msgstr "Peilaa kuva"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:197
+#: ajapaik/ajapaik/templates/_photo_modal.html:78
+#: ajapaik/ajapaik/templates/_photo_modal.html:79
+#: ajapaik/ajapaik/templates/photoview.html:117
+#: ajapaik/ajapaik/templates/photoview.html:118
+msgid "similar photo"
+msgstr "samanlainen kuva"
+
+#: ajapaik/ajapaik/templates/_photo_modal.html:81
+#: ajapaik/ajapaik/templates/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/photoview.html:120
+#: ajapaik/ajapaik/templates/photoview.html:121
+msgid "duplicate photo"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
 msgstr "Tuntematon tekijä"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:224
+#: ajapaik/ajapaik/templates/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/game.html:53
 #: ajapaik/ajapaik/templates/photoview.html:48
-#: ajapaik/ajapaik/templates/photoview.html:167
+#: ajapaik/ajapaik/templates/photoview.html:173
 msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikka"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:230
-#: ajapaik/ajapaik/templates/photoview.html:173
+#: ajapaik/ajapaik/templates/_photo_modal.html:310
+#: ajapaik/ajapaik/templates/photoview.html:179
 msgid "Date this image"
 msgstr "Anna kuvalle päiväys"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:235
-#: ajapaik/ajapaik/templates/photoview.html:177
+#: ajapaik/ajapaik/templates/_photo_modal.html:315
+#: ajapaik/ajapaik/templates/photoview.html:183
 msgid "Add rephoto"
 msgstr "Lisää uusintakuva"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:238
-#: ajapaik/ajapaik/templates/photoview.html:180
+#: ajapaik/ajapaik/templates/_photo_modal.html:318
+#: ajapaik/ajapaik/templates/photoview.html:186
 msgid ""
 "Tag a new face - clicking this button will enable you to draw a face "
 "rectangle on the main image"
@@ -1253,19 +1267,19 @@ msgstr ""
 "Merkkaa kasvot - klikkaamalla nappia pääset piirtämään kuvassa olevien "
 "kasvojen ympärille neliöt"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:244
+#: ajapaik/ajapaik/templates/_photo_modal.html:324
 msgid "Discuss"
 msgstr "Keskustele"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:276
-#: ajapaik/ajapaik/templates/photoview.html:205
+#: ajapaik/ajapaik/templates/_photo_modal.html:356
+#: ajapaik/ajapaik/templates/photoview.html:211
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Kuva kuuluu albumiin"
 msgstr[1] "Kuva kuuluu albumeihin:"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:295
-#: ajapaik/ajapaik/templates/photoview.html:217
+#: ajapaik/ajapaik/templates/_photo_modal.html:375
+#: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Curator"
 msgstr "Kuraattori"
 
@@ -1331,7 +1345,7 @@ msgid ""
 "shot one of the pictures may also be cropped."
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:16
+#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
 msgstr ""
 
@@ -1859,7 +1873,7 @@ msgid "Flickr Commons"
 msgstr "Flickr Commons"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:102
-#: ajapaik/ajapaik/templates/photo_selection.html:16
+#: ajapaik/ajapaik/templates/photo_selection.html:21
 msgid "Clear selection"
 msgstr "Tyhjennä valinta"
 
@@ -1971,11 +1985,19 @@ msgstr "Takaisin kotiin"
 msgid "Search box"
 msgstr "Hakukenttä"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:14
+#: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
 msgstr "Lisää albumiin"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:21
+#: ajapaik/ajapaik/templates/photo_selection.html:26
+msgid "Images have overlapping content"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/photo_selection.html:30
+msgid "All images are of the same shot"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
 msgstr "Voit järjestää kuvat uudelleen raahaamalla ja tiputtamalla."
 
@@ -1989,23 +2011,13 @@ msgstr "Lataa itse"
 
 #: ajapaik/ajapaik/templates/photoview.html:21
 #: ajapaik/ajapaik/templates/photoview.html:23
-#: ajapaik/ajapaik/templates/photoview.html:86
-#: ajapaik/ajapaik/templates/photoview.html:139
-#: ajapaik/ajapaik/templates/photoview.html:140
+#: ajapaik/ajapaik/templates/photoview.html:92
+#: ajapaik/ajapaik/templates/photoview.html:145
+#: ajapaik/ajapaik/templates/photoview.html:146
 msgid "rephoto"
 msgstr "uusintakuva"
 
-#: ajapaik/ajapaik/templates/photoview.html:111
-#: ajapaik/ajapaik/templates/photoview.html:112
-msgid "similar photo"
-msgstr "samanlainen kuva"
-
-#: ajapaik/ajapaik/templates/photoview.html:114
-#: ajapaik/ajapaik/templates/photoview.html:115
-msgid "duplicate photo"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/photoview.html:154
+#: ajapaik/ajapaik/templates/photoview.html:160
 msgid "People claimed to be on this photo"
 msgstr "Henkilöt jotka on merkitty tähän kuvaan."
 
@@ -2140,26 +2152,26 @@ msgstr "Albumin valinnassa on ongelma"
 msgid "Faulty data submitted"
 msgstr "Viallista tietoa lähetetty"
 
-#: ajapaik/ajapaik/views.py:1427 ajapaik/ajapaik/views.py:1434
-#: ajapaik/ajapaik/views.py:1436
+#: ajapaik/ajapaik/views.py:1432 ajapaik/ajapaik/views.py:1439
+#: ajapaik/ajapaik/views.py:1441
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: ajapaik/ajapaik/views.py:1568
+#: ajapaik/ajapaik/views.py:1573
 msgid ""
 "Your contribution didn't change the estimated location for the photo, not "
 "yet anyway."
 msgstr "Panoksesi ei muuttanut valokuvan arvioitua sijaintia, ainakaan vielä."
 
-#: ajapaik/ajapaik/views.py:1570
+#: ajapaik/ajapaik/views.py:1575
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Valokuva sijoitettiin uuteen sijaintiin panoksesi ansiosta."
 
-#: ajapaik/ajapaik/views.py:1572
+#: ajapaik/ajapaik/views.py:1577
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: ajapaik/ajapaik/views.py:1846
+#: ajapaik/ajapaik/views.py:1851
 msgid ""
 "Search for old photos, add them to Ajapaik, determine their locations and "
 "share the resulting album!"
@@ -2167,41 +2179,41 @@ msgstr ""
 "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
 "jaa syntynyt albumi!"
 
-#: ajapaik/ajapaik/views.py:2198
+#: ajapaik/ajapaik/views.py:2203
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2255
+#: ajapaik/ajapaik/views.py:2260
 #, python-format
 msgid "Error uploading file: %s"
 msgstr "Virhe kuvan tallennuksessa: %s"
 
-#: ajapaik/ajapaik/views.py:2272
+#: ajapaik/ajapaik/views.py:2277
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: ajapaik/ajapaik/views.py:2292
+#: ajapaik/ajapaik/views.py:2297
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: ajapaik/ajapaik/views.py:2294
+#: ajapaik/ajapaik/views.py:2299
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: ajapaik/ajapaik/views.py:2609
+#: ajapaik/ajapaik/views.py:2614
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:2738
+#: ajapaik/ajapaik/views.py:2744
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:2757
+#: ajapaik/ajapaik/views.py:2763
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:2839
+#: ajapaik/ajapaik/views.py:2845
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
