@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = 'Calculate perceptual hash for all images'
 
     def handle(self, *args, **options):
-        photos =  Photo.objects.all()
+        photos =  Photo.objects.all().filter(perceptual_hash__isnull=True)
         for photo in photos:
             try:
                 photo.calculate_phash()
