@@ -573,6 +573,11 @@ class Photo(Model):
         self.light_save()
         self.original_flip = self.flip
 
+    def calculate_phash(self):
+        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+        self.perceptual_hash = phash(img)
+        self.light_save()
+
     def find_similar(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
