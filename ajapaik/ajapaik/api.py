@@ -4,8 +4,10 @@ import sys
 import time
 import io
 import re
+import json
 from json import loads
 from urllib.request import urlopen
+
 
 import requests
 from PIL import Image, ExifTags
@@ -24,7 +26,6 @@ from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
-# from oauth2client import client, crypt
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
     authentication_classes, parser_classes
@@ -48,6 +49,9 @@ from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
 from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag
+from django.utils.decorators import method_decorator
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
+
 
 log = logging.getLogger(__name__)
 
@@ -67,7 +71,6 @@ RESPONSE_STATUSES = {
     'INVALID_PASSWORD': 11,  # wrong password for existing user
 }
 
-
 def custom_exception_handler(exc, context):
     response = exception_handler(exc, context)
 
@@ -76,12 +79,18 @@ def custom_exception_handler(exc, context):
         response.data['error'] = 7
     return response
 
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+
+
 class Login(APIView):
     '''
     API endpoint to login user.
     '''
 
     permission_classes = (AllowAny,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def _authenticate_by_email(self, email, password):
         '''
@@ -205,7 +214,8 @@ class Register(APIView):
     '''
 
     permission_classes = (AllowAny,)
-
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    
     def post(self, request, format=None):
         form = forms.APIRegisterForm(request.data)
         if form.is_valid():
@@ -261,14 +271,30 @@ class Register(APIView):
                 'expires': None,
             })
 
-
 class AjapaikAPIView(APIView):
     permission_classes = (AllowAny,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+
+    def _handle_request(self, data, user, request):
+        return Response({
+            'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+            'photos': []
+        })
+
+    def _reset_session_cookie(self, response):
+        if 'sessionid' in response.session.keys():
+            session_id=response.session['sessionid'];
+            s=Session.objects.get(session_key=session_id)
+            if not s:
+                del request.session['sessionid']
+        return response;
 
     def post(self, request, format=None):
+        request=self._reset_session_cookie(request)
         return self._handle_request(request.data, request.user, request)
 
     def get(self, request, format=None):
+        request=self._reset_session_cookie(request)
         return self._handle_request(request.GET, request.user, request)
 
 
@@ -645,10 +671,12 @@ class RephotoUpload(APIView):
     '''
     API endpoint to upload rephoto for a photo.
     '''
+    permission_classes = (AllowAny,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def post(self, request, format=None):
         print('rephotoupload', file=sys.stderr)
-        form = forms.ApiPhotoUploadForm(request.data, request.FILES)
+        form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
             user_profile = request.user.profile
             print('form.isvalid()', file=sys.stderr)
@@ -785,6 +813,7 @@ class RephotoUpload(APIView):
                 'id': new_rephoto.pk,
             })
         else:
+            print('rephotoupload is_valid() fails', file=sys.stderr)
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
             })
@@ -799,20 +828,15 @@ class api_user_me(AjapaikAPIView):
         if user.is_authenticated:
             profile = user.profile
             if profile.is_legit():
-                form = forms.ApiUserMeForm(data)
-                if form.is_valid():
-                    content['name'] = profile.get_display_name()
-                    content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
-                    general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
-                    general_user_rank = 0
-                    for i in range(0, len(general_user_leaderboard)):
-                        if general_user_leaderboard[i].user_id == profile.user_id:
-                            general_user_rank = (i + 1)
-                            break
-                    content['rank'] = general_user_rank
-                else:
-                    content['error'] = 2
-
+                content['name'] = profile.get_display_name()
+                content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
+                general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
+                general_user_rank = 0
+                for i in range(0, len(general_user_leaderboard)):
+                    if general_user_leaderboard[i].user_id == profile.user_id:
+                        general_user_rank = (i + 1)
+                        break
+                content['rank'] = general_user_rank
         return Response(content)
 
 
