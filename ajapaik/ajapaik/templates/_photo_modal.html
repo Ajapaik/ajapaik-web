@@ -495,8 +495,12 @@
             address: '{{ similar.to_photo.address}}',
             lat: '{{ similar.to_photo.lat}}',
             lon: '{{ similar.to_photo.lon}}',
-            author: '{{ similar.to_photo.author}}',
-            description: '{{ similar.to_photo.description}}',
+            {% if similar.to_photo.author %}
+                author: '{{ similar.to_photo.author}}',
+            {% endif %}
+            {% if similar.to_photo.description %}
+                description: '{{ similar.to_photo.description}}',
+            {% endif %}
             {% if similar.to_photo.date_text %}
                 date_text: '{{ similar.to_photo.date_text}}',
             {% endif %}

@@ -34,24 +34,9 @@
                 {% if (o.sourceKey) { %}{%=o.sourceKey%}{% } %}
             </a>
             {% } %}
-            {% if (o.source) { %}
+            {% if (o.source && !o.sourceURL) { %}
                 {%=o.source%}{% if (o.sourceKey) { %} {%=o.sourceKey%}{% } %}
             {% } %}
         </div>
     </script>
 {% endverbatim %}
-
-o.address
-o.lat
-o.lon
-o.author
-o.description
-o.date
-o.date_text
-o.licence
-o.sourceURL
-o.source
-o.source.description
-o.sourceKey
-o.source
-o.source.description
