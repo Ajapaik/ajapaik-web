@@ -492,6 +492,14 @@
     {% for similar in similar_photos.all %}
     window.photoModalSimilarPhotoArray.push({
             id: {{ similar.to_photo_id }},
+            address: '{{ similar.to_photo.address}}',
+            lat: '{{ similar.to_photo.lat}}',
+            lon: '{{ similar.to_photo.lon}}',
+            author: '{{ similar.to_photo.author}}',
+            description: '{{ similar.to_photo.description}}',
+            {% if similar.to_photo.date_text %}
+                date_text: '{{ similar.to_photo.date_text}}',
+            {% endif %}
             url: '{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.get_pseudo_slug %}',
             fb_url: '{{ hostname }}{{ similar.to_photo.get_detail_url }}',
             fullscreen_url: '{% url 'image_full' similar.to_photo.pk similar.to_photo.get_pseudo_slug %}',
@@ -510,9 +518,12 @@
             {% if similar.to_photo.author %}
                 author: '{{ similar.to_photo.author }}',
             {% endif %}
-            {% if similar.to_photo.licence %}
-                licence: true,
-            {% endif %}
+            licence: {
+                name: '{{ similar.to_photo.licence.name }}',
+                url: '{{ similar.to_photo.licence.url }}',
+                image_url: '{{ similar.to_photo.licence.image_url }}',
+                is_public: '{{ similar.to_photo.licence.is_public }}'
+            },
             {% if similar.to_photo.source %}
                 source: '{{ similar.to_photo.source.description }}',
                 sourceKey: '{{ similar.to_photo.source_key }}',
