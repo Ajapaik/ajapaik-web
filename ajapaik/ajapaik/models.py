@@ -864,6 +864,14 @@ class ImageSimilarity(Model):
                             and len (guesses.filter(similarity_type=self.similarity_type)) >= (len(guesses.filter(similarity_type=firstGuess)) - 1):
                             guess.guesser = self.user_last_modified
                             item.similarity_type = self.similarity_type
+                            if self.similarity_type == 1 or self.similarity_type == 2:
+                                item.from_photo.hasSimilar = True
+                                item.to_photo.hasSimilar = True
+                            elif self.similarity_type == 0:
+                                positiveSimilarities = imageSimilarity.objects.filter((Q(from_photo_id=item.from_photo.id) & Q(to_photo_id=item.to_photo.id) & Q(similarity_type > 0)) | (Q(from_photo_id=item.from_photo.id) & Q(to_photo_id=item.to_photo.id) & Q(similarity_type > 0))).all()
+                                if len (positiveSimilarities) < 1:
+                                    item.from_photo.hasSimilar = False
+                                    item.to_photo.hasSimilar = False
                     item.user_last_modified = self.user_last_modified
                     item.save()
                     firstSimilar = ImageSimilarity.objects.filter(from_photo_id=item.from_photo.id).exclude(similarity_type=0).first()
@@ -881,9 +889,11 @@ class ImageSimilarity(Model):
                     guess.save()
                 iterator += 1
         else:
-            self.confirmed = False
-            self.from_photo.hasSimilar = not (self.similarity_type == 0)
-            self.to_photo.hasSimilar = not (self.similarity_type == 0)
+            if self.confirmed is None:
+                self.confirmed = False
+            if self.similarity_type == 1 or self.similarity_type == 2:
+                self.from_photo.hasSimilar = True
+                self.to_photo.hasSimilar = True
             self.from_photo.save
             self.to_photo.save
             self.save()
