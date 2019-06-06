@@ -108,32 +108,36 @@ class Login(APIView):
         Returns user by ID token that we get from mobile application after user
         authentication there.
         '''
-        idinfo = id_token.verify_oauth2_token(
-            token, google_auth_requests.Request(), settings.GOOGLE_CLIENT_ID
-        )
-        adapter = GoogleOAuth2Adapter(request)
-        login = adapter.get_provider().sociallogin_from_response(
-            request,
-            {
-                'email': idinfo['email'],
-                'family_name': idinfo['family_name'],
-                'gender': '',
-                'given_name': idinfo['given_name'],
-                'id': idinfo['sub'],
-                'link': '',
-                'locale': idinfo['locale'],
-                'name': idinfo['name'],
-                'picture': idinfo['picture'],
-                'verified_email': idinfo['email_verified'],
+        try:
+            idinfo = id_token.verify_oauth2_token(
+                token, google_auth_requests.Request(), settings.GOOGLE_CLIENT_ID
+            )
+            adapter = GoogleOAuth2Adapter(request)
+            login = adapter.get_provider().sociallogin_from_response(
+                request,
+                {
+                    'email': idinfo['email'],
+                    'family_name': idinfo['family_name'],
+                    'gender': '',
+                    'given_name': idinfo['given_name'],
+                    'id': idinfo['sub'],
+                    'link': '',
+                    'locale': idinfo['locale'],
+                    'name': idinfo['name'],
+                    'picture': idinfo['picture'],
+                    'verified_email': idinfo['email_verified'],
+                }
+            )
+            login.state = {
+                'auth_params': '',
+                'process': 'login',
+                'scope': ''
             }
-        )
-        login.state = {
-            'auth_params': '',
-            'process': 'login',
-            'scope': ''
-        }
-        complete_social_login(request, login)
-        return login.user
+            complete_social_login(request, login)
+            return login.user
+        except:
+            return None
+
 
     def _authenticate_with_facebook(self, request, access_token):
         '''
