@@ -11,10 +11,10 @@
             <p>
                {% trans "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped." %}
             </p>
-            </br>
             <b>
                 {% if request.user_agent.is_pc %}{% trans "The decision can also be made on keyboard (1, 2, 3)." %}{% endif %}
             </b>
+            <br>
             <button id="close-similar-modal" class="btn btn-success w-100">
                 OK
             </button>

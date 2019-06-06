@@ -1130,7 +1130,6 @@ class AlbumsSearch(AjapaikAPIView):
     API endpoint to search for albums by given search phrase.
     '''
     permission_classes = (AllowAny,)
-
     def _handle_request(self, data, user, request):
         form = forms.ApiAlbumSearchForm(data)
         if form.is_valid():
@@ -1157,6 +1156,15 @@ class AlbumsSearch(AjapaikAPIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'albums': []
             })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
 
 # Show Wikidata items as albums
 class WikidocsAlbumsSearch(AjapaikAPIView):

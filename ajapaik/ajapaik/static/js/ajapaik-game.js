@@ -287,7 +287,7 @@
         });
         if (!isMobile) {
             $('.ajapaik-flip-photo-overlay-button').hide("fade",250);
-            $('.ajapaik-similar-photo-overlay-button').hide("fade",250);
+            $('.ajapaik-show-similar-photo-selection-overlay-button').hide("fade",250);
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
         // FIXME: Only place coordinates are in reverse order
@@ -358,14 +358,14 @@
         $('#ajapaik-game-modal-body').hover(function () {
             if (!isMobile) {
                 $('.ajapaik-flip-photo-overlay-button').show("fade",250);
-                $('.ajapaik-similar-photo-overlay-button').show("fade",250);
+                $('.ajapaik-show-similar-photo-selection-overlay-button').show("fade",250);
                 $('.ajapaik-photo-modal-next-button').show();
                 $('.ajapaik-photo-modal-previous-button').show();
             }
         }, function () {
             if (!isMobile && !window.fullscreenEnabled) {
                 $('.ajapaik-flip-photo-overlay-button').hide("fade",250);
-                $('.ajapaik-similar-photo-overlay-button').hide("fade",250);
+                $('.ajapaik-show-similar-photo-selection-overlay-button').hide("fade",250);
                 $('.ajapaik-photo-modal-next-button').hide();
                 $('.ajapaik-photo-modal-previous-button').hide();
             }

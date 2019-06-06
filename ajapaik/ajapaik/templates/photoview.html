@@ -63,14 +63,20 @@
                     {% endif %}
                     <span class="ajapaik-like-count">{{ photo.like_count }}</span>
                 </button>
-                {% if similar_photo_count > 0 %}
+                {% if photo.rephotos.all|length > 0 and similar_photo_count > 0 %}
                     <div class="ajapaik-image-bottom-right">
-                        <a class="btn ajapaik-similar-photo-overlay-button float-right"
-                            href="{{ compare_photos_url }}"
-                            id="ajapaik-similar-photo-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
+                        <button class="btn ajapaik-show-similar-photoview-overlay-button float-right"
+                                id="ajapaik-show-similar-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                             <i class="material-icons notranslate w-100">burst_mode</i>
                             <span style="top:-10px; position: relative;">{% if similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photo_count }}{% endif %}</span>
-                        </a>
+                        </button>
+                        <button class="btn ajapaik-show-rephotos-photoview-overlay-button float-right d-none"
+                                id="ajapaik-show-rephotos-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
+                            {% if photo.rephotos.all|length < 10 %}
+                                <i class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</i>
+                            {% else %}
+                                <i class="material-icons notranslate">filter_9_plus</i>
+                            {% endif %}</button>
                     </div>
                 {% endif %}
             </div>
@@ -99,8 +105,8 @@
             </div>
         </div>
         {% endif %}
-        {% if not rephoto and similar_photo_count > 0 and photo.rephotos.all|length < 1 %}
-            <div id="ajapaik-photoview-similar-photo-selection" class="col-auto px-0">
+        {% if similar_photo_count > 0 %}
+            <div id="ajapaik-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or photo.rephotos.all|length > 0 %} d-none{% endif %}">
                 <div>
                     {% for similarity in similar_photos.all %}
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row ajapaik-photoview-similar-image-row">
@@ -247,8 +253,12 @@
         let rephoto = $("#ajapaik-photoview-rephoto-container");
         rephotosContainer.height(mainPhoto.height() || 500);
         similarPhotosContainer.height(mainPhoto.height() || 500);
-        rephotosContainer.show();
-        similarPhotosContainer.show();
+        if(!rephotosContainer.hasClass('d-none')){
+            rephotosContainer.show();
+        }
+        if(!similarPhotosContainer.hasClass('d-none')){
+            similarPhotosContainer.show();
+        }
         mainPhoto.siblings().width(mainPhoto.width() || 320);
         rephoto.siblings().width(rephoto.width() || 320);
     }
@@ -329,14 +339,16 @@
         }
     });
     if (window.isMobile) {
-        $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-        $('.ajapaik-similar-photo-overlay-button').show("fade", 250);
+        $('.ajapaik-flip-photo-overlay-button').show();
+        $('.ajapaik-show-similar-photoview-overlay-button').show();
+        $('.ajapaik-show-rephotos-photoview-overlay-button').show();
     }
     // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
     $(document).on('mouseenter', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
             $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-            $('.ajapaik-similar-photo-overlay-button').show("fade", 250);
+            $('.ajapaik-show-similar-photoview-overlay-button').show("fade", 250);
+            $('.ajapaik-show-rephotos-photoview-overlay-button').show("fade", 250);
         }
         $('.ajapaik-thumbnail-selection-icon').show("fade", 250);
         // === this
@@ -345,7 +357,8 @@
     $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
             $('.ajapaik-flip-photo-overlay-button').hide("fade", 250);
-            $('.ajapaik-similar-photo-overlay-button').hide("fade", 250);
+            $('.ajapaik-show-similar-photoview-overlay-button').hide("fade", 250);
+            $('.ajapaik-show-rephotos-photoview-overlay-button').hide("fade", 250);
         }
         $('.ajapaik-thumbnail-selection-icon').hide("fade", 250);
         mainPhotoContainer.data('AjapaikFaceTagger').removeRectanglesAndButtons();
@@ -397,13 +410,34 @@
         window.location.href = '/photo/' + {{ photo.id }} + '/{{ photo.get_pseudo_slug }}';
     });
     $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
+        e.preventDefault();
         e.stopPropagation();
-        var targetDiv = $('#ajapaik-photoview-rephoto');
+        var targetDiv = $('#ajapaik-modal-rephoto');
+        var fullSCreen = $('#ajapaik-rephoto-full-screen-image');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
             targetDiv.addClass('ajapaik-photo-bw');
         }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
+        }
+    });
+    $(document).on('click', '#ajapaik-show-similar-photoview-overlay-button', function () {
+        $('#ajapaik-photoview-similar-photo-selection').removeClass('d-none').addClass('d-block');
+        $('#ajapaik-photoview-rephoto-selection').addClass('d-none');
+        $('#ajapaik-photoview-rephoto-wrapper').addClass('d-none');
+        $('#ajapaik-show-rephotos-photoview-overlay-button').removeClass('d-none');
+        $('#ajapaik-show-similar-photoview-overlay-button').addClass('d-none');
+    });
+    $(document).on('click', '#ajapaik-show-rephotos-photoview-overlay-button', function () {
+        $('#ajapaik-photoview-rephoto-selection').removeClass('d-none');
+        $('#ajapaik-photoview-rephoto-wrapper').removeClass('d-none');
+        $('#ajapaik-photoview-similar-photo-selection').removeClass('d-block').addClass('d-none');
+        $('#ajapaik-show-similar-photoview-overlay-button').removeClass('d-none');
+        $('#ajapaik-show-rephotos-photoview-overlay-button').addClass('d-none');
     });
     window.uploadCompleted = function (response) {
         $('#ajapaik-rephoto-upload-modal').modal('hide');

@@ -40,6 +40,38 @@
                 }
             });
         };
+        window.selectionAddSimilarity = function(type) {
+            $('#ajapaik-loading-overlay').show();
+            $.get('/photo-selection/', function (response) {
+                let photos = []
+                for (let key in response) {
+                    photos.push(key)
+                }
+                let otherPhotos = photos.slice();
+                for (let photo in photos) {
+                    otherPhotos.shift();
+                    for(let similar in otherPhotos) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/compare_photos/' + photos[photo] + '/' +  otherPhotos[similar] +'/',
+                            data: {
+                                csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                                confirmed: true,
+                                similarity_type: type,
+                                profile: window.currentProfileId
+                            },
+                            success: function () {
+                                $.notify(gettext('Image similarities mapped, thanks!'), {type: 'success'});
+                            },
+                            error: function () {
+                                $.notify(gettext('Something went wrong'), {type: 'danger'});
+                            }
+                        });
+                    }
+                }
+                $('#ajapaik-loading-overlay').hide();
+            });
+        }
         $(document).on('click', '.ajapaik-photo-selection-thumbnail-link', function (e) {
             e.preventDefault();
             window.loadPhoto($(this).data('id'));
@@ -67,6 +99,12 @@
             $.post(window.photoSelectionURL, data, function () {
                 window.location.reload();
             });
+        });
+        $(document).on('click', '#ajapaik-photo-selection-add-similarity', function () {
+            selectionAddSimilarity(1);
+        });
+        $(document).on('click', '#ajapaik-photo-selection-add-duplicate', function () {
+            selectionAddSimilarity(2);
         });
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('hide');
@@ -156,6 +194,10 @@
             $.post(window.photoSelectionURL, data, function (response) {
                 var len = Object.keys(response).length,
                     target = $('#ajapaik-header-selection-indicator');
+                if (len < 2) {
+                    $('#ajapaik-photo-selection-add-similarity').addClass('d-none');
+                    $('#ajapaik-photo-selection-add-duplicate').addClass('d-none');
+                }
                 if (len > 0) {
                     target.removeClass('d-none');
                 } else {

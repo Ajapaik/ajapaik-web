@@ -131,9 +131,10 @@ class RephotoSerializer(serializers.ModelSerializer):
 
     def get_source(self, instance):
         if instance.source:
+            source_key = instance.source_key or ''
             return {
                 'url': instance.source_url,
-                'name': instance.source.description + ' ' + instance.source_key,
+                'name': (instance.source.description + ' ' + source_key).strip(),
             }
         else:
             return {
@@ -207,9 +208,10 @@ class PhotoSerializer(serializers.ModelSerializer):
 
     def get_source(self, instance):
         if instance.source:
+            source_key = instance.source_key or ''
             return {
                 'url': instance.source_url,
-                'name': instance.source.description + ' ' + instance.source_key,
+                'name': (instance.source.description + ' ' + source_key).strip(),
             }
         else:
             return {

@@ -52,6 +52,11 @@
             <img id="ajapaik-rephoto-full-screen-image" alt=""/>
         </div>
     </div>
+    <div class="full-box similar-full-box">
+        <div class="full-pic" id="ajapaik-similar-fullscreen-image-container">
+            <img id="ajapaik-similar-photo-full-screen-image" alt=""/>
+        </div>
+    </div>
 {% endblock %}
 
 {% block specific_js %}
@@ -68,6 +73,7 @@
         window.nextPhotoLoading = false;
         /* window.photos = window.getQueryParameterByName('photos'); */ // Kimmo: 23.8.2018. This doesn't work and it is not in use? Check and remove if this is not needed
         window.userClosedRephotoTools = false;
+        window.userClosedSimilarPhotoTools = true;
         window.useButtonLink = true;
         window.currentlySelectedPhotoId = '{{ photo.0 }}';
         window.albumId = null;

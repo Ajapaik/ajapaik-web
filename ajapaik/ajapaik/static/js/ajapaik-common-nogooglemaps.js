@@ -36,10 +36,14 @@ var map,
     streetviewPanoChangedListener,
     photoModalCurrentlyOpenPhotoId,
     currentlySelectedRephotoId,
+    currentlySelectedSimilarPhotoId,
     photoModalFullscreenImageUrl,
     photoModalRephotoFullscreenImageUrl,
+    photoModalSimilarFullscreenImageUrl,
     photoModalRephotoArray,
-    userClosedRephotoTools = false,
+    photoModalSimilarPhotoArray,
+    userClosedSimilarPhotoTools = true,
+    userClosedRephotoTools = true,
     fullscreenEnabled = false,
     currentPhotoDescription = false,
     comingBackFromGuessLocation = false,
@@ -481,6 +485,26 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 _gaq.push(['_trackEvent', 'Mapview', 'Rephoto full-screen']);
             } else if (window.isGallery) {
                 _gaq.push(['_trackEvent', 'Gallery', 'Rephoto full-screen']);
+            } else if (window.isPhotoview) {
+                _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
+            }
+        }
+    });
+
+    $(document).on('click', '#ajapaik-similar-photo-full-screen-link', function (e) {
+        e.preventDefault();
+        if (window.BigScreen.enabled) {
+            var div = $('#ajapaik-similar-fullscreen-image-container'),
+                img = div.find('img');
+            img.attr('src', img.attr('data-src')).show();
+            window.BigScreen.request(div[0]);
+            fullscreenEnabled = true;
+            if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Similar full-screen']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Mapview', 'Similar full-screen']);
+            } else if (window.isGallery) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Similar full-screen']);
             } else if (window.isPhotoview) {
                 _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
             }
@@ -954,7 +978,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 var commentsDiv = $('#ajapaik-rephoto-comments');
                 commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
                 window.FB.XFBML.parse();
-                if (window.isFrontpage) {
+                if (window.isFrontpage || window.isSelection) {
 
                 } else {
                     window.syncMapStateToURL();
@@ -966,6 +990,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     $(document).on('click', '.ajapaik-show-rephoto-selection-overlay-button', function () {
         $(this).hide();
         userClosedRephotoTools = false;
+        $('.ajapaik-close-similar-photo-overlay-button').click();
+        userClosedSimilarPhotoTools = true;
         var rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
             rephotoInfoColumn = $('#ajapaik-photo-modal-rephoto-info-column'),
             rephotoDiv = $('#ajapaik-modal-rephoto-container'),
@@ -973,8 +999,12 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
             
         if (window.photoModalRephotoArray.length > 1) {
-            $('#ajapaik-rephoto-selection').show();
+                $('#ajapaik-rephoto-selection').show();
         }
+        else if(window.photoModalSimilarPhotoArray.length > 1) {
+            $('#ajapaik-similar-photo-selection').show();
+        }
+
         originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         rephotoInfoColumn.show();
@@ -983,7 +1013,60 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
-        if (!window.isFrontpage) {
+        if (!window.isFrontpage && !window.isSelection) {
+            window.syncMapStateToURL();
+        }
+    });
+    $(document).on('click', '.ajapaik-photo-modal-similar-photo-thumb', function () {
+        $('#ajapaik-similar-photo-full-screen-image').removeClass('ajapaik-photo-bw')
+        var targetId = $(this).data('id'),
+            infoDiv = $('#ajapaik-photo-modal-similar-photo-info-column'),
+            photoDiv = $('#ajapaik-modal-similar-photo-container'),
+            similarFullScreen = $('#ajapaik-similar-photo-full-screen-image');
+        if (!targetId) {
+            targetId = currentlySelectedSimilarPhotoId;
+        }
+        infoDiv.show();
+        for (var i = 0; i < window.photoModalSimilarPhotoArray.length; i += 1) {
+            if (window.photoModalSimilarPhotoArray[i].id == targetId) {
+                similarFullScreen.attr('data-src', window.photoModalSimilarPhotoArray[i].fullscreen_url);
+                photoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,i]));
+                infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
+                currentlySelectedSimilarPhotoId = targetId;
+                window.FB.XFBML.parse();
+                if (window.isFrontpage  || window.isSelection) {
+
+                } else {
+                    window.syncMapStateToURL();
+                }
+                break;
+            }
+        }
+    });
+    $(document).on('click', '.ajapaik-show-similar-photo-selection-overlay-button', function () {
+        $(this).hide();
+        userClosedSimilarPhotoTools = false;
+        $('.ajapaik-close-rephoto-overlay-button').click();
+        userClosedRephotoTools = true;
+        var similarPhotoColum = $('#ajapaik-photo-modal-similar-photo-column'),
+            similarPhotoInfoColumn = $('#ajapaik-photo-modal-similar-photo-info-column'),
+            similarPhotoDiv = $('#ajapaik-modal-similar-photo-container'),
+            originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column'),
+            originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+            
+        if (window.photoModalSimilarPhotoArray !== undefined && window.photoModalSimilarPhotoArray.length > 1) {
+            $('#ajapaik-similar-photo-selection').show();
+        }
+
+        originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        similarPhotoInfoColumn.show();
+        similarPhotoColum.show();
+        currentlySelectedSimilarPhotoId = window.photoModalSimilarPhotoArray[0]['id'];
+        similarPhotoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,0]));
+        similarPhotoInfoColumn.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[0]));
+        $('#ajapaik-photo-modal-map-container').hide();
+        if (!window.isFrontpage && !window.isSelection) {
             window.syncMapStateToURL();
         }
     });
@@ -1014,12 +1097,45 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
-        if (window.isFrontpage || window.isPhotoview) {
+        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
 
         } else {
             window.syncMapStateToURL();
         }
         userClosedRephotoTools = true;
+        if (window.showPhotoMapIfApplicable) {
+            window.showPhotoMapIfApplicable();
+        } else {
+            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+                $('#ajapaik-photo-modal-map-container').show();
+                if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
+                    window.ajapaikminimap.invalidateSize();
+                }
+            }
+        }
+    });
+    $(document).on('click', '.ajapaik-close-similar-photo-overlay-button', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#ajapaik-photo-modal-similar-photo-column').hide();
+        $('#ajapaik-similar-photo-selection').hide();
+        $('.ajapaik-show-similar-photo-selection-overlay-button').show("fade", 250);
+        $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
+        let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+        let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+        if (!window.isMapview) {
+            originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
+            originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+        }
+        $('#ajapaik-photo-modal-similar-photo-info-column').hide();
+        currentlySelectedSimilarPhotoId = false;
+        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
+
+        } else {
+            window.syncMapStateToURL();
+        }
+        userClosedSimilarPhotoTools = true;
         if (window.showPhotoMapIfApplicable) {
             window.showPhotoMapIfApplicable();
         } else {
@@ -1250,14 +1366,37 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('#full_leaderboard').click();
     });
 
-    $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
+    $(document).on('click', '.ajapaik-invert-similar-photo-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var targetDiv = $('#ajapaik-modal-rephoto');
+        var targetDiv = $('#ajapaik-modal-similar-photo');
+        var fullSCreen = $('#ajapaik-similar-photo-full-screen-image');
         if (targetDiv.hasClass('ajapaik-photo-bw')) {
             targetDiv.removeClass('ajapaik-photo-bw');
         } else {
             targetDiv.addClass('ajapaik-photo-bw');
+        }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
+        }
+    });
+
+    $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var targetDiv = $('#ajapaik-modal-rephoto');
+        var fullSCreen = $('#ajapaik-rephoto-full-screen-image');
+        if (targetDiv.hasClass('ajapaik-photo-bw')) {
+            targetDiv.removeClass('ajapaik-photo-bw');
+        } else {
+            targetDiv.addClass('ajapaik-photo-bw');
+        }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
         }
     });
 
@@ -1313,6 +1452,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         var $this = $(this);
         if (!isPhotoview) {
             e.preventDefault();
+            $('#ajapaik-rephoto-full-screen-image').hasClass('ajapaik-photo-bw');
+            $('#ajapaik-similar-photo-full-screen-image').removeClass('ajapaik-photo-bw');
             if (!$this.hasClass('ajapaik-photo-modal-previous-button-disabled')) {
                 var previousId = $('#ajapaik-frontpage-image-container-' + photoModalCurrentlyOpenPhotoId).prev().data('id');
                 if (previousId && !window.nextPhotoLoading) {
@@ -1674,7 +1815,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     }
 
     $('#ajapaik-mode-select').find('a').click(function (e) {
-        if (!window.isFrontpage) {
+        if (!window.isFrontpage && !window.isSelection) {
             e.preventDefault();
             var $this = $(this),
                 selectedMode = $this.data('mode');

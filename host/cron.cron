@@ -1,14 +1,17 @@
 MAILTO="lauri@ajapaik.ee"
+00 01 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py calculate_phash_for_all
 00 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py refresh_albums
 15 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py clearsessions
 30 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py reverse_geocode_photos
 45 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py update_index
+00 05 * * 4 cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py flag_similar_for_all_images
 05 * * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py run_face_detection
 
 45 05 * * * cd /home/ajapaik/sift-pics-web && venv/bin/python project/manage.py update_index
 00 * * * * cd /home/ajapaik/sift-pics-web && venv/bin/python project/manage.py set_applied_tags_for_cat_photos
 
-00 02 * * 4 cd /home/ajapaik/ajapaik-web-staging && venv/bin/python manage.py find_similar_photos
+00 01 * * * cd /home/ajapaik/ajapaik-web-staging && venv/bin/python manage.py calculate_phash_for_all
+00 02 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py flag_similar_for_all_images
 
 30 03 01 Jan,Mar,May,Jul,Sep,Nov * /home/ajapaik/ajapaik-web/host/update-ssl-certs.sh
 0 3 * * * sudo sh /home/lauri/update.sh

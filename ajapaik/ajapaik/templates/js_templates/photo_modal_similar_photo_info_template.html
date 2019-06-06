@@ -1,0 +1,42 @@
+{% verbatim %}
+    <script id="ajapaik-photo-modal-similar-photo-info-template" type="text/x-tmpl">
+        {% if (o.address && o.lat && o.lon && isMobile) { %}
+            <div class="w-100">
+                <i>{%=gettext('Approximate address')%}: {%=o.address%}</i>
+            </div>
+        {% } %}
+        {% if (o.author) { %}
+            <div class="w-100">
+                <b>{%=o.author%}</b>
+            </div>
+        {% } %}
+        {% if (o.description) { %}
+            <div class="w-100">
+                    {%=o.description%}
+            </div>
+        {% } %}
+        {% if (o.date) { %}
+            <div class="w-100">
+                    {%=o.date%}
+            </div>
+        {% } %}
+        {% if (o.date_text) { %}
+            <div class="w-100">
+                    {%=o.date_text%}
+            </div>
+        {% } %}
+        <div class="w-100">
+            {% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" with licence=o.licence %}{% verbatim %}{% } %}
+            {% if (o.sourceURL) { %}
+            <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
+                href='{%=o.sourceURL%}' target="_blank" rel="noopener">
+                {% if (o.source) { %}{%=o.source%}{% } %}
+                {% if (o.sourceKey) { %}{%=o.sourceKey%}{% } %}
+            </a>
+            {% } %}
+            {% if (o.source && !o.sourceURL) { %}
+                {%=o.source%}{% if (o.sourceKey) { %} {%=o.sourceKey%}{% } %}
+            {% } %}
+        </div>
+    </script>
+{% endverbatim %}
