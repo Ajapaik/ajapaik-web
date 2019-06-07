@@ -972,7 +972,7 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 latitude = form.cleaned_data['latitude']
                 longitude = form.cleaned_data['longitude']
                 start = form.cleaned_data["start"] or 0
-                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 5)
+                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
 
                 requested_location = GEOSGeometry(
                     'POINT({} {})'.format(longitude, latitude),
@@ -1302,7 +1302,7 @@ class PhotosWithUserRephotos(AjapaikAPIView):
         if form.is_valid():
             if user.is_authenticated:
                 start = form.cleaned_data["start"] or 0
-                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 10)
+                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
 
                 photos = Photo.objects.filter(
                     rephotos__user=user.profile
