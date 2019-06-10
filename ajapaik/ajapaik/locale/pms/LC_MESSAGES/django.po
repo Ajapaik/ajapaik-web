@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-06 15:49:22+0000\n"
+"PO-Revision-Date: 2019-06-10 18:15:15+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -452,59 +452,59 @@ msgstr "Ordiné conforma a la dàita ëd gionta o a la quantità dla datassion"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:86
 msgid "Sort by rephotos' time added or amount"
-msgstr ""
+msgstr "Ordiné conforma a la dàita ëd gionta o a la quantità d'arprodussion fotogràfica"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:96
 msgid "Sort by comments' time added or amount"
-msgstr ""
+msgstr "Ordiné conforma a la dàita ëd gionta o a la quantità ëd coment"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:106
 msgid "Sort by likes' time added or amount"
-msgstr ""
+msgstr "Ordiné conforma a la dàita ëd gionta o a la quantità d'aprovassion"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:116
 msgid "Sort by amount and ..."
-msgstr ""
+msgstr "Ordiné për quantità e ..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:126
 msgid "Change sorting order"
-msgstr ""
+msgstr "Modifiché l'ordinament"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:135
 msgid "Help"
-msgstr ""
+msgstr "Agiut"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:11
 msgid "How to sort"
-msgstr ""
+msgstr "Coma ordiné"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
 msgid "From this group"
-msgstr ""
+msgstr "Da costa partìa"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr ""
+msgstr "Serne 2 paràmeter"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:58
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:64
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:65
 msgid "1 of"
-msgstr ""
+msgstr "1 ëd"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr ""
+msgstr "a órdina le plance an fonsion dla distansa da chiel"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:105
 msgid "reverses sorting"
-msgstr ""
+msgstr "a anvert l'órdin"
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:18
 #: ajapaik/ajapaik/templates/_header.html:104
@@ -512,71 +512,71 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
 msgid "User"
-msgstr ""
+msgstr "Utent"
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:19
 #: ajapaik/ajapaik/templates/_header.html:105
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 msgid "Log out"
-msgstr ""
+msgstr "Seurte dal sistema"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:9
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
-msgstr ""
+msgstr "Ajapaik a mostra coma ij pòst a l'han cangià ant ël temp"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:14
 msgid "Discover how places looked like years ago by"
-msgstr ""
+msgstr "Dëscoaté coma a j'ero ij pòst vàire agn fa"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
 msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-msgstr ""
+msgstr "* arserca ëd plance ëd viste stòriche ant le colession dij musé éston e supervision dle plance selessionà për Ajapaik,"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
-msgstr ""
+msgstr "* tichëtte la locassion ëd plance dij pòst con ij quaj chiel a l'é familiar e"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:23
 msgid "* rephotographing the historic views from places you visit."
-msgstr ""
+msgstr "* fé d'arprodussion fotogràfiche dle viste stòriche ant ij pòst che chiel a vìsita."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "\n                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n                    "
-msgstr ""
+msgstr "\n                        Ajapaik a l'ha <b>%(total_photo_count)s</b> plance stòriche, dont\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:30
 #, python-format
 msgid "\n                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n                    "
-msgstr ""
+msgstr "\n                        <b>%(total_photos_tagged)s</b> fòto a son ëstàite butà an sla carta da\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:33
 #, python-format
 msgid "\n                        <b>%(contributing_users)s</b> users and\n                    "
-msgstr ""
+msgstr "\n                        <b>%(contributing_users)s</b> utent e\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:36
 #, python-format
 msgid "\n                        <b>%(rephoto_count)s</b> rephotographs for\n                    "
-msgstr ""
+msgstr "\n                        <b>%(rephoto_count)s</b> arprodussion fotogràfiche për\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:39
 #, python-format
 msgid "\n                        <b>%(rephotographed_photo_count)s</b> pictures made by\n                    "
-msgstr ""
+msgstr "\n                        <b>%(rephotographed_photo_count)s</b> plance fàite da\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:42
 #, python-format
 msgid "\n                        <b>%(rephotographing_users)s</b> users.\n                    "
-msgstr ""
+msgstr "\n                        <b>%(rephotographing_users)s</b> utent.\n                    "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:49
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n                        "
 msgid_plural "\n                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            A l'ha sugerì un pòst për la plancia <b>%(user_geotagged_photos)s</b>.\n                        "
+msgstr[1] "\n                            A l'ha sugerì dij pòst për le plance <b>%(user_geotagged_photos)s</b>.\n                        "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
 #, invalid-plural, python-format

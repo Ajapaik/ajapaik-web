@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-06 15:49:21+0000\n"
+"PO-Revision-Date: 2019-06-10 18:15:14+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,7 +78,7 @@ msgstr "Dir"
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:810
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
-msgstr ""
+msgstr "Anonymme Benotzer"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:812
 msgid "Anonymous users"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr ""
+msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
@@ -349,7 +349,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
 msgid "Least"
-msgstr ""
+msgstr "Mindestens"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
 msgid "Most"
@@ -413,7 +413,7 @@ msgstr "Albumen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
 msgid "My favorites"
-msgstr ""
+msgstr "Meng Favoritten"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "My rephotos"
@@ -475,7 +475,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
 msgid "Search box"
-msgstr ""
+msgstr "Sich-Këscht"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88

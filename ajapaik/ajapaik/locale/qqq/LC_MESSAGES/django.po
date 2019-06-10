@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-06 15:49:39+0000\n"
+"PO-Revision-Date: 2019-06-10 18:15:31+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -135,7 +135,7 @@ msgstr ""
 #: ajapaik/ajapaik/models.py:183 ajapaik/ajapaik/models.py:326
 #: ajapaik/ajapaik/templates/curator.html:88
 msgid "Description"
-msgstr ""
+msgstr "{{Identical|Beschreiwung}}"
 
 #: ajapaik/ajapaik/models.py:187
 msgid "Is public"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:327
 msgid "Author"
-msgstr ""
+msgstr "{{Identical|Author}}"
 
 #: ajapaik/ajapaik/models.py:832
 msgid "Geotag"
@@ -232,7 +232,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:886
 msgid "Source"
-msgstr ""
+msgstr "{{identical|Source}}"
 
 #: ajapaik/ajapaik/models.py:891
 msgid "Google map"
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1291
 msgid "Month"
-msgstr ""
+msgstr "{{Identical|Month}}"
 
 #: ajapaik/ajapaik/models.py:1292
 msgid "Year"
@@ -294,7 +294,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:18
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:19
 msgid "Cancel"
-msgstr ""
+msgstr "{{Identical|Cancel}}"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
@@ -1277,7 +1277,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
-msgstr ""
+msgstr "{{Identical|Edit}}"
 
 #: ajapaik/ajapaik/templates/comments/list.html:63
 #: ajapaik/ajapaik/templates/comments/list.html:89
@@ -1591,7 +1591,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2165
 msgid "OK"
-msgstr ""
+msgstr "{{Identical|OK}}"
 
 #: ajapaik/ajapaik/views.py:2220
 #, python-format
