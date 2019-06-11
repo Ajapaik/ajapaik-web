@@ -11,7 +11,7 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 
 def finna_cut_title(title, shortTitle):
-    if title == None:
+    if title is None:
         return None
 
     title=title.rstrip()

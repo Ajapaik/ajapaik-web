@@ -1,25 +1,36 @@
 {% extends "base_bootstrap.html" %}
 {% load i18n compress static %}
 
-{% block specific_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static "css/ajapaik-video.css" %}"/>
-        <link rel="stylesheet" href="{% static "libs/justifiedGallery/css/justifiedGallery-3.6.1.min.css" %}"/>
-    {% endcompress %}
-{% endblock %}
-
 {% block header %}
     {% include "_header.html" %}
 {% endblock %}
 {% block layout %}
 {% include "_similar_images_tutorial_modal.html" %}
+<div class="full-box original-full-box">
+        <div class="full-pic" id="ajapaik-fullscreen-image-container">
+            <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
+                data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
+                alt="{{ photo.description }}" title="{{ photo.description }}" />
+        </div>
+    </div>
+<div class="full-box rephoto-full-box">
+    <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+        <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;"
+            alt="{{ photo2.description }}"
+            data-src="{% url "image_full" photo2.pk photo2.get_pseudo_slug %}"
+            title="{{ photo2.description }}/">
+    </div>
+</div>
 <div id="compare-photos-container" class="container pt-5" style="min-height:87vh;opacity:0;">
     <div class="row pt-2">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
             <div class="img-wrapper">
-                <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo" style="background-color:#eee;"
-                                        alt="{{ photo.description }}"
-                                        src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+                <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
+                    href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
+                    <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo" style="background-color:#eee;"
+                                            alt="{{ photo.description }}"
+                                            src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+                </a>
                 <div class="compare-photo-description">
                         {% with photo=photo|default:photo %}
                             {% include "_photo_description_container.html" %}
@@ -28,9 +39,13 @@
             </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
-            <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo" style="background-color:#eee;"
-                                    alt="{{ photo2.description }}"
-                                    src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
+            <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
+                href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}">
+                <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo" style="background-color:#eee;"
+                                        alt="{{ photo2.description }}"
+                                        href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}"
+                                        src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
+            </a>
             <div class="compare-photo-description">
                     {% with photo=photo2|default:photo2 %}
                         {% include "_photo_description_container.html" %}
@@ -120,8 +135,7 @@
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,
-                    similarity_type: similarity_type,
-                    profile: '{{ request.user.profile.pk }}'
+                    similarity_type: similarity_type
                 },
                 success: function (response) {
                     window.location.href = '{{next_action}}';

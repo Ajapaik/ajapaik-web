@@ -1,0 +1,16 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n compress static %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+{% block layout %}
+<div id="compare-photos-container" class="container pt-5" style="min-height:87vh;">
+    <div class="row pt-2">
+        <div class="col-sm-12 text-center">
+            <i class="material-icons notranslate" style="font-size: 96px;">burst_mode</i>
+            <h3>{% trans "You have already reviewed all the similar image pairs" %}</h3>
+        <div>
+    </div>
+</div>
+{% endblock %}

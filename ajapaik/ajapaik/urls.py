@@ -95,6 +95,7 @@ urlpatterns = [
     url(r'^privacy/$', views.privacy, name='privacy'),
     url(r'^terms/$', views.terms, name='terms'),
     url(r'^compare_photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photos, name='compare_photos'),
+    url(r'^compare_all_photos/$',views.compare_all_photos, name='compare_all_photos'),
     url(r'^compare_all_photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare_all_photos')
 
 ]
