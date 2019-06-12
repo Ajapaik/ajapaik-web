@@ -7,7 +7,7 @@ import re
 import json
 from json import loads
 from urllib.request import urlopen
-
+from urllib.parse import quote
 
 import requests
 from PIL import Image, ExifTags
@@ -143,19 +143,22 @@ class Login(APIView):
         '''
         Returns user by facebook access_token.
         '''
-        adapter = FacebookOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
-        token = adapter.parse_token({'access_token': access_token})
-        token.app = app
-        login = adapter.complete_login(request, app, token)
-        login.token = token
-        login.state = {
-            'auth_params': '',
-            'process': 'login',
-            'scope': ''
-        }
-        complete_social_login(request, login)
-        return login.user
+        try:
+            adapter = FacebookOAuth2Adapter(request)
+            app = adapter.get_provider().get_app(request)
+            token = adapter.parse_token({'access_token': access_token})
+            token.app = app
+            login = adapter.complete_login(request, app, token)
+            login.token = token
+            login.state = {
+                'auth_params': '',
+                'process': 'login',
+                'scope': ''
+            }
+            complete_social_login(request, login)
+            return login.user
+        except:
+            return None
 
     def post(self, request, format=None):
         form = forms.APILoginForm(request.data)
@@ -468,7 +471,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 # Coordinate's are disabled because center coordinates aren't good enough
                 photo = {
                     'id': 'https://www.finna.fi%s' % p.get('recordPage', None),
-                    'image': 'https://www.finna.fi/Cover/Show?id=%s' % p.get('id', None),
+                    'image': 'https://www.finna.fi/Cover/Show?id=%s' % quote(p.get('id', None)),
                     'height': 768,
                     'width': 583,
                     'title': title,
