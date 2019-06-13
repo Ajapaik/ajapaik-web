@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-10 18:15:15+0000\n"
+"PO-Revision-Date: 2019-06-13 17:59:58+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -579,18 +579,18 @@ msgstr[0] "\n                            A l'ha sugerì un pòst për la plancia
 msgstr[1] "\n                            A l'ha sugerì dij pòst për le plance <b>%(user_geotagged_photos)s</b>.\n                        "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            You have made <b>%(user_rephotos)s</b> rephoto for\n                        "
 msgid_plural "\n                            You have made <b>%(user_rephotos)s</b> rephotos for\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            A l'ha fàit <b>%(user_rephotos)s</b> arprodussion fotogràfica për\n                        "
+msgstr[1] "\n                            A l'ha fàit <b>%(user_rephotos)s</b> arprodussion fotogràfiche për\n                        "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            <b>%(user_rephotographed_photos)s</b> picture.\n                        "
 msgid_plural "\n                            <b>%(user_rephotographed_photos)s</b> pictures.\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            <b>%(user_rephotographed_photos)s</b> plancia.\n                        "
+msgstr[1] "\n                            <b>%(user_rephotographed_photos)s</b> plance.\n                        "
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
 msgid "General statistics refresh every 10 minutes"

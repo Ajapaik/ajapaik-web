@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-06 15:49:18+0000\n"
+"PO-Revision-Date: 2019-06-13 17:59:57+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -156,12 +156,12 @@ msgstr "Nuştekar"
 
 #: ajapaik/ajapaik/models.py:832
 msgid "Geotag"
-msgstr ""
+msgstr "Geotag"
 
 #: ajapaik/ajapaik/models.py:833 ajapaik/ajapaik/models.py:887
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "Rephoto"
 
 #: ajapaik/ajapaik/models.py:834
 msgid "Photo upload"
@@ -1456,11 +1456,11 @@ msgstr "Weçine"
 #: ajapaik/ajapaik/templates/photoview.html:268
 #: ajapaik/ajapaik/templates/photoview.html:269
 msgid "rephoto"
-msgstr ""
+msgstr "rephoto"
 
 #: ajapaik/ajapaik/templates/photoview.html:197
 msgid "Approximate address"
-msgstr ""
+msgstr "Adres texmini"
 
 #: ajapaik/ajapaik/templates/photoview.html:252
 msgid "Date taken"
@@ -1657,7 +1657,7 @@ msgstr ""
 
 #: ajapaik/settings/default.py:71
 msgid "Estonian"
-msgstr ""
+msgstr "Estonyayıc"
 
 #: ajapaik/settings/default.py:72
 msgid "English"
