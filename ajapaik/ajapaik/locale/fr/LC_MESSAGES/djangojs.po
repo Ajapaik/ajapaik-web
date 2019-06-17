@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Gomoko
+# Author: VIGNERON
 # Author: Wladek92
 # --
 # This file is part of the Ajapaik Project
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-13 17:59:57+0000\n"
+"PO-Revision-Date: 2019-06-17 17:12:33+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,7 +96,7 @@ msgstr "Entre %(from)s et %(to)s environ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
-msgstr "Approximativement, entre %(from)s et %(to)s"
+msgstr "Entre approximativement %(from)s et %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
 msgid "Between %(from)s and approximately %(to)s"
@@ -172,7 +173,7 @@ msgstr "Utilisez le format AAAA.MM.JJ (MM.JJ optionnel)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr "1878 | 1902,02"
+msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
@@ -184,7 +185,7 @@ msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr "Date approximative entre crochets"
+msgstr "Date approximative entre parenthèses"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
@@ -192,7 +193,7 @@ msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "Vous êtes un anonyme"
+msgstr "Vous êtes anonyme"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
@@ -446,7 +447,7 @@ msgstr "Vous avez vu toutes les images de cet album."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
 msgid "You're anonymous."
-msgstr "Vous êtes un anonyme."
+msgstr "Vous êtes anonyme."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
 msgid " You can now log in with your e-mail."

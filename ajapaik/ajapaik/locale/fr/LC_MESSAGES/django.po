@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-13 17:59:57+0000\n"
+"PO-Revision-Date: 2019-06-17 17:12:33+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr "Inverser les couleurs"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "La boîte de délimitation doit être définie"
+msgstr "Le cadre doit être défini"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
@@ -308,7 +308,7 @@ msgstr "Soumettre"
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:12
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Tableau de classement de l’album %(album_name)s"
+msgstr "Tableau de classement de l’album %(album_name)"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "Recent activity leaderboard"
@@ -577,8 +577,8 @@ msgstr "\n                        <b>%(rephotographing_users)s</b> utilisateurs.
 #, python-format
 msgid "\n                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n                        "
 msgid_plural "\n                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n                        "
-msgstr[0] "\n                            Vous avez suggéré un emplacement pour l’image <b>%(user_geotagged_photos)s</b>.\n                        "
-msgstr[1] "\n                            Vous avez suggéré des emplacements pour les images <b>%(user_geotagged_photos)s</b>.\n                        "
+msgstr[0] "Vous avez suggéré un emplacement pour l’image <b>%(user_geotagged_photos)s</b>."
+msgstr[1] "Vous avez suggéré des emplacements pour les images <b>%(user_geotagged_photos)s</b>."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
 #, python-format
@@ -613,7 +613,7 @@ msgstr "Ajapaik est un cadeau pour le centième anniversaire de la république d
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:99
 msgid "Show us your support by signing up as a contributor at the EV100 page"
-msgstr "Nous montrer votre soutien en signant comme contributeur sur la page EV100"
+msgstr "Montrez-nous votre soutien en souscrivant comme contributeur sur la page EV100"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:105
 msgid "Supporters of Ajapaik"
@@ -621,7 +621,7 @@ msgstr "Soutiens de Ajapaik"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:110
 msgid "KulKa logo"
-msgstr "logo KulKa"
+msgstr "Logo KulKa"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:115
 msgid "Ministry of Education logo"
@@ -629,7 +629,7 @@ msgstr "Logo du Ministère de l'Education"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:122
 msgid "KYSK logo"
-msgstr "logo KYSK"
+msgstr "Logo KYSK"
 
 #: ajapaik/ajapaik/templates/_header.html:6
 msgid "Back to homepage"
@@ -641,7 +641,7 @@ msgstr "Retour à la page d’accueil"
 #: ajapaik/ajapaik/templates/base_bootstrap.html:209
 #: ajapaik/ajapaik/views.py:653
 msgid "Timepatch (Ajapaik)"
-msgstr "Pièce horaire (Ajapaik)"
+msgstr "Timepatch (Ajapaik)"
 
 #: ajapaik/ajapaik/templates/_header.html:26
 #: ajapaik/ajapaik/templates/_mode_select.html:11
@@ -682,7 +682,7 @@ msgstr "Mes favoris"
 #: ajapaik/ajapaik/templates/_header.html:53
 #: ajapaik/ajapaik/templates/_mode_select.html:31
 msgid "My rephotos"
-msgstr "Me photos rephotographiées"
+msgstr "Mes rephotos"
 
 #: ajapaik/ajapaik/templates/_header.html:61
 msgid "Remove album filter"
@@ -889,8 +889,8 @@ msgstr[1] "%(counter)s utilisateurs ont fait"
 #, python-format
 msgid "\n                            %(counter)s rephotograph\n                        "
 msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] "%(counter)s image rephotographiée"
-msgstr[1] "%(counter)s images rephotographiées"
+msgstr[0] "%(counter)s rephotographie"
+msgstr[1] "%(counter)s rephotographies"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:76
 #, python-format
@@ -1209,7 +1209,7 @@ msgstr "Société d’héritage photographique estonienne"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:294
 msgid "Support Ajapaik"
-msgstr "Prend en charge Ajapaik"
+msgstr "Soutenir Ajapaik"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:294
 msgid "Support us"
@@ -1308,7 +1308,7 @@ msgstr "Vous pouvez commencer à marquer géographiquement le nouveau contenu ic
 
 #: ajapaik/ajapaik/templates/curator.html:33
 msgid "Tell your friends on Facebook"
-msgstr "Dites la à vos amis sur Facebook"
+msgstr "Dites-le à vos amis sur Facebook"
 
 #: ajapaik/ajapaik/templates/curator.html:61
 msgid "Edit your album"
@@ -1424,7 +1424,7 @@ msgstr "L’image n’a pas encore été épinglée sur la carte. Soyez le premi
 
 #: ajapaik/ajapaik/templates/game.html:76
 msgid "1 suggestion has been submitted for this picture. Add yours!"
-msgstr "1 suggestion a été soumise pour cette image. Ajoutez les vôtres !"
+msgstr "Une suggestion a été soumise pour cette image. Ajoutez les vôtres !"
 
 #: ajapaik/ajapaik/templates/game.html:80
 msgid "suggestions have been submitted for this picture. Add yours!"
@@ -1614,7 +1614,7 @@ msgstr "Pas suffisamment de données soumises"
 #: ajapaik/ajapaik/views.py:2572
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr "Encore depuis « %(film)s » à %(time)s"
+msgstr "Extrait de « %(film)s » à %(time)s"
 
 #: ajapaik/ajapaik/views.py:2652
 msgid "Photo uploaded"
