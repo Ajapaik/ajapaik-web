@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-17 17:12:34+0000\n"
+"PO-Revision-Date: 2019-06-20 19:26:36+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -877,32 +877,32 @@ msgstr[0] "\n                            %(counter)s plancia an cost àlbomm.\n 
 msgstr[1] "\n                            %(counter)s plance an cost àlbom.\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:66
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            %(counter)s user has made\n                        "
 msgid_plural "\n                            %(counter)s users have made\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            %(counter)s utent a l'ha fàit\n                        "
+msgstr[1] "\n                            %(counter)s utent a l'han fàit\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:71
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            %(counter)s rephotograph\n                        "
 msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            %(counter)s arprodussion fotogràfica\n                        "
+msgstr[1] "\n                            %(counter)s arprodussion fotogràfiche\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:76
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            for %(counter)s picture in the album.\n                        "
 msgid_plural "\n                            for %(counter)s picture in the album.\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            for %(counter)s plncia ant l'àlbom.\n                        "
+msgstr[1] "\n                            for %(counter)s plance ant l'àlbom.\n                        "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:86
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                        You have made %(counter)s rephoto\n                    "
 msgid_plural "\n                        You have made %(counter)s rephotos\n                    "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                        A l'ha fàit %(counter)s arprodussion fotogràfica\n                    "
+msgstr[1] "\n                        A l'ha fàit %(counter)s arprodussion fotogràfiche\n                    "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:91
 #, invalid-plural, python-format
