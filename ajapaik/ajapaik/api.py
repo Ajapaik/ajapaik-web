@@ -684,7 +684,10 @@ class RephotoUpload(APIView):
     def post(self, request, format=None):
         print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
-        if form.is_valid():
+
+        user_profile = request.user.profile if request.user.is_authenticated else None 
+
+        if user_profile and form.is_valid():
             user_profile = request.user.profile
             print('form.isvalid()', file=sys.stderr)
             id = form.cleaned_data['id']
