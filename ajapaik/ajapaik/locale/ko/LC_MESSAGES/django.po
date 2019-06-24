@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Ykhwong
+# Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-06 15:49:21+0000\n"
+"PO-Revision-Date: 2019-06-24 14:40:38+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -232,7 +233,7 @@ msgstr "고유링크"
 
 #: ajapaik/ajapaik/models.py:886
 msgid "Source"
-msgstr ""
+msgstr "출처"
 
 #: ajapaik/ajapaik/models.py:891
 msgid "Google map"

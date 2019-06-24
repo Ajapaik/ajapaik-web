@@ -1,7 +1,7 @@
-# Translation of Ajapaik Web app - JavaScript to Korean (한국어)
+# Translation of Ajapaik Web app - JavaScript to Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 #
-# Author: Ykhwong
+# Author: Kly
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -10,33 +10,33 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-24 14:40:37+0000\n"
+"PO-Revision-Date: 2019-06-24 14:40:38+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
+"Language: zh-Hant\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:585
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:561
 msgid "User denied the request for Geolocation."
-msgstr "사용자는 지리 위치를 위한 요청을 거절했습니다."
+msgstr "使用者拒絕了地理位置檢測請求。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:591
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:567
 msgid "Location information is unavailable."
-msgstr "위치 정보를 사용할 수 없습니다."
+msgstr "位置資訊不可用。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:594
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:570
 msgid "The request to get user location timed out."
-msgstr "사용자 위치를 가져오는 요청 시간이 초과되었습니다."
+msgstr "請求取得使用者位置逾時。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:597
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:573
 msgid "An unknown error occurred."
-msgstr "알 수 없는 오류가 발생했습니다."
+msgstr "發生不明錯誤。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1172
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1217
@@ -44,16 +44,16 @@ msgstr "알 수 없는 오류가 발생했습니다."
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1180
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
-msgstr "선택하지 않음"
+msgstr "尚未選擇"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:229
 msgid "Go to my location"
-msgstr "내 위치로 이동"
+msgstr "前往我的位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:265
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:439
 msgid "Close"
-msgstr "닫기"
+msgstr "關閉"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:725
 msgid "Pick the shooting location!"
@@ -66,44 +66,44 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:768
 msgid "Confirm correct location"
-msgstr ""
+msgstr "確認目前位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Submit your own location"
-msgstr "내 위치 제출하기"
+msgstr "提交您自己的位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:806
 msgid "You"
-msgstr "나"
+msgstr "您"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:810
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
-msgstr "익명 사용자"
+msgstr "匿名使用者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:812
 msgid "Anonymous users"
-msgstr "익명 사용자"
+msgstr "匿名使用者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:873
 msgid "Current location"
-msgstr "현재 위치"
+msgstr "目前位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "在近似於 %(from)s 與近似於 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
-msgstr ""
+msgstr "在近似於 %(from)s 與 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
 msgid "Between %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "在 %(from)s 與近似於 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
 msgid "Between %(from)s and %(to)s"
-msgstr ""
+msgstr "在 %(from)s 與 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
@@ -127,12 +127,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
 msgid "Invalid input, see help text."
-msgstr "입력이 유효하지 않습니다. 도움말 문구를 참고하십시오."
+msgstr "輸入無效，請查看說明文字。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:315
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:365
 msgid "Server received invalid data."
-msgstr "서버가 유효하지 않은 데이터를 수신했습니다."
+msgstr "伺服器接收到無效資料。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "감사합니다!"
+msgstr "感謝！"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "YYYY.MM.DD"
@@ -156,11 +156,11 @@ msgstr "YYYY.MM.DD"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "Cancel"
-msgstr "취소"
+msgstr "取消"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:446
 msgid "Submit"
-msgstr "제출"
+msgstr "提交"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
@@ -168,7 +168,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "YYYY.MM.DD 형식 사용 (MM.DD는 필수가 아닙니다)"
+msgstr "使用 YYYY.MM.DD 格式（MM.DD 非必填）"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
@@ -192,15 +192,15 @@ msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "당신은 익명입니다"
+msgstr "您為匿名使用者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
-msgstr "색상 반전"
+msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Flip"
-msgstr ""
+msgstr "翻轉"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Mark stereophoto"
@@ -220,43 +220,43 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
-msgstr "설명"
+msgstr "描述"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Author"
-msgstr "저자"
+msgstr "作者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Source"
-msgstr "출처"
+msgstr "來源"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Size"
-msgstr "크기"
+msgstr "大小"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Institution"
-msgstr "기관"
+msgstr "機構"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Number"
-msgstr "번호"
+msgstr "數值"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Date"
-msgstr "날짜"
+msgstr "日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
-msgstr "제목"
+msgstr "標題"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Licence"
-msgstr "라이선스"
+msgstr "授權協議"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Points"
@@ -266,31 +266,31 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:123
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:139
 msgid "System error"
-msgstr "시스템 오류"
+msgstr "系統錯誤"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "photos"
-msgstr ""
+msgstr "照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Source ID"
-msgstr ""
+msgstr "來源 ID"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Image has no location info"
-msgstr "이미지에 위치 정보가 없습니다"
+msgstr "圖片含有位置資訊"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
 msgid "Image has only location, no view direction"
-msgstr "이미지에 위치만 있고 뷰 방향은 없습니다"
+msgstr "圖片僅有位置，沒有檢視方向"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
 msgid "Image has location and view direction info"
-msgstr "이미지에 위치 및 뷰 방향 정보가 있습니다"
+msgstr "圖片含有位置與檢視方向資訊"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Image has rephotos"
-msgstr ""
+msgstr "圖片含有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Add this picture to album (not the whole set)"
@@ -298,55 +298,55 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Rotate"
-msgstr "회전"
+msgstr "旋轉"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures in album"
-msgstr "앨범 내 사진"
+msgstr "相簿裡的圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures geotagged"
-msgstr "지리 정보가 추가된 사진"
+msgstr "圖片已添加地理標籤"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Rephotos in album"
-msgstr ""
+msgstr "在相簿的翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
 msgid "Comments in album"
-msgstr ""
+msgstr "在相簿的評論"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
 msgid "Album details"
-msgstr "앨범 상세 정보"
+msgstr "相簿詳情"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Show pictures on map"
-msgstr "지도에 사진 표시"
+msgstr "在地圖上顯示圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
 msgid "Geotag pictures in album"
-msgstr ""
+msgstr "在相簿的地理標籤圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
 msgid "Unknown author"
-msgstr "알 수 없는 저자"
+msgstr "未知作者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
 msgid "This album contains a film"
-msgstr ""
+msgstr "此相簿包含影片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Picture already in album(s)"
-msgstr ""
+msgstr "圖片已在相簿中"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
 msgid "Earliest"
-msgstr ""
+msgstr "最早"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
 msgid "Latest"
-msgstr ""
+msgstr "最新"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
 msgid "Least"
@@ -358,31 +358,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures furthest from you"
-msgstr ""
+msgstr "離您最遠的圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
 msgid "Pictures closest to you"
-msgstr ""
+msgstr "離您最近的圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
 msgid "commented"
-msgstr ""
+msgstr "已評論"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
 msgid "rephotographed"
-msgstr ""
+msgstr "已重新翻拍"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
 msgid "added"
-msgstr ""
+msgstr "已添加"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
 msgid "geotagged"
-msgstr ""
+msgstr "已添加地理標籤"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
 msgid "liked"
-msgstr "좋아함"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "dated"
@@ -394,63 +394,63 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
 msgid "pictures"
-msgstr ""
+msgstr "圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
 msgid "By reverse timestamp"
-msgstr ""
+msgstr "按反向時間戳"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By timestamp"
-msgstr ""
+msgstr "按時間戳"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
 msgid "Pictures from the map"
-msgstr "지도의 사진"
+msgstr "來自地圖的圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
 msgid "Albums"
-msgstr "앨범"
+msgstr "相簿"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
 msgid "My favorites"
-msgstr "내 즐겨찾기"
+msgstr "我的個人最愛"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "My rephotos"
-msgstr ""
+msgstr "我的翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
 msgid "Rephotos by %(user)s"
-msgstr ""
+msgstr "翻拍照片由 %(user)s 做出"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
 msgid "All photos"
-msgstr "모든 사진"
+msgstr "所有照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:326
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "圖片集裡沒有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "圖片集裡沒有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "因您已看過此相簿裡的所有圖片，我們現在秀給您隨機照片。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:191
 msgid "You have seen all the pictures from this album."
-msgstr "이 앨범의 모든 사진을 보고 있습니다."
+msgstr "您已看過來自此相簿的所有圖片。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:380
 msgid "You're anonymous."
-msgstr "당신은 익명입니다."
+msgstr "您為匿名使用者。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:381
 msgid " You can now log in with your e-mail."
-msgstr "지금 이메일로 로그인할 수 있습니다."
+msgstr "您現在可以以您的電子郵件來登入。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
 msgid "Toggle map center lock"
@@ -458,7 +458,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
 msgid "Approximate"
-msgstr "대략"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
 msgid "Vantage point"
@@ -466,7 +466,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
 msgid "Object"
-msgstr "개체"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
@@ -476,13 +476,13 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
 msgid "Search box"
-msgstr "검색 상자"
+msgstr "搜尋框"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:526
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
-msgstr "감사합니다!"
+msgstr "感謝您！"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:675
 msgid "Median guess"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:687
 msgid "Your guess"
-msgstr ""
+msgstr "您的猜測"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "How much has the depicted location changed?"
@@ -498,7 +498,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
 msgid "Continue"
-msgstr "계속"
+msgstr "繼續"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
 msgid "a little"
@@ -543,11 +543,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:766
 msgid "Remove album filter"
-msgstr "앨범 필터 제거"
+msgstr "移除相簿篩選"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:774
 msgid "Apply album filter"
-msgstr "앨범 필터 적용"
+msgstr "套用相簿篩選"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
