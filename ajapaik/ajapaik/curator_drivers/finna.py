@@ -160,7 +160,7 @@ def finna_import_photo(id, profile):
             author=comma.join(authors),
             title=finna_cut_title(p.get('title', None), p.get('title_short', None)),
             description=description,
-            address=address,
+            address=address[:255],
             source=source,
             types=None,
             keywords=None,
