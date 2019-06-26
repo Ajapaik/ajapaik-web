@@ -339,6 +339,7 @@ class Photo(Model):
     image_no_watermark = ImageField(upload_to='uploads', blank=True, null=True, max_length=255)
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
+    aspect_ratio = FloatField(null=True, blank=True)
     flip = NullBooleanField()
     invert = NullBooleanField()
     stereo = NullBooleanField()
@@ -572,6 +573,11 @@ class Photo(Model):
         delete(self.image, delete_file=False)
         self.light_save()
         self.original_flip = self.flip
+
+    def set_aspect_ratio(self):
+        if self.height is not None and self.width is not None:
+            self.aspect_ratio = self.width / self.height
+            self.light_save()
 
     def calculate_phash(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))

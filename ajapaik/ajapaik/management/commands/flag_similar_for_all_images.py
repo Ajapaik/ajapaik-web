@@ -1,4 +1,3 @@
-import requests
 from django.core.management.base import BaseCommand
 from ajapaik.ajapaik.models import ImageSimilarity, Photo
 
