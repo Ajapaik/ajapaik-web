@@ -142,10 +142,11 @@ class RephotoSerializer(serializers.ModelSerializer):
             }
 
     def get_is_uploaded_by_current_user(self, instance):
-        if not self.context['request'].user:
+        user=self.context['request'].user
+        if user.is_authenticated:
+            return instance.user == self.context['request'].user.profile
+        else:
             return False
-        user_profile = self.context['request'].user.profile
-        return instance.user == user_profile
 
     class Meta:
         model = Photo
@@ -250,7 +251,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     def get_photos(self, instance):
         request = self.context['request']
-        user_profile=request.user.profile if request.user else None
+        user_profile=request.user.profile if request.user.is_authenticated else None
 
         photos = PhotoSerializer.annotate_photos(
             self.context['photos'],
