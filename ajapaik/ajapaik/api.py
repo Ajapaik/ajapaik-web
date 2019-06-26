@@ -1233,11 +1233,13 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
     API endpoint to search for albums by given search phrase.
     '''
 
-    def post(self, request, format=None):
-        form = forms.ApiAlbumSearchForm(request.data)
+    permission_classes = (AllowAny,)
+
+    def _handle_request(self, data, user, request):
+        form = forms.ApiAlbumSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-            user_profile = request.user.profile
+            user_profile = user.profile if user else None
 
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(search_phrase))
 
@@ -1259,6 +1261,15 @@ class AlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'albums': []
             })
+
+    def post(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.data, user, request)
+
+    def get(self, request, format=None):
+        user = request.user or None
+        return self._handle_request(request.GET, user, request)
+
 
 # Show Wikidata items as albums
 class WikidocsAlbumsSearch(CustomAuthenticationMixin, CustomParsersMixin, APIView):
