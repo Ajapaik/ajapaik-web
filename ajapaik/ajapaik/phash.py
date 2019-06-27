@@ -37,9 +37,6 @@ def binaryhash_to_signed_integer(hash):
 
 
 def phash(image, hash_size=8, highfreq_factor=4):
-
-    if hash_size < 2:
-        raise ValueError("Hash size must be greater than or equal to 2")
     if hash_size < 2:
         raise ValueError("Hash size must be greater than or equal to 2")
     import scipy.fftpack

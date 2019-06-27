@@ -588,6 +588,8 @@ class Photo(Model):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
         query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s'
+        if self.aspect_ratio is None:
+            self.aspect_ratio = self.width / self.height
         photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
         for similar in photos:
             ImageSimilarity.add_or_update(self,similar)
