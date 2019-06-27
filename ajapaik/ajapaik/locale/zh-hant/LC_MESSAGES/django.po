@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-24 14:40:39+0000\n"
+"PO-Revision-Date: 2019-06-27 16:13:43+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -281,7 +281,7 @@ msgstr "返回"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:10
 msgid "Collection info"
-msgstr ""
+msgstr "典藏訊息"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:17
 msgid "System error"
@@ -307,7 +307,7 @@ msgstr "提交"
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:12
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr ""
+msgstr "相簿 %(album_name)s 的排行榜"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "Recent activity leaderboard"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:5
 msgid "Filtering"
-msgstr ""
+msgstr "篩選"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:16
 msgid "Sort by distance from you"
@@ -625,7 +625,7 @@ msgstr "教育部標誌"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:122
 msgid "KYSK logo"
-msgstr ""
+msgstr "KYSK 標誌"
 
 #: ajapaik/ajapaik/templates/_header.html:6
 msgid "Back to homepage"
@@ -707,7 +707,7 @@ msgstr "搜尋照片"
 
 #: ajapaik/ajapaik/templates/_header.html:134
 msgid "Show in grid"
-msgstr ""
+msgstr "在網格顯示"
 
 #: ajapaik/ajapaik/templates/_header.html:148
 #: ajapaik/ajapaik/templates/_info_modal_content.html:152
@@ -779,27 +779,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:294
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/templates/_header.html:300
 msgid "DIGAR"
-msgstr ""
+msgstr "DIGAR"
 
 #: ajapaik/ajapaik/templates/_header.html:306
 msgid "MKA"
-msgstr ""
+msgstr "MKA"
 
 #: ajapaik/ajapaik/templates/_header.html:312
 msgid "ETERA"
-msgstr ""
+msgstr "ETERA"
 
 #: ajapaik/ajapaik/templates/_header.html:318
 msgid "UTLIB"
-msgstr ""
+msgstr "UTLIB"
 
 #: ajapaik/ajapaik/templates/_header.html:325
 msgid "Flickr Commons"
-msgstr ""
+msgstr "Flickr 公眾相簿"
 
 #: ajapaik/ajapaik/templates/_header.html:332
 msgid "Finna"
@@ -812,7 +812,7 @@ msgstr "Fotis"
 #: ajapaik/ajapaik/templates/_header.html:349
 #: ajapaik/ajapaik/templates/photo_selection.html:19
 msgid "Clear selection"
-msgstr ""
+msgstr "清除所選"
 
 #: ajapaik/ajapaik/templates/_header.html:355
 msgid "Submit selection to Ajapaik"
@@ -821,11 +821,11 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr ""
+msgstr "相簿策展由"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
-msgstr ""
+msgstr "貢獻者排行榜"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
 #, invalid-plural, python-format
@@ -843,7 +843,7 @@ msgstr[0] ""
 #: ajapaik/ajapaik/templates/_info_modal_content.html:38
 #: ajapaik/ajapaik/templates/base_bootstrap.html:110
 msgid "all the pictures on the map."
-msgstr ""
+msgstr "在地圖上的所有圖片。"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:40
 #: ajapaik/ajapaik/templates/base_bootstrap.html:112
@@ -924,15 +924,15 @@ msgstr "使用者 Google 照片"
 
 #: ajapaik/ajapaik/templates/_log_in.html:6
 msgid "Log in to save your score"
-msgstr ""
+msgstr "登入來儲存您的積分"
 
 #: ajapaik/ajapaik/templates/_log_in.html:8
 msgid "Log in to upload rephoto"
-msgstr ""
+msgstr "登入來上傳翻拍照片"
 
 #: ajapaik/ajapaik/templates/_log_in.html:10
 msgid "Log in to curate content"
-msgstr ""
+msgstr "登入來策展內容"
 
 #: ajapaik/ajapaik/templates/_log_in.html:12
 msgid "Log in to create still frames"
@@ -1068,12 +1068,12 @@ msgstr "檔案上傳失敗。"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr ""
+msgstr "您為匿名使用者，您現在可以以您的電子郵件來登入。"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
-msgstr ""
+msgstr "首頁"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
@@ -1207,11 +1207,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:472
 msgid "This website uses cookies to ensure you get the best experience on our website"
-msgstr ""
+msgstr "此網站使用 cookies 來確保您在我們的網站上能取得最佳體驗"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:473
 msgid "Got it!"
-msgstr ""
+msgstr "了解！"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:474
 msgid "More info"
@@ -1219,7 +1219,7 @@ msgstr "更多資訊"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:10
 msgid "Really remove this comment?"
-msgstr ""
+msgstr "確定要移除此評論？"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:16
 msgid "Remove"
@@ -1274,7 +1274,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:66
 #: ajapaik/ajapaik/templates/curator.html:155
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: ajapaik/ajapaik/templates/curator.html:21
 msgid "Thank you!"
@@ -1314,7 +1314,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:132
 msgid "If the photos are from the same place, specify a location here"
-msgstr ""
+msgstr "若照片來自於相同地點，請在此指定位置"
 
 #: ajapaik/ajapaik/templates/curator.html:139
 msgid "Place"
@@ -1322,7 +1322,7 @@ msgstr "場所"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "回覆"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1394,7 +1394,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/frontpage.html:33
 msgid "Authentication"
-msgstr ""
+msgstr "認證"
 
 #: ajapaik/ajapaik/templates/game.html:28
 msgid "Game modal photo"
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:66
 msgid "Show description"
-msgstr ""
+msgstr "顯示描述"
 
 #: ajapaik/ajapaik/templates/game.html:73
 msgid "The picture has not yet been pinned on the map. Be the first!"
@@ -1418,7 +1418,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "返回首頁"
 
 #: ajapaik/ajapaik/templates/mapview.html:19
 msgid "Search box"
@@ -1454,7 +1454,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/registration/activate.html:9
 msgid "Activation failed!"
-msgstr ""
+msgstr "啟用失敗！"
 
 #: ajapaik/ajapaik/templates/registration/activate.html:10
 #, python-format
@@ -1463,7 +1463,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/registration/activation_complete.html:9
 msgid "Account activated!"
-msgstr ""
+msgstr "帳號已啟用！"
 
 #: ajapaik/ajapaik/templates/registration/activation_email.txt:3
 #, python-format
@@ -1494,7 +1494,7 @@ msgstr "註冊賬戶"
 #: ajapaik/ajapaik/templates/registration/login.html:33
 #: ajapaik/ajapaik/templates/registration/registration_form.html:19
 msgid "OR"
-msgstr ""
+msgstr "或"
 
 #: ajapaik/ajapaik/templates/registration/logout.html:9
 msgid "You have been logged out!"
@@ -1524,11 +1524,11 @@ msgstr "添加"
 
 #: ajapaik/ajapaik/views.py:448
 msgid "Non-authenticated user"
-msgstr ""
+msgstr "非認證使用者"
 
 #: ajapaik/ajapaik/views.py:581
 msgid "Geotagging game"
-msgstr ""
+msgstr "地理標記遊戲"
 
 #: ajapaik/ajapaik/views.py:649
 #, python-format
@@ -1554,7 +1554,7 @@ msgstr ""
 #: ajapaik/ajapaik/views.py:1386 ajapaik/ajapaik/views.py:1393
 #: ajapaik/ajapaik/views.py:1395
 msgid "Browse photos on map"
-msgstr ""
+msgstr "在地圖上瀏覽照片"
 
 #: ajapaik/ajapaik/views.py:1527
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
@@ -1591,11 +1591,11 @@ msgstr "照片已存在於 Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2255
 msgid "Please add photos to your album"
-msgstr ""
+msgstr "請添加照片至您的相簿"
 
 #: ajapaik/ajapaik/views.py:2257
 msgid "Not enough data submitted"
-msgstr ""
+msgstr "沒有提交足夠的資料"
 
 #: ajapaik/ajapaik/views.py:2572
 #, python-format

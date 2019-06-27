@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-06-24 14:40:38+0000\n"
+"PO-Revision-Date: 2019-06-27 16:13:42+0000\n"
 "X-POT-Import-Date: 2019-05-22 14:47:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,11 +62,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:736
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:787
 msgid "Geotagged by this many users"
-msgstr ""
+msgstr "由許多使用者做出的地理標記"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:768
 msgid "Confirm correct location"
-msgstr "確認目前位置"
+msgstr "確認更正位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Submit your own location"
@@ -91,7 +91,7 @@ msgstr "目前位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "在近似於 %(from)s 與近似於 %(to)s 之間"
+msgstr "在大約於 %(from)s 與大約於 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
@@ -99,7 +99,7 @@ msgstr "在近似於 %(from)s 與 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
 msgid "Between %(from)s and approximately %(to)s"
-msgstr "在 %(from)s 與近似於 %(to)s 之間"
+msgstr "在 %(from)s 與大約於 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
 msgid "Between %(from)s and %(to)s"
@@ -107,23 +107,23 @@ msgstr "在 %(from)s 與 %(to)s 之間"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
-msgstr ""
+msgstr "大約 %(from)s 後"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
 msgid "After %(from)s"
-msgstr ""
+msgstr "%(from)s 後"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
 msgid "Before approximately %(to)s"
-msgstr ""
+msgstr "大約 %(to)s 前"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
 msgid "Before %(to)s"
-msgstr ""
+msgstr "%(to)s 前"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
 msgid "Approximately %(date)s"
-msgstr ""
+msgstr "大約 %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
 msgid "Invalid input, see help text."
@@ -136,15 +136,15 @@ msgstr "伺服器接收到無效資料。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr ""
+msgstr "確認註明日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
-msgstr ""
+msgstr "確認註明日期您會獲得 %(points)s 積分。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
-msgstr ""
+msgstr "提交註明日期您會獲得 %(points)s 積分。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
@@ -164,7 +164,7 @@ msgstr "提交"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr ""
+msgstr "評論您的註明日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
@@ -184,7 +184,7 @@ msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr ""
+msgstr "在括號的大約日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
@@ -208,15 +208,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Remove from selection"
-msgstr ""
+msgstr "從所選來移除"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr ""
+msgstr "圖片已存在 Ajapaik 上，您仍可以添加到您的相簿裡；但不會獲得策展積分獎勵"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr ""
+msgstr "您確定您要建立小於 5 張照片的相簿嗎？我們建議建立內容至少有 10 張或更多相片的相簿。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -248,7 +248,7 @@ msgstr "日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "URL"
-msgstr ""
+msgstr "網址"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
@@ -260,7 +260,7 @@ msgstr "授權協議"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Points"
-msgstr ""
+msgstr "積分"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:123
@@ -294,7 +294,7 @@ msgstr "圖片含有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Add this picture to album (not the whole set)"
-msgstr ""
+msgstr "添加此圖片到相簿（不是整個集合）"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Rotate"
@@ -386,11 +386,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "dated"
-msgstr ""
+msgstr "已註明日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "viewed"
-msgstr ""
+msgstr "已檢視"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
 msgid "pictures"
@@ -454,25 +454,25 @@ msgstr "您現在可以以您的電子郵件來登入。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:469
 msgid "Toggle map center lock"
-msgstr ""
+msgstr "輕觸地圖中央鎖定"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:497
 msgid "Approximate"
-msgstr ""
+msgstr "大約"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:504
 msgid "Vantage point"
-msgstr ""
+msgstr "制高點"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:511
 msgid "Object"
-msgstr ""
+msgstr "物體"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:518
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:779
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:925
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr ""
+msgstr "拖曳地圖，標記為攝影者所站位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:519
 msgid "Search box"
@@ -494,7 +494,7 @@ msgstr "您的猜測"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "How much has the depicted location changed?"
-msgstr ""
+msgstr "描繪位置變動多少？"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:703
 msgid "Continue"
@@ -502,32 +502,32 @@ msgstr "繼續"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:705
 msgid "a little"
-msgstr ""
+msgstr "少許"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:706
 msgid "a lot"
-msgstr ""
+msgstr "很多"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr ""
+msgstr "點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉地圖來更正位置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:923
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:932
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr ""
+msgstr "在地圖上點擊來鎖定檢視的方向，或是點擊黃色按鈕來僅儲存位置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:930
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr ""
+msgstr "點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉標記來更正位置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:934
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr ""
+msgstr "現在您可以分別拖拉攝影者所站的標記與地圖。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:938
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr ""
+msgstr "拖拉地圖來讓圓圈覆蓋大約位置，在準備好後點擊儲存。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:940
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
@@ -535,7 +535,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1094
 msgid "Points awarded"
-msgstr ""
+msgstr "積分獎勵"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
