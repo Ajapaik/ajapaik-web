@@ -587,10 +587,10 @@ class Photo(Model):
     def find_similar(self):
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
-        query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s'
+        query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
         if self.aspect_ratio is None:
             self.aspect_ratio = self.width / self.height
-        photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
+        photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
         for similar in photos:
             ImageSimilarity.add_or_update(self,similar)
             similar.light_save()
@@ -599,12 +599,14 @@ class Photo(Model):
     def find_similar_for_existing_photo(self):
         if self.rephoto_of_id is not None:
             return
+        if self.aspect_ratio is None:
+            self.aspect_ratio = self.width / self.height
         if not (self.lat is None and self.lon is None):
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s'
-            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id,(self.lat + 0.0001),(self.lon + 0.0001),(self.lat - 0.0001),(self.lon - 0.0001)])
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s AND aspect_ratio > %s AND aspect_ratio < %s'
+            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id,(self.lat + 0.0001),(self.lon + 0.0001),(self.lat - 0.0001),(self.lon - 0.0001), self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
         else:
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id IS NULL'
-            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id])
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id IS NULL AND aspect_ratio > %s AND aspect_ratio < %s'
+            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
         for similar in photos:
             list1 = ImageSimilarity.objects.filter(Q(from_photo=self.id) & Q(to_photo=similar.id))
             list2 = ImageSimilarity.objects.filter(Q(from_photo=similar.id) & Q(to_photo=self.id))
