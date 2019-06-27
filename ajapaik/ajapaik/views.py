@@ -2692,7 +2692,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 					similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
 				if similar_photos is None:
 					return render(request,'compare_photos_no_results.html')
-			firstSimilar = similar_photos.first()
+				firstSimilar = similar_photos.first()
 			photo_id = firstSimilar.from_photo_id
 			photo_id_2 = firstSimilar.to_photo_id
 		photo_obj = get_object_or_404(Photo, id=photo_id)
