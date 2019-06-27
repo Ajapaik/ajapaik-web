@@ -30,7 +30,7 @@
                 {% } %}
                 {% if (o[7] > 0) { %}
                     <div class="ajapaik-frontpage-rephoto-count
-                        ajapaik-frontpage-rephoto-count-{%=o[7]%}"
+                        ajapaik-frontpage-rephoto-count-{% if (o[7] < 9){ %}{%=o[7]%}{% } else { %}9-plus{% } %}"
                         title="{%=gettext('Image has rephotos')%}">
                     </div>
                 {% } %}
