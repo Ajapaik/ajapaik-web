@@ -5,7 +5,7 @@ django-autocomplete-light==2.3.3
 django-bootstrap-dynamic-formsets
 django-bootstrap4
 django-bulk-update
-django-celery-beat
+django-celery-beat==1.4.0
 django-comments-xtd<2
 django-compressor
 django-debug-toolbar==1.9.1
