@@ -1,6 +1,8 @@
-# Translation of Ajapaik Web app - JavaScript to Estonian (eesti)
+# Translation of Ajapaik Web app - JavaScript to Arabic (العربية)
 # Exported from translatewiki.net
 #
+# Author: Meno25
+# Author: ديفيد
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -8,40 +10,33 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 20:42+0300\n"
 "PO-Revision-Date: 2019-07-01 07:20:00+0000\n"
-"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
-"MIME-Version: 1.0\n"
+"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ar\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "User denied the request for Geolocation."
-msgstr "Kasutaja keeldus oma asukohta jagamast."
+msgstr "رفض المستخدم طلب تحديد الموقع الجغرافي."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:598
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:574
 msgid "Location information is unavailable."
-msgstr "Asukohainfo ei ole kättesaadav."
+msgstr "معلومات الموقع غير متوفرة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:601
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:577
 msgid "The request to get user location timed out."
-msgstr "Asukohainfot päriti liiga kaua."
+msgstr "انتهت مهلة طلب الحصول على موقع المستخدم."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:604
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:580
 msgid "An unknown error occurred."
-msgstr "Muu viga asukohapäringuga."
+msgstr "حدث خطأ غير معروف."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1257
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
@@ -49,131 +44,131 @@ msgstr "Muu viga asukohapäringuga."
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
-msgstr "Pole valitud"
+msgstr "غير محدد"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
-msgstr "Mine minu asukohta"
+msgstr "الذهاب إلى موقعي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:268
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
-msgstr "Sulge"
+msgstr "إغلاق"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:728
 msgid "Pick the shooting location!"
-msgstr "Tean pildistamise kohta!"
+msgstr "اختيار موقع التصوير!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:739
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:791
 msgid "Geotagged by this many users"
-msgstr "Märgitud nii mitme kasutaja poolt"
+msgstr "موسوم جغرافيا من قبل هذا العديد من المستخدمين"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:772
 msgid "Confirm correct location"
-msgstr "Kinnita asukoht"
+msgstr "تأكيد الموقع الصحيح"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:783
 msgid "Submit your own location"
-msgstr "Paranda asukohta"
+msgstr "تقديم موقعك الخاص"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:810
 msgid "You"
-msgstr "Sina"
+msgstr "أنت"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:814
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
-msgstr "Anonüümne kasutaja"
+msgstr "مستخدم مجهول"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:816
 msgid "Anonymous users"
-msgstr "Anonüümsed kasutajad"
+msgstr "المستخدمون المجهولون"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:877
 msgid "Current location"
-msgstr "Pakutud asukoht"
+msgstr "الموقع الحالي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "Ligikaudu %(from)s ja ligikaudu %(to)s vahel"
+msgstr "بين %(from)s تقريبا و%(to)s تقريبا"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
-msgstr "Ligikaudu %(from)s ja %(to)s vahel"
+msgstr "بين %(from)s تقريبا و%(to)s تقريبا"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
 msgid "Between %(from)s and approximately %(to)s"
-msgstr "%(from)s ja ligikaudu %(to)s vahel"
+msgstr "بين %(from)s تقريبا و%(to)s تقريبا"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
 msgid "Between %(from)s and %(to)s"
-msgstr "%(from)s ja %(to)s vahel"
+msgstr "بين %(from)s و%(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
-msgstr "Hiljem kui ligikaudu %(from)s"
+msgstr "بعد حوالي %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
 msgid "After %(from)s"
-msgstr "Hiljem kui %(from)s"
+msgstr "بعد %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
 msgid "Before approximately %(to)s"
-msgstr "Varem kui ligikaudu %(to)s"
+msgstr "قبل حوالي %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
 msgid "Before %(to)s"
-msgstr "Varem kui %(to)s"
+msgstr "قبل %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
 msgid "Approximately %(date)s"
-msgstr "Ligikaudu %(date)s"
+msgstr "حوالي %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
 msgid "Invalid input, see help text."
-msgstr "Vigane vorming, vt juhendit."
+msgstr "إدخال غير صالح، انظر نص المساعدة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:315
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:365
 msgid "Server received invalid data."
-msgstr "Viga dateeringu salvestamisel."
+msgstr "تلقى الخادم بيانات غير صالحة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr "Kinnita dateering"
+msgstr "تأكيد التاريخ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
-msgstr "Said dateeringu kinnitamise eest %(points)s punkti."
+msgstr "تأكيد تاريخ حصلت عليه %(points)s نقطة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
-msgstr "Said dateerimise eest %(points)s punkti."
+msgstr "تقديم تاريخ حصلت عليه %(points)s نقطة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "Aitäh!"
+msgstr "شكرا!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "YYYY.MM.DD"
-msgstr "AAAA.KK.PP"
+msgstr "سسسس.شش.يي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "Cancel"
-msgstr "Loobu"
+msgstr "إلغاء"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:446
 msgid "Submit"
-msgstr "Saada"
+msgstr "إرسال"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr "Kommenteeri oma dateeringut"
+msgstr "التعليق على تأريخك"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "Kasuta AAAA.KK.PP vormingut (KK.PP ei ole kohustuslikud)"
+msgstr "استخدم تنسيق  سسسس.شش.يي (شش.يي غير إلزامي)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
@@ -181,7 +176,7 @@ msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr "Kuupäevavahemikke või enne/pärast märgi kas \"-\" (sidekriipsu) või \"..\" (kahe punkti) abil"
+msgstr "تعليم نطاقات التاريخ أو قبله/بعده بـ\"-\" أو \"..\""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -189,7 +184,7 @@ msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr "Ligikaudne kuupäev märgi sulgudesse"
+msgstr "التاريخ التقريبي بين قوسين"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
@@ -197,359 +192,359 @@ msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "Oled anonüümne kasutaja"
+msgstr "أنت مجهول"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
-msgstr "Keera negatiivi"
+msgstr "عكس الألوان"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Flip"
-msgstr "Peegelpilti"
+msgstr "قلب"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Mark stereophoto"
-msgstr "Märgista stereofoto"
+msgstr "تعليم stereophoto"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Remove from selection"
-msgstr "Eemalda valikust"
+msgstr "إزالة من الاختيار"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa kureerimise punkte"
+msgstr "الصورة موجودة بالفعل في أجابيك، لا يزال بإمكانك إضافتها إلى ألبومك، لم يتم منح نقاط مراقبة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr "Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt 10 panna."
+msgstr "هل تريد بالتأكيد إنشاء ألبوم يحتوي على أقل من 5 صور؟ نوصي بإنشاء ألبومات تحتوي على 10 صور على الأقل أو أكثر."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
-msgstr "Kirjeldus"
+msgstr "الوصف"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Author"
-msgstr "Autor"
+msgstr "المؤلف"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Source"
-msgstr "Allikas"
+msgstr "المصدر"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Size"
-msgstr "Suurus"
+msgstr "الحجم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Institution"
-msgstr "Institutsioon"
+msgstr "المؤسسة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Number"
-msgstr "Kogunumber"
+msgstr "الرقم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Date"
-msgstr "Dateering"
+msgstr "التاريخ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "URL"
-msgstr "Veebiaadress"
+msgstr "المسار"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
-msgstr "Pealkiri"
+msgstr "العنوان"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Licence"
-msgstr "Litsents"
+msgstr "الرخصة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Points"
-msgstr "Punktid"
+msgstr "النقاط"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
 msgid "System error"
-msgstr "Süsteemiviga"
+msgstr "خطأ في النظام"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "photos"
-msgstr "fotot"
+msgstr "صور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Source ID"
-msgstr "Allikaviide"
+msgstr "معرف المصدر"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Image has no location info"
-msgstr "Pildil pole asukohainfot"
+msgstr "الصورة لا تحتوي على معلومات الموقع"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
 msgid "Image has only location, no view direction"
-msgstr "Pildil on ainult asukoht, aga puudub vaate suund"
+msgstr "الصورة لها موقع فقط، لا يوجد اتجاه عرض"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
 msgid "Image has location and view direction info"
-msgstr "Pildil on asukoha ja vaate suuna info"
+msgstr "الصورة لها معلومات موقع واتجاه عرض"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Image has rephotos"
-msgstr "Pildist on ülepildistusi"
+msgstr "الصورة لديها إعادات صور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Add this picture to album (not the whole set)"
-msgstr "Lisa see pilt albumisse (mitte kogu valim)"
+msgstr "أضف هذه الصورة إلى الألبوم (وليس المجموعة بأكملها)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Rotate"
-msgstr "Pööra"
+msgstr "تدوير"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures in album"
-msgstr "Pilte albumis"
+msgstr "الصور في الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures geotagged"
-msgstr "Pilte kaardil"
+msgstr "الصور الموسومة جغرافيا"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Rephotos in album"
-msgstr "Refotot albumis"
+msgstr "إعادات الصور في الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
 msgid "Comments in album"
-msgstr "Kommentaari piltidele"
+msgstr "تعليقات في الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
 msgid "Album details"
-msgstr "Albumi info"
+msgstr "تفاصيل الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Show pictures on map"
-msgstr "Näita pilte kaardil"
+msgstr "عرض الصور على الخريطة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
 msgid "Geotag pictures in album"
-msgstr "Märgi albumi pilte kaardile"
+msgstr "وسم الصور جغرافيا في الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
 msgid "Unknown author"
-msgstr "Teadmata autor"
+msgstr "مؤلف مجهول"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
 msgid "This album contains a film"
-msgstr "See filmi album"
+msgstr "يحتوي هذا الألبوم على فيلم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Picture already in album(s)"
-msgstr "Pilt on juba albumi(te)s"
+msgstr "الصورة موجودة بالفعل في الألبوم(ات)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"
-msgstr "Esimesena"
+msgstr "الأول"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Latest"
-msgstr "Viimasena"
+msgstr "الأخير"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
 msgid "Least"
-msgstr "Vähim"
+msgstr "الأقل"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
 msgid "Most"
-msgstr "Enim"
+msgstr "الأكثر"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
 msgid "Pictures furthest from you"
-msgstr "Sinust kaugemaid pildid"
+msgstr "صور أبعد منك"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures closest to you"
-msgstr "Sulle lähimad pildid"
+msgstr "الصور الأقرب لك"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:127
 msgid "commented"
-msgstr "kommenteeritud"
+msgstr "تم التعليق"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:130
 msgid "rephotographed"
-msgstr "üle pildistatud"
+msgstr "معاد تصويرها"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:133
 msgid "added"
-msgstr "lisatud"
+msgstr "مضافة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:136
 msgid "geotagged"
-msgstr "kaardile märgitud"
+msgstr "موسوم جغرافيا"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:139
 msgid "liked"
-msgstr "lemmikuks märgitud"
+msgstr "أحب"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:142
 msgid "dated"
-msgstr "dateeritud"
+msgstr "مؤرخ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:145
 msgid "viewed"
-msgstr "vaadatud"
+msgstr "مراجع"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "pictures"
-msgstr "pildid"
+msgstr "الصور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "By reverse timestamp"
-msgstr "Tagurpidi ajakoodi järgi"
+msgstr "بواسطة الطابع الزمني العكسي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
 msgid "By timestamp"
-msgstr "Ajakoodi järgi"
+msgstr "بواسطة الطابع الزمني"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "Pictures from the map"
-msgstr "Kaardiakna pildid"
+msgstr "صور من الخريطة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:244
 msgid "Albums"
-msgstr "Albumid"
+msgstr "الألبومات"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:250
 msgid "My favorites"
-msgstr "Minu lemmikud"
+msgstr "مفضلتي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
 msgid "My rephotos"
-msgstr "Minu refotod"
+msgstr "إعادات تصويري"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "Rephotos by %(user)s"
-msgstr "%(user)s refotod"
+msgstr "إعادات صور بواسطة %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:263
 msgid "All photos"
-msgstr "Kõik fotod"
+msgstr "كل الصور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
 #| msgid "Picture set has no rephotos"
 msgid "!!FUZZY!!Picture set has no rephotos"
-msgstr "Pildivalimis ei ole"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr "Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti juhuslikult valitud pilte."
+msgstr "لقد شاهدت جميع الصور في هذا الألبوم، نعرض لك الآن صورًا عشوائية."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
-msgstr "Oled näinud kõiki pilte sellest albumist."
+msgstr "لقد شاهدت جميع الصور من هذا الألبوم."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
 msgid "You're anonymous."
-msgstr "Oled anonüümne kasutaja"
+msgstr "أنت مجهول"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
 msgid " You can now log in with your e-mail."
-msgstr "Nüüd on võimalik sisse logida ka meiliaadressiga."
+msgstr "يمكنك الآن تسجيل الدخول باستخدام بريدك الإلكتروني."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
 msgid "Toggle map center lock"
-msgstr "Ava/lukusta kaardimarker"
+msgstr "تبديل قفل مركز الخريطة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
 msgid "Approximate"
-msgstr "Umbkaudne"
+msgstr "تقريبي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
 msgid "Vantage point"
-msgstr "Vaatekoht"
+msgstr "نقطة الأفضلية"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
-msgstr "Objekt"
+msgstr "الموضوع"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf pilti tehes. Järgmise klikiga saad määrata vaate suuna."
+msgstr "امسك واسحب خريطة البحر بحيث تكون العلامة هي المكان الذي يقف فيه المصور."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
-msgstr "Otsilahter"
+msgstr "صندوق البحث"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
-msgstr "Aitäh!"
+msgstr "شكرا لك!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
-msgstr "Keskmine pakkumine"
+msgstr "تخمين المتوسط"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
 msgid "Your guess"
-msgstr "Sinu pakkumine"
+msgstr "تخمينك"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
-msgstr "Kui palju on kujutatud koht muutunud?"
+msgstr "كم تغير الموقع المصور؟"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
 msgid "Continue"
-msgstr "Jätka"
+msgstr "استمرار"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
 msgid "a little"
-msgstr "vähe"
+msgstr "القليل"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "a lot"
-msgstr "palju"
+msgstr "الكثير"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr "Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks nihuta kaarti."
+msgstr "انقر فوق الزر الأخضر لحفظ كل من الموقع واتجاه العرض، انقر على الخريطة لفتح الاتجاه، واسحب الخريطة لتصحيح الموقع."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr "Klikk kaardil lukustab vaate suuna. Ainult asukoha salvestamiseks vajuta kollast nuppu."
+msgstr "انقر على الخريطة لقفل اتجاه العرض أو انقر فوق الزر الأصفر لحفظ الموقع فقط."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks nihuta MARKERIT."
+msgstr "انقر فوق الزر الأخضر لحفظ كل من الموقع واتجاه العرض، انقر على الخريطة لإلغاء قفل الاتجاه، اسحب العلامة لتصحيح الموقع."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr "Nüüd saad nihutada eraldi MARKERIT ja KAARTI."
+msgstr "يمكنك الآن سحب العلامة حيث كان المصور واقفا والخريطة بشكل منفصل."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr "Nihuta ja suumi kaarti nii, et ring kataks pildi tegemise ligikaudse koha."
+msgstr "اسحب الخريطة حتى تغطي الدائرة الموقع التقريبي، انقر فوق حفظ عندما تكون جاهزا."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, seejärel salvesta."
+msgstr "اسحب الخريطة حتى تكون العلامة أعلى الكائن الذي تراه على الصورة، وانقر فوق \"حفظ\" عندما تكون جاهزا."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
-msgstr "Saadud punktid"
+msgstr "النقاط الممنوحة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
-msgstr "Vanalinnad"
+msgstr "المدن القديمة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:787
 msgid "Remove album filter"
-msgstr "Eemalda albumi filter"
+msgstr "إزالة مرشح الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:795
 msgid "Apply album filter"
-msgstr "Rakenda albumi filter"
+msgstr "تطبيق مرشح الألبوم"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
