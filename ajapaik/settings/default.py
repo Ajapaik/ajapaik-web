@@ -388,7 +388,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': [
             'email',
             'public_profile',
-            'user_friends',
         ],
     },
     'google': {
