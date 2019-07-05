@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-01 07:20:01+0000\n"
+"PO-Revision-Date: 2019-07-05 04:59:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -862,7 +862,7 @@ msgstr "E-postadress"
 #: ajapaik/ajapaik/templates/registration/login.html:18
 #: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
-msgstr "Lösenord"
+msgstr "Password"
 
 #: ajapaik/ajapaik/templates/_log_in.html:33
 msgid "Register with e-mail"
@@ -946,7 +946,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:121
 #| msgid "Flip photo"
 msgid "!!FUZZY!!Flip photo"
-msgstr ""
+msgstr "Vänd foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1051,7 +1051,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 #| msgid "E-mail"
 msgid "!!FUZZY!!E-mail"
-msgstr ""
+msgstr "E-post"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 #| msgid "change password"
@@ -1062,7 +1062,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 #| msgid "E-mail address"
 msgid "!!FUZZY!!E-mail address"
-msgstr ""
+msgstr "E-postadresser"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 #| msgid "Confirmation"
@@ -1074,7 +1074,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/login.html:41
 #| msgid "Signed in as"
 msgid "!!FUZZY!!Signed in as"
-msgstr ""
+msgstr "Inloggad som"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-01 07:20:01+0000\n"
+"PO-Revision-Date: 2019-07-05 04:59:26+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -505,19 +505,19 @@ msgstr "a anvert l'órdin"
 
 #: ajapaik/ajapaik/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr ""
+msgstr "Socetà d'ardità fotogràfica éston"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr ""
+msgstr "Sosten-e Ajapaik"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 msgid "Support us"
-msgstr ""
+msgstr "Sosten-ne"
 
 #: ajapaik/ajapaik/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr ""
+msgstr "Vëdde ëdcò – Sift.pics"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -593,7 +593,7 @@ msgstr[1] "\n                            <b>%(user_rephotographed_photos)s</b> p
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
 msgid "General statistics refresh every 10 minutes"
-msgstr ""
+msgstr "Le statìstiche generaj as rinfrësco tute le 10 minute"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
 msgid "Supporters of Ajapaik"
@@ -652,7 +652,7 @@ msgstr "Gionté dle fòto"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr ""
+msgstr "Litre d'anformassion"
 
 #: ajapaik/ajapaik/templates/_header.html:55
 msgid "Current selection"
@@ -816,7 +816,7 @@ msgstr "Fòto d'utent Google"
 
 #: ajapaik/ajapaik/templates/_log_in.html:7
 msgid "Log in to save your score"
-msgstr ""
+msgstr "Ch'a rintra ant ël sistema për argistré so pontegg."
 
 #: ajapaik/ajapaik/templates/_log_in.html:9
 msgid "Log in to upload rephoto"

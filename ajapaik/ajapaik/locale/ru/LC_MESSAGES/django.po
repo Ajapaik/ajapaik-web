@@ -1,6 +1,8 @@
 # Translation of Ajapaik Web app to Russian (русский)
 # Exported from translatewiki.net
 #
+# Author: Alexander Istomin
+# Author: Okras
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -12,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-01 07:20:01+0000\n"
+"PO-Revision-Date: 2019-07-05 04:59:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -122,11 +124,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:176
 msgid "Female"
-msgstr ""
+msgstr "Женский"
 
 #: ajapaik/ajapaik/models.py:177
 msgid "Male"
-msgstr ""
+msgstr "Мужской"
 
 #: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:69
 msgid "Name"
@@ -147,11 +149,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: ajapaik/ajapaik/models.py:351
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: ajapaik/ajapaik/models.py:993
 msgid "Geotag"
@@ -192,11 +194,11 @@ msgstr "Карта"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "EXIF"
-msgstr ""
+msgstr "EXIF"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "GPS"
-msgstr ""
+msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirmation"
@@ -212,7 +214,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1032
 msgid "Android app"
-msgstr ""
+msgstr "Приложение Android"
 
 #: ajapaik/ajapaik/models.py:1043
 msgid "Game"
@@ -244,7 +246,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1054
 msgid "OpenStreetMap"
-msgstr ""
+msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1055
 msgid "Juks"
@@ -521,7 +523,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 msgid "Support us"
-msgstr ""
+msgstr "Поддержите нас"
 
 #: ajapaik/ajapaik/templates/_footer.html:34
 msgid "See also – Sift.pics"
@@ -612,11 +614,11 @@ msgstr "Кто поддерживает Ajapaik"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
 msgid "KulKa logo"
-msgstr ""
+msgstr "Логотип KulKa"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:79
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "Логотип Министерства образования"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:92
 msgid "EV100 logo"
@@ -624,7 +626,7 @@ msgstr "EV100 лого"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:95
 msgid "KYSK logo"
-msgstr ""
+msgstr "Логотип KYSK"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 msgid "Back to homepage"
@@ -659,7 +661,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Add photos"
-msgstr ""
+msgstr "Добавить фотографии"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
@@ -875,7 +877,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/registration/login.html:18
 #: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: ajapaik/ajapaik/templates/_log_in.html:33
 msgid "Register with e-mail"
@@ -885,12 +887,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/registration/login.html:9
 #: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
-msgstr ""
+msgstr "Войти"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
 msgid "Click to choose"
-msgstr ""
+msgstr "Нажмите для выбора"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
@@ -1095,7 +1097,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
-msgstr "Password"
+msgstr "Пароль"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 #| msgid "Password"
@@ -1107,7 +1109,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Password"
-msgstr "Password"
+msgstr "Пароль"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 msgid "Forgot password"
@@ -1130,11 +1132,11 @@ msgstr "Идентификатор альбома"
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:17
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:17
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:19
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:7
 msgid "Upload The Digital Archives of Norway photos via CSV file"
@@ -1263,7 +1265,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/delete.html:16
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:37
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: ajapaik/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
@@ -1271,12 +1273,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
-msgstr ""
+msgstr "Ваш комментарий"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
 msgid "Send"
-msgstr ""
+msgstr "Отправить"
 
 #: ajapaik/ajapaik/templates/comments/list.html:22
 msgid "Like"
@@ -1289,14 +1291,14 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:30
 #: ajapaik/ajapaik/templates/comments/list.html:90
 msgid "Reply"
-msgstr ""
+msgstr "Ответить"
 
 #: ajapaik/ajapaik/templates/comments/list.html:39
 #: ajapaik/ajapaik/templates/comments/list.html:41
 #: ajapaik/ajapaik/templates/comments/list.html:45
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:26
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
@@ -1304,7 +1306,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
-msgstr ""
+msgstr "Править"
 
 #: ajapaik/ajapaik/templates/comments/list.html:61
 #: ajapaik/ajapaik/templates/comments/list.html:87
@@ -1582,7 +1584,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/registration/activation_email.txt:5
 msgid "Link"
-msgstr ""
+msgstr "Ссылка"
 
 #: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
 msgid "Activate your account at Ajapaik.ee"
@@ -1604,11 +1606,11 @@ msgstr ""
 #: ajapaik/ajapaik/templates/registration/login.html:33
 #: ajapaik/ajapaik/templates/registration/registration_form.html:18
 msgid "OR"
-msgstr ""
+msgstr "ИЛИ"
 
 #: ajapaik/ajapaik/templates/registration/logout.html:9
 msgid "You have been logged out!"
-msgstr ""
+msgstr "Вы вышли!"
 
 #: ajapaik/ajapaik/templates/registration/registration_complete.html:9
 msgid "Activation e-mail sent!"
@@ -1635,7 +1637,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: ajapaik/ajapaik/views.py:454
 msgid "Non-authenticated user"

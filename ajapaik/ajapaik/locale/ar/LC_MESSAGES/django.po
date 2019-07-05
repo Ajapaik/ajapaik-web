@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-01 07:20:00+0000\n"
+"PO-Revision-Date: 2019-07-05 04:59:25+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -450,7 +450,7 @@ msgstr "فرز حسب وقت أو كمية إعادة الصور المضافة"
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:93
 #| msgid "Sort by rephotos' time added or amount"
 msgid "!!FUZZY!!Sort by rephotos' time added or amount"
-msgstr ""
+msgstr "رتب حسب وقت أو كمية إعادات الصور"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:104
 msgid "Sort by comments' time added or amount"
@@ -606,7 +606,7 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
 msgid "General statistics refresh every 10 minutes"
-msgstr ""
+msgstr "يتم تحديث الإحصاءات العامة كل 10 دقائق"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
 msgid "Supporters of Ajapaik"
@@ -665,7 +665,7 @@ msgstr "إضافة صور"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr ""
+msgstr "النشرات الإخبارية"
 
 #: ajapaik/ajapaik/templates/_header.html:55
 msgid "Current selection"
@@ -835,11 +835,11 @@ msgstr[5] ""
 #| "\n"
 #| "                            %(counter)s rephotographs\n"
 #| "                        "
-#, invalid-plural, python-format
+#, python-format
 msgid "\n                            %(counter)s rephotograph\n                        "
 msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\n                            %(counter)s إعادة \n                        "
+msgstr[1] "\n                            %(counter)s إعادات\n                        "
 msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
@@ -983,7 +983,7 @@ msgstr "قلب الصورة"
 #: ajapaik/ajapaik/templates/photoview.html:118
 #| msgid "Original photo"
 msgid "!!FUZZY!!Original photo"
-msgstr ""
+msgstr "الصورة الأصلية"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
@@ -991,7 +991,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:121
 #| msgid "Flip photo"
 msgid "!!FUZZY!!Flip photo"
-msgstr ""
+msgstr "قلب الصورة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1094,58 +1094,58 @@ msgstr "أنت مجهول، يمكنك الآن تسجيل الدخول باست
 #: ajapaik/ajapaik/templates/account/login.html:40
 #| msgid "Forgot password"
 msgid "!!FUZZY!!Forgot password"
-msgstr ""
+msgstr "نسيت كلمة المرور"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 #| msgid "E-mail"
 msgid "!!FUZZY!!E-mail"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 #| msgid "change password"
 msgid "!!FUZZY!!Forgot password"
-msgstr ""
+msgstr "نسيت كلمة المرور"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 #| msgid "E-mail address"
 msgid "!!FUZZY!!E-mail address"
-msgstr ""
+msgstr "عنوان البريد الإلكتروني"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 #| msgid "Confirmation"
 msgid "!!FUZZY!!Confirmation"
-msgstr ""
+msgstr "تأكيد"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 #| msgid "Signed in as"
 msgid "!!FUZZY!!Signed in as"
-msgstr ""
+msgstr "تم تسجيل الدخول باسم"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
-msgstr ""
+msgstr "كلمة السر"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 #| msgid "Password"
 msgid "!!FUZZY!!Password"
-msgstr ""
+msgstr "كلمة المرور"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Password"
-msgstr ""
+msgstr "كلمة السر"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 msgid "Forgot password"
-msgstr ""
+msgstr "نسيت كلمة السر"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1247,7 +1247,7 @@ msgstr "معرض إعادة التصوير بواسطة %(rephotos_by_name)s"
 #| msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 #, python-format
 msgid "!!FUZZY!!Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr ""
+msgstr "معرض إعادة التصوير بواسطة %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 #, python-format
@@ -1663,7 +1663,7 @@ msgstr "نموذج التسجيل"
 #| "ShareAlike 4.0 license (CC-BY-SA)</a>."
 #, python-format
 msgid "!!FUZZY!!I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
+msgstr "أنا %(user)s صاحب حقوق الطبع والنشر لهذا العمل، منح أي شخص بشكل لا رجعة فيه الحق في استخدام هذا العمل بموجب  <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"

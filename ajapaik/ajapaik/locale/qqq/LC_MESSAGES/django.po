@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-01 07:20:17+0000\n"
+"PO-Revision-Date: 2019-07-05 04:59:43+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1073,7 +1073,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
-msgstr ""
+msgstr "{{Identical|Passwuert}}"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 #| msgid "Password"
