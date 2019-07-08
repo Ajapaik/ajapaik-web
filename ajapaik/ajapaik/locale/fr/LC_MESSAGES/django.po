@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-05 04:59:26+0000\n"
+"PO-Revision-Date: 2019-07-08 17:59:53+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -756,8 +756,8 @@ msgstr[1] "%(counter)s utilisateurs ont fait"
 #, python-format
 msgid "\n                            %(counter)s rephotograph\n                        "
 msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] "%(counter)s rephotographie"
-msgstr[1] "%(counter)s rephotographies"
+msgstr[0] "\n                   %(counter)s rephotographie\n               "
+msgstr[1] "\n                   %(counter)s rephotographies\n               "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:76
 #, python-format
@@ -1605,7 +1605,7 @@ msgstr "Formulaire d'inscription"
 #| "ShareAlike 4.0 license (CC-BY-SA)</a>."
 #, python-format
 msgid "!!FUZZY!!I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Moi, %(user)s, le détenteur du droit d’auteur sur ce travail, autorise irrévocablement n’importe qui à utiliser ce travail sous la <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licence Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgstr "Moi, %(user)s, le détenteur du droit d’auteur de ce travail, autorise irrévocablement n’importe qui à utiliser ce travail sous la <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licence Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"

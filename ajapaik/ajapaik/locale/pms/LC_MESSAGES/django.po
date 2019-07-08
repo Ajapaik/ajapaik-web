@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-05 04:59:26+0000\n"
+"PO-Revision-Date: 2019-07-08 17:59:53+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -820,51 +820,51 @@ msgstr "Ch'a rintra ant ël sistema për argistré so pontegg."
 
 #: ajapaik/ajapaik/templates/_log_in.html:9
 msgid "Log in to upload rephoto"
-msgstr ""
+msgstr "Ch'a rintra ant ël sistema për carié dj'arprodussion fotogràfiche"
 
 #: ajapaik/ajapaik/templates/_log_in.html:11
 msgid "Log in to curate content"
-msgstr ""
+msgstr "Ch'a rintra ant ël sistema për soagné ël contnù"
 
 #: ajapaik/ajapaik/templates/_log_in.html:13
 msgid "Log in to create still frames"
-msgstr ""
+msgstr "Ch'a rintra ant ël sistema për creé dle curnis"
 
 #: ajapaik/ajapaik/templates/_log_in.html:15
 msgid "Log in to save selection"
-msgstr ""
+msgstr "Ch'a rintra ant ël sistema për argistré la selession"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
 #: ajapaik/ajapaik/templates/registration/login.html:38
 #: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Rintré ant ël sistema con Facebook"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
 #: ajapaik/ajapaik/templates/registration/login.html:43
 #: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
-msgstr ""
+msgstr "Rintré ant ël sistema con Google"
 
 #: ajapaik/ajapaik/templates/_log_in.html:27
 msgid "E-mail address"
-msgstr ""
+msgstr "Adrëssa ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
 #: ajapaik/ajapaik/templates/registration/login.html:18
 #: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
-msgstr ""
+msgstr "Ciav"
 
 #: ajapaik/ajapaik/templates/_log_in.html:33
 msgid "Register with e-mail"
-msgstr ""
+msgstr "Anscriv-se për pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
 #: ajapaik/ajapaik/templates/registration/login.html:9
 #: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
-msgstr ""
+msgstr "Rintré ant ël sistema"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
