@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-08 17:59:53+0000\n"
+"PO-Revision-Date: 2019-07-11 15:16:30+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -905,7 +905,7 @@ msgstr "Ij mè preferì"
 #: ajapaik/ajapaik/templates/_mode_select.html:37
 #: ajapaik/ajapaik/templates/_mode_select.html:83
 msgid "Show rephotographed by me"
-msgstr ""
+msgstr "Smon-e mie arprodussion fotogràfiche"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:39
 #: ajapaik/ajapaik/templates/_mode_select.html:85
@@ -918,11 +918,11 @@ msgstr "Eliminé ël filtr d'àlbom"
 
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
-msgstr ""
+msgstr "Adrëssa aprossimativa"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
 msgid "Flip photo"
-msgstr ""
+msgstr "Volté la fòto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
@@ -942,24 +942,24 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
-msgstr ""
+msgstr "Autor ësconossù"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/game.html:53
 #: ajapaik/ajapaik/templates/photoview.html:48
 #: ajapaik/ajapaik/templates/photoview.html:173
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Serne la locassion ëd la fòto!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
 #: ajapaik/ajapaik/templates/photoview.html:179
 msgid "Date this image"
-msgstr ""
+msgstr "Daité sta plancia"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
 #: ajapaik/ajapaik/templates/photoview.html:183
 msgid "Add rephoto"
-msgstr ""
+msgstr "Gionté n'arprodussion fotogràfica"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:186

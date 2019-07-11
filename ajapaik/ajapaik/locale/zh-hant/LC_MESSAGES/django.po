@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-01 07:20:01+0000\n"
+"PO-Revision-Date: 2019-07-11 15:16:31+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,15 +24,15 @@ msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "必須設定定界框"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr ""
+msgstr "定界框必須要有四個以逗號區分的構件"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr ""
+msgstr "定界框必須是數字"
 
 #: ajapaik/ajapaik/forms.py:16
 msgid "First name"
@@ -650,7 +650,7 @@ msgstr "添加照片"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr ""
+msgstr "簡報"
 
 #: ajapaik/ajapaik/templates/_header.html:55
 msgid "Current selection"
@@ -658,7 +658,7 @@ msgstr "目前所選"
 
 #: ajapaik/ajapaik/templates/_header.html:65
 msgid "Choose language"
-msgstr ""
+msgstr "選擇語言"
 
 #: ajapaik/ajapaik/templates/_header.html:77
 msgid "About Ajapaik"
@@ -697,7 +697,7 @@ msgstr "貢獻者排行榜"
 #, python-format
 msgid "\n                    Album has %(counter)s historic picture,\n                "
 msgid_plural "\n                    Album has %(counter)s historic pictures,\n                "
-msgstr[0] "\n                    相簿有 %(counter)s 張歷史圖片，\n                "
+msgstr[0] "\n                    相簿有 %(counter)s 張歷史性圖片，\n                "
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:106
@@ -728,7 +728,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:53
 msgid "all the pictures from this album."
-msgstr ""
+msgstr "來自此相簿的所有圖片。"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:55
 #, invalid-plural, python-format
@@ -820,7 +820,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:15
 msgid "Log in to save selection"
-msgstr ""
+msgstr "登入來儲存所選"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
 #: ajapaik/ajapaik/templates/registration/login.html:38
@@ -918,7 +918,7 @@ msgstr "翻轉照片"
 #: ajapaik/ajapaik/templates/photoview.html:118
 #| msgid "Original photo"
 msgid "!!FUZZY!!Original photo"
-msgstr ""
+msgstr "原始照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
@@ -926,7 +926,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:121
 #| msgid "Flip photo"
 msgid "!!FUZZY!!Flip photo"
-msgstr ""
+msgstr "翻轉照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -960,10 +960,9 @@ msgstr "討論"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
 #: ajapaik/ajapaik/templates/photoview.html:211
-#, invalid-plural
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] ""
+msgstr[0] "屬於相簿的圖片："
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
 #: ajapaik/ajapaik/templates/photoview.html:223
@@ -972,7 +971,7 @@ msgstr "策展人"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
 msgid "Taken"
-msgstr ""
+msgstr "採用"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
@@ -1002,7 +1001,7 @@ msgstr "關閉"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:59
 msgid "Abort"
-msgstr ""
+msgstr "中止"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:81
 msgid "Select new file..."
@@ -1014,7 +1013,7 @@ msgstr "檔案上傳失敗。"
 
 #: ajapaik/ajapaik/templates/_rephoto_description_container.html:35
 msgid "Date taken"
-msgstr ""
+msgstr "日期採用"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1025,28 +1024,28 @@ msgstr "您為匿名使用者，您現在可以以您的電子郵件來登入。
 #: ajapaik/ajapaik/templates/account/login.html:40
 #| msgid "Forgot password"
 msgid "!!FUZZY!!Forgot password"
-msgstr ""
+msgstr "忘記密碼"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 #| msgid "E-mail"
 msgid "!!FUZZY!!E-mail"
-msgstr ""
+msgstr "電子郵件"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 #| msgid "change password"
 msgid "!!FUZZY!!Forgot password"
-msgstr ""
+msgstr "忘記密碼"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 #| msgid "E-mail address"
 msgid "!!FUZZY!!E-mail address"
-msgstr ""
+msgstr "電子郵件地址"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 #| msgid "Confirmation"
 msgid "!!FUZZY!!Confirmation"
-msgstr ""
+msgstr "確認"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
@@ -1060,23 +1059,23 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 #| msgid "Password"
 msgid "!!FUZZY!!Password"
-msgstr ""
+msgstr "密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 msgid "Forgot password"
-msgstr ""
+msgstr "忘記密碼"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1107,19 +1106,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:16
 msgid "Gallery of old historic photos from the album"
-msgstr ""
+msgstr "來自相簿的舊歷史性照片圖庫"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:18
 msgid "Historic photo gallery"
-msgstr ""
+msgstr "歷史性照片圖庫"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:22
 msgid "Mapped old historic photos from the album"
-msgstr ""
+msgstr "來自相簿的對應舊歷史性照片"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:24
 msgid "Mapped old historic photos"
-msgstr ""
+msgstr "對應舊歷史性照片"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:28
 msgid "Help geotag old historic photos from the album"
@@ -1197,7 +1196,7 @@ msgstr[0] "\n                    相簿有 %(counter)s 張照片，\n           
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:213
 msgid "Timepatch (Ajapaik)"
-msgstr ""
+msgstr "時光修補（Ajapaik）"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:282
 msgid "Geolocation error"
@@ -1263,7 +1262,7 @@ msgstr "刪除"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr ""
+msgstr "您確定您要刪除此評論以及所有的回覆嗎？"
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
@@ -1507,7 +1506,7 @@ msgstr "添加至相簿"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
-msgstr ""
+msgstr "您可以透過拖拉來重新排序照片"
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:13
 msgid "Import from public collections"
@@ -1523,7 +1522,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:145
 #: ajapaik/ajapaik/templates/photoview.html:146
 msgid "rephoto"
-msgstr ""
+msgstr "翻拍"
 
 #: ajapaik/ajapaik/templates/registration/activate.html:9
 msgid "Activation failed!"
@@ -1549,7 +1548,7 @@ msgstr "連結"
 
 #: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
 msgid "Activate your account at Ajapaik.ee"
-msgstr ""
+msgstr "啟用您在 Ajapaik.ee 上的帳號"
 
 #: ajapaik/ajapaik/templates/registration/login.html:13
 #: ajapaik/ajapaik/templates/registration/login.html:15
@@ -1575,7 +1574,7 @@ msgstr "您已經被登出！"
 
 #: ajapaik/ajapaik/templates/registration/registration_complete.html:9
 msgid "Activation e-mail sent!"
-msgstr ""
+msgstr "啟用電子郵件已發送！"
 
 #: ajapaik/ajapaik/templates/registration/registration_form.html:9
 msgid "Registration form"
@@ -1627,7 +1626,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:1129
 msgid "Faulty data submitted"
-msgstr ""
+msgstr "已提交不完整資料"
 
 #: ajapaik/ajapaik/views.py:1432 ajapaik/ajapaik/views.py:1439
 #: ajapaik/ajapaik/views.py:1441
@@ -1691,7 +1690,7 @@ msgstr "很抱歉，發佈您的評論出現錯誤。"
 #: ajapaik/ajapaik_face_recognition/forms.py:13
 #| msgid "Subject"
 msgid "!!FUZZY!!Subject"
-msgstr ""
+msgstr "主題"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 #| msgid "Is public"
