@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-11 15:16:30+0000\n"
+"PO-Revision-Date: 2019-07-15 17:56:26+0000\n"
 "X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -964,46 +964,45 @@ msgstr "Gionté n'arprodussion fotogràfica"
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
-msgstr ""
+msgstr "Tichëtté na neuva cera - an sgnacand su sto boton a-j përmëtrà ëd dissegné un retàngol dla facia an sla plancia prinsipal"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
 msgid "Discuss"
-msgstr ""
+msgstr "Dëscute"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
 #: ajapaik/ajapaik/templates/photoview.html:211
-#, invalid-plural
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "La plancia a aparten a l'àlbom"
+msgstr[1] "La plancia a aparten a j'àlbom:"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Curator"
-msgstr ""
+msgstr "Conservator"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
 msgid "Taken"
-msgstr ""
+msgstr "Pijà"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
 #: ajapaik/ajapaik/templates/user_upload.html:23
 msgid "Upload"
-msgstr ""
+msgstr "Carié"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:28
 msgid "Select file..."
-msgstr ""
+msgstr "Selessioné n'archivi..."
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr ""
+msgstr "Ch'a fasa n'arprodussion fotogràfica atual da l'istess pòst dal qual la plancia stòrica a l'é stàita fàita e ch'a la caria. L'arprodussion fotogràfica carià a sarà atribuìa a chiel sota la"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
 msgid "licence"
-msgstr ""
+msgstr "licence"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:44
 #: ajapaik/ajapaik/templates/curator.html:38
@@ -1011,27 +1010,27 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
-msgstr ""
+msgstr "Saré"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:59
 msgid "Abort"
-msgstr ""
+msgstr "Bandoné"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:81
 msgid "Select new file..."
-msgstr ""
+msgstr "Selessioné un neuv archivi..."
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:111
 msgid "File upload failed."
-msgstr ""
+msgstr "Faliment dël cariament ëd l'archivi."
 
 #: ajapaik/ajapaik/templates/_rephoto_description_container.html:35
 msgid "Date taken"
-msgstr ""
+msgstr "Dàita ant la qual a l'é stàita fàita"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr ""
+msgstr "A l'é anònim. Adess a peul rintré ant ël sistema con soa adrëssa ëd pòsta eletrònica."
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
@@ -1073,46 +1072,46 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
-msgstr ""
+msgstr "Ciav"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 #| msgid "Password"
 msgid "!!FUZZY!!Password"
-msgstr ""
+msgstr "Ciav"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Password"
-msgstr ""
+msgstr "Ciav"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 msgid "Forgot password"
-msgstr ""
+msgstr "Ciav dësmentià"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
-msgstr ""
+msgstr "Pàgina d'intrada"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
-msgstr ""
+msgstr "Carié dle fòto con n'archivi CSV"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:15
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:15
 msgid "Album ID"
-msgstr ""
+msgstr "ID d'àlbom"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:17
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:17
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:19
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:7
 msgid "Upload The Digital Archives of Norway photos via CSV file"
