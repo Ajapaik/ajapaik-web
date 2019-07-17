@@ -24,24 +24,12 @@
         </div>
         <div class="modal-body m-3" id="ajapaik-info-modal-body">
             <div class="row">
-                {% blocktrans count counter=total_photo_count %}
-                    Album has {{ counter }} historic picture,
-                {% plural %}
-                    Album has {{ counter }} historic pictures,
-                {% endblocktrans %}
-                {% blocktrans count counter=geotagging_user_count %}
-                    {{ counter }} user has put
-                {% plural %}
-                    {{ counter }} users have put
-                {% endblocktrans %}
+                {% blocktrans count counter=total_photo_count %}Album has {{ counter }} historic picture,{% plural %}Album has {{ counter }} historic pictures,{% endblocktrans %}
+                {% blocktrans count counter=geotagging_user_count %}{{ counter }} user has put{% plural %}{{ counter }} users have put{% endblocktrans %}
                 {% if total_photo_count == geotagged_photo_count %}
                     {% trans "all the pictures on the map." %}
                 {% else %}
-                    {% blocktrans count counter=geotagged_photo_count %}
-                        {{ counter }} picture on the map.
-                    {% plural %}
-                        {{ counter }} pictures on the map.
-                    {% endblocktrans %}
+                    {% blocktrans count counter=geotagged_photo_count %}{{ counter }} picture on the map.{% plural %}{{ counter }} pictures on the map.{% endblocktrans %}
                 {% endif %}
             </div>
             <div class="row">
@@ -52,60 +40,25 @@
                     {% if user_geotagged_photo_count == total_photo_count %}
                         {% trans "all the pictures from this album." %}
                     {% else %}
-                        {% blocktrans count counter=user_geotagged_photo_count %}
-                            {{ counter }} picture in this album.
-                        {% plural %}
-                            {{ counter }} pictures in this album.
-                        {% endblocktrans %}
+                        {% blocktrans count counter=user_geotagged_photo_count %}{{ counter }} picture in this album.{% plural %}{{ counter }} pictures in this album.{% endblocktrans %}
                     {% endif %}
                 {% endif %}
             </div>
             {% if rephoto_user_count > 0 %}
                 {% if not user_made_all_rephotos %}
                     <div class="row">
-                        {% blocktrans count counter=rephoto_user_count %}
-                            {{ counter }} user has made
-                        {% plural %}
-                            {{ counter }} users have made
-                        {% endblocktrans %}
-                        {% blocktrans count counter=rephoto_count %}
-                            {{ counter }} rephotograph
-                        {% plural %}
-                            {{ counter }} rephotographs
-                        {% endblocktrans %}
-                        {% blocktrans count counter=rephotographed_photo_count %}
-                            for {{ counter }} picture in the album.
-                        {% plural %}
-                            for {{ counter }} picture in the album.
-                        {% endblocktrans %}
+                        {% blocktrans count counter=rephoto_user_count %}{{ counter }} user has made{% plural %}{{ counter }} users have made{% endblocktrans %}
+                        {% blocktrans count counter=rephoto_count %}{{ counter }} rephotograph{% plural %}{{ counter }} rephotographs{% endblocktrans %}
+                        {% blocktrans count counter=rephotographed_photo_count %}for {{ counter }} picture in the album.{% plural %}for {{ counter }} picture in the album.{% endblocktrans %}
                     </div>
                 {% endif %}
             {% endif %}
             {% if user_rephoto_count > 0 %}
                 <div class="row">
-                    {% blocktrans count counter=user_rephoto_count %}
-                        You have made {{ counter }} rephoto
-                    {% plural %}
-                        You have made {{ counter }} rephotos
-                    {% endblocktrans %}
-                    {% blocktrans count counter=user_rephotographed_photo_count %}
-                        for {{ counter }} picture in the album.
-                    {% plural %}
-                        for {{ counter }} picures in the album.
-                    {% endblocktrans %}
+                    {% blocktrans count counter=user_rephoto_count %}You have made {{ counter }} rephoto{% plural %}You have made {{ counter }} rephotos{% endblocktrans %}
+                    {% blocktrans count counter=user_rephotographed_photo_count %}for {{ counter }} picture in the album.{% plural %}for {{ counter }} picures in the album.{% endblocktrans %}
                 </div>
             {% endif %}
-            <!--
-                {% if similar_photo_count > 0 %}
-                    <div class="row">
-                        {% blocktrans count counter=similar_photo_count %}
-                            There is {{ counter }} similar photo
-                        {% plural %}
-                            There are {{ counter }} similar photos
-                        {% endblocktrans %}
-                    </div>
-                {% endif %}
-            -->
             <br>
             {% if nearby_albums %}
                 <div class="row d-block">
