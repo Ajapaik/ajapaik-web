@@ -88,8 +88,6 @@
         <meta property="og:title" content="{{ title }}"/>
         {% if rephotos_by_name %}
             <meta property="og:description" content="{% blocktrans %}Gallery of rephotographs by {{ rephotos_by_name }}{% endblocktrans %}"/>
-        {% elif similar_photos_by_name %}
-            <meta property="og:description" content="{% blocktrans %}Gallery of similar photos by {{ similar_photos_by_name }}{% endblocktrans %}"/>
         {% elif description %}
             <meta property="og:description" content="{{ description }}"/>
         {% elif not description and is_game and album %}
