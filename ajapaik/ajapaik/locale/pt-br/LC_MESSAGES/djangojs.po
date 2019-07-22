@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-18 14:17:13+0000\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt-BR\n"
@@ -428,9 +428,8 @@ msgid "All photos"
 msgstr "Todas as fotos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#| msgid "Picture set has no rephotos"
-msgid "!!FUZZY!!Picture set has no rephotos"
-msgstr "Conjunto de imagens não tem refotos"
+msgid "Picture set has no "
+msgstr "Conjunto de imagens não tem "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."

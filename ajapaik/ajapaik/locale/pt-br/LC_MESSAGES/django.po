@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-18 14:17:13+0000\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"X-POT-Import-Date: 2019-07-18 15:35:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt-BR\n"
@@ -95,13 +95,11 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr "Se este álbum estiver vinculado a um determinado local, especifique aqui"
 
 #: ajapaik/ajapaik/forms.py:414
-#| msgid "Album created"
-msgid "!!FUZZY!!Album created"
-msgstr "Álbum criado"
+msgid "Album type"
+msgstr "Álbum criadoTipo de álbum"
 
 #: ajapaik/ajapaik/forms.py:430
-#| msgid "E-mail address"
-msgid "!!FUZZY!!E-mail address"
+msgid "E-mail address"
 msgstr "Endereço de e-mail"
 
 #: ajapaik/ajapaik/forms.py:435
@@ -446,28 +444,23 @@ msgstr "Classificar por hora de datações adicionada ou quantidade"
 msgid "Sort by rephotos' time added or amount"
 msgstr "Ordenar por tempo de refotografias adicionado ou quantidade"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:93
-#| msgid "Sort by rephotos' time added or amount"
-msgid "!!FUZZY!!Sort by rephotos' time added or amount"
-msgstr "Ordenar por tempo de refotos adicionado ou quantidade"
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:104
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
 msgstr "Classificar por tempo de comentários adicionado ou quantidade"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:114
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
 msgstr "Ordenar pelo tempo ou valor adicionado dos gostos"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:124
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
 msgstr "Ordenar por quantidade e ..."
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:134
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:122
 msgid "Change sorting order"
 msgstr "Alterar ordem de classificação"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:143
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
 msgid "Help"
 msgstr "Ajuda"
 
@@ -540,47 +533,26 @@ msgstr "* marcação geográfica de fotos de lugares que você está familiariza
 msgid "* rephotographing the historic views from places you visit."
 msgstr "* Repotografar as vistas históricas dos lugares que você visita."
 
-#
-msgid "\n                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n                    "
-msgstr "\n                        Ajapaik tem <b>%(total_photo_count)s</b> fotos históricas, das quais\n                    "
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
+#, python-format
+msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
+msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
+msgstr[0] "Você sugeriu localização para <b>%(user_geotagged_photos)s</b> foto."
+msgstr[1] "Você sugeriu locais para <b>%(user_geotagged_photos)s</b> fotos."
 
-#
-msgid "\n                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n                    "
-msgstr "\n                        <b>%(total_photos_tagged)s</b> fotos foram colocadas no mapa por\n                    "
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
+#, python-format
+msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
+msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
+msgstr[0] "Você fez <b>%(user_rephotos)s</b> refotografia para"
+msgstr[1] "Você fez <b>%(user_rephotos)s</b> refotografias para"
 
-#
-msgid "\n                        <b>%(contributing_users)s</b> users and\n                    "
-msgstr "\n                        <b> usuários %(contributing_users)s</b> e\n                    "
-
-#
-msgid "\n                        <b>%(rephoto_count)s</b> rephotographs for\n                    "
-msgstr "\n                        <b>repotografias %(rephoto_count)s</b> para\n                    "
-
-#
-msgid "\n                        <b>%(rephotographed_photo_count)s</b> pictures made by\n                    "
-msgstr "\n                        <b>fotos %(rephotographed_photo_count)s</b> feitas por\n                    "
-
-#
-msgid "\n                        <b>%(rephotographing_users)s</b> users.\n                    "
-msgstr "\n                        <b>usuários %(rephotographing_users)s</b>.\n                    "
-
-#
-msgid "\n                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n                        "
-msgid_plural "\n                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n                        "
-msgstr[0] "\n                            Você sugeriu localização para <b>foto %(user_geotagged_photos)s</b>.\n                        "
-msgstr[1] "\n                            Você sugeriu localizações para <b>fotos %(user_geotagged_photos)s</b>.\n                        "
-
-#
-msgid "\n                            You have made <b>%(user_rephotos)s</b> rephoto for\n                        "
-msgid_plural "\n                            You have made <b>%(user_rephotos)s</b> rephotos for\n                        "
-msgstr[0] "\n                            Você fez <b>%(user_rephotos)s refotografia</b> para\n                        "
-msgstr[1] "\n                            Você fez <b>%(user_rephotos)s refotografias</b> para\n                        "
-
-#
-msgid "\n                            <b>%(user_rephotographed_photos)s</b> picture.\n                        "
-msgid_plural "\n                            <b>%(user_rephotographed_photos)s</b> pictures.\n                        "
-msgstr[0] "\n                            <b>%(user_rephotographed_photos)s foto</b>.\n                        "
-msgstr[1] "\n                            <b>%(user_rephotographed_photos)s fotos</b>.\n                        "
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
+#, python-format
+msgid "<b>%(user_rephotographed_photos)s</b> picture."
+msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
+msgstr[0] "<b>%(user_rephotographed_photos)s</b> foto."
+msgstr[1] "<b>%(user_rephotographed_photos)s</b> fotos."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes"
@@ -686,28 +658,33 @@ msgstr "Álbum com curadoria de"
 msgid "Contributors' leaderboard"
 msgstr "Tabela de classificação dos contribuidores"
 
-#
-msgid "\n                    Album has %(counter)s historic picture,\n                "
-msgid_plural "\n                    Album has %(counter)s historic pictures,\n                "
-msgstr[0] "\n                    O álbum tem %(counter)s imagem histórica,\n                "
-msgstr[1] "\n                    O álbum tem %(counter)s imagens históricas,\n                "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:27
+#, python-format
+msgid "Album has %(counter)s historic picture,"
+msgid_plural "Album has %(counter)s historic pictures,"
+msgstr[0] "O álbum tem %(counter)s foto histórica,"
+msgstr[1] "O álbum tem %(counter)s fotos históricas,"
 
-#
-msgid "\n                    %(counter)s user has put\n                "
-msgid_plural "\n                    %(counter)s users have put\n                "
-msgstr[0] "\n                    %(counter)s usuário colocou\n                "
-msgstr[1] "\n                    %(counter)s usuários colocaram\n                "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:28
+#: ajapaik/ajapaik/templates/base_bootstrap.html:100
+#, python-format
+msgid "%(counter)s user has put"
+msgid_plural "%(counter)s users have put"
+msgstr[0] "%(counter)s usuário colocou"
+msgstr[1] "%(counter)s usuários colocaram"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
-#: ajapaik/ajapaik/templates/base_bootstrap.html:104
+#: ajapaik/ajapaik/templates/base_bootstrap.html:102
 msgid "all the pictures on the map."
 msgstr "todas as fotos no mapa."
 
-#
-msgid "\n                        %(counter)s picture on the map.\n                    "
-msgid_plural "\n                        %(counter)s pictures on the map.\n                    "
-msgstr[0] "\n                        %(counter)s foto no mapa.\n                    "
-msgstr[1] "\n                        %(counter)s fotos no mapa\n                    "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:32
+#: ajapaik/ajapaik/templates/base_bootstrap.html:104
+#, python-format
+msgid "%(counter)s picture on the map."
+msgid_plural "%(counter)s pictures on the map."
+msgstr[0] "%(counter)s foto no mapa."
+msgstr[1] "%(counter)s fotos no mapa."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -721,47 +698,41 @@ msgstr "Você fez uma sugestão de localização para"
 msgid "all the pictures from this album."
 msgstr "todas as fotos deste álbum."
 
-#
-msgid "\n                            %(counter)s picture in this album.\n                        "
-msgid_plural "\n                            %(counter)s pictures in this album.\n                        "
-msgstr[0] "\n                            %(counter)s foto neste álbum.\n                        "
-msgstr[1] "\n                            %(counter)s fotos neste álbum.\n                        "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:43
+#, python-format
+msgid "%(counter)s picture in this album."
+msgid_plural "%(counter)s pictures in this album."
+msgstr[0] "%(counter)s foto neste álbum."
+msgstr[1] "%(counter)s fotos neste álbum."
 
-#
-msgid "\n                            %(counter)s user has made\n                        "
-msgid_plural "\n                            %(counter)s users have made\n                        "
-msgstr[0] "\n                            %(counter)s usuário fez\n                        "
-msgstr[1] "\n                            %(counter)s usuários fizeram\n                        "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:50
+#, python-format
+msgid "%(counter)s user has made"
+msgid_plural "%(counter)s users have made"
+msgstr[0] "%(counter)s usuário fez"
+msgstr[1] "%(counter)s usuários fizeram"
 
-#
-msgid "\n                            %(counter)s rephotograph\n                        "
-msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] "\n                            %(counter)s repotógrafo\n                        "
-msgstr[1] "\n                            %(counter)s repotógrafos\n                        "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:51
+#, python-format
+msgid "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
+msgid_plural "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
+msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
+msgstr[1] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
 
-#
-msgid "\n                            for %(counter)s picture in the album.\n                        "
-msgid_plural "\n                            for %(counter)s picture in the album.\n                        "
-msgstr[0] "\n                            for %(counter)s foto no álbum.\n                        "
-msgstr[1] "\n                            for %(counter)s fotos no álbum.\n                        "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:52
+#: ajapaik/ajapaik/templates/_info_modal_content.html:59
+#, python-format
+msgid "for %(counter)s picture in the album."
+msgid_plural "for %(counter)s picture in the album."
+msgstr[0] "para %(counter)s foto no álbum."
+msgstr[1] "para %(counter)s fotos no álbum."
 
-#
-msgid "\n                        You have made %(counter)s rephoto\n                    "
-msgid_plural "\n                        You have made %(counter)s rephotos\n                    "
-msgstr[0] "\n                        Você fez %(counter)s refotografia\n                    "
-msgstr[1] "\n                        Você fez %(counter)s refotografias\n                    "
-
-#
-msgid "\n                        for %(counter)s picture in the album.\n                    "
-msgid_plural "\n                        for %(counter)s picures in the album.\n                    "
-msgstr[0] "\n                        para %(counter)s foto no álbum.\n                    "
-msgstr[1] "\n                        para %(counter)s fotos no álbum.\n                    "
-
-#
-msgid "\n                            %(counter)s rephotograph\n                        "
-msgid_plural "\n                            %(counter)s rephotographs\n                        "
-msgstr[0] "\n                            %(counter)s repotógrafo\n                        "
-msgstr[1] "\n                            %(counter)s repotografias\n                        "
+#: ajapaik/ajapaik/templates/_info_modal_content.html:58
+#, python-format
+msgid "You have made %(counter)s rephoto"
+msgid_plural "You have made %(counter)s rephotos"
+msgstr[0] "Você fez %(counter)s refotografia"
+msgstr[1] "Você fez %(counter)s refotografias"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -899,17 +870,15 @@ msgstr "Imagem espelhada"
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
-#| msgid "Original photo"
-msgid "!!FUZZY!!Original photo"
-msgstr "Foto original"
+msgid "similar photo"
+msgstr "foto similar"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
-#| msgid "Flip photo"
-msgid "!!FUZZY!!Flip photo"
-msgstr "Imagem espelhada"
+msgid "duplicate photo"
+msgstr "foto duplicada"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1006,37 +975,31 @@ msgstr "Você é anônimo. Agora você pode entrar com seu e-mail."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-#| msgid "Forgot password"
-msgid "!!FUZZY!!Forgot password"
-msgstr "Esqueceu a senha"
+msgid "Forgot password?"
+msgstr "Esqueceu a senha?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-#| msgid "E-mail"
-msgid "!!FUZZY!!E-mail"
-msgstr "E-mail"
+msgid "Change E-mail"
+msgstr "Alterar e-mail"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
-#| msgid "change password"
-msgid "!!FUZZY!!Forgot password"
-msgstr "Esqueceu a senha"
+msgid "Change password"
+msgstr "Alterar senha"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#| msgid "E-mail address"
-msgid "!!FUZZY!!E-mail address"
-msgstr "Endereço de e-mail"
+msgid "Confirm E-mail address"
+msgstr "Confirmar endereço de E-mail"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
-#| msgid "Confirmation"
-msgid "!!FUZZY!!Confirmation"
-msgstr "Confirmação"
+msgid "Confirm"
+msgstr "Confirmar"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-#| msgid "Signed in as"
-msgid "!!FUZZY!!Signed in as"
-msgstr "Entrou como"
+msgid "Sign in"
+msgstr "Entrar"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
@@ -1046,9 +1009,8 @@ msgid "Password"
 msgstr "Senha"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
-#| msgid "Password"
-msgid "!!FUZZY!!Password"
-msgstr "Senha"
+msgid "Reset My Password"
+msgstr "Redefinir minha senha"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1157,48 +1119,43 @@ msgstr "pesquisa,museu,velho,fotos,fotos,histórico"
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgstr "Galeria de repotografias por %(rephotos_by_name)s"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:92
-#| msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-#, python-format
-msgid "!!FUZZY!!Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr "Galeria de repotografias por %(rephotos_by_name)s"
-
-#: ajapaik/ajapaik/templates/base_bootstrap.html:96
+#: ajapaik/ajapaik/templates/base_bootstrap.html:94
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
 msgstr "O álbum tem fotos %(album_photo_count)s históricas. Vamos colocar fotos no mapa!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:98
+#: ajapaik/ajapaik/templates/base_bootstrap.html:96
 msgid "Let's put pictures on the map"
 msgstr "Vamos colocar fotos no mapa"
 
-#
-msgid "\n                    Album has %(counter)s photo,\n                "
-msgid_plural "\n                    Album has %(counter)s photos,\n                "
-msgstr[0] "\n                    O álbum tem %(counter)s fotos,\n                "
-msgstr[1] "\n                    O álbum tem %(counter)s fotos,\n                "
+#: ajapaik/ajapaik/templates/base_bootstrap.html:99
+#, python-format
+msgid "Album has %(counter)s photo,"
+msgid_plural "Album has %(counter)s photos,"
+msgstr[0] "O álbum tem %(counter)s foto,"
+msgstr[1] "O álbum tem %(counter)s fotos,"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:201
+#: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"
 msgstr "Patch de tempo (Ajapaik)"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:270
+#: ajapaik/ajapaik/templates/base_bootstrap.html:268
 msgid "Geolocation error"
 msgstr "Erro de geolocalização"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:273
+#: ajapaik/ajapaik/templates/base_bootstrap.html:271
 msgid "Sorting"
 msgstr "Classificação"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:417
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Este site usa cookies para garantir que você obtenha a melhor experiência em nosso site"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:418
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "Got it!"
 msgstr "Entendido!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:419
+#: ajapaik/ajapaik/templates/base_bootstrap.html:417
 msgid "More info"
 msgstr "Mais informações"
 
@@ -1565,14 +1522,9 @@ msgid "Registration form"
 msgstr "Formulário de registro"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
-#| msgid ""
-#| "I, %(user)s, the copyright holder of this work, irrevocably grant anyone "
-#| "the right to use this work under the <a href=\"https://creativecommons."
-#| "org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution "
-#| "ShareAlike 4.0 license (CC-BY-SA)</a>."
 #, python-format
-msgid "!!FUZZY!!I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "I, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Eu, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -1672,14 +1624,12 @@ msgid "Sorry but we fail to post your comment."
 msgstr "Desculpe, mas não conseguimos publicar o seu comentário."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
-#| msgid "Subject"
-msgid "!!FUZZY!!Subject"
-msgstr "Sujeito"
+msgid "Subject name"
+msgstr "Nome do tópico"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
-#| msgid "Is public"
-msgid "!!FUZZY!!Is public"
-msgstr "É público"
+msgid "Is public figure"
+msgstr "É uma figura pública"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-01 07:20:00+0000\n"
+"PO-Revision-Date: 2019-07-22 11:50:02+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
@@ -434,8 +434,8 @@ msgid "All photos"
 msgstr "Kõik fotod"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#| msgid "Picture set has no rephotos"
-msgid "!!FUZZY!!Picture set has no rephotos"
+#, fuzzy
+msgid "Picture set has no "
 msgstr "Pildivalimis ei ole"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Gomoko
+# Author: H2kks
 # Author: VIGNERON
 # Author: Wladek92
 # --
@@ -11,8 +12,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-05 04:59:26+0000\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
@@ -430,9 +431,9 @@ msgid "All photos"
 msgstr "Toutes les photos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#| msgid "Picture set has no rephotos"
-msgid "!!FUZZY!!Picture set has no rephotos"
-msgstr "L’ensemble d’images n’a pas d'éléments rephotographiés"
+#, fuzzy
+msgid "Picture set has no "
+msgstr "L'ensemble d'images n'a pas"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
