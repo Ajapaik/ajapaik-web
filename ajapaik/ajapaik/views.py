@@ -1,4 +1,5 @@
 # encoding: utf-8
+import sys
 import datetime
 import json
 import logging
@@ -50,6 +51,7 @@ from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik.curator_drivers.common import CuratorSearchForm
 from ajapaik.ajapaik.curator_drivers.finna import FinnaDriver
+from ajapaik.ajapaik.curator_drivers.wikimediacommons import CommonsDriver
 from ajapaik.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
 from ajapaik.ajapaik.curator_drivers.fotis import FotisDriver
 from ajapaik.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
@@ -1897,9 +1899,11 @@ def _join_2_json_objects(obj1, obj2):
 				if 'ids' in dict_b['result']:
 					result['ids'] = dict_b['result']['ids']
 		except TypeError:
-			pass
+                    print("TypeError1", file=sys.stderr)
+                    pass
 	except TypeError:
-		pass
+            print("TypeError2", file=sys.stderr)
+            pass
 
 	return json.dumps({'result': result})
 
@@ -1910,6 +1914,7 @@ def curator_search(request):
 	flickr_driver = None
 	valimimoodul_driver = None
 	finna_driver = None
+	commons_driver = None
 	fotis_driver = None
 	if form.is_valid():
 		if form.cleaned_data['useFlickr']:
@@ -1921,6 +1926,8 @@ def curator_search(request):
 				response = valimimoodul_driver.transform_response(
 					valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
 					form.cleaned_data['filterExisting'])
+		if form.cleaned_data['useCommons']:
+			finna_driver = CommonsDriver()
 		if form.cleaned_data['useFinna']:
 			finna_driver = FinnaDriver()
 		if form.cleaned_data['useFotis']:
@@ -1932,6 +1939,9 @@ def curator_search(request):
 			if flickr_driver:
 				response = _join_2_json_objects(response, flickr_driver.transform_response(
 					flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
+			if commons_driver:
+				response = _join_2_json_objects(response, commons_driver.transform_response(
+					commons_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
 			if finna_driver:
 				response = _join_2_json_objects(response, finna_driver.transform_response(
 					finna_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
