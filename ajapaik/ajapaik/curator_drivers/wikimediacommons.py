@@ -1,15 +1,12 @@
-import sys
-from json import dumps, loads
-from requests import get
-
-
+import sys, re
 import flickrapi
 from django.conf import settings
 from math import ceil
 from django.utils.html import strip_tags
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 from django.utils.html import strip_tags
-
+from json import dumps, loads
+from requests import get
 
 class CommonsDriver(object):
     def __init__(self):
@@ -17,74 +14,115 @@ class CommonsDriver(object):
         self.page_size = 20
 
     def search(self, cleaned_data):
-        return loads(get(self.search_url, {
-            'format':'json',
-            'action':'query',
-            'list':'search',
-            'srnamespace':'6',
-            'srsearch':cleaned_data['fullSearch'],
-            'srlimit':self.page_size,
-            'sroffset':self.page_size*cleaned_data['flickrPage']
-        }).text)
+        page_count = 0
+        total_hits = 0
+        titles = []
+        petscan_url=""
 
+        if cleaned_data['fullSearch'].strip().startswith('https://petscan.wmflabs.org/'):
+            petscan_url=cleaned_data['fullSearch'].strip() + "&format=json"
+        elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/Category:'):
+            target=re.search('https://commons.wikimedia.org/wiki/Category:(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
+            petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&categories=" +target;
+            print(petscan_url)
+        elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/'):
+            target=re.search('https://commons.wikimedia.org/wiki/(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
+            petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes=" +target;
+            print(petscan_url)
+
+        if petscan_url!="":
+            json=loads(get(petscan_url, {}).text)
+
+            n=0
+            offset=self.page_size*(cleaned_data['flickrPage']-1)
+            if '*' in json and json['*'][0] and 'a' in json['*'][0] and '*' in json['*'][0]['a']:
+                for p in json['*'][0]['a']['*']:
+                    if p['nstext']=="File":
+                        if (n>=offset and  n<(offset + self.page_size)): 
+                            titles.append("File:" + p['title'].strip() )
+                        n=n+1
+
+            page_count = int(ceil(float(n) / float(self.page_size)))
+
+        else:
+            json=loads(get(self.search_url, {
+                'format':'json',
+                'action':'query',
+                'list':'search',
+                'srnamespace':'6',
+                'srsearch':cleaned_data['fullSearch'],
+                'srlimit':self.page_size,
+                'sroffset':self.page_size*(cleaned_data['flickrPage']-1)
+            }).text)
+
+            if 'query' in json:
+                if 'search' in json['query']:
+                    titles = [p['title'] for p in json['query']['search']]
+
+                if 'searchinfo' in json['query'] and 'totalhits' in json['query']['searchinfo']:
+                    totalhits=json['query']['searchinfo']['totalhits']
+                    page_count = int(ceil(float(totalhits) / float(self.page_size)))
+
+        response= {
+            'titles': titles,
+            'pages': page_count
+        }
+        return response
 
     @staticmethod
     def transform_response(response, remove_existing=False, current_page=1):
         ids = None
-        page_count = 0
-        page_size=20
-        if 'query' in response:
-            if 'search' in response['query']:
-                ids = [p['pageid'] for p in response['query']['search']]
-            if 'searchinfo' in response['query'] and 'totalhits' in response['query']['searchinfo']:
-                totalhits=response['query']['searchinfo']['totalhits']
-                page_count = int(ceil(float(totalhits) / float(page_size)))
 
         transformed = {
             'result': {
                 'firstRecordViews': [],
                 'page': current_page,
-                'pages': page_count
+                'pages': response['pages']
             }
         }
-        if not ids:
-            return dumps(transformed)
 
-        ok=1
+        titles='|'.join(response['titles'])
 
-        existing_photos = Photo.objects.filter(source__description='Wikimedia Commons', external_id__in=ids).all()
-        for p in response['query']['search']:
-            existing_photo = existing_photos.filter(external_id=p['pageid']).first()
-            if remove_existing and existing_photo:
-                print("continue", file=sys.stderr)
-                continue
-            else:
+        nn=0
+        if response['titles']:
+            if 1:
                 url='https://commons.wikimedia.org/w/api.php'
                 imageinfo=get(url, {
                     'action':'query',
                     'format':'json',
-                    'titles': p['title'],
+                    'titles': titles,
                     'prop': 'imageinfo|coordinates',
                     'iiprop': 'extmetadata|url|parsedcomment',
                     'iiurlwidth': 500,
                     'iiurlheight': 500,
                     'iiextmetadatamultilang':1
-                }).json()
+                })
+                print(imageinfo.text)
+                imageinfo=imageinfo.json()
 
-                title=p['title'].replace('File:', '').replace('Tiedosto:', '').replace('_', ' ').replace('.JPG', '').replace('.jpg', '')
-
-                author=""
-                description=None
-                date_str=""
-                uploader=""
-                latitude=None
-                longitude=None
 
                 targetlangs=['et', 'fi', 'en', 'sv', 'no']
-
                 if 'query' in imageinfo and 'pages' in imageinfo['query']:
                     for pageid in imageinfo['query']['pages']:
+
+                        # p['page_id'] maybe from another wiki, so we need to get Wikimedia Commons page_id from imageinfo.
+                        existing_photo =  Photo.objects.filter(external_id=pageid, source__description='Wikimedia Commons').first()
+                        if remove_existing and existing_photo:
+                            print("continue", file=sys.stderr)
+                            continue
+
+                        nn=nn+1
+                        title=""
+                        author=""
+                        description=None
+                        date_str=""
+                        uploader=""
+                        latitude=None
+                        longitude=None
+
                         pp=imageinfo['query']['pages'][pageid]
+                        if 'title' in pp:
+                            title=pp['title']
 
                         if 'imageinfo' in pp:
                             im=pp['imageinfo'][0]
@@ -106,6 +144,10 @@ class CommonsDriver(object):
                                     author=strip_tags(em['Artist']['value']).strip()
                                 if 'LicenseShortName' in em:
                                     licence=strip_tags(em['LicenseShortName']['value']).strip()
+                                if 'LicenseUrl' in em:
+                                    licenceUrl=strip_tags(em['LicenseUrl']['value']).strip()
+                                if 'UsageTerms' in em:
+                                    licenceDesc=strip_tags(em['UsageTerms']['value']).strip()
                                 if 'Credit' in em:
                                     credit=strip_tags(em['Credit']['value']).strip()
                                 if 'DateTimeOriginal' in em:
@@ -124,6 +166,24 @@ class CommonsDriver(object):
                                     latitude=em['GPSLatitude']['value']
                                     longitude=em['GPSLongitude']['value']
 
+                                if description and description!=title and not title in description:
+                                    title=title + " - " + description
+
+                        if not author or author =="":
+                            continue
+
+                        if not credit or credit =="":
+                            continue
+
+                        if not licence or licence =="":
+                            continue
+
+                        if not licenceDesc or licenceDesc =="":
+                            continue
+
+                        if not title or title =="":
+                            continue
+
                         try:
                             transformed_item = {
                                 'isCommonsResult': True,
@@ -131,15 +191,16 @@ class CommonsDriver(object):
                                 'title': title,
                                 'institution': 'Wikimedia Commons',
                                 'imageUrl': imageUrl,
-                                'id': p['pageid'],
-                                'mediaId': p['pageid'],
-                                'identifyingNumber': p['pageid'],
+                                'id': pageid,
+                                'mediaId': pageid,
+                                'identifyingNumber': pageid,
                                 'urlToRecord': recordUrl,
                                 'latitude': latitude,
                                 'longitude': longitude,
                                 'creators':author,
                                 'description': description,
-                                'licence': licence
+                                'licence': licenceDesc,
+                                'licenceUrl': licenceUrl
                             }
                         except:
                             print("Skipping: " + p.title, file=sys.stderr)
@@ -154,5 +215,6 @@ class CommonsDriver(object):
                         print(transformed_item, file=sys.stderr)
                         transformed['result']['firstRecordViews'].append(transformed_item)
 
+        print(nn, " photos found") 
         transformed = dumps(transformed)
         return transformed

@@ -2105,7 +2105,8 @@ def curator_photo_upload_handler(request):
 							licence = Licence.objects.filter(name=upload_form.cleaned_data["licence"]).first()
 							if not licence:
 								licence = Licence(
-									name=upload_form.cleaned_data["licence"]
+									name=upload_form.cleaned_data["licence"],
+									url=upload_form.cleaned_data["licenceUrl"] or ""
 								)
 								licence.save()
 						else:

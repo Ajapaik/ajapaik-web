@@ -585,6 +585,8 @@ class Photo(Model):
         self.light_save()
 
     def find_similar(self):
+        if 1:
+            return
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
         query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
@@ -597,6 +599,8 @@ class Photo(Model):
         self.light_save()
 
     def find_similar_for_existing_photo(self):
+        if 1:
+            return
         if self.rephoto_of_id is not None:
             return
         if self.aspect_ratio is None:
