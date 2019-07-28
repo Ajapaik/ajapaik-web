@@ -1,5 +1,6 @@
 import sys, re
 import flickrapi
+import urllib.parse
 from django.conf import settings
 from math import ceil
 from django.utils.html import strip_tags
@@ -18,6 +19,7 @@ class CommonsDriver(object):
         total_hits = 0
         titles = []
         petscan_url=""
+        outlinks_page=""
 
         if cleaned_data['fullSearch'].strip().startswith('https://petscan.wmflabs.org/'):
             petscan_url=cleaned_data['fullSearch'].strip() + "&format=json"
@@ -28,9 +30,11 @@ class CommonsDriver(object):
         elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/'):
             target=re.search('https://commons.wikimedia.org/wiki/(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
             petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes=" +target;
+            outlinks_page=target
             print(petscan_url)
 
         if petscan_url!="":
+            titles_all=[]
             json=loads(get(petscan_url, {}).text)
 
             n=0
@@ -38,11 +42,25 @@ class CommonsDriver(object):
             if '*' in json and json['*'][0] and 'a' in json['*'][0] and '*' in json['*'][0]['a']:
                 for p in json['*'][0]['a']['*']:
                     if p['nstext']=="File":
-                        if (n>=offset and  n<(offset + self.page_size)): 
-                            titles.append("File:" + p['title'].strip() )
-                        n=n+1
+                        titles_all.append("File:" + p['title'].strip() )
 
-            page_count = int(ceil(float(n) / float(self.page_size)))
+            # Failback. Read imagelinks from html
+            if outlinks_page!="":
+                url="https://commons.wikimedia.org/wiki/" + outlinks_page
+                html=get(url, {}).text
+                urls=re.findall('(file:.*?\.jpe?g)\"', html, re.IGNORECASE)
+                for u in urls:
+                    u=urllib.parse.unquote(u)
+                    if not u in titles_all:
+                        titles_all.append(u)
+
+            # set seek and limit
+            for t in titles_all:
+                if (n>=offset and  n<(offset + self.page_size)): 
+                    titles.append(t)
+                n=n+1
+
+            page_count = int(ceil(float(len(titles_all)) / float(self.page_size)))
 
         else:
             json=loads(get(self.search_url, {
@@ -212,7 +230,7 @@ class CommonsDriver(object):
                             transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
                                 .values_list('id', 'name')
 
-                        print(transformed_item, file=sys.stderr)
+#                        print(transformed_item, file=sys.stderr)
                         transformed['result']['firstRecordViews'].append(transformed_item)
 
         print(nn, " photos found") 
