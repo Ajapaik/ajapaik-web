@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Estonian (eesti)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-07-18 15:35:16+0000\n"
+"X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -101,12 +102,12 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr "Kui album on seotud kindla kohaga, siis määra siin koht"
 
 #: ajapaik/ajapaik/forms.py:414
-#, fuzzy
 msgid "Album type"
 msgstr "Albumi liik"
 
 #: ajapaik/ajapaik/forms.py:430
-msgid "E-mail address"
+#, fuzzy
+msgid "Email address"
 msgstr "Meiliaadress"
 
 #: ajapaik/ajapaik/forms.py:435
@@ -296,7 +297,6 @@ msgstr "Loobu"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
-#: ajapaik/ajapaik/templates/registration/registration_form.html:14
 msgid "Submit"
 msgstr "Saada"
 
@@ -784,14 +784,10 @@ msgid "Log in to save selection"
 msgstr "Piltide rekureerimiseks logi sisse"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
-#: ajapaik/ajapaik/templates/registration/login.html:38
-#: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "Ühenda Facebookiga"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
-#: ajapaik/ajapaik/templates/registration/login.html:43
-#: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "Ühenda Google'i kontoga"
 
@@ -800,8 +796,6 @@ msgid "E-mail address"
 msgstr "E-posti aadress"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
-#: ajapaik/ajapaik/templates/registration/login.html:18
-#: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "Password"
 
@@ -810,8 +804,6 @@ msgid "Register with e-mail"
 msgstr "Registreeri konto e-postiga"
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
-#: ajapaik/ajapaik/templates/registration/login.html:9
-#: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
 msgstr "Logi sisse"
 
@@ -877,17 +869,15 @@ msgstr "Keera foto ümber"
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
-#, fuzzy
 msgid "similar photo"
-msgstr "sarnane "
+msgstr "sarnane foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
-#, fuzzy
 msgid "duplicate photo"
-msgstr "duplikaatpilt"
+msgstr "duplikaatfoto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -984,35 +974,29 @@ msgstr "Oled anonüümne kasutaja. Nüüd saad konto luua ka meiliaadressiga."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-#, fuzzy
 msgid "Forgot password?"
 msgstr "Unustasid salasõna?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-#, fuzzy
 msgid "Change E-mail"
 msgstr "Vaheta E-maili aadressi"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
-#, fuzzy
 msgid "Change password"
 msgstr "Muuda salasõna"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#, fuzzy
 msgid "Confirm E-mail address"
 msgstr "Kinnita e-posti aadress"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
-#, fuzzy
 msgid "Confirm"
 msgstr "Kinnita"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-#, fuzzy
 msgid "Sign in"
 msgstr "Logi sisse"
 
@@ -1020,24 +1004,22 @@ msgstr "Logi sisse"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-msgid "Password"
+#, fuzzy
+msgid "Password Reset"
 msgstr "Password"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
-#, fuzzy
 msgid "Reset My Password"
 msgstr "Lähtesta salasõna"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-msgid "Password"
+#, fuzzy
+msgid "Change Password"
 msgstr "Password"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
-msgid "Forgot password"
-msgstr "Forgot password"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1481,64 +1463,8 @@ msgstr "Lae ise üles"
 msgid "rephoto"
 msgstr "ülepildistus"
 
-#: ajapaik/ajapaik/templates/registration/activate.html:9
-msgid "Activation failed!"
-msgstr "Aktiveerimine ebaõnnestus!"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:10
-#, python-format
-msgid "The activation key %(activation_key)s is invalid or expired."
-msgstr "Aktiveerimisvõti %(activation_key)s on vigane või aegunud."
-
-#: ajapaik/ajapaik/templates/registration/activation_complete.html:9
-msgid "Account activated!"
-msgstr "Konto aktiveeritud!"
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:3
-#, python-format
-msgid "You have %(expiration_days)s days to activate your account."
-msgstr "Sul on %(expiration_days)s päeva aega oma konto aktiveerimiseks."
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:5
-msgid "Link"
-msgstr "Link"
-
-#: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
-msgid "Activate your account at Ajapaik.ee"
-msgstr "Aktiveeri enda Ajapaik.ee konto"
-
-#: ajapaik/ajapaik/templates/registration/login.html:13
-#: ajapaik/ajapaik/templates/registration/login.html:15
-msgid "E-mail"
-msgstr "E-post"
-
-#: ajapaik/ajapaik/templates/registration/login.html:28
-msgid "Forgot password"
-msgstr "Unustasin salasõna"
-
-#: ajapaik/ajapaik/templates/registration/login.html:30
-msgid "Register account"
-msgstr "Loo konto"
-
-#: ajapaik/ajapaik/templates/registration/login.html:33
-#: ajapaik/ajapaik/templates/registration/registration_form.html:18
-msgid "OR"
-msgstr "VÕI"
-
-#: ajapaik/ajapaik/templates/registration/logout.html:9
-msgid "You have been logged out!"
-msgstr "Oled välja logitud"
-
-#: ajapaik/ajapaik/templates/registration/registration_complete.html:9
-msgid "Activation e-mail sent!"
-msgstr "Kinnituskiri saadetud!"
-
-#: ajapaik/ajapaik/templates/registration/registration_form.html:9
-msgid "Registration form"
-msgstr "Registreerimisvorm"
-
 #: ajapaik/ajapaik/templates/user_upload.html:18
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Mina, %(user)s, annan käesolevaga pöördumatult kõigile õiguse kasutada seda enda loodud teost <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commonsi rahvusvahelise litsentsi \"Autorile viitamine + jagamine samadel tingimustel 4.0\" (CC-BY-SA)</a> alusel."
 
@@ -1640,12 +1566,10 @@ msgid "Sorry but we fail to post your comment."
 msgstr "Kommentaari postitamine ei õnnestunud."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
-#, fuzzy
 msgid "Subject name"
 msgstr "Isiku nimi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
-#, fuzzy
 msgid "Is public figure"
 msgstr "Tegemist on avaliku tegelasega"
 

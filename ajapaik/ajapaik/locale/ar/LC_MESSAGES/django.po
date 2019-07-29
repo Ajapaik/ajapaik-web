@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-22 11:50:02+0000\n"
-"X-POT-Import-Date: 2019-07-18 15:35:16+0000\n"
+"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
+"X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
@@ -101,7 +101,8 @@ msgid "Album type"
 msgstr "نوع الألبوم"
 
 #: ajapaik/ajapaik/forms.py:430
-msgid "E-mail address"
+#, fuzzy
+msgid "Email address"
 msgstr "!!غامض!!عنوان البريد الإلكتروني"
 
 #: ajapaik/ajapaik/forms.py:435
@@ -291,7 +292,6 @@ msgstr "إلغاء"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
-#: ajapaik/ajapaik/templates/registration/registration_form.html:14
 msgid "Submit"
 msgstr "إرسال"
 
@@ -823,14 +823,10 @@ msgid "Log in to save selection"
 msgstr "تسجيل الدخول لحفظ الاختيار"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
-#: ajapaik/ajapaik/templates/registration/login.html:38
-#: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "تواصل مع فيسبوك"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
-#: ajapaik/ajapaik/templates/registration/login.html:43
-#: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "تواصل مع جوجل"
 
@@ -839,8 +835,6 @@ msgid "E-mail address"
 msgstr "عنوان البريد الإلكتروني"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
-#: ajapaik/ajapaik/templates/registration/login.html:18
-#: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "كلمة السر"
 
@@ -849,8 +843,6 @@ msgid "Register with e-mail"
 msgstr "سجل بالبريد الإلكتروني"
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
-#: ajapaik/ajapaik/templates/registration/login.html:9
-#: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
 msgstr "تسجيل الدخول"
 
@@ -1055,7 +1047,8 @@ msgstr "تسجيل الدخول"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-msgid "Password"
+#, fuzzy
+msgid "Password Reset"
 msgstr "كلمة السر"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
@@ -1064,14 +1057,12 @@ msgstr "إعادة تعيين كلمة مروري"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-msgid "Password"
+#, fuzzy
+msgid "Change Password"
 msgstr "كلمة السر"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
-msgid "Forgot password"
-msgstr "نسيت كلمة السر"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1518,62 +1509,6 @@ msgstr "ارفع بنفسك"
 #: ajapaik/ajapaik/templates/photoview.html:146
 msgid "rephoto"
 msgstr "إعادة التصوير"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:9
-msgid "Activation failed!"
-msgstr "فشل التفعيل!"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:10
-#, python-format
-msgid "The activation key %(activation_key)s is invalid or expired."
-msgstr "مفتاح التنشيط %(activation_key)s غير صالح أو منتهي الصلاحية."
-
-#: ajapaik/ajapaik/templates/registration/activation_complete.html:9
-msgid "Account activated!"
-msgstr "تم تفعيل الحساب!"
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:3
-#, python-format
-msgid "You have %(expiration_days)s days to activate your account."
-msgstr "أمامك  %(expiration_days)s أيام لتنشيط حسابك."
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:5
-msgid "Link"
-msgstr "رابط"
-
-#: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
-msgid "Activate your account at Ajapaik.ee"
-msgstr "قم بتنشيط حسابك على Ajapaik.ee"
-
-#: ajapaik/ajapaik/templates/registration/login.html:13
-#: ajapaik/ajapaik/templates/registration/login.html:15
-msgid "E-mail"
-msgstr "البريد الإلكتروني"
-
-#: ajapaik/ajapaik/templates/registration/login.html:28
-msgid "Forgot password"
-msgstr "هل نسيت كلمة المرور"
-
-#: ajapaik/ajapaik/templates/registration/login.html:30
-msgid "Register account"
-msgstr "تسجيل حساب"
-
-#: ajapaik/ajapaik/templates/registration/login.html:33
-#: ajapaik/ajapaik/templates/registration/registration_form.html:18
-msgid "OR"
-msgstr "أو"
-
-#: ajapaik/ajapaik/templates/registration/logout.html:9
-msgid "You have been logged out!"
-msgstr "لقد تم تسجيل الخروج!"
-
-#: ajapaik/ajapaik/templates/registration/registration_complete.html:9
-msgid "Activation e-mail sent!"
-msgstr "تم إرسال بريد التفعيل!"
-
-#: ajapaik/ajapaik/templates/registration/registration_form.html:9
-msgid "Registration form"
-msgstr "نموذج التسجيل"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format

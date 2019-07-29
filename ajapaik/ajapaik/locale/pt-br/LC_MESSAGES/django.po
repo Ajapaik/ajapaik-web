@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
-"X-POT-Import-Date: 2019-07-18 15:35:16+0000\n"
+"PO-Revision-Date: 2019-07-29 12:18:33+0000\n"
+"X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt-BR\n"
@@ -99,7 +99,8 @@ msgid "Album type"
 msgstr "Álbum criadoTipo de álbum"
 
 #: ajapaik/ajapaik/forms.py:430
-msgid "E-mail address"
+#, fuzzy
+msgid "Email address"
 msgstr "Endereço de e-mail"
 
 #: ajapaik/ajapaik/forms.py:435
@@ -289,7 +290,6 @@ msgstr "Cancelar"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
-#: ajapaik/ajapaik/templates/registration/registration_form.html:14
 msgid "Submit"
 msgstr "Enviar"
 
@@ -777,14 +777,10 @@ msgid "Log in to save selection"
 msgstr "Entrar para salvar a seleção"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
-#: ajapaik/ajapaik/templates/registration/login.html:38
-#: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "Conectar com Facebook"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
-#: ajapaik/ajapaik/templates/registration/login.html:43
-#: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "Conectar com Google"
 
@@ -793,8 +789,6 @@ msgid "E-mail address"
 msgstr "Endereço de e-mail"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
-#: ajapaik/ajapaik/templates/registration/login.html:18
-#: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "Senha"
 
@@ -803,8 +797,6 @@ msgid "Register with e-mail"
 msgstr "Cadastre-se com e-mail"
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
-#: ajapaik/ajapaik/templates/registration/login.html:9
-#: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
 msgstr "Entrar"
 
@@ -1005,7 +997,8 @@ msgstr "Entrar"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-msgid "Password"
+#, fuzzy
+msgid "Password Reset"
 msgstr "Senha"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
@@ -1014,14 +1007,12 @@ msgstr "Redefinir minha senha"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-msgid "Password"
+#, fuzzy
+msgid "Change Password"
 msgstr "Senha"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
-msgid "Forgot password"
-msgstr "Esqueceu a senha"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1464,62 +1455,6 @@ msgstr "Carregar você mesmo"
 #: ajapaik/ajapaik/templates/photoview.html:146
 msgid "rephoto"
 msgstr "refotografia"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:9
-msgid "Activation failed!"
-msgstr "Ativação falhou!"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:10
-#, python-format
-msgid "The activation key %(activation_key)s is invalid or expired."
-msgstr "A chave de ativação %(activation_key)s é inválido ou expirou."
-
-#: ajapaik/ajapaik/templates/registration/activation_complete.html:9
-msgid "Account activated!"
-msgstr "Conta ativada!"
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:3
-#, python-format
-msgid "You have %(expiration_days)s days to activate your account."
-msgstr "Você tem %(expiration_days)s dias para ativar sua conta."
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:5
-msgid "Link"
-msgstr "Link"
-
-#: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
-msgid "Activate your account at Ajapaik.ee"
-msgstr "Ative sua conta em Ajapaik.ee"
-
-#: ajapaik/ajapaik/templates/registration/login.html:13
-#: ajapaik/ajapaik/templates/registration/login.html:15
-msgid "E-mail"
-msgstr "E-mail"
-
-#: ajapaik/ajapaik/templates/registration/login.html:28
-msgid "Forgot password"
-msgstr "Esqueceu a senha"
-
-#: ajapaik/ajapaik/templates/registration/login.html:30
-msgid "Register account"
-msgstr "Registar conta"
-
-#: ajapaik/ajapaik/templates/registration/login.html:33
-#: ajapaik/ajapaik/templates/registration/registration_form.html:18
-msgid "OR"
-msgstr "OU"
-
-#: ajapaik/ajapaik/templates/registration/logout.html:9
-msgid "You have been logged out!"
-msgstr "Você foi desconectado!"
-
-#: ajapaik/ajapaik/templates/registration/registration_complete.html:9
-msgid "Activation e-mail sent!"
-msgstr "E-mail de ativação enviado!"
-
-#: ajapaik/ajapaik/templates/registration/registration_form.html:9
-msgid "Registration form"
-msgstr "Formulário de registro"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format

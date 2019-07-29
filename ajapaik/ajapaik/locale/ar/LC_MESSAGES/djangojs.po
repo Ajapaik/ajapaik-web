@@ -3,6 +3,7 @@
 #
 # Author: Meno25
 # Author: ديفيد
+# Author: شادي
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-22 11:50:02+0000\n"
+"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
 "X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -429,9 +430,8 @@ msgid "All photos"
 msgstr "كل الصور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#, fuzzy
 msgid "Picture set has no "
-msgstr "مجموعة صور ليس لديها"
+msgstr "مجموعة صور ليس لديها/"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
