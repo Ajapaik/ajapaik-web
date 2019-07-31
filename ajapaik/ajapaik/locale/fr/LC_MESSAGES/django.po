@@ -305,7 +305,7 @@ msgstr "Tableau de classement de l’activité récente"
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Tableau de classement de l’album %(album_name)"
+msgstr "Tableau de classement de l’album %(album_name)s"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "All time leaderboard"
