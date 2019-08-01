@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-29 12:18:33+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:49+0000\n"
 "X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -101,7 +101,6 @@ msgid "Album type"
 msgstr "Albüm türü"
 
 #: ajapaik/ajapaik/forms.py:430
-#, fuzzy
 msgid "Email address"
 msgstr "E-posta adresi"
 
@@ -658,10 +657,10 @@ msgid "Contributors' leaderboard"
 msgstr "Katkıda bulunanların liderlik sıralaması"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
-#, invalid-plural, python-format
+#, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] ""
+msgstr[0] "Albümde %(counter)s tarihi fotoğraf mevcut,"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:100
@@ -677,10 +676,10 @@ msgstr "haritadaki tüm resimler."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] ""
+msgstr[0] "haritada %(counter)s resim."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -695,10 +694,10 @@ msgid "all the pictures from this album."
 msgstr "bu albümdeki tüm resimler."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:43
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] ""
+msgstr[0] "bu albümde %(counter)s resim."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
 #, invalid-plural, python-format
@@ -707,10 +706,10 @@ msgid_plural "%(counter)s users have made"
 msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, invalid-plural, python-format
+#, python-format
 msgid "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
 msgid_plural "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
-msgstr[0] ""
+msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -958,11 +957,11 @@ msgstr "Anonimsin. Şimdi e-posta adresinizle giriş yapabilirsiniz."
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr ""
+msgstr "Parolanızı mı unuttunuz?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
-msgstr ""
+msgstr "E-posta'yı değiştir"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -971,24 +970,24 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm E-mail address"
-msgstr ""
+msgstr "E-posta adresini onayla"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Onayla"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 msgid "Sign in"
-msgstr ""
+msgstr "Giriş"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr ""
+msgstr "Parola Sıfırlama"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1000,7 +999,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "Parolayı değiştir"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6

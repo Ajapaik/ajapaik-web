@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-29 12:18:34+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:50+0000\n"
 "X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -101,7 +101,6 @@ msgid "Album type"
 msgstr "相簿類型"
 
 #: ajapaik/ajapaik/forms.py:430
-#, fuzzy
 msgid "Email address"
 msgstr "電子郵件地址"
 
@@ -132,7 +131,7 @@ msgstr "描述"
 
 #: ajapaik/ajapaik/models.py:186
 msgid "Is public"
-msgstr ""
+msgstr "是公開的"
 
 #: ajapaik/ajapaik/models.py:187
 msgid "Is open"
@@ -297,7 +296,7 @@ msgstr "提交"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr ""
+msgstr "近期活動的排行榜"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:15
 #, python-format
@@ -306,7 +305,7 @@ msgstr "相簿 %(album_name)s 的排行榜"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "All time leaderboard"
-msgstr ""
+msgstr "全部時間的排行榜"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -318,7 +317,7 @@ msgstr "Ajapaik 是由列為受益於所得稅務優惠的非營利協會、基�
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr ""
+msgstr "單筆捐款詳情"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
@@ -432,7 +431,7 @@ msgstr "排序按靜態攝影的時間標記"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"
-msgstr "排序按視圖的添加時間或數量"
+msgstr "排序按景色的添加時間或數量"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
@@ -488,11 +487,11 @@ msgstr "和"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:65
 msgid "1 of"
-msgstr ""
+msgstr "1/"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr ""
+msgstr "按離您的距離來排序圖片"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:105
 msgid "reverses sorting"
@@ -634,7 +633,7 @@ msgstr "Facebook 上的 Ajapaik"
 
 #: ajapaik/ajapaik/templates/_header.html:91
 msgid "Profile and leaderboard"
-msgstr ""
+msgstr "個人檔案與排行榜"
 
 #: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1715
 #: ajapaik/ajapaik/views.py:1732 ajapaik/ajapaik/views.py:1768
@@ -684,7 +683,7 @@ msgstr[0] "在地圖上有 %(counter)s 張圖片。"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr ""
+msgstr "您還沒有替此相簿裡的圖片做位置建議。"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:39
 msgid "You have made a location suggestion for"
@@ -987,9 +986,8 @@ msgstr "登入"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-#, fuzzy
 msgid "Password Reset"
-msgstr "密碼"
+msgstr "重新設定密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1000,9 +998,8 @@ msgstr "重設我的密碼"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-#, fuzzy
 msgid "Change Password"
-msgstr "密碼"
+msgstr "修改密碼"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1049,11 +1046,11 @@ msgstr "對應舊歷史性照片"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:28
 msgid "Help geotag old historic photos from the album"
-msgstr ""
+msgstr "協助來自相簿舊歷史性照片的地理標籤"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:30
 msgid "Help geotag old historic photos"
-msgstr ""
+msgstr "協助舊歷史性照片的地理標籤"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:34
 msgid "Before and after view of"
@@ -1150,7 +1147,7 @@ msgstr "移除"
 
 #: ajapaik/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
-msgstr ""
+msgstr "辨認您的身份來評論"
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
@@ -1343,7 +1340,7 @@ msgstr "鄉村"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:6
 msgid "View "
-msgstr ""
+msgstr "景色"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:7
 msgid "Social "
@@ -1355,11 +1352,11 @@ msgstr "場地"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:9
 msgid "Raised "
-msgstr ""
+msgstr "升起"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:10
 msgid "One "
-msgstr ""
+msgstr "一"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:11
 msgid "Many "
@@ -1375,7 +1372,7 @@ msgstr "細節"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:14
 msgid "Staged "
-msgstr ""
+msgstr "上演"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:15
 msgid "Natural "
@@ -1383,11 +1380,11 @@ msgstr "自然"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:16
 msgid "Public "
-msgstr ""
+msgstr "公開"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:17
 msgid "Private "
-msgstr ""
+msgstr "非公開"
 
 #: ajapaik/ajapaik/templates/frontpage.html:30
 msgid "Authentication"
@@ -1435,7 +1432,7 @@ msgstr "從公眾收藏匯入"
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr ""
+msgstr "上傳您自己的"
 
 #: ajapaik/ajapaik/templates/photoview.html:21
 #: ajapaik/ajapaik/templates/photoview.html:23
@@ -1448,7 +1445,7 @@ msgstr "翻拍"
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
+msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不撤銷授予任何人使用此作品的權限。"
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -1507,7 +1504,7 @@ msgstr "您的猜測是首個。"
 
 #: ajapaik/ajapaik/views.py:1852
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr ""
+msgstr "搜尋老照片，將它們添加到 Ajapaik，判斷它們的位置並分享相簿成果！"
 
 #: ajapaik/ajapaik/views.py:2204
 msgid "OK"

@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Esperanto (Esperanto)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # Author: Mirin
 # --
 # This file is part of the Ajapaik Project
@@ -9,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
 "X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,12 +96,10 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr "Se la albumo estas ligita al iu loko, specifu ĝin ĉi tie"
 
 #: ajapaik/ajapaik/forms.py:414
-#, fuzzy
 msgid "Album type"
-msgstr "Albumo kreiĝis"
+msgstr "Albuma tipo"
 
 #: ajapaik/ajapaik/forms.py:430
-#, fuzzy
 msgid "Email address"
 msgstr "Retpoŝta adreso"
 
@@ -557,7 +556,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes"
-msgstr ""
+msgstr "Ĝenerala statistiko refreŝigas ĉiu 10 minutoj"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
@@ -863,17 +862,15 @@ msgstr "Inversigi foton"
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
-#, fuzzy
 msgid "similar photo"
-msgstr "Originala foto"
+msgstr "simila foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
-#, fuzzy
 msgid "duplicate photo"
-msgstr "Renversi foton"
+msgstr "duplikata foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -970,58 +967,50 @@ msgstr "Vi estas anonima. Vi povas nun ensaluti per via retpoŝta adreso."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-#, fuzzy
 msgid "Forgot password?"
 msgstr "Ĉu vi forgesis pasvorton?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-#, fuzzy
 msgid "Change E-mail"
-msgstr "Retpoŝta adreso"
+msgstr "Ŝanĝi Retpoŝtan Adreson"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
-#, fuzzy
 msgid "Change password"
-msgstr "Ĉu vi forgesis pasvorton?"
+msgstr "Ŝanĝi pasvorton"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#, fuzzy
 msgid "Confirm E-mail address"
-msgstr "Retpoŝta adreso"
+msgstr "Konfirmi retpoŝtan adreson"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
-#, fuzzy
 msgid "Confirm"
-msgstr "Konfirmo"
+msgstr "Konfirmi"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 msgid "Sign in"
-msgstr ""
+msgstr "Ensaluti"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-#, fuzzy
 msgid "Password Reset"
-msgstr "Pasvorto"
+msgstr "Pasvorto Rekomencigita"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
-#, fuzzy
 msgid "Reset My Password"
-msgstr "Pasvorto"
+msgstr "Restarigi Mian Pasvorton"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-#, fuzzy
 msgid "Change Password"
-msgstr "Pasvorto"
+msgstr "Ŝanĝi Pasvorton"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1568,14 +1557,12 @@ msgid "Sorry but we fail to post your comment."
 msgstr "Domaĝe, ni ne povis afiŝi vian komenton."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
-#, fuzzy
 msgid "Subject name"
-msgstr "Temo"
+msgstr "Nomo de temo"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
-#, fuzzy
 msgid "Is public figure"
-msgstr "Ĉu publika"
+msgstr "Ĉu famulo"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"

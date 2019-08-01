@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-29 12:18:33+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
 "X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -104,7 +104,6 @@ msgid "Album type"
 msgstr "Type d'album"
 
 #: ajapaik/ajapaik/forms.py:430
-#, fuzzy
 msgid "Email address"
 msgstr "Adresse courriel"
 
@@ -1002,9 +1001,8 @@ msgstr "Se connecter"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-#, fuzzy
 msgid "Password Reset"
-msgstr "Mot de passe"
+msgstr "Réinitialisation de mot de passe"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1015,9 +1013,8 @@ msgstr "Réinitialiser mon mot de passe"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-#, fuzzy
 msgid "Change Password"
-msgstr "Mot de passe"
+msgstr "Modifier le mot de passe"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6

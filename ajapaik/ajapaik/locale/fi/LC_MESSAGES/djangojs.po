@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Finnish (suomi)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-22 11:50:02+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -434,9 +435,8 @@ msgid "All photos"
 msgstr "Kaikki kuvat"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#, fuzzy
 msgid "Picture set has no "
-msgstr "Kuvasarjassa ei ole"
+msgstr "Kuvasarjassa ei ole "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."

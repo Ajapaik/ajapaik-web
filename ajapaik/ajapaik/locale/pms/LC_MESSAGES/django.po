@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-29 12:18:33+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:49+0000\n"
 "X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1225,31 +1225,31 @@ msgstr "A peul ancaminé a marché da na mira geogràfica ël neuv contnù ambel
 
 #: ajapaik/ajapaik/templates/curator.html:32
 msgid "Tell your friends on Facebook"
-msgstr ""
+msgstr "Ch'a lo disa ai sò amis su Facebook"
 
 #: ajapaik/ajapaik/templates/curator.html:51
 msgid "Edit your album"
-msgstr ""
+msgstr "Modifiché sò àlbom"
 
 #: ajapaik/ajapaik/templates/curator.html:62
 msgid "Error"
-msgstr ""
+msgstr "Eror"
 
 #: ajapaik/ajapaik/templates/curator.html:89
 msgid "Open album (anyone can add photos)"
-msgstr ""
+msgstr "Duverté l'àlbom (tuti a peulo gionté dle fòto)"
 
 #: ajapaik/ajapaik/templates/curator.html:97
 msgid "Visible (shown in selection)"
-msgstr ""
+msgstr "Visìbil (mostrà ant la selession)"
 
 #: ajapaik/ajapaik/templates/curator.html:113
 msgid "If the photos are from the same place, specify a location here"
-msgstr ""
+msgstr "Si le fòto a son dël midem pòst, spessifiché na locassion ambelessì"
 
 #: ajapaik/ajapaik/templates/curator.html:119
 msgid "Place"
-msgstr ""
+msgstr "Pòst"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:9
 msgid "Search"
@@ -1327,63 +1327,63 @@ msgstr "Mandé la selession a Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "Rësponde a"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
-msgstr ""
+msgstr "Aviseme dij coment sucessiv"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
-msgstr ""
+msgstr "Anterior "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:3
 msgid "Exterior "
-msgstr ""
+msgstr "Estern "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:4
 msgid "Urban "
-msgstr ""
+msgstr "Urban "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:5
 msgid "Rural "
-msgstr ""
+msgstr "Campagnin "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:6
 msgid "View "
-msgstr ""
+msgstr "Vista "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:7
 msgid "Social "
-msgstr ""
+msgstr "Sossial "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:8
 msgid "Ground "
-msgstr ""
+msgstr "Teren "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:9
 msgid "Raised "
-msgstr ""
+msgstr "Riaussà "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:10
 msgid "One "
-msgstr ""
+msgstr "Un "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:11
 msgid "Many "
-msgstr ""
+msgstr "Vàire "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:12
 msgid "Whole "
-msgstr ""
+msgstr "Antregh "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:13
 msgid "Detail "
-msgstr ""
+msgstr "Detaj "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:14
 msgid "Staged "
-msgstr ""
+msgstr "Butà an sena "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:15
 msgid "Natural "

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -106,9 +106,8 @@ msgid "Album type"
 msgstr "Albumi liik"
 
 #: ajapaik/ajapaik/forms.py:430
-#, fuzzy
 msgid "Email address"
-msgstr "Meiliaadress"
+msgstr "E-posti aadress"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -541,25 +540,25 @@ msgid "* rephotographing the historic views from places you visit."
 msgstr "* mine pildista ajaloolised vaated üle."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
-#, invalid-plural, python-format
+#, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+msgstr[1] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
-#, invalid-plural, python-format
+#, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
+msgstr[1] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
-#, invalid-plural, python-format
+#, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(user_rephotographed_photos)s</b> pildile."
+msgstr[1] "<b>%(user_rephotographed_photos)s</b> pildile."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes"
@@ -666,19 +665,19 @@ msgid "Contributors' leaderboard"
 msgstr "Panustajate edetabel"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
-#, invalid-plural, python-format
+#, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Albumis on %(counter)s ajalooline pilt,"
+msgstr[1] "Albumis on %(counter)s ajalooline pilti,"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:100
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s kasutaja on pannud"
+msgstr[1] "%(counter)s kasutajat on pannud"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:102
@@ -687,11 +686,11 @@ msgstr "kõik pildid kaardile."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s pildi kaardile."
+msgstr[1] "%(counter)s pilti kaardile."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -706,40 +705,40 @@ msgid "all the pictures from this album."
 msgstr "kõikidele piltidele selles albumis."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:43
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s pildile selles albumis."
+msgstr[1] "%(counter)s pildile selles albumis."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s kasutaja on teinud"
+msgstr[1] "%(counter)s kasutajat on teinud"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, invalid-plural, python-format
+#, python-format
 msgid "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
 msgid_plural "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
+msgstr[1] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
-#, invalid-plural, python-format
+#, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s pildile selles albumis."
+msgstr[1] "%(counter)s pildile selles albumis."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
-#, invalid-plural, python-format
+#, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sina oled teinud %(counter)s ülepildistuse"
+msgstr[1] "Sina oled teinud %(counter)s ülepildistust"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1004,9 +1003,8 @@ msgstr "Logi sisse"
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-#, fuzzy
 msgid "Password Reset"
-msgstr "Password"
+msgstr "Salasõna taastamine"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1017,9 +1015,8 @@ msgstr "Lähtesta salasõna"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
+msgstr "Muuda salasõna"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1127,11 +1124,11 @@ msgid "Let's put pictures on the map"
 msgstr "Paneme pildid kaardile"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:99
-#, invalid-plural, python-format
+#, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Albumis on %(counter)s foto,"
+msgstr[1] "Albumis on %(counter)s fotot,"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"

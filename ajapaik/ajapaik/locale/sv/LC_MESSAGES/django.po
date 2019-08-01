@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Swedish (svenska)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # Author: WikiPhoenix
 # --
 # This file is part of the Ajapaik Project
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-29 12:18:33+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:49+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -159,7 +160,7 @@ msgstr "Geotagg"
 #: ajapaik/ajapaik/models.py:1019 ajapaik/ajapaik/models.py:1073
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "Refoto"
 
 #: ajapaik/ajapaik/models.py:1020
 msgid "Photo upload"
@@ -247,7 +248,7 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1080
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1081
 msgid "No map"
@@ -572,7 +573,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:47
 msgid "KulKa logo"
-msgstr ""
+msgstr "KulKa logo"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:50
 msgid "Ministry of Education logo"
@@ -580,11 +581,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
 msgid "EV100 logo"
-msgstr ""
+msgstr "EV100 logo"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:66
 msgid "KYSK logo"
-msgstr ""
+msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 msgid "Back to homepage"
@@ -606,7 +607,7 @@ msgstr "Visa i rutnät"
 #: ajapaik/ajapaik/templates/_info_modal_content.html:107
 #: ajapaik/ajapaik/templates/_info_modal_content.html:109
 msgid "Geotag pictures"
-msgstr ""
+msgstr "Geotagg bilder"
 
 #: ajapaik/ajapaik/templates/_header.html:34
 #: ajapaik/ajapaik/templates/_info_modal_content.html:102
@@ -877,9 +878,8 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
-#, fuzzy
 msgid "duplicate photo"
-msgstr "Vänd foto"
+msgstr "duplicera foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -981,51 +981,46 @@ msgid "Forgot password?"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-#, fuzzy
 msgid "Change E-mail"
-msgstr "E-post"
+msgstr "Ändra e-post"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
-msgstr ""
+msgstr "Ändra lösenord"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#, fuzzy
 msgid "Confirm E-mail address"
-msgstr "E-postadresser"
+msgstr "Bekräfta e-postadress"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Bekräfta"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-#, fuzzy
 msgid "Sign in"
-msgstr "Inloggad som"
+msgstr "Logga in"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
-#, fuzzy
 msgid "Password Reset"
-msgstr "Password"
+msgstr "Återställning av lösenord"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr ""
+msgstr "Återställ mitt lösenord"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
+msgstr "Ändra lösenord"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
