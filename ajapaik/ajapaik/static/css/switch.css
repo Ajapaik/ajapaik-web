@@ -1,0 +1,123 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.switch {
+  margin: 4rem auto;
+}
+
+/* main styles */
+.switch {
+  width: 16rem;
+  position: relative;
+}
+
+.switch input {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.switch input:checked {
+  z-index: 1;
+}
+
+.switch input:checked + label {
+  opacity: 1;
+  cursor: default;
+}
+
+.switch input:not(:checked) + label:hover {
+  opacity: 0.5;
+}
+
+.switch label {
+  color: black;
+  opacity: 0.33;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.switch .toggle-outside {
+  height: 100%;
+  border-radius: 2rem;
+  padding: 0.25rem;
+  overflow: hidden;
+  transition: 0.25s ease all;
+}
+
+.switch .toggle-inside {
+  border-radius: 5rem;
+  background: black;
+  position: absolute;
+  transition: 0.25s ease all;
+}
+
+.switch--horizontal {
+  width: 12rem;
+  height: 2rem;
+  margin: 0 auto;
+  font-size: 0;
+  margin-bottom: 1rem;
+}
+
+.switch--horizontal input {
+  height: 1rem;
+  width: 4rem;
+  left: 4rem;
+  margin: 0;
+}
+
+.switch--horizontal label {
+  font-size: 1rem;
+  line-height: 2rem;
+  display: inline-block;
+  width: 4rem;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.switch--horizontal label:last-of-type {
+  margin-left: 4rem;
+}
+
+.switch--horizontal .toggle-outside {
+  background: #DCDCDC;
+  position: absolute;
+  width: 4rem;
+  left: 4rem;
+}
+
+.switch--horizontal .toggle-inside {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.switch--horizontal input:checked ~ .toggle-outside .toggle-inside {
+  left: 0.25rem;
+}
+
+.switch--horizontal input ~ input:checked ~ .toggle-outside .toggle-inside {
+  left: 2.25rem;
+}
+
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
