@@ -137,7 +137,12 @@ class CommonsDriver(object):
                         uploader=""
                         latitude=None
                         longitude=None
+                        licence=""
+                        licenceDesc=""
                         licenceUrl=""
+                        recordUrl=""
+                        thumbnailUrl=None
+                        credit=""
 
                         pp=imageinfo['query']['pages'][pageid]
                         if 'title' in pp:
