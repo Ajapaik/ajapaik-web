@@ -258,7 +258,7 @@ class FinnaDriver(object):
             }
         }
         if not ids:
-            return transformed
+            return dumps(transformed)
         existing_photos = Photo.objects.filter(source__description='Finna', external_id__in=ids).all()
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()

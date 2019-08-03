@@ -133,10 +133,11 @@ class CommonsDriver(object):
                         title=""
                         author=""
                         description=None
-                        date_str=""
+                        date=""
                         uploader=""
                         latitude=None
                         longitude=None
+                        licenceUrl=""
 
                         pp=imageinfo['query']['pages'][pageid]
                         if 'title' in pp:
@@ -218,7 +219,8 @@ class CommonsDriver(object):
                                 'creators':author,
                                 'description': description,
                                 'licence': licenceDesc,
-                                'licenceUrl': licenceUrl
+                                'licenceUrl': licenceUrl,
+                                'date':date
                             }
                         except:
                             print("Skipping: " + p.title, file=sys.stderr)

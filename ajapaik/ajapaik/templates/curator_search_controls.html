@@ -29,7 +29,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
                 <div class="row" id="ajapaik-curator-search-controls p-2">
-                    <div class="col-xs-6 m-2">
+                    <div class="col-xl-6 m-2">
                         <div class="input-group">
                             <input type="text" class="form-control" id="ajapaik-curator-full-search"
                                     placeholder="{% trans "Full search" %}">
@@ -82,16 +82,22 @@
                             {% trans "Fotis" %}
                         </span>
                         <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-finna">
+                            <input type="checkbox" id="ajapaik-curator-search-use-finna" >
                             {% trans "Finna" %}
                         </span>
                         <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-commons">
-                            {% trans "Commons" %}
+                            <input type="checkbox" id="ajapaik-curator-search-use-commons" >
+                            {% trans "Wikimedia Commons" %}
                         </span>
+                        {% if CURATOR_EUROPEANA_ENABLED %}
+                            <span class="m-2">
+                                <input type="checkbox" id="ajapaik-curator-search-use-europeana" >
+                                {% trans "Europeana" %}
+                            </span>
+                        {% endif %}
                         {% if CURATOR_FLICKR_ENABLED %}
                             <span class="m-2">
-                                <input type="checkbox" id="ajapaik-curator-search-use-flickr">
+                                <input type="checkbox" id="ajapaik-curator-search-use-flickr" >
                             {% trans "Flickr Commons" %}
                             </span>
                         {% endif %}
