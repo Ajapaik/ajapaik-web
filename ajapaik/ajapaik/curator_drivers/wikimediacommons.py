@@ -146,9 +146,6 @@ class CommonsDriver(object):
                         if 'imageinfo' in pp:
                             im=pp['imageinfo'][0]
 
-                            if 'ObjectName' in im:
-                                title=im['ObjectName']['value']
-
                             if 'thumburl' in im:
                                 thumbnailUrl=im['thumburl']
                             if 'url' in im:
@@ -159,6 +156,9 @@ class CommonsDriver(object):
 
                             if 'extmetadata' in im:
                                 em=im['extmetadata']
+
+                                if 'ObjectName' in em:
+                                    title=strip_tags(em['ObjectName']['value']).strip()
                                 if 'Artist' in em:
                                     author=strip_tags(em['Artist']['value']).strip()
                                 if 'LicenseShortName' in em:
@@ -170,10 +170,13 @@ class CommonsDriver(object):
                                 if 'Credit' in em:
                                     credit=strip_tags(em['Credit']['value']).strip()
                                 if 'DateTimeOriginal' in em:
-                                    date=strip_tags(em['DateTimeOriginal']['value']).strip()
+                                    date=str(em['DateTimeOriginal']['value'])
+                                    date=re.sub('<div.*?</div>', '', date)
+                                    date=strip_tags(date).strip()
+
                                 if 'ImageDescription' in em and em['ImageDescription']['value']:
                                     desclangs=em['ImageDescription']['value']
-                                    if isinstance(desclangs, str):
+                                    if 0 and isinstance(desclangs, str):
                                         description=strip_tags(desclangs).strip()
                                     else:
                                         for lang in desclangs:
