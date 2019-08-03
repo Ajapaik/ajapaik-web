@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 20:42+0300\n"
+"POT-Creation-Date: 2019-07-28 16:52+0300\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -439,10 +439,8 @@ msgid "All photos"
 msgstr "All photos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#, fuzzy
-#| msgid "Picture set has no rephotos"
 msgid "Picture set has no "
-msgstr "Picture set has no rephotos"
+msgstr "Picture set has no "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid ""
@@ -640,24 +638,3 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
-
-#~ msgid "Picture set has no comments"
-#~ msgstr "Picture set has no comments"
-
-#~ msgid "zoom in more to view markers."
-#~ msgstr "zoom in more to view markers."
-
-#~ msgid "Unable to get location data"
-#~ msgstr "Unable to get location data"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Are you sure?"
-
-#~ msgid "Sending failed"
-#~ msgstr "Sending failed"
-
-#~ msgid "Cannot delete tour, has rephotos or does not belong to you."
-#~ msgstr "Cannot delete tour, has rephotos or does not belong to you."
-
-#~ msgid "We doubt about it."
-#~ msgstr "Others have different opinion."

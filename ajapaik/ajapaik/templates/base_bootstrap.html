@@ -88,8 +88,6 @@
         <meta property="og:title" content="{{ title }}"/>
         {% if rephotos_by_name %}
             <meta property="og:description" content="{% blocktrans %}Gallery of rephotographs by {{ rephotos_by_name }}{% endblocktrans %}"/>
-        {% elif similar_photos_by_name %}
-            <meta property="og:description" content="{% blocktrans %}Gallery of similar photos by {{ similar_photos_by_name }}{% endblocktrans %}"/>
         {% elif description %}
             <meta property="og:description" content="{{ description }}"/>
         {% elif not description and is_game and album %}
@@ -98,24 +96,12 @@
             <meta property="og:description" content="{% trans "Let's put pictures on the map" %}"/>
         {% elif not description and is_mapview %}
             <meta property="og:description" content="
-                {% blocktrans count counter=total_photo_count %}
-                    Album has {{ counter }} photo,
-                {% plural %}
-                    Album has {{ counter }} photos,
-                {% endblocktrans %}
-                {% blocktrans count counter=geotagging_user_count %}
-                    {{ counter }} user has put
-                {% plural %}
-                    {{ counter }} users have put
-                {% endblocktrans %}
+                {% blocktrans count counter=total_photo_count %}Album has {{ counter }} photo,{% plural %}Album has {{ counter }} photos,{% endblocktrans %}
+                {% blocktrans count counter=geotagging_user_count %}{{ counter }} user has put{% plural %}{{ counter }} users have put{% endblocktrans %}
                 {% if total_photo_count == geotagged_photo_count %}
                     {% trans "all the pictures on the map." %}
                 {% else %}
-                    {% blocktrans count counter=geotagged_photo_count %}
-                        {{ counter }} picture on the map.
-                    {% plural %}
-                        {{ counter }} pictures on the map.
-                    {% endblocktrans %}
+                    {% blocktrans count counter=geotagged_photo_count %}{{ counter }} picture on the map.{% plural %}{{ counter }} pictures on the map.{% endblocktrans %}
                 {% endif %}
             "/>
         {% endif %}

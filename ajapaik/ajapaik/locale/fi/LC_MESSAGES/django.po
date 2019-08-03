@@ -1,35 +1,28 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Translation of Ajapaik Web app to Finnish (suomi)
+# Exported from translatewiki.net
 #
-# Translators:
-# Translators:
-# Translators:
-# zache <kimmo.virtanen@gmail.com>, 2019
-# Lauri Elias, 2015
-# Lauri Elias, 2015
-# MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
-# MaertHaekkinen <m4rth4kkinen@gmail.com>, 2019
-# Meri Vainio <merivainio@gmail.com>, 2018
-# Susanna Ånäs <susanna.anas@gmail.com>, 2015-2016
-# Tarmo Toikkanen <tarmo@iki.fi>, 2018
-# Vahur Puik <vahur@ajapaik.ee>, 2015
-# zache <kimmo.virtanen@gmail.com>, 2019
-#: ajapaik/ajapaik/views.py:664
+# Author: H2kks
+# Author: Zache
+# --
+# This file is part of the Ajapaik Project
+# This file is distributed under the same license as the Ajapaik package.
+#
 msgid ""
 msgstr ""
+""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-05-25 22:57+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
+"X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
 msgid "Invert colors"
@@ -112,55 +105,13 @@ msgstr "Jos albumi liittyy tiettyyn paikkaan, määritä se täällä"
 msgid "Album type"
 msgstr "Albumin tyyppi"
 
-#: ajapaik/ajapaik/forms.py:415
-msgid "Anything else"
-msgstr "Jotain muuta"
-
-#: ajapaik/ajapaik/forms.py:415
-msgid "Person"
-msgstr "Henkilö"
-
 #: ajapaik/ajapaik/forms.py:430
 msgid "Email address"
 msgstr "Sähköpostiosoite"
 
 #: ajapaik/ajapaik/forms.py:435
-msgid ""
-"Comment box supports Markdown\n"
-"\n"
-"Paragraphs\n"
-"Add two new lines to start a new paragraph.\n"
-"\n"
-"Bold\n"
-"**Geotagging** is the first task on Ajapaik.\n"
-"\n"
-"Italic\n"
-"Next come *rephotography* and *dating*.\n"
-"\n"
-"Links\n"
-"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/"
-"groups/ajapaiklejad).\n"
-"\n"
-"Images\n"
-"![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
-"Kommenttilaatikko tukee Markdown-notaatiota\n"
-"\n"
-"Kappaleet\n"
-"Lisää kaksi rivinvaihtoa aloittaaksesi kappaleen.\n"
-"\n"
-"Vahvennus\n"
-"**Geotagaus** on Ajapaikin ensimmäinen tehtävä.\n"
-"\n"
-"Kursiivi\n"
-"Seuraavaksi tulee *uudelleenkuvaus* ja *päiväys*.\n"
-"\n"
-"Linkit\n"
-"Liity keskusteluun  [Ajapaiklejad FB-ryhmässä](https://www.facebook.com/"
-"groups/ajapaiklejad).\n"
-"\n"
-"Kuvat\n"
-"![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Kommenttilaatikko tukee Markdown-notaatiota\n\nKappaleet\nLisää kaksi rivinvaihtoa aloittaaksesi kappaleen.\n\nVahvennus\n**Geotagaus** on Ajapaikin ensimmäinen tehtävä.\n\nKursiivi\nSeuraavaksi tulee *uudelleenkuvaus* ja *päiväys*.\n\nLinkit\nLiity keskusteluun  [Ajapaiklejad FB-ryhmässä](https://www.facebook.com/groups/ajapaiklejad).\n\nKuvat\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:471
 msgid "Nothing to change."
@@ -178,7 +129,7 @@ msgstr "Mies"
 msgid "Name"
 msgstr "Nimi"
 
-#: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:350
+#: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:351
 #: ajapaik/ajapaik/templates/curator.html:78
 msgid "Description"
 msgstr "Kuvailu"
@@ -191,148 +142,128 @@ msgstr "On julkinen"
 msgid "Is open"
 msgstr "On avoin"
 
-#: ajapaik/ajapaik/models.py:205
-msgid "Wikidata identifier"
-msgstr "Wikidata-tunniste"
-
-#: ajapaik/ajapaik/models.py:220
-msgid "b."
-msgstr "s."
-
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
 msgstr "Kuva"
 
-#: ajapaik/ajapaik/models.py:351
+#: ajapaik/ajapaik/models.py:352
 msgid "Author"
 msgstr "Tekijä"
 
-#: ajapaik/ajapaik/models.py:829 ajapaik/ajapaik/models.py:902
-msgid "Different"
-msgstr ""
-
-#: ajapaik/ajapaik/models.py:830 ajapaik/ajapaik/models.py:903
-msgid "Similar"
-msgstr "Samanlainen"
-
-#: ajapaik/ajapaik/models.py:831 ajapaik/ajapaik/models.py:904
-msgid "Duplicate"
-msgstr "Kaksoiskappale"
-
-#: ajapaik/ajapaik/models.py:993
+#: ajapaik/ajapaik/models.py:1018
 msgid "Geotag"
 msgstr "Paikkamerkki"
 
-#: ajapaik/ajapaik/models.py:994 ajapaik/ajapaik/models.py:1048
+#: ajapaik/ajapaik/models.py:1019 ajapaik/ajapaik/models.py:1073
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Uusintakuva"
 
-#: ajapaik/ajapaik/models.py:995
+#: ajapaik/ajapaik/models.py:1020
 msgid "Photo upload"
 msgstr "Valokuvan lataaminen"
 
-#: ajapaik/ajapaik/models.py:996
+#: ajapaik/ajapaik/models.py:1021
 msgid "Photo curation"
 msgstr "Valokuvan valinta"
 
-#: ajapaik/ajapaik/models.py:997
+#: ajapaik/ajapaik/models.py:1022
 msgid "Photo re-curation"
 msgstr "Valokuvan uudelleenvalinta"
 
-#: ajapaik/ajapaik/models.py:998
+#: ajapaik/ajapaik/models.py:1023
 msgid "Dating"
 msgstr "Ajoittaminen"
 
-#: ajapaik/ajapaik/models.py:999
+#: ajapaik/ajapaik/models.py:1024
 msgid "Dating confirmation"
 msgstr "Ajoituksen vahvistaminen"
 
-#: ajapaik/ajapaik/models.py:1000
+#: ajapaik/ajapaik/models.py:1025
 msgid "Film still"
 msgstr "Elokuvastilli"
 
-#: ajapaik/ajapaik/models.py:1026
+#: ajapaik/ajapaik/models.py:1051
 msgid "Map"
 msgstr "Kartta"
 
-#: ajapaik/ajapaik/models.py:1027
+#: ajapaik/ajapaik/models.py:1052
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1028
+#: ajapaik/ajapaik/models.py:1053
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1029
+#: ajapaik/ajapaik/models.py:1054
 msgid "Confirmation"
 msgstr "Vahvistus"
 
-#: ajapaik/ajapaik/models.py:1030
+#: ajapaik/ajapaik/models.py:1055
 msgid "StreetView"
 msgstr "StreetView"
 
-#: ajapaik/ajapaik/models.py:1031
+#: ajapaik/ajapaik/models.py:1056
 msgid "Source geotag"
 msgstr "Lähteen paikkamerkki"
 
-#: ajapaik/ajapaik/models.py:1032
+#: ajapaik/ajapaik/models.py:1057
 msgid "Android app"
 msgstr "Android-ohjelma"
 
-#: ajapaik/ajapaik/models.py:1043
+#: ajapaik/ajapaik/models.py:1068
 msgid "Game"
 msgstr "Peli"
 
-#: ajapaik/ajapaik/models.py:1044
+#: ajapaik/ajapaik/models.py:1069
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: ajapaik/ajapaik/models.py:1045
+#: ajapaik/ajapaik/models.py:1070
 msgid "Gallery"
 msgstr "Galleria"
 
-#: ajapaik/ajapaik/models.py:1046
+#: ajapaik/ajapaik/models.py:1071
 msgid "Permalink"
 msgstr "Ikilinkki"
 
-#: ajapaik/ajapaik/models.py:1047
+#: ajapaik/ajapaik/models.py:1072
 msgid "Source"
 msgstr "Lähde"
 
-#: ajapaik/ajapaik/models.py:1052
+#: ajapaik/ajapaik/models.py:1077
 msgid "Google map"
 msgstr "Google kartta"
 
-#: ajapaik/ajapaik/models.py:1053
+#: ajapaik/ajapaik/models.py:1078
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: ajapaik/ajapaik/models.py:1054
+#: ajapaik/ajapaik/models.py:1079
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1055
+#: ajapaik/ajapaik/models.py:1080
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1056
+#: ajapaik/ajapaik/models.py:1081
 msgid "No map"
 msgstr "Ei karttaa"
 
-#: ajapaik/ajapaik/models.py:1178 ajapaik/ajapaik/models.py:1180
+#: ajapaik/ajapaik/models.py:1203 ajapaik/ajapaik/models.py:1205
 msgid "Anonymous user"
 msgstr "Nimetön käyttäjä"
 
-#: ajapaik/ajapaik/models.py:1451
+#: ajapaik/ajapaik/models.py:1476
 msgid "Day"
 msgstr "Päivä"
 
-#: ajapaik/ajapaik/models.py:1452
+#: ajapaik/ajapaik/models.py:1477
 msgid "Month"
 msgstr "Kuukausi"
 
-#: ajapaik/ajapaik/models.py:1453
+#: ajapaik/ajapaik/models.py:1478
 msgid "Year"
 msgstr "Vuosi"
 
@@ -365,7 +296,6 @@ msgstr "Peru"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
-#: ajapaik/ajapaik/templates/registration/registration_form.html:14
 msgid "Submit"
 msgstr "Lähetä"
 
@@ -387,18 +317,8 @@ msgid "Original photo"
 msgstr "Alkuperäinen valokuva"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
-msgid ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
-"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
-"Fotopärand)</a> listed in the list of non-profit associations, foundations "
-"and religious associations benefiting from income tax incentives. We declare "
-"your donations and You will get income tax refunds for that."
-msgstr ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
-"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
-"Fotopärand)</a> listed in the list of non-profit associations, foundations "
-"and religious associations benefiting from income tax incentives. We declare "
-"your donations and You will get income tax refunds for that."
+msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
+msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
@@ -494,22 +414,6 @@ msgstr "Nordea payment order link"
 msgid "Danske payment order link"
 msgstr "Danske payment order link"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:60
-msgid "Other ways of supporting us"
-msgstr "Muita tapoja tukea meitä."
-
-#: ajapaik/ajapaik/templates/_donate_details.html:61
-msgid "Ajapaik Brave referral"
-msgstr "Ajapaik Brave suositus"
-
-#: ajapaik/ajapaik/templates/_donate_details.html:62
-msgid ""
-"Try the Brave browser - it's based on Chromium and you can award your "
-"favourite sites with cryptocurrency."
-msgstr ""
-"Kokeile Brave-selainta - selain perustuu Chromiumiin ja voit palkita "
-"suosikkisivustojasi cryptovaluutalla."
-
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
 msgstr "Suodata"
@@ -546,27 +450,23 @@ msgstr "Järjestä ajoituksen lisäysajankohdan tai lukumäärän mukaan"
 msgid "Sort by rephotos' time added or amount"
 msgstr "Järjestä uusintakuvan lisäysajankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:93
-msgid "Sort by similar photos' time added or amount"
-msgstr "Järjestä kuvat samanlaisuuen lisäämisen tai määrän mukaan"
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:104
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
 msgstr "Järjestä kommenttien lisäysjankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:114
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
 msgstr "Järjestä tykkäysten lisäysajankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:124
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
 msgstr "Järjestä lukumäärän mukaan ja ..."
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:134
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:122
 msgid "Change sorting order"
 msgstr "Muuta järjestystä"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:143
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
 msgid "Help"
 msgstr "Ohjeet"
 
@@ -618,13 +518,6 @@ msgstr "Tue meitä"
 msgid "See also – Sift.pics"
 msgstr "Tutustu myös – Sift.pics"
 
-#: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/_header.html:108
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
-#: ajapaik/ajapaik/templates/account/base_anonymous.html:39
-msgid "Sign Out"
-msgstr "Kirjaudu ulos"
-
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
@@ -635,12 +528,8 @@ msgid "Discover how places looked like years ago by"
 msgstr "Tutustu siihen, miltä paikat näyttivät vuosia sitten"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
-msgid ""
-"* searching historic view pictures from Estonian museums' collections and "
-"curating selected images to Ajapaik,"
-msgstr ""
-"* hae historiallisia näkymiä virolaisten museoiden kokoelmista ja valikoi "
-"kuvia Ajapaikiin"
+msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
+msgstr "* hae historiallisia näkymiä virolaisten museoiden kokoelmista ja valikoi kuvia Ajapaikiin"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
@@ -650,163 +539,48 @@ msgstr "* paikanna kuvia sinulle tutuista paikoista ja"
 msgid "* rephotographing the historic views from places you visit."
 msgstr "* uusintakuvaa paikkoja, joissa käyt."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
-msgid ""
-"\n"
-"                        Ajapaik has <b>%(total_photo_count)s</b> historic "
-"pictures, out of which\n"
-"                    "
-msgstr ""
-"\n"
-"                        Ajapaikissa on <b>%(total_photo_count)s</b> "
-"historiallista valokuvaa, joista\n"
-"                    "
+msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
+msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
+msgstr[0] "Olet ehdottanut sijantia <b>%(user_geotagged_photos)s</b> kuvalle."
+msgstr[1] "Olet ehdottanut sijantia <b>%(user_geotagged_photos)s</b> kuvalle."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:30
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
 #, python-format
-msgid ""
-"\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been "
-"put on the map by\n"
-"                    "
-msgstr ""
-"\n"
-"                        <b>%(total_photos_tagged)s</b> kuvaa on lisätty "
-"kartalle\n"
-"                    "
+msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
+msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
+msgstr[0] "Olet tehnyt<b>%(user_rephotos)s</b> uusintakuvan"
+msgstr[1] "Olet tehnyt<b>%(user_rephotos)s</b> uusintakuvan"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:33
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
-msgid ""
-"\n"
-"                        <b>%(contributing_users)s</b> users and\n"
-"                    "
-msgstr ""
-"\n"
-"                        <b>%(contributing_users)s</b> käyttäjää ja\n"
-"                    "
+msgid "<b>%(user_rephotographed_photos)s</b> picture."
+msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
+msgstr[0] "<b>%(user_rephotographed_photos)s</b> kuva."
+msgstr[1] "<b>%(user_rephotographed_photos)s</b> kuvaa."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:36
-#, python-format
-msgid ""
-"\n"
-"                        <b>%(rephoto_count)s</b> rephotographs for\n"
-"                    "
-msgstr ""
-"\n"
-"                        <b>%(rephoto_count)s</b> uudelleenkuvausta\n"
-"                    "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:39
-#, python-format
-msgid ""
-"\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made "
-"by\n"
-"                    "
-msgstr ""
-"\n"
-"                        <b>%(rephotographed_photo_count)s</b> kuvaa\n"
-"                    "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:42
-#, python-format
-msgid ""
-"\n"
-"                        <b>%(rephotographing_users)s</b> users.\n"
-"                    "
-msgstr ""
-"\n"
-"                        <b>%(rephotographing_users)s</b> käyttäjää.\n"
-"                    "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:49
-#, python-format
-msgid ""
-"\n"
-"                            You have suggested location for <b>"
-"%(user_geotagged_photos)s</b> picture.\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            You have suggested locations for <b>"
-"%(user_geotagged_photos)s</b> pictures.\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            Olet ehdottanut sijantia <b>"
-"%(user_geotagged_photos)s</b> kuvalle.\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                           Olet ehdottanut sijantia <b>"
-"%(user_geotagged_photos)s</b> kuvalle.\n"
-"                        "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
-#, python-format
-msgid ""
-"\n"
-"                            You have made <b>%(user_rephotos)s</b> rephoto "
-"for\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            You have made <b>%(user_rephotos)s</b> rephotos "
-"for\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            Olet tehnyt<b>%(user_rephotos)s</b> "
-"uusintakuvan\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                            Olet tehnyt <b>%(user_rephotos)s</b> "
-"uusintakuvaa\n"
-"                        "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
-#, python-format
-msgid ""
-"\n"
-"                            <b>%(user_rephotographed_photos)s</b> picture.\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            <b>%(user_rephotographed_photos)s</b> pictures.\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            <b>%(user_rephotographed_photos)s</b> kuva.\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                            <b>%(user_rephotographed_photos)s</b> kuvaa.\n"
-"                        "
-
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
-msgid "General statistics refresh every 10 minutes."
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
+msgid "General statistics refresh every 10 minutes"
 msgstr "Tilastot päivittyvät 10-minuutin välein."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
 msgstr "Ajapaikin tukijat"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:47
 msgid "KulKa logo"
 msgstr "KulKa logo"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:79
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:50
 msgid "Ministry of Education logo"
 msgstr "Opetusministeriön logo"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:92
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
 msgid "EV100 logo"
 msgstr "EV100 logo"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:95
+#: ajapaik/ajapaik/templates/_general_info_modal_content.html:66
 msgid "KYSK logo"
 msgstr "KYSK logo"
 
@@ -827,13 +601,13 @@ msgid "Show in grid"
 msgstr "Näytä ruudukkona"
 
 #: ajapaik/ajapaik/templates/_header.html:30
-#: ajapaik/ajapaik/templates/_info_modal_content.html:154
-#: ajapaik/ajapaik/templates/_info_modal_content.html:156
+#: ajapaik/ajapaik/templates/_info_modal_content.html:107
+#: ajapaik/ajapaik/templates/_info_modal_content.html:109
 msgid "Geotag pictures"
 msgstr "Paikanna kuvia"
 
 #: ajapaik/ajapaik/templates/_header.html:34
-#: ajapaik/ajapaik/templates/_info_modal_content.html:149
+#: ajapaik/ajapaik/templates/_info_modal_content.html:102
 msgid "Show on map"
 msgstr "Näytä kartalla"
 
@@ -849,32 +623,32 @@ msgstr "Lisää kuvia"
 msgid "Newsletters"
 msgstr "Newsletters"
 
-#: ajapaik/ajapaik/templates/_header.html:55
+#: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
 msgstr "Valinnat"
 
-#: ajapaik/ajapaik/templates/_header.html:65
+#: ajapaik/ajapaik/templates/_header.html:70
 msgid "Choose language"
 msgstr "Valitse kieli"
 
-#: ajapaik/ajapaik/templates/_header.html:77
+#: ajapaik/ajapaik/templates/_header.html:82
 msgid "About Ajapaik"
 msgstr "Tietoa Ajapaikista"
 
-#: ajapaik/ajapaik/templates/_header.html:80
+#: ajapaik/ajapaik/templates/_header.html:85
 msgid "Ajapaik on Facebook"
 msgstr "Ajapaik Facebookissa"
 
-#: ajapaik/ajapaik/templates/_header.html:86
+#: ajapaik/ajapaik/templates/_header.html:91
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1714
-#: ajapaik/ajapaik/views.py:1731 ajapaik/ajapaik/views.py:1767
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1715
+#: ajapaik/ajapaik/views.py:1732 ajapaik/ajapaik/views.py:1768
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:105
+#: ajapaik/ajapaik/templates/_header.html:110
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
@@ -892,216 +666,91 @@ msgstr "Osallistujien pistetaulukko"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
 #, python-format
-msgid ""
-"\n"
-"                    Album has %(counter)s historic picture,\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Album has %(counter)s historic pictures,\n"
-"                "
-msgstr[0] ""
-"\n"
-"Albumissa on %(counter)s historiallinen kuvaa,"
-msgstr[1] ""
-"\n"
-"Albumissa on %(counter)s historiallista kuvaa,"
+msgid "Album has %(counter)s historic picture,"
+msgid_plural "Album has %(counter)s historic pictures,"
+msgstr[0] "Albumissa on %(counter)s historiallinen kuvaa,"
+msgstr[1] "Albumissa on %(counter)s historiallinen kuvaa,"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:32
-#: ajapaik/ajapaik/templates/base_bootstrap.html:106
+#: ajapaik/ajapaik/templates/_info_modal_content.html:28
+#: ajapaik/ajapaik/templates/base_bootstrap.html:100
 #, python-format
-msgid ""
-"\n"
-"                    %(counter)s user has put\n"
-"                "
-msgid_plural ""
-"\n"
-"                    %(counter)s users have put\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    %(counter)s käyttäjä on laittanut\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    %(counter)s käyttäjää on laittanut\n"
-"                "
+msgid "%(counter)s user has put"
+msgid_plural "%(counter)s users have put"
+msgstr[0] "%(counter)s käyttäjä on laittanut"
+msgstr[1] "%(counter)s käyttäjää on laittanut"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:38
-#: ajapaik/ajapaik/templates/base_bootstrap.html:112
+#: ajapaik/ajapaik/templates/_info_modal_content.html:30
+#: ajapaik/ajapaik/templates/base_bootstrap.html:102
 msgid "all the pictures on the map."
 msgstr "kaikki kuvat kartalle."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:40
-#: ajapaik/ajapaik/templates/base_bootstrap.html:114
+#: ajapaik/ajapaik/templates/_info_modal_content.html:32
+#: ajapaik/ajapaik/templates/base_bootstrap.html:104
 #, python-format
-msgid ""
-"\n"
-"                        %(counter)s picture on the map.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        %(counter)s pictures on the map.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                        %(counter)s kuvan kartalle.\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                        %(counter)s kuvaa kartalle.\n"
-"                    "
+msgid "%(counter)s picture on the map."
+msgid_plural "%(counter)s pictures on the map."
+msgstr[0] "%(counter)s kuvan kartalle."
+msgstr[1] "%(counter)s kuvan kartalle."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:49
+#: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
 msgstr "Et ole ehdottanut sijaintia tämän albumin kuville."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:51
+#: ajapaik/ajapaik/templates/_info_modal_content.html:39
 msgid "You have made a location suggestion for"
 msgstr "Olet ehdottanut sijaintia"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:53
+#: ajapaik/ajapaik/templates/_info_modal_content.html:41
 msgid "all the pictures from this album."
 msgstr "kaikille kuville tässä albumissa."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:55
+#: ajapaik/ajapaik/templates/_info_modal_content.html:43
 #, python-format
-msgid ""
-"\n"
-"                            %(counter)s picture in this album.\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            %(counter)s pictures in this album.\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            %(counter)s kuva tässä albumissa.\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                            %(counter)s kuvaa tässä albumissa.\n"
-"                        "
+msgid "%(counter)s picture in this album."
+msgid_plural "%(counter)s pictures in this album."
+msgstr[0] "%(counter)s kuva tässä albumissa."
+msgstr[1] "%(counter)s kuvaa tässä albumissa."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:66
+#: ajapaik/ajapaik/templates/_info_modal_content.html:50
 #, python-format
-msgid ""
-"\n"
-"                            %(counter)s user has made\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            %(counter)s users have made\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            %(counter)s käyttäjä on tehnyt\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                            %(counter)s käyttäjää on tehnyt\n"
-"                        "
+msgid "%(counter)s user has made"
+msgid_plural "%(counter)s users have made"
+msgstr[0] "%(counter)s käyttäjä on tehnyt"
+msgstr[1] "%(counter)s käyttäjää on tehnyt"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:71
+#: ajapaik/ajapaik/templates/_info_modal_content.html:51
 #, python-format
-msgid ""
-"\n"
-"                            %(counter)s rephotograph\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            %(counter)s rephotographs\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            %(counter)s uuskuvan\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                            %(counter)s uusintakuvaa\n"
-"                        "
+msgid "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
+msgid_plural "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
+msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
+msgstr[1] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:76
+#: ajapaik/ajapaik/templates/_info_modal_content.html:52
+#: ajapaik/ajapaik/templates/_info_modal_content.html:59
 #, python-format
-msgid ""
-"\n"
-"                            for %(counter)s picture in the album.\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            for %(counter)s picture in the album.\n"
-"                        "
-msgstr[0] ""
-"\n"
-"                            %(counter)s:lle kuvalle albumissa.\n"
-"                        "
-msgstr[1] ""
-"\n"
-"                           %(counter)s:lle kuvalle albumissa.\n"
-"                        "
+msgid "for %(counter)s picture in the album."
+msgid_plural "for %(counter)s picture in the album."
+msgstr[0] "%(counter)s:lle kuvalle albumissa."
+msgstr[1] "%(counter)s:lle kuvalle albumissa."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:86
+#: ajapaik/ajapaik/templates/_info_modal_content.html:58
 #, python-format
-msgid ""
-"\n"
-"                        You have made %(counter)s rephoto\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        You have made %(counter)s rephotos\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                        Olet tehnyt %(counter)s uuskuvan\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                        Olet tehnyt %(counter)s uusintakuvaa\n"
-"                    "
+msgid "You have made %(counter)s rephoto"
+msgid_plural "You have made %(counter)s rephotos"
+msgstr[0] "Olet tehnyt %(counter)s uuskuvan"
+msgstr[1] "Olet tehnyt %(counter)s uusintakuvaa"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:91
-#, python-format
-msgid ""
-"\n"
-"                        for %(counter)s picture in the album.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        for %(counter)s picures in the album.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                        %(counter)s:lle kuvalle albumissa.\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                       %(counter)s:lle kuvalle albumissa.\n"
-"                    "
-
-#: ajapaik/ajapaik/templates/_info_modal_content.html:101
-#, python-format
-msgid ""
-"\n"
-"                            There is %(counter)s similar photo\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            There are %(counter)s similar photos\n"
-"                        "
-msgstr[0] ""
-msgstr[1] ""
-
-#: ajapaik/ajapaik/templates/_info_modal_content.html:112
+#: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
 msgstr "Lähellä olevia albumeita"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:121
+#: ajapaik/ajapaik/templates/_info_modal_content.html:74
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
 #: ajapaik/ajapaik/templates/photoview.html:191
 msgid "Share"
 msgstr "Jaa"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:151
+#: ajapaik/ajapaik/templates/_info_modal_content.html:104
 msgid "Back to map"
 msgstr "Takaisin karttaan"
 
@@ -1134,14 +783,10 @@ msgid "Log in to save selection"
 msgstr "Kirjautumalla sisään voit tallentaa valikoiman"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
-#: ajapaik/ajapaik/templates/registration/login.html:38
-#: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "Kirjaudu Facebookin avulla"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
-#: ajapaik/ajapaik/templates/registration/login.html:43
-#: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "Yhdistä Googleen"
 
@@ -1150,8 +795,6 @@ msgid "E-mail address"
 msgstr "Sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
-#: ajapaik/ajapaik/templates/registration/login.html:18
-#: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "Salasana"
 
@@ -1160,8 +803,6 @@ msgid "Register with e-mail"
 msgstr "Rekisteröidy sähköpostilla"
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
-#: ajapaik/ajapaik/templates/registration/login.html:9
-#: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
 msgstr "Kirjaudu"
 
@@ -1235,7 +876,7 @@ msgstr "samanlainen kuva"
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "duplicate photo"
-msgstr ""
+msgstr "peilaa kuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1260,12 +901,8 @@ msgstr "Lisää uusintakuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:186
-msgid ""
-"Tag a new face - clicking this button will enable you to draw a face "
-"rectangle on the main image"
-msgstr ""
-"Merkkaa kasvot - klikkaamalla nappia pääset piirtämään kuvassa olevien "
-"kasvojen ympärille neliöt"
+msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
+msgstr "Merkkaa kasvot - klikkaamalla nappia pääset piirtämään kuvassa olevien kasvojen ympärille neliöt"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
 msgid "Discuss"
@@ -1298,13 +935,8 @@ msgid "Select file..."
 msgstr "Valitse tiedosto..."
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
-msgid ""
-"Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to "
-"you under the"
-msgstr ""
-"Ota uusintakuva täsmälleen samasta paikasta, mistä historiallinen kuva on "
-"otettu ja lataa se. Ladatut kuvat merkitään nimiisi ja lisensoidaan"
+msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
+msgstr "Ota uusintakuva täsmälleen samasta paikasta, mistä historiallinen kuva on otettu ja lataa se. Ladatut kuvat merkitään nimiisi ja lisensoidaan"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
 msgid "licence"
@@ -1334,21 +966,6 @@ msgstr "Tiedoston lataus epäonnistui."
 msgid "Date taken"
 msgstr "Kuvauspäivä"
 
-#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
-msgid "Compare images"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
-msgid ""
-"Indicate whether the content on pictures is overlapping or not. In the case "
-"of overlapping content the place or object is the same, in the case of same "
-"shot one of the pictures may also be cropped."
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
-msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
-
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
@@ -1356,16 +973,8 @@ msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-msgid "Forgot Password?"
-msgstr "Salasana unohtunut"
-
-#: ajapaik/ajapaik/templates/account/base_anonymous.html:14
-msgid "Messages"
-msgstr "Viestien"
-
-#: ajapaik/ajapaik/templates/account/base_anonymous.html:33
-msgid "Menu"
-msgstr "Valikko"
+msgid "Forgot password?"
+msgstr "Salasana unohtunut?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1375,151 +984,39 @@ msgstr "Vaihda sähköpostiosoite"
 msgid "Change password"
 msgstr "Vaihda salasana"
 
-#: ajapaik/ajapaik/templates/account/base_anonymous.html:38
-msgid "Socialaccount connections"
-msgstr "Tunnusten yhteydet"
-
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail Address"
+msgid "Confirm E-mail address"
 msgstr "Vahvista sähköpostiosoite"
-
-#: ajapaik/ajapaik/templates/account/email_confirm.html:16
-#, python-format
-msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
-"address for user %(user_display)s."
-msgstr ""
-"Please confirm that <a href=\\\"mailto:%(email)s\\\">%(email)s</a> is an e-"
-"mail \"\n"
-"\"address for user %(user_display)s."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "Vahvista"
 
-#: ajapaik/ajapaik/templates/account/email_confirm.html:27
-#, python-format
-msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr ""
-"Tämä sähköpostin varmistuslinkki on joko vanhentunut tai virheellinen. "
-"Pyydän<a href=\"%(email_url)s\">tekemään uuden sähköpostin varmistuspyynnön."
-"</a>"
-
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Kirjaudu"
-
-#: ajapaik/ajapaik/templates/account/login.html:15
-#, python-format
-msgid ""
-"Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
-"up</a>\n"
-"for a %(site_name)s account and sign in below:"
-msgstr ""
-"Kirjaudu sisään käyttäen kirjautumispalvelua tai <a href=\"%(signup_url)s"
-"\">rekisteröi</a> %(site_name)s-tili ja kirjaudu sisään alla olevalla "
-"lomakkeella:"
-
-#: ajapaik/ajapaik/templates/account/login.html:30
-#, python-format
-msgid ""
-"If you have not created an account yet, then please\n"
-"<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Jos et ole luonut vielä tiliä, niin <a href=\"%(signup_url)s\">rekisteröidy</"
-"a> ensin."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "Salasana"
-
-#: ajapaik/ajapaik/templates/account/password_reset.html:15
-msgid ""
-"Forgotten your password? Enter your e-mail address below, and we'll send you "
-"an e-mail allowing you to reset it."
-msgstr ""
-"Unohditko salasanasi? Anna sähköpostiosoitteesi ja lähetämme sinulle "
-"sähköpostin, jonka avulla voit uusia sen."
+msgstr "Unohtunut salasana"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
 msgstr "Vaihda salasana"
 
-#: ajapaik/ajapaik/templates/account/password_reset.html:23
-msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Ota meihin yhteyttä, jos sinulla on ongelmia salasanasi uusimisessa."
-
-#: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
-msgstr ""
-"Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä "
-"\"\n"
-"\"muutaman minuutin sisällä."
-
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr "Salasana"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
-msgid "Bad Token"
-msgstr "Epäkelpo tunniste"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
-#, python-format
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
-msgstr ""
-"Salasanan uusintalinkki ei toiminut, kenties koska se oli jo käytetty.  Ole "
-"hyvä ja pyydä <a href=\"%(passwd_reset_url)s\">uusi salasanan uusinta</a>."
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
-msgid "change password"
-msgstr "Salasana unohtunut"
-
-#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
-#: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
-msgid "Your password is now changed."
-msgstr "Salasanasi on nyt vaihdettu."
-
-#: ajapaik/ajapaik/templates/account/signup.html:5
-msgid "Signup"
-msgstr "Rekisteröidy"
-
-#: ajapaik/ajapaik/templates/account/signup.html:8
-#: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
-msgstr "Rekisteröidy"
-
-#: ajapaik/ajapaik/templates/account/signup.html:10
-#, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Onko sinulla jo tili? <a href=\"%(login_url)s\">Kirjaudu sisään</a>."
-
-#: ajapaik/ajapaik/templates/account/signup_closed.html:5
-#: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
-msgstr "Rekisteröityminen on poissa käytöstä."
-
-#: ajapaik/ajapaik/templates/account/signup_closed.html:10
-msgid "We are sorry, but the sign up is currently closed."
-msgstr "Valitettavasti rekisteröityminen on pois käytöstä"
+msgstr "Muuta salasana"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1581,12 +1078,8 @@ msgid "Historic photo of"
 msgstr "Historiallisia valokuvia kohteesta"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
-msgid ""
-"Curate historic photos from museums into Ajapaik for geotagging and "
-"rephotographing"
-msgstr ""
-"Valikoi historiallisia valokuvia museoiden ja arkistojen kokoelmista "
-"Ajapaikiin paikantamista ja uusintakuvausta varten"
+msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
+msgstr "Valikoi historiallisia valokuvia museoiden ja arkistojen kokoelmista Ajapaikiin paikantamista ja uusintakuvausta varten"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
@@ -1597,8 +1090,7 @@ msgstr "historiallinen,kuvat,vanha,valokuvat"
 #: ajapaik/ajapaik/templates/base_bootstrap.html:53
 #: ajapaik/ajapaik/templates/base_bootstrap.html:55
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr ""
-"historiallinen,kuvat,vanha,valokuvat,kartta,geotägi,paikkamerkki,paikka"
+msgstr "historiallinen,kuvat,vanha,valokuvat,kartta,geotägi,paikkamerkki,paikka"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:59
 #: ajapaik/ajapaik/templates/base_bootstrap.html:61
@@ -1622,68 +1114,43 @@ msgstr "haku,museo,vanha,valokuvat,kuvat,historiallinen"
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgstr "Uusintakuvien galleria: %(rephotos_by_name)s"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:92
+#: ajapaik/ajapaik/templates/base_bootstrap.html:94
 #, python-format
-msgid "Gallery of similar photos by %(similar_photos_by_name)s"
-msgstr "Not used%(similar_photos_by_name)s"
+msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
+msgstr "Albumissa on %(album_photo_count)s historiallista kuvaa. Laitetaan kuvat kartalle!"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
-#, python-format
-msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
-"map!"
-msgstr ""
-"Albumissa on %(album_photo_count)s historiallista kuvaa. Laitetaan kuvat "
-"kartalle!"
-
-#: ajapaik/ajapaik/templates/base_bootstrap.html:98
 msgid "Let's put pictures on the map"
 msgstr "Laitetaan kuvat kartalle"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:101
+#: ajapaik/ajapaik/templates/base_bootstrap.html:99
 #, python-format
-msgid ""
-"\n"
-"                    Album has %(counter)s photo,\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Album has %(counter)s photos,\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Albumissa on %(counter)s valokuva,\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Albumissa on %(counter)s valokuvaa,\n"
-"                "
+msgid "Album has %(counter)s photo,"
+msgid_plural "Album has %(counter)s photos,"
+msgstr[0] "Albumissa on %(counter)s valokuva,"
+msgstr[1] "Albumissa on %(counter)s valokuvaa,"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:213
+#: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:282
+#: ajapaik/ajapaik/templates/base_bootstrap.html:268
 msgid "Geolocation error"
 msgstr "Sijaintivirhe"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:285
+#: ajapaik/ajapaik/templates/base_bootstrap.html:271
 msgid "Sorting"
 msgstr "Järjestäminen"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:429
-msgid ""
-"This website uses cookies to ensure you get the best experience on our "
-"website"
-msgstr ""
-"Tämä verkkosivusto käyttää evästeitä. Niiden avulla saat parhaan "
-"käyttökokemuksen sivustolla."
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
+msgid "This website uses cookies to ensure you get the best experience on our website"
+msgstr "Tämä verkkosivusto käyttää evästeitä. Niiden avulla saat parhaan käyttökokemuksen sivustolla."
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:430
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "Got it!"
 msgstr "Selvä!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:431
+#: ajapaik/ajapaik/templates/base_bootstrap.html:417
 msgid "More info"
 msgstr "Lisätietoa"
 
@@ -1731,8 +1198,7 @@ msgstr "Poista"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr ""
-"Oletko varma, että haluat poistaa tämän kommentin ja kaikki vastaukset?"
+msgstr "Oletko varma, että haluat poistaa tämän kommentin ja kaikki vastaukset?"
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
@@ -1748,28 +1214,13 @@ msgstr "tukee Markdownia"
 msgid "Save"
 msgstr "Tallenna"
 
-#: ajapaik/ajapaik/templates/compare_photos.html:42
-msgid "No content overlap"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/compare_photos.html:47
-msgid "Overlapping content"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/compare_photos.html:52
-msgid "Same shot"
-msgstr ""
-
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
 msgstr "Kiitos!"
 
 #: ajapaik/ajapaik/templates/curator.html:23
-msgid ""
-"Your photos have now been added to Ajapaik and can be interacted with as "
-"usual."
-msgstr ""
-"Kuvasi on nyt lisätty Ajapaikiin ja niitä voi käyttää tavalliseen tapaan."
+msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
+msgstr "Kuvasi on nyt lisätty Ajapaikiin ja niitä voi käyttää tavalliseen tapaan."
 
 #: ajapaik/ajapaik/templates/curator.html:25
 msgid "Points awarded for curating"
@@ -1989,14 +1440,6 @@ msgstr "Hakukenttä"
 msgid "Add to album"
 msgstr "Lisää albumiin"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:26
-msgid "Images have overlapping content"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/photo_selection.html:30
-msgid "All images are of the same shot"
-msgstr ""
-
 #: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
 msgstr "Voit järjestää kuvat uudelleen raahaamalla ja tiputtamalla."
@@ -2017,102 +1460,10 @@ msgstr "Lataa itse"
 msgid "rephoto"
 msgstr "uusintakuva"
 
-#: ajapaik/ajapaik/templates/photoview.html:160
-msgid "People claimed to be on this photo"
-msgstr "Henkilöt jotka on merkitty tähän kuvaan."
-
-#: ajapaik/ajapaik/templates/registration/activate.html:9
-msgid "Activation failed!"
-msgstr "Aktivointi epäonnistui!"
-
-#: ajapaik/ajapaik/templates/registration/activate.html:10
-#, python-format
-msgid "The activation key %(activation_key)s is invalid or expired."
-msgstr "Aktivointiavain %(activation_key)s ei kelpaa tai on vanhentunut."
-
-#: ajapaik/ajapaik/templates/registration/activation_complete.html:9
-msgid "Account activated!"
-msgstr "Tili aktivoitu!"
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:3
-#, python-format
-msgid "You have %(expiration_days)s days to activate your account."
-msgstr "Sinulla on %(expiration_days)s päivää aikaa aktivoida tilisi."
-
-#: ajapaik/ajapaik/templates/registration/activation_email.txt:5
-msgid "Link"
-msgstr "Linkki"
-
-#: ajapaik/ajapaik/templates/registration/activation_email_subject.txt:3
-msgid "Activate your account at Ajapaik.ee"
-msgstr "Aktivoi tilisi Ajapaik.ee:ssä."
-
-#: ajapaik/ajapaik/templates/registration/login.html:13
-#: ajapaik/ajapaik/templates/registration/login.html:15
-msgid "E-mail"
-msgstr "Sähköpostiosoite"
-
-#: ajapaik/ajapaik/templates/registration/login.html:28
-msgid "Forgot password"
-msgstr "Salasana unohtunut"
-
-#: ajapaik/ajapaik/templates/registration/login.html:30
-msgid "Register account"
-msgstr "Rekiströidy"
-
-#: ajapaik/ajapaik/templates/registration/login.html:33
-#: ajapaik/ajapaik/templates/registration/registration_form.html:18
-msgid "OR"
-msgstr "TAI"
-
-#: ajapaik/ajapaik/templates/registration/logout.html:9
-msgid "You have been logged out!"
-msgstr "Olet kirjautunut ulos!"
-
-#: ajapaik/ajapaik/templates/registration/registration_complete.html:9
-msgid "Activation e-mail sent!"
-msgstr "Aktivointiviesti lähetetty!"
-
-#: ajapaik/ajapaik/templates/registration/registration_form.html:9
-msgid "Registration form"
-msgstr "Rekisteröintilomake"
-
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:10
-msgid "Account Connections"
-msgstr "Tunnusten yhteydet"
-
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:13
-msgid ""
-"You can sign in to your account using any of the following third party "
-"accounts:"
-msgstr ""
-"Voit kirjautua tunnuksellesi käyttäen mitä tahansa kolmannen osapuolen "
-"tunnusta."
-
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:45
-msgid ""
-"You currently have no social network accounts connected to this account."
-msgstr ""
-"Sinulla ei ole tällä hetkellä sosiaalisen median tunnuksia yhdistettynä "
-"tähän käyttäjätunnukseen."
-
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:48
-msgid "Add a 3rd Party Account"
-msgstr "Lisää kolmannen osapuolen tili"
-
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
-msgid ""
-"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the "
-"right to use this work under the <a href=\"https://creativecommons.org/"
-"licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative "
-"Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
-"Min', %(user)s, tämän teoksen tekijänoikeuksien haltija, peruuttamattomasti "
-"sallin kenen tahansa käyttää tätä kuvaa <a href=\"https://creativecommons."
-"org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Nimeä–JaaSamoin "
-"4.0 lisenssin (CC-BY-SA)</a> mukaisesti."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Min', %(user)s, tämän teoksen tekijänoikeuksien haltija, peruuttamattomasti sallin kenen tahansa käyttää tätä kuvaa <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Nimeä–JaaSamoin 4.0 lisenssin (CC-BY-SA)</a> mukaisesti."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -2127,93 +1478,87 @@ msgstr "Lisää"
 msgid "Non-authenticated user"
 msgstr "Ei tunnistettu käyttäjä"
 
-#: ajapaik/ajapaik/views.py:592
+#: ajapaik/ajapaik/views.py:593
 msgid "Geotagging game"
 msgstr "Paikannuspeli"
 
-#: ajapaik/ajapaik/views.py:660
+#: ajapaik/ajapaik/views.py:661
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - uusintakuvat"
 
-#: ajapaik/ajapaik/views.py:1107
+#: ajapaik/ajapaik/views.py:1108
 msgid "Cannot upload to these albums"
 msgstr "Et voi lähettää kuvia näihin albumeihin"
 
-#: ajapaik/ajapaik/views.py:1125
+#: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
 msgstr "Uudelleen valikoiminen onnistui"
 
-#: ajapaik/ajapaik/views.py:1127
+#: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
 msgstr "Albumin valinnassa on ongelma"
 
-#: ajapaik/ajapaik/views.py:1129
+#: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
 msgstr "Viallista tietoa lähetetty"
 
-#: ajapaik/ajapaik/views.py:1432 ajapaik/ajapaik/views.py:1439
-#: ajapaik/ajapaik/views.py:1441
+#: ajapaik/ajapaik/views.py:1433 ajapaik/ajapaik/views.py:1440
+#: ajapaik/ajapaik/views.py:1442
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: ajapaik/ajapaik/views.py:1573
-msgid ""
-"Your contribution didn't change the estimated location for the photo, not "
-"yet anyway."
+#: ajapaik/ajapaik/views.py:1574
+msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Panoksesi ei muuttanut valokuvan arvioitua sijaintia, ainakaan vielä."
 
-#: ajapaik/ajapaik/views.py:1575
+#: ajapaik/ajapaik/views.py:1576
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Valokuva sijoitettiin uuteen sijaintiin panoksesi ansiosta."
 
-#: ajapaik/ajapaik/views.py:1577
+#: ajapaik/ajapaik/views.py:1578
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: ajapaik/ajapaik/views.py:1851
-msgid ""
-"Search for old photos, add them to Ajapaik, determine their locations and "
-"share the resulting album!"
-msgstr ""
-"Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja "
-"jaa syntynyt albumi!"
+#: ajapaik/ajapaik/views.py:1852
+msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
+msgstr "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja jaa syntynyt albumi!"
 
-#: ajapaik/ajapaik/views.py:2203
+#: ajapaik/ajapaik/views.py:2204
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2260
+#: ajapaik/ajapaik/views.py:2262
 #, python-format
 msgid "Error uploading file: %s"
 msgstr "Virhe kuvan tallennuksessa: %s"
 
-#: ajapaik/ajapaik/views.py:2277
+#: ajapaik/ajapaik/views.py:2279
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: ajapaik/ajapaik/views.py:2297
+#: ajapaik/ajapaik/views.py:2299
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: ajapaik/ajapaik/views.py:2299
+#: ajapaik/ajapaik/views.py:2301
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: ajapaik/ajapaik/views.py:2614
+#: ajapaik/ajapaik/views.py:2616
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:2744
+#: ajapaik/ajapaik/views.py:2761
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:2763
+#: ajapaik/ajapaik/views.py:2780
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:2845
+#: ajapaik/ajapaik/views.py:2862
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
@@ -2228,16 +1573,6 @@ msgstr "On julkisuuden henkilö"
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
 msgstr "Aihe"
-
-#: ajapaik/ajapaik_face_recognition/models.py:13
-#: ajapaik/ajapaik_face_recognition/models.py:66
-msgid "Algorithm"
-msgstr "Algoritmi"
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-#: ajapaik/ajapaik_face_recognition/models.py:67
-msgid "Picasa"
-msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
@@ -2263,315 +1598,3 @@ msgstr "englanti"
 msgid "Finnish"
 msgstr "suomi"
 
-#~ msgid "Ajapaik on EV100"
-#~ msgstr "Ajapaik on EV100"
-
-#~ msgid "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
-#~ msgstr "Ajapaik is a gift for the 100th birthday of the Republic of Estonia"
-
-#~ msgid ""
-#~ "Show us your support by signing up as a contributor at the EV100 page"
-#~ msgstr ""
-#~ "Show us your support by signing up as a contributor at the EV100 page"
-
-#~ msgid "Timepatch (Ajapaik) - curate"
-#~ msgstr "Timepatch (Ajapaik) - curate"
-
-#~ msgid "Log out"
-#~ msgstr "Log out"
-
-#~ msgid "Toggle navigation"
-#~ msgstr "Toggle navigation"
-
-#~ msgid "Select"
-#~ msgstr "Select"
-
-#~ msgid "Norwegian"
-#~ msgstr "Norwegian"
-
-#~ msgid "Newsletter"
-#~ msgstr "Newsletter"
-
-#~ msgid "Subscribe to our newsletter"
-#~ msgstr "Subscribe to our newsletter"
-
-#~ msgid "Your name"
-#~ msgstr "Your name"
-
-#~ msgid "Subscribe"
-#~ msgstr "Subscribe"
-
-#~ msgid "Newsletter archive"
-#~ msgstr "Newsletter archive"
-
-#~ msgid "Open tour"
-#~ msgstr "Open tour"
-
-#~ msgid "Fixed photo set"
-#~ msgstr "Fixed photo set"
-
-#~ msgid "Random with nearby pictures"
-#~ msgstr "Random with nearby pictures"
-
-#~ msgid "Donation details"
-#~ msgstr "Donation details"
-
-#~ msgid "Register to save your contribution."
-#~ msgstr "Log in to save your score"
-
-#~ msgid ""
-#~ "Only pictures with locations can be selected for tours. Currently "
-#~ "%(count_with_location)s image."
-#~ msgid_plural ""
-#~ "Only pictures with locations can be selected for tours. Currently "
-#~ "%(count_with_location)s images."
-#~ msgstr[0] "be7d62808d2348ddb05e64bbe8ec865b_pl_0"
-#~ msgstr[1] "be7d62808d2348ddb05e64bbe8ec865b_pl_1"
-
-#~ msgid "Create Then and Now Tour"
-#~ msgstr "Create Then and Now Tour"
-
-#~ msgid "Find and rephotograph historic views"
-#~ msgstr "Find and rephotograph historic views"
-
-#~ msgid "Ajapaik"
-#~ msgstr "Ajapaik"
-
-#~ msgid "Then & Now Tours"
-#~ msgstr "Then & Now Tours"
-
-#~ msgid "About tour"
-#~ msgstr "About tour"
-
-#~ msgid "Participants"
-#~ msgstr "Participants"
-
-#~ msgid "Manage"
-#~ msgstr "Manage"
-
-#~ msgid "My Tours"
-#~ msgstr "My Tours"
-
-#~ msgid "My Rephotos"
-#~ msgstr "My Rephotos"
-
-#~ msgid "Settings"
-#~ msgstr "Settings"
-
-#~ msgid "Join group"
-#~ msgstr "Join group"
-
-#~ msgid "Random"
-#~ msgstr "Random"
-
-#~ msgid ""
-#~ "You specify the number of pictures in the tour, pictures are selected "
-#~ "randomly around a specific location"
-#~ msgstr ""
-#~ "You specify the number of pictures in the tour, pictures are selected "
-#~ "randomly around a specific location"
-
-#~ msgid "Open"
-#~ msgstr "Open"
-
-#~ msgid ""
-#~ "Any picture near the user can be rephotographed. Suitable for competition "
-#~ "between groups (you can choose the number of groups and their maximum "
-#~ "size)"
-#~ msgstr ""
-#~ "Any picture near the user can be rephotographed. Suitable for competition "
-#~ "between groups (you can choose the number of groups and their maximum "
-#~ "size)"
-
-#~ msgid "Handpicked"
-#~ msgstr "Handpicked"
-
-#~ msgid "Tour with handpicked images."
-#~ msgstr "Tour with handpicked images."
-
-#~ msgid "Next"
-#~ msgstr "Next"
-
-#~ msgid "Places search"
-#~ msgstr "Places search"
-
-#~ msgid "pictures on current map view"
-#~ msgstr "pictures on current map view"
-
-#~ msgid "zoom in to view markers"
-#~ msgstr "zoom in to view markers"
-
-#~ msgid "Selected markers"
-#~ msgstr "Selected markers"
-
-#~ msgid "Clear"
-#~ msgstr "Clear"
-
-#~ msgid "Number of images to rephotograph"
-#~ msgstr "Number of images to rephotograph"
-
-#~ msgid "Create tour"
-#~ msgstr "Create tour"
-
-#~ msgid "Tour summary"
-#~ msgstr "Tour summary"
-
-#~ msgid "Type"
-#~ msgstr "Type"
-
-#~ msgid "Groups"
-#~ msgstr "Groups"
-
-#~ msgid ""
-#~ "Up to %(counter)s member\n"
-#~ "                    "
-#~ msgid_plural "Up to %(counter)s members"
-#~ msgstr[0] "d6ae46e2d0d448c37653c414974fe3ff_pl_0"
-#~ msgstr[1] "d6ae46e2d0d448c37653c414974fe3ff_pl_1"
-
-#~ msgid "Tour ID"
-#~ msgstr "Tour ID"
-
-#~ msgid "(use it to share your tour)"
-#~ msgstr "(use it to share your tour)"
-
-#~ msgid "View map"
-#~ msgstr "View map"
-
-#~ msgid "View gallery"
-#~ msgstr "View gallery"
-
-#~ msgid "Previous photo"
-#~ msgstr "Previous photo"
-
-#~ msgid "Next photo"
-#~ msgstr "Next photo"
-
-#~ msgid "View in Ajapaik"
-#~ msgstr "View in Ajapaik"
-
-#~ msgid "Picture in Ajapaik"
-#~ msgstr "Picture in Ajapaik"
-
-#~ msgid "You have already captured this photo"
-#~ msgstr "You have already captured this photo"
-
-#~ msgid "Someone from your group has already captured this photo"
-#~ msgstr "Someone from your group has already captured this photo"
-
-#~ msgid "Someone from group %(group)s has already captured this photo"
-#~ msgstr "Someone from group %(group)s has already captured this photo"
-
-#~ msgid "Try to always show rephoto"
-#~ msgstr "Try to always show rephoto"
-
-#~ msgid "Close rephoto"
-#~ msgstr "Close rephoto"
-
-#~ msgid "Previous rephoto"
-#~ msgstr "Previous rephoto"
-
-#~ msgid "Next rephoto"
-#~ msgstr "Next rephoto"
-
-#~ msgid "Send to Ajapaik"
-#~ msgstr "Send to Ajapaik"
-
-#~ msgid "Rephoto of"
-#~ msgstr "Rephoto of"
-
-#~ msgid "Ajapaik logo"
-#~ msgstr "Ajapaik logo"
-
-#~ msgid "Go"
-#~ msgstr "Go"
-
-#~ msgid "Create tour!"
-#~ msgstr "Create tour!"
-
-#~ msgid "My tours"
-#~ msgstr "My tours"
-
-#~ msgid "Select language"
-#~ msgstr "Select language"
-
-#~ msgid "Tour"
-#~ msgstr "Tour"
-
-#~ msgid "Update"
-#~ msgstr "Update"
-
-#~ msgid "Tours I've participated in"
-#~ msgstr "Tours I've participated in"
-
-#~ msgid "Tours I've viewed"
-#~ msgstr "Tours I've viewed"
-
-#~ msgid "%(counter)s rephoto"
-#~ msgid_plural "%(counter)s rephotos"
-#~ msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
-#~ msgstr[1] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
-
-#~ msgid "Tour complete!"
-#~ msgstr "Tour complete!"
-
-#~ msgid "Tour type"
-#~ msgstr "Tour type"
-
-#~ msgid "Number of random pictures"
-#~ msgstr "Number of random pictures"
-
-#~ msgid "We need your location to generate a random tour, please try again."
-#~ msgstr "We need your location to generate a random tour, please try again."
-
-#~ msgid "Number of photos must be specified for a random tour"
-#~ msgstr "Number of photos must be specified for a random tour"
-
-#~ msgid "With groups"
-#~ msgstr "With groups"
-
-#~ msgid "This group is full"
-#~ msgstr "This group is full"
-
-#~ msgid "You're already in group %(group)s"
-#~ msgstr "You're already in group %(group)s"
-
-#~ msgid "Group"
-#~ msgstr "Group"
-
-#~ msgid "Upload rephotos to Ajapaik"
-#~ msgstr "Upload rephotos to Ajapaik"
-
-#~ msgid "Photo set type"
-#~ msgstr "Photo set type"
-
-#~ msgid "Photos"
-#~ msgstr "Photos"
-
-#~ msgid "Group name"
-#~ msgstr "Group name"
-
-#~ msgid "Maximum number of members"
-#~ msgstr "Maximum number of members"
-
-#~ msgid "Members"
-#~ msgstr "Members"
-
-#~ msgid "Fixed tour"
-#~ msgstr "Fixed tour"
-
-#~ msgid "Failed to add rephoto to Ajapaik"
-#~ msgstr "Failed to add rephoto to Ajapaik"
-
-#~ msgid "Added rephoto to Ajapaik"
-#~ msgstr "Added rephoto to Ajapaik"
-
-#~ msgid ""
-#~ "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
-#~ "Ajapaik"
-#~ msgstr ""
-#~ "<a href=\"#\" id=\"ajapaik-donation-modal-link\">Donate</a> to support "
-#~ "Ajapaik"
-
-#~ msgid "feedback"
-#~ msgstr "feedback"

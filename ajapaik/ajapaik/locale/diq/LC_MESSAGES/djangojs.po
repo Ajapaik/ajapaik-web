@@ -1,7 +1,8 @@
-# Translation of Ajapaik Web app - JavaScript to Swedish (svenska)
+# Translation of Ajapaik Web app - JavaScript to Zazaki (Zazaki)
 # Exported from translatewiki.net
 #
-# Author: WikiPhoenix
+# Author: Mirzali
+# Author: Orbot707
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,40 +10,33 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 20:42+0300\n"
-"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
-"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
-"Language: sv\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2019-07-22 11:50:02+0000\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: diq\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "User denied the request for Geolocation."
-msgstr "Användaren avslog förfrågan om plats information."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:598
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:574
 msgid "Location information is unavailable."
-msgstr "Plats information är inte tillgänglig."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:601
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:577
 msgid "The request to get user location timed out."
-msgstr "Förfrågan om plats information tog för lång tid."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:604
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:580
 msgid "An unknown error occurred."
-msgstr "Ett okänt fel inträffade"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1257
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
@@ -50,86 +44,86 @@ msgstr "Ett okänt fel inträffade"
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Not selected"
-msgstr "Ej vald"
+msgstr "Nêweçiniya"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
-msgstr "Gå till min plats"
+msgstr "Şo cayê mı"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:268
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
-msgstr "Stäng"
+msgstr "Kip ke"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:728
 msgid "Pick the shooting location!"
-msgstr "Välj fotograferingsplatsen!"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:739
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:791
 msgid "Geotagged by this many users"
-msgstr "Geotaggad av så här många användare"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:772
 msgid "Confirm correct location"
-msgstr "Bekräfta nuvarande plats"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:783
 msgid "Submit your own location"
-msgstr "Bidra med en egen plats"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:810
 msgid "You"
-msgstr "Du"
+msgstr "Tı"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:814
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
-msgstr "Anonym användare"
+msgstr "Karbero bêname"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:816
 msgid "Anonymous users"
-msgstr "Anonyma användare"
+msgstr "Karberê bênameyi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:877
 msgid "Current location"
-msgstr "Nuvarande plats"
+msgstr "Cayo nıkayên"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "Mellan uppskattningsvis %(from)s och uppskattningsvis %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
-msgstr "Mellan uppskattningsvis %(from)s och %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
 msgid "Between %(from)s and approximately %(to)s"
-msgstr "Mellan %(from)s och uppskattningsvis %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
 msgid "Between %(from)s and %(to)s"
-msgstr "Mellan %(from)s och %(to)s"
+msgstr "Mabeynê %(from)s û %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
-msgstr "Efter uppskattningsvis %(from)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
 msgid "After %(from)s"
-msgstr "Efter %(from)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
 msgid "Before approximately %(to)s"
-msgstr "Innan uppskattningsvis %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
 msgid "Before %(to)s"
-msgstr "Innan %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
 msgid "Approximately %(date)s"
-msgstr "Uppskattningsvis %(date)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
 msgid "Invalid input, see help text."
@@ -142,7 +136,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr "Bekräfta datering"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
@@ -154,31 +148,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "Tack!"
+msgstr "Teşekur!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "YYYY.MM.DD"
-msgstr "ÅÅÅÅ.MM.DD"
+msgstr "SSSS.AA.RR"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:437
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr "Bıtexelne"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:446
 msgid "Submit"
-msgstr "Skicka"
+msgstr "Bırışe"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr "Kommentera din datering"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "Använd formatet YYYY.MM.DD (MM.DD är inte obligatoriskt)"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr "1878 | 1902.02"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
@@ -186,7 +180,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
-msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
@@ -198,15 +192,15 @@ msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "Du är anonym"
+msgstr "Şıma bênameyê"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Invert colors"
-msgstr "Invertera färger"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Flip"
-msgstr "Vänd"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Mark stereophoto"
@@ -214,7 +208,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Remove from selection"
-msgstr "Ta bort från markering"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -226,31 +220,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
-msgstr "Beskrivning"
+msgstr "Şınasnayış"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Author"
-msgstr "Författare"
+msgstr "Nuştekar"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Source"
-msgstr "Källa"
+msgstr "Çıme"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Size"
-msgstr "Storlek"
+msgstr "Gırdiye"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Institution"
-msgstr "Institution"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Number"
-msgstr "Antal"
+msgstr "Numre"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Date"
-msgstr "Datum"
+msgstr "Tarix"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "URL"
@@ -258,29 +252,29 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Title"
-msgstr "Titel"
+msgstr "Sername"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Licence"
-msgstr "Licens"
+msgstr "Lisans"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Points"
-msgstr "Poäng"
+msgstr "Nuqteyi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
 msgid "System error"
-msgstr "System fel"
+msgstr "Xetaya sistemi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "photos"
-msgstr "fotografier"
+msgstr "fotrafi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Source ID"
-msgstr "Käll ID"
+msgstr "Kamiya çımeyi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Image has no location info"
@@ -304,11 +298,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Rotate"
-msgstr "Rotera"
+msgstr "Bıçerexne"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures in album"
-msgstr "Bilder i album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures geotagged"
@@ -324,43 +318,43 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
 msgid "Album details"
-msgstr "Albumdetaljer"
+msgstr "Detayê albumi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Show pictures on map"
-msgstr "Visa bilder på karta"
+msgstr "Resımi xerita de bımocne"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
 msgid "Geotag pictures in album"
-msgstr ""
+msgstr "Albumê resımê Geotagi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
 msgid "Unknown author"
-msgstr "Okänd upphovsman"
+msgstr "Nuştekaro nêzanaye"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
 msgid "This album contains a film"
-msgstr "Detta album innehåller en film"
+msgstr "Enê albumi de yew film esto"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Picture already in album(s)"
-msgstr "Bild finns redan i album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"
-msgstr "Tidigaste"
+msgstr "Rewên"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Latest"
-msgstr "Senaste"
+msgstr "Tewr peyên"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
 msgid "Least"
-msgstr "Minst"
+msgstr "Peyên"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
 msgid "Most"
-msgstr "Mest"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
 msgid "Pictures furthest from you"
@@ -368,11 +362,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures closest to you"
-msgstr "Bilder närmast dig"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:127
 msgid "commented"
-msgstr "kommenterade"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:130
 msgid "rephotographed"
@@ -380,7 +374,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:133
 msgid "added"
-msgstr "lade till"
+msgstr "biyo cı"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:136
 msgid "geotagged"
@@ -388,19 +382,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:139
 msgid "liked"
-msgstr "gillade"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:142
 msgid "dated"
-msgstr "daterade"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:145
 msgid "viewed"
-msgstr "tittade på"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "pictures"
-msgstr "bilder"
+msgstr "resımi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "By reverse timestamp"
@@ -416,15 +410,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:244
 msgid "Albums"
-msgstr "Album"
+msgstr "Albumi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:250
 msgid "My favorites"
-msgstr "Mina favoriter"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
 msgid "My rephotos"
-msgstr ""
+msgstr "Refotoyê mı"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "Rephotos by %(user)s"
@@ -432,7 +426,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:263
 msgid "All photos"
-msgstr "Alla foton"
+msgstr "Heme fotrafi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
 msgid "Picture set has no "
@@ -448,11 +442,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
 msgid "You're anonymous."
-msgstr "Du är anonym."
+msgstr "Şıma bênameyê."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
 msgid " You can now log in with your e-mail."
-msgstr "Du kan nu logga in med din e-postadress."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
 msgid "Toggle map center lock"
@@ -460,7 +454,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
 msgid "Approximate"
-msgstr "Uppskattningsvis"
+msgstr "Texminen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
 msgid "Vantage point"
@@ -468,7 +462,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
-msgstr "Objekt"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
@@ -478,21 +472,21 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
-msgstr "Sökfält"
+msgstr "Qutiya cıgeyrayışi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
-msgstr "Tack ska du ha!"
+msgstr "Teşekur kenan!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
-msgstr "Genomsnittlig gissning"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
 msgid "Your guess"
-msgstr "Din gissning"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
@@ -500,15 +494,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
 msgid "Continue"
-msgstr "Fortsätt"
+msgstr "Dewam ke"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
 msgid "a little"
-msgstr "lite grann"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
 msgid "a lot"
-msgstr "mycket"
+msgstr "zehf"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
@@ -545,13 +539,13 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:787
 msgid "Remove album filter"
-msgstr "Ta bort albumfiltrering"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:795
 msgid "Apply album filter"
-msgstr "Tillämpa albumfiltrering"
+msgstr ""
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
-msgstr ""
+msgstr "'"
 

@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Esperanto (Esperanto)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # Author: Mirin
 # --
 # This file is part of the Ajapaik Project
@@ -9,8 +10,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-07-01 07:20:00+0000\n"
-"X-POT-Import-Date: 2019-07-01 07:12:05+0000\n"
+"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: eo\n"
@@ -428,9 +429,8 @@ msgid "All photos"
 msgstr "Ĉiuj fotoj"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#| msgid "Picture set has no rephotos"
-msgid "!!FUZZY!!Picture set has no rephotos"
-msgstr ""
+msgid "Picture set has no "
+msgstr "Bilda aro havas ne "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
