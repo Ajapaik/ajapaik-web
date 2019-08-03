@@ -50,8 +50,6 @@ class EuropeanaDriver(object):
     @staticmethod
     def transform_response(response, remove_existing=False, current_page=1):
         ids = None
-        date, author, credit, licence, licenceDesc, title, thumbnailUrl, imageUrl, recordUrl = \
-        None, None, None, None, None, None, None,None, None
 
         transformed = {
             'result': {
@@ -61,6 +59,9 @@ class EuropeanaDriver(object):
             }
         }
         for p in response['titles']:
+            date, author, credit, licence, licenceDesc, title, thumbnailUrl, imageUrl, recordUrl = \
+            None, None, None, None, None, None, None,None, None
+
             print(p, file=sys.stderr)
 
             try:
@@ -78,7 +79,7 @@ class EuropeanaDriver(object):
 
                 if 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
-                        author=p['edmAgentLabelLangAware'][lang]
+                        author=", ".join(p['edmAgentLabelLangAware'][lang])
 
                 if 'edmIsShownBy' in p:
                     for url in p['edmIsShownBy']:
@@ -142,12 +143,17 @@ class EuropeanaDriver(object):
                 print("remove existing", file=sys.stderr)
                 continue
 
+            existing_photo =  Photo.objects.filter(source_url=transformed_item['urlToRecord']).first()
+            if 0 and remove_existing and existing_photo:
+                print("remove existing", file=sys.stderr)
+                continue
+
 
             if existing_photo:
                 transformed_item['ajapaikId'] = existing_photo.id
                 album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
-                    .values_list('id', 'name')
+                transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
+                    .values_list('id', 'name').distinct())
 
             print(transformed_item, file=sys.stderr)
             transformed['result']['firstRecordViews'].append(transformed_item)
