@@ -93,6 +93,14 @@ class EuropeanaDriver(object):
                            thumbnailUrl=url
                            break
 
+                latitude = p.get('edmPlaceLatitude') or None
+                longitude = p.get('edmPlaceLongitude') or None
+
+                if latitude:
+                    latitude=latitude[0]
+                if longitude:
+                    longitude=longitude[0]
+
                 if not title or title == "":
                     if 'title' in p:
                         title=p['title'][0]
@@ -116,8 +124,8 @@ class EuropeanaDriver(object):
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
                     'urlToRecord': p['guid'].split("?")[0],
-                    'latitude': p.get('edmPlaceLatitude',"") or None,
-                    'longitude': p.get('edmPlaceLongitude',"") or None,
+                    'latitude': latitude,
+                    'longitude': longitude,
                     'creators':author,
                     'description': title,
                     'licence': licenceDesc,

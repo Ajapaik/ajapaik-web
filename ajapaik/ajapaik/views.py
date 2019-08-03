@@ -2300,6 +2300,9 @@ def curator_photo_upload_handler(request):
 						context["photos"][k]["message"] = _("Photo already exists in Ajapaik")
 			else:
 				print(upload_form.errors)
+				context["photos"][k] = {}
+				context["photos"][k]["error"] = _("Error uploading file: %s" % upload_form.errors)
+
 		if general_albums:
 			for ga in general_albums:
 				requests.post(
