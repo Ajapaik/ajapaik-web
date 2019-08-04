@@ -1839,7 +1839,8 @@ def public_add_area(request):
 
 
 @ensure_csrf_cookie
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=curator')
+#Commented out because there is sociallogin users without confirmed email
+#@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=curator')
 def curator(request):
 	last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
 	# FIXME: Ugly
@@ -2143,7 +2144,9 @@ def curator_photo_upload_handler(request):
 						incoming_muis_id = upload_form.cleaned_data["id"]
 					if 'ETERA' in upload_form.cleaned_data["institution"]:
 						upload_form.cleaned_data["types"] = "photo"
-					if '_' in incoming_muis_id:
+					if '_' in incoming_muis_id \
+						and not ('finna.fi' in upload_form.cleaned_data["urlToRecord"]) \
+						and not ('europeana.eu' in upload_form.cleaned_data["urlToRecord"]):
 						muis_id = incoming_muis_id.split('_')[0]
 						muis_media_id = incoming_muis_id.split('_')[1]
 					else:
