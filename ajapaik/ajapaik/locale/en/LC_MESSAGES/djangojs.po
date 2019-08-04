@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-28 16:52+0300\n"
+"POT-Creation-Date: 2019-08-04 17:16+0300\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -593,11 +593,11 @@ msgstr "Apply album filter"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
 msgid "Image similarities mapped, thanks!"
-msgstr ""
+msgstr "Image similarities mapped, thanks!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
 msgid "Something went wrong"
-msgstr ""
+msgstr "Something went wrong"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -605,36 +605,36 @@ msgstr "'"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
-msgstr ""
+msgstr "Failed to load faces, sorry."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
 msgid "Annotation added, thanks!"
-msgstr ""
+msgstr "Annotation added, thanks!"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
 msgid "Failed to record your rectangle, sorry."
-msgstr ""
+msgstr "Failed to record your rectangle, sorry."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
 msgid "Thank you! Bad rectangle deleted."
-msgstr ""
+msgstr "Thank you! Bad rectangle deleted."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Failed to send your feedback, sorry."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
 msgid "Failed to send your submission, sorry."
-msgstr ""
+msgstr "Failed to send your submission, sorry."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
 msgid "Failed retrieving person tagging form, sorry."
-msgstr ""
+msgstr "Failed retrieving person tagging form, sorry."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
-msgstr ""
+msgstr "Who is this?"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
-msgstr ""
+msgstr "Are you sure you wish to have this annotation removed?"

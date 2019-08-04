@@ -10,12 +10,13 @@
 #
 msgid ""
 msgstr ""
-""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-04 17:16+0300\n"
 "PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh-Hant\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -212,12 +213,19 @@ msgid "Remove from selection"
 msgstr "從所選來移除"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "圖片已存在 Ajapaik 上，您仍可以添加到您的相簿裡；但不會獲得策展積分獎勵"
+msgid ""
+"Picture is already in Ajapaik. You can still add it to your album, no "
+"curation points awarded"
+msgstr ""
+"圖片已存在 Ajapaik 上，您仍可以添加到您的相簿裡；但不會獲得策展積分獎勵"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr "您確定您要建立小於 5 張照片的相簿嗎？我們建議建立內容至少有 10 張或更多相片的相簿。"
+msgid ""
+"Are you sure you want to create an album with less than 5 photos? We "
+"recommend to create albums with at least 10 or more pictures."
+msgstr ""
+"您確定您要建立小於 5 張照片的相簿嗎？我們建議建立內容至少有 10 張或更多相片的"
+"相簿。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -434,7 +442,9 @@ msgid "Picture set has no "
 msgstr "圖片集裡沒有 "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgid ""
+"You've seen all the pictures in this album, we are now showing you random "
+"photos."
 msgstr "因您已看過此相簿裡的所有圖片，我們現在秀給您隨機照片。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
@@ -468,7 +478,9 @@ msgstr "物體"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgid ""
+"Grab and drag the MAP so that the marker is where the photographer was "
+"standing."
 msgstr "拖曳地圖，標記為攝影者所站位置"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
@@ -506,28 +518,46 @@ msgid "a lot"
 msgstr "很多"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr "點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉地圖來更正位置。"
+msgid ""
+"Click the green button to save both the location and the direction of the "
+"view. Click on the map to unlock the direction, drag map to correct the "
+"location."
+msgstr ""
+"點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉地圖來更正位"
+"置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgid ""
+"Click on the map to lock the direction of the view or click yellow button to "
+"save only the location."
 msgstr "在地圖上點擊來鎖定檢視的方向，或是點擊黃色按鈕來僅儲存位置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉標記來更正位置。"
+msgid ""
+"Click the green button to save both the location and the direction of the "
+"view. Click on the map to unlock the direction, drag MARKER to correct the "
+"location."
+msgstr ""
+"點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉標記來更正位"
+"置。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgid ""
+"Now you can drag the MARKER where the photographer was standing and the MAP "
+"separately."
 msgstr "現在您可以分別拖拉攝影者所站的標記與地圖。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgid ""
+"Drag the map so that the circle covers the approximate location, click save "
+"when ready."
 msgstr "拖拉地圖來讓圓圈覆蓋大約位置，在準備好後點擊儲存。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgid ""
+"Drag the map so that the marker is on top of the object you see on the "
+"picture, click save when ready."
 msgstr "拖拉地圖來讓標記位於您在圖片所見的物體上方，在準備好後點擊儲存。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
@@ -546,7 +576,50 @@ msgstr "移除相簿篩選"
 msgid "Apply album filter"
 msgstr "套用相簿篩選"
 
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
+msgid "Image similarities mapped, thanks!"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
+msgid "Something went wrong"
+msgstr ""
+
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
 msgstr "'"
 
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
+msgid "Failed to load faces, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
+msgid "Annotation added, thanks!"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
+msgid "Failed to record your rectangle, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
+msgid "Thank you! Bad rectangle deleted."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+msgid "Failed to send your feedback, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
+msgid "Failed to send your submission, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
+msgid "Failed retrieving person tagging form, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
+msgid "Who is this?"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
+msgid "Are you sure you wish to have this annotation removed?"
+msgstr ""
