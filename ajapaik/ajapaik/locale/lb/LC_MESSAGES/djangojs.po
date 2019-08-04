@@ -8,12 +8,13 @@
 #
 msgid ""
 msgstr ""
-""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-04 17:16+0300\n"
 "PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"Language: lb\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lb\n"
+"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -210,11 +211,15 @@ msgid "Remove from selection"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgid ""
+"Picture is already in Ajapaik. You can still add it to your album, no "
+"curation points awarded"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgid ""
+"Are you sure you want to create an album with less than 5 photos? We "
+"recommend to create albums with at least 10 or more pictures."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
@@ -432,7 +437,9 @@ msgid "Picture set has no "
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgid ""
+"You've seen all the pictures in this album, we are now showing you random "
+"photos."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
@@ -466,7 +473,9 @@ msgstr "Objet"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgid ""
+"Grab and drag the MAP so that the marker is where the photographer was "
+"standing."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
@@ -504,28 +513,42 @@ msgid "a lot"
 msgstr "vill"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgid ""
+"Click the green button to save both the location and the direction of the "
+"view. Click on the map to unlock the direction, drag map to correct the "
+"location."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgid ""
+"Click on the map to lock the direction of the view or click yellow button to "
+"save only the location."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgid ""
+"Click the green button to save both the location and the direction of the "
+"view. Click on the map to unlock the direction, drag MARKER to correct the "
+"location."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgid ""
+"Now you can drag the MARKER where the photographer was standing and the MAP "
+"separately."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgid ""
+"Drag the map so that the circle covers the approximate location, click save "
+"when ready."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgid ""
+"Drag the map so that the marker is on top of the object you see on the "
+"picture, click save when ready."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
@@ -544,7 +567,50 @@ msgstr ""
 msgid "Apply album filter"
 msgstr ""
 
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
+msgid "Image similarities mapped, thanks!"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
+msgid "Something went wrong"
+msgstr ""
+
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
 msgstr ""
 
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
+msgid "Failed to load faces, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
+msgid "Annotation added, thanks!"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
+msgid "Failed to record your rectangle, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
+msgid "Thank you! Bad rectangle deleted."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+msgid "Failed to send your feedback, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
+msgid "Failed to send your submission, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
+msgid "Failed retrieving person tagging form, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
+msgid "Who is this?"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
+msgid "Are you sure you wish to have this annotation removed?"
+msgstr ""
