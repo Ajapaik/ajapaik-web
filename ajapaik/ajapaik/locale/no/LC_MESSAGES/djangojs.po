@@ -7,13 +7,13 @@
 #
 msgid ""
 msgstr ""
+""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/no/)\n"
+"Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
@@ -216,20 +216,12 @@ msgid "Remove from selection"
 msgstr "Fjern fra utvalg"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid ""
-"Picture is already in Ajapaik. You can still add it to your album, no "
-"curation points awarded"
-msgstr ""
-"Bildet er allerede i Ajapaik. Du kan fremdeles legge det til ditt album, men "
-"får ingen poeng for utvalg"
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Bildet er allerede i Ajapaik. Du kan fremdeles legge det til ditt album, men får ingen poeng for utvalg"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid ""
-"Are you sure you want to create an album with less than 5 photos? We "
-"recommend to create albums with at least 10 or more pictures."
-msgstr ""
-"Er du sikker på at du vil opprette et album med mindre enn 5 bilder? Vi "
-"anbefaler at du opprettet album med minst 10 bilder."
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr "Er du sikker på at du vil opprette et album med mindre enn 5 bilder? Vi anbefaler at du opprettet album med minst 10 bilder."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -446,12 +438,8 @@ msgid "Picture set has no "
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid ""
-"You've seen all the pictures in this album, we are now showing you random "
-"photos."
-msgstr ""
-"Du har sett alle bildene i dette albumet, og vi viser deg nå tilfeldige "
-"bilder."
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgstr "Du har sett alle bildene i dette albumet, og vi viser deg nå tilfeldige bilder."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
@@ -484,11 +472,8 @@ msgstr "Objekt"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid ""
-"Grab and drag the MAP so that the marker is where the photographer was "
-"standing."
-msgstr ""
-"Klikk og dra i kart slik at markøren blir plassert der fotografen stod."
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr "Klikk og dra i kart slik at markøren blir plassert der fotografen stod."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -525,54 +510,29 @@ msgid "a lot"
 msgstr "mye"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag map to correct the "
-"location."
-msgstr ""
-"Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet "
-"for å låse opp retning og dra kartet til den korrekte lokasjonen."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr "Klikk på den grønne knappen for å lagre lokasjon og retning. Klikk på kartet for å låse opp retning og dra kartet til den korrekte lokasjonen."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
-msgstr ""
-"Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun "
-"lagre lokasjon."
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr "Klikk på kartet for å låse retning eller klikk på den gule knappen for å kun lagre lokasjon."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag MARKER to correct the "
-"location."
-msgstr ""
-"Klikk på den grønne knappen for å lagre både lokasjon og retning. Klikk på "
-"kartet for å låse opp retningen og dra MARKØREN til den riktige lokasjonen."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr "Klikk på den grønne knappen for å lagre både lokasjon og retning. Klikk på kartet for å låse opp retningen og dra MARKØREN til den riktige lokasjonen."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid ""
-"Now you can drag the MARKER where the photographer was standing and the MAP "
-"separately."
-msgstr ""
-"Nå kan du dra MARKØREN til der fotografen stod og du kan også flytte KARTET"
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgstr "Nå kan du dra MARKØREN til der fotografen stod og du kan også flytte KARTET"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid ""
-"Drag the map so that the circle covers the approximate location, click save "
-"when ready."
-msgstr ""
-"Dra kartet slik at sirkelen dekker den omtrentlige lokasjonen og klik på "
-"Lagre når du er ferdig."
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr "Dra kartet slik at sirkelen dekker den omtrentlige lokasjonen og klik på Lagre når du er ferdig."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid ""
-"Drag the map so that the marker is on top of the object you see on the "
-"picture, click save when ready."
-msgstr ""
-"Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre "
-"når du er ferdig."
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Dra kartet slik at markøren er over objektet du ser på bildet og klikk Lagre når du er ferdig."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
@@ -637,3 +597,4 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
+

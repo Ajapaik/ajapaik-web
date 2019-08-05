@@ -8,13 +8,13 @@
 #
 msgid ""
 msgstr ""
+""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-07-29 12:18:32+0000\n"
+"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
@@ -182,9 +182,7 @@ msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr ""
-"Kuupäevavahemikke või enne/pärast märgi kas \"-\" (sidekriipsu) või \".."
-"\" (kahe punkti) abil"
+msgstr "Kuupäevavahemikke või enne/pärast märgi kas \"-\" (sidekriipsu) või \"..\" (kahe punkti) abil"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -219,20 +217,12 @@ msgid "Remove from selection"
 msgstr "Eemalda valikust"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid ""
-"Picture is already in Ajapaik. You can still add it to your album, no "
-"curation points awarded"
-msgstr ""
-"Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa "
-"kureerimise punkte"
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Pilt on juba Ajapaigas. Selle saab albumisse lisada, aga selle eest ei saa kureerimise punkte"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid ""
-"Are you sure you want to create an album with less than 5 photos? We "
-"recommend to create albums with at least 10 or more pictures."
-msgstr ""
-"Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt "
-"10 panna."
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr "Oled kindel, et soovid lisada albumi vähem kui 5 fotoga? Soovitame vähemalt 10 panna."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -449,12 +439,8 @@ msgid "Picture set has no "
 msgstr "Pildivalimis ei ole "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid ""
-"You've seen all the pictures in this album, we are now showing you random "
-"photos."
-msgstr ""
-"Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti "
-"juhuslikult valitud pilte."
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgstr "Oled sellest albumist näinud kõiki pilte, edaspidi näitame uuesti juhuslikult valitud pilte."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
@@ -487,12 +473,8 @@ msgstr "Objekt"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid ""
-"Grab and drag the MAP so that the marker is where the photographer was "
-"standing."
-msgstr ""
-"Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf "
-"pilti tehes. Järgmise klikiga saad määrata vaate suuna."
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr "Liiguta kaarti nii, et marker jääks selle koha peale, kus seisis fotograaf pilti tehes. Järgmise klikiga saad määrata vaate suuna."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -529,54 +511,29 @@ msgid "a lot"
 msgstr "palju"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag map to correct the "
-"location."
-msgstr ""
-"Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate "
-"suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks "
-"nihuta kaarti."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr "Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks nihuta kaarti."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
-msgstr ""
-"Klikk kaardil lukustab vaate suuna. Ainult asukoha salvestamiseks vajuta "
-"kollast nuppu."
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr "Klikk kaardil lukustab vaate suuna. Ainult asukoha salvestamiseks vajuta kollast nuppu."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag MARKER to correct the "
-"location."
-msgstr ""
-"Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate "
-"suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks "
-"nihuta MARKERIT."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr "Rohelisest nupust saad salvestada nii pildi tegemise koha kui ka vaate suuna. Klikk kaardil võtab suuna lukust lahti, asukoha korrigeerimiseks nihuta MARKERIT."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid ""
-"Now you can drag the MARKER where the photographer was standing and the MAP "
-"separately."
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
 msgstr "Nüüd saad nihutada eraldi MARKERIT ja KAARTI."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid ""
-"Drag the map so that the circle covers the approximate location, click save "
-"when ready."
-msgstr ""
-"Nihuta ja suumi kaarti nii, et ring kataks pildi tegemise ligikaudse koha."
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr "Nihuta ja suumi kaarti nii, et ring kataks pildi tegemise ligikaudse koha."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid ""
-"Drag the map so that the marker is on top of the object you see on the "
-"picture, click save when ready."
-msgstr ""
-"Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, seejärel "
-"salvesta."
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, seejärel salvesta."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
@@ -596,11 +553,11 @@ msgstr "Rakenda albumi filter"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
 msgid "Image similarities mapped, thanks!"
-msgstr ""
+msgstr "Piltide sarnasus on märgitud, aitäh"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
 msgid "Something went wrong"
-msgstr ""
+msgstr "Midagi läks valesti"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -608,36 +565,37 @@ msgstr "'"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
-msgstr ""
+msgstr "Nägude laadimine ebaõnnestus, vabandame."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
 msgid "Annotation added, thanks!"
-msgstr ""
+msgstr "Märgend lisatud, aitäh!"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
 msgid "Failed to record your rectangle, sorry."
-msgstr ""
+msgstr "Märgendi salvestamine ebaõnnestus, vabandame."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
 msgid "Thank you! Bad rectangle deleted."
-msgstr ""
+msgstr "Täname! Vale märgend eemaldatud."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Tagasiside saatmine ebaõnnestus, vabandame."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
 msgid "Failed to send your submission, sorry."
-msgstr ""
+msgstr "Sisestuse salvestamine ebaõnnestus, vabandame."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
 msgid "Failed retrieving person tagging form, sorry."
-msgstr ""
+msgstr "Isiku märgendamise vormi laadimine ebaõnnestus, vabandame."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
-msgstr ""
+msgstr "Kes see on?"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
-msgstr ""
+msgstr "Olete kindel, et soovite selle märgendi eemaldada?"
+

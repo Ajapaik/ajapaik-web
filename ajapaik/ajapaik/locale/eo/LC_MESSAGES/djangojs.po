@@ -9,13 +9,14 @@
 #
 msgid ""
 msgstr ""
+""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-01 16:14:48+0000\n"
+"PO-Revision-Date: 2019-08-05 09:57:30+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -212,20 +213,12 @@ msgid "Remove from selection"
 msgstr "Forigi el elektitaro"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid ""
-"Picture is already in Ajapaik. You can still add it to your album, no "
-"curation points awarded"
-msgstr ""
-"Bildo jam estas en Ajapaik. Vi povas tamen aldoni ĝin en vian albumon, sed "
-"vi ricevos neniun kuratoran poenton."
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Bildo jam estas en Ajapaik. Vi povas tamen aldoni ĝin en vian albumon, sed vi ricevos neniun kuratoran poenton."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid ""
-"Are you sure you want to create an album with less than 5 photos? We "
-"recommend to create albums with at least 10 or more pictures."
-msgstr ""
-"Ĉu vi certas ke vi volas krei albumon kun malpli ol 5 fotoj? Ni rekomendas "
-"ke vi kreu albumon kun almenaŭ 10 fotoj."
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr "Ĉu vi certas ke vi volas krei albumon kun malpli ol 5 fotoj? Ni rekomendas ke vi kreu albumon kun almenaŭ 10 fotoj."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -442,12 +435,8 @@ msgid "Picture set has no "
 msgstr "Bilda aro havas ne "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid ""
-"You've seen all the pictures in this album, we are now showing you random "
-"photos."
-msgstr ""
-"Vi jam vidis ĉiujn fotojn en ĉi tiu albumo; ni nun montras al vi hazardajn "
-"fotojn."
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgstr "Vi jam vidis ĉiujn fotojn en ĉi tiu albumo; ni nun montras al vi hazardajn fotojn."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
@@ -480,12 +469,8 @@ msgstr "Objekto"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid ""
-"Grab and drag the MAP so that the marker is where the photographer was "
-"standing."
-msgstr ""
-"Kapti kaj treni la MAPON, tiel ke la markilo estas ĉe kie la fotografinto "
-"estis."
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr "Kapti kaj treni la MAPON, tiel ke la markilo estas ĉe kie la fotografinto estis."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -522,56 +507,29 @@ msgid "a lot"
 msgstr "iomege"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag map to correct the "
-"location."
-msgstr ""
-"Alklaku la verdan butonon por konservi kaj la lokon kaj la vidodirekton. "
-"Alklaku la mapon por malŝlosi la direkton; trenu mapon por korekti la lokon."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr "Alklaku la verdan butonon por konservi kaj la lokon kaj la vidodirekton. Alklaku la mapon por malŝlosi la direkton; trenu mapon por korekti la lokon."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
-msgstr ""
-"Alklaku la mapon por ŝlosi la direkton de la vido, aŭ alklaku la flavan "
-"butonon por konservi nur la lokon."
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr "Alklaku la mapon por ŝlosi la direkton de la vido, aŭ alklaku la flavan butonon por konservi nur la lokon."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag MARKER to correct the "
-"location."
-msgstr ""
-"Alklaku la verdan butonon por konservi kaj la lokon kaj la vidodirekton. "
-"Alklaku la mapon por malŝlosi la direkton; trenu MARKILON por korekti la "
-"lokon."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr "Alklaku la verdan butonon por konservi kaj la lokon kaj la vidodirekton. Alklaku la mapon por malŝlosi la direkton; trenu MARKILON por korekti la lokon."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid ""
-"Now you can drag the MARKER where the photographer was standing and the MAP "
-"separately."
-msgstr ""
-"Nun vi povas aparte treni kaj la MARKILON, ĉe kie la fotografinto ĉeestis, "
-"kaj la MAPON."
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgstr "Nun vi povas aparte treni kaj la MARKILON, ĉe kie la fotografinto ĉeestis, kaj la MAPON."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid ""
-"Drag the map so that the circle covers the approximate location, click save "
-"when ready."
-msgstr ""
-"Trenu la mapon tien ke la cirklo kovras la proksimuma lokon, kaj alklaku "
-"'Konservi' kiam la mapo estas preta."
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr "Trenu la mapon tien ke la cirklo kovras la proksimuma lokon, kaj alklaku 'Konservi' kiam la mapo estas preta."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid ""
-"Drag the map so that the marker is on top of the object you see on the "
-"picture, click save when ready."
-msgstr ""
-"Trenu la mapon tien, ke la markilo estas sur la objekto prezentata de la "
-"bildo; alklaku la butonon 'Konservi', kiam ĝi estas preta."
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Trenu la mapon tien, ke la markilo estas sur la objekto prezentata de la bildo; alklaku la butonon 'Konservi', kiam ĝi estas preta."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
@@ -636,3 +594,4 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
+

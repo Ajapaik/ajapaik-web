@@ -6,16 +6,16 @@
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
 #
-#: ajapaik/ajapaik/views.py:665
 msgid ""
 msgstr ""
+""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-01 16:14:49+0000\n"
+"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-07-29 08:06:07+0000\n"
+"X-POT-Import-Date: 2019-08-05 06:48:04+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -94,8 +94,7 @@ msgstr "Álbum pai"
 
 #: ajapaik/ajapaik/forms.py:411
 msgid "If this album is tied to a certain location, specify here"
-msgstr ""
-"Se este álbum estiver vinculado a um determinado local, especifique aqui"
+msgstr "Se este álbum estiver vinculado a um determinado local, especifique aqui"
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Album type"
@@ -114,42 +113,8 @@ msgid "Email address"
 msgstr "Endereço de e-mail"
 
 #: ajapaik/ajapaik/forms.py:435
-msgid ""
-"Comment box supports Markdown\n"
-"\n"
-"Paragraphs\n"
-"Add two new lines to start a new paragraph.\n"
-"\n"
-"Bold\n"
-"**Geotagging** is the first task on Ajapaik.\n"
-"\n"
-"Italic\n"
-"Next come *rephotography* and *dating*.\n"
-"\n"
-"Links\n"
-"Join the discussion on [Ajapaiklejad FB group](https://www.facebook.com/"
-"groups/ajapaiklejad).\n"
-"\n"
-"Images\n"
-"![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
-"Caixa de comentários suporta Markdown\n"
-"\n"
-"Parágrafos\n"
-"Adicione duas novas linhas para iniciar um novo parágrafo.\n"
-"\n"
-"Negrito\n"
-"**Marcação geográfica** é a primeira tarefa no Ajapaik.\n"
-"\n"
-"itálico\n"
-"Em seguida vem *repografia* e *namoro*.\n"
-"\n"
-"Links\n"
-"Participe da discussão no [Ajapaiklejad grupo no FB](https://www.facebook."
-"com/groups/ajapaiklejad).\n"
-"\n"
-"Imagens\n"
-"![Ajapaik é presente para EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Caixa de comentários suporta Markdown\n\nParágrafos\nAdicione duas novas linhas para iniciar um novo parágrafo.\n\nNegrito\n**Marcação geográfica** é a primeira tarefa no Ajapaik.\n\nitálico\nEm seguida vem *repografia* e *namoro*.\n\nLinks\nParticipe da discussão no [Ajapaiklejad grupo no FB](https://www.facebook.com/groups/ajapaiklejad).\n\nImagens\n![Ajapaik é presente para EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:471
 msgid "Nothing to change."
@@ -375,19 +340,8 @@ msgid "Original photo"
 msgstr "Foto original"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
-msgid ""
-"Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/"
-"mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti "
-"Fotopärand)</a> listed in the list of non-profit associations, foundations "
-"and religious associations benefiting from income tax incentives. We declare "
-"your donations and You will get income tax refunds for that."
-msgstr ""
-"Ajapaik é desenvolvido pelo <a href='http://xn--fotoprand-z2a.org.ee/wp/"
-"mtu/' target='_blank'>Sociedade do Património Fotográfico da Estónia (MTÜ "
-"Eesti Fotopärand)</a> listados na lista de associações sem fins lucrativos, "
-"fundações e associações religiosas que se beneficiam de incentivos fiscais "
-"de renda. Declaramos suas doações e você receberá reembolsos de imposto de "
-"renda por isso."
+msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
+msgstr "Ajapaik é desenvolvido pelo <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Sociedade do Património Fotográfico da Estónia (MTÜ Eesti Fotopärand)</a> listados na lista de associações sem fins lucrativos, fundações e associações religiosas que se beneficiam de incentivos fiscais de renda. Declaramos suas doações e você receberá reembolsos de imposto de renda por isso."
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
@@ -492,9 +446,7 @@ msgid "Ajapaik Brave referral"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
-msgid ""
-"Try the Brave browser - it's based on Chromium and you can award your "
-"favourite sites with cryptocurrency."
+msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
@@ -523,8 +475,7 @@ msgstr "Classificar por tempo de exibição adicionado ou quantidade"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
-msgstr ""
-"Classificar por tempo de etiquetas geográficas adicionado ou quantidade"
+msgstr "Classificar por tempo de etiquetas geográficas adicionado ou quantidade"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
@@ -619,17 +570,12 @@ msgid "Discover how places looked like years ago by"
 msgstr "Descubra como os lugares pareciam anos atrás por"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
-msgid ""
-"* searching historic view pictures from Estonian museums' collections and "
-"curating selected images to Ajapaik,"
-msgstr ""
-"* pesquisando imagens históricas de coleções de museus estonianos e curando "
-"imagens selecionadas para Ajapaik,"
+msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
+msgstr "* pesquisando imagens históricas de coleções de museus estonianos e curando imagens selecionadas para Ajapaik,"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
-msgstr ""
-"* marcação geográfica de fotos de lugares que você está familiarizado e"
+msgstr "* marcação geográfica de fotos de lugares que você está familiarizado e"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:23
 msgid "* rephotographing the historic views from places you visit."
@@ -637,22 +583,14 @@ msgstr "* Repotografar as vistas históricas dos lugares que você visita."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
-msgid ""
-"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>"
-"%(total_photos_tagged)s</b> pictures have been put on the map by <b>"
-"%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs "
-"for <b>%(rephotographed_photo_count)s</b> pictures made by <b>"
-"%(rephotographing_users)s</b> users."
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
-msgid ""
-"You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
-msgid_plural ""
-"You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] ""
-"Você sugeriu localização para <b>%(user_geotagged_photos)s</b> foto."
+msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
+msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
+msgstr[0] "Você sugeriu localização para <b>%(user_geotagged_photos)s</b> foto."
 msgstr[1] "Você sugeriu locais para <b>%(user_geotagged_photos)s</b> fotos."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
@@ -670,6 +608,7 @@ msgstr[0] "<b>%(user_rephotographed_photos)s</b> foto."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> fotos."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
+#, fuzzy
 msgid "General statistics refresh every 10 minutes."
 msgstr "Atualizações gerais de estatísticas a cada 10 minutos."
 
@@ -1014,12 +953,8 @@ msgstr "Adicionar repotografia"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:186
-msgid ""
-"Tag a new face - clicking this button will enable you to draw a face "
-"rectangle on the main image"
-msgstr ""
-"Marcar um novo rosto - clicar neste botão permite desenhar um retângulo de "
-"rosto na imagem principal"
+msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
+msgstr "Marcar um novo rosto - clicar neste botão permite desenhar um retângulo de rosto na imagem principal"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
 msgid "Discuss"
@@ -1052,13 +987,8 @@ msgid "Select file..."
 msgstr "Selecionar arquivos..."
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
-msgid ""
-"Make a contemporary rephoto from the very same place where the historic "
-"picture was taken and upload it. Uploaded rephotograph will be attributed to "
-"you under the"
-msgstr ""
-"Faça uma repotografia contemporânea do mesmo lugar onde a foto histórica foi "
-"tirada e faça o upload. O repotógrafo carregado será atribuído a você sob o"
+msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
+msgstr "Faça uma repotografia contemporânea do mesmo lugar onde a foto histórica foi tirada e faça o upload. O repotógrafo carregado será atribuído a você sob o"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
 msgid "licence"
@@ -1093,10 +1023,7 @@ msgid "Compare images"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
-msgid ""
-"Indicate whether the content on pictures is overlapping or not. In the case "
-"of overlapping content the place or object is the same, in the case of same "
-"shot one of the pictures may also be cropped."
+msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
@@ -1110,7 +1037,7 @@ msgstr "Você é anônimo. Agora você pode entrar com seu e-mail."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-msgid "Forgot Password?"
+msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
@@ -1135,14 +1062,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail Address"
+msgid "Confirm E-mail address"
 msgstr "Confirmar endereço de E-mail"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
-msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
-"address for user %(user_display)s."
+msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
@@ -1151,31 +1076,23 @@ msgstr "Confirmar"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
-msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Entrar"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
-msgid ""
-"Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
-"up</a>\n"
-"for a %(site_name)s account and sign in below:"
+msgid "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format
-msgid ""
-"If you have not created an account yet, then please\n"
-"<a href=\"%(signup_url)s\">sign up</a> first."
+msgid "If you have not created an account yet, then please\n<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
@@ -1186,9 +1103,7 @@ msgid "Password Reset"
 msgstr "Resetar a senha"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:15
-msgid ""
-"Forgotten your password? Enter your e-mail address below, and we'll send you "
-"an e-mail allowing you to reset it."
+msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
@@ -1200,9 +1115,7 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
+msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
@@ -1219,10 +1132,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
+msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
@@ -1238,8 +1148,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
@@ -1311,12 +1220,8 @@ msgid "Historic photo of"
 msgstr "Foto histórica de"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
-msgid ""
-"Curate historic photos from museums into Ajapaik for geotagging and "
-"rephotographing"
-msgstr ""
-"Curar fotos históricas dos museus em Ajapaik para marcação geográfica e "
-"repotografia"
+msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
+msgstr "Curar fotos históricas dos museus em Ajapaik para marcação geográfica e repotografia"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
@@ -1327,15 +1232,12 @@ msgstr "histórico,fotos,velho,fotos"
 #: ajapaik/ajapaik/templates/base_bootstrap.html:53
 #: ajapaik/ajapaik/templates/base_bootstrap.html:55
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr ""
-"histórico,imagens,imagens velhas,fotos,mapa,com etiquetas geográficas, "
-"localização"
+msgstr "histórico,imagens,imagens velhas,fotos,mapa,com etiquetas geográficas, localização"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:59
 #: ajapaik/ajapaik/templates/base_bootstrap.html:61
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
-msgstr ""
-"histórico,imagens,imagens velhas,fotos,crowdsourced,marcação geográfica, jogo"
+msgstr "histórico,imagens,imagens velhas,fotos,crowdsourced,marcação geográfica, jogo"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:65
 msgid "historic,picture,old,photo,before,after"
@@ -1356,12 +1258,8 @@ msgstr "Galeria de repotografias por %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:94
 #, python-format
-msgid ""
-"Album has %(album_photo_count)s historic pictures. Let's put pictures on the "
-"map!"
-msgstr ""
-"O álbum tem fotos %(album_photo_count)s históricas. Vamos colocar fotos no "
-"mapa!"
+msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
+msgstr "O álbum tem fotos %(album_photo_count)s históricas. Vamos colocar fotos no mapa!"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 msgid "Let's put pictures on the map"
@@ -1387,12 +1285,8 @@ msgid "Sorting"
 msgstr "Classificação"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:415
-msgid ""
-"This website uses cookies to ensure you get the best experience on our "
-"website"
-msgstr ""
-"Este site usa cookies para garantir que você obtenha a melhor experiência em "
-"nosso site"
+msgid "This website uses cookies to ensure you get the best experience on our website"
+msgstr "Este site usa cookies para garantir que você obtenha a melhor experiência em nosso site"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "Got it!"
@@ -1446,8 +1340,7 @@ msgstr "Excluir"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr ""
-"Tem certeza de que deseja excluir este comentário e todas as respostas?"
+msgstr "Tem certeza de que deseja excluir este comentário e todas as respostas?"
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
@@ -1484,12 +1377,8 @@ msgid "Thank you!"
 msgstr "Obrigado!"
 
 #: ajapaik/ajapaik/templates/curator.html:23
-msgid ""
-"Your photos have now been added to Ajapaik and can be interacted with as "
-"usual."
-msgstr ""
-"Suas fotos agora foram adicionadas ao Ajapaik e podem ser interagidas como "
-"de costume."
+msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
+msgstr "Suas fotos agora foram adicionadas ao Ajapaik e podem ser interagidas como de costume."
 
 #: ajapaik/ajapaik/templates/curator.html:25
 msgid "Points awarded for curating"
@@ -1747,14 +1636,11 @@ msgid "Account Connections"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
-msgid ""
-"You can sign in to your account using any of the following third party "
-"accounts:"
+msgid "You can sign in to your account using any of the following third party accounts:"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
-msgid ""
-"You currently have no social network accounts connected to this account."
+msgid "You currently have no social network accounts connected to this account."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
@@ -1763,16 +1649,8 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
-msgid ""
-"I, %(user)s, the copyright holder of this work, irrevocably grant anyone the "
-"right to use this work under the <a href=\"https://creativecommons.org/"
-"licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative "
-"Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
-"Eu, %(user)s, o detentor dos direitos autorais deste trabalho, "
-"irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a "
-"<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank"
-"\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Eu, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -1818,9 +1696,7 @@ msgid "Browse photos on map"
 msgstr "Procure fotos no mapa"
 
 #: ajapaik/ajapaik/views.py:1574
-msgid ""
-"Your contribution didn't change the estimated location for the photo, not "
-"yet anyway."
+msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Sua contribuição não alterou o local estimado para a foto, ainda não."
 
 #: ajapaik/ajapaik/views.py:1576
@@ -1832,12 +1708,8 @@ msgid "Your guess was first."
 msgstr "Seu palpite foi o primeiro."
 
 #: ajapaik/ajapaik/views.py:1852
-msgid ""
-"Search for old photos, add them to Ajapaik, determine their locations and "
-"share the resulting album!"
-msgstr ""
-"Procure fotos antigas, adicione-as ao Ajapaik, determine suas localizações e "
-"compartilhe o álbum resultante!"
+msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
+msgstr "Procure fotos antigas, adicione-as ao Ajapaik, determine suas localizações e compartilhe o álbum resultante!"
 
 #: ajapaik/ajapaik/views.py:2204
 msgid "OK"
@@ -1923,7 +1795,3 @@ msgstr "Inglês"
 msgid "Finnish"
 msgstr "Finlandês"
 
-#~ msgid "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
-#~ msgid_plural "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"
-#~ msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
-#~ msgstr[1] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_1"

@@ -8,13 +8,14 @@
 #
 msgid ""
 msgstr ""
+""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-07-22 11:50:03+0000\n"
+"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-07-18 18:21:14+0000\n"
+"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -211,20 +212,12 @@ msgid "Remove from selection"
 msgstr "Remover da seleção"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid ""
-"Picture is already in Ajapaik. You can still add it to your album, no "
-"curation points awarded"
-msgstr ""
-"A imagem já está em Ajapaik. Você ainda pode adicioná-lo ao seu álbum, sem "
-"pontos de curadoria concedidos"
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "A imagem já está em Ajapaik. Você ainda pode adicioná-lo ao seu álbum, sem pontos de curadoria concedidos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid ""
-"Are you sure you want to create an album with less than 5 photos? We "
-"recommend to create albums with at least 10 or more pictures."
-msgstr ""
-"Tem certeza de que deseja criar um álbum com menos de 5 fotos? Recomendamos "
-"criar álbuns com pelo menos 10 ou mais fotos."
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr "Tem certeza de que deseja criar um álbum com menos de 5 fotos? Recomendamos criar álbuns com pelo menos 10 ou mais fotos."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Description"
@@ -441,9 +434,7 @@ msgid "Picture set has no "
 msgstr "Conjunto de imagens não tem "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
-msgid ""
-"You've seen all the pictures in this album, we are now showing you random "
-"photos."
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
 msgstr "Você viu todas as fotos deste álbum, agora mostramos fotos aleatórias."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
@@ -477,11 +468,8 @@ msgstr "Objeto"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
-msgid ""
-"Grab and drag the MAP so that the marker is where the photographer was "
-"standing."
-msgstr ""
-"Pegue e arraste o MAP para que o marcador esteja onde o fotógrafo estava."
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr "Pegue e arraste o MAP para que o marcador esteja onde o fotógrafo estava."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -518,57 +506,29 @@ msgid "a lot"
 msgstr "muito"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag map to correct the "
-"location."
-msgstr ""
-"Clique no botão verde para salvar a localização e a direção da exibição. "
-"Clique no mapa para desbloquear a direção, arraste o mapa para corrigir o "
-"local."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr "Clique no botão verde para salvar a localização e a direção da exibição. Clique no mapa para desbloquear a direção, arraste o mapa para corrigir o local."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
-msgid ""
-"Click on the map to lock the direction of the view or click yellow button to "
-"save only the location."
-msgstr ""
-"Clique no mapa para bloquear a direção da visualização ou clique no botão "
-"amarelo para salvar apenas o local."
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr "Clique no mapa para bloquear a direção da visualização ou clique no botão amarelo para salvar apenas o local."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
-msgid ""
-"Click the green button to save both the location and the direction of the "
-"view. Click on the map to unlock the direction, drag MARKER to correct the "
-"location."
-msgstr ""
-"Clique no botão verde para salvar a localização e a direção da exibição. "
-"Clique no mapa para desbloquear a direção, arraste o MARCADOR para corrigir "
-"o local."
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr "Clique no botão verde para salvar a localização e a direção da exibição. Clique no mapa para desbloquear a direção, arraste o MARCADOR para corrigir o local."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
-msgid ""
-"Now you can drag the MARKER where the photographer was standing and the MAP "
-"separately."
-msgstr ""
-"Agora você pode arrastar o MARCADOR onde o fotógrafo estava em pé e o MAP "
-"separadamente."
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgstr "Agora você pode arrastar o MARCADOR onde o fotógrafo estava em pé e o MAP separadamente."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
-msgid ""
-"Drag the map so that the circle covers the approximate location, click save "
-"when ready."
-msgstr ""
-"Arraste o mapa para que o círculo cubra a localização aproximada, clique em "
-"salvar quando estiver pronto."
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr "Arraste o mapa para que o círculo cubra a localização aproximada, clique em salvar quando estiver pronto."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
-msgid ""
-"Drag the map so that the marker is on top of the object you see on the "
-"picture, click save when ready."
-msgstr ""
-"Arraste o mapa para que o marcador fique no topo do objeto que você vê na "
-"foto, clique em salvar quando estiver pronto."
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Arraste o mapa para que o marcador fique no topo do objeto que você vê na foto, clique em salvar quando estiver pronto."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
@@ -588,11 +548,11 @@ msgstr "Aplicar filtro de álbum"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
 msgid "Image similarities mapped, thanks!"
-msgstr ""
+msgstr "Semelhanças de imagem mapeadas, obrigado!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
 msgid "Something went wrong"
-msgstr ""
+msgstr "Algo deu errado"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -600,36 +560,37 @@ msgstr "'"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
-msgstr ""
+msgstr "Falha ao carregar rostos, desculpe"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
 msgid "Annotation added, thanks!"
-msgstr ""
+msgstr "Anotação adicionada, obrigado!"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
 msgid "Failed to record your rectangle, sorry."
-msgstr ""
+msgstr "Falha ao gravar seu retângulo, desculpe."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
 msgid "Thank you! Bad rectangle deleted."
-msgstr ""
+msgstr "Obrigado! Retângulo ruim excluído."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Não foi possível enviar seu feedback, desculpe."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
 msgid "Failed to send your submission, sorry."
-msgstr ""
+msgstr "Não foi possível enviar sua inscrição, desculpe."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
 msgid "Failed retrieving person tagging form, sorry."
-msgstr ""
+msgstr "Falha ao recuperar o formulário de marcação de pessoa, desculpe."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
-msgstr ""
+msgstr "Quem é esse?"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"
-msgstr ""
+msgstr "Tem certeza de que deseja remover esta anotação?"
+
