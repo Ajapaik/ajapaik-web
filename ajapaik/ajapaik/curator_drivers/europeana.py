@@ -173,19 +173,19 @@ class EuropeanaDriver(object):
                 if 'dcDescriptionLangAware' in p:
                     for lang in titlelangs:
                          if lang in p['dcDescriptionLangAware']:
-                             title=" - ".join(p['dcDescriptionLangAware'][lang])
+                             title=" - ".join(set(p['dcDescriptionLangAware'][lang]))
 
                 if 'dcTitleLangAware' in p and title == None:
                     for lang in titlelangs:
                          if lang in p['dcTitleLangAware']:
-                             title=" - ".join(p['dcTitleLangAware'][lang])
+                             title=" - ".join(set(p['dcTitleLangAware'][lang]))
 
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
-                        author=", ".join(p['dcCreatorLangAware'][lang])
+                        author=", ".join(set(p['dcCreatorLangAware'][lang]))
                 elif 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
-                        author=", ".join(p['edmAgentLabelLangAware'][lang])
+                        author=", ".join(set(p['edmAgentLabelLangAware'][lang]))
 
                 if 'edmIsShownBy' in p:
                     for url in p['edmIsShownBy']:
