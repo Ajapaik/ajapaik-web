@@ -180,6 +180,10 @@ msgstr "Is public"
 msgid "Is open"
 msgstr "Is open"
 
+#: ajapaik/ajapaik/forms.py:412
+msgid "Location"
+msgstr "Location"
+
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
 msgstr "Wikidata identifier"

@@ -185,6 +185,10 @@ msgstr "On avalik"
 msgid "Is open"
 msgstr "On avatud (kõik saavad pilte lisada)"
 
+#: ajapaik/ajapaik/forms.py:412 
+msgid  "Location"
+msgstr "Location"
+
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
 msgstr ""

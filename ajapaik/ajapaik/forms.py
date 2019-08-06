@@ -409,12 +409,16 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['subalbum_of'].label = _('Parent album')
         self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED) \
             .filter(Q(open=True) | Q(profile=self.profile))
+        self.fields['location'].label = _('Location')
         self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
         self.fields['lat'].widget = forms.HiddenInput()
         self.fields['lon'].widget = forms.HiddenInput()
         self.fields['atype'].label = _('Album type')
         self.fields['atype'].choices = [(Album.CURATED, _('Anything else')), (Album.PERSON, _('Person'))]
-
+        self.fields['name'].label = _('Name')
+        self.fields['description'].label = _('Description')
+        self.fields['is_public'].label = _('Is public')
+        self.fields['open'].label = _('Is open')
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
     albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
