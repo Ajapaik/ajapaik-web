@@ -203,9 +203,11 @@ class EuropeanaDriver(object):
                 elif title=="":
                     title=description
 
-                if not title or title == "":
-                    if 'title' in p and p['title']:
-                        title=p['title']
+                if ('title' in p and (not title or title == "")):
+                    if isinstance(p['title'], dict):
+                        title=", ".join(set(p['title']))
+                    else:
+                        title=p['title'].strip()
 
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:

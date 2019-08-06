@@ -134,7 +134,7 @@ class CommonsDriver(object):
                     'iiurlheight': 500,
                     'iiextmetadatamultilang':1
                 })
-                print(imageinfo.text)
+#                print(imageinfo.text)
                 imageinfo=imageinfo.json()
 
 
@@ -200,13 +200,14 @@ class CommonsDriver(object):
 
                                 if 'ImageDescription' in em and em['ImageDescription']['value']:
                                     desclangs=em['ImageDescription']['value']
-                                    if 0 and isinstance(desclangs, str):
-                                        description=strip_tags(desclangs).strip()
-                                    else:
+                                    if isinstance(desclangs, dict):
                                         for lang in desclangs:
                                             description=strip_tags(desclangs[lang]).strip()
                                             if lang in targetlangs:
                                                 break
+                                    else:
+                                        description=strip_tags(desclangs).strip()
+
 
                                 if 'GPSLatitude' in em and 'GPSLongitude' in em:
                                     latitude=em['GPSLatitude']['value']
