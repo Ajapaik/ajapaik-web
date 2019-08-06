@@ -7,15 +7,28 @@ from django.utils.html import strip_tags
 from json import dumps, loads
 from requests import get
 
+
+def europeana_find_photo_by_url(record_url, profile):
+    photo = None
+    return photo
+
 class EuropeanaDriver(object):
     def __init__(self):
         self.search_url = 'https://www.europeana.eu/api/v2/search.json'
         self.page_size = 20
 
     def urlToResponseTitles(self, url):
-        url=re.search('(https://www.europeana.eu/portal/.*?record.*?)(\.json|.html)?(\?|\#|$)',url).group(1)
-        json_url=url + ".json"
-        json=loads(get(json_url, {}).text)
+        response= {
+            'titles': [],
+            'pages': 0
+        }
+
+        url=re.search('https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|\#|$)',url).group(1)
+        json_url="https://www.europeana.eu/api/v2/" + url + ".json"
+        record_url="https://www.europeana.eu/portal/" + url +".html"
+        json=loads(get(json_url, {'wskey':settings.EUROPEANA_API_KEY}).text)
+
+        print(json_url)
 
         latitude = None
         longitude = None
@@ -23,20 +36,14 @@ class EuropeanaDriver(object):
         title = None
         id = None
         authors=""
-        langs = ['en', 'fi', 'ee', 'se', 'def']
+        langs = ['def', 'en', 'fi', 'ee', 'se']
 
-        response= {
-            'titles': [],
-            'pages': 0
-        }
 
-        if 'response' in json  \
-            and 'document' in json['response']\
-            and 'aggregations' in json['response']['document']:
-            d=json['response']['document']
-            a=json['response']['document']['aggregations'][0]
-            p=json['response']['document']['proxies']
-            places=json['response']['document']['places']
+        if 'object' in json and 'aggregations' in json['object']:
+            d=json['object']
+            a=d['aggregations'][0]
+            p=d['proxies']
+            places=d['places']
             id=re.search('record(\/.*?\/.*?)$',url).group(1)
             if not id:
                 return response
@@ -50,8 +57,13 @@ class EuropeanaDriver(object):
                     latitude = pp['edmPlaceLatitude']
                 if 'edmPlaceLongitude' in pp and longitude==None:
                     longitude = pp['edmPlaceLongitude']
-                if 'dcDescription' in pp and 'def' in pp['dcDescription']:
-                    title =  pp['dcDescription']['def'][0]
+
+                if 'dcDescription' in pp:
+                    title = pp['dcDescription']
+
+                if 'dcCreator' in pp:
+                    authors = pp['dcCreator']
+
                 if 'dcDate' in pp and 'def' in pp['dcDate']:
                     date = pp['dcDate']['def'][0].replace("start=", "").replace(";end="," - ")
 
@@ -62,18 +74,16 @@ class EuropeanaDriver(object):
                     if 'longitude' in place and longitude==None:
                         longitude=[place['longitude']]
 
-            if 'agents' in d:
+            if not authors and 'agents' in d:
                 for agent in d['agents']:
-                    if 'prefLabel' in agent and authors == "":
-                        for l in langs:
-                            if l in agent['prefLabel']:
-                                authors=agent['prefLabel'][l]
-                                break;
+                    if 'prefLabel' in agent:
+                        authors=agent['prefLabel']
+                        break;
 
             title={
                 'rights': a['edmRights']['def'],
-                'dcTitleLangAware': {'def' : title },
-                'edmAgentLabelLangAware': { 'def' : authors },
+                'dcTitleLangAware': title,
+                'edmAgentLabelLangAware': authors,
                 'edmIsShownBy' : [imageUrl],
                 'edmPreview': [imageUrl],
                 'dataProvider': a['edmDataProvider']['def'],
@@ -81,7 +91,7 @@ class EuropeanaDriver(object):
                 'edmPlaceLongitude': longitude,
                 'title': title,
                 'id': id,
-                'guid': url + ".html"
+                'guid': record_url
  
             }
             response['titles'].append(title)
@@ -106,7 +116,7 @@ class EuropeanaDriver(object):
         }
 
         if cleaned_data['fullSearch'].strip().startswith('https://www.europeana.eu/portal/'):
-            target_url=re.search('(https://www.europeana.eu/portal/.*?record.*?)\.(json|html)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
+            target_url=re.search('(https://[^.]*?\.europeana.eu/.*?/.*?record.*?)\.(json|html)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
 
             response=self.urlToResponseTitles(target_url)
             print(target_url)
@@ -163,14 +173,17 @@ class EuropeanaDriver(object):
                 if 'dcDescriptionLangAware' in p:
                     for lang in titlelangs:
                          if lang in p['dcDescriptionLangAware']:
-                             title=p['dcDescriptionLangAware'][lang]
+                             title=" - ".join(p['dcDescriptionLangAware'][lang])
 
                 if 'dcTitleLangAware' in p and title == None:
                     for lang in titlelangs:
                          if lang in p['dcTitleLangAware']:
-                             title=p['dcTitleLangAware'][lang]
+                             title=" - ".join(p['dcTitleLangAware'][lang])
 
-                if 'edmAgentLabelLangAware' in p:
+                if 'dcCreatorLangAware' in p:
+                    for lang in p['dcCreatorLangAware']:
+                        author=", ".join(p['dcCreatorLangAware'][lang])
+                elif 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
                         author=", ".join(p['edmAgentLabelLangAware'][lang])
 

@@ -9,6 +9,25 @@ from django.utils.html import strip_tags
 from json import dumps, loads
 from requests import get
 
+def wikimediacommons_find_photo_by_url(record_url, profile):
+    photo = None
+    filename=re.search('https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)',record_url, re.IGNORECASE).group(1)
+    if filename:
+        file_url='https://commons.wikimedia.org/wiki/File:' + filename
+        photo =  Photo.objects.filter(source_url=file_url, source__description='Wikimedia Commons').first()
+
+        if not photo:
+            wikimediacommons_driver = CommonsDriver()
+            response= {
+                'titles': ['File:' + filename ],
+                'pages': 1
+            }
+            response=loads(wikimediacommons_driver.transform_response(response))
+            print(response)
+
+    return photo
+
+
 class CommonsDriver(object):
     def __init__(self):
         self.search_url = 'https://commons.wikimedia.org/w/api.php'

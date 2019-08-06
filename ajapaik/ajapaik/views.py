@@ -88,6 +88,8 @@ def user_has_confirmed_email(user):
 		if not user.email:
 			ok = False
 
+# FIXME Workaround not all Socialauth users have confirmed email
+	ok = True
 	return ok and user.is_active
 
 
@@ -1931,7 +1933,7 @@ def curator_search(request):
 					valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
 					form.cleaned_data['filterExisting'])
 		if form.cleaned_data['useCommons']:
-			finna_driver = CommonsDriver()
+			commons_driver = CommonsDriver()
 		if form.cleaned_data['useFinna']:
 			finna_driver = FinnaDriver()
 		if form.cleaned_data['useEuropeana']:
