@@ -35,6 +35,7 @@ class EuropeanaDriver(object):
         imageUrl = None
         title = None
         id = None
+        description = None
         authors=""
         langs = ['def', 'en', 'fi', 'ee', 'se']
 
@@ -48,18 +49,20 @@ class EuropeanaDriver(object):
             if not id:
                 return response
 
-            print(p)
             if 'edmIsShownBy' in a:
                 imageUrl=a['edmIsShownBy'] or None
 
             for pp in p:
+                if 'dcTitle' in pp:
+                    title = pp['dcTitle']
+
                 if 'edmPlaceLatitude' in pp and latitude==None:
                     latitude = pp['edmPlaceLatitude']
                 if 'edmPlaceLongitude' in pp and longitude==None:
                     longitude = pp['edmPlaceLongitude']
 
                 if 'dcDescription' in pp:
-                    title = pp['dcDescription']
+                    description = pp['dcDescription']
 
                 if 'dcCreator' in pp:
                     authors = pp['dcCreator']
@@ -80,9 +83,10 @@ class EuropeanaDriver(object):
                         authors=agent['prefLabel']
                         break;
 
-            title={
+            res={
                 'rights': a['edmRights']['def'],
                 'dcTitleLangAware': title,
+                'dcDescriptionLangAware': description,
                 'edmAgentLabelLangAware': authors,
                 'edmIsShownBy' : [imageUrl],
                 'edmPreview': [imageUrl],
@@ -94,7 +98,7 @@ class EuropeanaDriver(object):
                 'guid': record_url
  
             }
-            response['titles'].append(title)
+            response['titles'].append(res)
             response['pages']=1
 
         print(json)
@@ -161,24 +165,47 @@ class EuropeanaDriver(object):
 
             print(p, file=sys.stderr)
 
-            try:
+#            try:
+            if 1:
                 licenceDesc = p['rights'][0] or None
                 licenceUrl = p['rights'][0] or None
                 institution = p['dataProvider'][0] or p['provider'][0] or None
-                titlelangs = ['en', 'fi', 'ee', 'se', 'def']
+                titlelangs = ['def', 'en', 'fi', 'ee', 'se']
 
                 if 'date' in p:
                     date=p['date']
 
-                if 'dcDescriptionLangAware' in p:
-                    for lang in titlelangs:
-                         if lang in p['dcDescriptionLangAware']:
-                             title=" - ".join(set(p['dcDescriptionLangAware'][lang]))
+                title=""
+                description=""
 
-                if 'dcTitleLangAware' in p and title == None:
+                if 'dcDescriptionLangAware' in p:
+                    prefix=""
                     for lang in titlelangs:
-                         if lang in p['dcTitleLangAware']:
-                             title=" - ".join(set(p['dcTitleLangAware'][lang]))
+                        if lang in p['dcDescriptionLangAware'] and p['dcDescriptionLangAware']:
+                            for desc in p['dcDescriptionLangAware'][lang]:
+                                if len(desc)>3 and desc not in description:
+                                    description+=prefix + desc
+                                    prefix=" - "
+                            break
+
+                if 'dcTitleLangAware' in p:
+                    prefix=""
+                    for lang in titlelangs:
+                        if lang in p['dcTitleLangAware']:
+                            for titledesc in p['dcTitleLangAware'][lang]:
+                                if len(titledesc)>3 and not titledesc in description and not titledesc in title:
+                                    title+=prefix + titledesc
+                                    prefix=" - "
+                            break
+
+                if title != "" and title not in description:
+                    title = title + " - " + description
+                elif title=="":
+                    title=description
+
+                if not title or title == "":
+                    if 'title' in p and p['title']:
+                        title=p['title']
 
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
@@ -208,10 +235,6 @@ class EuropeanaDriver(object):
                 if longitude:
                     longitude=longitude[0]
 
-                if not title or title == "":
-                    if 'title' in p:
-                        title=p['title'][0]
-
                 if not imageUrl or imageUrl =="":
                     continue
                 if not licenceUrl or licenceUrl =="":
@@ -239,10 +262,10 @@ class EuropeanaDriver(object):
                     'licenceUrl': licenceUrl,
                     'date' : date
                 }
-            except:
-                print("--------------\nSkipping: ", file=sys.stderr)
-                print(p, file=sys.stderr)
-                continue
+#            except Exception as e:
+#                print("--------------\nSkipping: " +str(e) , file=sys.stderr)
+#                print(p, file=sys.stderr)
+#                continue
 
 
             print("DEBUG\n" + p['id'] + "\n" + institution)
