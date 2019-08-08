@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-08 18:00:36+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -169,7 +169,7 @@ msgstr "Tekijä"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr ""
+msgstr "Eri"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
@@ -590,7 +590,7 @@ msgstr "* uusintakuvaa paikkoja, joissa käyt."
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaikissa on <b>%(total_photo_count)s</b> historiallista valokuvaa, joista <b>%(total_photos_tagged)s</b> kuvaa on lisätty kartalle <b>%(contributing_users)s</b> käyttäjää ja <b>%(rephoto_count)s</b> uudelleenkuvausta <b>%(rephotographed_photo_count)s</b> kuvaa <b>%(rephotographing_users)s</b> käyttäjää."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -614,7 +614,6 @@ msgstr[0] "<b>%(user_rephotographed_photos)s</b> kuva."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> kuvaa."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
-#, fuzzy
 msgid "General statistics refresh every 10 minutes."
 msgstr "Tilastot päivittyvät 10-minuutin välein."
 
@@ -679,7 +678,7 @@ msgstr "Uutiskirjeet"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
-msgstr ""
+msgstr "Merkitse samankaltaiset kuvat"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -777,7 +776,7 @@ msgstr[0] "%(counter)s käyttäjä on tehnyt"
 msgstr[1] "%(counter)s käyttäjää on tehnyt"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] "%(counter)s uuskuvan"
@@ -1026,15 +1025,15 @@ msgstr "Kuvauspäivä"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Vertaa kuvia"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "Merkitse jos kuvat sisältävät päällekkäistä sisältöä. Kuvat sisältävät päällekkäistä sisältöä jos niissä on samaa sisältöä tai kuvat ovat samat. Sama kuva voi olla myös rajattu versio toisesta kuvasta."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
+msgstr "Valinnan voi tehdä myös näppäimistöllä (1,2,3)."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1364,19 +1363,19 @@ msgstr "Tallenna"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr ""
+msgstr "Ei samaa sisältöä"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"
-msgstr ""
+msgstr "Samaa sisältöä"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:67
 msgid "Same shot"
-msgstr ""
+msgstr "Sama kuva"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "Olet jo aikaisemmin arvioinut kaikki samankaltaiset kuvaparit"
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
@@ -1606,11 +1605,11 @@ msgstr "Lisää albumiin"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:26
 msgid "Images have overlapping content"
-msgstr ""
+msgstr "Kuvat sisältävät samaa sisältöä"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:30
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "Kaikki kuvat ovat samoja"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"

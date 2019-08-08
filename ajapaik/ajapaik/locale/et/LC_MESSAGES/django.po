@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-08 18:00:35+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -589,7 +589,7 @@ msgstr "* mine pildista ajaloolised vaated üle."
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest <b>%(total_photos_tagged)s</b> pilti on ära kaardistatud <b>%(contributing_users)s</b> kasutaja abiga, ning <b>%(rephoto_count)s</b> ülepildistust <b>%(rephotographed_photo_count)s</b> pildile, mille on teinud <b>%(rephotographing_users)s</b> kasutajat."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -613,7 +613,6 @@ msgstr[0] "<b>%(user_rephotographed_photos)s</b> pildile."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> pildile."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
-#, fuzzy
 msgid "General statistics refresh every 10 minutes."
 msgstr "Üldine statistika värskendub 10 minuti tagant."
 
@@ -678,7 +677,7 @@ msgstr "Newsletters"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
-msgstr ""
+msgstr "Märgi piltide sarnasusi"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -776,7 +775,7 @@ msgstr[0] "%(counter)s kasutaja on teinud"
 msgstr[1] "%(counter)s kasutajat on teinud"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] "%(counter)s ülepildistuse"
@@ -1375,7 +1374,7 @@ msgstr "Sama kaader"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "Sa oled juba üle vaadanud kõik piltide sarnasuse seosed"
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"

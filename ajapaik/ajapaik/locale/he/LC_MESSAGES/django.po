@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Steeve815
+# Author: YaronSh
 # Author: שמזן
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-08 18:00:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -775,11 +776,11 @@ msgstr[0] "%(counter)s user has made"
 msgstr[1] "%(counter)s users have made"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "%(counter)s rephotograph"
-msgstr[1] "%(counter)s rephotographs"
+msgstr[0] "צילום אחד מחדש"
+msgstr[1] "%(counter)s צילומים מחדש"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59

@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 #
+# Author: H2kks
 # Author: Kly
 # Author: Winston Sung
 # Author: 神樂坂秀吉
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:32+0000\n"
+"PO-Revision-Date: 2019-08-08 18:00:37+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -149,11 +150,11 @@ msgstr "是開放的"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "維基數據識別碼"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
-msgstr ""
+msgstr "b."
 
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
@@ -165,7 +166,7 @@ msgstr "作者"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr ""
+msgstr "差異"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
@@ -560,7 +561,7 @@ msgstr "另見 – Sift.pics"
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr ""
+msgstr "登出"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -607,9 +608,8 @@ msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] "<b>%(user_rephotographed_photos)s</b>圖片。"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
-#, fuzzy
 msgid "General statistics refresh every 10 minutes."
-msgstr "每隔十分鐘重新整理一般統計"
+msgstr "每隔十分鐘重新整理一般統計。"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
@@ -672,7 +672,7 @@ msgstr "簡報"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
-msgstr ""
+msgstr "標記相似圖片"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1010,7 +1010,7 @@ msgstr "日期採用"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "比較圖片"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -1032,11 +1032,11 @@ msgstr "忘記密碼？"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "訊息"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "選單"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1134,7 +1134,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "註冊"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1634,7 +1634,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
-msgstr ""
+msgstr "添加第三方帳號"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
@@ -1758,7 +1758,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:67
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Borichèt
+# Author: H2kks
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -11,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-08 18:00:37+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -102,11 +103,11 @@ msgstr "Sòrt d'àlbom"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
-msgstr ""
+msgstr "Cheicòs d'àutr"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Person"
-msgstr ""
+msgstr "Përson-a"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "Email address"
@@ -147,11 +148,11 @@ msgstr "a l'é duvert"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "Identificativ Wikidata"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
-msgstr ""
+msgstr "b."
 
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
@@ -163,15 +164,15 @@ msgstr "Autor"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr ""
+msgstr "Diferent"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
-msgstr ""
+msgstr "Smijant"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliché"
 
 #: ajapaik/ajapaik/models.py:1018
 msgid "Geotag"
@@ -439,15 +440,15 @@ msgstr "Liura d'órdin ëd pagament Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr ""
+msgstr "Àutre manere ëd sosten-ne"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr ""
+msgstr "Spessialista ëd Brave d'Ajapaik"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr ""
+msgstr "Ch'a preuva ël navigador Brave - a l'é basà su Chromium e chiel a peul arcompensé ij sò sit preferì con la criptovaluda."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -558,7 +559,7 @@ msgstr "Vëdde ëdcò – Sift.pics"
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr ""
+msgstr "Seurte dal sistema"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -584,7 +585,7 @@ msgstr "* fé d'arprodussion fotogràfiche dle viste stòriche ant ij pòst che 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaik a l'ha <b>%(total_photo_count)s</b> fòto stòriche, dont <b>%(total_photos_tagged)s</b> fòto a son ëstàite butà an sla carta da <b>%(contributing_users)s</b> utent e <b>%(rephoto_count)s</b> arprodussion fotogràfiche <b>%(rephotographed_photo_count)s</b> fòto fàite da <b>%(rephotographing_users)s</b> utent."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -672,7 +673,7 @@ msgstr "Litre d'anformassion"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
-msgstr ""
+msgstr "Marché le plance smijante"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1019,7 +1020,7 @@ msgstr "Dàita ant la qual a l'é stàita fàita"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Confronté le plance"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
