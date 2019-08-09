@@ -6,6 +6,7 @@ import logging
 import operator
 import shutil
 import unicodedata
+import re
 from copy import deepcopy
 from io import StringIO
 from math import ceil
@@ -15,6 +16,7 @@ from urllib.request import build_opener
 import cv2
 import django_comments
 import requests
+from html import unescape 
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -48,6 +50,7 @@ from pytz import unicode
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
+from requests import get
 
 from ajapaik.ajapaik.curator_drivers.common import CuratorSearchForm
 from ajapaik.ajapaik.curator_drivers.finna import FinnaDriver
@@ -2042,6 +2045,18 @@ def curator_update_my_album(request):
 
 	return HttpResponse("Faulty data", status=500)
 
+def _get_licence_name_by_url(url):
+    title=url
+    try:
+        html=requests.get(url, {}).text.replace("\n", "")
+        title_search = re.search('<title>(.*)</title>', html, re.IGNORECASE)
+
+        if title_search:
+            title = title_search.group(1)
+            title =  unescape(title)
+        return title
+    except:
+        return title
 
 def curator_photo_upload_handler(request):
 	profile = request.get_user().profile
@@ -2117,11 +2132,15 @@ def curator_photo_upload_handler(request):
 							if not licence:
 								licence = Licence.objects.filter(url=upload_form.cleaned_data["licenceUrl"]).first()
 							if not licence:
-								licence = Licence(
-									name=upload_form.cleaned_data["licence"],
-									url=upload_form.cleaned_data["licenceUrl"] or ""
-								)
-								licence.save()
+                                                                licence_name=upload_form.cleaned_data["licence"]
+                                                                if upload_form.cleaned_data["licence"] == upload_form.cleaned_data["licenceUrl"]:
+                                                                    licence_name=_get_licence_name_by_url(upload_form.cleaned_data["licenceUrl"])
+
+                                                                licence = Licence(
+                                                                    name=licence_name,
+                                                                    url=upload_form.cleaned_data["licenceUrl"] or ""
+                                                                )
+                                                                licence.save()
 						else:
 							licence = unknown_licence
 					upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
