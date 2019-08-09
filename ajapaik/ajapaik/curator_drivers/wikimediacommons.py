@@ -200,7 +200,7 @@ class CommonsDriver(object):
 
                                 if 'ImageDescription' in em and em['ImageDescription']['value']:
                                     desclangs=em['ImageDescription']['value']
-                                    if isinstance(desclangs, dict):
+                                    if isinstance(desclangs, dict) or isinstance(desclangs, list):
                                         for lang in desclangs:
                                             description=strip_tags(desclangs[lang]).strip()
                                             if lang in targetlangs:

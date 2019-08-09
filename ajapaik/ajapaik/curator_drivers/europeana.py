@@ -204,7 +204,9 @@ class EuropeanaDriver(object):
                     title=description
 
                 if ('title' in p and (not title or title == "")):
-                    if isinstance(p['title'], dict):
+                    if isinstance(p['title'], list):
+                        title=", ".join(set(p['title']))
+                    elif isinstance(p['title'], dict):
                         title=", ".join(set(p['title']))
                     else:
                         title=p['title'].strip()
