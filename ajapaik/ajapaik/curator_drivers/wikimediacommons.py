@@ -184,7 +184,14 @@ class CommonsDriver(object):
                                 if 'ObjectName' in em:
                                     title=strip_tags(em['ObjectName']['value']).strip()
                                 if 'Artist' in em:
-                                    author=strip_tags(em['Artist']['value']).strip()
+                                    authors=em['Artist']['value']
+                                    if isinstance(authors, dict) or isinstance(authors, list):
+                                        for lang in authors:
+                                            author=strip_tags(authors[lang]).strip()
+                                            if lang in targetlangs:
+                                                break
+                                    else:
+                                        author=strip_tags(authors).strip()
                                 if 'LicenseShortName' in em:
                                     licence=strip_tags(em['LicenseShortName']['value']).strip()
                                 if 'LicenseUrl' in em:
