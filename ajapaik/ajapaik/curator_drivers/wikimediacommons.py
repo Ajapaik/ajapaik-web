@@ -244,7 +244,7 @@ class CommonsDriver(object):
                                 'cachedThumbnailUrl': thumbnailUrl or None,
                                 'title': title,
                                 'institution': 'Wikimedia Commons',
-                                'imageUrl': thumbnailUrl,
+                                'imageUrl': imageUrl,
                                 'id': pageid,
                                 'mediaId': pageid,
                                 'identifyingNumber': pageid,
