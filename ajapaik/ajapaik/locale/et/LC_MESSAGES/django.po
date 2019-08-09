@@ -151,7 +151,7 @@ msgid "Is open"
 msgstr "On avatud (kõik saavad pilte lisada)"
 
 #: ajapaik/ajapaik/forms.py:412 
-msgid  "Location"
+msgid "Location"
 msgstr "Location"
 
 #: ajapaik/ajapaik/models.py:205

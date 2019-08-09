@@ -152,7 +152,7 @@ msgid "Is open"
 msgstr "On avoin"
 
 #: ajapaik/ajapaik/forms.py:412 
-msgid  "Location"
+msgid "Location"
 msgstr "Sijainti"
 
 #: ajapaik/ajapaik/models.py:205
