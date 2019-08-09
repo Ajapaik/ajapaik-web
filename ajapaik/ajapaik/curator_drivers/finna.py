@@ -258,7 +258,7 @@ class FinnaDriver(object):
             }
         }
         if not ids:
-            return transformed
+            return dumps(transformed)
         existing_photos = Photo.objects.filter(source__description='Finna', external_id__in=ids).all()
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
@@ -334,8 +334,8 @@ class FinnaDriver(object):
                 if existing_photo:
                     transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
-                        .values_list('id', 'name')
+                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
+                        .values_list('id', 'name').distinct())
                 transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)

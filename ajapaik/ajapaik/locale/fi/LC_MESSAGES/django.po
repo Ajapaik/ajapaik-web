@@ -151,6 +151,10 @@ msgstr "On julkinen"
 msgid "Is open"
 msgstr "On avoin"
 
+#: ajapaik/ajapaik/forms.py:412 
+msgid  "Location"
+msgstr "Sijainti"
+
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
 msgstr "Wikidata-tunniste"

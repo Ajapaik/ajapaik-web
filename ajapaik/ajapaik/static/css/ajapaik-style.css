@@ -1980,6 +1980,7 @@ a[href^="http: //maps.google.com/maps"] {
   min-height: 100px;
   max-height: 30vh;
   max-width: calc(35vw - 20px);
+  image-orientation: from-image;
 }
 
 .ajapaik-curator-selection-item {
