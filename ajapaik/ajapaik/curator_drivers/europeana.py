@@ -225,6 +225,17 @@ class EuropeanaDriver(object):
                     else:
                         title=p['title'].strip()
 
+
+                if len(title)>400:
+                    t=re.search('\A(.*?\n.*?)\n', title, re.MULTILINE)
+                    if t:
+                        title=t.group(1)
+
+                if len(title)>400:
+                    t=re.search('\A(.*?)\n', title, re.MULTILINE)
+                    if t:
+                        title=t.group(1)
+
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
                         author=", ".join(filter(_filter_out_url, set(p['dcCreatorLangAware'][lang])))
