@@ -49,7 +49,7 @@ msgstr "Tuntematon virhe."
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1217
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Ei valittu"
 
@@ -202,150 +202,176 @@ msgid "You're anonymous"
 msgstr "Olet nimetön"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
-msgid "Invert colors"
-msgstr "Käännä värit"
+msgid "Add this picture to album (not the whole set)"
+msgstr "Lisää tämä kuva albumiin (ei koko settiä)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
-msgid "Flip"
-msgstr "Käännä"
+msgid "Album details"
+msgstr "Albumin tiedot"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-msgid "Mark stereophoto"
-msgstr "Merkitse stereokuva"
+#, fuzzy
+#| msgid "Approximate"
+msgid "Approximate address"
+msgstr "Arvio"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
-msgid "Remove from selection"
-msgstr "Poista valinta"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä kuratointipisteitä"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuvaa? Suosittelemme luomaan yli 10 kuvan albumeita."
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
-msgid "Description"
-msgstr "Kuvailu"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "Tekijä"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
-msgid "Source"
-msgstr "Lähde"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+#| msgid "commented"
+msgid "Comments"
+msgstr "kommentoitua"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Size"
-msgstr "Koko"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
+msgid "Comments in album"
+msgstr "Kommenttia albumissa"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
-msgid "Institution"
-msgstr "Instituutio"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
-msgid "Number"
-msgstr "Numero"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Date"
 msgstr "Päivämäärä"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
+msgid "Description"
+msgstr "Kuvailu"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
+msgid "Flip"
+msgstr "Käännä"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
+msgid "Geotag pictures in album"
+msgstr "Paikanna albumin kuvia"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+msgid "Image has location and view direction info"
+msgstr "Kuvalla on tieto sijainnista ja kamerakulmasta"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
-msgid "URL"
-msgstr "URL"
+msgid "Image has no location info"
+msgstr "Kuvassa ei ole paikkatietoa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
-msgid "Title"
-msgstr "Otsikko"
+msgid "Image has only location, no view direction"
+msgstr "Kuvalla on vain sijainti, ei kamerakulmaa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
+msgid "Image has rephotos"
+msgstr "Kuvalla on uusintakuvia"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
+#| msgid "Image has rephotos"
+msgid "Image has similar photos"
+msgstr "Kuvalla on uusintakuvia"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+msgid "Institution"
+msgstr "Instituutio"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+msgid "Invert colors"
+msgstr "Käännä värit"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "Licence"
 msgstr "Lisenssi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
+msgid "Mark stereophoto"
+msgstr "Merkitse stereokuva"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
+msgid "Number"
+msgstr "Numero"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
+msgid "photos"
+msgstr "valokuvaa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
+msgid "Picture already in album(s)"
+msgstr "Kuva on jo album(e)issa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Picture has location data attached"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä kuratointipisteitä"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
+msgid "Pictures geotagged"
+msgstr "Paikannettua kuvaa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
+msgid "Pictures in album"
+msgstr "Kuvaa albumissa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
 msgstr "Pisteitä"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
+msgid "Remove from selection"
+msgstr "Poista valinta"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+msgid "Rephotos in album"
+msgstr "Uusintakuvaa albumissa"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
+msgid "Rotate"
+msgstr "Pyöritä"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
+msgid "Show pictures on map"
+msgstr "Näytä kuvat kartalla"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
+msgid "Size"
+msgstr "Koko"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "Source ID"
+msgstr "Lähteen tunnus"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+msgid "Source"
+msgstr "Lähde"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
 msgid "System error"
 msgstr "Järjestelmävirhe"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
-msgid "photos"
-msgstr "valokuvaa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
-msgid "Source ID"
-msgstr "Lähteen tunnus"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
-msgid "Image has no location info"
-msgstr "Kuvassa ei ole paikkatietoa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
-msgid "Image has only location, no view direction"
-msgstr "Kuvalla on vain sijainti, ei kamerakulmaa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
-msgid "Image has location and view direction info"
-msgstr "Kuvalla on tieto sijainnista ja kamerakulmasta"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
-msgid "Image has rephotos"
-msgstr "Kuvalla on uusintakuvia"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Add this picture to album (not the whole set)"
-msgstr "Lisää tämä kuva albumiin (ei koko settiä)"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
-msgid "Rotate"
-msgstr "Pyöritä"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
-msgid "Pictures in album"
-msgstr "Kuvaa albumissa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
-msgid "Pictures geotagged"
-msgstr "Paikannettua kuvaa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
-msgid "Rephotos in album"
-msgstr "Uusintakuvaa albumissa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
-msgid "Comments in album"
-msgstr "Kommenttia albumissa"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
-msgid "Album details"
-msgstr "Albumin tiedot"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
-msgid "Show pictures on map"
-msgstr "Näytä kuvat kartalla"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
-msgid "Geotag pictures in album"
-msgstr "Paikanna albumin kuvia"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
-msgid "Unknown author"
-msgstr "Tuntematon tekijä"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
 msgstr "Tämä albumi sisältää elokuvan"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
-msgid "Picture already in album(s)"
-msgstr "Kuva on jo album(e)issa"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:44
+msgid "Title"
+msgstr "Otsikko"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:45
+msgid "URL"
+msgstr "URL"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
+msgid "Unknown author"
+msgstr "Tuntematon tekijä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"

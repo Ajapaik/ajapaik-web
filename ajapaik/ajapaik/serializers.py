@@ -177,7 +177,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         '''
         # There is bug in Django about irrelevant selection returned when
         # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
-        # So if faced some incorect data check what have been assigned to
+        # So if faced some incorrect data check what have been assigned to
         # "instance" variable.
         return photos_queryset \
             .prefetch_related('source') \

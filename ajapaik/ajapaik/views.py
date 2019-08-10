@@ -1312,10 +1312,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	next_similar_photo = photo_obj
 	if next_photo is not None:
 		next_similar_photo = next_photo
-	compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,next_similar_photo.id)))
+	compare_photos_url = request.build_absolute_uri(reverse("compare-photos", args=(photo_obj.id,next_similar_photo.id)))
 	imageSimilarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
 	if len(imageSimilarities) > 0:
-		compare_photos_url = request.build_absolute_uri(reverse("compare_photos", args=(photo_obj.id,imageSimilarities.first().to_photo_id)))
+		compare_photos_url = request.build_absolute_uri(reverse("compare-photos", args=(photo_obj.id,imageSimilarities.first().to_photo_id)))
 
 	people = [x.name for x in photo_obj.people]
 	similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id).exclude(similarity_type=0)

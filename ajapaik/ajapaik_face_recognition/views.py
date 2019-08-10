@@ -8,7 +8,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
+from PIL import Image
 
+from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
@@ -144,7 +146,7 @@ def add_rectangle_feedback(request):
         new_feedback.save()
         # Allow the owner to delete their own rectangle at will
         # TODO: Some kind of review process to delete rectangles not liked by N people?
-        #  and rectangle.user_id == request.user.id
+        # and rectangle.user_id == request.user.id
         if not new_feedback.is_correct:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()
@@ -164,3 +166,18 @@ def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse
         'form': form
     }
     return render(request, 'guess_subject.html', context)
+
+def get_subject_image(request: HttpRequest):
+    try:
+        if(request.rectangle_id):
+            rectangle = FaceRecognitionRectangle.objects.filter(pk=request.id).first()
+        if (rectangle is None or request.rectangle_id is None):
+            rectangle = FaceRecognitionRectangle.objects.first()
+        photo = rectangle.subjectPhoto
+        with open(settings.MEDIA_ROOT + "/portraits/" + str(rectangle.id), "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
+    except:
+        white = Image.new('RGBA', (32, 32), (255,255,255,0))
+        response = HttpResponse(content_type="image/jpeg")
+        white.save(response, "JPEG")
+        return response

@@ -198,12 +198,12 @@
                     window.hotkeysActive = false;
                 });
                 // $faceRectangle.on('hidden.bs.popover', function () {
-                // that.currentlyOpenRectangleId = null;
-                // that.$drawnFaceElements.forEach(function ($each) {
-                //     if (!that.currentlyOpenRectangleId) {
-                //         $each.show();
-                //     }
-                // });
+                //      that.currentlyOpenRectangleId = null;
+                //      that.$drawnFaceElements.forEach(function ($each) {
+                //          if (!that.currentlyOpenRectangleId) {
+                //              $each.show();
+                //          }
+                //      });
                 // });
                 $faceRectangle.hover(function () {
                     that.$drawnFaceElements.forEach(function ($each) {
