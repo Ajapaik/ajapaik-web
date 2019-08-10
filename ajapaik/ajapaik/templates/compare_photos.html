@@ -122,7 +122,6 @@
             resizePhotos();
         });
 
-        photoComparisionModal = $('#ajapaik-photo-comparision-modal');
         window.isCompareView = true;
 
         photo1 = '{{ photo.id }}';
@@ -131,7 +130,7 @@
         ConfirmImageSimilarity = function(confirmed,similarity_type){
             $.ajax({
                 type: 'POST',
-                url: '/compare_photos/' + '{{ photo.id }}/' + '{{ photo2.id }}/',
+                url: '/compare-photos/' + '{{ photo.id }}/' + '{{ photo2.id }}/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,

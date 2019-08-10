@@ -53,7 +53,7 @@
                     for(let similar in otherPhotos) {
                         $.ajax({
                             type: 'POST',
-                            url: '/compare_photos/' + photos[photo] + '/' +  otherPhotos[similar] +'/',
+                            url: '/compare-photos/' + photos[photo] + '/' +  otherPhotos[similar] +'/',
                             data: {
                                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                                 confirmed: true,
