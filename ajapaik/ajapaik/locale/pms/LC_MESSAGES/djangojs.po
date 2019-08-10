@@ -47,7 +47,7 @@ msgstr "A-i é staje n'eror dësconossù."
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1217
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Nen selessionà"
 
@@ -200,150 +200,176 @@ msgid "You're anonymous"
 msgstr "A l'é anònim"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
-msgid "Invert colors"
-msgstr "Anvertì ij color"
+msgid "Add this picture to album (not the whole set)"
+msgstr "Gionté costa fòto a l'àlbom (nen tut l'ansem)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
-msgid "Flip"
-msgstr "Volté"
+msgid "Album details"
+msgstr "Detaj ëd l'àlbom"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-msgid "Mark stereophoto"
-msgstr "Marché coma stereofòto"
+#, fuzzy
+#| msgid "Approximate"
+msgid "Approximate address"
+msgstr "Aprossimassion"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
-msgid "Remove from selection"
-msgstr "Gavé da la selession"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "A fòto a-i é già su Ajapaik. A peul istess giontela a sò àlbom, ma gnun pont ëd supervision a sarà assignà"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "É-lo sigur ëd vorèj creé n'àlbom con men che 5 fòto? Noi i arcomandoma ëd creé dj'àlbom con almanch 10 fòto."
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
-msgid "Description"
-msgstr "Descrission"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "Autor"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
-msgid "Source"
-msgstr "Sorgiss"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+#| msgid "commented"
+msgid "Comments"
+msgstr "comentà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Size"
-msgstr "Taja"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
+msgid "Comments in album"
+msgstr "Coment ant l'àlbom"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
-msgid "Institution"
-msgstr "Anstitussion"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
-msgid "Number"
-msgstr "Nùmer"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Date"
 msgstr "Dàita"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
+msgid "Description"
+msgstr "Descrission"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
+msgid "Flip"
+msgstr "Volté"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
+msgid "Geotag pictures in album"
+msgstr "Tichëtte da na mira geogràfica le plance a cost àlbom-sì"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+msgid "Image has location and view direction info"
+msgstr "La plancia a l'ha n'anformassion ëd pòst e ëd diression ëd vista"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
-msgid "URL"
-msgstr "URL"
+msgid "Image has no location info"
+msgstr "La plancia a l'ha gnun-e anformassion ëd localisassion"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
-msgid "Title"
-msgstr "Tìtol"
+msgid "Image has only location, no view direction"
+msgstr "La plancia a l'ha mach la posission, pa ëd diression ëd vista"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
+msgid "Image has rephotos"
+msgstr "La plancia a l'ha d'arprodussion fotogràfiche"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
+#| msgid "Image has rephotos"
+msgid "Image has similar photos"
+msgstr "La plancia a l'ha d'arprodussion fotogràfiche"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+msgid "Institution"
+msgstr "Anstitussion"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+msgid "Invert colors"
+msgstr "Anvertì ij color"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "Licence"
 msgstr "Licensa"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
+msgid "Mark stereophoto"
+msgstr "Marché coma stereofòto"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
+msgid "Number"
+msgstr "Nùmer"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
+msgid "photos"
+msgstr "fòto"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
+msgid "Picture already in album(s)"
+msgstr "Fòto già ant j'àlbom"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Picture has location data attached"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "A fòto a-i é già su Ajapaik. A peul istess giontela a sò àlbom, ma gnun pont ëd supervision a sarà assignà"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
+msgid "Pictures geotagged"
+msgstr "Fòto geolocalisà"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
+msgid "Pictures in album"
+msgstr "Fòto ant l'àlbom"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
 msgstr "Pont"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
+msgid "Remove from selection"
+msgstr "Gavé da la selession"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+msgid "Rephotos in album"
+msgstr "Arprodussion fotogràfiche ant l'àlbom"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
+msgid "Rotate"
+msgstr "Roté"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
+msgid "Show pictures on map"
+msgstr "Smon-e le fòto an sla carta"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
+msgid "Size"
+msgstr "Taja"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "Source ID"
+msgstr "ID ëd la sorgiss"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+msgid "Source"
+msgstr "Sorgiss"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
 msgid "System error"
 msgstr "Eror ëd sistema"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
-msgid "photos"
-msgstr "fòto"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
-msgid "Source ID"
-msgstr "ID ëd la sorgiss"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
-msgid "Image has no location info"
-msgstr "La plancia a l'ha gnun-e anformassion ëd localisassion"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
-msgid "Image has only location, no view direction"
-msgstr "La plancia a l'ha mach la posission, pa ëd diression ëd vista"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
-msgid "Image has location and view direction info"
-msgstr "La plancia a l'ha n'anformassion ëd pòst e ëd diression ëd vista"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
-msgid "Image has rephotos"
-msgstr "La plancia a l'ha d'arprodussion fotogràfiche"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Add this picture to album (not the whole set)"
-msgstr "Gionté costa fòto a l'àlbom (nen tut l'ansem)"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
-msgid "Rotate"
-msgstr "Roté"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
-msgid "Pictures in album"
-msgstr "Fòto ant l'àlbom"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
-msgid "Pictures geotagged"
-msgstr "Fòto geolocalisà"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
-msgid "Rephotos in album"
-msgstr "Arprodussion fotogràfiche ant l'àlbom"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
-msgid "Comments in album"
-msgstr "Coment ant l'àlbom"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
-msgid "Album details"
-msgstr "Detaj ëd l'àlbom"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
-msgid "Show pictures on map"
-msgstr "Smon-e le fòto an sla carta"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
-msgid "Geotag pictures in album"
-msgstr "Tichëtte da na mira geogràfica le plance a cost àlbom-sì"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
-msgid "Unknown author"
-msgstr "Autor dësconossù"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
 msgstr "S'àlbom-sì a conten un filmà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
-msgid "Picture already in album(s)"
-msgstr "Fòto già ant j'àlbom"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:44
+msgid "Title"
+msgstr "Tìtol"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:45
+msgid "URL"
+msgstr "URL"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
+msgid "Unknown author"
+msgstr "Autor dësconossù"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"

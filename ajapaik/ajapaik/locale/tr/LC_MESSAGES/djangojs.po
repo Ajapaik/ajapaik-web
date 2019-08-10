@@ -44,7 +44,7 @@ msgstr "Bilinmeyen bir hata oluştu."
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1217
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Seçili değil"
 
@@ -197,150 +197,176 @@ msgid "You're anonymous"
 msgstr "Sen anonimsin"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
-msgid "Invert colors"
-msgstr "Renkleri ters çevir"
+msgid "Add this picture to album (not the whole set)"
+msgstr "Bu görüntüyü albüme ekle"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
-msgid "Flip"
-msgstr "Çevir"
+msgid "Album details"
+msgstr "Albüm detayları"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-msgid "Mark stereophoto"
-msgstr ""
+#, fuzzy
+#| msgid "Approximate"
+msgid "Approximate address"
+msgstr "Yaklaşık"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
-msgid "Remove from selection"
-msgstr "Seçimden kaldır"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "Resim zaten Ajapaik'te. Yine de albüme ekleyebilirsin, puan kazanmadın"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "5'ten az fotoğraf içeren bir albüm oluşturmak istediğinize emin misiniz? En az 10 veya daha fazla resimli albüm oluşturmanızı öneririz."
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
-msgid "Description"
-msgstr "Açıklama"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "Yazar"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
-msgid "Source"
-msgstr "Kaynak"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+#| msgid "commented"
+msgid "Comments"
+msgstr "yorumlandı"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Size"
-msgstr "Boyut"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
+msgid "Comments in album"
+msgstr "Albümdeki yorumlar"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
-msgid "Institution"
-msgstr "Kurum"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
-msgid "Number"
-msgstr "Numara"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Date"
 msgstr "Tarih"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
+msgid "Description"
+msgstr "Açıklama"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
+msgid "Flip"
+msgstr "Çevir"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
+msgid "Geotag pictures in album"
+msgstr "Albümdeki resimleri coğrafi etiketle"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+msgid "Image has location and view direction info"
+msgstr "Görüntünün konumu ve yön bilgisi var"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
-msgid "URL"
-msgstr "URL"
+msgid "Image has no location info"
+msgstr "Görüntünün konum bilgisi yok"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
-msgid "Title"
-msgstr "Başlık"
+msgid "Image has only location, no view direction"
+msgstr "Görüntünün yalnızca konumu var, görünüm yönü yok"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
+msgid "Image has rephotos"
+msgstr "Görüntünün yeniden fotoğraflanışı var"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
+#| msgid "Image has rephotos"
+msgid "Image has similar photos"
+msgstr "Görüntünün yeniden fotoğraflanışı var"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+msgid "Institution"
+msgstr "Kurum"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+msgid "Invert colors"
+msgstr "Renkleri ters çevir"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "Licence"
 msgstr "Lisans"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
+msgid "Mark stereophoto"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
+msgid "Number"
+msgstr "Numara"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
+msgid "photos"
+msgstr "fotoğraflar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
+msgid "Picture already in album(s)"
+msgstr "Resim zaten albümde"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Picture has location data attached"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Resim zaten Ajapaik'te. Yine de albüme ekleyebilirsin, puan kazanmadın"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
+msgid "Pictures geotagged"
+msgstr "Coğrafi etiketli resimler"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
+msgid "Pictures in album"
+msgstr "Albümdeki resimler"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
 msgstr "Noktalar"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
+msgid "Remove from selection"
+msgstr "Seçimden kaldır"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+msgid "Rephotos in album"
+msgstr "Albümdeki yeniden fotoğraflamalar"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
+msgid "Rotate"
+msgstr "Döndür"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
+msgid "Show pictures on map"
+msgstr "Resimleri haritada göster"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
+msgid "Size"
+msgstr "Boyut"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+msgid "Source ID"
+msgstr "Kaynak kimliği"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+msgid "Source"
+msgstr "Kaynak"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
 msgid "System error"
 msgstr "Sistem hatası"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
-msgid "photos"
-msgstr "fotoğraflar"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
-msgid "Source ID"
-msgstr "Kaynak kimliği"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
-msgid "Image has no location info"
-msgstr "Görüntünün konum bilgisi yok"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
-msgid "Image has only location, no view direction"
-msgstr "Görüntünün yalnızca konumu var, görünüm yönü yok"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
-msgid "Image has location and view direction info"
-msgstr "Görüntünün konumu ve yön bilgisi var"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
-msgid "Image has rephotos"
-msgstr "Görüntünün yeniden fotoğraflanışı var"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Add this picture to album (not the whole set)"
-msgstr "Bu görüntüyü albüme ekle"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
-msgid "Rotate"
-msgstr "Döndür"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
-msgid "Pictures in album"
-msgstr "Albümdeki resimler"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
-msgid "Pictures geotagged"
-msgstr "Coğrafi etiketli resimler"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
-msgid "Rephotos in album"
-msgstr "Albümdeki yeniden fotoğraflamalar"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
-msgid "Comments in album"
-msgstr "Albümdeki yorumlar"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
-msgid "Album details"
-msgstr "Albüm detayları"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
-msgid "Show pictures on map"
-msgstr "Resimleri haritada göster"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
-msgid "Geotag pictures in album"
-msgstr "Albümdeki resimleri coğrafi etiketle"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
-msgid "Unknown author"
-msgstr "Bilinmeyen yazar"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
 msgstr "Bu albüm bir film içeriyor"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
-msgid "Picture already in album(s)"
-msgstr "Resim zaten albümde"
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:44
+msgid "Title"
+msgstr "Başlık"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:45
+msgid "URL"
+msgstr "URL"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
+msgid "Unknown author"
+msgstr "Bilinmeyen yazar"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"
