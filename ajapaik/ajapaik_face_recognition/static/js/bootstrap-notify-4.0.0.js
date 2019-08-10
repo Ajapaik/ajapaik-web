@@ -95,7 +95,7 @@
 			var isSameType = $el.hasClass('alert-' + notification.settings.type);
 
 			if (isSameTitle && isSameMsg && isSameType) {
-				//we found the dupe. Set the var and stop checking.
+				// we found the dupe. Set the var and stop checking.
 				isDupe = true;
 			}
 			return !isDupe;

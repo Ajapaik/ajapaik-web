@@ -439,7 +439,7 @@
             window.locationToolsOpen = false;
             window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
-//            showPhotoMapIfApplicable();
+            // showPhotoMapIfApplicable();
             if (window.startGuessScrollTop) {
                 setTimeout(function () {
                     $(window).scrollTop(window.startGuessScrollTop);
@@ -557,7 +557,7 @@
         }
         // Page element functionality
         photoModal.on('shown.bs.modal', function () {
-//            showPhotoMapIfApplicable();
+        // showPhotoMapIfApplicable();
             $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
             syncStateToUrl();
@@ -652,7 +652,7 @@
                     var currentUrl1 = window.URI(window.location.href);
                     currentUrl1.removeSearch('photos');
                     window.history.replaceState(null, window.title, currentUrl1);
-                    //window.updateFrontpagePhotosAsync();
+                    // window.updateFrontpagePhotosAsync();
                     break;
                 case 'albums':
                     if (window.albumId) {
@@ -665,18 +665,18 @@
                     window.order1 = null;
                     window.order2 = null;
                     window.order3 = null;
-                    //updateFrontpageAlbumsAsync();
+                    // updateFrontpageAlbumsAsync();
                     break;
                 case 'likes':
                     window.myLikes = true;
                     window.showPhotos = true;
-                    //window.updateFrontpagePhotosAsync();
+                    // window.updateFrontpagePhotosAsync();
                     break;
                 case 'rephotos':
                     window.rephotosBy = window.currentProfileId;
                     window.rephotosByName = window.currentProfileName;
                     window.showPhotos = true;
-                    //window.updateFrontpagePhotosAsync();
+                    // window.updateFrontpagePhotosAsync();
                     break;
             }
             updateModeSelection();

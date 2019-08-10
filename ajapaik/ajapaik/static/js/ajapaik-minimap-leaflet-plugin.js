@@ -25,12 +25,12 @@
             $(this.node).show();
             this.initializeMap();
         } else {
-            /*            this.buildStartGeotaggingButton = function (photoHasLocation) {
-                            var button = $([
-                                '<button id="ajapaik-minimap-disabled-overlay"></div>',
-                                '<div id="ajapaik-photo-modal-map-canvas"></div>'
-                            ].join('\n'));
-                        };*/
+            /* this.buildStartGeotaggingButton = function (photoHasLocation) {
+                    var button = $([
+                        '<button id="ajapaik-minimap-disabled-overlay"></div>',
+                        '<div id="ajapaik-photo-modal-map-canvas"></div>'
+                    ].join('\n'));
+                };*/
         }
     };
     AjapaikMinimap.prototype = {
@@ -40,7 +40,7 @@
             that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
             var map = L.map('ajapaik-photo-modal-map-canvas', { fullscreenControl: true });
 
-// OSM layer
+            // OSM layer
             var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
             var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
             var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
@@ -49,7 +49,7 @@
                 lat: that.options.latitude,
                 lng: that.options.longitude
             };
-// Show map layers
+            // Show map layers
             map.addLayer(osm);
             map.setView(that.initialMapCenter, 16);
 
@@ -65,19 +65,19 @@
                 marker.addTo(map);
             }
 
-// Topright corner user count
+            // Top right corner user count
             if (typeof (that.options.geotaggingUserCount) !== "undefined") {
                 var geotaggingUserCount = this.getGeotaggingUserCountButton(that.options);
                 geotaggingUserCount.addTo(map);
             }
-// global reference to map for ajapaik-common-nogooglemaps.js
+            // global reference to map for ajapaik-common-nogooglemaps.js
             window.ajapaikminimap = map;
 
-// add helper text
+            // add helper text
             var coordinatelink = this.getCoordinateLink(that.initialMapCenter);
             $("#ajapaik-photo-modal-map-textbox").append(coordinatelink);
 
-// In modal view map doesn't know it's size until elements are created
+            // In modal view map doesn't know it's size until elements are created
             setTimeout(function () {
                 map.invalidateSize();
 
@@ -89,7 +89,7 @@
                 $("span.ajapaik-minimap-geotagging-user-text").parent().parent().parent().css('background-color', 'white');
             }, 500);
 
-// For slow networks (500 ms failed in train)
+            // For slow networks (500 ms failed in train)
             setTimeout(function () {
                 map.invalidateSize();
             }, 1000);

@@ -626,7 +626,7 @@
             var scrollElement = $('#ajapaik-mapview-photo-panel').find('.jsPanel-content');
             var currentScrollValue = scrollElement.scrollTop();
 
-            // Calculating scroll value to palce photo in middle of screen.
+            // Calculating scroll value to place photo in middle of screen.
             var scrollValue = currentScrollValue + (
                 targetPaneElement.position().top - (
                     scrollElement.height() / 2 - targetPaneElement.height() / 2

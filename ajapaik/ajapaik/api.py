@@ -98,8 +98,8 @@ class Login(APIView):
         '''
         user = authenticate(email=email, password=password)
         if user is not None and not user.is_active:
-            # We found user but this user is disabled. "authenticate" does't
-            # checking is user is disabled(at least in Django 1.8).
+            # We found user but this user is disabled. "authenticate" doesn't
+            # check is user is disabled(at least in Django 1.8).
             return
         return user
 
@@ -726,7 +726,7 @@ class RephotoUpload(APIView):
             image = Image.open(rephoto.file)
 
             if hasattr(image, '_getexif'):  # Present only in JPEGs.
-                exif = image._getexif() or {}  # Reterns None if no EXIF data.
+                exif = image._getexif() or {}  # Returns None if no EXIF data.
                 image_orientation = exif.get(
                     next(
                         (
@@ -1253,7 +1253,7 @@ class WikidocsAlbumSearch(AjapaikAPIView):
             start = form.cleaned_data["start"] or 0
             limit = form.cleaned_data["limit"] or 50
 
-#            user_profile = user.profile or None
+            # user_profile = user.profile or None
             res = requests.get(self.search_url, {
                 'lat': lat,
                 'lon': lon,
@@ -1266,7 +1266,7 @@ class WikidocsAlbumSearch(AjapaikAPIView):
             photos=[];
             for p in res.json():
                 try:
-                # Coordinate's are disabled because center coordinates aren't good enough
+                # Coordinates are disabled because center coordinates aren't good enough
                     photo = {
                         'id': p.get('id'),
                         'image': p.get('thumbURL'),

@@ -2,6 +2,7 @@ import json
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.contrib.gis.db.models import ImageField
 
 from ajapaik.ajapaik.models import Photo, Profile, Album
 
@@ -15,6 +16,7 @@ class FaceRecognitionRectangle(models.Model):
     )
 
     photo = models.ForeignKey(Photo, related_name='face_recognition_rectangles')
+    subjectPhoto = ImageField(_('SubjectPhoto'), upload_to='uploads', blank=True, null=True, max_length=255)
     subject_consensus = models.ForeignKey(Album, null=True, blank=True,
                                           related_name='face_recognition_crowdsourced_rectangles')
     subject_ai_guess = models.ForeignKey(Album, null=True, blank=True,

@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
 
-    // Ferching comment list when page is loaded and when new comment posted.
+    // Fetching comment list when page is loaded and when new comment posted.
     var fetchComments = function() {
         var _setup_links_in_comments = function() {
             $('#ajapaik-comment-list .comment-text a').attr('target', '_blank');
@@ -76,7 +76,7 @@ $(document).ready(function () {
     };
 
 
-    // Post new commetn (send button pressed).
+    // Post new comment (send button pressed).
     $('#ajapaik-comment-form').submit(function(event) {
         var form = $('#ajapaik-comment-form');
         post_comment(form);
@@ -84,7 +84,7 @@ $(document).ready(function () {
     });
 
 
-    // Delete comment (delete link perssed).
+    // Delete comment (delete link pressed).
     $("#ajapaik-comment-list").on('click', 'h6[class="media-heading"]', function(event) {
         var action = $(event.target).data('action');
         var comment_id = $(event.target).data('comment-id');

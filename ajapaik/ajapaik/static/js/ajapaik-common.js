@@ -322,7 +322,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         });
     };
 
-    // Functions used on modal mini-map and map view, duplicates in geotagger plugin to make it self-contained
+    // Functions used on modal mini-map and map view, duplicates in geoTagger plugin to make it self-contained
     Math.getAzimuthBetweenTwoPoints = function (p1, p2) {
         if (p1 && p2) {
             var x = p2.lat() - p1.lat(),

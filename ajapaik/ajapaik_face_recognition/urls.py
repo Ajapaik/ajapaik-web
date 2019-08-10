@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^get-rectangles/(?P<photo_id>\d+)/$', views.get_rectangles, name='face_recognition_get_rectangles'),
     url(r'^add-rectangle-feedback/$', views.add_rectangle_feedback, name='face_recognition_add_rectangle_feedback'),
     url(r'^guess-subject-form/(?P<rectangle_id>\d+)/$', views.get_guess_form_html, name='face_recognition_guess_subject_form'),
+    url(r'^subject-photo', views.get_subject_image, name='get_subject_image'),
     url(r'^guess-subject/$', views.guess_subject, name='face_recognition_guess_subject')
 ]
