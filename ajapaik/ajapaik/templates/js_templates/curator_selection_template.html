@@ -64,7 +64,7 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
-            <img src="{%=o.imageUrl%}"
+            <img src="{% if (o.isFlickrResult || o.isFinnaResult || o.isEuropeanaResult || o.isCommonsResult ) { %}{%=o.cachedThumbnailUrl %}{% } else { %}{%=o.imageUrl %}{% } %}"
                 data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
                 class="img-fluid ajapaik-result-item {% if (selectedResults[o.id]) { %}ajapaik-curator-selected-image{% } %}"
                 id="ajapaik-result-item-{%=formatId(o.id)%}">
