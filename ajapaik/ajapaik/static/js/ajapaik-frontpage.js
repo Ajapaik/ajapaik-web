@@ -470,6 +470,12 @@
                         rephotoColumn = $('#ajapaik-photo-modal-rephoto-column'),
                         similarPhotoColumn = $('#ajapaik-photo-modal-similar-photo-column'),
                         mainPhotoContainer = $('#ajapaik-modal-photo-container');
+
+                   fullScreenImage = $('#ajapaik-full-screen-image');
+                   if (fullScreenImage) {
+                       fullScreenImage.attr('src', window.photoModalFullscreenImageUrl)
+                           .attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
+                    }
                     mainPhotoContainer.AjapaikFaceTagger();
                     mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: id});
                     if (!nextId) {
