@@ -81,6 +81,10 @@ def finna_import_photo(id, profile):
         p = p[0]
         comma = ", "
 
+        if not len(p['images']):
+            return None
+
+
         institution = None
         if p['source']:
             if 'translated' in p['source'][0]:
@@ -178,7 +182,7 @@ def finna_import_photo(id, profile):
         opener = build_opener()
         opener.addheaders = [("User-Agent",
                               "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-        img_url = 'https://www.finna.fi' + p['images'][0];
+        img_url = 'https://www.finna.fi' + p['images'][0].replace("size=large", "size=master")
         img_response = opener.open(img_url)
         new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
 
@@ -323,7 +327,7 @@ class FinnaDriver(object):
                     'institution': institution,
                     'date': p.get('year', None),
                     'cachedThumbnailUrl': 'https://www.finna.fi' + p['images'][0] if len(p['images']) else None,
-                    'imageUrl': 'https://www.finna.fi' + p['images'][0] if len(p['images']) else None,
+                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace("size=large", "size=master") if len(p['images']) else None,
                     'urlToRecord': 'https://www.finna.fi' + p['recordPage'],
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),
