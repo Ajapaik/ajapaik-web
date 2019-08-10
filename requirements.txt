@@ -16,7 +16,7 @@ django-modeltranslation<0.13
 django-redis-cache
 django-subdomains
 django-user-agents
-django==1.11.21
+django==1.11.23
 djangorestframework==3.4.7
 face_recognition
 feedparser
