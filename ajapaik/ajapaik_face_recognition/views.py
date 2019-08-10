@@ -167,11 +167,14 @@ def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse
     }
     return render(request, 'guess_subject.html', context)
 
-def get_subject_image(request):
+def get_subject_image(request: HttpRequest):
     try:
-        rectangle = FaceRecognitionRectangle.objects.first()
+        if(request.rectangle_id):
+            rectangle = FaceRecognitionRectangle.objects.filter(pk=request.id).first()
+        if (rectangle is None or request.rectangle_id is None):
+            rectangle = FaceRecognitionRectangle.objects.first()
         photo = rectangle.subjectPhoto
-        with open(settings.MEDIA_ROOT + "/" + str(photo.image), "rb") as f:
+        with open(settings.MEDIA_ROOT + "/portraits/" + str(rectangle.id), "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
     except:
         white = Image.new('RGBA', (32, 32), (255,255,255,0))
