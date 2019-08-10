@@ -12,6 +12,9 @@ def europeana_find_photo_by_url(record_url, profile):
     photo = None
     return photo
 
+def _filter_out_url(str):
+    return 'http' not in str
+
 class EuropeanaDriver(object):
     def __init__(self):
         self.search_url = 'https://www.europeana.eu/api/v2/search.json'
@@ -65,7 +68,8 @@ class EuropeanaDriver(object):
                     description = pp['dcDescription']
 
                 if 'dcCreator' in pp:
-                    authors = pp['dcCreator']
+                    if 'http' not in ", ".join(pp['dcCreator']['def']):
+                        authors = pp['dcCreator']
 
                 if 'dcDate' in pp and 'def' in pp['dcDate']:
                     date = pp['dcDate']['def'][0].replace("start=", "").replace(";end="," - ")
@@ -98,6 +102,7 @@ class EuropeanaDriver(object):
                 'guid': record_url
  
             }
+            print(res)
             response['titles'].append(res)
             response['pages']=1
 
@@ -147,6 +152,7 @@ class EuropeanaDriver(object):
                     'pages': page_count
                 }
         return response
+
 
     @staticmethod
     def transform_response(response, remove_existing=False, current_page=1):
@@ -213,7 +219,7 @@ class EuropeanaDriver(object):
 
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
-                        author=", ".join(set(p['dcCreatorLangAware'][lang]))
+                        author=", ".join(filter(_filter_out_url, set(p['dcCreatorLangAware'][lang])))
                 elif 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
                         author=", ".join(set(p['edmAgentLabelLangAware'][lang]))
