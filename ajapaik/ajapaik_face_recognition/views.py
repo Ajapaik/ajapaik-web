@@ -144,7 +144,7 @@ def add_rectangle_feedback(request):
         new_feedback.save()
         # Allow the owner to delete their own rectangle at will
         # TODO: Some kind of review process to delete rectangles not liked by N people?
-        #  and rectangle.user_id == request.user.id
+        # and rectangle.user_id == request.user.id
         if not new_feedback.is_correct:
             rectangle.deleted = datetime.datetime.now()
             rectangle.save()
