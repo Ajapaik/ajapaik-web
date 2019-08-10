@@ -8,7 +8,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.template import RequestContext
 from rest_framework.renderers import JSONRenderer
+from PIL import Image
 
+from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
@@ -164,3 +166,15 @@ def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse
         'form': form
     }
     return render(request, 'guess_subject.html', context)
+
+def get_subject_image(request):
+    try:
+        rectangle = FaceRecognitionRectangle.objects.first()
+        photo = rectangle.subjectPhoto
+        with open(settings.MEDIA_ROOT + "/" + str(photo.image), "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
+    except:
+        white = Image.new('RGBA', (32, 32), (255,255,255,0))
+        response = HttpResponse(content_type="image/jpeg")
+        white.save(response, "JPEG")
+        return response
