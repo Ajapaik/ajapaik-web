@@ -41,3 +41,22 @@ function postRequest(uri, payload, successText, failureText, onSuccess, onFailur
         error: getFailureHandler(failureText, onFailure)
     });
 }
+
+function putRequest(uri, payload, successText, failureText, onSuccess, onFailure) {
+    $.ajax({
+        type: 'PUT',
+        url: uri,
+        data: payload,
+        success: getSuccessHandler(successText, onSuccess),
+        error: getFailureHandler(failureText, onFailure)
+    });
+}
+
+function deleteRequest(uri, successText, failureText, onSuccess, onFailure) {
+    $.ajax({
+        type: 'DELETE',
+        url: uri,
+        success: getSuccessHandler(successText, onSuccess),
+        error: getFailureHandler(failureText, onFailure)
+    });
+}
