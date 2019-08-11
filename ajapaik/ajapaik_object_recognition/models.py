@@ -40,7 +40,7 @@ class ObjectDetectionAnnotation(models.Model):
 
 
 class ObjectAnnotationFeedback(models.Model):
-    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation)
+    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name="feedbacks")
 
     confirmation = models.BooleanField(default=True)
     alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True)
@@ -54,9 +54,9 @@ class ObjectAnnotationFeedback(models.Model):
         string_label = ''
 
         if self.confirmation:
-            string_label += f'Confirmed rectangle {self.object_detection_annotation.id}'
+            string_label += f'Confirmed annotation {self.object_detection_annotation.id}'
         else:
-            string_label += f'Rejected rectangle {self.object_detection_annotation.id}'
+            string_label += f'Rejected annotation {self.object_detection_annotation.id}'
 
         if self.alternative_object is not None:
             string_label += f', alternative object suggested: {self.alternative_object.label}'
