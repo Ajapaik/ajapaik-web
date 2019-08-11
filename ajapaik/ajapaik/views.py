@@ -7,6 +7,7 @@ import operator
 import shutil
 import unicodedata
 import re
+import ssl
 from copy import deepcopy
 from io import StringIO
 from math import ceil
@@ -2216,6 +2217,8 @@ def curator_photo_upload_handler(request):
 							if upload_form.cleaned_data["collections"] == "DIGAR":
 								new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
 							else:
+								# Enable plain http and broken SSL 
+								ssl._create_default_https_context = ssl._create_unverified_context
 								opener = build_opener()
 								headers = [("User-Agent",
 											"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
@@ -2304,7 +2307,7 @@ def curator_photo_upload_handler(request):
 							for cp in awarded_curator_points:
 								cp.delete()
 							context["photos"][k] = {}
-							context["photos"][k]["error"] = _("Error uploading file: %s" % e)
+							context["photos"][k]["error"] = _("Error uploading file: %s (%s)" % (e, imageUrl))
 					else:
 						if len(general_albums) > 0:
 							for a in general_albums:
@@ -2325,7 +2328,7 @@ def curator_photo_upload_handler(request):
 			else:
 				print(upload_form.errors)
 				context["photos"][k] = {}
-				context["photos"][k]["error"] = _("Error uploading file: %s" % upload_form.errors)
+				context["photos"][k]["error"] = _("Error uploading file: %s (%s)" % (upload_form.errors, imageUrl))
 
 		if general_albums:
 			for ga in general_albums:
