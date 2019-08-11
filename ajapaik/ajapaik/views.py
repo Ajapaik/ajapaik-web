@@ -2705,12 +2705,12 @@ def photo_upload_choice(request):
 	return render(request, 'photo_upload_choice.html', context)
 
 def compare_all_photos(request, photo_id=None, photo_id_2=None):
-	return compare_photos_generic(request,photo_id,photo_id_2,"compare_all_photos", True)
+	return compare_photos_generic(request,photo_id,photo_id_2,"compare-all-photos", True)
 
 def compare_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2)
 
-def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare_photos", compareAll = False):
+def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare-photos", compareAll = False):
 	profile = request.get_user().profile
 	if request.method == 'POST':
 		photo_obj = get_object_or_404(Photo, id=photo_id)
