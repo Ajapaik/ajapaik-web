@@ -18,3 +18,5 @@ class DetectionRectangle:
         self.subjectName = get_if_key_present(init, 'subject_name')
         self.objectId = get_if_key_present(init, 'object_id')
         self.objectLabel = get_if_key_present(init, 'object_label')
+        self.isDeletable = get_if_key_present(init, 'is_deletable')
+        self.hasUserGivenFeedback = get_if_key_present(init, 'has_user_given_feedback')
