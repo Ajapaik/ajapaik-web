@@ -1783,6 +1783,10 @@ $('.ajapaik-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajapaik-photo-selection-create-album-button,.ajapaik-photo-modal-album-icon', function () {
+        if(!window.currentProfileEmail){
+            window.openPhotoUploadModal();
+            return;
+        }
         $('#ajapaik-choose-albums-modal').modal();
         window.loadSelectableAlbums();
         window.loadPossibleParentAlbums();
@@ -1793,7 +1797,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             allIds = [],
             i,
             l;
-        if(window.isSelection){
+        if(window.isSelection && !$("#ajapaik-photo-modal").is(":visible")){
             var allElements = $('.ajapaik-photo-selection-thumbnail-link');
             for (i = 0, l = allElements.length; i < l; i += 1) {
                 allIds.push($(allElements[i]).data('id'));
