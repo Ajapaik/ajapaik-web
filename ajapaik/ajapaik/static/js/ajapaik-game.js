@@ -199,7 +199,7 @@
                 window.photoModalPhotoLat = currentPhoto.lat;
                 window.photoModalPhotoLng = currentPhoto.lon;
                 window.photoModalPhotoAzimuth = currentPhoto.azimuth;
-                window.photoModalCurrentlyOpenPhotoId = currentPhoto.id;
+                window.currentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
                 if(!window.isMobile){

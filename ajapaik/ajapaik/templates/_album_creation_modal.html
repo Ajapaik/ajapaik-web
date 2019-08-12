@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{% trans "Collection info" %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close close-album-curation-modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="ajapaik-curator-cancel-album-selection-button">
+                <button type="button" class="btn btn-secondary close-album-curation-modal" id="ajapaik-curator-cancel-album-selection-button">
                     {% trans "Cancel" %}
                 </button>
                 <button type="button" class="btn btn-success" id="ajapaik-curator-confirm-album-selection-button">
@@ -37,3 +37,10 @@
         </div>
     </div>
 </div>
+{% block specific_js %}
+    <script>
+    $('.close-album-curation-modal').click(function (e) {
+        $('#ajapaik-choose-albums-modal').modal('hide');
+    });
+    </script>
+ {% endblock %}

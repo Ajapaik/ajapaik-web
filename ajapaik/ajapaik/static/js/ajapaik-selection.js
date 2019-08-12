@@ -128,61 +128,6 @@
                 window._gaq.push(['_trackEvent', 'Selection', 'Autocomplete place changed']);
             });
         }
-        $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
-            var albums =  $('#id_albums').val(),
-                allElements = $('.ajapaik-photo-selection-thumbnail-link'),
-                allIds = [],
-                i,
-                l;
-            for (i = 0, l = allElements.length; i < l; i += 1) {
-                allIds.push($(allElements[i]).data('id'));
-            }
-            $('#ajapaik-loading-overlay').show();
-            $.ajax({
-                type: 'POST',
-                url: '/upload-selection/',
-                data: {
-                    selection: JSON.stringify(allIds),
-                    albums: albums,
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
-                },
-                success: function (response) {
-                    $('#ajapaik-loading-overlay').hide();
-                    if (response.error) {
-                        $('#ajapaik-curator-upload-error').show();
-                        $('#ajapaik-curator-upload-error-message').html(response.error);
-                        $('#ajapaik-selection-top-panel').find('.alert-error').html(response.error).removeClass('d-none');
-                        $('#ajapaik-selection-top-panel').find('.alert-success').html('').addClass('d-none');
-                    } else {
-                        $('#ajapaik-selection-top-panel').find('.alert-error').html('').addClass('d-none');
-                        $('#ajapaik-selection-top-panel').find('.alert-success').html(response.message).removeClass('d-none');
-                        $('#ajapaik-curator-upload-error').hide();
-                        $('#ajapaik-curator-upload-error-message').html(window.gettext('System error'));
-                        $('#ajapaik-choose-albums-modal').modal('hide');
-                        $('#ajapaik-curator-add-album-name').val(null);
-                        $('#ajapaik-curator-add-area-name-hidden').val(null);
-                        $('#ajapaik-curator-add-area-name').val(null);
-                        areaLat = null;
-                        areaLng = null;
-                        window.loadPossibleParentAlbums();
-                        window.loadSelectableAlbums();
-                    }
-                    window.loadSelectableAlbums();
-                    window._gaq.push(['_trackEvent', 'Selection', 'Upload success']);
-                },
-                error: function () {
-                    $('#ajapaik-loading-overlay').hide();
-                    $('#ajapaik-curator-upload-error').show();
-                    $('#ajapaik-selection-top-panel').find('.alert-error').html(window.gettext('System error')).removeClass('d-none');
-                    window._gaq.push(['_trackEvent', 'Selection', 'Upload error']);
-                }
-            });
-        });
-        $(document).on('click', '#ajapaik-photo-selection-create-album-button', function () {
-            $('#ajapaik-choose-albums-modal').modal();
-            window.loadSelectableAlbums();
-            window.loadPossibleParentAlbums();
-        });
         $(document).on('click', '.ajapaik-remove-from-selection-button', function (e) {
             e.stopPropagation();
             e.preventDefault();

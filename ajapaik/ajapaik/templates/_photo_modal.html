@@ -418,7 +418,7 @@
     window.photoModalCurrentPhotoFlipped = false;
     window.photoModalRephotoArray = [];
     window.photoModalSimilarPhotoArray = [];
-    window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
+    window.currentlyOpenPhotoId = {{ photo.id }};
     window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
     window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
     window.photoModalSimilarFullscreenImageUrl = '{{ similar_fullscreen.url }}'
@@ -543,7 +543,7 @@
         $('#ajp-dater-container').AjapaikDater();
         var mainPhotoContainer = $('#ajapaik-modal-photo-container');
         mainPhotoContainer.AjapaikFaceTagger();
-        mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: window.photoModalCurrentlyOpenPhotoId});
+        mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: window.currentlyOpenPhotoId});
         $('#ajapaik-photo-modal-face-recognition-add-face-button').click(function (e) {
             e.preventDefault();
             mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
@@ -729,8 +729,8 @@
     $('#ajapaik-rephoto-full-screen-image').removeClass('ajapaik-photo-bw');
 
     $(document).on('click', '#modal-compare-similar', function() {
-        if(window.photoModalCurrentlyOpenPhotoId !== undefined && window.currentlySelectedSimilarPhotoId !== undefined){
-            window.location.href = window.location.origin + '/compare-photos/' + window.photoModalCurrentlyOpenPhotoId + '/' + window.currentlySelectedSimilarPhotoId;
+        if(window.currentlyOpenPhotoId !== undefined && window.currentlySelectedSimilarPhotoId !== undefined){
+            window.location.href = window.location.origin + '/compare-photos/' + window.currentlyOpenPhotoId + '/' + window.currentlySelectedSimilarPhotoId;
         }
     })
 </script>
@@ -741,3 +741,6 @@
 {% include "js_templates/photo_modal_similar_photo_template.html" %}
 {% include "js_templates/photo_modal_rephoto_info_template.html" %}
 {% include "js_templates/photo_modal_similar_photo_info_template.html" %}
+{% include "_album_creation_modal.html" %}
+{% include "js_templates/curator_album_selection_separator.html" %}
+{% include "js_templates/curator_album_selection_option.html" %}

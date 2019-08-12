@@ -1324,6 +1324,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	if similar_photos.all().first() is not None:
 		similar_fullscreen = _make_fullscreen(similar_photos.all().first().to_photo)
 
+	whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
+
 	context = {
 		"photo": photo_obj,
 		"similar_photos": similar_photos,
@@ -1361,7 +1363,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"confirmed_similar_photo_count": len(similar_photos.filter(confirmed=True).all()),
 		"compare_photos_url" : compare_photos_url,
 		# TODO: Needs more data than just the names
-		"people": people
+		"people": people,
+		'whole_set_albums_selection_form': whole_set_albums_selection_form
 	}
 
 	return render(request, template, context)

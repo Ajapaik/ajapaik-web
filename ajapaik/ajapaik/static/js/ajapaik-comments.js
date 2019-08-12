@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var photo_id = window.photoModalCurrentlyOpenPhotoId; //  Just to make name shorter.
+    var photo_id = window.currentlyOpenPhotoId; //  Just to make name shorter.
 
 
     // Set focus for comment form when comment icon pressed.

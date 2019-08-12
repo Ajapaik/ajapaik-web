@@ -8,6 +8,9 @@
 {% block layout %}
 {% include "_info_modal.html" %}
 {% include "_rephoto_upload_modal.html" %}
+{% include "_album_creation_modal.html" %}
+{% include "js_templates/curator_album_selection_separator.html" %}
+{% include "js_templates/curator_album_selection_option.html" %}
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
         <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" data-src="{{ fullscreen.url }}"
@@ -292,7 +295,7 @@
     window.currentPhotoSourceURL = '{{ photo.source_url }}';
     window.currentPhotoOriginalWidth = '{{ photo.width }}';
     window.currentPhotoOriginalHeight = '{{ photo.height }}';
-    window.photoModalCurrentlyOpenPhotoId = {{ photo.id }};
+    window.currentlyOpenPhotoId = {{ photo.id }};
     window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
     window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
     window.photoModalUserHasGeotaggedThisPhoto = {{ user_has_geotagged }};
