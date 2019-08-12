@@ -204,11 +204,6 @@ msgstr ""
 msgid "Album details"
 msgstr "앨범 상세 정보"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
-msgid "Approximate address"
-msgstr "대략"
-
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr ""

@@ -613,7 +613,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
-#, fuzzy
 msgid "General statistics refresh every 10 minutes."
 msgstr "Ĝenerala statistiko refreŝigas ĉiu 10 minutoj."
 

@@ -429,8 +429,7 @@ msgid "All photos"
 msgstr "كل الصور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
-#| msgid "Picture set has no rephotos"
-msgid "!!FUZZY!!Picture set has no rephotos"
+msgid "Picture set has no rephotos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187

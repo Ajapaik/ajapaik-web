@@ -205,11 +205,6 @@ msgstr "أضف هذه الصورة إلى الألبوم (وليس المجمو�
 msgid "Album details"
 msgstr "تفاصيل الألبوم"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
-msgid "Approximate address"
-msgstr "تقريبي"
-
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "هل تريد بالتأكيد إنشاء ألبوم يحتوي على أقل من 5 صور؟ نوصي بإنشاء ألبومات تحتوي على 10 صور على الأقل أو أكثر."
@@ -218,10 +213,6 @@ msgstr "هل تريد بالتأكيد إنشاء ألبوم يحتوي على �
 msgid "Author"
 msgstr "المؤلف"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
-msgid "Comments"
-msgstr "تم التعليق"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -257,11 +248,6 @@ msgstr "الصورة لها موقع فقط، لا يوجد اتجاه عرض"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Image has rephotos"
-msgstr "الصورة لديها إعادات صور"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
-msgid "Image has similar photos"
 msgstr "الصورة لديها إعادات صور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22

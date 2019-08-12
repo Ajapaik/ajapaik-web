@@ -209,9 +209,8 @@ msgid "Album details"
 msgstr "Albumi info"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
 msgid "Approximate address"
-msgstr "Umbkaudne"
+msgstr "Umbkaudne aadress"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
@@ -222,9 +221,8 @@ msgid "Author"
 msgstr "Autor"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
 msgid "Comments"
-msgstr "kommenteeritud"
+msgstr "Kommentaarid"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -263,9 +261,8 @@ msgid "Image has rephotos"
 msgstr "Pildist on ülepildistusi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
 msgid "Image has similar photos"
-msgstr "Pildist on ülepildistusi"
+msgstr "Pildil on sarnaseid pilte"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"

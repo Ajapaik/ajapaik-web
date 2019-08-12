@@ -1754,11 +1754,6 @@ msgstr ""
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/forms.py:13
-#, fuzzy
-msgid "Subject name"
-msgstr "Mewzu"
-
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Is public figure"
 msgstr ""

@@ -255,10 +255,6 @@ msgstr "A imagem tem apenas localização, sem direção da vista"
 msgid "Image has rephotos"
 msgstr "A imagem tem refotografia"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
-msgid "Image has similar photos"
-msgstr "A imagem tem refotografia"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"

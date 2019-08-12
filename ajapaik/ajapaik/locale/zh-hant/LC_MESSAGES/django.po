@@ -768,12 +768,6 @@ msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] "%(counter)s 名使用者做出"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, fuzzy, python-format
-msgid "%(counter)s rephotograph"
-msgid_plural "%(counter)s rephotographs"
-msgstr[0] "fa3b1ad508aeb72f4bea2259dc4eaef7_pl_0"
-
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
 #, python-format

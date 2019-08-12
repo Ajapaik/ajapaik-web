@@ -204,11 +204,6 @@ msgstr ""
 msgid "Album details"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
-msgid "Approximate address"
-msgstr "בערך"
-
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr ""
@@ -216,11 +211,6 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "מחבר"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
-msgid "Comments"
-msgstr "תגובות באלבום"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"

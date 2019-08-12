@@ -96,13 +96,11 @@ msgid "If this album is tied to a certain location, specify here"
 msgstr "إذا كان هذا الألبوم مرتبطا بموقع معين، فحدد هنا"
 
 #: ajapaik/ajapaik/forms.py:414
-#| msgid "Album created"
-msgid "!!FUZZY!!Album created"
+msgid "Album created"
 msgstr "!!غامض!!تم إنشاء الألبوم"
 
 #: ajapaik/ajapaik/forms.py:430
-#| msgid "E-mail address"
-msgid "!!FUZZY!!E-mail address"
+msgid "E-mail address"
 msgstr "!!غامض!!عنوان البريد الإلكتروني"
 
 #: ajapaik/ajapaik/forms.py:435
@@ -446,11 +444,6 @@ msgstr "رتب حسب التواريخ المضافة أو المبلغ"
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
 msgstr "فرز حسب وقت أو كمية إعادة الصور المضافة"
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:93
-#| msgid "Sort by rephotos' time added or amount"
-msgid "!!FUZZY!!Sort by rephotos' time added or amount"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:104
 msgid "Sort by comments' time added or amount"
@@ -977,22 +970,6 @@ msgstr "العنوان التقريبي"
 msgid "Flip photo"
 msgstr "قلب الصورة"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:78
-#: ajapaik/ajapaik/templates/_photo_modal.html:79
-#: ajapaik/ajapaik/templates/photoview.html:117
-#: ajapaik/ajapaik/templates/photoview.html:118
-#| msgid "Original photo"
-msgid "!!FUZZY!!Original photo"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_photo_modal.html:81
-#: ajapaik/ajapaik/templates/_photo_modal.html:82
-#: ajapaik/ajapaik/templates/photoview.html:120
-#: ajapaik/ajapaik/templates/photoview.html:121
-#| msgid "Flip photo"
-msgid "!!FUZZY!!Flip photo"
-msgstr ""
-
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
 msgstr "مؤلف مجهول"
@@ -1096,33 +1073,10 @@ msgstr "أنت مجهول، يمكنك الآن تسجيل الدخول باست
 msgid "Forgot password"
 msgstr "Ĉu vi forgesis la pasvorton"
 
-#: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-#| msgid "E-mail"
-msgid "!!FUZZY!!E-mail"
-msgstr ""
-
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 #| msgid "change password"
 msgid "Change password"
 msgstr "Šanĝi pasvorton"
-
-#: ajapaik/ajapaik/templates/account/email_confirm.html:6
-#: ajapaik/ajapaik/templates/account/email_confirm.html:10
-#| msgid "E-mail address"
-msgid "!!FUZZY!!E-mail address"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/account/email_confirm.html:20
-#| msgid "Confirmation"
-msgid "!!FUZZY!!Confirmation"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/account/login.html:6
-#: ajapaik/ajapaik/templates/account/login.html:10
-#: ajapaik/ajapaik/templates/account/login.html:41
-#| msgid "Signed in as"
-msgid "!!FUZZY!!Signed in as"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
@@ -1130,11 +1084,6 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password"
 msgstr "Pasvorton"
-
-#: ajapaik/ajapaik/templates/account/password_reset.html:20
-#| msgid "Password"
-msgid "!!FUZZY!!Password"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1242,12 +1191,6 @@ msgstr "البحث، المتحف، القديمة، الصور، والصور،
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgstr "معرض إعادة التصوير بواسطة %(rephotos_by_name)s"
-
-#: ajapaik/ajapaik/templates/base_bootstrap.html:92
-#| msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-#, python-format
-msgid "!!FUZZY!!Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 #, python-format
@@ -1655,16 +1598,6 @@ msgstr "تم إرسال بريد التفعيل!"
 msgid "Registration form"
 msgstr "نموذج التسجيل"
 
-#: ajapaik/ajapaik/templates/user_upload.html:18
-#| msgid ""
-#| "I, %(user)s, the copyright holder of this work, irrevocably grant anyone "
-#| "the right to use this work under the <a href=\"https://creativecommons."
-#| "org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution "
-#| "ShareAlike 4.0 license (CC-BY-SA)</a>."
-#, python-format
-msgid "!!FUZZY!!I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
-
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
 msgstr "الرفع والوسم على الخريطة"
@@ -1761,16 +1694,6 @@ msgstr "تم إنشاء الألبوم"
 #: ajapaik/ajapaik/views.py:2845
 msgid "Sorry but we fail to post your comment."
 msgstr "آسف لكننا فشلنا في نشر تعليقك."
-
-#: ajapaik/ajapaik_face_recognition/forms.py:13
-#| msgid "Subject"
-msgid "!!FUZZY!!Subject"
-msgstr "!!غامض!!موضوع"
-
-#: ajapaik/ajapaik_face_recognition/forms.py:15
-#| msgid "Is public"
-msgid "!!FUZZY!!Is public"
-msgstr "!!غامض!!عام"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
