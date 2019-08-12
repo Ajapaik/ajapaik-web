@@ -5,12 +5,23 @@ from math import ceil
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 from django.utils.html import strip_tags
 from json import dumps, loads
-from requests import get
+from requests import get, head
 
 
 def europeana_find_photo_by_url(record_url, profile):
     photo = None
     return photo
+
+def _filter_out_url(str):
+    return 'http' not in str
+
+def url_ok(url):
+    try:
+        r = head(url)
+        return r.status_code == 200
+    except:
+        return False
+
 
 class EuropeanaDriver(object):
     def __init__(self):
@@ -65,7 +76,8 @@ class EuropeanaDriver(object):
                     description = pp['dcDescription']
 
                 if 'dcCreator' in pp:
-                    authors = pp['dcCreator']
+                    if 'http' not in ", ".join(pp['dcCreator']['def']):
+                        authors = pp['dcCreator']
 
                 if 'dcDate' in pp and 'def' in pp['dcDate']:
                     date = pp['dcDate']['def'][0].replace("start=", "").replace(";end="," - ")
@@ -98,6 +110,7 @@ class EuropeanaDriver(object):
                 'guid': record_url
  
             }
+            print(res)
             response['titles'].append(res)
             response['pages']=1
 
@@ -147,6 +160,7 @@ class EuropeanaDriver(object):
                     'pages': page_count
                 }
         return response
+
 
     @staticmethod
     def transform_response(response, remove_existing=False, current_page=1):
@@ -211,9 +225,20 @@ class EuropeanaDriver(object):
                     else:
                         title=p['title'].strip()
 
+
+                if len(title)>400:
+                    t=re.search('\A(.*?\n.*?)\n', title, re.MULTILINE)
+                    if t:
+                        title=t.group(1)
+
+                if len(title)>400:
+                    t=re.search('\A(.*?)\n', title, re.MULTILINE)
+                    if t:
+                        title=t.group(1)
+
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
-                        author=", ".join(set(p['dcCreatorLangAware'][lang]))
+                        author=", ".join(filter(_filter_out_url, set(p['dcCreatorLangAware'][lang])))
                 elif 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
                         author=", ".join(set(p['edmAgentLabelLangAware'][lang]))
@@ -229,6 +254,11 @@ class EuropeanaDriver(object):
                     for url in p['edmPreview']:
                        if not '.tif' in url:
                            thumbnailUrl=url
+                           # If imageUrl is broken then try to use url from thumbnail generator
+                           if not url_ok(imageUrl):
+                               url=re.search('thumbnail-by-url.json.*?uri=(.*?.jpe?g)', url, re.IGNORECASE)
+                               if url:
+                                   imageUrl=urllib.parse.unquote(url.group(1))
                            break
 
                 latitude = p.get('edmPlaceLatitude') or None
