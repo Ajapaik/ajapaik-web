@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-08-08 18:00:36+0000\n"
-"X-POT-Import-Date: 2019-08-05 06:48:04+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:53+0000\n"
+"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
@@ -141,6 +141,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:187
 msgid "Is open"
+msgstr ""
+
+#: ajapaik/ajapaik/forms.py:412
+msgid "Location"
 msgstr ""
 
 #: ajapaik/ajapaik/models.py:205

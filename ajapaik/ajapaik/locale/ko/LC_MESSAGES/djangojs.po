@@ -12,11 +12,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
+"X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -206,7 +206,6 @@ msgstr "앨범 상세 정보"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 #, fuzzy
-#| msgid "Approximate"
 msgid "Approximate address"
 msgstr "대략"
 
@@ -233,10 +232,6 @@ msgstr "날짜"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Description"
 msgstr "설명"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Edit"
-msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -292,10 +287,6 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Picture has location data attached"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
@@ -575,7 +566,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
 msgid "Something went wrong"
-msgstr ""
+msgstr "무언가가 잘못되었습니다"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"

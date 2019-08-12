@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Norwegian Bokmål (norsk bokmål)
 # Exported from translatewiki.net
 #
+# Author: Abbe98
 # Author: H2kks
 # --
 # This file is part of the Ajapaik Project
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:53+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-08-05 06:48:04+0000\n"
+"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -106,11 +107,11 @@ msgstr "Albumtype"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
-msgstr ""
+msgstr "Noe annet"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Person"
-msgstr ""
+msgstr "Person"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "Email address"
@@ -143,19 +144,23 @@ msgstr "Beskrivelse"
 
 #: ajapaik/ajapaik/models.py:186
 msgid "Is public"
-msgstr ""
+msgstr "Er offentlig"
 
 #: ajapaik/ajapaik/models.py:187
 msgid "Is open"
-msgstr ""
+msgstr "Er åpen"
+
+#: ajapaik/ajapaik/forms.py:412
+msgid "Location"
+msgstr "Sted"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "Wikidata identifier"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
-msgstr ""
+msgstr "b."
 
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
@@ -167,15 +172,15 @@ msgstr "Forfatter"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr ""
+msgstr "Forskjellig"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
-msgstr ""
+msgstr "Lignende"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplikat"
 
 #: ajapaik/ajapaik/models.py:1018
 msgid "Geotag"
@@ -236,7 +241,7 @@ msgstr "Geotagg bilde"
 
 #: ajapaik/ajapaik/models.py:1057
 msgid "Android app"
-msgstr ""
+msgstr "Android app"
 
 #: ajapaik/ajapaik/models.py:1068
 msgid "Game"
@@ -562,7 +567,7 @@ msgstr "Se også - Sift.pics"
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr ""
+msgstr "Logg ut"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -612,7 +617,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
-#, fuzzy
 msgid "General statistics refresh every 10 minutes."
 msgstr "Generell statistikk oppdateres hvert 10. minutt"
 
@@ -925,14 +929,14 @@ msgstr "Vend foto"
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
 msgid "similar photo"
-msgstr ""
+msgstr "lignende bilde"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "duplicate photo"
-msgstr ""
+msgstr "duplikat bilde"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1024,7 +1028,7 @@ msgstr "Dato er tatt"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Sammenlign bilder"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -1046,11 +1050,11 @@ msgstr "Glemt passordet?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Meldinger"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Meny"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1112,7 +1116,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr ""
+msgstr "Tilbakestilling av passord"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
@@ -1142,13 +1146,13 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ditt passord er endret."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Registrer deg"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1324,23 +1328,23 @@ msgstr "Send"
 
 #: ajapaik/ajapaik/templates/comments/list.html:22
 msgid "Like"
-msgstr ""
+msgstr "Like"
 
 #: ajapaik/ajapaik/templates/comments/list.html:26
 msgid "Dislike"
-msgstr ""
+msgstr "Mislike"
 
 #: ajapaik/ajapaik/templates/comments/list.html:30
 #: ajapaik/ajapaik/templates/comments/list.html:90
 msgid "Reply"
-msgstr ""
+msgstr "Svar"
 
 #: ajapaik/ajapaik/templates/comments/list.html:39
 #: ajapaik/ajapaik/templates/comments/list.html:41
 #: ajapaik/ajapaik/templates/comments/list.html:45
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:26
 msgid "Delete"
-msgstr ""
+msgstr "Fjern"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
@@ -1348,12 +1352,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: ajapaik/ajapaik/templates/comments/list.html:61
 #: ajapaik/ajapaik/templates/comments/list.html:87
 msgid "supports Markdown"
-msgstr ""
+msgstr "støtter Markdown"
 
 #: ajapaik/ajapaik/templates/comments/list.html:64
 #: ajapaik/ajapaik/templates/curator.html:134
@@ -1773,7 +1777,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:67
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
@@ -1785,7 +1789,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
-msgstr ""
+msgstr "Fjern merknad"
 
 #: ajapaik/settings/default.py:71
 msgid "Estonian"

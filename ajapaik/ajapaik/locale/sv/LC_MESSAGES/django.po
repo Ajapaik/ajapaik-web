@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Swedish (svenska)
 # Exported from translatewiki.net
 #
+# Author: Abbe98
 # Author: H2kks
 # Author: WikiPhoenix
 # --
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-08 18:00:37+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:53+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-08-05 06:48:04+0000\n"
+"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -107,7 +108,7 @@ msgstr "Album typ"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
-msgstr ""
+msgstr "Något annat"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Person"
@@ -150,9 +151,13 @@ msgstr "Är offentlig"
 msgid "Is open"
 msgstr "Är öppen"
 
+#: ajapaik/ajapaik/forms.py:412
+msgid "Location"
+msgstr "Plats"
+
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "Wikidata identifierare"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
@@ -168,11 +173,11 @@ msgstr "Författare"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr ""
+msgstr "Annorlunda"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
-msgstr ""
+msgstr "Liknande"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
 msgid "Duplicate"
@@ -193,7 +198,7 @@ msgstr "Ladda upp foto"
 
 #: ajapaik/ajapaik/models.py:1021
 msgid "Photo curation"
-msgstr ""
+msgstr "Fotografi urval"
 
 #: ajapaik/ajapaik/models.py:1022
 msgid "Photo re-curation"
@@ -261,11 +266,11 @@ msgstr "Källa"
 
 #: ajapaik/ajapaik/models.py:1077
 msgid "Google map"
-msgstr ""
+msgstr "Google karta"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Google satellite"
-msgstr ""
+msgstr "Google satellit"
 
 #: ajapaik/ajapaik/models.py:1079
 msgid "OpenStreetMap"
@@ -460,7 +465,7 @@ msgstr "Filtrering"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr ""
+msgstr "Sortera på distans från dig"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
@@ -468,7 +473,7 @@ msgstr "Sortera efter tid och ..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr ""
+msgstr "Sortera på när ett foto blev tillagt"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
@@ -563,7 +568,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr ""
+msgstr "Logga ut"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -673,7 +678,7 @@ msgstr "Lägg till foton"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr ""
+msgstr "Nyhetsbrev"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
@@ -925,7 +930,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
 msgid "similar photo"
-msgstr ""
+msgstr "liknande foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
@@ -1025,7 +1030,7 @@ msgstr "Datum taget"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Jämför bilder"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -1043,15 +1048,15 @@ msgstr "Du är anonym. Du kan nu logga in med din e-postadress."
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr ""
+msgstr "Glömt lösenordet?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Meddelanden"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Meny"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1149,7 +1154,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Registrera"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1222,7 +1227,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:36
 msgid "Historic photo of"
-msgstr ""
+msgstr "Historiskt foto av"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
@@ -1395,7 +1400,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:32
 msgid "Tell your friends on Facebook"
-msgstr ""
+msgstr "Berätta för dina vänner på Facebook"
 
 #: ajapaik/ajapaik/templates/curator.html:51
 msgid "Edit your album"
@@ -1505,7 +1510,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
-msgstr ""
+msgstr "Interiör"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:3
 msgid "Exterior "
@@ -1521,11 +1526,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:6
 msgid "View "
-msgstr ""
+msgstr "Utsikt"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:7
 msgid "Social "
-msgstr ""
+msgstr "Social "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:8
 msgid "Ground "
@@ -1537,35 +1542,35 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:10
 msgid "One "
-msgstr ""
+msgstr "En "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:11
 msgid "Many "
-msgstr ""
+msgstr "Många "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:12
 msgid "Whole "
-msgstr ""
+msgstr "Helhet "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:13
 msgid "Detail "
-msgstr ""
+msgstr "Detalj "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:14
 msgid "Staged "
-msgstr ""
+msgstr "Iscensatt "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:15
 msgid "Natural "
-msgstr ""
+msgstr "Naturlig "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:16
 msgid "Public "
-msgstr ""
+msgstr "Offentlig "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:17
 msgid "Private "
-msgstr ""
+msgstr "Privat "
 
 #: ajapaik/ajapaik/templates/frontpage.html:30
 msgid "Authentication"
@@ -1593,7 +1598,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "Tillbaka hem"
 
 #: ajapaik/ajapaik/templates/mapview.html:21
 msgid "Search box"
@@ -1693,12 +1698,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
-msgstr ""
+msgstr "Felaktig data angiven"
 
 #: ajapaik/ajapaik/views.py:1433 ajapaik/ajapaik/views.py:1440
 #: ajapaik/ajapaik/views.py:1442
 msgid "Browse photos on map"
-msgstr ""
+msgstr "Upptäck foton på karta"
 
 #: ajapaik/ajapaik/views.py:1574
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
@@ -1706,7 +1711,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:1576
 msgid "The photo has been mapped to a new location thanks to you."
-msgstr ""
+msgstr "Fotot har blivit lokaliserat till en ny plats tack vare dig."
 
 #: ajapaik/ajapaik/views.py:1578
 msgid "Your guess was first."
@@ -1727,15 +1732,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2279
 msgid "Photo already exists in Ajapaik"
-msgstr ""
+msgstr "Fotot finns redan i Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2299
 msgid "Please add photos to your album"
-msgstr ""
+msgstr "Vänligen lägg till foton till ditt album"
 
 #: ajapaik/ajapaik/views.py:2301
 msgid "Not enough data submitted"
-msgstr ""
+msgstr "Tillräckligt med data är inte angivet"
 
 #: ajapaik/ajapaik/views.py:2616
 #, python-format
@@ -1744,7 +1749,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2761
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Fotot är uppladdat"
 
 #: ajapaik/ajapaik/views.py:2780
 msgid "Album created"
@@ -1755,14 +1760,12 @@ msgid "Sorry but we fail to post your comment."
 msgstr "Ledsen, men vi misslyckades att lägga upp din kommentar."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
-#, fuzzy
 msgid "Subject name"
-msgstr "Ämne"
+msgstr "Ämnesnamn"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
-#, fuzzy
 msgid "Is public figure"
-msgstr "Är offentlig"
+msgstr "Är offentlig person"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
@@ -1771,12 +1774,12 @@ msgstr "Ämne"
 #: ajapaik/ajapaik_face_recognition/models.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:66
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritm"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:67
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

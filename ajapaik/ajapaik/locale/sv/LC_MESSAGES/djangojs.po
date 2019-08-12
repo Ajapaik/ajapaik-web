@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Swedish (svenska)
 # Exported from translatewiki.net
 #
+# Author: Abbe98
 # Author: WikiPhoenix
 # --
 # This file is part of the Ajapaik Project
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
+"X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
@@ -209,10 +210,8 @@ msgid "Album details"
 msgstr "Albumdetaljer"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
-#| msgid "Approximate"
 msgid "Approximate address"
-msgstr "Uppskattningsvis"
+msgstr "Uppskattad plats"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
@@ -223,10 +222,8 @@ msgid "Author"
 msgstr "Författare"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
-#| msgid "commented"
 msgid "Comments"
-msgstr "kommenterade"
+msgstr "Kommentarer"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -239,10 +236,6 @@ msgstr "Datum"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Description"
 msgstr "Beskrivning"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Edit"
-msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -299,10 +292,6 @@ msgstr "fotografier"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
 msgstr "Bild finns redan i album"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Picture has location data attached"
-msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -581,11 +570,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
 msgid "Something went wrong"
-msgstr ""
+msgstr "Någonting gick fel"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
@@ -617,7 +606,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
 msgid "Who is this?"
-msgstr ""
+msgstr "Vem är detta?"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
 msgid "Are you sure you wish to have this annotation removed?"

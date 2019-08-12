@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-08-05 09:57:31+0000\n"
-"X-POT-Import-Date: 2019-08-04 14:31:06+0000\n"
+"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
+"X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mni\n"
@@ -203,7 +203,6 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 #, fuzzy
-#| msgid "Approximate"
 msgid "Approximate address"
 msgstr "ꯆꯥꯎꯔꯥꯛꯅꯥ"
 
@@ -230,10 +229,6 @@ msgstr "ꯆꯩꯆꯠ"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Description"
 msgstr "ꯁꯟꯗꯣꯛꯅꯥ ꯇꯥꯛꯄꯥ"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
-msgid "Edit"
-msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -289,10 +284,6 @@ msgstr "ꯃꯤꯔꯦꯜꯁꯤꯡ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
-msgid "Picture has location data attached"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
