@@ -4,6 +4,7 @@ from ajapaik.ajapaik_object_recognition import object_annotation_utils
 
 
 class FaceAnnotationUpdateRequest:
-    def __init__(self, parameters: QueryDict, annotation_id: int):
+    def __init__(self, parameters: QueryDict, annotation_id: int, user_id: int):
         self.annotation_id = annotation_id
         self.new_subject_id = object_annotation_utils.parse_parameter(parameters['newSubjectId'])
+        self.user_id = user_id
