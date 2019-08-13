@@ -40,3 +40,10 @@ def is_annotation_deletable(user_id: int, created_on, created_by_id: int):
     time_difference_in_hours = time_difference.total_seconds() / 3600
 
     return user_id == created_by_id and time_difference_in_hours <= DELETION_EXPIRATION_THRESHOLD_IN_HOURS
+
+
+def parse_boolean(value):
+    if is_value_present(value):
+        return value in ['True', 'true']
+
+    return None

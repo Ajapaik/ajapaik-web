@@ -8,5 +8,5 @@ class AddObjectDetectionFeedback:
         self.user_id = user_id
 
         self.object_annotation_id = object_annotation_utils.parse_parameter(annotation_id)
-        self.is_confirmation = parameters['isConfirmed'] in ['True', 'true']
+        self.is_confirmation = object_annotation_utils.parse_boolean(parameters['isConfirmed'])
         self.alternative_object_id = object_annotation_utils.parse_parameter(parameters['alternativeObjectId'])
