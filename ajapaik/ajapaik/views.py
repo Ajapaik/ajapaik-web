@@ -1118,17 +1118,21 @@ def upload_photo_selection(request):
 		if len(albums) > 0:
 			for a in albums:
 				for pid in photo_ids:
-					existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
-					if not existing_link:
-						new_album_photo_link = AlbumPhoto(
-							photo=Photo.objects.get(pk=pid),
-							album=a,
-							profile=profile,
-							type=AlbumPhoto.RECURATED
-						)
-						Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-							   created=timezone.now()).save()
-						new_album_photo_link.save()
+					try:
+						p=Photo.objects.get(pk=pid)
+						existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
+						if not existing_link:
+							new_album_photo_link = AlbumPhoto(
+								photo=p,
+								album=a,
+								profile=profile,
+								type=AlbumPhoto.RECURATED
+							)
+							Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
+								   created=timezone.now()).save()
+							new_album_photo_link.save()
+					except:
+						pass
 				a.save()
 			profile.set_calculated_fields()
 			profile.save()
