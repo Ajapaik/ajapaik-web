@@ -11,8 +11,9 @@ from requests import get
 
 def wikimediacommons_find_photo_by_url(record_url, profile):
     photo = None
-    filename=re.search('https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)',record_url, re.IGNORECASE).group(1)
+    filename=re.search('https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)',record_url, re.IGNORECASE)
     if filename:
+        filename=filename.group(1)
         file_url='https://commons.wikimedia.org/wiki/File:' + filename
         photo =  Photo.objects.filter(source_url=file_url, source__description='Wikimedia Commons').first()
 
@@ -22,8 +23,7 @@ def wikimediacommons_find_photo_by_url(record_url, profile):
                 'titles': ['File:' + filename ],
                 'pages': 1
             }
-            response=loads(wikimediacommons_driver.transform_response(response))
-            print(response)
+#            response=loads(wikimediacommons_driver.transform_response(response))
 
     return photo
 
@@ -40,9 +40,9 @@ class CommonsDriver(object):
         petscan_url=""
         outlinks_page=""
 
-        if cleaned_data['fullSearch'].strip().startswith('https://petscan.wmflabs.org/'):
+        if cleaned_data['fullSearch'].strip().replace('http://', 'https://', ).startswith('https://petscan.wmflabs.org/'):
             petscan_url=cleaned_data['fullSearch'].strip() + "&format=json"
-        elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/Category:'):
+        elif cleaned_data['fullSearch'].strip().replace('http://', 'https://').startswith('https://commons.wikimedia.org/wiki/Category:'):
             target=re.search('https://commons.wikimedia.org/wiki/Category:(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
             petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&categories=" +target;
             print(petscan_url)
@@ -270,6 +270,6 @@ class CommonsDriver(object):
 #                        print(transformed_item, file=sys.stderr)
                         transformed['result']['firstRecordViews'].append(transformed_item)
 
-        print(nn, " photos found") 
+        print(nn, " photos found")
         transformed = dumps(transformed)
         return transformed
