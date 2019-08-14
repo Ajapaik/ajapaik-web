@@ -19,6 +19,9 @@ var constants = {
         ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID: 'alternative-object-type-select'
     },
     translations: {
+        common: {
+            OPTIONAL: 'optional'
+        },
         button: {
             CANCEL: 'Cancel',
             DELETE: 'Delete',
@@ -67,6 +70,10 @@ var constants = {
                 MIN_CHARACTERS_NEEDED: 'Need 2 characters',
                 NO_RESULTS_TEXT: 'No results found.',
                 ADD_NEW_PERSON: 'Add new person.'
+            },
+            label: {
+                ADD_NEW_PERSON: 'Add new person',
+                SPECIFY_NAME: 'Specify person name'
             }
         }
     }
