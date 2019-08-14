@@ -170,6 +170,7 @@ urlpatterns += [
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^face-recognition/', include('ajapaik.ajapaik_face_recognition.urls')),
+    url(r'^object-recognition/', include('ajapaik.ajapaik_object_recognition.urls'))
 ]
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
