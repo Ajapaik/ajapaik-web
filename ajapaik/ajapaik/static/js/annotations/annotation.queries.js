@@ -8,7 +8,7 @@ function getObjectAnnotationClasses() {
     }
 
     var onSuccess = function(response) {
-        storeData(cacheKeys.objectClasses, response.result);
+        storeData(cacheKeys.objectClasses, response.data);
     };
 
     getRequest(
