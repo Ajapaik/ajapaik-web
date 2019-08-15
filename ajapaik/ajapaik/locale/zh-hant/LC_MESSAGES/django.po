@@ -14,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:54+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:38+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -105,11 +105,11 @@ msgstr "相簿類型"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
-msgstr ""
+msgstr "其它"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Person"
-msgstr ""
+msgstr "人物"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "Email address"
@@ -150,7 +150,7 @@ msgstr "是開放的"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr ""
+msgstr "位置"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
@@ -174,11 +174,11 @@ msgstr "差異"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
-msgstr ""
+msgstr "相似"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
 msgid "Duplicate"
-msgstr ""
+msgstr "重複"
 
 #: ajapaik/ajapaik/models.py:1018
 msgid "Geotag"
@@ -446,15 +446,15 @@ msgstr "丹斯克銀行支付委託連結"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr ""
+msgstr "其它支持我們的方法"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr ""
+msgstr "Ajapaik Brave 推薦"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr ""
+msgstr "請嘗試 Brave 瀏覽器 - 這是基於 Chromium 瀏覽器內容，能讓您以加密貨幣來獎勵您喜愛的網站。"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -591,7 +591,7 @@ msgstr "* 從您探訪過的地點重新翻拍歷史性景觀。"
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaik 上共有 <b>%(total_photo_count)s</b> 張歷史性圖片，當中 <b>%(total_photos_tagged)s</b> 張圖片已被 <b>%(contributing_users)s</b> 名使用者加在地圖裡，以及由 <b>%(rephotographing_users)s</b> 名使用者所做出用於 <b>%(rephotographed_photo_count)s</b> 張圖片的 <b>%(rephoto_count)s</b> 張翻拍照片。"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -767,6 +767,12 @@ msgstr[0] "在此相簿裡有 %(counter)s 張圖片。"
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] "%(counter)s 名使用者做出"
+
+#: ajapaik/ajapaik/templates/_info_modal_content.html:51
+#, python-format
+msgid "%(counter)s rephotograph"
+msgid_plural "%(counter)s rephotographs"
+msgstr[0] "%(counter)s 張翻拍照片"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -1012,11 +1018,11 @@ msgstr "比較圖片"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "指示出圖片裡的內容是否重疊。在重疊的情況下，地點或物體會是相同的；在相同鏡頭情況下，可剪裁其中一張圖片。"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
+msgstr "可用鍵盤來決定（1、2、3）。"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1046,7 +1052,7 @@ msgstr "修改密碼"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
-msgstr ""
+msgstr "社會網路帳號連接"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1056,7 +1062,7 @@ msgstr "確認電子郵件地址"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr ""
+msgstr "請確認 <a href=\"mailto:%(email)s\">%(email)s</a> 是 %(user_display)s 的電子郵件地址。"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -1065,7 +1071,7 @@ msgstr "確認"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr ""
+msgstr "電子郵件確認連結已逾期或是無效，請發出<a href=\"%(email_url)s\">新的電子郵件確認請求</a>。"
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
@@ -1076,12 +1082,12 @@ msgstr "登入"
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
 msgid "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "請以您現有的第三方帳號登入，或是<a href=\"%(signup_url)s\">註冊</a>以下%(site_name)s的帳號後登入："
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format
 msgid "If you have not created an account yet, then please\n<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "如果您還沒有創立一個帳號，請先<a href=\"%(signup_url)s\">註冊</a>。"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
@@ -1092,7 +1098,7 @@ msgstr "重新設定密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:15
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr ""
+msgstr "忘記您的密碼？請在下方輸入您的電子郵件地址，然後我們會發送您一封電子郵件讓您來重新設定。"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1100,11 +1106,11 @@ msgstr "重設我的密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "若您在重新設定密碼時有任何狀況，請聯絡我們。"
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr ""
+msgstr "我們已發送您電子郵件，若您在幾分鐘內未收到請聯絡我們。"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1116,17 +1122,17 @@ msgstr "修改密碼"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "錯誤權杖"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr ""
+msgstr "密碼重新設定連結無效，可能是因為已被使用過。麻煩請求<a href=\"%(passwd_reset_url)s\">新密碼設定</a>。"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "您的密碼現在已變更。"
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1137,16 +1143,16 @@ msgstr "註冊"
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "已經有帳號了嗎？那麼請<a href=\"%(login_url)s\">登入</a>。"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "註冊已關閉"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "很抱歉，但註冊目前已關閉。"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1345,19 +1351,19 @@ msgstr "儲存"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr ""
+msgstr "沒有內容重疊"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"
-msgstr ""
+msgstr "重疊內容"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:67
 msgid "Same shot"
-msgstr ""
+msgstr "相同鏡頭"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "您已檢視過所有相似圖片配對"
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
@@ -1587,11 +1593,11 @@ msgstr "添加至相簿"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:26
 msgid "Images have overlapping content"
-msgstr ""
+msgstr "圖片重疊內容"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:30
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "相同鏡頭的所有圖片"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
@@ -1615,20 +1621,20 @@ msgstr "翻拍"
 
 #: ajapaik/ajapaik/templates/photoview.html:160
 msgid "People claimed to be on this photo"
-msgstr ""
+msgstr "聲稱在此照片上的人物"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
 msgid "Account Connections"
-msgstr ""
+msgstr "帳號連接"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
 msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr ""
+msgstr "您可以使用以下第三方帳號來登入到您的帳號："
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
 msgid "You currently have no social network accounts connected to this account."
-msgstr ""
+msgstr "您目前沒有連接到此帳號的社會網路帳號。"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
@@ -1751,7 +1757,7 @@ msgstr "主題"
 #: ajapaik/ajapaik_face_recognition/models.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:66
 msgid "Algorithm"
-msgstr ""
+msgstr "演算法"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:67

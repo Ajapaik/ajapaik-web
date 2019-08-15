@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -148,11 +148,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr ""
+msgstr "위치"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "위키데이터 식별자"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
@@ -1070,7 +1070,7 @@ msgstr "확인"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr ""
+msgstr "이 이메일 확인 링크는 기간이 만료되었거나 유효하지 않습니다. <a href=\"%(email_url)s\">새 이메일 확인 요청을 발행</a>해 주십시오."
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
@@ -1637,7 +1637,7 @@ msgstr "현재 이 계정에 연결된 소셜 네트워크 계정이 없습니�
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
-msgstr ""
+msgstr "타사 계정 추가"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format

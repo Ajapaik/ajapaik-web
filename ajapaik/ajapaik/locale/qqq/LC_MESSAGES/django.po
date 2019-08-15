@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-12 10:07:09+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:55+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1364,7 +1364,7 @@ msgstr "{{Identical|Save}}"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr ""
+msgstr "First of the selection of 3 options in the the similarity comparision view. Other 2 are: content overlap and same shot – first is case of the same location but clearly different shots (for instance photographer has made several shots of a street view on a tripod) and other is for different exemplars of the same shot (or plain duplicates)."
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"

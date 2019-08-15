@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:53+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -217,6 +217,11 @@ msgstr "您確定您要建立小於 5 張照片的相簿嗎？我們建議建立
 msgid "Author"
 msgstr "作者"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+msgid "Comments"
+msgstr "已評論"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
 msgstr "在相簿的評論"
@@ -254,8 +259,9 @@ msgid "Image has rephotos"
 msgstr "圖片含有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
 msgid "Image has similar photos"
-msgstr ""
+msgstr "圖片含有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
