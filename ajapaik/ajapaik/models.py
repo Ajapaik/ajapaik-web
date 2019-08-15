@@ -899,13 +899,14 @@ class ImageSimilarity(Model):
                     guess.save()
                 iterator += 1
         else:
-            if self.confirmed is None:
-                self.confirmed = False
-            if self.similarity_type == 1 or self.similarity_type == 2:
+            if self.similarity_type is not None:
                 self.from_photo.hasSimilar = True
                 self.to_photo.hasSimilar = True
-            self.from_photo.save
-            self.to_photo.save
+                self.confirmed = True
+            else:
+                self.confirmed = False
+            self.from_photo.save()
+            self.to_photo.save()
             self.save()
             if self.user_last_modified is not None:
                 guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
@@ -930,24 +931,6 @@ class ImageSimilarityGuess(Model):
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
-
-    def __add_or_update__(self):
-        qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
-        iterator = 0
-        if len(qs) > 0:
-            for item in qs:
-                if iterator > 1:
-                    item.delete()
-                else:
-                    if self.confirmed is not None:
-                        item.confirmed = self.confirmed
-                    if self.similarity_type is not None:
-                        item.similarity_type = self.similarity_type
-                    item.save()
-                iterator += 1
-        else:
-            self.confirmed = False
-            self.save()
 
 class PhotoMetadataUpdate(Model):
     photo = ForeignKey('Photo', related_name='metadata_updates')
