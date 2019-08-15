@@ -124,6 +124,7 @@ urlpatterns += [
     url(r'^api/v1/photos/filtered/rephotographed-by-user/$', api.PhotosWithUserRephotos.as_view()),
     url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),
     url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
+    url(r'^api/v1/photos/similar/$', api.AddSimilarPhotos.as_view(), name="api_add_similarity"),
 ]
 
 urlpatterns += [

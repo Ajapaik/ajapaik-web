@@ -8,6 +8,7 @@ import json
 from json import loads
 from urllib.request import urlopen
 from urllib.parse import quote
+import logging
 
 import requests
 from PIL import Image, ExifTags
@@ -20,7 +21,7 @@ from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
 from django.views.decorators.cache import never_cache
@@ -48,7 +49,7 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity
 from django.utils.decorators import method_decorator
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 
@@ -1339,3 +1340,26 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'photos': []
             })
+
+class AddSimilarPhotos(AjapaikAPIView):
+    '''
+    API endpoint for posting similar photos.
+    '''
+    def post(self, request, format=None):
+        profile = request.user.profile
+        photo_obj = get_object_or_404(Photo, id=request.POST['photo'])
+        photo_obj2 = get_object_or_404(Photo, id=request.POST['photo2'])
+        if photo_obj == photo_obj2 or photo_obj is None or photo_obj2 is None:
+            return JsonResponse({'status': 400})
+        inputs = [photo_obj,photo_obj2]
+        if 'confirmed' in request.POST:
+            inputs.append(1)
+        else:
+            inputs += '0'
+        if 'similarity_type' in request.POST:
+            inputs.append(request.POST['similarity_type'])
+        if profile is not None:
+            inputs.append(profile.id)
+        response = ImageSimilarity.add_or_update(*inputs)
+        logging.warn(response)
+        return JsonResponse({'points': response})

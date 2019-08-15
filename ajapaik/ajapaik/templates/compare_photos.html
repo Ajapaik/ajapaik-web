@@ -126,21 +126,38 @@
 
         photo1 = '{{ photo.id }}';
         photo2 = '{{ photo.id }}';
+        apiEndPointUrl = window.location.origin + "/api/v1/photos/similar/"
 
         ConfirmImageSimilarity = function(confirmed,similarity_type){
             $.ajax({
                 type: 'POST',
-                url: '/compare-photos/' + '{{ photo.id }}/' + '{{ photo2.id }}/',
+                url: apiEndPointUrl,
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,
-                    similarity_type: similarity_type
+                    similarity_type: similarity_type,
+                    photo: '{{ photo.id }}',
+                    photo2: '{{ photo2.id }}'
                 },
                 success: function (response) {
-                    window.location.href = '{{next_action}}';
+                    let points = response.points
+                    message = response && points > 0
+                        ?  interpolate(ngettext(
+                            'You have gained %s points',
+                            'You have gained %s points',
+                            points
+                        ),
+                        [points]
+                        )
+                        : gettext('Your guess has been changed')
+                    $.notify(message, {type: 'success'});
+                    setTimeout(function(){
+                        window.location.href = '{{next_action}}';
+                    }, 1000);
+                    $.notify
                 },
                 error: function () {
-                    alert("Lisamine ebaõnnestus");
+                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                 }
             });
         }

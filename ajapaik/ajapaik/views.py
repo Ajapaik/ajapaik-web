@@ -2721,64 +2721,46 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2)
 
 def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare-photos", compareAll = False):
-	profile = request.get_user().profile
-	if request.method == 'POST':
-		photo_obj = get_object_or_404(Photo, id=photo_id)
-		photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
-		if photo_id == photo_id_2 or photo_obj is None or photo_obj2 is None:
-			return JsonResponse({'status': 400})
-		inputs = [photo_obj,photo_obj2]
-		if 'confirmed' in request.POST:
-			inputs.append(1)
-		else:
-			inputs += '0'
-		if 'similarity_type' in request.POST:
-			inputs.append(request.POST['similarity_type'])
-		if profile is not None:
-			inputs.append(profile.id)
-		ImageSimilarity.add_or_update(*inputs)
-		return JsonResponse({'status': 200})
-	else:
-		similar_photos = None
-		if (photo_id is None or photo_id_2 is None):
-			firstSimilar = ImageSimilarity.objects.filter(confirmed=False).first()
-			if firstSimilar is None:
-				guesses = ImageSimilarityGuess.objects.filter(guesser_id = profile.id).order_by('guesser_id', '-created').all().values_list('image_similarity_id', flat=True)
-				if guesses is None:
-					similar_photos = ImageSimilarity.objects.all()
-				else:
-					similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
-				if similar_photos is None:
-					return render(request,'compare_photos_no_results.html')
-				firstSimilar = similar_photos.first()
-			photo_id = firstSimilar.from_photo_id
-			photo_id_2 = firstSimilar.to_photo_id
-		photo_obj = get_object_or_404(Photo, id=photo_id)
-		photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
-		first_photo_criterion = Q(from_photo=photo_obj) & Q(to_photo=photo_obj2)
-		second_photo_criterion = Q(from_photo=photo_obj2) & Q(to_photo=photo_obj)
-		master_criterion = Q(first_photo_criterion | second_photo_criterion)
-		if similar_photos is None:
-			similar_photos = ImageSimilarity.objects.exclude(master_criterion | Q(confirmed=True))
-			first_photo = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False)).first()
-			second_photo = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False)).first()
-		else:
-			first_photo = similar_photos.filter(from_photo=photo_obj).first()
-			second_photo = similar_photos.filter(from_photo=photo_obj2).first()
-		if first_photo is not None:
-			next_pair = first_photo
-		elif(second_photo is not None):
-			next_pair = second_photo
-		else:
-			if compareAll is True:
-				next_pair = similar_photos.first()
+	similar_photos = None
+	if (photo_id is None or photo_id_2 is None):
+		firstSimilar = ImageSimilarity.objects.filter(confirmed=False).first()
+		if firstSimilar is None:
+			guesses = ImageSimilarityGuess.objects.filter(guesser_id = profile.id).order_by('guesser_id', '-created').all().values_list('image_similarity_id', flat=True)
+			if guesses is None:
+				similar_photos = ImageSimilarity.objects.all()
 			else:
-				next_pair = None
-		if next_pair is None:
-			next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+				similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
+			if similar_photos is None:
+				return render(request,'compare_photos_no_results.html')
+			firstSimilar = similar_photos.first()
+		photo_id = firstSimilar.from_photo_id
+		photo_id_2 = firstSimilar.to_photo_id
+	photo_obj = get_object_or_404(Photo, id=photo_id)
+	photo_obj2 = get_object_or_404(Photo, id=photo_id_2)
+	first_photo_criterion = Q(from_photo=photo_obj) & Q(to_photo=photo_obj2)
+	second_photo_criterion = Q(from_photo=photo_obj2) & Q(to_photo=photo_obj)
+	master_criterion = Q(first_photo_criterion | second_photo_criterion)
+	if similar_photos is None:
+		similar_photos = ImageSimilarity.objects.exclude(master_criterion | Q(confirmed=True))
+		first_photo = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False)).first()
+		second_photo = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False)).first()
+	else:
+		first_photo = similar_photos.filter(from_photo=photo_obj).first()
+		second_photo = similar_photos.filter(from_photo=photo_obj2).first()
+	if first_photo is not None:
+		next_pair = first_photo
+	elif(second_photo is not None):
+		next_pair = second_photo
+	else:
+		if compareAll is True:
+			next_pair = similar_photos.first()
 		else:
-			next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
-				
+			next_pair = None
+	if next_pair is None:
+		next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+	else:
+		next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
+			
 	context = {
 		'is_comparephoto': True,
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,

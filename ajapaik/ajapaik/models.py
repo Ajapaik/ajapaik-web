@@ -9,6 +9,7 @@ from time import sleep
 from urllib.request import urlopen
 
 import numpy
+import logging
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
@@ -29,6 +30,7 @@ from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneFiel
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
@@ -853,6 +855,7 @@ class ImageSimilarity(Model):
     
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
+        points = 0
         iterator = 0
         if len(qs) > 0:
             for item in qs:
@@ -861,6 +864,8 @@ class ImageSimilarity(Model):
                 else:
                     guess = ImageSimilarityGuess(image_similarity=item, guesser=self.user_last_modified, similarity_type=self.similarity_type)
                     guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
+                    if len(guesses.filter(guesser = self.user_last_modified.id)) < 1:
+                        points = 10
                     if self.confirmed is not None:
                         item.confirmed = self.confirmed
                     if self.similarity_type is not None:
@@ -897,28 +902,41 @@ class ImageSimilarity(Model):
                         item.to_photo.hasSimilar = False
                     item.to_photo.save()
                     guess.save()
+                    if points > 0:
+                        Points(
+                            user=self.user_last_modified,
+                            action=Points.CONFIRM_IMAGE_SIMILARITY,
+                            points=points,
+                            image_similarity_confirmation = guess,
+                            created=timezone.now()
+                        ).save()
                 iterator += 1
         else:
-            if self.similarity_type is not None:
-                self.from_photo.hasSimilar = True
-                self.to_photo.hasSimilar = True
-                self.confirmed = True
-            else:
-                self.confirmed = False
             self.from_photo.save()
             self.to_photo.save()
             self.save()
             if self.user_last_modified is not None:
                 guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
                 guess.save()
+                points = 10
+                if points > 0:
+                    Points(
+                        user=self.user_last_modified,
+                        action=Points.CONFIRM_IMAGE_SIMILARITY,
+                        points=points,
+                        image_similarity_confirmation = guess,
+                        created=timezone.now()
+                    ).save()
+        return points
 
 
     def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None, profile=None):
         guesser = Profile.objects.filter(user_id=profile).first()
         imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
         imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
-        imageSimilarity.__add_or_update__()
-        imageSimilarity2.__add_or_update__()
+        points = imageSimilarity.__add_or_update__()
+        points += imageSimilarity2.__add_or_update__()
+        return points
 
 class ImageSimilarityGuess(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name="image_similarity")
@@ -996,7 +1014,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL = range(8)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY = range(11)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1005,7 +1023,10 @@ class Points(Model):
         (PHOTO_RECURATION, _('Photo re-curation')),
         (DATING, _('Dating')),
         (DATING_CONFIRMATION, _('Dating confirmation')),
-        (FILM_STILL, _('Film still'))
+        (FILM_STILL, _('Film still')),
+        (ANNOTATION, _('Annotation')),
+        (CONFIRM_SUBJECT, _('Confirm subject')),
+        (CONFIRM_IMAGE_SIMILARITY, _('Confirm Image similarity')),
     )
 
     user = ForeignKey('Profile', related_name='points')
@@ -1015,13 +1036,16 @@ class Points(Model):
     geotag = ForeignKey('GeoTag', null=True, blank=True)
     dating = ForeignKey('Dating', null=True, blank=True)
     dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True)
+    annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True)
+    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True)
+    image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
 
     class Meta:
         db_table = 'project_points'
         verbose_name_plural = 'Points'
-        unique_together = (('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'))
+        unique_together = (('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'),('user', 'subject_confirmation'),('user', 'image_similarity_confirmation'))
 
     def __unicode__(self):
         return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
