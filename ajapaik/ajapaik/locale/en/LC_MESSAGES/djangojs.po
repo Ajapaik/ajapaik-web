@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 17:16+0300\n"
+"POT-Creation-Date: 2019-08-15 19:05+0300\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -47,6 +47,14 @@ msgstr "An unknown error occurred."
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Not selected"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+msgid "System error"
+msgstr "System error"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
@@ -339,12 +347,6 @@ msgstr "Source ID"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
 msgstr "Source"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
-msgid "System error"
-msgstr "System error"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
