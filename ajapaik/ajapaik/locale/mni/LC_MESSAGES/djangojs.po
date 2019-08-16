@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
 "X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -200,6 +200,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Album details"
 msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
+#, fuzzy
+msgid "Approximate address"
+msgstr "ꯆꯥꯎꯔꯥꯛꯅꯥ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."

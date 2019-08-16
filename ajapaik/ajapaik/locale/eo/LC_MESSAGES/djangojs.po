@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:51+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:36+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -204,6 +204,11 @@ msgstr "Aldoni ĉi tiun bildon (ne la tutan bildaron) en albumon"
 msgid "Album details"
 msgstr "Detaloj pri albumo"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
+#, fuzzy
+msgid "Approximate address"
+msgstr "Proksimuma"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "Ĉu vi certas ke vi volas krei albumon kun malpli ol 5 fotoj? Ni rekomendas ke vi kreu albumon kun almenaŭ 10 fotoj."
@@ -211,6 +216,11 @@ msgstr "Ĉu vi certas ke vi volas krei albumon kun malpli ol 5 fotoj? Ni rekomen
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "Aŭtoro"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+msgid "Comments"
+msgstr "komentitaj"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -246,6 +256,11 @@ msgstr "Bildo nur havas lokon, sen vida direkto"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Image has rephotos"
+msgstr "Bildo havas refotojn"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
+msgid "Image has similar photos"
 msgstr "Bildo havas refotojn"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22

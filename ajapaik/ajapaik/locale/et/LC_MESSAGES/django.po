@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:52+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -1366,7 +1366,7 @@ msgstr "Salvesta"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr "Sisulist kattuvust ei ole"
+msgstr "Sisu ei kattu"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"

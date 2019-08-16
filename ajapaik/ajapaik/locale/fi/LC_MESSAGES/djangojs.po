@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:51+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:36+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -209,6 +209,11 @@ msgstr "Lisää tämä kuva albumiin (ei koko settiä)"
 msgid "Album details"
 msgstr "Albumin tiedot"
 
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
+#, fuzzy
+msgid "Approximate address"
+msgstr "Arvio"
+
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuvaa? Suosittelemme luomaan yli 10 kuvan albumeita."
@@ -216,6 +221,11 @@ msgstr "Oletko varma, että haluat luoda albumin, jossa on vähemmän kuin 5 kuv
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
 msgstr "Tekijä"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
+#, fuzzy
+msgid "Comments"
+msgstr "kommentoitua"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -251,6 +261,11 @@ msgstr "Kuvalla on vain sijainti, ei kamerakulmaa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Image has rephotos"
+msgstr "Kuvalla on uusintakuvia"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#, fuzzy
+msgid "Image has similar photos"
 msgstr "Kuvalla on uusintakuvia"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22

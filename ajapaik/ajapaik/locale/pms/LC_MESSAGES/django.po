@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-12 10:06:53+0000\n"
+"PO-Revision-Date: 2019-08-15 16:05:38+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1137,32 +1137,32 @@ msgstr "Geton nen bon"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr ""
+msgstr "La liura ëd riampostassion ëd la ciav a l'era nen bon-a, miraco përchè a l'é già stàita dovrà.  Për piasì, ch'a ciama na <a href=\"%(passwd_reset_url)s\">neuva riampostassion ëd la ciav</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "La soa ciav a l'é adess modificà."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Anscrission"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "A l'ha già un cont? Antlora ch'a <a href=\"%(login_url)s\">rintra ant ël sistema</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Anscrission sarà"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "An dëspias, ma j'anscrission a son al moment sarà."
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1362,15 +1362,15 @@ msgstr "Argistré"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr ""
+msgstr "Gnun-a dzorposission ëd contnù"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"
-msgstr ""
+msgstr "Contnù ch'a së dzorpon"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:67
 msgid "Same shot"
-msgstr ""
+msgstr "Midema vista"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"

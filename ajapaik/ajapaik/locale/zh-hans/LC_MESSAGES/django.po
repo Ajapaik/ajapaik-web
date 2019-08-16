@@ -1,7 +1,10 @@
-# Translation of Ajapaik Web app to Luxembourgish (Lëtzebuergesch)
+# Translation of Ajapaik Web app to Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 #
-# Author: Robby
+# Author: A Chinese Wikipedian
+# Author: Looong
+# Author: Viztor
+# Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,153 +12,147 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: lb\n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2019-08-15 16:05:38+0000\n"
+"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
+"Language: zh-Hans\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:103
 msgid "Invert colors"
-msgstr "Faarwen ëmdréinen"
+msgstr "反转色"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "Bounding box must be set"
+msgstr ""
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "Bounding box must have 4 comma-separated members"
+msgstr "包围盒必须有4个逗号分隔的成员。"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr "Bounding box values must be numbers"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:16
 msgid "First name"
-msgstr "Virnumm"
+msgstr "名"
 
 #: ajapaik/ajapaik/forms.py:17
 msgid "Last name"
-msgstr "Familljennumm"
+msgstr "姓"
 
 #: ajapaik/ajapaik/forms.py:91 ajapaik/ajapaik/forms.py:156
 #: ajapaik/ajapaik/forms.py:177
 msgid "Choose area"
-msgstr "Choose area"
+msgstr "选择区域"
 
 #: ajapaik/ajapaik/forms.py:97 ajapaik/ajapaik/forms.py:155
 #: ajapaik/ajapaik/forms.py:168 ajapaik/ajapaik/forms.py:176
 #: ajapaik/ajapaik/forms.py:185
 msgid "Choose album"
-msgstr "Choose album"
+msgstr "选择相册"
 
 #: ajapaik/ajapaik/forms.py:172 ajapaik/ajapaik/forms.py:179
 msgid "Choose photo"
-msgstr "Choose photo"
+msgstr "选择照片"
 
 #: ajapaik/ajapaik/forms.py:201 ajapaik/ajapaik/forms.py:220
 msgid "Choose parent album"
-msgstr "Choose parent album"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:375 ajapaik/ajapaik/forms.py:419
 #: ajapaik/ajapaik/templates/_mode_select.html:24
 #: ajapaik/ajapaik/templates/_mode_select.html:73
 msgid "Albums"
-msgstr "Albumen"
+msgstr "相册"
 
 #: ajapaik/ajapaik/forms.py:376
 msgid "Licence"
-msgstr "Lizenz"
+msgstr "许可协议"
 
 #: ajapaik/ajapaik/forms.py:378
 msgid "I am the author"
-msgstr "Ech sinn den Auteur"
+msgstr "我是作者"
 
 #: ajapaik/ajapaik/forms.py:390
 msgid "Missing image"
-msgstr "Bild feelt"
+msgstr "缺少图片"
 
 #: ajapaik/ajapaik/forms.py:392
 msgid "Missing description"
-msgstr "Missing description"
+msgstr "缺少描述"
 
 #: ajapaik/ajapaik/forms.py:394
 msgid "Missing licence"
-msgstr "Missing licence"
+msgstr "缺少授权协议"
 
 #: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
-msgstr "Parent album"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:411
 msgid "If this album is tied to a certain location, specify here"
-msgstr "If this album is tied to a certain location, specify here"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Album type"
-msgstr "Album type"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Anything else"
-msgstr "Anything else"
+msgstr "其他"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Person"
-msgstr "Person"
+msgstr "人物"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "Email address"
-msgstr "E-Mail-Adress"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:471
 msgid "Nothing to change."
-msgstr "Nothing to change."
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:176
 msgid "Female"
-msgstr "Weiblech"
+msgstr "女"
 
 #: ajapaik/ajapaik/models.py:177
 msgid "Male"
-msgstr "Männlech"
+msgstr "男"
 
 #: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:69
 msgid "Name"
-msgstr "Numm"
+msgstr "名称"
 
 #: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:351
 #: ajapaik/ajapaik/templates/curator.html:78
 msgid "Description"
-msgstr "Beschreiwung"
+msgstr "描述"
 
 #: ajapaik/ajapaik/models.py:186
 msgid "Is public"
-msgstr "Is public"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:187
 msgid "Is open"
-msgstr "Is open"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr "Plaz"
+msgstr "定位"
 
 #: ajapaik/ajapaik/models.py:205
 msgid "Wikidata identifier"
-msgstr "Wikidata identifier"
+msgstr "Wikidata识别码"
 
 #: ajapaik/ajapaik/models.py:220
 msgid "b."
@@ -163,60 +160,60 @@ msgstr "b."
 
 #: ajapaik/ajapaik/models.py:336
 msgid "Image"
-msgstr "Bild"
+msgstr "图像"
 
 #: ajapaik/ajapaik/models.py:352
 msgid "Author"
-msgstr "Auteur"
+msgstr "作者"
 
 #: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
 msgid "Different"
-msgstr "Different"
+msgstr "差异"
 
 #: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
 msgid "Similar"
-msgstr "Similar"
+msgstr "相似"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
 msgid "Duplicate"
-msgstr "Duplicate"
+msgstr "副本"
 
 #: ajapaik/ajapaik/models.py:1018
 msgid "Geotag"
-msgstr "Geotag"
+msgstr "地理标签"
 
 #: ajapaik/ajapaik/models.py:1019 ajapaik/ajapaik/models.py:1073
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr "Rephoto"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1020
 msgid "Photo upload"
-msgstr "Photo upload"
+msgstr "照片上传"
 
 #: ajapaik/ajapaik/models.py:1021
 msgid "Photo curation"
-msgstr "Photo curation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1022
 msgid "Photo re-curation"
-msgstr "Photo re-curation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1023
 msgid "Dating"
-msgstr "Dating"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1024
 msgid "Dating confirmation"
-msgstr "Dating confirmation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1025
 msgid "Film still"
-msgstr "Film still"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1051
 msgid "Map"
-msgstr "Kaart"
+msgstr "地图"
 
 #: ajapaik/ajapaik/models.py:1052
 msgid "EXIF"
@@ -228,47 +225,47 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1054
 msgid "Confirmation"
-msgstr "Confirmation"
+msgstr "确认"
 
 #: ajapaik/ajapaik/models.py:1055
 msgid "StreetView"
-msgstr "StreetView"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1056
 msgid "Source geotag"
-msgstr "Source geotag"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1057
 msgid "Android app"
-msgstr "Android app"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1068
 msgid "Game"
-msgstr "Spill"
+msgstr "游戏"
 
 #: ajapaik/ajapaik/models.py:1069
 msgid "Map view"
-msgstr "Map view"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1070
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "图库"
 
 #: ajapaik/ajapaik/models.py:1071
 msgid "Permalink"
-msgstr "Permalink"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1072
 msgid "Source"
-msgstr "Quell"
+msgstr "来源"
 
 #: ajapaik/ajapaik/models.py:1077
 msgid "Google map"
-msgstr "Google map"
+msgstr "Google地图"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Google satellite"
-msgstr "Google satellite"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1079
 msgid "OpenStreetMap"
@@ -276,43 +273,43 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1080
 msgid "Juks"
-msgstr "Juks"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1081
 msgid "No map"
-msgstr "Keng Kaart"
+msgstr "无地图"
 
 #: ajapaik/ajapaik/models.py:1203 ajapaik/ajapaik/models.py:1205
 msgid "Anonymous user"
-msgstr "Anonyme Benotzer"
+msgstr "匿名用户"
 
 #: ajapaik/ajapaik/models.py:1476
 msgid "Day"
-msgstr "Dag"
+msgstr "日"
 
 #: ajapaik/ajapaik/models.py:1477
 msgid "Month"
-msgstr "Mount"
+msgstr "月"
 
 #: ajapaik/ajapaik/models.py:1478
 msgid "Year"
-msgstr "Joer"
+msgstr "年"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 msgid "Page Not Found"
-msgstr "Säit Net Fonnt"
+msgstr "页面未找到"
 
 #: ajapaik/ajapaik/templates/404.html:14
 msgid "Back"
-msgstr "Zréck"
+msgstr "返回"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:7
 msgid "Collection info"
-msgstr "Collection info"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:17
 msgid "System error"
-msgstr "Systemfeeler"
+msgstr "系统错误"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:31
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -322,684 +319,673 @@ msgstr "Systemfeeler"
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:18
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:19
 msgid "Cancel"
-msgstr "Ofbriechen"
+msgstr "取消"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
 msgid "Submit"
-msgstr "Submit"
+msgstr "提交"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr "Recent activity leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Album %(album_name)s leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "All time leaderboard"
-msgstr "All time leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
-msgstr "Original photo"
+msgstr "原始照片"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr "Details for one-time donations"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
-msgstr "Beneficiary's name"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:7
 msgid "Beneficiary's account no"
-msgstr "Beneficiary's account no"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:8
 msgid "LHV single payment link"
-msgstr "LHV single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:10
 #: ajapaik/ajapaik/templates/_donate_details.html:37
 msgid "LHV bank"
-msgstr "LHV bank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:12
 msgid "Krediidipank single payment link"
-msgstr "Krediidipank single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:14
 #: ajapaik/ajapaik/templates/_donate_details.html:42
 msgid "Krediidipank"
-msgstr "Krediidipank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:16
 msgid "SEB single payment link"
-msgstr "SEB single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:18
 #: ajapaik/ajapaik/templates/_donate_details.html:46
 msgid "SEB bank"
-msgstr "SEB bank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:20
 msgid "Swedbank single payment link"
-msgstr "Swedbank single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:23
 #: ajapaik/ajapaik/templates/_donate_details.html:50
 msgid "Swedbank"
-msgstr "Swedbank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:25
 msgid "Nordea single payment link"
-msgstr "Nordea single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:27
 #: ajapaik/ajapaik/templates/_donate_details.html:54
 msgid "Nordea bank"
-msgstr "Nordea-Bank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:29
 msgid "Danske single payment link"
-msgstr "Danske single payment link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:31
 #: ajapaik/ajapaik/templates/_donate_details.html:58
 msgid "Danske bank"
-msgstr "Danske bank"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
-msgstr "Prefilled forms for standing payments"
+msgstr "长期付款预填表格"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:35
 msgid "LHV payment order link"
-msgstr "LHV payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:39
 msgid "Krediidipank payment order link"
-msgstr "Krediidipank payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:44
 msgid "SEB payment order link"
-msgstr "SEB payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:48
 msgid "Swedbank payment order link"
-msgstr "Swedbank payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:52
 msgid "Nordea payment order link"
-msgstr "Nordea payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:56
 msgid "Danske payment order link"
-msgstr "Danske payment order link"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr "Other ways of supporting us"
+msgstr "其他支持我们的方法"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr "Ajapaik Brave referral"
+msgstr "Ajapaik Brave引用者"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
-msgstr "Filtering"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr "Sort by distance from you"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
-msgstr "Sort by time and ..."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr "Sort by photos' time added"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
-msgstr "Sort by stills' timestamp"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"
-msgstr "Sort by views' time added or amount"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
-msgstr "Sort by geotags' time added or amount"
+msgstr "按大地标志的时间或数量排序"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
-msgstr "Sort by datings' time added or amount"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
-msgstr "Sort by rephotos' time added or amount"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
-msgstr "Sort by comments' time added or amount"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
-msgstr "Sort by likes' time added or amount"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
-msgstr "Sort by amount and ..."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:122
 msgid "Change sorting order"
-msgstr "Change sorting order"
+msgstr "更改排序顺序"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
 msgid "Help"
-msgstr "Hëllef"
+msgstr "帮助"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr "Wéi zortéieren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
 msgid "From this group"
-msgstr "From this group"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr "Choose 2 parameters"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:58
 msgid "or"
-msgstr "or"
+msgstr "或"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:64
 msgid "and"
-msgstr "and"
+msgstr "和"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:65
 msgid "1 of"
-msgstr "1 vu(n)"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr "orders pictures by distance from you"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:105
 msgid "reverses sorting"
-msgstr "reverses sorting"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr "Estonian Photographic Heritage Society"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr "Support Ajapaik"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 msgid "Support us"
-msgstr "Support us"
+msgstr "支持我们"
 
 #: ajapaik/ajapaik/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr "See also – Sift.pics"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:113
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "注销"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
-msgstr "Ajapaik shows how places have changed over time"
+msgstr "Ajapaik展示了地方是如何随着时间的推移而变化的"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:14
 msgid "Discover how places looked like years ago by"
-msgstr "Discover how places looked like years ago by"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
 msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-msgstr "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
-msgstr "* geotagging pictures from places you are familiar with and"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:23
 msgid "* rephotographing the historic views from places you visit."
-msgstr "* rephotographing the historic views from places you visit."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
+msgstr "Ajapaik有<b>%(total_photo_count)s</b>历史照片，超过<b>%(total_photos_tagged)s</b>张被标记的图片已经被<b>%(contributing_users)s</b>用户放到了地图上而且需要重新拍照的<b>%(rephotographed_photo_count)s</b>张照片中有<b>%(rephoto_count)s</b>张照片被<b>%(rephotographing_users)s</b>用户重新拍摄。"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
-#, python-format
+#, invalid-plural, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
-msgstr[1] "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
-#, python-format
+#, invalid-plural, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] "You have made <b>%(user_rephotos)s</b> rephoto for"
-msgstr[1] "You have made <b>%(user_rephotos)s</b> rephotos for"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
-#, python-format
+#, invalid-plural, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] "<b>%(user_rephotographed_photos)s</b> picture."
-msgstr[1] "<b>%(user_rephotographed_photos)s</b> pictures."
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
-msgstr "General statistics refresh every 10 minutes."
+msgstr "没10分钟刷新一次总统计数。"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
-msgstr "Supporters of Ajapaik"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:47
 msgid "KulKa logo"
-msgstr "KulKa logo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:50
 msgid "Ministry of Education logo"
-msgstr "Ministry of Education logo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
 msgid "EV100 logo"
-msgstr "EV100 logo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:66
 msgid "KYSK logo"
-msgstr "KYSK Logo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:4
 msgid "Back to homepage"
-msgstr "Back to homepage"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:13
 msgid "Search album"
-msgstr "Search album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:16
 msgid "Search photos"
-msgstr "Search photos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:19
 msgid "Show in grid"
-msgstr "Show in grid"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:30
 #: ajapaik/ajapaik/templates/_info_modal_content.html:107
 #: ajapaik/ajapaik/templates/_info_modal_content.html:109
 msgid "Geotag pictures"
-msgstr "Geotag pictures"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:34
 #: ajapaik/ajapaik/templates/_info_modal_content.html:102
 msgid "Show on map"
-msgstr "Op der Kaart weisen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List face recognition albums"
-msgstr "List face recognition albums"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Add photos"
-msgstr "Add photos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr "Newsletteren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Mark Similar Images"
-msgstr "Mark Similar Images"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
-msgstr "Current selection"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:70
 msgid "Choose language"
-msgstr "Choose language"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:82
 msgid "About Ajapaik"
-msgstr "Iwwer Ajapaik"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:85
 msgid "Ajapaik on Facebook"
-msgstr "Ajapaik on Facebook"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:91
 msgid "Profile and leaderboard"
-msgstr "Profile and leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1715
 #: ajapaik/ajapaik/views.py:1732 ajapaik/ajapaik/views.py:1768
 msgid "Leaderboard"
-msgstr "Leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:110
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
 msgid "User"
-msgstr "Benotzer"
+msgstr "用户"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr "Album curated by"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
-msgstr "Contributors' leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
-#, python-format
+#, invalid-plural, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] "Album has %(counter)s historic picture,"
-msgstr[1] "Album has %(counter)s historic pictures,"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:100
-#, python-format
+#, invalid-plural, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] "%(counter)s user has put"
-msgstr[1] "%(counter)s users have put"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:102
 msgid "all the pictures on the map."
-msgstr "all the pictures on the map."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
-#, python-format
+#, invalid-plural, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] "%(counter)s picture on the map."
-msgstr[1] "%(counter)s pictures on the map."
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr "You haven't made any location suggestions for pictures in this album."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:39
 msgid "You have made a location suggestion for"
-msgstr "You have made a location suggestion for"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:41
 msgid "all the pictures from this album."
-msgstr "all the pictures from this album."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:43
-#, python-format
+#, invalid-plural, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] "%(counter)s picture in this album."
-msgstr[1] "%(counter)s pictures in this album."
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
-#, python-format
+#, invalid-plural, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] "%(counter)s user has made"
-msgstr[1] "%(counter)s users have made"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, python-format
+#, invalid-plural, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "%(counter)s rephotograph"
-msgstr[1] "%(counter)s rephotographs"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
-#, python-format
+#, invalid-plural, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
-msgstr[0] "for %(counter)s picture in the album."
-msgstr[1] "for %(counter)s picture in the album."
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
-#, python-format
+#, invalid-plural, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] "You have made %(counter)s rephoto"
-msgstr[1] "You have made %(counter)s rephotos"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr "Some nearby albums"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:74
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
 #: ajapaik/ajapaik/templates/photoview.html:191
 msgid "Share"
-msgstr "Deelen"
+msgstr "分享"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:104
 msgid "Back to map"
-msgstr "Back to map"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_leaderboard_positions.html:9
 msgid "User Facebook photo"
-msgstr "User Facebook photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_leaderboard_positions.html:11
 msgid "User Google photo"
-msgstr "User Google photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:7
 msgid "Log in to save your score"
-msgstr "Log in to save your score"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:9
 msgid "Log in to upload rephoto"
-msgstr "Log in to upload rephoto"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:11
 msgid "Log in to curate content"
-msgstr "Log in to curate content"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:13
 msgid "Log in to create still frames"
-msgstr "Log in to create still frames"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:15
 msgid "Log in to save selection"
-msgstr "Log in to save selection"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
 msgid "Connect with Facebook"
-msgstr "Connect with Facebook"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
 msgid "Connect with Google"
-msgstr "Connect with Google"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:27
 msgid "E-mail address"
-msgstr "E-Mail-Adress"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
 msgid "Password"
-msgstr "Passwuert"
+msgstr "密码"
 
 #: ajapaik/ajapaik/templates/_log_in.html:33
 msgid "Register with e-mail"
-msgstr "Register with e-mail"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:36
 msgid "Log in"
-msgstr "Log in"
+msgstr "登录"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
 msgid "Click to choose"
-msgstr "Click to choose"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
 #: ajapaik/ajapaik/templates/photoview.html:219
 msgid "Album details"
-msgstr "Album details"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:22
 #: ajapaik/ajapaik/templates/_mode_select.html:71
 msgid "Show albums"
-msgstr "Show albums"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:27
 #: ajapaik/ajapaik/templates/_mode_select.html:75
 msgid "Show pictures"
-msgstr "Show pictures"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:29
 #: ajapaik/ajapaik/templates/_mode_select.html:77
 msgid "All pictures"
-msgstr "All Biller"
+msgstr "全部图片"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:32
 #: ajapaik/ajapaik/templates/_mode_select.html:79
 msgid "Show my favorites"
-msgstr "Show my favorites"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:34
 #: ajapaik/ajapaik/templates/_mode_select.html:81
 msgid "My favorites"
-msgstr "Meng Favoritten"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:37
 #: ajapaik/ajapaik/templates/_mode_select.html:83
 msgid "Show rephotographed by me"
-msgstr "Show rephotographed by me"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:39
 #: ajapaik/ajapaik/templates/_mode_select.html:85
 msgid "My rephotos"
-msgstr "My rephotos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:46
 msgid "Remove album filter"
-msgstr "Remove album filter"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
-msgstr "Approximate address"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
 msgid "Flip photo"
-msgstr "Flip photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
 #: ajapaik/ajapaik/templates/photoview.html:117
 #: ajapaik/ajapaik/templates/photoview.html:118
 msgid "similar photo"
-msgstr "ähnlech Foto"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "duplicate photo"
-msgstr "duplicate photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
-msgstr "Onbekannten Auteur"
+msgstr "未知作者"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/game.html:53
 #: ajapaik/ajapaik/templates/photoview.html:48
 #: ajapaik/ajapaik/templates/photoview.html:173
 msgid "Pick the shooting location!"
-msgstr "Pick the shooting location!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
 #: ajapaik/ajapaik/templates/photoview.html:179
 msgid "Date this image"
-msgstr "Dëst Bild datéieren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
 #: ajapaik/ajapaik/templates/photoview.html:183
 msgid "Add rephoto"
-msgstr "Add rephoto"
+msgstr "添加重拍照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
-msgstr "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
+msgstr "标记一个新的面部-单击此按钮将使您能够在主图像上绘制一个面部矩形"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
 msgid "Discuss"
-msgstr "Diskutéieren"
+msgstr "讨论"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
 #: ajapaik/ajapaik/templates/photoview.html:211
+#, invalid-plural
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] "Picture belongs to album"
-msgstr[1] "Picture belongs to albums:"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Curator"
-msgstr "Curator"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
 msgid "Taken"
-msgstr "Taken"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
 #: ajapaik/ajapaik/templates/user_upload.html:23
 msgid "Upload"
-msgstr "Eroplueden"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:28
 msgid "Select file..."
-msgstr "Select file..."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
 msgid "licence"
-msgstr "Lizenz"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:44
 #: ajapaik/ajapaik/templates/curator.html:38
@@ -1007,123 +993,123 @@ msgstr "Lizenz"
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
-msgstr "Zoumaachen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:59
 msgid "Abort"
-msgstr "Ofbriechen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:81
 msgid "Select new file..."
-msgstr "Select new file..."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:111
 msgid "File upload failed."
-msgstr "File upload failed."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_rephoto_description_container.html:35
 msgid "Date taken"
-msgstr "Date taken"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr "Compare images"
+msgstr "对比图片"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
+msgstr "说明是否图片的内容是重叠的。以防止出现相同的位置或物体，也防止出现相同的拍摄被裁切."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr "The decision can also be made on keyboard (1, 2, 3)."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr "You're anonymous. You can now log in with your e-mail."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr "Passwuert vergiess?"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr "Messages"
+msgstr "消息"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr "Menu"
+msgstr "菜单"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
-msgstr "E-Mail-Adress änneren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
-msgstr "Passwuert änneren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
-msgstr "Socialaccount connections"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm E-mail address"
-msgstr "E-Mail-Adress confirméieren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
+msgstr "请确认用户%(user_display)s的邮箱地址是<a href=\"mailto:%(email)s\">%(email)s</a> 。"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr "Confirméieren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr "该邮件确认链接超时或无效。请<a href=\"%(email_url)s\">从生成一个新的邮件确认请求</a>."
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 msgid "Sign in"
-msgstr "Aloggen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
 msgid "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
-msgstr "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
+msgstr "请使用你的已存在的第三方账户登录。或者通过<a href=\"%(signup_url)s\">注册</a>一个 %(site_name)s账户并从下面登录："
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format
 msgid "If you have not created an account yet, then please\n<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "If you have not created an account yet, then please\n<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "Passwuert zrécksetzen"
+msgstr "密码重置"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:15
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
+msgstr "忘记密码？在线面输入你的邮箱地址，我们将会发送一封邮件来允许你重置密码。"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr "Mäi Passwuert zrécksetzen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Please contact us if you have any trouble resetting your password."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1131,499 +1117,498 @@ msgstr "We have sent you an e-mail. Please contact us if you do not receive it w
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr "Passwuert änneren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Bad Token"
+msgstr "坏令牌"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr "Your password is now changed."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "注册"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr "Sign Up Closed"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "We are sorry, but the sign up is currently closed."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
-msgstr "Home"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
-msgstr "Upload photos via CSV file"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:15
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:15
 msgid "Album ID"
-msgstr "Album ID"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:17
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:17
 msgid "CSV"
-msgstr "CSV"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:19
 msgid "ZIP"
-msgstr "Postcode"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:7
 msgid "Upload The Digital Archives of Norway photos via CSV file"
-msgstr "Upload The Digital Archives of Norway photos via CSV file"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:16
 msgid "Gallery of old historic photos from the album"
-msgstr "Gallery of old historic photos from the album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:18
 msgid "Historic photo gallery"
-msgstr "Historic photo gallery"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:22
 msgid "Mapped old historic photos from the album"
-msgstr "Mapped old historic photos from the album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:24
 msgid "Mapped old historic photos"
-msgstr "Mapped old historic photos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:28
 msgid "Help geotag old historic photos from the album"
-msgstr "Help geotag old historic photos from the album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:30
 msgid "Help geotag old historic photos"
-msgstr "Help geotag old historic photos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:34
 msgid "Before and after view of"
-msgstr "Before and after view of"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:36
 msgid "Historic photo of"
-msgstr "Historic photo of"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
 #: ajapaik/ajapaik/templates/base_bootstrap.html:72
 msgid "historic,pictures,old,photos"
-msgstr "historic,pictures,old,photos"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:53
 #: ajapaik/ajapaik/templates/base_bootstrap.html:55
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr "historic,pictures,old,photos,map,geotagged,location"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:59
 #: ajapaik/ajapaik/templates/base_bootstrap.html:61
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
-msgstr "historic,pictures,old,photos,crowd-sourced,geotagging,game"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:65
 msgid "historic,picture,old,photo,before,after"
-msgstr "historic,picture,old,photo,before,after"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:67
 msgid "historic,picture,old,photo"
-msgstr "historic,picture,old,photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:70
 msgid "search,museum,old,photos,pictures,historic"
-msgstr "search,museum,old,photos,pictures,historic"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:90
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr "Gallery of rephotographs by %(rephotos_by_name)s"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:94
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
-msgstr "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 msgid "Let's put pictures on the map"
-msgstr "Let's put pictures on the map"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:99
-#, python-format
+#, invalid-plural, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "Album has %(counter)s photo,"
-msgstr[1] "Album has %(counter)s photos,"
+msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"
-msgstr "Timepatch (Ajapaik)"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:268
 msgid "Geolocation error"
-msgstr "Geolocation error"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:271
 msgid "Sorting"
-msgstr "Sorting"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "This website uses cookies to ensure you get the best experience on our website"
-msgstr "This website uses cookies to ensure you get the best experience on our website"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "Got it!"
-msgstr "Verstanen!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:417
 msgid "More info"
-msgstr "More info"
+msgstr "更多信息"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:10
 msgid "Really remove this comment?"
-msgstr "Really remove this comment?"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/delete.html:16
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:37
 msgid "Remove"
-msgstr "Ewechhuelen"
+msgstr "移除"
 
 #: ajapaik/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
-msgstr "Identify yourself to comment"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
-msgstr "Your comment"
+msgstr "您的评论"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
 msgid "Send"
-msgstr "Schécken"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:22
 msgid "Like"
-msgstr "Like"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:26
 msgid "Dislike"
-msgstr "Dislike"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:30
 #: ajapaik/ajapaik/templates/comments/list.html:90
 msgid "Reply"
-msgstr "Äntwerten"
+msgstr "回复"
 
 #: ajapaik/ajapaik/templates/comments/list.html:39
 #: ajapaik/ajapaik/templates/comments/list.html:41
 #: ajapaik/ajapaik/templates/comments/list.html:45
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:26
 msgid "Delete"
-msgstr "Läschen"
+msgstr "删除"
 
 #: ajapaik/ajapaik/templates/comments/list.html:40
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr "Are you sure that you want to delete this comment and all replies?"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
-msgstr "Änneren"
+msgstr "编辑"
 
 #: ajapaik/ajapaik/templates/comments/list.html:61
 #: ajapaik/ajapaik/templates/comments/list.html:87
 msgid "supports Markdown"
-msgstr "supports Markdown"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/list.html:64
 #: ajapaik/ajapaik/templates/curator.html:134
 msgid "Save"
-msgstr "Späicheren"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos.html:57
 msgid "No content overlap"
-msgstr "No content overlap"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"
-msgstr "Overlapping content"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos.html:67
 msgid "Same shot"
-msgstr "Same shot"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr "You have already reviewed all the similar image pairs"
+msgstr "你已经复查了所有相似的图片对"
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
-msgstr "Merci!"
+msgstr "感谢您！"
 
 #: ajapaik/ajapaik/templates/curator.html:23
 msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
-msgstr "Your photos have now been added to Ajapaik and can be interacted with as usual."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:25
 msgid "Points awarded for curating"
-msgstr "Points awarded for curating"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:28
 msgid "You can start geotagging the new content here"
-msgstr "You can start geotagging the new content here"
+msgstr "您可以在这里开始对新内容进行地理标识"
 
 #: ajapaik/ajapaik/templates/curator.html:32
 msgid "Tell your friends on Facebook"
-msgstr "Tell your friends on Facebook"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:51
 msgid "Edit your album"
-msgstr "Edit your album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:62
 msgid "Error"
-msgstr "Feeler"
+msgstr "错误"
 
 #: ajapaik/ajapaik/templates/curator.html:89
 msgid "Open album (anyone can add photos)"
-msgstr "Open album (anyone can add photos)"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:97
 msgid "Visible (shown in selection)"
-msgstr "Visible (shown in selection)"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator.html:113
 msgid "If the photos are from the same place, specify a location here"
-msgstr "If the photos are from the same place, specify a location here"
+msgstr "如果照片来自同一个地方,在这里指定一个位置"
 
 #: ajapaik/ajapaik/templates/curator.html:119
 msgid "Place"
-msgstr "Plaz"
+msgstr "场所"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:9
 msgid "Search"
-msgstr "Sichen"
+msgstr "搜索"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:16
 msgid "Selection"
-msgstr "Selection"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:23
 msgid "My albums"
-msgstr "Meng Albumen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:35
 msgid "Full search"
-msgstr "Full search"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:41
 msgid "Search!"
-msgstr "Sichen!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
 #: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
-msgstr "Méi lueden"
+msgstr "加载更多"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:51
 msgid "Select all"
-msgstr "Select all"
+msgstr "全选"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:58
 msgid "Filter existing"
-msgstr "Filter existing"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:62
 msgid "MUIS"
-msgstr "MUIS"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:66
 msgid "DIGAR"
-msgstr "DIGAR"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:70
 msgid "MKA"
-msgstr "MKA"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:74
 msgid "ETERA"
-msgstr "ETERA"
+msgstr "埃特拉"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:78
 msgid "UTLIB"
-msgstr "UTLIB"
+msgstr "乌特利卜"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:82
 msgid "Fotis"
-msgstr "Fotis"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:86
 msgid "Finna"
-msgstr "Finna"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:91
 msgid "Flickr Commons"
-msgstr "Flickr Commons"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:102
 #: ajapaik/ajapaik/templates/photo_selection.html:21
 msgid "Clear selection"
-msgstr "Clear selection"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:108
 msgid "Submit selection to Ajapaik"
-msgstr "Submit selection to Ajapaik"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr "Reply to"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
-msgstr "Notify me about follow-up comments"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
-msgstr "Interior "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:3
 msgid "Exterior "
-msgstr "Exterior "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:4
 msgid "Urban "
-msgstr "Urban "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:5
 msgid "Rural "
-msgstr "Ländlech "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:6
 msgid "View "
-msgstr "View "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:7
 msgid "Social "
-msgstr "Social "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:8
 msgid "Ground "
-msgstr "Ground "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:9
 msgid "Raised "
-msgstr "Raised "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:10
 msgid "One "
-msgstr "One "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:11
 msgid "Many "
-msgstr "Many "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:12
 msgid "Whole "
-msgstr "Whole "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:13
 msgid "Detail "
-msgstr "Detail "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:14
 msgid "Staged "
-msgstr "Staged "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:15
 msgid "Natural "
-msgstr "Natural "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:16
 msgid "Public "
-msgstr "Public "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:17
 msgid "Private "
-msgstr "Private "
+msgstr ""
 
 #: ajapaik/ajapaik/templates/frontpage.html:30
 msgid "Authentication"
-msgstr "Authentication"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:25
 msgid "Game modal photo"
-msgstr "Game modal photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:48
 msgid "Show description"
-msgstr "Beschreiwung weisen"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:65
 msgid "The picture has not yet been pinned on the map. Be the first!"
-msgstr "The picture has not yet been pinned on the map. Be the first!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:68
 msgid "1 suggestion has been submitted for this picture. Add yours!"
-msgstr "1 suggestion has been submitted for this picture. Add yours!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/game.html:72
 msgid "suggestions have been submitted for this picture. Add yours!"
-msgstr "suggestions have been submitted for this picture. Add yours!"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/leaderboard.html:19
 msgid "Back home"
-msgstr "Back home"
+msgstr "返回主页"
 
 #: ajapaik/ajapaik/templates/mapview.html:21
 msgid "Search box"
-msgstr "Sich-Këscht"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
-msgstr "Add to album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_selection.html:26
 msgid "Images have overlapping content"
-msgstr "Images have overlapping content"
+msgstr "图片有内容重叠的部分。。"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:30
 msgid "All images are of the same shot"
-msgstr "All images are of the same shot"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
-msgstr "You can re-order photos by dragging and dropping"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:13
 msgid "Import from public collections"
-msgstr "Import from public collections"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr "Upload yourself"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview.html:21
 #: ajapaik/ajapaik/templates/photoview.html:23
@@ -1631,92 +1616,92 @@ msgstr "Upload yourself"
 #: ajapaik/ajapaik/templates/photoview.html:145
 #: ajapaik/ajapaik/templates/photoview.html:146
 msgid "rephoto"
-msgstr "rephoto"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview.html:160
 msgid "People claimed to be on this photo"
-msgstr "People claimed to be on this photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
 msgid "Account Connections"
-msgstr "Account Connections"
+msgstr "账户链接"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
 msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr "You can sign in to your account using any of the following third party accounts:"
+msgstr "你可以使用下面的任何第三方账户信息登录到你的账户:"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
 msgid "You currently have no social network accounts connected to this account."
-msgstr "You currently have no social network accounts connected to this account."
+msgstr "当前你没有任何社交网络账户连接到这个账户"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
-msgstr "Add a 3rd Party Account"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
-msgstr "Upload and mark on map"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
 msgid "Add"
-msgstr "Add"
+msgstr "添加"
 
 #: ajapaik/ajapaik/views.py:454
 msgid "Non-authenticated user"
-msgstr "Non-authenticated user"
+msgstr "非认证用户"
 
 #: ajapaik/ajapaik/views.py:593
 msgid "Geotagging game"
-msgstr "Geotagging game"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:661
 #, python-format
 msgid "%(name)s - rephotos"
-msgstr "%(name)s - rephotos"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1108
 msgid "Cannot upload to these albums"
-msgstr "Cannot upload to these albums"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
-msgstr "Recuration successful"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
-msgstr "Problem with album selection"
+msgstr "专辑选择问题"
 
 #: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
-msgstr "Faulty data submitted"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1433 ajapaik/ajapaik/views.py:1440
 #: ajapaik/ajapaik/views.py:1442
 msgid "Browse photos on map"
-msgstr "Browse photos on map"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1574
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
-msgstr "Your contribution didn't change the estimated location for the photo, not yet anyway."
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1576
 msgid "The photo has been mapped to a new location thanks to you."
-msgstr "The photo has been mapped to a new location thanks to you."
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1578
 msgid "Your guess was first."
-msgstr "Your guess was first."
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:1852
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2204
 msgid "OK"
@@ -1725,53 +1710,53 @@ msgstr "OK"
 #: ajapaik/ajapaik/views.py:2262
 #, python-format
 msgid "Error uploading file: %s"
-msgstr "Error uploading file: %s"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2279
 msgid "Photo already exists in Ajapaik"
-msgstr "Photo already exists in Ajapaik"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2299
 msgid "Please add photos to your album"
-msgstr "Please add photos to your album"
+msgstr "请在相册中添加照片"
 
 #: ajapaik/ajapaik/views.py:2301
 msgid "Not enough data submitted"
-msgstr "Not enough data submitted"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2616
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr "Still from \"%(film)s\" at %(time)s"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2761
 msgid "Photo uploaded"
-msgstr "Photo uploaded"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2780
 msgid "Album created"
-msgstr "Album created"
+msgstr ""
 
 #: ajapaik/ajapaik/views.py:2862
 msgid "Sorry but we fail to post your comment."
-msgstr "Sorry but we fail to post your comment."
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
 msgid "Subject name"
-msgstr "Subject name"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Is public figure"
-msgstr "Is public figure"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
-msgstr "Sujet"
+msgstr "科目"
 
 #: ajapaik/ajapaik_face_recognition/models.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:66
 msgid "Algorithm"
-msgstr "Algorithm"
+msgstr "算法"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:67
@@ -1780,25 +1765,25 @@ msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
-msgstr "Submit guess"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:21
 msgid "This rectangle is bad, I think it should be removed."
-msgstr "This rectangle is bad, I think it should be removed."
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
-msgstr "Delete annotation"
+msgstr ""
 
 #: ajapaik/settings/default.py:71
 msgid "Estonian"
-msgstr "Estonian"
+msgstr ""
 
 #: ajapaik/settings/default.py:72
 msgid "English"
-msgstr "Englesch"
+msgstr ""
 
 #: ajapaik/settings/default.py:73
 msgid "Finnish"
-msgstr "Finnesch"
+msgstr ""
 
