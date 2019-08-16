@@ -1346,20 +1346,31 @@ class AddSimilarPhotos(AjapaikAPIView):
     API endpoint for posting similar photos.
     '''
     def post(self, request, format=None):
+        points = 0
+        errors = 0
         profile = request.user.profile
-        photo_obj = get_object_or_404(Photo, id=request.POST['photo'])
-        photo_obj2 = get_object_or_404(Photo, id=request.POST['photo2'])
-        if photo_obj == photo_obj2 or photo_obj is None or photo_obj2 is None:
-            return JsonResponse({'status': 400})
-        inputs = [photo_obj,photo_obj2]
-        if 'confirmed' in request.POST:
-            inputs.append(1)
-        else:
-            inputs += '0'
-        if 'similarity_type' in request.POST:
-            inputs.append(request.POST['similarity_type'])
-        if profile is not None:
-            inputs.append(profile.id)
-        response = ImageSimilarity.add_or_update(*inputs)
-        logging.warn(response)
-        return JsonResponse({'points': response})
+        photos = request.POST['photos'].split(",")
+        photos2 = request.POST['photos'].split(",")
+        confirmed = request.POST['confirmed']
+        similarity_type = request.POST['similarity_type']
+        if photos is not None:
+            for photo in photos:
+                if len(photos2) < 2:
+                    break
+                photos2 = photos2[1:]
+                for photo2 in photos2:
+                    photo_obj = get_object_or_404(Photo, id=photo)
+                    photo_obj2 = get_object_or_404(Photo, id=photo2)
+                    if photo_obj == photo_obj2 or photo_obj is None or photo_obj2 is None:
+                        return JsonResponse({'status': 400})
+                    inputs = [photo_obj,photo_obj2]
+                    if confirmed is not None:
+                        inputs.append('1')
+                    else:
+                        inputs.append('0')
+                    if similarity_type is not None:
+                        inputs.append(similarity_type)
+                    if profile is not None:
+                        inputs.append(profile.id)
+                    points += ImageSimilarity.add_or_update(*inputs)
+        return JsonResponse({'points': points})

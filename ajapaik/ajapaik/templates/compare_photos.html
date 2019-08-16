@@ -125,25 +125,24 @@
         window.isCompareView = true;
 
         photo1 = '{{ photo.id }}';
-        photo2 = '{{ photo.id }}';
-        apiEndPointUrl = window.location.origin + "/api/v1/photos/similar/"
+        photo2 = '{{ photo2.id }}';
 
         ConfirmImageSimilarity = function(confirmed,similarity_type){
+            $('#ajapaik-loading-overlay').show();
             $.ajax({
                 type: 'POST',
-                url: apiEndPointUrl,
+                url: window.location.origin + "/api/v1/photos/similar/",
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     confirmed: confirmed,
                     similarity_type: similarity_type,
-                    photo: '{{ photo.id }}',
-                    photo2: '{{ photo2.id }}'
+                    photos: photo1 + "," + photo2
                 },
                 success: function (response) {
                     let points = response.points
-                    message = response && points > 0
+                    let message = response && points > 0
                         ?  interpolate(ngettext(
-                            'You have gained %s points',
+                            'You have gained %s point',
                             'You have gained %s points',
                             points
                         ),
@@ -154,10 +153,12 @@
                     setTimeout(function(){
                         window.location.href = '{{next_action}}';
                     }, 1000);
-                    $.notify
                 },
                 error: function () {
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
                 }
             });
         }

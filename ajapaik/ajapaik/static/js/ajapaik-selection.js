@@ -47,29 +47,35 @@
                 for (let key in response) {
                     photos.push(key)
                 }
-                let otherPhotos = photos.slice();
-                for (let photo in photos) {
-                    otherPhotos.shift();
-                    for(let similar in otherPhotos) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/compare-photos/' + photos[photo] + '/' +  otherPhotos[similar] +'/',
-                            data: {
-                                csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                                confirmed: true,
-                                similarity_type: type,
-                                profile: window.currentProfileId
-                            },
-                            success: function () {
-                                $.notify(gettext('Image similarities mapped, thanks!'), {type: 'success'});
-                            },
-                            error: function () {
-                                $.notify(gettext('Something went wrong'), {type: 'danger'});
-                            }
-                        });
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.origin + "/api/v1/photos/similar/",
+                    data: {
+                        csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                        confirmed: true,
+                        similarity_type: type,
+                        photos: photos.join(",")
+                    },
+                    success: function (response) {
+                        let points = response.points
+                        let message = response && points > 0
+                            ?  interpolate(ngettext(
+                                'You have gained %s points',
+                                'You have gained %s points',
+                                points
+                            ),
+                            [points]
+                            )
+                            : gettext('Your guess has been changed')
+                        $.notify(message, {type: 'success'});
+                    },
+                    error: function () {
+                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                    },
+                    complete: function () {
+                        $('#ajapaik-loading-overlay').hide();
                     }
-                }
-                $('#ajapaik-loading-overlay').hide();
+                });
             });
         }
         $(document).on('click', '.ajapaik-photo-selection-thumbnail-link', function (e) {
