@@ -53,9 +53,9 @@
                     </a>
                 {% endif %}
                 {% if is_frontpage %}
-                    <a id="ajapaik-header-similar" role="button" title="{% trans 'Mark Similar Images' %}" href="/compare-all-photos/">
+                <!--   <a id="ajapaik-header-similar" role="button" title="{% trans 'Mark Similar Images' %}" href="/compare-all-photos/">
                         <i class="material-icons notranslate ajapaik-gray-button">burst_mode</i>
-                    </a>
+                    </a> -->
                 {% endif %}
                 <a class="ajapaik-header-button{% if not request.session.photo_selection %} d-none{% endif %}" id="ajapaik-header-selection-indicator" role="button" title="{% trans 'Current selection' %}" href="/view-selection">
                     <i class="material-icons notranslate ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
