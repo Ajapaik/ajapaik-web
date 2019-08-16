@@ -112,7 +112,7 @@
 					subject_album: subjectId,
 					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
 				},
-				success: function () {
+				success: function (response) {
 					let points = response.points;
 					let message = interpolate(ngettext(
 						'Thank you!</br>You have gained %s point',
