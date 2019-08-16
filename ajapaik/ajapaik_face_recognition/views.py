@@ -7,11 +7,12 @@ from typing import Optional, Iterable
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.template import RequestContext
+from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 from PIL import Image
 
 from ajapaik import settings
-from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Points
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
@@ -85,9 +86,19 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
                     subject_album.save()
                     status = 201
             rectangle.subject_consensus_id = consensus_subject
+            points = 75
+            Points(
+                user=request.user.profile,
+                action=Points.CONFIRM_SUBJECT,
+                points=points,
+                photo=rectangle.photo,
+                subject_confirmation=new_guess,
+                annotation = rectangle,
+                created=timezone.now()
+            ).save()
             rectangle.save()
 
-            return HttpResponse(JSONRenderer().render({'id': new_guess.id}), content_type='application/json',
+            return HttpResponse(JSONRenderer().render({'id': new_guess.id, 'points': points}), content_type='application/json',
                                 status=status)
 
     return HttpResponse('OK', status=status)
@@ -114,7 +125,16 @@ def add_rectangle(request: HttpRequest) -> HttpResponse:
             origin=FaceRecognitionRectangle.USER
         )
         new_rectangle.save()
-        response_content = JSONRenderer().render({'id': new_rectangle.id})
+        points = 25
+        Points(
+            user=request.user.profile,
+            action=Points.ANNOTATION,
+            points=points,
+            photo=form.cleaned_data['photo'],
+            annotation = new_rectangle,
+            created=timezone.now()
+        ).save()
+        response_content = JSONRenderer().render({'id': new_rectangle.id, 'points': points})
         status = 201
     else:
         response_content = 'Invalid data'

@@ -139,7 +139,7 @@
                     photos: photo1 + "," + photo2
                 },
                 success: function (response) {
-                    let points = response.points
+                    let points = response.points;
                     let message = response && points > 0
                         ?  interpolate(ngettext(
                             'You have gained %s point',
@@ -148,7 +148,7 @@
                         ),
                         [points]
                         )
-                        : gettext('Your guess has been changed')
+                        : gettext('Your guess has been changed');
                     $.notify(message, {type: 'success'});
                     setTimeout(function(){
                         window.location.href = '{{next_action}}';
