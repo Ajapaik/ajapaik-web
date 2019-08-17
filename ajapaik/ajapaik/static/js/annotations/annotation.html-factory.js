@@ -97,7 +97,7 @@ function getCancelButton(popoverId, isUnsavedRectangle) {
     var cancelButtonText = gettext(constants.translations.button.CANCEL);
 
     var cancelButton = $('<button>', {
-        class: 'btn btn-secondary btn-block',
+        class: 'btn btn-outline-primary btn-block',
         'data-popover-id': popoverId,
         'data-is-unsaved-rectangle': !!isUnsavedRectangle,
         click: handleCancel,
