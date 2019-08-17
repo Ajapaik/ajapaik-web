@@ -866,8 +866,7 @@ class ImageSimilarity(Model):
                     guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
                     if len(guesses.filter(guesser = self.user_last_modified.id)) < 1:
                         points = 10
-                    if self.confirmed is not None:
-                        item.confirmed = self.confirmed
+                    item.confirmed = self.confirmed
                     if self.similarity_type is not None:
                         firstGuess = 0
                         secondGuess = 1
@@ -932,6 +931,8 @@ class ImageSimilarity(Model):
 
     def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None, profile=None):
         guesser = Profile.objects.filter(user_id=profile).first()
+        if confirmed is None:
+            confirmed = False
         imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
         imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
         points = imageSimilarity.__add_or_update__()
