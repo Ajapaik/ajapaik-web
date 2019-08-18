@@ -1,0 +1,39 @@
+{% load i18n comments static %}
+
+{% if rephoto %}
+    <div>
+        <div id="ajapaik-photoview-rephoto-wrapper">
+            <div id="ajapaik-photoview-rephoto-container">
+                <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
+                    <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw"
+                         alt="{{ photo.description }} {% trans "rephoto" %}"
+                         src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"/>
+                </a>
+                <button class="btn ajapaik-close-rephoto-overlay-button"
+                        {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+                        class="material-icons notranslate">close</i></button>
+                <button class="btn ajapaik-invert-rephoto-overlay-button"
+                        {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+                        class="material-icons notranslate">invert_colors</i></button>
+            </div>
+            {% with rephoto=rephoto|default:rephoto %}
+                {% include "_rephoto_description_container.html" %}
+            {% endwith %}
+        </div>
+    </div>
+{% endif %}
+
+{% if not rephoto and photo.rephotos.all|length > 0 %}
+    <div id="ajapaik-photoview-rephoto-selection" class="col-xs-3">
+        {% for rephoto in photo.rephotos.all %}
+            <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
+                <a class="w-100" href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
+                    <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                         class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
+                         alt="{{ photo.description }} {% trans "rephoto" %}"
+                         title="{{ photo.description }} {% trans "rephoto" %}"/>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
