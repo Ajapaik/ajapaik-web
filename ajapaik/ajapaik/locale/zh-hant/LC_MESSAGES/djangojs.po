@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
+"PO-Revision-Date: 2019-08-19 09:14:02+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,6 +48,14 @@ msgstr "發生不明錯誤。"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "尚未選擇"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+msgid "System error"
+msgstr "系統錯誤"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
@@ -334,12 +342,6 @@ msgstr "來源 ID"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
 msgstr "來源"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
-msgid "System error"
-msgstr "系統錯誤"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"

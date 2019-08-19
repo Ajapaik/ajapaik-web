@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-08-15 16:05:37+0000\n"
+"PO-Revision-Date: 2019-08-19 09:14:01+0000\n"
 "X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -44,6 +44,14 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+msgid "System error"
+msgstr "ꯊꯧꯁꯤꯜ ꯑꯁꯣꯏꯕ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
@@ -329,12 +337,6 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
 msgstr "ꯍꯧꯔꯛꯐꯛ"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
-msgid "System error"
-msgstr "ꯊꯧꯁꯤꯜ ꯑꯁꯣꯏꯕ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"

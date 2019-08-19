@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-12 10:07:09+0000\n"
+"PO-Revision-Date: 2019-08-19 09:14:18+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,6 +45,14 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+msgid "System error"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
@@ -329,12 +337,6 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
-msgid "System error"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43

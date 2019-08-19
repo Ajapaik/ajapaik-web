@@ -14,11 +14,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-15 16:05:38+0000\n"
+"PO-Revision-Date: 2019-08-19 09:14:03+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-08-09 17:22:35+0000\n"
+"X-POT-Import-Date: 2019-08-17 07:19:09+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -65,235 +65,249 @@ msgstr "挑選照片"
 msgid "Choose parent album"
 msgstr "挑選主要相簿"
 
-#: ajapaik/ajapaik/forms.py:375 ajapaik/ajapaik/forms.py:419
+#: ajapaik/ajapaik/forms.py:376 ajapaik/ajapaik/forms.py:424
 #: ajapaik/ajapaik/templates/_mode_select.html:24
 #: ajapaik/ajapaik/templates/_mode_select.html:73
 msgid "Albums"
 msgstr "相簿"
 
-#: ajapaik/ajapaik/forms.py:376
+#: ajapaik/ajapaik/forms.py:377
 msgid "Licence"
 msgstr "授權協議"
 
-#: ajapaik/ajapaik/forms.py:378
+#: ajapaik/ajapaik/forms.py:379
 msgid "I am the author"
 msgstr "我是作者"
 
-#: ajapaik/ajapaik/forms.py:390
+#: ajapaik/ajapaik/forms.py:391
 msgid "Missing image"
 msgstr "缺少圖像"
 
-#: ajapaik/ajapaik/forms.py:392
+#: ajapaik/ajapaik/forms.py:393
 msgid "Missing description"
 msgstr "缺少描述"
 
-#: ajapaik/ajapaik/forms.py:394
+#: ajapaik/ajapaik/forms.py:395
 msgid "Missing licence"
 msgstr "缺少授權協議"
 
-#: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator.html:103
+#: ajapaik/ajapaik/forms.py:409 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
 msgstr "主要相簿"
-
-#: ajapaik/ajapaik/forms.py:411
-msgid "If this album is tied to a certain location, specify here"
-msgstr "若此相簿與某處位置相關聯，請在此指出"
-
-#: ajapaik/ajapaik/forms.py:414
-msgid "Album type"
-msgstr "相簿類型"
-
-#: ajapaik/ajapaik/forms.py:415
-msgid "Anything else"
-msgstr "其它"
-
-#: ajapaik/ajapaik/forms.py:415
-msgid "Person"
-msgstr "人物"
-
-#: ajapaik/ajapaik/forms.py:430
-msgid "Email address"
-msgstr "電子郵件地址"
-
-#: ajapaik/ajapaik/forms.py:435
-msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "評論框支援 Markdown 語法\n\n段落\n添加新的兩行會開始一個新段落。\n\n粗體\n**進行地理標記**是在 Ajapaik 上的首要任務。\n\n斜體\n接著是*翻拍照片*和*日期標註*。\n\n連結\n加入在 [Ajapaiklejad 臉書群組]（https://www.facebook.com/groups/ajapaiklejad）裡的討論。\n\n圖片\n![Ajapaik 是獻給愛沙尼亞共和國成立 100 週年的禮物]（https://ajapaik.ee/static/images/ev100.png）"
-
-#: ajapaik/ajapaik/forms.py:471
-msgid "Nothing to change."
-msgstr "沒有需更改的。"
-
-#: ajapaik/ajapaik/models.py:176
-msgid "Female"
-msgstr "女"
-
-#: ajapaik/ajapaik/models.py:177
-msgid "Male"
-msgstr "男"
-
-#: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:69
-msgid "Name"
-msgstr "名稱"
-
-#: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:351
-#: ajapaik/ajapaik/templates/curator.html:78
-msgid "Description"
-msgstr "描述"
-
-#: ajapaik/ajapaik/models.py:186
-msgid "Is public"
-msgstr "是公開的"
-
-#: ajapaik/ajapaik/models.py:187
-msgid "Is open"
-msgstr "是開放的"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
 msgstr "位置"
 
-#: ajapaik/ajapaik/models.py:205
+#: ajapaik/ajapaik/forms.py:413
+msgid "If this album is tied to a certain location, specify here"
+msgstr "若此相簿與某處位置相關聯，請在此指出"
+
+#: ajapaik/ajapaik/forms.py:416
+msgid "Album type"
+msgstr "相簿類型"
+
+#: ajapaik/ajapaik/forms.py:417
+msgid "Anything else"
+msgstr "其它"
+
+#: ajapaik/ajapaik/forms.py:417
+msgid "Person"
+msgstr "人物"
+
+#: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/models.py:182
+#: ajapaik/ajapaik/templates/curator.html:69
+msgid "Name"
+msgstr "名稱"
+
+#: ajapaik/ajapaik/forms.py:419 ajapaik/ajapaik/models.py:184
+#: ajapaik/ajapaik/models.py:353 ajapaik/ajapaik/templates/curator.html:78
+msgid "Description"
+msgstr "描述"
+
+#: ajapaik/ajapaik/forms.py:420 ajapaik/ajapaik/models.py:188
+msgid "Is public"
+msgstr "是公開的"
+
+#: ajapaik/ajapaik/forms.py:421 ajapaik/ajapaik/models.py:189
+msgid "Is open"
+msgstr "是開放的"
+
+#: ajapaik/ajapaik/forms.py:435
+msgid "Email address"
+msgstr "電子郵件地址"
+
+#: ajapaik/ajapaik/forms.py:440
+msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "評論框支援 Markdown 語法\n\n段落\n添加新的兩行會開始一個新段落。\n\n粗體\n**進行地理標記**是在 Ajapaik 上的首要任務。\n\n斜體\n接著是*翻拍照片*和*日期標註*。\n\n連結\n加入在 [Ajapaiklejad 臉書群組]（https://www.facebook.com/groups/ajapaiklejad）裡的討論。\n\n圖片\n![Ajapaik 是獻給愛沙尼亞共和國成立 100 週年的禮物]（https://ajapaik.ee/static/images/ev100.png）"
+
+#: ajapaik/ajapaik/forms.py:476
+msgid "Nothing to change."
+msgstr "沒有需更改的。"
+
+#: ajapaik/ajapaik/models.py:178
+msgid "Female"
+msgstr "女"
+
+#: ajapaik/ajapaik/models.py:179
+msgid "Male"
+msgstr "男"
+
+#: ajapaik/ajapaik/models.py:207
 msgid "Wikidata identifier"
 msgstr "維基數據識別碼"
 
-#: ajapaik/ajapaik/models.py:220
+#: ajapaik/ajapaik/models.py:222
 msgid "b."
 msgstr "b."
 
-#: ajapaik/ajapaik/models.py:336
+#: ajapaik/ajapaik/models.py:338
 msgid "Image"
 msgstr "圖像"
 
-#: ajapaik/ajapaik/models.py:352
+#: ajapaik/ajapaik/models.py:354
 msgid "Author"
 msgstr "作者"
 
-#: ajapaik/ajapaik/models.py:844 ajapaik/ajapaik/models.py:927
+#: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:946
 msgid "Different"
 msgstr "差異"
 
-#: ajapaik/ajapaik/models.py:845 ajapaik/ajapaik/models.py:928
+#: ajapaik/ajapaik/models.py:847 ajapaik/ajapaik/models.py:947
 msgid "Similar"
 msgstr "相似"
 
-#: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:929
+#: ajapaik/ajapaik/models.py:848 ajapaik/ajapaik/models.py:948
 msgid "Duplicate"
 msgstr "重複"
 
-#: ajapaik/ajapaik/models.py:1018
+#: ajapaik/ajapaik/models.py:1019
 msgid "Geotag"
 msgstr "地理標籤"
 
-#: ajapaik/ajapaik/models.py:1019 ajapaik/ajapaik/models.py:1073
+#: ajapaik/ajapaik/models.py:1020 ajapaik/ajapaik/models.py:1080
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "翻拍"
 
-#: ajapaik/ajapaik/models.py:1020
+#: ajapaik/ajapaik/models.py:1021
 msgid "Photo upload"
 msgstr "照片上傳"
 
-#: ajapaik/ajapaik/models.py:1021
+#: ajapaik/ajapaik/models.py:1022
 msgid "Photo curation"
 msgstr "照片策展"
 
-#: ajapaik/ajapaik/models.py:1022
+#: ajapaik/ajapaik/models.py:1023
 msgid "Photo re-curation"
 msgstr "照片重新策展"
 
-#: ajapaik/ajapaik/models.py:1023
+#: ajapaik/ajapaik/models.py:1024
 msgid "Dating"
 msgstr "註明日期"
 
-#: ajapaik/ajapaik/models.py:1024
+#: ajapaik/ajapaik/models.py:1025
 msgid "Dating confirmation"
 msgstr "註明日期確認"
 
-#: ajapaik/ajapaik/models.py:1025
+#: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
 msgstr "劇照"
 
-#: ajapaik/ajapaik/models.py:1051
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
+msgstr "刪除註解"
+
+#: ajapaik/ajapaik/models.py:1028
+#: ajapaik/ajapaik/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "確認"
+
+#: ajapaik/ajapaik/models.py:1029
+msgid "Confirm Image similarity"
+msgstr "確認圖片相似度"
+
+#: ajapaik/ajapaik/models.py:1058
 msgid "Map"
 msgstr "地圖"
 
-#: ajapaik/ajapaik/models.py:1052
+#: ajapaik/ajapaik/models.py:1059
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1053
+#: ajapaik/ajapaik/models.py:1060
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1054
+#: ajapaik/ajapaik/models.py:1061
 msgid "Confirmation"
 msgstr "確認"
 
-#: ajapaik/ajapaik/models.py:1055
+#: ajapaik/ajapaik/models.py:1062
 msgid "StreetView"
 msgstr "街景"
 
-#: ajapaik/ajapaik/models.py:1056
+#: ajapaik/ajapaik/models.py:1063
 msgid "Source geotag"
 msgstr "來源地理標籤"
 
-#: ajapaik/ajapaik/models.py:1057
+#: ajapaik/ajapaik/models.py:1064
 msgid "Android app"
 msgstr "Android 應用程式"
 
-#: ajapaik/ajapaik/models.py:1068
+#: ajapaik/ajapaik/models.py:1075
 msgid "Game"
 msgstr "遊戲"
 
-#: ajapaik/ajapaik/models.py:1069
+#: ajapaik/ajapaik/models.py:1076
 msgid "Map view"
 msgstr "地圖檢視"
 
-#: ajapaik/ajapaik/models.py:1070
+#: ajapaik/ajapaik/models.py:1077
 msgid "Gallery"
 msgstr "圖庫"
 
-#: ajapaik/ajapaik/models.py:1071
+#: ajapaik/ajapaik/models.py:1078
 msgid "Permalink"
 msgstr "靜態連結"
 
-#: ajapaik/ajapaik/models.py:1072
+#: ajapaik/ajapaik/models.py:1079
 msgid "Source"
 msgstr "來源"
 
-#: ajapaik/ajapaik/models.py:1077
+#: ajapaik/ajapaik/models.py:1084
 msgid "Google map"
 msgstr "Google地圖"
 
-#: ajapaik/ajapaik/models.py:1078
+#: ajapaik/ajapaik/models.py:1085
 msgid "Google satellite"
 msgstr "Google 衛星"
 
-#: ajapaik/ajapaik/models.py:1079
+#: ajapaik/ajapaik/models.py:1086
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1080
+#: ajapaik/ajapaik/models.py:1087
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1081
+#: ajapaik/ajapaik/models.py:1088
 msgid "No map"
 msgstr "無地圖"
 
-#: ajapaik/ajapaik/models.py:1203 ajapaik/ajapaik/models.py:1205
+#: ajapaik/ajapaik/models.py:1210 ajapaik/ajapaik/models.py:1212
 msgid "Anonymous user"
 msgstr "匿名使用者"
 
-#: ajapaik/ajapaik/models.py:1476
+#: ajapaik/ajapaik/models.py:1483
 msgid "Day"
 msgstr "日"
 
-#: ajapaik/ajapaik/models.py:1477
+#: ajapaik/ajapaik/models.py:1484
 msgid "Month"
 msgstr "月"
 
-#: ajapaik/ajapaik/models.py:1478
+#: ajapaik/ajapaik/models.py:1485
 msgid "Year"
 msgstr "年"
 
@@ -698,15 +712,15 @@ msgstr "Facebook 上的 Ajapaik"
 msgid "Profile and leaderboard"
 msgstr "個人檔案與排行榜"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1715
-#: ajapaik/ajapaik/views.py:1732 ajapaik/ajapaik/views.py:1768
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1731
+#: ajapaik/ajapaik/views.py:1748 ajapaik/ajapaik/views.py:1784
 msgid "Leaderboard"
 msgstr "排行榜"
 
 #: ajapaik/ajapaik/templates/_header.html:110
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
-#: ajapaik/ajapaik_face_recognition/models.py:12
-#: ajapaik/ajapaik_face_recognition/models.py:65
+#: ajapaik/ajapaik_face_recognition/models.py:13
+#: ajapaik/ajapaik_face_recognition/models.py:67
 msgid "User"
 msgstr "使用者"
 
@@ -793,7 +807,7 @@ msgstr "一些附近的相簿"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:74
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/photoview.html:191
+#: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "分享"
 
@@ -860,7 +874,7 @@ msgstr "點擊來挑選"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/photoview.html:219
+#: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "相簿詳情"
 
@@ -913,15 +927,15 @@ msgstr "翻轉照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
-#: ajapaik/ajapaik/templates/photoview.html:117
-#: ajapaik/ajapaik/templates/photoview.html:118
+#: ajapaik/ajapaik/templates/photoview.html:120
+#: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
 msgstr "相似照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
-#: ajapaik/ajapaik/templates/photoview.html:120
-#: ajapaik/ajapaik/templates/photoview.html:121
+#: ajapaik/ajapaik/templates/photoview.html:123
+#: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
 msgstr "相同照片"
 
@@ -931,23 +945,23 @@ msgstr "未知作者"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/game.html:53
-#: ajapaik/ajapaik/templates/photoview.html:48
-#: ajapaik/ajapaik/templates/photoview.html:173
+#: ajapaik/ajapaik/templates/photoview.html:51
+#: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
 msgstr "挑選目標位置！"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/photoview.html:179
+#: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "替此圖片註明日期"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/photoview.html:183
+#: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "添加翻拍照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/photoview.html:186
+#: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "標記新面部 - 點擊此按鈕來啟用在主圖片上繪製面部方框"
 
@@ -956,13 +970,13 @@ msgid "Discuss"
 msgstr "討論"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/photoview.html:211
+#: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "屬於相簿的圖片："
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/photoview.html:223
+#: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "策展人"
 
@@ -1063,10 +1077,6 @@ msgstr "確認電子郵件地址"
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
 msgstr "請確認 <a href=\"mailto:%(email)s\">%(email)s</a> 是 %(user_display)s 的電子郵件地址。"
-
-#: ajapaik/ajapaik/templates/account/email_confirm.html:20
-msgid "Confirm"
-msgstr "確認"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
@@ -1470,16 +1480,24 @@ msgstr "Fotis"
 msgid "Finna"
 msgstr "Finna"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:91
+#: ajapaik/ajapaik/templates/curator_search_controls.html:90
+msgid "Wikimedia Commons"
+msgstr "維基共享資源"
+
+#: ajapaik/ajapaik/templates/curator_search_controls.html:95
+msgid "Europeana"
+msgstr "歐洲數位圖書館"
+
+#: ajapaik/ajapaik/templates/curator_search_controls.html:101
 msgid "Flickr Commons"
 msgstr "Flickr 公眾相簿"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:102
-#: ajapaik/ajapaik/templates/photo_selection.html:21
+#: ajapaik/ajapaik/templates/curator_search_controls.html:112
+#: ajapaik/ajapaik/templates/photo_selection.html:19
 msgid "Clear selection"
 msgstr "清除所選"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:108
+#: ajapaik/ajapaik/templates/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
 msgstr "提交所選至 Ajapaik"
 
@@ -1591,15 +1609,15 @@ msgstr "搜尋框"
 msgid "Add to album"
 msgstr "添加至相簿"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:26
+#: ajapaik/ajapaik/templates/photo_selection.html:24
 msgid "Images have overlapping content"
 msgstr "圖片重疊內容"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:30
+#: ajapaik/ajapaik/templates/photo_selection.html:28
 msgid "All images are of the same shot"
 msgstr "相同鏡頭的所有圖片"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:35
+#: ajapaik/ajapaik/templates/photo_selection.html:37
 msgid "You can re-order photos by dragging and dropping"
 msgstr "您可以透過拖拉來重新排序照片"
 
@@ -1611,15 +1629,15 @@ msgstr "從公眾收藏匯入"
 msgid "Upload yourself"
 msgstr "上傳您自己的"
 
-#: ajapaik/ajapaik/templates/photoview.html:21
-#: ajapaik/ajapaik/templates/photoview.html:23
-#: ajapaik/ajapaik/templates/photoview.html:92
-#: ajapaik/ajapaik/templates/photoview.html:145
-#: ajapaik/ajapaik/templates/photoview.html:146
+#: ajapaik/ajapaik/templates/photoview.html:24
+#: ajapaik/ajapaik/templates/photoview.html:26
+#: ajapaik/ajapaik/templates/photoview.html:95
+#: ajapaik/ajapaik/templates/photoview.html:148
+#: ajapaik/ajapaik/templates/photoview.html:149
 msgid "rephoto"
 msgstr "翻拍"
 
-#: ajapaik/ajapaik/templates/photoview.html:160
+#: ajapaik/ajapaik/templates/photoview.html:163
 msgid "People claimed to be on this photo"
 msgstr "聲稱在此照片上的人物"
 
@@ -1654,91 +1672,91 @@ msgstr "上傳並標記在地圖"
 msgid "Add"
 msgstr "添加"
 
-#: ajapaik/ajapaik/views.py:454
+#: ajapaik/ajapaik/views.py:463
 msgid "Non-authenticated user"
 msgstr "非認證使用者"
 
-#: ajapaik/ajapaik/views.py:593
+#: ajapaik/ajapaik/views.py:602
 msgid "Geotagging game"
 msgstr "地理標記競賽"
 
-#: ajapaik/ajapaik/views.py:661
+#: ajapaik/ajapaik/views.py:670
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - 翻拍照片"
 
-#: ajapaik/ajapaik/views.py:1108
+#: ajapaik/ajapaik/views.py:1117
 msgid "Cannot upload to these albums"
 msgstr "無法上傳到這些相簿"
 
-#: ajapaik/ajapaik/views.py:1126
+#: ajapaik/ajapaik/views.py:1139
 msgid "Recuration successful"
 msgstr "重新策展成功"
 
-#: ajapaik/ajapaik/views.py:1128
+#: ajapaik/ajapaik/views.py:1141
 msgid "Problem with album selection"
 msgstr "相簿選擇問題"
 
-#: ajapaik/ajapaik/views.py:1130
+#: ajapaik/ajapaik/views.py:1143
 msgid "Faulty data submitted"
 msgstr "已提交不完整資料"
 
-#: ajapaik/ajapaik/views.py:1433 ajapaik/ajapaik/views.py:1440
-#: ajapaik/ajapaik/views.py:1442
+#: ajapaik/ajapaik/views.py:1449 ajapaik/ajapaik/views.py:1456
+#: ajapaik/ajapaik/views.py:1458
 msgid "Browse photos on map"
 msgstr "在地圖上瀏覽照片"
 
-#: ajapaik/ajapaik/views.py:1574
+#: ajapaik/ajapaik/views.py:1590
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "您的貢獻還沒有更改到照片的估計位置"
 
-#: ajapaik/ajapaik/views.py:1576
+#: ajapaik/ajapaik/views.py:1592
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "照片已對應到新的位置，感謝您。"
 
-#: ajapaik/ajapaik/views.py:1578
+#: ajapaik/ajapaik/views.py:1594
 msgid "Your guess was first."
 msgstr "您的猜測是首個。"
 
-#: ajapaik/ajapaik/views.py:1852
+#: ajapaik/ajapaik/views.py:1869
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "搜尋老照片，將它們添加到 Ajapaik，判斷它們的位置並分享相簿成果！"
 
-#: ajapaik/ajapaik/views.py:2204
+#: ajapaik/ajapaik/views.py:2259
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2262
+#: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
 #, python-format
-msgid "Error uploading file: %s"
-msgstr "上傳檔案錯誤：%s"
+msgid "Error uploading file: %s (%s)"
+msgstr "上傳檔案錯誤：%s（%s）"
 
-#: ajapaik/ajapaik/views.py:2279
+#: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"
 msgstr "照片已存在於 Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2299
+#: ajapaik/ajapaik/views.py:2357
 msgid "Please add photos to your album"
 msgstr "請添加照片至您的相簿"
 
-#: ajapaik/ajapaik/views.py:2301
+#: ajapaik/ajapaik/views.py:2359
 msgid "Not enough data submitted"
 msgstr "沒有提交足夠的資料"
 
-#: ajapaik/ajapaik/views.py:2616
+#: ajapaik/ajapaik/views.py:2674
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "來自於 \"%(film)s\" at %(time)s 的靜態攝影"
 
-#: ajapaik/ajapaik/views.py:2761
+#: ajapaik/ajapaik/views.py:2801
 msgid "Photo uploaded"
 msgstr "照片已上傳"
 
-#: ajapaik/ajapaik/views.py:2780
+#: ajapaik/ajapaik/views.py:2820
 msgid "Album created"
 msgstr "相簿已建立"
 
-#: ajapaik/ajapaik/views.py:2862
+#: ajapaik/ajapaik/views.py:2902
 msgid "Sorry but we fail to post your comment."
 msgstr "很抱歉，發佈您的評論出現錯誤。"
 
@@ -1754,15 +1772,19 @@ msgstr "是公眾人物"
 msgid "Subject"
 msgstr "主題"
 
-#: ajapaik/ajapaik_face_recognition/models.py:13
-#: ajapaik/ajapaik_face_recognition/models.py:66
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/models.py:68
 msgid "Algorithm"
 msgstr "演算法"
 
-#: ajapaik/ajapaik_face_recognition/models.py:14
-#: ajapaik/ajapaik_face_recognition/models.py:67
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/models.py:69
 msgid "Picasa"
 msgstr "Picasa"
+
+#: ajapaik/ajapaik_face_recognition/models.py:19
+msgid "SubjectPhoto"
+msgstr "主題照片"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
@@ -1776,15 +1798,15 @@ msgstr "此方框不恰當，我認為應該移除。"
 msgid "Delete annotation"
 msgstr "刪除註解"
 
-#: ajapaik/settings/default.py:71
+#: ajapaik/settings/default.py:72
 msgid "Estonian"
 msgstr "愛沙尼亞語"
 
-#: ajapaik/settings/default.py:72
+#: ajapaik/settings/default.py:73
 msgid "English"
 msgstr "英語"
 
-#: ajapaik/settings/default.py:73
+#: ajapaik/settings/default.py:74
 msgid "Finnish"
 msgstr "芬蘭語"
 

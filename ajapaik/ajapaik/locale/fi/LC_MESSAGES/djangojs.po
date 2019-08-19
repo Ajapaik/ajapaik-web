@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-15 16:05:36+0000\n"
+"PO-Revision-Date: 2019-08-19 09:14:01+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -52,6 +52,14 @@ msgstr "Tuntematon virhe."
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Ei valittu"
+
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+msgid "System error"
+msgstr "Järjestelmävirhe"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:232
 msgid "Go to my location"
@@ -339,12 +347,6 @@ msgstr "Lähteen tunnus"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
 msgstr "Lähde"
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:160
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:176
-msgid "System error"
-msgstr "Järjestelmävirhe"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
