@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{% if albums.all|length > 0 %}
+    <div class="row pl-2 pt-3">
+        <i class="col-auto material-icons notranslate ajapaik-photo-modal-album-icon float-left pl-0"
+           title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}"
+        >
+            {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
+        <div class="col-auto" style="max-width:80vw;">
+            {% for a in albums %}
+                <div style="display:flex;">
+                    <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
+                        {{ a.name }}
+                    </a>
+                    <div class="ajapaik-photo-modal-album-more-button float-left" role="button"
+                         title="{% trans 'Album details' %}"
+                         data-id="{{ a.id }}">
+                    </div>
+                    <div class="ajapaik-photo-modal-photo-curator">
+                        &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
+                        <p class="d-none"> {{ a.this_photo_curator.get_display_name }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
