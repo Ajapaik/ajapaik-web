@@ -1,27 +1,45 @@
 {% load i18n %}
 
 {% if albums.all|length > 0 %}
-    <div class="row pl-2 pt-3">
-        <i class="col-auto material-icons notranslate ajapaik-photo-modal-album-icon float-left pl-0"
-           title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}"
-        >
-            {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
-        <div class="col-auto" style="max-width:80vw;">
-            {% for a in albums %}
-                <div style="display:flex;">
-                    <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
+    <div style="max-width:80vw;">
+        {% for a in albums %}
+            <div style="padding-left: 5px;">
+                <div>
+                    <a class="ajapaik-photo-album-link" href="{% url 'frontpage' %}?album={{ a.id }}">
                         {{ a.name }}
+                        (
+                        {% if a.is_film_still_album %}
+                            {% trans 'movie' %}
+                        {% else %}
+                            {% trans 'photo album' %}
+                        {% endif %}
+                        )
                     </a>
-                    <div class="ajapaik-photo-modal-album-more-button float-left" role="button"
-                         title="{% trans 'Album details' %}"
-                         data-id="{{ a.id }}">
-                    </div>
-                    <div class="ajapaik-photo-modal-photo-curator">
-                        &nbsp;<i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">account_circle</i>
-                        <p class="d-none"> {{ a.this_photo_curator.get_display_name }}</p>
-                    </div>
                 </div>
-            {% endfor %}
-        </div>
+
+
+                <div
+                    class="ajapaik-photo-modal-album-more-button"
+                    data-id="{{ a.id }}"
+                    style="cursor: pointer; padding-left: 5px;"
+                >
+                    <i class="material-icons notranslate ajapaik-text-gray">
+                        more
+                    </i>
+                    <a href="#" style="vertical-align: super;">
+                        {% trans 'Details' %}
+                    </a>
+                </div>
+
+                <div class="ajapaik-photo-modal-photo-curator" style="padding-left: 5px;">
+                    <i title="{% trans "Curator" %}" class="material-icons notranslate ajapaik-text-gray">
+                        account_circle
+                    </i>
+                    <p> {{ a.this_photo_curator.get_display_name }}</p>
+                </div>
+            </div>
+
+            <hr style="margin-top: 4px; margin-bottom: 4px;"/>
+        {% endfor %}
     </div>
 {% endif %}
