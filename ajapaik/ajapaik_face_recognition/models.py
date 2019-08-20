@@ -59,15 +59,21 @@ class FaceRecognitionRectangle(models.Model):
         return json.loads(self.coordinates)
 
     def get_subject_name(self):
-        # Prefer what people think
+        subject_album = self.get_subject()
+
+        return subject_album.name if subject_album else None
+
+    def get_subject(self):
         subject_album = None
+
+        # Prefer what people think
         if self.subject_consensus:
             subject_album: Album = self.subject_consensus
         elif self.subject_ai_guess:
             subject_album: Album = self.subject_ai_guess
 
-        return subject_album.name if subject_album else None
-    
+        return subject_album.name
+
     def add_subject_data(subject, profile, age, gender):
         lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
         lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
@@ -147,10 +153,25 @@ class FaceRecognitionRectangleSubjectDataGuess(models.Model):
 class FaceRecognitionRectangleFeedback(models.Model):
     rectangle = models.ForeignKey(FaceRecognitionRectangle, related_name='feedback')
     user = models.ForeignKey(Profile, related_name='face_recognition_rectangle_feedback')
+    alternative_subject = models.ForeignKey(Album, null=True)
     # So users could downvote bad rectangles
     is_correct = models.BooleanField(default=False)
+    is_correct_person = models.NullBooleanField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        string_label = ''
+
+        if self.is_correct:
+            string_label += f'Confirmed annotation {self.rectangle.id}'
+        else:
+            string_label += f'Rejected annotation {self.rectangle.id}'
+
+        if self.alternative_subject is not None:
+            string_label += f', alternative subject suggested: {self.alternative_subject.name}'
+
+        return string_label
 
     def __unicode__(self):
         return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.is_correct)
