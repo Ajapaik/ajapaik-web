@@ -3,21 +3,23 @@
 var ObjectTagger = {
     isInCropMode: false,
     imageArea: null,
+    imageAreaId: null,
 
-    setImageArea: function() {
+    setImageArea: function(imageAreaId) {
         var self = this;
+        self.imageAreaId = imageAreaId;
 
-        this.imageArea = this.getImageArea();
+        this.imageArea = this.getImageArea(imageAreaId);
         $(this.imageArea).on("remove", function () {
             self.imageArea = null;
         });
     },
-    getImageArea: function() {
+    getImageArea: function(imageAreaId) {
         if (this.imageArea) {
             return this.imageArea;
         }
 
-        return $('#ajapaik-modal-photo-container').get()[0];
+        return $('#' + imageAreaId).get()[0];
     },
     stopCropping: function () {
         this.isInCropMode = false;
