@@ -315,9 +315,15 @@
                                    title="{% trans "Add rephoto" %}">
                                     <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                                 </a>
-                                <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                                    id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
-                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                                <a
+                                    title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+                                    id="mark-object-button"
+                                    class="no-text-decoration float-left"
+                                    style="cursor: pointer;"
+                                >
+                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">
+                                        format_shapes
+                                    </i>
                                 </a>
                                 {% if request.user.profile.is_legit %}
                                     <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-left"
@@ -543,25 +549,26 @@
         });
     {% endfor %}
     $(document).ready(function () {
+        ObjectTagger.setImageArea('ajapaik-modal-photo-container');
+
+        getObjectAnnotationClasses();
+        getAllAnnotations(window.photoModalCurrentlyOpenPhotoId, ObjectTagger.handleSavedRectanglesDrawn);
+
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
         $('#ajapaik-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
         $('#ajp-dater-container').AjapaikDater();
-        var mainPhotoContainer = $('#ajapaik-modal-photo-container');
-        mainPhotoContainer.AjapaikFaceTagger();
-        mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: window.currentlyOpenPhotoId});
-        $('#ajapaik-photo-modal-face-recognition-add-face-button').click(function (e) {
+
+        $('#mark-object-button').click(function (e) {
             e.preventDefault();
-            mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
+            ObjectTagger.toggleCropping();
         });
+
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
-        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
-            $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').loadRectangles();
-        });
-        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
-            $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').removeRectanglesAndButtons();
-        });
+        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', showDetectionRectangles);
+        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', hideDetectionRectanglesWithoutOpenPopover);
+
         window.startDater = function (photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
             $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
