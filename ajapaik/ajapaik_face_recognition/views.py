@@ -1,4 +1,3 @@
-import datetime
 import json
 import logging
 from collections import Counter, OrderedDict
@@ -80,8 +79,10 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
         origin=FaceRecognitionUserGuess.USER
     )
     new_guess.save()
+
     consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
     current_consensus_album = Album.objects.filter(pk=rectangle.subject_consensus_id).first()
+
     if consensus_subject != rectangle.subject_consensus_id:
         # Consensus was either None or it changed
         if current_consensus_album:
@@ -91,7 +92,9 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
                        profile=user_profile).save()
             subject_album.save()
             status = 201
+
     rectangle.subject_consensus_id = consensus_subject
+
     points = 75
     Points(
         user=user_profile,
@@ -102,6 +105,7 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
         annotation = rectangle,
         created=timezone.now()
     ).save()
+
     rectangle.save()
 
     return {
