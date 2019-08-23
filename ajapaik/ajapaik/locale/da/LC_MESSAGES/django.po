@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Abijeet Patro
+# Author: Fnielsen
 # Author: Saederup92
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:00+0000\n"
+"PO-Revision-Date: 2019-08-23 04:17:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -1504,7 +1505,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1745,9 +1746,9 @@ msgid "OK"
 msgstr "OK"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
-#, fuzzy, python-format
+#, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "Error uploading file: %s"
+msgstr "Fejl under overførsel af fil: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"

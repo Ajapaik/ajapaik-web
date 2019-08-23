@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:02+0000\n"
+"PO-Revision-Date: 2019-08-23 04:17:30+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1727,9 +1727,9 @@ msgid "OK"
 msgstr "확인"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
-#, fuzzy, python-format
+#, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "파일 업로드 오류: %s"
+msgstr "파일 업로드 오류: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"

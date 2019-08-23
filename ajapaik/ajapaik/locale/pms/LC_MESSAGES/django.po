@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:02+0000\n"
+"PO-Revision-Date: 2019-08-23 04:17:31+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,7 +215,7 @@ msgstr "Filmé tranquil"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Delete annotation"
-msgstr ""
+msgstr "Dëscancelé l'anotassion"
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
@@ -224,7 +224,7 @@ msgstr "Confirmé"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm Image similarity"
-msgstr ""
+msgstr "Confirmé la smijansa dla plancia"
 
 #: ajapaik/ajapaik/models.py:1058
 msgid "Map"
@@ -1494,11 +1494,11 @@ msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "Wikimedia Commons"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1739,9 +1739,9 @@ msgid "OK"
 msgstr "Va bin"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
-#, fuzzy, python-format
+#, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "Eror durant ël cariament ëd l'archivi: %s"
+msgstr "Eror durant ël cariament ëd l'archivi: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"
@@ -1787,20 +1787,20 @@ msgstr "Soget"
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:68
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritm"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/models.py:69
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:19
 msgid "SubjectPhoto"
-msgstr ""
+msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
-msgstr ""
+msgstr "Mandé lòn ch'i pense"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:21
 msgid "This rectangle is bad, I think it should be removed."
