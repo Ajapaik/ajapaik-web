@@ -1,0 +1,29 @@
+.photo-controls-sidebar {
+    width: 81px;
+    height: 100vh;
+    position: fixed;
+    padding-top: 18px;
+    background-color: #1A1A1A;
+    text-align: center;
+}
+
+.photo-controls-sidebar__icon {
+    font-size: 30px;
+}
+
+.photo-controls-sidebar__text {
+    color: white;
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+.photo-controls-sidebar__logo {
+    float: left;
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    width: 80px;
+    height: 50px;
+    background-size: 80px;
+    text-indent: -999em;
+    z-index: 1001;
+    margin-bottom: 15px;
+}
