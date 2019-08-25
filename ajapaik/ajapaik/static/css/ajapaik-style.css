@@ -1325,7 +1325,8 @@ a.fullscreen {
 .ajapaik-compare-similar-overlay-button {
   display: block;
   transition: opacity 0.2s ease-out;
-  right: 0px;
+  right: 0;
+  bottom: 0;
 }
 
 .ajapaik-compare-similar-overlay-button > i {
