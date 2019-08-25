@@ -550,9 +550,10 @@
     {% endfor %}
     $(document).ready(function () {
         ObjectTagger.setImageArea('ajapaik-modal-photo-container');
+        ObjectTagger.setPhotoId(window.currentlyOpenPhotoId);
 
         getObjectAnnotationClasses();
-        getAllAnnotations(window.photoModalCurrentlyOpenPhotoId, ObjectTagger.handleSavedRectanglesDrawn);
+        getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();

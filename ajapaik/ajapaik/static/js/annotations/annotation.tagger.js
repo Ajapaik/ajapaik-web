@@ -4,7 +4,14 @@ var ObjectTagger = {
     isInCropMode: false,
     imageArea: null,
     imageAreaId: null,
+    photoId: null,
 
+    setPhotoId: function(photoId) {
+        this.photoId = photoId;
+    },
+    getPhotoId: function() {
+        return this.photoId;
+    },
     setImageArea: function(imageAreaId) {
         var self = this;
         self.imageAreaId = imageAreaId;

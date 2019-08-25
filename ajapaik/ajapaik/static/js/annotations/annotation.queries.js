@@ -19,7 +19,9 @@ function getObjectAnnotationClasses() {
     );
 }
 
-function getAllAnnotations(photoId, customOnSuccess) {
+function getAllAnnotations(customOnSuccess) {
+    var photoId = ObjectTagger.getPhotoId();
+
     var onSuccess = function(response) {
         var result = response.data.map(function(rectangle) {
             return JSON.parse(rectangle);
