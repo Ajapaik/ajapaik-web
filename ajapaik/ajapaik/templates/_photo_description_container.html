@@ -1,4 +1,5 @@
 {% load i18n %}
+
 <div>
     {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
         <div class="w-100">
@@ -12,28 +13,36 @@
     {% endif %}
     {% if photo.description %}
         <div class="w-100">
-                {{ photo.description }}
+            <span>{% trans "Description" %}: </span>
+            <span>{{ photo.description }}</span>
         </div>
     {% endif %}
     {% if photo.date %}
         <div class="w-100">
-                {{ photo.date }}
+            <span>{% trans "Date" %}: </span>
+            <span>{{ photo.date }}</span>
         </div>
     {% elif photo.date_text %}
         <div class="w-100">
-                {{ photo.date_text }}
+            {{ photo.date_text }}
         </div>
     {% endif %}
-        <div class="w-100">
-            {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
-            {% if photo.source_url %}
+    <div class="w-100">
+        {% if photo.licence %}
+            <span>{% trans "License" %}: </span>
+            {% include "_licence.html" with licence=photo.licence %}
+        {% endif %}
+    </div>
+    <div class="w-100">
+        {% if photo.source_url %}
+            <span>{% trans "Source" %}: </span>
             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                href='{{ photo.source_url }}' target="_blank" rel="noopener">
+               href='{{ photo.source_url }}' target="_blank" rel="noopener">
                 {{ photo.source.description }}
                 {% if photo.source_key %}{{ photo.source_key }}{% endif %}
             </a>
-            {% elif photo.source.description %}
+        {% elif photo.source.description %}
             {{ photo.source.description }}{% if photo.source_key %} {{ photo.source_key }}{% endif %}
-            {% endif %}
-        </div>
+        {% endif %}
+    </div>
 </div>
