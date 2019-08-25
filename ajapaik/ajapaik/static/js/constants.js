@@ -16,7 +16,8 @@ var constants = {
         PERSON_NAME_FIELDS_WRAPPER_ID: 'person-name-group',
         IS_CORRECT_SUBJECT_NAME_LABEL_ID: 'subject-name',
         IS_OBJECT_CHECKBOX_LABEL_ID: 'is-object-label',
-        ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID: 'alternative-object-type-select'
+        ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID: 'alternative-object-type-select',
+        RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link'
     },
     translations: {
         common: {
@@ -26,6 +27,12 @@ var constants = {
             CANCEL: 'Cancel',
             DELETE: 'Delete',
             SUBMIT: 'Submit'
+        },
+        photoView: {
+            links: {
+                SHARE_PHOTO: 'Photo',
+                SHARE_PHOTO_WITH_RE_PHOTO: 'Photo with selected rephoto'
+            }
         },
         popover: {
             titles: {

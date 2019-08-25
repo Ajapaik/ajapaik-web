@@ -78,7 +78,12 @@
             role="button"
             title="{% trans "Share" %}"
             data-is-popover-target="true"
-            data-url="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+            data-url="{{ hostname }}{{ photo.get_absolute_url }}"
+            {% if rephoto %}
+                data-rephoto-url="{{ hostname }}{{ rephoto.get_absolute_url }}"
+            {% else %}
+                data-rephoto-url="{{ hostname }}{{ photo.rephotos.all.0.get_absolute_url }}"
+            {% endif %}
         >
             <i class="material-icons notranslate ajapaik-text-gray photo-controls-sidebar__icon" data-is-popover-target="true">
                 share
