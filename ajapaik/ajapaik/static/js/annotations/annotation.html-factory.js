@@ -223,7 +223,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
     });
 
     annotationRectangle.popover({
-        container: '#ajapaik-photo-modal',
+        container: ObjectTagger.getDetectionRectangleContainer(),
         html: true,
         placement: 'bottom',
         title: popoverTitle,

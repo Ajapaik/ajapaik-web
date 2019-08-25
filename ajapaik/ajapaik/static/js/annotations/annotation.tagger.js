@@ -5,7 +5,14 @@ var ObjectTagger = {
     imageArea: null,
     imageAreaId: null,
     photoId: null,
+    detectionRectangleContainer: 'body',
 
+    setDetectionRectangleContainer: function(container) {
+        this.detectionRectangleContainer = container;
+    },
+    getDetectionRectangleContainer: function() {
+        return this.detectionRectangleContainer;
+    },
     setPhotoId: function(photoId) {
         this.photoId = photoId;
     },
