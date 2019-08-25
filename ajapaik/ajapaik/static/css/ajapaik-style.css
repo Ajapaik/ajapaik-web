@@ -157,7 +157,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-navbar {
   position: fixed;
-  background: rgba(0, 0, 0, 0.8) none;
+  background: #303030 none;
   border-width: 0 0 0 0;
   z-index: 100;
   margin-bottom: 0 !important;
@@ -1602,12 +1602,10 @@ a.fullscreen {
 }
 
 #ajapaik-photoview-start-dating-button > #ajapaik-photoview-datings-count {
-  position: relative;
+  position: absolute;
   margin: 0;
-  left: 32px;
-  top: -26px;
-  right: auto;
-  bottom: auto;
+  right: -7px;
+  bottom: 0;
 }
 
 #ajapaik-photo-modal-start-dating-button,
@@ -1726,7 +1724,7 @@ a.fullscreen {
 #ajapaik-photoview-container {
   min-height: 85vh;
   margin-top: 20px;
-  margin-left: 10px;
+  margin-left: 90px;
 }
 #ajapaik-photoview-container .col-xs-6 {
   min-width: 280px;
@@ -1780,8 +1778,7 @@ ul.errorlist,
   display: inline;
 }
 
-#ajapaik-photoview-similar-photo-selection,
-#ajapaik-photoview-rephoto-selection {
+#ajapaik-photoview-similar-photo-selection {
   height: 0px;
   display: none;
   text-align: center;
@@ -2174,7 +2171,7 @@ a[href^="http: //maps.google.com/maps"] {
   top: 54px;
   position: relative;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #303030;
 }
 
 footer a {
@@ -2228,7 +2225,7 @@ footer a {
   background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
-.ajapaik-photo-modal-album-more-button {
+.ajapaik-photo-modal-album-more-button.float-left {
   background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
   width: 24px;
   height: 24px;
@@ -2237,7 +2234,7 @@ footer a {
   cursor: pointer;
 }
 
-.ajapaik-photo-album-link {
+.ajapaik-photo-album-link.float-left {
   font-size: 18px;
 }
 
