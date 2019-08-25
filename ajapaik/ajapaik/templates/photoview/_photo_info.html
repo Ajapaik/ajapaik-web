@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% with photo=photo|default:photo %}
+    {% include "_photo_description_container.html" %}
+
+    {% if people %}
+        <!--TODO: Highlight rectangle when name hovered?-->
+        <span>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</span>
+    {% endif %}
+
+{% endwith %}
