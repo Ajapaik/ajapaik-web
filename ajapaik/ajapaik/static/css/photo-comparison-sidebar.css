@@ -1,0 +1,121 @@
+.photo-comparison-sidebar {
+    position: absolute;
+    background-color: #CCCCCC;
+    right: -60%;
+    border-radius: 5px;
+    transition: right 400ms ease-in;
+}
+
+.photo-comparison-sidebar--opened {
+    right: 0;
+}
+
+.photo-comparison-sidebar-button {
+    position: absolute;
+    display: none;
+    right: -38px;
+    top: 114px;
+
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+.photo-comparison-sidebar__container {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.photo-comparison-sidebar__tab-content {
+    border-color: #1A1A1A;
+    background-color: #4A4A4A;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 0;
+    border-radius: 3px;
+}
+
+.photo-comparison-sidebar__tab {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: white;
+    color: black;
+}
+
+.active.photo-comparison-sidebar__tab {
+    background-color: #4A4A4A !important;
+    color: white !important;
+}
+
+.photo-comparison-sidebar__image-preview {
+    height: 100px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.photo-comparison-sidebar__image-preview-gallery {
+    height: 100px;
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.photo-comparison-sidebar__image-preview-gallery__control-buttons {
+    line-height: 100px;
+    display: block;
+}
+
+.photo-comparison-sidebar__image-preview-gallery__control-buttons:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.photo-comparison-sidebar__image-preview-gallery__control-buttons.right {
+    margin: auto 0 auto auto;
+}
+
+.photo-comparison-sidebar__image-preview-gallery__control-button {
+    font-size: 48px;
+    color: white;
+    vertical-align: middle;
+}
+
+.photo-comparison-sidebar__rephoto-wrapper {
+    margin: 0 auto;
+}
+
+.photo-comparison-sidebar__image-preview-gallery-content {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.photo-comparison-sidebar__image-preview-gallery-wrapper {
+    height: 100px;
+    width: 80%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 auto;
+}
+
+.photo-comparison-sidebar__close-button {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.photo-comparison-sidebar__tab__close-button {
+    position: absolute;
+    right: 0;
+}
+
+.photo-comparison-sidebar__icon {
+    position: relative;
+    top: 7px;
+}
