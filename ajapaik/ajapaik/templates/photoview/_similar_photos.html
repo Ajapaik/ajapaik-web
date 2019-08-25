@@ -1,0 +1,80 @@
+{% load i18n static %}
+
+{% if similar_photo_count > 0 %}
+    <div id="similar-photos">
+        {% with similarity=similar_photos.all.0 %}
+            <div>
+                <div id="ajapaik-photoview-rephoto-wrapper" class="photo-comparison-sidebar__rephoto-wrapper">
+                    <div id="ajapaik-photoview-rephoto-container">
+                        <a id="similar-photo-link" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}">
+                            <img
+                                id="similar-photo-large-view"
+                                src="{% url 'image_thumb' similarity.to_photo.id 800 similarity.to_photo.get_pseudo_slug %}"
+                                {% if similarity.similarity_type == 1 %}
+                                    alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
+                                    title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
+                                {% else %}
+                                    alt="{{ similarity.to_photo.description }}  {% trans "duplicate photo" %}"
+                                    title="{{ similarity.to_photo.description }} {% trans "duplicate photo" %}"
+                                {% endif %}
+                            />
+                        </a>
+                        {% if similarity.confirmed == False %}
+                            <i class="material-icons notranslate ajapaik-photoview-similar-photo-icon"
+                               style="color:darkblue;">help_circle</i>
+                        {% endif %}
+
+                        <a href="{% url 'compare-photos' similarity.from_photo.id similarity.to_photo_id %}"
+                           class="btn ajapaik-compare-similar-overlay-button"
+                           {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
+                            <i class="material-icons notranslate">compare</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endwith %}
+
+        <div
+            id="similar-photo-selection"
+            class="row photo-comparison-sidebar__image-preview-gallery"
+            style="display: none;"
+        >
+            <a id="left-button" class="photo-comparison-sidebar__image-preview-gallery__control-buttons"
+               style="visibility: hidden;">
+                <i class="material-icons notranslate photo-comparison-sidebar__image-preview-gallery__control-button">
+                    chevron_left
+                </i>
+            </a>
+
+            <div class="photo-comparison-sidebar__image-preview-gallery-wrapper">
+                <div id="gallery-content" class="photo-comparison-sidebar__image-preview-gallery-content">
+                    {% for similarity in similar_photos.all %}
+                        <img
+                            data-full-image-url="{% url 'image_thumb' similarity.to_photo.id 800 similarity.to_photo.get_pseudo_slug %}"
+                            data-image-link="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}"
+                            data-image-preview="true"
+                            src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
+                            class="photo-comparison-sidebar__image-preview"
+                            {% if similarity.similarity_type == 1 %}
+                                alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
+                                title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
+                            {% else %}
+                                alt="{{ similarity.to_photo.description }}  {% trans "duplicate photo" %}"
+                                title="{{ similarity.to_photo.description }} {% trans "duplicate photo" %}"
+                            {% endif %}
+                        />
+                    {% endfor %}
+                </div>
+            </div>
+
+            <a id="right-button" class="photo-comparison-sidebar__image-preview-gallery__control-buttons right">
+                <i class="material-icons notranslate photo-comparison-sidebar__image-preview-gallery__control-button">
+                    chevron_right
+                </i>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+<script src="{% static 'js/photoview/photoview-photos-common.js' %}"></script>
+<script src="{% static 'js/photoview/photoview-similar-photos.js' %}"></script>
