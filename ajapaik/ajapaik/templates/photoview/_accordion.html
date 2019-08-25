@@ -1,0 +1,95 @@
+{% load i18n comments static %}
+
+<div class="photo-view__accordion">
+    <div class="photo-view__accordion-header" id="headingPhotoInfo">
+        <h5 class="mb-0">
+            <button
+                    class="btn btn-link photo-view__accordion-header__button"
+                    data-toggle="collapse"
+                    data-target="#photoInfo"
+                    aria-expanded="false"
+                    aria-controls="photoInfo"
+            >
+                {% trans "Photo info" %}
+                <i class="material-icons notranslate">
+                    expand_more
+                </i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="photoInfo" class="collapse show" aria-labelledby="headingPhotoInfo" data-parent="#headingPhotoInfo">
+        <div class="card-body photo-view__accordion-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="text-decoration: underline;">
+                        {% trans 'Photo info' %}:
+                    </div>
+
+                    {% include 'photoview/_photo_info.html' %}
+                </div>
+
+                <div class="col-md-6">
+                    <div style="text-decoration: underline;">
+                        {% trans 'Picture belongs to albums' %}:
+                    </div>
+
+                    {% include 'photoview/_albums_info.html' %}
+                </div>
+
+                <div id="ajapaik-photo-modal-like" class="col-md-12" style="padding-top: 15px;">
+                    <div class="fb-like"
+                         data-href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
+                         {% if not request.user_agent.is_pc %}data-layout="button_count"{% endif %}
+                         data-action="like"
+                         data-show-faces="true"
+                         data-share="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-view__accordion-header" id="headingOne">
+        <h5 class="mb-0">
+            <button
+                    class="btn btn-link photo-view__accordion-header__button"
+                    data-toggle="collapse"
+                    data-target="#filteredAnnotations"
+                    aria-expanded="false"
+                    aria-controls="filteredAnnotations"
+            >
+                {% trans "Filter annotations" %}
+                <i class="material-icons notranslate">
+                    expand_more
+                </i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="filteredAnnotations" class="collapse" aria-labelledby="headingOne" data-parent="#headingOne">
+        <div class="card-body photo-view__accordion-content">
+            FILTERS
+        </div>
+    </div>
+
+    <div class="photo-view__accordion-header" id="commentsHeading">
+        <h5 class="mb-0">
+            <button
+                    class="btn btn-link photo-view__accordion-header__button"
+                    data-toggle="collapse"
+                    data-target="#comments"
+                    aria-expanded="false"
+                    aria-controls="comments"
+            >
+                {% trans "Comments" %}
+            </button>
+        </h5>
+    </div>
+
+    <div id="comments" class="collapse" aria-labelledby="commentsHeading" data-parent="#commentsHeading">
+        <div class="card-body photo-view__accordion-content">
+            {% include 'photoview/_comments.html' %}
+        </div>
+    </div>
+</div>
