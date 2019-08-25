@@ -1,0 +1,12 @@
+{% load comments %}
+
+<div id="ajapaik-comments-container">
+    <div id="ajapaik-comment-list"></div>
+    <div id="ajapaik-new-comment-form-container">
+        {% if rephoto %}
+            {% render_comment_form for rephoto %}
+        {% else %}
+            {% render_comment_form for photo %}
+        {% endif %}
+    </div>
+</div>
