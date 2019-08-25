@@ -118,7 +118,7 @@ function drawDetectionRectangles(detections, imageArea) {
 }
 
 function refreshAnnotations() {
-    getAllAnnotations(window.photoModalCurrentlyOpenPhotoId, ObjectTagger.handleSavedRectanglesDrawn);
+    getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 }
 
 function drawNewAnnotationRectangle(img, areaSelection) {
@@ -140,7 +140,7 @@ function drawNewAnnotationRectangle(img, areaSelection) {
     var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
 
     var scaledRectangle = {
-        photoId: window.photoModalCurrentlyOpenPhotoId,
+        photoId: ObjectTagger.getPhotoId(),
         x1: areaSelection.x1 * widthScale,
         y1: areaSelection.y1 * heightScale,
         x2: areaSelection.x2 * widthScale,
