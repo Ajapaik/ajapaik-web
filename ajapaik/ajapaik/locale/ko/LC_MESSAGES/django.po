@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-23 04:17:30+0000\n"
+"PO-Revision-Date: 2019-08-26 10:08:05+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1482,7 +1482,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "위키미디어 공용"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
