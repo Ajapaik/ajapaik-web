@@ -1,6 +1,6 @@
 {% load i18n static %}
 
-<div>
+<div id="photo-comparison-actions-sidebar">
     <div id="toggle-comparison-sidebar" class="photo-comparison-sidebar-button">
         <button id="open-comparison-sidebar-button" class="btn btn-outline-dark">
         <span style="display: block;">
@@ -65,10 +65,10 @@
                         {% trans "Similar photos" %}({{ similar_photo_count }})
                     </a>
                 </li>
-                <li class="nav-item photo-comparison-sidebar__tab__close-button">
+                <li id="close-comparison-sidebar-button-wrapper" class="nav-item ml-auto">
                     <button id="close-comparison-sidebar-button"
                             class="btn btn-dark photo-comparison-sidebar__close-button">
-                        Close
+                        {% trans "Close" %}
                     </button>
                 </li>
             </ul>

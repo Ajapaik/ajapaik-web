@@ -58,6 +58,30 @@ $(document).ready(function () {
         });
     }
 
+    function moveMenuToCollapse() {
+        var comparisonSidebar = $('#comparison-sidebar');
+
+        comparisonSidebar.appendTo('#comparison-actions-content');
+        comparisonSidebar.removeClass('photo-comparison-sidebar');
+        comparisonSidebar.addClass('photo-comparison-sidebar--small');
+
+        $('#toggle-comparison-sidebar').hide();
+        $('#close-comparison-sidebar-button-wrapper').hide();
+        $('#comparison-sidebar-collapse-wrapper').show();
+    }
+
+    function moveMenuToOriginalLocation() {
+        var comparisonSidebar = $('#comparison-sidebar');
+
+        comparisonSidebar.appendTo('#photo-comparison-actions-sidebar');
+
+        comparisonSidebar.addClass('photo-comparison-sidebar');
+        comparisonSidebar.removeClass('photo-comparison-sidebar--small');
+
+        $('#comparison-sidebar-collapse-wrapper').hide();
+        $('#close-comparison-sidebar-button-wrapper').show();
+    }
+
     function setMenuSizes() {
         var topAndBottomPaddingOfComparisonSidebar = 10;
 
@@ -66,12 +90,23 @@ $(document).ready(function () {
         var tabsAreaHeight = tabsArea.outerHeight();
 
         var horizontalAreaLeftToFillAfterPhotoView = ($(window).width() - (pictureArea.offset().left + pictureArea.width())) - 20;
+        var isDisplayingSmallerView = horizontalAreaLeftToFillAfterPhotoView < 400;
         var photoViewHeight = pictureArea.height();
 
         var maxRephotoHeightAllowed = photoViewHeight - tabsAreaHeight - topAndBottomPaddingOfComparisonSidebar;
+        var comparisonSidebarWidth = isDisplayingSmallerView ? pictureArea.width() : horizontalAreaLeftToFillAfterPhotoView;
+
+        var isMenuUnderCollapse = $('#comparison-actions-content').children().length > 0;
+
+        if (isDisplayingSmallerView && !isMenuUnderCollapse) {
+            moveMenuToCollapse();
+        } else if (!isDisplayingSmallerView && isMenuUnderCollapse) {
+            moveMenuToOriginalLocation();
+            setSidebarOpenButtonSizeAndLocation();
+        }
 
         $('#comparison-sidebar').css({
-            'width': horizontalAreaLeftToFillAfterPhotoView + 'px',
+            'width': comparisonSidebarWidth + 'px',
             'height': photoViewHeight + 'px'
         });
 

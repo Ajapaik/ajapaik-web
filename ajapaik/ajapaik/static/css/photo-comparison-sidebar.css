@@ -6,6 +6,11 @@
     transition: right 400ms ease-in;
 }
 
+.photo-comparison-sidebar--small {
+    background-color: #CCCCCC;
+    border-radius: 5px;
+}
+
 .photo-comparison-sidebar--opened {
     right: 0;
 }
@@ -24,6 +29,7 @@
 }
 
 .photo-comparison-sidebar__container {
+    position: relative;
     margin-bottom: 5px;
     margin-top: 5px;
     margin-left: 5px;
@@ -108,11 +114,6 @@
 .photo-comparison-sidebar__close-button {
     padding-top: 0;
     padding-bottom: 0;
-}
-
-.photo-comparison-sidebar__tab__close-button {
-    position: absolute;
-    right: 0;
 }
 
 .photo-comparison-sidebar__icon {
