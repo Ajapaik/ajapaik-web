@@ -199,7 +199,9 @@ function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkbo
         .append(input);
 }
 
-function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick) {
+function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, customBorder) {
+    var border = customBorder ? customBorder : 'solid';
+
     var annotationRectangle = $('<div>', {
         id: popoverId,
         'data-is-detection-rectangle': true,
@@ -210,7 +212,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
             top: configuration.placementFromTopEdge + 'px',
             width: configuration.width + 'px',
             height: configuration.height + 'px',
-            border: '3px solid white'
+            border: '3px ' + border + ' white'
         },
     });
 

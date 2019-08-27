@@ -86,5 +86,5 @@ function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) 
     var popoverTitle = gettext(constants.translations.popover.titles.NEW_ANNOTATION) + '?';
     var popoverContent = createObjectAssigningPopoverContent(popoverId, scaledRectangle);
 
-    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick);
+    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, 'dashed');
 }
