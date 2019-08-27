@@ -17,7 +17,8 @@ var constants = {
         IS_CORRECT_SUBJECT_NAME_LABEL_ID: 'subject-name',
         IS_OBJECT_CHECKBOX_LABEL_ID: 'is-object-label',
         ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID: 'alternative-object-type-select',
-        RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link'
+        RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link',
+        IMAGE_SELECTION_AREA_ID: 'image-selection'
     },
     translations: {
         common: {

@@ -1,0 +1,4 @@
+.image-area-selector__selection {
+    position: absolute;
+    border: 3px dashed white;
+}
