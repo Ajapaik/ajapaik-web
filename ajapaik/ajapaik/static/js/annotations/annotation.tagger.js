@@ -67,20 +67,13 @@ var ObjectTagger = {
         disableImageSubmitControls();
 
         var ref = this;
-
         ref.isInCropMode = true;
 
-        setTimeout(function () {
-            $(ref.imageArea).imgAreaSelect({
-                onSelectEnd: ref.handleNewRectangleDrawn.bind(ref)
-            });
-        }, 0);
+        ImageAreaSelector.startImageAreaSelection(ref.imageAreaId, ref.handleNewRectangleDrawn.bind(ref));
 
         disableMovingBetweenPictures();
     },
     toggleCropping: function () {
-        $('#ajapaik-full-screen-link').css('cursor', 'crosshair');
-
         if (this.isInCropMode) {
             this.stopCropping();
         } else {
