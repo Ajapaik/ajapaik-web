@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-23 04:17:29+0000\n"
+"PO-Revision-Date: 2019-08-29 18:01:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -1384,7 +1384,7 @@ msgstr "No content overlap"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:62
 msgid "Overlapping content"
-msgstr "Overlapping content"
+msgstr "Overlappende indhold"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:67
 msgid "Same shot"
