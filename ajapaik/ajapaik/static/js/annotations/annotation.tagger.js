@@ -40,11 +40,6 @@ var ObjectTagger = {
 
         $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
 
-        $(this.imageArea).imgAreaSelect({
-            disable: true,
-            hide: true
-        });
-
         enableMovingBetweenPictures();
     },
     handleSavedRectanglesDrawn: function(detections) {
@@ -66,10 +61,12 @@ var ObjectTagger = {
     startCropping: function () {
         disableImageSubmitControls();
 
-        var ref = this;
-        ref.isInCropMode = true;
+        this.isInCropMode = true;
 
-        ImageAreaSelector.startImageAreaSelection(ref.imageAreaId, ref.handleNewRectangleDrawn.bind(ref));
+        var onSelectionEnd = this.handleNewRectangleDrawn.bind(this);
+        var onSelectionCancel = this.stopCropping.bind(this);
+
+        ImageAreaSelector.startImageAreaSelection(this.imageAreaId, onSelectionEnd, onSelectionCancel);
 
         disableMovingBetweenPictures();
     },

@@ -1,6 +1,9 @@
 'use strict';
 
 var constants = {
+    keyCodes: {
+        ESCAPE: 27
+    },
     elements: {
         AUTOCOMPLETE_WRAPPER_ID: 'autocomplete-wrapper',
         SUBJECT_AUTOCOMPLETE_ID: 'autocomplete-subject',

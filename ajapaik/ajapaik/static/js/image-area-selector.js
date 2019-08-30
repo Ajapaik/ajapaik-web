@@ -12,6 +12,7 @@ var ImageAreaSelector = (function () {
 
     var clickListener = null;
     var mouseMoveListener = null;
+    var cancelListenerOnAreaSelect = null;
 
     function resetValues() {
         imageArea = null;
@@ -124,23 +125,27 @@ var ImageAreaSelector = (function () {
     }
 
     function performCleanup() {
+        isSelecting = false;
+
         $('#' + constants.elements.IMAGE_SELECTION_AREA_ID).remove();
         $('#' + constants.elements.IMAGE_SELECTION_OVERLAY_ID).remove();
 
         imageArea.off('click', clickListener);
         imageArea.off('mousemove', mouseMoveListener);
         imageArea.css({cursor: ''});
+        $(window).off('keydown', cancelListenerOnAreaSelect);
 
         resetValues();
     }
 
-    function getClickListener(imageAreaId, onSelect) {
+    function getClickListener(imageAreaId, onSelect, onCancel) {
         return function (event) {
             isSelecting = !isSelecting;
 
             if (isSelecting) {
                 markStartingSizesAndPositions(event);
                 createRectangle();
+                listenForSelectionCancel(onCancel);
             } else {
                 onSelect(
                     document.getElementById(imageAreaId),
@@ -165,13 +170,27 @@ var ImageAreaSelector = (function () {
         };
     }
 
+    function listenForSelectionCancel(onCancel) {
+        cancelListenerOnAreaSelect = function(event) {
+            if (event.keyCode === constants.keyCodes.ESCAPE) {
+                if (onCancel) {
+                    onCancel();
+                }
+
+                performCleanup();
+            }
+        };
+
+        $(window).keydown(cancelListenerOnAreaSelect);
+    }
+
     return {
-        startImageAreaSelection: function (imageAreaId, onSelect) {
+        startImageAreaSelection: function (imageAreaId, onSelect, onCancel) {
             imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
 
             createOverlay();
 
-            clickListener = getClickListener(imageAreaId, onSelect);
+            clickListener = getClickListener(imageAreaId, onSelect, onCancel);
             mouseMoveListener = getMousePositionTrackingEventListener();
 
             imageArea.click(clickListener);
