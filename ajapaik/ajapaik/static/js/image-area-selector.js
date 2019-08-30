@@ -68,7 +68,17 @@ var ImageAreaSelector = (function () {
         }
     }
 
+    function createOverlay() {
+        var selectionOverlay = $('<div>', {
+            id: constants.elements.IMAGE_SELECTION_OVERLAY_ID,
+            class: 'image-area-selector__overlay'
+        });
+
+        imageArea.append(selectionOverlay);
+    }
+
     function createRectangle() {
+        var overlay = $('#' + constants.elements.IMAGE_SELECTION_OVERLAY_ID);
         var dimensions = getRectangleHeightAndWidth();
 
         var leftPosition = initialClickX + 'px';
@@ -86,7 +96,7 @@ var ImageAreaSelector = (function () {
             style: left + top + width + height
         });
 
-        imageArea.append(imageSelectionElement);
+        overlay.append(imageSelectionElement);
     }
 
     function getFinishedSelectionArea() {
@@ -116,6 +126,17 @@ var ImageAreaSelector = (function () {
         initialClickY = event.clientY - imageAreaTop;
     }
 
+    function performCleanup() {
+        $('#' + constants.elements.IMAGE_SELECTION_AREA_ID).remove();
+        $('#' + constants.elements.IMAGE_SELECTION_OVERLAY_ID).remove();
+
+        imageArea.off('click', clickListener);
+        imageArea.off('mousemove', mouseMoveListener);
+        imageArea.css({cursor: ''});
+
+        resetValues();
+    }
+
     function getClickListener(imageAreaId, onSelect) {
         return function (event) {
             isSelecting = !isSelecting;
@@ -129,11 +150,7 @@ var ImageAreaSelector = (function () {
                     getFinishedSelectionArea()
                 );
 
-                $('#' + constants.elements.IMAGE_SELECTION_AREA_ID).remove();
-                imageArea.off('click', clickListener);
-                imageArea.off('mousemove', mouseMoveListener);
-                imageArea.css({cursor: ''});
-                resetValues();
+                performCleanup();
             }
         };
     }
@@ -154,6 +171,8 @@ var ImageAreaSelector = (function () {
     return {
         startImageAreaSelection: function (imageAreaId, onSelect) {
             imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
+
+            createOverlay();
 
             clickListener = getClickListener(imageAreaId, onSelect);
             mouseMoveListener = getMousePositionTrackingEventListener();
