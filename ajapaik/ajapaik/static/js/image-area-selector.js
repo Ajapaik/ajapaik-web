@@ -138,14 +138,13 @@ var ImageAreaSelector = (function () {
         resetValues();
     }
 
-    function getClickListener(imageAreaId, onSelect, onCancel) {
+    function getClickListener(imageAreaId, onSelect) {
         return function (event) {
             isSelecting = !isSelecting;
 
             if (isSelecting) {
                 markStartingSizesAndPositions(event);
                 createRectangle();
-                listenForSelectionCancel(onCancel);
             } else {
                 onSelect(
                     document.getElementById(imageAreaId),
@@ -189,8 +188,9 @@ var ImageAreaSelector = (function () {
             imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
 
             createOverlay();
+            listenForSelectionCancel(onCancel);
 
-            clickListener = getClickListener(imageAreaId, onSelect, onCancel);
+            clickListener = getClickListener(imageAreaId, onSelect);
             mouseMoveListener = getMousePositionTrackingEventListener();
 
             imageArea.click(clickListener);
