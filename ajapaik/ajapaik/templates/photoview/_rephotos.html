@@ -47,7 +47,7 @@
                 {% for rephoto in photo.rephotos.all %}
                     <img
                         data-full-image-url="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"
-                        data-image-preview="true"
+                        data-image-preview-rephotos="true"
                         data-full-screen-url="{% url "image_full" rephoto.id rephoto.get_pseudo_slug %}"
                         data-share-url="{{ hostname }}{{ rephoto.get_absolute_url }}"
                         src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"

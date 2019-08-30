@@ -52,7 +52,7 @@
                         <img
                             data-full-image-url="{% url 'image_thumb' similarity.to_photo.id 800 similarity.to_photo.get_pseudo_slug %}"
                             data-image-link="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}"
-                            data-image-preview="true"
+                            data-image-preview-similar-photos="true"
                             src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
                             class="photo-comparison-sidebar__image-preview"
                             {% if similarity.similarity_type == 1 %}

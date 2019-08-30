@@ -2,7 +2,7 @@ $(document).ready(function () {
     var initialized = false;
     var similarPhotos = $('#similar-photos');
 
-    $('[data-image-preview="true"]').click(function (event) {
+    $('[data-image-preview-similar-photos="true"]').click(function (event) {
         var similarPhotoLargeView = $('#similar-photo-large-view');
 
         var clickedImagePreview = $(event.target);

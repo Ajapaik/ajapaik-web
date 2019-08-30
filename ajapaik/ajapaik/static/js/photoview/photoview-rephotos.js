@@ -2,7 +2,7 @@ $(document).ready(function () {
     var initialized = false;
     var rephotos = $('#rephotos');
 
-    $('[data-image-preview="true"]').click(function (event) {
+    $('[data-image-preview-rephotos="true"]').click(function (event) {
         var clickedImagePreview = $(event.target);
         var newRephotoUrl = clickedImagePreview.data('full-image-url');
         var fullScreenRephotoUrl = clickedImagePreview.data('full-screen-url');
