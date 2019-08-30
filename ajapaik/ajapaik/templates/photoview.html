@@ -17,15 +17,25 @@
             alt="{{ photo.description }}" title="{{ photo.description }}" />
     </div>
 </div>
-{% if rephoto %}
-    <div class="full-box rephoto-full-box">
-        <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-            <img id="ajapaik-rephoto-full-screen-image" class="lazyload" style="display: none;"
-                alt="{{ photo.description }} {% trans "rephoto" %}"
-                data-src="{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}"
-                title="{{ photo.description }} {% trans "rephoto" %}" />
+{% if photo.rephotos.all|length > 0 %}
+    {% with first_rephoto=photo.rephotos.all.0 %}
+        <div class="full-box rephoto-full-box">
+            <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
+                <img
+                    id="ajapaik-rephoto-full-screen-image"
+                    class="lazyload"
+                    style="display: none;"
+                    alt="{{ photo.description }} {% trans "rephoto" %}"
+                    title="{{ photo.description }} {% trans "rephoto" %}"
+                    {% if rephoto %}
+                        data-src="{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}"
+                    {% else %}
+                        data-src="{% url "image_full" first_rephoto.pk first_rephoto.get_pseudo_slug %}"
+                    {% endif %}
+                />
+            </div>
         </div>
-    </div>
+    {% endwith %}
 {% endif %}
 
 {% include "photoview/_sidebar.html" %}

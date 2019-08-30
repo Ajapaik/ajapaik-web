@@ -9,7 +9,7 @@ $(document).ready(function () {
         var rephotoShareUrl = clickedImagePreview.data('share-url');
 
         $('#ajapaik-photoview-rephoto').attr('src', newRephotoUrl);
-        $('#ajapaik-rephoto-full-screen-image').data('src', fullScreenRephotoUrl);
+        $('#ajapaik-rephoto-full-screen-image').attr('data-src', fullScreenRephotoUrl);
 
         $('#ajapaik-sharing-dropdown-button').data('rephoto-url', rephotoShareUrl);
         $('#' + constants.elements.RE_PHOTO_SHARE_LINK_ID).html(rephotoShareUrl);
