@@ -51,9 +51,6 @@ var ImageAreaSelector = (function () {
         var leftPosition = initialClickX;
         var topPosition = initialClickY;
 
-        var currentMouseX = currentMouseX;
-        var currentMouseY = currentMouseY;
-
         var width = rectangleDimensions.width;
         var height = rectangleDimensions.height;
 
