@@ -22,7 +22,8 @@ var constants = {
         ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID: 'alternative-object-type-select',
         RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link',
         IMAGE_SELECTION_AREA_ID: 'image-selection',
-        IMAGE_SELECTION_OVERLAY_ID: 'image-selection-overlay'
+        IMAGE_SELECTION_OVERLAY_ID: 'image-selection-overlay',
+        ANNOTATION_FILTERS_ID: 'annotation-filters'
     },
     translations: {
         common: {

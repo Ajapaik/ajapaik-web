@@ -199,12 +199,29 @@ function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkbo
         .append(input);
 }
 
+function getAnnotationIdentifier(annotation) {
+    if (!annotation.id) {
+        return '';
+    }
+
+    if (!annotation.objectId) {
+        if (annotation.subjectId) {
+            return 'face-' + annotation.subjectId;
+        }
+
+        return 'unknown-face-' + annotation.id;
+    }
+
+    return 'object-' + annotation.objectId;
+}
+
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
     var annotationRectangle = $('<div>', {
         id: popoverId,
         'data-is-detection-rectangle': true,
+        'data-annotation-identifier': getAnnotationIdentifier(configuration.annotation),
         class: 'ajapaik-face-rectangle',
         css: {
             position: 'absolute',

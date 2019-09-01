@@ -43,7 +43,8 @@ function getSavedDetectionRectangle(scaledRectangle, annotation) {
         placementFromLeftEdge: leftEdgeDistance,
         placementFromTopEdge: topEdgeDistance,
         width: width,
-        height: height
+        height: height,
+        annotation: annotation
     };
 
     if (annotation.objectId) {
@@ -89,6 +90,8 @@ function removeExistingDetectionRectangles() {
 
 function drawDetectionRectangles(detections, imageArea) {
     $('.popover').remove();
+
+    var hasDrawnNewAnnotations = createAnnotationFilters(detections);
 
     setTimeout(function() {
         removeExistingDetectionRectangles();

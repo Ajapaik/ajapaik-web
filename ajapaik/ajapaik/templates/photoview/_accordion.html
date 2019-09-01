@@ -97,8 +97,7 @@
     </div>
 
     <div id="filteredAnnotations" class="collapse" aria-labelledby="headingOne" data-parent="#headingOne">
-        <div class="card-body photo-view__accordion-content">
-            FILTERS
+        <div id="annotation-filters-wrapper" class="card-body photo-view__accordion-content">
         </div>
     </div>
 
@@ -122,3 +121,6 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/photoview/annotation-filters.js' %}"></script>
+<link rel="stylesheet" href="{% static "css/annotation-filters.css" %}"/>
