@@ -1,7 +1,7 @@
 .photo-comparison-sidebar {
     position: absolute;
     background-color: #CCCCCC;
-    right: -60%;
+    right: -100%;
     border-radius: 5px;
     transition: right 400ms ease-in;
 }
