@@ -68,6 +68,15 @@
             {% endif %}
         </div>
         <div class="modal-footer d-flex">
+            {% if user.is_superuser %}
+                 <button type="button" class="btn btn-primary ajapaik-text-white">
+                    <a id="ajapaik-photo-modal-discuss" class="ajapaik-text-white"
+                        target="_blank"
+                        title="admin" href="/admin/ajapaik/album/{{ album.id }}">
+                        &Pi;
+                    </a>
+                 </button>
+            {% endif %}
             <button type="button" id="ajapaik-sharing-dropdown-button"
                     class="btn btn-primary dropdown-toggle ajapaik-photo-modal-share-button ajapaik-text-white"
                     data-toggle="dropdown" aria-expanded="false">

@@ -394,6 +394,13 @@
                             </div>
                         </div>
                         <!-- end of comment block -->
+                        {% if request.user.is_superuser %}
+                                    <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-right"
+                                       target="_blank"
+                                       title="admin" href="/admin/ajapaik/photo/{{ photo.id }}">
+                                       &Pi;
+                                    </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
