@@ -1,7 +1,11 @@
 {% verbatim %}
     <script id="ajapaik-frontpage-photo-template" type="text/x-tmpl">
-        <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[14]%}" class="ajapaik-frontpage-image-container"
-        id="ajapaik-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;" rel="noopener">
+        <a
+            href="{%=photoURL%}{%=o[0]%}/{%=o[14]%}"
+            class="ajapaik-frontpage-image-container"
+            id="ajapaik-frontpage-image-container-{%=o[0]%}"
+            data-id="{%=o[0]%}"
+        >
             <img alt="{%=o[3]%}" title="{%=o[3]%}" src="" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[15]%}"
                 class="ajapaik-frontpage-image lazyload img-fluid" data-id="{%=o[0]%}"
                 width="{%=o[1]%}" height="{%=o[2]%}"/>
