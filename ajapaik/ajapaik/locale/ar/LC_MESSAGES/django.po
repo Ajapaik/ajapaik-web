@@ -213,10 +213,6 @@ msgstr "تأكيد التاريخ"
 msgid "Film still"
 msgstr "الفيلم لا يزال"
 
-#: ajapaik/ajapaik/models.py:1027
-msgid "Delete annotation"
-msgstr "حذف التعليق التوضيحي"
-
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"

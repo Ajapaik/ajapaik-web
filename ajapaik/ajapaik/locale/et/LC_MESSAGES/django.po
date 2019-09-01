@@ -217,10 +217,6 @@ msgstr "Dateeringu kinnitus"
 msgid "Film still"
 msgstr "Filmikaader"
 
-#: ajapaik/ajapaik/models.py:1027
-msgid "Delete annotation"
-msgstr "Kustuta annotatsioon"
-
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"

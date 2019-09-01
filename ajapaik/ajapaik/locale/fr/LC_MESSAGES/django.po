@@ -217,10 +217,6 @@ msgstr "Confirmation de la date"
 msgid "Film still"
 msgstr "Photo de film"
 
-#: ajapaik/ajapaik/models.py:1027
-msgid "Delete annotation"
-msgstr "Supprimer l'annotation"
-
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
