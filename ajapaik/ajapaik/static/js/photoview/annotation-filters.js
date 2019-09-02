@@ -42,9 +42,8 @@ function getHideCorrespondingFilter(annotationIdentifier) {
 
 function getUnknownPersonTitle(annotationId) {
     var unknownPersonLabel = gettext('Unknown person');
-    var annotationLabel = gettext('Annotation');
 
-    return annotationLabel + ' ' + annotationId + ': ' + unknownPersonLabel;
+    return unknownPersonLabel + ' (id: ' + annotationId + ')';
 }
 
 function annotationCheckbox(annotation) {
@@ -72,7 +71,7 @@ function annotationCheckbox(annotation) {
         type: 'checkbox',
         id: checkboxName,
         name: checkboxName,
-        style: 'margin-top:auto; margin-bottom: auto;',
+        style: 'margin-top:auto; margin-bottom: auto; margin-left: 5px;',
         checked: true
     });
 
