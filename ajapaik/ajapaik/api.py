@@ -389,23 +389,30 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 lon,
                 lat
             )
-            nearby_range = settings.API_DEFAULT_NEARBY_PHOTOS_RANGE*10000
+            nearby_range = settings.API_DEFAULT_NEARBY_PHOTOS_RANGE*10
             start = 0
             end = settings.API_DEFAULT_NEARBY_MAX_PHOTOS
 
-            photos = Photo.objects \
-                             .filter(
-                    Q(albums=album)
-                    | (Q(albums__subalbum_of=album)
-                       & ~Q(albums__atype=Album.AUTO)),
-                    rephoto_of__isnull=True
-                ).filter(
+            photos = Photo.objects.filter(
+                    albums=album,
+                    rephoto_of__isnull=True,
                     lat__isnull=False,
                     lon__isnull=False,
                     geography__distance_lte=(ref_location, D(m=nearby_range))
                 ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[start:end]
+                .distance(ref_location) \
+                .order_by('distance')[start:end]
+
+            if not photos:
+                photos = Photo.objects.filter(
+                    albums=album,
+                    rephoto_of__isnull=True,
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    geography__distance_lte=(ref_location, D(m=nearby_range*100))
+                ) \
+                .distance(ref_location) \
+                .order_by('distance')[start:end]
 
         if photos:
             user_profile = user.profile if user.is_authenticated else None 
