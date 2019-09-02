@@ -372,6 +372,63 @@ class FinnaNearestPhotos(AjapaikAPIView):
     search_url = 'https://api.finna.fi/api/v1/search'
     page_size = 50
 
+
+    def _get_signe_results(self, lat, lon, search_phrase, user, request):
+        album = 1
+
+        if search_phrase:
+            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
+            photos = Photo.objects.filter(
+                id__in=[item.pk for item in sqs],
+                albums=album,
+                rephoto_of__isnull=True
+
+            )
+        else:
+            ref_location = Point(
+                lon,
+                lat
+            )
+            nearby_range = settings.API_DEFAULT_NEARBY_PHOTOS_RANGE*10000
+            start = 0
+            end = settings.API_DEFAULT_NEARBY_MAX_PHOTOS
+
+            photos = Photo.objects \
+                             .filter(
+                    Q(albums=album)
+                    | (Q(albums__subalbum_of=album)
+                       & ~Q(albums__atype=Album.AUTO)),
+                    rephoto_of__isnull=True
+                ).filter(
+                    lat__isnull=False,
+                    lon__isnull=False,
+                    geography__distance_lte=(ref_location, D(m=nearby_range))
+                ) \
+                             .distance(ref_location) \
+                             .order_by('distance')[start:end]
+
+        if photos:
+            user_profile = user.profile if user.is_authenticated else None 
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+               user_profile
+            )
+
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
+            })
+
+        else:
+            return Response({
+                'error': RESPONSE_STATUSES['OK'],
+                'photos': []
+            })
+
     def _get_finna_results(self, lat, lon, query, album, distance):
         # print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
 
@@ -422,6 +479,9 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 distance = 0.1
             else:
                 distance = 100000
+
+            if album=="signebrander":
+                return self._get_signe_results(lat, lon, query, user, request)
 
             photos = []
             records = self._get_finna_results(lat, lon, query, album, distance)
@@ -497,6 +557,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
         else:
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'foo' : 'bar',
                 'photos': []
             })
         return HttpResponse(response, content_type="application/json")
