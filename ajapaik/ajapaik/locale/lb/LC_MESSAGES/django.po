@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:02+0000\n"
+"PO-Revision-Date: 2019-09-03 07:03:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -215,6 +215,10 @@ msgstr "Dating confirmation"
 #: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
 msgstr "Film still"
+
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
@@ -1738,9 +1742,9 @@ msgid "OK"
 msgstr "OK"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
-#, fuzzy, python-format
+#, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "Error uploading file: %s"
+msgstr "Feeler beim Eropluede vum Fichier: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"
@@ -1807,7 +1811,7 @@ msgstr "This rectangle is bad, I think it should be removed."
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
-msgstr ""
+msgstr "Delete annotation"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"

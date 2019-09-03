@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-29 18:01:12+0000\n"
+"PO-Revision-Date: 2019-09-03 07:03:05+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -215,6 +215,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028

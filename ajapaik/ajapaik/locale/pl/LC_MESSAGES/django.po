@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-08-19 09:14:02+0000\n"
+"PO-Revision-Date: 2019-09-03 07:03:04+0000\n"
 "X-POT-Import-Date: 2019-08-17 07:19:09+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -207,6 +207,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028

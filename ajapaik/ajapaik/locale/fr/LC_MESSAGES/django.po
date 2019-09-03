@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:01+0000\n"
+"PO-Revision-Date: 2019-09-03 07:03:03+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -216,6 +216,10 @@ msgstr "Confirmation de la date"
 #: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
 msgstr "Photo de film"
+
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
+msgstr "Supprimer l'annotation"
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20

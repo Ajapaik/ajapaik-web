@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-08-29 18:01:09+0000\n"
+"PO-Revision-Date: 2019-09-03 07:03:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -216,6 +216,10 @@ msgstr "Dating confirmation"
 #: ajapaik/ajapaik/models.py:1026
 msgid "Film still"
 msgstr "Film still"
+
+#: ajapaik/ajapaik/models.py:1027
+msgid "Delete annotation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
