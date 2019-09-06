@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: H2kks
 # Author: KK
+# Author: Pyscowicz
 # Author: Zache
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-03 07:03:02+0000\n"
+"PO-Revision-Date: 2019-09-06 04:43:42+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -220,7 +221,7 @@ msgstr "Elokuvastilli"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Delete annotation"
-msgstr ""
+msgstr "Poista merkintä"
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
@@ -229,7 +230,7 @@ msgstr "Vahvista"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm Image similarity"
-msgstr ""
+msgstr "Vahvista kuvan samankaltaisuus"
 
 #: ajapaik/ajapaik/models.py:1058
 msgid "Map"
@@ -1499,11 +1500,11 @@ msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "Wikimedia Commons"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1744,9 +1745,9 @@ msgid "OK"
 msgstr "OK"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
-#, fuzzy, python-format
+#, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "Virhe kuvan tallennuksessa: %s"
+msgstr "Virhe kuvan tallennuksessa: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"
@@ -1801,7 +1802,7 @@ msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:19
 msgid "SubjectPhoto"
-msgstr ""
+msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

@@ -7,6 +7,7 @@
 # Author: H2kks
 # Author: Märt
 # Author: VIGNERON
+# Author: Verdy p
 # Author: Wladek92
 # --
 # This file is part of the Ajapaik Project
@@ -17,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-03 07:03:03+0000\n"
+"PO-Revision-Date: 2019-09-06 04:43:43+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -219,7 +220,7 @@ msgstr "Photo de film"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Delete annotation"
-msgstr "Supprimer l'annotation"
+msgstr "Supprimer l’annotation"
 
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
@@ -228,7 +229,7 @@ msgstr "Confirmer"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm Image similarity"
-msgstr "Confirmer la ressemblance de l'image"
+msgstr "Confirmer la ressemblance de l’image"
 
 #: ajapaik/ajapaik/models.py:1058
 msgid "Map"
@@ -471,7 +472,7 @@ msgstr "Spécialiste de Brave de Ajapaik"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "Essayez le navigateur Brave — il est basé sur Chromium et vous pouvez récompenser vos sites favoris avec de la cryptomonnaie."
+msgstr "Essayez le navigateur Brave – il est basé sur Chromium et vous pouvez récompenser vos sites favoris avec de la cryptomonnaie."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1047,7 +1048,7 @@ msgstr "Comparer les images"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr "Indique si le contenu des images se recoupe ou non. Dans le cas d’un contenu recouvrant, l’endroit ou l’objet est le même; dans le cas d’une même prise de vue, une des images peut aussi être retaillée."
+msgstr "Indique si le contenu des images se recoupe ou non. En cas de contenu partiellement recoupé dont l’endroit ou l’objet couvert est le même, et dans le cadre d’une même prise de vue, une des images peut également être retaillée."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
@@ -1745,7 +1746,7 @@ msgstr "OK"
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
 #, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr "Erreur pendant le téléversement du fichier : %s (%s)"
+msgstr "Erreur pendant le téléversement du fichier : %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2334
 msgid "Photo already exists in Ajapaik"
