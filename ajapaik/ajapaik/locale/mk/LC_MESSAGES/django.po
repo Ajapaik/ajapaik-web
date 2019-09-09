@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-09-03 07:03:03+0000\n"
+"PO-Revision-Date: 2019-09-09 17:11:13+0000\n"
 "X-POT-Import-Date: 2019-08-17 07:19:09+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,21 +45,21 @@ msgstr "Презиме"
 #: ajapaik/ajapaik/forms.py:91 ajapaik/ajapaik/forms.py:156
 #: ajapaik/ajapaik/forms.py:177
 msgid "Choose area"
-msgstr ""
+msgstr "Избери подрачје"
 
 #: ajapaik/ajapaik/forms.py:97 ajapaik/ajapaik/forms.py:155
 #: ajapaik/ajapaik/forms.py:168 ajapaik/ajapaik/forms.py:176
 #: ajapaik/ajapaik/forms.py:185
 msgid "Choose album"
-msgstr ""
+msgstr "Избери албум"
 
 #: ajapaik/ajapaik/forms.py:172 ajapaik/ajapaik/forms.py:179
 msgid "Choose photo"
-msgstr ""
+msgstr "Избери слика"
 
 #: ajapaik/ajapaik/forms.py:201 ajapaik/ajapaik/forms.py:220
 msgid "Choose parent album"
-msgstr ""
+msgstr "Избери матичен албум"
 
 #: ajapaik/ajapaik/forms.py:376 ajapaik/ajapaik/forms.py:424
 #: ajapaik/ajapaik/templates/_mode_select.html:24
@@ -167,7 +167,7 @@ msgstr "Автор"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:946
 msgid "Different"
-msgstr ""
+msgstr "Различен"
 
 #: ajapaik/ajapaik/models.py:847 ajapaik/ajapaik/models.py:947
 msgid "Similar"
