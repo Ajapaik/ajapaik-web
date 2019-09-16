@@ -6,6 +6,7 @@
 # Author: Gomoko
 # Author: H2kks
 # Author: Märt
+# Author: Urhixidur
 # Author: VIGNERON
 # Author: Verdy p
 # Author: Wladek92
@@ -18,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-06 04:43:43+0000\n"
+"PO-Revision-Date: 2019-09-16 16:45:13+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -143,7 +144,7 @@ msgstr "Adresse courriel"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "La fenêtre de commentaire supporte Markdown\n\nParagraphes\nAjouter deux nouvelles lignes pour commencer un nouveau paragraphe.\n\nGras\n**Balisage géographique** est la première tâche sur Ajapaik.\n\nItalique\nEnsuite vient *rephotographier* et *dater*.\n\nliens\nRejoindre la discussion sur le [Ajapaiklejad groupe FB](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik est fourni pour EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "La fenêtre de commentaire prend en charge Markdown\n\nParagraphes\nAjouter deux nouvelles lignes pour commencer un nouveau paragraphe.\n\nGras\n**Balisage géographique** est la première tâche sur Ajapaik.\n\nItalique\nEnsuite vient *rephotographier* et *dater*.\n\nliens\nRejoindre la discussion sur le [Ajapaiklejad groupe FB](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik est fourni pour EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Nothing to change."
