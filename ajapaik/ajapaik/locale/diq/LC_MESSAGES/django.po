@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-03 07:03:02+0000\n"
+"PO-Revision-Date: 2019-09-19 09:32:55+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -606,21 +606,21 @@ msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which 
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
-#, invalid-plural, python-format
+#, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
-#, invalid-plural, python-format
+#, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
-#, invalid-plural, python-format
+#, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] ""
@@ -735,7 +735,7 @@ msgid "Contributors' leaderboard"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
-#, invalid-plural, python-format
+#, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
 msgstr[0] ""
@@ -743,7 +743,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:100
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
 msgstr[0] ""
@@ -756,7 +756,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
 msgstr[0] ""
@@ -775,21 +775,21 @@ msgid "all the pictures from this album."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:43
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] ""
@@ -797,14 +797,14 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
-#, invalid-plural, python-format
+#, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
-#, invalid-plural, python-format
+#, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] ""
@@ -980,7 +980,6 @@ msgstr "Werêne"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
 #: ajapaik/ajapaik/templates/photoview.html:214
-#, invalid-plural
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
@@ -1281,7 +1280,7 @@ msgid "Let's put pictures on the map"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:99
-#, invalid-plural, python-format
+#, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] ""

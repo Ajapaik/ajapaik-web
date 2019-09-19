@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-03 07:03:03+0000\n"
+"PO-Revision-Date: 2019-09-19 09:33:01+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -611,21 +611,21 @@ msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which 
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
-#, invalid-plural, python-format
+#, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
-#, invalid-plural, python-format
+#, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
-#, invalid-plural, python-format
+#, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] ""
@@ -761,11 +761,11 @@ msgstr "alle bildene på et kart."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:32
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
-#, invalid-plural, python-format
+#, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{PLURAL:GETTEXT|%(counter)s bilde på kartet.|%(counter)s bilder på kartet.}"
+msgstr[1] "{{PLURAL:GETTEXT|%(counter)s bilde på kartet.|%(counter)s bilder på kartet.}"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
