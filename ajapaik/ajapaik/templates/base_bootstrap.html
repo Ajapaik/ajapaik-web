@@ -225,6 +225,7 @@
         <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
         <link rel="stylesheet" href="{% static "css/switch.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/resizable-box.css" %}"/>
         <link rel="stylesheet" href="{% static "css/photo-view.css" %}"/>
         <link rel="stylesheet" href="{% static "css/image-area-selector.css" %}"/>
     {% endcompress %}
@@ -342,6 +343,7 @@
     </script>
     <script>
         var isMobile = '{{ request.user_agent.is_pc }}' === 'False',
+            language = '{{ request.LANGUAGE_CODE }}',
             isMapview = false,
             isGame = false,
             isFrontpage = false,
@@ -417,7 +419,9 @@
 {% endif %}
         <script src="{% static "js/constants.js" %}"></script>
         <script src="{% static "js/cache.js" %}"></script>
+        <script src="{% static "js/application-utils.js" %}"></script>
         <script src="{% static "js/request-utils.js" %}"></script>
+        <script src="{% static "js/wikidata.js" %}"></script>
         <script src="{% static "js/image-utils.js" %}"></script>
         <script src="{% static "js/image-area-selector.js" %}"></script>
         <script src="{% static "js/add-new-person-popup-initializer.js" %}"></script>
