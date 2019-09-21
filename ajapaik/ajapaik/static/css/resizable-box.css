@@ -1,0 +1,94 @@
+.resizable-box__arrow {
+  position: absolute;
+  font-size: 30px;
+  color: white;
+}
+
+.resizable-box__arrow--top-left {
+  left: -15px;
+  top: -15px;
+  cursor: nw-resize;
+
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+}
+
+.resizable-box__arrow--top {
+  left: 50%;
+  top: -15px;
+  cursor: n-resize;
+
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+
+.resizable-box__arrow--top-right {
+  right: -15px;
+  top: -15px;
+  cursor: ne-resize;
+
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.resizable-box__arrow--left {
+  top: 50%;
+  left: -15px;
+  cursor: w-resize;
+
+  transform: rotate(90deg) translateX(-50%);
+  -webkit-transform: rotate(90deg) translateX(-50%);
+  -moz-transform: rotate(90deg) translateX(-50%);
+  -o-transform: rotate(90deg) translateX(-50%);
+}
+
+.resizable-box__arrow--bottom-left {
+  left: -15px;
+  bottom: -15px;
+  cursor: sw-resize;
+
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.resizable-box__arrow--bottom {
+  left: 50%;
+  bottom: -15px;
+  cursor: s-resize;
+
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+
+.resizable-box__arrow--bottom-right {
+  right: -15px;
+  bottom: -15px;
+  cursor: se-resize;
+
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+}
+
+.resizable-box__arrow--right {
+  top: 50%;
+  right: 0;
+  cursor: e-resize;
+
+  transform: rotate(90deg) translateX(-50%) translateY(-50%);
+  -webkit-transform: rotate(90deg) translateX(-50%) translateY(-50%);
+  -moz-transform: rotate(90deg) translateX(-50%) translateY(-50%);
+  -o-transform: rotate(90deg) translateX(-50%) translateY(-50%);
+}
+
