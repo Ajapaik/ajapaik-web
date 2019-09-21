@@ -26,10 +26,6 @@ def get_label_translation(label_id):
 
     translations = result.json()['entities'][label_id]['labels']
 
-    print('RESULT HERE: ')
-    print(result.json()['entities'][label_id])
-    print(result.json()['entities'][label_id]['labels'])
-
     def get_translation(language):
         return translations[language]['value']
 
