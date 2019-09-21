@@ -13,3 +13,9 @@ function debounce(func, delay) {
         }, delay);
   };
 }
+
+var sanitizeHTML = function (str) {
+	var temp = document.createElement('div');
+	temp.textContent = str;
+	return temp.innerHTML;
+};

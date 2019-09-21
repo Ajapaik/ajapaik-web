@@ -126,11 +126,11 @@ function getFormattedSelectOption(option) {
     return (
         '<div>' +
             '<span style="font-weight: bold">' +
-                option.label +
+                sanitizeHTML(option.label) +
             '</span>' +
             '<br/>' +
             '<span style="font-size: 8pt">' +
-                option.description +
+                sanitizeHTML(option.description) +
             '</span>' +
         '</div>'
     );
