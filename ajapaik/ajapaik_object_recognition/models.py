@@ -16,7 +16,8 @@ class ObjectAnnotationClass(models.Model):
     detection_model = models.ForeignKey(ObjectDetectionModel)
 
     def __str__(self):
-        return self.label
+        english_translation = self.translations
+        return self.wiki_data_id + ': ' + english_translation
 
 
 class ObjectDetectionAnnotation(models.Model):
