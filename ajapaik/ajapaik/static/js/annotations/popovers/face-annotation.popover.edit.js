@@ -69,7 +69,7 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
 function createFaceAnnotationEditRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleClick = function() {
       setTimeout(function() {
-            initializeAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
         }, 200);
     };
 

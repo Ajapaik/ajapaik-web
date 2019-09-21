@@ -133,7 +133,7 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
 function createSavedFaceDetectionRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleClick = function() {
       setTimeout(function() {
-            initializeAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
         }, 200);
     };
 

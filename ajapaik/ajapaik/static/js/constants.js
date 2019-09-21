@@ -54,7 +54,8 @@ var constants = {
                 FACE_ANNOTATION: 'Face',
                 OBJECT_ANNOTATION: 'Object',
                 IS_THIS_A_FACE_ANNOTATION: 'Is this a face',
-                IS_CORRECT_SUBJECT_NAME_PREFIX: 'Is this'
+                IS_CORRECT_SUBJECT_NAME_PREFIX: 'Is this',
+                IS_CORRECT_OBJECT_PREFIX: 'Is this a'
             }
         },
         queries: {
@@ -76,13 +77,20 @@ var constants = {
             REMOVE_FACE_ANNOTATION_FAILED: 'Failed to remove face annotation'
         },
         autocomplete: {
+            objectSearch: {
+                PLACEHOLDER: 'Find object',
+                SEARCHING_TEXT: 'Searching',
+                SEARCH_PLACEHOLDER: 'Search for object',
+                MIN_CHARACTERS_NEEDED: 'Need 2 characters',
+                NO_RESULTS_FOUND: 'No results found'
+            },
             subjectSearch: {
                 PLACEHOLDER: 'Find existing person',
                 SEARCHING_TEXT: 'Searching',
                 SEARCH_PLACEHOLDER: 'Enter person name',
                 MIN_CHARACTERS_NEEDED: 'Need 2 characters',
-                NO_RESULTS_TEXT: 'No results found.',
-                ADD_NEW_PERSON: 'Add new person.'
+                NO_RESULTS_TEXT: 'No results found',
+                ADD_NEW_PERSON: 'Add new person'
             },
             label: {
                 ADD_NEW_PERSON: 'Add new person',

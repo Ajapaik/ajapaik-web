@@ -58,7 +58,7 @@ function getPersonAutoComplete(isDisplayedOnOpen, customStyle, defaultValue, cus
         );
 }
 
-function getNoResultText() {
+function getNoPersonFoundResultText() {
     var wrapper = $('<span></span>');
 
     var nothingFoundText = gettext(constants.translations.autocomplete.subjectSearch.NO_RESULTS_TEXT);
@@ -70,8 +70,9 @@ function getNoResultText() {
         .html();
 }
 
-function initializeAutocomplete(autocompleteId) {
-    var noResultText = getNoResultText();
+function initializePersonAutocomplete(autocompleteId) {
+    var noResultText = getNoPersonFoundResultText();
+    var debouncedGetRequest = debounce(getRequest, 400);
 
     return new SlimSelect({
         select: '#' + autocompleteId,
@@ -110,12 +111,65 @@ function initializeAutocomplete(autocompleteId) {
               callback(data);
           };
 
-          getRequest(
+          debouncedGetRequest(
               uri,
+              null,
               null,
               null,
               onSuccess
           );
+        }
+    });
+}
+
+function getFormattedSelectOption(option) {
+    return (
+        '<div>' +
+            '<span style="font-weight: bold">' +
+                option.label +
+            '</span>' +
+            '<br/>' +
+            '<span style="font-size: 8pt">' +
+                option.description +
+            '</span>' +
+        '</div>'
+    );
+}
+
+function initializeObjectAutocomplete(autocompleteId) {
+    var noResultText = gettext(constants.translations.autocomplete.objectSearch.NO_RESULTS_FOUND);
+    var findByLabel = debounce(WikiData.findByLabel, 400);
+
+    return new SlimSelect({
+        select: '#' + autocompleteId,
+        placeholder: gettext(constants.translations.autocomplete.objectSearch.PLACEHOLDER),
+        searchingText: gettext(constants.translations.autocomplete.objectSearch.SEARCHING_TEXT) + '...',
+        searchPlaceholder: gettext(constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER),
+        searchText: noResultText,
+        ajax: function (search, callback) {
+
+          if (search.length < 2) {
+              callback(gettext(constants.translations.autocomplete.objectSearch.MIN_CHARACTERS_NEEDED));
+              return;
+          }
+
+          var onSuccess = function(response) {
+              var data = [];
+
+              if (response) {
+                  response.forEach(function(result) {
+                      data.push({
+                          innerHTML: getFormattedSelectOption(result),
+                          text: result.label,
+                          value: result.id
+                      });
+                  });
+              }
+
+              callback(data);
+          };
+
+          findByLabel(search, onSuccess);
         }
     });
 }
