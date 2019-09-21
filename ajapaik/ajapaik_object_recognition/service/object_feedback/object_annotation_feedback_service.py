@@ -1,7 +1,8 @@
 from ajapaik.ajapaik.models import Profile
 from ajapaik.ajapaik_object_recognition.domain.add_object_detection_feedback import AddObjectDetectionFeedback
 from ajapaik.ajapaik_object_recognition.domain.remove_object_annotation_feedback import RemoveObjectAnnotationFeedback
-from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationFeedback, ObjectDetectionAnnotation, ObjectAnnotationClass
+from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationFeedback, ObjectDetectionAnnotation
+from ajapaik.ajapaik_object_recognition.service.object_annotation import object_annotation_common_service
 
 
 def set_feedback(
@@ -14,8 +15,9 @@ def set_feedback(
     feedback.user = user
     feedback.object_detection_annotation = annotation
 
-    if request.alternative_object_id is not None and request.alternative_object_id > 0:
-        alternative_object_suggestion = ObjectAnnotationClass.objects.get(pk=request.alternative_object_id)
+    if request.alternative_wiki_data_label_id is not None and len(request.alternative_wiki_data_label_id) > 0:
+        alternative_object_suggestion = object_annotation_common_service\
+            .get_saved_label(request.alternative_wiki_data_label_id)
         feedback.alternative_object = alternative_object_suggestion
     else:
         feedback.alternative_object = None

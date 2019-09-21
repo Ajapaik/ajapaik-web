@@ -16,7 +16,7 @@ class DetectionRectangle:
 
         self.subjectId = get_if_key_present(init, 'subject_id')
         self.subjectName = get_if_key_present(init, 'subject_name')
-        self.objectId = get_if_key_present(init, 'object_id')
-        self.objectLabel = get_if_key_present(init, 'object_label')
+        self.wikiDataId = get_if_key_present(init, 'wiki_data_id')
+        self.translations = get_if_key_present(init, 'translations')
         self.isDeletable = get_if_key_present(init, 'is_deletable')
         self.hasUserGivenFeedback = get_if_key_present(init, 'has_user_given_feedback')

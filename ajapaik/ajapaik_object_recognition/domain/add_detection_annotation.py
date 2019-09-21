@@ -5,7 +5,7 @@ from ajapaik.ajapaik_object_recognition.object_annotation_utils import parse_par
 
 class AddDetectionAnnotation:
     def __init__(self, parameters: QueryDict, user_id: int):
-        self.object_id = parse_parameter(parameters['objectId'])
+        self.wiki_data_label_id = parameters['wikiDataLabelId']
         self.subject_id = parse_parameter(parameters['subjectId'])
 
         self.photo_id = parameters['photoId']

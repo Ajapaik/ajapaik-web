@@ -9,4 +9,4 @@ class AddObjectDetectionFeedback:
 
         self.object_annotation_id = object_annotation_utils.parse_parameter(annotation_id)
         self.is_confirmation = object_annotation_utils.parse_boolean(parameters['isConfirmed'])
-        self.alternative_object_id = object_annotation_utils.parse_parameter(parameters['alternativeObjectId'])
+        self.alternative_wiki_data_label_id = parameters['alternativeWikiDataLabelId']

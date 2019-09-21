@@ -7,7 +7,7 @@ from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation,
 
 def get_object_annotation_classes():
     object_classes = ObjectAnnotationClass.objects.all()
-    return list(map(lambda x: {'label': x.label, 'id': x.id}, object_classes))
+    return list(map(lambda x: {'label': x.translations, 'id': x.id}, object_classes))
 
 
 def get_all_annotations(user_id, photo_id=None):
@@ -43,8 +43,8 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
         'x2': object_annotation.x2,
         'y2': object_annotation.y2,
         'id': object_annotation.id,
-        'object_id': object_annotation.detected_object.id,
-        'object_label': object_annotation.detected_object.label,
+        'wiki_data_id': object_annotation.detected_object.wiki_data_id,
+        'translations': object_annotation.detected_object.translations,
         'is_deletable': object_annotation_utils.is_annotation_deletable(
             user_id,
             object_annotation.created_on,

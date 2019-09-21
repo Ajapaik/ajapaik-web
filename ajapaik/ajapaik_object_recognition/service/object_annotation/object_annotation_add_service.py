@@ -4,16 +4,18 @@ from ajapaik.ajapaik.models import Album, Photo, Profile
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_face_recognition.views import save_subject_object, add_person_rectangle
 from ajapaik.ajapaik_object_recognition.domain.add_detection_annotation import AddDetectionAnnotation
-from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
+from ajapaik.ajapaik_object_recognition.service.object_annotation.object_annotation_common_service import \
+    get_saved_label
 
 
 def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: HttpRequest):
-    object_id = add_detection_annotation.object_id
+    wiki_data_label_id = add_detection_annotation.wiki_data_label_id
     subject_id = add_detection_annotation.subject_id
 
     photo_id = add_detection_annotation.photo_id
 
-    if object_id is not None and object_id > 0:
+    if wiki_data_label_id is not None and len(wiki_data_label_id) > 0:
         save_new_object_annotation(add_detection_annotation)
     else:
         photo = Photo.objects.get(pk=photo_id)
@@ -31,7 +33,8 @@ def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
 
 
 def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation):
-    object_id = add_detection_annotation.object_id
+    saved_label = get_saved_label(add_detection_annotation.wiki_data_label_id)
+
     photo_id = add_detection_annotation.photo_id
     user_id = add_detection_annotation.user_id
 
@@ -48,7 +51,7 @@ def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation)
     new_annotation.x2 = x2
     new_annotation.y1 = y1
     new_annotation.y2 = y2
-    new_annotation.detected_object = ObjectAnnotationClass.objects.get(pk=object_id)
+    new_annotation.detected_object = saved_label
     new_annotation.is_manual_detection = True
 
     new_annotation.user = Profile.objects.get(pk=user_id)
