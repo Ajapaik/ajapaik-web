@@ -76,7 +76,7 @@ function getSelect(isValueOptional, options, selectedValue) {
 }
 
 function getObjectsSelect(isValueOptional, selectedOption) {
-    return getSelect(isValueOptional, getData(cacheKeys.objectClasses), selectedOption);
+    return getSelect(isValueOptional, [], selectedOption);
 }
 
 function handleCancel(event) {
@@ -204,7 +204,7 @@ function getAnnotationIdentifier(annotation) {
         return '';
     }
 
-    if (!annotation.objectId) {
+    if (!annotation.wikiDataId) {
         if (annotation.subjectId) {
             return 'face-' + annotation.subjectId;
         }
@@ -212,7 +212,7 @@ function getAnnotationIdentifier(annotation) {
         return 'unknown-face-' + annotation.id;
     }
 
-    return 'object-' + annotation.objectId;
+    return 'object-' + annotation.wikiDataId;
 }
 
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, customBorder) {
