@@ -47,7 +47,7 @@ function getSavedDetectionRectangle(scaledRectangle, annotation) {
         annotation: annotation
     };
 
-    if (annotation.objectId) {
+    if (annotation.wikiDataId) {
         if (annotation.isDeletable) {
             return getDetectedObjectModifyRectangle(
                 'ajapaik-object-modify-rectangle-' + annotation.id,

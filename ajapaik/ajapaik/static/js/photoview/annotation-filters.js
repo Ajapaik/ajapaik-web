@@ -47,7 +47,7 @@ function getUnknownPersonTitle(annotationId) {
 }
 
 function annotationCheckbox(annotation) {
-    var checkboxName = !annotation.objectId
+    var checkboxName = !annotation.wikiDataId
         ? 'face-annotation-' + annotation.id
         : 'object-annotation-' + annotation.id;
 
@@ -152,16 +152,16 @@ function collectAllLabels(detections) {
     var addedSubjects = [];
 
     detections.forEach(function(detection) {
-        var isUnknownPersonDetection = !detection.subjectId && !detection.objectId;
-        var isUniqueObjectDetection = detection.objectId && addedObjects.indexOf(detection.objectId) === -1;
-        var isUniqueSubjectDetection = !detection.objectId && addedSubjects.indexOf(detection.subjectId) === -1;
+        var isUnknownPersonDetection = !detection.subjectId && !detection.wikiDataId;
+        var isUniqueObjectDetection = detection.wikiDataId && addedObjects.indexOf(detection.wikiDataId) === -1;
+        var isUniqueSubjectDetection = !detection.wikiDataId && addedSubjects.indexOf(detection.subjectId) === -1;
 
         if (isUniqueObjectDetection) {
-            addedObjects.push(detection.objectId);
+            addedObjects.push(detection.wikiDataId);
             objects.push({
                 id: detection.id,
-                objectId: detection.objectId,
-                label: detection.objectLabel
+                objectId: detection.wikiDataId,
+                label: JSON.parse(detection.translations)[window.language]
             });
         } else if (isUnknownPersonDetection || isUniqueSubjectDetection) {
             if (detection.subjectId) {

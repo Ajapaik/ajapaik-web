@@ -11,7 +11,7 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId) {
 
         var payload = {
             rectangleId: rectangleId,
-            objectId: selectedObjectId
+            wikiDataLabelId: selectedObjectId
         };
 
         var closePopover = function() {
@@ -41,7 +41,10 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
     ];
     var buttonGroup = getButtonGroup(buttons);
 
-    var select = getObjectsSelect(false, {id: annotation.objectId, label: annotation.objectLabel});
+    var select = getObjectsSelect(false, {
+        wikiDataId: annotation.wikiDataId,
+        label: JSON.parse(annotation.translations)[window.language]
+    });
 
 
     var form = $('<form/>', {
@@ -62,9 +65,7 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
 function createSavedObjectModifyDetectionRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleClick = function() {
         setTimeout(function() {
-            new SlimSelect({
-              select: '#' + constants.elements.OBJECT_CLASS_SELECT_ID
-            });
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
         }, 200);
     };
 

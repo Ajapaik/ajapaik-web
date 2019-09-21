@@ -14,7 +14,7 @@ function getRectangleSubmitFunction(scaledRectangle, popoverId) {
         togglePopover(popoverId);
 
         var payload = {
-            objectId: isObjectSelected ? selectedObjectId : null,
+            wikiDataLabelId: isObjectSelected ? selectedObjectId : null,
             subjectId: !isObjectSelected ? personId : null,
             photoId: scaledRectangle.photoId,
             x1: scaledRectangle.x1,
@@ -75,11 +75,8 @@ function createObjectAssigningPopoverContent(popoverId, scaledRectangle) {
 function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) {
     var onAnnotationRectangleClick = function() {
         setTimeout(function() {
-            initializeAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-
-            new SlimSelect({
-              select: '#' + constants.elements.OBJECT_CLASS_SELECT_ID
-            });
+            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
         }, 200);
     };
 
@@ -87,6 +84,7 @@ function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) 
     var popoverContent = createObjectAssigningPopoverContent(popoverId, scaledRectangle);
 
     configuration.annotation = {};
+    configuration.isAnnotationAreaModifiable = true;
 
     return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, 'dashed');
 }

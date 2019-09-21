@@ -20,7 +20,7 @@ function getSubmitObjectAnnotationFeedbackFunction(popoverId, annotationId) {
             .is(':checked');
 
         var payload = {
-            alternativeObjectId: newObjectId,
+            alternativeWikiDataLabelId: newObjectId,
             isConfirmed: isConfirmed
         };
 
@@ -81,7 +81,9 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
     }).on('submit', getSubmitObjectAnnotationFeedbackFunction(popoverId, annotation.id));
 
     var inputsWrapper = $('<div class="form-group" style="padding-right:5px; padding-left:5px;"></div>');
-    var objectClassCheckbox = getObjectClassCheckbox('Is this a ' + annotation.objectLabel);
+    var questionPrefix = gettext(constants.translations.popover.labels.IS_CORRECT_OBJECT_PREFIX);
+    var translatedLabel = JSON.parse(annotation.translations)[window.language];
+    var objectClassCheckbox = getObjectClassCheckbox(questionPrefix + ' ' + translatedLabel);
 
     var alternativeObjectSelectWrapper = $('<div>', {
         id: constants.elements.ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID,
@@ -102,9 +104,7 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
 function createSavedObjectDetectionRectangle(popoverId, annotation,configuration) {
     var onAnnotationRectangleClick = function() {
         setTimeout(function() {
-            new SlimSelect({
-              select: '#' + constants.elements.OBJECT_CLASS_SELECT_ID
-            });
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
         }, 200);
     };
 

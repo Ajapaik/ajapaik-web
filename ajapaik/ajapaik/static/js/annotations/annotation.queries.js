@@ -14,6 +14,7 @@ function getObjectAnnotationClasses() {
     getRequest(
       '/object-recognition/get-object-annotation-classes',
         null,
+        null,
         constants.translations.queries.GET_ANNOTATION_CLASSES_FAILED,
         onSuccess
     );
@@ -36,6 +37,7 @@ function getAllAnnotations(customOnSuccess) {
 
     getRequest(
       '/object-recognition/get-all-face-and-object-annotations/' + photoId + '/',
+        null,
         null,
         constants.translations.queries.GET_ANNOTATIONS_FAILED,
         onSuccess
