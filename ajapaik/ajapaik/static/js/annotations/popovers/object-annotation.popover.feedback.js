@@ -81,7 +81,7 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
     }).on('submit', getSubmitObjectAnnotationFeedbackFunction(popoverId, annotation.id));
 
     var inputsWrapper = $('<div class="form-group" style="padding-right:5px; padding-left:5px;"></div>');
-    var questionPrefix = gettext(constants.translations.popover.labels.IS_CORRECT_OBJECT_PREFIX);
+    var questionPrefix = constants.translations.popover.labels.IS_CORRECT_OBJECT_PREFIX;
     var translatedLabel = JSON.parse(annotation.translations)[window.language];
     var objectClassCheckbox = getObjectClassCheckbox(questionPrefix + ' ' + translatedLabel);
 
@@ -109,8 +109,8 @@ function createSavedObjectDetectionRectangle(popoverId, annotation,configuration
     };
 
     var popoverTitle = annotation.hasUserGivenFeedback
-        ? gettext(constants.translations.popover.titles.EDIT_FEEDBACK)
-        : gettext(constants.translations.popover.titles.ADD_FEEDBACK);
+        ? constants.translations.popover.titles.EDIT_FEEDBACK
+        : constants.translations.popover.titles.ADD_FEEDBACK;
 
     var popoverContent = createDetectedObjectPopoverContent(annotation, popoverId);
 

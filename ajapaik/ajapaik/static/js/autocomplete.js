@@ -15,10 +15,10 @@ function getDefaultSelectedOption(defaultValue) {
 }
 
 function getPersonAutoComplete(isDisplayedOnOpen, customStyle, defaultValue, customLabelText) {
-    var addNewSubjectText = gettext(constants.translations.autocomplete.label.ADD_NEW_PERSON);
+    var addNewSubjectText = constants.translations.autocomplete.label.ADD_NEW_PERSON;
 
-    var specifyName = gettext(constants.translations.autocomplete.label.SPECIFY_NAME);
-    var optional = gettext(constants.translations.common.OPTIONAL);
+    var specifyName = constants.translations.autocomplete.label.SPECIFY_NAME;
+    var optional = constants.translations.common.OPTIONAL;
     var defaultText = specifyName + ' (' + optional + ')';
 
     var labelText = customLabelText || defaultText;
@@ -61,8 +61,8 @@ function getPersonAutoComplete(isDisplayedOnOpen, customStyle, defaultValue, cus
 function getNoPersonFoundResultText() {
     var wrapper = $('<span></span>');
 
-    var nothingFoundText = gettext(constants.translations.autocomplete.subjectSearch.NO_RESULTS_TEXT);
-    var newSubjectLink = getAddNewSubjectLink(gettext(constants.translations.autocomplete.subjectSearch.ADD_NEW_PERSON));
+    var nothingFoundText = constants.translations.autocomplete.subjectSearch.NO_RESULTS_TEXT;
+    var newSubjectLink = getAddNewSubjectLink(constants.translations.autocomplete.subjectSearch.ADD_NEW_PERSON);
 
     return wrapper
         .append(nothingFoundText)
@@ -76,14 +76,14 @@ function initializePersonAutocomplete(autocompleteId) {
 
     return new SlimSelect({
         select: '#' + autocompleteId,
-        placeholder: gettext(constants.translations.autocomplete.subjectSearch.PLACEHOLDER),
-        searchingText: gettext(constants.translations.autocomplete.subjectSearch.SEARCHING_TEXT) + '...',
-        searchPlaceholder: gettext(constants.translations.autocomplete.subjectSearch.SEARCH_PLACEHOLDER),
+        placeholder: constants.translations.autocomplete.subjectSearch.PLACEHOLDER,
+        searchingText: constants.translations.autocomplete.subjectSearch.SEARCHING_TEXT + '...',
+        searchPlaceholder: constants.translations.autocomplete.subjectSearch.SEARCH_PLACEHOLDER,
         searchText: noResultText,
         ajax: function (search, callback) {
 
           if (search.length < 2) {
-              callback(gettext(constants.translations.autocomplete.subjectSearch.MIN_CHARACTERS_NEEDED));
+              callback(constants.translations.autocomplete.subjectSearch.MIN_CHARACTERS_NEEDED);
               return;
           }
 
@@ -137,19 +137,19 @@ function getFormattedSelectOption(option) {
 }
 
 function initializeObjectAutocomplete(autocompleteId) {
-    var noResultText = gettext(constants.translations.autocomplete.objectSearch.NO_RESULTS_FOUND);
+    var noResultText = constants.translations.autocomplete.objectSearch.NO_RESULTS_FOUND;
     var findByLabel = debounce(WikiData.findByLabel, 400);
 
     return new SlimSelect({
         select: '#' + autocompleteId,
-        placeholder: gettext(constants.translations.autocomplete.objectSearch.PLACEHOLDER),
-        searchingText: gettext(constants.translations.autocomplete.objectSearch.SEARCHING_TEXT) + '...',
-        searchPlaceholder: gettext(constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER),
+        placeholder: constants.translations.autocomplete.objectSearch.PLACEHOLDER,
+        searchingText: constants.translations.autocomplete.objectSearch.SEARCHING_TEXT + '...',
+        searchPlaceholder: constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER,
         searchText: noResultText,
         ajax: function (search, callback) {
 
           if (search.length < 2) {
-              callback(gettext(constants.translations.autocomplete.objectSearch.MIN_CHARACTERS_NEEDED));
+              callback(constants.translations.autocomplete.objectSearch.MIN_CHARACTERS_NEEDED);
               return;
           }
 

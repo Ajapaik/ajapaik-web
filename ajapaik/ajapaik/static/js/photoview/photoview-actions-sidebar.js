@@ -28,14 +28,14 @@ $(document).ready(function () {
     }
 
     function createShareImageWithoutRephotoLink(shareButton) {
-        var label = gettext(constants.translations.photoView.links.SHARE_PHOTO);
+        var label = constants.translations.photoView.links.SHARE_PHOTO;
         var url = shareButton.data('url');
 
         return getShareLinkContent(label, url);
     }
 
     function createShareImageWithRephotoLink(shareButton) {
-        var label = gettext(constants.translations.photoView.links.SHARE_PHOTO_WITH_RE_PHOTO);
+        var label = constants.translations.photoView.links.SHARE_PHOTO_WITH_RE_PHOTO;
         var url = shareButton.data('rephoto-url');
         var customStyle = 'padding-top: 10px;';
 

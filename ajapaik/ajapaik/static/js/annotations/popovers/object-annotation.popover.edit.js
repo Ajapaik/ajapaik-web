@@ -52,7 +52,7 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
     }).on('submit', getObjectRectangleUpdateSubmitFunction(annotation.id, popoverId));
 
     var label = $('<span></span>');
-    var changeObjectClassLabel = gettext(constants.translations.popover.labels.CHANGE_OBJECT_CLASS) + ': ';
+    var changeObjectClassLabel = constants.translations.popover.labels.CHANGE_OBJECT_CLASS + ': ';
 
     label.append(changeObjectClassLabel);
 
@@ -69,7 +69,7 @@ function createSavedObjectModifyDetectionRectangle(popoverId, annotation, config
         }, 200);
     };
 
-    var popoverTitle = gettext(constants.translations.popover.titles.EDIT_OBJECT_ANNOTATION);
+    var popoverTitle = constants.translations.popover.titles.EDIT_OBJECT_ANNOTATION;
 
     var popoverContent = createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId);
 

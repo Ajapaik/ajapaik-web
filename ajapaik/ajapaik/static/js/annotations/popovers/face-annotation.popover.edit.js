@@ -46,7 +46,7 @@ function getDefaultValue(detectionRectangle) {
 
 function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
     var defaultValue = getDefaultValue(annotation);
-    var changeExistingFaceLabel = gettext(constants.translations.popover.labels.CHANGE_PERSON_NAME) + ':';
+    var changeExistingFaceLabel = constants.translations.popover.labels.CHANGE_PERSON_NAME + ':';
 
     var autocomplete = getPersonAutoComplete(true, 'width: 180px;', defaultValue, changeExistingFaceLabel);
     var buttons = [
@@ -73,7 +73,7 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
         }, 200);
     };
 
-    var popoverTitle = gettext(constants.translations.popover.titles.EDIT_FACE_ANNOTATION);
+    var popoverTitle = constants.translations.popover.titles.EDIT_FACE_ANNOTATION;
 
     var popoverContent = createDetectedFaceModifyPopoverContent(annotation, popoverId);
 

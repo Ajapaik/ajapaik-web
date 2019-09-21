@@ -40,8 +40,8 @@ function toggleObjectDetection() {
 }
 
 function createObjectAssigningPopoverContent(popoverId, scaledRectangle) {
-    var faceLabel = gettext(constants.translations.popover.labels.FACE_ANNOTATION);
-    var objectLabel = gettext(constants.translations.popover.labels.OBJECT_ANNOTATION);
+    var faceLabel = constants.translations.popover.labels.FACE_ANNOTATION;
+    var objectLabel = constants.translations.popover.labels.OBJECT_ANNOTATION;
 
     var select = getObjectsSelect();
     var controlButtons = getSubmitAndCancelButtons(popoverId, true);
@@ -80,7 +80,7 @@ function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) 
         }, 200);
     };
 
-    var popoverTitle = gettext(constants.translations.popover.titles.NEW_ANNOTATION) + '?';
+    var popoverTitle = constants.translations.popover.titles.NEW_ANNOTATION + '?';
     var popoverContent = createObjectAssigningPopoverContent(popoverId, scaledRectangle);
 
     configuration.annotation = {};

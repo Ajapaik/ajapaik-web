@@ -54,7 +54,7 @@ function toggleSubjectName(event) {
 }
 
 function getFaceCheckbox() {
-    var label = gettext(constants.translations.popover.labels.IS_THIS_A_FACE_ANNOTATION) + '?';
+    var label = constants.translations.popover.labels.IS_THIS_A_FACE_ANNOTATION + '?';
 
     return getPopoverCheckbox(
         label,
@@ -115,7 +115,7 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
     });
 
     if (isAnnotationWithPersonName) {
-        var label = gettext(constants.translations.popover.labels.IS_CORRECT_SUBJECT_NAME_PREFIX) + ' ' + annotation.subjectName + '?';
+        var label = constants.translations.popover.labels.IS_CORRECT_SUBJECT_NAME_PREFIX + ' ' + annotation.subjectName + '?';
         var personNameCheckbox = getPersonNameCheckbox(label);
         nameInputWrapper.append(personNameCheckbox);
     }
@@ -138,8 +138,8 @@ function createSavedFaceDetectionRectangle(popoverId, annotation, configuration)
     };
 
     var popoverTitle = annotation.hasUserGivenFeedback
-        ? gettext(constants.translations.popover.titles.EDIT_FEEDBACK)
-        : gettext(constants.translations.popover.titles.ADD_FEEDBACK);
+        ? constants.translations.popover.titles.EDIT_FEEDBACK
+        : constants.translations.popover.titles.ADD_FEEDBACK;
 
     var $popoverContent = createDetectedFacePopoverContent(popoverId, annotation);
 
