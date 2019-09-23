@@ -6,6 +6,7 @@
 {% endblock %}
 {% block layout %}
 {% include "_similar_images_tutorial_modal.html" %}
+
 <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
             <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
@@ -112,13 +113,13 @@
             resizeDescription();
         }
 
-        $( window ).on('load', function() {
+        $(window).on('load', function() {
             resizePhotos();
             $('#ajapaik-loading-overlay').hide();
             $('#compare-photos-container').css('opacity','1.0');
         });
 
-        $( window ).resize(function() {
+        $(window).resize(function() {
             resizePhotos();
         });
 

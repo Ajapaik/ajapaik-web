@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from ajapaik.ajapaik_face_recognition import views
+from ajapaik.ajapaik_face_recognition import api
 
 urlpatterns = [
     url(r'^add-subject/$', views.add_subject, name='face_recognition_add_subject'),
@@ -10,5 +11,8 @@ urlpatterns = [
     url(r'^guess-subject-form/(?P<rectangle_id>\d+)/$', views.get_guess_form_html, name='face_recognition_guess_subject_form'),
     url(r'^subject-photo', views.get_subject_image, name='get_subject_image'),
     url(r'^subject-photo/(?P<rectangle_id>\d+)/$', views.get_subject_image, name='get_subject_image'),
-    url(r'^guess-subject/$', views.guess_subject, name='face_recognition_guess_subject')
+    url(r'^guess-subject/$', views.guess_subject, name='face_recognition_guess_subject'),
+    url(r'^subject-data/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/(?P<subject_id>\d+)/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^api/v1/subject-data/$', api.AddSubjectData.as_view(), name="face_recognition_api_subject_data"),
 ]

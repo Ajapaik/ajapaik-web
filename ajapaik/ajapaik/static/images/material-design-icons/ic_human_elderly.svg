@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+    <g>
+        <title>background</title>
+        <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+    </g>
+    <g>
+        <title>Layer 1</title>
+        <path id="svg_1" d="m0,0l24,0l0,24l-24,0l0,-24z" fill="none"/>
+        <path id="svg_2" d="m13.5,5.5c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2s-2,0.9 -2,2s0.9,2 2,2zm-3.7,3.4l-2.8,14.1l2.1,0l1.8,-8l2.1,2l0,6l2,0l0,-7.5l-2.1,-2l0.6,-3c1.3,1.5 3.3,2.5 5.5,2.5l0,-2c-1.9,0 -3.5,-1 -4.3,-2.4l-1,-1.6c-0.4,-0.6 -1,-1 -1.7,-1c-0.3,0 -0.5,0.1 -0.8,0.1l-5.2,2.2l0,4.7l2,0l0,-3.4l1.8,-0.7"/>
+        <path transform="rotate(13.894731521606445 308.25204467773426,184.94418334960935) " stroke="#000" id="svg_6" d="m268.5,141.95248c14.36127,-36.01358 32.82576,-6.97037 32.31286,-7.47863c0.5129,0.50826 47.69994,112.03417 47.18704,111.52591" opacity="0.99" stroke-opacity="null" stroke-width="8" fill="#fff"/>
+        <line stroke-linecap="null" stroke-linejoin="null" id="svg_5" y2="12.172749" x2="18.484762" y1="22.803507" x1="19.831325" stroke-width="null" stroke="#000000" fill="none"/>
+    </g>
+</svg>

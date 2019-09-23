@@ -1,0 +1,177 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n static compress %}
+
+{% block specific_css %}
+    {% compress css %}
+    <link rel="stylesheet" href="{% static "css/ajapaik-add-subject-data.css" %}">
+    {% endcompress %}
+{% endblock %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+{% block layout %}
+<div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
+    <div class="d-flex row pt-3">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
+            <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+        </div>
+    </div>
+    <div class="d-flex row first-block">
+            <button class="human-male" data=0>
+                {% trans "Male" %}
+            </button>
+            <button class="skip-next">
+                {% trans "Not sure" %}
+            </button>
+            <button class="human-female" data="1">
+                {% trans "Female" %}
+            </button>
+    </div>
+    <div class="row second-block d-none">
+            <button class="human-child" data=0>
+                {% trans "Child" %}
+            </button>
+            <button class="human-adult" data=1>
+                {% trans "Adult" %}
+            </button>
+            <button class="human-elderly" data=2>
+                {% trans "Elderly" %}
+            </button>
+            <button class="skip-next">
+                {% trans "Not sure" %}
+            </button>
+    </div>
+    <div>
+        {% trans "Currently the gender is" %} {{ gender }}
+        <br>
+        {% trans "Currently the age is" %} {{ age }}
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}
+{% block specific_js %}
+    <script>
+        window.isAddSubjectDataView = true;
+        window.addSubjectDataViewPage = 0;
+        let subject = {
+            subjectId: {{ rectangle.id }},
+            gender: undefined,
+            age: undefined
+        };
+        window.currentPhotoOriginalWidth = '{{ photo.width }}';
+        window.currentPhotoOriginalHeight = '{{ photo.height }}';
+        resizePhoto = function() {
+            let imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+            if($(window).width() / $(window).height() * 0.8 > imageRatio) {
+                $('img').css('height', $(window).height() * 0.8 + 'px');
+                $('img').css('width', 'auto');
+            }
+            else {
+                $('img').css('width', $(window).height() * 0.8 * imageRatio)
+                $('img').css('height', 'auto');
+            }
+        }
+
+        drawRectangle = function() {
+            window.currentPhotoActualHeight = $('img')[0].height;
+            window.currentPhotoActualWidth = $('img')[0].width;
+            $('#ajapaik-loading-overlay').hide();
+            $('#subject-data-container').css('opacity','1.0');
+            let widthScale = currentPhotoActualWidth / window.currentPhotoOriginalWidth,
+            heightScale = currentPhotoActualHeight / window.currentPhotoOriginalHeight,
+            width = (coordinates[1] - coordinates[3]) * widthScale,
+            height = (coordinates[2] - coordinates[0]) * heightScale,
+            leftTop = [coordinates[3] * widthScale, coordinates[0] * heightScale];
+            if(width < 30) {
+                leftTop[0] = leftTop[0] - width * 0.5;
+                width = width * 2;
+            }
+            if(height < 30 ) {
+                leftTop[1] = leftTop[1] - height * 0.5;
+                height = height * 2;
+            }
+            $faceRectangle = $('<div>', {
+                class: 'ajapaik-face-rectangle',
+                css: {
+                    position: 'absolute',
+                    left: leftTop[0] + 'px',
+                    top: leftTop[1] + 'px',
+                    width: width + 'px',
+                    height: height + 'px',
+                    border: '3px solid white'
+                },
+                // TODO: If we know already, display peoples' names
+            });
+            let imageWrapper = $('.image-wrapper');
+            if(!!imageWrapper){
+                imageWrapper.append($faceRectangle);
+            }
+        }
+
+        removeRectangle = function() {
+            $('.ajapaik-face-rectangle').remove();
+        }
+
+        let coordinates = {{ coordinates }};
+        $('#ajapaik-loading-overlay').show();
+
+        $(window).on('load', function() {
+            resizePhoto();
+            drawRectangle();
+        });
+
+        $(window).on('resize', function() {
+            resizePhoto();
+            removeRectangle();
+            drawRectangle();
+        });
+
+        AddSubjectData = function(subject){
+            $('#ajapaik-loading-overlay').show();
+            $.ajax({
+                type: 'POST',
+                url: window.location.origin + "/face-recognition/api/v1/subject-data/",
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                    ...subject
+                },
+                success: function (response) {
+                    let points = response.points;
+                    let message = response && points > 0
+                        ?  interpolate(ngettext(
+                            'You have gained %s point',
+                            'You have gained %s points',
+                            points
+                        ),
+                        [points]
+                        )
+                        : gettext('Your guess has been changed');
+                    $.notify(message, {type: 'success'});
+                    setTimeout(function(){
+                        window.location.href = '{{next_action}}';
+                    }, 1000);
+                },
+                error: function (response) {
+                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
+
+        $(".first-block > button").on('click', function(e) {
+            subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
+            $(".first-block").removeClass("d-flex").addClass("d-none");
+            $(".second-block").removeClass("d-none").addClass("d-flex");
+            addSubjectDataViewPage = 1;
+        });
+        $(".second-block > button").on('click', function(e) {
+            subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
+            window.AddSubjectData(subject)
+        });
+    </script>
+{% endblock %}

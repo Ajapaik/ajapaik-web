@@ -1,0 +1,16 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n static compress %}
+
+{% block header %}
+    {% include "_header.html" %}
+{% endblock %}
+{% block layout %}
+<div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;">
+    <h1 class="pt-5">
+        No data here, please come back later or tag some faces
+    </h1>
+</div>
+{% endblock %}
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}

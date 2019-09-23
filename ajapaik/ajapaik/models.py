@@ -941,7 +941,7 @@ class ImageSimilarity(Model):
 
 class ImageSimilarityGuess(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name="image_similarity")
-    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name="guesser")
+    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name="image_similarity_guesser")
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1015,7 +1015,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY = range(11)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, GUESS_SUBJECT_AGE, GUESS_SUBJECT_GENDER  = range(13)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1028,6 +1028,8 @@ class Points(Model):
         (ANNOTATION, _('Annotation')),
         (CONFIRM_SUBJECT, _('Confirm subject')),
         (CONFIRM_IMAGE_SIMILARITY, _('Confirm Image similarity')),
+        (GUESS_SUBJECT_AGE, _('Guess subject age')),
+        (GUESS_SUBJECT_GENDER, _('Guess subject age')),
     )
 
     user = ForeignKey('Profile', related_name='points')
@@ -1038,6 +1040,7 @@ class Points(Model):
     dating = ForeignKey('Dating', null=True, blank=True)
     dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True)
     annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True)
+    face_recognition_rectangle_subject_data_guess = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess', null=True, blank=True)
     subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True)
     image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True)
     points = IntegerField(default=0)

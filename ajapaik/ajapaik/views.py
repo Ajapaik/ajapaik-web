@@ -2722,6 +2722,7 @@ def compare_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2)
 
 def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare-photos", compareAll = False):
+	profile = request.get_user().profile
 	similar_photos = None
 	if (photo_id is None or photo_id_2 is None):
 		firstSimilar = ImageSimilarity.objects.filter(confirmed=False).first()

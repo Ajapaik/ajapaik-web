@@ -343,8 +343,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-minimap-geotagging-user-single-person,
 .ajapaik-minimap-geotagging-user-multiple-people {
-  width: 30px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   float: left;
   margin-top: 6px;
   margin-right: 3px;
@@ -423,11 +423,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 #ajapaik-feedback-div a:hover {
   background: #06c;
-}
-
-.ajapaik-header-info-button {
-  background: #fff url(../images/material-design-icons/ic_info_outline_24px.svg) no-repeat center !important;
-  margin-top: -5px;
 }
 
 .ajapaik-header-button {
@@ -2245,7 +2240,6 @@ footer a {
 .ajapaik-album-selection-album-more-button,
 .ajapaik-album-selection-map-button,
 .ajapaik-remove-from-selection-button,
-.ajapaik-header-info-button,
 .ajapaik-header-button,
 .ajapaik-thumbnail-selection-icon {
   width: 36px;

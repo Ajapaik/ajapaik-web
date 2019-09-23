@@ -4,8 +4,9 @@ import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
@@ -16,7 +17,7 @@ from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Points
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
-    FaceRecognitionRectangleFeedback
+    FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataGuess
 from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
 
 log = logging.getLogger(__name__)
@@ -201,3 +202,43 @@ def get_subject_image(request: HttpRequest):
         response = HttpResponse(content_type="image/jpeg")
         white.save(response, "JPEG")
         return response
+
+def get_subject_data(request: HttpRequest, subject_id = None):
+    profile = request.get_user().profile
+    guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
+    if guesses is None:
+        rectangles = FaceRecognitionRectangle.objects()
+    else:
+        rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
+    if subject_id is None:
+        rectangle = rectangles.first()
+    else:
+        rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
+    nextRectangle = rectangles.exclude(id=subject_id).first()
+    if(nextRectangle is None):
+        return render(request, 'add_subject_data_empty.html')
+    next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+
+    #These variables are used for debugging purposes, remove when going live
+    age = "Undefined"
+    gender = "Undefined"
+    if rectangle.gender == 0:
+        gender = "Male"
+    if rectangle.gender == 1:
+        gender = "Female"
+    if rectangle.age == 0:
+        age = "Child"
+    if rectangle.age == 1:
+        age = "Adult"
+    if rectangle.age == 2:
+        age = "Elder"
+
+    context = {
+        'rectangle': rectangle,
+        'photo': rectangle.photo,
+        'coordinates': rectangle.coordinates,
+        'next_action': next_action,
+        'gender': gender,
+        'age': age
+    }
+    return render(request, 'add_subject_data.html', context)
