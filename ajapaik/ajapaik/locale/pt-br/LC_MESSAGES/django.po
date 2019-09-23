@@ -212,6 +212,7 @@ msgid "Film still"
 msgstr "Filme ainda"
 
 #: ajapaik/ajapaik/models.py:1027
+#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
 msgstr "Eliminar anotação"
 
@@ -1803,10 +1804,6 @@ msgstr "Submeter palpite"
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:21
 msgid "This rectangle is bad, I think it should be removed."
 msgstr "Esse retângulo está ruim, acho que deveria ser removido."
-
-#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
-msgid "Delete annotation"
-msgstr "Eliminar anotação"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"

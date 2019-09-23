@@ -219,6 +219,7 @@ msgid "Film still"
 msgstr "Film still"
 
 #: ajapaik/ajapaik/models.py:1027
+#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
 msgstr ""
 
@@ -1810,10 +1811,6 @@ msgstr "שליחת ניחוש"
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:21
 msgid "This rectangle is bad, I think it should be removed."
 msgstr "This rectangle is bad, I think it should be removed."
-
-#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
-msgid "Delete annotation"
-msgstr "Delete annotation"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"

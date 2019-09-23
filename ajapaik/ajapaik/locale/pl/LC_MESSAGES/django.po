@@ -211,6 +211,7 @@ msgid "Film still"
 msgstr ""
 
 #: ajapaik/ajapaik/models.py:1027
+#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
 msgstr ""
 
@@ -1814,10 +1815,6 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:21
 msgid "This rectangle is bad, I think it should be removed."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
-msgid "Delete annotation"
 msgstr ""
 
 #: ajapaik/settings/default.py:72
