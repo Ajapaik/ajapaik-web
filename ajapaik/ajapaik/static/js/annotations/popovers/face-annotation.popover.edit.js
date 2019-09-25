@@ -67,15 +67,15 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
 }
 
 function createFaceAnnotationEditRectangle(popoverId, annotation, configuration) {
-    var onAnnotationRectangleClick = function() {
+    var onAnnotationRectangleShow = function() {
       setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-        }, 200);
+        }, 100);
     };
 
     var popoverTitle = constants.translations.popover.titles.EDIT_FACE_ANNOTATION;
 
     var popoverContent = createDetectedFaceModifyPopoverContent(annotation, popoverId);
 
-    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick);
+    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow);
 }

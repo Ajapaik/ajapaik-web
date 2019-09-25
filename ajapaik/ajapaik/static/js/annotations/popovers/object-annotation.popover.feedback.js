@@ -102,10 +102,10 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
 }
 
 function createSavedObjectDetectionRectangle(popoverId, annotation,configuration) {
-    var onAnnotationRectangleClick = function() {
+    var onAnnotationRectangleShow = function() {
         setTimeout(function() {
             initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
-        }, 200);
+        }, 100);
     };
 
     var popoverTitle = annotation.hasUserGivenFeedback
@@ -114,5 +114,5 @@ function createSavedObjectDetectionRectangle(popoverId, annotation,configuration
 
     var popoverContent = createDetectedObjectPopoverContent(annotation, popoverId);
 
-    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick);
+    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow);
 }

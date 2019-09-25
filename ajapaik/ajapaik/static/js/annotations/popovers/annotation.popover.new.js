@@ -105,11 +105,11 @@ function createObjectAssigningPopoverContent(popoverId) {
 }
 
 function createNewDetectionRectangle(popoverId, configuration) {
-    var onAnnotationRectangleClick = function() {
+    var onAnnotationRectangleShow = function() {
         setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
             initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
-        }, 200);
+        }, 100);
     };
 
     var popoverTitle = constants.translations.popover.titles.NEW_ANNOTATION + '?';
@@ -118,5 +118,5 @@ function createNewDetectionRectangle(popoverId, configuration) {
     configuration.annotation = {};
     configuration.isAnnotationAreaModifiable = true;
 
-    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, 'dashed');
+    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, 'dashed');
 }

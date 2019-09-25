@@ -215,7 +215,7 @@ function getAnnotationIdentifier(annotation) {
     return 'object-' + annotation.wikiDataId;
 }
 
-function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleClick, customBorder) {
+function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
     var annotationRectangle = $('<div>', {
@@ -242,10 +242,6 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
 
     annotationRectangle.on('click', function (event) {
         closePopoversOnRectangleClick(event);
-
-        if (onAnnotationRectangleClick) {
-            onAnnotationRectangleClick();
-        }
     });
 
     annotationRectangle.popover({
@@ -256,6 +252,12 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         trigger: 'click',
         content: function() {
             return popoverContent;
+        }
+    });
+
+    annotationRectangle.on('show.bs.popover', function () {
+        if (onAnnotationRectangleShow) {
+            onAnnotationRectangleShow();
         }
     });
 

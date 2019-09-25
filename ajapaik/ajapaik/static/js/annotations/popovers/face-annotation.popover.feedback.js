@@ -131,10 +131,10 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
 }
 
 function createSavedFaceDetectionRectangle(popoverId, annotation, configuration) {
-    var onAnnotationRectangleClick = function() {
+    var onAnnotationRectangleShow = function() {
       setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-        }, 200);
+        }, 100);
     };
 
     var popoverTitle = annotation.hasUserGivenFeedback
@@ -143,5 +143,5 @@ function createSavedFaceDetectionRectangle(popoverId, annotation, configuration)
 
     var $popoverContent = createDetectedFacePopoverContent(popoverId, annotation);
 
-    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, $popoverContent, configuration, onAnnotationRectangleClick);
+    return createAnnotationRectangleWithPopover(popoverId, popoverTitle, $popoverContent, configuration, onAnnotationRectangleShow);
 }
