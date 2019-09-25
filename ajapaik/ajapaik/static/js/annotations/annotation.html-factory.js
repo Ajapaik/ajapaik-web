@@ -62,7 +62,7 @@ function getSelect(isValueOptional, options, selectedValue) {
         select.append(placeholder);
     }
 
-    options.forEach(function(option) {
+    options.forEach(function (option) {
         var displayText = option.label;
         var optionValue = option.id;
 
@@ -86,7 +86,7 @@ function handleCancel(event) {
 
     togglePopover(popoverId);
 
-    setTimeout(function() {
+    setTimeout(function () {
         if (isUnsavedRectangle) {
             $('#' + popoverId).remove();
         }
@@ -94,7 +94,7 @@ function handleCancel(event) {
 }
 
 function getCancelButton(popoverId, isUnsavedRectangle) {
-    var cancelButtonText = gettext(constants.translations.button.CANCEL);
+    var cancelButtonText = constants.translations.button.CANCEL;
 
     var cancelButton = $('<button>', {
         class: 'btn btn-outline-primary btn-block',
@@ -109,7 +109,7 @@ function getCancelButton(popoverId, isUnsavedRectangle) {
 }
 
 function getDeleteButton(onClick) {
-    var deleteButtonText = gettext(constants.translations.button.DELETE);
+    var deleteButtonText = constants.translations.button.DELETE;
 
     var deleteButton = $('<button>', {
         class: 'btn btn-danger btn-block',
@@ -122,7 +122,7 @@ function getDeleteButton(onClick) {
 }
 
 function getSubmitButton(style) {
-    var submitButtonText = gettext(constants.translations.button.SUBMIT);
+    var submitButtonText = constants.translations.button.SUBMIT;
 
     var submitButton = $('<button>', {
         class: 'btn btn-primary btn-block',
@@ -159,7 +159,7 @@ function getButtonGroup(buttons) {
         id: constants.elements.POPOVER_CONTROL_BUTTONS_ID
     });
 
-    buttons.forEach(function(button) {
+    buttons.forEach(function (button) {
         wrapper.append(button);
     });
 
@@ -229,11 +229,18 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
             top: configuration.placementFromTopEdge + 'px',
             width: configuration.width + 'px',
             height: configuration.height + 'px',
-            border: '3px ' + border + ' white'
+            border: '3px ' + border + ' white',
+            'outline-style': 'solid',
+            'outline-width': '1px'
         },
     });
 
-    annotationRectangle.on('click', function(event) {
+
+    if (configuration.isAnnotationAreaModifiable) {
+        DraggableArea.addResizeAndMoveControls(annotationRectangle, configuration);
+    }
+
+    annotationRectangle.on('click', function (event) {
         closePopoversOnRectangleClick(event);
 
         if (onAnnotationRectangleClick) {
