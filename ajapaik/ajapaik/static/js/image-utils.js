@@ -18,7 +18,7 @@ function disableImageSubmitControls() {
     $(document).off('click', '.ajapaik-face-recognition-form-cancel-button');
 }
 
-function getDetectionRectangle(rectangle, scaledRectangle) {
+function getDetectionRectangle(rectangle) {
     var leftEdgeDistance = rectangle.x1;
     var topEdgeDistance = rectangle.y1;
 
@@ -35,7 +35,7 @@ function getDetectionRectangle(rectangle, scaledRectangle) {
 
     return {
         id: rectangleId,
-        rectangle: createNewDetectionRectangle(rectangleId, scaledRectangle, configuration)
+        rectangle: createNewDetectionRectangle(rectangleId, configuration)
     };
 }
 

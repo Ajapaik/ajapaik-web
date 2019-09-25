@@ -1,6 +1,37 @@
 'use strict';
 
-function getRectangleSubmitFunction(scaledRectangle, popoverId) {
+function getScaledRectangle(popoverRectangleId) {
+    var imageAreaDimensions = ImageAreaSelector.getImageArea()[0].getBoundingClientRect();
+    var popoverRectangleDimensions = document.getElementById(popoverRectangleId).getBoundingClientRect();
+
+    var x1 = popoverRectangleDimensions.left - imageAreaDimensions.left;
+    var y1 = popoverRectangleDimensions.top - imageAreaDimensions.top;
+
+    var rectangle = {
+        x1: x1,
+        y1: y1,
+        x2: x1 + popoverRectangleDimensions.width,
+        y2: y1 + popoverRectangleDimensions.height
+    };
+
+    var photoDimensions = {
+        width: parseInt(imageAreaDimensions.width),
+        height: parseInt(imageAreaDimensions.height)
+    };
+
+    var widthScale = window.currentPhotoOriginalWidth / photoDimensions.width;
+    var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
+
+    return {
+        photoId: ObjectTagger.getPhotoId(),
+        x1: rectangle.x1 * widthScale,
+        y1: rectangle.y1 * heightScale,
+        x2: rectangle.x2 * widthScale,
+        y2: rectangle.y2 * heightScale
+    };
+}
+
+function getRectangleSubmitFunction(popoverId) {
     return function(event) {
         event.preventDefault();
 
@@ -11,6 +42,7 @@ function getRectangleSubmitFunction(scaledRectangle, popoverId) {
         var selectedObjectId = form.find("#" + constants.elements.OBJECT_CLASS_SELECT_ID).val();
         var personId = form.find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).val();
 
+        var scaledRectangle = getScaledRectangle(popoverId);
         togglePopover(popoverId);
 
         var payload = {
@@ -39,7 +71,7 @@ function toggleObjectDetection() {
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'object');
 }
 
-function createObjectAssigningPopoverContent(popoverId, scaledRectangle) {
+function createObjectAssigningPopoverContent(popoverId) {
     var faceLabel = constants.translations.popover.labels.FACE_ANNOTATION;
     var objectLabel = constants.translations.popover.labels.OBJECT_ANNOTATION;
 
@@ -52,7 +84,7 @@ function createObjectAssigningPopoverContent(popoverId, scaledRectangle) {
 
     var form = $('<form>', {
         id: constants.elements.NEW_ANNOTATION_FORM_ID,
-        submit: getRectangleSubmitFunction(scaledRectangle, popoverId),
+        submit: getRectangleSubmitFunction(popoverId),
         'data-selected': 'object'
     });
 
@@ -72,7 +104,7 @@ function createObjectAssigningPopoverContent(popoverId, scaledRectangle) {
     );
 }
 
-function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) {
+function createNewDetectionRectangle(popoverId, configuration) {
     var onAnnotationRectangleClick = function() {
         setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
@@ -81,7 +113,7 @@ function createNewDetectionRectangle(popoverId, scaledRectangle, configuration) 
     };
 
     var popoverTitle = constants.translations.popover.titles.NEW_ANNOTATION + '?';
-    var popoverContent = createObjectAssigningPopoverContent(popoverId, scaledRectangle);
+    var popoverContent = createObjectAssigningPopoverContent(popoverId);
 
     configuration.annotation = {};
     configuration.isAnnotationAreaModifiable = true;
