@@ -1,6 +1,7 @@
 .image-area-selector__selection {
     position: absolute;
     border: 3px dashed white;
+    outline: black solid 1px;
 }
 
 .image-area-selector__overlay {
