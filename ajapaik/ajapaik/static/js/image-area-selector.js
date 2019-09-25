@@ -14,6 +14,8 @@ var ImageAreaSelector = (function () {
     var mouseMoveListener = null;
     var cancelListenerOnAreaSelect = null;
 
+    var imageAreaReferenceForExternalReference = null;
+
     function resetValues() {
         imageArea = null;
         initialClickX = null;
@@ -184,8 +186,12 @@ var ImageAreaSelector = (function () {
     }
 
     return {
+        getImageArea: function() {
+            return imageAreaReferenceForExternalReference;
+        },
         startImageAreaSelection: function (imageAreaId, onSelect, onCancel) {
             imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
+            imageAreaReferenceForExternalReference = imageArea;
 
             createOverlay();
             listenForSelectionCancel(onCancel);
