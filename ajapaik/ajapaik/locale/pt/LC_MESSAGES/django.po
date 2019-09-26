@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-09-23 15:45:38+0000\n"
+"PO-Revision-Date: 2019-09-26 18:23:34+0000\n"
 "X-POT-Import-Date: 2019-08-17 07:19:09+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1652,7 +1652,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
 msgid "Account Connections"
-msgstr ""
+msgstr "Ligações da Conta"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -1678,7 +1678,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: ajapaik/ajapaik/views.py:463
 msgid "Non-authenticated user"
@@ -1732,7 +1732,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2259
 msgid "OK"
-msgstr ""
+msgstr "CONFIRMAR"
 
 #: ajapaik/ajapaik/views.py:2317 ajapaik/ajapaik/views.py:2338
 #, python-format
@@ -1778,12 +1778,12 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
-msgstr ""
+msgstr "Assunto"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/models.py:68
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritmo"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/models.py:69
@@ -1804,17 +1804,17 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
-msgstr ""
+msgstr "Eliminar anotação"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"
-msgstr ""
+msgstr "Estoniano"
 
 #: ajapaik/settings/default.py:73
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #: ajapaik/settings/default.py:74
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandês"
 
