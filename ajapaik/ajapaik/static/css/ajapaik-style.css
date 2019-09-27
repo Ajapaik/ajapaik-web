@@ -1001,6 +1001,7 @@ a.fullscreen {
 
 #ajapaik-photoview-main-photo {
   max-height: 70vh;
+  width: 100%;
 }
 
 #ajapaik-game-modal-photo {
@@ -1722,11 +1723,21 @@ a.fullscreen {
   text-align: left;
 }
 
-#ajapaik-photoview-container {
-  min-height: 85vh;
-  margin-top: 20px;
-  margin-left: 90px;
+@media (max-width: 767px) {
+  #ajapaik-photoview-container {
+    min-height: 85vh;
+    margin-top: 20px;
+  }
 }
+
+@media (min-width: 768px) {
+  #ajapaik-photoview-container {
+    min-height: 85vh;
+    margin-top: 20px;
+    padding-left: 110px;
+  }
+}
+
 #ajapaik-photoview-container .col-xs-6 {
   min-width: 280px;
 }
