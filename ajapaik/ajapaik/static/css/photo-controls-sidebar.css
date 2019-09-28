@@ -1,14 +1,44 @@
 @media (max-width: 767px) {
   .photo-controls-sidebar {
       width: 100%;
-      height: 70px;
+      height: 85px;
       position: fixed;
       bottom: 0;
-      padding-top: 5px;
+      padding-top: 10px;
       background-color: #1A1A1A;
       text-align: center;
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
       z-index: 99;
+    }
+
+    .photo-controls-sidebar__wrapper {
+        left: 10px;
+        overflow: scroll;
+        position: relative;
+        margin-left: 0;
+        margin-right: 0;
+        width: calc(100% - 105px);
+    }
+
+    .photo-controls-sidebar__wrapper--left-scrollable {
+        min-width: 20px;
+        position: absolute;
+        pointer-events: none;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        background: linear-gradient(to right, white, transparent 90%);
+    }
+
+    .photo-controls-sidebar__wrapper--right-scrollable {
+        min-width: 20px;
+        position: absolute;
+        pointer-events: none;
+        bottom: 0;
+        right: 90px;
+        height: 100%;
+        background: linear-gradient(to left, white, transparent 90%);
     }
 }
 

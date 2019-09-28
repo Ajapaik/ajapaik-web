@@ -70,5 +70,61 @@ $(document).ready(function () {
         });
     }
 
+    function getScrollFunction() {
+        var leftScrollIndicatorContainer = $('#photo-controls-sidebar__scroll-left-indicator');
+
+       return function() {
+           var wrapper = $('#photo-controls-sidebar__wrapper');
+
+            var scrollWidth = wrapper[0].scrollWidth;
+            var elementWidth = wrapper.width();
+
+            var maximumScrollRightPosition = scrollWidth - elementWidth;
+
+           var rightScrollIndicatorContainer = $('#photo-controls-sidebar__scroll-right-indicator');
+
+            var scrollLeftPosition = wrapper.scrollLeft();
+            var hasContentToScrollOnLeft = scrollLeftPosition > 10;
+            var hasContentToScrollOnRight = scrollLeftPosition < (maximumScrollRightPosition - 10);
+
+            var hasLeftScrollIndicator = leftScrollIndicatorContainer
+                .hasClass('photo-controls-sidebar__wrapper--left-scrollable');
+            var hasRightScrollIndicator = rightScrollIndicatorContainer
+                .hasClass('photo-controls-sidebar__wrapper--right-scrollable');
+
+            if (hasContentToScrollOnRight) {
+                if (!hasRightScrollIndicator) {
+                    rightScrollIndicatorContainer.addClass('photo-controls-sidebar__wrapper--right-scrollable');
+                }
+            } else {
+                if (hasRightScrollIndicator) {
+                    rightScrollIndicatorContainer.removeClass('photo-controls-sidebar__wrapper--right-scrollable');
+                }
+            }
+
+            if (hasContentToScrollOnLeft) {
+                if (!hasLeftScrollIndicator) {
+                    leftScrollIndicatorContainer.addClass('photo-controls-sidebar__wrapper--left-scrollable');
+                }
+            } else {
+                if (hasLeftScrollIndicator) {
+                    leftScrollIndicatorContainer.removeClass('photo-controls-sidebar__wrapper--left-scrollable');
+                }
+            }
+        };
+    }
+
+    function addScrollIndicators() {
+        var wrapper = $('#photo-controls-sidebar__wrapper');
+        var scrollFunction = getScrollFunction();
+        wrapper.on('scroll', scrollFunction);
+    }
+
+    $(window).resize(function() {
+        (getScrollFunction())();
+    });
+
+    (getScrollFunction())();
+    addScrollIndicators();
     initializeShareButtonPopover();
 });

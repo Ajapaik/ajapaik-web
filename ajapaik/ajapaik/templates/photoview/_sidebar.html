@@ -1,14 +1,17 @@
 {% load i18n comments static %}
 
 <div class="photo-controls-sidebar">
-    <div class="row flex-nowrap d-md-block">
+    <div
+        id="photo-controls-sidebar__scroll-left-indicator"
+    ></div>
+    <div id="photo-controls-sidebar__wrapper" class="photo-controls-sidebar__wrapper row flex-nowrap d-md-block">
         <div class="col-lg-12 d-none d-md-block">
             <a class="photo-controls-sidebar__logo" href="/" title="{% trans "Back to homepage" %}">
                 Ajapaik
             </a>
         </div>
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}
-            <div class="col-lg-12 col-md">
+            <div class="col-lg-12 col-md-2">
              <a
                 id="ajapaik-photoview-start-geotagging-button_game"
                 data-id="{{ photo.id }}"
@@ -26,7 +29,7 @@
             </a>
             </div>
             {% endif %}
-        <div class="col-lg-12 col-md">
+        <div class="col-lg-12 col-md-2">
             <a
                 id="ajapaik-photoview-start-dating-button"
                 data-id="{{ photo.id }}"
@@ -44,7 +47,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-12 col-md">
+        <div class="col-lg-12 col-md-2">
             <a
                 title="{% trans "Add rephoto" %}"
                 id="ajapaik-photoview-add-rephoto-button"
@@ -58,7 +61,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-12 col-md">
+        <div class="col-lg-12 col-md-2">
             <a
                 title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
                 id="ajapaik-photoview-face-recognition-add-face-button"
@@ -72,20 +75,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-lg-12 col-md">
-            <a
-                id="ajapaik-photoview-print-main-image-button"
-                href="#"
-            >
-                <i class="material-icons notranslate ajapaik-text-gray photo-controls-sidebar__icon">
-                    print
-                </i>
-                <div class="photo-controls-sidebar__text">
-                    {% trans "Print image" %}
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-12 col-md">
+        <div class="col-lg-12 col-md-2">
             <a
                 id="ajapaik-sharing-dropdown-button"
                 href="#"
@@ -108,6 +98,9 @@
             </a>
         </div>
     </div>
+    <div
+        id="photo-controls-sidebar__scroll-right-indicator"
+    ></div>
 </div>
 
 <script src="{% static 'js/photoview/photoview-actions-sidebar.js' %}"></script>
