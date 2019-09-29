@@ -64,3 +64,11 @@
 .first-block, .second-block {
     justify-content: center;
 }
+
+.px-2.pt-2 {
+    display: none;
+}
+
+#ajapaik-header-right-section {
+    display: none;
+}
