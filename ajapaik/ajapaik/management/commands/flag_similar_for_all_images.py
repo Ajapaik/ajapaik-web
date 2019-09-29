@@ -9,11 +9,11 @@ class Command(BaseCommand):
         for photo in photos:
             try:
                 results = ImageSimilarity.objects.filter(from_photo_id=photo.id).exclude(similarity_type=0)
-                if len(results) > 0:
+                if results.count() > 0:
                     photo.hasSimilar = True
                 else:
                     results = ImageSimilarity.objects.filter(to_photo_id=photo.id).exclude(similarity_type=0)
-                    if len(results) > 0:
+                    if results.count() > 0:
                         photo.hasSimilar = True
                     else:
                         photo.hasSimilar = False

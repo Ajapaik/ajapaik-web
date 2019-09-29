@@ -222,7 +222,7 @@ def get_subject_data(request: HttpRequest, subject_id = None):
             rectangles = FaceRecognitionRectangle.objects
         else:
             rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
-            if len(rectangles) == 0:
+            if rectangles.count() == 0:
                 rectangles = FaceRecognitionRectangle.objects.annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
                 guessIds = []
                 for guess in guesses:

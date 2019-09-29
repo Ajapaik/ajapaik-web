@@ -421,7 +421,7 @@ class Photo(Model):
     original_lon = None
 
     def get_total_similar(self):
-        return len(self.similar_photos.all())
+        return self.similar_photos.count()
 
     class Meta:
         ordering = ['-id']
@@ -612,7 +612,7 @@ class Photo(Model):
         for similar in photos:
             list1 = ImageSimilarity.objects.filter(Q(from_photo=self.id) & Q(to_photo=similar.id))
             list2 = ImageSimilarity.objects.filter(Q(from_photo=similar.id) & Q(to_photo=self.id))
-            if (len(list1) < 1 or len(list2) < 1):
+            if list1.count() < 1 or list2.count() < 1:
                 ImageSimilarity.add_or_update(self,similar)
             similar.light_save()
         self.light_save()
@@ -760,7 +760,7 @@ class Photo(Model):
             geotags = GeoTag.objects.filter(photo_id=self.id)
             unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created') \
                 .values_list('id', flat=True)
-            self.geotag_count = len(unique_user_geotag_ids)
+            self.geotag_count = unique_user_geotag_ids.count()
             unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
             geotag_coord_map = {}
             for g in unique_user_geotags:
@@ -857,14 +857,14 @@ class ImageSimilarity(Model):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
         points = 0
         iterator = 0
-        if len(qs) > 0:
+        if qs.count() > 0:
             for item in qs:
                 if iterator > 1:
                     item.delete()
                 else:
                     guess = ImageSimilarityGuess(image_similarity=item, guesser=self.user_last_modified, similarity_type=self.similarity_type)
                     guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
-                    if len(guesses.filter(guesser = self.user_last_modified.id)) < 1:
+                    if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
                         points = 10
                     item.confirmed = self.confirmed
                     if self.similarity_type is not None:
@@ -874,8 +874,8 @@ class ImageSimilarity(Model):
                             firstGuess = 2
                         if self.similarity_type == 1:
                             secondGuess = 2   
-                        if len(guesses.filter(similarity_type=self.similarity_type)) >= (len(guesses.filter(similarity_type=secondGuess)) -1) \
-                            and len (guesses.filter(similarity_type=self.similarity_type)) >= (len(guesses.filter(similarity_type=firstGuess)) - 1):
+                        if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
+                            and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
                             guess.guesser = self.user_last_modified
                             item.similarity_type = self.similarity_type
                             if self.similarity_type == 1 or self.similarity_type == 2:

@@ -911,7 +911,7 @@ class api_user_me(AjapaikAPIView):
                 content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
                 general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
                 general_user_rank = 0
-                for i in range(0, len(general_user_leaderboard)):
+                for i in range(0, general_user_leaderboard.count()):
                     if general_user_leaderboard[i].user_id == profile.user_id:
                         general_user_rank = (i + 1)
                         break

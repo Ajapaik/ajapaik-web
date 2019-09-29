@@ -1365,8 +1365,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"user_has_rephotos": user_has_rephotos,
 		"next_photo": next_photo,
 		"previous_photo": previous_photo,
-		"similar_photo_count": len(similar_photos.all()),
-		"confirmed_similar_photo_count": len(similar_photos.filter(confirmed=True).all()),
+		"similar_photo_count": similar_photos.count(),
+		"confirmed_similar_photo_count": similar_photos.filter(confirmed=True).count(),
 		"compare_photos_url" : compare_photos_url,
 		# TODO: Needs more data than just the names
 		"people": people,
