@@ -211,19 +211,24 @@ def get_subject_data_empty(request: HttpRequest):
 def get_subject_data(request: HttpRequest, subject_id = None):
     rectangle = None
     nextRectangle = None
-    profile = request.get_user().profile
-    guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
-    if guesses is None:
-        rectangles = FaceRecognitionRectangle.objects
+    hasUnverified = False
+    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None)
+    if subject_id = None and len(unverifiedGuesses) > 1 or subject_id != None and len(unverifiedGuesses) > 0:
+        rectangles = unverifiedRectangles
     else:
-        rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
-        if len(rectangles) == 0:
-            rectangles = FaceRecognitionRectangle.objects.annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
-            guessIds = []
-            for guess in guesses:
-                if subject_id != str(guess):
-                    guessIds.append(guess)
-            nextRectangle = FaceRecognitionRectangle.objects.filter(id=least_frequent(guessIds)).first()
+        profile = request.get_user().profile
+        guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
+        if guesses is None:
+            rectangles = FaceRecognitionRectangle.objects
+        else:
+            rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
+            if len(rectangles) == 0:
+                rectangles = FaceRecognitionRectangle.objects.annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+                guessIds = []
+                for guess in guesses:
+                    if subject_id != str(guess):
+                        guessIds.append(guess)
+                nextRectangle = FaceRecognitionRectangle.objects.filter(id=least_frequent(guessIds)).first()
     if subject_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()

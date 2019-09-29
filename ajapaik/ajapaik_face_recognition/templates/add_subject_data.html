@@ -145,21 +145,10 @@
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     ...subject
                 },
-                success: function (response) {
-                    let points = response.points;
-                    let message = response && points > 0
-                        ?  interpolate(ngettext(
-                            'You have gained %s point',
-                            'You have gained %s points',
-                            points
-                        ),
-                        [points]
-                        )
-                        : gettext('Your guess has been changed');
-                    $.notify(message, {type: 'success'});
+                success: function () {
                     window.location.href = '{{next_action}}';
                 },
-                error: function (response) {
+                error: function () {
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                 },
                 complete: function () {
