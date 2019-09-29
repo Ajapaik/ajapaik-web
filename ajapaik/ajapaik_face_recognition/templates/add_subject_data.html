@@ -54,6 +54,9 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        $(".px-2.pt-2").hide();
+        $("#ajapaik-header-right-section").hide();
+        $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         let hasConsensus = '{{ hasConsensus }}';
