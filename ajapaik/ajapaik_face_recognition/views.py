@@ -213,7 +213,7 @@ def get_subject_data(request: HttpRequest, subject_id = None):
     nextRectangle = None
     hasUnverified = False
     unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None)
-    if subject_id = None and len(unverifiedGuesses) > 1 or subject_id != None and len(unverifiedGuesses) > 0:
+    if unverifiedRectangles.count() > 1:
         rectangles = unverifiedRectangles
     else:
         profile = request.get_user().profile
