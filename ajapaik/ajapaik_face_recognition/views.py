@@ -226,12 +226,12 @@ def get_subject_data(request: HttpRequest, subject_id = None):
             nextRectangle = FaceRecognitionRectangle.objects.filter(id=least_frequent(guessIds)).first()
     if subject_id is None:
         if rectangle is None:
-            rectangle = rectangles.first()
+            rectangle = rectangles.order_by('?').first()
     else:
         if rectangle is None:
             rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
     if nextRectangle is None:
-        nextRectangle = rectangles.exclude(id=rectangle.id).first()
+        nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
     if nextRectangle is None:
         next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
     else:
