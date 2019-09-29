@@ -16,11 +16,11 @@ class AddSubjectData(AjapaikAPIView):
         points = 0
         errors = 0
         profile = None
-        if request.user.profile != None:
-            profile = request.user.profile
-        else:
+        if request.user.is_anonymous:
             profile = request.POST.get('profile', None)
             profile = Profile.objects.filter(id=profile).first()
+        else:
+            profile = request.user.profile
         subjectId = request.POST.get('subjectId', None)
         age = request.POST.get('age', None)
         gender = request.POST.get('gender', None)
