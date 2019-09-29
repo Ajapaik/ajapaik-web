@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-09-19 09:32:55+0000\n"
+"PO-Revision-Date: 2019-09-26 18:23:27+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/admin.py:103
 msgid "Invert colors"
-msgstr ""
+msgstr "Rengan ters bıçarne"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -95,7 +95,7 @@ msgstr "Seralbum"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr ""
+msgstr "Lokasyon"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "If this album is tied to a certain location, specify here"
@@ -103,15 +103,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Album type"
-msgstr ""
+msgstr "Tewrê albumi"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Anything else"
-msgstr ""
+msgstr "Zewbina çi"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Person"
-msgstr ""
+msgstr "Merdum"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/models.py:182
 #: ajapaik/ajapaik/templates/curator.html:69
@@ -129,11 +129,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:421 ajapaik/ajapaik/models.py:189
 msgid "Is open"
-msgstr ""
+msgstr "Akerdeyo"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Email address"
-msgstr ""
+msgstr "Adresa e-posteyi"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -169,7 +169,7 @@ msgstr "Nuştekar"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:946
 msgid "Different"
-msgstr ""
+msgstr "Ferq"
 
 #: ajapaik/ajapaik/models.py:847 ajapaik/ajapaik/models.py:947
 msgid "Similar"
@@ -177,7 +177,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:848 ajapaik/ajapaik/models.py:948
 msgid "Duplicate"
-msgstr ""
+msgstr "Kopya"
 
 #: ajapaik/ajapaik/models.py:1019
 msgid "Geotag"
@@ -220,7 +220,7 @@ msgstr ""
 #: ajapaik/ajapaik/models.py:1028
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Tesdiq ke"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm Image similarity"
@@ -240,7 +240,7 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1061
 msgid "Confirmation"
-msgstr ""
+msgstr "Tesdiq"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "StreetView"
@@ -268,7 +268,7 @@ msgstr "Galeriye"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Permalink"
-msgstr ""
+msgstr "Gıreyo daimi"
 
 #: ajapaik/ajapaik/models.py:1079
 msgid "Source"
@@ -357,7 +357,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
-msgstr ""
+msgstr "Fotrafo oricinal"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
@@ -471,7 +471,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
-msgstr ""
+msgstr "Parzûnkerdış"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
@@ -993,7 +993,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
 msgid "Taken"
-msgstr ""
+msgstr "Kılit"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
@@ -1003,7 +1003,7 @@ msgstr "Bar ke"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:28
 msgid "Select file..."
-msgstr ""
+msgstr "Dosya weçine..."
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
@@ -1023,7 +1023,7 @@ msgstr "Kip ke"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:59
 msgid "Abort"
-msgstr ""
+msgstr "Kurtaj"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:81
 msgid "Select new file..."
@@ -1057,23 +1057,23 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr ""
+msgstr "Parola xo vira kerde?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Mesaci"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
-msgstr ""
+msgstr "E-posteyi bıvurne"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
-msgstr ""
+msgstr "Parola bıvurne"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
@@ -1082,7 +1082,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm E-mail address"
-msgstr ""
+msgstr "Adresa e-posteyi tesdiq ke"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1098,7 +1098,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 msgid "Sign in"
-msgstr ""
+msgstr "Cı kewe"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
@@ -1123,7 +1123,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr ""
+msgstr "Parola mı raçarne"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
@@ -1139,7 +1139,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "Parola bıvurne"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -1153,13 +1153,13 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Parolaya şıma nıka vuriye."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Qeyd be"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1297,7 +1297,7 @@ msgstr "Xetaya dezgehi"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:271
 msgid "Sorting"
-msgstr ""
+msgstr "Rêzkerdış"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "This website uses cookies to ensure you get the best experience on our website"
@@ -1305,7 +1305,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "Got it!"
-msgstr ""
+msgstr "Mı fehm kerd!"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:417
 msgid "More info"
@@ -1326,7 +1326,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
-msgstr ""
+msgstr "Mışewreyê şıma"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:41
 msgid "Search!"
-msgstr ""
+msgstr "Cı geyre!"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
 #: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
@@ -1458,7 +1458,7 @@ msgstr "Tayêna bar ke"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:51
 msgid "Select all"
-msgstr ""
+msgstr "Pêrıne weçine"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:58
 msgid "Filter existing"
@@ -1494,7 +1494,7 @@ msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "Embarê Wikimedya"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
@@ -1515,7 +1515,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "Cıwabê cı"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1579,7 +1579,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/extra_translations.html:16
 msgid "Public "
-msgstr ""
+msgstr "Umumi\\"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:17
 msgid "Private "
@@ -1682,7 +1682,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
 msgid "Add"
-msgstr ""
+msgstr "Cı ke"
 
 #: ajapaik/ajapaik/views.py:463
 msgid "Non-authenticated user"
