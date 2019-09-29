@@ -1,5 +1,8 @@
 'use strict';
 
+/* jshint browser: true */
+/* globals $:false */
+
 var DraggableArea = (function () {
     var isDragging = false;
     var hasDragged = false;
@@ -149,11 +152,28 @@ var DraggableArea = (function () {
             );
     }
 
+    function getEventForClickOrTouch(event) {
+        var isRegularClickEvent = !!event.clientX;
+
+        if (isRegularClickEvent) {
+            return event;
+        }
+
+        var isJQueryTouchEvent = !!event.originalEvent;
+
+        if (isJQueryTouchEvent) {
+            return event.originalEvent.touches[0];
+        }
+
+        return event.touches[0];
+    }
+
     function dragArea(event, annotationRectangle) {
         if (isDragging) {
+            var clickEvent = getEventForClickOrTouch(event);
 
-            var xDifference = dragStartX - event.clientX;
-            var yDifference = dragStartY - event.clientY;
+            var xDifference = dragStartX - clickEvent.clientX;
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newTop = (initialTop - imageAreaTop) - yDifference;
             var newLeft = (initialLeft - imageAreaLeft) - xDifference;
@@ -186,6 +206,7 @@ var DraggableArea = (function () {
 
     function addResizeIndicatorIcon(iconSpecificClass, annotationRectangle, directionSpecificFunction) {
         var icon = $('<i class="material-icons notranslate resizable-box__arrow">height</i>');
+
         icon.addClass(iconSpecificClass);
         icon.data({'is-detection-controls': true});
 
@@ -209,6 +230,8 @@ var DraggableArea = (function () {
     function startDrag(event, annotationRectangle) {
         var imageAreaBoundingClientRect = ImageAreaSelector.getImageArea()[0].getBoundingClientRect();
 
+        var clickEvent = getEventForClickOrTouch(event);
+
         isDragging = true;
         hasDragged = false;
 
@@ -224,17 +247,18 @@ var DraggableArea = (function () {
         imageAreaBottom = imageAreaTop + imageAreaBoundingClientRect.height;
         imageAreaRight = imageAreaLeft + imageAreaBoundingClientRect.width;
 
-        dragStartX = event.clientX;
-        dragStartY = event.clientY;
+        dragStartX = clickEvent.clientX;
+        dragStartY = clickEvent.clientY;
 
         $('body').addClass('disable-select');
     }
 
     function dragTopLeft(event, annotationRectangle) {
         if (isDragging) {
+            var clickEvent = getEventForClickOrTouch(event);
 
-            var xDifference = dragStartX - event.clientX;
-            var yDifference = dragStartY - event.clientY;
+            var xDifference = dragStartX - clickEvent.clientX;
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight + yDifference;
             var newWidth = initialWidth + xDifference;
@@ -261,14 +285,16 @@ var DraggableArea = (function () {
 
     function dragTop(event, annotationRectangle) {
         if (isDragging) {
-            var yDifference = dragStartY - event.clientY;
+            var clickEvent = getEventForClickOrTouch(event);
+
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight + yDifference;
 
             var newTop = (initialTop - imageAreaTop) - yDifference;
 
             var css = {
-               height: newHeight + 'px'
+                height: newHeight + 'px'
             };
 
             if (newHeight > 0) {
@@ -281,7 +307,9 @@ var DraggableArea = (function () {
 
     function dragLeft(event, annotationRectangle) {
         if (isDragging) {
-            var xDifference = dragStartX - event.clientX;
+            var clickEvent = getEventForClickOrTouch(event);
+
+            var xDifference = dragStartX - clickEvent.clientX;
 
             var newWidth = initialWidth + xDifference;
 
@@ -301,9 +329,10 @@ var DraggableArea = (function () {
 
     function dragBottomRight(event, annotationRectangle) {
         if (isDragging) {
+            var clickEvent = getEventForClickOrTouch(event);
 
-            var xDifference = dragStartX - event.clientX;
-            var yDifference = dragStartY - event.clientY;
+            var xDifference = dragStartX - clickEvent.clientX;
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight - yDifference;
             var newWidth = initialWidth - xDifference;
@@ -317,9 +346,10 @@ var DraggableArea = (function () {
 
     function dragBottomLeft(event, annotationRectangle) {
         if (isDragging) {
+            var clickEvent = getEventForClickOrTouch(event);
 
-            var xDifference = dragStartX - event.clientX;
-            var yDifference = dragStartY - event.clientY;
+            var xDifference = dragStartX - clickEvent.clientX;
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight - yDifference;
             var newWidth = initialWidth + xDifference;
@@ -341,7 +371,9 @@ var DraggableArea = (function () {
 
     function dragBottom(event, annotationRectangle) {
         if (isDragging) {
-            var yDifference = dragStartY - event.clientY;
+            var clickEvent = getEventForClickOrTouch(event);
+
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight - yDifference;
 
@@ -353,9 +385,10 @@ var DraggableArea = (function () {
 
     function dragTopRight(event, annotationRectangle) {
         if (isDragging) {
+            var clickEvent = getEventForClickOrTouch(event);
 
-            var xDifference = dragStartX - event.clientX;
-            var yDifference = dragStartY - event.clientY;
+            var xDifference = dragStartX - clickEvent.clientX;
+            var yDifference = dragStartY - clickEvent.clientY;
 
             var newHeight = initialHeight + yDifference;
             var newWidth = initialWidth - xDifference;
@@ -377,7 +410,9 @@ var DraggableArea = (function () {
 
     function dragRight(event, annotationRectangle) {
         if (isDragging) {
-            var xDifference = dragStartX - event.clientX;
+            var clickEvent = getEventForClickOrTouch(event);
+
+            var xDifference = dragStartX - clickEvent.clientX;
 
             var newWidth = initialWidth - xDifference;
 
@@ -392,30 +427,76 @@ var DraggableArea = (function () {
         $('body').removeClass('disable-select');
     }
 
+    function getTouchDragEndFunction(dragEndFunction) {
+        return function (e) {
+            var isDetectionControls = $(e.target).data('is-detection-controls');
+
+            if (isDetectionControls) {
+                e.preventDefault(); // Needed to avoid dragging the page instead of dragging the element on touch
+                dragEndFunction(e);
+            }
+        };
+    }
+
+    function getTouchDragFunction(dragFunction) {
+        return function (e) {
+            var isDetectionControls = $(e.target).data('is-detection-controls');
+
+            if (isDetectionControls) {
+                e.preventDefault();
+                dragFunction(e);
+            }
+        };
+    }
+
+    function addDragAndEndDragEndForTouch(dragFunction, endFunction) {
+        document.body.addEventListener('touchmove', dragFunction, {passive: false});
+        document.body.addEventListener('touchend', endFunction, {passive: false});
+    }
+
     function addDragFunctions(element, annotationRectangle, elementSpecificDragFunction) {
-        var elementSpecificDrag = function(event) {
+        var elementSpecificDrag = function (event) {
             hasDragged = true;
             annotationRectangle.popover('hide');
             elementSpecificDragFunction(event, annotationRectangle);
         };
 
-        var dragEnd = function() {
+        var touchDragFunction = getTouchDragFunction(elementSpecificDrag);
+        var touchDragEndFunction;
+
+        var dragEnd = function () {
             endDrag();
 
             $(document).off('mousemove', elementSpecificDrag);
             $(document).off('mouseup', dragEnd);
+
+            document.body.removeEventListener('touchmove', touchDragFunction);
+            document.body.removeEventListener('touchend', touchDragEndFunction);
         };
 
-        element.on('mousedown', function(event) {
+        touchDragEndFunction = getTouchDragEndFunction(dragEnd);
+
+        var onDownEvent = function (event) {
             startDrag(event, annotationRectangle);
 
             $(document).on('mousemove', elementSpecificDrag);
             $(document).on('mouseup', dragEnd);
-        });
 
-        element.on('click', function(event) {
+            addDragAndEndDragEndForTouch(touchDragFunction, touchDragEndFunction);
+        };
+
+        element.on('mousedown', onDownEvent);
+        element.on('touchstart', onDownEvent);
+
+        element.on('click', function (event) {
             event.stopPropagation();
 
+            if (!hasDragged) {
+                annotationRectangle.click();
+            }
+        });
+
+        element.on('touchend', function () {
             if (!hasDragged) {
                 annotationRectangle.click();
             }
