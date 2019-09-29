@@ -1,5 +1,6 @@
 # coding=utf-8
 from ajapaik.ajapaik.api import AjapaikAPIView
+from ajapaik.ajapaik.models import Profile
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -14,7 +15,12 @@ class AddSubjectData(AjapaikAPIView):
     def post(self, request, format=None):
         points = 0
         errors = 0
-        profile = request.user.profile
+        profile = None
+        if request.user.profile != None:
+            profile = request.user.profile
+        else:
+            profile = request.POST.get('profile', None)
+            profile = Profile.objects.filter(id=profile).first()
         subjectId = request.POST.get('subjectId', None)
         age = request.POST.get('age', None)
         gender = request.POST.get('gender', None)

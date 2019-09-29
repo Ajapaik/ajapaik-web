@@ -42,7 +42,7 @@
                 {% trans "Not sure" %}
             </button>
     </div>
-    <div>
+    <div class="d-none">
         {% trans "Currently the gender is" %} {{ gender }}
         <br>
         {% trans "Currently the age is" %} {{ age }}
@@ -137,14 +137,15 @@
             drawRectangle();
         });
 
-        AddSubjectData = function(subject){
+        AddSubjectData = function(subject, profile){
             $('#ajapaik-loading-overlay').show();
             $.ajax({
                 type: 'POST',
                 url: window.location.origin + "/face-recognition/api/v1/subject-data/",
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    ...subject
+                    ...subject,
+                    profile: profile
                 },
                 success: function () {
                     window.location.href = '{{next_action}}';
@@ -166,6 +167,7 @@
         });
         $(".second-block > button").on('click', function(e) {
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
+            $(".second-block").removeClass("d-flex").addClass("d-none");
             window.AddSubjectData(subject)
         });
     </script>

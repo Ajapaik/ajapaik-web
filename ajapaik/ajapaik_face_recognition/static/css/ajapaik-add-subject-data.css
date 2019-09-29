@@ -66,9 +66,25 @@
 }
 
 .px-2.pt-2 {
-    display: none;
+    display: none !important;
 }
 
-#ajapaik-header-right-section {
-    display: none;
+#ajapaik-header-profile-button,
+.ajapaik-header-right-button,
+#ajapaik-header-about-button
+{
+    display: none !important;
+}
+
+.ajapaik-header-right-button.dropdown.d-inline-block.align-top.pt-2 {
+    right: 30px;
+    display: inline-block !important;
+}
+
+.ajapaik-brand {
+    display: inline-block !important;
+}
+
+.navbar.navbar-default.navbar-fixed-top.ajapaik-navbar.w-100.py-0 {
+    height: 60px;
 }
