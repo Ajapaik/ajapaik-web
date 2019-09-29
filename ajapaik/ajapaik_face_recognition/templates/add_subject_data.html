@@ -157,9 +157,7 @@
                         )
                         : gettext('Your guess has been changed');
                     $.notify(message, {type: 'success'});
-                    setTimeout(function(){
-                        window.location.href = '{{next_action}}';
-                    }, 1000);
+                    window.location.href = '{{next_action}}';
                 },
                 error: function (response) {
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
