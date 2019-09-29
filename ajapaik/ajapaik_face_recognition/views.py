@@ -5,6 +5,7 @@ from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
@@ -13,6 +14,7 @@ from rest_framework.renderers import JSONRenderer
 from PIL import Image
 
 from ajapaik import settings
+from ajapaik.utils import least_frequent
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Points
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
@@ -203,35 +205,65 @@ def get_subject_image(request: HttpRequest):
         white.save(response, "JPEG")
         return response
 
+def get_subject_data_empty(request: HttpRequest):
+    return render(request, 'add_subject_data_empty.html')
+
 def get_subject_data(request: HttpRequest, subject_id = None):
+    rectangle = None
+    nextRectangle = None
     profile = request.get_user().profile
     guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
     if guesses is None:
-        rectangles = FaceRecognitionRectangle.objects()
+        rectangles = FaceRecognitionRectangle.objects
     else:
         rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
+        if len(rectangles) == 0:
+            rectangles = FaceRecognitionRectangle.objects.annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+            guessIds = []
+            for guess in guesses:
+                if subject_id != str(guess):
+                    guessIds.append(guess)
+            nextRectangle = FaceRecognitionRectangle.objects.filter(id=least_frequent(guessIds)).first()
     if subject_id is None:
-        rectangle = rectangles.first()
+        if rectangle is None:
+            rectangle = rectangles.first()
     else:
-        rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
-    nextRectangle = rectangles.exclude(id=subject_id).first()
-    if(nextRectangle is None):
-        return render(request, 'add_subject_data_empty.html')
-    next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+        if rectangle is None:
+            rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
+    if nextRectangle is None:
+        nextRectangle = rectangles.exclude(id=rectangle.id).first()
+    if nextRectangle is None:
+        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
+    else:
+        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
 
     #These variables are used for debugging purposes, remove when going live
     age = "Undefined"
     gender = "Undefined"
-    if rectangle.gender == 0:
-        gender = "Male"
-    if rectangle.gender == 1:
-        gender = "Female"
+    hasConsensus = False
+    if rectangle != None and rectangle.subject_consensus != None:
+            hasConsensus = True
+            temp = rectangle.subject_consensus.gender
+            wt = temp / "42¤"
+            if rectangle.subject_consensus.gender == 0:
+                gender = "Femal2e"
+            else:
+                gender = "Male"
+    else:
+        if rectangle.gender == 0:
+            gender = "Female1"
+        if rectangle.gender == 1:
+            gender = "Male"
+        if rectangle.gender == 2:
+            gender = "Not sure"
     if rectangle.age == 0:
         age = "Child"
     if rectangle.age == 1:
         age = "Adult"
     if rectangle.age == 2:
         age = "Elder"
+    if rectangle.age == 3:
+        age = "Not Sure"
 
     context = {
         'rectangle': rectangle,
@@ -239,6 +271,7 @@ def get_subject_data(request: HttpRequest, subject_id = None):
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
         'gender': gender,
-        'age': age
+        'age': age,
+        'hasConsensus': hasConsensus
     }
     return render(request, 'add_subject_data.html', context)

@@ -5,19 +5,24 @@ from django.db.models import CASCADE
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.contrib.gis.db.models import DateTimeField, ImageField
+from ajapaik.utils import most_frequent
 
 from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 
-YOUNG, MIDDLEAGE, OLD = range(3)
+YOUNG, MIDDLEAGE, OLD, UNKNOWN, NOT_APPLICABLE = range(5)
 AGE = (
     (YOUNG, _("Young")),
     (MIDDLEAGE, _("Middleage")),
     (OLD, _("Old")),
+    (UNKNOWN, _("Unknown")),
+    (NOT_APPLICABLE, _("Not Applicable"))
 )
-MALE, FEMALE = range(2)
+FEMALE, MALE, UNKNOWN, NOT_APPLICABLE = range(4)
 GENDER = (
-    (MALE, _('Male')),
     (FEMALE, _('Female')),
+    (MALE, _('Male')),
+    (UNKNOWN, _("Unknown")),
+    (NOT_APPLICABLE, _("Not Applicable"))
 )
 
 class FaceRecognitionRectangle(models.Model):
@@ -37,8 +42,8 @@ class FaceRecognitionRectangle(models.Model):
     # If no user is attached, means OpenCV detected it
     user = models.ForeignKey(Profile, blank=True, null=True, related_name='face_recognition_rectangles')
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
-    gender = models.PositiveSmallIntegerField(choices=GENDER, null=True)
-    age = models.PositiveSmallIntegerField(choices=AGE, null=True)
+    gender = models.PositiveSmallIntegerField(choices=GENDER, blank=True, null=True)
+    age = models.PositiveSmallIntegerField(choices=AGE, blank=True, null=True)
     # [top, right, bottom, left]
     coordinates = models.TextField()
     face_encoding = models.TextField(null=True, blank=True)
@@ -67,7 +72,10 @@ class FaceRecognitionRectangle(models.Model):
         lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
         lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
         lastGuessesByOtherUsers = lastGuesses.exclude(guesser_id=profile.id)
-        newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = subject, guesser = profile, gender = gender, age = age)
+        guessGender = gender
+        if gender == 3:
+           guessGender = subject.subject_consensus.gender
+        newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = subject, guesser = profile, gender = guessGender, age = age)
         newGuess.save()
         if(len(lastGuessesByOtherUsers) > 0):
             results = {}
@@ -81,31 +89,25 @@ class FaceRecognitionRectangle(models.Model):
             if age != None:
                 sumAge = int(age, 10)
                 guessCountAge = 1
-            nones = {
+            unknowns = {
                 "age": 0,
                 "gender": 0
             }
+            ageGuesses = []
+            genderGuesses = []
             for guess in lastGuessesByOtherUsers:
-                if guess.age == None:
-                    nones["age"] += 1
-                else:
-                    guessCountGender +=1
-                    sumAge += guess.age
-                if guess.gender == None:
-                    nones["gender"] += 1
-                else:
-                    sumGender += guess.gender
-                    guessCountAge += 1
-            if nones["age"] > 2.0 * guessCountAge:
-                consensus_age = None
+                if(guess.age != None and guess.age != 4):
+                    ageGuesses.append(guess.age)
+                if(guess.gender != None and guess.gender != 3):
+                    genderGuesses.append(guess.age)
+            if len(ageGuesses) > 0:
+                subject.age = most_frequent(ageGuesses)
             else:
-                consensus_age = round(sumAge / guessCountAge)
-            if nones["gender"] > 2.0 * guessCountGender:
-                consensus_gender = None
+                subject.age = 4
+            if len(genderGuesses) > 0:
+                subject.gender = most_frequent(genderGuesses)
             else:
-                consensus_gender = round(sumGender / guessCountGender)
-            subject.gender = consensus_gender
-            subject.age = consensus_age
+                subject.gender = 3
         else:
             subject.age = age
             subject.gender = gender
@@ -122,7 +124,7 @@ class FaceRecognitionRectangle(models.Model):
                 user=profile
             ).save()
             points += ageGuessPoints
-        if(lastGuessByCurrentUser is None):
+        if(lastGuessByCurrentUser is None and gender != 3):
             genderGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_GENDER,

@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^guess-subject/$', views.guess_subject, name='face_recognition_guess_subject'),
     url(r'^subject-data/$', views.get_subject_data, name='face_recognition_subject_data'),
     url(r'^subject-data/(?P<subject_id>\d+)/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/empty/$', views.get_subject_data_empty, name='face_recognition_subject_data_empty'),
     url(r'^api/v1/subject-data/$', api.AddSubjectData.as_view(), name="face_recognition_api_subject_data"),
 ]

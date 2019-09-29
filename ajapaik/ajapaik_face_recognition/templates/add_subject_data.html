@@ -18,13 +18,13 @@
         </div>
     </div>
     <div class="d-flex row first-block">
-            <button class="human-male" data=0>
+            <button class="human-male" data=1>
                 {% trans "Male" %}
             </button>
-            <button class="skip-next">
+            <button class="skip-next" data=2>
                 {% trans "Not sure" %}
             </button>
-            <button class="human-female" data="1">
+            <button class="human-female" data="0">
                 {% trans "Female" %}
             </button>
     </div>
@@ -38,7 +38,7 @@
             <button class="human-elderly" data=2>
                 {% trans "Elderly" %}
             </button>
-            <button class="skip-next">
+            <button class="skip-next" data=3>
                 {% trans "Not sure" %}
             </button>
     </div>
@@ -56,11 +56,18 @@
     <script>
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
+        let hasConsensus = '{{ hasConsensus }}';
         let subject = {
             subjectId: {{ rectangle.id }},
             gender: undefined,
             age: undefined
         };
+        hasConsensus = 'True' === hasConsensus;
+        if(hasConsensus) {
+            $(".first-block").removeClass("d-flex").addClass("d-none");
+            $(".second-block").removeClass("d-none").addClass("d-flex");
+            subject.gender = 3;
+        }
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {

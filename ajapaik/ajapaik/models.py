@@ -173,10 +173,10 @@ class Album(Model):
         (PERSON, 'Person')
     )
 
-    MALE, FEMALE = range(2)
+    FEMALE, MALE = range(2)
     GENDER_CHOICES = (
-        (FEMALE, _('Female')),
-        (MALE, _('Male'))
+        (MALE, _('Male')),
+        (FEMALE, _('Female'))
     )
 
     name = CharField(_('Name'), max_length=255, db_index=True)

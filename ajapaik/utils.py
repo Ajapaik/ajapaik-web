@@ -67,3 +67,27 @@ def average_angle(angles):
 def distance_in_meters(lon1, lat1, lon2, lat2):
     lat_coeff = cos(radians((lat1 + lat2) / 2.0))
     return (2 * 6350e3 * 3.1415 / 360) * sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
+
+def most_frequent(List): 
+    counter = 0
+    num = List[0]
+    uniques = list(set(List))
+      
+    for i in uniques: 
+        currentFrequency = List.count(i) 
+        if(currentFrequency >= counter): 
+            counter = currentFrequency 
+            num = i 
+    return num
+
+def least_frequent(List): 
+    counter = None
+    num = List[0]
+    uniques = list(set(List))
+      
+    for i in uniques: 
+        currentFrequency = List.count(i) 
+        if(counter == None or currentFrequency < counter): 
+            counter = currentFrequency 
+            num = i
+    return num 

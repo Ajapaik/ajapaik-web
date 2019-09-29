@@ -18,9 +18,12 @@ class AddSubjectData(AjapaikAPIView):
         subjectId = request.POST.get('subjectId', None)
         age = request.POST.get('age', None)
         gender = request.POST.get('gender', None)
+        gender2 = gender
+        if gender == 2:
+            gender2 = None
         if subjectId is not None:
             subject = get_object_or_404(FaceRecognitionRectangle, id=subjectId)
             if subject is None:
                 return JsonResponse({'status': 400})
-            points += FaceRecognitionRectangle.add_subject_data(subject, profile, age, gender)
+            points += FaceRecognitionRectangle.add_subject_data(subject, profile, age, gender2)
         return JsonResponse({'points': points})
