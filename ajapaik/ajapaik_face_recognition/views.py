@@ -244,14 +244,13 @@ def get_subject_data(request: HttpRequest, subject_id = None):
     if rectangle != None and rectangle.subject_consensus != None:
             hasConsensus = True
             temp = rectangle.subject_consensus.gender
-            wt = temp / "42¤"
             if rectangle.subject_consensus.gender == 0:
-                gender = "Femal2e"
+                gender = "Female"
             else:
                 gender = "Male"
     else:
         if rectangle.gender == 0:
-            gender = "Female1"
+            gender = "Female"
         if rectangle.gender == 1:
             gender = "Male"
         if rectangle.gender == 2:
