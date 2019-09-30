@@ -212,23 +212,23 @@ def get_subject_data(request: HttpRequest, subject_id = None):
     rectangle = None
     nextRectangle = None
     hasUnverified = False
-    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None)
+    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None).filter(deleted=None)
     if unverifiedRectangles.count() > 1:
         rectangles = unverifiedRectangles
     else:
         profile = request.get_user().profile
         guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
         if guesses is None:
-            rectangles = FaceRecognitionRectangle.objects
+            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
         else:
-            rectangles = FaceRecognitionRectangle.objects.exclude(id__in=guesses)
+            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).exclude(id__in=guesses)
             if rectangles.count() == 0:
-                rectangles = FaceRecognitionRectangle.objects.annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
                 guessIds = []
                 for guess in guesses:
                     if subject_id != str(guess):
                         guessIds.append(guess)
-                nextRectangle = FaceRecognitionRectangle.objects.filter(id=least_frequent(guessIds)).first()
+                nextRectangle = FaceRecognitionRectangle.objects.filter(deleted=None).filter(id=least_frequent(guessIds)).first()
     if subject_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()

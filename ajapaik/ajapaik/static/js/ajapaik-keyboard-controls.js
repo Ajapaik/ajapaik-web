@@ -137,31 +137,6 @@
                         }
                     }
                 }
-
-                if (window.isAddSubjectDataView !== undefined && window.isAddSubjectDataView === true) {
-                    var targets;
-                    if (e.keyCode === 49) {
-                        targets = $('.human-male, .human-child');
-                        if (targets.length > 0) {
-                            targets[window.addSubjectDataViewPage].click();
-                        }
-                    } else if (e.keyCode === 50) {
-                        targets = $('.human-female, .human-adult');
-                        if (targets.length > 0) {
-                            targets[j].click();
-                        }
-                    } else if (e.keyCode === 51) {
-                        targets = $('.human-elderly, .skip-next');
-                        if (targets.length > 0) {
-                            targets[window.addSubjectDataViewPage].click();
-                        }
-                    } else if (e.keyCode === 52) {
-                        targets = $('.skip-next');
-                        if (targets.length > 0) {
-                            targets[0].click();
-                        }
-                    }
-                }
             }
         });
     });

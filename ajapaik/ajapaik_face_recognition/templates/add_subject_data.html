@@ -17,18 +17,26 @@
             <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
         </div>
     </div>
-    <div class="d-flex row first-block">
+    <div class="first-block d-block pb-3 text-center">
+        <div>
             <button class="human-male" data=1>
                 {% trans "Male" %}
-            </button>
-            <button class="skip-next" data=2>
-                {% trans "Not sure" %}
             </button>
             <button class="human-female" data="0">
                 {% trans "Female" %}
             </button>
+        </div>
+        <div>
+            <button class="skip-next" data=2>
+                {% trans "Not sure" %}
+            </button>
+            <button class="circled-cross" data=-1>
+                {% trans "Not a Face" %}
+            </button>
+        </div>
     </div>
-    <div class="row second-block d-none">
+    <div class="second-block d-none pb-3 text-center">
+        <div>
             <button class="human-child" data=0>
                 {% trans "Child" %}
             </button>
@@ -38,11 +46,17 @@
             <button class="human-elderly" data=2>
                 {% trans "Elderly" %}
             </button>
+        </div>
+        <div>
             <button class="skip-next" data=3>
                 {% trans "Not sure" %}
             </button>
+            <button class="circled-cross" data=-1>
+                {% trans "Not a Face" %}
+            </button>
+        </div>
     </div>
-    <div class="row third-block d-none">
+    <div class="row third-block d-none pb-3">
         <button class="skip-next">
             {% trans "Skip" %}
         </button>
@@ -65,28 +79,30 @@
         $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
+        var currentRectangleId = '{{ rectangle.id }}'
         var hasConsensus = '{{ hasConsensus }}';
         var subject = {
             subjectId: {{ rectangle.id }},
             gender: undefined,
             age: undefined
         };
+        var subjectDataContainer = $('.subject-data-container');
         hasConsensus = 'True' === hasConsensus;
         if(hasConsensus) {
-            $(".first-block").removeClass("d-flex").addClass("d-none");
-            $(".second-block").removeClass("d-none").addClass("d-flex");
+            $(".first-block").removeClass("d-block").addClass("d-none");
+            $(".second-block").removeClass("d-none").addClass("d-block");
             subject.gender = 3;
         }
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-            if($(window).width() / $(window).height() * 0.8 > imageRatio) {
-                $('img').css('height', $(window).height() * 0.8 + 'px');
+            if($(window).width() / $(window).height() * 0.7 > imageRatio) {
+                $('img').css('height', $(window).height() * 0.7 + 'px');
                 $('img').css('width', 'auto');
             }
             else {
-                $('img').css('width', $(window).height() * 0.8 * imageRatio)
+                $('img').css('width', $(window).height() * 0.7 * imageRatio)
                 $('img').css('height', 'auto');
             }
         }
@@ -131,6 +147,30 @@
             $('.ajapaik-face-rectangle').remove();
         }
 
+        this.reportBadRectangle = function (id) {
+			$.ajax({
+				type: 'POST',
+				url: '/face-recognition/add-rectangle-feedback/',
+				data: {
+					rectangle: id,
+					is_correct: false,
+					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+				},
+				success: function (response) {
+					if (response.deleted) {
+						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
+					} else {
+						$.notify(gettext('Thank you!'), {type: 'success'});
+					}
+                    window.location.href = '{{next_action}}';
+				},
+				error: function () {
+                    $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
+                    $(".third-block").removeClass("d-none").addClass("d-flex");
+                }
+			});
+		};
+
         var coordinates = {{ coordinates }};
         $('#ajapaik-loading-overlay').show();
 
@@ -170,16 +210,26 @@
             });
         }
 
-        $(".first-block > button").on('click', function(e) {
+        $(".first-block > div > button").on('click', function(e) {
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            $(".first-block").removeClass("d-flex").addClass("d-none");
-            $(".second-block").removeClass("d-none").addClass("d-flex");
-            addSubjectDataViewPage = 1;
+            $(".first-block").removeClass("d-block").addClass("d-none");
+            if(subject.gender !== "-1") {
+                $(".second-block").removeClass("d-none").addClass("d-block");
+                addSubjectDataViewPage = 1;
+            }
+            else {
+                reportBadRectangle(currentRectangleId)
+            }
         });
-        $(".second-block > button").on('click', function(e) {
+        $(".second-block > div > button").on('click', function(e) {
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             $(".second-block").removeClass("d-flex").addClass("d-none");
-            window.AddSubjectData(subject)
+            if(subject.age !== "-1"){
+                window.AddSubjectData(subject)
+            }
+            else{
+                reportBadRectangle(currentRectangleId)
+            }
         });
         $(".third-block > button").on('click', function(e) {
             window.location.href = '{{next_action}}';

@@ -8,7 +8,8 @@
 .human-female,
 .human-male,
 .human-adult,
-.skip-next {
+.skip-next,
+.circled-cross {
     border: none;
     width: 100px;
     height: 90px;
@@ -25,7 +26,8 @@
 .human-female:hover,
 .human-male:hover,
 .human-adult:hover,
-.skip-next:hover {
+.skip-next:hover,
+.circled-cross:hover {
     background-color: #d5d5d5;
 }
 
@@ -54,6 +56,10 @@
 
 .skip-next {
     background-image: url(../../../static/images/material-design-icons/ic_skip_next.svg);
+}
+
+.circled-cross {
+    background-image: url(../../../static/images/material-design-icons/ic_circled_cross.svg);
 }
 
 .main-image {
