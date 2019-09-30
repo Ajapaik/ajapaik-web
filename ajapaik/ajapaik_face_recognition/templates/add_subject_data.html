@@ -60,7 +60,7 @@
         $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
-        let hasConsensus = '{{ hasConsensus }}';
+        var hasConsensus = '{{ hasConsensus }}';
         let subject = {
             subjectId: {{ rectangle.id }},
             gender: undefined,
@@ -147,7 +147,9 @@
                 url: window.location.origin + "/face-recognition/api/v1/subject-data/",
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    ...subject,
+                    subjectId: subject.subjectId,
+                    gender: subject.gender,
+                    age: subject.age,
                     profile: profile
                 },
                 success: function () {

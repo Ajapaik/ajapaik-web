@@ -547,7 +547,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     $(document).on('click', '#ajapaik-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
-            let uri = URI(window.location);
+            var uri = URI(window.location);
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }

@@ -140,7 +140,7 @@
                     photos: photo1 + "," + photo2
                 },
                 success: function (response) {
-                    let points = response.points;
+                    var points = response.points;
                     let message = response && points > 0
                         ?  interpolate(ngettext(
                             'You have gained %s point',

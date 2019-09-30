@@ -250,10 +250,10 @@
 {% block specific_js %}
 <script>
     resizeDescription = function() {
-        let similarPhotosContainer = $('#ajapaik-photoview-similar-photo-selection');
-        let rephotosContainer = $('#ajapaik-photoview-rephoto-selection');
-        let mainPhoto = $("#ajapaik-photoview-main-photo-container");
-        let rephoto = $("#ajapaik-photoview-rephoto-container");
+        var similarPhotosContainer = $('#ajapaik-photoview-similar-photo-selection');
+        var rephotosContainer = $('#ajapaik-photoview-rephoto-selection');
+        var mainPhoto = $("#ajapaik-photoview-main-photo-container");
+        var rephoto = $("#ajapaik-photoview-rephoto-container");
         rephotosContainer.height(mainPhoto.height() || 500);
         similarPhotosContainer.height(mainPhoto.height() || 500);
         if(!rephotosContainer.hasClass('d-none')){

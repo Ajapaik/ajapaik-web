@@ -116,7 +116,7 @@
                 }
 
                 if (window.isCompareView !== undefined && window.isCompareView === true) {
-                    let targets;
+                    var targets;
                     if (e.keyCode === 49) {
                         // not similar
                         targets = $('#not_similar');
@@ -139,7 +139,7 @@
                 }
 
                 if (window.isAddSubjectDataView !== undefined && window.isAddSubjectDataView === true) {
-                    let targets;
+                    var targets;
                     if (e.keyCode === 49) {
                         targets = $('.human-male, .human-child');
                         if (targets.length > 0) {

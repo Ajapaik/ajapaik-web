@@ -57,7 +57,7 @@
                         photos: photos.join(",")
                     },
                     success: function (response) {
-                        let points = response.points
+                        var points = response.points
                         let message = response && points > 0
                             ?  interpolate(ngettext(
                                 'You have gained %s points',

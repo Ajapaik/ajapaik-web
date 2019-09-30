@@ -136,7 +136,7 @@
             return L.marker(point, {icon: pointerIcon});
         },
 
-        ajapaikAzimuthToLeafletAzimuth(point, azimuth) {
+        ajapaikAzimuthToLeafletAzimuth: function(point, azimuth) {
             var destinationPoint_ajapaik = this.simpleCalculateMapLineEndPoint(point, azimuth, 0.2);
             var azimuth_ajapaik = this.radiansToDegrees(this.getAzimuthBetweenTwoPoints(point, destinationPoint_ajapaik));
 

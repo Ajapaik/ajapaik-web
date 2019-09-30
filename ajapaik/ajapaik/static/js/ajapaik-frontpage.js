@@ -320,7 +320,7 @@
                     window.maxPage = response.max_page;
                     window.currentPage = response.page;
                     window.showPhotos = response.show_photos;
-                    let collection;
+                    var collection;
                     let attribute = window.order2;
                     switch(window.order2){
                         case 'rephotos':
