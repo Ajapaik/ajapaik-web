@@ -15,6 +15,23 @@
     <div class="d-flex row pt-3">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
             <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+            <div class="d-none" id="subject-data-description-container">
+                {% if rectangle.photo.description %}
+                    <p>
+                        {{ rectangle.photo.description }}
+                    </p>
+                {% endif %}
+                {% if rectangle.photo.author %}
+                    <p>
+                        {{ rectangle.photo.author }}
+                    </p>
+                {% endif %}
+                {% if rectangle.photo.source_key %}
+                    <p>
+                        {{ rectangle.photo.source_key }}
+                    </p>
+                {% endif %}
+            </div>
         </div>
     </div>
     <div class="first-block d-block pb-3 text-center">
@@ -32,6 +49,9 @@
             </button>
             <button class="circled-cross" data=-1>
                 {% trans "Not a Face" %}
+            </button>
+            <button class="info" data=-2>
+                {% trans "Info" %}
             </button>
         </div>
     </div>
@@ -53,6 +73,9 @@
             </button>
             <button class="circled-cross" data=-1>
                 {% trans "Not a Face" %}
+            </button>
+            <button class="info" data=-2>
+                {% trans "Info" %}
             </button>
         </div>
     </div>
@@ -212,23 +235,45 @@
 
         $(".first-block > div > button").on('click', function(e) {
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            $(".first-block").removeClass("d-block").addClass("d-none");
-            if(subject.gender !== "-1") {
-                $(".second-block").removeClass("d-none").addClass("d-block");
-                addSubjectDataViewPage = 1;
+            if(subject.gender === '-2') {
+                var hasClass = $('#subject-data-description-container').hasClass('d-none');
+                if (hasClass === true) {
+                    $('#subject-data-description-container').removeClass('d-none');
+                }
+                else {
+                    $('#subject-data-description-container').addClass('d-none');
+                }
             }
             else {
-                reportBadRectangle(currentRectangleId)
+                $(".first-block").removeClass("d-block").addClass("d-none");
+                if(subject.gender !== "-1") {
+                    $(".second-block").removeClass("d-none").addClass("d-block");
+                    addSubjectDataViewPage = 1;
+                }
+                else {
+                    reportBadRectangle(currentRectangleId)
+                }
             }
         });
         $(".second-block > div > button").on('click', function(e) {
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            $(".second-block").removeClass("d-flex").addClass("d-none");
-            if(subject.age !== "-1"){
-                window.AddSubjectData(subject)
+            if(subject.age === '-2') {
+                var hasClass = $('#subject-data-description-container').hasClass('d-none');
+                if (hasClass === true) {
+                    $('#subject-data-description-container').removeClass('d-none');
+                }
+                else {
+                    $('#subject-data-description-container').addClass('d-none');
+                }
             }
-            else{
-                reportBadRectangle(currentRectangleId)
+            else {
+                $(".second-block").removeClass("d-flex").addClass("d-none");
+                if(subject.age !== "-1"){
+                    window.AddSubjectData(subject)
+                }
+                else{
+                    reportBadRectangle(currentRectangleId)
+                }
             }
         });
         $(".third-block > button").on('click', function(e) {

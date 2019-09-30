@@ -9,7 +9,8 @@
 .human-male,
 .human-adult,
 .skip-next,
-.circled-cross {
+.circled-cross,
+.info {
     border: none;
     width: 100px;
     height: 90px;
@@ -27,7 +28,8 @@
 .human-male:hover,
 .human-adult:hover,
 .skip-next:hover,
-.circled-cross:hover {
+.circled-cross:hover,
+.info:hover {
     background-color: #d5d5d5;
 }
 
@@ -62,6 +64,10 @@
     background-image: url(../../../static/images/material-design-icons/ic_circled_cross.svg);
 }
 
+.info {
+    background-image: url(../../../static/images/material-design-icons/ic_info.svg);
+}
+
 .main-image {
     max-height: 80vh;
     max-width: 100vw;
@@ -93,4 +99,18 @@
 
 .navbar.navbar-default.navbar-fixed-top.ajapaik-navbar.w-100.py-0 {
     height: 60px;
+}
+
+#subject-data-description-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    min-height: 100px;
+    color: white;
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 5px;
+    text-align: left;
+    font-size: 18px;
 }
