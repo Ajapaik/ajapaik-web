@@ -5,6 +5,7 @@ var ObjectTagger = {
     imageArea: null,
     imageAreaId: null,
     photoId: null,
+    previousWindowWidth: null,
     detectionRectangleContainer: 'body',
 
     setDetectionRectangleContainer: function(container) {
@@ -45,8 +46,13 @@ var ObjectTagger = {
     handleSavedRectanglesDrawn: function(detections) {
         if (detections) {
             drawDetectionRectangles(detections, ObjectTagger.getImageArea());
+            ObjectTagger.previousWindowWidth = window.innerWidth;
+
             window.onresize = function() {
-                drawDetectionRectangles(detections, ObjectTagger.getImageArea());
+                if (!window.isMobile || window.isMobile && ObjectTagger.previousWindowWidth !== window.innerWidth) {
+                    ObjectTagger.previousWindowWidth = window.innerWidth;
+                    drawDetectionRectangles(detections, ObjectTagger.getImageArea());
+                }
             };
         }
     },
