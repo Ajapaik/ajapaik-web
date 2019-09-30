@@ -42,6 +42,11 @@
                 {% trans "Not sure" %}
             </button>
     </div>
+    <div class="row third-block d-none">
+        <button class="skip-next">
+            {% trans "Skip" %}
+        </button>
+    </div>
     <div class="d-none">
         {% trans "Currently the gender is" %} {{ gender }}
         <br>
@@ -156,6 +161,7 @@
                     window.location.href = '{{next_action}}';
                 },
                 error: function () {
+                    $(".third-block").removeClass("d-none").addClass("d-flex");
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                 },
                 complete: function () {
@@ -174,6 +180,9 @@
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             $(".second-block").removeClass("d-flex").addClass("d-none");
             window.AddSubjectData(subject)
+        });
+        $(".third-block > button").on('click', function(e) {
+            window.location.href = '{{next_action}}';
         });
     </script>
 {% endblock %}
