@@ -113,7 +113,7 @@ class FaceRecognitionRectangle(models.Model):
             subject.gender = gender
         subject.save()
         points = 0
-        if(lastGuessByCurrentUser is None):
+        if(lastGuessByCurrentUser is None and int(age) < 3):
             ageGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_AGE,
@@ -124,7 +124,7 @@ class FaceRecognitionRectangle(models.Model):
                 user=profile
             ).save()
             points += ageGuessPoints
-        if(lastGuessByCurrentUser is None and gender != 3):
+        if(lastGuessByCurrentUser is None and int(gender) < 2):
             genderGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_GENDER,
