@@ -854,7 +854,7 @@ class ImageSimilarity(Model):
     
     
     def __add_or_update__(self):
-        qs = ImageSimilarity.objects.filter(from_photo=self.from_photo).filter(to_photo=self.to_photo)
+        qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
         points = 0
         iterator = 0
         if qs.count() > 0:

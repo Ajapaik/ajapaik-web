@@ -1431,7 +1431,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
 	if selected_photo and area is None:
 		area = Area.objects.filter(pk=selected_photo.area_id).first()
-		photos_qs = photos_qs.filter(area=area).filter(rephoto_of__isnull=True)
+		photos_qs = photos_qs.filter(area=area, rephoto_of__isnull=True)
 
 	geotagging_user_count = GeoTag.objects.filter(photo_id__in=photos_qs.values_list('id', flat=True)).distinct(
 		'user').count()
