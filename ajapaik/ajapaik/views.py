@@ -150,7 +150,7 @@ def get_general_info_modal_content(request):
 		}
 		cache.set('general_info_modal_cache', cached_data, settings.GENERAL_INFO_MODAL_CACHE_TTL)
 	context = {
-                'user' : request.get_user(),
+		'user' : request.get_user(),
 		'total_photo_count': cached_data['photos_count'],
 		'contributing_users': cached_data['contributing_users_count'],
 		'total_photos_tagged': cached_data['photos_geotagged_count'],
