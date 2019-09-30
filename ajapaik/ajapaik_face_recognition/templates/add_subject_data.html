@@ -61,7 +61,7 @@
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         var hasConsensus = '{{ hasConsensus }}';
-        let subject = {
+        var subject = {
             subjectId: {{ rectangle.id }},
             gender: undefined,
             age: undefined
@@ -75,7 +75,7 @@
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {
-            let imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+            var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
             if($(window).width() / $(window).height() * 0.8 > imageRatio) {
                 $('img').css('height', $(window).height() * 0.8 + 'px');
                 $('img').css('width', 'auto');
@@ -91,7 +91,7 @@
             window.currentPhotoActualWidth = $('img')[0].width;
             $('#ajapaik-loading-overlay').hide();
             $('#subject-data-container').css('opacity','1.0');
-            let widthScale = currentPhotoActualWidth / window.currentPhotoOriginalWidth,
+            var widthScale = currentPhotoActualWidth / window.currentPhotoOriginalWidth,
             heightScale = currentPhotoActualHeight / window.currentPhotoOriginalHeight,
             width = (coordinates[1] - coordinates[3]) * widthScale,
             height = (coordinates[2] - coordinates[0]) * heightScale,
@@ -116,7 +116,7 @@
                 },
                 // TODO: If we know already, display peoples' names
             });
-            let imageWrapper = $('.image-wrapper');
+            var imageWrapper = $('.image-wrapper');
             if(!!imageWrapper){
                 imageWrapper.append($faceRectangle);
             }
@@ -126,7 +126,7 @@
             $('.ajapaik-face-rectangle').remove();
         }
 
-        let coordinates = {{ coordinates }};
+        var coordinates = {{ coordinates }};
         $('#ajapaik-loading-overlay').show();
 
         $(window).on('load', function() {

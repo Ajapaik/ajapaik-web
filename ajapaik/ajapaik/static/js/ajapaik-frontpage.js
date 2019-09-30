@@ -321,7 +321,7 @@
                     window.currentPage = response.page;
                     window.showPhotos = response.show_photos;
                     var collection;
-                    let attribute = window.order2;
+                    var attribute = window.order2;
                     switch(window.order2){
                         case 'rephotos':
                             collection = response.photos_with_rephotos;

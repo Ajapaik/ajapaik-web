@@ -61,8 +61,8 @@
 				url: '/face-recognition/add-rectangle/',
 				data: payload,
 				success: function (response) {
-					let points = response.points;
-					let message = interpolate(ngettext(
+					var points = response.points;
+					var message = interpolate(ngettext(
 						'Annotation added, thanks!<br />You have gained %s point',
 						'Annotation added, thanks!<br />You have gained %s points',
 						points
@@ -113,8 +113,8 @@
 					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
 				},
 				success: function (response) {
-					let points = response.points;
-					let message = interpolate(ngettext(
+					var points = response.points;
+					var message = interpolate(ngettext(
 						'Thank you!</br>You have gained %s point',
 						'Thank you!</br>You have gained %s points',
 						points

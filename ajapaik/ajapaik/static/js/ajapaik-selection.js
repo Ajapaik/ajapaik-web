@@ -43,8 +43,8 @@
         window.selectionAddSimilarity = function(type) {
             $('#ajapaik-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
-                let photos = []
-                for (let key in response) {
+                var photos = []
+                for (var key in response) {
                     photos.push(key)
                 }
                 $.ajax({
@@ -58,7 +58,7 @@
                     },
                     success: function (response) {
                         var points = response.points
-                        let message = response && points > 0
+                        var message = response && points > 0
                             ?  interpolate(ngettext(
                                 'You have gained %s points',
                                 'You have gained %s points',

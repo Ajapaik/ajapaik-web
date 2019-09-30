@@ -78,7 +78,7 @@
     <script>
         $('#ajapaik-loading-overlay').show();
         if(!docCookies.getItem("similarityModalShown")) {
-            let d = new Date();
+            var d = new Date();
             d.setTime(d.getTime() + 86400000);
             document.cookie = 'similarityModalShown=True;expires=' + d + ';path=/'; 
             $('#ajapaikSimilarImagesTutorialModal').modal();
@@ -88,23 +88,23 @@
             $('#ajapaikSimilarImagesTutorialModal').modal('toggle');
         });
 
-        let height1 = '{{ photo.height }}'
-        let height2 = '{{ photo2.height }}'
-        let width1 = '{{ photo.width }}'
-        let width2 = '{{ photo2.width }}'
+        var height1 = '{{ photo.height }}'
+        var height2 = '{{ photo2.height }}'
+        var width1 = '{{ photo.width }}'
+        var width2 = '{{ photo2.width }}'
 
         resizeDescription = function() {
-            let mainPhoto = $("#ajapaik-compareview-main-photo");
-            let secondaryPhoto = $("#ajapaik-compareview-secondary-photo");
+            var mainPhoto = $("#ajapaik-compareview-main-photo");
+            var secondaryPhoto = $("#ajapaik-compareview-secondary-photo");
             mainPhoto.siblings().width(mainPhoto.width() || 320);
             secondaryPhoto.siblings().width(secondaryPhoto.width() || 320);
         }
 
         resizePhotos = function() {
-            let mainPhoto = $("#ajapaik-compareview-main-photo");
-            let secondaryPhoto = $("#ajapaik-compareview-secondary-photo");
-            let mainPhotoRatio =  width1 / height1;
-            let secondaryPhotoRatio = width2 / height2;
+            var mainPhoto = $("#ajapaik-compareview-main-photo");
+            var secondaryPhoto = $("#ajapaik-compareview-secondary-photo");
+            var mainPhotoRatio =  width1 / height1;
+            var secondaryPhotoRatio = width2 / height2;
             if(mainPhotoRatio > secondaryPhotoRatio) {
                 secondaryPhoto.height(mainPhoto.height());
             } else {
@@ -141,7 +141,7 @@
                 },
                 success: function (response) {
                     var points = response.points;
-                    let message = response && points > 0
+                    var message = response && points > 0
                         ?  interpolate(ngettext(
                             'You have gained %s point',
                             'You have gained %s points',

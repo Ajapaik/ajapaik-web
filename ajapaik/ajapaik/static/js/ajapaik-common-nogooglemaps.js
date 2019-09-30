@@ -1091,8 +1091,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('#ajapaik-rephoto-selection').hide();
         $('.ajapaik-show-rephoto-selection-overlay-button').show("fade", 250);
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
-        let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
-        let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+        var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+        var originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
         originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
         originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         $('#ajapaik-photo-modal-rephoto-info-column').hide();
@@ -1122,8 +1122,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('#ajapaik-similar-photo-selection').hide();
         $('.ajapaik-show-similar-photo-selection-overlay-button').show("fade", 250);
         $('#ajapaik-grab-link').find('a').attr('href', window.hostname + window.originalPhotoAbsoluteURL).text(window.hostname + window.originalPhotoAbsoluteURL);
-        let originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
-        let originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
+        var originalPhotoColumn = $('#ajapaik-photo-modal-original-photo-column');
+        var originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
         if (!window.isMapview) {
             originalPhotoColumn.removeClass("col-lg-6").addClass("col-lg-12");
             originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
@@ -1862,7 +1862,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         }
         else {
             allIds = [];
-            let photoId = window.currentlySelectedPhotoId;
+            var photoId = window.currentlySelectedPhotoId;
             photoId ? allIds.push(photoId) : allIds.push(window.currentlyOpenPhotoId)
         }
         $('#ajapaik-loading-overlay').show();

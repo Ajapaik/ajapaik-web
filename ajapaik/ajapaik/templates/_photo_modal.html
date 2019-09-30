@@ -607,7 +607,7 @@
             $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
         }
     
-        let currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
+        var currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
 
         if(window.userClosedRephotoTools && window.userClosedSimilarPhotoTools){
             if(currentPhotoHasLocation) {
@@ -710,8 +710,8 @@
         }
         else {
 
-            let columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
-            let imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
+            var columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
+            var imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
             imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
             if (columnWidth < window.currentPhotoOriginalWidth) {
                 height = window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth * columnWidth;
