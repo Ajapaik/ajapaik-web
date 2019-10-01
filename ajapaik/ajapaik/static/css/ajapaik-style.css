@@ -343,8 +343,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-minimap-geotagging-user-single-person,
 .ajapaik-minimap-geotagging-user-multiple-people {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   float: left;
   margin-top: 6px;
   margin-right: 3px;
