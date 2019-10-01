@@ -43,51 +43,51 @@
     </div>
     <div class="first-block d-block pb-3 text-center">
         <div>
-            <button class="human-male" data=1>
+            <button class="guess-button human-male" data=1>
                 {% trans "Male" %}
             </button>
-            <button class="human-female" data="0">
+            <button class="guess-button human-female" data="0">
                 {% trans "Female" %}
             </button>
         </div>
         <div>
-            <button class="skip-next" data=2>
+            <button class="guess-button skip-next" data=2>
                 {% trans "Not sure" %}
             </button>
-            <button class="circled-cross" data=-1>
+            <button class="guess-button circled-cross" data=-1>
                 {% trans "Not a Face" %}
             </button>
-            <button class="info" data=-2>
+            <button class="guess-button info" data=-2>
                 {% trans "Info" %}
             </button>
         </div>
     </div>
     <div class="second-block d-none pb-3 text-center">
         <div>
-            <button class="human-child" data=0>
+            <button class="guess-button human-child" data=0>
                 {% trans "Child" %}
             </button>
-            <button class="human-adult" data=1>
+            <button class="guess-button human-adult" data=1>
                 {% trans "Adult" %}
             </button>
-            <button class="human-elderly" data=2>
+            <button class="guess-button human-elderly" data=2>
                 {% trans "Elderly" %}
             </button>
         </div>
         <div>
-            <button class="skip-next" data=3>
+            <button class="guess-button skip-next" data=3>
                 {% trans "Not sure" %}
             </button>
-            <button class="circled-cross" data=-1>
+            <button class="guess-button circled-cross" data=-1>
                 {% trans "Not a Face" %}
             </button>
-            <button class="info" data=-2>
+            <button class="guess-button info" data=-2>
                 {% trans "Info" %}
             </button>
         </div>
     </div>
     <div class="row third-block d-none pb-3">
-        <button class="skip-next">
+        <button class="guess-button skip-next">
             {% trans "Skip" %}
         </button>
     </div>
@@ -103,6 +103,9 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+            $("button").css("background-color","transparent");
+        }
         $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;

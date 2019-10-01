@@ -3,14 +3,7 @@
     align-items: center;
 }
 
-.human-child,
-.human-elderly,
-.human-female,
-.human-male,
-.human-adult,
-.skip-next,
-.circled-cross,
-.info {
+.guess-button {
     border: none;
     width: 100px;
     height: 90px;
@@ -22,15 +15,13 @@
     background-color: transparent;
 }
 
-.human-child:hover,
-.human-elderly:hover,
-.human-female:hover,
-.human-male:hover,
-.human-adult:hover,
-.skip-next:hover,
-.circled-cross:hover,
-.info:hover {
+.guess-button:hover {
     background-color: #d5d5d5;
+}
+
+.guess-button:focus,
+.guess-button:active {
+    outline: none;
 }
 
 .human-child {
