@@ -103,12 +103,10 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
-            $("button").css("background-color","transparent");
-        }
         $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
+        var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
         var currentRectangleId = '{{ rectangle.id }}'
         var hasConsensus = '{{ hasConsensus }}';
         var subject = {
@@ -245,9 +243,17 @@
             if(subject.gender === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
+                    if (isTouchDevice) {
+                        $(".first-block > div > button.info").css("background-color","#d5d5d5");
+                        $(".second-block > div > button.info").css("background-color","#d5d5d5");
+                    }
                     $('#subject-data-description-container').removeClass('d-none');
                 }
                 else {
+                    if (isTouchDevice) {
+                        $(".first-block > div > button.info").css("background-color","transparent");
+                        $(".second-block > div > button.info").css("background-color","transparent");
+                    }
                     $('#subject-data-description-container').addClass('d-none');
                 }
             }
@@ -267,9 +273,17 @@
             if(subject.age === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
+                    if (isTouchDevice) {
+                        $(".first-block > div > button.info").css("background-color","#d5d5d5");
+                        $(".second-block > div > button.info").css("background-color","#d5d5d5");
+                    }
                     $('#subject-data-description-container').removeClass('d-none');
                 }
                 else {
+                    if (isTouchDevice) {
+                        $(".first-block > div > button.info").css("background-color","transparent");
+                        $(".second-block > div > button.info").css("background-color","transparent");
+                    }
                     $('#subject-data-description-container').addClass('d-none');
                 }
             }
