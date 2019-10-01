@@ -96,8 +96,10 @@ urlpatterns = [
     url(r'^terms/$', views.terms, name='terms'),
     url(r'^compare-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photos, name='compare-photos'),
     url(r'^compare-all-photos/$',views.compare_all_photos, name='compare-all-photos'),
-    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos')
-
+    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos'),
+    url(r'^subject-data/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/(?P<subject_id>\d+)/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/empty/$', views.get_subject_data_empty, name='face_recognition_subject_data_empty')
 ]
 
 urlpatterns += [

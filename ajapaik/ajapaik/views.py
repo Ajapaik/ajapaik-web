@@ -32,7 +32,7 @@ from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Q, Count, F
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.http.multipartparser import MultiPartParser
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template import RequestContext
@@ -73,7 +73,7 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataGuess
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
 	distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -2771,6 +2771,81 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		'next_action': next_action
 	}
 	return render(request,'compare_photos.html', context)
+
+def get_subject_data_empty(request: HttpRequest):
+    return render(request, 'add_subject_data_empty.html')
+
+def get_subject_data(request: HttpRequest, subject_id = None):
+    rectangle = None
+    nextRectangle = None
+    hasUnverified = False
+    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None).filter(deleted=None)
+    if unverifiedRectangles.count() > 1:
+        rectangles = unverifiedRectangles
+    else:
+        profile = request.get_user().profile
+        guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
+        if guesses is None:
+            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
+        else:
+            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).exclude(id__in=guesses)
+            if rectangles.count() == 0:
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+                guessIds = []
+                for guess in guesses:
+                    if subject_id != str(guess):
+                        guessIds.append(guess)
+                nextRectangle = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).first()
+    if subject_id is None:
+        if rectangle is None:
+            rectangle = rectangles.order_by('?').first()
+    else:
+        if rectangle is None:
+            rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
+    if nextRectangle is None:
+        nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
+    if nextRectangle is None:
+        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
+    else:
+        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+
+    #These variables are used for debugging purposes, remove when going live
+    age = "Undefined"
+    gender = "Undefined"
+    hasConsensus = False
+    if rectangle != None and rectangle.subject_consensus != None:
+            hasConsensus = True
+            temp = rectangle.subject_consensus.gender
+            if rectangle.subject_consensus.gender == 0:
+                gender = "Female"
+            else:
+                gender = "Male"
+    else:
+        if rectangle.gender == 0:
+            gender = "Female"
+        if rectangle.gender == 1:
+            gender = "Male"
+        if rectangle.gender == 2:
+            gender = "Not sure"
+    if rectangle.age == 0:
+        age = "Child"
+    if rectangle.age == 1:
+        age = "Adult"
+    if rectangle.age == 2:
+        age = "Elder"
+    if rectangle.age == 3:
+        age = "Not Sure"
+
+    context = {
+        'rectangle': rectangle,
+        'photo': rectangle.photo,
+        'coordinates': rectangle.coordinates,
+        'next_action': next_action,
+        'gender': gender,
+        'age': age,
+        'hasConsensus': hasConsensus
+    }
+    return render(request, 'add_subject_data.html', context)
 
 @user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
