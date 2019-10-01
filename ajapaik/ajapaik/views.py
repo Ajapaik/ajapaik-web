@@ -2776,6 +2776,7 @@ def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
 def get_subject_data(request, subject_id = None):
+    profile = request.get_user().profile
     rectangle = None
     nextRectangle = None
     hasUnverified = False
@@ -2783,7 +2784,6 @@ def get_subject_data(request, subject_id = None):
     if unverifiedRectangles.count() > 1:
         rectangles = unverifiedRectangles
     else:
-        profile = request.get_user().profile
         guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
         if guesses is None:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
