@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-01 09:44+0300\n"
+"POT-Creation-Date: 2019-10-01 10:00+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -767,8 +767,8 @@ msgid "Newsletters"
 msgstr "Newsletters"
 
 #: ajapaik/ajapaik/templates/_header.html:56
-msgid "Mark Similar Images"
-msgstr "Mark Similar Images"
+msgid "Categorize faces"
+msgstr "Categorize faces"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -2052,3 +2052,6 @@ msgstr "English"
 #: ajapaik/settings/default.py:74
 msgid "Finnish"
 msgstr "Finnish"
+
+#~ msgid "Mark Similar Images"
+#~ msgstr "Mark Similar Images"
