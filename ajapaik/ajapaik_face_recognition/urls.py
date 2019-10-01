@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^subject-photo', views.get_subject_image, name='get_subject_image'),
     url(r'^subject-photo/(?P<rectangle_id>\d+)/$', views.get_subject_image, name='get_subject_image'),
     url(r'^guess-subject/$', views.guess_subject, name='face_recognition_guess_subject'),
+    url(r'^subject-data/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/(?P<subject_id>\d+)/$', views.get_subject_data, name='face_recognition_subject_data'),
+    url(r'^subject-data/empty/$', views.get_subject_data_empty, name='face_recognition_subject_data_empty')
 ]
 
 urlpatterns += [
