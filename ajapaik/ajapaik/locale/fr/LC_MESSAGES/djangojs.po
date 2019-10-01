@@ -4,6 +4,7 @@
 # Author: Gomoko
 # Author: H2kks
 # Author: VIGNERON
+# Author: Verdy p
 # Author: Wladek92
 # --
 # This file is part of the Ajapaik Project
@@ -14,28 +15,28 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:01+0000\n"
+"PO-Revision-Date: 2019-10-01 14:25:05+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
+"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "User denied the request for Geolocation."
-msgstr "L'utilisateur a rejeté la demande de géolocalisation."
+msgstr "L’utilisateur a rejeté la demande de géolocalisation."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:598
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:574
 msgid "Location information is unavailable."
-msgstr "L'information de localisation n'est pas disponible."
+msgstr "Les informations de localisation ne sont pas disponibles."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:601
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:577
 msgid "The request to get user location timed out."
-msgstr "La requête pour obtenir la localisation de l'utilisateur a expiré."
+msgstr "La requête pour obtenir la géolocalisation de l’utilisateur a expiré."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:604
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:580
@@ -69,12 +70,12 @@ msgstr "Fermer"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:728
 msgid "Pick the shooting location!"
-msgstr "Récupérer l'adresse de la prise de vue !"
+msgstr "Pointez l’adresse de la prise de vue !"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:739
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:791
 msgid "Geotagged by this many users"
-msgstr "Balisé géographiquement par beaucoup d’utilisateurs"
+msgstr "Géolocalisé par de nombreux utilisateurs"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:772
 msgid "Confirm correct location"
@@ -103,7 +104,7 @@ msgstr "Position actuelle"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "Entre %(from)s et %(to)s environ"
+msgstr "Aux environs de %(from)s et %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
 msgid "Between approximately %(from)s and %(to)s"
@@ -119,7 +120,7 @@ msgstr "Entre %(from)s et %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
-msgstr "Après environ %(from)s"
+msgstr "Après approximativement %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
 msgid "After %(from)s"
@@ -127,7 +128,7 @@ msgstr "Après %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
 msgid "Before approximately %(to)s"
-msgstr "Avant environ %(to)s"
+msgstr "Avant approximativement %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
 msgid "Before %(to)s"
@@ -135,16 +136,16 @@ msgstr "Avant %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
 msgid "Approximately %(date)s"
-msgstr "Approximativement %(date)s"
+msgstr "Autour du %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
 msgid "Invalid input, see help text."
-msgstr "Saisie non-valide, voir le texte d'aide."
+msgstr "Saisie non valide, voir le texte d’aide."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:315
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:365
 msgid "Server received invalid data."
-msgstr "Le serveur a reçu des données non-valides."
+msgstr "Le serveur a reçu des données non valides."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
 msgid "Confirm dating"
@@ -160,7 +161,7 @@ msgstr "En soumettant une date, vous gagnez %(points)s points."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "Merci !"
+msgstr "Merci !"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
 msgid "YYYY.MM.DD"
@@ -180,11 +181,11 @@ msgstr "Commenter votre date"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "Utilisez le format AAAA.MM.JJ (MM.JJ optionnel)"
+msgstr "Utilisez le format AAAA.MM.JJ (MM.JJ facultatifs)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr "1878 | 1902.02"
+msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
@@ -192,7 +193,7 @@ msgstr "Marquer les plages de date ou avant/après avec soit « - » soit «
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
-msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Approximate date in brackets"
@@ -200,7 +201,7 @@ msgstr "Date approximative entre parenthèses"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
-msgstr "(1944) | (1940.05)..1941.08.21)"
+msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
@@ -212,7 +213,7 @@ msgstr "Ajouter cette image à l’album (pas tout l’ensemble)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Album details"
-msgstr "Détails de l'album"
+msgstr "Détails de l’album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Approximate address"
@@ -228,11 +229,11 @@ msgstr "Auteur"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Comments"
-msgstr "Commentaire"
+msgstr "Commentaires"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
-msgstr "Commentaires dans l'album"
+msgstr "Commentaires dans l’album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Date"
@@ -248,27 +249,27 @@ msgstr "Retourner"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Geotag pictures in album"
-msgstr "Baliser géographiquement les images dans l’album"
+msgstr "Géolocaliser les images dans l’album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Image has location and view direction info"
-msgstr "L’image a une information d’emplacement et de direction de vue"
+msgstr "L’image a des informations de localisation et de direction de vue"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "Image has no location info"
-msgstr "Image sans informations de localisation"
+msgstr "L’image n’a aucune information de localisation"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Image has only location, no view direction"
-msgstr "L’image n’a qu’un emplacement, pas de direction de vue."
+msgstr "L’image n’a qu’une localisation, pas de direction de vue."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
 msgid "Image has rephotos"
-msgstr "Image rephotographiée plusieurs fois"
+msgstr "L’image a été rephotographiée"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Image has similar photos"
-msgstr "Image ayant des photos semblables"
+msgstr "L’image a des photos similaires"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
@@ -296,7 +297,7 @@ msgstr "photos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
-msgstr "Image déja dans le/les album(s)"
+msgstr "Image déjà dans un ou plusieurs albums"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -308,7 +309,7 @@ msgstr "Images géolocalisées"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures in album"
-msgstr "Images de l'album"
+msgstr "Images de l’album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
@@ -316,11 +317,11 @@ msgstr "Points"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
 msgid "Remove from selection"
-msgstr "Supprimer votre sélection"
+msgstr "Enlever de la sélection"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
 msgid "Rephotos in album"
-msgstr "Images rephotographiées dans l'album"
+msgstr "Images rephotographiées dans l’album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Rotate"
@@ -360,7 +361,7 @@ msgstr "Auteur inconnu"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
 msgid "Earliest"
-msgstr "Le plus tôt"
+msgstr "Le plus ancien"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Latest"
@@ -376,11 +377,11 @@ msgstr "Le plus"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
 msgid "Pictures furthest from you"
-msgstr "Images très éloignées de chez vous"
+msgstr "Images les plus éloignées de vous"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures closest to you"
-msgstr "Images près de chez vous"
+msgstr "Images les plus proches de vous"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:127
 msgid "commented"
@@ -400,7 +401,7 @@ msgstr "géolocalisé"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:139
 msgid "liked"
-msgstr "marqué j'aime"
+msgstr "apprécié"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:142
 msgid "dated"
@@ -416,11 +417,11 @@ msgstr "images"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "By reverse timestamp"
-msgstr "Par horodatage inverse"
+msgstr "Par nouveauté"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
 msgid "By timestamp"
-msgstr "Chronologiquement"
+msgstr "Par ancienneté"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "Pictures from the map"
@@ -436,11 +437,11 @@ msgstr "Mes favoris"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
 msgid "My rephotos"
-msgstr "Me photos rephotographiées"
+msgstr "Mes rephotographies"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "Rephotos by %(user)s"
-msgstr "Images rephotographiées par %(user)s"
+msgstr "Rephotos par %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:263
 msgid "All photos"
@@ -448,7 +449,7 @@ msgstr "Toutes les photos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
 msgid "Picture set has no "
-msgstr "L'ensemble d'images n'a pas"
+msgstr "L’ensemble d'images n'a pas "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -468,15 +469,15 @@ msgstr "Vous pouvez maintenant vous connecter avec votre courriel."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
 msgid "Toggle map center lock"
-msgstr "Basculer le verrou de centre de la carte"
+msgstr "Basculer le verrou de centrage de la carte"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
 msgid "Approximate"
-msgstr "Approximation"
+msgstr "Approximatif"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
 msgid "Vantage point"
-msgstr "Poste d’observation"
+msgstr "Point d’observation"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
@@ -486,7 +487,7 @@ msgstr "Objet"
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "Saisir et tirer la CARTE afin que le marqueur soit là où se tient le photographe."
+msgstr "Saisir et tirer la CARTE afin que le marqueur soit là où se tenait le photographe."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
@@ -496,19 +497,19 @@ msgstr "Boîte de recherche"
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
 msgid "Thank you!"
-msgstr "Merci !"
+msgstr "Merci !"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
-msgstr "Estimation moyenne"
+msgstr "Estimation médiane"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
 msgid "Your guess"
-msgstr "Ce que vous avez deviné"
+msgstr "Votre estimation"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
-msgstr "De combien a été modifié l’emplacement dépeint ?"
+msgstr "Dans quelle mesure l’emplacement dépeint a-t-il changé ?"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
 msgid "Continue"
@@ -537,7 +538,7 @@ msgstr "Cliquer sur le bouton vert pour enregistrer à la fois l’emplacement e
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr "Maintenant vous pouvez tirer le MARQUEUR là où se trouvait le photographe et la CARTE séparément."
+msgstr "Vous pouvez maintenant tirer le MARQUEUR là où se tenait le photographe et la CARTE séparément."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
@@ -545,7 +546,7 @@ msgstr "Tirer la carte de façon à ce que le cercle couvre l’emplacement appr
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Tirer la carte de façon que le marqueur soit en haut de l’objet que vous soyez sur l’image, cliquer sur enregistrer quand c’est prêt."
+msgstr "Tirez la carte de façon que le marqueur soit en haut de l’objet que vous soyez sur l’image, cliquez sur « Enregistrer » quand c’est prêt."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
 msgid "Points awarded"
@@ -563,13 +564,20 @@ msgstr "Supprimer le filtre des albums"
 msgid "Apply album filter"
 msgstr "Appliquer le filtre des albums"
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
-msgid "Image similarities mapped, thanks!"
-msgstr "Similarités des images mises en correspondance, merci !"
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:63
+#, javascript-format
+msgid "You have gained %s points"
+msgid_plural "You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
-msgid "Something went wrong"
-msgstr "Quelque chose s’est mal passé"
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
+msgid "Your guess has been changed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
+msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
+msgstr ""
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -577,37 +585,47 @@ msgstr "'"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
-msgstr "Échec au chargement des figures, désolé."
+msgstr "Échec de chargement des visages, désolé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
-msgid "Annotation added, thanks!"
-msgstr "Annotation ajoutée, merci !"
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
+#, javascript-format
+msgid "Annotation added, thanks!<br />You have gained %s point"
+msgid_plural "Annotation added, thanks!<br />You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
 msgstr "Échec d’enregistrement de votre rectangle, désolé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Thank you! Bad rectangle deleted."
 msgstr "Merci ! Mauvais rectangle supprimé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
 msgid "Failed to send your feedback, sorry."
 msgstr "Échec d’envoi de votre avis, désolé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#, javascript-format
+msgid "Thank you!</br>You have gained %s point"
+msgid_plural "Thank you!</br>You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."
 msgstr "Échec d’envoi de votre soumission, désolé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
 msgid "Failed retrieving person tagging form, sorry."
 msgstr "Échec de récupération du formulaire de marquage de la personne, désolé."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
 msgid "Who is this?"
 msgstr "Qui est-ce ?"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Êtes-vous sûr de vouloir supprimer cette annotation ?"
 

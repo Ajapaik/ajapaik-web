@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-08-19 09:14:01+0000\n"
+"PO-Revision-Date: 2019-10-01 14:25:05+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-08-09 22:30:50+0000\n"
+"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
@@ -569,13 +569,20 @@ msgstr "Poista albumin suodatin"
 msgid "Apply album filter"
 msgstr "Suodata albumi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:64
-msgid "Image similarities mapped, thanks!"
-msgstr "Kuvien samankaltaisuus kartoitettu, kiitos!"
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:63
+#, javascript-format
+msgid "You have gained %s points"
+msgid_plural "You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:67
-msgid "Something went wrong"
-msgstr "Jotain meni pieleen"
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
+msgid "Your guess has been changed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
+msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
+msgstr ""
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -585,35 +592,45 @@ msgstr "'"
 msgid "Failed to load faces, sorry."
 msgstr "Kasvojen lataaminen epäonnistui, anteeksi."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:64
-msgid "Annotation added, thanks!"
-msgstr "Merkintä lisätty, kiitos!"
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
+#, javascript-format
+msgid "Annotation added, thanks!<br />You have gained %s point"
+msgid_plural "Annotation added, thanks!<br />You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:71
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
 msgstr "Lisäämäsi neliön tallennus epäonnistui, anteeksi."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:86
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Thank you! Bad rectangle deleted."
 msgstr "Kiitos! Virheellinen neliö poistettu."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
 msgid "Failed to send your feedback, sorry."
 msgstr "Palautteen lähettäminen epäonnistui, anteeksi."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:112
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#, javascript-format
+msgid "Thank you!</br>You have gained %s point"
+msgid_plural "Thank you!</br>You have gained %s points"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."
 msgstr "Ehdotuksesi lähettäminen epäonnistui, anteeksi."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:141
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
 msgid "Failed retrieving person tagging form, sorry."
 msgstr "Anteeksi, henkilön merkkauslomakkeen lataaminen epäonnistui."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:179
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
 msgid "Who is this?"
 msgstr "Kuka hän on?"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:302
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Oletko varma, että haluat poistaa tämän merkkauksen."
 
