@@ -9,11 +9,11 @@ from ajapaik.utils import most_frequent
 
 from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 
-YOUNG, MIDDLEAGE, OLD, UNKNOWN, NOT_APPLICABLE = range(5)
+CHILD, ADULT, ELDERLY, UNKNOWN, NOT_APPLICABLE = range(5)
 AGE = (
-    (YOUNG, _("Young")),
-    (MIDDLEAGE, _("Middleage")),
-    (OLD, _("Old")),
+    (CHILD, _("Child")),
+    (ADULT, _("Adult")),
+    (ELDERLY, _("Elderly")),
     (UNKNOWN, _("Unknown")),
     (NOT_APPLICABLE, _("Not Applicable"))
 )

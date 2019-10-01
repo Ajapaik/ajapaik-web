@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-01 10:00+0300\n"
+"POT-Creation-Date: 2019-10-01 17:53+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -1323,14 +1323,17 @@ msgid "Info"
 msgstr "Info"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
 msgstr "Child"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
 msgstr "Adult"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
 msgstr "Elderly"
 
@@ -1992,18 +1995,6 @@ msgstr "Is public figure"
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
 msgstr "Subject"
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr "Young"
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr "Middleage"
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr "Old"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
