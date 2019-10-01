@@ -11,6 +11,13 @@
     {% include "_header.html" %}
 {% endblock %}
 {% block layout %}
+<div class="full-box original-full-box">
+    <div class="full-pic" id="ajapaik-fullscreen-image-container">
+        <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
+            data-src="{% url "image_full" rectangle.photo.pk rectangle.photo.get_pseudo_slug %}"
+            alt="{{ rectangle.photo.description }}" title="{{ rectangle.photo.description }}" />
+    </div>
+</div>
 <div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
     <div class="d-flex row pt-3">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
@@ -117,19 +124,19 @@
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-            if($(window).width() / $(window).height() * 0.7 > imageRatio) {
-                $('img').css('height', $(window).height() * 0.7 + 'px');
-                $('img').css('width', 'auto');
+            if($(window).width() / ($(window).height() - 250) > imageRatio) {
+                $('img.main-image').css('height', ($(window).height() - 250) + 'px');
+                $('img.main-image').css('width', 'auto');
             }
             else {
-                $('img').css('width', $(window).height() * 0.7 * imageRatio)
-                $('img').css('height', 'auto');
+                $('img.main-image').css('width', ($(window).height() - 250) * imageRatio)
+                $('img.main-image').css('height', 'auto');
             }
         }
 
         drawRectangle = function() {
-            window.currentPhotoActualHeight = $('img')[0].height;
-            window.currentPhotoActualWidth = $('img')[0].width;
+            window.currentPhotoActualHeight = $('img.main-image')[0].height;
+            window.currentPhotoActualWidth = $('img.main-image')[0].width;
             $('#ajapaik-loading-overlay').hide();
             $('#subject-data-container').css('opacity','1.0');
             var widthScale = currentPhotoActualWidth / window.currentPhotoOriginalWidth,
