@@ -2772,10 +2772,10 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 	}
 	return render(request,'compare_photos.html', context)
 
-def get_subject_data_empty(request: HttpRequest):
+def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
-def get_subject_data(request: HttpRequest, subject_id = None):
+def get_subject_data(request, subject_id = None):
     rectangle = None
     nextRectangle = None
     hasUnverified = False

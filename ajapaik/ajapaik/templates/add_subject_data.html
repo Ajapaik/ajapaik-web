@@ -96,9 +96,6 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        {% if request.user.profile %}
-            window.currentProfileId = {{ request.user.profile.pk }};
-        {% endif %}
         $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
