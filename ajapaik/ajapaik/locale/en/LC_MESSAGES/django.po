@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-30 13:02+0300\n"
+"POT-Creation-Date: 2019-10-01 09:44+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -177,13 +177,15 @@ msgstr ""
 msgid "Nothing to change."
 msgstr "Nothing to change."
 
-#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:22
+#: ajapaik/ajapaik/models.py:178
+#: ajapaik/ajapaik/templates/add_subject_data.html:40
+#: ajapaik/ajapaik_face_recognition/models.py:23
 msgid "Male"
 msgstr "Male"
 
-#: ajapaik/ajapaik/models.py:179 ajapaik/ajapaik_face_recognition/models.py:22
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:28
+#: ajapaik/ajapaik/models.py:179
+#: ajapaik/ajapaik/templates/add_subject_data.html:43
+#: ajapaik/ajapaik_face_recognition/models.py:22
 msgid "Female"
 msgstr "Female"
 
@@ -250,7 +252,7 @@ msgstr "Film still"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr  "Annotation"
+msgstr "Annotation"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
@@ -1305,6 +1307,45 @@ msgstr "Sign Up Closed"
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "We are sorry, but the sign up is currently closed."
 
+#: ajapaik/ajapaik/templates/add_subject_data.html:48
+#: ajapaik/ajapaik/templates/add_subject_data.html:72
+msgid "Not sure"
+msgstr "Not sure"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:51
+#: ajapaik/ajapaik/templates/add_subject_data.html:75
+msgid "Not a Face"
+msgstr "Not a Face"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:54
+#: ajapaik/ajapaik/templates/add_subject_data.html:78
+msgid "Info"
+msgstr "Info"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:61
+msgid "Child"
+msgstr "Child"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:64
+msgid "Adult"
+msgstr "Adult"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:67
+msgid "Elderly"
+msgstr "Elderly"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:84
+msgid "Skip"
+msgstr "Skip"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:88
+msgid "Currently the gender is"
+msgstr "Currently the gender is"
+
+#: ajapaik/ajapaik/templates/add_subject_data.html:90
+msgid "Currently the age is"
+msgstr "Currently the age is"
+
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
@@ -1987,31 +2028,6 @@ msgstr "Picasa"
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
 msgstr "SubjectPhoto"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:25
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:42
-msgid "Not sure"
-msgstr "Not sure"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:33
-msgid "Child"
-msgstr "Child"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:36
-msgid "Adult"
-msgstr "Adult"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:39
-msgid "Elderly"
-msgstr "Elderly"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:46
-msgid "Currently the gender is"
-msgstr "Currently the gender is"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:48
-msgid "Currently the age is"
-msgstr "Currently the age is"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
