@@ -130,7 +130,7 @@ function getFormattedSelectOption(option) {
             '</span>' +
             '<br/>' +
             '<span style="font-size: 8pt">' +
-                sanitizeHTML(option.description) +
+                ' (' + sanitizeHTML(option.description) + ')' +
             '</span>' +
         '</div>'
     );
@@ -142,6 +142,7 @@ function initializeObjectAutocomplete(autocompleteId) {
 
     return new SlimSelect({
         select: '#' + autocompleteId,
+        valuesUseText: true,
         placeholder: constants.translations.autocomplete.objectSearch.PLACEHOLDER,
         searchingText: constants.translations.autocomplete.objectSearch.SEARCHING_TEXT + '...',
         searchPlaceholder: constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER,
