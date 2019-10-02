@@ -96,21 +96,26 @@ function drawDetectionRectangles(detections, imageArea) {
     setTimeout(function() {
         removeExistingDetectionRectangles();
 
-        var imgRealSize = imageArea.getBoundingClientRect();
+        var imageAreaCurrentSize = imageArea.getBoundingClientRect();
 
-        var photoDimensions = {
-            width: parseInt(imgRealSize.width),
-            height: parseInt(imgRealSize.height)
+        var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+
+        var currentImageAreaDimensions = {
+            width: parseInt(imageAreaCurrentSize.width),
+            height: parseInt(imageAreaCurrentSize.height)
         };
 
-        var widthScale = window.currentPhotoOriginalWidth / photoDimensions.width;
-        var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
+        var scaledPhotoWidthWithoutPadding = currentImageAreaDimensions.height * originalPhotoWidthToHeightRelation;
+        var blackPaddingSizeOnOneSide = (currentImageAreaDimensions.width - scaledPhotoWidthWithoutPadding) / 2;
+
+        var widthScale = window.currentPhotoOriginalWidth / scaledPhotoWidthWithoutPadding;
+        var heightScale = window.currentPhotoOriginalHeight / currentImageAreaDimensions.height;
 
         detections.forEach(function(savedRectangle) {
             var scaledRectangle = {
-                x1: savedRectangle.x1 / widthScale,
+                x1: blackPaddingSizeOnOneSide + savedRectangle.x1 / widthScale,
                 y1: savedRectangle.y1 / heightScale,
-                x2: savedRectangle.x2 / widthScale,
+                x2: blackPaddingSizeOnOneSide + savedRectangle.x2 / widthScale,
                 y2: savedRectangle.y2 / heightScale
             };
 
