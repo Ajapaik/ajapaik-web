@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:05+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:49+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -225,11 +225,11 @@ msgstr "Elokuvastilli"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Annotaatio"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Vahvista aihe"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -237,7 +237,7 @@ msgstr "Vahvista kuvan samankaltaisuus"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "Arvaa kohteen ikä"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -709,7 +709,7 @@ msgstr "Uutiskirjeet"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "Luokittele kasvot"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1199,41 +1199,44 @@ msgstr "Valitettavasti rekisteröityminen on pois käytöstä"
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Epävarma"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Ei ole kasvot"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Tiedot"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "Lapsi"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Aikuinen"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "Vanhus"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Ohita"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Sukupuoli on tällä hetkellä"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "Ikä on tällä hetkellä"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1844,22 +1847,10 @@ msgstr "On julkisuuden henkilö"
 msgid "Subject"
 msgstr "Aihe"
 
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr ""
-
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
-msgstr ""
+msgstr "Tuntematon"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163

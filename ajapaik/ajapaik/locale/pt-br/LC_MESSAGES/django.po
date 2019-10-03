@@ -11,11 +11,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:10+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:55+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -221,7 +221,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Confirmar assunto"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -229,7 +229,7 @@ msgstr "Confirme a similaridade da imagem"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "Adivinha idade do sujeito"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -1191,12 +1191,12 @@ msgstr "Desculpe, mas a inscrição está atualmente fechada."
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Talvez"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Não é um rosto"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
@@ -1204,20 +1204,23 @@ msgid "Info"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Pular"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
@@ -1835,18 +1838,6 @@ msgstr "É uma figura pública"
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
 msgstr "Assunto"
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24

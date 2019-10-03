@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:11+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:57+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -1210,14 +1210,17 @@ msgid "Info"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
 msgstr ""
 
@@ -1841,18 +1844,6 @@ msgstr "Är offentlig person"
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
 msgstr "Ämne"
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24

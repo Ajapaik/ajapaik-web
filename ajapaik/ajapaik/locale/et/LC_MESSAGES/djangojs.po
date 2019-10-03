@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Puik
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:04+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -569,16 +570,16 @@ msgstr "Rakenda albumi filter"
 #, javascript-format
 msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oled saanud %s punkti"
+msgstr[1] "Oled saanud %s punkti"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
-msgstr ""
+msgstr "Sinu pakkumine on muudetud"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
+msgstr "Midagi läks valesti, kontrollige netiühendust. Kui probleem püsib, võtke meiega Tawk.to chati kaudu ühendust, palun."
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -592,8 +593,8 @@ msgstr "Nägude laadimine ebaõnnestus, vabandame."
 #, javascript-format
 msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Annotatsioon lisatud, suur tänu!<br />Oled saanud %s punkti"
+msgstr[1] "Annotatsioon lisatud, suur tänu!<br />Oled saanud %s punkti"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -611,8 +612,8 @@ msgstr "Tagasiside saatmine ebaõnnestus, vabandame."
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Suur tänu!</br>Oled saanud %s punkti"
+msgstr[1] "Suur tänu!</br>Oled saanud %s punkti"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

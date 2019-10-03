@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:03+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:47+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -1200,12 +1200,12 @@ msgstr "We are sorry, but the sign up is currently closed."
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Ikke sikker"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Ikke et ansigt"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
@@ -1213,20 +1213,23 @@ msgid "Info"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "Barn"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Voksen"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "Ældre"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Spring over"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
@@ -1844,18 +1847,6 @@ msgstr "Is public figure"
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
 msgstr "Subject"
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24

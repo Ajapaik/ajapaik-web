@@ -3,6 +3,7 @@
 #
 # Author: Alexander Istomin
 # Author: H2kks
+# Author: Katunchik
 # Author: Movses
 # Author: Okras
 # Author: Puik
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:11+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:56+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -225,11 +226,11 @@ msgstr "Пленка"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Аннотация"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Подтвердите тему"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -237,7 +238,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "Угадайте возраст"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -712,7 +713,7 @@ msgstr "Рассылка"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "Категоризировать лица"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1211,41 +1212,44 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Точно сказать нельзя"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Это не лицо"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Информация"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "Ребенок"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Взрослый"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "Пожилой возраст"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Пропустить"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "В настоящее время указан пол"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "В настоящее время возраст составляет"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1855,18 +1859,6 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Subject"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
 msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:17

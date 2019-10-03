@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:08+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:52+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
@@ -568,16 +568,16 @@ msgstr "Apliché ël fìlter ëd j'àlbom"
 #, javascript-format
 msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A l'ha vagnà %s pont"
+msgstr[1] "A l'ha vagnà %s pont"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
-msgstr ""
+msgstr "Soa suposission a l'é stàita modificà"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
+msgstr "Chheicòs a l'é andàit mal, për piasì ch'a contròla soa conession. Si ël problema a përsist, për piasì ch'an contata su Tawk.to"
 
 #: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
@@ -591,8 +591,8 @@ msgstr "Falì a carié le face, an dëspias."
 #, javascript-format
 msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Anotassion giontà, mersì!<br />A l'ha vagnà %s pont"
+msgstr[1] "Anotassion giontà, mersì!<br />A l'ha vagnà %s pont"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -610,8 +610,8 @@ msgstr "Falì a mandé sò sugeriment, an dëspias."
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mersì!</br>A l'ha vagnà %s pont"
+msgstr[1] "Mersì!</br>A l'ha vagnà %s pont"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

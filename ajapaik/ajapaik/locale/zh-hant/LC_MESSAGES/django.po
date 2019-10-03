@@ -15,11 +15,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:12+0000\n"
+"PO-Revision-Date: 2019-10-03 17:32:58+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -221,11 +221,11 @@ msgstr "劇照"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "註釋"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "確認主題"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -233,7 +233,7 @@ msgstr "確認圖片相似度"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "猜測主題年齡"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -702,7 +702,7 @@ msgstr "簡報"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "分類面孔"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1183,41 +1183,44 @@ msgstr "很抱歉，但註冊目前已關閉。"
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "不確定"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "不是面孔"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "資訊"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
+#: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "兒童"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
+#: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "成人"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
+#: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "上年紀"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "略過"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "目前性別是"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "目前年齡是"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1827,22 +1830,10 @@ msgstr "是公眾人物"
 msgid "Subject"
 msgstr "主題"
 
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Young"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Middleage"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Old"
-msgstr ""
-
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
-msgstr ""
+msgstr "未知"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
