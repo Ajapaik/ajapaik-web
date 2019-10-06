@@ -4,12 +4,9 @@ function getScaledRectangle(popoverRectangleId) {
     var imageAreaCurrentDimensions = ImageAreaSelector.getImageArea()[0].getBoundingClientRect();
     var popoverRectangleDimensions = document.getElementById(popoverRectangleId).getBoundingClientRect();
 
-    var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+    var imageScaledDimensions = getImageScaledDimensions(imageAreaCurrentDimensions);
 
-    var scaledPhotoWidthWithoutPadding = imageAreaCurrentDimensions.height * originalPhotoWidthToHeightRelation;
-    var blackPaddingSizeOnOneSide = (imageAreaCurrentDimensions.width - scaledPhotoWidthWithoutPadding) / 2;
-
-    var x1 = popoverRectangleDimensions.left - imageAreaCurrentDimensions.left - blackPaddingSizeOnOneSide;
+    var x1 = popoverRectangleDimensions.left - imageAreaCurrentDimensions.left - imageScaledDimensions.blackPaddingSizeOnOneSide;
     var y1 = popoverRectangleDimensions.top - imageAreaCurrentDimensions.top;
 
     var rectangle = {
@@ -24,7 +21,7 @@ function getScaledRectangle(popoverRectangleId) {
         height: parseInt(imageAreaCurrentDimensions.height)
     };
 
-    var widthScale = window.currentPhotoOriginalWidth / scaledPhotoWidthWithoutPadding;
+    var widthScale = window.currentPhotoOriginalWidth / imageScaledDimensions.scaledPhotoWidthWithoutPadding;
     var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
 
     return {

@@ -96,17 +96,12 @@ function drawDetectionRectangles(detections, imageArea) {
     setTimeout(function() {
         removeExistingDetectionRectangles();
 
-        var imageAreaCurrentSize = imageArea.getBoundingClientRect();
+        var scaledImageDimensions = getImageScaledDimensions(imageArea.getBoundingClientRect());
 
-        var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+        var currentImageAreaDimensions = scaledImageDimensions.currentImageAreaDimensions;
 
-        var currentImageAreaDimensions = {
-            width: parseInt(imageAreaCurrentSize.width),
-            height: parseInt(imageAreaCurrentSize.height)
-        };
-
-        var scaledPhotoWidthWithoutPadding = currentImageAreaDimensions.height * originalPhotoWidthToHeightRelation;
-        var blackPaddingSizeOnOneSide = (currentImageAreaDimensions.width - scaledPhotoWidthWithoutPadding) / 2;
+        var scaledPhotoWidthWithoutPadding = scaledImageDimensions.scaledPhotoWidthWithoutPadding;
+        var blackPaddingSizeOnOneSide = scaledImageDimensions.blackPaddingSizeOnOneSide;
 
         var widthScale = window.currentPhotoOriginalWidth / scaledPhotoWidthWithoutPadding;
         var heightScale = window.currentPhotoOriginalHeight / currentImageAreaDimensions.height;
@@ -127,6 +122,24 @@ function drawDetectionRectangles(detections, imageArea) {
 
 function refreshAnnotations() {
     getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
+}
+
+function getImageScaledDimensions(imageAreaCurrentSize) {
+    var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+
+    var currentImageAreaDimensions = {
+        width: parseInt(imageAreaCurrentSize.width),
+        height: parseInt(imageAreaCurrentSize.height)
+    };
+
+    var scaledPhotoWidthWithoutPadding = currentImageAreaDimensions.height * originalPhotoWidthToHeightRelation;
+    var blackPaddingSizeOnOneSide = (currentImageAreaDimensions.width - scaledPhotoWidthWithoutPadding) / 2;
+
+    return {
+        scaledPhotoWidthWithoutPadding: scaledPhotoWidthWithoutPadding,
+        blackPaddingSizeOnOneSide: blackPaddingSizeOnOneSide,
+        currentImageAreaDimensions: currentImageAreaDimensions
+    };
 }
 
 function drawNewAnnotationRectangle(img, areaSelection) {

@@ -21,6 +21,20 @@ var DraggableArea = (function () {
     var imageAreaBottom = null;
     var imageAreaRight = null;
 
+    function getAllowedLocationDimensions() {
+        var imageArea = ImageAreaSelector.getImageArea();
+        var currentImageAreaDimensions = imageArea[0].getBoundingClientRect();
+        var scaledImageDimensions = getImageScaledDimensions(currentImageAreaDimensions);
+
+        var maximumAllowedWidth = scaledImageDimensions.scaledPhotoWidthWithoutPadding + scaledImageDimensions.blackPaddingSizeOnOneSide;
+
+        return {
+            maximumAllowedWidthLocation: currentImageAreaDimensions.left + maximumAllowedWidth,
+            maximumAllowedHeightLocation: currentImageAreaDimensions.top + scaledImageDimensions.currentImageAreaDimensions.height,
+            minimalAllowedLeftPosition: scaledImageDimensions.blackPaddingSizeOnOneSide
+        };
+    }
+
     function addTopResizeBorder(annotationRectangle) {
         var resizeDiagonalTopLeftWidth = $('<span>', {
             class: 'resizable-box__vertical-corner',
@@ -181,12 +195,17 @@ var DraggableArea = (function () {
             var rectangleWidth = annotationRectangle.width();
             var rectangleHeight = annotationRectangle.height();
 
-            var isWidthStillWithinImageBounds = imageAreaRight > (newLeft + imageAreaLeft + rectangleWidth + 5);
-            var isHeightStillWithinImageBounds = imageAreaBottom > (newTop + imageAreaTop + rectangleHeight + 5);
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            var currentRectangleRightPosition = initialLeft + rectangleWidth;
+            var currentRectangleBottomPosition = initialTop + rectangleHeight;
+
+            var isWidthStillWithinImageBounds = allowedDimensions.maximumAllowedWidthLocation > currentRectangleRightPosition;
+            var isHeightStillWithinImageBounds = allowedDimensions.maximumAllowedHeightLocation > currentRectangleBottomPosition;
 
             var css = {};
 
-            if (newLeft > 0 && isWidthStillWithinImageBounds) {
+            if (newLeft > allowedDimensions.minimalAllowedLeftPosition && isWidthStillWithinImageBounds) {
                 css.left = newLeft + 'px';
             }
 
@@ -266,16 +285,24 @@ var DraggableArea = (function () {
             var newTop = (initialTop - imageAreaTop) - yDifference;
             var newLeft = (initialLeft - imageAreaLeft) - xDifference;
 
-            var css = {
-                width: newWidth + 'px',
-                height: newHeight + 'px'
-            };
+            var newRight = newLeft + newWidth;
+            var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newWidth > 0) {
+            var css = {};
+
+            if (newWidth > 0 &&
+                newLeft > allowedDimensions.minimalAllowedLeftPosition &&
+                newRight < allowedDimensions.maximumAllowedWidthLocation
+            ) {
                 css.left = newLeft + 'px';
+                css.width = newWidth + 'px';
             }
 
-            if (newHeight > 0) {
+            if (newTop > 0) {
+                css.height = newHeight + 'px';
+            }
+
+            if (newHeight > 0 && newTop > 0) {
                 css.top = newTop + 'px';
             }
 
@@ -293,15 +320,16 @@ var DraggableArea = (function () {
 
             var newTop = (initialTop - imageAreaTop) - yDifference;
 
-            var css = {
-                height: newHeight + 'px'
-            };
+            var newBottom = initialTop + newHeight;
 
-            if (newHeight > 0) {
-                css.top = newTop + 'px';
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            if (newTop > 0 && newHeight > 0 && newBottom < allowedDimensions.maximumAllowedHeightLocation) {
+                annotationRectangle.css({
+                    top: newTop + 'px',
+                    height: newHeight + 'px'
+                });
             }
-
-            annotationRectangle.css(css);
         }
     }
 
@@ -315,15 +343,14 @@ var DraggableArea = (function () {
 
             var newLeft = (initialLeft - imageAreaLeft) - xDifference;
 
-            var css = {
-                width: newWidth + 'px'
-            };
+            var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newWidth > 0) {
-                css.left = newLeft + 'px';
+            if (newWidth > 0 && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
+                annotationRectangle.css({
+                    left: newLeft + 'px',
+                    width: newWidth + 'px'
+                });
             }
-
-            annotationRectangle.css(css);
         }
     }
 
@@ -337,10 +364,22 @@ var DraggableArea = (function () {
             var newHeight = initialHeight - yDifference;
             var newWidth = initialWidth - xDifference;
 
-            annotationRectangle.css({
-                width: newWidth + 'px',
-                height: newHeight + 'px'
-            });
+            var newRight = initialLeft + newWidth;
+            var newBottom = initialTop + newHeight;
+
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            var css = {};
+
+            if (newRight < allowedDimensions.maximumAllowedWidthLocation) {
+                css.width = newWidth + 'px';
+            }
+
+            if (newBottom < allowedDimensions.maximumAllowedHeightLocation) {
+                css.height = newHeight + 'px';
+            }
+
+            annotationRectangle.css(css);
         }
     }
 
@@ -356,13 +395,22 @@ var DraggableArea = (function () {
 
             var newLeft = (initialLeft - imageAreaLeft) - xDifference;
 
-            var css = {
-                width: newWidth + 'px',
-                height: newHeight + 'px'
-            };
+            var newBottom = initialTop + newHeight;
 
-            if (newWidth > 0) {
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            var css = {};
+
+            if (newLeft > allowedDimensions.minimalAllowedLeftPosition) {
+                css.width = newWidth + 'px';
+            }
+
+            if (newWidth > 0 && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
                 css.left = newLeft + 'px';
+            }
+
+            if (newBottom < allowedDimensions.maximumAllowedHeightLocation) {
+                css.height = newHeight + 'px';
             }
 
             annotationRectangle.css(css);
@@ -377,9 +425,15 @@ var DraggableArea = (function () {
 
             var newHeight = initialHeight - yDifference;
 
-            annotationRectangle.css({
-                height: newHeight + 'px'
-            });
+            var newBottom = initialTop + newHeight;
+
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            if (newBottom < allowedDimensions.maximumAllowedHeightLocation) {
+                annotationRectangle.css({
+                    height: newHeight + 'px'
+                });
+            }
         }
     }
 
@@ -395,13 +449,18 @@ var DraggableArea = (function () {
 
             var newTop = (initialTop - imageAreaTop) - yDifference;
 
-            var css = {
-                width: newWidth + 'px',
-                height: newHeight + 'px'
-            };
+            var newRight = initialLeft + newWidth;
+            var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newHeight > 0) {
+            var css = {};
+
+            if (newRight < allowedDimensions.maximumAllowedWidthLocation) {
+                css.width = newWidth + 'px';
+            }
+
+            if (newHeight > 0 && newTop > 0) {
                 css.top = newTop + 'px';
+                css.height = newHeight + 'px';
             }
 
             annotationRectangle.css(css);
@@ -416,9 +475,14 @@ var DraggableArea = (function () {
 
             var newWidth = initialWidth - xDifference;
 
-            annotationRectangle.css({
-                width: newWidth + 'px'
-            });
+            var newRight = initialLeft + newWidth;
+            var allowedDimensions = getAllowedLocationDimensions();
+
+            if (newWidth > 0 && newRight < allowedDimensions.maximumAllowedWidthLocation) {
+                annotationRectangle.css({
+                    width: newWidth + 'px'
+                });
+            }
         }
     }
 
