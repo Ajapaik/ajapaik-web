@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: A Chinese Wikipedian
+# Author: Josephine W.
 # Author: Looong
 # Author: Viztor
 # Author: 予弦
@@ -13,7 +14,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-10-03 17:32:58+0000\n"
+"PO-Revision-Date: 2019-10-07 17:40:33+0000\n"
 "X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1181,7 +1182,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "不确定"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75

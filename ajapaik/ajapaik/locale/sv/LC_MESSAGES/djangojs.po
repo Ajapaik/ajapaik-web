@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-01 14:25:10+0000\n"
+"PO-Revision-Date: 2019-10-07 17:40:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -570,8 +570,8 @@ msgstr "Tillämpa albumfiltrering"
 #, javascript-format
 msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du har fått %s poäng"
+msgstr[1] "Du har fått %s poäng"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -612,8 +612,8 @@ msgstr ""
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tack!</br>Du har fått %s poäng"
+msgstr[1] "Tack!</br>Du har fått %s poäng"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

@@ -3,6 +3,7 @@
 #
 # Author: Abbe98
 # Author: H2kks
+# Author: Haxpett
 # Author: WikiPhoenix
 # --
 # This file is part of the Ajapaik Project
@@ -14,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-03 17:32:57+0000\n"
+"PO-Revision-Date: 2019-10-07 17:40:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -31,7 +32,7 @@ msgstr "Invertera färger"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "Gränsvärden måste sättas"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
@@ -207,7 +208,7 @@ msgstr "Fotografi urval"
 
 #: ajapaik/ajapaik/models.py:1024
 msgid "Photo re-curation"
-msgstr ""
+msgstr "Urval av fotografier"
 
 #: ajapaik/ajapaik/models.py:1025
 msgid "Dating"
@@ -707,7 +708,7 @@ msgstr "Nyhetsbrev"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "Kategorisera ansikten"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1197,17 +1198,17 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Osäker"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Inte ett ansikte"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/models.py:14
@@ -1226,7 +1227,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Hoppa över"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"

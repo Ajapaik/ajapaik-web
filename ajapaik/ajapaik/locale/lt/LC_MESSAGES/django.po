@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-10-03 17:32:51+0000\n"
+"PO-Revision-Date: 2019-10-07 17:40:28+0000\n"
 "X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,11 +215,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Anotacija"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Patvirtinti temą"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -227,7 +227,7 @@ msgstr "Patvirtinti Paveikslėlio panašumą"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "Spėkite subjekto amžių"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -1206,12 +1206,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Ne Veidas"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Informacija"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/models.py:14
@@ -1221,7 +1221,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
 #: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Suaugęs"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
 #: ajapaik/ajapaik_face_recognition/models.py:16
@@ -1230,15 +1230,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Praleisti"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Šiuo metu lytis yra"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "Šiuo metu amžius yra"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6

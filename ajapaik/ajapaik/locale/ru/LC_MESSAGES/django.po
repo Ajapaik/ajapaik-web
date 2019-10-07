@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-03 17:32:56+0000\n"
+"PO-Revision-Date: 2019-10-07 17:40:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/admin.py:103
 msgid "Invert colors"
-msgstr ""
+msgstr "Инвертировать цвета"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -83,7 +83,7 @@ msgstr "Лицензия"
 
 #: ajapaik/ajapaik/forms.py:379
 msgid "I am the author"
-msgstr ""
+msgstr "Я автор"
 
 #: ajapaik/ajapaik/forms.py:391
 msgid "Missing image"
@@ -103,7 +103,7 @@ msgstr "Родительский альбом"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr ""
+msgstr "Местоположение"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "If this album is tied to a certain location, specify here"
@@ -579,7 +579,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr ""
+msgstr "Поддержать Ajapaik"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
@@ -596,7 +596,7 @@ msgstr "Так же смотрите - Sift.pics"
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr ""
+msgstr "Выйти"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -717,7 +717,7 @@ msgstr "Категоризировать лица"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
-msgstr ""
+msgstr "Текущий выбор"
 
 #: ajapaik/ajapaik/templates/_header.html:70
 msgid "Choose language"
@@ -754,7 +754,7 @@ msgstr "Альбом курируется"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
-msgstr ""
+msgstr "Список лидеров по вкладу"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:27
 #, python-format
@@ -969,14 +969,14 @@ msgstr "Перевернуть зеркально фото"
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
-msgstr ""
+msgstr "похожее фото"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
-msgstr ""
+msgstr "дубликат фото"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1069,7 +1069,7 @@ msgstr "Дата фотографии"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Сравнить изображения"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -1091,11 +1091,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Сообщения"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1107,7 +1107,7 @@ msgstr "Изменить пароль"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
-msgstr ""
+msgstr "Социальные связи"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1187,7 +1187,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ваш пароль был изменён."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1458,7 +1458,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos.html:68
 msgid "Same shot"
-msgstr ""
+msgstr "То же изображение"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
@@ -1571,7 +1571,7 @@ msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "Викисклад"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
