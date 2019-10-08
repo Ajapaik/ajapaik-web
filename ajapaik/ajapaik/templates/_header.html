@@ -28,37 +28,37 @@
                 </a>
                 {% if album %}
                     <a role="button" class="ajapaik-header-button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %}>
-                        <i class="material-icons notranslate ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
                     </a>
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Show on map' %}"
                     href="{% if album %}/map/?album={{ album.0 }}{% else %}#{% endif %}"
                     id="ajapaik-header-map-button">
-                    <i class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
+                    <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                 </a>
                 {% if is_frontpage %}
                     <a role="button" class="ajapaik-header-button" title="{% trans 'List face recognition albums' %}"
                         href="#"
                         id="ajapaik-header-people-button">
-                            <i class="notranslate material-icons ajapaik-gray-button{% if request.GET.people == '1' %} ajapaik-text-white{% endif %}">people</i>
+                            <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.people == '1' %} ajapaik-text-white{% endif %}">people</i>
                     </a>
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"
                     href="{% url "photo_upload_choice" %}">
-                    <i class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
+                    <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
                 </a>
                 {% if is_newsletter %}
                     <a id="ajapaik-header-newsletter" role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/">
-                        <i class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
                     </a>
                 {% endif %}
                 {% if is_frontpage %}
                 <a id="ajapaik-header-face" role="button" title="{% trans 'Categorize faces' %}" href="/face-recognition/subject-data" target="_blank">
-                        <i class="material-icons notranslate ajapaik-gray-button">face</i>
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
                 </a>
                 {% endif %}
                 <a class="ajapaik-header-button{% if not request.session.photo_selection %} d-none{% endif %}" id="ajapaik-header-selection-indicator" role="button" title="{% trans 'Current selection' %}" href="/view-selection">
-                    <i class="material-icons notranslate ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
+                    <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
                     <span class="badge">{{ request.session.photo_selection|length }}</span>
                 </a>
             </div>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <a class="ajapaik-header-right-button" role="button" title="{% trans 'About Ajapaik' %}" id="ajapaik-header-about-button">
-                        <i class="material-icons notranslate ajapaik-gray-button">info</i>
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button">info</i>
                 </a>
                 <a class="ajapaik-header-right-button" href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@
                 </a>
                 <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                 id="ajapaik-header-profile-button" class="ajapaik-no-background">
-                    <i class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajapaik-text-white{% endif %}">account_circle</i>
+                    <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajapaik-text-white{% endif %}">account_circle</i>
                 </a>
 
                 <div class="score_container">
