@@ -1,124 +1,126 @@
 {% load i18n staticfiles %}
-<div class="container pt-5" id="ajapaik-curator-header-tabs">
-    <div class="pt-4" role="tabpanel" id="ajapaik-curator-tabpanel">
-        <ul class="nav nav-tabs mt-3" role="tablist" id="ajapaik-curator-tabs">
-            <li role="presentation" class="active">
-                <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab"
-                    role="tab"
-                    data-toggle="tab">{% trans "Search" %}
-                    <span class="badge curator-badge" id="ajapaik-curator-result-count">0</span>
-                </a>
-            </li>
-            <li role="presentation">
-                <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab"
-                    role="tab"
-                    data-toggle="tab">{% trans "Selection" %}
-                    <span class="badge curator-badge" id="ajapaik-curator-selection-size">0</span>
-                </a>
-            </li>
-            <li role="presentation">
-                <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab"
-                    role="tab"
-                    data-toggle="tab">{% trans "My albums" %}
-                    <span class="badge curator-badge" id="ajapaik-curator-my-albums-size">0</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
-            <div class="row" id="ajapaik-curator-search-controls p-2">
-                <div class="col-xl-6 my-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="ajapaik-curator-full-search"
-                                placeholder="{% trans "Full search" %}">
+{% if request.user.profile.is_legit %}
+    <div class="container pt-5" id="ajapaik-curator-header-tabs">
+        <div class="pt-4" role="tabpanel" id="ajapaik-curator-tabpanel">
+            <ul class="nav nav-tabs mt-3" role="tablist" id="ajapaik-curator-tabs">
+                <li role="presentation" class="active">
+                    <a href="#ajapaik-curator-results-tab" aria-controls="ajapaik-curator-results-tab"
+                        role="tab"
+                        data-toggle="tab">{% trans "Search" %}
+                        <span class="badge curator-badge" id="ajapaik-curator-result-count">0</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#ajapaik-curator-selection-tab" aria-controls="ajapaik-curator-selection-tab"
+                        role="tab"
+                        data-toggle="tab">{% trans "Selection" %}
+                        <span class="badge curator-badge" id="ajapaik-curator-selection-size">0</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#ajapaik-curator-my-albums-tab" aria-controls="ajapaik-curator-my-albums-tab"
+                        role="tab"
+                        data-toggle="tab">{% trans "My albums" %}
+                        <span class="badge curator-badge" id="ajapaik-curator-my-albums-size">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="ajapaik-curator-results-tab">
+                <div class="row" id="ajapaik-curator-search-controls p-2">
+                    <div class="col-xl-6 my-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ajapaik-curator-full-search"
+                                    placeholder="{% trans "Full search" %}">
+                        </div>
+                    </div>
+                    <div class="col-xs-2 m-2">
+                        <button type="button" class="btn btn-primary btn-block"
+                                id="ajapaik-curator-search-button">
+                            {% trans "Search!" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2 m-2" id="ajapaik-curator-load-more-row">
+                        <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
+                            {% trans "Load more" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2 m-2">
+                        <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
+                            {% trans "Select all" %}
+                        </button>
+                    </div>
+                    <div class="input-group ml-2">
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-filter-existing"
+                                    checked="checked">
+                                {% trans "Filter existing" %}
+                        </span>
+                        <span class="m-2 d-none">
+                            <input type="checkbox" id="ajapaik-curator-search-use-muis">
+                            {% trans "MUIS" %}
+                        </span>
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-digar">
+                            {% trans "DIGAR" %}
+                        </span>
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-mka">
+                            {% trans "MKA" %}
+                        </span>
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-etera">
+                            {% trans "ETERA" %}
+                        </span>
+                        <span class="m-2 d-none">
+                            <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-utlib">
+                            {% trans "UTLIB" %}
+                        </span>
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-use-fotis" checked>
+                            {% trans "Fotis" %}
+                        </span>
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-use-finna" >
+                            {% trans "Finna" %}
+                        </span>
+                        <span class="m-2">
+                            <input type="checkbox" id="ajapaik-curator-search-use-commons" >
+                            {% trans "Wikimedia Commons" %}
+                        </span>
+                        {% if CURATOR_EUROPEANA_ENABLED %}
+                            <span class="m-2">
+                                <input type="checkbox" id="ajapaik-curator-search-use-europeana" >
+                                {% trans "Europeana" %}
+                            </span>
+                        {% endif %}
+                        {% if CURATOR_FLICKR_ENABLED %}
+                            <span class="m-2">
+                                <input type="checkbox" id="ajapaik-curator-search-use-flickr" >
+                            {% trans "Flickr Commons" %}
+                            </span>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-xs-2 m-2">
-                    <button type="button" class="btn btn-primary btn-block"
-                            id="ajapaik-curator-search-button">
-                        {% trans "Search!" %}
-                    </button>
-                </div>
-                <div class="col-xs-2 m-2" id="ajapaik-curator-load-more-row">
-                    <button type="button" class="btn btn-primary btn-block ajapaik-curator-load-more">
-                        {% trans "Load more" %}
-                    </button>
-                </div>
-                <div class="col-xs-2 m-2">
-                    <button type="button" class="btn btn-primary btn-block" id="ajapaik-curator-select-all">
-                        {% trans "Select all" %}
-                    </button>
-                </div>
-                <div class="input-group ml-2">
-                    <span class="m-2">
-                        <input type="checkbox" id="ajapaik-curator-search-filter-existing"
-                                checked="checked">
-                            {% trans "Filter existing" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" id="ajapaik-curator-search-use-muis">
-                        {% trans "MUIS" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-digar">
-                        {% trans "DIGAR" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-mka">
-                        {% trans "MKA" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-etera">
-                        {% trans "ETERA" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajapaik-curator-search-use-utlib">
-                        {% trans "UTLIB" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajapaik-curator-search-use-fotis" checked>
-                        {% trans "Fotis" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajapaik-curator-search-use-finna" >
-                        {% trans "Finna" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajapaik-curator-search-use-commons" >
-                        {% trans "Wikimedia Commons" %}
-                    </span>
-                    {% if CURATOR_EUROPEANA_ENABLED %}
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-europeana" >
-                            {% trans "Europeana" %}
-                        </span>
-                    {% endif %}
-                    {% if CURATOR_FLICKR_ENABLED %}
-                        <span class="m-2">
-                            <input type="checkbox" id="ajapaik-curator-search-use-flickr" >
-                        {% trans "Flickr Commons" %}
-                        </span>
-                    {% endif %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
+                <div class="row" id="ajapaik-curator-selection-controls">
+                    <div class="col-xs-2 p-2">
+                        <button type="button" class="btn btn-primary btn-block"
+                                id="ajapaik-curator-clear-selection">
+                            {% trans "Clear selection" %}
+                        </button>
+                    </div>
+                    <div class="col-xs-2 p-2">
+                        <button type="button" class="btn btn-success btn-block"
+                                id="ajapaik-curator-submit-selection">
+                            {% trans "Submit selection to Ajapaik" %}
+                        </button>
+                    </div>
                 </div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-selection-tab">
-            <div class="row" id="ajapaik-curator-selection-controls">
-                <div class="col-xs-2 p-2">
-                    <button type="button" class="btn btn-primary btn-block"
-                            id="ajapaik-curator-clear-selection">
-                        {% trans "Clear selection" %}
-                    </button>
-                </div>
-                <div class="col-xs-2 p-2">
-                    <button type="button" class="btn btn-success btn-block"
-                            id="ajapaik-curator-submit-selection">
-                        {% trans "Submit selection to Ajapaik" %}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="ajapaik-curator-my-albums-tab"></div>
     </div>
-</div>
+{% endif %}
