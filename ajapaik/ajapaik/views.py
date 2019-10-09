@@ -84,17 +84,11 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 # User checks
-def user_has_confirmed_email(user):
-	ok = True
-	if not hasattr(user, 'email'):
-		ok = False
+def user_is_legit(user):
+	if user != None and user.profile != None:
+		return user.profile.is_legit() and 2 == 3
 	else:
-		if not user.email:
-			ok = False
-
-# FIXME Workaround not all Socialauth users have confirmed email
-	ok = True
-	return ok and user.is_active
+		return False
 
 
 @cache_control(max_age=604800)
@@ -1055,7 +1049,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
 	return context
 
-
 def photo_selection(request):
 	form = PhotoSelectionForm(request.POST)
 	if 'photo_selection' not in request.session:
@@ -1074,7 +1067,7 @@ def photo_selection(request):
 
 	return HttpResponse(json.dumps(request.session['photo_selection']), content_type="application/json")
 
-
+@user_passes_test(user_is_legit, login_url='/accounts/login/?next=view-selection')
 def list_photo_selection(request):
 	photos = None
 	at_least_one_photo_has_location = False
@@ -1651,7 +1644,7 @@ def geotag_confirm(request):
 
 	return HttpResponse(json.dumps(context), content_type="application/json")
 
-
+@user_passes_test(user_is_legit, login_url='/accounts/login/?next=leaderboard')
 def leaderboard(request, album_id=None):
 	# Leader-board with first position, one in front of you, your score and one after you
 	album_leaderboard = None
@@ -1853,8 +1846,7 @@ def public_add_area(request):
 
 
 @ensure_csrf_cookie
-#Commented out because there is sociallogin users without confirmed email
-#@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=curator')
+@user_passes_test(user_is_legit, login_url='/accounts/login/?next=curator')
 def curator(request):
 	last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
 	# FIXME: Ugly
@@ -2772,7 +2764,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 	}
 	return render(request,'compare_photos.html', context)
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
+@user_passes_test(user_is_legit, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
 	context = {
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
@@ -2808,7 +2800,7 @@ def user_upload(request):
 	return render(request, 'user_upload.html', context)
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
+@user_passes_test(user_is_legit, login_url='/accounts/login/?next=user-upload-add-album')
 def user_upload_add_album(request):
 	context = {
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
