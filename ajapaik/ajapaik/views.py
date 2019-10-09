@@ -83,20 +83,6 @@ log = logging.getLogger(__name__)
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
-# User checks
-def user_has_confirmed_email(user):
-	ok = True
-	if not hasattr(user, 'email'):
-		ok = False
-	else:
-		if not user.email:
-			ok = False
-
-# FIXME Workaround not all Socialauth users have confirmed email
-	ok = True
-	return ok and user.is_active
-
-
 @cache_control(max_age=604800)
 def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
 	thumb_size = int(thumb_size)
@@ -1853,8 +1839,6 @@ def public_add_area(request):
 
 
 @ensure_csrf_cookie
-#Commented out because there is sociallogin users without confirmed email
-#@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=curator')
 def curator(request):
 	last_created_album = Album.objects.filter(is_public=True).order_by('-created').first()
 	# FIXME: Ugly
@@ -2772,7 +2756,6 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 	}
 	return render(request,'compare_photos.html', context)
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload')
 def user_upload(request):
 	context = {
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
@@ -2808,7 +2791,6 @@ def user_upload(request):
 	return render(request, 'user_upload.html', context)
 
 
-@user_passes_test(user_has_confirmed_email, login_url='/accounts/login/?next=user-upload-add-album')
 def user_upload_add_album(request):
 	context = {
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
