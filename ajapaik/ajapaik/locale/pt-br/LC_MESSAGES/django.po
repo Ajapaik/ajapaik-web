@@ -11,12 +11,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-03 17:32:55+0000\n"
+"PO-Revision-Date: 2019-10-14 15:16:08+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
-"X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -217,7 +217,7 @@ msgstr "Filme ainda"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Anotação"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
@@ -701,7 +701,7 @@ msgstr "Boletins informativos"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "Categorizar faces"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -1201,22 +1201,22 @@ msgstr "Não é um rosto"
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Informação"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "Criança"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
 #: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Adulto"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
 #: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "Idosos"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
@@ -1224,11 +1224,11 @@ msgstr "Pular"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Atualmente, o gênero é"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "Atualmente a idade é"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1842,7 +1842,7 @@ msgstr "Assunto"
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
-msgstr ""
+msgstr "Tundmatu"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163

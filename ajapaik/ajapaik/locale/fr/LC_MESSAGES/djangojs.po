@@ -15,12 +15,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-07 17:40:26+0000\n"
+"PO-Revision-Date: 2019-10-14 15:15:56+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
-"X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
@@ -610,8 +610,8 @@ msgstr "Échec d’envoi de votre avis, désolé."
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] "Merci !</br>Vous avez gagné %s point"
-msgstr[1] "Merci !</br>Vous avez gagné %s points"
+msgstr[0] "Merci !<br /> Vous avez gagné %s point"
+msgstr[1] "Merci !<br /> Vous avez gagné %s points"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

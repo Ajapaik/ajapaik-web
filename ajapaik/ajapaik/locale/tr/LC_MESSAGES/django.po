@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: BaRaN6161 TURK
+# Author: Grkn gll
 # Author: H2kks
 # Author: Hedda
 # Author: Mirzali
@@ -14,12 +15,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-03 17:32:57+0000\n"
+"PO-Revision-Date: 2019-10-14 15:16:11+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
-"X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -220,11 +221,11 @@ msgstr "Film hala"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Ek açıklama"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Konuyu onayla"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -232,7 +233,7 @@ msgstr "Görüntü benzerliğini onayla"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "Tahmini konu yaşı"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -622,7 +623,7 @@ msgstr ""
 #, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] ""
+msgstr[0] "<b>%(user_geotagged_photos)s</b> resmi için konum önerdiniz."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
 #, python-format
@@ -634,11 +635,11 @@ msgstr[0] ""
 #, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] ""
+msgstr[0] "<b>%(user_rephotographed_photos)s</b> resmi."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
-msgstr ""
+msgstr "Genel istatistikler her 10 dakikada bir yenilenir."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
@@ -697,7 +698,7 @@ msgstr "Fotoğraf ekle"
 
 #: ajapaik/ajapaik/templates/_header.html:51
 msgid "Newsletters"
-msgstr ""
+msgstr "Haber bültenleri"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
@@ -941,7 +942,7 @@ msgstr "Fotoğrafı çevir"
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
-msgstr ""
+msgstr "benzer fotoğraf"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
@@ -1039,7 +1040,7 @@ msgstr "Çekim tarihi"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Resimleri karşılaştırın"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -1047,7 +1048,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
+msgstr "Karar klavyede de verilebilir (1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1061,11 +1062,11 @@ msgstr "Parolanızı mı unuttunuz?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Mesajlar"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1073,11 +1074,11 @@ msgstr "E-posta'yı değiştir"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
-msgstr ""
+msgstr "Parolayı değiştir"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
-msgstr ""
+msgstr "Socialaccount bağlantıları"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1127,15 +1128,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr ""
+msgstr "Parolamı sıfırla"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "Şifrenizi sıfırlamakta sorun yaşıyorsanız lütfen bizimle iletişime geçin."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr ""
+msgstr "Size bir e-posta gönderdik. Eğer birkaç dakika içerisinde ulaşmazsa lütfen bizimle iletişime geçin."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1152,23 +1153,23 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr ""
+msgstr "Parola sıfırlama bağlantısı geçersizdi, muhtemelen zaten kullanılıyordu. Lütfen <a href=\"%(passwd_reset_url)s\">yeni bir parola sıfırlama</a> isteyin."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Parolanız şuan değiştirildi."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Kaydol"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "Zaten bir hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">oturum açın</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
@@ -1177,22 +1178,22 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Üzgünüz, ancak kayıt şu anda kapalı."
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:48
 #: ajapaik/ajapaik/templates/add_subject_data.html:72
 msgid "Not sure"
-msgstr ""
+msgstr "Emin değilim"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:51
 #: ajapaik/ajapaik/templates/add_subject_data.html:75
 msgid "Not a Face"
-msgstr ""
+msgstr "Yüz değil"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:54
 #: ajapaik/ajapaik/templates/add_subject_data.html:78
 msgid "Info"
-msgstr ""
+msgstr "Bilgi"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/models.py:14
@@ -1202,7 +1203,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
 #: ajapaik/ajapaik_face_recognition/models.py:15
 msgid "Adult"
-msgstr ""
+msgstr "Yetişkin"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
 #: ajapaik/ajapaik_face_recognition/models.py:16
@@ -1211,7 +1212,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
-msgstr ""
+msgstr "Atla"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
@@ -1293,7 +1294,7 @@ msgstr "tarihi, resimler, eski, fotoğraf"
 #: ajapaik/ajapaik/templates/base_bootstrap.html:53
 #: ajapaik/ajapaik/templates/base_bootstrap.html:55
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr "tarihi, resimler, eski, fotoğraf, harita, coğrafi etiketli, yer"
+msgstr "tarihi, resimler, eski, fotoğraflar, harita, coğrafi etiketli, konum"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:59
 #: ajapaik/ajapaik/templates/base_bootstrap.html:61
@@ -1430,7 +1431,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "Tüm benzer resim çiftlerini zaten incelediniz."
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
@@ -1701,7 +1702,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
 msgid "Account Connections"
-msgstr ""
+msgstr "Hesap Bağlantıları"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -1709,7 +1710,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
 msgid "You currently have no social network accounts connected to this account."
-msgstr ""
+msgstr "Şu anda bu hesaba bağlı sosyal medya hesabınız yok."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
@@ -1837,12 +1838,12 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritma"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:164
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"

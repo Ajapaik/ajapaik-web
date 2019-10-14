@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Portuguese (português)
 # Exported from translatewiki.net
 #
+# Author: Hamilton Abreu
 # Author: Mansil alfalb
 # --
 # This file is part of the Ajapaik Project
@@ -9,12 +10,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-10-03 17:32:54+0000\n"
+"PO-Revision-Date: 2019-10-14 15:16:07+0000\n"
 "X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"X-Generator: MediaWiki 1.34.0-alpha; Translate 2019-04-24\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:103
@@ -1006,7 +1007,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
 #: ajapaik/ajapaik/templates/user_upload.html:23
 msgid "Upload"
-msgstr "Enviar"
+msgstr "Carregar"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:28
 msgid "Select file..."
@@ -1422,7 +1423,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:64
 #: ajapaik/ajapaik/templates/curator.html:134
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:58
 msgid "No content overlap"
