@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: H2kks
 # Author: KK
+# Author: Nike
 # Author: Pyscowicz
 # Author: Zache
 # --
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-14 15:15:56+0000\n"
+"PO-Revision-Date: 2019-10-17 17:53:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1164,7 +1165,7 @@ msgstr "Muuta salasana"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Epäkelpo tunniste"
+msgstr "Virheellinen poletti"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
