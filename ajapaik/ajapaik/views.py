@@ -1443,8 +1443,12 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context["title"] = area.name + " - " + _("Browse photos on map")
 	else:
 		context["title"] = _("Browse photos on map")
-
-	return render(request, "mapview.html", context)
+	if(request.path.find("map-tablet") > 0):
+		context["is_tabletview"] = True
+		return render(request, "tablet_mapview.html", context)
+	else:
+		context["is_tabletview"] = request.path.find("map-tablet")
+		return render(request, "mapview.html", context)
 
 
 def map_objects_by_bounding_box(request):

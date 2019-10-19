@@ -240,6 +240,9 @@
     window.syncMapStateToURL = function () {
         // FIXME: Do this more elegantly
         var historyReplacementString = '/map/';
+        if(window && window.location && window.location.pathname.search("map-tablet") > -1){
+            var historyReplacementString = '/map-tablet/';
+        }
         if (currentlySelectedMarker) {
             historyReplacementString += 'photo/' + currentlySelectedMarker.photoData.id + '/';
         }
@@ -257,8 +260,11 @@
             historyReplacementString += '&lng=' + window.map.getCenter().lng();
             historyReplacementString += '&zoom=' + window.map.zoom;
             if (typeId === 'old-maps') {
-                historyReplacementString += '&old-maps-city=' + commonVgmapi.vars.site;
-                historyReplacementString += '&old-maps-index=' + commonVgmapi.vars.layerIndex;
+                historyReplacementString += '&maps-city=' + commonVgmapi.vars.site;
+                historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
+            }
+            if (typeId === 'old-helsinki') {
+                historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
             }
         }
         if (photoDrawerOpen || window.guessLocationStarted) {
@@ -272,13 +278,6 @@
         if (window.guessLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
-        // TODO: Take datings into use, they've been live long enough
-        //if (window.datingStart) {
-        //    historyReplacementString += '&starting=' + window.datingStart;
-        //}
-        //if (window.datingEnd) {
-        //    historyReplacementString += '&ending=' + window.datingEnd;
-        //}
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
         }
@@ -538,6 +537,10 @@
                 var photoId = $(event.target).data('id');
                 highlightSelected(findMarkerByPhotoId(photoId));
             });
+            $('#ajapaik-photo-pane-content-container').on('click', '.ajapaik-mapview-pane-photo-basic-container img', function (event) {
+                var photoId = $(event.target).data('id');
+                highlightSelected(findMarkerByPhotoId(photoId));
+            });
         } else {
             var targetDiv = $('#ajapaik-photo-pane-content-container');
             targetDiv.append(
@@ -714,6 +717,12 @@
 
     window.initializeMapStateFromOptionalURLParameters = function () {
         var urlMapType = window.getQueryParameterByName('mapType');
+        if(this.isTabletView && urlMapType === 'old-maps'){
+            urlMapType = 'old-helsinki';
+        }
+        if(!this.isTabletView && urlMapType === 'old-helsinki'){
+            urlMapType = 'old-maps';
+        }
         // FIXME: What is fromSelect?
         if (window.getQueryParameterByName('fromSelect')) {
             if (window.albumLatLng) {
@@ -747,12 +756,6 @@
                     window.getMap(null, 16, false, urlMapType);
                 }
             }
-            //if (window.getQueryParameterByName('starting')) {
-            //    window.datingStart = window.getQueryParameterByName('starting');
-            //}
-            //if (window.getQueryParameterByName('ending')) {
-            //    window.datingEnd = window.getQueryParameterByName('ending');
-            //}
             if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
                 window.userClosedRephotoTools = true;
                 window.loadPhoto(window.preselectPhotoId);
@@ -841,6 +844,10 @@
             });
         }
         $(document).on('click', '.ajapaik-mapview-pane-photo-container', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        $(document).on('click', '.ajapaik-mapview-pane-photo-basic-container', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });

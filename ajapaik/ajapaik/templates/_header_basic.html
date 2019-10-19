@@ -1,0 +1,24 @@
+{% load i18n ajapaik_templatetags static %}
+
+<nav class="navbar navbar-default navbar-fixed-top ajapaik-navbar w-100 py-0">
+    <a class="navbar-brand ajapaik-brand px-3" title="{% trans "Back to homepage" %}" style="display: block !important;">
+        Ajapaik
+    </a>
+    <div class="row container-fluid pb-2" style="height: 60px;">
+        <div class="ajapaik-header-right-button dropdown d-inline-block align-top pt-2" style="position: absolute; right: 50px;">
+            {% get_language_info for LANGUAGE_CODE as lang %}
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle ajapaik-no-background ajapaik-text-white"
+            title="{% trans 'Choose language' %}">
+                {{ lang.code|upper }}
+            </a>
+            <div class="dropdown-menu p-0">
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <a href="#" class="list-group-item ajapaik-change-language-link" data-lang-code="{{ language.code }}">
+                        {{ language.name_local|title }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</nav>

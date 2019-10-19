@@ -110,7 +110,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             });
         });
     };
-    this.buildVanalinnadMapYearControl = function () {
+    this.buildMapYearControl = function () {
         if (that.yearSelection) {
             that.yearSelection.parentElement.removeChild(that.yearSelection);
         }
@@ -159,7 +159,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
                 that.map.setZoom(12);
             }
             that.getCityData(function () {
-                that.buildVanalinnadMapYearControl();
+                that.buildMapYearControl();
                 that.showControls();
                 that.changeIndex(0);
             });

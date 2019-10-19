@@ -1,0 +1,19 @@
+{% verbatim %}
+    <script id="ajapaik-map-view-side-panel-element-template" type="text/x-tmpl">
+        {% if(o.length >0){ %}
+            {% for (var i = 0; i<o.length; i++) { %}
+                <a id="element{%=o[i].id%}" class="ajapaik-mapview-pane-photo-basic-container w-100 mb-2" href="{%=o[i].permalink%}"
+                data-id="{%=o[i].id%}" onclick="return false;">
+                    <img class="w-100" src="{%=o[i].url%}"
+                        alt="{%=o[i].description%}"
+                        title="{%=o[i].description%}"
+                        data-id="{%=o[i].id%}"
+                        class="img-fluid"
+                        onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
+                        onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
+                        onload="checkLoadedSidePanelPhotos(this)"/>
+                </a>
+            {% } %}
+        {% } %}
+    </script>
+{% endverbatim %}

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block header %}
-    {% include "_header.html" %}
+    {% include "_header_basic.html" %}
 {% endblock %}
 {% block layout %}
 <div class="full-box original-full-box">
@@ -103,7 +103,6 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        $(".ajapaik-brand").removeAttr('href');
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);

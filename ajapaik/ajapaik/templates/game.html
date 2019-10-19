@@ -2,6 +2,7 @@
 {% load i18n compress static %}
 
 {% block header %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -79,7 +80,6 @@
         </div>
     </div>
     <div class="w-100">
-        {% include "_header.html" %}
         <div id="ajapaik-map-container">
             <div id="ajapaik-map-canvas"></div>
         </div>
