@@ -189,6 +189,10 @@ var ImageAreaSelector = (function () {
         getImageArea: function() {
             return imageAreaReferenceForExternalReference;
         },
+        setImageArea: function(imageAreaId) {
+            imageArea = $('#' + imageAreaId);
+            imageAreaReferenceForExternalReference = imageArea;
+        },
         startImageAreaSelection: function (imageAreaId, onSelect, onCancel) {
             imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
             imageAreaReferenceForExternalReference = imageArea;

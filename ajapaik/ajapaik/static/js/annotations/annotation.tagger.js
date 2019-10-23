@@ -64,12 +64,44 @@ var ObjectTagger = {
 
         togglePopover(detectionRectangle.id);
     },
+    drawBoxForMobileSelection: function(onSelectionEnd) {
+        ImageAreaSelector.setImageArea(this.imageAreaId);
+        var imageArea = document.getElementById(this.imageAreaId);
+
+        var overallImageAreaHeight = imageArea.getBoundingClientRect().height;
+        var overallImageAreaWidth = imageArea.getBoundingClientRect().width;
+
+        var boxToBeDrawnHeight = overallImageAreaHeight * 0.2;
+        var boxToBeDrawnWidth = overallImageAreaWidth * 0.2;
+
+        var imageCenterWidth = overallImageAreaWidth / 2;
+        var imageCenterHeight = overallImageAreaHeight / 2;
+
+        var halfOfBoxHeight = boxToBeDrawnHeight / 2;
+        var halfOfBoxWidth = boxToBeDrawnWidth / 2;
+
+        onSelectionEnd(
+            imageArea,
+            {
+                x1: imageCenterWidth - halfOfBoxWidth,
+                x2: imageCenterWidth + halfOfBoxWidth,
+                y1: imageCenterHeight - halfOfBoxHeight,
+                y2: imageCenterHeight + halfOfBoxHeight
+            }
+        );
+    },
     startCropping: function () {
+        var onSelectionEnd = this.handleNewRectangleDrawn.bind(this);
+
+        if (window.isMobile) {
+            this.drawBoxForMobileSelection(onSelectionEnd);
+            return;
+        }
+
         disableImageSubmitControls();
 
         this.isInCropMode = true;
 
-        var onSelectionEnd = this.handleNewRectangleDrawn.bind(this);
         var onSelectionCancel = this.stopCropping.bind(this);
 
         ImageAreaSelector.startImageAreaSelection(this.imageAreaId, onSelectionEnd, onSelectionCancel);
