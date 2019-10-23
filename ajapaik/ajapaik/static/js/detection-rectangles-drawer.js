@@ -91,8 +91,6 @@ function removeExistingDetectionRectangles() {
 function drawDetectionRectangles(detections, imageArea) {
     $('.popover').remove();
 
-    var hasDrawnNewAnnotations = createAnnotationFilters(detections);
-
     setTimeout(function() {
         removeExistingDetectionRectangles();
 

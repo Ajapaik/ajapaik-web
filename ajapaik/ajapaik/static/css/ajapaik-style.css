@@ -157,7 +157,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 
 .ajapaik-navbar {
   position: fixed;
-  background: #303030 none;
+  background: rgba(0, 0, 0, 0.8) none;
   border-width: 0 0 0 0;
   z-index: 100;
   margin-bottom: 0 !important;
@@ -1001,7 +1001,6 @@ a.fullscreen {
 
 #ajapaik-photoview-main-photo {
   max-height: 70vh;
-  width: 100%;
 }
 
 #ajapaik-game-modal-photo {
@@ -1326,8 +1325,7 @@ a.fullscreen {
 .ajapaik-compare-similar-overlay-button {
   display: block;
   transition: opacity 0.2s ease-out;
-  right: 0;
-  bottom: 0;
+  right: 0px;
 }
 
 .ajapaik-compare-similar-overlay-button > i {
@@ -1452,7 +1450,7 @@ a.fullscreen {
 #ajapaik-photoview-container > .row > #ajapaik-photo-modal-map-container > #ajapaik-photo-modal-map-canvas {
   height: calc(100% - 65px);
 }
- 
+
 .modal-content {
   max-width: 99vw !important;
 }
@@ -1604,10 +1602,12 @@ a.fullscreen {
 }
 
 #ajapaik-photoview-start-dating-button > #ajapaik-photoview-datings-count {
-  position: absolute;
+  position: relative;
   margin: 0;
-  right: -7px;
-  bottom: 0;
+  left: 32px;
+  top: -26px;
+  right: auto;
+  bottom: auto;
 }
 
 #ajapaik-photo-modal-start-dating-button,
@@ -1723,21 +1723,11 @@ a.fullscreen {
   text-align: left;
 }
 
-@media (max-width: 767px) {
-  #ajapaik-photoview-container {
-    min-height: 85vh;
-    margin-top: 20px;
-  }
+#ajapaik-photoview-container {
+  min-height: 85vh;
+  margin-top: 20px;
+  margin-left: 10px;
 }
-
-@media (min-width: 768px) {
-  #ajapaik-photoview-container {
-    min-height: 85vh;
-    margin-top: 20px;
-    padding-left: 110px;
-  }
-}
-
 #ajapaik-photoview-container .col-xs-6 {
   min-width: 280px;
 }
@@ -1790,7 +1780,8 @@ ul.errorlist,
   display: inline;
 }
 
-#ajapaik-photoview-similar-photo-selection {
+#ajapaik-photoview-similar-photo-selection,
+#ajapaik-photoview-rephoto-selection {
   height: 0px;
   display: none;
   text-align: center;
@@ -2183,7 +2174,7 @@ a[href^="http: //maps.google.com/maps"] {
   top: 54px;
   position: relative;
   width: 100%;
-  background-color: #303030;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 footer a {
@@ -2237,7 +2228,7 @@ footer a {
   background-image: url(../images/material-design-icons/ic_more_white_24px.svg);
 }
 
-.ajapaik-photo-modal-album-more-button.float-left {
+.ajapaik-photo-modal-album-more-button {
   background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
   width: 24px;
   height: 24px;
@@ -2246,7 +2237,7 @@ footer a {
   cursor: pointer;
 }
 
-.ajapaik-photo-album-link.float-left {
+.ajapaik-photo-album-link {
   font-size: 18px;
 }
 
