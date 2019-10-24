@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 #
+# Author: A Retired User
 # Author: H2kks
 # Author: Kly
 # Author: Winston Sung
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-14 15:16:14+0000\n"
+"PO-Revision-Date: 2019-10-24 19:50:56+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
