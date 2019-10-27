@@ -161,8 +161,8 @@ var ImageAreaSelector = (function () {
     function getMousePositionTrackingEventListener() {
         return function (event) {
             if (isSelecting) {
-                currentMouseX = event.pageX - imageAreaLeft;
-                currentMouseY = event.pageY - imageAreaTop;
+                currentMouseX = event.clientX - imageAreaLeft;
+                currentMouseY = event.clientY - imageAreaTop;
 
                 if (initialClickX || initialClickY) {
                     resizeRectangle();
