@@ -72,7 +72,7 @@ class FaceRecognitionRectangle(models.Model):
         elif self.subject_ai_guess:
             subject_album: Album = self.subject_ai_guess
 
-        return subject_album.name
+        return subject_album
 
     def add_subject_data(subject, profile, age, gender):
         lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
