@@ -1,4 +1,4 @@
-## [Join Ajapaik Slack](https://join.slack.com/t/ajapaik/shared_invite/enQtNzkxOTkyNTA3OTg4LTc2MzNhNDM2MTgwMThhNWI0MTNiOGY1NjU1ZDA0NjVlODBkNWRlZjI3ZWExYTg2OTdhMjA1ODQ5YjAxNWNmZDg)!
+## [Join Ajapaik Slack](http://bit.ly/join-Ajapaik-Slack)!
 This is the open-sourced Django project code for https://ajapaik.ee/
 
 ## Running locally
