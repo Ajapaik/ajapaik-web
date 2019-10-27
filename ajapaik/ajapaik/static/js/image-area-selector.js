@@ -145,6 +145,8 @@ var ImageAreaSelector = (function () {
             isSelecting = !isSelecting;
 
             if (isSelecting) {
+                hideControlsOnImage();
+                hideDetectionRectanglesWithoutOpenPopover();
                 markStartingSizesAndPositions(event);
                 createRectangle();
             } else {
@@ -153,6 +155,8 @@ var ImageAreaSelector = (function () {
                     getFinishedSelectionArea()
                 );
 
+                showDetectionRectangles();
+                showControlsOnImage();
                 performCleanup();
             }
         };
