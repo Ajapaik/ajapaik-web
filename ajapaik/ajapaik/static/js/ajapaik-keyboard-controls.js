@@ -7,27 +7,24 @@
             if($("#id_login,#id_password").is(":focus")) {
                 return;
             }
-            if (window.hotkeysActive) {
+            if (areHotkeysEnabled()) {
                 if (window.isGame || window.isFrontpage) {
                     var buttons;
-                    if (e.keyCode === 37) {
-                        // left
+                    if (e.keyCode === constants.keyCodes.ARROW_LEFT) {
                         buttons = $('.ajapaik-photo-modal-previous-button');
                         if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === 39) {
-                        // right
+                    } else if (e.keyCode === constants.keyCodes.ARROW_RIGHT) {
                         buttons = $('.ajapaik-photo-modal-next-button');
                         if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === 68 && !window.datingFocused) {
-                        // d
+                    } else if (e.keyCode === constants.keyCodes.D && !window.datingFocused) {
                         $('#ajapaik-photo-modal-start-dating-button').click();
                     }
                     if (e.keyCode === 32 && window.currentlySelectedPhotoId) {

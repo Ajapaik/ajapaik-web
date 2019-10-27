@@ -2,7 +2,10 @@
 
 var constants = {
     keyCodes: {
-        ESCAPE: 27
+        ESCAPE: 27,
+        D: 68,
+        ARROW_RIGHT: 39,
+        ARROW_LEFT: 37
     },
     elements: {
         AUTOCOMPLETE_WRAPPER_ID: 'autocomplete-wrapper',

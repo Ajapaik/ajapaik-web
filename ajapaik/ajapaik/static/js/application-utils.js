@@ -19,3 +19,15 @@ var sanitizeHTML = function (str) {
 	temp.textContent = str;
 	return temp.innerHTML;
 };
+
+function disableHotkeys() {
+    window.hotkeysActive = false;
+}
+
+function enableHotkeys() {
+    window.hotkeysActive = true;
+}
+
+function areHotkeysEnabled() {
+    return window.hotkeysActive;
+}

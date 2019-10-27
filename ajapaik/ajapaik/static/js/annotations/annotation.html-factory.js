@@ -256,9 +256,15 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
     });
 
     annotationRectangle.on('show.bs.popover', function () {
+        disableHotkeys();
+
         if (onAnnotationRectangleShow) {
             onAnnotationRectangleShow();
         }
+    });
+
+    annotationRectangle.on('hide.bs.popover', function () {
+        enableHotkeys();
     });
 
     return annotationRectangle;
