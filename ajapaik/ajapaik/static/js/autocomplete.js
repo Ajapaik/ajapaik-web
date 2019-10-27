@@ -136,11 +136,11 @@ function getFormattedSelectOption(option) {
     );
 }
 
-function initializeObjectAutocomplete(autocompleteId) {
+function initializeObjectAutocomplete(autocompleteId, isOpenOnView) {
     var noResultText = constants.translations.autocomplete.objectSearch.NO_RESULTS_FOUND;
     var findByLabel = debounce(WikiData.findByLabel, 400);
 
-    return new SlimSelect({
+    var select = new SlimSelect({
         select: '#' + autocompleteId,
         valuesUseText: true,
         placeholder: constants.translations.autocomplete.objectSearch.PLACEHOLDER,
@@ -173,4 +173,10 @@ function initializeObjectAutocomplete(autocompleteId) {
           findByLabel(search, onSuccess);
         }
     });
+
+    if (isOpenOnView) {
+        select.open();
+    }
+
+    return select;
 }

@@ -65,12 +65,16 @@ function toggleFaceDetection() {
     $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).hide();
     $('#' + constants.elements.AUTOCOMPLETE_WRAPPER_ID).show();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'face');
+
+    document.getElementById(constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.open();
 }
 
 function toggleObjectDetection() {
     $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).show();
     $('#' + constants.elements.AUTOCOMPLETE_WRAPPER_ID).hide();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'object');
+
+    document.getElementById(constants.elements.OBJECT_CLASS_SELECT_ID).slim.open();
 }
 
 function createObjectAssigningPopoverContent(popoverId) {
@@ -110,7 +114,7 @@ function createNewDetectionRectangle(popoverId, configuration) {
     var onAnnotationRectangleShow = function() {
         setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true);
         }, 100);
     };
 
