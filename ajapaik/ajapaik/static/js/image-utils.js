@@ -105,3 +105,15 @@ function showDetectionRectangles() {
         $(this).show();
     });
 }
+
+function mirrorDetectionAnnotations() {
+    $('[data-is-detection-rectangle]').each(function() {
+        var el = $(this);
+
+        var leftPosition = el.css('left') || 0;
+        var rightPosition = el.css('right') || 0;
+
+        el.css('right', leftPosition);
+        el.css('left', rightPosition);
+    });
+}

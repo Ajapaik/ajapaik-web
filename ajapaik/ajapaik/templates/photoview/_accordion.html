@@ -71,16 +71,6 @@
 
                     {% include 'photoview/_albums_info.html' %}
                 </div>
-
-                <div id="ajapaik-photo-modal-like" class="col-md-12" style="padding-top: 15px;">
-                    <div class="fb-like"
-                         data-href="{{ hostname }}{{ photo.get_absolute_url }}"
-                         {% if not request.user_agent.is_pc %}data-layout="button_count"{% endif %}
-                         data-action="like"
-                         data-show-faces="true"
-                         data-share="true">
-                    </div>
-                </div>
             </div>
         </div>
     </div>

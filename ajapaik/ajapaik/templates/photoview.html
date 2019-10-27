@@ -163,13 +163,7 @@
             <span>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</span>
         </div>
     {% endif %}
-    <div class="row" id="ajapaik-photo-modal-like">
-        <div class="fb-like"
-            data-href="
-                            {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-            {% if not request.user_agent.is_pc %}data-layout="button_count"{% endif %} data-action="like" data-show-faces="true" data-share="true">
-        </div>
-    </div>
+
     <div class="row ajapaik-height-48 mt-2">
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}
             <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="float-left"
@@ -332,6 +326,8 @@
         } else {
             mainPhoto.addClass('ajapaik-photo-flipped');
         }
+
+        mirrorDetectionAnnotations();
     });
     $('.full-box div').on('click', function (e) {
         if (BigScreen.enabled) {

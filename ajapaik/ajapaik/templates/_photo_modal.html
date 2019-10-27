@@ -285,17 +285,7 @@
                             {% endif %}
                         </div>
                         <!-- end of new photo info -->
-                        <!-- start of FB like block -->
-                        <div class="col-lg-6 col-md-6 col-sm-12 pl-0 fb-like" 
-                            data-href="{{ hostname }}{{ photo.get_detail_url }}"
-                            {% if not request.user_agent.is_pc %}
-                                data-layout="button_count"
-                            {% endif %}
-                            data-action="like"
-                            data-show-faces="true"
-                            data-share="true">
-                        </div>
-                        <!-- end of FB like block -->
+
                         <!-- start of toolbox block -->
                         <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
                             <div class="ajapaik-mt-1">
@@ -637,6 +627,9 @@
                     fullScreenPhoto.addClass('ajapaik-photo-flipped');
                 }
             }
+
+            mirrorDetectionAnnotations();
+
             if(fullScreenPhoto !== undefined) {
                 window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
             }
