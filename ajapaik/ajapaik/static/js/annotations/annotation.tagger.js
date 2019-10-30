@@ -2,10 +2,7 @@
 
 var ObjectTagger = {
     isInCropMode: false,
-    imageArea: null,
-    imageAreaId: null,
     photoId: null,
-    previousWindowWidth: null,
     detectionRectangleContainer: 'body',
 
     setDetectionRectangleContainer: function(container) {
@@ -20,22 +17,6 @@ var ObjectTagger = {
     getPhotoId: function() {
         return this.photoId;
     },
-    setImageArea: function(imageAreaId) {
-        var self = this;
-        self.imageAreaId = imageAreaId;
-
-        this.imageArea = this.getImageArea(imageAreaId);
-        $(this.imageArea).on("remove", function () {
-            self.imageArea = null;
-        });
-    },
-    getImageArea: function(imageAreaId) {
-        if (this.imageArea) {
-            return this.imageArea;
-        }
-
-        return $('#' + imageAreaId).get()[0];
-    },
     stopCropping: function () {
         this.isInCropMode = false;
 
@@ -45,31 +26,24 @@ var ObjectTagger = {
     },
     handleSavedRectanglesDrawn: function(detections) {
         if (detections) {
-            drawDetectionRectangles(detections, ObjectTagger.getImageArea());
-            ObjectTagger.previousWindowWidth = window.innerWidth;
-
-            window.onresize = function() {
-                if (!window.isMobile || window.isMobile && ObjectTagger.previousWindowWidth !== window.innerWidth) {
-                    ObjectTagger.previousWindowWidth = window.innerWidth;
-                    drawDetectionRectangles(detections, ObjectTagger.getImageArea());
-                }
-            };
+            setTimeout(function() {
+                drawDetectionRectangles(detections, ImageAreaSelector.getImageAreaDimensions());
+            }, 200);
         }
     },
-    handleNewRectangleDrawn: function (img, selection) {
+    handleNewRectangleDrawn: function (selection) {
         this.stopCropping();
 
-        var detectionRectangle = drawNewAnnotationRectangle(img, selection);
-        detectionRectangle.rectangle.appendTo(this.imageArea);
+        var detectionRectangle = drawNewAnnotationRectangle(selection);
+        detectionRectangle.rectangle.appendTo(ImageAreaSelector.getImageArea());
 
         togglePopover(detectionRectangle.id);
     },
     drawBoxForMobileSelection: function(onSelectionEnd) {
-        ImageAreaSelector.setImageArea(this.imageAreaId);
-        var imageArea = document.getElementById(this.imageAreaId);
+        var imageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
 
-        var overallImageAreaHeight = imageArea.getBoundingClientRect().height;
-        var overallImageAreaWidth = imageArea.getBoundingClientRect().width;
+        var overallImageAreaHeight = imageAreaDimensions.height;
+        var overallImageAreaWidth = imageAreaDimensions.width;
 
         var boxToBeDrawnHeight = overallImageAreaHeight * 0.2;
         var boxToBeDrawnWidth = overallImageAreaWidth * 0.2;
@@ -81,7 +55,6 @@ var ObjectTagger = {
         var halfOfBoxWidth = boxToBeDrawnWidth / 2;
 
         onSelectionEnd(
-            imageArea,
             {
                 x1: imageCenterWidth - halfOfBoxWidth,
                 x2: imageCenterWidth + halfOfBoxWidth,
@@ -104,7 +77,7 @@ var ObjectTagger = {
 
         var onSelectionCancel = this.stopCropping.bind(this);
 
-        ImageAreaSelector.startImageAreaSelection(this.imageAreaId, onSelectionEnd, onSelectionCancel);
+        ImageAreaSelector.startImageAreaSelection(onSelectionEnd, onSelectionCancel);
 
         disableMovingBetweenPictures();
     },

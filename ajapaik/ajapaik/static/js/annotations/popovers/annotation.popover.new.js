@@ -1,38 +1,5 @@
 'use strict';
 
-function getScaledRectangle(popoverRectangleId) {
-    var imageAreaCurrentDimensions = ImageAreaSelector.getImageArea()[0].getBoundingClientRect();
-    var popoverRectangleDimensions = document.getElementById(popoverRectangleId).getBoundingClientRect();
-
-    var imageScaledDimensions = getImageScaledDimensions(imageAreaCurrentDimensions);
-
-    var x1 = popoverRectangleDimensions.left - imageAreaCurrentDimensions.left - imageScaledDimensions.blackPaddingSizeOnOneSide;
-    var y1 = popoverRectangleDimensions.top - imageAreaCurrentDimensions.top;
-
-    var rectangle = {
-        x1: x1,
-        y1: y1,
-        x2: x1 + popoverRectangleDimensions.width,
-        y2: y1 + popoverRectangleDimensions.height
-    };
-
-    var photoDimensions = {
-        width: parseInt(imageAreaCurrentDimensions.width),
-        height: parseInt(imageAreaCurrentDimensions.height)
-    };
-
-    var widthScale = window.currentPhotoOriginalWidth / imageScaledDimensions.scaledPhotoWidthWithoutPadding;
-    var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
-
-    return {
-        photoId: ObjectTagger.getPhotoId(),
-        x1: rectangle.x1 * widthScale,
-        y1: rectangle.y1 * heightScale,
-        x2: rectangle.x2 * widthScale,
-        y2: rectangle.y2 * heightScale
-    };
-}
-
 function getRectangleSubmitFunction(popoverId) {
     return function(event) {
         event.preventDefault();
@@ -44,7 +11,10 @@ function getRectangleSubmitFunction(popoverId) {
         var selectedObjectId = form.find("#" + constants.elements.OBJECT_CLASS_SELECT_ID).val();
         var personId = form.find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).val();
 
-        var scaledRectangle = getScaledRectangle(popoverId);
+        var scaledRectangle = getDetectionRectangleScaledForOriginalImageSize(
+            popoverId,
+            ImageAreaSelector.getImageAreaDimensions()
+        );
         togglePopover(popoverId);
 
         var payload = {

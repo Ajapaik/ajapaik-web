@@ -225,10 +225,10 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         class: 'ajapaik-face-rectangle',
         css: {
             position: 'absolute',
-            left: configuration.placementFromLeftEdge + 'px',
-            top: configuration.placementFromTopEdge + 'px',
-            width: configuration.width + 'px',
-            height: configuration.height + 'px',
+            left: configuration.leftEdgeDistancePercentage + '%',
+            top: configuration.topEdgeDistancePercentage + '%',
+            width: configuration.widthPercentage + '%',
+            height: configuration.heightPercentage + '%',
             border: '3px ' + border + ' white',
             'outline-style': 'solid',
             'outline-width': '1px'

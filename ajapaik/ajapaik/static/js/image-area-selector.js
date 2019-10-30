@@ -14,10 +14,7 @@ var ImageAreaSelector = (function () {
     var mouseMoveListener = null;
     var cancelListenerOnAreaSelect = null;
 
-    var imageAreaReferenceForExternalReference = null;
-
     function resetValues() {
-        imageArea = null;
         initialClickX = null;
         initialClickY = null;
         currentMouseX = null;
@@ -140,7 +137,7 @@ var ImageAreaSelector = (function () {
         resetValues();
     }
 
-    function getClickListener(imageAreaId, onSelect) {
+    function getClickListener(onSelect) {
         return function (event) {
             isSelecting = !isSelecting;
 
@@ -150,10 +147,7 @@ var ImageAreaSelector = (function () {
                 markStartingSizesAndPositions(event);
                 createRectangle();
             } else {
-                onSelect(
-                    document.getElementById(imageAreaId),
-                    getFinishedSelectionArea()
-                );
+                onSelect(getFinishedSelectionArea());
 
                 showDetectionRectangles();
                 showControlsOnImage();
@@ -191,20 +185,28 @@ var ImageAreaSelector = (function () {
 
     return {
         getImageArea: function() {
-            return imageAreaReferenceForExternalReference;
+            var dimensions = imageArea[0].getBoundingClientRect();
+            var imageAreaId = imageArea.attr('id');
+
+            if (!dimensions.width && !dimensions.height) {
+                this.setImageArea(imageAreaId);
+            }
+
+            return imageArea;
+        },
+        getImageAreaDimensions: function() {
+            return this.getImageArea()[0].getBoundingClientRect();
         },
         setImageArea: function(imageAreaId) {
             imageArea = $('#' + imageAreaId);
-            imageAreaReferenceForExternalReference = imageArea;
         },
-        startImageAreaSelection: function (imageAreaId, onSelect, onCancel) {
-            imageArea = $('#' + imageAreaId).css({cursor: 'crosshair'});
-            imageAreaReferenceForExternalReference = imageArea;
+        startImageAreaSelection: function (onSelect, onCancel) {
+            imageArea.css({cursor: 'crosshair'});
 
             createOverlay();
             listenForSelectionCancel(onCancel);
 
-            clickListener = getClickListener(imageAreaId, onSelect);
+            clickListener = getClickListener(onSelect);
             mouseMoveListener = getMousePositionTrackingEventListener();
 
             imageArea.click(clickListener);

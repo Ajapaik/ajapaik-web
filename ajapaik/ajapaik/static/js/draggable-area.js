@@ -15,23 +15,15 @@ var DraggableArea = (function () {
     var initialTop = null;
     var initialLeft = null;
 
-    var imageAreaTop = null;
-    var imageAreaLeft = null;
-
-    var imageAreaBottom = null;
-    var imageAreaRight = null;
-
     function getAllowedLocationDimensions() {
-        var imageArea = ImageAreaSelector.getImageArea();
-        var currentImageAreaDimensions = imageArea[0].getBoundingClientRect();
-        var scaledImageDimensions = getImageScaledDimensions(currentImageAreaDimensions);
-
-        var maximumAllowedWidth = scaledImageDimensions.scaledPhotoWidthWithoutPadding + scaledImageDimensions.blackPaddingSizeOnOneSide;
+        var currentImageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
 
         return {
-            maximumAllowedWidthLocation: currentImageAreaDimensions.left + maximumAllowedWidth,
-            maximumAllowedHeightLocation: currentImageAreaDimensions.top + scaledImageDimensions.currentImageAreaDimensions.height,
-            minimalAllowedLeftPosition: scaledImageDimensions.blackPaddingSizeOnOneSide
+            maximumAllowedWidthLocation: currentImageAreaDimensions.width,
+            maximumAllowedHeightLocation: currentImageAreaDimensions.height,
+            minimalAllowedLeftPosition: 0,
+            minimumHeight: 5,
+            minimumWidth: 5
         };
     }
 
@@ -189,27 +181,21 @@ var DraggableArea = (function () {
             var xDifference = dragStartX - clickEvent.clientX;
             var yDifference = dragStartY - clickEvent.clientY;
 
-            var newTop = (initialTop - imageAreaTop) - yDifference;
-            var newLeft = (initialLeft - imageAreaLeft) - xDifference;
+            var newTop = initialTop - yDifference;
+            var newLeft = initialLeft - xDifference;
 
-            var rectangleWidth = annotationRectangle.width();
-            var rectangleHeight = annotationRectangle.height();
+            var rectangleWidth = annotationRectangle[0].getBoundingClientRect().width;
+            var rectangleHeight = annotationRectangle[0].getBoundingClientRect().height;
 
             var allowedDimensions = getAllowedLocationDimensions();
 
-            var currentRectangleRightPosition = initialLeft + rectangleWidth;
-            var currentRectangleBottomPosition = initialTop + rectangleHeight;
-
-            var isWidthStillWithinImageBounds = allowedDimensions.maximumAllowedWidthLocation > currentRectangleRightPosition;
-            var isHeightStillWithinImageBounds = allowedDimensions.maximumAllowedHeightLocation > currentRectangleBottomPosition;
-
             var css = {};
 
-            if (newLeft > allowedDimensions.minimalAllowedLeftPosition && isWidthStillWithinImageBounds) {
+            if (newLeft > allowedDimensions.minimalAllowedLeftPosition && newLeft + rectangleWidth < allowedDimensions.maximumAllowedWidthLocation) {
                 css.left = newLeft + 'px';
             }
 
-            if (newTop > 0 && isHeightStillWithinImageBounds) {
+            if (newTop > 0 && newTop + rectangleHeight < allowedDimensions.maximumAllowedHeightLocation) {
                 css.top = newTop + 'px';
             }
 
@@ -247,8 +233,6 @@ var DraggableArea = (function () {
     }
 
     function startDrag(event, annotationRectangle) {
-        var imageAreaBoundingClientRect = ImageAreaSelector.getImageArea()[0].getBoundingClientRect();
-
         var clickEvent = getEventForClickOrTouch(event);
 
         isDragging = true;
@@ -257,14 +241,8 @@ var DraggableArea = (function () {
         initialWidth = annotationRectangle[0].getBoundingClientRect().width;
         initialHeight = annotationRectangle[0].getBoundingClientRect().height;
 
-        initialTop = annotationRectangle[0].getBoundingClientRect().top;
-        initialLeft = annotationRectangle[0].getBoundingClientRect().left;
-
-        imageAreaTop = imageAreaBoundingClientRect.top;
-        imageAreaLeft = imageAreaBoundingClientRect.left;
-
-        imageAreaBottom = imageAreaTop + imageAreaBoundingClientRect.height;
-        imageAreaRight = imageAreaLeft + imageAreaBoundingClientRect.width;
+        initialTop = parseFloat(annotationRectangle.css('top').replace('px', ''));
+        initialLeft = parseFloat(annotationRectangle.css('left').replace('px', ''));
 
         dragStartX = clickEvent.clientX;
         dragStartY = clickEvent.clientY;
@@ -282,15 +260,15 @@ var DraggableArea = (function () {
             var newHeight = initialHeight + yDifference;
             var newWidth = initialWidth + xDifference;
 
-            var newTop = (initialTop - imageAreaTop) - yDifference;
-            var newLeft = (initialLeft - imageAreaLeft) - xDifference;
+            var newTop = initialTop - yDifference;
+            var newLeft = initialLeft - xDifference;
 
             var newRight = newLeft + newWidth;
             var allowedDimensions = getAllowedLocationDimensions();
 
             var css = {};
 
-            if (newWidth > 0 &&
+            if (newWidth > allowedDimensions.minimumWidth &&
                 newLeft > allowedDimensions.minimalAllowedLeftPosition &&
                 newRight < allowedDimensions.maximumAllowedWidthLocation
             ) {
@@ -302,7 +280,7 @@ var DraggableArea = (function () {
                 css.height = newHeight + 'px';
             }
 
-            if (newHeight > 0 && newTop > 0) {
+            if (newHeight > allowedDimensions.minimumHeight && newTop > 0) {
                 css.top = newTop + 'px';
             }
 
@@ -318,13 +296,17 @@ var DraggableArea = (function () {
 
             var newHeight = initialHeight + yDifference;
 
-            var newTop = (initialTop - imageAreaTop) - yDifference;
+            var newTop = initialTop - yDifference;
 
             var newBottom = initialTop + newHeight;
 
             var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newTop > 0 && newHeight > 0 && newBottom < allowedDimensions.maximumAllowedHeightLocation) {
+            if (
+                newTop > 0 &&
+                newHeight > allowedDimensions.minimumHeight &&
+                newBottom < allowedDimensions.maximumAllowedHeightLocation
+            ) {
                 annotationRectangle.css({
                     top: newTop + 'px',
                     height: newHeight + 'px'
@@ -341,11 +323,11 @@ var DraggableArea = (function () {
 
             var newWidth = initialWidth + xDifference;
 
-            var newLeft = (initialLeft - imageAreaLeft) - xDifference;
+            var newLeft = initialLeft - xDifference;
 
             var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newWidth > 0 && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
+            if (newWidth > allowedDimensions.minimumWidth && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
                 annotationRectangle.css({
                     left: newLeft + 'px',
                     width: newWidth + 'px'
@@ -393,7 +375,7 @@ var DraggableArea = (function () {
             var newHeight = initialHeight - yDifference;
             var newWidth = initialWidth + xDifference;
 
-            var newLeft = (initialLeft - imageAreaLeft) - xDifference;
+            var newLeft = initialLeft - xDifference;
 
             var newBottom = initialTop + newHeight;
 
@@ -401,11 +383,8 @@ var DraggableArea = (function () {
 
             var css = {};
 
-            if (newLeft > allowedDimensions.minimalAllowedLeftPosition) {
+            if (newWidth > allowedDimensions.minimumWidth && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
                 css.width = newWidth + 'px';
-            }
-
-            if (newWidth > 0 && newLeft > allowedDimensions.minimalAllowedLeftPosition) {
                 css.left = newLeft + 'px';
             }
 
@@ -447,7 +426,7 @@ var DraggableArea = (function () {
             var newHeight = initialHeight + yDifference;
             var newWidth = initialWidth - xDifference;
 
-            var newTop = (initialTop - imageAreaTop) - yDifference;
+            var newTop = initialTop - yDifference;
 
             var newRight = initialLeft + newWidth;
             var allowedDimensions = getAllowedLocationDimensions();
@@ -458,7 +437,7 @@ var DraggableArea = (function () {
                 css.width = newWidth + 'px';
             }
 
-            if (newHeight > 0 && newTop > 0) {
+            if (newHeight > allowedDimensions.minimumHeight && newTop > 0) {
                 css.top = newTop + 'px';
                 css.height = newHeight + 'px';
             }
@@ -478,7 +457,7 @@ var DraggableArea = (function () {
             var newRight = initialLeft + newWidth;
             var allowedDimensions = getAllowedLocationDimensions();
 
-            if (newWidth > 0 && newRight < allowedDimensions.maximumAllowedWidthLocation) {
+            if (newWidth > allowedDimensions.minimumWidth && newRight < allowedDimensions.maximumAllowedWidthLocation) {
                 annotationRectangle.css({
                     width: newWidth + 'px'
                 });
@@ -518,6 +497,22 @@ var DraggableArea = (function () {
         document.body.addEventListener('touchend', endFunction, {passive: false});
     }
 
+    function convertAnnotationPixelValuesToPercentages(annotationRectangle) {
+        var imageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
+
+        var distanceFromTop = parseFloat(annotationRectangle.css('top').replace('px', '')) / imageAreaDimensions.height;
+        var distanceFromLeft = parseFloat(annotationRectangle.css('left').replace('px', '')) / imageAreaDimensions.width;
+        var width = annotationRectangle[0].getBoundingClientRect().width / imageAreaDimensions.width;
+        var height = annotationRectangle[0].getBoundingClientRect().height / imageAreaDimensions.height;
+
+        annotationRectangle.css({
+            top: distanceFromTop * 100 + '%',
+            left: distanceFromLeft * 100 + '%',
+            width: width * 100 + '%',
+            height: height * 100 + '%'
+        });
+    }
+
     function addDragFunctions(element, annotationRectangle, elementSpecificDragFunction) {
         var elementSpecificDrag = function (event) {
             hasDragged = true;
@@ -536,6 +531,8 @@ var DraggableArea = (function () {
 
             document.body.removeEventListener('touchmove', touchDragFunction);
             document.body.removeEventListener('touchend', touchDragEndFunction);
+
+            convertAnnotationPixelValuesToPercentages(annotationRectangle);
         };
 
         touchDragEndFunction = getTouchDragEndFunction(dragEnd);

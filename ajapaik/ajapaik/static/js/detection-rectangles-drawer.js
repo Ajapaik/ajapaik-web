@@ -32,20 +32,24 @@ function getDetectedFaceModifyRectangle(rectangleId, savedRectangle, configurati
     );
 }
 
-function getSavedDetectionRectangle(scaledRectangle, annotation) {
+function getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions) {
     var leftEdgeDistance = scaledRectangle.x1;
     var topEdgeDistance = scaledRectangle.y1;
 
     var width = (scaledRectangle.x2 - scaledRectangle.x1);
     var height = (scaledRectangle.y2 - scaledRectangle.y1);
 
-    var configuration = {
-        placementFromLeftEdge: leftEdgeDistance,
-        placementFromTopEdge: topEdgeDistance,
-        width: width,
-        height: height,
+    return {
+        leftEdgeDistancePercentage: (leftEdgeDistance / imageAreaDimensions.width) * 100,
+        topEdgeDistancePercentage: (topEdgeDistance / imageAreaDimensions.height) * 100,
+        widthPercentage: (width / imageAreaDimensions.width) * 100,
+        heightPercentage: (height / imageAreaDimensions.height) * 100,
         annotation: annotation
     };
+}
+
+function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimensions) {
+    var configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
 
     if (annotation.wikiDataId) {
         if (annotation.isDeletable) {
@@ -88,33 +92,46 @@ function removeExistingDetectionRectangles() {
     });
 }
 
-function drawDetectionRectangles(detections, imageArea) {
+function getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions) {
+    var widthScale = window.currentPhotoOriginalWidth / imageAreaDimensions.width;
+    var heightScale = window.currentPhotoOriginalHeight / imageAreaDimensions.height;
+
+    return {
+        widthScale: widthScale,
+        heightScale: heightScale
+    };
+}
+
+function scaleRectangleForCurrentImageSize(scalingParametersForCurrentImageSize, savedRectangle) {
+    var widthScale = scalingParametersForCurrentImageSize.widthScale;
+    var heightScale = scalingParametersForCurrentImageSize.heightScale;
+
+    return {
+        x1: savedRectangle.x1 / widthScale,
+        y1: savedRectangle.y1 / heightScale,
+        x2: savedRectangle.x2 / widthScale,
+        y2: savedRectangle.y2 / heightScale
+    };
+}
+
+function drawDetectionRectangles(detections, imageAreaDimensions) {
     $('.popover').remove();
 
     setTimeout(function() {
         removeExistingDetectionRectangles();
 
-        var scaledImageDimensions = getImageScaledDimensions(imageArea.getBoundingClientRect());
-
-        var currentImageAreaDimensions = scaledImageDimensions.currentImageAreaDimensions;
-
-        var scaledPhotoWidthWithoutPadding = scaledImageDimensions.scaledPhotoWidthWithoutPadding;
-        var blackPaddingSizeOnOneSide = scaledImageDimensions.blackPaddingSizeOnOneSide;
-
-        var widthScale = window.currentPhotoOriginalWidth / scaledPhotoWidthWithoutPadding;
-        var heightScale = window.currentPhotoOriginalHeight / currentImageAreaDimensions.height;
+        var scalesInRelationToTheOriginalPhoto = getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions);
 
         detections.forEach(function(savedRectangle) {
-            var scaledRectangle = {
-                x1: blackPaddingSizeOnOneSide + savedRectangle.x1 / widthScale,
-                y1: savedRectangle.y1 / heightScale,
-                x2: blackPaddingSizeOnOneSide + savedRectangle.x2 / widthScale,
-                y2: savedRectangle.y2 / heightScale
-            };
+            var scaledRectangle = scaleRectangleForCurrentImageSize(scalesInRelationToTheOriginalPhoto, savedRectangle);
 
-            var detectionRectangle = getSavedDetectionRectangle(scaledRectangle, savedRectangle);
-            detectionRectangle.appendTo(imageArea);
+            var detectionRectangle = getSavedDetectionRectangle(scaledRectangle, savedRectangle, imageAreaDimensions);
+            detectionRectangle.appendTo(ImageAreaSelector.getImageArea());
         });
+
+        if (window.photoModalCurrentPhotoFlipped) {
+            mirrorDetectionAnnotations();
+        }
     }, 200);
 }
 
@@ -140,8 +157,8 @@ function getImageScaledDimensions(imageAreaCurrentSize) {
     };
 }
 
-function drawNewAnnotationRectangle(img, areaSelection) {
-    var imgRealSize = img.getBoundingClientRect();
+function drawNewAnnotationRectangle(areaSelection) {
+    var imgRealSize = ImageAreaSelector.getImageAreaDimensions();
 
     var rectangle = {
         x1: areaSelection.x1,
@@ -150,21 +167,5 @@ function drawNewAnnotationRectangle(img, areaSelection) {
         y2: areaSelection.y2
     };
 
-    var photoDimensions = {
-        width: parseInt(imgRealSize.width),
-        height: parseInt(imgRealSize.height)
-    };
-
-    var widthScale = window.currentPhotoOriginalWidth / photoDimensions.width;
-    var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
-
-    var scaledRectangle = {
-        photoId: ObjectTagger.getPhotoId(),
-        x1: areaSelection.x1 * widthScale,
-        y1: areaSelection.y1 * heightScale,
-        x2: areaSelection.x2 * widthScale,
-        y2: areaSelection.y2 * heightScale
-    };
-
-    return getDetectionRectangle(rectangle, scaledRectangle);
+    return getDetectionRectangle(rectangle, imgRealSize);
 }
