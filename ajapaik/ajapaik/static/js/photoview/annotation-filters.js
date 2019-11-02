@@ -161,7 +161,7 @@ function collectAllLabels(detections) {
             objects.push({
                 id: detection.id,
                 objectId: detection.wikiDataId,
-                label: JSON.parse(detection.translations)[window.language]
+                label: getLanguageSpecificTranslation(detection.translations)
             });
         } else if (isUnknownPersonDetection || isUniqueSubjectDetection) {
             if (detection.subjectId) {

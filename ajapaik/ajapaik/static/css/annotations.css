@@ -1,0 +1,17 @@
+.annotation-label {
+    position: absolute;
+    left: 0;
+    width: 100%;
+
+    background-color: rgba(211, 211, 211, 0.7);
+}
+
+.annotation-label__top {
+    bottom: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.annotation-label__bottom {
+    top: 100%;
+    border-radius: 0 0 5px 5px;
+}

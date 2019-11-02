@@ -31,3 +31,9 @@ function enableHotkeys() {
 function areHotkeysEnabled() {
     return window.hotkeysActive;
 }
+
+function getLanguageSpecificTranslation(unparsedTranslations) {
+    var parsedTranslations = JSON.parse(unparsedTranslations);
+    var languageSpecificTranslation = parsedTranslations[window.language];
+    return languageSpecificTranslation || parsedTranslations.en;
+}

@@ -215,6 +215,21 @@ function getAnnotationIdentifier(annotation) {
     return 'object-' + annotation.wikiDataId;
 }
 
+function addAnnotationLabel(annotationRectangle, annotationData) {
+    if (annotationData) {
+        var annotationLabelText = annotationData.translations ? getLanguageSpecificTranslation(annotationData.translations) : annotationData.subjectName;
+
+        if (annotationLabelText) {
+            var positionClass = annotationData.subjectName ? 'annotation-label__top' : 'annotation-label__bottom';
+            var labelContainer = $('<div>', {
+                class: 'annotation-label ' + positionClass
+            });
+            labelContainer.text(annotationLabelText);
+            annotationRectangle.append(labelContainer);
+        }
+    }
+}
+
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
@@ -235,6 +250,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         },
     });
 
+    addAnnotationLabel(annotationRectangle, configuration.annotation);
 
     if (configuration.isAnnotationAreaModifiable) {
         DraggableArea.addResizeAndMoveControls(annotationRectangle, configuration);
