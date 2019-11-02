@@ -1,13 +1,6 @@
 {% extends "base_bootstrap.html" %}
 {% load i18n compress static %}
 
-{% block specific_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static "libs/jsPanel-2.6.2/jspanel/jquery.jspanel.css" %}"/>
-        <link rel="stylesheet" href="{% static "libs/justifiedGallery/css/justifiedGallery-3.6.1.min.css" %}"/>
-    {% endcompress %}
-{% endblock %}
-
 {% block header %}
     {% include "_header.html" %}
 {% endblock %}
@@ -73,7 +66,6 @@
     </script>
     {% compress js %}
         <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
-        <script src="{% static "libs/jsPanel-2.6.2/jspanel/jquery.jspanel.js" %}"></script>
         <script src="{% static "js/ajapaik-map.js" %}"></script>
         <script src="{% static "libs/justifiedGallery/js/jquery.justifiedGallery-3.6.1.min.js" %}"></script>
     {% endcompress %}

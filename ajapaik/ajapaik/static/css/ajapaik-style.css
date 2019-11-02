@@ -1649,13 +1649,6 @@ a.fullscreen {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 99 !important;
 }
-#ajapaik-mapview-photo-panel .jsPanel {
-  background: none;
-}
-#ajapaik-mapview-photo-panel .jsPanel-content {
-  background: none;
-  overflow-y: scroll !important;
-}
 
 #ajapaik-geolocation-error,
 #ajapaik-sorting-error {
@@ -1684,10 +1677,6 @@ a.fullscreen {
   width: 10px;
   height: 100%;
   cursor: e-resize;
-}
-
-.jsPanel-title {
-  font-variant: normal !important;
 }
 
 .translucent-pane-element {
@@ -1866,10 +1855,6 @@ ul.errorlist,
   z-index: 10000;
   max-width: 50%;
   margin-top: 50px;
-}
-
-#ajapaik-geotag-info-js-panel .jsPanel-content {
-  margin: 10px;
 }
 
 .controls {

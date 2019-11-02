@@ -545,6 +545,4 @@ msgstr "إزالة مرشح الألبوم"
 msgid "Apply album filter"
 msgstr "تطبيق مرشح الألبوم"
 
-#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
-msgid "'"
-msgstr "'"
+
