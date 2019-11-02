@@ -5,6 +5,7 @@ function HelsinkiGooglemApi(_, isGeotagger) {
     var that = this;
     var historicalUrl = "https://geoserver.hel.fi/geoserver/historical/wms?";
     var ortoUrl = "https://geoserver.hel.fi/geoserver/hel/wms?";
+    var karttaUrl = "https://kartta.hel.fi/ws/geoserver/avoindata/wms?";
     this.vars = {
         layers: [
             {year: "1878", name:"historical:1878_asemakaavakartta", url: historicalUrl}, //historical:1878_asemakaavakartta"
@@ -13,13 +14,10 @@ function HelsinkiGooglemApi(_, isGeotagger) {
             {year: "1940", name:"historical:1940_opaskartta", url: historicalUrl}, //historical:1940_opaskartta
             {year: "1943", name:"hel:orto1943", url: ortoUrl}, //hel:orto1943
             {year: "1962", name:"historical:1962_opaskartta", url: historicalUrl}, //historical:1962_opaskartta
-            //{year: "1969", name:"karrta.hel", url: ortoUrl}, //karrta.hel
             {year: "1988", name:"hel:orto1988", url: ortoUrl}, //hel:orto1988
-            //{year: "1997", name:"karrta.hel" , url: ortoUrl}, //karrta.hel
             {year: "1999", name:"historical:1999_opaskartta", url: historicalUrl}, //historical:1999_opaskartta
-            //{year: "2008", name:"karrta.hel", url: ortoUrl}, //karrta.hel
-            //{year: "2016", name:"karrta.hel", url: ortoUrl}, //karrta.hel
-            //{year: "2018", name:"karrta.hel", url: ortoUrl} //karrta.hel
+            {year: "2016", name:"avoindata:Ortoilmakuva_2016", url: karttaUrl}, //karrta.hel
+            {year: "2018", name:"avoindata:Ortoilmakuva_2018_5cm", url: karttaUrl} //karrta.hel
         ],
         layerIndex: 1
     };
@@ -58,23 +56,22 @@ function HelsinkiGooglemApi(_, isGeotagger) {
                 var gTr = map.getProjection().fromPointToLatLng(
                 new google.maps.Point((coord.x + 1) * twidth / s, coord.y * theight / s)); // top right / NE
         
-                // Bounding box coords for tile in WMS pre-1.3 format (x,y)
-                var bbox = gBl.lng() + "," + gBl.lat() + "," + gTr.lng() + "," + gTr.lat();
+                var bbox = gBl.lat() + "," + gBl.lng()  + "," + gTr.lat() + "," + gTr.lng();
         
                 //base WMS URL
                 let tileUrl = url;
-                tileUrl += "&service=WMS";
-                tileUrl += "&version=1.1.0";
+                tileUrl += "service=WMS";
+                tileUrl += "&version=1.3.0";
                 tileUrl += "&request=GetMap";
                 tileUrl += "&layers=" + layername;
                 tileUrl += "&styles=";
-                tileUrl += "&format=image/png";
+                tileUrl += "&format=image/vnd.jpeg-png";
                 tileUrl += "&TRANSPARENT=TRUE";
                 tileUrl += "&srs=EPSG:4326";
                 tileUrl += "&bbox=" + bbox;
                 tileUrl += "&width=256";
                 tileUrl += "&height=256";
-        
+
                 return tileUrl; 
             },
             tileSize: new google.maps.Size(256, 256),
