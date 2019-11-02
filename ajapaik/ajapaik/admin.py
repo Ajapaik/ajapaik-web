@@ -33,6 +33,7 @@ class NorwegianCSVUploadAdmin(admin.ModelAdmin):
 class AlbumPhotoInline(admin.TabularInline):
     model = AlbumPhoto
     fields = 'album',
+    raw_id_fields = ("album",)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(AlbumPhotoInline, self).formfield_for_dbfield(db_field, **kwargs)
