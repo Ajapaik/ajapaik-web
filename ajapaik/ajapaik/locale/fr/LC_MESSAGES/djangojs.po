@@ -579,7 +579,7 @@ msgstr "Votre supposition a été modifiée"
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Quelque chose s’est mal passé, veuillez vérifier votre connexion. Si le problème persiste, veuillez nous contacter sur Tawk.to"
 
-#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
+#: ajapaik/ajapaik/static/libs/jsPanel-2.6.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
 msgstr "'"
 

@@ -581,7 +581,7 @@ msgstr "Sinu pakkumine on muudetud"
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Midagi läks valesti, kontrollige netiühendust. Kui probleem püsib, võtke meiega Tawk.to chati kaudu ühendust, palun."
 
-#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
+#: ajapaik/ajapaik/static/libs/jsPanel-2.6.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
 msgid "'"
 msgstr "'"
 
