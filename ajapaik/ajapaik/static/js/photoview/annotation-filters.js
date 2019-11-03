@@ -22,28 +22,59 @@ function getOnAnnotationCheckboxClick(annotationIdentifier, checkboxId) {
         var isChecked = checkbox.is(':checked');
         var correspondingAnnotations = getCorrespondingAnnotations(annotationIdentifier);
 
-        correspondingAnnotations.css({visibility: isChecked ? '' : 'hidden'});
+        correspondingAnnotations.css({display: isChecked ? 'initial' : 'none'});
     };
 }
 
 function getDisplayCorrespondingFilter(annotationIdentifier) {
     return function() {
         var correspondingAnnotations = getCorrespondingAnnotations(annotationIdentifier);
-        correspondingAnnotations.css({display: 'initial'});
+        correspondingAnnotations.css({visibility: ''});
     };
 }
 
 function getHideCorrespondingFilter(annotationIdentifier) {
     return function() {
         var correspondingAnnotations = getCorrespondingAnnotations(annotationIdentifier);
-        correspondingAnnotations.css({display: 'none'});
+        correspondingAnnotations.css({visibility: 'hidden'});
     };
 }
 
 function getUnknownPersonTitle(annotationId) {
-    var unknownPersonLabel = gettext('Unknown person');
+    var unknownPersonLabel = gettext('Unknown');
 
     return unknownPersonLabel + ' (id: ' + annotationId + ')';
+}
+
+function createAnnotationFilteringCheckbox(checkboxName, annotationIdentifier, labelText) {
+    var wrapper = $('<div class="form-check">');
+
+    var input = $('<input>', {
+        class: 'form-check-input',
+        type: 'checkbox',
+        id: checkboxName,
+        name: checkboxName,
+        checked: true
+    });
+
+    var label = $('<label>', {
+        class: 'form-check-label',
+        for: checkboxName
+    });
+
+    label.append(labelText);
+
+    var eventWrapper = $('<span>', {
+        mouseenter: getDisplayCorrespondingFilter(annotationIdentifier),
+        mouseleave: getHideCorrespondingFilter(annotationIdentifier),
+        click: getOnAnnotationCheckboxClick(annotationIdentifier, checkboxName)
+    });
+
+    return wrapper
+        .append(eventWrapper
+            .append(input)
+            .append(label)
+        );
 }
 
 function annotationCheckbox(annotation) {
@@ -55,33 +86,7 @@ function annotationCheckbox(annotation) {
 
     var labelText = annotation.label ? annotation.label : getUnknownPersonTitle(annotation.id);
 
-    var wrapper = $('<div>');
-    var eventWrapper = $('<span>', {
-        mouseenter: getDisplayCorrespondingFilter(identifier),
-        mouseleave: getHideCorrespondingFilter(identifier),
-        click: getOnAnnotationCheckboxClick(identifier, checkboxName)
-    });
-
-    var label = $('<label>', {
-        for: checkboxName
-    });
-
-    var input = $('<input>', {
-        'data-corresponding-annotation-identifier': identifier,
-        type: 'checkbox',
-        id: checkboxName,
-        name: checkboxName,
-        style: 'margin-top:auto; margin-bottom: auto; margin-left: 5px;',
-        checked: true
-    });
-
-    return wrapper
-        .append(eventWrapper
-            .append(label
-                .append(labelText)
-            )
-            .append(input)
-        );
+    return createAnnotationFilteringCheckbox(checkboxName, identifier, labelText);
 }
 
 function createTitle(text) {
@@ -94,7 +99,7 @@ function createTitle(text) {
 
 function createAnnotationColumn() {
     return $('<div>', {
-        class: 'col-md-6 annotation-filters__checkbox-column'
+        class: 'col-md-12 annotation-filters__checkbox-column'
     });
 }
 
@@ -160,7 +165,7 @@ function collectAllLabels(detections) {
             addedObjects.push(detection.wikiDataId);
             objects.push({
                 id: detection.id,
-                objectId: detection.wikiDataId,
+                wikiDataId: detection.wikiDataId,
                 label: getLanguageSpecificTranslation(detection.translations)
             });
         } else if (isUnknownPersonDetection || isUniqueSubjectDetection) {
@@ -183,18 +188,12 @@ function collectAllLabels(detections) {
 }
 
 function createAnnotationFilters(detections) {
-    var FILTERS_ALREADY_EXIST = false;
     var NEW_FILTERS_HAVE_BEEN_DRAWN = true;
+    var filtersWrapper = $('#annotation-filters-wrapper');
 
-    var hasAlreadyDrawnFilters = $('#' + constants.elements.ANNOTATION_FILTERS_ID).length !== 0;
-
-    if (hasAlreadyDrawnFilters) {
-        return FILTERS_ALREADY_EXIST;
-    }
+    filtersWrapper.empty();
 
     var allLabels = collectAllLabels(detections);
-
-    var filtersWrapper = $('#annotation-filters-wrapper');
 
     filtersWrapper.append(createAnnotationFiltersContent(allLabels));
 

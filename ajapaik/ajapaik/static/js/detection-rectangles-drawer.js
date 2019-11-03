@@ -117,6 +117,8 @@ function scaleRectangleForCurrentImageSize(scalingParametersForCurrentImageSize,
 function drawDetectionRectangles(detections, imageAreaDimensions) {
     $('.popover').remove();
 
+    createAnnotationFilters(detections);
+
     setTimeout(function() {
         removeExistingDetectionRectangles();
 

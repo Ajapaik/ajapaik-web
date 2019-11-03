@@ -145,6 +145,8 @@
                 </div>
                 <div class="modal-footer row p-0 pt-2">
                     <div class="container-fluid text-left">
+                        {% include '_annotation-filter.html' %}
+
                         <!-- start of old photo info -->
                         <div class="row">
                             <div id="ajapaik-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">

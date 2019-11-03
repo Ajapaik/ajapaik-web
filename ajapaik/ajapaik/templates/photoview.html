@@ -83,6 +83,7 @@
                     </div>
                 {% endif %}
             </div>
+            {% include '_annotation-filter.html' %}
             {% with photo=photo|default:photo %}
                 {% include "_photo_description_container.html" %}
             {% endwith %}
