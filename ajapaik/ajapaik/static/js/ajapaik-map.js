@@ -509,18 +509,6 @@
         $(event.target).data('bunch-loaded', ++current_bunch)
     });
 
-    window.checkLoadedSidePanelPhotos = function (element) {
-        var photos_count = $('#ajapaik-photo-pane-content-container .ajapaik-mapview-pane-photo-container').length;
-        if (photos_count <= ++loadedPhotosCount) {
-            if (photos_count >= photosOnSidePanel.length) {
-                $('#ajapaik-map-container .ajapaik-load-more button').hide();
-            } else {
-                $('#ajapaik-map-container .ajapaik-load-more button').show();
-            }
-            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
-        }
-    };
-
     window.deselectMarker = function () {
         currentlySelectedMarker = null;
         window.currentlySelectedRephotoId = null;
