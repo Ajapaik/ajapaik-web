@@ -5,12 +5,10 @@
         <span class="position">{{ p.position }}.</span>
         <span class="photo">
             {% if p.fb_id %}
-                <img class="lazyload"
-                    data-src="https://graph.facebook.com/v2.5/{{ p.fb_id }}/picture?type=square"
+                <img src="https://graph.facebook.com/v2.5/{{ p.fb_id }}/picture?type=square"
                      alt="{% trans "User Facebook photo" %}"/>
             {% elif p.google_plus_picture %}
-                <img class="lazyload" 
-                    data-src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
+                <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
             {% endif %}
         </span>
         <span class="name">{{ p.get_display_name }}</span>

@@ -21,7 +21,7 @@
 <div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
     <div class="d-flex row pt-3">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
-            <img class="main-image lazyload" alt="{{ photo.description }}" data-src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+            <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
             <div class="d-none" id="subject-data-description-container">
                 {% if rectangle.photo.description %}
                     <p>

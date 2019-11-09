@@ -28,9 +28,9 @@
             <div class="img-wrapper">
                 <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
                     href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
-                    <img class="mw-100 align-bottom lazyload" id="ajapaik-compareview-main-photo" style="background-color:#eee;"
+                    <img class="mw-100 align-bottom" id="ajapaik-compareview-main-photo" style="background-color:#eee;"
                                             alt="{{ photo.description }}"
-                                            data-src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+                                            src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
                 </a>
                 <div class="compare-photo-description">
                         {% with photo=photo|default:photo %}
@@ -42,10 +42,10 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-xl-left text-sm-left">
             <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
                 href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}">
-                <img class="mw-100 align-bottom lazyload" id="ajapaik-compareview-secondary-photo" style="background-color:#eee;"
+                <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo" style="background-color:#eee;"
                     alt="{{ photo2.description }}"
                     href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}"
-                    data-src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
+                    src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
             </a>
             <div class="compare-photo-description">
                     {% with photo=photo2|default:photo2 %}
