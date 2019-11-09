@@ -103,8 +103,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
             };
 
         if (!startPoint) {
-            latLng = new google.maps.LatLng(59, 26);
-            startingZoom = 8;
+            latLng = isTabletView ? new google.maps.LatLng(60.170, 24.94088) : new google.maps.LatLng(59, 26);
+            startingZoom = isTabletView ? 14 : 8;
         } else {
             latLng = startPoint;
         }
