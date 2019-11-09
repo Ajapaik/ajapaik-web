@@ -13,9 +13,7 @@
                         onload="checkLoadedSidePanelPhotos(this)"/>
                     {% if (o[i].rephoto_count) { %}
                         <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephoto_count%}" id="ajapaik-map-rephoto-count"
-                            data-id="{%=o[i].id%}"
-                            onmouseover="(function(e) {window.paneRephotoCountHoverIn(e)})(this)"
-                            onmouseout="(function(e) {window.paneRephotoCountHoverOut(e)})(this)">
+                            data-id="{%=o[i].id%}">
                         </div>
                     {% } %}
                     {% if (userIsSocialConnected) { %}

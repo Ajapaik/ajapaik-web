@@ -269,9 +269,26 @@ $('.ajapaik-navbar').autoHidingNavbar();
             });
         }
 
+        var photoPanelClosedByStreetView = false;
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
-            console.error("entered streetview")
+            let openButton = $('#open-btn');
+            if (!!window.toggleSidePanel && !!window.isSidePanelOpen && streetPanorama.getVisible()) {
+                _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
+                window.toggleSidePanel();
+                if(openButton && openButton[0]){
+                    openButton[0].addClass('d-none');
+                }
+                window.photoPanelClosedByStreetView = true;
+            } else {
+                if (!guessLocationStarted && photoPanelClosedByStreetView) {
+                    photoPanel.show();
+                    window.photoPanelClosedByStreetView = false;
+                    if(openButton && openButton[0]){
+                        openButton[0].removeClass('d-none');
+                    }
+                }
+            }
         });
 
         streetviewPanoChangedListener = google.maps.event.addListener(streetPanorama, 'pano_changed', function () {

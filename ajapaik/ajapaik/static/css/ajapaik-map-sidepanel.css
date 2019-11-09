@@ -41,6 +41,7 @@
     width: 0;
     top: 59px;
     left: 0;
+    overflow-x: hidden;
     transition: width 0.5s, opacity 0.5s ease-in-out;
   }
 
@@ -83,7 +84,7 @@
     top: auto;
     left: auto;
     bottom: 0px;
-    z-index: 99999999999;
+    z-index: 98;
     transition: height 0.5s, opacity 0.5s ease-in-out;
   }
 

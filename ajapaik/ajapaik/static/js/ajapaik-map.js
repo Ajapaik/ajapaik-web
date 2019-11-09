@@ -44,7 +44,6 @@
             minimumClusterSize: 2,
             maxZoom: 17
         },
-        isSidePanelOpen = false,
         lastSelectedPaneElement,
         lastSelectedMarkerId,
         loadedPhotosCount = 0,
@@ -55,6 +54,7 @@
         limitByAlbum,
         temporalMapFilterTimeout;
 
+    window.isSidePanelOpen = false;
     document.getElementById("map-side-panel").style.opacity = 0;
     window.userClosedRephotoTools = false;
     window.userClosedSimilarPhotoTools = true;
@@ -516,10 +516,10 @@
         }
     });
 
-    function manipulateElements(isClose=false) {
+    window.toggleSidePanel = function() {
         if(window.innerWidth > 768) {
             let sidePanelWidth = 0
-            if(!isClose){
+            if(!window.isSidePanelOpen){
                 sidePanelWidth = window.innerWidth / 4;
                 if(sidePanelWidth < 200) {
                     sidePanelWidth = 200
@@ -533,37 +533,28 @@
             document.getElementById("close-btn").style.bottom = "";
         } else {
             let sidePanelHeight = 0
-            if(!isClose){
+            if(!window.isSidePanelOpen){
                 sidePanelHeight = window.innerHeight / 4;
                 if(sidePanelHeight < 200) {
                     sidePanelHeight = 200
                 }
             }
             document.getElementById("map-side-panel").style.height = sidePanelHeight + "px";
-            document.getElementById("map-side-panel").style.width = isClose ? "inherit" : "100vw";
+            document.getElementById("map-side-panel").style.width = window.isSidePanelOpen ? "inherit" : "100vw";
             document.getElementById("img-wrapper").style.height = sidePanelHeight + "px";
-            document.getElementById("img-wrapper").style.width = isClose ? "inherit" : "100vw";
+            document.getElementById("img-wrapper").style.width = window.isSidePanelOpen ? "inherit" : "100vw";
             document.getElementById("close-btn").style.bottom = sidePanelHeight + "px";
             document.getElementById("close-btn").style.left = "";
         }
-        document.getElementById("map-side-panel").style.opacity = isClose ? 0 : 1;
-        document.getElementById("close-btn").style.opacity = isClose ? 0 : 0.5;
-        document.getElementById("open-btn").style.opacity = isClose ? 0.5 : 0;
-    };
-    
-    window.openNav = function()  {
-        manipulateElements();
-        isSidePanelOpen = true;
-    };
-    
-    window.closeNav = function() {
-        manipulateElements(true);
-        isSidePanelOpen = false;
+        document.getElementById("map-side-panel").style.opacity = window.isSidePanelOpen ? 0 : 1;
+        document.getElementById("close-btn").style.opacity = window.isSidePanelOpen ? 0 : 0.5;
+        document.getElementById("open-btn").style.opacity = window.isSidePanelOpen ? 0.5 : 0;
+        window.isSidePanelOpen = !window.isSidePanelOpen;
     };
     
     var highlightSelected = function (marker, fromMarker, event) {
-        if (!isSidePanelOpen) {
-            window.openNav();
+        if (!window.isSidePanelOpen) {
+            window.toggleSidePanel();
         }
         if (event) {
             event.preventDefault();
@@ -585,9 +576,6 @@
         if (!fromMarker) {
             window._gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
         }
-        if (lastSelectedPaneElement) {
-            lastSelectedPaneElement.find('.ajapaik-azimuth').hide();
-        }
         if (lastSelectedMarkerId && lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
@@ -596,7 +584,6 @@
         for (var i = 0; i < markers.length; i += 1) {
             if (markers[i].photoData.id == marker.photoData.id) {
                 targetPaneElement.find('img').attr('src', markers[i].thumb);
-                targetPaneElement.find('.ajapaik-azimuth').show();
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
                 if (markers[i].photoData.azimuth) {
@@ -677,8 +664,8 @@
         }, 400);
         if(window.innerWidth <= 768) {
             document.getElementById("close-btn").style.left = "";
-            let sidePanelHeight = isSidePanelOpen ? window.innerHeight / 4 : 0;
-            if(isSidePanelOpen && sidePanelHeight < 200) {
+            let sidePanelHeight = window.isSidePanelOpen ? window.innerHeight / 4 : 0;
+            if(window.isSidePanelOpen && sidePanelHeight < 200) {
                 sidePanelHeight = 200
             }
             document.getElementById("close-btn").style.bottom = sidePanelHeight + "px";
@@ -689,8 +676,8 @@
         }
         else  {
             document.getElementById("close-btn").style.bottom = "";
-            let sidePanelWidth = isSidePanelOpen ? window.innerWidth / 4 : 0;
-            if(isSidePanelOpen && sidePanelWidth < 200) {
+            let sidePanelWidth = window.isSidePanelOpen ? window.innerWidth / 4 : 0;
+            if(window.isSidePanelOpen && sidePanelWidth < 200) {
                 sidePanelWidth = 200
             }
             document.getElementById("map-side-panel").style.width = sidePanelWidth + "px";
@@ -834,14 +821,17 @@
             });
         }
     };
-    
-    window.checkLoadedSidePanelPhotos = function (element) {
+
+    window.checkLoadedSidePanelPhotos = function () {
         var photos_count = $('#map-side-panel .img-wrapper').length;
         if (photos_count <= ++loadedPhotosCount) {
-            if (photos_count >= photosOnSidePanel.length) {
-                $('.load-more button').hide();
-            } else {
-                $('.load-more button').show();
+            if (photos_count < photosOnSidePanel.length) {
+                var current_bunch = $(event.target).data('bunch-loaded');
+                refreshPane(photosOnSidePanel.slice(
+                    current_bunch * sidePanelPhotosBunchSize,
+                    (current_bunch + 1) * sidePanelPhotosBunchSize
+                ));
+                $(event.target).data('bunch-loaded', ++current_bunch)
             }
         }
     };
@@ -855,39 +845,22 @@
             var photoId = $(event.target).data('id');
             highlightSelected(findMarkerByPhotoId(photoId));
         });
-        if (photosToAdd.length == 0) {
-            $('#ajapaik-map-container .ajapaik-load-more button').hide();
-            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').hide();
-        } else {
-            $('#ajapaik-map-container .ajapaik-load-more button').hide();
-            $('#ajapaik-map-container .ajapaik-load-more .ajapaik-spinner').show();
-        }
     };
 
     //TODO: There has to be a better way
     window.paneImageHoverIn = function (e) {
         var myParent = $(e).parent();
-        myParent.find('.ajapaik-azimuth').show();
         myParent.find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
     };
     window.paneImageHoverOut = function (e) {
         var myParent = $(e).parent(),
             icon = myParent.find('.ajapaik-thumbnail-selection-icon');
-        if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarker && currentlySelectedMarker.photoData.id, 10)) {
-            myParent.find('.ajapaik-azimuth').hide();
-        }
         if (!icon.hasClass('ajapaik-thumbnail-selection-icon-blue')) {
             myParent.find('.ajapaik-thumbnail-selection-icon').hide();
         }
     };
-    window.paneRephotoCountHoverIn = function (e) {
-        $(e).parent().find('.ajapaik-azimuth').show();
-        return false;
-    };
-    window.paneRephotoCountHoverOut = function (e) {
-        if (parseInt($(this).data('id'), 10) !== parseInt(currentlySelectedMarker && currentlySelectedMarker.photoData.id, 10)) {
-            $(e).parent().find('.ajapaik-azimuth').hide();
-        }
-        return false;
-    };
+
+    window.onload = function() {
+        window.toggleVisiblePaneElements();
+    }
 }());

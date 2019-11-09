@@ -22,10 +22,10 @@
         <div id="map-side-panel" class="side-panel">
             <div id="img-wrapper"></div>
         </div>
-        <div id="close-btn" onclick="closeNav()">
+        <div id="close-btn" onclick="toggleSidePanel()">
             <i aria-hidden="" class="material-icons notranslate ajapaik-gray-button">close</i>
         </div>
-        <button id="open-btn" onclick="openNav()">Show photos</button>
+        <button id="open-btn" onclick="toggleSidePanel()">Show photos</button>
         <div id="ajapaik-map-container">
             <input id="pac-input-mapview" class="controls float-right" type="text" placeholder={% trans "Search box" %}>
             <div id="ajapaik-map-canvas" class="ajapaik-map-canvas-mapview" {% if not album %}style="top:58px !important;" {% endif %}>
