@@ -4,6 +4,28 @@
 }
 
 .ajapaik-map-vanalinnad-year-select {
+    font-size: 22px !important;
     margin-bottom: 15px;
     display: none;
+}
+
+@media (min-width: 769px) {
+    .ajapaik-map-vanalinnad-year-select {
+        left: auto !important;
+        right: calc(50vw - 255px) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .ajapaik-map-vanalinnad-year-select {
+        left: auto !important;
+        right: 145px !important;
+    }
+}
+
+@media (max-width: 530px) {
+    .ajapaik-map-vanalinnad-year-select {
+        left: calc(100vw - 83px) !important;
+        bottom: 35px !important;
+    }
 }

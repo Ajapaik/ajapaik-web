@@ -30,7 +30,7 @@ var map,
         addressControl: false,
         linksControl: true,
         linksControlOptions: {
-            position: google.maps.ControlPosition.BOTTOM_CENTER
+            position: google.maps.ControlPosition.TOP_CENTER
         },
         enableCloseButton: true,
         visible: false
@@ -158,8 +158,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 },
                 streetView: streetPanorama,
                 mapTypeControlOptions: {
+                    style: window.innerWidth > 768 ? google.maps.MapTypeControlStyle.HORIZONTAL_BAR : google.maps.MapTypeControlStyle.DROPDOWN_MENU,
                     mapTypeIds: mapTypeIds,
-                    position: google.maps.ControlPosition.BOTTOM_CENTER
+                    position: window.innerWidth > 768 ? google.maps.ControlPosition.BOTTOM_CENTER : google.maps.ControlPosition.BOTTOM_RIGHT
                 }
             };
         }
@@ -886,6 +887,19 @@ $('.ajapaik-navbar').autoHidingNavbar();
     $(window).resize(function () {
         if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible")){
             window.resizeMinimap();
+        }
+        if(window.outerWidth < 769){
+            if(mapOpts.mapTypeControlOptions.style !== 2) {
+                mapOpts.mapTypeControlOptions.position = 9;
+                mapOpts.mapTypeControlOptions.style = 2;
+                map.setOptions(mapOpts);
+            }
+        } else {
+            if(mapOpts.mapTypeControlOptions.style !== 0){
+                mapOpts.mapTypeControlOptions.style = 0;
+                mapOpts.mapTypeControlOptions.position = 11;
+                map.setOptions(mapOpts);
+            }
         }
         window.positionMinimapCTAButton();
     });

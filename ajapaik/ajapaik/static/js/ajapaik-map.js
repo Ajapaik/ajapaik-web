@@ -646,19 +646,7 @@
         resizeTimer = setTimeout(() => {
             document.body.classList.remove("resize-animation-stopper");
         }, 400);
-        if(window.innerWidth <= 768) {
-            document.getElementById("close-btn").style.left = "";
-            let sidePanelHeight = window.isSidePanelOpen ? window.innerHeight / 4 : 0;
-            if(window.isSidePanelOpen && sidePanelHeight < 200) {
-                sidePanelHeight = 200
-            }
-            document.getElementById("close-btn").style.bottom = sidePanelHeight + "px";
-            document.getElementById("map-side-panel").style.height = sidePanelHeight + "px";
-            document.getElementById("map-side-panel").style.width = "100vw";
-            document.getElementById("img-wrapper").style.height = sidePanelHeight + "px";
-            document.getElementById("img-wrapper").style.width = "100vw";
-        }
-        else  {
+        if(window.innerWidth > 768) {
             document.getElementById("close-btn").style.bottom = "";
             let sidePanelWidth = window.isSidePanelOpen ? window.innerWidth / 4 : 0;
             if(window.isSidePanelOpen && sidePanelWidth < 200) {
@@ -670,6 +658,18 @@
             document.getElementById("img-wrapper").style.height = "calc(100vh - 60px)";
             document.getElementById("close-btn").style.left = sidePanelWidth + "px";
             document.getElementById("close-btn").style.bottom = "";
+        }
+        else  {
+            document.getElementById("close-btn").style.left = "";
+            let sidePanelHeight = window.isSidePanelOpen ? window.innerHeight / 4 : 0;
+            if(window.isSidePanelOpen && sidePanelHeight < 200) {
+                sidePanelHeight = 200
+            }
+            document.getElementById("close-btn").style.bottom = sidePanelHeight + "px";
+            document.getElementById("map-side-panel").style.height = sidePanelHeight + "px";
+            document.getElementById("map-side-panel").style.width = "100vw";
+            document.getElementById("img-wrapper").style.height = sidePanelHeight + "px";
+            document.getElementById("img-wrapper").style.width = "100vw";
         }
     });
 

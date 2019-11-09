@@ -2449,11 +2449,16 @@ input[type=search]::-webkit-search-cancel-button {
   }
 }
 
-@media (max-width: 767px) {
-  .modal-dialog-center {
-    width: 100%;
+@media (max-width: 768px) {
+  div.gmnoprint.gm-style-mtc {
+    margin: 0 !important;
+    bottom: 0 !important;
   }
 
+  div.gmnoprint.gm-style-mtc > div[role=button] {
+    padding-left: 7px !important;
+    padding-right: 0px !important;
+  }
 }
 
 @media (max-width: 713px) {

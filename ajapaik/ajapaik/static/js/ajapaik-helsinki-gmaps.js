@@ -129,7 +129,12 @@ function HelsinkiGooglemApi(_, isGeotagger) {
             that.yearSelection.index = 2;
             that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.yearSelection);
         } else {
-            that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+            if(window.innerWidth > 768) {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+            }
+            else {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(that.yearSelection);
+            }
         }
     };
     this.refreshMap = function () {

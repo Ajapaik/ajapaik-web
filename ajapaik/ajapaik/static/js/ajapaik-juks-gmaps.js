@@ -174,7 +174,12 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             vanalinnadCitySelection.css('margin-top', '10px');
             that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.citySelection);
         } else {
-            that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
+            if(window.innerWidth > 768) {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+            }
+            else {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(that.yearSelection);
+            }
         }
     };
     this.refreshMap = function () {

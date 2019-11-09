@@ -4,8 +4,7 @@
             {% for (var i = 0; i<o.length; i++) { %}
                 <a id="element{%=o[i].id%}" class="side-panel-photo mb-2" href="{%=o[i].permalink%}"
                 data-id="{%=o[i].id%}" onclick="return false;">
-                    <img data-src="{%=o[i].url%}"
-                        class="lazyload"
+                    <img src="{%=o[i].url%}"
                         alt="{%=o[i].description%}"
                         title="{%=o[i].description%}"
                         data-id="{%=o[i].id%}"
