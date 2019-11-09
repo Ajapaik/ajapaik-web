@@ -41,7 +41,7 @@
         markers = [],
         centerOnMapAfterLocating = false,
         markerClustererSettings = {
-            minimumClusterSize: 2,
+            minimumClusterSize: isTabletView ? 20 : 2,
             maxZoom: 17
         },
         lastSelectedPaneElement,

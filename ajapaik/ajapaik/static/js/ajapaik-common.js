@@ -888,17 +888,19 @@ $('.ajapaik-navbar').autoHidingNavbar();
         if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible")){
             window.resizeMinimap();
         }
-        if(window.outerWidth < 769){
-            if(mapOpts.mapTypeControlOptions.style !== 2) {
-                mapOpts.mapTypeControlOptions.position = 9;
-                mapOpts.mapTypeControlOptions.style = 2;
-                map.setOptions(mapOpts);
-            }
-        } else {
-            if(mapOpts.mapTypeControlOptions.style !== 0){
-                mapOpts.mapTypeControlOptions.style = 0;
-                mapOpts.mapTypeControlOptions.position = 11;
-                map.setOptions(mapOpts);
+        if(isMapview){
+            if(window.outerWidth < 769){
+                if(mapOpts.mapTypeControlOptions.style !== 2) {
+                    mapOpts.mapTypeControlOptions.position = 9;
+                    mapOpts.mapTypeControlOptions.style = 2;
+                    map.setOptions(mapOpts);
+                }
+            } else {
+                if(mapOpts.mapTypeControlOptions.style !== 0){
+                    mapOpts.mapTypeControlOptions.style = 0;
+                    mapOpts.mapTypeControlOptions.position = 11;
+                    map.setOptions(mapOpts);
+                }
             }
         }
         window.positionMinimapCTAButton();
