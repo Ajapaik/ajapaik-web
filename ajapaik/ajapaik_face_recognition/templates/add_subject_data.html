@@ -124,12 +124,12 @@
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-            if($(window).width() / ($(window).height() - 250) > imageRatio) {
-                $('img.main-image').css('height', ($(window).height() - 250) + 'px');
+            if($(window).width() / ($(window).height() - 275) > imageRatio) {
+                $('img.main-image').css('height', ($(window).height() - 275) + 'px');
                 $('img.main-image').css('width', 'auto');
             }
             else {
-                $('img.main-image').css('width', ($(window).height() - 250) * imageRatio)
+                $('img.main-image').css('width', ($(window).height() - 275) * imageRatio)
                 $('img.main-image').css('height', 'auto');
             }
         }
