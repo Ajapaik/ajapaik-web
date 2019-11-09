@@ -1,6 +1,6 @@
 {% verbatim %}
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
-        <div class="row ajapaik-curator-selection-item w-100" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
+        <div class="row ajapaik-curator-selection-item w-100 pl-3" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="text-align:center">
                 <img class="img-fluid lazyload ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onerror="imageFailedToLoad('{%=o.id%}')" onload="imageLoaded('{%=o.id%}')">
             </div>
