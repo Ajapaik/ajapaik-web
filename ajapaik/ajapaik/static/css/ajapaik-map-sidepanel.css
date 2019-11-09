@@ -1,0 +1,129 @@
+.resize-animation-stopper * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.side-panel {
+  position: fixed;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5) none;
+}
+
+.side-panel img {
+  transition: none;
+}
+
+#close-btn,
+#open-btn {
+  cursor: pointer;
+  background: rgb(0, 0, 0) none;
+  color: white;
+  border: none;
+  z-index: 99;
+  opacity: 0.5;
+  font-size: 1.2rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+#close-btn {
+  border: none;
+  z-index: 98;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+}
+
+@media (min-width: 769px) {
+  .side-panel {
+    height: calc(100vh - 60px);
+    width: 0;
+    top: 59px;
+    left: 0;
+    transition: width 0.5s, opacity 0.5s ease-in-out;
+  }
+
+  #img-wrapper {
+    overflow-y: scroll;
+  }
+
+
+  #img-wrapper > a {
+    width: 100%;
+  }
+
+  .side-panel img {
+    width: 100%;
+  }
+
+  #open-btn {
+    width: 90px;
+  }
+  
+  #close-btn,
+  #open-btn {
+    left: -10px;
+    height: 100px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    top: calc(50vh - 50px);
+  }
+
+  #close-btn {
+    width: 45px;
+    transition: left 0.5s, opacity 0.5s ease-in-out;
+  }
+}
+
+@media (max-width: 768px) {
+  .side-panel {
+    width: 100vw;
+    height: 0;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    z-index: 99999999999;
+    transition: height 0.5s, opacity 0.5s ease-in-out;
+  }
+
+  #img-wrapper {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+  }
+
+
+  #img-wrapper > a {
+    width: min-content;
+  }
+
+
+  .side-panel img {
+    height: 100%;
+  }
+
+  #close-btn,
+  #open-btn {
+    bottom: 0px;
+    height: 60px;
+    width: 90px;
+    left: calc(50vw - 45px);
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    justify-content: center;
+  }
+
+  #close-btn {
+    transition: bottom 0.5s, opacity 0.5s ease-in-out;
+  }
+}
+
+.opaque-image {
+  opacity: 0.5;
+}
+
+.side-panel-photo {
+  display: inline-block;
+  position: relative;
+}

@@ -1189,15 +1189,6 @@ a.fullscreen {
   text-align: center;
 }
 
-.ajapaik-mapview-pane-photo-container {
-  display: inline-block;
-  position: relative;
-  opacity: 1 !important;
-}
-.ajapaik-mapview-pane-photo-container > .caption {
-  max-height: 50%;
-}
-
 #modal-compare-similar {
   top: 0px;
   right: 48px;
@@ -1642,14 +1633,6 @@ a.fullscreen {
   bottom: 8px;
 }
 
-#ajapaik-mapview-photo-panel {
-  top: 58px !important;
-  padding-right: 10px !important;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99 !important;
-}
-
 #ajapaik-geolocation-error,
 #ajapaik-sorting-error {
   display: none;
@@ -1677,11 +1660,6 @@ a.fullscreen {
   width: 10px;
   height: 100%;
   cursor: e-resize;
-}
-
-.translucent-pane-element {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 
 #ajapaik-rephoto-full-screen-link,
@@ -2113,10 +2091,6 @@ a[href^="http: //maps.google.com/maps"] {
 
 .ajapaik-result-has-location-indicator {
   background-color: black;
-}
-
-#ajapaik-photo-pane-content-container {
-  min-width: 20%;
 }
 
 #ajapaik-game-modal-header,

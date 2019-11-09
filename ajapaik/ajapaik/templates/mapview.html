@@ -2,14 +2,35 @@
 {% load i18n compress static %}
 
 {% block header %}
-    {% include "_header.html" %}
+    {% if is_tabletview %}
+        {% include "_header_basic.html" %}
+    {% else %}
+        {% include "_header.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/ajapaik-map-sidepanel.css" %}">
+    {% endcompress %}
+    {% include "js_templates/map_view_side_panel_element.html" %}
 {% endblock %}
 
 {% block layout %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
-    {% include "_info_modal.html" %}
-    {% include "_rephoto_upload_modal.html" %}
     <div class="w-100">
+        <div id="map-side-panel" class="side-panel">
+            <div id="img-wrapper">
+                <img src="http://localhost:8000/photo-thumb/868/400/"></img>
+                <img src="http://localhost:8000/photo-thumb/2030/400/"></img>
+                <img src="http://localhost:8000/photo-thumb/1981/400/"></img>
+            </div>
+            <button class="load-more-button">Load More</button>
+        </div>
+        <div id="close-btn" onclick="closeNav()">
+            <i aria-hidden="" class="material-icons notranslate ajapaik-gray-button">close</i>
+        </div>
+        <button id="open-btn" onclick="openNav()">Show photos</button>
         <div id="ajapaik-map-container">
             <input id="pac-input-mapview" class="controls float-right" type="text" placeholder={% trans "Search box" %}>
             <div id="ajapaik-map-canvas" class="ajapaik-map-canvas-mapview" {% if not album %}style="top:58px !important;" {% endif %}>
@@ -37,6 +58,7 @@
 
 {% block specific_js %}
     <script>
+        var isTabletView = '{{ is_tabletview }}' === "True";
         $('#ajp-geotagging-container').AjapaikGeotagger();
         var title = '{{ title }}',
             leaderboardFullURL = "{% url "top50" %}",
@@ -65,8 +87,7 @@
         {% endif %}
     </script>
     {% compress js %}
-        <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
         <script src="{% static "js/ajapaik-map.js" %}"></script>
-        <script src="{% static "libs/justifiedGallery/js/jquery.justifiedGallery-3.6.1.min.js" %}"></script>
+        <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
     {% endcompress %}
 {% endblock %}

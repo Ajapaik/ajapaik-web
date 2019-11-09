@@ -271,15 +271,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
 
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
-            var photoPanel = $('#ajapaik-mapview-photo-panel');
-            if (streetPanorama.getVisible()) {
-                _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
-                photoPanel.hide();
-            } else {
-                if (!guessLocationStarted) {
-                    photoPanel.show();
-                }
-            }
+            console.error("entered streetview")
         });
 
         streetviewPanoChangedListener = google.maps.event.addListener(streetPanorama, 'pano_changed', function () {
@@ -837,9 +829,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
                     });
                     window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
                 } else {
-                    if (window.minimapDottedAzimuthLine) {
-                        window.minimapDottedAzimuthLine.setVisible(false);
-                    }
                     currentIcon = locationIcon;
                 }
                 if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
