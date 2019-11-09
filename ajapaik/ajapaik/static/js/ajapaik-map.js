@@ -301,15 +301,6 @@
         }
     };
 
-    $('.load-more-button').on('click', function (event) {
-        var current_bunch = $(event.target).data('bunch-loaded');
-        refreshPane(photosOnSidePanel.slice(
-            current_bunch * sidePanelPhotosBunchSize,
-            (current_bunch + 1) * sidePanelPhotosBunchSize
-        ));
-        $(event.target).data('bunch-loaded', ++current_bunch)
-    });
-
     window.deselectMarker = function () {
         currentlySelectedMarker = null;
         window.currentlySelectedRephotoId = null;
