@@ -8,7 +8,7 @@
 {% block layout %}
 <div class="container pb-3 w-50{% if not request.user.profile.is_legit %}" id="ajapaik-curator-container"{% else %} pt-5"{% endif %}>
     {% if request.user.profile.is_legit %}
-        <img class="img-fluid" id="upload-preview" src="">
+        <img class="img-fluid lazyload" id="upload-preview" src="">
         {% if message %}
             <div class="alert-success p-3">{{ message }}</div>
         {% endif %}

@@ -2,7 +2,7 @@
     <script id="ajapaik-curator-selection-template" type="text/x-tmpl">
         <div class="row ajapaik-curator-selection-item w-100" id="ajapaik-curator-selection-item-{%=formatId(o.id)%}">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="text-align:center">
-                <img class="img-fluid ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onerror="imageFailedToLoad('{%=o.id%}')" onload="imageLoaded('{%=o.id%}')">
+                <img class="img-fluid lazyload ajapaik-curator-selection-image{% if (o.invert) { %} ajapaik-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajapaik-curator-ETERA-result{% } %}{% if (o.flip) { %} ajapaik-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onerror="imageFailedToLoad('{%=o.id%}')" onload="imageLoaded('{%=o.id%}')">
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ajapaik-curator-selection-controls">
                 <div class="panel panel-primary">
@@ -41,11 +41,11 @@
                         </li>
                     {% } %}
                     {% if (o.latitude) { %}
-                        <img class="img-fluid ajapaik-result-has-location-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/direction_20px_white.png{% verbatim %}" title="{%=gettext('Picture has location data attached')%}">
+                        <img class="img-fluid ajapaik-result-has-location-indicator lazyload" data-src="{% endverbatim %}{{ STATIC_URL }}images/direction_20px_white.png{% verbatim %}" title="{%=gettext('Picture has location data attached')%}">
                     {% } %}
                     {% if (o.ajapaikId) { %}
                         <a target="_blank" href="{%=photoPermalink + o.ajapaikId%}" rel="noopener">
-                            <img class="img-fluid ajapaik-already-have-indicator" src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
+                            <img class="img-fluid ajapaik-already-have-indicator lazyload" data-src="{% endverbatim %}{{ STATIC_URL }}images/ajapaik_marker_35px.png{% verbatim %}" title="{%=gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded')%}">
                         </a>
                     {% } %}
                 </div>
@@ -64,9 +64,9 @@
     </script>
     <script id="ajapaik-curator-result-template" type="text/x-tmpl">
         <a class="thumbnail col-xs-2" title="{%=o.title%}">
-            <img src="{% if (o.isFlickrResult || o.isFinnaResult || o.isEuropeanaResult || o.isCommonsResult ) { %}{%=o.cachedThumbnailUrl %}{% } else { %}{%=o.imageUrl %}{% } %}"
+            <img data-src="{% if (o.isFlickrResult || o.isFinnaResult || o.isEuropeanaResult || o.isCommonsResult ) { %}{%=o.cachedThumbnailUrl %}{% } else { %}{%=o.imageUrl %}{% } %}"
                 data-id="{%=o.id %}" data-institution="{%=o.institution%}" data-identifier="{%=o.identifyingNumber%}"
-                class="img-fluid ajapaik-result-item {% if (selectedResults[o.id]) { %}ajapaik-curator-selected-image{% } %}"
+                class="img-fluid ajapaik-result-item lazyload {% if (selectedResults[o.id]) { %}ajapaik-curator-selected-image{% } %}"
                 id="ajapaik-result-item-{%=formatId(o.id)%}">
         </a>
     </script>

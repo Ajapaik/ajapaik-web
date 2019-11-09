@@ -821,20 +821,6 @@
             });
         }
     };
-
-    window.checkLoadedSidePanelPhotos = function () {
-        var photos_count = $('#map-side-panel .img-wrapper').length;
-        if (photos_count <= ++loadedPhotosCount) {
-            if (photos_count < photosOnSidePanel.length) {
-                var current_bunch = $(event.target).data('bunch-loaded');
-                refreshPane(photosOnSidePanel.slice(
-                    current_bunch * sidePanelPhotosBunchSize,
-                    (current_bunch + 1) * sidePanelPhotosBunchSize
-                ));
-                $(event.target).data('bunch-loaded', ++current_bunch)
-            }
-        }
-    };
     
     function refreshPane(photosToAdd) {
         var targetDiv = $('#img-wrapper');

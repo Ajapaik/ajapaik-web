@@ -18,7 +18,8 @@
                             </div>
                             {% endif %}
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel="">
-                                <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
+                                <img data-src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
+                                        class="lazyload" 
                                         alt="{{ photo.description }}" title="{{ photo.description }}"
                                         id="ajapaik-modal-photo"/>
                             </a>
@@ -71,8 +72,8 @@
                         <div id="ajapaik-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
                             <div id="ajapaik-modal-similar-photo-container" class="float-left">
                                 <a class="w-100">
-                                    <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
-                                        class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"
+                                    <img data-src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
+                                        class="img-fluid ajapaik-photoview-similar-thumb lazyload" id="ajapaik-modal-similar-photo"
                                         {% if similar_photos.all.0.similarity_type == 1 %}
                                         alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
                                         title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
@@ -94,8 +95,8 @@
                                         {% for similar in similar_photos %}
                                             <div class="ajapaik-photo-modal-similar-photo-thumb"
                                                 id="ajapaik-similar-photo-thumb-{{ similar.to_photo.id }}" data-id="{{ similar.to_photo.id }}">
-                                                <img class="img-fluid"
-                                                    src="{% url 'image_thumb' similar.to_photo.id 250 similar.to_photo.get_pseudo_slug %}"
+                                                <img class="img-fluid lazyload"
+                                                    data-src="{% url 'image_thumb' similar.to_photo.id 250 similar.to_photo.get_pseudo_slug %}"
                                                     data-id="{{ similar.to_photo.id }}"/>
                                             </div>
                                         {% endfor %}
@@ -126,8 +127,8 @@
                                         {% for rephoto in photo.rephotos.all %}
                                             <div class="ajapaik-photo-modal-rephoto-thumb"
                                                 id="ajapaik-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
-                                                <img class="img-fluid"
-                                                    src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                                                <img class="img-fluid lazyload"
+                                                    data-src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                                     data-id="{{ rephoto.id }}"/>
                                             </div>
                                         {% endfor %}

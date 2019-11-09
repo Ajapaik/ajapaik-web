@@ -32,8 +32,8 @@
         <div class="ajapaik-photoview-main-photo-wrapper" class="ajapaik-photo col-auto h-100 p-0 mr-3 mw-50">
             <div class="ajapaik-photo" id="ajapaik-photoview-main-photo-container">
                 <a class="fullscreen" id="ajapaik-full-screen-link">
-                    <img id="ajapaik-photoview-main-photo" {% if rephoto %}class="ajapaik-max-48vw" {% endif %}alt="{{ photo.description }}"
-                        src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
+                    <img id="ajapaik-photoview-main-photo" class="lazyload" {% if rephoto %}class="ajapaik-max-48vw" {% endif %}alt="{{ photo.description }}"
+                        data-src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
                 </a>
                 {% if previous_photo %}
                     <a class="ajapaik-photo-modal-previous-button"
@@ -92,8 +92,8 @@
             <div id="ajapaik-photoview-rephoto-wrapper">
                 <div id="ajapaik-photoview-rephoto-container">
                     <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
-                        <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw" alt="{{ photo.description }} {% trans "rephoto" %}"
-                            src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
+                        <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw lazyload" alt="{{ photo.description }} {% trans "rephoto" %}"
+                            data-src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
                     </a>
                     <button class="btn ajapaik-close-rephoto-overlay-button"
                         {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
@@ -114,8 +114,8 @@
                     {% for similarity in similar_photos.all %}
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row ajapaik-photoview-similar-image-row">
                             <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}">
-                                <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
-                                    class="img-fluid ajapaik-photoview-similar-thumb"
+                                <img data-src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
+                                    class="img-fluid ajapaik-photoview-similar-thumb lazyload"
                                     {% if similarity.similarity_type == 1 %}
                                     alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
                                     title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
@@ -143,8 +143,8 @@
                 {% for rephoto in photo.rephotos.all %}
                     <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
                         <a class="w-100" href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
-                            <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
-                                class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
+                            <img data-src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                                class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb lazyload"
                                 alt="{{ photo.description }} {% trans "rephoto" %}"
                                 title="{{ photo.description }} {% trans "rephoto" %}"/>
                         </a>

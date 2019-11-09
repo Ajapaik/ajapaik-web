@@ -4,13 +4,13 @@
             {% for (var i = 0; i<o.length; i++) { %}
                 <a id="element{%=o[i].id%}" class="side-panel-photo mb-2" href="{%=o[i].permalink%}"
                 data-id="{%=o[i].id%}" onclick="return false;">
-                    <img src="{%=o[i].url%}"
+                    <img data-src="{%=o[i].url%}"
+                        class="lazyload"
                         alt="{%=o[i].description%}"
                         title="{%=o[i].description%}"
                         data-id="{%=o[i].id%}"
                         onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
-                        onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
-                        onload="checkLoadedSidePanelPhotos(this)"/>
+                        onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
                     {% if (o[i].rephoto_count) { %}
                         <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephoto_count%}" id="ajapaik-map-rephoto-count"
                             data-id="{%=o[i].id%}">
