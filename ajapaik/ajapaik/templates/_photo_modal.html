@@ -19,8 +19,7 @@
                             {% endif %}
                             <a class="fullscreen" id="ajapaik-full-screen-link" rel=""
                                 href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
-                                <img data-src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
-                                        class="lazyload" 
+                                <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                         alt="{{ photo.description }}" title="{{ photo.description }}"
                                         id="ajapaik-modal-photo"/>
                             </a>

@@ -47,6 +47,11 @@
     background-image: url(../../../static/images/material-design-icons/ic_human_adult.svg);
 }
 
+.human-non-binary {
+    background-image: url(../../../static/images/material-design-icons/ic_human_non_binary.svg);
+}
+
+
 .skip-next {
     background-image: url(../../../static/images/material-design-icons/ic_skip_next.svg);
 }
