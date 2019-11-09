@@ -46,14 +46,12 @@
         },
         lastSelectedPaneElement,
         lastSelectedMarkerId,
-        loadedPhotosCount = 0,
         targetPaneElement,
         maxIndex = 2,
         mc,
         currentMapDataRequest,
-        limitByAlbum,
-        temporalMapFilterTimeout;
-
+        limitByAlbum;
+    
     window.isSidePanelOpen = false;
     document.getElementById("map-side-panel").style.opacity = 0;
     window.userClosedRephotoTools = false;
@@ -552,13 +550,9 @@
         window.isSidePanelOpen = !window.isSidePanelOpen;
     };
     
-    var highlightSelected = function (marker, fromMarker, event) {
+    var highlightSelected = function (marker, fromMarker) {
         if (!window.isSidePanelOpen) {
             window.toggleSidePanel();
-        }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
         }
         targetPaneElement = $('#element' + marker.photoData.id);
         if ((currentlySelectedMarker && currentlySelectedMarker.photoData.id) == marker.photoData.id) {
@@ -606,7 +600,7 @@
             }
         }
         lastHighlightedMarker = marker;
-        if (fromMarker && targetPaneElement.length) {
+        if (targetPaneElement.length) {
             var scrollElement = $('#img-wrapper');
 
             if(window.innerWidth > 768) {
@@ -644,17 +638,7 @@
         edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + currentPaneWidth + 20) / scale;
         return projection.fromPointToLatLng(edgePixelCoordinates);
     };
-    
-    window.doDelayedTemporalFiltering = function () {
-        if (temporalMapFilterTimeout) {
-            clearTimeout(temporalMapFilterTimeout);
-        }
-        temporalMapFilterTimeout = setTimeout(function () {
-            window.toggleVisiblePaneElements();
-            _gaq.push(['_trackEvent', 'Mapview', 'Filter by date']);
-        }, 500);
-    };
-    
+
     $(window).on('resize', function() {
         let resizeTimer;
         document.body.classList.add("resize-animation-stopper");
@@ -724,7 +708,6 @@
                     mc.clearMarkers();
                 }
                 photosOnSidePanel = [];
-                loadedPhotosCount = 0;
                 markers.length = 0;
     
                 if (response.photos) {

@@ -48,6 +48,7 @@ var map,
     mapDataTimeout,
     lastTriggeredPane,
     isPhotoview,
+    photoPanelClosedByStreetView = false,
     mapTypeChangedListener,
     guessLocationStarted = false,
     streetviewVisibleChangedListener,
@@ -268,25 +269,26 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 firstResizeDone = true;
             });
         }
-
-        var photoPanelClosedByStreetView = false;
+        
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
             let openButton = $('#open-btn');
-            if (!!window.toggleSidePanel && !!window.isSidePanelOpen && streetPanorama.getVisible()) {
+            if (streetPanorama.getVisible()) {
                 _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
-                window.toggleSidePanel();
-                if(openButton && openButton[0]){
-                    openButton[0].addClass('d-none');
+                if(!!window.toggleSidePanel && !!window.isSidePanelOpen){
+                    window.toggleSidePanel();
+                    window.photoPanelClosedByStreetView = true;
                 }
-                window.photoPanelClosedByStreetView = true;
+                if(openButton){
+                    openButton.addClass('d-none');
+                }
             } else {
                 if (!guessLocationStarted && photoPanelClosedByStreetView) {
-                    photoPanel.show();
+                    window.toggleSidePanel();
                     window.photoPanelClosedByStreetView = false;
-                    if(openButton && openButton[0]){
-                        openButton[0].removeClass('d-none');
-                    }
+                }
+                if(openButton){
+                    openButton.removeClass('d-none');
                 }
             }
         });
