@@ -12,8 +12,6 @@ function HelsinkiGooglemApi(_, isGeotagger) {
             {year: "1900", name:"historical:1900_opaskartta", url: historicalUrl}, //historical:1900_opaskartta
             {year: "1925", name:"historical:1925_opaskartta", url: historicalUrl}, //historical:1925_opaskartta	
             {year: "1940", name:"historical:1940_opaskartta", url: historicalUrl}, //historical:1940_opaskartta
-            {year: "1962", name:"historical:1962_opaskartta", url: historicalUrl}, //historical:1962_opaskartta
-            {year: "1999", name:"historical:1999_opaskartta", url: historicalUrl}, //historical:1999_opaskartta
             {year: "1943", name:"hel:orto1943", url: ortoUrl}, //hel:orto1943
             {year: "1988", name:"hel:orto1988", url: ortoUrl}, //hel:orto1988
             {year: "2016", name:"avoindata:Ortoilmakuva_2016", url: karttaUrl}, //karrta.hel
@@ -75,7 +73,6 @@ function HelsinkiGooglemApi(_, isGeotagger) {
                 return tileUrl; 
             },
             tileSize: new google.maps.Size(256, 256),
-            opacity: 0.85,
             maxZoom: 18
         });
         map.overlayMapTypes.push(helsinkiHistoricalMapType);
