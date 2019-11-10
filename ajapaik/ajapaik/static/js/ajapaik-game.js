@@ -193,7 +193,7 @@
                     textTarget.show();
                 }
                 lastStatusMessage = message;
-                modalPhoto.attr('data-src', currentPhoto.big.url).attr('alt', currentPhoto.description);
+                modalPhoto.attr('src', currentPhoto.big.url).attr('alt', currentPhoto.description);
                 // For mini-map
                 window.photoModalGeotaggingUserCount = currentPhoto.totalGeotags;
                 window.photoModalPhotoLat = currentPhoto.lat;
