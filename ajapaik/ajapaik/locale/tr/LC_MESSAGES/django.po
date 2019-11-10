@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-17 17:53:38+0000\n"
+"PO-Revision-Date: 2019-10-31 17:25:23+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -617,7 +617,7 @@ msgstr "* ziyaret ettiğiniz yerlerden tarihi manzaraları yeniden fotoğraflama
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaik, <b>%(total_photo_count)s</b> tarihi resimlere sahip, resimleri <b>%(total_photos_tagged)s</b>, haritaya <b>%(contributing_users)s</b> kullanıcı tarafından haritaya yerleştirildi ve <b>%(rephoto_count)s</b> <b>%(rephotographing_users)s</b> kullanıcısı tarafından yapılan resimlerde <b>%(rephotographed_photo_count)s</b> resimler için yeniden yapıldı."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -629,7 +629,7 @@ msgstr[0] "<b>%(user_geotagged_photos)s</b> resmi için konum önerdiniz."
 #, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] ""
+msgstr[0] "İçin <b>%(user_rephotos)s</b> basamağı yaptınız"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
@@ -702,7 +702,7 @@ msgstr "Haber bültenleri"
 
 #: ajapaik/ajapaik/templates/_header.html:56
 msgid "Categorize faces"
-msgstr ""
+msgstr "Yüzleri sınıflandırır"
 
 #: ajapaik/ajapaik/templates/_header.html:60
 msgid "Current selection"
@@ -756,7 +756,7 @@ msgstr[0] "Albümde %(counter)s tarihi fotoğraf mevcut,"
 #, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] ""
+msgstr[0] "%(counter)s kullanıcı koydu"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:102
@@ -792,7 +792,7 @@ msgstr[0] "bu albümde %(counter)s resim."
 #, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] ""
+msgstr[0] "%(counter)s kullanıcı yaptı"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
 #, python-format
@@ -805,13 +805,13 @@ msgstr[0] "haritada %(counter)s resim."
 #, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
-msgstr[0] ""
+msgstr[0] "albümdeki %(counter)s resmi için."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
 #, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] ""
+msgstr[0] "%(counter)s yeniden fotoğraf yaptınız"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -949,7 +949,7 @@ msgstr "benzer fotoğraf"
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
-msgstr ""
+msgstr "yinelenen fotoğraf"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 msgid "Unknown author"
@@ -1044,7 +1044,7 @@ msgstr "Resimleri karşılaştırın"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "Resimlerdeki içeriğin üst üste gelip gelmediğini belirtin. Üst üste binen içerik durumunda, yer veya nesne aynıdır, aynı çekim durumunda resimlerden biri de kırpılabilir."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
@@ -1088,7 +1088,7 @@ msgstr "E-posta adresini onayla"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr ""
+msgstr "Lütfen <a href=\"mailto:%(email)s\">%(email)s</a>'nin %(user_display)s kullanıcısı için bir e-posta adresi olduğunu doğrulayın."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -1097,7 +1097,7 @@ msgstr "Onayla"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr ""
+msgstr "Bu e-posta onay bağlantısının süresi dolmuş veya geçersiz. Lütfen <a href=\"%(email_url)s\">yeni bir e-posta onaylama isteği gönderin</a>."
 
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
@@ -1108,12 +1108,12 @@ msgstr "Giriş"
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
 msgid "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "Lütfen mevcut üçüncü taraf\nhesaplarınızdan biriyle oturum açın. Veya, <a href=\"%(signup_url)s\">kaydolun</a>\n%(site_name)s hesabı için aşağıdan oturum açın:"
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, python-format
 msgid "If you have not created an account yet, then please\n<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "Henüz bir hesap oluşturmadıysanız, lütfen\nönce <a href=\"%(signup_url)s\">kaydolun</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:6
 #: ajapaik/ajapaik/templates/account/password_reset.html:10
@@ -1124,7 +1124,7 @@ msgstr "Parola Sıfırlama"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:15
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr ""
+msgstr "Şifrenizi mi unuttunuz? Aşağıya e-posta adresinizi girin, sıfırlamanıza izin veren bir e-posta göndereceğiz."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -1148,7 +1148,7 @@ msgstr "Parolayı değiştir"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Kötü Belirtec"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1174,7 +1174,7 @@ msgstr "Zaten bir hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\"
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Kaydolma Kapalı"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1198,7 +1198,7 @@ msgstr "Bilgi"
 #: ajapaik/ajapaik/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/models.py:14
 msgid "Child"
-msgstr ""
+msgstr "Çocuk"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:64
 #: ajapaik/ajapaik_face_recognition/models.py:15
@@ -1208,7 +1208,7 @@ msgstr "Yetişkin"
 #: ajapaik/ajapaik/templates/add_subject_data.html:67
 #: ajapaik/ajapaik_face_recognition/models.py:16
 msgid "Elderly"
-msgstr ""
+msgstr "Yaşlı"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:84
 msgid "Skip"
@@ -1216,11 +1216,11 @@ msgstr "Atla"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:88
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Şu anda cinsiyet"
 
 #: ajapaik/ajapaik/templates/add_subject_data.html:90
 msgid "Currently the age is"
-msgstr ""
+msgstr "Şu anda yaş"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1275,11 +1275,11 @@ msgstr "Eski tarihi fotoğrafları coğrafi olarak etiketlemeye yardımcı olun"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:34
 msgid "Before and after view of"
-msgstr ""
+msgstr "Görünümünden önce ve sonra"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:36
 msgid "Historic photo of"
-msgstr ""
+msgstr "Tarihi fotoğraf"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
@@ -1331,7 +1331,7 @@ msgstr "Haydi, resimleri haritaya ekleyelim"
 #, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] ""
+msgstr[0] "Albümde %(counter)s fotoğrafı var,"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"
@@ -1419,15 +1419,15 @@ msgstr "Kaydet"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:58
 msgid "No content overlap"
-msgstr ""
+msgstr "İçerik çakışması yok"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:63
 msgid "Overlapping content"
-msgstr ""
+msgstr "Örtüşen içerik"
 
 #: ajapaik/ajapaik/templates/compare_photos.html:68
 msgid "Same shot"
-msgstr ""
+msgstr "Aynı atış"
 
 #: ajapaik/ajapaik/templates/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
@@ -1637,7 +1637,7 @@ msgstr "Kimlik doğrulama"
 
 #: ajapaik/ajapaik/templates/game.html:25
 msgid "Game modal photo"
-msgstr ""
+msgstr "Oyun modal fotoğraf"
 
 #: ajapaik/ajapaik/templates/game.html:48
 msgid "Show description"
@@ -1669,11 +1669,11 @@ msgstr "Albüme ekle"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:24
 msgid "Images have overlapping content"
-msgstr ""
+msgstr "Görüntülerde çakışan içerik var"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:28
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "Tüm görüntüler aynı çekimde"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:37
 msgid "You can re-order photos by dragging and dropping"
@@ -1697,7 +1697,7 @@ msgstr "rephoto"
 
 #: ajapaik/ajapaik/templates/photoview.html:163
 msgid "People claimed to be on this photo"
-msgstr ""
+msgstr "Bu fotoğrafta olduğu iddia edilen kişiler"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -1706,7 +1706,7 @@ msgstr "Hesap Bağlantıları"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:13
 msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr ""
+msgstr "Aşağıdaki üçüncü taraf hesaplarından herhangi birini kullanarak hesabınıza giriş yapabilirsiniz:"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:45
 msgid "You currently have no social network accounts connected to this account."
@@ -1714,12 +1714,12 @@ msgstr "Şu anda bu hesaba bağlı sosyal medya hesabınız yok."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
-msgstr ""
+msgstr "3. Parti Hesabı Ekleyin"
 
 #: ajapaik/ajapaik/templates/user_upload.html:18
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
+msgstr "Ben, bu çalışmanın telif hakkı sahibi %(user)s, geri dönüşü olmayan bir şekilde bu çalışmayı <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 lisansı (CC-BY-SA)</a> altında."
 
 #: ajapaik/ajapaik/templates/user_upload.html:26
 msgid "Upload and mark on map"
@@ -1804,7 +1804,7 @@ msgstr "Yeterli veri gönderilmedi"
 #: ajapaik/ajapaik/views.py:2675
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr ""
+msgstr "Hala \"%(film)s\"'den %(time)s"
 
 #: ajapaik/ajapaik/views.py:2803
 msgid "Photo uploaded"
@@ -1833,7 +1833,7 @@ msgstr "Konu"
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
-msgstr ""
+msgstr "Tundmatu"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
