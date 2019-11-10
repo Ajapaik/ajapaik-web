@@ -268,7 +268,7 @@
         }
 
         $(".first-block > div > button").on('click', function(e) {
-            clearTimeout();
+            clearTimeout(setInactivityTimeOut);
             setInactivityTimeOut();
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.gender === '-2') {
@@ -300,7 +300,7 @@
             }
         });
         $(".second-block > div > button").on('click', function(e) {
-            clearTimeout();
+            clearTimeout(setInactivityTimeOut);
             setInactivityTimeOut();
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.age === '-2') {
