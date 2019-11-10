@@ -2481,9 +2481,6 @@ input[type=search]::-webkit-search-cancel-button {
   #ajapaik-photo-filter-box {
     width: calc(70vw - 145px);
   }
-  #ajapaik-map-canvas {
-    top: 108px;
-  }
 }
 
 #id_gender > .radio {

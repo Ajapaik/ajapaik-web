@@ -517,7 +517,7 @@
         currentlySelectedMarker = null;
         window.currentlySelectedRephotoId = null;
         window.currentlySelectedSimilarPhotoId = null;
-        $('#img-wrapper').find('img').removeClass("opaque-image");
+        $('#img-wrapper').find('img').removeClass("highlighted-image");
         if (lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
@@ -545,8 +545,8 @@
         }
         currentlySelectedMarker = marker;
         window.syncMapStateToURL();
-        $('#img-wrapper').find('img').addClass('opaque-image');
-        targetPaneElement.find('img').removeClass('opaque-image');
+        $('#img-wrapper').find('img').removeClass('highlighted-image');
+        targetPaneElement.find('img').addClass('highlighted-image');
         if (!fromMarker) {
             window._gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
         }
