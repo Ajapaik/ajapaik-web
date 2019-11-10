@@ -6,7 +6,6 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
-/*global VanalinnadGooglemApi */
 var map,
     streetPanorama,
     input,
@@ -16,7 +15,6 @@ var map,
     firstResizeDone = false,
     marker,
     bypass = false,
-    mapOpts,
     dottedAzimuthLineSymbol,
     dottedAzimuthLine,
     getQueryParameterByName,
@@ -30,7 +28,6 @@ var map,
     mapDataTimeout,
     lastTriggeredPane,
     isPhotoview,
-    mapTypeChangedListener,
     guessLocationStarted = false,
     streetviewVisibleChangedListener,
     streetviewPanoChangedListener,
@@ -92,241 +89,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         });
     }
 
-    function getDatingRangeVals() {
-        var parent = this.parentNode;
-        var slides = parent.getElementsByTagName("input");
-        var slide1 = parseFloat(slides[0].value);
-        var slide2 = parseFloat(slides[1].value);
-        if (slide1 > slide2) {
-            var tmp = slide2;
-            slide2 = slide1;
-            slide1 = tmp;
-        }
-        var displayElement = parent.getElementsByClassName("rangeValues")[0];
-        displayElement.innerHTML = slide1 + " - " + slide2;
-        window.datingStart = slide1;
-        window.datingEnd = slide2;
-        if (typeof window.syncMapStateToURL === 'function') {
-            window.syncMapStateToURL();
-        }
-        if (typeof window.doDelayedTemporalFiltering === 'function') {
-            window.doDelayedTemporalFiltering();
-        }
-    }
-
-    /*
-        var getMap = function (startPoint, startingZoom, isGameMap, mapType) {
-            var latLng,
-                zoomLevel,
-                mapTypeIds,
-                allowedMapTypes = {
-    //                roadmap: google.maps.MapTypeId.ROADMAP,
-    //                satellite: google.maps.MapTypeId.ROADMAP,
-                    OSM: 'OSM',
-                    'old-maps': 'old-maps'
-                };
-
-            if (!startPoint) {
-                latLng = new google.maps.LatLng(59, 26);
-                startingZoom = 8;
-            } else {
-                latLng = startPoint;
-            }
-
-            if (!startingZoom) {
-                zoomLevel = 13;
-            } else {
-                zoomLevel = startingZoom;
-            }
-
-            streetPanorama = new google.maps.StreetViewPanorama(
-                document.getElementById('ajapaik-map-canvas'), streetViewOptions
-            );
-
-            mapTypeIds = [];
-            for (var type in google.maps.MapTypeId) {
-                if (google.maps.MapTypeId.hasOwnProperty(type)) {
-                    mapTypeIds.push(google.maps.MapTypeId[type]);
-                }
-
-            }
-            mapTypeIds.push('OSM');
-            mapTypeIds.push('old-maps');
-
-            if (isGameMap) {
-                // Geotagger module manages all activity now
-                mapOpts = {
-                    zoom: zoomLevel,
-                    scrollwheel: false,
-                    center: latLng,
-                    mapTypeControl: false,
-                    zoomControl: false,
-                    panControl: false,
-                    streetViewControl: false
-                };
-            } else {
-                mapOpts = {
-                    zoom: zoomLevel,
-                    scrollwheel: true,
-                    center: latLng,
-                    mapTypeControl: true,
-                    panControl: false,
-                    zoomControl: true,
-                    zoomControlOptions: {
-                        position: google.maps.ControlPosition.RIGHT_CENTER
-                    },
-                    streetViewControl: true,
-                    streetViewControlOptions: {
-                        position: google.maps.ControlPosition.RIGHT_CENTER
-                    },
-                    streetView: streetPanorama,
-                    mapTypeControlOptions: {
-                        mapTypeIds: mapTypeIds,
-                        position: google.maps.ControlPosition.BOTTOM_CENTER
-                    }
-                };
-            }
-
-            if (allowedMapTypes[mapType]) {
-                mapOpts.mapTypeId = allowedMapTypes[mapType];
-            } else {
-                mapOpts.mapTypeId = allowedMapTypes.OSM;
-            }
-
-            map = new google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
-
-            map.mapTypes.set('OSM', new google.maps.ImageMapType({
-                getTileUrl: function (coord, zoom) {
-                    return 'https://a.tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
-                },
-                tileSize: new google.maps.Size(256, 256),
-                name: 'OSM',
-                maxZoom: 19
-            }));
-
-            var oldMapsCity = getQueryParameterByName('old-maps-city'),
-                oldMapsIdx = getQueryParameterByName('old-maps-index');
-            if (oldMapsCity) {
-                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false);
-            } else {
-                commonVgmapi = new VanalinnadGooglemApi(null, false);
-            }
-            commonVgmapi.map = map;
-            var cityDataDoneCallback = function () {
-                commonVgmapi.buildVanalinnadMapCityControl();
-                commonVgmapi.buildVanalinnadMapYearControl();
-                if (mapType === 'old-maps') {
-                    commonVgmapi.showControls();
-                } else {
-                    commonVgmapi.hideControls();
-                }
-                if (!oldMapsIdx) {
-                    commonVgmapi.changeIndex(0);
-                } else {
-                    commonVgmapi.changeIndex(oldMapsIdx);
-                }
-            };
-            commonVgmapi.getCityData(cityDataDoneCallback);
-            map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
-
-            if (!isGameMap) {
-                myLocationButton = document.createElement('button');
-                $(myLocationButton)
-                    .addClass('btn btn-light btn-xs')
-                    .prop('id', 'ajapaik-mapview-my-location-button')
-                    .prop('title', gettext('Go to my location'))
-                    .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
-                input = /** @type {HTMLInputElement} * /(document.getElementById('pac-input-mapview'));
-                $(input).on('focus', function () {
-                    window.hotkeysActive = false;
-                }).on('blur', function () {
-                    window.hotkeysActive = true;
-                });
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
-                //var datingSlider = $([
-                //    "<section class='ajapaik-map-dating-range-slider'>",
-                //        "<span class='rangeValues'></span>",
-                //        "<input value='1600' min='1000' max='3000' step='1' type='range'>",
-                //        "<input value='2000' min='1000' max='3000' step='1' type='range'>",
-                //    "</section>"
-                //].join('\n'));
-                //if (window.getQueryParameterByName('starting')) {
-                //    datingSlider.find('input:first').val(window.getQueryParameterByName('starting'));
-                //}
-                //if (window.getQueryParameterByName('ending')) {
-                //    datingSlider.find('input:last').val(window.getQueryParameterByName('ending'));
-                //}
-                //datingSlider.find('input').attr('max', new Date().getFullYear());
-                //for (var x = 0; x < datingSlider.length; x += 1) {
-                //    var sliders = datingSlider[x].getElementsByTagName('input');
-                //    for (var y = 0; y < sliders.length; y += 1) {
-                //        if (sliders[y].type === 'range') {
-                //            sliders[y].oninput = getDatingRangeVals;
-                //            sliders[y].oninput();
-                //        }
-                //    }
-                //}
-                //map.controls[google.maps.ControlPosition.TOP_CENTER].push(datingSlider.get(0));
-                closeStreetviewButton = document.createElement('button');
-                $(closeStreetviewButton).addClass('btn btn-default').prop('id', 'ajapaik-mapview-close-streetview-button')
-                    .html(gettext('Close'));
-                streetPanorama.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(closeStreetviewButton);
-                searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} * /(input));
-                google.maps.event.addListener(searchBox, 'places_changed', function () {
-                    var places = searchBox.getPlaces();
-                    if (places.length === 0) {
-                        return;
-                    }
-                    map.setCenter(places[0].geometry.location);
-                    map.setZoom(16);
-                });
-
-                google.maps.event.addListener(map, 'idle', function () {
-                    google.maps.event.trigger(map, 'resize');
-                    var bounds = map.getBounds();
-                    searchBox.setBounds(bounds);
-                    // Resizing of map cause double firing of 'idle' event. I
-                    // think we need refactor map loading and resize map in some
-                    // other place.
-                    if(firstResizeDone) {
-                        window.toggleVisiblePaneElements();
-                    }
-                    firstResizeDone = true;
-                });
-            }
-
-            streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
-                // Works only in map view
-                var photoPanel = $('#ajapaik-mapview-photo-panel');
-                if (streetPanorama.getVisible()) {
-                    _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
-                    photoPanel.hide();
-                } else {
-                    if (!guessLocationStarted) {
-                        photoPanel.show();
-                    }
-                }
-            });
-
-            streetviewPanoChangedListener = google.maps.event.addListener(streetPanorama, 'pano_changed', function () {
-                // Works only in map view
-                _gaq.push(['_trackEvent', 'Map', 'Street View Movement']);
-            });
-
-            mapTypeChangedListener = google.maps.event.addListener(map, 'maptypeid_changed', function () {
-                // Works only in map view
-                _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
-                var mapType = window.map.getMapTypeId();
-                if (mapType === 'old-maps') {
-                    commonVgmapi.showControls();
-                } else {
-                    commonVgmapi.hideControls();
-                }
-                window.syncMapStateToURL();
-            });
-        };
-    */
     // Functions used on modal mini-map and map view, duplicates in geotagger plugin to make it self-contained
     Math.getAzimuthBetweenTwoPoints = function (p1, p2) {
         if (p1 && p2) {
@@ -350,30 +112,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     Math.radians = function (degrees) {
         return degrees * Math.PI / 180;
     };
-    /*
-        Math.simpleCalculateMapLineEndPoint = function (azimuth, startPoint, lineLength) {
-            azimuth = Math.radians(azimuth);
-            var newX = (Math.cos(azimuth) * lineLength) + startPoint.lat(),
-                newY = (Math.sin(azimuth) * lineLength) + startPoint.lng();
 
-            return new google.maps.LatLng(newX, newY);
-        };
-
-        Math.calculateMapLineEndPoint = function (bearing, startPoint, distance) {
-            var earthRadius = 6371e3,
-                angularDistance = distance / earthRadius,
-                bearingRadians = Math.radians(bearing),
-                startLatRadians = Math.radians(startPoint.lat()),
-                startLonRadians = Math.radians(startPoint.lng()),
-                endLatRadians = Math.asin(Math.sin(startLatRadians) * Math.cos(angularDistance) +
-                    Math.cos(startLatRadians) * Math.sin(angularDistance) * Math.cos(bearingRadians)),
-                endLonRadians = startLonRadians + Math.atan2(Math.sin(bearingRadians) * Math.sin(angularDistance) *
-                        Math.cos(startLatRadians), Math.cos(angularDistance) - Math.sin(startLatRadians) *
-                        Math.sin(endLatRadians));
-
-            return new google.maps.LatLng(Math.degrees(endLatRadians), Math.degrees(endLonRadians));
-        };
-    */
     Math.haversineDistance = function (start, end) {
         var R = 6371,
             dLat = Math.radians(end.latitude - start.latitude),
@@ -386,30 +125,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
 
         return R * c;
     };
-    /*
-        // Used in map view and mini-map
-        dottedAzimuthLineSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            strokeOpacity: 1,
-            strokeWeight: 1.5,
-            strokeColor: 'red',
-            scale: 0.75
-        };
 
-        dottedAzimuthLine = new google.maps.Polyline({
-            geodesic: false,
-            strokeOpacity: 0,
-            icons: [
-                {
-                    icon: dottedAzimuthLineSymbol,
-                    offset: '0',
-                    repeat: '7px'
-                }
-            ],
-            visible: false,
-            clickable: false
-        });
-    */
     getQueryParameterByName = function (name) {
         var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -530,14 +246,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     updateLeaderboard = function () {
         var target = $('.score_container');
         if (window.albumId) {
-            //     $.ajax({
-            //         type: 'GET',
-            //         url: leaderboardUpdateURL + 'album/' + window.albumId,
-            //         data: {},
-            //         success: function(response) {
-            //             target.find('.scoreboard').html(response)
-            //         }
-            //     });
             target.find('.scoreboard').load(leaderboardUpdateURL + 'album/' + window.albumId);
         } else {
             target.find('.scoreboard').load(leaderboardUpdateURL);
@@ -703,234 +411,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('.ajapaik-minimap-start-guess-CTA-button').css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
             .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px');
     };
-    /*
-        window.showPhotoMapIfApplicable = function (isPhotoview) {
-            var arrowIcon = {
-                    path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
-                    strokeColor: 'white',
-                    strokeOpacity: 1,
-                    strokeWeight: 1,
-                    fillColor: 'black',
-                    fillOpacity: 1,
-                    rotation: 0,
-                    scale: 1.5,
-                    anchor: new google.maps.Point(12, 12)
-                },
-                locationIcon = {
-                    path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-                    strokeColor: 'white',
-                    strokeOpacity: 1,
-                    strokeWeight: 1,
-                    fillColor: 'black',
-                    fillOpacity: 1,
-                    scale: 1.5,
-                    anchor: new google.maps.Point(12, 18)
-                },
-                currentIcon;
-            var container = $('#ajapaik-modal-photo-container'),
-                mapContainer = $('#ajapaik-photo-modal-map-container');
-            if (!window.isMobile && mapContainer.length > 0 && (!photoModalRephotoArray ||
-                photoModalRephotoArray.length === 0 || userClosedRephotoTools)) {
-                if (isPhotoview) {
-                    mapContainer.css('height', $('#ajapaik-photoview-main-photo').height());
-                } else {
-                    mapContainer.show().css('height', container.height());
-                }
-                if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
-                    $('#ajapaik-minimap-disabled-overlay').show();
-                } else {
-                    $('#ajapaik-minimap-disabled-overlay').hide();
-                }
-                var center,
-                    minimapLargeCTAButton,
-                    minimapLargeCTAButtonIcon;
-                if (!window.photoModalPhotoLat && !window.photoModalPhotoLng) {
-                    minimapLargeCTAButton = document.createElement('button');
-                    minimapLargeCTAButtonIcon = document.createElement('i');
-                    $(minimapLargeCTAButtonIcon).addClass('material-icons notranslate').html('add_location');
-                    $(minimapLargeCTAButton).addClass('ajapaik-minimap-start-guess-CTA-button')
-                        .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
-                    $('.ajapaik-minimap-start-guess-CTA-button').remove();
-                    var mapCanvas = $('#ajapaik-photo-modal-map-canvas');
-                    $(minimapLargeCTAButton).attr('data-id', window.currentlyOpenPhotoId);
-                    mapContainer.append(minimapLargeCTAButton);
-                    window.positionMinimapCTAButton();
-                    $('.ajapaik-minimap-geotagging-user-number').remove();
-                    var minimapGeotaggingUserNumber = document.createElement('div');
-                    var minimapGeotaggingUserNumberSpan = document.createElement('span');
-                    $(minimapGeotaggingUserNumberSpan).text(window.photoModalGeotaggingUserCount);
-                    $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number').addClass('no-location')
-                        .prop('title', gettext('Geotagged by this many users'));
-                    minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserNumberSpan);
-                    var minimapGeotaggingUserIcon = document.createElement('div');
-                    minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
-                    if (window.photoModalGeotaggingUserCount < 2) {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
-                    } else {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
-                    }
-                    if (window.photoModalUserHasGeotaggedThisPhoto) {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
-                    }
-                    mapContainer.append(minimapGeotaggingUserNumber);
-                    window.miniMap = null;
-                } else {
-                    center = {
-                        lat: window.photoModalPhotoLat,
-                        lng: window.photoModalPhotoLng
-                    };
-                    window.miniMap = new google.maps.Map(document.getElementById('ajapaik-photo-modal-map-canvas'), {
-                        center: center,
-                        zoom: 17,
-                        mapTypeControl: false,
-                        mapTypeId: 'OSM'
-                    });
-                    minimapLargeCTAButton = null;
-                    $('.ajapaik-minimap-start-guess-CTA-button').remove();
 
-                    // Show only if user is logged in
-                    if (window.userLoggedIn) {
-                        var minimapConfirmGeotagButton = document.createElement('button');
-                        $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
-                            .addClass('ajapaik-minimap-confirm-geotag-button')
-                            .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
-                            .data('placement', 'top').data('toggle', 'popover')
-                            .data('content', gettext('Confirm correct location'))
-                            .html('<i class="material-icons notranslate">beenhere</i>').popover();
-                        if (window.photoModalUserHasConfirmedThisLocation) {
-                            $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
-                        }
-                        window.miniMap.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(minimapConfirmGeotagButton);
-                    }
-
-                    var minimapStartGuessButton = document.createElement('button');
-                    $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
-                        .addClass('ajapaik-minimap-start-guess-button')
-                        .data('trigger', 'hover')
-                        .data('placement', 'top').data('toggle', 'popover')
-                        .data('content', gettext('Submit your own location'))
-                        .html('<i class="material-icons notranslate">edit_location</i>').popover();
-                    window.miniMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(minimapStartGuessButton);
-                    $('.ajapaik-minimap-geotagging-user-number').remove();
-                    var minimapGeotaggingUserNumber = document.createElement('div');
-                    var minimapGeotaggingUserNumberSpan = document.createElement('span');
-                    $(minimapGeotaggingUserNumberSpan).text(window.photoModalGeotaggingUserCount);
-                    $(minimapGeotaggingUserNumber).addClass('ajapaik-minimap-geotagging-user-number dropdown pr-2')
-                        .prop('title', gettext('Geotagged by this many users'));
-                    minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserNumberSpan);
-                    var minimapGeotaggingUserIcon = document.createElement('div');
-                    $(minimapGeotaggingUserIcon).addClass('dropdown-toggle').attr('data-toggle', 'dropdown');
-                    minimapGeotaggingUserNumber.appendChild(minimapGeotaggingUserIcon);
-                    if (window.photoModalGeotaggingUserCount < 2) {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-single-person');
-                    } else {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-multiple-people');
-                    }
-                    if (window.photoModalUserHasGeotaggedThisPhoto) {
-                        $(minimapGeotaggingUserIcon).addClass('ajapaik-minimap-geotagging-user-active');
-                    }
-                    if (window.photoModalFirstGeotaggers) {
-                        var dropdown = $([
-                            '<ul class="dropdown-menu dropdown-menu-right" id="ajapaik-mini-map-geotaggers-dropdown" aria-labelledby="dropdownMenu1">',
-                            '</ul>'
-                        ].join('\n'));
-                        if (window.photoModalUserHasGeotaggedThisPhoto) {
-                            $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item"><a href="#">' + gettext('You') + '</a></li>'));
-                        } else {
-                            if (window.photoModalFirstGeotaggers.length === 0) {
-                                if (window.photoModalGeotaggingUserCount === 1) {
-                                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + window.photoModalPhotoLat + '" data-lng="' + window.photoModalPhotoLng + '"><a href="#">' + gettext('Anonymous user') + '</a></li>'));
-                                } else {
-                                    $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + window.photoModalPhotoLat + '" data-lng="' + window.photoModalPhotoLng + '"><a href="#">' + gettext('Anonymous users') + '</a></li>'));
-                                }
-                            }
-                        }
-                        $(minimapGeotaggingUserNumber).append(dropdown);
-                        $.each(window.photoModalFirstGeotaggers, function (k, v) {
-                            $(dropdown).append($('<li class="ajapaik-minimap-geotagger-list-item" data-lat="' + v[1] + '" data-lng="' + v[2] + '"><a href="#">' + v[0] + '</a></li>'));
-                        });
-                    }
-                    window.miniMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(minimapGeotaggingUserNumber);
-                    window.miniMap.mapTypes.set('OSM', new google.maps.ImageMapType({
-                        getTileUrl: function (coord, zoom) {
-                            return 'https://a.tile.openstreetmap.org/' + zoom + '/' + coord.x + '/' + coord.y + '.png';
-                        },
-                        tileSize: new google.maps.Size(256, 256),
-                        name: 'OpenStreetMap',
-                        maxZoom: 18
-                    }));
-                    if (window.photoModalPhotoAzimuth) {
-                        var start = new google.maps.LatLng(center.lat, center.lng);
-                        var geodesicEndPoint = Math.calculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 2000);
-                        var angle = Math.getAzimuthBetweenTwoPoints(start, geodesicEndPoint);
-                        var angleFix = window.photoModalPhotoAzimuth - angle;
-                        var arrowIconRotation;
-                        arrowIconRotation = window.photoModalPhotoAzimuth;
-                        // TODO: Why do we even need such magic? Should get to the bottom of our azimuth calculation problems
-                        if (angleFix < 0 && arrowIconRotation > 0) {
-                            arrowIconRotation += angleFix;
-                        }
-                        arrowIcon.rotation = arrowIconRotation;
-                        currentIcon = arrowIcon;
-                        window.minimapDottedAzimuthLine = new google.maps.Polyline({
-                            geodesic: false,
-                            strokeOpacity: 0,
-                            icons: [
-                                {
-                                    icon: dottedAzimuthLineSymbol,
-                                    offset: '0',
-                                    repeat: '7px'
-                                }
-                            ],
-                            visible: true,
-                            clickable: false,
-                            map: window.miniMap
-                        });
-                        window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
-                    } else {
-                        if (window.minimapDottedAzimuthLine) {
-                            window.minimapDottedAzimuthLine.setVisible(false);
-                        }
-                        currentIcon = locationIcon;
-                    }
-                    if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
-                        if (window.miniMapMarker) {
-                            window.miniMapMarker.setIcon(currentIcon);
-                            window.miniMapMarker.setPosition(new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng));
-                            window.miniMapMarker.setMap(window.miniMap);
-                        } else {
-                            window.miniMapMarker = new google.maps.Marker({
-                                position: new google.maps.LatLng(window.photoModalPhotoLat, window.photoModalPhotoLng),
-                                map: window.miniMap,
-                                title: gettext('Current location'),
-                                icon: currentIcon
-                            });
-                        }
-                    }
-                    if (!window.miniMapStreetView) {
-                        window.miniMapStreetView = window.miniMap.getStreetView();
-                    }
-                    google.maps.event.clearListeners(window.miniMapStreetView, 'visible_changed');
-                    google.maps.event.addListener(window.miniMapStreetView, 'visible_changed', function () {
-                        if (window.miniMapMarker) {
-                            if (window.miniMapStreetView.getVisible()) {
-                                window.miniMapMarker.setIcon(locationIcon);
-                            } else {
-                                if (window.photoModalPhotoAzimuth) {
-                                    window.miniMapMarker.setIcon(arrowIcon);
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        };
-
-        $(window).resize(function () {
-            window.resizeMinimap();
-            window.positionMinimapCTAButton();
-        });
-    */
     $(document).on('click', '.ajapaik-album-selection-item', function (e) {
         e.preventDefault();
         var $this = $(this);
@@ -978,9 +459,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 var commentsDiv = $('#ajapaik-rephoto-comments');
                 commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
                 window.FB.XFBML.parse();
-                if (window.isFrontpage || window.isSelection) {
-
-                } else {
+                if (!window.isFrontpage && !window.isSelection) {
                     window.syncMapStateToURL();
                 }
                 break;
@@ -1418,25 +897,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             _gaq.push(['_trackEvent', 'Mapview', 'General info click']);
         }
     });
-
-    //$(document).on('click', '#ajapaik-mobile-about-button', function (e) {
-    //    var targetDiv = $('#ajapaik-general-info-modal');
-    //    if (window.generalInfoModalURL) {
-    //        $.ajax({
-    //            url: window.generalInfoModalURL,
-    //            success: function (resp) {
-    //                targetDiv.html(resp).modal();
-    //            }
-    //        });
-    //    }
-    //    if (window.isFrontpage) {
-    //        _gaq.push(['_trackEvent', 'Gallery', 'General info click']);
-    //    } else if (window.isGame) {
-    //        _gaq.push(['_trackEvent', 'Game', 'General info click']);
-    //    } else if (window.isMapview) {
-    //        _gaq.push(['_trackEvent', 'Mapview', 'General info click']);
-    //    }
-    //});
 
     $(document).on('focus', '#id_comment', function () {
         $('.ajapaik-photo-modal-previous-button').addClass('ajapaik-photo-modal-previous-button-disabled').addClass('disabled');

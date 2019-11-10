@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="modal fade" id="ajapaikAddSubjectDataTutorialModal" style="z-index:9999;" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xxl" style="display:flex;">
+        <div class="modal-content p-3" style="min-height:120px; max-height: 75%;">
+            <div class="modal-header">
+                <h4>{% trans "Categorize faces" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p>
+               {% trans "Please indicate what are the gender and/or age of the highlighted person" %}.
+               <br>
+               {% trans "If you are not sure what the gender and/or age of the person is, please press" %} <b>{% trans "Not Sure" %}</b>.
+               <br>
+               {% trans "In case the rectangle is misplaced please choose" %} <b>{% trans "Not a Face" %}</b>.
+               <br>
+               {% trans "To see the description of the image, please press" %} <b>{% trans "Info" %}</b>.
+            </p>
+            <br>
+            <button id="close-add-subject-data-modal" class="btn btn-success w-100">
+                OK
+            </button>
+        </div>
+    </div>
+</div>

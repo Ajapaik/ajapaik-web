@@ -44,17 +44,17 @@
     {% include "_filtering_tutorial_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
-            <img id="ajapaik-full-screen-image" alt=""/>
+            <img class="lazyload" id="ajapaik-full-screen-image" alt=""/>
         </div>
     </div>
     <div class="full-box rephoto-full-box">
         <div class="full-pic" id="ajapaik-rephoto-fullscreen-image-container">
-            <img id="ajapaik-rephoto-full-screen-image" alt=""/>
+            <img class="lazyload" id="ajapaik-rephoto-full-screen-image" alt=""/>
         </div>
     </div>
     <div class="full-box similar-full-box">
         <div class="full-pic" id="ajapaik-similar-fullscreen-image-container">
-            <img id="ajapaik-similar-photo-full-screen-image" alt=""/>
+            <img class="lazyload" id="ajapaik-similar-photo-full-screen-image" alt=""/>
         </div>
     </div>
 {% endblock %}
@@ -71,7 +71,6 @@
         window.frontpageAsyncURL = '{% url "frontpage_async_data" %}';
         window.frontpageAlbumsAsyncURL = '{% url "frontpage_async_albums" %}';
         window.nextPhotoLoading = false;
-        /* window.photos = window.getQueryParameterByName('photos'); */ // Kimmo: 23.8.2018. This doesn't work and it is not in use? Check and remove if this is not needed
         window.userClosedRephotoTools = false;
         window.userClosedSimilarPhotoTools = true;
         window.useButtonLink = true;

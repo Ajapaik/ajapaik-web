@@ -971,17 +971,16 @@ a.fullscreen {
 
 #ajapaik-compareview-main-photo,
 #ajapaik-compareview-secondary-photo,
-#ajapaik-photoview-main-photo,
-#ajapaik-photoview-rephoto
 #ajapaik-game-modal-photo {
   max-width: 100vw;
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
 
+#ajapaik-photoview-main-photo,
+#ajapaik-photoview-rephoto
 #ajapaik-photoview-rephoto {
-  max-width: 100vw;
-  max-height: 70vh;
+  max-width: 95vw;
 }
 
 #ajapaik-compareview-secondary-photo {
@@ -1015,15 +1014,6 @@ a.fullscreen {
 #ajapaik-photoview-rephoto-container {
   display: inline-block;
   position: relative;
-}
-
-.ajapaik-azimuth {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  background: rgba(128, 128, 128, 0.5) url("../images/direction_20px_white.png") no-repeat center;
 }
 
 .ajapaik-thumbnail-selection-icon {
@@ -1187,15 +1177,6 @@ a.fullscreen {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 30px;
   text-align: center;
-}
-
-.ajapaik-mapview-pane-photo-container {
-  display: inline-block;
-  position: relative;
-  opacity: 1 !important;
-}
-.ajapaik-mapview-pane-photo-container > .caption {
-  max-height: 50%;
 }
 
 #modal-compare-similar {
@@ -1642,21 +1623,6 @@ a.fullscreen {
   bottom: 8px;
 }
 
-#ajapaik-mapview-photo-panel {
-  top: 58px !important;
-  padding-right: 10px !important;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99 !important;
-}
-#ajapaik-mapview-photo-panel .jsPanel {
-  background: none;
-}
-#ajapaik-mapview-photo-panel .jsPanel-content {
-  background: none;
-  overflow-y: scroll !important;
-}
-
 #ajapaik-geolocation-error,
 #ajapaik-sorting-error {
   display: none;
@@ -1684,15 +1650,6 @@ a.fullscreen {
   width: 10px;
   height: 100%;
   cursor: e-resize;
-}
-
-.jsPanel-title {
-  font-variant: normal !important;
-}
-
-.translucent-pane-element {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 
 #ajapaik-rephoto-full-screen-link,
@@ -1866,10 +1823,6 @@ ul.errorlist,
   z-index: 10000;
   max-width: 50%;
   margin-top: 50px;
-}
-
-#ajapaik-geotag-info-js-panel .jsPanel-content {
-  margin: 10px;
 }
 
 .controls {
@@ -2130,10 +2083,6 @@ a[href^="http: //maps.google.com/maps"] {
   background-color: black;
 }
 
-#ajapaik-photo-pane-content-container {
-  min-width: 20%;
-}
-
 #ajapaik-game-modal-header,
 .ajapaik-no-border {
   border: none;
@@ -2346,10 +2295,6 @@ footer a {
   white-space: nowrap;
 }
 
-.ajapaik-curator-submit-single {
-  height: 43px;
-}
-
 .ajp-dater-hide-when-dater-visible {
   padding: 12px 9px 12px
 }
@@ -2499,11 +2444,17 @@ input[type=search]::-webkit-search-cancel-button {
   }
 }
 
-@media (max-width: 767px) {
-  .modal-dialog-center {
-    width: 100%;
+@media (max-width: 768px) {
+  div.gmnoprint.gm-style-mtc {
+    margin: 0 !important;
+    bottom: 0 !important;
+    right: 0px !important;
   }
 
+  div.gmnoprint.gm-style-mtc > div[role=button] {
+    padding-left: 7px !important;
+    padding-right: 0px !important;
+  }
 }
 
 @media (max-width: 713px) {

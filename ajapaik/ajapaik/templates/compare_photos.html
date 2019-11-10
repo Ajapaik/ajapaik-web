@@ -43,9 +43,9 @@
             <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel=""
                 href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}">
                 <img class="mw-100 align-bottom" id="ajapaik-compareview-secondary-photo" style="background-color:#eee;"
-                                        alt="{{ photo2.description }}"
-                                        href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}"
-                                        src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
+                    alt="{{ photo2.description }}"
+                    href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}"
+                    src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
             </a>
             <div class="compare-photo-description">
                     {% with photo=photo2|default:photo2 %}
@@ -80,7 +80,7 @@
         if(!docCookies.getItem("similarityModalShown")) {
             var d = new Date();
             d.setTime(d.getTime() + 86400000);
-            document.cookie = 'similarityModalShown=True;expires=' + d + ';path=/'; 
+            document.cookie = 'similarityModalShown=true;expires=' + d + ';path=/'; 
             $('#ajapaikSimilarImagesTutorialModal').modal();
         }
 

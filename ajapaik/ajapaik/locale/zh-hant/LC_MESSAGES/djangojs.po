@@ -580,9 +580,7 @@ msgstr "您的猜測已更改"
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "發生了一些狀況，請檢查您的連線。若問題持續出現，請在 Tawk.to 上聯絡我們"
 
-#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
-msgid "'"
-msgstr "'"
+
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

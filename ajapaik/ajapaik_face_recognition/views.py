@@ -213,17 +213,37 @@ def get_subject_data(request, subject_id = None):
     rectangle = None
     nextRectangle = None
     hasUnverified = False
-    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None).filter(deleted=None)
+    album_id = request.GET.get('album')
+    if album_id is not None and album_id.isdigit():
+        album_id = int(album_id, 10)
+    else:
+        album_id = None
+    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None, deleted=None)
+    if album_id is not None:
+        albumPhotoIds = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
+        unverifiedRectangles = unverifiedRectangles.filter(photo_id__in=albumPhotoIds)
     if unverifiedRectangles.count() > 1:
         rectangles = unverifiedRectangles
     else:
+        # TODO: If album_id and subject_id were specified,
+        #       but subject_id is not of a photo belonging to album,
+        #       then the images will be shown from all guesses of the user.
+        #       It should only show from previous guesses of the user, which
+        #       are of rectangles belonging to photos which are in album with album_id
+
         guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
         if guesses is None:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
+            if album_id is not None:
+                rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
         else:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).exclude(id__in=guesses)
+            if album_id is not None:
+                rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
             if rectangles.count() == 0:
                 rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+                if album_id is not None:
+                    rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
                 guessIds = []
                 for guess in guesses:
                     if subject_id != str(guess):
@@ -235,12 +255,17 @@ def get_subject_data(request, subject_id = None):
     else:
         if rectangle is None:
             rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
-    if nextRectangle is None:
-        nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
-    if nextRectangle is None:
-        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
+    if rectangle is None:
+        return render(request, 'add_subject_data_empty.html')
     else:
-        next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+        if nextRectangle is None:
+            nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
+        if nextRectangle is None:
+            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
+        else:
+            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+            if album_id is not None:
+                next_action += "?album=" + str(album_id)
 
     #These variables are used for debugging purposes, remove when going live
     age = "Undefined"

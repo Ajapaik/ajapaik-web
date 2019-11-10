@@ -8,9 +8,11 @@
 {% endblock %}
 
 {% block header %}
-    {% include "_header.html" %}
+    {% include "_header_basic.html" %}
 {% endblock %}
 {% block layout %}
+{% include "_add_subject_data_tutorial_modal.html" %}
+
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
         <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
@@ -45,6 +47,9 @@
         <div>
             <button class="guess-button human-male" data=1>
                 {% trans "Male" %}
+            </button>
+            <button class="guess-button human-non-binary" data=2>
+                {% trans "Non-binary" %}
             </button>
             <button class="guess-button human-female" data="0">
                 {% trans "Female" %}
@@ -103,11 +108,52 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        $(".ajapaik-brand").removeAttr('href');
+        $('#close-add-subject-data-modal').on('click', function() {
+            $('#ajapaikAddSubjectDataTutorialModal').modal('toggle');
+        });
+
+        let showModal = function() {
+            var d = new Date();
+            d.setTime(d.getTime() + 86400000);
+            document.cookie = 'addSubjectDataModalShown=true;expires=' + d + ';path=/'; 
+            if(!$('#ajapaikAddSubjectDataTutorialModal').is(":visible")){
+                $('#ajapaikAddSubjectDataTutorialModal').modal();
+            }
+        }
+
+
+        var idleTime = 0;
+        $(document).ready(function () {
+            //Increment the idle time counter every second.
+            var idleInterval = setInterval(timerIncrement, 1000); 
+
+            //Zero the idle timer on mouse movement.
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+            //Zero the idle timer on touch events.
+            $(this).bind('touchstart', function(){
+                idleTime = 0;
+            });
+            $(this).bind('touchmove', function(){
+                idleTime = 0;
+            });
+        });
+
+        function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime > 29) { 
+                showModal();
+            }
+        }
+
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
-        var currentRectangleId = '{{ rectangle.id }}'
+        var currentRectangleId = '{{ rectangle.id }}';
         var hasConsensus = '{{ hasConsensus }}';
         var subject = {
             subjectId: {{ rectangle.id }},
@@ -125,12 +171,12 @@
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
         resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-            if($(window).width() / ($(window).height() - 250) > imageRatio) {
-                $('img.main-image').css('height', ($(window).height() - 250) + 'px');
+            if($(window).width() / ($(window).height() - 275) > imageRatio) {
+                $('img.main-image').css('height', ($(window).height() - 275) + 'px');
                 $('img.main-image').css('width', 'auto');
             }
             else {
-                $('img.main-image').css('width', ($(window).height() - 250) * imageRatio)
+                $('img.main-image').css('width', ($(window).height() - 275) * imageRatio)
                 $('img.main-image').css('height', 'auto');
             }
         }

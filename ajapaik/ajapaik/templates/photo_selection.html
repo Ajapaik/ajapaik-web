@@ -39,14 +39,14 @@
                 <div class="panel panel-default" id="ajapaik-selection-middle-panel">
                     <div class="row panel-body">
                         {% for photo in photos %}
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="margin:20px; text-align: center; border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white;"
+                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2" style="margin:20px; text-align: center; border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white;"
                                  id="ajapaik-frontpage-image-container-{{ photo.0 }}" style="min-height: 330px;"
                                  data-id="{{ photo.0 }}">
                                 <a href="{% url 'photo' photo.0 photo.get_pseudo_slug %}"
                                    class="thumbnail ajapaik-photo-selection-thumbnail-link d-block h-100" data-id="{{ photo.0 }}">
-                                    <img src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
+                                    <img data-src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
                                             width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.0 }}"
-                                            class="img-fluid ajapaik-photo-selection-thumbnail">
+                                            class="img-fluid ajapaik-photo-selection-thumbnail lazyload">
                                     <div class="ajapaik-remove-from-selection-button" data-id="{{ photo.0 }}"></div>
                                 </a>
                             </div>

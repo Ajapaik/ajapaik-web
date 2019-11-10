@@ -110,7 +110,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             });
         });
     };
-    this.buildVanalinnadMapYearControl = function () {
+    this.buildMapYearControl = function () {
         if (that.yearSelection) {
             that.yearSelection.parentElement.removeChild(that.yearSelection);
         }
@@ -159,7 +159,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
                 that.map.setZoom(12);
             }
             that.getCityData(function () {
-                that.buildVanalinnadMapYearControl();
+                that.buildMapYearControl();
                 that.showControls();
                 that.changeIndex(0);
             });
@@ -174,7 +174,12 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             vanalinnadCitySelection.css('margin-top', '10px');
             that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.citySelection);
         } else {
-            that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
+            if(window.innerWidth > 768) {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+            }
+            else {
+                that.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(that.yearSelection);
+            }
         }
     };
     this.refreshMap = function () {

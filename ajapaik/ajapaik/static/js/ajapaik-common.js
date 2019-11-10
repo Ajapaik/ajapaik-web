@@ -6,6 +6,7 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
+/*global HelsinkiGooglemApi */
 /*global VanalinnadGooglemApi */
 var map,
     streetPanorama,
@@ -29,7 +30,7 @@ var map,
         addressControl: false,
         linksControl: true,
         linksControlOptions: {
-            position: google.maps.ControlPosition.BOTTOM_CENTER
+            position: google.maps.ControlPosition.TOP_CENTER
         },
         enableCloseButton: true,
         visible: false
@@ -47,6 +48,7 @@ var map,
     mapDataTimeout,
     lastTriggeredPane,
     isPhotoview,
+    photoPanelClosedByStreetView = false,
     mapTypeChangedListener,
     guessLocationStarted = false,
     streetviewVisibleChangedListener,
@@ -71,7 +73,8 @@ var map,
     closeStreetviewButton,
     albumSelectionDiv,
     handleAlbumChange,
-    updateStatDiv;
+    updateStatDiv,
+    isTabletView;
 
 $('.ajapaik-navbar').autoHidingNavbar();
 
@@ -87,29 +90,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
             waitThumbnailsLoad: false
         });
     }
-
-    function getDatingRangeVals() {
-        var parent = this.parentNode;
-        var slides = parent.getElementsByTagName("input");
-        var slide1 = parseFloat(slides[0].value);
-        var slide2 = parseFloat(slides[1].value);
-        if (slide1 > slide2) {
-            var tmp = slide2;
-            slide2 = slide1;
-            slide1 = tmp;
-        }
-        var displayElement = parent.getElementsByClassName("rangeValues")[0];
-        displayElement.innerHTML = slide1 + " - " + slide2;
-        window.datingStart = slide1;
-        window.datingEnd = slide2;
-        if (typeof window.syncMapStateToURL === 'function') {
-            window.syncMapStateToURL();
-        }
-        if (typeof window.doDelayedTemporalFiltering === 'function') {
-            window.doDelayedTemporalFiltering();
-        }
-    }
-
     getMap = function (startPoint, startingZoom, isGameMap, mapType) {
         var latLng,
             zoomLevel,
@@ -118,12 +98,13 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 roadmap: google.maps.MapTypeId.ROADMAP,
                 satellite: google.maps.MapTypeId.ROADMAP,
                 OSM: 'OSM',
-                'old-maps': 'old-maps'
+                'old-maps': 'old-maps',
+                'old-helsinki': 'old-helsinki'
             };
 
         if (!startPoint) {
-            latLng = new google.maps.LatLng(59, 26);
-            startingZoom = 8;
+            latLng = isTabletView ? new google.maps.LatLng(60.170, 24.94088) : new google.maps.LatLng(59, 26);
+            startingZoom = isTabletView ? 14 : 8;
         } else {
             latLng = startPoint;
         }
@@ -147,6 +128,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
         mapTypeIds.push('OSM');
         mapTypeIds.push('old-maps');
+        mapTypeIds.push('old-helsinki');
 
         if (isGameMap) {
             // Geotagger module manages all activity now
@@ -176,8 +158,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 },
                 streetView: streetPanorama,
                 mapTypeControlOptions: {
+                    style: window.innerWidth > 768 ? google.maps.MapTypeControlStyle.HORIZONTAL_BAR : google.maps.MapTypeControlStyle.DROPDOWN_MENU,
                     mapTypeIds: mapTypeIds,
-                    position: google.maps.ControlPosition.BOTTOM_CENTER
+                    position: window.innerWidth > 768 ? google.maps.ControlPosition.BOTTOM_CENTER : google.maps.ControlPosition.BOTTOM_RIGHT
                 }
             };
         }
@@ -199,18 +182,36 @@ $('.ajapaik-navbar').autoHidingNavbar();
             maxZoom: 19
         }));
 
-        var oldMapsCity = getQueryParameterByName('old-maps-city'),
-            oldMapsIdx = getQueryParameterByName('old-maps-index');
-        if (oldMapsCity) {
-            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false);
+        var oldMapsCity = getQueryParameterByName('maps-city'),
+            oldMapsIdx = getQueryParameterByName('maps-index');
+        if(!isTabletView){
+            if(oldMapsCity){
+                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
+            }
+            else{
+                commonVgmapi = new VanalinnadGooglemApi(null, false);
+            }
+            commonVgmapi.map = map;
+            var cityDataDoneCallback = function () {
+                commonVgmapi.buildVanalinnadMapCityControl();
+                commonVgmapi.buildMapYearControl();
+                if (window.map.getMapTypeId() === 'old-maps') {
+                    commonVgmapi.showControls();
+                } else {
+                    commonVgmapi.hideControls();
+                }
+                if (!oldMapsIdx) {
+                    commonVgmapi.changeIndex(0);
+                } else {
+                    commonVgmapi.changeIndex(oldMapsIdx);
+                }
+            };
+            commonVgmapi.getCityData(cityDataDoneCallback);
         } else {
-            commonVgmapi = new VanalinnadGooglemApi(null, false);
-        }
-        commonVgmapi.map = map;
-        var cityDataDoneCallback = function () {
-            commonVgmapi.buildVanalinnadMapCityControl();
-            commonVgmapi.buildVanalinnadMapYearControl();
-            if (mapType === 'old-maps') {
+            commonVgmapi = new HelsinkiGooglemApi(false);
+            commonVgmapi.map = map;
+            commonVgmapi.buildMapYearControl();
+            if (window.map.getMapTypeId() === 'old-helsinki') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();
@@ -220,10 +221,13 @@ $('.ajapaik-navbar').autoHidingNavbar();
             } else {
                 commonVgmapi.changeIndex(oldMapsIdx);
             }
-        };
-        commonVgmapi.getCityData(cityDataDoneCallback);
-        map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
-
+        }
+        if(isTabletView){
+            map.mapTypes.set('old-helsinki', commonVgmapi.helsinkiMapType);
+        }
+        else {
+            map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
+        }
         if (!isGameMap) {
             myLocationButton = document.createElement('button');
             $(myLocationButton)
@@ -239,30 +243,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 window.hotkeysActive = true;
             });
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
-            //var datingSlider = $([
-            //    "<section class='ajapaik-map-dating-range-slider'>",
-            //        "<span class='rangeValues'></span>",
-            //        "<input value='1600' min='1000' max='3000' step='1' type='range'>",
-            //        "<input value='2000' min='1000' max='3000' step='1' type='range'>",
-            //    "</section>"
-            //].join('\n'));
-            //if (window.getQueryParameterByName('starting')) {
-            //    datingSlider.find('input:first').val(window.getQueryParameterByName('starting'));
-            //}
-            //if (window.getQueryParameterByName('ending')) {
-            //    datingSlider.find('input:last').val(window.getQueryParameterByName('ending'));
-            //}
-            //datingSlider.find('input').attr('max', new Date().getFullYear());
-            //for (var x = 0; x < datingSlider.length; x += 1) {
-            //    var sliders = datingSlider[x].getElementsByTagName('input');
-            //    for (var y = 0; y < sliders.length; y += 1) {
-            //        if (sliders[y].type === 'range') {
-            //            sliders[y].oninput = getDatingRangeVals;
-            //            sliders[y].oninput();
-            //        }
-            //    }
-            //}
-            //map.controls[google.maps.ControlPosition.TOP_CENTER].push(datingSlider.get(0));
             closeStreetviewButton = document.createElement('button');
             $(closeStreetviewButton).addClass('btn btn-secondary').prop('id', 'ajapaik-mapview-close-streetview-button')
                 .html(gettext('Close'));
@@ -290,16 +270,26 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 firstResizeDone = true;
             });
         }
-
+        
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
-            var photoPanel = $('#ajapaik-mapview-photo-panel');
+            let openButton = $('#open-btn');
             if (streetPanorama.getVisible()) {
                 _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
-                photoPanel.hide();
+                if(!!window.toggleSidePanel && !!window.isSidePanelOpen){
+                    window.toggleSidePanel();
+                    window.photoPanelClosedByStreetView = true;
+                }
+                if(openButton){
+                    openButton.addClass('d-none');
+                }
             } else {
-                if (!guessLocationStarted) {
-                    photoPanel.show();
+                if (!guessLocationStarted && photoPanelClosedByStreetView) {
+                    window.toggleSidePanel();
+                    window.photoPanelClosedByStreetView = false;
+                }
+                if(openButton){
+                    openButton.removeClass('d-none');
                 }
             }
         });
@@ -312,8 +302,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         mapTypeChangedListener = google.maps.event.addListener(map, 'maptypeid_changed', function () {
             // Works only in map view
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
-            var mapType = window.map.getMapTypeId();
-            if (mapType === 'old-maps') {
+            if (window.map.getMapTypeId() === 'old-maps' || window.map.getMapTypeId() === 'old-helsinki') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();
@@ -860,9 +849,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
                     });
                     window.minimapDottedAzimuthLine.setPath([start, Math.simpleCalculateMapLineEndPoint(window.photoModalPhotoAzimuth, start, 0.02)]);
                 } else {
-                    if (window.minimapDottedAzimuthLine) {
-                        window.minimapDottedAzimuthLine.setVisible(false);
-                    }
                     currentIcon = locationIcon;
                 }
                 if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
@@ -901,6 +887,21 @@ $('.ajapaik-navbar').autoHidingNavbar();
     $(window).resize(function () {
         if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible")){
             window.resizeMinimap();
+        }
+        if(isMapview){
+            if(window.outerWidth < 769){
+                if(mapOpts.mapTypeControlOptions.style !== 2) {
+                    mapOpts.mapTypeControlOptions.position = 9;
+                    mapOpts.mapTypeControlOptions.style = 2;
+                    map.setOptions(mapOpts);
+                }
+            } else {
+                if(mapOpts.mapTypeControlOptions.style !== 0){
+                    mapOpts.mapTypeControlOptions.style = 0;
+                    mapOpts.mapTypeControlOptions.position = 11;
+                    map.setOptions(mapOpts);
+                }
+            }
         }
         window.positionMinimapCTAButton();
     });
@@ -952,9 +953,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 var commentsDiv = $('#ajapaik-rephoto-comments');
                 commentsDiv.find('.fb-comments').attr('data-href', window.photoModalRephotoArray[i].fb_url);
                 window.FB.XFBML.parse();
-                if (window.isFrontpage || window.isSelection) {
-
-                } else {
+                if (!window.isFrontpage && !window.isSelection) {
                     window.syncMapStateToURL();
                 }
                 break;
@@ -1000,9 +999,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
                 currentlySelectedSimilarPhotoId = targetId;
                 window.FB.XFBML.parse();
-                if (window.isFrontpage || window.isSelection) {
-
-                } else {
+                if (!window.isFrontpage && !window.isSelection) {
                     window.syncMapStateToURL();
                 }
                 break;

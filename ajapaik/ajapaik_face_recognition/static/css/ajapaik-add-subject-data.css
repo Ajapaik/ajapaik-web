@@ -47,6 +47,10 @@
     background-image: url(../../../static/images/material-design-icons/ic_human_adult.svg);
 }
 
+.human-non-binary {
+    background-image: url(../../../static/images/material-design-icons/ic_human_non_binary.svg);
+}
+
 .skip-next {
     background-image: url(../../../static/images/material-design-icons/ic_skip_next.svg);
 }
@@ -66,26 +70,6 @@
 
 .first-block, .second-block {
     justify-content: center;
-}
-
-.px-2.pt-2 {
-    display: none !important;
-}
-
-#ajapaik-header-profile-button,
-.ajapaik-header-right-button,
-#ajapaik-header-about-button
-{
-    display: none !important;
-}
-
-.ajapaik-header-right-button.dropdown.d-inline-block.align-top.pt-2 {
-    right: 30px;
-    display: inline-block !important;
-}
-
-.ajapaik-brand {
-    display: inline-block !important;
 }
 
 .navbar.navbar-default.navbar-fixed-top.ajapaik-navbar.w-100.py-0 {

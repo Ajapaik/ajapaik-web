@@ -44,10 +44,10 @@
                 <h4>{% trans "Supporters of Ajapaik" %}</h4>
                 <div class="row d-block" style="font-size:0">
                     <a class="d-inline-block w-50" href="https://www.kulka.ee/" target="_blank" rel="noopener">
-                        <img alt="{% trans "KulKa logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kulka.png">
+                        <img alt="{% trans "KulKa logo" %}" class="img-fluid lazyload" data-src="{{ STATIC_URL }}images/logo-kulka.png">
                     </a>
                     <a class="d-inline-block w-50" href="https://www.kul.ee/" target="_blank" rel="noopener">
-                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-ministry-of-culture{% if LANGUAGE_CODE == "et" %}_et{% endif %}.png">
+                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid lazyload" src="{{ STATIC_URL }}images/logo-ministry-of-culture{% if LANGUAGE_CODE == "et" %}_et{% endif %}.png">
                     </a>
                 </div>
                 <div class="row d-block" style="font-size:0">
@@ -59,11 +59,11 @@
                     {% else %}
                         https://ev100.ee/en/ajapaik-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
                     {% endif %}" rel="noopener">
-                        <img class="w-100 media-object" src="{{ STATIC_URL }}images/ev100.png"
+                        <img class="w-100 media-object lazyload" data-src="{{ STATIC_URL }}images/ev100.png"
                             alt="{% trans "EV100 logo" %}">
                     </a>
                     <a class="d-inline-block w-75" href="https://www.kysk.ee/" target="_blank" rel="noopener">
-                        <img alt="{% trans "KYSK logo" %}" class="img-fluid" src="{{ STATIC_URL }}images/logo-kysk.png">
+                        <img alt="{% trans "KYSK logo" %}" class="img-fluid lazyload" data-src="{{ STATIC_URL }}images/logo-kysk.png">
                     </a>
                 </div>
             </div>

@@ -4,6 +4,39 @@
 }
 
 .ajapaik-map-vanalinnad-year-select {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     display: none;
+    background-color: rgba(255 ,255,255);
+    font-size: 25px;
+    border-radius: 5px;
+    font-weight: 500;
+    border: 0;
+    margin-left: 5px;
+    height: 43px;
+}
+
+@media (min-width: 769px) {
+    .ajapaik-map-vanalinnad-year-select {
+        left: auto !important;
+        right: calc(50vw - 300px) !important;
+        height: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ajapaik-map-vanalinnad-year-select {
+        left: auto !important;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        right: 119px !important;
+        margin-bottom: 0px;
+    }
+}
+
+@media (max-width: 530px) {
+    .ajapaik-map-vanalinnad-year-select {
+        right: 0px !important;
+        border-bottom-left-radius: 0px;
+        bottom: 43px !important;
+    }
 }

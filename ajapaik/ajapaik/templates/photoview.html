@@ -2,7 +2,7 @@
 {% load i18n comments static %}
 
 {% block header %}
-{% include "_header.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block layout %}
@@ -13,7 +13,7 @@
 {% include "js_templates/curator_album_selection_option.html" %}
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
-        <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;" data-src="{{ fullscreen.url }}"
+        <img id="ajapaik-full-screen-image" style="display: none;" src="{{ fullscreen.url }}"
             alt="{{ photo.description }}" title="{{ photo.description }}" />
     </div>
 </div>
@@ -311,15 +311,10 @@
             mainPhotoContainer = $('#ajapaik-photoview-main-photo-container'),
             mainPhoto = $('#ajapaik-photoview-main-photo'),
             originalFullscreen = $('#ajapaik-full-screen-image');
-        // $('#ajp-geotagging-container').AjapaikGeotagger();
         $('#ajp-dater-container').AjapaikDater();
         mainPhotoContainer.AjapaikFaceTagger();
         // FIXME: This isn't doing the singleton thing it's supposed to?
         mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({ photoId: window.photoId });
-        // window.showPhotoMapIfApplicable(true);
-        // mainPhoto.on('load', function () {
-        //      window.showPhotoMapIfApplicable(true);
-        // });
         $('.dropdown-toggle').dropdown();
         $('.disabled-link').click(function (event) {
             event.preventDefault();
@@ -502,7 +497,6 @@
         $('body').removeClass('ajapaik-body-game-map');
         $('#ajp-geotagging-container').hide();
         window.locationToolsOpen = false;
-        // window.showPhotoMapIfApplicable(true);
         $('.footer').show();
     };
     $('#ajapaik-photoview-start-dating-button').click(function (e) {

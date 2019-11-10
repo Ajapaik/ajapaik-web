@@ -584,9 +584,7 @@ msgstr "Arvaustasi on muutettu"
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Jotain meni vikaan, tarkista verkkoyhteytesi. Mikäli ongelma jatkuu, niin pyydämme ottamaan yhteyttä meihin Tawk.to:lla."
 
-#: ajapaik/ajapaik/static/libs/jsPanel-2.5.2/vendor/jquery-ui-1.11.4.complete/jquery-ui.min.js:10
-msgid "'"
-msgstr "'"
+
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

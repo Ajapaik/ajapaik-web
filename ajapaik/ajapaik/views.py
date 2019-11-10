@@ -1443,7 +1443,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context["title"] = area.name + " - " + _("Browse photos on map")
 	else:
 		context["title"] = _("Browse photos on map")
-
+	context["is_tabletview"] = request.path.find("map-tablet") > 0
 	return render(request, "mapview.html", context)
 
 
