@@ -225,6 +225,12 @@ def get_subject_data(request, subject_id = None):
     if unverifiedRectangles.count() > 1:
         rectangles = unverifiedRectangles
     else:
+        # TODO: If album_id and subject_id were specified,
+        #       but subject_id is not of a photo belonging to album,
+        #       then the images will be shown from all guesses of the user.
+        #       It should only show from previous guesses of the user, which
+        #       are of rectangles belonging to photos which are in album with album_id
+
         guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
         if guesses is None:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
