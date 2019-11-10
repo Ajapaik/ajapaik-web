@@ -9,7 +9,8 @@
                         title="{%=o[i].description%}"
                         data-id="{%=o[i].id%}"
                         onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
-                        onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"/>
+                        onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
+                        onload="checkLoadedSidePanelPhotos(this)"/>
                     {% if (o[i].rephoto_count) { %}
                         <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephoto_count%}" id="ajapaik-map-rephoto-count"
                             data-id="{%=o[i].id%}">
