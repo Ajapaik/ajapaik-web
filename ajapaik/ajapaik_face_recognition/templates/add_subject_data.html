@@ -11,6 +11,8 @@
     {% include "_header_basic.html" %}
 {% endblock %}
 {% block layout %}
+{% include "_add_subject_data_tutorial_modal.html" %}
+
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
         <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
@@ -106,6 +108,31 @@
 {% endblock %}
 {% block specific_js %}
     <script>
+        $('#close-add-subject-data-modal').on('click', function() {
+            $('#ajapaikAddSubjectDataTutorialModal').modal('toggle');
+        });
+
+        let showModal = function() {
+            var d = new Date();
+            d.setTime(d.getTime() + 86400000);
+            document.cookie = 'addSubjectDataModalShown=true;expires=' + d + ';path=/'; 
+            if(!$('#ajapaikAddSubjectDataTutorialModal').is(":visible")){
+                $('#ajapaikAddSubjectDataTutorialModal').modal();
+            }
+        }
+
+        let setInactivityTimeOut = function() {
+            if(!docCookies.getItem("addSubjectDataModalShown")) {
+                showModal();
+            } else {
+                setTimeout(function(){
+                    showModal();
+                }, 30000);
+            }
+        }
+
+        setInactivityTimeOut();
+
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
@@ -241,6 +268,8 @@
         }
 
         $(".first-block > div > button").on('click', function(e) {
+            clearTimeout();
+            setInactivityTimeOut();
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.gender === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
@@ -271,6 +300,8 @@
             }
         });
         $(".second-block > div > button").on('click', function(e) {
+            clearTimeout();
+            setInactivityTimeOut();
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.age === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
