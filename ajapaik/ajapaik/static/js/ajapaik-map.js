@@ -71,7 +71,7 @@
         photoId = id;
         $.ajax({
             cache: false,
-            url: '/photo/' + id + '/?isMapview=1',
+            url: isTabletView ? '/photo/' + id + '/?isMapview=1&basic=true' : '/photo/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
                 var mainPhotoContainer = $('#ajapaik-modal-photo-container'),
