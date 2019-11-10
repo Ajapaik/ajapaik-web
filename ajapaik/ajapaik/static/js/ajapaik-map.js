@@ -467,7 +467,13 @@
                             }
                         }
                     }
-                    $('#img-wrapper').empty();
+                    var imgWrapper = document.getElementById("img-wrapper");
+                    var fc = imgWrapper.firstChild;
+
+                    while( fc ) {
+                        imgWrapper.removeChild( fc );
+                        fc = imgWrapper.firstChild;
+                    }
                     refreshPane(photosOnSidePanel.slice(0, sidePanelPhotosBunchSize));
                 });
             });
@@ -496,10 +502,7 @@
     };
 
     function refreshPane(photosToAdd) {
-        var targetDiv = $('#img-wrapper');
-        targetDiv.append(
-            tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd)
-        );
+        let imageWrapper = document.getElementById('img-wrapper').innerHTML = tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd);
         if (photosToAdd.length == 0) {
             window.morePhotosCanBeLoaded = false;
         } else {
