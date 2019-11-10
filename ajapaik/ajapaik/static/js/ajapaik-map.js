@@ -502,7 +502,9 @@
     };
 
     function refreshPane(photosToAdd) {
-        let imageWrapper = document.getElementById('img-wrapper').innerHTML = tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd);
+        $('#img-wrapper').append(
+            tmpl('ajapaik-map-view-side-panel-element-template', photosToAdd)
+        );
         if (photosToAdd.length == 0) {
             window.morePhotosCanBeLoaded = false;
         } else {
