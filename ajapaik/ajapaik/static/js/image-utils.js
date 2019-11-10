@@ -72,6 +72,10 @@ function togglePopover(popoverId) {
 }
 
 function hideDetectionRectanglesWithoutOpenPopover() {
+    if (window.isMobile) {
+        return;
+    }
+
     $('[data-is-detection-rectangle]').each(function() {
         var rectangle = $(this);
 
