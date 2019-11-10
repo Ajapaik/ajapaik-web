@@ -173,7 +173,14 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             } else {
                 img.removeClass('ajapaik-photo-flipped');
             }
-            window.BigScreen.request(div[0]);
+            window.BigScreen.request(
+                div[0],
+                function() {
+                    setTimeout(function() {
+                        drawAnnotationContainer(div);
+                    }, 100);
+                }
+            );
             fullscreenEnabled = true;
             if (window.isGame) {
                 _gaq.push(['_trackEvent', 'Game', 'Full-screen']);

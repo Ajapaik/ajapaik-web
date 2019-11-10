@@ -15,8 +15,16 @@ var DraggableArea = (function () {
     var initialTop = null;
     var initialLeft = null;
 
+    function getCurrentDrawingAreaDimensions() {
+        if (window.fullscreenEnabled) {
+            return document.getElementById(constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE).getBoundingClientRect();
+        }
+
+        return ImageAreaSelector.getImageAreaDimensions();
+    }
+
     function getAllowedLocationDimensions() {
-        var currentImageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
+        var currentImageAreaDimensions = getCurrentDrawingAreaDimensions();
 
         return {
             maximumAllowedWidthLocation: currentImageAreaDimensions.width,
@@ -498,7 +506,7 @@ var DraggableArea = (function () {
     }
 
     function convertAnnotationPixelValuesToPercentages(annotationRectangle) {
-        var imageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
+        var imageAreaDimensions = getCurrentDrawingAreaDimensions();
 
         var distanceFromTop = parseFloat(annotationRectangle.css('top').replace('px', '')) / imageAreaDimensions.height;
         var distanceFromLeft = parseFloat(annotationRectangle.css('left').replace('px', '')) / imageAreaDimensions.width;
@@ -550,7 +558,9 @@ var DraggableArea = (function () {
         element.on('touchstart', onDownEvent);
 
         element.on('click', function (event) {
-            event.stopPropagation();
+            if (!window.fullscreenEnabled)  {
+                event.stopPropagation();
+            }
 
             if (!hasDragged) {
                 annotationRectangle.click();
@@ -559,7 +569,13 @@ var DraggableArea = (function () {
 
         element.on('touchend', function () {
             if (!hasDragged) {
-                annotationRectangle.click();
+                if (window.fullscreenEnabled) {
+                    setTimeout(function() {
+                        $('.full-box div').click();
+                    });
+                } else {
+                    annotationRectangle.click();
+                }
             }
         });
     }

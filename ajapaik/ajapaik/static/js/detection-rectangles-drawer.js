@@ -141,8 +141,79 @@ function refreshAnnotations() {
     getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 }
 
-function getImageScaledDimensions(imageAreaCurrentSize) {
+function getOriginalPhotoRelations() {
     var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+    var originalPhotoHeightToWidthRelation= window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth;
+
+    return {
+        originalPhotoWidthToHeightRelation: originalPhotoWidthToHeightRelation,
+        originalPhotoHeightToWidthRelation: originalPhotoHeightToWidthRelation
+    };
+}
+
+function getScreenWidthToHeightRelation() {
+    return screen.width / screen.height;
+}
+
+function isPlacingBlackBordersOnSides() {
+    var screenWidthToHeightRelation = getScreenWidthToHeightRelation();
+
+    var imageWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+
+    return imageWidthToHeightRelation - screenWidthToHeightRelation < 0;
+}
+
+function centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer) {
+    var imageWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+    var isHeightInFullLength = isPlacingBlackBordersOnSides();
+
+    if (isHeightInFullLength) {
+        var scaledWidth = imageContainer.height() * imageWidthToHeightRelation;
+        var blackBorderSize = (imageContainer.width() - scaledWidth) / 2;
+
+        annotationContainer.css({
+            position: 'absolute',
+            left: blackBorderSize + 'px',
+            height: '100%',
+            width: scaledWidth + 'px'
+        });
+    } else {
+        var scaledHeight = imageContainer.width() / imageWidthToHeightRelation;
+        var blackBorderSize = (imageContainer.height() - scaledHeight) / 2;
+
+        annotationContainer.css({
+            position: 'absolute',
+            top: blackBorderSize + 'px',
+            width: '100%',
+            height: scaledHeight + 'px'
+        });
+    }
+}
+
+function drawAnnotationContainer(imageContainer) {
+    var annotationContainer = $('<div>');
+
+    centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer);
+
+    imageContainer.append(annotationContainer);
+    moveAnnotationRectanglesElement(annotationContainer);
+
+    $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE).remove();
+    annotationContainer.attr('id', constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
+
+    function onWindowResize() {
+        drawAnnotationContainer(imageContainer);
+    }
+
+    window.onresize = onWindowResize;
+    window.BigScreen.onexit = function() {
+        window.removeEventListener('resize', onWindowResize);
+        moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
+    };
+}
+
+function getImageScaledDimensions(imageAreaCurrentSize) {
+    var originalPhotoWidthToHeightRelation = getOriginalPhotoRelations().originalPhotoWidthToHeightRelation;
 
     var currentImageAreaDimensions = {
         width: parseInt(imageAreaCurrentSize.width),

@@ -100,6 +100,14 @@ function closePopovers(currentlyOpeningId) {
     });
 }
 
+function moveAnnotationRectanglesElement(element) {
+    $('[data-is-detection-rectangle]').each(function() {
+        var rectangle = $(this);
+        rectangle.css('visibility', 'initial');
+        element.append(rectangle);
+    });
+}
+
 function showDetectionRectangles() {
     $('[data-is-detection-rectangle]').each(function() {
         $(this).css('visibility', 'visible');
