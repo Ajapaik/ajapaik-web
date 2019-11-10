@@ -257,6 +257,9 @@
                 startLon = 26;
             }
             $('#ajapaik-map-container').hide();
+            $('#map-side-panel').hide();
+            $('#close-btn').hide();
+            $('#open-btn').hide();
             $('#ajapaik-photo-modal').hide();
             $('.modal-backdrop').hide();
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
@@ -289,7 +292,18 @@
 
     window.stopGuessLocation = function () {
         $('#ajapaik-map-container').show();
-        $('#ajapaik-photo-modal').show();
+        $('#map-side-panel').show();
+        $('#close-btn').show();
+        $('#open-btn').show();
+        $('#ajapaik-photo-modal').show(0, function()
+        {
+          if($("#ajapaik-photo-modal-original-photo-column").height()){
+              let b = $("#ajapaik-photo-modal-original-photo-column").height();
+              if (document.getElementById("ajapaik-photo-modal-map-container")){
+                document.getElementById("ajapaik-photo-modal-map-container").style.height= b + "px";
+              }
+          }
+        });
         $('.modal-backdrop').show();
         $('#ajp-geotagging-container').hide();
         $('body').css('overflow', 'hidden');
