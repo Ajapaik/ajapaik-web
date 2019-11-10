@@ -121,17 +121,34 @@
             }
         }
 
-        let setInactivityTimeOut = function() {
-            if(!docCookies.getItem("addSubjectDataModalShown")) {
+
+        var idleTime = 0;
+        $(document).ready(function () {
+            //Increment the idle time counter every second.
+            var idleInterval = setInterval(timerIncrement, 1000); 
+
+            //Zero the idle timer on mouse movement.
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+            //Zero the idle timer on touch events.
+            $(this).bind('touchstart', function(){
+                idleTime = 0;
+            });
+            $(this).bind('touchmove', function(){
+                idleTime = 0;
+            });
+        });
+
+        function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime > 29) { 
                 showModal();
-            } else {
-                setTimeout(function(){
-                    showModal();
-                }, 30000);
             }
         }
-
-        setInactivityTimeOut();
 
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
@@ -268,8 +285,6 @@
         }
 
         $(".first-block > div > button").on('click', function(e) {
-            clearTimeout(setInactivityTimeOut);
-            setInactivityTimeOut();
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.gender === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
@@ -300,8 +315,6 @@
             }
         });
         $(".second-block > div > button").on('click', function(e) {
-            clearTimeout(setInactivityTimeOut);
-            setInactivityTimeOut();
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.age === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
