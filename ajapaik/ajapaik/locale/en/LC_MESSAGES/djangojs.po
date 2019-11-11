@@ -228,7 +228,7 @@ msgstr "Description"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -288,7 +288,7 @@ msgstr "Picture already in album(s)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "Picture has location data attached"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -544,7 +544,7 @@ msgstr "Points awarded"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
 msgid "Old Helsinki"
-msgstr ""
+msgstr "Old Helsinki"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
