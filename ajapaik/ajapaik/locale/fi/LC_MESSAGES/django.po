@@ -1626,7 +1626,7 @@ msgstr "Takaisin kotiin"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show photos"
-msgstr "Etsi kuvia"
+msgstr "Näytä kuvat"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
