@@ -1732,8 +1732,8 @@ msgid "Back home"
 msgstr "Back home"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
-msgid "Show photos"
-msgstr "Show photos"
+msgid "Show images"
+msgstr "Show images"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
