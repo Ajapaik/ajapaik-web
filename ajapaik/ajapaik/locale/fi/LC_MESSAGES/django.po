@@ -11,24 +11,11 @@
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
 #
+#: ajapaik/ajapaik/views.py:661
 msgid ""
-msgstr ""
-""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-17 17:53:29+0000\n"
-"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
-"Language: fi\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2019-11-11 10:59+0200\nPO-Revision-Date: 2019-10-17 17:53:29+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\nLanguage: fi\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-POT-Import-Date: 2019-10-03 14:38:51+0000\nX-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 
-#: ajapaik/ajapaik/admin.py:103
+#: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Käännä värit"
 
@@ -151,15 +138,13 @@ msgstr "Kommenttilaatikko tukee Markdown-notaatiota\n\nKappaleet\nLisää kaksi 
 msgid "Nothing to change."
 msgstr "Ei muutoksia."
 
-#: ajapaik/ajapaik/models.py:178
-#: ajapaik/ajapaik/templates/add_subject_data.html:40
-#: ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:49
 msgid "Male"
 msgstr "Mies"
 
-#: ajapaik/ajapaik/models.py:179
-#: ajapaik/ajapaik/templates/add_subject_data.html:43
-#: ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik/models.py:179 ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:55
 msgid "Female"
 msgstr "Nainen"
 
@@ -670,6 +655,7 @@ msgid "KYSK logo"
 msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/templates/_header.html:4
+#: ajapaik/ajapaik/templates/_header_basic.html:4
 msgid "Back to homepage"
 msgstr "Takaisin kotiin"
 
@@ -709,6 +695,7 @@ msgid "Newsletters"
 msgstr "Uutiskirjeet"
 
 #: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
 msgstr "Luokittele kasvot"
 
@@ -717,6 +704,7 @@ msgid "Current selection"
 msgstr "Valinnat"
 
 #: ajapaik/ajapaik/templates/_header.html:70
+#: ajapaik/ajapaik/templates/_header_basic.html:11
 msgid "Choose language"
 msgstr "Valitse kieli"
 
@@ -732,8 +720,8 @@ msgstr "Ajapaik Facebookissa"
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1732
-#: ajapaik/ajapaik/views.py:1749 ajapaik/ajapaik/views.py:1785
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1722
+#: ajapaik/ajapaik/views.py:1739 ajapaik/ajapaik/views.py:1775
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -950,11 +938,14 @@ msgid "Approximate address"
 msgstr "Summittainen osoite"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:38
 msgid "Flip photo"
 msgstr "Peilaa kuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:77
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:78
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
@@ -962,17 +953,20 @@ msgstr "samanlainen kuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:80
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:81
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
 msgstr "monista kuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
 msgid "Unknown author"
 msgstr "Tuntematon tekijä"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/game.html:53
+#: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
@@ -1015,7 +1009,7 @@ msgstr "Otettu"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
-#: ajapaik/ajapaik/templates/user_upload.html:23
+#: ajapaik/ajapaik/templates/user_upload.html:24
 msgid "Upload"
 msgstr "Lataa"
 
@@ -1074,7 +1068,7 @@ msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-msgid "Forgot password?"
+msgid "Forgot Password?"
 msgstr "Salasana unohtunut?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
@@ -1099,7 +1093,7 @@ msgstr "Tunnusten yhteydet"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm E-mail Address"
 msgstr "Vahvista sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1119,7 +1113,7 @@ msgstr "Tämä sähköpostin varmistuslinkki on joko vanhentunut tai virheelline
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-msgid "Sign in"
+msgid "Sign In"
 msgstr "Kirjaudu"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
@@ -1153,7 +1147,7 @@ msgstr "Ota meihin yhteyttä, jos sinulla on ongelmia salasanasi uusimisessa."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä \"\n\"muutaman minuutin sisällä."
+msgstr "Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä muutaman minuutin sisällä."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -1196,48 +1190,6 @@ msgstr "Rekisteröityminen on poissa käytöstä."
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Valitettavasti rekisteröityminen on pois käytöstä"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:48
-#: ajapaik/ajapaik/templates/add_subject_data.html:72
-msgid "Not sure"
-msgstr "Epävarma"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:51
-#: ajapaik/ajapaik/templates/add_subject_data.html:75
-msgid "Not a Face"
-msgstr "Ei ole kasvot"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:54
-#: ajapaik/ajapaik/templates/add_subject_data.html:78
-msgid "Info"
-msgstr "Tiedot"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:61
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Child"
-msgstr "Lapsi"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:64
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Adult"
-msgstr "Aikuinen"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:67
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Elderly"
-msgstr "Vanhus"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:84
-msgid "Skip"
-msgstr "Ohita"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:88
-msgid "Currently the gender is"
-msgstr "Sukupuoli on tällä hetkellä"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:90
-msgid "Currently the age is"
-msgstr "Ikä on tällä hetkellä"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1363,15 +1315,15 @@ msgstr "Sijaintivirhe"
 msgid "Sorting"
 msgstr "Järjestäminen"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:415
+#: ajapaik/ajapaik/templates/base_bootstrap.html:414
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Tämä verkkosivusto käyttää evästeitä. Niiden avulla saat parhaan käyttökokemuksen sivustolla."
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:416
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "Got it!"
 msgstr "Selvä!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:417
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "More info"
 msgstr "Lisätietoa"
 
@@ -1384,15 +1336,11 @@ msgstr "Haluatko varmasti poistaa tämän kommentin?"
 msgid "Remove"
 msgstr "Poista"
 
-#: ajapaik/ajapaik/templates/comments/form.html:4
-msgid "Identify yourself to comment"
-msgstr "Tunnistaudu kommentoidaksesi"
-
-#: ajapaik/ajapaik/templates/comments/form.html:6
+#: ajapaik/ajapaik/templates/comments/form.html:2
 msgid "Your comment"
 msgstr "Kommenttisi"
 
-#: ajapaik/ajapaik/templates/comments/form.html:38
+#: ajapaik/ajapaik/templates/comments/form.html:34
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
 msgid "Send"
 msgstr "Lähetä"
@@ -1516,7 +1464,6 @@ msgid "Search!"
 msgstr "Hae!"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
-#: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "Lataa lisää!"
 
@@ -1653,23 +1600,23 @@ msgstr "Yksityinen"
 msgid "Authentication"
 msgstr "Autentikointi"
 
-#: ajapaik/ajapaik/templates/game.html:25
+#: ajapaik/ajapaik/templates/game.html:26
 msgid "Game modal photo"
 msgstr "Pelimodaalin valokuva"
 
-#: ajapaik/ajapaik/templates/game.html:48
+#: ajapaik/ajapaik/templates/game.html:49
 msgid "Show description"
 msgstr "Näytä kuvailu"
 
-#: ajapaik/ajapaik/templates/game.html:65
+#: ajapaik/ajapaik/templates/game.html:66
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "Kuvaa ai ole vielä merkitty kartalle. Ole ensimmäinen!"
 
-#: ajapaik/ajapaik/templates/game.html:68
+#: ajapaik/ajapaik/templates/game.html:69
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "Tämän kuvan sijainnille on 1 ehdotus. Lisää omasi!"
 
-#: ajapaik/ajapaik/templates/game.html:72
+#: ajapaik/ajapaik/templates/game.html:73
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "ehdotusta on lisätty tälle kuvalle. Lisää omasi!"
 
@@ -1677,7 +1624,11 @@ msgstr "ehdotusta on lisätty tälle kuvalle. Lisää omasi!"
 msgid "Back home"
 msgstr "Takaisin kotiin"
 
-#: ajapaik/ajapaik/templates/mapview.html:21
+#: ajapaik/ajapaik/templates/mapview.html:28
+msgid "Show photos"
+msgstr "Etsi kuvia"
+
+#: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
 msgstr "Hakukenttä"
 
@@ -1734,12 +1685,11 @@ msgstr "Sinulla ei ole tällä hetkellä sosiaalisen median tunnuksia yhdistetty
 msgid "Add a 3rd Party Account"
 msgstr "Lisää kolmannen osapuolen tili"
 
-#: ajapaik/ajapaik/templates/user_upload.html:18
-#, python-format
-msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+#: ajapaik/ajapaik/templates/user_upload.html:19
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Min', %(user)s, tämän teoksen tekijänoikeuksien haltija, peruuttamattomasti sallin kenen tahansa käyttää tätä kuvaa <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Nimeä–JaaSamoin 4.0 lisenssin (CC-BY-SA)</a> mukaisesti."
 
-#: ajapaik/ajapaik/templates/user_upload.html:26
+#: ajapaik/ajapaik/templates/user_upload.html:27
 msgid "Upload and mark on map"
 msgstr "Lataa ja merkitse kartalle"
 
@@ -1748,91 +1698,91 @@ msgstr "Lataa ja merkitse kartalle"
 msgid "Add"
 msgstr "Lisää"
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr "Ei tunnistettu käyttäjä"
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr "Paikannuspeli"
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - uusintakuvat"
 
-#: ajapaik/ajapaik/views.py:1118
+#: ajapaik/ajapaik/views.py:1104
 msgid "Cannot upload to these albums"
 msgstr "Et voi lähettää kuvia näihin albumeihin"
 
-#: ajapaik/ajapaik/views.py:1140
+#: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
 msgstr "Uudelleen valikoiminen onnistui"
 
-#: ajapaik/ajapaik/views.py:1142
+#: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
 msgstr "Albumin valinnassa on ongelma"
 
-#: ajapaik/ajapaik/views.py:1144
+#: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
 msgstr "Viallista tietoa lähetetty"
 
-#: ajapaik/ajapaik/views.py:1450 ajapaik/ajapaik/views.py:1457
-#: ajapaik/ajapaik/views.py:1459
+#: ajapaik/ajapaik/views.py:1440 ajapaik/ajapaik/views.py:1447
+#: ajapaik/ajapaik/views.py:1449
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: ajapaik/ajapaik/views.py:1591
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Panoksesi ei muuttanut valokuvan arvioitua sijaintia, ainakaan vielä."
 
-#: ajapaik/ajapaik/views.py:1593
+#: ajapaik/ajapaik/views.py:1583
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Valokuva sijoitettiin uuteen sijaintiin panoksesi ansiosta."
 
-#: ajapaik/ajapaik/views.py:1595
+#: ajapaik/ajapaik/views.py:1585
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: ajapaik/ajapaik/views.py:1870
+#: ajapaik/ajapaik/views.py:1858
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja jaa syntynyt albumi!"
 
-#: ajapaik/ajapaik/views.py:2260
+#: ajapaik/ajapaik/views.py:2248
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2318 ajapaik/ajapaik/views.py:2339
+#: ajapaik/ajapaik/views.py:2306 ajapaik/ajapaik/views.py:2327
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Virhe kuvan tallennuksessa: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2335
+#: ajapaik/ajapaik/views.py:2323
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: ajapaik/ajapaik/views.py:2358
+#: ajapaik/ajapaik/views.py:2346
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: ajapaik/ajapaik/views.py:2360
+#: ajapaik/ajapaik/views.py:2348
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: ajapaik/ajapaik/views.py:2675
+#: ajapaik/ajapaik/views.py:2663
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:2803
+#: ajapaik/ajapaik/views.py:2790
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:2822
+#: ajapaik/ajapaik/views.py:2808
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:2904
+#: ajapaik/ajapaik/views.py:2890
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
@@ -1848,10 +1798,30 @@ msgstr "On julkisuuden henkilö"
 msgid "Subject"
 msgstr "Aihe"
 
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:73
+msgid "Child"
+msgstr "Lapsi"
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:76
+msgid "Adult"
+msgstr "Aikuinen"
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
+msgid "Elderly"
+msgstr "Vanhus"
+
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
-msgid "Tundmatu"
-msgstr "Tuntematon"
+msgid "Unknown"
+msgstr "Tuntematon tekijä"
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1866,6 +1836,63 @@ msgstr "Picasa"
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
 msgstr "SubjectPhoto"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
+msgid "Please indicate what are the gender and/or age of the highlighted person"
+msgstr "Kerro kuvassa valitun henkilön ikä ja sukupuoli."
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "If you are not sure what the gender and/or age of the person is, please press"
+msgstr "Mikäli et ole varma henkilön iästä tai sukupuolesta, niin valitse"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "Not Sure"
+msgstr "Epävarma"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+msgid "In case the rectangle is misplaced please choose"
+msgstr "Mikäli kasvoja osoittava neliö ei osoita kasvoihin, niin valitse"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:87
+msgid "Not a Face"
+msgstr "Ei ole kasvot"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+msgid "To see the description of the image, please press"
+msgstr "Nähdäksesi kuvan kuvatekstit valitse"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:90
+msgid "Info"
+msgstr "Tiedot"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
+msgid "Non-binary"
+msgstr "Ei-binäärinen"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
+msgid "Not sure"
+msgstr "Epävarma"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:96
+msgid "Skip"
+msgstr "Ohita"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
+msgid "Currently the gender is"
+msgstr "Sukupuoli on tällä hetkellä"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:102
+msgid "Currently the age is"
+msgstr "Ikä on tällä hetkellä"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
+msgid "No data here, please come back later"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
@@ -1891,3 +1918,12 @@ msgstr "englanti"
 msgid "Finnish"
 msgstr "suomi"
 
+#: ajapaik/settings/default.py:75
+msgid "Swedish"
+msgstr ""
+
+#~ msgid "Identify yourself to comment"
+#~ msgstr "Tunnistaudu kommentoidaksesi"
+
+#~ msgid "Tundmatu"
+#~ msgstr "Tuntematon"
