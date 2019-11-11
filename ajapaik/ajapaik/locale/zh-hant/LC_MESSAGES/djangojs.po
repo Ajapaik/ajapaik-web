@@ -15,90 +15,90 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-24 19:50:50+0000\n"
+"PO-Revision-Date: 2019-11-11 15:47:57+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:568
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:557
 msgid "User denied the request for Geolocation."
 msgstr "使用者拒絕了地理位置檢測請求。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:598
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:574
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:563
 msgid "Location information is unavailable."
 msgstr "位置資訊不可用。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:601
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:577
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:566
 msgid "The request to get user location timed out."
 msgstr "請求取得使用者位置逾時。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:604
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:580
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:569
 msgid "An unknown error occurred."
 msgstr "發生不明錯誤。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1257
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1217
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1214
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1259
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "尚未選擇"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1828
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1844
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "系統錯誤"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:232
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:236
 msgid "Go to my location"
 msgstr "前往我的位置"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:268
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:248
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "關閉"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:717
 msgid "Pick the shooting location!"
 msgstr "挑選目標位置！"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:739
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:791
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:780
 msgid "Geotagged by this many users"
 msgstr "由許多使用者做出的地理標記"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:761
 msgid "Confirm correct location"
 msgstr "確認更正位置"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:783
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
 msgid "Submit your own location"
 msgstr "提交您自己的位置"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:810
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
 msgid "You"
 msgstr "您"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:814
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:803
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "匿名使用者"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:816
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:805
 msgid "Anonymous users"
 msgstr "匿名使用者"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:877
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:863
 msgid "Current location"
 msgstr "目前位置"
 
@@ -228,9 +228,8 @@ msgid "Author"
 msgstr "作者"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
 msgid "Comments"
-msgstr "已評論"
+msgstr "評論"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -243,6 +242,10 @@ msgstr "日期"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Description"
 msgstr "描述"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Edit"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -269,9 +272,8 @@ msgid "Image has rephotos"
 msgstr "圖片含有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
 msgid "Image has similar photos"
-msgstr "圖片含有翻拍照片"
+msgstr "圖片含有相似照片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
@@ -300,6 +302,10 @@ msgstr "照片"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
 msgstr "圖片已在相簿中"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Picture has location data attached"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -361,95 +367,95 @@ msgstr "網址"
 msgid "Unknown author"
 msgstr "未知作者"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:105
 msgid "Earliest"
 msgstr "最早"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:107
 msgid "Latest"
 msgstr "最新"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
 msgid "Least"
 msgstr "最少"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:114
 msgid "Most"
 msgstr "最多"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
 msgid "Pictures furthest from you"
 msgstr "離您最遠的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:121
 msgid "Pictures closest to you"
 msgstr "離您最近的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:127
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
 msgid "commented"
 msgstr "已評論"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:130
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "rephotographed"
 msgstr "已重新翻拍"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:133
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "added"
 msgstr "已添加"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:136
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
 msgid "geotagged"
 msgstr "已添加地理標籤"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:139
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
 msgid "liked"
 msgstr "喜歡"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:142
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "dated"
 msgstr "已註明日期"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:145
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "viewed"
 msgstr "已檢視"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:151
 msgid "pictures"
 msgstr "圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:155
 msgid "By reverse timestamp"
 msgstr "按反向時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
 msgid "By timestamp"
 msgstr "按時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:161
 msgid "Pictures from the map"
 msgstr "來自地圖的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:244
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:243
 msgid "Albums"
 msgstr "相簿"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:250
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:249
 msgid "My favorites"
 msgstr "我的個人最愛"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:254
 msgid "My rephotos"
 msgstr "我的翻拍照片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:256
 msgid "Rephotos by %(user)s"
 msgstr "翻拍照片由 %(user)s 做出"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:263
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
 msgid "All photos"
 msgstr "所有照片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
 msgid "Picture set has no "
 msgstr "圖片集裡沒有 "
 
@@ -496,8 +502,7 @@ msgid "Search box"
 msgstr "搜尋框"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
 msgid "Thank you!"
 msgstr "感謝您！"
 
@@ -550,19 +555,23 @@ msgstr "拖拉地圖來讓圓圈覆蓋大約位置，在準備好後點擊儲存
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
 msgstr "拖拉地圖來讓標記位於您在圖片所見的物體上方，在準備好後點擊儲存。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1068
 msgid "Points awarded"
 msgstr "積分獎勵"
+
+#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
+msgid "Old Helsinki"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
 msgstr "舊地圖"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:787
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Remove album filter"
 msgstr "移除相簿篩選"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:795
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:758
 msgid "Apply album filter"
 msgstr "套用相簿篩選"
 
@@ -579,8 +588,6 @@ msgstr "您的猜測已更改"
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "發生了一些狀況，請檢查您的連線。若問題持續出現，請在 Tawk.to 上聯絡我們"
-
-
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

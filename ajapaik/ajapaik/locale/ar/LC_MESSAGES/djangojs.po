@@ -13,90 +13,90 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-10-14 15:15:50+0000\n"
+"PO-Revision-Date: 2019-11-11 15:47:49+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:592
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:568
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:557
 msgid "User denied the request for Geolocation."
 msgstr "رفض المستخدم طلب تحديد الموقع الجغرافي."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:598
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:574
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:563
 msgid "Location information is unavailable."
 msgstr "معلومات الموقع غير متوفرة."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:601
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:577
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:566
 msgid "The request to get user location timed out."
 msgstr "انتهت مهلة طلب الحصول على موقع المستخدم."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:604
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:580
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:569
 msgid "An unknown error occurred."
 msgstr "حدث خطأ غير معروف."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1257
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1302
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1217
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1262
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1214
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1259
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "غير محدد"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1888
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1904
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1831
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1847
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1828
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1844
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "خطأ في النظام"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:232
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:236
 msgid "Go to my location"
 msgstr "الذهاب إلى موقعي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:268
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:248
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "إغلاق"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:717
 msgid "Pick the shooting location!"
 msgstr "اختيار موقع التصوير!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:739
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:791
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:780
 msgid "Geotagged by this many users"
 msgstr "موسوم جغرافيا من قبل هذا العديد من المستخدمين"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:761
 msgid "Confirm correct location"
 msgstr "تأكيد الموقع الصحيح"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:783
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
 msgid "Submit your own location"
 msgstr "تقديم موقعك الخاص"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:810
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
 msgid "You"
 msgstr "أنت"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:814
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:803
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "مستخدم مجهول"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:816
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:805
 msgid "Anonymous users"
 msgstr "المستخدمون المجهولون"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:877
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:863
 msgid "Current location"
 msgstr "الموقع الحالي"
 
@@ -214,9 +214,8 @@ msgid "Album details"
 msgstr "تفاصيل الألبوم"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
 msgid "Approximate address"
-msgstr "تقريبي"
+msgstr "العنوان التقريبي"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
@@ -227,9 +226,8 @@ msgid "Author"
 msgstr "المؤلف"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
 msgid "Comments"
-msgstr "تم التعليق"
+msgstr "تعليقات"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -242,6 +240,10 @@ msgstr "التاريخ"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
 msgid "Description"
 msgstr "الوصف"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+msgid "Edit"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -268,9 +270,8 @@ msgid "Image has rephotos"
 msgstr "الصورة لديها إعادات صور"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
 msgid "Image has similar photos"
-msgstr "الصورة لديها إعادات صور"
+msgstr "الصورة لديها صور مماثلة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
@@ -299,6 +300,10 @@ msgstr "صور"
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
 msgstr "الصورة موجودة بالفعل في الألبوم(ات)"
+
+#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+msgid "Picture has location data attached"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -360,95 +365,95 @@ msgstr "المسار"
 msgid "Unknown author"
 msgstr "مؤلف مجهول"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:106
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:105
 msgid "Earliest"
 msgstr "الأول"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:107
 msgid "Latest"
 msgstr "الأخير"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:113
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
 msgid "Least"
 msgstr "الأقل"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:114
 msgid "Most"
 msgstr "الأكثر"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:120
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
 msgid "Pictures furthest from you"
 msgstr "صور أبعد منك"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:121
 msgid "Pictures closest to you"
 msgstr "الصور الأقرب لك"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:127
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
 msgid "commented"
 msgstr "تم التعليق"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:130
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "rephotographed"
 msgstr "معاد تصويرها"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:133
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "added"
 msgstr "مضافة"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:136
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
 msgid "geotagged"
 msgstr "موسوم جغرافيا"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:139
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
 msgid "liked"
 msgstr "أحب"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:142
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "dated"
 msgstr "مؤرخ"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:145
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "viewed"
 msgstr "مراجع"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:151
 msgid "pictures"
 msgstr "الصور"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:155
 msgid "By reverse timestamp"
 msgstr "بواسطة الطابع الزمني العكسي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
 msgid "By timestamp"
 msgstr "بواسطة الطابع الزمني"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:161
 msgid "Pictures from the map"
 msgstr "صور من الخريطة"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:244
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:243
 msgid "Albums"
 msgstr "الألبومات"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:250
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:249
 msgid "My favorites"
 msgstr "مفضلتي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:255
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:254
 msgid "My rephotos"
 msgstr "إعادات تصويري"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:256
 msgid "Rephotos by %(user)s"
 msgstr "إعادات صور بواسطة %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:263
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
 msgid "All photos"
 msgstr "كل الصور"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:334
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
 msgid "Picture set has no "
 msgstr "مجموعة صور ليس لديها/"
 
@@ -495,8 +500,7 @@ msgid "Search box"
 msgstr "صندوق البحث"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:88
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:108
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
 msgid "Thank you!"
 msgstr "شكرا لك!"
 
@@ -549,19 +553,23 @@ msgstr "اسحب الخريطة حتى تغطي الدائرة الموقع ال
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
 msgstr "اسحب الخريطة حتى تكون العلامة أعلى الكائن الذي تراه على الصورة، وانقر فوق \"حفظ\" عندما تكون جاهزا."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1066
+#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1068
 msgid "Points awarded"
 msgstr "النقاط الممنوحة"
+
+#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
+msgid "Old Helsinki"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
 msgstr "المدن القديمة"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:787
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Remove album filter"
 msgstr "إزالة مرشح الألبوم"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:795
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:758
 msgid "Apply album filter"
 msgstr "تطبيق مرشح الألبوم"
 
@@ -570,7 +578,11 @@ msgstr "تطبيق مرشح الألبوم"
 msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
 msgstr[0] "لقد ربحت %s نقاط"
-msgstr[1] "لقد ربحت %s نقاط"
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -579,8 +591,6 @@ msgstr "تم تغيير تخمينك"
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "حدث خطأ ما؛ يُرجَى التحقق من اتصالك، إذا استمرت المشكلة، فيُرجَى الاتصال بنا على Tawk.to"
-
-
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
@@ -592,6 +602,10 @@ msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
 msgstr[0] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت %s نقطة"
 msgstr[1] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت %s نقاط"
+msgstr[2] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت "
+msgstr[3] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت "
+msgstr[4] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت "
+msgstr[5] "تمت إضافة تعليق توضيحي، شكرا! <br/> لقد ربحت "
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -611,6 +625,10 @@ msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "شكرا لك! <br/> لقد ربحت %s نقطة"
 msgstr[1] "شكرا لك! <br/> لقد ربحت %s نقاط"
+msgstr[2] "شكرا لك! <br/> لقد ربحت "
+msgstr[3] "شكرا لك! <br/> لقد ربحت "
+msgstr[4] "شكرا لك! <br/> لقد ربحت "
+msgstr[5] "شكرا لك! <br/> لقد ربحت "
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

@@ -10,15 +10,15 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-10-14 15:16:05+0000\n"
-"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
+"PO-Revision-Date: 2019-11-11 15:47:56+0000\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mk\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
 
-#: ajapaik/ajapaik/admin.py:103
+#: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Обратни бои"
 
@@ -141,15 +141,13 @@ msgstr ""
 msgid "Nothing to change."
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:178
-#: ajapaik/ajapaik/templates/add_subject_data.html:40
-#: ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:49
 msgid "Male"
 msgstr "Машки"
 
-#: ajapaik/ajapaik/models.py:179
-#: ajapaik/ajapaik/templates/add_subject_data.html:43
-#: ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik/models.py:179 ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:55
 msgid "Female"
 msgstr "Женски"
 
@@ -660,6 +658,7 @@ msgid "KYSK logo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:4
+#: ajapaik/ajapaik/templates/_header_basic.html:4
 msgid "Back to homepage"
 msgstr ""
 
@@ -699,6 +698,7 @@ msgid "Newsletters"
 msgstr "Билтени"
 
 #: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
 msgstr ""
 
@@ -707,6 +707,7 @@ msgid "Current selection"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:70
+#: ajapaik/ajapaik/templates/_header_basic.html:11
 msgid "Choose language"
 msgstr "Изберете јазик"
 
@@ -722,8 +723,8 @@ msgstr ""
 msgid "Profile and leaderboard"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1732
-#: ajapaik/ajapaik/views.py:1749 ajapaik/ajapaik/views.py:1785
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
+#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
 msgid "Leaderboard"
 msgstr ""
 
@@ -825,6 +826,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "Сподели"
@@ -892,6 +894,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr ""
@@ -940,11 +943,14 @@ msgid "Approximate address"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:38
 msgid "Flip photo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:77
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:78
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
@@ -952,42 +958,51 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:80
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:81
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
 msgid "Unknown author"
 msgstr "Непознат автор"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/game.html:53
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
+#: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "Разговор"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
@@ -995,6 +1010,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr ""
@@ -1005,7 +1021,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
-#: ajapaik/ajapaik/templates/user_upload.html:23
+#: ajapaik/ajapaik/templates/user_upload.html:24
 msgid "Upload"
 msgstr "Подигни"
 
@@ -1187,48 +1203,6 @@ msgstr ""
 msgid "We are sorry, but the sign up is currently closed."
 msgstr ""
 
-#: ajapaik/ajapaik/templates/add_subject_data.html:48
-#: ajapaik/ajapaik/templates/add_subject_data.html:72
-msgid "Not sure"
-msgstr "Не знам"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:51
-#: ajapaik/ajapaik/templates/add_subject_data.html:75
-msgid "Not a Face"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:54
-#: ajapaik/ajapaik/templates/add_subject_data.html:78
-msgid "Info"
-msgstr "Инфо"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:61
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Child"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:64
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Adult"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:67
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Elderly"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:84
-msgid "Skip"
-msgstr "Прескокни"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:88
-msgid "Currently the gender is"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:90
-msgid "Currently the age is"
-msgstr "Во моментов староста е"
-
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
@@ -1353,15 +1327,15 @@ msgstr ""
 msgid "Sorting"
 msgstr "Подредување"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:415
+#: ajapaik/ajapaik/templates/base_bootstrap.html:414
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:416
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "Got it!"
 msgstr "Јасно!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:417
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "More info"
 msgstr "Повеќе информации"
 
@@ -1506,7 +1480,6 @@ msgid "Search!"
 msgstr "Пребарај!"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
-#: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "Вчитај повеќе"
 
@@ -1643,23 +1616,23 @@ msgstr ""
 msgid "Authentication"
 msgstr "Заверка"
 
-#: ajapaik/ajapaik/templates/game.html:25
+#: ajapaik/ajapaik/templates/game.html:26
 msgid "Game modal photo"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/game.html:48
+#: ajapaik/ajapaik/templates/game.html:49
 msgid "Show description"
 msgstr "Прикажи опис"
 
-#: ajapaik/ajapaik/templates/game.html:65
+#: ajapaik/ajapaik/templates/game.html:66
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/game.html:68
+#: ajapaik/ajapaik/templates/game.html:69
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/game.html:72
+#: ajapaik/ajapaik/templates/game.html:73
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr ""
 
@@ -1667,7 +1640,11 @@ msgstr ""
 msgid "Back home"
 msgstr "Назад на почетна"
 
-#: ajapaik/ajapaik/templates/mapview.html:21
+#: ajapaik/ajapaik/templates/mapview.html:28
+msgid "Show images"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
 msgstr ""
 
@@ -1724,12 +1701,12 @@ msgstr ""
 msgid "Add a 3rd Party Account"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/user_upload.html:18
+#: ajapaik/ajapaik/templates/user_upload.html:19
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr ""
 
-#: ajapaik/ajapaik/templates/user_upload.html:26
+#: ajapaik/ajapaik/templates/user_upload.html:27
 msgid "Upload and mark on map"
 msgstr ""
 
@@ -1738,91 +1715,91 @@ msgstr ""
 msgid "Add"
 msgstr "Додај"
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1118
+#: ajapaik/ajapaik/views.py:1104
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1140
+#: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1142
+#: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1144
+#: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1450 ajapaik/ajapaik/views.py:1457
-#: ajapaik/ajapaik/views.py:1459
+#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
+#: ajapaik/ajapaik/views.py:1445
 msgid "Browse photos on map"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1591
+#: ajapaik/ajapaik/views.py:1577
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1593
+#: ajapaik/ajapaik/views.py:1579
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1595
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your guess was first."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1870
+#: ajapaik/ajapaik/views.py:1854
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2260
+#: ajapaik/ajapaik/views.py:2244
 msgid "OK"
 msgstr "ОК"
 
-#: ajapaik/ajapaik/views.py:2318 ajapaik/ajapaik/views.py:2339
+#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2335
+#: ajapaik/ajapaik/views.py:2319
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2358
+#: ajapaik/ajapaik/views.py:2342
 msgid "Please add photos to your album"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2360
+#: ajapaik/ajapaik/views.py:2344
 msgid "Not enough data submitted"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2675
+#: ajapaik/ajapaik/views.py:2659
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2803
+#: ajapaik/ajapaik/views.py:2786
 msgid "Photo uploaded"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2822
+#: ajapaik/ajapaik/views.py:2804
 msgid "Album created"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2904
+#: ajapaik/ajapaik/views.py:2886
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 
@@ -1838,9 +1815,29 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:73
+msgid "Child"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:76
+msgid "Adult"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
+msgid "Elderly"
+msgstr ""
+
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
 msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
@@ -1855,6 +1852,63 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
+msgid "Please indicate what are the gender and/or age of the highlighted person"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "If you are not sure what the gender and/or age of the person is, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "Not Sure"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+msgid "In case the rectangle is misplaced please choose"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:87
+msgid "Not a Face"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+msgid "To see the description of the image, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:90
+msgid "Info"
+msgstr "Инфо"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
+msgid "Non-binary"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
+msgid "Not sure"
+msgstr "Не знам"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:96
+msgid "Skip"
+msgstr "Прескокни"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
+msgid "Currently the gender is"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:102
+msgid "Currently the age is"
+msgstr "Во моментов староста е"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
+msgid "No data here, please come back later"
 msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13

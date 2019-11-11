@@ -16,15 +16,15 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-24 19:50:56+0000\n"
+"PO-Revision-Date: 2019-11-11 15:48:01+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/admin.py:103
+#: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "反轉色彩"
 
@@ -147,15 +147,13 @@ msgstr "評論框支援 Markdown 語法\n\n段落\n添加新的兩行會開始�
 msgid "Nothing to change."
 msgstr "沒有需更改的。"
 
-#: ajapaik/ajapaik/models.py:178
-#: ajapaik/ajapaik/templates/add_subject_data.html:40
-#: ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:49
 msgid "Male"
 msgstr "男"
 
-#: ajapaik/ajapaik/models.py:179
-#: ajapaik/ajapaik/templates/add_subject_data.html:43
-#: ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik/models.py:179 ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:55
 msgid "Female"
 msgstr "女"
 
@@ -663,6 +661,7 @@ msgid "KYSK logo"
 msgstr "KYSK 標誌"
 
 #: ajapaik/ajapaik/templates/_header.html:4
+#: ajapaik/ajapaik/templates/_header_basic.html:4
 msgid "Back to homepage"
 msgstr "返回首頁"
 
@@ -702,6 +701,7 @@ msgid "Newsletters"
 msgstr "簡報"
 
 #: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
 msgstr "分類面孔"
 
@@ -710,6 +710,7 @@ msgid "Current selection"
 msgstr "目前所選"
 
 #: ajapaik/ajapaik/templates/_header.html:70
+#: ajapaik/ajapaik/templates/_header_basic.html:11
 msgid "Choose language"
 msgstr "選擇語言"
 
@@ -725,8 +726,8 @@ msgstr "Facebook 上的 Ajapaik"
 msgid "Profile and leaderboard"
 msgstr "個人檔案與排行榜"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1732
-#: ajapaik/ajapaik/views.py:1749 ajapaik/ajapaik/views.py:1785
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
+#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
 msgid "Leaderboard"
 msgstr "排行榜"
 
@@ -820,6 +821,7 @@ msgstr "一些附近的相簿"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "分享"
@@ -887,6 +889,7 @@ msgstr "點擊來挑選"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "相簿詳情"
@@ -935,11 +938,14 @@ msgid "Approximate address"
 msgstr "近似地址"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:38
 msgid "Flip photo"
 msgstr "翻轉照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:77
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:78
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
@@ -947,48 +953,58 @@ msgstr "相似照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:80
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:81
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
 msgstr "相同照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
 msgid "Unknown author"
 msgstr "未知作者"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/game.html:53
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
+#: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
 msgstr "挑選目標位置！"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "替此圖片註明日期"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "添加翻拍照片"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "標記新面部 - 點擊此按鈕來啟用在主圖片上繪製面部方框"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "討論"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "屬於相簿的圖片："
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "策展人"
@@ -999,7 +1015,7 @@ msgstr "採用"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
-#: ajapaik/ajapaik/templates/user_upload.html:23
+#: ajapaik/ajapaik/templates/user_upload.html:24
 msgid "Upload"
 msgstr "上傳"
 
@@ -1181,48 +1197,6 @@ msgstr "註冊已關閉"
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "很抱歉，但註冊目前已關閉。"
 
-#: ajapaik/ajapaik/templates/add_subject_data.html:48
-#: ajapaik/ajapaik/templates/add_subject_data.html:72
-msgid "Not sure"
-msgstr "不確定"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:51
-#: ajapaik/ajapaik/templates/add_subject_data.html:75
-msgid "Not a Face"
-msgstr "不是面孔"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:54
-#: ajapaik/ajapaik/templates/add_subject_data.html:78
-msgid "Info"
-msgstr "資訊"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:61
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Child"
-msgstr "兒童"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:64
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Adult"
-msgstr "成人"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:67
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Elderly"
-msgstr "上年紀"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:84
-msgid "Skip"
-msgstr "略過"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:88
-msgid "Currently the gender is"
-msgstr "目前性別是"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:90
-msgid "Currently the age is"
-msgstr "目前年齡是"
-
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
@@ -1346,15 +1320,15 @@ msgstr "地理位置錯誤"
 msgid "Sorting"
 msgstr "排序"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:415
+#: ajapaik/ajapaik/templates/base_bootstrap.html:414
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "此網站使用 cookies 來確保您在我們的網站上能取得最佳體驗"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:416
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "Got it!"
 msgstr "了解！"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:417
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "More info"
 msgstr "更多資訊"
 
@@ -1499,7 +1473,6 @@ msgid "Search!"
 msgstr "搜尋！"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
-#: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "載入更多"
 
@@ -1636,23 +1609,23 @@ msgstr "非公開"
 msgid "Authentication"
 msgstr "認證"
 
-#: ajapaik/ajapaik/templates/game.html:25
+#: ajapaik/ajapaik/templates/game.html:26
 msgid "Game modal photo"
 msgstr "遊玩形態照片"
 
-#: ajapaik/ajapaik/templates/game.html:48
+#: ajapaik/ajapaik/templates/game.html:49
 msgid "Show description"
 msgstr "顯示描述"
 
-#: ajapaik/ajapaik/templates/game.html:65
+#: ajapaik/ajapaik/templates/game.html:66
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "圖片尚未釘加在地圖上，來成為第一位添加的人吧！"
 
-#: ajapaik/ajapaik/templates/game.html:68
+#: ajapaik/ajapaik/templates/game.html:69
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "有 1 個此圖片的建議已提交。來添加您的建議！"
 
-#: ajapaik/ajapaik/templates/game.html:72
+#: ajapaik/ajapaik/templates/game.html:73
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "有對於此圖片的建議已提交。來添加您的建議！"
 
@@ -1660,7 +1633,11 @@ msgstr "有對於此圖片的建議已提交。來添加您的建議！"
 msgid "Back home"
 msgstr "返回首頁"
 
-#: ajapaik/ajapaik/templates/mapview.html:21
+#: ajapaik/ajapaik/templates/mapview.html:28
+msgid "Show images"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
 msgstr "搜尋框"
 
@@ -1717,12 +1694,12 @@ msgstr "您目前沒有連接到此帳號的社會網路帳號。"
 msgid "Add a 3rd Party Account"
 msgstr "添加第三方帳號"
 
-#: ajapaik/ajapaik/templates/user_upload.html:18
+#: ajapaik/ajapaik/templates/user_upload.html:19
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不撤銷授予任何人使用此作品的權限。"
 
-#: ajapaik/ajapaik/templates/user_upload.html:26
+#: ajapaik/ajapaik/templates/user_upload.html:27
 msgid "Upload and mark on map"
 msgstr "上傳並標記在地圖"
 
@@ -1731,91 +1708,91 @@ msgstr "上傳並標記在地圖"
 msgid "Add"
 msgstr "添加"
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr "非認證使用者"
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr "地理標記競賽"
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - 翻拍照片"
 
-#: ajapaik/ajapaik/views.py:1118
+#: ajapaik/ajapaik/views.py:1104
 msgid "Cannot upload to these albums"
 msgstr "無法上傳到這些相簿"
 
-#: ajapaik/ajapaik/views.py:1140
+#: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
 msgstr "重新策展成功"
 
-#: ajapaik/ajapaik/views.py:1142
+#: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
 msgstr "相簿選擇問題"
 
-#: ajapaik/ajapaik/views.py:1144
+#: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
 msgstr "已提交不完整資料"
 
-#: ajapaik/ajapaik/views.py:1450 ajapaik/ajapaik/views.py:1457
-#: ajapaik/ajapaik/views.py:1459
+#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
+#: ajapaik/ajapaik/views.py:1445
 msgid "Browse photos on map"
 msgstr "在地圖上瀏覽照片"
 
-#: ajapaik/ajapaik/views.py:1591
+#: ajapaik/ajapaik/views.py:1577
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "您的貢獻還沒有更改到照片的估計位置"
 
-#: ajapaik/ajapaik/views.py:1593
+#: ajapaik/ajapaik/views.py:1579
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "照片已對應到新的位置，感謝您。"
 
-#: ajapaik/ajapaik/views.py:1595
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your guess was first."
 msgstr "您的猜測是首個。"
 
-#: ajapaik/ajapaik/views.py:1870
+#: ajapaik/ajapaik/views.py:1854
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "搜尋老照片，將它們添加到 Ajapaik，判斷它們的位置並分享相簿成果！"
 
-#: ajapaik/ajapaik/views.py:2260
+#: ajapaik/ajapaik/views.py:2244
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2318 ajapaik/ajapaik/views.py:2339
+#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "上傳檔案錯誤：%s（%s）"
 
-#: ajapaik/ajapaik/views.py:2335
+#: ajapaik/ajapaik/views.py:2319
 msgid "Photo already exists in Ajapaik"
 msgstr "照片已存在於 Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2358
+#: ajapaik/ajapaik/views.py:2342
 msgid "Please add photos to your album"
 msgstr "請添加照片至您的相簿"
 
-#: ajapaik/ajapaik/views.py:2360
+#: ajapaik/ajapaik/views.py:2344
 msgid "Not enough data submitted"
 msgstr "沒有提交足夠的資料"
 
-#: ajapaik/ajapaik/views.py:2675
+#: ajapaik/ajapaik/views.py:2659
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "來自於 \"%(film)s\" at %(time)s 的靜態攝影"
 
-#: ajapaik/ajapaik/views.py:2803
+#: ajapaik/ajapaik/views.py:2786
 msgid "Photo uploaded"
 msgstr "照片已上傳"
 
-#: ajapaik/ajapaik/views.py:2822
+#: ajapaik/ajapaik/views.py:2804
 msgid "Album created"
 msgstr "相簿已建立"
 
-#: ajapaik/ajapaik/views.py:2904
+#: ajapaik/ajapaik/views.py:2886
 msgid "Sorry but we fail to post your comment."
 msgstr "很抱歉，發佈您的評論出現錯誤。"
 
@@ -1831,10 +1808,30 @@ msgstr "是公眾人物"
 msgid "Subject"
 msgstr "主題"
 
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:73
+msgid "Child"
+msgstr "兒童"
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:76
+msgid "Adult"
+msgstr "成人"
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
+msgid "Elderly"
+msgstr "上年紀"
+
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
 msgstr "未知"
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1849,6 +1846,63 @@ msgstr "Picasa"
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
 msgstr "主題照片"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
+msgid "Please indicate what are the gender and/or age of the highlighted person"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "If you are not sure what the gender and/or age of the person is, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "Not Sure"
+msgstr "不確定"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+msgid "In case the rectangle is misplaced please choose"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:87
+msgid "Not a Face"
+msgstr "不是面孔"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+msgid "To see the description of the image, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:90
+msgid "Info"
+msgstr "資訊"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
+msgid "Non-binary"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
+msgid "Not sure"
+msgstr "不確定"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:96
+msgid "Skip"
+msgstr "略過"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
+msgid "Currently the gender is"
+msgstr "目前性別是"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:102
+msgid "Currently the age is"
+msgstr "目前年齡是"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
+msgid "No data here, please come back later"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

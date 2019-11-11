@@ -13,15 +13,15 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-10-14 15:15:50+0000\n"
+"PO-Revision-Date: 2019-11-11 15:47:49+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-10-03 14:38:51+0000\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
-#: ajapaik/ajapaik/admin.py:103
+#: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "عكس الألوان"
 
@@ -144,15 +144,13 @@ msgstr "يدعم صندوق التعليقات ماركداون\n\nالفقرا�
 msgid "Nothing to change."
 msgstr "لا شيء للتغيير."
 
-#: ajapaik/ajapaik/models.py:178
-#: ajapaik/ajapaik/templates/add_subject_data.html:40
-#: ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:49
 msgid "Male"
 msgstr "ذكر"
 
-#: ajapaik/ajapaik/models.py:179
-#: ajapaik/ajapaik/templates/add_subject_data.html:43
-#: ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik/models.py:179 ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:55
 msgid "Female"
 msgstr "أنثى"
 
@@ -623,6 +621,10 @@ msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture.
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
 msgstr[0] "لقد اقترحت موقعا لصورة <b>%(user_geotagged_photos)s</b>."
 msgstr[1] "You have لقد اقترحت موقاع لصور <b>%(user_geotagged_photos)s</b>."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
 #, python-format
@@ -630,6 +632,10 @@ msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
 msgstr[0] " لقد أجريت <b>%(user_rephotos)s</b> إعادة تصوير ل"
 msgstr[1] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
@@ -637,6 +643,10 @@ msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] "<b>%(user_rephotographed_photos)s</b> صورة."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> صور."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -663,6 +673,7 @@ msgid "KYSK logo"
 msgstr "شعار KYSK"
 
 #: ajapaik/ajapaik/templates/_header.html:4
+#: ajapaik/ajapaik/templates/_header_basic.html:4
 msgid "Back to homepage"
 msgstr "العودة إلى الصفحة الرئيسية"
 
@@ -702,6 +713,7 @@ msgid "Newsletters"
 msgstr "النشرات الإخبارية"
 
 #: ajapaik/ajapaik/templates/_header.html:56
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
 msgstr "تصنيف الوجوه"
 
@@ -710,6 +722,7 @@ msgid "Current selection"
 msgstr "الاختيار الحالي"
 
 #: ajapaik/ajapaik/templates/_header.html:70
+#: ajapaik/ajapaik/templates/_header_basic.html:11
 msgid "Choose language"
 msgstr "اختيار اللغة"
 
@@ -725,8 +738,8 @@ msgstr "أجابيك في فيسبوك"
 msgid "Profile and leaderboard"
 msgstr "الملف الشخصي والمتصدرون"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1732
-#: ajapaik/ajapaik/views.py:1749 ajapaik/ajapaik/views.py:1785
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
+#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
 msgid "Leaderboard"
 msgstr "المتصدرون"
 
@@ -752,6 +765,11 @@ msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
 msgstr[0] "يحتوي الألبوم على %(counter)s صورة تاريخية،"
 msgstr[1] "يحتوي الألبوم على %(counter)s صور تاريخية،"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:100
 #, python-format
@@ -759,6 +777,11 @@ msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
 msgstr[0] "%(counter)s مستخدم قد وضع"
 msgstr[1] "%(counter)s مستخدمون قد وضعوا"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:102
 msgid "all the pictures on the map."
@@ -771,6 +794,10 @@ msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
 msgstr[0] "%(counter)s صورة على الخريطة."
 msgstr[1] "%(counter)s صور على الخريطة."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -790,6 +817,10 @@ msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
 msgstr[0] "%(counter)s صورة في هذا الألبوم."
 msgstr[1] "%(counter)s صور في هذا الألبوم."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
 #, python-format
@@ -797,6 +828,10 @@ msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] "%(counter)s مستخدم قد أجرى"
 msgstr[1] "%(counter)s مستخدمين قد أجروا"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
 #, python-format
@@ -805,6 +840,9 @@ msgid_plural "%(counter)s rephotographs"
 msgstr[0] "%(counter)s إعادة صورة"
 msgstr[1] "PLURAL:GETTEXT"
 msgstr[2] "%(counter)s إعادات صور"
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -813,6 +851,10 @@ msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
 msgstr[0] "ل%(counter)s صورة في الألبوم."
 msgstr[1] "ل%(counter)s صور في الألبوم."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
 #, python-format
@@ -820,6 +862,10 @@ msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] "لقد قمت بإجراء %(counter)s إعادة تصوير"
 msgstr[1] "لقد قمت بإجراء %(counter)s إعادات تصوير"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -827,6 +873,7 @@ msgstr "بعض الألبومات القريبة"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "مشاركة"
@@ -894,6 +941,7 @@ msgstr "انقر للاختيار"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "تفاصيل الألبوم"
@@ -942,11 +990,14 @@ msgid "Approximate address"
 msgstr "العنوان التقريبي"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:39
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:38
 msgid "Flip photo"
 msgstr "قلب الصورة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:78
 #: ajapaik/ajapaik/templates/_photo_modal.html:79
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:77
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:78
 #: ajapaik/ajapaik/templates/photoview.html:120
 #: ajapaik/ajapaik/templates/photoview.html:121
 msgid "similar photo"
@@ -954,49 +1005,63 @@ msgstr "صورة مماثلة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:80
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:81
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
 msgstr "صورة مكررة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
 msgid "Unknown author"
 msgstr "مؤلف مجهول"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/game.html:53
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
+#: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
 msgstr "اختيار موقع التصوير!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "تاريخ هذه الصورة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "إضافة إعادة تصوير"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "وسم وجه جديد: سيمكنك النقر فوق هذا الزر من رسم مستطيل للوجه على الصورة الرئيسية"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "مناقشة"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "الصورة تنتمي إلى ألبوم"
 msgstr[1] "الصورة تنتمي إلى ألبومات:"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "الأمين"
@@ -1007,7 +1072,7 @@ msgstr "اُلتقِطت في"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
-#: ajapaik/ajapaik/templates/user_upload.html:23
+#: ajapaik/ajapaik/templates/user_upload.html:24
 msgid "Upload"
 msgstr "رفع"
 
@@ -1189,48 +1254,6 @@ msgstr "الاشتراك مغلق"
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "نأسف، لكن التسجيل مغلق حاليا."
 
-#: ajapaik/ajapaik/templates/add_subject_data.html:48
-#: ajapaik/ajapaik/templates/add_subject_data.html:72
-msgid "Not sure"
-msgstr "غير متأكد"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:51
-#: ajapaik/ajapaik/templates/add_subject_data.html:75
-msgid "Not a Face"
-msgstr "ليس وجها"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:54
-#: ajapaik/ajapaik/templates/add_subject_data.html:78
-msgid "Info"
-msgstr "معلومات"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:61
-#: ajapaik/ajapaik_face_recognition/models.py:14
-msgid "Child"
-msgstr "طفل"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:64
-#: ajapaik/ajapaik_face_recognition/models.py:15
-msgid "Adult"
-msgstr "بالغ"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:67
-#: ajapaik/ajapaik_face_recognition/models.py:16
-msgid "Elderly"
-msgstr "عجوز"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:84
-msgid "Skip"
-msgstr "تخطي"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:88
-msgid "Currently the gender is"
-msgstr "حاليا الجنس هو"
-
-#: ajapaik/ajapaik/templates/add_subject_data.html:90
-msgid "Currently the age is"
-msgstr "حاليا العمر هو"
-
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
@@ -1342,6 +1365,10 @@ msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] "يحتوي الألبوم على %(counter)s صورة،"
 msgstr[1] "يحتوي الألبوم على %(counter)s صور،"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:199
 msgid "Timepatch (Ajapaik)"
@@ -1355,15 +1382,15 @@ msgstr "خطأ في الوسم الجغرافي"
 msgid "Sorting"
 msgstr "فرز"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:415
+#: ajapaik/ajapaik/templates/base_bootstrap.html:414
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "يستخدم هذا الموقع ملفات تعريف الارتباط لضمان حصولك على أفضل تجربة على موقعنا"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:416
+#: ajapaik/ajapaik/templates/base_bootstrap.html:415
 msgid "Got it!"
 msgstr "فهمت!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:417
+#: ajapaik/ajapaik/templates/base_bootstrap.html:416
 msgid "More info"
 msgstr "مزيد من المعلومات"
 
@@ -1508,7 +1535,6 @@ msgid "Search!"
 msgstr "بحث!"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:46
-#: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "تحميل المزيد"
 
@@ -1645,23 +1671,23 @@ msgstr "خاص "
 msgid "Authentication"
 msgstr "المصادقة"
 
-#: ajapaik/ajapaik/templates/game.html:25
+#: ajapaik/ajapaik/templates/game.html:26
 msgid "Game modal photo"
 msgstr "صورة مودال اللعبة"
 
-#: ajapaik/ajapaik/templates/game.html:48
+#: ajapaik/ajapaik/templates/game.html:49
 msgid "Show description"
 msgstr "عرض الوصف"
 
-#: ajapaik/ajapaik/templates/game.html:65
+#: ajapaik/ajapaik/templates/game.html:66
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "لم يتم تثبيت الصورة بعد على الخريطة، كن الأول!"
 
-#: ajapaik/ajapaik/templates/game.html:68
+#: ajapaik/ajapaik/templates/game.html:69
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "تم تقديم اقتراح واحد لهذه الصورة، أضف الخاص بك!"
 
-#: ajapaik/ajapaik/templates/game.html:72
+#: ajapaik/ajapaik/templates/game.html:73
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "تم تقديم اقتراحات لهذه الصورة، أضف الخاص بك!"
 
@@ -1669,7 +1695,11 @@ msgstr "تم تقديم اقتراحات لهذه الصورة، أضف الخا
 msgid "Back home"
 msgstr "العودة إلى الصفحة الرئيسية"
 
-#: ajapaik/ajapaik/templates/mapview.html:21
+#: ajapaik/ajapaik/templates/mapview.html:28
+msgid "Show images"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
 msgstr "صندوق البحث"
 
@@ -1726,12 +1756,12 @@ msgstr "ليست لديك حاليا أية حسابات على الشبكات �
 msgid "Add a 3rd Party Account"
 msgstr "إضافة حساب جهة خارجية"
 
-#: ajapaik/ajapaik/templates/user_upload.html:18
+#: ajapaik/ajapaik/templates/user_upload.html:19
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "أنا %(user)s صاحب حقوق الطبع والنشر لهذا العمل، منح أي شخص بشكل لا رجعة فيه الحق في استخدام هذا العمل بموجب  <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل 4.0 (CC-BY-SA)</a>."
 
-#: ajapaik/ajapaik/templates/user_upload.html:26
+#: ajapaik/ajapaik/templates/user_upload.html:27
 msgid "Upload and mark on map"
 msgstr "الرفع والوسم على الخريطة"
 
@@ -1740,91 +1770,91 @@ msgstr "الرفع والوسم على الخريطة"
 msgid "Add"
 msgstr "إضافة"
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr "مستخدم غير مصادق"
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr "لعبة الوسم الجغرافي"
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - إعادات الصور"
 
-#: ajapaik/ajapaik/views.py:1118
+#: ajapaik/ajapaik/views.py:1104
 msgid "Cannot upload to these albums"
 msgstr "لا يمكن الرفع إلى هذه الألبومات"
 
-#: ajapaik/ajapaik/views.py:1140
+#: ajapaik/ajapaik/views.py:1126
 msgid "Recuration successful"
 msgstr "إعادة المعالجة ناجحة"
 
-#: ajapaik/ajapaik/views.py:1142
+#: ajapaik/ajapaik/views.py:1128
 msgid "Problem with album selection"
 msgstr "مشكلة في اختيار الألبوم"
 
-#: ajapaik/ajapaik/views.py:1144
+#: ajapaik/ajapaik/views.py:1130
 msgid "Faulty data submitted"
 msgstr "تم تقديم بيانات خاطئة"
 
-#: ajapaik/ajapaik/views.py:1450 ajapaik/ajapaik/views.py:1457
-#: ajapaik/ajapaik/views.py:1459
+#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
+#: ajapaik/ajapaik/views.py:1445
 msgid "Browse photos on map"
 msgstr "تصفح الصور على الخريطة"
 
-#: ajapaik/ajapaik/views.py:1591
+#: ajapaik/ajapaik/views.py:1577
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "مساهمتك لم تغير الموقع المقدر للصورة، وليس بعد على أي حال."
 
-#: ajapaik/ajapaik/views.py:1593
+#: ajapaik/ajapaik/views.py:1579
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "تم تعيين الصورة إلى موقع جديد شكرا لك."
 
-#: ajapaik/ajapaik/views.py:1595
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your guess was first."
 msgstr "كان تخمينك الأول."
 
-#: ajapaik/ajapaik/views.py:1870
+#: ajapaik/ajapaik/views.py:1854
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "ابحث عن الصور القديمة، وأضفها إلى أجابيك، وحدد مواقعها وشارك الألبوم الناتج!"
 
-#: ajapaik/ajapaik/views.py:2260
+#: ajapaik/ajapaik/views.py:2244
 msgid "OK"
 msgstr "موافق"
 
-#: ajapaik/ajapaik/views.py:2318 ajapaik/ajapaik/views.py:2339
+#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "خطأ في رفع الملف: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2335
+#: ajapaik/ajapaik/views.py:2319
 msgid "Photo already exists in Ajapaik"
 msgstr "الصورة موجودة بالفعل في أجابيك"
 
-#: ajapaik/ajapaik/views.py:2358
+#: ajapaik/ajapaik/views.py:2342
 msgid "Please add photos to your album"
 msgstr "الرجاء إضافة صور إلى ألبومك"
 
-#: ajapaik/ajapaik/views.py:2360
+#: ajapaik/ajapaik/views.py:2344
 msgid "Not enough data submitted"
 msgstr "لم يتم تقديم بيانات كافية"
 
-#: ajapaik/ajapaik/views.py:2675
+#: ajapaik/ajapaik/views.py:2659
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "لا يزال من \"%(film)s\" في %(time)s"
 
-#: ajapaik/ajapaik/views.py:2803
+#: ajapaik/ajapaik/views.py:2786
 msgid "Photo uploaded"
 msgstr "تم رفع الصورة"
 
-#: ajapaik/ajapaik/views.py:2822
+#: ajapaik/ajapaik/views.py:2804
 msgid "Album created"
 msgstr "تم إنشاء الألبوم"
 
-#: ajapaik/ajapaik/views.py:2904
+#: ajapaik/ajapaik/views.py:2886
 msgid "Sorry but we fail to post your comment."
 msgstr "آسف لكننا فشلنا في نشر تعليقك."
 
@@ -1840,10 +1870,30 @@ msgstr "شخصية عامة"
 msgid "Subject"
 msgstr "الموضوع"
 
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:73
+msgid "Child"
+msgstr "طفل"
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:76
+msgid "Adult"
+msgstr "بالغ"
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
+msgid "Elderly"
+msgstr "عجوز"
+
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
 msgstr "غير معروف"
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1858,6 +1908,63 @@ msgstr "بيكاسا"
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
 msgstr "صورة الموضوع"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
+msgid "Please indicate what are the gender and/or age of the highlighted person"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "If you are not sure what the gender and/or age of the person is, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "Not Sure"
+msgstr "غير متأكد"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+msgid "In case the rectangle is misplaced please choose"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:87
+msgid "Not a Face"
+msgstr "ليس وجها"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+msgid "To see the description of the image, please press"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:90
+msgid "Info"
+msgstr "معلومات"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
+msgid "Non-binary"
+msgstr ""
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
+msgid "Not sure"
+msgstr "غير متأكد"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:96
+msgid "Skip"
+msgstr "تخطي"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
+msgid "Currently the gender is"
+msgstr "حاليا الجنس هو"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:102
+msgid "Currently the age is"
+msgstr "حاليا العمر هو"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
+msgid "No data here, please come back later"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
