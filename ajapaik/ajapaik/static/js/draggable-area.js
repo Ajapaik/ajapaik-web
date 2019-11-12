@@ -558,9 +558,7 @@ var DraggableArea = (function () {
         element.on('touchstart', onDownEvent);
 
         element.on('click', function (event) {
-            if (!window.fullscreenEnabled)  {
-                event.stopPropagation();
-            }
+            event.stopPropagation();
 
             if (!hasDragged) {
                 annotationRectangle.click();

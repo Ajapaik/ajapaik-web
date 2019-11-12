@@ -263,7 +263,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
     annotationRectangle.popover({
         container: ObjectTagger.getDetectionRectangleContainer(),
         html: true,
-        placement: 'auto',
+        placement: 'bottom',
         title: popoverTitle,
         trigger: 'click',
         content: function() {

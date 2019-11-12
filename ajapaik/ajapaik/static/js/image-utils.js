@@ -131,21 +131,22 @@ function mirrorDetectionAnnotations() {
 }
 
 function getDetectionRectangleScaledForOriginalImageSize(popoverRectangleId, imageAreaCurrentDimensions) {
-    var popoverRectangleDimensions = document.getElementById(popoverRectangleId).getBoundingClientRect();
+    var popoverElement = $('#' + popoverRectangleId);
 
-    var imageScaledDimensions = getImageScaledDimensions(imageAreaCurrentDimensions);
+    var topPosition = parseFloat(popoverElement.css('top'));
 
-    var y1 = popoverRectangleDimensions.top - imageAreaCurrentDimensions.top;
+    var leftPosition = window.photoModalCurrentPhotoFlipped
+        ? parseFloat(popoverElement.css('right'))
+        : parseFloat(popoverElement.css('left'));
 
-    var x1 = window.photoModalCurrentPhotoFlipped
-        ? imageAreaCurrentDimensions.width - (popoverRectangleDimensions.right - imageAreaCurrentDimensions.left - imageScaledDimensions.blackPaddingSizeOnOneSide)
-        : (popoverRectangleDimensions.left - imageAreaCurrentDimensions.left - imageScaledDimensions.blackPaddingSizeOnOneSide);
+    var popoverWidth = parseFloat(popoverElement.css('width'));
+    var popoverHeight = parseFloat(popoverElement.css('height'));
 
     var rectangle = {
-        x1: x1,
-        y1: y1,
-        x2: x1 + popoverRectangleDimensions.width,
-        y2: y1 + popoverRectangleDimensions.height
+        x1: leftPosition,
+        y1: topPosition,
+        x2: leftPosition + popoverWidth,
+        y2: topPosition + popoverHeight
     };
 
     var photoDimensions = {
@@ -153,7 +154,7 @@ function getDetectionRectangleScaledForOriginalImageSize(popoverRectangleId, ima
         height: parseInt(imageAreaCurrentDimensions.height)
     };
 
-    var widthScale = window.currentPhotoOriginalWidth / imageScaledDimensions.scaledPhotoWidthWithoutPadding;
+    var widthScale = window.currentPhotoOriginalWidth / photoDimensions.width;
     var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
 
     return {

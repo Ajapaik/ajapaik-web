@@ -31,13 +31,15 @@ var ObjectTagger = {
             }, 200);
         }
     },
-    handleNewRectangleDrawn: function (selection) {
+    handleNewRectangleDrawn: function (selection, isNotOpeningPopoverOnDrawEnd) {
         this.stopCropping();
 
         var detectionRectangle = drawNewAnnotationRectangle(selection);
         detectionRectangle.rectangle.appendTo(ImageAreaSelector.getImageArea());
 
-        togglePopover(detectionRectangle.id);
+        if (!isNotOpeningPopoverOnDrawEnd) {
+            togglePopover(detectionRectangle.id);
+        }
     },
     drawBoxForMobileSelection: function(onSelectionEnd) {
         var imageAreaDimensions = ImageAreaSelector.getImageAreaDimensions();
@@ -63,8 +65,11 @@ var ObjectTagger = {
             }
         );
     },
-    startCropping: function () {
-        var onSelectionEnd = this.handleNewRectangleDrawn.bind(this);
+    startCropping: function (isNotOpeningPopoverOnDrawEnd) {
+        var handleNewRectangleDrawn = this.handleNewRectangleDrawn.bind(this);
+        var onSelectionEnd = function(selection) {
+            handleNewRectangleDrawn(selection, isNotOpeningPopoverOnDrawEnd);
+        };
 
         if (window.isMobile) {
             this.drawBoxForMobileSelection(onSelectionEnd);
@@ -81,11 +86,11 @@ var ObjectTagger = {
 
         disableMovingBetweenPictures();
     },
-    toggleCropping: function () {
+    toggleCropping: function (isNotOpeningPopoverOnDrawEnd) {
         if (this.isInCropMode) {
             this.stopCropping();
         } else {
-            this.startCropping();
+            this.startCropping(isNotOpeningPopoverOnDrawEnd);
         }
     }
 };

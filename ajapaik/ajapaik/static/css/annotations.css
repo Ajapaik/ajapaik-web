@@ -8,10 +8,16 @@
 
 .annotation-label__top {
     bottom: 100%;
-    border-radius: 5px 5px 0 0;
 }
 
 .annotation-label__bottom {
     top: 100%;
-    border-radius: 0 0 5px 5px;
+}
+
+.annotation-button__fullscreen {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: white !important;
+    background-color: rgba(0, 0, 0, 0.7);
 }

@@ -178,6 +178,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 function() {
                     setTimeout(function() {
                         drawAnnotationContainer(div);
+                        copyAnnotateButtonToFullScreenView();
                     }, 100);
                 }
             );

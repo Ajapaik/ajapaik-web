@@ -14,6 +14,14 @@ var ImageAreaSelector = (function () {
     var mouseMoveListener = null;
     var cancelListenerOnAreaSelect = null;
 
+    function getCurrentImageArea() {
+        if (window.fullscreenEnabled) {
+            return $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
+        }
+
+        return imageArea;
+    }
+
     function resetValues() {
         initialClickX = null;
         initialClickY = null;
@@ -71,7 +79,7 @@ var ImageAreaSelector = (function () {
             class: 'image-area-selector__overlay'
         });
 
-        imageArea.append(selectionOverlay);
+        getCurrentImageArea().append(selectionOverlay);
     }
 
     function createRectangle() {
@@ -114,7 +122,7 @@ var ImageAreaSelector = (function () {
     }
 
     function markStartingSizesAndPositions(event) {
-        var rectangle = imageArea[0].getBoundingClientRect();
+        var rectangle = getCurrentImageArea()[0].getBoundingClientRect();
 
         imageAreaLeft = rectangle.left;
         imageAreaTop = rectangle.top;
@@ -129,9 +137,9 @@ var ImageAreaSelector = (function () {
         $('#' + constants.elements.IMAGE_SELECTION_AREA_ID).remove();
         $('#' + constants.elements.IMAGE_SELECTION_OVERLAY_ID).remove();
 
-        imageArea.off('click', clickListener);
-        imageArea.off('mousemove', mouseMoveListener);
-        imageArea.css({cursor: ''});
+        getCurrentImageArea().off('click', clickListener);
+        getCurrentImageArea().off('mousemove', mouseMoveListener);
+        getCurrentImageArea().css({cursor: ''});
         $(window).off('keydown', cancelListenerOnAreaSelect);
 
         resetValues();
@@ -139,6 +147,7 @@ var ImageAreaSelector = (function () {
 
     function getClickListener(onSelect) {
         return function (event) {
+            event.stopPropagation();
             isSelecting = !isSelecting;
 
             if (isSelecting) {
@@ -185,6 +194,10 @@ var ImageAreaSelector = (function () {
 
     return {
         getImageArea: function() {
+            if (window.fullscreenEnabled) {
+                return $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
+            }
+
             var dimensions = imageArea[0].getBoundingClientRect();
             var imageAreaId = imageArea.attr('id');
 
@@ -201,7 +214,7 @@ var ImageAreaSelector = (function () {
             imageArea = $('#' + imageAreaId);
         },
         startImageAreaSelection: function (onSelect, onCancel) {
-            imageArea.css({cursor: 'crosshair'});
+            getCurrentImageArea().css({cursor: 'crosshair'});
 
             createOverlay();
             listenForSelectionCancel(onCancel);
@@ -209,8 +222,29 @@ var ImageAreaSelector = (function () {
             clickListener = getClickListener(onSelect);
             mouseMoveListener = getMousePositionTrackingEventListener();
 
-            imageArea.click(clickListener);
-            imageArea.mousemove(mouseMoveListener);
+            getCurrentImageArea().click(clickListener);
+            getCurrentImageArea().mousemove(mouseMoveListener);
         }
     };
 })();
+
+function copyAnnotateButtonToFullScreenView() {
+    var fullScreenContainer = $('#ajapaik-fullscreen-image-container');
+
+    var isButtonAlreadyPresent = fullScreenContainer.find('#mark-object-button').length > 0;
+    if (isButtonAlreadyPresent) {
+        return;
+    }
+
+    var markObjectClone = $('#mark-object-button').clone();
+
+    markObjectClone.find('i').removeClass('ajapaik-text-gray');
+    markObjectClone.addClass('annotation-button__fullscreen');
+
+    markObjectClone.on('click', function(event) {
+        event.stopPropagation();
+        ObjectTagger.toggleCropping(true);
+    });
+
+    fullScreenContainer.append(markObjectClone);
+}
