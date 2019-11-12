@@ -248,7 +248,7 @@ def get_subject_data(request, subject_id = None):
                 for guess in guesses:
                     if subject_id != str(guess):
                         guessIds.append(guess)
-                nextRectangle = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).first()
+                nextRectangle = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?').first()
     if subject_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()
