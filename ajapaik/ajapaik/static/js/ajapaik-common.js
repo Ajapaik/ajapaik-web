@@ -229,13 +229,15 @@ $('.ajapaik-navbar').autoHidingNavbar();
             map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
         }
         if (!isGameMap) {
-            myLocationButton = document.createElement('button');
-            $(myLocationButton)
-                .addClass('btn btn-light btn-sm')
-                .prop('id', 'ajapaik-mapview-my-location-button')
-                .prop('title', gettext('Go to my location'))
-                .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            if(!isTabletView) {
+                myLocationButton = document.createElement('button');
+                $(myLocationButton)
+                    .addClass('btn btn-light btn-sm')
+                    .prop('id', 'ajapaik-mapview-my-location-button')
+                    .prop('title', gettext('Go to my location'))
+                    .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            }
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             $(input).on('focus', function () {
                 window.hotkeysActive = false;

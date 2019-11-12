@@ -12,6 +12,9 @@
 {% block specific_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "css/ajapaik-map-sidepanel.css" %}">
+        {% if is_tabletview %}
+            <link rel="stylesheet" href="{% static "css/ajapaik-tablet-map.css" %}">
+        {% endif %}
     {% endcompress %}
     {% include "js_templates/map_view_side_panel_element.html" %}
 {% endblock %}
