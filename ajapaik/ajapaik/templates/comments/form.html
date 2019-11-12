@@ -1,4 +1,8 @@
 {% load i18n comments %}
+
+{% if not user.profile.is_legit %}
+    <a href="javaScript:void(0);" id="ajapaik-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
+{% else %}
     <h4 class="pl-3">{% trans "Your comment" %}</h4>
     <div>
         <div class="d-none" data-comment-element="preview"></div>
@@ -36,3 +40,4 @@
             </div>
         </form>
     </div>
+{% endif %}
