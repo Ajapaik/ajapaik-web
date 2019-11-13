@@ -263,13 +263,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 google.maps.event.trigger(map, 'resize');
                 var bounds = map.getBounds();
                 searchBox.setBounds(bounds);
-                // Resizing of map cause double firing of 'idle' event. I
-                // think we need refactor map loading and resize map in some
-                // other place.
-                if (firstResizeDone) {
-                    window.toggleVisiblePaneElements();
-                }
-                firstResizeDone = true;
+                window.toggleVisiblePaneElements();
             });
         }
         

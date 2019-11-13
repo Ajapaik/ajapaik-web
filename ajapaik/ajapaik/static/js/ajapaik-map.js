@@ -36,7 +36,7 @@
         anchor: new google.maps.Point(12, 0)
     };
 
-    var sidePanelPhotosBunchSize = 20;
+    var sidePanelPhotosBunchSize = 10;
 
     // Variables
     var photoId,
@@ -187,10 +187,10 @@
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge);
         if(window.innerWidth > 768){
-            edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + $("#map-side-panel").width() + 20) / scale;
+            edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + $("#map-side-panel").width() + 50) / scale;
             return projection.fromPointToLatLng(edgePixelCoordinates);
         } else {
-            edgePixelCoordinates.y = (edgePixelCoordinates.y * scale + $("#map-side-panel").height() + 20) / scale;
+            edgePixelCoordinates.y = (edgePixelCoordinates.y * scale + $("#map-side-panel").height() + 50) / scale;
             return projection.fromPointToLatLng(edgePixelCoordinates);
         }
     };
@@ -327,17 +327,6 @@
             window.syncMapStateToURL();
             window.location.reload();
         }
-    };
-
-
-    window.doDelayedTemporalFiltering = function () {
-        if (temporalMapFilterTimeout) {
-            clearTimeout(temporalMapFilterTimeout);
-        }
-        temporalMapFilterTimeout = setTimeout(function () {
-            window.toggleVisiblePaneElements();
-            _gaq.push(['_trackEvent', 'Mapview', 'Filter by date']);
-        }, 500);
     };
 
 
@@ -893,7 +882,6 @@
             highlightSelected(findMarkerByPhotoId(photoId));
         });
 
-        // TODO: See why the side bar is not updating
         $('#img-wrapper').on('scroll', function() { 
             if(window.innerWidth < 769 && ($('#img-wrapper')[0].scrollWidth - $('#img-wrapper')[0].scrollLeft - 20) < $('#img-wrapper')[0].clientWidth) {
                 if(!!window.morePhotosCanBeLoaded){
