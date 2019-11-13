@@ -92,6 +92,8 @@ function HelsinkiGooglemApi(_, isGeotagger) {
     };
     this.showControls = function () {
         $(that.yearSelection).show();
+        let layer = this.vars.layers[this.vars.layerIndex];
+        this.setLayer(layer.name, layer.url);
     };
     this.hideControls = function () {
         $(that.yearSelection).hide();
