@@ -17,7 +17,7 @@ function HelsinkiGooglemApi(_, isGeotagger) {
             {year: "2016", name:"avoindata:Ortoilmakuva_2016", url: karttaUrl}, //karrta.hel
             {year: "2018", name:"avoindata:Ortoilmakuva_2018_5cm", url: karttaUrl} //karrta.hel
         ],
-        layerIndex: 1
+        layerIndex: 0
     };
     this.isGeotagger = isGeotagger;
 
@@ -93,6 +93,8 @@ function HelsinkiGooglemApi(_, isGeotagger) {
     this.showControls = function () {
         $(that.yearSelection).show();
         let layer = this.vars.layers[this.vars.layerIndex];
+        this.changeIndex(this.vars.layerIndex);
+        this.yearSelection.selectedIndex = this.vars.layerIndex;
         this.setLayer(layer.name, layer.url);
     };
     this.hideControls = function () {
