@@ -1,51 +1,51 @@
 {% verbatim %}
     <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
-        {% if (o.source && o.sourceKey && o.sourceURL) { %}
-            {% if (o.author) { %}
-                <div class="w-100"><b>{%=o.author%}</b></div>
-                {% if (o.licence) { %}
+        {% if (o[0][0].source && o[0][0].sourceKey && o[0][0].sourceURL) { %}
+            {% if (o[0][0].author) { %}
+                <div class="w-100"><b>{%=o[0][0].author%}</b></div>
+                {% if (o[0][0].licence) { %}
                     <div class="w-100">
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } %}
             {% } %}
             <div class="w-100">
-                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
+                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o[0][0].sourceURL%}'
                    target="_blank" rel="noopener nofollow">
-                    {%=o.source%} {%=o.sourceKey%}
+                    {%=o[0][0].source%} {%=o[0][0].sourceKey%}
                 </a>
             </div>
         {% } else { %}
-            {% if (o.author) { %}
-                <div class="w-100"><b>{%=o.author%}</b></div>
+            {% if (o[0][0].author) { %}
+                <div class="w-100"><b>{%=o[0][0].author%}</b></div>
                 <div class="w-100">
                     {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                 </div>
             {% } else { %}
-                {% if (o.FBUserName) { %}
+                {% if (o[0][0].FBUserName) { %}
                     <div class="w-100">
-                        <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
-                            {%=o.FBUserName%}
+                        <a target="_blank" href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos" rel="noopener">
+                            {%=o[0][0].FBUserName%}
                         </a><br>
                     </div>
                     <div class="w-100">
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
-                    {% if (o.GooglePlusName) { %}
+                    {% if (o[0][0].GooglePlusName) { %}
                         <div class="w-100">
-                            <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
-                                {%=o.GooglePlusName%}
+                            <a target="_blank" href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos" rel="noopener">
+                                {%=o[0][0].GooglePlusName%}
                             </a><br>
                         </div>
                         <div class="w-100">
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
-                        {% if (o.FullName) { %}
+                        {% if (o[0][0].FullName) { %}
                             <div class="w-100">
-                                <a target="_blank" href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos" rel="noopener">
-                                    {%=o.FullName%}
+                                <a target="_blank" href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos" rel="noopener">
+                                    {%=o[0][0].FullName%}
                                 </a><br>
                             </div>
                             <div class="w-100">
@@ -58,8 +58,8 @@
                 {% } %}
             {% } %}
         {% } %}
-        {% if (o.date) { %}
-            <div class="w-100">{%=o.date%}</div>
+        {% if (o[0][0].date) { %}
+            <div class="w-100">{%=o[0][0].date%}</div>
         {% } %}
     </script>
 {% endverbatim %}
