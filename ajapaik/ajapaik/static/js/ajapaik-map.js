@@ -53,7 +53,8 @@
         markers = [],
         temporalMapFilterTimeout,
         loadedPhotosCount = 0,
-        centerOnMapAfterLocating = false;
+        centerOnMapAfterLocating = false,
+        current_bunch = 1;
 
 
     window.isSidePanelOpen = false;
@@ -474,6 +475,7 @@
                         imgWrapper.removeChild( fc );
                         fc = imgWrapper.firstChild;
                     }
+                    current_bunch = 1;
                     refreshPane(photosOnSidePanel.slice(0, sidePanelPhotosBunchSize));
                 });
             });
@@ -482,12 +484,11 @@
 
     
     function loadMoreImages() {
-        var current_bunch = $(event.target).data('bunch-loaded');
         refreshPane(photosOnSidePanel.slice(
             current_bunch * sidePanelPhotosBunchSize,
             (current_bunch + 1) * sidePanelPhotosBunchSize
         ));
-        $(event.target).data('bunch-loaded', ++current_bunch)
+        current_bunch ++;
     };
 
     window.checkLoadedSidePanelPhotos = function (element) {
