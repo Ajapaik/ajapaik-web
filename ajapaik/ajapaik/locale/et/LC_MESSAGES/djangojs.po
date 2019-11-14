@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:50+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:19+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -38,12 +38,12 @@ msgstr "Asukohainfo ei ole kättesaadav."
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:566
 msgid "The request to get user location timed out."
-msgstr "Asukohainfot päriti liiga kaua."
+msgstr "Asukohainfo päring aegus."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:569
 msgid "An unknown error occurred."
-msgstr "Muu viga asukohapäringuga."
+msgstr "Tekkis teadmata viga."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
@@ -247,7 +247,7 @@ msgstr "Kirjeldus"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Redigeeri"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -307,7 +307,7 @@ msgstr "Pilt on juba albumi(te)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "Pildi kohta puudub asukohainfo"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -563,7 +563,7 @@ msgstr "Saadud punktid"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
 msgid "Old Helsinki"
-msgstr ""
+msgstr "Vana Helsingi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"

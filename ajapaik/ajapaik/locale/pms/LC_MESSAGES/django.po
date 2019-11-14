@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:57+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:25+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1645,7 +1645,7 @@ msgstr "Artorn a l'intrada"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show images"
-msgstr ""
+msgstr "Smon-e le plance"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
@@ -1841,7 +1841,7 @@ msgstr "Tundmatu"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Nen aplicàbil"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1859,11 +1859,11 @@ msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "Për piasì, ch'a spessìfica ël sess o l'età dla përson-a evidensià"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "S'a l'é nen sigur dël sess o dl'età ëd costa përson-a, për piasì ch'a sgnaca"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -1871,7 +1871,7 @@ msgstr "Nen sigur"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "Si ël retàngol a l'é mal piassà, për piasì ch'a serna"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
@@ -1881,7 +1881,7 @@ msgstr "Nen na cera"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "Për vëdde la descrission ëd la plancia, për piasì ch'a sgnaca"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
@@ -1891,7 +1891,7 @@ msgstr "Anformassion"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "Nen binari"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
@@ -1912,7 +1912,7 @@ msgstr "Al moment, l'età a l'é"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Gnun dàit ambelessì, për piasì ch'a torna pi tard"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

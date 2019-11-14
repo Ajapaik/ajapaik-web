@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:58+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:26+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1643,7 +1643,7 @@ msgstr "Voltar ao início"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show images"
-msgstr ""
+msgstr "Mostrar imagens"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
@@ -1839,7 +1839,7 @@ msgstr "Tundmatu"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Não aplicável"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1857,11 +1857,11 @@ msgstr "Assunto da foto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "Indique qual é o sexo e/ou a idade da pessoa destacada"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "Se você não tiver certeza de qual é o sexo e/ou a idade da pessoa, pressione"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -1869,7 +1869,7 @@ msgstr "Não tenho certeza"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "Caso o retângulo seja extraviado, escolha"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
@@ -1879,7 +1879,7 @@ msgstr "Não é um rosto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "Para ver a descrição da imagem, pressione"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
@@ -1889,7 +1889,7 @@ msgstr "Informação"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "Não binário"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
@@ -1910,7 +1910,7 @@ msgstr "Atualmente a idade é"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Não há dados aqui, volte mais tarde"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

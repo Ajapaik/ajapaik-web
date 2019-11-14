@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-11 15:48:01+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:29+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1635,7 +1635,7 @@ msgstr "返回首頁"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show images"
-msgstr ""
+msgstr "顯示圖片"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
@@ -1760,7 +1760,7 @@ msgstr "搜尋老照片，將它們添加到 Ajapaik，判斷它們的位置並�
 
 #: ajapaik/ajapaik/views.py:2244
 msgid "OK"
-msgstr "OK"
+msgstr "好"
 
 #: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
 #, python-format
@@ -1831,7 +1831,7 @@ msgstr "未知"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "不適用"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1849,11 +1849,11 @@ msgstr "主題照片"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "請指示出凸顯人物的性別以及/或是年齡"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "若您不確定人物的性別以及/或是年齡，請按下"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -1861,7 +1861,7 @@ msgstr "不確定"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "若方框位置不對請挑選"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
@@ -1871,7 +1871,7 @@ msgstr "不是面孔"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "要查看圖片的描述，請按下"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
@@ -1881,7 +1881,7 @@ msgstr "資訊"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "非二位元"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
@@ -1902,7 +1902,7 @@ msgstr "目前年齡是"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "此處沒有資料，請稍後回來"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

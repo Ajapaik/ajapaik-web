@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:49+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:18+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1697,7 +1697,7 @@ msgstr "العودة إلى الصفحة الرئيسية"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show images"
-msgstr ""
+msgstr "إظهار الصور"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
@@ -1893,7 +1893,7 @@ msgstr "غير معروف"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "لا ينطبق"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1911,11 +1911,11 @@ msgstr "صورة الموضوع"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "تُرجَى الإشارة إلى جنس و/أو عمر الشخص المميز"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "إذا لم تكن متأكدا من نوع جنس و/أو عمر الشخص، فيُرجَى الضغط"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -1923,7 +1923,7 @@ msgstr "غير متأكد"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "في حال كان المستطيل في غير محله، يُرجَى اختيار"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
@@ -1933,7 +1933,7 @@ msgstr "ليس وجها"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "لمعرفة وصف الصورة؛ يُرجَى الضغط"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
@@ -1943,7 +1943,7 @@ msgstr "معلومات"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "غير ثنائي"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
@@ -1964,7 +1964,7 @@ msgstr "حاليا العمر هو"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "لا توجد بيانات هنا؛ تُرجَى العودة لاحقا"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

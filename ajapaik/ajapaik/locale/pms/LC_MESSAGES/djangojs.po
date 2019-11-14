@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:54+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
@@ -245,7 +245,7 @@ msgstr "Descrission"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Modifiché"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -305,7 +305,7 @@ msgstr "Fòto già ant j'àlbom"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "La plancia a conten dij dàit ëd localisassion"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -561,7 +561,7 @@ msgstr "Pont assignà"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
 msgid "Old Helsinki"
-msgstr ""
+msgstr "Vej Helsinki"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"

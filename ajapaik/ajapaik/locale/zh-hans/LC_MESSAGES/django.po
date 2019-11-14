@@ -6,6 +6,7 @@
 # Author: Josephine W.
 # Author: Looong
 # Author: Viztor
+# Author: Ywang
 # Author: 予弦
 # Author: 沈澄心
 # Author: 神樂坂秀吉
@@ -16,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-11-11 15:48:01+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:28+0000\n"
 "X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1635,7 +1636,7 @@ msgstr "返回主页"
 
 #: ajapaik/ajapaik/templates/mapview.html:28
 msgid "Show images"
-msgstr ""
+msgstr "显示图像"
 
 #: ajapaik/ajapaik/templates/mapview.html:30
 msgid "Search box"
@@ -1831,7 +1832,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "不可用"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1881,7 +1882,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "非二进制"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:51+0000\n"
+"PO-Revision-Date: 2019-11-14 16:08:19+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -218,9 +218,8 @@ msgid "Album details"
 msgstr "Albumin tiedot"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
-#, fuzzy
 msgid "Approximate address"
-msgstr "Arvio"
+msgstr "Arvioitu osoite"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
@@ -231,9 +230,8 @@ msgid "Author"
 msgstr "Tekijä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-#, fuzzy
 msgid "Comments"
-msgstr "kommentoitua"
+msgstr "Kommentit"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -249,7 +247,7 @@ msgstr "Kuvailu"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Muokkaa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -276,9 +274,8 @@ msgid "Image has rephotos"
 msgstr "Kuvalla on uusintakuvia"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
-#, fuzzy
 msgid "Image has similar photos"
-msgstr "Kuvalla on uusintakuvia"
+msgstr "Kuvalle löytyy samankaltaisia kuvia"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
@@ -310,7 +307,7 @@ msgstr "Kuva on jo album(e)issa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "Kuvassa on sijaintitiedot liitettynä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -566,7 +563,7 @@ msgstr "Pistesaldo"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
 msgid "Old Helsinki"
-msgstr ""
+msgstr "Vanha Helsinki"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
