@@ -14,6 +14,12 @@ docker pull laurielias/python-3.6-dlib
 docker-compose up --build
 ```
 
+## Multi-Device Testing
+<a href="https://www.browserstack.com" target="_blank"><img src="ajapaik/ajapaik/static/images/BrowserStack-logo.svg" alt="BrowserStack" width="320"></a>
+
+We use [BrowserStack](https://www.browserstack.com) to test on a variety of devices and operating systems.
+
+
 ## Restore data from a dump
 ```bash
 # Data only, no integrity checks while loading it in, no privileges
