@@ -525,10 +525,7 @@
             window.toggleSidePanel();
         }
         targetPaneElement = $('#element' + marker.photoData.id);
-        if ((currentlySelectedMarker && currentlySelectedMarker.photoData.id) == marker.photoData.id) {
-            window.loadPhoto(marker.photoData.id);
-            return;
-        }
+        window.loadPhoto(marker.photoData.id);
         if (!targetPaneElement.length) {
             refreshPane([marker.photoData]);
             targetPaneElement = $('#element' + marker.photoData.id);
