@@ -1201,7 +1201,11 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	is_selection = False
 	site = Site.objects.get_current()
 	if request.is_ajax():
-		template = "_photo_modal.html"
+		basic = request.GET.get('basic')
+		if basic is not None and basic == "true":
+			template = "_photo_modal_basic.html"
+		else:
+			template = "_photo_modal.html"
 		if request.GET.get("isFrontpage"):
 			is_frontpage = True
 		if request.GET.get("isMapview"):

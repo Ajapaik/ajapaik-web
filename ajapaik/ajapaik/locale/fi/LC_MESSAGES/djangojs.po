@@ -8,22 +8,7 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr ""
-""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-14 16:08:19+0000\n"
-"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
-"Language: fi\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2019-11-11 11:00+0200\nPO-Revision-Date: 2019-10-14 15:15:56+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\nLanguage: fi\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\nX-Translated-Using: django-rosetta 0.7.4\nX-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:557
@@ -561,7 +546,7 @@ msgstr "Raahaa karttaa niin, että paikkamerkki on kuvassa näkyvän kohteen pä
 msgid "Points awarded"
 msgstr "Pistesaldo"
 
-#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
+#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
 msgid "Old Helsinki"
 msgstr "Vanha Helsinki"
 
@@ -569,11 +554,11 @@ msgstr "Vanha Helsinki"
 msgid "Vanalinnad"
 msgstr "Vanhat kartat"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:755
 msgid "Remove album filter"
 msgstr "Poista albumin suodatin"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:758
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:763
 msgid "Apply album filter"
 msgstr "Suodata albumi"
 
@@ -637,4 +622,3 @@ msgstr "Kuka hän on?"
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Oletko varma, että haluat poistaa tämän merkkauksen."
-

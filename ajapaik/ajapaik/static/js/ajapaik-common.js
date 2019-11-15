@@ -229,13 +229,15 @@ $('.ajapaik-navbar').autoHidingNavbar();
             map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
         }
         if (!isGameMap) {
-            myLocationButton = document.createElement('button');
-            $(myLocationButton)
-                .addClass('btn btn-light btn-sm')
-                .prop('id', 'ajapaik-mapview-my-location-button')
-                .prop('title', gettext('Go to my location'))
-                .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            if(!isTabletView) {
+                myLocationButton = document.createElement('button');
+                $(myLocationButton)
+                    .addClass('btn btn-light btn-sm')
+                    .prop('id', 'ajapaik-mapview-my-location-button')
+                    .prop('title', gettext('Go to my location'))
+                    .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            }
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             $(input).on('focus', function () {
                 window.hotkeysActive = false;
@@ -261,13 +263,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 google.maps.event.trigger(map, 'resize');
                 var bounds = map.getBounds();
                 searchBox.setBounds(bounds);
-                // Resizing of map cause double firing of 'idle' event. I
-                // think we need refactor map loading and resize map in some
-                // other place.
-                if (firstResizeDone) {
-                    window.toggleVisiblePaneElements();
-                }
-                firstResizeDone = true;
+                window.toggleVisiblePaneElements();
             });
         }
         

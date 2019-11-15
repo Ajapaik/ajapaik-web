@@ -36,7 +36,7 @@
         anchor: new google.maps.Point(12, 0)
     };
 
-    var sidePanelPhotosBunchSize = 20;
+    var sidePanelPhotosBunchSize = 10;
 
     // Variables
     var photoId,
@@ -53,7 +53,8 @@
         markers = [],
         temporalMapFilterTimeout,
         loadedPhotosCount = 0,
-        centerOnMapAfterLocating = false;
+        centerOnMapAfterLocating = false,
+        current_bunch = 1;
 
 
     window.isSidePanelOpen = false;
@@ -71,7 +72,7 @@
         photoId = id;
         $.ajax({
             cache: false,
-            url: '/photo/' + id + '/?isMapview=1',
+            url: isTabletView ? '/photo/' + id + '/?isMapview=1&basic=true' : '/photo/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
                 var mainPhotoContainer = $('#ajapaik-modal-photo-container'),
@@ -186,10 +187,10 @@
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge);
         if(window.innerWidth > 768){
-            edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + $("#map-side-panel").width() + 20) / scale;
+            edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + $("#map-side-panel").width() + 50) / scale;
             return projection.fromPointToLatLng(edgePixelCoordinates);
         } else {
-            edgePixelCoordinates.y = (edgePixelCoordinates.y * scale + $("#map-side-panel").height() + 20) / scale;
+            edgePixelCoordinates.y = (edgePixelCoordinates.y * scale + $("#map-side-panel").height() + 50) / scale;
             return projection.fromPointToLatLng(edgePixelCoordinates);
         }
     };
@@ -329,17 +330,6 @@
     };
 
 
-    window.doDelayedTemporalFiltering = function () {
-        if (temporalMapFilterTimeout) {
-            clearTimeout(temporalMapFilterTimeout);
-        }
-        temporalMapFilterTimeout = setTimeout(function () {
-            window.toggleVisiblePaneElements();
-            _gaq.push(['_trackEvent', 'Mapview', 'Filter by date']);
-        }, 500);
-    };
-
-
     window.toggleVisiblePaneElements = function () {
         if (window.map && !window.guessLocationStarted) {
             window.morePhotosCanBeLoaded = false;
@@ -474,6 +464,7 @@
                         imgWrapper.removeChild( fc );
                         fc = imgWrapper.firstChild;
                     }
+                    current_bunch = 1;
                     refreshPane(photosOnSidePanel.slice(0, sidePanelPhotosBunchSize));
                 });
             });
@@ -482,12 +473,11 @@
 
     
     function loadMoreImages() {
-        var current_bunch = $(event.target).data('bunch-loaded');
         refreshPane(photosOnSidePanel.slice(
             current_bunch * sidePanelPhotosBunchSize,
             (current_bunch + 1) * sidePanelPhotosBunchSize
         ));
-        $(event.target).data('bunch-loaded', ++current_bunch)
+        current_bunch ++;
     };
 
     window.checkLoadedSidePanelPhotos = function (element) {
@@ -517,7 +507,7 @@
         currentlySelectedMarker = null;
         window.currentlySelectedRephotoId = null;
         window.currentlySelectedSimilarPhotoId = null;
-        $('#img-wrapper').find('img').removeClass("opaque-image");
+        $('#img-wrapper').find('img').removeClass("highlighted-image");
         if (lastHighlightedMarker) {
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
@@ -535,18 +525,15 @@
             window.toggleSidePanel();
         }
         targetPaneElement = $('#element' + marker.photoData.id);
-        if ((currentlySelectedMarker && currentlySelectedMarker.photoData.id) == marker.photoData.id) {
-            window.loadPhoto(marker.photoData.id);
-            return;
-        }
+        window.loadPhoto(marker.photoData.id);
         if (!targetPaneElement.length) {
             refreshPane([marker.photoData]);
             targetPaneElement = $('#element' + marker.photoData.id);
         }
         currentlySelectedMarker = marker;
         window.syncMapStateToURL();
-        $('#img-wrapper').find('img').addClass('opaque-image');
-        targetPaneElement.find('img').removeClass('opaque-image');
+        $('#img-wrapper').find('img').removeClass('highlighted-image');
+        targetPaneElement.find('img').addClass('highlighted-image');
         if (!fromMarker) {
             window._gaq.push(['_trackEvent', 'Map', 'Pane photo click']);
         }
@@ -892,7 +879,6 @@
             highlightSelected(findMarkerByPhotoId(photoId));
         });
 
-        // TODO: See why the side bar is not updating
         $('#img-wrapper').on('scroll', function() { 
             if(window.innerWidth < 769 && ($('#img-wrapper')[0].scrollWidth - $('#img-wrapper')[0].scrollLeft - 20) < $('#img-wrapper')[0].clientWidth) {
                 if(!!window.morePhotosCanBeLoaded){
