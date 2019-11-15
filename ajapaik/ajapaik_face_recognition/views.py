@@ -248,7 +248,16 @@ def get_subject_data(request, subject_id = None):
                 for guess in guesses:
                     if subject_id != str(guess):
                         guessIds.append(guess)
-                nextRectangle = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?').first()
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?')
+                if rectangles is not None:
+                    nextRectangle = rectangles.first()
+                else:
+                    allRectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
+                    if allRectangles is not None:
+                        if album_id is not None:
+                            nextRectangle = allRectangles.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+                        else:
+                            nextRectangle = allRectangles.order_by('?').first()
     if subject_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()
