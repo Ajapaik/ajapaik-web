@@ -1829,11 +1829,6 @@ msgstr "Tuntematon tekijä"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/models.py:18
-#: ajapaik/ajapaik_face_recognition/models.py:25
-msgid "Not Applicable"
 msgstr "Ei soveltuva"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
