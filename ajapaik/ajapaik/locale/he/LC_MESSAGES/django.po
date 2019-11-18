@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:54+0000\n"
+"PO-Revision-Date: 2019-11-18 17:08:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -731,8 +731,8 @@ msgstr "Ajapaik on Facebook"
 msgid "Profile and leaderboard"
 msgstr "Profile and leaderboard"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
-#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1722
+#: ajapaik/ajapaik/views.py:1739 ajapaik/ajapaik/views.py:1775
 msgid "Leaderboard"
 msgstr "Leaderboard"
 
@@ -834,7 +834,6 @@ msgstr "Some nearby albums"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "Share"
@@ -902,7 +901,6 @@ msgstr "Click to choose"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "Album details"
@@ -974,12 +972,11 @@ msgid "duplicate photo"
 msgstr "duplicate photo"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
 msgid "Unknown author"
 msgstr "Unknown author"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
 #: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
@@ -987,30 +984,25 @@ msgid "Pick the shooting location!"
 msgstr "Pick the shooting location!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "Date this image"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "Add rephoto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "Discuss"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
@@ -1018,7 +1010,6 @@ msgstr[0] "Picture belongs to album"
 msgstr[1] "Picture belongs to albums:"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "Curator"
@@ -1648,11 +1639,11 @@ msgstr "suggestions have been submitted for this picture. Add yours!"
 msgid "Back home"
 msgstr "Back home"
 
-#: ajapaik/ajapaik/templates/mapview.html:28
+#: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/mapview.html:30
+#: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
 msgstr "תיבת חיפוש"
 
@@ -1752,62 +1743,62 @@ msgstr "Problem with album selection"
 msgid "Faulty data submitted"
 msgstr "Faulty data submitted"
 
-#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
-#: ajapaik/ajapaik/views.py:1445
+#: ajapaik/ajapaik/views.py:1440 ajapaik/ajapaik/views.py:1447
+#: ajapaik/ajapaik/views.py:1449
 msgid "Browse photos on map"
 msgstr "Browse photos on map"
 
-#: ajapaik/ajapaik/views.py:1577
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Your contribution didn't change the estimated location for the photo, not yet anyway."
 
-#: ajapaik/ajapaik/views.py:1579
+#: ajapaik/ajapaik/views.py:1583
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "The photo has been mapped to a new location thanks to you."
 
-#: ajapaik/ajapaik/views.py:1581
+#: ajapaik/ajapaik/views.py:1585
 msgid "Your guess was first."
 msgstr "Your guess was first."
 
-#: ajapaik/ajapaik/views.py:1854
+#: ajapaik/ajapaik/views.py:1858
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 
-#: ajapaik/ajapaik/views.py:2244
+#: ajapaik/ajapaik/views.py:2248
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
+#: ajapaik/ajapaik/views.py:2306 ajapaik/ajapaik/views.py:2327
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "שגיאה בהעלאת קובץ: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2319
+#: ajapaik/ajapaik/views.py:2323
 msgid "Photo already exists in Ajapaik"
 msgstr "Photo already exists in Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2342
+#: ajapaik/ajapaik/views.py:2346
 msgid "Please add photos to your album"
 msgstr "Please add photos to your album"
 
-#: ajapaik/ajapaik/views.py:2344
+#: ajapaik/ajapaik/views.py:2348
 msgid "Not enough data submitted"
 msgstr "Not enough data submitted"
 
-#: ajapaik/ajapaik/views.py:2659
+#: ajapaik/ajapaik/views.py:2663
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still from \"%(film)s\" at %(time)s"
 
-#: ajapaik/ajapaik/views.py:2786
+#: ajapaik/ajapaik/views.py:2790
 msgid "Photo uploaded"
 msgstr "Photo uploaded"
 
-#: ajapaik/ajapaik/views.py:2804
+#: ajapaik/ajapaik/views.py:2808
 msgid "Album created"
 msgstr "Album created"
 
-#: ajapaik/ajapaik/views.py:2886
+#: ajapaik/ajapaik/views.py:2890
 msgid "Sorry but we fail to post your comment."
 msgstr "Sorry but we fail to post your comment."
 

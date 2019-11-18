@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-14 16:08:20+0000\n"
+"PO-Revision-Date: 2019-11-18 17:08:03+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -730,8 +730,8 @@ msgstr "Ajapaik Facebookis"
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
-#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1722
+#: ajapaik/ajapaik/views.py:1739 ajapaik/ajapaik/views.py:1775
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -833,7 +833,6 @@ msgstr "Mõned teised albumid samast kandist"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "Jaga"
@@ -901,7 +900,6 @@ msgstr "Valimiseks kliki"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "Albumi info"
@@ -973,12 +971,11 @@ msgid "duplicate photo"
 msgstr "duplikaatfoto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
 msgid "Unknown author"
 msgstr "Tuvastamata kasutaja"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
 #: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
@@ -986,30 +983,25 @@ msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "Dateeri see pilt"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "Märgi pildil nägu – nuppu vajutades saab pildile tõmmata inimese näo ümber kasti"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "Kommenteeri"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
@@ -1017,7 +1009,6 @@ msgstr[0] "Pilt kuulub albumisse"
 msgstr[1] "Pilt kuulub albumitesse:"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "Kuraator"
@@ -1647,11 +1638,11 @@ msgstr "asukohapakkumist on sellele pildile tehtud. Lisa enda arvamus!"
 msgid "Back home"
 msgstr "Tagasi avalehele"
 
-#: ajapaik/ajapaik/templates/mapview.html:28
+#: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
 msgstr "Näita pilte"
 
-#: ajapaik/ajapaik/templates/mapview.html:30
+#: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
 msgstr "Otsilahter"
 
@@ -1751,62 +1742,62 @@ msgstr "Probleem albumivalikul"
 msgid "Faulty data submitted"
 msgstr "Vigased andmed"
 
-#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
-#: ajapaik/ajapaik/views.py:1445
+#: ajapaik/ajapaik/views.py:1440 ajapaik/ajapaik/views.py:1447
+#: ajapaik/ajapaik/views.py:1449
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: ajapaik/ajapaik/views.py:1577
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha tulevikus."
 
-#: ajapaik/ajapaik/views.py:1579
+#: ajapaik/ajapaik/views.py:1583
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotol on tänu Teile uus asukoht."
 
-#: ajapaik/ajapaik/views.py:1581
+#: ajapaik/ajapaik/views.py:1585
 msgid "Your guess was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: ajapaik/ajapaik/views.py:1854
+#: ajapaik/ajapaik/views.py:1858
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit teistega!"
 
-#: ajapaik/ajapaik/views.py:2244
+#: ajapaik/ajapaik/views.py:2248
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
+#: ajapaik/ajapaik/views.py:2306 ajapaik/ajapaik/views.py:2327
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Faili üleslaadimise viga: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2319
+#: ajapaik/ajapaik/views.py:2323
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: ajapaik/ajapaik/views.py:2342
+#: ajapaik/ajapaik/views.py:2346
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: ajapaik/ajapaik/views.py:2344
+#: ajapaik/ajapaik/views.py:2348
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: ajapaik/ajapaik/views.py:2659
+#: ajapaik/ajapaik/views.py:2663
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Kaader filmist \"%(film)s\" %(time)s"
 
-#: ajapaik/ajapaik/views.py:2786
+#: ajapaik/ajapaik/views.py:2790
 msgid "Photo uploaded"
 msgstr "Pilt on üles laetud"
 
-#: ajapaik/ajapaik/views.py:2804
+#: ajapaik/ajapaik/views.py:2808
 msgid "Album created"
 msgstr "Album on loodud"
 
-#: ajapaik/ajapaik/views.py:2886
+#: ajapaik/ajapaik/views.py:2890
 msgid "Sorry but we fail to post your comment."
 msgstr "Kommentaari postitamine ei õnnestunud."
 

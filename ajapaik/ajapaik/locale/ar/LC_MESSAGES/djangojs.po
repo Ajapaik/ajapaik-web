@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-14 16:08:17+0000\n"
+"PO-Revision-Date: 2019-11-18 17:08:02+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,81 +22,81 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:557
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
 msgid "User denied the request for Geolocation."
 msgstr "رفض المستخدم طلب تحديد الموقع الجغرافي."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:563
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:559
 msgid "Location information is unavailable."
 msgstr "معلومات الموقع غير متوفرة."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:566
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "The request to get user location timed out."
 msgstr "انتهت مهلة طلب الحصول على موقع المستخدم."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:569
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "An unknown error occurred."
 msgstr "حدث خطأ غير معروف."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1214
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1259
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1210
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1255
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "غير محدد"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1828
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1844
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1824
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1840
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "خطأ في النظام"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:236
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:237
 msgid "Go to my location"
 msgstr "الذهاب إلى موقعي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:248
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:250
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "إغلاق"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:717
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:713
 msgid "Pick the shooting location!"
 msgstr "اختيار موقع التصوير!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:780
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:724
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:776
 msgid "Geotagged by this many users"
 msgstr "موسوم جغرافيا من قبل هذا العديد من المستخدمين"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:761
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:757
 msgid "Confirm correct location"
 msgstr "تأكيد الموقع الصحيح"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
 msgid "Submit your own location"
 msgstr "تقديم موقعك الخاص"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:795
 msgid "You"
 msgstr "أنت"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:803
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "مستخدم مجهول"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:805
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:801
 msgid "Anonymous users"
 msgstr "المستخدمون المجهولون"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:863
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:859
 msgid "Current location"
 msgstr "الموقع الحالي"
 
@@ -557,7 +557,7 @@ msgstr "اسحب الخريطة حتى تكون العلامة أعلى الكا
 msgid "Points awarded"
 msgstr "النقاط الممنوحة"
 
-#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
+#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
 msgid "Old Helsinki"
 msgstr "هلسنكي القديمة"
 
@@ -565,11 +565,11 @@ msgstr "هلسنكي القديمة"
 msgid "Vanalinnad"
 msgstr "المدن القديمة"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
 msgid "Remove album filter"
 msgstr "إزالة مرشح الألبوم"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:758
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Apply album filter"
 msgstr "تطبيق مرشح الألبوم"
 

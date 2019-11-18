@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-11 15:47:52+0000\n"
+"PO-Revision-Date: 2019-11-18 17:08:04+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,81 +24,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:557
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
 msgid "User denied the request for Geolocation."
 msgstr "L’utilisateur a rejeté la demande de géolocalisation."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:563
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:559
 msgid "Location information is unavailable."
 msgstr "Les informations de localisation ne sont pas disponibles."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:566
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "The request to get user location timed out."
 msgstr "La requête pour obtenir la géolocalisation de l’utilisateur a expiré."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:569
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "An unknown error occurred."
 msgstr "Une erreur inconnue s’est produite."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1214
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1259
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1210
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1255
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Non sélectionné"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1828
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1844
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1824
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1840
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Erreur système"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:236
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:237
 msgid "Go to my location"
 msgstr "Aller à votre localisation"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:248
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:250
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Fermer"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:717
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:713
 msgid "Pick the shooting location!"
 msgstr "Pointez l’adresse de la prise de vue !"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:780
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:724
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:776
 msgid "Geotagged by this many users"
 msgstr "Géolocalisé par de nombreux utilisateurs"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:761
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:757
 msgid "Confirm correct location"
 msgstr "Confirmer la localisation correcte"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
 msgid "Submit your own location"
 msgstr "Soumettre votre propre localisation"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:795
 msgid "You"
 msgstr "Vous"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:803
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Utilisateur anonyme"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:805
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:801
 msgid "Anonymous users"
 msgstr "Utilisateurs anonymes"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:863
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:859
 msgid "Current location"
 msgstr "Position actuelle"
 
@@ -559,7 +559,7 @@ msgstr "Tirez la carte de façon que le marqueur soit en haut de l’objet que v
 msgid "Points awarded"
 msgstr "Points de récompense"
 
-#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:37
+#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
 msgid "Old Helsinki"
 msgstr "Vieux Helsinki"
 
@@ -567,11 +567,11 @@ msgstr "Vieux Helsinki"
 msgid "Vanalinnad"
 msgstr "Vanalinnad"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
 msgid "Remove album filter"
 msgstr "Supprimer le filtre des albums"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:758
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Apply album filter"
 msgstr "Appliquer le filtre des albums"
 

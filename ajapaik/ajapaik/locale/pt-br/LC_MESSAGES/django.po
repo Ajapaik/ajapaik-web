@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-14 16:08:26+0000\n"
+"PO-Revision-Date: 2019-11-18 17:08:09+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -724,8 +724,8 @@ msgstr "Ajapaik no Facebook"
 msgid "Profile and leaderboard"
 msgstr "Perfil e tabela de classificação"
 
-#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1718
-#: ajapaik/ajapaik/views.py:1735 ajapaik/ajapaik/views.py:1771
+#: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1722
+#: ajapaik/ajapaik/views.py:1739 ajapaik/ajapaik/views.py:1775
 msgid "Leaderboard"
 msgstr "Colaboradores mais ativos"
 
@@ -827,7 +827,6 @@ msgstr "Alguns álbuns próximos"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "Compartilhar"
@@ -895,7 +894,6 @@ msgstr "Clique para escolher"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "Detalhes do álbum"
@@ -967,12 +965,11 @@ msgid "duplicate photo"
 msgstr "foto duplicada"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:224
+#: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
 msgid "Unknown author"
 msgstr "Autor desconhecido"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:283
 #: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
@@ -980,30 +977,25 @@ msgid "Pick the shooting location!"
 msgstr "Escolha o local de tiro!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "Datar esta imagem"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "Adicionar repotografia"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "Marcar um novo rosto - clicar neste botão permite desenhar um retângulo de rosto na imagem principal"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "Discussão"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
@@ -1011,7 +1003,6 @@ msgstr[0] "A imagem pertence ao álbum"
 msgstr[1] "A imagem pertence aos álbuns:"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "Coordenador"
@@ -1641,11 +1632,11 @@ msgstr "sugestões foram enviadas para esta foto. Adicione a sua!"
 msgid "Back home"
 msgstr "Voltar ao início"
 
-#: ajapaik/ajapaik/templates/mapview.html:28
+#: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
 msgstr "Mostrar imagens"
 
-#: ajapaik/ajapaik/templates/mapview.html:30
+#: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
 msgstr "Caixa de pesquisa"
 
@@ -1745,62 +1736,62 @@ msgstr "Problema com a seleção de álbuns"
 msgid "Faulty data submitted"
 msgstr "Dados com falha enviados"
 
-#: ajapaik/ajapaik/views.py:1436 ajapaik/ajapaik/views.py:1443
-#: ajapaik/ajapaik/views.py:1445
+#: ajapaik/ajapaik/views.py:1440 ajapaik/ajapaik/views.py:1447
+#: ajapaik/ajapaik/views.py:1449
 msgid "Browse photos on map"
 msgstr "Procure fotos no mapa"
 
-#: ajapaik/ajapaik/views.py:1577
+#: ajapaik/ajapaik/views.py:1581
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Sua contribuição não alterou o local estimado para a foto, ainda não."
 
-#: ajapaik/ajapaik/views.py:1579
+#: ajapaik/ajapaik/views.py:1583
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "A foto foi mapeada para um novo local graças a você."
 
-#: ajapaik/ajapaik/views.py:1581
+#: ajapaik/ajapaik/views.py:1585
 msgid "Your guess was first."
 msgstr "Seu palpite foi o primeiro."
 
-#: ajapaik/ajapaik/views.py:1854
+#: ajapaik/ajapaik/views.py:1858
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Procure fotos antigas, adicione-as ao Ajapaik, determine suas localizações e compartilhe o álbum resultante!"
 
-#: ajapaik/ajapaik/views.py:2244
+#: ajapaik/ajapaik/views.py:2248
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2302 ajapaik/ajapaik/views.py:2323
+#: ajapaik/ajapaik/views.py:2306 ajapaik/ajapaik/views.py:2327
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Erro ao fazer o upload do arquivo: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2319
+#: ajapaik/ajapaik/views.py:2323
 msgid "Photo already exists in Ajapaik"
 msgstr "Foto já existe em Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2342
+#: ajapaik/ajapaik/views.py:2346
 msgid "Please add photos to your album"
 msgstr "Por favor, adicione fotos ao seu álbum"
 
-#: ajapaik/ajapaik/views.py:2344
+#: ajapaik/ajapaik/views.py:2348
 msgid "Not enough data submitted"
 msgstr "Não há dados suficientes enviados"
 
-#: ajapaik/ajapaik/views.py:2659
+#: ajapaik/ajapaik/views.py:2663
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Ainda de \"%(film)s\" em %(time)s"
 
-#: ajapaik/ajapaik/views.py:2786
+#: ajapaik/ajapaik/views.py:2790
 msgid "Photo uploaded"
 msgstr "Foto carregado"
 
-#: ajapaik/ajapaik/views.py:2804
+#: ajapaik/ajapaik/views.py:2808
 msgid "Album created"
 msgstr "Álbum criado"
 
-#: ajapaik/ajapaik/views.py:2886
+#: ajapaik/ajapaik/views.py:2890
 msgid "Sorry but we fail to post your comment."
 msgstr "Desculpe, mas não conseguimos publicar o seu comentário."
 

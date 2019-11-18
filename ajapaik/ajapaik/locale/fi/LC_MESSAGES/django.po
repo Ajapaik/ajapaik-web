@@ -11,9 +11,22 @@
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
 #
-#: ajapaik/ajapaik/views.py:661
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2019-11-11 10:59+0200\nPO-Revision-Date: 2019-10-17 17:53:29+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\nLanguage: fi\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-POT-Import-Date: 2019-10-03 14:38:51+0000\nX-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+msgstr ""
+""
+"Project-Id-Version: Ajapaik\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-11 10:59+0200\n"
+"PO-Revision-Date: 2019-11-18 17:08:04+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
@@ -823,7 +836,6 @@ msgstr "Lähellä olevia albumeita"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:309
 #: ajapaik/ajapaik/templates/photoview.html:194
 msgid "Share"
 msgstr "Jaa"
@@ -891,7 +903,6 @@ msgstr "Valitse"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:350
 #: ajapaik/ajapaik/templates/photoview.html:222
 msgid "Album details"
 msgstr "Albumin tiedot"
@@ -975,30 +986,25 @@ msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikka"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:289
 #: ajapaik/ajapaik/templates/photoview.html:182
 msgid "Date this image"
 msgstr "Anna kuvalle päiväys"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:294
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
 msgstr "Lisää uusintakuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:297
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "Merkkaa kasvot - klikkaamalla nappia pääset piirtämään kuvassa olevien kasvojen ympärille neliöt"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:324
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:303
 msgid "Discuss"
 msgstr "Keskustele"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:335
 #: ajapaik/ajapaik/templates/photoview.html:214
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
@@ -1006,7 +1012,6 @@ msgstr[0] "Kuva kuuluu albumiin"
 msgstr[1] "Kuva kuuluu albumeihin:"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/_photo_modal_basic.html:354
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
 msgstr "Kuraattori"
@@ -1076,7 +1081,7 @@ msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-msgid "Forgot Password?"
+msgid "Forgot password?"
 msgstr "Salasana unohtunut?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
@@ -1101,7 +1106,7 @@ msgstr "Tunnusten yhteydet"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail Address"
+msgid "Confirm E-mail address"
 msgstr "Vahvista sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1121,7 +1126,7 @@ msgstr "Tämä sähköpostin varmistuslinkki on joko vanhentunut tai virheelline
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Kirjaudu"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
@@ -1344,11 +1349,15 @@ msgstr "Haluatko varmasti poistaa tämän kommentin?"
 msgid "Remove"
 msgstr "Poista"
 
-#: ajapaik/ajapaik/templates/comments/form.html:2
+#: ajapaik/ajapaik/templates/comments/form.html:4
+msgid "Identify yourself to comment"
+msgstr "Tunnistaudu kommentoidaksesi"
+
+#: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
 msgstr "Kommenttisi"
 
-#: ajapaik/ajapaik/templates/comments/form.html:34
+#: ajapaik/ajapaik/templates/comments/form.html:38
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
 msgid "Send"
 msgstr "Lähetä"
@@ -1632,11 +1641,11 @@ msgstr "ehdotusta on lisätty tälle kuvalle. Lisää omasi!"
 msgid "Back home"
 msgstr "Takaisin kotiin"
 
-#: ajapaik/ajapaik/templates/mapview.html:28
-msgid "Show photos"
+#: ajapaik/ajapaik/templates/mapview.html:31
+msgid "Show images"
 msgstr "Näytä kuvat"
 
-#: ajapaik/ajapaik/templates/mapview.html:30
+#: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
 msgstr "Hakukenttä"
 
@@ -1694,7 +1703,8 @@ msgid "Add a 3rd Party Account"
 msgstr "Lisää kolmannen osapuolen tili"
 
 #: ajapaik/ajapaik/templates/user_upload.html:19
-msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+#, python-format
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Min', %(user)s, tämän teoksen tekijänoikeuksien haltija, peruuttamattomasti sallin kenen tahansa käyttää tätä kuvaa <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Nimeä–JaaSamoin 4.0 lisenssin (CC-BY-SA)</a> mukaisesti."
 
 #: ajapaik/ajapaik/templates/user_upload.html:27
@@ -1823,7 +1833,7 @@ msgstr "Vanhus"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
-msgid "Unknown"
+msgid "Tundmatu"
 msgstr "Tuntematon tekijä"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
@@ -1926,12 +1936,3 @@ msgstr "englanti"
 msgid "Finnish"
 msgstr "suomi"
 
-#: ajapaik/settings/default.py:75
-msgid "Swedish"
-msgstr ""
-
-#~ msgid "Identify yourself to comment"
-#~ msgstr "Tunnistaudu kommentoidaksesi"
-
-#~ msgid "Tundmatu"
-#~ msgstr "Tuntematon"

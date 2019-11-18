@@ -8,84 +8,99 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2019-11-11 11:00+0200\nPO-Revision-Date: 2019-10-14 15:15:56+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\nLanguage: fi\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\nX-Translated-Using: django-rosetta 0.7.4\nX-POT-Import-Date: 2019-10-01 14:19:17+0000\n"
+msgstr ""
+""
+"Project-Id-Version: Ajapaik\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-11 11:00+0200\n"
+"PO-Revision-Date: 2019-11-18 17:08:03+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:557
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
 msgid "User denied the request for Geolocation."
 msgstr "Käyttäjä kielsi sijaintitiedon käyttämisen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:563
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:559
 msgid "Location information is unavailable."
 msgstr "Sijaintitietoa ei ole käytettävissä"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:566
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "The request to get user location timed out."
 msgstr "Pyyntö käyttäjän sijaintitiedon saamiseksi aikakatkaistiin."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:569
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "An unknown error occurred."
 msgstr "Tuntematon virhe."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1214
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1259
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1210
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1255
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Ei valittu"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1828
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1844
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1824
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1840
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Järjestelmävirhe"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:236
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:237
 msgid "Go to my location"
 msgstr "Siirry sijaintiini"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:248
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:250
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Sulje"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:717
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:713
 msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikan sijainti!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:728
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:780
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:724
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:776
 msgid "Geotagged by this many users"
 msgstr "Tämän kuvan on paikantanut"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:761
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:757
 msgid "Confirm correct location"
 msgstr "Vahvista nykyinen sijainti"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:772
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
 msgid "Submit your own location"
 msgstr "Lähetä oma sijaintisi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:795
 msgid "You"
 msgstr "Sinä"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:803
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
 msgid "Anonymous user"
 msgstr "Nimetön käyttäjä"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:805
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:801
 msgid "Anonymous users"
 msgstr "Nimetöntä käyttäjää"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:863
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:859
 msgid "Current location"
 msgstr "Nykyinen sijainti"
 
@@ -554,11 +569,11 @@ msgstr "Vanha Helsinki"
 msgid "Vanalinnad"
 msgstr "Vanhat kartat"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:755
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
 msgid "Remove album filter"
 msgstr "Poista albumin suodatin"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:763
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Apply album filter"
 msgstr "Suodata albumi"
 
@@ -622,3 +637,4 @@ msgstr "Kuka hän on?"
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Oletko varma, että haluat poistaa tämän merkkauksen."
+
