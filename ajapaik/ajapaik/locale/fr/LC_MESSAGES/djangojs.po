@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:04+0000\n"
+"PO-Revision-Date: 2019-11-21 13:52:13+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -305,7 +305,7 @@ msgstr "Image déjà dans un ou plusieurs albums"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr "L’image inclut des données de localisation"
+msgstr "L’image inclut les données de localisation"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
