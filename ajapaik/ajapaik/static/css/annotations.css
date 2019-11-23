@@ -1,7 +1,8 @@
 .annotation-label {
     position: absolute;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    min-width: 100%;
+    transform: translateX(-50%);
 
     background-color: rgba(211, 211, 211, 0.7);
 }
