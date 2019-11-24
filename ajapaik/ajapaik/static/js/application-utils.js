@@ -37,3 +37,8 @@ function getLanguageSpecificTranslation(unparsedTranslations) {
     var languageSpecificTranslation = parsedTranslations[window.language];
     return languageSpecificTranslation || parsedTranslations.en;
 }
+
+function capitalizeFirstLetter(word) {
+    var lowerCase = word.toLowerCase();
+    return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
+}

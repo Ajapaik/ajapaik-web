@@ -134,15 +134,17 @@ function getSubmitButton(style) {
         .append(submitButtonText);
 }
 
-function getSubmitAndCancelButtons(popoverId, isUnsavedRectangle) {
+function getSubmitAndCancelButtons(popoverId, isUnsavedRectangle, isWithoutSubmitButton) {
     var submitButton = getSubmitButton();
     var cancelButton = getCancelButton(popoverId, isUnsavedRectangle);
 
     var wrapper = $('<div style="padding-top: 10px;"></div>');
 
-    return wrapper
-        .append(submitButton)
-        .append(cancelButton);
+    if (!isWithoutSubmitButton) {
+        wrapper.append(submitButton);
+    }
+
+    return wrapper.append(cancelButton);
 }
 
 function getAddNewSubjectLink(addNewSubjectText) {
@@ -178,7 +180,7 @@ function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkbo
     });
     var label = $('<label>', {
         id: labelId,
-        for: 'isCorrectName',
+        for: checkboxName,
         style: 'width: 92%;'
     });
 

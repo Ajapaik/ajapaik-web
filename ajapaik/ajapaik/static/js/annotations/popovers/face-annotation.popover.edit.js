@@ -25,10 +25,14 @@ function getModifySubmitFunction(annotationId, popoverId) {
         var newSubjectId = form
             .find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID)
             .val();
+        var gender = form.find('#' + constants.elements.SUBJECT_GENDER_SELECT_ID).val();
+        var ageGroup = form.find('#' + constants.elements.SUBJECT_AGE_GROUP_SELECT_ID).val();
 
         var payload = {
             annotationId: annotationId,
-            newSubjectId: newSubjectId
+            newSubjectId: newSubjectId,
+            gender: gender,
+            ageGroup: ageGroup
         };
 
         editFaceAnnotation(annotationId, payload, onSuccess);
@@ -49,6 +53,8 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
     var changeExistingFaceLabel = constants.translations.popover.labels.CHANGE_PERSON_NAME + ':';
 
     var autocomplete = getPersonAutoComplete(true, 'width: 180px;', defaultValue, changeExistingFaceLabel);
+    var ageGroupSelect = getAgeGroupSelect(constants.translations.selectAge.label.CHANGE_AGE);
+    var genderGroupSelect = getGenderGroupSelect(constants.translations.selectGender.label.CHANGE_GENDER);
     var buttons = [
         getSubmitButton('margin-top: 10px;'),
         getDeleteButton(getRemoveAnnotationFunction(annotation.id, popoverId)),
@@ -63,6 +69,8 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
 
     return form
         .append(autocomplete)
+        .append(ageGroupSelect)
+        .append(genderGroupSelect)
         .append(buttonGroup);
 }
 
@@ -70,6 +78,8 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
     var onAnnotationRectangleShow = function() {
       setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+            initializeGenderGroupSelect(annotation.gender);
+            initializeAgeGroupSelect(annotation.age);
         }, 100);
     };
 

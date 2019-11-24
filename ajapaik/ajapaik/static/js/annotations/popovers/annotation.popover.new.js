@@ -10,6 +10,8 @@ function getRectangleSubmitFunction(popoverId) {
 
         var selectedObjectId = form.find("#" + constants.elements.OBJECT_CLASS_SELECT_ID).val();
         var personId = form.find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).val();
+        var gender = form.find('#' + constants.elements.SUBJECT_GENDER_SELECT_ID).val();
+        var ageGroup = form.find('#' + constants.elements.SUBJECT_AGE_GROUP_SELECT_ID).val();
 
         var scaledRectangle = getDetectionRectangleScaledForOriginalImageSize(
             popoverId,
@@ -21,6 +23,8 @@ function getRectangleSubmitFunction(popoverId) {
             wikiDataLabelId: isObjectSelected ? selectedObjectId : null,
             subjectId: !isObjectSelected ? personId : null,
             photoId: scaledRectangle.photoId,
+            gender: gender,
+            ageGroup: ageGroup,
             x1: scaledRectangle.x1,
             x2: scaledRectangle.x2,
             y1: scaledRectangle.y1,
@@ -33,7 +37,7 @@ function getRectangleSubmitFunction(popoverId) {
 
 function toggleFaceDetection() {
     $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).hide();
-    $('#' + constants.elements.AUTOCOMPLETE_WRAPPER_ID).show();
+    $('#' + constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID).show();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'face');
 
     document.getElementById(constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.open();
@@ -41,7 +45,7 @@ function toggleFaceDetection() {
 
 function toggleObjectDetection() {
     $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).show();
-    $('#' + constants.elements.AUTOCOMPLETE_WRAPPER_ID).hide();
+    $('#' + constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID).hide();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'object');
 
     document.getElementById(constants.elements.OBJECT_CLASS_SELECT_ID).slim.open();
@@ -54,7 +58,9 @@ function createObjectAssigningPopoverContent(popoverId) {
     var select = getObjectsSelect();
     var controlButtons = getSubmitAndCancelButtons(popoverId, true);
     var detectionTypeToggle = getToggleButton(objectLabel, faceLabel, toggleObjectDetection, toggleFaceDetection);
-    var autocomplete = getPersonAutoComplete();
+    var autocomplete = getPersonAutoComplete(true);
+    var ageGroupSelect = getAgeGroupSelect();
+    var genderSelect = getGenderGroupSelect();
 
     var formWrapper = $('<div></div>');
 
@@ -65,13 +71,22 @@ function createObjectAssigningPopoverContent(popoverId) {
     });
 
     var wrapper = $('<div style="padding-top: 5px;"></div>');
+    var subjectFieldsWrapper = $('<div>', {
+        id: constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID,
+        style: 'display: none'
+    });
     var selectWrapper = $('<div style="padding-bottom: 15px;"></div>');
 
     return formWrapper.append(
         form
             .append(wrapper
                 .append(detectionTypeToggle)
-                .append(autocomplete)
+                .append(subjectFieldsWrapper
+                    .append(autocomplete)
+                    .append(ageGroupSelect)
+                    .append(genderSelect)
+                )
+
             )
             .append(selectWrapper
                 .append(select)
@@ -84,6 +99,9 @@ function createNewDetectionRectangle(popoverId, configuration) {
     var onAnnotationRectangleShow = function() {
         setTimeout(function() {
             initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+            initializeAgeGroupSelect();
+            initializeGenderGroupSelect();
+
             initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true);
         }, 100);
     };
