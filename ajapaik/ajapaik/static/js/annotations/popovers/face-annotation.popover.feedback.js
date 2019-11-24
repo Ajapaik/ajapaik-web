@@ -84,7 +84,7 @@ function toggleSubjectAge(event) {
 
 function toggleSubjectGender(event) {
     var isCorrectGender = event.target.checked;
-    toggleElements(isCorrectGender, constants.elements.IS_CORRECT_GENDER_CHECKBOX_ID, constants.elements.SUBJECT_GENDER_SELECT_WRAPPER_ID);
+    toggleElements(isCorrectGender, constants.elements.IS_CORRECT_GENDER_CHECKBOX_LABEL_ID, constants.elements.SUBJECT_GENDER_SELECT_WRAPPER_ID);
 }
 
 function getFaceCheckbox() {
