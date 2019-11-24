@@ -90,10 +90,10 @@ class FaceRecognitionRectangle(models.Model):
             sumAge = 0
             guessCountAge = 0
             if gender != None:
-                sumGender = int(gender, 10)
+                sumGender = int(str(gender), 10)
                 guessCountGender = 1
             if age != None:
-                sumAge = int(age, 10)
+                sumAge = int(str(age), 10)
                 guessCountAge = 1
             unknowns = {
                 "age": 0,
@@ -130,7 +130,7 @@ class FaceRecognitionRectangle(models.Model):
                 user=profile
             ).save()
             points += ageGuessPoints
-        if(lastGuessByCurrentUser is None and int(gender) < 2):
+        if(lastGuessByCurrentUser is None and gender is not None and int(gender) < 2):
             genderGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_GENDER,
