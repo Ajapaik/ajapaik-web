@@ -243,7 +243,7 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
     });
 
     if (isAnnotationWithPersonName) {
-        var label = constants.translations.popover.labels.IS_CORRECT_SUBJECT_NAME_PREFIX + ' ' + annotation.subjectName + '?';
+        var label = constants.translations.popover.labels.IS_CORRECT_SUBJECT_NAME_PREFIX + ' ' + annotation.subjectName;
         var personNameCheckbox = getPersonNameCheckbox(label);
         nameInputWrapper.append(personNameCheckbox);
     }
