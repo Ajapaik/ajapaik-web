@@ -216,7 +216,7 @@ def add_rectangle_feedback(request, annotation_id):
         annotation_id,
         QueryDict(request.body)
     )
-    face_annotation_feedback_service.add_feedback(face_annotation_feedback_request)
+    face_annotation_feedback_service.add_feedback(face_annotation_feedback_request, request)
 
     return HttpResponse(JSONRenderer().render({'isOk': True}), content_type='application/json', status=200)
 
@@ -231,7 +231,7 @@ def update_annotation(request: HttpRequest, annotation_id: int):
         request.user.id
     )
 
-    is_successful = face_annotation_edit_service.update_face_annotation(face_annotation_update_request)
+    is_successful = face_annotation_edit_service.update_face_annotation(face_annotation_update_request, request)
 
     if is_successful:
         return response.success()

@@ -18,7 +18,7 @@ def get_all_annotations(user_id, photo_id=None):
         .filter(photo=photo, deleted_on__isnull=True)
 
     face_rectangles = FaceRecognitionRectangle.objects\
-        .prefetch_related('feedback')\
+        .prefetch_related('feedback', 'face_recognition_rectangle')\
         .filter(photo=photo, deleted__isnull=True)
 
     objects = object_annotation_utils.transform_annotation_queryset(
@@ -50,6 +50,7 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
             object_annotation.created_on,
             object_annotation.user.id
         ),
+        'is_added_by_current_user': user_id == object_annotation.user.id,
         'has_user_given_feedback': object_annotation.feedback.all().count() > 0
     })
 
@@ -59,6 +60,10 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
 
     coordinates = face_annotation.decode_coordinates()
     subject_id = subject.id if subject is not None else None
+
+    additional_data = face_annotation.face_recognition_rectangle.filter(guesser=face_annotation.user).first()
+    original_user_set_gender = additional_data.gender if additional_data is not None else None
+    original_user_set_age = additional_data.age if additional_data is not None else None
 
     return DetectionRectangle({
         'x1': coordinates[3],
@@ -73,5 +78,8 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
             face_annotation.created,
             face_annotation.user.id
         ),
+        'is_added_by_current_user': user_id == face_annotation.user.id,
+        'gender': object_annotation_utils.parse_gender_to_constant(original_user_set_gender),
+        'age': object_annotation_utils.parse_age_to_constant(original_user_set_age),
         'has_user_given_feedback': face_annotation.feedback.all().count() > 0
     })
