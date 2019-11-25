@@ -84,13 +84,13 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
     def get_url(self, instance):
         return reverse(
             'image_thumb',
-            args=(instance.id, 400, _get_pseudo_slug_for_photo(instance.description, None, None))
+            args=(instance.id, 400, _get_pseudo_slug_for_photo(instance.description, None, instance.id))
         )
 
     def get_permalink(self, instance):
         return reverse(
             'photo',
-            args=(instance.id, _get_pseudo_slug_for_photo(instance.description, None, None))
+            args=(instance.id, _get_pseudo_slug_for_photo(instance.description, None, instance.id))
         )
 
     def get_width(self, instance):

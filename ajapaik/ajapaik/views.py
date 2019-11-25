@@ -967,7 +967,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
 			else:
 				p[11] = 0
-			p.append(_get_pseudo_slug_for_photo(p[3], None, None))
+			p.append(_get_pseudo_slug_for_photo(p[3], None, p[0]))
 		if album:
 			context['album'] = (
 				album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)

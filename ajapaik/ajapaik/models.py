@@ -87,13 +87,13 @@ def _make_fullscreen(photo):
     }
 
 
-def _get_pseudo_slug_for_photo(description, source_key, created):
+def _get_pseudo_slug_for_photo(description, source_key, id):
     if description is not None and description != '':
         slug = '-'.join(slugify(description).split('-')[:6])[:60]
     elif source_key is not None and source_key != '':
         slug = slugify(source_key)
     else:
-        slug = slugify(created.__format__('%Y-%m-%d'))
+        slug = slugify(id)
 
     return slug
 
