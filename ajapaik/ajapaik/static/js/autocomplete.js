@@ -80,6 +80,7 @@ function initializePersonAutocomplete(autocompleteId) {
         searchingText: constants.translations.autocomplete.subjectSearch.SEARCHING_TEXT + '...',
         searchPlaceholder: constants.translations.autocomplete.subjectSearch.SEARCH_PLACEHOLDER,
         searchText: noResultText,
+        allowDeselect: true,
         ajax: function (search, callback) {
 
           if (search.length < 2) {
