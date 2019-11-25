@@ -77,12 +77,33 @@ function getObjectDefaultValue(annotation) {
     }
 }
 
+function createUserOwnAnnotationObjectPopoverContent(annotation, cancelButton) {
+    var wrapper = $('<div>');
+
+    return wrapper
+        .append(createTextRow(
+            constants.translations.popover.labels.OWN_ANNOTATION_FIELD_TYPE,
+            constants.translations.popover.labels.OBJECT_ANNOTATION
+        ))
+        .append(createTextRow(
+            constants.translations.popover.labels.OWN_ANNOTATION_FIELD_OBJECT,
+            getLanguageSpecificTranslation(annotation.translations)
+        ))
+        .append(cancelButton);
+}
+
 function createDetectedObjectPopoverContent(annotation, popoverId) {
+    var cancelButton = getCancelButton(popoverId);
+
+    if (annotation.isAddedByCurrentUser) {
+        return createUserOwnAnnotationObjectPopoverContent(annotation, cancelButton);
+    }
+
     var selectText = gettext('Specify alternative object (optional)') + ':';
 
     var buttons = [
         getSubmitButton(),
-        getCancelButton(popoverId)
+        cancelButton
     ];
 
     var buttonGroup = getButtonGroup(buttons);
@@ -120,6 +141,18 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
         .append(buttonGroup);
 }
 
+function getObjectFeedbackPopoverTitle(annotation) {
+    if (annotation.isAddedByCurrentUser) {
+        return constants.translations.popover.titles.ANNOTATION_ADDED_BY_YOU;
+    }
+
+    if (annotation.hasUserGivenFeedback) {
+        return constants.translations.popover.titles.EDIT_FEEDBACK;
+    }
+
+    return constants.translations.popover.titles.ADD_FEEDBACK;
+}
+
 function createSavedObjectDetectionRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleShow = function() {
         setTimeout(function() {
@@ -127,9 +160,7 @@ function createSavedObjectDetectionRectangle(popoverId, annotation, configuratio
         }, 150);
     };
 
-    var popoverTitle = annotation.hasUserGivenFeedback
-        ? constants.translations.popover.titles.EDIT_FEEDBACK
-        : constants.translations.popover.titles.ADD_FEEDBACK;
+    var popoverTitle = getObjectFeedbackPopoverTitle(annotation);
 
     var popoverContent = createDetectedObjectPopoverContent(annotation, popoverId);
 
