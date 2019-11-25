@@ -40,12 +40,14 @@ function toggleAlternativeObjectSelect(event) {
     }
 }
 
-function getObjectClassCheckbox(customLabelText) {
+function getObjectClassCheckbox(customLabelText, defaultValue) {
+    var isChecked = getDefaultBooleanCheckboxValue(defaultValue);
     var labelText = customLabelText + '?';
 
     var wrapper = $('<div style="width: 180px;"></div>');
     var label= $('<span>', {
-        id: constants.elements.IS_OBJECT_CHECKBOX_LABEL_ID
+        id: constants.elements.IS_OBJECT_CHECKBOX_LABEL_ID,
+        style: isChecked ? '' : 'text-decoration: line-through'
     });
 
     var input = $('<input>', {
@@ -54,7 +56,7 @@ function getObjectClassCheckbox(customLabelText) {
         id: constants.elements.IS_CORRECT_OBJECT_CHECKBOX_ID,
         name: 'isCorrectObject',
         style: 'margin-top:5px;',
-        checked: true
+        checked: isChecked
     }).on('click', toggleAlternativeObjectSelect);
 
     return wrapper
@@ -62,6 +64,17 @@ function getObjectClassCheckbox(customLabelText) {
             .append(labelText)
         )
         .append(input);
+}
+
+function getObjectDefaultValue(annotation) {
+    var previousFeedback = annotation.previousFeedback;
+
+    if (previousFeedback && previousFeedback.alternativeObjectId) {
+        return {
+            id: previousFeedback.alternativeObjectId,
+            label: getLanguageSpecificTranslation(previousFeedback.alternativeObjectTranslations)
+        };
+    }
 }
 
 function createDetectedObjectPopoverContent(annotation, popoverId) {
@@ -74,7 +87,7 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
 
     var buttonGroup = getButtonGroup(buttons);
 
-    var select = getObjectsSelect(true);
+    var select = getObjectsSelect(true, getObjectDefaultValue(annotation));
 
     var form = $('<form>', {
         id: 'feedback-on-detected-object'
@@ -83,11 +96,17 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
     var inputsWrapper = $('<div class="form-group" style="padding-right:5px; padding-left:5px;"></div>');
     var questionPrefix = constants.translations.popover.labels.IS_CORRECT_OBJECT_PREFIX;
     var translatedLabel = JSON.parse(annotation.translations)[window.language];
-    var objectClassCheckbox = getObjectClassCheckbox(questionPrefix + ' ' + translatedLabel);
 
+    var isCorrectObject = annotation.previousFeedback.isCorrectObject;
+    var objectClassCheckbox = getObjectClassCheckbox(
+        questionPrefix + ' ' + translatedLabel,
+        isCorrectObject
+    );
+
+    var selectDisplay = isBoolean(isCorrectObject) && !isCorrectObject ? '' : 'display: none; ';
     var alternativeObjectSelectWrapper = $('<div>', {
         id: constants.elements.ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID,
-        style: 'display: none; padding-top: 5px; width: 180px;'
+        style: selectDisplay + 'padding-top: 5px; width: 180px;'
     });
 
     return form
@@ -101,11 +120,11 @@ function createDetectedObjectPopoverContent(annotation, popoverId) {
         .append(buttonGroup);
 }
 
-function createSavedObjectDetectionRectangle(popoverId, annotation,configuration) {
+function createSavedObjectDetectionRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleShow = function() {
         setTimeout(function() {
             initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
-        }, 100);
+        }, 150);
     };
 
     var popoverTitle = annotation.hasUserGivenFeedback

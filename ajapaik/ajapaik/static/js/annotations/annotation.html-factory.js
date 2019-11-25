@@ -168,10 +168,13 @@ function getButtonGroup(buttons) {
     return wrapper;
 }
 
-function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkboxId, onCheckboxClick) {
+function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkboxId, onCheckboxClick, isChecked) {
     if (!labelText) {
         return '';
     }
+
+    var isCheckboxChecked = getDefaultBooleanCheckboxValue(isChecked);
+    var strikeThrough = isCheckboxChecked ? '' : 'text-decoration: line-through; ';
 
     var wrapper = $('<div>', {
         class: 'row',
@@ -181,7 +184,7 @@ function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkbo
     var label = $('<label>', {
         id: labelId,
         for: checkboxName,
-        style: 'width: 92%;'
+        style: strikeThrough + 'width: 92%;'
     });
 
     var input = $('<input>', {
@@ -191,7 +194,7 @@ function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkbo
         id: checkboxId,
         name: checkboxName,
         style: 'margin-top:auto; margin-bottom: auto;',
-        checked: true
+        checked: isCheckboxChecked
     });
 
     return wrapper

@@ -42,3 +42,11 @@ function capitalizeFirstLetter(word) {
     var lowerCase = word.toLowerCase();
     return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
 }
+
+function getDefaultBooleanCheckboxValue(val) {
+    return isBoolean(val) ? val : true;
+}
+
+function isBoolean(val) {
+    return typeof val === typeof true;
+}

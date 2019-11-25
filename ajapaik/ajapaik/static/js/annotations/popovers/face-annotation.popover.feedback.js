@@ -87,7 +87,7 @@ function toggleSubjectGender(event) {
     toggleElements(isCorrectGender, constants.elements.IS_CORRECT_GENDER_CHECKBOX_LABEL_ID, constants.elements.SUBJECT_GENDER_SELECT_WRAPPER_ID);
 }
 
-function getFaceCheckbox() {
+function getFaceCheckbox(isChecked) {
     var label = constants.translations.popover.labels.IS_THIS_A_FACE_ANNOTATION + '?';
 
     return getPopoverCheckbox(
@@ -96,11 +96,12 @@ function getFaceCheckbox() {
         constants.elements.IS_FACE_CHECKBOX_LABEL_ID,
         'isFace',
         constants.elements.IS_FACE_ANNOTATION_CHECKBOX_ID,
-        toggleFieldsOtherThanIsFace
+        toggleFieldsOtherThanIsFace,
+        isChecked
     );
 }
 
-function getGenderCheckbox(savedGender) {
+function getGenderCheckbox(savedGender, isChecked) {
     if (!savedGender) {
         return;
     }
@@ -114,11 +115,12 @@ function getGenderCheckbox(savedGender) {
         constants.elements.IS_CORRECT_GENDER_CHECKBOX_LABEL_ID,
         'isCorrectGender',
         constants.elements.IS_CORRECT_GENDER_CHECKBOX_ID,
-        toggleSubjectGender
+        toggleSubjectGender,
+        isChecked
     );
 }
 
-function getAgeCheckbox(savedAge) {
+function getAgeCheckbox(savedAge, isChecked) {
     if (!savedAge) {
         return;
     }
@@ -132,7 +134,8 @@ function getAgeCheckbox(savedAge) {
         constants.elements.IS_CORRECT_AGE_CHECKBOX_LABEL_ID,
         'isCorrectAge',
         constants.elements.IS_CORRECT_AGE_CHECKBOX_ID,
-        toggleSubjectAge
+        toggleSubjectAge,
+        isChecked
     );
 }
 
@@ -148,7 +151,7 @@ function toggleSubjectNameAssigning(event) {
     }
 }
 
-function getPersonNameCheckbox(customLabel) {
+function getPersonNameCheckbox(customLabel, isChecked) {
     if (!customLabel) {
         return '';
     }
@@ -161,7 +164,8 @@ function getPersonNameCheckbox(customLabel) {
         'subject-name',
         'isCorrectName',
         constants.elements.IS_CORRECT_PERSON_NAME_CHECKBOX_ID,
-        toggleSubjectNameAssigning
+        toggleSubjectNameAssigning,
+        isChecked
     );
 }
 
@@ -213,6 +217,17 @@ function createUserOwnAnnotationPopoverContent(annotation, controlButtons) {
     return wrapper.append(controlButtons);
 }
 
+function getDefaultFeedbackPersonAutoCompleteValue(annotation) {
+    var previousFeedback = annotation.previousFeedback;
+
+    if (previousFeedback.subjectId) {
+        return {
+            id: previousFeedback.subjectId,
+            label: previousFeedback.subjectName
+        };
+    }
+}
+
 function createDetectedFacePopoverContent(popoverId, annotation) {
     var controlButtons = getSubmitAndCancelButtons(popoverId, false, annotation.isAddedByCurrentUser);
 
@@ -221,14 +236,23 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
     }
 
     var isAnnotationWithPersonName = !!annotation.subjectName;
+    var previousFeedback = annotation.previousFeedback;
 
-    var autocomplete = getPersonAutoComplete(!isAnnotationWithPersonName, 'width: 180px;');
-    var faceCheckbox = getFaceCheckbox();
-    var ageGroupCheckbox = getAgeCheckbox(annotation.age);
-    var ageGroupSelect = getAgeGroupSelect(null, isAdditionalPropertyPresent(annotation.age));
-    var genderCheckbox = getGenderCheckbox(annotation.gender);
-    var genderSelect = getGenderGroupSelect(null, isAdditionalPropertyPresent(annotation.gender));
-    var specificDataFieldsWrapper = $('<div>', {id: constants.elements.ANNOTATION_MORE_SPECIFIC_FIELDS_WRAPPER_ID});
+    var isNameAutocompleteShown = !isAnnotationWithPersonName || isBoolean(previousFeedback.isCorrectName) && !previousFeedback.isCorrectName;
+    var isGenderSelectHidden = isBoolean(previousFeedback.isCorrectGender) ? previousFeedback.isCorrectGender : true;
+    var isAgeSelectHidden = isBoolean(previousFeedback.isCorrectAge) ? previousFeedback.isCorrectAge : true;
+
+    var defaultPersonNameValue = getDefaultFeedbackPersonAutoCompleteValue(annotation);
+    var autocomplete = getPersonAutoComplete(isNameAutocompleteShown, 'width: 180px;', defaultPersonNameValue);
+    var faceCheckbox = getFaceCheckbox(previousFeedback.isFace);
+    var ageGroupCheckbox = getAgeCheckbox(annotation.age, previousFeedback.isCorrectAge);
+    var ageGroupSelect = getAgeGroupSelect(null, annotation.age && isAgeSelectHidden);
+    var genderCheckbox = getGenderCheckbox(annotation.gender, previousFeedback.isCorrectGender);
+    var genderSelect = getGenderGroupSelect(null, annotation.gender && isGenderSelectHidden);
+    var specificDataFieldsWrapper = $('<div>', {
+        id: constants.elements.ANNOTATION_MORE_SPECIFIC_FIELDS_WRAPPER_ID,
+        style: isBoolean(previousFeedback.isFace) && !previousFeedback.isFace ? 'display: none;' : ''
+    });
 
     var form = $('<form>', {
         id: 'feedback-on-detected-face',
@@ -244,7 +268,7 @@ function createDetectedFacePopoverContent(popoverId, annotation) {
 
     if (isAnnotationWithPersonName) {
         var label = constants.translations.popover.labels.IS_CORRECT_SUBJECT_NAME_PREFIX + ' ' + annotation.subjectName;
-        var personNameCheckbox = getPersonNameCheckbox(label);
+        var personNameCheckbox = getPersonNameCheckbox(label, previousFeedback.isCorrectName);
         nameInputWrapper.append(personNameCheckbox);
     }
 
@@ -289,10 +313,10 @@ function createSavedFaceDetectionRectangle(popoverId, annotation, configuration)
       setTimeout(function() {
             if (!annotation.isAddedByCurrentUser) {
                 initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-                initializeAgeGroupSelect();
-                initializeGenderGroupSelect();
+                initializeAgeGroupSelect(annotation.previousFeedback.age);
+                initializeGenderGroupSelect(annotation.previousFeedback.gender);
             }
-        }, 100);
+        }, 150);
     };
 
     var popoverTitle = getFeedbackPopoverTitle(annotation);
