@@ -190,7 +190,7 @@ function centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, i
     }
 }
 
-function drawAnnotationContainer(imageContainer) {
+function drawAnnotationContainer(imageContainer, isRedraw) {
     var annotationContainer = $('<div>');
 
     centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer);
@@ -202,32 +202,17 @@ function drawAnnotationContainer(imageContainer) {
     annotationContainer.attr('id', constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
 
     function onWindowResize() {
-        drawAnnotationContainer(imageContainer);
+        drawAnnotationContainer(imageContainer, true);
     }
 
-    window.onresize = onWindowResize;
-    window.BigScreen.onexit = function() {
-        window.removeEventListener('resize', onWindowResize);
-        moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
-    };
-}
+    if (!isRedraw) {
+        window.addEventListener('resize', onWindowResize);
 
-function getImageScaledDimensions(imageAreaCurrentSize) {
-    var originalPhotoWidthToHeightRelation = getOriginalPhotoRelations().originalPhotoWidthToHeightRelation;
-
-    var currentImageAreaDimensions = {
-        width: parseInt(imageAreaCurrentSize.width),
-        height: parseInt(imageAreaCurrentSize.height)
-    };
-
-    var scaledPhotoWidthWithoutPadding = currentImageAreaDimensions.height * originalPhotoWidthToHeightRelation;
-    var blackPaddingSizeOnOneSide = (currentImageAreaDimensions.width - scaledPhotoWidthWithoutPadding) / 2;
-
-    return {
-        scaledPhotoWidthWithoutPadding: scaledPhotoWidthWithoutPadding,
-        blackPaddingSizeOnOneSide: blackPaddingSizeOnOneSide,
-        currentImageAreaDimensions: currentImageAreaDimensions
-    };
+        window.BigScreen.onexit = function() {
+            window.removeEventListener('resize', onWindowResize);
+            moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
+        };
+    }
 }
 
 function drawNewAnnotationRectangle(areaSelection) {
