@@ -59,16 +59,6 @@ wget -r --no-parent -A empty.json,layers.xml http://vanalinnad.mooo.com/vector/p
 wget -r --no-parent -A *.jpg http://vanalinnad.mooo.com/raster/places/
 ```
 
-## Translations via Transifex
-```bash
-python manage.py makemessages -a
-python manage.py makemessages -a -d djangojs
-tx push -s -t
-tx pull -s -t
-python manage.py compilemessages
-```
-You can push the .po files to Github so others would get fresh translations without this dance.
-
 ## Misc. running instructions
 
 On your local machine cp local.py.example local.py to get a quick start.
