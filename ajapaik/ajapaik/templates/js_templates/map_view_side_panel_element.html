@@ -11,7 +11,7 @@
                         onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                         onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
                         onload="checkLoadedSidePanelPhotos(this)"/>
-                    {% if (o[i].rephoto_count) { %}
+                    {% if (o[i].rephoto_count && !isTabletView) { %}
                         <div class="ajapaik-rephoto-count ajapaik-rephoto-count-{%=o[i].rephoto_count%}" id="ajapaik-map-rephoto-count"
                             data-id="{%=o[i].id%}">
                         </div>
@@ -21,7 +21,7 @@
                             <i class="material-icons notranslate">check_circle</i>
                         </button>
                     {% } %}
-                    {% if (o[i].comment_count) { %}
+                    {% if (o[i].comment_count && !isTabletView)) { %}
                         <span class="ajapaik-comment-count">{%=o[i].comment_count%}</span>
                     {% } %}
                 </a>
