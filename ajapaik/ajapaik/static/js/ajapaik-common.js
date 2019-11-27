@@ -104,7 +104,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
 
         if (!startPoint) {
             latLng = isTabletView ? new google.maps.LatLng(60.170, 24.94088) : new google.maps.LatLng(59, 26);
-            startingZoom = isTabletView ? 14 : 8;
+            startingZoom = isTabletView ? 16 : 8;
         } else {
             latLng = startPoint;
         }
@@ -147,7 +147,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 scrollwheel: true,
                 center: latLng,
                 mapTypeControl: true,
-                mapTypeId: 'satellite',
                 panControl: false,
                 zoomControl: true,
                 zoomControlOptions: {
