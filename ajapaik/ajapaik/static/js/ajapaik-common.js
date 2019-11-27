@@ -96,7 +96,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             mapTypeIds,
             allowedMapTypes = {
                 roadmap: google.maps.MapTypeId.ROADMAP,
-                satellite: google.maps.MapTypeId.ROADMAP,
+                satellite: google.maps.MapTypeId.SATELLITE,
                 OSM: 'OSM',
                 'old-maps': 'old-maps',
                 'old-helsinki': 'old-helsinki'
@@ -147,6 +147,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 scrollwheel: true,
                 center: latLng,
                 mapTypeControl: true,
+                mapTypeId: 'satellite',
                 panControl: false,
                 zoomControl: true,
                 zoomControlOptions: {
@@ -168,7 +169,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         if (allowedMapTypes[mapType]) {
             mapOpts.mapTypeId = allowedMapTypes[mapType];
         } else {
-            mapOpts.mapTypeId = allowedMapTypes.roadmap;
+            mapOpts.mapTypeId = isTabletView ? allowedMapTypes.satellite : allowedMapTypes.roadmap;;
         }
 
         map = new google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
