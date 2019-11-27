@@ -129,7 +129,7 @@ class CommonsDriver(object):
                     'format':'json',
                     'titles': titles,
                     'prop': 'imageinfo|coordinates',
-                    'iiprop': 'extmetadata|url|parsedcomment',
+                    'iiprop': 'extmetadata|url|parsedcomment|mime|dimensions',
                     'iiurlwidth': 500,
                     'iiurlheight': 500,
                     'iiextmetadatamultilang':1
@@ -172,8 +172,14 @@ class CommonsDriver(object):
 
                             if 'thumburl' in im:
                                 thumbnailUrl=im['thumburl']
-                            if 'url' in im:
-                                imageUrl=im['url']
+
+                            allowed_mime_types=['image/jpeg', 'image/png', 'image/gif']
+                            if 'mime' in im and im['mime'] in allowed_mime_types:
+                                if 'url' in im:
+                                    imageUrl=im['url']
+                            else:
+                                imageUrl=thumbnailUrl.replace('-500px-', '-' + str(im['width']) +'px-')
+
 
                             if 'descriptionurl' in im:
                                 recordUrl=im['descriptionurl']
