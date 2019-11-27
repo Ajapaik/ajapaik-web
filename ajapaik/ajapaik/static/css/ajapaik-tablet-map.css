@@ -3,7 +3,9 @@
 }
 
 #ajapaik-map-canvas > div > div > div:nth-child(14) > div:nth-child(2) > div:nth-child(2),
-#ajapaik-map-canvas > div > div > div:nth-child(14) > div:nth-child(1) > div:nth-child(2) {
+#ajapaik-map-canvas > div > div > div:nth-child(14) > div:nth-child(1) > div:nth-child(2),
+#ajapaik-map-canvas > div > div > div.gmnoprint.gm-style-mtc > div:nth-child(2) > div:nth-child(8),
+#ajapaik-map-canvas > div > div > div.gmnoprint.gm-style-mtc > div:nth-child(2) > div:nth-child(6) {
     display: none;
 }
 
