@@ -72,7 +72,11 @@
             {% trans 'historic,pictures,old,photos' %}
         {% endif %}
         ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
+    {% if is_tabletview %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" content="user-scalable=no">
+    {% else %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
+    {% endif %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
     <meta name="msvalidate.01" content="0AFAD3D32395E8F3F75621502B39878C" />

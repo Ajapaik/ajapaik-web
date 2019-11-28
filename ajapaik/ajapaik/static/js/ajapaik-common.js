@@ -881,7 +881,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
     };
 
     $(window).resize(function () {
-        if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible")){
+        if(!$("#ajapaik-modal-rephoto-container").is(":visible") && !$("#ajapaik-modal-similar-photo-container").is(":visible") && !window.isMobile){
             window.resizeMinimap();
         }
         if(isMapview){
@@ -944,6 +944,14 @@ $('.ajapaik-navbar').autoHidingNavbar();
             if (window.photoModalRephotoArray[i].id == targetId) {
                 fullscreenDiv.attr('data-src', window.photoModalRephotoArray[i].fullscreen_url);
                 photoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,i]));
+                if(isTabletView){
+                    var rephotoWrapper = document.getElementById('ajapaik-modal-rephoto-zoom-wrapper');
+                    if(!!rephotoWrapper) {
+                        var zm = new Zoom(rephotoWrapper, {
+                            rotate: false
+                        });
+                    }
+                }
                 infoDiv.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[i]));
                 currentlySelectedRephotoId = targetId;
                 var commentsDiv = $('#ajapaik-rephoto-comments');
@@ -992,6 +1000,14 @@ $('.ajapaik-navbar').autoHidingNavbar();
             if (window.photoModalSimilarPhotoArray[i].id == targetId) {
                 fullscreenDiv.attr('data-src', window.photoModalSimilarPhotoArray[i].fullscreen_url);
                 photoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,i]));
+                if(isTabletView){
+                    var similarPhotoWrapper = document.getElementById('ajapaik-modal-similar-photo-zoom-wrapper');
+                    if(!!similarPhotoWrapper) {
+                        var zm = new Zoom(similarPhotoWrapper, {
+                            rotate: false
+                        });
+                    }
+                }
                 infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
                 currentlySelectedSimilarPhotoId = targetId;
                 window.FB.XFBML.parse();

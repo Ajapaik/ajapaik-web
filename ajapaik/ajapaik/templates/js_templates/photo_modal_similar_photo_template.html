@@ -1,7 +1,15 @@
 {% verbatim %}
     <script id="ajapaik-photo-modal-similar-photo-template" type="text/x-tmpl">
         <a class="fullscreen" id="ajapaik-similar-photo-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
+            {% if (isTabletView) { %}
+            <div>
+                <div id="ajapaik-modal-similar-photo-zoom-wrapper">
+            {% } %}
             <img src="{%=o[0][o[1]].url%}" id="ajapaik-modal-similar-photo" class="img-fluid col-xs-12">
+            {% if (isTabletView) { %}
+                </div>
+            </div>
+            {% } %}
         </a>
         <button id="modal-compare-similar" class="btn ajapaik-compare-similar-overlay-button"{% if (!isMobile) { %} style="opacity:0;"{% } %}><i class="material-icons notranslate">compare</i></button>
         <button class="btn ajapaik-close-similar-photo-overlay-button" {% if (!isMobile) { %}
