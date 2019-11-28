@@ -9,3 +9,6 @@
     display: none;
 }
 
+#modal-compare-similar {
+    display: none !important;
+}
