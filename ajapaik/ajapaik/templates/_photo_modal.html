@@ -709,7 +709,6 @@
             height = 'auto';
         }
         else {
-
             var columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
             var imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
             imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
@@ -725,11 +724,15 @@
     }
 
     $('#ajapaik-modal-similar-photo').on('load', function() {
-        resizeSimilarImage();
+        if(window.visualViewport !== undefined) {
+            resizeSimilarImage();
+        }
     });
 
     $(window).on('resize', function() {
-        resizeSimilarImage();
+        if(window.visualViewport !== undefined) {
+            resizeSimilarImage();
+        }
     })
 
     $('#ajapaik-modal-rephoto').removeClass('ajapaik-photo-bw');
