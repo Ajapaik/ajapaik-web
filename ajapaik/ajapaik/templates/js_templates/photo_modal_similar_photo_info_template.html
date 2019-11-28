@@ -29,7 +29,7 @@
             {% if (o.licence) { %}{% endverbatim %}{% include "_licence.html" with licence=o.licence %}{% verbatim %}{% } %}
             {% if (o.sourceURL) { %}
             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-            {% if (isTabletView) { %}href='{%=o.sourceURL%}'{% } %} target="_blank" rel="noopener">
+            {% if (!isTabletView) { %}href='{%=o.sourceURL%}'{% } %} target="_blank" rel="noopener">
                 {% if (o.source) { %}{%=o.source%}{% } %}
                 {% if (o.sourceKey) { %}{%=o.sourceKey%}{% } %}
             </a>

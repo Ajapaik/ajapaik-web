@@ -10,7 +10,7 @@
                 {% } %}
             {% } %}
             <div class="w-100">
-                <a id="ajapaik-photo-modal-rephoto-source" {% if (isTabletView) { %}href='{%=o[0][0].sourceURL%}'{% } %}
+                <a id="ajapaik-photo-modal-rephoto-source" {% if (!isTabletView) { %}href='{%=o[0][0].sourceURL%}'{% } %}
                    target="_blank" rel="noopener nofollow">
                     {%=o[0][0].source%} {%=o[0][0].sourceKey%}
                 </a>
@@ -24,7 +24,7 @@
             {% } else { %}
                 {% if (o[0][0].FBUserName) { %}
                     <div class="w-100">
-                        <a target="_blank" {% if (isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                        <a target="_blank" {% if (!isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                             {%=o[0][0].FBUserName%}
                         </a><br>
                     </div>
@@ -34,7 +34,7 @@
                 {% } else { %}
                     {% if (o[0][0].GooglePlusName) { %}
                         <div class="w-100">
-                            <a target="_blank" {% if (isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                            <a target="_blank" {% if (!isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                                 {%=o[0][0].GooglePlusName%}
                             </a><br>
                         </div>
@@ -44,7 +44,7 @@
                     {% } else { %}
                         {% if (o[0][0].FullName) { %}
                             <div class="w-100">
-                                <a target="_blank" {% if (isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                                <a target="_blank" {% if (!isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                                     {%=o[0][0].FullName%}
                                 </a><br>
                             </div>
