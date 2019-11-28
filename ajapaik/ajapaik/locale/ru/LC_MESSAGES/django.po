@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Alexander Istomin
+# Author: Eleferen
 # Author: H2kks
 # Author: Katunchik
 # Author: Movses
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:10+0000\n"
+"PO-Revision-Date: 2019-11-28 15:30:50+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -1094,7 +1095,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"

@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-11-18 17:08:11+0000\n"
+"PO-Revision-Date: 2019-11-28 15:30:51+0000\n"
 "X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -193,7 +193,7 @@ msgstr "地理标签"
 #: ajapaik/ajapaik/models.py:1021 ajapaik/ajapaik/models.py:1084
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "翻拍"
 
 #: ajapaik/ajapaik/models.py:1022
 msgid "Photo upload"

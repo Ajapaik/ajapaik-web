@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:08+0000\n"
+"PO-Revision-Date: 2019-11-28 15:30:48+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -245,7 +245,7 @@ msgstr "Açıklama"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
@@ -305,7 +305,7 @@ msgstr "Resim zaten albümde"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "Resimde konum verileri eklenmiş"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -561,7 +561,7 @@ msgstr "Verilen puan"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
 msgid "Old Helsinki"
-msgstr ""
+msgstr "Eski Helsinki"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Vanalinnad"
