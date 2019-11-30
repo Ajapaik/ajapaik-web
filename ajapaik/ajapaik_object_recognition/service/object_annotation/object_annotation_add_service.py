@@ -18,6 +18,9 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
 
     photo_id = add_detection_annotation.photo_id
 
+    if wiki_data_label_id is None and add_detection_annotation.is_saving_object:
+        raise Exception('Object ID has to be provided for object annotation adding')
+
     if wiki_data_label_id is not None and len(wiki_data_label_id) > 0:
         save_new_object_annotation(add_detection_annotation)
     else:

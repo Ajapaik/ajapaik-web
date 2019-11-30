@@ -1,6 +1,12 @@
 'use strict';
 
-function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId) {
+function toggleEditObjectFieldError(isDisplayingError) {
+    var objectField = $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID);
+    var objectFieldError = $('.invalid-feedback');
+    toggleSlimSelectError(objectField, objectFieldError, isDisplayingError);
+}
+
+function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialValue) {
     return function(event) {
         event.preventDefault();
 
@@ -9,13 +15,24 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId) {
             .find("#" + constants.elements.OBJECT_CLASS_SELECT_ID)
             .val();
 
+        var closePopover = function() {
+            togglePopover(popoverId);
+        };
+
+        if (initialValue === selectedObjectId) {
+            closePopover();
+            return;
+        }
+
+        toggleEditObjectFieldError(!selectedObjectId);
+
+        if (!selectedObjectId) {
+            return;
+        }
+
         var payload = {
             rectangleId: rectangleId,
             wikiDataLabelId: selectedObjectId
-        };
-
-        var closePopover = function() {
-            togglePopover(popoverId);
         };
 
         updateExistingObjectDetectionAnnotation(payload, closePopover);
@@ -42,14 +59,14 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
     var buttonGroup = getButtonGroup(buttons);
 
     var select = getObjectsSelect(false, {
-        wikiDataId: annotation.wikiDataId,
+        id: annotation.wikiDataId,
         label: JSON.parse(annotation.translations)[window.language]
     });
 
 
     var form = $('<form/>', {
         id: 'modify-detected-object'
-    }).on('submit', getObjectRectangleUpdateSubmitFunction(annotation.id, popoverId));
+    }).on('submit', getObjectRectangleUpdateSubmitFunction(annotation.id, popoverId, annotation.wikiDataId));
 
     var label = $('<span></span>');
     var changeObjectClassLabel = constants.translations.popover.labels.CHANGE_OBJECT_CLASS + ': ';
@@ -62,10 +79,14 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
         .append(buttonGroup);
 }
 
+function validateRequiredEditObjectField(selectedOption) {
+    toggleEditObjectFieldError(!selectedOption.value);
+}
+
 function createSavedObjectModifyDetectionRectangle(popoverId, annotation, configuration) {
     var onAnnotationRectangleShow = function() {
         setTimeout(function() {
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, false, validateRequiredEditObjectField);
         }, 100);
     };
 

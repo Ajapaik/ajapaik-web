@@ -22,3 +22,14 @@
     color: white !important;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.error-display {
+    display: block;
+}
+
+.slim-select-error {
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #dc3545;
+}

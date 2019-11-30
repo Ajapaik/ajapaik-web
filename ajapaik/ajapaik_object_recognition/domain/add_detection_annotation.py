@@ -1,11 +1,12 @@
 from django.http import QueryDict
 
 from ajapaik.ajapaik_object_recognition.object_annotation_utils import parse_parameter, parse_gender_parameter, \
-    parse_age_parameter
+    parse_age_parameter, parse_boolean
 
 
 class AddDetectionAnnotation:
     def __init__(self, parameters: QueryDict, user_id: int):
+        self.is_saving_object = parse_boolean(parameters['isSavingObject'])
         self.wiki_data_label_id = parameters['wikiDataLabelId']
         self.subject_id = parse_parameter(parameters['subjectId'])
 

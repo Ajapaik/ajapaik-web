@@ -137,7 +137,7 @@ function getFormattedSelectOption(option) {
     );
 }
 
-function initializeObjectAutocomplete(autocompleteId, isOpenOnView) {
+function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
     var noResultText = constants.translations.autocomplete.objectSearch.NO_RESULTS_FOUND;
     var findByLabel = debounce(WikiData.findByLabel, 400);
 
@@ -148,6 +148,7 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView) {
         searchingText: constants.translations.autocomplete.objectSearch.SEARCHING_TEXT + '...',
         searchPlaceholder: constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER,
         searchText: noResultText,
+        onChange: onChange,
         ajax: function (search, callback) {
 
           if (search.length < 2) {

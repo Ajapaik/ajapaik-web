@@ -16,6 +16,7 @@ var constants = {
         ELDERLY: 'ELDERLY'
     },
     elements: {
+        NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID: 'new-object-select-fields-wrapper-id',
         ANNOTATION_MORE_SPECIFIC_FIELDS_WRAPPER_ID: 'more-specific-annotation-fields-wrapper',
         AUTOCOMPLETE_WRAPPER_ID: 'autocomplete-wrapper',
         SUBJECT_AUTOCOMPLETE_ID: 'autocomplete-subject',
@@ -48,6 +49,9 @@ var constants = {
         ANNOTATION_CONTAINER_ID_ON_IMAGE: 'annotation-container'
     },
     translations: {
+        errors: {
+            OBJECT_REQUIRED: gettext('Object is required')
+        },
         common: {
             OPTIONAL: gettext('optional'),
             UNSURE: gettext('Unsure')

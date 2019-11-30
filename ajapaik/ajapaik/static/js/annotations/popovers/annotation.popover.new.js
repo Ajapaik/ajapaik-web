@@ -1,5 +1,11 @@
 'use strict';
 
+function toggleNewObjectFieldError(isDisplayingError) {
+    var objectField = $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID);
+    var objectFieldError = $('#' + constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID + ' .invalid-feedback');
+    toggleSlimSelectError(objectField, objectFieldError, isDisplayingError);
+}
+
 function getRectangleSubmitFunction(popoverId) {
     return function(event) {
         event.preventDefault();
@@ -13,6 +19,14 @@ function getRectangleSubmitFunction(popoverId) {
         var gender = form.find('#' + constants.elements.SUBJECT_GENDER_SELECT_ID).val();
         var ageGroup = form.find('#' + constants.elements.SUBJECT_AGE_GROUP_SELECT_ID).val();
 
+        if (isObjectSelected) {
+            toggleNewObjectFieldError(!selectedObjectId);
+
+            if (!selectedObjectId) {
+                return;
+            }
+        }
+
         var scaledRectangle = getDetectionRectangleScaledForOriginalImageSize(
             popoverId,
             ImageAreaSelector.getImageAreaDimensions()
@@ -20,6 +34,7 @@ function getRectangleSubmitFunction(popoverId) {
         togglePopover(popoverId);
 
         var payload = {
+            isSavingObject: isObjectSelected,
             wikiDataLabelId: isObjectSelected ? selectedObjectId : null,
             subjectId: !isObjectSelected ? personId : null,
             photoId: scaledRectangle.photoId,
@@ -36,7 +51,7 @@ function getRectangleSubmitFunction(popoverId) {
 }
 
 function toggleFaceDetection() {
-    $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).hide();
+    $('#' + constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID).hide();
     $('#' + constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID).show();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'face');
 
@@ -44,7 +59,7 @@ function toggleFaceDetection() {
 }
 
 function toggleObjectDetection() {
-    $('#' + constants.elements.SELECT_OBJECT_CLASS_WRAPPER_ID).show();
+    $('#' + constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID).show();
     $('#' + constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID).hide();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'object');
 
@@ -55,7 +70,7 @@ function createObjectAssigningPopoverContent(popoverId) {
     var faceLabel = constants.translations.popover.labels.FACE_ANNOTATION;
     var objectLabel = constants.translations.popover.labels.OBJECT_ANNOTATION;
 
-    var select = getObjectsSelect();
+    var objectAutocomplete = getObjectsSelect();
     var controlButtons = getSubmitAndCancelButtons(popoverId, true);
     var detectionTypeToggle = getToggleButton(objectLabel, faceLabel, toggleObjectDetection, toggleFaceDetection);
     var autocomplete = getPersonAutoComplete(true);
@@ -75,7 +90,12 @@ function createObjectAssigningPopoverContent(popoverId) {
         id: constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID,
         style: 'display: none'
     });
-    var selectWrapper = $('<div style="padding-bottom: 15px;"></div>');
+    var objectSelectWrapper = $('<div>', {
+        id: constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID,
+        style: 'padding-bottom: 15px;'
+    });
+    var errorMessage = $('<div class="invalid-feedback">')
+        .append(constants.translations.errors.OBJECT_REQUIRED);
 
     return formWrapper.append(
         form
@@ -88,11 +108,16 @@ function createObjectAssigningPopoverContent(popoverId) {
                 )
 
             )
-            .append(selectWrapper
-                .append(select)
+            .append(objectSelectWrapper
+                .append(objectAutocomplete)
+                .append(errorMessage)
             )
             .append(controlButtons)
     );
+}
+
+function validateRequiredNewObjectField(selectedOption) {
+    toggleNewObjectFieldError(!selectedOption.value);
 }
 
 function createNewDetectionRectangle(popoverId, configuration) {
@@ -102,7 +127,7 @@ function createNewDetectionRectangle(popoverId, configuration) {
             initializeAgeGroupSelect();
             initializeGenderGroupSelect();
 
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true);
+            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true, validateRequiredNewObjectField);
         }, 100);
     };
 
