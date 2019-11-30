@@ -37,7 +37,7 @@ var ObjectTagger = {
         var detectionRectangle = drawNewAnnotationRectangle(selection);
         detectionRectangle.rectangle.appendTo(ImageAreaSelector.getImageArea());
 
-        if (!isNotOpeningPopoverOnDrawEnd) {
+        if (!window.isMobile && !isNotOpeningPopoverOnDrawEnd) {
             togglePopover(detectionRectangle.id);
         }
     },
