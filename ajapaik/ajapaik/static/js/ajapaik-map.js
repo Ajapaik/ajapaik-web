@@ -700,9 +700,9 @@
                     window.getMap(new google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
                 } else if (window.albumLatLng) {
                     // There's nothing preselected, but we do know the album the photo's in
-                    window.getMap(window.albumLatLng, 16, false, urlMapType);
+                    window.getMap(this.isTabletView ? new google.maps.LatLng(60.1724499211933, 24.934274981618714) : this.albumLatLng, this.isTabletView ? 18 : 16, false, urlMapType);
                 } else if (window.areaLatLng) {
-                    window.getMap(window.areaLatLng, 16, false, urlMapType);
+                    window.getMap(window.areaLatLng, this.isTabletView ? 18 : 16, false, urlMapType);
                 } else {
                     // No idea
                     window.getMap(null, 16, false, urlMapType);
