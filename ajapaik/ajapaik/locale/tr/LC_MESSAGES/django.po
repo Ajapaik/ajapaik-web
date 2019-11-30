@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:11+0000\n"
+"PO-Revision-Date: 2019-11-28 15:30:51+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1625,7 +1625,7 @@ msgstr "Anasayfaya dön"
 
 #: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
-msgstr ""
+msgstr "Resimleri göster"
 
 #: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
@@ -1821,7 +1821,7 @@ msgstr "Tundmatu"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Uygulanamaz"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1839,19 +1839,19 @@ msgstr "KonuFotoğrafı"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "Lütfen vurgulanan kişinin cinsiyeti ve/veya yaşı belirtin"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "Kişinin cinsiyeti ve/veya yaşının ne olduğundan emin değilseniz, lütfen tuşuna basın."
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Emin Değil"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "Dikdörtgenin yanlış yerleştirilmiş olması durumunda lütfen seçin"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
@@ -1861,7 +1861,7 @@ msgstr "Yüz değil"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "Resmin açıklamasını görmek için lütfen tıklayın"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:66
@@ -1871,7 +1871,7 @@ msgstr "Bilgi"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:52
 msgid "Non-binary"
-msgstr ""
+msgstr "İkili olmayan"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:60
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:84
@@ -1892,7 +1892,7 @@ msgstr "Şu anda yaş"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Burada veri yok, lütfen daha sonra tekrar gelin"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"

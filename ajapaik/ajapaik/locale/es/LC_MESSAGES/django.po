@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-11-25 14:27:29+0000\n"
+"PO-Revision-Date: 2019-11-28 15:30:42+0000\n"
 "X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,19 +77,19 @@ msgstr "Soy el autor"
 
 #: ajapaik/ajapaik/forms.py:391
 msgid "Missing image"
-msgstr "No se encuentra la imágen"
+msgstr "Falta la imagen"
 
 #: ajapaik/ajapaik/forms.py:393
 msgid "Missing description"
-msgstr "No se encuentra la descripción"
+msgstr "Falta la descripción"
 
 #: ajapaik/ajapaik/forms.py:395
 msgid "Missing licence"
-msgstr "No se encuentra la licencia"
+msgstr "Falta la licencia"
 
 #: ajapaik/ajapaik/forms.py:409 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
-msgstr "Album de orígen"
+msgstr "Álbum primario"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
@@ -105,7 +105,7 @@ msgstr "Tipo de álbum"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Anything else"
-msgstr "Algo más?"
+msgstr "Algo más"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Person"
