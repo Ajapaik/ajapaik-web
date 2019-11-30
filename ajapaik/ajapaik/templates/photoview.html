@@ -182,7 +182,7 @@
             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
         </a>
         <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
-            id="ajapaik-photoview-face-recognition-add-face-button"
+            id="mark-object-button"
             href="#" class="float-left"
         >
             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">format_shapes</i>
@@ -514,7 +514,7 @@
             window.reportDaterOpen();
         }
     });
-    $('#ajapaik-photoview-face-recognition-add-face-button').click(function (e) {
+    $('#mark-object-button').click(function (e) {
         e.preventDefault();
         ObjectTagger.toggleCropping();
     });
