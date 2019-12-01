@@ -545,7 +545,7 @@
     $(document).ready(function () {
         ImageAreaSelector.setImageArea('ajapaik-modal-photo-container');
         ObjectTagger.setPhotoId(window.currentlyOpenPhotoId);
-        ObjectTagger.setDetectionRectangleContainer('#ajapaik-photo-modal');
+        ObjectTagger.setDetectionRectangleContainer('#ajapaik-modal-body');
 
         getObjectAnnotationClasses();
         getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
