@@ -5,6 +5,9 @@ var ObjectTagger = {
     photoId: null,
     detectionRectangleContainer: 'body',
 
+    setDetectionRectangleContainer: function(container) {
+        this.detectionRectangleContainer = container;
+    },
     getDetectionRectangleContainer: function() {
         return this.detectionRectangleContainer;
     },
