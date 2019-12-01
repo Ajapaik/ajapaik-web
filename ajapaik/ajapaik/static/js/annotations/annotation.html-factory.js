@@ -235,6 +235,35 @@ function addAnnotationLabel(annotationRectangle, annotationData) {
     }
 }
 
+function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
+    var ADDITIONAL_PADDING = 10;
+
+    setTimeout(function() {
+        var popoverLeftPosition = popover.offset().left;
+        var popoverRightPosition = popoverLeftPosition + popover.width();
+
+        var annotationLeftPosition = annotation.offset().left;
+        var annotationRightPosition = annotationLeftPosition + annotation.width();
+
+        var isPlacingLeft = popover.attr('x-placement') === 'left';
+
+
+        if (isPlacingLeft) {
+            var overlappingBy = annotationLeftPosition - popoverRightPosition;
+
+            if (overlappingBy < 0) {
+                popover.css('left', overlappingBy - ADDITIONAL_PADDING + 'px');
+            }
+        } else {
+            var overlappingBy = annotationRightPosition - popoverLeftPosition;
+
+            if (overlappingBy > 0) {
+                popover.css('left', overlappingBy + ADDITIONAL_PADDING + 'px');
+            }
+        }
+    });
+}
+
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
@@ -268,7 +297,17 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
     annotationRectangle.popover({
         container: ObjectTagger.getDetectionRectangleContainer(),
         html: true,
-        placement: 'bottom',
+        placement: function (popoverElement, annotationElement) {
+            var popover = $(popoverElement);
+            var annotation = $(annotationElement);
+            var position = annotation.position();
+
+            var placement = position.left > 515 ? 'left' : 'right';
+
+            slidePopoverToAvoidOverlapWithAnnotation(popover, annotation);
+
+            return placement;
+        },
         title: popoverTitle,
         trigger: 'click',
         content: function() {
