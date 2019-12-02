@@ -1,12 +1,12 @@
 {% verbatim %}
     <script id="ajapaik-photo-modal-similar-photo-template" type="text/x-tmpl">
         <a class="fullscreen" id="ajapaik-similar-photo-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
-            {% if (isTabletView) { %}
+            {% if (window.isTabletView) { %}
             <div>
                 <div id="ajapaik-modal-similar-photo-zoom-wrapper">
             {% } %}
             <img src="{%=o[0][o[1]].url%}" id="ajapaik-modal-similar-photo" class="img-fluid col-xs-12">
-            {% if (isTabletView) { %}
+            {% if (window.isTabletView) { %}
                 </div>
             </div>
             {% } %}
