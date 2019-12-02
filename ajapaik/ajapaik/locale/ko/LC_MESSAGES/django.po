@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:05+0000\n"
+"PO-Revision-Date: 2019-12-02 08:20:43+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1625,7 +1625,7 @@ msgstr "홈으로 돌아가기"
 
 #: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
-msgstr ""
+msgstr "이미지 표시"
 
 #: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
@@ -1847,7 +1847,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "확실치 않음"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -1892,7 +1892,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "여기에 데이터가 없습니다. 나중에 다시 방문해 주십시오"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
