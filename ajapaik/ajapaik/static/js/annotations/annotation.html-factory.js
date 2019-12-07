@@ -1,5 +1,8 @@
 'use strict';
 
+var ADDITIONAL_PADDING = 10;
+var PADDING_FROM_SCREEN_EDGE = 5;
+
 function getToggleButton(leftLabel, rightLabel, onLeftClick, onRightClick) {
     var wrapper = $('<div>', {class: 'switch switch--horizontal'});
 
@@ -235,9 +238,45 @@ function addAnnotationLabel(annotationRectangle, annotationData) {
     }
 }
 
-function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
-    var ADDITIONAL_PADDING = 10;
+function slidePopoverToLeft(annotationLeftPosition, popoverRightPosition, popoverLeftPosition, popover) {
+    var minimumAllowedLeftPosition = PADDING_FROM_SCREEN_EDGE;
 
+    var overlappingBy = annotationLeftPosition - popoverRightPosition;
+    var rightPushToApply = overlappingBy - ADDITIONAL_PADDING;
+
+    var newExpectedLeftPosition = popoverLeftPosition - Math.abs(rightPushToApply);
+    var isGoingToBePushedOffScreen = newExpectedLeftPosition < minimumAllowedLeftPosition;
+
+    if (isGoingToBePushedOffScreen) {
+        var overflowOffTheScreenBy = Math.abs(newExpectedLeftPosition) + minimumAllowedLeftPosition;
+        rightPushToApply += overflowOffTheScreenBy;
+    }
+
+    if (overlappingBy < 0) {
+        popover.css('left', rightPushToApply + 'px');
+    }
+}
+
+function slidePopoverToRight(annotationRightPosition, popoverLeftPosition, popoverRightPosition, popover) {
+    var maximumAllowedRightPosition = window.outerWidth - PADDING_FROM_SCREEN_EDGE;
+
+    var overlappingBy = annotationRightPosition - popoverLeftPosition;
+    var leftPushToApply = overlappingBy + ADDITIONAL_PADDING;
+
+    var newExpectedRightPosition = leftPushToApply + popoverRightPosition;
+    var isGoingToBePushedOffScreen = newExpectedRightPosition > maximumAllowedRightPosition;
+
+    if (isGoingToBePushedOffScreen) {
+        var overflowOffTheScreenBy = newExpectedRightPosition - maximumAllowedRightPosition;
+        leftPushToApply -= overflowOffTheScreenBy;
+    }
+
+    if (overlappingBy > 0) {
+        popover.css('left', leftPushToApply + 'px');
+    }
+}
+
+function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
     setTimeout(function() {
         var popoverLeftPosition = popover.offset().left;
         var popoverRightPosition = popoverLeftPosition + popover.width();
@@ -247,19 +286,10 @@ function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
 
         var isPlacingLeft = popover.attr('x-placement') === 'left';
 
-
         if (isPlacingLeft) {
-            var overlappingBy = annotationLeftPosition - popoverRightPosition;
-
-            if (overlappingBy < 0) {
-                popover.css('left', overlappingBy - ADDITIONAL_PADDING + 'px');
-            }
+            slidePopoverToLeft(annotationLeftPosition, popoverRightPosition, popoverLeftPosition, popover);
         } else {
-            var overlappingBy = annotationRightPosition - popoverLeftPosition;
-
-            if (overlappingBy > 0) {
-                popover.css('left', overlappingBy + ADDITIONAL_PADDING + 'px');
-            }
+            slidePopoverToRight(annotationRightPosition, popoverLeftPosition, popoverRightPosition, popover);
         }
     });
 }
