@@ -309,14 +309,20 @@ function getFeedbackPopoverTitle(annotation) {
 }
 
 function createSavedFaceDetectionRectangle(popoverId, annotation, configuration) {
+    var hasInitializedSelects = false;
+
     var onAnnotationRectangleShow = function() {
-      setTimeout(function() {
-            if (!annotation.isAddedByCurrentUser) {
-                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-                initializeAgeGroupSelect(annotation.previousFeedback.age);
-                initializeGenderGroupSelect(annotation.previousFeedback.gender);
-            }
-        }, 150);
+        if (!hasInitializedSelects) {
+            setTimeout(function() {
+                if (!annotation.isAddedByCurrentUser) {
+                    initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+                    initializeAgeGroupSelect(annotation.previousFeedback.age);
+                    initializeGenderGroupSelect(annotation.previousFeedback.gender);
+
+                    hasInitializedSelects = true;
+                }
+            }, 150);
+        }
     };
 
     var popoverTitle = getFeedbackPopoverTitle(annotation);

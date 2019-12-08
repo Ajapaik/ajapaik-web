@@ -154,10 +154,15 @@ function getObjectFeedbackPopoverTitle(annotation) {
 }
 
 function createSavedObjectDetectionRectangle(popoverId, annotation, configuration) {
+    var hasInitializedSelects = false;
+
     var onAnnotationRectangleShow = function() {
-        setTimeout(function() {
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
-        }, 150);
+        if (!hasInitializedSelects) {
+            setTimeout(function() {
+                initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
+                hasInitializedSelects = true;
+            }, 150);
+        }
     };
 
     var popoverTitle = getObjectFeedbackPopoverTitle(annotation);

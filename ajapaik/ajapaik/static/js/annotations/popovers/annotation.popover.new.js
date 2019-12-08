@@ -121,14 +121,20 @@ function validateRequiredNewObjectField(selectedOption) {
 }
 
 function createNewDetectionRectangle(popoverId, configuration) {
-    var onAnnotationRectangleShow = function() {
-        setTimeout(function() {
-            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-            initializeAgeGroupSelect();
-            initializeGenderGroupSelect();
+    var hasInitializedSelects = false;
 
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true, validateRequiredNewObjectField);
-        }, 100);
+    var onAnnotationRectangleShow = function() {
+        if (!hasInitializedSelects) {
+            setTimeout(function() {
+                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+                initializeAgeGroupSelect();
+                initializeGenderGroupSelect();
+
+                initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true, validateRequiredNewObjectField);
+
+                hasInitializedSelects = true;
+            }, 100);
+        }
     };
 
     var popoverTitle = constants.translations.popover.titles.NEW_ANNOTATION + '?';

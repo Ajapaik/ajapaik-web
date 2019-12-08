@@ -84,10 +84,15 @@ function validateRequiredEditObjectField(selectedOption) {
 }
 
 function createSavedObjectModifyDetectionRectangle(popoverId, annotation, configuration) {
+    var hasInitializedSelects = false;
+
     var onAnnotationRectangleShow = function() {
-        setTimeout(function() {
-            initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, false, validateRequiredEditObjectField);
-        }, 100);
+        if (!hasInitializedSelects) {
+            setTimeout(function() {
+                initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, false, validateRequiredEditObjectField);
+                hasInitializedSelects = true;
+            }, 100);
+        }
     };
 
     var popoverTitle = constants.translations.popover.titles.EDIT_OBJECT_ANNOTATION;

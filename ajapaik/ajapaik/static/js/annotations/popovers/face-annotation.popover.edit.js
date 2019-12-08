@@ -75,12 +75,18 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
 }
 
 function createFaceAnnotationEditRectangle(popoverId, annotation, configuration) {
+    var hasInitializedSelects = false;
+
     var onAnnotationRectangleShow = function() {
-      setTimeout(function() {
-            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-            initializeGenderGroupSelect(annotation.gender);
-            initializeAgeGroupSelect(annotation.age);
-        }, 100);
+        if (!hasInitializedSelects) {
+            setTimeout(function() {
+                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+                initializeGenderGroupSelect(annotation.gender);
+                initializeAgeGroupSelect(annotation.age);
+
+                hasInitializedSelects = true;
+            }, 100);
+        }
     };
 
     var popoverTitle = constants.translations.popover.titles.EDIT_FACE_ANNOTATION;
