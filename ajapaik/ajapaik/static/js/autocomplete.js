@@ -93,6 +93,8 @@ function initializePersonAutocomplete(autocompleteId) {
           var onSuccess = function(response) {
               var data = [];
 
+              var currentSelectedValue = $('#' + autocompleteId).val();
+
               response
                   .replace(new RegExp('</span>', 'g'), ',')
                   .replace(new RegExp('<span data-value="', 'g'), '')
@@ -100,12 +102,16 @@ function initializePersonAutocomplete(autocompleteId) {
                   .split(',')
                   .forEach(function(value) {
                       if (!!value) {
-                           var parts = value.split('-');
+                          var parts = value.split('-');
+                          var personId = parts[0];
+                          var personName = parts[1];
 
-                          data.push({
-                              value: parts[0],
-                              text: parts[1]
-                          });
+                          if (personId !== currentSelectedValue) {
+                              data.push({
+                                  value: personId,
+                                  text: personName
+                              });
+                          }
                       }
                   });
 
@@ -158,14 +164,17 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
 
           var onSuccess = function(response) {
               var data = [];
+              var currentSelectedValue = $('#' + autocompleteId).val();
 
               if (response) {
                   response.forEach(function(result) {
-                      data.push({
-                          innerHTML: getFormattedSelectOption(result),
-                          text: result.label,
-                          value: result.id
-                      });
+                      if (!currentSelectedValue || result.id !== currentSelectedValue) {
+                          data.push({
+                              innerHTML: getFormattedSelectOption(result),
+                              text: result.label,
+                              value: result.id
+                          });
+                      }
                   });
               }
 
