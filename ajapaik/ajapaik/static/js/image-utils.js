@@ -104,10 +104,23 @@ function closePopovers(currentlyOpeningId) {
     });
 }
 
-function moveAnnotationRectanglesElement(element) {
+function moveAnnotationRectanglesElement(element, isDisablingPopover) {
     $('[data-is-detection-rectangle]').each(function() {
         var rectangle = $(this);
         rectangle.css('visibility', 'initial');
+
+        if (isDisablingPopover) {
+            rectangle.popover('disable');
+            rectangle.data('open-popover-on-fullscreen-exit', false);
+        } else {
+            rectangle.popover('enable');
+            var isOpeningFullScreenOnExit = rectangle.data('open-popover-on-fullscreen-exit');
+
+            if (isOpeningFullScreenOnExit) {
+                rectangle.popover('show');
+            }
+        }
+
         element.append(rectangle);
     });
 }

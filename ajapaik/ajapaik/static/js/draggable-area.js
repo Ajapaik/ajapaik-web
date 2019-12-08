@@ -569,7 +569,8 @@ var DraggableArea = (function () {
             if (!hasDragged) {
                 if (window.fullscreenEnabled) {
                     setTimeout(function() {
-                        $('.full-box div').click();
+                        $('#annotation-container').click();
+                        annotationRectangle.click();
                     });
                 } else {
                     annotationRectangle.click();

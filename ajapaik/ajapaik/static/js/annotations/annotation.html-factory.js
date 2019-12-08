@@ -294,6 +294,11 @@ function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
     });
 }
 
+function setPopoverToOpenOnFullscreenExit(event) {
+    var popover = $(event.target);
+    popover.data('open-popover-on-fullscreen-exit', true);
+}
+
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
@@ -322,6 +327,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
 
     annotationRectangle.on('click', function (event) {
         closePopoversOnRectangleClick(event);
+        setPopoverToOpenOnFullscreenExit(event);
     });
 
     annotationRectangle.popover({

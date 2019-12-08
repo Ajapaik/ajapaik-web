@@ -196,7 +196,7 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
     centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer);
 
     imageContainer.append(annotationContainer);
-    moveAnnotationRectanglesElement(annotationContainer);
+    moveAnnotationRectanglesElement(annotationContainer, true);
 
     $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE).remove();
     annotationContainer.attr('id', constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
