@@ -237,6 +237,7 @@ function copyAnnotateButtonToFullScreenView() {
     }
 
     var markObjectClone = $('#mark-object-button').clone();
+    markObjectClone.css('z-index', 1);
 
     markObjectClone.find('i').removeClass('ajapaik-text-gray');
     markObjectClone.addClass('annotation-button__fullscreen');
