@@ -208,6 +208,7 @@ def get_subject_image(request: HttpRequest):
 def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
+# TODO: Clean this up to have a function get_next_rectangle instead of endless nest of ifs
 def get_subject_data(request, subject_id = None):
     profile = request.get_user().profile
     rectangle = None
@@ -265,12 +266,22 @@ def get_subject_data(request, subject_id = None):
         if rectangle is None:
             rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
     if rectangle is None:
+        if album_id is None:
+            rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
+        else:
+            rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+    if rectangle is None:
         return render(request, 'add_subject_data_empty.html')
     else:
         if nextRectangle is None:
             nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
         if nextRectangle is None:
-            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data_empty"))
+            if album_id is None:
+                nextRectangle = FaceRecognitionRectangle.objects.order_by('?').first()
+            else:
+                nextRectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+        if nextRectangle is None:
+            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
         else:
             next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
             if album_id is not None:
