@@ -113,9 +113,6 @@
         });
 
         let showModal = function() {
-            var d = new Date();
-            d.setTime(d.getTime() + 86400000);
-            document.cookie = 'addSubjectDataModalShown=true;expires=' + d + ';path=/'; 
             if(!$('#ajapaikAddSubjectDataTutorialModal').is(":visible")){
                 $('#ajapaikAddSubjectDataTutorialModal').modal();
             }

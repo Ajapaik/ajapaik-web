@@ -208,7 +208,6 @@ def get_subject_image(request: HttpRequest):
 def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
-# TODO: Clean this up to have a function get_next_rectangle instead of endless nest of ifs
 def get_subject_data(request, subject_id = None):
     profile = request.get_user().profile
     rectangle = None

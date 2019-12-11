@@ -20,6 +20,9 @@
 {% endblock %}
 
 {% block layout %}
+    {% if is_tabletview %}
+        {% include "_map_tutorial_modal.html" %}
+    {% endif %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div class="w-100">
         <div id="map-side-panel" class="side-panel">
@@ -83,6 +86,48 @@
         {% if selected_rephoto %}
             var preselectRephotoId = '{{ selected_rephoto.id }}';
         {% endif %}
+
+        if (isTabletView) {
+            $('#close-map-modal').on('click', function() {
+                $('#ajapaikMapTutorialModal').modal('toggle');
+            });
+
+            let showModal = function() {
+                if(!$('#ajapaikMapTutorialModal').is(":visible")){
+                    $('#ajapaikMapTutorialModal').modal();
+                }
+            }
+
+            var idleTime = 0;
+            $(document).ready(function () {
+                //Increment the idle time counter every second.
+                console.error("timer")
+                var idleInterval = setInterval(timerIncrement, 1000); 
+
+                //Zero the idle timer on mouse movement.
+                $(this).mousemove(function (e) {
+                    idleTime = 0;
+                });
+                $(this).keypress(function (e) {
+                    idleTime = 0;
+                });
+                //Zero the idle timer on touch events.
+                $(this).bind('touchstart', function(){
+                    idleTime = 0;
+                });
+                $(this).bind('touchmove', function(){
+                    idleTime = 0;
+                });
+            });
+
+            function timerIncrement() {
+                console.error("timer", idleTime)
+                idleTime = idleTime + 1;
+                if (idleTime > 10) { 
+                    showModal();
+                }
+            }
+        }
     </script>
     {% compress js %}
         <script src="{% static "js/ajapaik-map.js" %}"></script>
