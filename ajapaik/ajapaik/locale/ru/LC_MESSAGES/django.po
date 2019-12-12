@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-28 15:30:50+0000\n"
+"PO-Revision-Date: 2019-12-12 14:18:18+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -88,15 +88,15 @@ msgstr "Я автор"
 
 #: ajapaik/ajapaik/forms.py:391
 msgid "Missing image"
-msgstr ""
+msgstr "Недостающее изображение"
 
 #: ajapaik/ajapaik/forms.py:393
 msgid "Missing description"
-msgstr ""
+msgstr "Недостающее описание"
 
 #: ajapaik/ajapaik/forms.py:395
 msgid "Missing licence"
-msgstr ""
+msgstr "Отсутствующая лицензия"
 
 #: ajapaik/ajapaik/forms.py:409 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Person"
-msgstr ""
+msgstr "Человек"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/models.py:182
 #: ajapaik/ajapaik/templates/curator.html:69
@@ -168,7 +168,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:222
 msgid "b."
-msgstr ""
+msgstr "b."
 
 #: ajapaik/ajapaik/models.py:338
 msgid "Image"
@@ -257,7 +257,7 @@ msgstr "Подтверждение"
 
 #: ajapaik/ajapaik/models.py:1066
 msgid "StreetView"
-msgstr ""
+msgstr "StreetView"
 
 #: ajapaik/ajapaik/models.py:1067
 msgid "Source geotag"
@@ -293,7 +293,7 @@ msgstr "Гугл Карта"
 
 #: ajapaik/ajapaik/models.py:1089
 msgid "Google satellite"
-msgstr ""
+msgstr "Google satellite"
 
 #: ajapaik/ajapaik/models.py:1090
 msgid "OpenStreetMap"
@@ -301,7 +301,7 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1091
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1092
 msgid "No map"
@@ -1185,7 +1185,7 @@ msgstr "Изменить пароль"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Плохой токен"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1201,7 +1201,7 @@ msgstr "Ваш пароль был изменён."
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr ""
+msgstr "Регистрация"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1378,7 +1378,7 @@ msgstr "Отправить"
 
 #: ajapaik/ajapaik/templates/comments/list.html:22
 msgid "Like"
-msgstr ""
+msgstr "Нравится"
 
 #: ajapaik/ajapaik/templates/comments/list.html:26
 msgid "Dislike"
@@ -1540,7 +1540,7 @@ msgstr "Викисклад"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Европеана"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1557,7 +1557,7 @@ msgstr "Отправить выделенные в Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "Ответить"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1858,16 +1858,16 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
 msgid "Algorithm"
-msgstr ""
+msgstr "Алгоритм"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:164
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:37
 msgid "SubjectPhoto"
-msgstr ""
+msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
@@ -1879,7 +1879,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Не знаю"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -1948,5 +1948,5 @@ msgstr "Английский"
 
 #: ajapaik/settings/default.py:74
 msgid "Finnish"
-msgstr ""
+msgstr "Финский"
 
