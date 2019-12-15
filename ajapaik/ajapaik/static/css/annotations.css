@@ -49,3 +49,7 @@
 .ss-option .show-on-select {
     display: none !important;
 }
+
+.ss-disabled {
+    cursor: pointer !important;
+}
