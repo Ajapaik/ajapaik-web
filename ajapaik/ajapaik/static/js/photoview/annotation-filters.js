@@ -40,7 +40,7 @@ function getHideCorrespondingFilter(annotationIdentifier) {
     };
 }
 
-function getUnknownPersonTitle(annotationId) {
+function getUnknownAnnotationTitle(annotationId) {
     var unknownPersonLabel = gettext('Unknown');
 
     return unknownPersonLabel + ' (id: ' + annotationId + ')';
@@ -77,14 +77,18 @@ function createAnnotationFilteringCheckbox(checkboxName, annotationIdentifier, l
         );
 }
 
+function isFaceAnnotation(annotation) {
+    return !annotation.wikiDataId;
+}
+
 function annotationCheckbox(annotation) {
-    var checkboxName = !annotation.wikiDataId
+    var checkboxName = isFaceAnnotation(annotation)
         ? 'face-annotation-' + annotation.id
         : 'object-annotation-' + annotation.id;
 
     var identifier = getAnnotationIdentifier(annotation);
 
-    var labelText = annotation.label ? annotation.label : getUnknownPersonTitle(annotation.id);
+    var labelText = annotation.label ? annotation.label : getUnknownAnnotationTitle(annotation.id);
 
     return createAnnotationFilteringCheckbox(checkboxName, identifier, labelText);
 }
@@ -121,13 +125,13 @@ function createAnnotationColumns(annotations, titleKey) {
     var columnOne = createAnnotationColumn();
     var columnTwo = createAnnotationColumn();
 
-    annotations.forEach(function(object, index) {
-        var objectCheckbox = annotationCheckbox(object);
+    annotations.forEach(function(annotation, index) {
+        var toggleAnnotationCheckbox = annotationCheckbox(annotation);
 
         if (index % 2 === 0) {
-            columnOne.append(objectCheckbox);
+            columnOne.append(toggleAnnotationCheckbox);
         } else {
-            columnTwo.append(objectCheckbox);
+            columnTwo.append(toggleAnnotationCheckbox);
         }
     });
 
@@ -147,6 +151,39 @@ function createAnnotationFiltersContent(allAnnotationLabels) {
     return createRow(constants.elements.ANNOTATION_FILTERS_ID)
         .append(objectColumn)
         .append(faceColumn);
+}
+
+function getGenderAndAgeForLabel(annotation) {
+    return [annotation.gender, annotation.age]
+        .filter(function(extraInfo) {
+            return !!extraInfo && extraInfo.toUpperCase() !== 'UNSURE';
+        })
+        .map(function(extraInfo) {
+            return gettext(capitalizeFirstLetter(extraInfo));
+        })
+        .join(', ');
+}
+
+function getSubjectCheckboxLabel(annotation) {
+    var label = '';
+
+    if (annotation.subjectName) {
+        label += (annotation.subjectName + ' ');
+
+        if (annotation.gender || annotation.age) {
+            label += '- ';
+        }
+    }
+
+    if (annotation.gender || annotation.age) {
+        label += getGenderAndAgeForLabel(annotation);
+    }
+
+    if (label && !annotation.subjectName) {
+        label += ' (id: ' + annotation.id + ')';
+    }
+
+    return label;
 }
 
 function collectAllLabels(detections) {
@@ -176,7 +213,7 @@ function collectAllLabels(detections) {
             faces.push({
                 id: detection.id,
                 subjectId: detection.subjectId,
-                label: detection.subjectName
+                label: getSubjectCheckboxLabel(detection)
             });
         }
     });
