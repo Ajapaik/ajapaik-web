@@ -9,7 +9,6 @@ from time import sleep
 from urllib.request import urlopen
 
 import numpy
-import logging
 from PIL import Image
 from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
@@ -36,8 +35,6 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
-# from oauth2client.client import OAuth2Credentials
-# from oauth2client.django_orm import FlowField, CredentialsField
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
@@ -214,10 +211,18 @@ class Album(Model):
     original_lat = None
     original_lon = None
 
+    as_json = None
+
     class Meta:
         db_table = 'project_album'
 
     def __unicode__(self):
+        if self.as_json:
+            return json.dumps({
+                'name': self.name,
+                'gender': self.gender
+            })
+
         if self.atype == Album.PERSON and self.date_of_birth:
             return u'%s (%s %s)' % (self.name, _('b.'), self.date_of_birth)
 

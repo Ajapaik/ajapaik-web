@@ -113,7 +113,7 @@ function initializeGenderGroupSelect(defaultValue) {
 
     setDefaultValue(options, defaultValue);
 
-    new SlimSelect({
+    return new SlimSelect({
         select: '#' + constants.elements.SUBJECT_GENDER_SELECT_ID,
         allowDeselect: true,
         data: options

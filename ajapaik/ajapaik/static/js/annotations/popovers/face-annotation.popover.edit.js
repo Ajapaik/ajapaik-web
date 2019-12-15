@@ -80,9 +80,10 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
     var onAnnotationRectangleShow = function() {
         if (!hasInitializedSelects) {
             setTimeout(function() {
-                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
-                initializeGenderGroupSelect(annotation.gender);
+                var genderSelect = initializeGenderGroupSelect(annotation.gender);
                 initializeAgeGroupSelect(annotation.age);
+
+                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID, genderSelect);
 
                 hasInitializedSelects = true;
             }, 100);

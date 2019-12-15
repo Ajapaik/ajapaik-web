@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from ajapaik.ajapaik.models import Profile, Photo, Points, GeoTag, Album, Dating, DatingConfirmation, AlbumPhoto, \
     Video, PhotoComment, Source, Skip, Area, Licence, Device
+from ajapaik.ajapaik_object_recognition.object_annotation_utils import parse_boolean
 
 al.register(Profile,
             search_fields=['user__pk', 'first_name', 'last_name', 'user__email', 'fb_name', 'google_plus_name'],
@@ -131,7 +132,14 @@ class SubjectAlbumAutocomplete(AutocompleteModelBase):
     def choices_for_request(self):
         self.choices = self.choices.filter(atype__in=[Album.PERSON])
 
-        return super(SubjectAlbumAutocomplete, self).choices_for_request()
+        is_getting_as_json = parse_boolean(self.request.GET.get('get-json'))
+
+        result = super(SubjectAlbumAutocomplete, self).choices_for_request()
+
+        for choice in result:
+            choice.as_json = is_getting_as_json
+
+        return result
 
 
 al.register(SubjectAlbumAutocomplete)

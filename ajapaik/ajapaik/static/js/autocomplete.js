@@ -1,5 +1,8 @@
 'use strict';
 
+var SAVED_PERSON_GENDER_MALE = 1;
+var SAVED_PERSON_GENDER_FEMALE = 0;
+
 function getDefaultSelectedOption(defaultValue) {
     if (defaultValue) {
         var displayText = defaultValue.label;
@@ -70,7 +73,23 @@ function getNoPersonFoundResultText() {
         .html();
 }
 
-function initializePersonAutocomplete(autocompleteId) {
+function convertSavedPersonGenderToString(gender) {
+    if (gender === SAVED_PERSON_GENDER_FEMALE) {
+        return constants.fieldValues.FEMALE;
+    }
+
+    if (gender === SAVED_PERSON_GENDER_MALE) {
+        return constants.fieldValues.MALE;
+    }
+}
+
+function setGenderValueToReadOnlyIfGenderSetForExistingPerson(person, genderSelect) {
+    if (genderSelect && person && person.data.gender) {
+        genderSelect.set(person.data.gender);
+    }
+}
+
+function initializePersonAutocomplete(autocompleteId, genderSelect) {
     var noResultText = getNoPersonFoundResultText();
     var debouncedGetRequest = debounce(getRequest, 400);
 
@@ -81,6 +100,9 @@ function initializePersonAutocomplete(autocompleteId) {
         searchPlaceholder: constants.translations.autocomplete.subjectSearch.SEARCH_PLACEHOLDER,
         searchText: noResultText,
         allowDeselect: true,
+        onChange: function(person) {
+            setGenderValueToReadOnlyIfGenderSetForExistingPerson(person, genderSelect);
+        },
         ajax: function (search, callback) {
 
           if (search.length < 2) {
@@ -88,32 +110,42 @@ function initializePersonAutocomplete(autocompleteId) {
               return;
           }
 
-          var uri = '/autocomplete/SubjectAlbumAutocomplete/?q=' + encodeURI(search);
+          var uri = '/autocomplete/SubjectAlbumAutocomplete/?get-json=true&q=' + encodeURI(search);
 
           var onSuccess = function(response) {
               var data = [];
 
               var currentSelectedValue = $('#' + autocompleteId).val();
+              var hasFoundData = response.indexOf('data-value') !== -1;
 
-              response
-                  .replace(new RegExp('</span>', 'g'), ',')
-                  .replace(new RegExp('<span data-value="', 'g'), '')
-                  .replace(new RegExp('">', 'g'), '-')
-                  .split(',')
-                  .forEach(function(value) {
-                      if (!!value) {
-                          var parts = value.split('-');
-                          var personId = parts[0];
-                          var personName = parts[1];
+              if (hasFoundData) {
+                  response
+                      .replace(new RegExp('&quot;', 'g'), '"')
+                      .replace(new RegExp('</span>', 'g'), ';')
+                      .replace(new RegExp('<span data-value="', 'g'), '')
+                      .replace(new RegExp('">', 'g'), '-')
+                      .split(';')
+                      .forEach(function(value) {
+                          if (!!value) {
+                              var parts = value.split('-');
+                              var personId = parts[0];
 
-                          if (personId !== currentSelectedValue) {
-                              data.push({
-                                  value: personId,
-                                  text: personName
-                              });
+                              var personData = JSON.parse(parts[1]);
+                              var personName = personData.name;
+                              var personGender = convertSavedPersonGenderToString(personData.gender);
+
+                              if (personId !== currentSelectedValue) {
+                                  data.push({
+                                      value: personId,
+                                      text: personName,
+                                      data: {
+                                          gender: personGender
+                                      }
+                                  });
+                              }
                           }
-                      }
-                  });
+                      });
+              }
 
               callback(data);
           };

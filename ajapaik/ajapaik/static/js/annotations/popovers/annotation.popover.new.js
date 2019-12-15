@@ -127,9 +127,10 @@ function createNewDetectionRectangle(popoverId, configuration) {
     var onAnnotationRectangleShow = function() {
         if (!hasInitializedSelects) {
             setTimeout(function() {
-                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
                 initializeAgeGroupSelect();
-                initializeGenderGroupSelect();
+                var genderSelect = initializeGenderGroupSelect();
+
+                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID, genderSelect);
 
                 initializeObjectAutocomplete(
                     constants.elements.OBJECT_CLASS_SELECT_ID,
