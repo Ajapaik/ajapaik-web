@@ -34,10 +34,6 @@
     border-color: #dc3545;
 }
 
-.hide-on-select {
-    white-space: nowrap;
-}
-
 .placeholder .hide-on-select {
     display: none !important;
 }

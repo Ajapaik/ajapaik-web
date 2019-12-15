@@ -133,10 +133,12 @@ function getFormattedSelectOption(option) {
     return (
         '<div>' +
             '<div class="hide-on-select">' +
-                '<a href="' + sanitizeHTML(option.url) + '" data-type="wiki-link" target="_blank" style="padding-right: 5px;">' +
-                    '<i class="material-icons notranslate">open_in_new</i>' +
-                '</a>' +
-                '<div>' +
+                '<div style="float: left;">' +
+                    '<a href="' + sanitizeHTML(option.url) + '" data-type="wiki-link" target="_blank" style="padding-right: 5px;">' +
+                        '<i class="material-icons notranslate">open_in_new</i>' +
+                    '</a>' +
+                '</div>' +
+                '<div style="width: 92px;">' +
                     '<span style="font-weight: bold">' +
                         sanitizeHTML(option.label) +
                     '</span>' +
