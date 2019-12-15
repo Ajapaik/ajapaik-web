@@ -1,28 +1,15 @@
 {% load i18n comments static %}
 
-<div style="min-width: 100%;">
-    <div class="photo-view__accordion-header" id="headingOne">
-        <h5 class="mb-0">
-            <button
-                    class="btn btn-link photo-view__accordion-header__button collapsed"
-                    data-toggle="collapse"
-                    data-target="#filteredAnnotations"
-                    aria-expanded="false"
-                    aria-controls="filteredAnnotations"
-            >
-                {% trans "Filter annotations" %}
-                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="more">
-                    expand_more
-                </i>
-                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="less" style="display: none;">
-                    expand_less
-                </i>
-            </button>
-        </h5>
-    </div>
-
-    <div id="filteredAnnotations" class="collapse" aria-labelledby="headingOne" data-parent="#headingOne">
-        <div id="annotation-filters-wrapper" class="card-body photo-view__accordion-content">
+<div class="col-xl-6 col-lg-8 col-md-12 col-xs-12">
+    <div id="annotation-filters-wrapper">
+        <div class="row">
+            <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+                <i class="material-icons notranslate ajapaik-photo-modal-album-icon">local_offer</i>
+            </div>
+            <div class="col-10">
+                <div id="annotation-filters" class="row">
+                </div>
+            </div>
         </div>
     </div>
 

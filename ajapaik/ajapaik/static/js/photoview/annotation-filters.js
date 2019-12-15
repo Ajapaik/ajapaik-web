@@ -116,10 +116,7 @@ function createRow(providedId) {
     });
 }
 
-function createAnnotationColumns(annotations, titleKey) {
-    var title = createTitle(gettext(titleKey));
-
-    var divider = $('<hr/>');
+function createAnnotationColumns(annotations) {
     var wrapper = $('<div class="col-md-6"></div>');
 
     var columnOne = createAnnotationColumn();
@@ -136,8 +133,6 @@ function createAnnotationColumns(annotations, titleKey) {
     });
 
     return wrapper
-        .append(title)
-        .append(divider)
         .append(createRow()
                 .append(columnOne)
                 .append(columnTwo)
@@ -145,12 +140,12 @@ function createAnnotationColumns(annotations, titleKey) {
 }
 
 function createAnnotationFiltersContent(allAnnotationLabels) {
-    var objectColumn = createAnnotationColumns(allAnnotationLabels.objects, 'Objects');
     var faceColumn = createAnnotationColumns(allAnnotationLabels.faces, 'Faces');
+    var objectColumn = createAnnotationColumns(allAnnotationLabels.objects, 'Objects');
 
-    return createRow(constants.elements.ANNOTATION_FILTERS_ID)
-        .append(objectColumn)
-        .append(faceColumn);
+    return $('#' + constants.elements.ANNOTATION_FILTERS_ID)
+        .append(faceColumn)
+        .append(objectColumn);
 }
 
 function getGenderAndAgeForLabel(annotation) {
@@ -226,7 +221,7 @@ function collectAllLabels(detections) {
 
 function createAnnotationFilters(detections) {
     var NEW_FILTERS_HAVE_BEEN_DRAWN = true;
-    var filtersWrapper = $('#annotation-filters-wrapper');
+    var filtersWrapper = $('#annotation-filters');
 
     filtersWrapper.empty();
 
