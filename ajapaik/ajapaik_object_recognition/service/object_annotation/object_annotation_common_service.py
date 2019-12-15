@@ -23,6 +23,12 @@ def get_saved_label(label_wiki_data_id):
 
 def __get_saved_label(label_wiki_data_id):
     try:
-        return ObjectAnnotationClass.objects.get(wiki_data_id=label_wiki_data_id)
+        saved_label = ObjectAnnotationClass.objects.get(wiki_data_id=label_wiki_data_id)
+
+        translations = wikidata.get_label_translation(label_wiki_data_id)
+        saved_label.translations = translations
+        saved_label.save()
+
+        return saved_label
     except ObjectAnnotationClass.DoesNotExist:
         return None
