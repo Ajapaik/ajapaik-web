@@ -19,7 +19,8 @@ var WikiData = (function() {
                     return {
                         id: result.id,
                         label: result.label,
-                        description: result.description
+                        description: result.description,
+                        url: result.concepturi
                     };
                 });
 

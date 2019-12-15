@@ -132,12 +132,23 @@ function initializePersonAutocomplete(autocompleteId) {
 function getFormattedSelectOption(option) {
     return (
         '<div>' +
-            '<span style="font-weight: bold">' +
+            '<div class="hide-on-select">' +
+                '<a href="' + sanitizeHTML(option.url) + '" data-type="wiki-link" target="_blank" style="padding-right: 5px;">' +
+                    '<i class="material-icons notranslate">open_in_new</i>' +
+                '</a>' +
+                '<div>' +
+                    '<span style="font-weight: bold">' +
+                        sanitizeHTML(option.label) +
+                    '</span>' +
+                    '<br/>' +
+                    '<span style="font-size: 8pt">' +
+                        ' (' + sanitizeHTML(option.description) + ')' +
+                    '</span>' +
+                '</div>' +
+            '</div>' +
+
+            '<span class="show-on-select">' +
                 sanitizeHTML(option.label) +
-            '</span>' +
-            '<br/>' +
-            '<span style="font-size: 8pt">' +
-                ' (' + sanitizeHTML(option.description) + ')' +
             '</span>' +
         '</div>'
     );
@@ -149,7 +160,7 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
 
     var select = new SlimSelect({
         select: '#' + autocompleteId,
-        valuesUseText: true,
+        valuesUseText: false,
         placeholder: constants.translations.autocomplete.objectSearch.PLACEHOLDER,
         searchingText: constants.translations.autocomplete.objectSearch.SEARCHING_TEXT + '...',
         searchPlaceholder: constants.translations.autocomplete.objectSearch.SEARCH_PLACEHOLDER,
@@ -179,6 +190,15 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
               }
 
               callback(data);
+
+              $('[data-type="wiki-link"]').each(function() {
+                  var el = $(this);
+
+                  el.click(function(event) {
+                      event.stopPropagation();
+                  });
+
+              });
           };
 
           findByLabel(search, onSuccess);

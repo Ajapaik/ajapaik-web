@@ -33,3 +33,19 @@
     border-width: 1px;
     border-color: #dc3545;
 }
+
+.hide-on-select {
+    white-space: nowrap;
+}
+
+.placeholder .hide-on-select {
+    display: none !important;
+}
+
+.placeholder .show-on-select {
+    display: inline !important;
+}
+
+.ss-option .show-on-select {
+    display: none !important;
+}
