@@ -19,6 +19,11 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialV
             togglePopover(popoverId);
         };
 
+        var onSuccess = function() {
+            refreshAnnotations();
+            closePopover();
+        };
+
         if (initialValue === selectedObjectId) {
             closePopover();
             return;
@@ -35,7 +40,7 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialV
             wikiDataLabelId: selectedObjectId
         };
 
-        updateExistingObjectDetectionAnnotation(payload, closePopover);
+        updateExistingObjectDetectionAnnotation(payload, onSuccess);
     };
 }
 
