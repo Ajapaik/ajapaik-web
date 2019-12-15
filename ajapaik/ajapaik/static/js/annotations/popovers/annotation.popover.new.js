@@ -54,8 +54,6 @@ function toggleFaceDetection() {
     $('#' + constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID).hide();
     $('#' + constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID).show();
     $('#' + constants.elements.NEW_ANNOTATION_FORM_ID).data('selected', 'face');
-
-    document.getElementById(constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.open();
 }
 
 function toggleObjectDetection() {
