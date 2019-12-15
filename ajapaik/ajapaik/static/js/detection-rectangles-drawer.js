@@ -141,16 +141,6 @@ function refreshAnnotations() {
     getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 }
 
-function getOriginalPhotoRelations() {
-    var originalPhotoWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-    var originalPhotoHeightToWidthRelation= window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth;
-
-    return {
-        originalPhotoWidthToHeightRelation: originalPhotoWidthToHeightRelation,
-        originalPhotoHeightToWidthRelation: originalPhotoHeightToWidthRelation
-    };
-}
-
 function getScreenWidthToHeightRelation() {
     return screen.width / screen.height;
 }
