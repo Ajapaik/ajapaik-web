@@ -87,7 +87,6 @@
                 {% include "_photo_description_container.html" %}
             {% endwith %}
 
-            {% include '_annotation-filter.html' %}
         </div>
         {% if rephoto %}
         <div>
@@ -228,7 +227,8 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+    {% endif %}
+    {% include '_annotation-filter.html' %}
         <div id="ajapaik-comments-container">
         <div id="ajapaik-comment-list"></div>
             <div id="ajapaik-new-comment-form-container">

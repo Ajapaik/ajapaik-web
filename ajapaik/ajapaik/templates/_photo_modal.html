@@ -192,9 +192,6 @@
                                 {% endif %}
                             </div>
                             <!-- end of old photo info -->
-
-                            {% include '_annotation-filter.html' %}
-
                             <!-- start of new photo info -->
                             {% if photo.rephotos.all|length > 0 %}
                                 <div class="col-xs-12 col-md-12 col-lg-6" id="ajapaik-photo-modal-rephoto-info-column">
@@ -382,6 +379,7 @@
                             </div>
                         {% endif %}
                         <!-- end of albums block -->
+                        {% include '_annotation-filter.html' %}
                         <!-- start of comment block -->
                         <div class="row" id="ajapaik-comments-container">
                             <div class="col-md-12" id="ajapaik-comment-list"></div>
