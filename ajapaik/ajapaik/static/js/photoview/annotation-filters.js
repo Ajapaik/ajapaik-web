@@ -148,10 +148,14 @@ function createAnnotationFiltersContent(allAnnotationLabels) {
         .append(objectColumn);
 }
 
+function isOptionalUnsureValuePresent(value) {
+    return !!value && value.toUpperCase() !== 'UNSURE';
+}
+
 function getGenderAndAgeForLabel(annotation) {
     return [annotation.gender, annotation.age]
         .filter(function(extraInfo) {
-            return !!extraInfo && extraInfo.toUpperCase() !== 'UNSURE';
+            return isOptionalUnsureValuePresent(extraInfo);
         })
         .map(function(extraInfo) {
             return gettext(capitalizeFirstLetter(extraInfo));
@@ -165,7 +169,7 @@ function getSubjectCheckboxLabel(annotation) {
     if (annotation.subjectName) {
         label += (annotation.subjectName + ' ');
 
-        if (annotation.gender || annotation.age) {
+        if (isOptionalUnsureValuePresent(annotation.gender) || isOptionalUnsureValuePresent(annotation.age)) {
             label += '- ';
         }
     }
