@@ -114,8 +114,12 @@ function createObjectAssigningPopoverContent(popoverId) {
     );
 }
 
-function validateRequiredNewObjectField(selectedOption) {
+function validateRequiredNewObjectFieldOrFocusSubmit(selectedOption) {
     toggleNewObjectFieldError(!selectedOption.value);
+
+    if (selectedOption.value) {
+        $('#' + constants.elements.NEW_ANNOTATION_FORM_ID + ' [type="submit"]').focus();
+    }
 }
 
 function createNewDetectionRectangle(popoverId, configuration) {
@@ -128,7 +132,11 @@ function createNewDetectionRectangle(popoverId, configuration) {
                 initializeAgeGroupSelect();
                 initializeGenderGroupSelect();
 
-                initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, true, validateRequiredNewObjectField);
+                initializeObjectAutocomplete(
+                    constants.elements.OBJECT_CLASS_SELECT_ID,
+                    true,
+                    validateRequiredNewObjectFieldOrFocusSubmit
+                );
 
                 hasInitializedSelects = true;
             }, 100);
