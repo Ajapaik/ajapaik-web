@@ -6,24 +6,24 @@ var PADDING_FROM_SCREEN_EDGE = 5;
 function getToggleButton(leftLabel, rightLabel, onLeftClick, onRightClick) {
     var wrapper = $('<div>', {class: 'switch switch--horizontal'});
 
-    var objectDetectionInput = $('<input>', {
+    var leftInput = $('<input>', {
         id: 'radio-a',
         type: 'radio',
         name: 'first-switch',
         checked: true
     }).on('click', onLeftClick);
 
-    var objectDetectionLabel = $('<label>', {
+    var leftLabelElement = $('<label>', {
         for: 'radio-a'
     }).on('click', onLeftClick).append(leftLabel);
 
-    var faceDetectionInput = $('<input>', {
+    var rightInput = $('<input>', {
         id: 'radio-b',
         type: 'radio',
         name: 'first-switch'
     }).on('click', onRightClick);
 
-    var faceDetectionLabel = $('<label>', {
+    var rightLabelElement = $('<label>', {
         for: 'radio-b'
     }).on('click', onRightClick).append(rightLabel);
 
@@ -35,10 +35,10 @@ function getToggleButton(leftLabel, rightLabel, onLeftClick, onRightClick) {
     );
 
     return wrapper
-        .append(objectDetectionInput)
-        .append(objectDetectionLabel)
-        .append(faceDetectionInput)
-        .append(faceDetectionLabel)
+        .append(leftInput)
+        .append(leftLabelElement)
+        .append(rightInput)
+        .append(rightLabelElement)
         .append(toggleOutside);
 }
 

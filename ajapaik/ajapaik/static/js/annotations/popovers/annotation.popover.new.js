@@ -70,7 +70,7 @@ function createObjectAssigningPopoverContent(popoverId) {
 
     var objectAutocomplete = getObjectsSelect();
     var controlButtons = getSubmitAndCancelButtons(popoverId, true);
-    var detectionTypeToggle = getToggleButton(objectLabel, faceLabel, toggleObjectDetection, toggleFaceDetection);
+    var detectionTypeToggle = getToggleButton(faceLabel, objectLabel, toggleFaceDetection, toggleObjectDetection);
     var autocomplete = getPersonAutoComplete(true);
     var ageGroupSelect = getAgeGroupSelect();
     var genderSelect = getGenderGroupSelect();
@@ -85,12 +85,11 @@ function createObjectAssigningPopoverContent(popoverId) {
 
     var wrapper = $('<div style="padding-top: 5px;"></div>');
     var subjectFieldsWrapper = $('<div>', {
-        id: constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID,
-        style: 'display: none'
+        id: constants.elements.ADD_NEW_FACE_FIELDS_WRAPPER_ID
     });
     var objectSelectWrapper = $('<div>', {
         id: constants.elements.NEW_OBJECT_SELECT_FIELDS_GROUP_WRAPPER_ID,
-        style: 'padding-bottom: 15px;'
+        style: 'padding-bottom: 15px; display: none;'
     });
     var errorMessage = $('<div class="invalid-feedback">')
         .append(constants.translations.errors.OBJECT_REQUIRED);
