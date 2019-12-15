@@ -641,7 +641,7 @@
         rephotoContainer = $('#ajapaik-modal-rephoto-container'),
         similarPhotoContainer = $('#ajapaik-modal-similar-photo-container');
             mainPhotoContainer.hover(function () {
-                if (!window.isMobile) {
+                if (!window.isMobile && !window.isAnnotating) {
                     var $this = $(this);
                     $this.find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
                     $this.find('.ajapaik-photo-modal-previous-button').show("fade", 250);

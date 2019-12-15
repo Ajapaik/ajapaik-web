@@ -143,6 +143,8 @@ var ImageAreaSelector = (function () {
         $(window).off('keydown', cancelListenerOnAreaSelect);
 
         resetValues();
+
+        window.isAnnotating = false;
     }
 
     function getClickListener(onSelect) {
@@ -151,7 +153,6 @@ var ImageAreaSelector = (function () {
             isSelecting = !isSelecting;
 
             if (isSelecting) {
-                hideControlsOnImage();
                 hideDetectionRectanglesWithoutOpenPopover();
                 markStartingSizesAndPositions(event);
                 createRectangle();
@@ -215,6 +216,9 @@ var ImageAreaSelector = (function () {
         },
         startImageAreaSelection: function (onSelect, onCancel) {
             getCurrentImageArea().css({cursor: 'crosshair'});
+            window.isAnnotating = true;
+
+            hideControlsOnImage();
 
             createOverlay();
             listenForSelectionCancel(onCancel);
