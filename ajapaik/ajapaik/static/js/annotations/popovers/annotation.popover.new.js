@@ -80,7 +80,7 @@ function createObjectAssigningPopoverContent(popoverId) {
     var form = $('<form>', {
         id: constants.elements.NEW_ANNOTATION_FORM_ID,
         submit: getRectangleSubmitFunction(popoverId),
-        'data-selected': 'object'
+        'data-selected': 'face'
     });
 
     var wrapper = $('<div style="padding-top: 5px;"></div>');
