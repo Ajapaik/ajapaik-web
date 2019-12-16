@@ -27,9 +27,10 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
         photo = Photo.objects.get(pk=photo_id)
         new_face_annotation_id = add_person_rectangle(request.POST.copy(), photo, request.user.id)
 
+        add_subject_data(new_face_annotation_id, add_detection_annotation, request)
+
         if subject_id is not None and subject_id > 0:
             save_detected_face(new_face_annotation_id, subject_id, request.user.id, request.user.profile)
-            add_subject_data(new_face_annotation_id, add_detection_annotation, request)
 
 
 def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
