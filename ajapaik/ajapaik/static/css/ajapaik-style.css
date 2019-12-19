@@ -2547,3 +2547,16 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 .ajapaik-photoview-similar-image-row:hover .ajapaik-compare-similar-overlay-button {
   opacity: 1 !important;
 }
+
+
+#ajapaikMapTutorialModal {
+  z-index: 9999;
+}
+
+#ajapaikMapTutorialModal > .modal-dialog > .modal-content {
+  border-radius: 20%;
+  min-height: 100px;
+  max-height: 75%;
+  border-radius: 50px;
+  border: 10px black solid;
+}
