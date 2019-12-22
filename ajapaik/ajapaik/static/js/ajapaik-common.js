@@ -437,7 +437,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             } else {
                 img.removeClass('ajapaik-photo-flipped');
             }
-            window.BigScreen.request(div[0]);
+            openMainPhotoToFullScreen(div);
             fullscreenEnabled = true;
             if (window.isGame) {
                 _gaq.push(['_trackEvent', 'Game', 'Full-screen']);

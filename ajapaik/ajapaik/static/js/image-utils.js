@@ -178,3 +178,17 @@ function getDetectionRectangleScaledForOriginalImageSize(popoverRectangleId, ima
         y2: rectangle.y2 * heightScale
     };
 }
+
+function openMainPhotoToFullScreen(fullScreenContainer) {
+    window.fullscreenEnabled = true;
+
+    window.BigScreen.request(
+        fullScreenContainer[0],
+        function() {
+            setTimeout(function() {
+                drawAnnotationContainer(fullScreenContainer);
+                copyAnnotateButtonToFullScreenView();
+            }, 100);
+        }
+    );
+}
