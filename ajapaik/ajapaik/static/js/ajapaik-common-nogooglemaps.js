@@ -1081,15 +1081,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         $('#ajapaik-curator-album-filter').val(null);
     });
 
-    // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
-    BigScreen.onexit = function () {
-        if (window.lastScrollPosition) {
-            setTimeout(function () {
-                $(window).scrollTop(window.lastScrollPosition);
-                window.lastScrollPosition = null;
-            }, 500);
-        }
-    };
+    addFullScreenExitListener();
 
     $(document).on('click', '#ajapaik-header-album-more', function (e) {
         e.preventDefault();

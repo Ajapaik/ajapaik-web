@@ -192,3 +192,29 @@ function openMainPhotoToFullScreen(fullScreenContainer) {
         }
     );
 }
+
+function handleChromeJumping() {
+    // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
+
+    if (window.lastScrollPosition) {
+        setTimeout(function () {
+            $(window).scrollTop(window.lastScrollPosition);
+            window.lastScrollPosition = null;
+        }, 500);
+    }
+}
+
+function handleFullScreenClose(additionalFunction) {
+    window.fullscreenEnabled = false;
+    handleChromeJumping();
+
+    if (additionalFunction) {
+        additionalFunction();
+    }
+}
+
+function addFullScreenExitListener(additionalFunction) {
+     window.BigScreen.onexit = function() {
+         handleFullScreenClose(additionalFunction);
+     };
+}

@@ -198,11 +198,10 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
     if (!isRedraw) {
         window.addEventListener('resize', onWindowResize);
 
-        window.BigScreen.onexit = function() {
-            window.fullscreenEnabled = false;
+        addFullScreenExitListener(function() {
             window.removeEventListener('resize', onWindowResize);
             moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
-        };
+        });
     }
 }
 
