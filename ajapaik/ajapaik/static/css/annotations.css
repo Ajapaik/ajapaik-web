@@ -3,6 +3,7 @@
     left: 50%;
     min-width: 100%;
     transform: translateX(-50%);
+    text-align: center;
 
     background-color: rgba(211, 211, 211, 0.7);
 }
