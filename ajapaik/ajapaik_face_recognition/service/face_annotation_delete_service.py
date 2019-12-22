@@ -14,7 +14,7 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
     is_deletable = object_annotation_utils.is_annotation_deletable(
         user_id,
         face_detection_annotation.created,
-        face_detection_annotation.user_id
+        face_detection_annotation.user
     )
 
     if is_deletable:

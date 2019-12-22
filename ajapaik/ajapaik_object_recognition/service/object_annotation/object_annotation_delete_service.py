@@ -14,7 +14,7 @@ def remove_annotation(annotation_remove_request: AnnotationRemove) -> bool:
     is_deletable = object_annotation_utils.is_annotation_deletable(
         user_id,
         object_detection_annotation.created_on,
-        object_detection_annotation.user_id
+        object_detection_annotation.user
     )
 
     if is_deletable:

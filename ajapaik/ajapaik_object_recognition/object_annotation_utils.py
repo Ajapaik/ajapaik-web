@@ -50,8 +50,13 @@ def transform_annotation_queryset(user_id, query_set, transform_function):
     return transformed_collection
 
 
-def is_annotation_deletable(user_id: int, created_on, created_by_id: int):
+def is_annotation_deletable(user_id: int, created_on, created_by):
     global DELETION_EXPIRATION_THRESHOLD_IN_HOURS
+
+    if created_by is None:
+        return False
+
+    created_by_id = created_by.id
 
     current_time = timezone.now()
     time_difference = current_time - created_on

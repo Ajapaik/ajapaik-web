@@ -19,7 +19,7 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
     is_annotation_editable = object_annotation_utils.is_annotation_deletable(
         request.user_id,
         annotation.created,
-        annotation.user_id
+        annotation.user
     )
 
     if not is_annotation_editable:
