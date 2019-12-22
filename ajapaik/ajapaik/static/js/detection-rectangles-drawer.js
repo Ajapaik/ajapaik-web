@@ -199,6 +199,7 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
         window.addEventListener('resize', onWindowResize);
 
         window.BigScreen.onexit = function() {
+            window.fullscreenEnabled = false;
             window.removeEventListener('resize', onWindowResize);
             moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
         };
