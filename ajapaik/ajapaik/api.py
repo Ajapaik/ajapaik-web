@@ -754,9 +754,12 @@ class RephotoUpload(APIView):
         print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
 
-        user_profile = request.user.profile if request.user.is_authenticated else None 
+        if not request.user.is_authenticated:
+            return Response({
+                'error': RESPONSE_STATUSES['ACCESS_DENIED']
+            })
 
-        if user_profile and form.is_valid():
+        if form.is_valid():
             user_profile = request.user.profile
             print('form.isvalid()', file=sys.stderr)
             id = form.cleaned_data['id']
@@ -887,9 +890,16 @@ class RephotoUpload(APIView):
             original_photo.save()
             user_profile.update_rephoto_score()
             user_profile.save()
+
+            rephoto_count = Photo.objects.filter(
+                rephoto_of_id=photo.id
+            ).count()
+
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'id': new_rephoto.pk,
+                'rephoto_of_id': photo.id,
+                'rephoto_count': rephoto_count,
             })
         else:
             print('rephotoupload is_valid() fails', file=sys.stderr)
@@ -1088,6 +1098,8 @@ class PhotosSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoSearchForm(data)
         if form.is_valid():
+            lon = round(form.cleaned_data["longitude"], 4)
+            lat = round(form.cleaned_data["latitude"], 4)
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
             profile=user.profile if user.is_authenticated else None
@@ -1101,6 +1113,12 @@ class PhotosSearch(AjapaikAPIView):
                 photos = photos.filter(
                     rephoto_of__isnull=False
                 )
+
+            if lat and lon:
+                ref_location = Point(lon, lat)
+                photos=photos.distance(ref_location) \
+                    .order_by('distance')
+
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 profile
@@ -1128,6 +1146,8 @@ class PhotosInAlbumSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoInAlbumSearchForm(data)
         if form.is_valid():
+            lon = round(form.cleaned_data["longitude"], 4)
+            lat = round(form.cleaned_data["latitude"], 4)
             search_phrase = form.cleaned_data['query']
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
@@ -1145,6 +1165,15 @@ class PhotosInAlbumSearch(AjapaikAPIView):
             else:
                 # Old photos only.
                 photos = photos.filter(rephoto_of__isnull=True)
+
+
+            if lat and lon:
+                print("Sorting by distance");
+                ref_location = Point(lon, lat)
+                photos=photos.distance(ref_location) \
+                    .order_by('distance')
+
+
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 profile
@@ -1173,6 +1202,9 @@ class UserRephotosSearch(AjapaikAPIView):
         form = forms.ApiUserRephotoSearchForm(data)
         if form.is_valid():
             if user.is_authenticated:
+                lon = round(form.cleaned_data["longitude"], 4)
+                lat = round(form.cleaned_data["latitude"], 4)
+
                 search_phrase = form.cleaned_data['query']
                 sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1181,12 +1213,18 @@ class UserRephotosSearch(AjapaikAPIView):
                     rephoto_of__isnull=False,
                     user=user.profile
                 )
+
+                if lat and lon:
+                    ref_location = Point(lon, lat)
+                    photos=photos.distance(ref_location) \
+                        .order_by('distance')
+
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
                     user.profile
                 )
 
-                return Response({
+	                return Response({
                     'error': RESPONSE_STATUSES['OK'],
                     'photos': serializers.PhotoSerializer(
                         instance=photos,
@@ -1378,12 +1416,22 @@ class PhotosWithUserRephotos(AjapaikAPIView):
         form = forms.ApiUserRephotosForm(data)
         if form.is_valid():
             if user.is_authenticated:
+                lon = round(form.cleaned_data["longitude"], 4)
+                lat = round(form.cleaned_data["latitude"], 4)
                 start = form.cleaned_data["start"] or 0
                 end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
 
                 photos = Photo.objects.filter(
                     rephotos__user=user.profile
-                ).order_by('created')[start:end]
+                )
+
+                if lat and lon:
+                    ref_location = Point(lon, lat)
+                    photos=photos.distance(ref_location) \
+                        .order_by('distance')[start:end]
+                else:
+                    photos=photos.order_by('rephotos__created')[start:end]
+
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
