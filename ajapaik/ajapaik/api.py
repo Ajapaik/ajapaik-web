@@ -891,15 +891,21 @@ class RephotoUpload(APIView):
             user_profile.update_rephoto_score()
             user_profile.save()
 
-            rephoto_count = Photo.objects.filter(
-                rephoto_of_id=photo.id
-            ).count()
+            photos = Photo.objects.filter(pk=photo.id)
+
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                user_profile
+            )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'id': new_rephoto.pk,
-                'rephoto_of_id': photo.id,
-                'rephoto_count': rephoto_count,
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
             })
         else:
             print('rephotoupload is_valid() fails', file=sys.stderr)
