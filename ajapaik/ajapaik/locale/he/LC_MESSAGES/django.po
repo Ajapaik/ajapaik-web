@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:05+0000\n"
+"PO-Revision-Date: 2019-12-26 11:30:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -32,15 +32,15 @@ msgstr "הפיכת צבעים"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "Bounding box must be set"
+msgstr "יש להגדיר תיבת גבולות"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "Bounding box must have 4 comma-separated members"
+msgstr "לתיבת הגבולות צריכות להיות ארבעה איברים מופרדים בפסיק"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr "Bounding box values must be numbers"
+msgstr "ערכי תיבת הגבולות צריכים להיות מספרים"
 
 #: ajapaik/ajapaik/forms.py:16
 msgid "First name"
@@ -48,26 +48,26 @@ msgstr "שם פרטי"
 
 #: ajapaik/ajapaik/forms.py:17
 msgid "Last name"
-msgstr "Last name"
+msgstr "שם משפחה"
 
 #: ajapaik/ajapaik/forms.py:91 ajapaik/ajapaik/forms.py:156
 #: ajapaik/ajapaik/forms.py:177
 msgid "Choose area"
-msgstr "Choose area"
+msgstr "נא לבחור אזור"
 
 #: ajapaik/ajapaik/forms.py:97 ajapaik/ajapaik/forms.py:155
 #: ajapaik/ajapaik/forms.py:168 ajapaik/ajapaik/forms.py:176
 #: ajapaik/ajapaik/forms.py:185
 msgid "Choose album"
-msgstr "Choose album"
+msgstr "נא לבחרו אלבום"
 
 #: ajapaik/ajapaik/forms.py:172 ajapaik/ajapaik/forms.py:179
 msgid "Choose photo"
-msgstr "נא לבחור תמונות"
+msgstr "נא לבחור תמונה"
 
 #: ajapaik/ajapaik/forms.py:201 ajapaik/ajapaik/forms.py:220
 msgid "Choose parent album"
-msgstr "Choose parent album"
+msgstr "נא לבחור אלבום־אב"
 
 #: ajapaik/ajapaik/forms.py:376 ajapaik/ajapaik/forms.py:424
 #: ajapaik/ajapaik/templates/_mode_select.html:24
@@ -89,35 +89,35 @@ msgstr "תמונה חסרה"
 
 #: ajapaik/ajapaik/forms.py:393
 msgid "Missing description"
-msgstr "Missing description"
+msgstr "תיאור חסר"
 
 #: ajapaik/ajapaik/forms.py:395
 msgid "Missing licence"
-msgstr "Missing licence"
+msgstr "רישיון חסר"
 
 #: ajapaik/ajapaik/forms.py:409 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
-msgstr "Parent album"
+msgstr "אלבום־אב"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
-msgstr ""
+msgstr "מיקום"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "If this album is tied to a certain location, specify here"
-msgstr "If this album is tied to a certain location, specify here"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Album type"
-msgstr "Album type"
+msgstr "סוג האלבום"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Anything else"
-msgstr "Anything else"
+msgstr "כל דבר אחר"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Person"
-msgstr "Person"
+msgstr "אדם"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/models.py:182
 #: ajapaik/ajapaik/templates/curator.html:69
@@ -131,23 +131,23 @@ msgstr "תיאור"
 
 #: ajapaik/ajapaik/forms.py:420 ajapaik/ajapaik/models.py:188
 msgid "Is public"
-msgstr "Is public"
+msgstr "ציבורי"
 
 #: ajapaik/ajapaik/forms.py:421 ajapaik/ajapaik/models.py:189
 msgid "Is open"
-msgstr "Is open"
+msgstr "פתוח"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Email address"
-msgstr "Email address"
+msgstr "כתובת דוא\"ל"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Nothing to change."
-msgstr "Nothing to change."
+msgstr "אין מה לשנות."
 
 #: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:23
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:49
@@ -161,11 +161,11 @@ msgstr "נקבה"
 
 #: ajapaik/ajapaik/models.py:207
 msgid "Wikidata identifier"
-msgstr "Wikidata identifier"
+msgstr "מזהה ויקינתונים"
 
 #: ajapaik/ajapaik/models.py:222
 msgid "b."
-msgstr "b."
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:338
 msgid "Image"
@@ -173,28 +173,28 @@ msgstr "תמונה"
 
 #: ajapaik/ajapaik/models.py:354
 msgid "Author"
-msgstr "Author"
+msgstr "יוצר"
 
 #: ajapaik/ajapaik/models.py:846 ajapaik/ajapaik/models.py:947
 msgid "Different"
-msgstr "Different"
+msgstr "שונה"
 
 #: ajapaik/ajapaik/models.py:847 ajapaik/ajapaik/models.py:948
 msgid "Similar"
-msgstr "Similar"
+msgstr "דומה"
 
 #: ajapaik/ajapaik/models.py:848 ajapaik/ajapaik/models.py:949
 msgid "Duplicate"
-msgstr "Duplicate"
+msgstr "כפול"
 
 #: ajapaik/ajapaik/models.py:1020
 msgid "Geotag"
-msgstr "Geotag"
+msgstr "תג גאוגרפי"
 
 #: ajapaik/ajapaik/models.py:1021 ajapaik/ajapaik/models.py:1084
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr "Rephoto"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1022
 msgid "Photo upload"
@@ -202,23 +202,23 @@ msgstr "העלאת תמונה"
 
 #: ajapaik/ajapaik/models.py:1023
 msgid "Photo curation"
-msgstr "Photo curation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1024
 msgid "Photo re-curation"
-msgstr "Photo re-curation"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1025
 msgid "Dating"
-msgstr "Dating"
+msgstr "תארוך"
 
 #: ajapaik/ajapaik/models.py:1026
 msgid "Dating confirmation"
-msgstr "Dating confirmation"
+msgstr "אישור תארוך"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Film still"
-msgstr "Film still"
+msgstr "תמונה מסרט"
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
@@ -238,7 +238,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
-msgstr "Map"
+msgstr "מפה"
 
 #: ajapaik/ajapaik/models.py:1063
 msgid "EXIF"
@@ -250,7 +250,7 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1065
 msgid "Confirmation"
-msgstr "Confirmation"
+msgstr "אישור"
 
 #: ajapaik/ajapaik/models.py:1066
 msgid "StreetView"
@@ -258,11 +258,11 @@ msgstr "StreetView"
 
 #: ajapaik/ajapaik/models.py:1067
 msgid "Source geotag"
-msgstr "Source geotag"
+msgstr ""
 
 #: ajapaik/ajapaik/models.py:1068
 msgid "Android app"
-msgstr "Android app"
+msgstr "יישום אנדרואיד"
 
 #: ajapaik/ajapaik/models.py:1079
 msgid "Game"
@@ -270,27 +270,27 @@ msgstr "משחק"
 
 #: ajapaik/ajapaik/models.py:1080
 msgid "Map view"
-msgstr "Map view"
+msgstr "תצוגת מפה"
 
 #: ajapaik/ajapaik/models.py:1081
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "גלריה"
 
 #: ajapaik/ajapaik/models.py:1082
 msgid "Permalink"
-msgstr "Permalink"
+msgstr "קישור קבוע"
 
 #: ajapaik/ajapaik/models.py:1083
 msgid "Source"
-msgstr "Source"
+msgstr "מקור"
 
 #: ajapaik/ajapaik/models.py:1088
 msgid "Google map"
-msgstr "Google map"
+msgstr "מפת גוגל"
 
 #: ajapaik/ajapaik/models.py:1089
 msgid "Google satellite"
-msgstr "Google satellite"
+msgstr "לוויין גוגל"
 
 #: ajapaik/ajapaik/models.py:1090
 msgid "OpenStreetMap"
@@ -306,19 +306,19 @@ msgstr "אין מפה"
 
 #: ajapaik/ajapaik/models.py:1214 ajapaik/ajapaik/models.py:1216
 msgid "Anonymous user"
-msgstr "Anonymous user"
+msgstr "משתמש אלמוני"
 
 #: ajapaik/ajapaik/models.py:1487
 msgid "Day"
-msgstr "Day"
+msgstr "יום"
 
 #: ajapaik/ajapaik/models.py:1488
 msgid "Month"
-msgstr "Month"
+msgstr "חודש"
 
 #: ajapaik/ajapaik/models.py:1489
 msgid "Year"
-msgstr "Year"
+msgstr "שנה"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 msgid "Page Not Found"
@@ -326,15 +326,15 @@ msgstr "הדף לא נמצא"
 
 #: ajapaik/ajapaik/templates/404.html:14
 msgid "Back"
-msgstr "Back"
+msgstr "חזרה"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:7
 msgid "Collection info"
-msgstr "Collection info"
+msgstr "מידע על האוסף"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:17
 msgid "System error"
-msgstr "System error"
+msgstr "שגיאת מערכת"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:31
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -344,38 +344,38 @@ msgstr "System error"
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:18
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:19
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "ביטול"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
 msgid "Submit"
-msgstr "Submit"
+msgstr "שליחה"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr "Recent activity leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Album %(album_name)s leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "All time leaderboard"
-msgstr "All time leaderboard"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
-msgstr "Original photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr "Details for one-time donations"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
@@ -481,7 +481,7 @@ msgstr "Try the Brave browser - it's based on Chromium and you can award your fa
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
-msgstr "Filtering"
+msgstr "סינון"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
@@ -549,11 +549,11 @@ msgstr "Choose 2 parameters"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:58
 msgid "or"
-msgstr "or"
+msgstr "או"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:64
 msgid "and"
-msgstr "and"
+msgstr "וגם"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:65
 msgid "1 of"
@@ -592,7 +592,7 @@ msgstr "See also – Sift.pics"
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "יציאה"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
@@ -1088,7 +1088,7 @@ msgstr "Messages"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:33
 msgid "Menu"
-msgstr "Menu"
+msgstr "תפריט"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
@@ -1924,13 +1924,13 @@ msgstr "Delete annotation"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"
-msgstr "Estonian"
+msgstr "אסטונית"
 
 #: ajapaik/settings/default.py:73
 msgid "English"
-msgstr "English"
+msgstr "אנגלית"
 
 #: ajapaik/settings/default.py:74
 msgid "Finnish"
-msgstr "Finnish"
+msgstr "פינית"
 
