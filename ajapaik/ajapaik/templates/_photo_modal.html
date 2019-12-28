@@ -560,8 +560,16 @@
         });
 
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
-        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', showDetectionRectangles);
-        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', hideDetectionRectanglesWithoutOpenPopover);
+        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', function() {
+            if (!window.isAnnotating) {
+                showDetectionRectangles();
+            }
+        });
+        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function() {
+            if (!window.isAnnotating) {
+                hideDetectionRectanglesWithoutOpenPopover();
+            }
+        });
 
         window.startDater = function (photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
