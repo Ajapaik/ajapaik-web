@@ -53,10 +53,13 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
         'id': object_annotation.id,
         'wiki_data_id': object_annotation.detected_object.wiki_data_id,
         'translations': object_annotation.detected_object.translations,
-        'is_deletable': object_annotation_utils.is_annotation_deletable(
+        'is_editable': object_annotation_utils.is_object_annotation_editable(
             user_id,
-            object_annotation.created_on,
-            object_annotation.user
+            object_annotation
+        ),
+        'is_deletable': object_annotation_utils.is_object_annotation_deletable(
+            user_id,
+            object_annotation
         ),
         'is_added_by_current_user': object_annotation.user is not None and user_id == object_annotation.user.id,
         'has_user_given_feedback': object_annotation.feedback.all().count() > 0,
@@ -97,10 +100,13 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
         'id': face_annotation.id,
         'subject_id': subject_id,
         'subject_name': face_annotation.get_subject_name(),
-        'is_deletable': object_annotation_utils.is_annotation_deletable(
+        'is_editable': object_annotation_utils.is_face_annotation_editable(
             user_id,
-            face_annotation.created,
-            face_annotation.user
+            face_annotation
+        ),
+        'is_deletable': object_annotation_utils.is_face_annotation_deletable(
+            user_id,
+            face_annotation
         ),
         'is_added_by_current_user': face_annotation.user is not None and user_id == face_annotation.user.id,
         'gender': object_annotation_utils.parse_gender_to_constant(original_user_set_gender),

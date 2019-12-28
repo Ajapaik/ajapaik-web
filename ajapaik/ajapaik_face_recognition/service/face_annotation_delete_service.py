@@ -7,14 +7,12 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
     user_id = annotation_remove_request.user_id
 
     face_detection_annotation = FaceRecognitionRectangle.objects.get(
-        pk=annotation_remove_request.annotation_id,
-        user_id=user_id
+        pk=annotation_remove_request.annotation_id
     )
 
-    is_deletable = object_annotation_utils.is_annotation_deletable(
+    is_deletable = object_annotation_utils.is_face_annotation_deletable(
         user_id,
-        face_detection_annotation.created,
-        face_detection_annotation.user
+        face_detection_annotation
     )
 
     if is_deletable:

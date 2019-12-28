@@ -57,10 +57,15 @@ function getDeleteObjectAnnotationFunction(popoverId, annotationId) {
 
 function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) {
     var buttons = [
-        getSubmitButton('margin-top: 10px;'),
-        getDeleteButton(getDeleteObjectAnnotationFunction(popoverId, annotation.id)),
-        getCancelButton(popoverId)
+        getSubmitButton('margin-top: 10px;')
     ];
+
+    if (annotation.isDeletable) {
+        buttons.push(getDeleteButton(getDeleteObjectAnnotationFunction(popoverId, annotation.id)));
+    }
+
+    buttons.push(getCancelButton(popoverId));
+
     var buttonGroup = getButtonGroup(buttons);
 
     var select = getObjectsSelect(false, {

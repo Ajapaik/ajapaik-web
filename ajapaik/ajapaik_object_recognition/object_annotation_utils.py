@@ -2,6 +2,8 @@ import json
 from django.http import QueryDict
 from django.utils import timezone
 
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 
 DELETION_EXPIRATION_THRESHOLD_IN_HOURS = 24
 
@@ -50,19 +52,57 @@ def transform_annotation_queryset(user_id, query_set, transform_function):
     return transformed_collection
 
 
-def is_annotation_deletable(user_id: int, created_on, created_by):
+def is_object_annotation_editable(user_id: int, object_annotation: ObjectDetectionAnnotation):
+    created_on = object_annotation.created_on
+    created_by_id = object_annotation.user_id
+
+    return is_annotation_editable_for_user(user_id, created_on, created_by_id)
+
+
+def is_object_annotation_deletable(user_id: int, object_annotation: ObjectDetectionAnnotation):
+    created_on = object_annotation.created_on
+    created_by_id = object_annotation.user_id
+
+    return is_annotation_editable_for_user(user_id, created_on, created_by_id)
+
+
+def is_face_annotation_deletable(user_id: int, annotation: FaceRecognitionRectangle):
+    created_on = annotation.created
+    created_by = annotation.user
+    name = annotation.get_subject_name()
+
+    is_without_name = name is None
+    is_created_by_system = created_by is None
+
+    return is_without_name and is_created_by_system or \
+           is_created_by_system and is_annotation_editable_time_wise(created_on) or \
+           not is_created_by_system and is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
+
+
+def is_face_annotation_editable(user_id: int, annotation: FaceRecognitionRectangle):
+    created_on = annotation.created
+    created_by = annotation.user
+
+    is_without_name = annotation.get_subject_name() is None
+    is_created_by_system = created_by is None
+
+    return is_without_name or \
+           is_created_by_system and is_annotation_editable_time_wise(created_on) or \
+           is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
+
+
+def is_annotation_editable_for_user(user_id: int, created_on, created_by_id):
+    return user_id == created_by_id and is_annotation_editable_time_wise(created_on)
+
+
+def is_annotation_editable_time_wise(created_on):
     global DELETION_EXPIRATION_THRESHOLD_IN_HOURS
-
-    if created_by is None:
-        return False
-
-    created_by_id = created_by.id
 
     current_time = timezone.now()
     time_difference = current_time - created_on
     time_difference_in_hours = time_difference.total_seconds() / 3600
 
-    return user_id == created_by_id and time_difference_in_hours <= DELETION_EXPIRATION_THRESHOLD_IN_HOURS
+    return time_difference_in_hours <= DELETION_EXPIRATION_THRESHOLD_IN_HOURS
 
 
 def parse_boolean(value):

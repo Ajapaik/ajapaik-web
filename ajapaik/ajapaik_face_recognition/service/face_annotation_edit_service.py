@@ -11,15 +11,11 @@ from ajapaik.ajapaik_object_recognition.object_annotation_utils import AGE_NOT_S
 
 
 def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: HttpRequest) -> bool:
-    annotation = FaceRecognitionRectangle.objects.get(
-        pk=request.annotation_id,
-        user_id=request.user_id
-    )
+    annotation = FaceRecognitionRectangle.objects.get(pk=request.annotation_id)
 
-    is_annotation_editable = object_annotation_utils.is_annotation_deletable(
+    is_annotation_editable = object_annotation_utils.is_face_annotation_editable(
         request.user_id,
-        annotation.created,
-        annotation.user
+        annotation
     )
 
     if not is_annotation_editable:
@@ -35,7 +31,9 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
             user_guess.subject_album = new_subject
             user_guess.save()
 
-    update_user_guesses(http_request, annotation.id, request)
+    if request.user_id == annotation.user_id:
+        update_user_guesses(http_request, annotation.id, request)
+
     annotation.save()
 
     return True

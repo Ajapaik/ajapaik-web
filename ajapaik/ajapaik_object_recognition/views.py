@@ -33,7 +33,7 @@ def update_annotation(request: HttpRequest) -> HttpResponse:
 
     object_annotation_update_request = ObjectAnnotationUpdateRequest(QueryDict(request.body))
 
-    object_annotation_modify_service.update_object_annotation(object_annotation_update_request)
+    object_annotation_modify_service.update_object_annotation(request.user.id, object_annotation_update_request)
 
     return response.success()
 

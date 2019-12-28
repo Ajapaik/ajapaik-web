@@ -52,7 +52,7 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
     var configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
 
     if (annotation.wikiDataId) {
-        if (annotation.isDeletable) {
+        if (annotation.isEditable) {
             return getDetectedObjectModifyRectangle(
                 'ajapaik-object-modify-rectangle-' + annotation.id,
                 annotation,
@@ -66,7 +66,7 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
             configuration
         );
     } else {
-        if (annotation.isDeletable) {
+        if (annotation.isEditable) {
             return getDetectedFaceModifyRectangle(
                 'ajapaik-face-modify-rectangle-' + annotation.id,
                 annotation,

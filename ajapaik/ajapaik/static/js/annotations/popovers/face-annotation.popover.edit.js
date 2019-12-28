@@ -50,16 +50,23 @@ function getDefaultValue(detectionRectangle) {
 
 function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
     var defaultValue = getDefaultValue(annotation);
-    var changeExistingFaceLabel = constants.translations.popover.labels.CHANGE_PERSON_NAME + ':';
+    var faceLabel = annotation.isAddedByCurrentUser
+        ? constants.translations.popover.labels.CHANGE_PERSON_NAME
+        : constants.translations.popover.labels.ADD_PERSON_NAME;
+    var changeExistingFaceLabel = faceLabel + ':';
 
     var autocomplete = getPersonAutoComplete(true, 'width: 180px;', defaultValue, changeExistingFaceLabel);
     var ageGroupSelect = getAgeGroupSelect(constants.translations.selectAge.label.CHANGE_AGE);
     var genderGroupSelect = getGenderGroupSelect(constants.translations.selectGender.label.CHANGE_GENDER);
     var buttons = [
-        getSubmitButton('margin-top: 10px;'),
-        getDeleteButton(getRemoveAnnotationFunction(annotation.id, popoverId)),
-        getCancelButton(popoverId)
+        getSubmitButton('margin-top: 10px;')
     ];
+
+    if (annotation.isDeletable) {
+        buttons.push(getDeleteButton(getRemoveAnnotationFunction(annotation.id, popoverId)));
+    }
+
+    buttons.push(getCancelButton(popoverId));
 
     var buttonGroup = getButtonGroup(buttons);
 
@@ -67,11 +74,14 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
         id: 'modify-detected-object-annotation'
     }).on('submit', getModifySubmitFunction(annotation.id, popoverId));
 
-    return form
-        .append(autocomplete)
-        .append(ageGroupSelect)
-        .append(genderGroupSelect)
-        .append(buttonGroup);
+    form.append(autocomplete);
+
+    if (annotation.isAddedByCurrentUser) {
+        form.append(ageGroupSelect)
+            .append(genderGroupSelect);
+    }
+
+    return form.append(buttonGroup);
 }
 
 function createFaceAnnotationEditRectangle(popoverId, annotation, configuration) {
@@ -80,8 +90,8 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
     var onAnnotationRectangleShow = function() {
         if (!hasInitializedSelects) {
             setTimeout(function() {
-                var genderSelect = initializeGenderGroupSelect(annotation.gender);
-                initializeAgeGroupSelect(annotation.age);
+                var genderSelect = annotation.isAddedByCurrentUser && initializeGenderGroupSelect(annotation.gender);
+                annotation.isAddedByCurrentUser && initializeAgeGroupSelect(annotation.age);
 
                 initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID, genderSelect);
 
@@ -90,7 +100,9 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
         }
     };
 
-    var popoverTitle = constants.translations.popover.titles.EDIT_FACE_ANNOTATION;
+    var popoverTitle = annotation.isAddedByCurrentUser
+        ? constants.translations.popover.titles.EDIT_FACE_ANNOTATION
+        : constants.translations.popover.titles.ADD_NAME;
 
     var popoverContent = createDetectedFaceModifyPopoverContent(annotation, popoverId);
 

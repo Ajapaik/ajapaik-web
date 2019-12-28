@@ -74,6 +74,7 @@ var constants = {
             titles: {
                 NEW_ANNOTATION: gettext('What is displayed'),
                 EDIT_FACE_ANNOTATION: gettext('Edit face annotation'),
+                ADD_NAME: gettext('Add name'),
                 EDIT_OBJECT_ANNOTATION: gettext('Edit object annotation'),
                 EDIT_FEEDBACK: gettext('Edit feedback'),
                 ADD_FEEDBACK: gettext('Add feedback'),
@@ -81,6 +82,7 @@ var constants = {
             },
             labels: {
                 CHANGE_PERSON_NAME: gettext('Change person name'),
+                ADD_PERSON_NAME: gettext('Add person name'),
                 CHANGE_OBJECT_CLASS: gettext('Change object class'),
                 FACE_ANNOTATION: gettext('Face'),
                 OBJECT_ANNOTATION: gettext('Object'),
