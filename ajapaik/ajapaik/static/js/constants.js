@@ -49,6 +49,9 @@ var constants = {
         ANNOTATION_CONTAINER_ID_ON_IMAGE: 'annotation-container'
     },
     translations: {
+        annotations: {
+            INFORM_HOW_TO_ANNOTATE: gettext('Click (don\'t drag) to start drawing the annotation. Click again to finish drawing.')
+        },
         errors: {
             OBJECT_REQUIRED: gettext('Object is required')
         },

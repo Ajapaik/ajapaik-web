@@ -76,8 +76,23 @@ var ImageAreaSelector = (function () {
     function createOverlay() {
         var selectionOverlay = $('<div>', {
             id: constants.elements.IMAGE_SELECTION_OVERLAY_ID,
-            class: 'image-area-selector__overlay'
+            class: 'image-area-selector__overlay annotation__guiding-overlay'
         });
+
+        var informativeTextContainer = $('<span class="annotation__informative-text"/>')
+            .append(constants.translations.annotations.INFORM_HOW_TO_ANNOTATE);
+
+        selectionOverlay.mouseenter(function() {
+            $(this).removeClass('annotation__guiding-overlay');
+            informativeTextContainer.addClass('hide');
+        });
+
+        selectionOverlay.mouseleave(function() {
+            $(this).addClass('annotation__guiding-overlay');
+            informativeTextContainer.removeClass('hide');
+        });
+
+        selectionOverlay.append(informativeTextContainer);
 
         getCurrentImageArea().append(selectionOverlay);
     }
@@ -216,6 +231,7 @@ var ImageAreaSelector = (function () {
         },
         startImageAreaSelection: function (onSelect, onCancel) {
             getCurrentImageArea().css({cursor: 'crosshair'});
+            getCurrentImageArea();
             window.isAnnotating = true;
 
             hideControlsOnImage();
