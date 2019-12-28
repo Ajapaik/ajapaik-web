@@ -494,22 +494,26 @@ class ApiFavoritedPhotosForm(forms.Form):
 class ApiPhotoSearchForm(forms.Form):
     query = forms.CharField()
     rephotosOnly = forms.BooleanField(required=False, initial=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiPhotoInAlbumSearchForm(forms.Form):
     query = forms.CharField()
     albumId = forms.ModelChoiceField(queryset=Album.objects.all())
     rephotosOnly = forms.BooleanField(required=False, initial=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiUserRephotoSearchForm(forms.Form):
     query = forms.CharField()
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiUserRephotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()
