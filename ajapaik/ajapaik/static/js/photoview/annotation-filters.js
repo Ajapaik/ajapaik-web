@@ -47,7 +47,7 @@ function getUnknownAnnotationTitle(annotationId) {
 }
 
 function createAnnotationFilteringCheckbox(checkboxName, annotationIdentifier, labelText) {
-    var wrapper = $('<div class="form-check">');
+    var wrapper = $('<div class="form-check" style="padding-top: 4px;">');
 
     var input = $('<input>', {
         class: 'form-check-input',
@@ -93,17 +93,9 @@ function annotationCheckbox(annotation) {
     return createAnnotationFilteringCheckbox(checkboxName, identifier, labelText);
 }
 
-function createTitle(text) {
-    var wrapper = $('<div>', {
-        class: 'annotation-filters__title'
-    });
-
-    return wrapper.append(text);
-}
-
-function createAnnotationColumn() {
+function createAnnotationColumn(columnSize) {
     return $('<div>', {
-        class: 'col-md-12 annotation-filters__checkbox-column'
+        class: 'col-md-' + columnSize + ' annotation-filters__checkbox-column'
     });
 }
 
@@ -117,35 +109,45 @@ function createRow(providedId) {
 }
 
 function createAnnotationColumns(annotations) {
-    var wrapper = $('<div class="col-md-6"></div>');
-
-    var columnOne = createAnnotationColumn();
-    var columnTwo = createAnnotationColumn();
+    var numberOfColumns = parseInt($('#filter-number-of-columns').text());
+    var columns = createNumberOfColumns(numberOfColumns);
 
     annotations.forEach(function(annotation, index) {
         var toggleAnnotationCheckbox = annotationCheckbox(annotation);
-
-        if (index % 2 === 0) {
-            columnOne.append(toggleAnnotationCheckbox);
-        } else {
-            columnTwo.append(toggleAnnotationCheckbox);
-        }
+        addAnnotationToColumn(columns, annotation, index, toggleAnnotationCheckbox);
     });
 
-    return wrapper
-        .append(createRow()
-                .append(columnOne)
-                .append(columnTwo)
-        );
+    return createRow()
+        .append(columns);
 }
 
-function createAnnotationFiltersContent(allAnnotationLabels) {
-    var faceColumn = createAnnotationColumns(allAnnotationLabels.faces, 'Faces');
-    var objectColumn = createAnnotationColumns(allAnnotationLabels.objects, 'Objects');
+function addAnnotationToColumn(columns, annotation, index, annotationCheckbox) {
+    for (var i = columns.length; i > 0; i--) {
+        if (index % i === 0) {
+            return columns[index % columns.length].append(annotationCheckbox);
+        }
+    }
+}
 
-    return $('#' + constants.elements.ANNOTATION_FILTERS_ID)
-        .append(faceColumn)
-        .append(objectColumn);
+function createNumberOfColumns(numberOfColumns) {
+    var columns = [];
+    var columnSize = 12 / numberOfColumns;
+
+    for (var i = 0; i < numberOfColumns; i++) {
+        columns.push(createAnnotationColumn(columnSize));
+    }
+
+    return columns;
+}
+
+function createFaceAnnotationFiltersContent(faceAnnotations) {
+    return $('#' + constants.elements.FACE_ANNOTATION_FILTERS_ID)
+        .append(createAnnotationColumns(faceAnnotations));
+}
+
+function createObjectAnnotationFiltersContent(objectAnnotations) {
+    return $('#' + constants.elements.OBJECT_ANNOTATION_FILTERS_ID)
+        .append(createAnnotationColumns(objectAnnotations));
 }
 
 function isOptionalUnsureValuePresent(value) {
@@ -225,13 +227,16 @@ function collectAllLabels(detections) {
 
 function createAnnotationFilters(detections) {
     var NEW_FILTERS_HAVE_BEEN_DRAWN = true;
-    var filtersWrapper = $('#annotation-filters');
+    var personFiltersWrapper = $('#person-annotation-filters');
+    var objectFiltersWrapper = $('#object-annotation-filters');
 
-    filtersWrapper.empty();
+    personFiltersWrapper.empty();
+    objectFiltersWrapper.empty();
 
     var allLabels = collectAllLabels(detections);
 
-    filtersWrapper.append(createAnnotationFiltersContent(allLabels));
+    personFiltersWrapper.append(createFaceAnnotationFiltersContent(allLabels.faces));
+    objectFiltersWrapper.append(createObjectAnnotationFiltersContent(allLabels.objects));
 
     return NEW_FILTERS_HAVE_BEEN_DRAWN;
 }

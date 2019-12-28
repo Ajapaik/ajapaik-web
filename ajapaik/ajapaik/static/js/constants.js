@@ -45,7 +45,8 @@ var constants = {
         RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link',
         IMAGE_SELECTION_AREA_ID: 'image-selection',
         IMAGE_SELECTION_OVERLAY_ID: 'image-selection-overlay',
-        ANNOTATION_FILTERS_ID: 'annotation-filters',
+        FACE_ANNOTATION_FILTERS_ID: 'person-annotation-filters',
+        OBJECT_ANNOTATION_FILTERS_ID: 'object-annotation-filters',
         ANNOTATION_CONTAINER_ID_ON_IMAGE: 'annotation-container'
     },
     translations: {
