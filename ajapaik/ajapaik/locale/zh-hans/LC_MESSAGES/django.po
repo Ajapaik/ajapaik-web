@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-12-26 11:30:53+0000\n"
+"PO-Revision-Date: 2019-12-31 06:22:57+0000\n"
 "X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -278,7 +278,7 @@ msgstr "图库"
 
 #: ajapaik/ajapaik/models.py:1082
 msgid "Permalink"
-msgstr ""
+msgstr "固定链接"
 
 #: ajapaik/ajapaik/models.py:1083
 msgid "Source"
@@ -290,7 +290,7 @@ msgstr "Google地图"
 
 #: ajapaik/ajapaik/models.py:1089
 msgid "Google satellite"
-msgstr ""
+msgstr "Google卫星"
 
 #: ajapaik/ajapaik/models.py:1090
 msgid "OpenStreetMap"
@@ -298,7 +298,7 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1091
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1092
 msgid "No map"
@@ -537,7 +537,7 @@ msgstr "帮助"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr ""
+msgstr "如何排序"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
 msgid "From this group"
