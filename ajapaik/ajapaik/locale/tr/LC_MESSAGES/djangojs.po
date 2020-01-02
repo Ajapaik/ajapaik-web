@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-28 15:30:48+0000\n"
+"PO-Revision-Date: 2020-01-02 13:30:40+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -116,7 +116,7 @@ msgstr "%(from)s ile yaklaşık %(to)s arasında"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
 msgid "Between %(from)s and %(to)s"
-msgstr "%(from)s ile %(to)s arasında"
+msgstr "%(from)s ve %(to)s arasında"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
 msgid "After approximately %(from)s"
@@ -153,7 +153,7 @@ msgstr "Tarihi onayla"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
-msgstr "Bir tarihi onaylaman sana %(points)s puan kazandırdı."
+msgstr "Bir tarihi onaylamak sana %(points)s puan kazandırdı."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
@@ -189,7 +189,7 @@ msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr "Tarih aralıklarını veya öncesi/sonrasını \"-\" veya \"..\" ile işaretleyim"
+msgstr "Tarih aralıklarını veya öncesi/sonrasını \"-\" veya \"..\" ile işaretleyin"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -205,7 +205,7 @@ msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "Sen anonimsin"
+msgstr "Anonimsizniz"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
@@ -425,11 +425,11 @@ msgstr "resimler"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:155
 msgid "By reverse timestamp"
-msgstr "Ters zaman damgası ile"
+msgstr "Ters zaman damgasına göre"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
 msgid "By timestamp"
-msgstr "Zaman damgası tarafından"
+msgstr "Zaman damgasına göre"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:161
 msgid "Pictures from the map"
