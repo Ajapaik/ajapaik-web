@@ -485,7 +485,7 @@ def rephoto_upload(request, photo_id):
 				re_photo.image.save('rephoto.jpg', file_obj)
 				# Image saved to disk, can analyse now
 				re_photo.set_aspect_ratio()
-				#re_photo.find_similar()
+				re_photo.find_similar()
 				new_id = re_photo.pk
 				img = Image.open(settings.MEDIA_ROOT + '/' + str(re_photo.image))
 				_extract_and_save_data_from_exif(re_photo)
@@ -2282,7 +2282,7 @@ def curator_photo_upload_handler(request):
 							new_photo.image
 							new_photo.save()
 							new_photo.set_aspect_ratio()
-							#new_photo.find_similar()
+							new_photo.find_similar()
 							points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
 														 user=profile, created=new_photo.created,
 														 album=general_albums[0])
@@ -2790,7 +2790,7 @@ def user_upload(request):
 				photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
 			photo.save()
 			photo.set_aspect_ratio()
-			#photo.find_similar()
+			photo.find_similar()
 			for each in form.cleaned_data['albums']:
 				AlbumPhoto(
 					photo=photo,
