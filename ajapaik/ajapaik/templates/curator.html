@@ -55,7 +55,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-12" id="ajapaik-curator-edit-album-error" style="display: none;">
+                                <div class="col-12" id="ajapaik-curator-edit-album-error" class="d-none">
                                     <div class="alert alert-danger" role="alert">
                                         <span class="glyphicon glyphicon-exclamation-sign"
                                                 aria-hidden="true"></span>
@@ -684,7 +684,7 @@
                 if (parentAlbumId == -1) {
                     parentAlbumId = null;
                 }
-                $('#ajapaik-curator-edit-album-error').hide();
+                $('#ajapaik-curator-edit-album-error').removeClass('d-block').addClass('d-none');
                 $.ajax({
                     type: 'POST',
                     url: '{% url "curator_update_my_album" %}',
@@ -700,7 +700,7 @@
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function () {
-                        $('#ajapaik-curator-edit-album-error').hide();
+                        $('#ajapaik-curator-edit-album-error').removeClass('d-block').addClass('d-none');
                         $('#ajapaik-curator-edit-my-album-modal').modal('hide');
                         changeAreaLat = null;
                         changeAreaLng = null;
@@ -709,7 +709,7 @@
                         window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
                     },
                     error: function () {
-                        $('#ajapaik-curator-edit-album-error').show();
+                        $('#ajapaik-curator-edit-album-error').removeClass('d-block').addClass('d-none');
                         window._gaq.push(['_trackEvent', 'Curator', 'Edit error']);
                     }
                 });

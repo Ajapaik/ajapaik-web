@@ -33,6 +33,9 @@
                 photoModal.html(content);
                 photoModal.modal().find('#ajapaik-modal-photo').on('load', function () {
                     fullScreenImage.removeClass('ajapaik-photo-flipped');
+                    $("#ajapaik-full-screen-image-wrapper").removeClass("rotate90");
+                    $("#ajapaik-full-screen-image-wrapper").removeClass("rotate180");
+                    $("#ajapaik-full-screen-image-wrapper").removeClass("rotate270");
                     rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     if (window.fullscreenEnabled) {
@@ -98,23 +101,23 @@
             albumSearchTimeout,
             syncFilteringHighlights = function () {
                 var orderingString = '';
-                $('.ajapaik-filter-white').attr('class', 'ajapaik-filter-gray');
+                $('.ajapaik-white').attr('class', 'ajapaik-gray');
                 if (window.order1 === 'time') {
-                    $('#ajapaik-time-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-time-filter-icon').attr('class', 'ajapaik-white');
                     if (window.order3 === 'reverse') {
                         orderingString += gettext('Earliest');
                     } else {
                         orderingString += gettext('Latest');
                     }
                 } else if (window.order1 === 'amount') {
-                    $('#ajapaik-amount-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-amount-filter-icon').attr('class', 'ajapaik-white');
                     if (window.order3 === 'reverse') {
                         orderingString += gettext('Least');
                     } else {
                         orderingString += gettext('Most');
                     }
                 } else if (window.order1 === 'closest') {
-                    $('#ajapaik-closest-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-closest-filter-icon').attr('class', 'ajapaik-white');
                     if (window.order3 === 'reverse') {
                         orderingString = gettext('Pictures furthest from you');
                     } else {
@@ -122,30 +125,30 @@
                     }
                 }
                 if (window.order2 === 'comments') {
-                    $('#ajapaik-comments-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-comments-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('commented');
                 } else if (window.order2 === 'rephotos') {
-                    $('#ajapaik-rephotos-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-rephotos-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('rephotographed');
                 } else if (window.order2 === 'added' && window.order1 !== 'closest') {
-                    $('#ajapaik-added-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-added-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('added');
                 } else if (window.order2 === 'geotags') {
-                    $('#ajapaik-geotags-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-geotags-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('geotagged');
                 } else if (window.order2 === 'likes') {
-                    $('#ajapaik-likes-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-likes-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('liked');
                 } else if (window.order2 === 'datings') {
-                    $('#ajapaik-datings-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-datings-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('dated');
                 } else if (window.order2 === 'views') {
-                    $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('viewed');
                 } else if (window.order2 === 'stills') {
-                    $('#ajapaik-stills-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-stills-filter-icon').attr('class', 'ajapaik-white');
                 } else if (window.order2 === 'similar_photos') {
-                    $('#ajapaik-similar-photos-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-similar-photos-filter-icon').attr('class', 'ajapaik-white');
                 }
                 if (window.order1 !== 'closest') {
                     orderingString += ' ' + gettext('pictures');
@@ -171,10 +174,10 @@
                 var filterButton = $('#ajapaik-header-filter-icon');
                 filterButton.attr('class', '');
                 if (window.order2 !== 'added') {
-                    filterButton.attr('class', 'ajapaik-filter-white');
+                    filterButton.attr('class', 'ajapaik-white');
                 }
                 if (window.order3 === 'reverse') {
-                    $('#ajapaik-reverse-filter-icon').attr('class', 'ajapaik-filter-white');
+                    $('#ajapaik-reverse-filter-icon').attr('class', 'ajapaik-white');
                 }
             },
             syncPagingButtons = function () {
@@ -469,6 +472,7 @@
                         similarPhotoColumn = $('#ajapaik-photo-modal-similar-photo-column'),
                         mainPhotoContainer = $('#ajapaik-modal-photo-container');
 
+                   window.currentPhotoReverseId = $('#ajapaik-reverse-side-button').data('id');
                    fullScreenImage = $('#ajapaik-full-screen-image');
                    if (fullScreenImage) {
                        fullScreenImage.attr('src', window.photoModalFullscreenImageUrl)
@@ -492,7 +496,7 @@
                     if (window.userClosedRephotoTools) {
                         $('#ajapaik-rephoto-selection').hide();
                         rephotoColumn.hide();
-                        $('#ajapaik-photo-modal-rephoto-info-column').hide();
+                        $('#ajapaik-photo-rephoto-info-column').hide();
                     }
                     if (window.userClosedSimilarPhotoTools) {
                         $('#ajapaik-similar-photo-selection').hide();
@@ -518,6 +522,9 @@
                     window.nextPhotoLoading = false;
                 }
             });
+            $("#ajapaik-full-screen-image-wrapper").removeClass("rotate90");
+            $("#ajapaik-full-screen-image-wrapper").removeClass("rotate180");
+            $("#ajapaik-full-screen-image-wrapper").removeClass("rotate270");
         };
         window.handleGeolocation = function (location) {
             if (window.clickedMapButton) {

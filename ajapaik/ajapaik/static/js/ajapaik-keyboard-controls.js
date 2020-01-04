@@ -13,7 +13,7 @@
                     if (e.keyCode === 37) {
                         // left
                         buttons = $('.ajapaik-photo-modal-previous-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
+                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused && !window.transcriptionFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
@@ -21,12 +21,12 @@
                     } else if (e.keyCode === 39) {
                         // right
                         buttons = $('.ajapaik-photo-modal-next-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused) {
+                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused && !window.transcriptionFocused) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === 68 && !window.datingFocused) {
+                    } else if (e.keyCode === 68 && !window.datingFocused && !window.transcriptionFocused) {
                         // d
                         $('#ajapaik-photo-modal-start-dating-button').click();
                     }
@@ -36,7 +36,7 @@
                             window.BigScreen.exit();
                             window.fullscreenEnabled = false;
                         }
-                        if (!window.locationToolsOpen && !window.datingFocused) {
+                        if (!window.locationToolsOpen && !window.datingFocused && !window.transcriptionFocused) {
                             $('#ajapaik-photo-modal-specify-location').click();
                         }
                     }
@@ -94,7 +94,7 @@
                         }
                     }
                 }
-                if (window.isPhotoview && !window.locationToolsOpen && !window.datingFocused) {
+                if (window.isPhotoview && !window.locationToolsOpen && !window.datingFocused && !window.transcriptionFocused) {
                     var targets;
                     if (e.keyCode === 37) {
                         // left

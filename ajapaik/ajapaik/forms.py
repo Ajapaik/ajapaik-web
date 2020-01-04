@@ -36,7 +36,7 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_FACEBOOK = 'fb'
     LOGIN_TYPES = [
         (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
-                                    # This depricated behaviour before
+                                    # This deprecated behaviour before
                                     # django-allauth integration.
         (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
@@ -103,6 +103,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     people = forms.BooleanField(initial=False, required=False)
+    postcards = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):
@@ -125,6 +126,7 @@ class GalleryFilteringForm(forms.Form):
     similarPhotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
+    postcards = forms.BooleanField(initial=False, required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']

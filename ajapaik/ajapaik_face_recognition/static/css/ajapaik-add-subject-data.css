@@ -69,7 +69,7 @@
     max-width: 100vw;
 }
 
-.first-block, .second-block {
+#first-block, #second-block {
     justify-content: center;
 }
 

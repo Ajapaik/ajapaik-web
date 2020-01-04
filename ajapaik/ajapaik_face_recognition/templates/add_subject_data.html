@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="first-block d-block pb-3 text-center">
+    <div id="first-block" class="d-block pb-3 text-center">
         <div>
             <button class="guess-button human-male" data=1>
                 {% trans "Male" %}
@@ -67,7 +67,7 @@
             </button>
         </div>
     </div>
-    <div class="second-block d-none pb-3 text-center">
+    <div id="second-block" class="d-none pb-3 text-center">
         <div>
             <button class="guess-button human-child" data=0>
                 {% trans "Child" %}
@@ -91,7 +91,7 @@
             </button>
         </div>
     </div>
-    <div class="row third-block d-none pb-3">
+    <div id="third-block" class="row d-none pb-3">
         <button class="guess-button skip-next">
             {% trans "Skip" %}
         </button>
@@ -160,8 +160,8 @@
         var subjectDataContainer = $('.subject-data-container');
         hasConsensus = 'True' === hasConsensus;
         if(hasConsensus) {
-            $(".first-block").removeClass("d-block").addClass("d-none");
-            $(".second-block").removeClass("d-none").addClass("d-block");
+            $("#first-block").removeClass("d-block").addClass("d-none");
+            $("#second-block").removeClass("d-none").addClass("d-block");
             subject.gender = 3;
         }
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
@@ -237,7 +237,7 @@
 				},
 				error: function () {
                     $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
-                    $(".third-block").removeClass("d-none").addClass("d-flex");
+                    $("#third-block").removeClass("d-none").addClass("d-flex");
                 }
 			});
 		};
@@ -260,7 +260,7 @@
             $('#ajapaik-loading-overlay').show();
             $.ajax({
                 type: 'POST',
-                url: window.location.origin + "/face-recognition/api/v1/subject-data/",
+                url: '/face-recognition/api/v1/subject-data/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     subjectId: subject.subjectId,
@@ -272,7 +272,7 @@
                     window.location.href = '{{next_action}}';
                 },
                 error: function () {
-                    $(".third-block").removeClass("d-none").addClass("d-flex");
+                    $("#third-block").removeClass("d-none").addClass("d-flex");
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                 },
                 complete: function () {
@@ -281,29 +281,29 @@
             });
         }
 
-        $(".first-block > div > button").on('click', function(e) {
+        $("#first-block > div > button").on('click', function(e) {
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.gender === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
-                        $(".first-block > div > button.info").css("background-color","#d5d5d5");
-                        $(".second-block > div > button.info").css("background-color","#d5d5d5");
+                        $("#first-block > div > button.info").css("background-color","#d5d5d5");
+                        $("#second-block > div > button.info").css("background-color","#d5d5d5");
                     }
                     $('#subject-data-description-container').removeClass('d-none');
                 }
                 else {
                     if (isTouchDevice) {
-                        $(".first-block > div > button.info").css("background-color","transparent");
-                        $(".second-block > div > button.info").css("background-color","transparent");
+                        $("#first-block > div > button.info").css("background-color","transparent");
+                        $("#second-block > div > button.info").css("background-color","transparent");
                     }
                     $('#subject-data-description-container').addClass('d-none');
                 }
             }
             else {
-                $(".first-block").removeClass("d-block").addClass("d-none");
+                $("#first-block").removeClass("d-block").addClass("d-none");
                 if(subject.gender !== "-1") {
-                    $(".second-block").removeClass("d-none").addClass("d-block");
+                    $("#second-block").removeClass("d-none").addClass("d-block");
                     addSubjectDataViewPage = 1;
                 }
                 else {
@@ -311,27 +311,27 @@
                 }
             }
         });
-        $(".second-block > div > button").on('click', function(e) {
+        $("#second-block > div > button").on('click', function(e) {
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
             if(subject.age === '-2') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
-                        $(".first-block > div > button.info").css("background-color","#d5d5d5");
-                        $(".second-block > div > button.info").css("background-color","#d5d5d5");
+                        $("#first-block > div > button.info").css("background-color","#d5d5d5");
+                        $("#second-block > div > button.info").css("background-color","#d5d5d5");
                     }
                     $('#subject-data-description-container').removeClass('d-none');
                 }
                 else {
                     if (isTouchDevice) {
-                        $(".first-block > div > button.info").css("background-color","transparent");
-                        $(".second-block > div > button.info").css("background-color","transparent");
+                        $("#first-block > div > button.info").css("background-color","transparent");
+                        $("#second-block > div > button.info").css("background-color","transparent");
                     }
                     $('#subject-data-description-container').addClass('d-none');
                 }
             }
             else {
-                $(".second-block").removeClass("d-flex").addClass("d-none");
+                $("#second-block").removeClass("d-flex").addClass("d-none");
                 if(subject.age !== "-1"){
                     window.AddSubjectData(subject)
                 }
@@ -340,7 +340,7 @@
                 }
             }
         });
-        $(".third-block > button").on('click', function(e) {
+        $("#third-block > button").on('click', function(e) {
             window.location.href = '{{next_action}}';
         });
     </script>
