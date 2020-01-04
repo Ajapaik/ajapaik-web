@@ -7,7 +7,6 @@
     /*global docCookies*/
     /*global interpolate*/
     /*global currentLocale*/
-    /*global docCookies*/
     /*global userIsSocialConnected*/
     var AjapaikDater = function (node, options) {
         var that = this;
@@ -460,7 +459,7 @@
                     window.reportDaterOpenComment();
                 }
             });
-            that.$UI.find('#ajp-dater-tutorial-card span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="ajp-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="ajp-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="ajp-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
+            that.$UI.find('#ajp-dater-tutorial-card span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':<br/><span class="font-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':<br/><span class="font-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':<br/><span class="font-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
                 that.$UI.find('#ajp-dater-tutorial-card').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();

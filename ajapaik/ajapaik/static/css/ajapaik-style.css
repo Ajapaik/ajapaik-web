@@ -26,7 +26,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   visibility: hidden;
 }
 
-.ajapaik-filter-gray,
 .ajapaik-gray {
   fill: #888;
 }
@@ -35,7 +34,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   fill: #888 !important;
 }
 
-.ajapaik-filter-white,
 .ajapaik-white {
   fill: #fff;
 }
@@ -48,15 +46,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   color: #888 !important;
 }
 
-.ajapaik-dark-background {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-.ajapaik-dark-background > li > a {
-  color: #fff;
-}
-
-.ajapaik-no-background,
-.ajapaik-filtering-choice {
+.ajapaik-no-background {
   background: none !important;
 }
 
@@ -112,15 +102,13 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   margin: 0 auto;
   text-align: center;
 }
-.ajapaik-black-dropdown-menu li {
+.ajapaik-black-dropdown-menu li,
+.navbar-collapse.collapse.in > .nav > li {
   display: inline-block;
 }
 
 .navbar-collapse.collapse.in {
   background-color: rgba(0, 0, 0, 0.8);
-}
-.navbar-collapse.collapse.in > .nav > li {
-  display: inline-block;
 }
 
 .ajapaik-html-game-map {
@@ -996,7 +984,6 @@ a.fullscreen {
   min-height: 30vh;
   object-fit: contain;
   max-height: 70vh;
-  background: black;
 }
 
 #ajapaik-photoview-main-photo {
@@ -1163,6 +1150,31 @@ a.fullscreen {
   background-image: url(../images/material-design-icons/ic_burst_mode_24px.svg);
 }
 
+#ajapaik-reverse-side-button,
+#ajapaik-rotate-photo-button {
+  top: 0px;
+  height: 48px;
+  width: 48px;
+  text-align: center;
+  border-radius: 0;
+  border: none;
+}
+
+#ajapaik-reverse-side-button {
+  right: 96px;
+  display: flex;
+}
+
+#ajapaik-rotate-photo-button {
+  right: 48px;
+}
+
+#ajapaik-reverse-side-button > i {
+  top: 10px;
+  right: 12px;
+  position: absolute;
+}
+
 .ajapaik-comment-count {
   position: absolute;
   background-image: url(../images/material-design-icons/ic_messenger_24px.svg);
@@ -1199,7 +1211,9 @@ a.fullscreen {
 .ajapaik-show-rephotos-photoview-overlay-button,
 .ajapaik-flip-photo-overlay-button,
 .ajapaik-invert-rephoto-overlay-button,
-.ajapaik-invert-similar-photo-overlay-button {
+.ajapaik-invert-similar-photo-overlay-button,
+#ajapaik-reverse-side-button,
+#ajapaik-rotate-photo-button {
   color: rgb(0,0,0);
   background-color: rgba(255, 255, 255, 0.3);
   width: 48px;
@@ -1219,7 +1233,9 @@ a.fullscreen {
 .ajapaik-close-rephoto-overlay-button,
 .ajapaik-close-similar-photo-overlay-button,
 .ajapaik-flip-photo-overlay-button,
-.ajapaik-like-photo-overlay-button {
+.ajapaik-like-photo-overlay-button,
+#ajapaik-reverse-side-button,
+#ajapaik-rotate-photo-button {
   position: absolute;
 }
 
@@ -1273,7 +1289,11 @@ a.fullscreen {
 .ajapaik-thumbnail-selection-icon:hover ,
 .ajapaik-thumbnail-selection-icon-blue,
 .ajapaik-show-rephoto-selection-overlay-button:hover ,
-.ajapaik-show-rephoto-selection-overlay-button:active {
+.ajapaik-show-rephoto-selection-overlay-button:active,
+#ajapaik-reverse-side-button:hover ,
+#ajapaik-reverse-side-button:active
+#ajapaik-rotate-photo-button:hover,
+#ajapaik-rotate-photo-button:active {
   color: #007fff;
   cursor: pointer;
 }
@@ -1615,12 +1635,18 @@ a.fullscreen {
   width: 48px;
 }
 
-#ajapaik-photoview-start-dating-button > span,
-#ajapaik-photo-modal-start-dating-button > span {
+#ajapaik-photoview-start-dating-button > span {
   position: absolute;
   right: 2px;
   left: initial;
   bottom: 8px;
+}
+
+#ajapaik-photo-modal-start-dating-button > span {
+  position: relative;
+  right: -30px;
+  left: initial;
+  bottom: 24px;
 }
 
 #ajapaik-geolocation-error,
@@ -1688,7 +1714,8 @@ a.fullscreen {
 #ajapaik-rephoto-full-screen-image,
 #ajapaik-similar-photo-full-screen-image,
 #ajapaik-full-screen-image,
-#ajp-geotagger-full-screen-image {
+#ajp-geotagger-full-screen-image,
+#ajapaik-full-screen-image-wrapper {
   position: inherit;
   top: 0;
   bottom: 0;
@@ -2031,37 +2058,43 @@ a[href^="http: //maps.google.com/maps"] {
   margin-bottom: 10px;
 }
 
-.ajapaik-curator-selection-image.rotate90 {
+.ajapaik-curator-selection-image.rotate90,
+.rotate90 {
   transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
 }
 
-.ajapaik-curator-selection-image.rotate180 {
+.ajapaik-curator-selection-image.rotate180,
+.rotate180 {
   transform: rotate(-180deg);
   -webkit-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
 }
 
-.ajapaik-curator-selection-image.rotate270 {
+.ajapaik-curator-selection-image.rotate270,
+.rotate270 {
   transform: rotate(-270deg);
   -webkit-transform: rotate(-270deg);
   -ms-transform: rotate(-270deg);
 }
 
-.ajapaik-curator-selection-image.rotate90-flipped {
+.ajapaik-curator-selection-image.rotate90-flipped,
+.ajapaik-photo-flipped.rotate270 {
   transform: scaleX(-1) rotate(-90deg);
   -webkit-transform: scaleX(-1) rotate(-90deg);
   -ms-transform: scaleX(-1) rotate(-90deg);
 }
 
-.ajapaik-curator-selection-image.rotate180-flipped {
+.ajapaik-curator-selection-image.rotate180-flipped,
+.ajapaik-photo-flipped.rotate180 {
   transform: scaleX(-1) rotate(-180deg);
   -webkit-transform: scaleX(-1) rotate(-180deg);
   -ms-transform: scaleX(-1) rotate(-180deg);
 }
 
-.ajapaik-curator-selection-image.rotate270-flipped {
+.ajapaik-curator-selection-image.rotate270-flipped,
+.ajapaik-photo-flipped.rotate90 {
   transform: scaleX(-1) rotate(-270deg);
   -webkit-transform: scaleX(-1) rotate(-270deg);
   -ms-transform: scaleX(-1) rotate(-270deg);
@@ -2559,4 +2592,8 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   max-height: 75%;
   border-radius: 50px;
   border: 10px black solid;
+}
+
+#ajp-transcriber-text {
+  height: 150px;
 }

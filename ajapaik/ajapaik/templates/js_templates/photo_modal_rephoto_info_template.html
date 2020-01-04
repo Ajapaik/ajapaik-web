@@ -1,51 +1,51 @@
 {% verbatim %}
     <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
-        {% if (o[0][0].source && o[0][0].sourceKey && o[0][0].sourceURL) { %}
-            {% if (o[0][0].author) { %}
-                <div class="w-100"><b>{%=o[0][0].author%}</b></div>
-                {% if (o[0][0].licence) { %}
+        {% if (o.source && o.sourceKey && o.sourceURL) { %}
+            {% if (o.author) { %}
+                <div class="w-100"><b>{%=o.author%}</b></div>
+                {% if (o.licence) { %}
                     <div class="w-100">
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } %}
             {% } %}
             <div class="w-100">
-                <a id="ajapaik-photo-modal-rephoto-source" {% if (!window.isTabletView) { %}href='{%=o[0][0].sourceURL%}'{% } %}
+                <a id="ajapaik-photo-modal-rephoto-source" {% if (!window.isTabletView) { %}href='{%=o.sourceURL%}'{% } %}
                    target="_blank" rel="noopener nofollow">
-                    {%=o[0][0].source%} {%=o[0][0].sourceKey%}
+                    {%=o.source%} {%=o.sourceKey%}
                 </a>
             </div>
         {% } else { %}
-            {% if (o[0][0].author) { %}
-                <div class="w-100"><b>{%=o[0][0].author%}</b></div>
+            {% if (o.author) { %}
+                <div class="w-100"><b>{%=o.author%}</b></div>
                 <div class="w-100">
                     {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                 </div>
             {% } else { %}
-                {% if (o[0][0].FBUserName) { %}
+                {% if (o.FBUserName) { %}
                     <div class="w-100">
-                        <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
-                            {%=o[0][0].FBUserName%}
+                        <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                            {%=o.FBUserName%}
                         </a><br>
                     </div>
                     <div class="w-100">
                         {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
-                    {% if (o[0][0].GooglePlusName) { %}
+                    {% if (o.GooglePlusName) { %}
                         <div class="w-100">
-                            <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
-                                {%=o[0][0].GooglePlusName%}
+                            <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                                {%=o.GooglePlusName%}
                             </a><br>
                         </div>
                         <div class="w-100">
                             {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
-                        {% if (o[0][0].FullName) { %}
+                        {% if (o.FullName) { %}
                             <div class="w-100">
-                                <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o[0][0].id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
-                                    {%=o[0][0].FullName%}
+                                <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                                    {%=o.FullName%}
                                 </a><br>
                             </div>
                             <div class="w-100">
@@ -58,8 +58,8 @@
                 {% } %}
             {% } %}
         {% } %}
-        {% if (o[0][0].date) { %}
-            <div class="w-100">{%=o[0][0].date%}</div>
+        {% if (o.date) { %}
+            <div class="w-100">{%=o.date%}</div>
         {% } %}
     </script>
 {% endverbatim %}

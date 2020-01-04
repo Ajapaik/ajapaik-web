@@ -329,9 +329,7 @@ class PhotoManager(GeoManager):
 
 
 class Photo(Model):
-    # FIXME: Why objects and geo? Shouldn't just objects be enough?
     objects = PhotoManager()
-    geo = GeoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
@@ -416,12 +414,11 @@ class Photo(Model):
     perceptual_hash = BigIntegerField(null=True, blank=True)
     hasSimilar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
+    postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back')
+    postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front')
 
     original_lat = None
     original_lon = None
-
-    def get_total_similar(self):
-        return self.similar_photos.count()
 
     class Meta:
         ordering = ['-id']
@@ -696,6 +693,12 @@ class Photo(Model):
                 self.address = most_accurate_result['formatted_address']
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
+    
+    def set_postcard(self, opposite):
+        self.postcard_front_of = opposite
+        self.save()
+        opposite.postcard_back_of = self
+        opposite.save()
 
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
@@ -1015,7 +1018,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, GUESS_SUBJECT_AGE, GUESS_SUBJECT_GENDER  = range(13)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, GUESS_SUBJECT_AGE, GUESS_SUBJECT_GENDER, TRANSCRIBE  = range(14)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1030,6 +1033,7 @@ class Points(Model):
         (CONFIRM_IMAGE_SIMILARITY, _('Confirm Image similarity')),
         (GUESS_SUBJECT_AGE, _('Guess subject age')),
         (GUESS_SUBJECT_GENDER, _('Guess subject age')),
+        (TRANSCRIBE, _('Transcribe')),
     )
 
     user = ForeignKey('Profile', related_name='points')
@@ -1045,6 +1049,7 @@ class Points(Model):
     image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
+    transcription = ForeignKey('Transcription', null=True, blank=True)
 
     class Meta:
         db_table = 'project_points'
@@ -1054,6 +1059,17 @@ class Points(Model):
     def __unicode__(self):
         return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
 
+class Transcription(Model):
+    text = CharField(max_length=5000, null=True, blank=True)
+    photo = ForeignKey('Photo', related_name='transcriptions')
+    user = ForeignKey('Profile', related_name='transcriptions')
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    modified = DateTimeField(auto_now=True)
+
+class TranscriptionFeedback(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    user = ForeignKey('Profile', related_name='transcription_feedback')
+    transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name="transcription")
 
 class GeoTag(Model):
     MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG, ANDROIDAPP = range(7)
@@ -1221,68 +1237,6 @@ class Profile(Model):
     def __str__(self):
         return self.__unicode__()
 
-    # def update_from_fb_data(self, token, data):
-    #     if data.get('first_name'):
-    #         self.user.first_name = data.get('first_name')
-    #     if data.get('last_name'):
-    #         self.user.last_name = data.get('last_name')
-    #     if data.get('email'):
-    #         self.user.email = data.get('email')
-    #     self.user.save()
-
-    #     self.fb_token = token
-    #     self.fb_id = data.get('id')
-    #     self.fb_name = data.get('name')
-    #     self.fb_link = data.get('link')
-    #     self.fb_email = data.get('email')
-    #     try:
-    #         self.fb_birthday = datetime.strptime(data.get('birthday'), '%m/%d/%Y')
-    #     except TypeError:
-    #         pass
-    #     location = data.get('location')
-    #     if location is not None and 'name' in location:
-    #         self.fb_current_location = location['name']
-    #     hometown = data.get('hometown')
-    #     if hometown is not None and 'name' in hometown:
-    #         self.fb_hometown = data.get('hometown')['name']
-    #     user_friends = data.get('user_friends')
-    #     if user_friends is not None:
-    #         self.fb_user_friends = user_friends
-
-    #     self.save()
-
-    # def update_from_google_plus_data(self, token, data):
-    #     # TODO: Make form
-    #     if 'given_name' in data:
-    #         self.user.first_name = data["given_name"]
-    #     if 'family_name' in data:
-    #         self.user.last_name = data["family_name"]
-    #     if 'email' in data:
-    #         self.user.email = data["email"]
-
-    #     self.user.save()
-
-    #     if isinstance(token, OAuth2Credentials):
-    #         self.google_plus_token = loads(token.to_json())['access_token']
-    #     else:
-    #         self.google_plus_token = token
-    #     self.google_plus_id = data['id']
-    #     if 'link' in data:
-    #         self.google_plus_link = data['link']
-    #     if 'name' in data:
-    #         self.google_plus_name = data['name']
-    #         if self.google_plus_name:
-    #             parts = self.google_plus_name.split(' ')
-    #             self.first_name = parts[0]
-    #             if len(parts) > 1:
-    #                 self.last_name = parts[1]
-    #     if 'email' in data:
-    #         self.google_plus_email = data['email']
-    #     if 'picture' in data:
-    #         self.google_plus_picture = data['picture']
-
-    #     self.save()
-
     def merge_from_other(self, other):
         other.photos.update(user=self)
         other.skips.update(user=self)
@@ -1354,25 +1308,6 @@ class Profile(Model):
             if p.points:
                 all_time_score += p.points
         self.score = all_time_score
-
-
-# For Google login
-# class FlowModel(Model):
-#     id = OneToOneField(User, primary_key=True)
-#     flow = FlowField()
-
-#     class Meta(object):
-#         db_table = 'project_flowmodel'
-
-
-# For Google login
-# class CredentialsModel(Model):
-#     id = OneToOneField(User, primary_key=True)
-#     credential = CredentialsField()
-
-#     class Meta(object):
-#         db_table = 'project_credentialsmodel'
-
 
 class Source(Model):
     name = CharField(max_length=255)

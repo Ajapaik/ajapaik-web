@@ -24,6 +24,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
+from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
@@ -49,7 +50,7 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
 from django.utils.decorators import method_decorator
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 
@@ -1463,7 +1464,7 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 'photos': []
             })
 
-class AddSimilarPhotos(AjapaikAPIView):
+class SubmitSimilarPhotos(AjapaikAPIView):
     '''
     API endpoint for posting similar photos.
     '''
@@ -1496,3 +1497,86 @@ class AddSimilarPhotos(AjapaikAPIView):
                         inputs.append(profile.id)
                     points += ImageSimilarity.add_or_update(*inputs)
         return JsonResponse({'points': points})
+
+class Transcriptions(AjapaikAPIView):
+    '''
+    API endpoint for getting transcriptions for an image.
+    '''
+    def get(self, request, photo_id, format=None):
+        transcriptions = Transcription.objects.filter(photo_id=photo_id).order_by('-created').values()
+        ids = transcriptions.values_list('id', flat=True)
+        feedback = TranscriptionFeedback.objects.filter(transcription_id__in=ids)
+        for transcription in transcriptions:
+            transcription["feedback_count"] = 0
+            for fb in feedback:
+                if fb.transcription_id == transcription["id"]:
+                    transcription["feedback_count"] +=1
+            profile = Profile.objects.filter(user_id=transcription["user_id"]).first()
+            transcription["user_name"] = profile.get_display_name()
+        def feedback_count(elem):
+            return elem["feedback_count"]
+        data = { 'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True) }
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, format=None):
+        try:
+            photo = get_object_or_404(Photo, id=request.POST['photo'])
+            user = get_object_or_404(Profile, pk=request.user.profile.id)
+            count = Transcription.objects.filter(photo=photo,text=request.POST['text']).count()
+            text = request.POST['text']
+
+            if count < 1:
+                previousTranscriptionByCurrentUser = Transcription.objects.filter(photo=photo, user=user).first()
+                if previousTranscriptionByCurrentUser:
+                    previousTranscriptionByCurrentUser.text = text
+                    previousTranscriptionByCurrentUser.save()
+                else:
+                    transcription = Transcription(
+                        user = user,
+                        text = text,
+                        photo = photo
+                    )
+                    transcription.save()
+                    TranscriptionFeedback(
+                        user=user,
+                        transcription=transcription
+                    ).save()
+
+            transcriptionsWithSameText = Transcription.objects.filter(photo=photo,text=text).exclude(user=user)
+            upvoted = False
+            for transcription in transcriptionsWithSameText:
+                TranscriptionFeedback(
+                    user=user,
+                    transcription=transcription
+                ).save()
+                upvoted = True
+            
+            if count > 0:
+                if upvoted:
+                    return JsonResponse({'message': _('This transcription already exists, previous transcription was upvoted, thank you!')})
+                else:
+                    return JsonResponse({'message': _('You have already submitted this transcription, thank you!')})
+            else:
+                if previousTranscriptionByCurrentUser:
+                    return JsonResponse({'message': _('Your transcription has been updated, thank you!')})
+                else:
+                    return JsonResponse({'message': _('Transcription added, thank you!')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class SubmitTranscriptionFeedback(AjapaikAPIView):
+    '''
+    API endpoint for confirming transcription for an image.
+    '''
+    def post(self, request, format=None):
+        try:
+            if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'], user_id = request.user.profile.id).count() > 0:
+                return JsonResponse({'message': _('You have already given feedback for this transcription')})
+            else:
+                transcriptionFeedback = TranscriptionFeedback(
+                    user=get_object_or_404(Profile, pk=request.user.profile.id),
+                    transcription=get_object_or_404(Transcription, id=request.POST['id'])
+                ).save()
+                return JsonResponse({'message': _('Transcription feedback added, thank you!')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)

@@ -15,7 +15,7 @@
         <form action="" method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <p id="ajapaik-user-upload-waive-rights-text" style="display: none;">
+            <p id="ajapaik-user-upload-waive-rights-text" class="d-none">
                 {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener nofollow">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
             </p>
             {% buttons %}
@@ -56,11 +56,11 @@
                     licenceSelection = $('#id_licence').parent(),
                     authorInput = $('#id_author').parent();
                 if (state) {
-                    licenceText.show();
+                    licenceText.removeClass('d-none').addClass('d-block');
                     licenceSelection.hide();
                     authorInput.hide();
                 } else {
-                    licenceText.hide();
+                    licenceText.removeClass('d-block').addClass('d-none');
                     licenceSelection.show();
                     authorInput.show();
                 }
