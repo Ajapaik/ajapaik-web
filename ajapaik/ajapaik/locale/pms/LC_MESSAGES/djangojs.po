@@ -12,49 +12,49 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:07+0000\n"
+"PO-Revision-Date: 2020-01-06 16:39:17+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
+"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:300
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:553
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:320
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr "L'utent a l'ha arfudà l'arcesta ëd geolocalisassion."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:306
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:559
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:326
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr "L'anformassion an sla posission a l'é nen disponìbil."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:309
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:329
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr "L'arcesta për oten-e la localisassion a l'è scadùa."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:312
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:332
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr "A-i é staje n'eror dësconossù."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:736
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:781
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1210
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1255
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:756
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:801
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1276
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Nen selessionà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1348
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1364
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1824
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1840
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1440
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1456
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1933
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Eror ëd sistema"
@@ -68,142 +68,144 @@ msgstr "Andé a mia posission"
 msgid "Close"
 msgstr "Saré"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:713
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:716
 msgid "Pick the shooting location!"
 msgstr "Arcuperé la localisassion ëd la fòto!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:724
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:776
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:727
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Geotagged by this many users"
 msgstr "Localisà da tuti costi utent"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:757
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:760
 msgid "Confirm correct location"
 msgstr "Confirmé la localisassion giusta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
 msgid "Submit your own location"
 msgstr "Mandé soa localisassion"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:795
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:798
 msgid "You"
 msgstr "Chiel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:799
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:396
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:802
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Utent anònim"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:801
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:804
 msgid "Anonymous users"
 msgstr "Utent anònim"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:859
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:862
 msgid "Current location"
 msgstr "Posission atual"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:194
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
 msgstr "Antra %(from)s e %(to)s anviron"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:200
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
 msgstr "Antra anviron %(from)s e %(to)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:206
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
 msgstr "Antra %(from)s e anviron %(to)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:212
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
 msgstr "Antra %(from)s e %(to)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:220
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:219
 msgid "After approximately %(from)s"
 msgstr "Apress anviron %(from)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:225
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:224
 msgid "After %(from)s"
 msgstr "Apress %(from)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:232
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:231
 msgid "Before approximately %(to)s"
 msgstr "Prima ëd %(to)s anviron"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:237
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:236
 msgid "Before %(to)s"
 msgstr "Prima ëd %(to)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:246
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:245
 msgid "Approximately %(date)s"
 msgstr "Anviron %(date)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:270
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:269
 msgid "Invalid input, see help text."
 msgstr "Imission nen bon-a, vëdde ël test d'agiut."
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:315
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:365
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:314
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:364
 msgid "Server received invalid data."
 msgstr "Ël servent a l'ha arseivù dij dàit nen bon."
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:399
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:398
 msgid "Confirm dating"
 msgstr "Confirmé la dàita"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:406
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:405
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "La confirmassion ëd na dàita a l'ha faje vagné %(points)s pont."
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:411
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:410
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "An mandand na datassion, a l'ha vagnà %(points)s pont."
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:417
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:416
 msgid "Thanks!"
 msgstr "Mersì!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:427
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:426
 msgid "YYYY.MM.DD"
 msgstr "AAAA.MM.DD"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:437
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
 msgid "Cancel"
 msgstr "Anulé"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:446
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
 msgid "Submit"
 msgstr "Mandé"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:454
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:453
 msgid "Comment your dating"
 msgstr "Comenté soa datassion"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "Dovré ël formà AAAA.MM.DD (MM.DD opsionaj)"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "Marché j'antërvaj ëd dàita o anans/apress con «-» o «..»"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "Approximate date in brackets"
 msgstr "Dàita aprossimativa antra parèntes"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:463
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:473
+#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:472
 msgid "You're anonymous"
 msgstr "A l'é anònim"
 
@@ -367,95 +369,95 @@ msgstr "URL"
 msgid "Unknown author"
 msgstr "Autor dësconossù"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:105
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Earliest"
 msgstr "Ij pi vej"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:107
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
 msgid "Latest"
 msgstr "Pi recent"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:112
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
 msgid "Least"
 msgstr "Mìnim"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:114
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
 msgid "Most"
 msgstr "Ij pi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:119
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
 msgid "Pictures furthest from you"
 msgstr "Fòto pi leugne da chiel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:121
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
 msgid "Pictures closest to you"
 msgstr "Fòto pi davzin-e a chiel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:126
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "commented"
 msgstr "comentà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "rephotographed"
 msgstr "torna fotografà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
 msgid "added"
 msgstr "giontà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
 msgid "geotagged"
 msgstr "geolocalisà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "liked"
 msgstr "a l'ha marcà ch'a-j pias"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "dated"
 msgstr "daità"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:147
 msgid "viewed"
 msgstr "vist"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:151
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
 msgid "pictures"
 msgstr "fòto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:155
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
 msgid "By reverse timestamp"
 msgstr "An órdin cronològich anvertì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By timestamp"
 msgstr "Da na mira cronològica"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:161
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
 msgid "Pictures from the map"
 msgstr "Fòto da la carta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:243
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
 msgid "Albums"
 msgstr "Àlbom"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:249
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
 msgid "My favorites"
 msgstr "Ij mè preferì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:254
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "My rephotos"
 msgstr "Mie arprodussion fotogràfiche"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:256
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
 msgid "Rephotos by %(user)s"
 msgstr "Arprodussion fotogràfiche ëd %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
 msgid "All photos"
 msgstr "Tute le fòto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:333
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
 msgid "Picture set has no "
 msgstr "L'ansem ëd fòto a l'ha gnun "
 
@@ -586,9 +588,33 @@ msgstr[1] "A l'ha vagnà %s pont"
 msgid "Your guess has been changed"
 msgstr "Soa suposission a l'é stàita modificà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:73
+#: ajapaik/ajapaik/static/js/ajapaik-selection.js:74
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Chheicòs a l'é andàit mal, për piasì ch'a contròla soa conession. Si ël problema a përsist, për piasì ch'an contata su Tawk.to"
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:100
+msgid "Transcribed by: "
+msgstr "Trascrivù da: "
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
+msgid "This transcription is correct"
+msgstr "Costa trascrission a va bin"
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
+msgid "Confirm"
+msgstr "Confirmé"
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
+msgid "What is written on the image?"
+msgstr "Lòn ch'a-i é scrit an sla plancia?"
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
+msgid "You're anonymous, please login to add transcriptions"
+msgstr "A l'é anònim, për piasì ch'a rintra ant ël sistema për gionté dle trascrission"
+
+#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
+msgid "Login"
+msgstr "Rintré ant ël sistema"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
