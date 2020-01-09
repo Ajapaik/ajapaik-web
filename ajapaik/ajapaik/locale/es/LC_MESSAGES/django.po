@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-06 16:39:17+0000\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:28+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
@@ -21,6 +21,10 @@ msgstr ""
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Invertir colores"
+
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
@@ -32,11 +36,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1563
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Se añadió la transcripción. ¡Gracias!"
 
 #: ajapaik/ajapaik/api.py:1565 ajapaik/ajapaik/api.py:1582
 msgid "Something went wrong"
-msgstr ""
+msgstr "Se produjo un error"
 
 #: ajapaik/ajapaik/api.py:1574
 msgid "You have already given feedback for this transcription"
@@ -254,7 +258,7 @@ msgstr "Adivina la edad del sujeto"
 
 #: ajapaik/ajapaik/models.py:1036
 msgid "Transcribe"
-msgstr ""
+msgstr "Transcribir"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Map"
@@ -980,10 +984,15 @@ msgstr ""
 msgid "Approximate address"
 msgstr ""
 
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Girar foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42
@@ -1037,7 +1046,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:284
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Transcribir esta imagen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:300
 #: ajapaik/ajapaik/templates/photoview.html:232

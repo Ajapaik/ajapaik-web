@@ -11,17 +11,21 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:19+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:30+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Inverter cores"
+
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
@@ -981,10 +985,15 @@ msgstr "Remover o filtro de álbuns"
 msgid "Approximate address"
 msgstr "Endereço aproximado"
 
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Girar foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42

@@ -13,11 +13,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:19+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:30+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -25,9 +25,13 @@ msgstr ""
 msgid "Invert colors"
 msgstr "Anvertì ij color"
 
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr "Costa trascrission a esist già, la trascrission precedenta a l'é stàita plebissità, mersì!"
+
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "A l'ha già mandà soa trascrission, mersì!"
 
 #: ajapaik/ajapaik/api.py:1561
 msgid "Your transcription has been updated, thank you!"
@@ -982,6 +986,11 @@ msgstr "Eliminé ël filtr d'àlbom"
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
 msgstr "Adrëssa aprossimativa"
+
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr "Vëdde l'àutra facia dla fòto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64

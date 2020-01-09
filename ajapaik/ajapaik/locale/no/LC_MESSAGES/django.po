@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:18+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:30+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -22,12 +22,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Inverter farger"
+
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
@@ -986,6 +990,11 @@ msgstr "Fjern albumfilter"
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
 msgstr "Omtrentlig adresse"
+
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64

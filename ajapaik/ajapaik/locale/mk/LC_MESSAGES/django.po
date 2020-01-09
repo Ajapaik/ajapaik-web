@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-06 16:39:18+0000\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mk\n"
@@ -21,6 +21,10 @@ msgstr ""
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Обратни бои"
+
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
@@ -978,6 +982,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47

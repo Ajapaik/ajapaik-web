@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:17+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -22,36 +22,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "Keera värvid ümber"
 
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr "Selline transkriptsioon juba eksisteerib, olemasolevale märgiti teie poolt õigeks, aitäh!"
+
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "Sa oled sellise transkriptsiooni juba esitanud, aitäh!"
 
 #: ajapaik/ajapaik/api.py:1561
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "Sinu transkriptsioon on muudetud, aitäh!"
 
 #: ajapaik/ajapaik/api.py:1563
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Transkriptsioon lisatud, suur tänu!"
 
 #: ajapaik/ajapaik/api.py:1565 ajapaik/ajapaik/api.py:1582
 msgid "Something went wrong"
-msgstr ""
+msgstr "Midagi läks valesti"
 
 #: ajapaik/ajapaik/api.py:1574
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "Oled sellele transkriptsioonile juba tagasisidet andnud"
 
 #: ajapaik/ajapaik/api.py:1580
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Transkriptsiooni kohta on tagasiside antud, aitäh!"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -261,7 +265,7 @@ msgstr "Hinda isiku vanust"
 
 #: ajapaik/ajapaik/models.py:1036
 msgid "Transcribe"
-msgstr ""
+msgstr "Transkribeeri"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Map"
@@ -726,15 +730,15 @@ msgstr "Isikute albumite nimekiri"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List photos with faces"
-msgstr ""
+msgstr "Kuva pildid, kus on on nägusid"
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List albums with postcards"
-msgstr ""
+msgstr "Kuva albumid, kus on postkaardid"
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List postcards"
-msgstr ""
+msgstr "Kuva postkaardid"
 
 #: ajapaik/ajapaik/templates/_header.html:53
 msgid "Add photos"
@@ -987,10 +991,15 @@ msgstr "Eemalda albumi filter"
 msgid "Approximate address"
 msgstr "Ligikaudne aadress"
 
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr "Vaata pildi teist külge"
+
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Keera pilti"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42
@@ -1044,7 +1053,7 @@ msgstr "Kommenteeri"
 #: ajapaik/ajapaik/templates/_photo_modal.html:284
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Transkribeeri pilt"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:300
 #: ajapaik/ajapaik/templates/photoview.html:232

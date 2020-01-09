@@ -3,6 +3,7 @@
 #
 # Author: Abijeet Patro
 # Author: Aefgh39622
+# Author: H2kks
 # Author: Omotecho
 # Author: Shirayuki
 # Author: 沈澄心
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-06 16:39:18+0000\n"
-"X-POT-Import-Date: 2020-01-05 05:41:18+0000\n"
+"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
@@ -24,6 +25,10 @@ msgstr ""
 #: ajapaik/ajapaik/admin.py:104
 msgid "Invert colors"
 msgstr "反転色"
+
+#: ajapaik/ajapaik/api.py:1556
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
@@ -972,6 +977,11 @@ msgstr "アルバムフィルターを削除"
 msgid "Approximate address"
 msgstr ""
 
+#: ajapaik/ajapaik/templates/_photo_modal.html:41
+#: ajapaik/ajapaik/templates/photoview.html:60
+msgid "See the other side of photo"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
@@ -1138,7 +1148,7 @@ msgstr "メール アドレスの確認"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "<a href=\"mailto:%(email)s\">%(email)s</a> がユーザー %(user_display) さんのメール アドレスであることを確認してください。"
+msgstr "<a href=\"mailto:%(email)s\">%(email)s</a> がユーザー %(user_display)s さんのメール アドレスであることを確認してください。"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
