@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ajapaik', '0109_auto_20191023_1941'),
+        ('ajapaik', '0112_auto_20191227_1246'),
         ('ajapaik_face_recognition', '0103_auto_20191001_1753'),
     ]
 
