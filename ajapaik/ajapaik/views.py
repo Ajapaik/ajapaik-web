@@ -17,7 +17,7 @@ from urllib.request import build_opener
 import cv2
 import django_comments
 import requests
-from html import unescape 
+from html import unescape
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -708,6 +708,11 @@ def frontpage_async_albums(request):
 		start = (page - 1) * page_size
 		if form.cleaned_data['people']:
 			albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
+		if form.cleaned_data['postcards']:
+			postcard_albums = []
+			photoIDs = Photo.objects.filter(postcard_front_of__isnull=False).values('id')
+			albumPhotos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
+			albums = Album.objects.filter(id__in=albumPhotos, cover_photo__isnull=False, is_public=True)
 		else:
 			albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
 										  atype=Album.CURATED)
@@ -741,7 +746,7 @@ def frontpage_async_albums(request):
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
 	profile = request.get_user().profile
-	photos = Photo.geo.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True),similar_photo_count=Count('similar_photos', distinct=True))
+	photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True),similar_photo_count=Count('similar_photos', distinct=True))
 	filter_form = GalleryFilteringForm(request.GET)
 	page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 	context = {}
@@ -788,6 +793,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		if filter_form.cleaned_data['people']:
 			photos = photos.filter(face_recognition_rectangles__isnull=False,
 								   face_recognition_rectangles__deleted__isnull=True)
+		if filter_form.cleaned_data['postcards']:
+			photos = photos.filter(postcard_front_of__isnull=False)
 		if requested_photos:
 			requested_photos = requested_photos.split(',')
 			context['is_photoset'] = True
@@ -918,6 +925,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				photos = photos.order_by('created')
 			else:
 				photos = photos.order_by('-created')
+		if not filter_form.cleaned_data['postcards']:
+			photos = photos.filter(postcard_back_of__isnull=True)
 		if requested_photo:
 			ids = list(photos.values_list('id', flat=True))
 			if requested_photo.id in ids:
@@ -1322,6 +1331,12 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 
 	whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
 
+	reverse_side = None
+	if photo_obj.postcard_back_of is not None:
+		reverse_side = photo_obj.postcard_back_of
+	elif photo_obj.postcard_front_of is not None:
+		reverse_side = photo_obj.postcard_front_of
+
 	context = {
 		"photo": photo_obj,
 		"similar_photos": similar_photos,
@@ -1358,6 +1373,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		"similar_photo_count": similar_photos.count(),
 		"confirmed_similar_photo_count": similar_photos.filter(confirmed=True).count(),
 		"compare_photos_url" : compare_photos_url,
+		"reverse_side" : reverse_side,
 		# TODO: Needs more data than just the names
 		"people": people,
 		'whole_set_albums_selection_form': whole_set_albums_selection_form
@@ -2213,7 +2229,7 @@ def curator_photo_upload_handler(request):
 							if upload_form.cleaned_data["collections"] == "DIGAR":
 								new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
 							else:
-								# Enable plain http and broken SSL 
+								# Enable plain http and broken SSL
 								ssl._create_default_https_context = ssl._create_unverified_context
 								opener = build_opener()
 								headers = [("User-Agent",
@@ -2638,7 +2654,6 @@ def get_datings(request, photo_id):
 
 	return HttpResponse(json.dumps(context), content_type='application/json')
 
-
 def generate_still_from_video(request):
 	profile = request.get_user().profile
 	form = VideoStillCaptureForm(request.POST)
@@ -2750,7 +2765,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 	else:
 		next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
-			
+
 	context = {
 		'is_comparephoto': True,
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
