@@ -708,7 +708,7 @@ def frontpage_async_albums(request):
 		start = (page - 1) * page_size
 		if form.cleaned_data['people']:
 			albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
-		if form.cleaned_data['postcards']:
+		elif form.cleaned_data['postcards']:
 			postcard_albums = []
 			photoIDs = Photo.objects.filter(postcard_front_of__isnull=False).values('id')
 			albumPhotos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
