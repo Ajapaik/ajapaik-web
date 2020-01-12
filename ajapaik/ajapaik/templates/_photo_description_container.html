@@ -8,34 +8,26 @@
     {% endif %}
     {% if photo.author %}
         <div class="w-100">
-            <b>{{ photo.author }}</b>
+            <b id="ajapaik-photo-author">{{ photo.author }}</b>
         </div>
     {% endif %}
     {% if photo.description %}
-        <div class="w-100">
-            <span>{% trans "Description" %}: </span>
-            <span>{{ photo.description }}</span>
+        <div id="ajapaik-photo-description" class="w-100">
+                {{ photo.description }}
         </div>
     {% endif %}
     {% if photo.date %}
         <div class="w-100">
-            <span>{% trans "Date" %}: </span>
-            <span>{{ photo.date }}</span>
+                {{ photo.date }}
         </div>
     {% elif photo.date_text %}
         <div class="w-100">
-            {{ photo.date_text }}
+                {{ photo.date_text }}
         </div>
     {% endif %}
-    <div class="w-100">
-        {% if photo.licence %}
-            <span>{% trans "License" %}: </span>
-            {% include "_licence.html" with licence=photo.licence %}
-        {% endif %}
-    </div>
-    <div class="w-100">
-        {% if photo.source_url %}
-            <span>{% trans "Source" %}: </span>
+        <div class="w-100" id="ajapaik-photo-source">
+            {% if photo.licence %}{% include "_licence.html" with licence=photo.licence %}{% endif %}
+            {% if photo.source_url %}
             <a onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
                href='{{ photo.source_url }}' target="_blank" rel="noopener">
                 {{ photo.source.description }}

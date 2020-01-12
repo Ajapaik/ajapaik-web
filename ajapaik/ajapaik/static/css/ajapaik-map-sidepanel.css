@@ -49,12 +49,8 @@
     overflow-y: scroll;
   }
 
-
+  .side-panel img,
   #img-wrapper > a {
-    width: 100%;
-  }
-
-  .side-panel img {
     width: 100%;
   }
 

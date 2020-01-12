@@ -88,11 +88,7 @@
         {% endif %}
 
         if (isTabletView) {
-            $('#close-map-modal').on('click', function() {
-                $('#ajapaikMapTutorialModal').modal('toggle');
-            });
-
-            let showModal = function() {
+            showModal = function() {
                 if(!$('#ajapaikMapTutorialModal').is(":visible")){
                     $('#ajapaikMapTutorialModal').modal();
                 }
@@ -100,30 +96,34 @@
 
             var idleTime = 0;
             $(document).ready(function () {
-                //Increment the idle time counter every second.
-                console.error("timer")
-                var idleInterval = setInterval(timerIncrement, 1000); 
+                function resetTimer () {
+                    idleTime = 0;
+                    if($('#ajapaikMapTutorialModal').is(":visible")){
+                        $('#ajapaikMapTutorialModal').modal('toggle');
+                    }
+                }
 
+                //Increment the idle time counter every second.
+                var idleInterval = setInterval(timerIncrement, 1000); 
                 //Zero the idle timer on mouse movement.
                 $(this).mousemove(function (e) {
-                    idleTime = 0;
+                    resetTimer();
                 });
                 $(this).keypress(function (e) {
-                    idleTime = 0;
+                    resetTimer();
                 });
                 //Zero the idle timer on touch events.
                 $(this).bind('touchstart', function(){
-                    idleTime = 0;
+                    resetTimer();
                 });
                 $(this).bind('touchmove', function(){
-                    idleTime = 0;
+                    resetTimer();
                 });
             });
 
             function timerIncrement() {
-                console.error("timer", idleTime)
                 idleTime = idleTime + 1;
-                if (idleTime > 10) { 
+                if (idleTime > 179) { 
                     showModal();
                 }
             }

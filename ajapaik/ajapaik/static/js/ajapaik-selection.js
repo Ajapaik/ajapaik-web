@@ -69,6 +69,7 @@
                             : gettext('Your guess has been changed')
                         $.notify(message, {type: 'success'});
                     },
+                    // Move the messages to API, 
                     error: function () {
                         $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                     },
@@ -77,7 +78,7 @@
                     }
                 });
             });
-        }
+        };
         $(document).on('click', '.ajapaik-photo-selection-thumbnail-link', function (e) {
             e.preventDefault();
             window.loadPhoto($(this).data('id'));

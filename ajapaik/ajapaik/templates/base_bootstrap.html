@@ -358,6 +358,8 @@
             photoLikeURL = '{% url 'update_like_state' %}',
             generalInfoModalURL = '{% url 'general_info_modal_content' %}',
             submitDatingURL = '{% url 'submit_dating' %}',
+            submitTranscriptionURL = '{% url 'api_submit_transcription' %}',
+            confirmTranscriptionURL = '{% url 'api_confirm_transcription' %}', 
             infoModalURL = '{% url 'info_modal_content' %}',
             photoUploadModalURL = '{% url 'mapview_photo_upload_modal' %}',
             curatorSelectableAlbumsURL = '{% url 'curator_selectable_albums' %}',
@@ -442,6 +444,7 @@
         <script src="{% static "js/annotations/popovers/face-annotation.popover.edit.js" %}"></script>
         <script src="{% static "js/autocomplete.js" %}"></script>
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
+        <script src="{% static "js/ajapaik-transcriber-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>
     <!-- endcompress -->
     <script type="text/javascript">

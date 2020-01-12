@@ -37,10 +37,17 @@
                     <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                 </a>
                 {% if is_frontpage %}
-                    <a role="button" class="ajapaik-header-button" title="{% trans 'List face recognition albums' %}"
+                    <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
                         href="#"
                         id="ajapaik-header-people-button">
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.people == '1' %} ajapaik-text-white{% endif %}">people</i>
+                    </a>
+                {% endif %}
+                {% if is_frontpage %}
+                    <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
+                        href="#"
+                        id="ajapaik-header-postcard-button">
+                            <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.postcards == '1' %} ajapaik-text-white{% endif %}">picture_in_picture</i>
                     </a>
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"

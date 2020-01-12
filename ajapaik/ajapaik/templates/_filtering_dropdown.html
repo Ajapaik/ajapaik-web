@@ -8,7 +8,7 @@
     <ul class="dropdown dropdown-menu ajapaik-black-dropdown-menu" role="menu">
         <li id="ajapaik-filter-dropdown-filter-name"></li>
         <li data-order1="closest" data-order2="none">
-            <a href="#" class="ajapaik-filtering-choice" data-order1="closest" data-order2="none"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background" data-order1="closest" data-order2="none"
                 title="{% trans "Sort by distance from you" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24h-24z" fill="none"></path>
@@ -18,7 +18,7 @@
             </a>
         </li>
         <li data-order1="time">
-            <a href="#" class="ajapaik-filtering-choice" data-order1="time"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background" data-order1="time"
                 title="{% trans "Sort by time and ..." %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24H0z" fill="none"></path>
@@ -28,7 +28,7 @@
             </a>
         </li>
         <li data-order1="time" data-order2="added">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order1="time" data-order2="added" title="{% trans "Sort by photos' time added" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24h-24z" fill="none"></path>
@@ -39,7 +39,7 @@
         </li>
         {% if album.5 %}
             <li data-order1="time" data-order2="stills">
-                <a href="#" class="ajapaik-filtering-choice"
+                <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                     data-order1="time" data-order2="stills" title="{% trans "Sort by stills' timestamp" %}">
                     <svg height="48" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#888" id="ajapaik-stills-filter-icon" d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path>
@@ -49,7 +49,7 @@
             </li>
         {% endif %}
         <li data-order2="views">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order2="views" title="{% trans "Sort by views' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-views-filter-icon" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path>
@@ -58,7 +58,7 @@
             </a>
         </li>
         <li data-order2="geotags">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order2="geotags" title="{% trans "Sort by geotags' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-geotags-filter-icon"
@@ -68,7 +68,7 @@
             </a>
         </li>
         <li data-order2="datings">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order2="datings" title="{% trans "Sort by datings' time added or amount" %}">
                 <svg fill="#888" height="48" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#888" id="ajapaik-datings-filter-icon"
@@ -78,7 +78,7 @@
             </a>
         </li>
         <li data-order2="rephotos">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order2="rephotos" title="{% trans "Sort by rephotos' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path d="M0 0h24v24h-24z" fill="none"></path>
@@ -88,7 +88,7 @@
             </a>
         </li>
         <li data-order2="comments">
-            <a href="#" class="ajapaik-filtering-choice" data-order2="comments"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background" data-order2="comments"
                 title="{% trans "Sort by comments' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-comments-filter-icon"
@@ -98,7 +98,7 @@
             </a>
         </li>
         <li data-order2="likes">
-            <a href="#" class="ajapaik-filtering-choice"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background"
                 data-order2="likes" title="{% trans "Sort by likes' time added or amount" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-likes-filter-icon"
@@ -108,7 +108,7 @@
             </a>
         </li>
         <li id="ajapaik-sort-size" data-order1="amount">
-            <a href="#" class="ajapaik-filtering-choice" data-order1="amount"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background" data-order1="amount"
                 title="{% trans "Sort by amount and ..." %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-amount-filter-icon"
@@ -118,7 +118,7 @@
             </a>
         </li>
         <li data-order3="reverse">
-            <a href="#" class="ajapaik-filtering-choice" data-order3="reverse"
+            <a href="#" class="ajapaik-filtering-choice ajapaik-no-background" data-order3="reverse"
                 title="{% trans "Change sorting order" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                     <path fill="#888" id="ajapaik-reverse-filter-icon"

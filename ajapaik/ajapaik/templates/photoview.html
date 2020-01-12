@@ -13,8 +13,10 @@
 {% include "js_templates/curator_album_selection_option.html" %}
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
-        <img id="ajapaik-full-screen-image" style="display: none;" src="{{ fullscreen.url }}"
-            alt="{{ photo.description }}" title="{{ photo.description }}" />
+        <div id="ajapaik-full-screen-image-wrapper">
+            <img id="ajapaik-full-screen-image" style="display: none;" src="{{ fullscreen.url }}"
+                alt="{{ photo.description }}" title="{{ photo.description }}"/>
+        </div>
     </div>
 </div>
 {% if rephoto %}
@@ -54,6 +56,14 @@
                     data-id="{{ photo.id }}">
                     <i class="material-icons notranslate">check_circle</i>
                 </button>
+                {% if reverse_side %}
+                    <a id="ajapaik-reverse-side-button" style="display: none;" data-id="{{ reverse_side.id }}" href="{% url 'photo' reverse_side.pk reverse_side.get_pseudo_slug %}" title="{% trans "See the other side of photo" %}">
+                        <i class="material-icons notranslate">360</i>
+                    </a>
+                {% endif %}
+                <button id="ajapaik-rotate-photo-button" style="display: none;" title="{% trans "Rotate photo" %}">
+                    <i class="material-icons notranslate">rotate_left</i>
+                </button>
                 <button class="ajapaik-flip-photo-overlay-button" style="display: none;">
                     <i class="material-icons notranslate">flip</i>
                 </button>
@@ -83,6 +93,9 @@
                     </div>
                 {% endif %}
             </div>
+            <!-- start of transcriber block -->
+            <div class="row my-3 d-none" id="ajp-transcriber-container"></div>
+            <!-- end of transcriber block -->
             {% with photo=photo|default:photo %}
                 {% include "_photo_description_container.html" %}
             {% endwith %}
@@ -203,6 +216,11 @@
                 </li>
             </ul>
         </div>
+        <a id="ajapaik-photoview-transcribe-button" data-id="{{ photo.id }}" class="float-left"
+            title="{% trans "Transcribe this image" %}" href="#">
+            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">text_fields</i>
+            <span id="ajapaik-photoview-transcriptions-count" class="badge"></span>
+        </a>
     </div>
     <div class="row mb-3" id="ajp-dater-container"></div>
     {% if albums.all|length > 0 %}
@@ -212,7 +230,7 @@
                 {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}</i>
             <div class="col-auto" style="max-width:80vw;">
                 {% for a in albums %}
-                <div style="display:flex;">
+                <div class="d-flex">
                     <a class="ajapaik-photo-album-link float-left" href="{% url 'frontpage' %}?album={{ a.id }}">
                         {{ a.name }}
                     </a>
@@ -310,6 +328,7 @@
             originalFullscreen = $('#ajapaik-full-screen-image');
         // $('#ajp-geotagging-container').AjapaikGeotagger();
         $('#ajp-dater-container').AjapaikDater();
+        $('#ajp-transcriber-container').AjapaikTranscriber();
 
         ObjectTagger.setPhotoId(window.photoId);
         ImageAreaSelector.setImageArea('ajapaik-photoview-main-photo-container');
@@ -342,6 +361,8 @@
     });
     if (window.isMobile) {
         $('.ajapaik-flip-photo-overlay-button').show();
+        $('#ajapaik-reverse-side-button').show();
+        $('#ajapaik-rotate-photo-button').show();
         $('.ajapaik-show-similar-photoview-overlay-button').show();
         $('.ajapaik-show-rephotos-photoview-overlay-button').show();
     }
@@ -350,6 +371,8 @@
         if (!window.isMobile) {
             if (!window.isAnnotating) {
                 $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
+                $('#ajapaik-reverse-side-button').show("fade", 250);
+                $('#ajapaik-rotate-photo-button').show("fade", 250);
                 $('.ajapaik-show-similar-photoview-overlay-button').show("fade", 250);
                 $('.ajapaik-show-rephotos-photoview-overlay-button').show("fade", 250);
 
@@ -362,6 +385,8 @@
     $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
             $('.ajapaik-flip-photo-overlay-button').hide("fade", 250);
+            $('#ajapaik-reverse-side-button').hide("fade", 250);
+            $('#ajapaik-rotate-photo-button').hide("fade", 250);
             $('.ajapaik-show-similar-photoview-overlay-button').hide("fade", 250);
             $('.ajapaik-show-rephotos-photoview-overlay-button').hide("fade", 250);
 
@@ -441,7 +466,7 @@
     $(document).on('click', '#ajapaik-show-rephotos-photoview-overlay-button', function () {
         $('#ajapaik-photoview-rephoto-selection').removeClass('d-none');
         $('#ajapaik-photoview-rephoto-wrapper').removeClass('d-none');
-        $('#ajapaik-photoview-similar-photo-selection').removeClass('d-block').addClass('d-none');
+        $('#ajapaik-photoview-similar-photo-selection').removeClass('d-block');
         $('#ajapaik-show-similar-photoview-overlay-button').removeClass('d-none');
         $('#ajapaik-show-rephotos-photoview-overlay-button').addClass('d-none');
     });
@@ -546,6 +571,43 @@
                 $('#ajp-dater-comment').val(null);
             }
         });
+    };
+    window.updateTranscriptions = function () {
+        $.ajax({
+            url: '{% url 'api_transcriptions' photo.id %}',
+            success: function (result) {
+                $('#ajapaik-photoview-transcribe-button').find('.badge').html(result.transcriptions.length);
+                window.currentPhotoTranscriptions = result.transcriptions;
+                if(window.currentPhotoTranscriptions.length > 0) {
+                    $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
+                    if(!$('#ajp-transcriber-confirm-button').is(':visible')) {
+                        $('#ajp-transcriber-confirm-button').removeClass('d-none');
+                    }
+                }
+            },
+            error: function() {
+                $.notify("Failed to get transcriptions", {type: 'danger'});
+            }
+        });
+    };
+    window.updateTranscriptions();
+    $('#ajapaik-photoview-transcribe-button').click(function (e) {
+        e.preventDefault();
+        if ($('#ajp-transcriber-container').is(':visible')) {
+            window.stopTranscriber();
+        } else {
+            window.startTranscriber($(this).data('id'));
+        }
+    });
+    window.startTranscriber = function (photoId) {
+        $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
+            photoId: photoId,
+            previousDatings: window.previousDatings
+        });
+    };
+    window.stopTranscriber = function () {
+        $('#ajp-transcriber-comment').val(null);
+        $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
     };
     window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
     // Leaflet map

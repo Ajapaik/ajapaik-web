@@ -85,7 +85,7 @@ class PhotoAdmin(ModelAdmin):
 
     def _invertcolors(self, id):
         from django.http.response import HttpResponse
-        photo = Photo.objects.filter(pk=id).first()
+        photo = Photo.objects.filter(pk=id.split("/")[0]).first()
         if photo:
             photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)
             img = Image.open(photo_path)

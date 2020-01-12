@@ -35,7 +35,7 @@ class Command(BaseCommand):
     help = 'Will run face detection on all photos in our database that haven\'t had it run yet'
 
     def handle(self, *args, **options):
-        photos = Photo.objects.filter(rephoto_of__isnull=True, face_detection_attempted_at__isnull=True).all()
+        photos = Photo.objects.filter(rephoto_of__isnull=True, postcard_back_of__isnull=True, face_detection_attempted_at__isnull=True).all()
         print('Found %s photos to run on' % photos.count())
         for photo in photos:
             analyse_single_photo(photo)

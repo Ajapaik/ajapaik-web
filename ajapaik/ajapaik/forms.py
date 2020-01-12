@@ -36,7 +36,7 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_FACEBOOK = 'fb'
     LOGIN_TYPES = [
         (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
-                                    # This depricated behaviour before
+                                    # This deprecated behaviour before
                                     # django-allauth integration.
         (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
@@ -103,6 +103,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     people = forms.BooleanField(initial=False, required=False)
+    postcards = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):
@@ -125,6 +126,7 @@ class GalleryFilteringForm(forms.Form):
     similarPhotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
+    postcards = forms.BooleanField(initial=False, required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']
@@ -494,22 +496,26 @@ class ApiFavoritedPhotosForm(forms.Form):
 class ApiPhotoSearchForm(forms.Form):
     query = forms.CharField()
     rephotosOnly = forms.BooleanField(required=False, initial=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiPhotoInAlbumSearchForm(forms.Form):
     query = forms.CharField()
     albumId = forms.ModelChoiceField(queryset=Album.objects.all())
     rephotosOnly = forms.BooleanField(required=False, initial=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiUserRephotoSearchForm(forms.Form):
     query = forms.CharField()
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiUserRephotosForm(forms.Form):
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
-
+    latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField()

@@ -146,7 +146,6 @@ class EuropeanaDriver(object):
                 'reusability': 'open',
                 'profile': 'portal',
                 'qf':'',
-                'theme': 'photography',
                 'query':cleaned_data['fullSearch'],
                 'rows':self.page_size,
                 'start':self.page_size*(cleaned_data['flickrPage']-1)+1

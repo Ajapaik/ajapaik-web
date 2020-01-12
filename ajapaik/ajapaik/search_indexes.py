@@ -18,17 +18,12 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     source = indexes.CharField(model_attr='source__description', null=True)
     source_key = indexes.CharField(model_attr='source_key', null=True)
     address = indexes.CharField(model_attr='address', null=True)
-    # people = indexes.MultiValueField()
 
     def get_model(self):
         return Photo
 
     def index_queryset(self, using=None):
         return self.get_model().objects.all()
-
-    # def prepare_people(self, obj):
-    #     return [subject.name for subject in obj.people.all()]
-
 
 class AlbumIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(document=True, use_template=True)
@@ -39,10 +34,6 @@ class AlbumIndex(indexes.SearchIndex, indexes.Indexable):
     name_de = indexes.CharField(model_attr='name_de', null=True)
     name_ru = indexes.CharField(model_attr='name_ru', null=True)
     name_en = indexes.CharField(model_attr='name_en', null=True)
-    # created = indexes.DateTimeField(model_attr='created', null=False)
-    # cover_photo = indexes.CharField(model_attr='cover_photo', null=True)
-    # cover_photo_width = indexes.IntegerField(model_attr='cover_photo__width', null=True)
-    # cover_photo_height = indexes.IntegerField(model_attr='cover_photo__height', null=True)
 
     def get_model(self):
         return Album

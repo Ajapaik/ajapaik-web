@@ -8,7 +8,6 @@ $(document).ready(function () {
         $('#id_comment').focus();
     });
 
-
     // Disable hotkeys when typing message.
     $('#ajapaik-comments-container').on('focus', 'textarea', function() {
         window.hotkeysActive = false;

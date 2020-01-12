@@ -3,6 +3,7 @@
 #
 # Author: A Chinese Wikipedian
 # Author: A Retired User
+# Author: Aefgh39622
 # Author: Josephine W.
 # Author: Looong
 # Author: Viztor
@@ -17,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2019-11-28 15:30:51+0000\n"
+"PO-Revision-Date: 2019-12-31 06:22:57+0000\n"
 "X-POT-Import-Date: 2019-11-11 15:34:57+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,7 +32,7 @@ msgstr "反转色"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "必须设置边界框"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
@@ -39,7 +40,7 @@ msgstr "包围盒必须有4个逗号分隔的成员。"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr ""
+msgstr "边界框值必须是数字"
 
 #: ajapaik/ajapaik/forms.py:16
 msgid "First name"
@@ -66,7 +67,7 @@ msgstr "选择照片"
 
 #: ajapaik/ajapaik/forms.py:201 ajapaik/ajapaik/forms.py:220
 msgid "Choose parent album"
-msgstr ""
+msgstr "选择父相册"
 
 #: ajapaik/ajapaik/forms.py:376 ajapaik/ajapaik/forms.py:424
 #: ajapaik/ajapaik/templates/_mode_select.html:24
@@ -96,7 +97,7 @@ msgstr "缺少授权协议"
 
 #: ajapaik/ajapaik/forms.py:409 ajapaik/ajapaik/templates/curator.html:103
 msgid "Parent album"
-msgstr ""
+msgstr "父相册"
 
 #: ajapaik/ajapaik/forms.py:412
 msgid "Location"
@@ -104,11 +105,11 @@ msgstr "定位"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "If this album is tied to a certain location, specify here"
-msgstr ""
+msgstr "如果此相册与特定位置相关，请在此处指定"
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Album type"
-msgstr ""
+msgstr "相册类型"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Anything else"
@@ -130,15 +131,15 @@ msgstr "描述"
 
 #: ajapaik/ajapaik/forms.py:420 ajapaik/ajapaik/models.py:188
 msgid "Is public"
-msgstr ""
+msgstr "是公开的"
 
 #: ajapaik/ajapaik/forms.py:421 ajapaik/ajapaik/models.py:189
 msgid "Is open"
-msgstr ""
+msgstr "是开放的"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Email address"
-msgstr ""
+msgstr "电子邮件地址"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -221,19 +222,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "注释"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "确认主题"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
-msgstr ""
+msgstr "确认图像相似度"
 
 #: ajapaik/ajapaik/models.py:1031 ajapaik/ajapaik/models.py:1032
 msgid "Guess subject age"
-msgstr ""
+msgstr "猜测主题年龄"
 
 #: ajapaik/ajapaik/models.py:1062
 msgid "Map"
@@ -253,7 +254,7 @@ msgstr "确认"
 
 #: ajapaik/ajapaik/models.py:1066
 msgid "StreetView"
-msgstr ""
+msgstr "街景"
 
 #: ajapaik/ajapaik/models.py:1067
 msgid "Source geotag"
@@ -277,7 +278,7 @@ msgstr "图库"
 
 #: ajapaik/ajapaik/models.py:1082
 msgid "Permalink"
-msgstr ""
+msgstr "固定链接"
 
 #: ajapaik/ajapaik/models.py:1083
 msgid "Source"
@@ -289,7 +290,7 @@ msgstr "Google地图"
 
 #: ajapaik/ajapaik/models.py:1089
 msgid "Google satellite"
-msgstr ""
+msgstr "Google卫星"
 
 #: ajapaik/ajapaik/models.py:1090
 msgid "OpenStreetMap"
@@ -297,7 +298,7 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1091
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1092
 msgid "No map"
@@ -536,7 +537,7 @@ msgstr "帮助"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr ""
+msgstr "如何排序"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
 msgid "From this group"

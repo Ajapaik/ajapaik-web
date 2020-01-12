@@ -24,6 +24,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate
+from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
@@ -49,7 +50,7 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
 from django.utils.decorators import method_decorator
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 
@@ -754,9 +755,12 @@ class RephotoUpload(APIView):
         print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
 
-        user_profile = request.user.profile if request.user.is_authenticated else None 
+        if not request.user.is_authenticated:
+            return Response({
+                'error': RESPONSE_STATUSES['ACCESS_DENIED']
+            })
 
-        if user_profile and form.is_valid():
+        if form.is_valid():
             user_profile = request.user.profile
             print('form.isvalid()', file=sys.stderr)
             id = form.cleaned_data['id']
@@ -887,9 +891,22 @@ class RephotoUpload(APIView):
             original_photo.save()
             user_profile.update_rephoto_score()
             user_profile.save()
+
+            photos = Photo.objects.filter(pk=photo.id)
+
+            photos = serializers.PhotoSerializer.annotate_photos(
+                photos,
+                user_profile
+            )
+
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'id': new_rephoto.pk,
+                'photos': serializers.PhotoSerializer(
+                    instance=photos,
+                    many=True,
+                    context={'request': request}
+                ).data
             })
         else:
             print('rephotoupload is_valid() fails', file=sys.stderr)
@@ -1088,6 +1105,8 @@ class PhotosSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoSearchForm(data)
         if form.is_valid():
+            lon = form.cleaned_data["longitude"] or None
+            lat = form.cleaned_data["latitude"] or None
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
             profile=user.profile if user.is_authenticated else None
@@ -1101,6 +1120,12 @@ class PhotosSearch(AjapaikAPIView):
                 photos = photos.filter(
                     rephoto_of__isnull=False
                 )
+
+            if lat and lon:
+                ref_location = Point(lon, lat)
+                photos=photos.distance(ref_location) \
+                    .order_by('distance')
+
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 profile
@@ -1128,6 +1153,8 @@ class PhotosInAlbumSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoInAlbumSearchForm(data)
         if form.is_valid():
+            lon = form.cleaned_data["longitude"] or None
+            lat = form.cleaned_data["latitude"] or None
             search_phrase = form.cleaned_data['query']
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
@@ -1145,6 +1172,15 @@ class PhotosInAlbumSearch(AjapaikAPIView):
             else:
                 # Old photos only.
                 photos = photos.filter(rephoto_of__isnull=True)
+
+
+            if lat and lon:
+                print("Sorting by distance");
+                ref_location = Point(lon, lat)
+                photos=photos.distance(ref_location) \
+                    .order_by('distance')
+
+
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
                 profile
@@ -1173,6 +1209,9 @@ class UserRephotosSearch(AjapaikAPIView):
         form = forms.ApiUserRephotoSearchForm(data)
         if form.is_valid():
             if user.is_authenticated:
+                lon = form.cleaned_data["longitude"] or None
+                lat = form.cleaned_data["latitude"] or None
+
                 search_phrase = form.cleaned_data['query']
                 sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
@@ -1181,6 +1220,12 @@ class UserRephotosSearch(AjapaikAPIView):
                     rephoto_of__isnull=False,
                     user=user.profile
                 )
+
+                if lat and lon:
+                    ref_location = Point(lon, lat)
+                    photos=photos.distance(ref_location) \
+                        .order_by('distance')
+
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
                     user.profile
@@ -1378,12 +1423,22 @@ class PhotosWithUserRephotos(AjapaikAPIView):
         form = forms.ApiUserRephotosForm(data)
         if form.is_valid():
             if user.is_authenticated:
+                lon = form.cleaned_data["longitude"] or None
+                lat = form.cleaned_data["latitude"] or None
                 start = form.cleaned_data["start"] or 0
                 end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
 
                 photos = Photo.objects.filter(
                     rephotos__user=user.profile
-                ).order_by('created')[start:end]
+                )
+
+                if lat and lon:
+                    ref_location = Point(lon, lat)
+                    photos=photos.distance(ref_location) \
+                        .order_by('distance')[start:end]
+                else:
+                    photos=photos.order_by('rephotos__created')[start:end]
+
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
@@ -1409,7 +1464,7 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 'photos': []
             })
 
-class AddSimilarPhotos(AjapaikAPIView):
+class SubmitSimilarPhotos(AjapaikAPIView):
     '''
     API endpoint for posting similar photos.
     '''
@@ -1442,3 +1497,86 @@ class AddSimilarPhotos(AjapaikAPIView):
                         inputs.append(profile.id)
                     points += ImageSimilarity.add_or_update(*inputs)
         return JsonResponse({'points': points})
+
+class Transcriptions(AjapaikAPIView):
+    '''
+    API endpoint for getting transcriptions for an image.
+    '''
+    def get(self, request, photo_id, format=None):
+        transcriptions = Transcription.objects.filter(photo_id=photo_id).order_by('-created').values()
+        ids = transcriptions.values_list('id', flat=True)
+        feedback = TranscriptionFeedback.objects.filter(transcription_id__in=ids)
+        for transcription in transcriptions:
+            transcription["feedback_count"] = 0
+            for fb in feedback:
+                if fb.transcription_id == transcription["id"]:
+                    transcription["feedback_count"] +=1
+            profile = Profile.objects.filter(user_id=transcription["user_id"]).first()
+            transcription["user_name"] = profile.get_display_name()
+        def feedback_count(elem):
+            return elem["feedback_count"]
+        data = { 'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True) }
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, format=None):
+        try:
+            photo = get_object_or_404(Photo, id=request.POST['photo'])
+            user = get_object_or_404(Profile, pk=request.user.profile.id)
+            count = Transcription.objects.filter(photo=photo,text=request.POST['text']).count()
+            text = request.POST['text']
+
+            if count < 1:
+                previousTranscriptionByCurrentUser = Transcription.objects.filter(photo=photo, user=user).first()
+                if previousTranscriptionByCurrentUser:
+                    previousTranscriptionByCurrentUser.text = text
+                    previousTranscriptionByCurrentUser.save()
+                else:
+                    transcription = Transcription(
+                        user = user,
+                        text = text,
+                        photo = photo
+                    )
+                    transcription.save()
+                    TranscriptionFeedback(
+                        user=user,
+                        transcription=transcription
+                    ).save()
+
+            transcriptionsWithSameText = Transcription.objects.filter(photo=photo,text=text).exclude(user=user)
+            upvoted = False
+            for transcription in transcriptionsWithSameText:
+                TranscriptionFeedback(
+                    user=user,
+                    transcription=transcription
+                ).save()
+                upvoted = True
+            
+            if count > 0:
+                if upvoted:
+                    return JsonResponse({'message': _('This transcription already exists, previous transcription was upvoted, thank you!')})
+                else:
+                    return JsonResponse({'message': _('You have already submitted this transcription, thank you!')})
+            else:
+                if previousTranscriptionByCurrentUser:
+                    return JsonResponse({'message': _('Your transcription has been updated, thank you!')})
+                else:
+                    return JsonResponse({'message': _('Transcription added, thank you!')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class SubmitTranscriptionFeedback(AjapaikAPIView):
+    '''
+    API endpoint for confirming transcription for an image.
+    '''
+    def post(self, request, format=None):
+        try:
+            if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'], user_id = request.user.profile.id).count() > 0:
+                return JsonResponse({'message': _('You have already given feedback for this transcription')})
+            else:
+                transcriptionFeedback = TranscriptionFeedback(
+                    user=get_object_or_404(Profile, pk=request.user.profile.id),
+                    transcription=get_object_or_404(Transcription, id=request.POST['id'])
+                ).save()
+                return JsonResponse({'message': _('Transcription feedback added, thank you!')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)

@@ -127,7 +127,10 @@ urlpatterns += [
     url(r'^api/v1/photos/filtered/rephotographed-by-user/$', api.PhotosWithUserRephotos.as_view()),
     url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),
     url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
-    url(r'^api/v1/photos/similar/$', api.AddSimilarPhotos.as_view(), name="api_add_similarity"),
+    url(r'^api/v1/photos/similar/$', api.SubmitSimilarPhotos.as_view(), name="api_submit_similarity"),
+    url(r'^api/v1/transcriptions/(?P<photo_id>\d+)/$', api.Transcriptions.as_view(), name='api_transcriptions'),
+    url(r'^api/v1/transcriptions/', api.Transcriptions.as_view(), name='api_submit_transcription'),
+    url(r'^api/v1/transcription-feedback/', api.SubmitTranscriptionFeedback.as_view(), name='api_confirm_transcription')
 ]
 
 urlpatterns += [

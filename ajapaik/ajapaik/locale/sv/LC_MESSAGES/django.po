@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-18 17:08:10+0000\n"
+"PO-Revision-Date: 2019-12-31 06:22:57+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -210,11 +210,11 @@ msgstr "Urval av fotografier"
 
 #: ajapaik/ajapaik/models.py:1025
 msgid "Dating"
-msgstr ""
+msgstr "Datering"
 
 #: ajapaik/ajapaik/models.py:1026
 msgid "Dating confirmation"
-msgstr ""
+msgstr "Bekräftelse av datering"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Film still"
@@ -222,11 +222,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1028
 msgid "Annotation"
-msgstr ""
+msgstr "Annotering"
 
 #: ajapaik/ajapaik/models.py:1029
 msgid "Confirm subject"
-msgstr ""
+msgstr "Bekräfta ämne"
 
 #: ajapaik/ajapaik/models.py:1030
 msgid "Confirm Image similarity"
@@ -258,7 +258,7 @@ msgstr "Gatuvy"
 
 #: ajapaik/ajapaik/models.py:1067
 msgid "Source geotag"
-msgstr ""
+msgstr "Källa geotagg"
 
 #: ajapaik/ajapaik/models.py:1068
 msgid "Android app"
@@ -585,7 +585,7 @@ msgstr "Stöd oss"
 #: ajapaik/ajapaik/templates/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr ""
+msgstr "Se också - Sift.pics"
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:113
@@ -695,7 +695,7 @@ msgstr "Visa på karta"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List face recognition albums"
-msgstr ""
+msgstr "Lista ansiktsigenkänningsalbum"
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Add photos"
@@ -729,12 +729,12 @@ msgstr "Ajapaik på Facebook"
 
 #: ajapaik/ajapaik/templates/_header.html:91
 msgid "Profile and leaderboard"
-msgstr ""
+msgstr "Profil och topplista"
 
 #: ajapaik/ajapaik/templates/_header.html:99 ajapaik/ajapaik/views.py:1722
 #: ajapaik/ajapaik/views.py:1739 ajapaik/ajapaik/views.py:1775
 msgid "Leaderboard"
-msgstr ""
+msgstr "Topplista"
 
 #: ajapaik/ajapaik/templates/_header.html:110
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
@@ -746,7 +746,7 @@ msgstr "Användare"
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr ""
+msgstr "Album kurerat av"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
@@ -790,7 +790,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:41
 msgid "all the pictures from this album."
-msgstr ""
+msgstr "alla bilder från detta album."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:43
 #, python-format
@@ -830,7 +830,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr ""
+msgstr "Några fotografier i närheten."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:330
@@ -860,7 +860,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:11
 msgid "Log in to curate content"
-msgstr ""
+msgstr "Logga in för att kurera innehåll"
 
 #: ajapaik/ajapaik/templates/_log_in.html:13
 msgid "Log in to create still frames"
@@ -872,11 +872,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Anslut till Facebook"
 
 #: ajapaik/ajapaik/templates/_log_in.html:22
 msgid "Connect with Google"
-msgstr ""
+msgstr "Anslut till Google"
 
 #: ajapaik/ajapaik/templates/_log_in.html:27
 msgid "E-mail address"
@@ -974,14 +974,14 @@ msgstr "duplicera foto"
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
 msgid "Unknown author"
-msgstr ""
+msgstr "Okänd upphovsman"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:51
 #: ajapaik/ajapaik/templates/photoview.html:176
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Välj fotograferingsplatsen!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:310
 #: ajapaik/ajapaik/templates/photoview.html:182
@@ -1012,7 +1012,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:375
 #: ajapaik/ajapaik/templates/photoview.html:226
 msgid "Curator"
-msgstr ""
+msgstr "Kurator"
 
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
 msgid "Taken"
@@ -1170,7 +1170,7 @@ msgstr "Ändra lösenord"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Dålig nyckel"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1180,7 +1180,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ditt lösenord har ändrats."
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1537,11 +1537,11 @@ msgstr "Töm urval"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
-msgstr ""
+msgstr "Skicka urval till Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "Svarar på"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1553,7 +1553,7 @@ msgstr "Interiör"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:3
 msgid "Exterior "
-msgstr ""
+msgstr "Interiör "
 
 #: ajapaik/ajapaik/templates/extra_translations.html:4
 msgid "Urban "
@@ -1641,7 +1641,7 @@ msgstr "Tillbaka hem"
 
 #: ajapaik/ajapaik/templates/mapview.html:31
 msgid "Show images"
-msgstr ""
+msgstr "Visa bilder"
 
 #: ajapaik/ajapaik/templates/mapview.html:33
 msgid "Search box"
@@ -1817,12 +1817,12 @@ msgstr "Ämne"
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:73
 msgid "Child"
-msgstr ""
+msgstr "Barn"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:76
 msgid "Adult"
-msgstr ""
+msgstr "Vuxen"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
@@ -1863,7 +1863,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Inte säker"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -1920,7 +1920,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:24
 msgid "Delete annotation"
-msgstr ""
+msgstr "Radera annotering"
 
 #: ajapaik/settings/default.py:72
 msgid "Estonian"

@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2019-11-28 15:30:51+0000\n"
+"PO-Revision-Date: 2020-01-02 13:30:42+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -158,7 +158,7 @@ msgstr "Kadın"
 
 #: ajapaik/ajapaik/models.py:207
 msgid "Wikidata identifier"
-msgstr "Wikidata tanımlayıcısı"
+msgstr "Vikiveri tanımlayıcısı"
 
 #: ajapaik/ajapaik/models.py:222
 msgid "b."
@@ -207,11 +207,11 @@ msgstr "Fotoğraf yeniden iyileştirme"
 
 #: ajapaik/ajapaik/models.py:1025
 msgid "Dating"
-msgstr "Tarih verme"
+msgstr "Randevu verme"
 
 #: ajapaik/ajapaik/models.py:1026
 msgid "Dating confirmation"
-msgstr "Tarih verme onayı"
+msgstr "Randevu verme onayı"
 
 #: ajapaik/ajapaik/models.py:1027
 msgid "Film still"
@@ -247,11 +247,11 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1065
 msgid "Confirmation"
-msgstr "Onayla"
+msgstr "Onaylama"
 
 #: ajapaik/ajapaik/models.py:1066
 msgid "StreetView"
-msgstr "Sokak Görünümü"
+msgstr "SokakGörünümü"
 
 #: ajapaik/ajapaik/models.py:1067
 msgid "Source geotag"
@@ -283,7 +283,7 @@ msgstr "Kaynak"
 
 #: ajapaik/ajapaik/models.py:1088
 msgid "Google map"
-msgstr "Google Haritalar"
+msgstr "Google haritası"
 
 #: ajapaik/ajapaik/models.py:1089
 msgid "Google satellite"
@@ -319,7 +319,7 @@ msgstr "Yıl"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 msgid "Page Not Found"
-msgstr "Sayfa bulunamadı"
+msgstr "Sayfa Bulunamadı"
 
 #: ajapaik/ajapaik/templates/404.html:14
 msgid "Back"
@@ -627,7 +627,7 @@ msgstr[0] "<b>%(user_geotagged_photos)s</b> resmi için konum önerdiniz."
 #, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] "İçin <b>%(user_rephotos)s</b> basamağı yaptınız"
+msgstr[0] "<b>%(user_rephotos)s</b> için basamağı yaptınız"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
@@ -799,7 +799,7 @@ msgstr[0] "%(counter)s kullanıcı yaptı"
 #, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "haritada %(counter)s resim."
+msgstr[0] "%(counter)s yeniden fotoğraflandırma"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -924,7 +924,7 @@ msgstr "Benim tarafımdan yeniden çekilmiş fotoğrafları göster"
 #: ajapaik/ajapaik/templates/_mode_select.html:39
 #: ajapaik/ajapaik/templates/_mode_select.html:85
 msgid "My rephotos"
-msgstr "Benim rephoto'larım"
+msgstr "Yeniden fotoğraflarım"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:46
 msgid "Remove album filter"
@@ -955,7 +955,7 @@ msgstr "benzer fotoğraf"
 #: ajapaik/ajapaik/templates/photoview.html:123
 #: ajapaik/ajapaik/templates/photoview.html:124
 msgid "duplicate photo"
-msgstr "yinelenen fotoğraf"
+msgstr "fotoğrafı yenile"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:232
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:223
@@ -977,7 +977,7 @@ msgstr "Bu resmi tarihlendir"
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
 #: ajapaik/ajapaik/templates/photoview.html:186
 msgid "Add rephoto"
-msgstr "yeniden fotoğraflama ekle"
+msgstr "Yeniden fotoğraflama ekle"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:318
 #: ajapaik/ajapaik/templates/photoview.html:189
@@ -1059,7 +1059,7 @@ msgstr "Karar klavyede de verilebilir (1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr "Anonimsin. Şimdi e-posta adresinizle giriş yapabilirsiniz."
+msgstr "Anonimsiniz. Şimdi e-posta adresinizle giriş yapabilirsiniz."
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
@@ -1077,7 +1077,7 @@ msgstr "Menü"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change E-mail"
-msgstr "E-posta'yı değiştir"
+msgstr "E-postayı Değiştir"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -1085,7 +1085,7 @@ msgstr "Parolayı değiştir"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
-msgstr "Socialaccount bağlantıları"
+msgstr "Sosyal hesap bağlantıları"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1135,7 +1135,7 @@ msgstr "Şifrenizi mi unuttunuz? Aşağıya e-posta adresinizi girin, sıfırlam
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr "Parolamı sıfırla"
+msgstr "Parolamı Sıfırla"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
@@ -1151,11 +1151,11 @@ msgstr "Size bir e-posta gönderdik. Eğer birkaç dakika içerisinde ulaşmazsa
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr "Parolayı değiştir"
+msgstr "Parolayı Değiştir"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Kötü Belirtec"
+msgstr "Kötü Belirteç"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1290,7 +1290,7 @@ msgstr "Albümde %(album_photo_count)s tarihi resim bulunmaktadır. Haydi, resim
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:96
 msgid "Let's put pictures on the map"
-msgstr "Haydi, resimleri haritaya ekleyelim"
+msgstr "Haritaya resim koyalım"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:99
 #, python-format
@@ -1661,7 +1661,7 @@ msgstr "Kendin yükle"
 #: ajapaik/ajapaik/templates/photoview.html:148
 #: ajapaik/ajapaik/templates/photoview.html:149
 msgid "rephoto"
-msgstr "rephoto"
+msgstr "yeniden fotoğraflama"
 
 #: ajapaik/ajapaik/templates/photoview.html:163
 msgid "People claimed to be on this photo"
@@ -1682,7 +1682,7 @@ msgstr "Şu anda bu hesaba bağlı sosyal medya hesabınız yok."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:48
 msgid "Add a 3rd Party Account"
-msgstr "3. Parti Hesabı Ekleyin"
+msgstr "3. Taraf Hesabı Ekleyin"
 
 #: ajapaik/ajapaik/templates/user_upload.html:19
 #, python-format
@@ -1857,7 +1857,7 @@ msgstr "Dikdörtgenin yanlış yerleştirilmiş olması durumunda lütfen seçin
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:63
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:87
 msgid "Not a Face"
-msgstr "Yüz değil"
+msgstr "Yüz Değil"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
