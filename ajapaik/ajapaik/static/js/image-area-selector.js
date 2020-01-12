@@ -251,7 +251,14 @@ var ImageAreaSelector = (function () {
 function copyAnnotateButtonToFullScreenView() {
     var fullScreenContainer = $('#ajapaik-fullscreen-image-container');
 
-    var isButtonAlreadyPresent = fullScreenContainer.find('#mark-object-button').length > 0;
+    var annotateButton = fullScreenContainer.find('#mark-object-button');
+    var isButtonAlreadyPresent = annotateButton.length > 0;
+
+    if (isAnnotatingDisabled()) {
+        annotateButton.remove();
+        return;
+    }
+
     if (isButtonAlreadyPresent) {
         return;
     }

@@ -1047,6 +1047,9 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         if(isPhotoview) {
             photoContainer = $('#ajapaik-photoview-main-photo');
         }
+
+        disableAnnotations();
+
         if (photoContainer.hasClass('rotate90')) {
             photoContainer.removeClass('rotate90').addClass('rotate180');
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
@@ -1069,6 +1072,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
             photoContainer.css({"padding-right": "", "padding-left": ""});
             photoFullScreenContainer.removeClass('rotate270');
+
+            enableAnnotations();
         }
         else {
             var photoContainerPadding = (1 - photoContainer.height() / photoContainer.width()) * 50;

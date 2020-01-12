@@ -66,6 +66,10 @@ var ObjectTagger = {
         );
     },
     startCropping: function (isNotOpeningPopoverOnDrawEnd) {
+        if (isAnnotatingDisabled()) {
+            return;
+        }
+
         var handleNewRectangleDrawn = this.handleNewRectangleDrawn.bind(this);
         var onSelectionEnd = function(selection) {
             handleNewRectangleDrawn(selection, isNotOpeningPopoverOnDrawEnd);

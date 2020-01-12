@@ -105,6 +105,10 @@ function closePopovers(currentlyOpeningId) {
 }
 
 function moveAnnotationRectanglesElement(element, isDisablingPopover) {
+    if (isAnnotatingDisabled()) {
+        return;
+    }
+
     $('[data-is-detection-rectangle]').each(function() {
         var rectangle = $(this);
         rectangle.css('visibility', 'initial');
@@ -126,6 +130,10 @@ function moveAnnotationRectanglesElement(element, isDisablingPopover) {
 }
 
 function showDetectionRectangles() {
+    if (isAnnotatingDisabled()) {
+        return;
+    }
+
     $('[data-is-detection-rectangle]').each(function() {
         $(this).css('visibility', 'visible');
     });
@@ -217,4 +225,28 @@ function addFullScreenExitListener(additionalFunction) {
      window.BigScreen.onexit = function() {
          handleFullScreenClose(additionalFunction);
      };
+}
+
+function disableAnnotations() {
+    window.isPhotoRotated = true;
+
+    $('#mark-object-button > i').addClass('annotation-button-disabled');
+
+    $('[data-is-detection-rectangle]').each(function() {
+        $(this).css('visibility', 'hidden');
+    });
+}
+
+function enableAnnotations() {
+    window.isPhotoRotated = false;
+
+    $('#mark-object-button > i').removeClass('annotation-button-disabled');
+
+    $('[data-is-detection-rectangle]').each(function() {
+        $(this).css('visibility', '');
+    });
+}
+
+function isAnnotatingDisabled() {
+    return window.isPhotoRotated;
 }
