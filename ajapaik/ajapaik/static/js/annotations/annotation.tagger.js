@@ -23,6 +23,7 @@ var ObjectTagger = {
         $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
 
         enableMovingBetweenPictures();
+        ImageAreaSelector.performCleanup();
     },
     handleSavedRectanglesDrawn: function(detections) {
         if (detections) {

@@ -209,6 +209,7 @@ var ImageAreaSelector = (function () {
     }
 
     return {
+        performCleanup: performCleanup,
         getImageArea: function() {
             if (window.fullscreenEnabled) {
                 return $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
