@@ -6,3 +6,10 @@
 .annotation-filters__checkbox-column {
     text-align: left;
 }
+
+.annotation-filter {
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
