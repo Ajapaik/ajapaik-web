@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"PO-Revision-Date: 2020-01-20 10:29:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1565 ajapaik/ajapaik/api.py:1582
 msgid "Something went wrong"
-msgstr ""
+msgstr "Jokin meni pieleen"
 
 #: ajapaik/ajapaik/api.py:1574
 msgid "You have already given feedback for this transcription"
@@ -733,7 +733,7 @@ msgstr "Luettelo kasvojentunnistuksen albumeista"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List photos with faces"
-msgstr ""
+msgstr "Luettelo valokuvista joissa kasvoja"
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List albums with postcards"
@@ -741,7 +741,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List postcards"
-msgstr ""
+msgstr "Luettelo postikorteista"
 
 #: ajapaik/ajapaik/templates/_header.html:53
 msgid "Add photos"
@@ -1002,7 +1002,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Käännä kuvaa"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42
@@ -1056,7 +1056,7 @@ msgstr "Keskustele"
 #: ajapaik/ajapaik/templates/_photo_modal.html:284
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Litteroi tämä kuva"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:300
 #: ajapaik/ajapaik/templates/photoview.html:232
