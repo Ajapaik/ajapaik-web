@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-09 19:05:30+0000\n"
+"PO-Revision-Date: 2020-02-03 14:38:10+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1164,7 +1164,7 @@ msgstr "Bu e-posta onay bağlantısının süresi dolmuş veya geçersiz. Lütfe
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
 msgid "Sign in"
-msgstr "Giriş"
+msgstr "Oturum aç"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, python-format
