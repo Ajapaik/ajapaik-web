@@ -698,8 +698,6 @@ class SourceDetails(AjapaikAPIView):
             photos = Photo.objects.filter(
                 source_url__contains=query,
                 rephoto_of__isnull=True,
-                lat__isnull=False,
-                lon__isnull=False,
             )[start:end]
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
