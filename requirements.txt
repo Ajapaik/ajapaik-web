@@ -17,7 +17,7 @@ django-redis-cache
 django-subdomains
 django-user-agents
 django==1.11.23
-djangorestframework==3.4.7
+djangorestframework==3.9.1
 face_recognition
 feedparser
 flickrapi
