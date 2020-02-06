@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-02-03 14:38:07+0000\n"
+"PO-Revision-Date: 2020-02-06 13:52:45+0000\n"
 "X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
 msgid "Comments"
-msgstr ""
+msgstr "Kommentare"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
@@ -393,7 +393,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
 msgid "commented"
-msgstr ""
+msgstr "kommentiert"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
 msgid "rephotographed"
@@ -592,11 +592,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:100
 msgid "Transcribed by: "
-msgstr ""
+msgstr "Abschrift von: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "This transcription is correct"
-msgstr ""
+msgstr "Diese Abschrift ist richtig"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "Confirm"
@@ -604,11 +604,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
-msgstr ""
+msgstr "Was steht in dem Bild geschrieben?"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
 msgid "You're anonymous, please login to add transcriptions"
-msgstr ""
+msgstr "Du bist anonym, bitte melde dich an, um Abschriften zu ergänzen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"

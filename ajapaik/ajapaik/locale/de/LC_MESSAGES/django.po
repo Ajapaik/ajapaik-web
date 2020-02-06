@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-02-03 14:38:07+0000\n"
+"PO-Revision-Date: 2020-02-06 13:52:45+0000\n"
 "X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,19 +26,19 @@ msgstr "Farben umkehren"
 
 #: ajapaik/ajapaik/api.py:1556
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "Die Abschrift existiert bereits, die vorherige Abschrift wurde aufgewertet, vielen Dank!"
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "Du hast diese Abschrift bereits eingereicht, vielen Dank!"
 
 #: ajapaik/ajapaik/api.py:1561
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "Deine Abschrift wurde aktualisiert, vielen Dank!"
 
 #: ajapaik/ajapaik/api.py:1563
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Abschrift wurde ergänzt, vielen Dank!"
 
 #: ajapaik/ajapaik/api.py:1565 ajapaik/ajapaik/api.py:1582
 msgid "Something went wrong"
@@ -46,11 +46,11 @@ msgstr "Etwas ist schief gelaufen"
 
 #: ajapaik/ajapaik/api.py:1574
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "Du hast zu dieser Abschrift bereits eine Rückmeldung hinterlassen"
 
 #: ajapaik/ajapaik/api.py:1580
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Rückmeldung zur Abschrift ergänzt, vielen Dank!"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -75,7 +75,7 @@ msgstr "Nachname"
 #: ajapaik/ajapaik/forms.py:91 ajapaik/ajapaik/forms.py:158
 #: ajapaik/ajapaik/forms.py:179
 msgid "Choose area"
-msgstr ""
+msgstr "Bereich auswählen"
 
 #: ajapaik/ajapaik/forms.py:97 ajapaik/ajapaik/forms.py:157
 #: ajapaik/ajapaik/forms.py:170 ajapaik/ajapaik/forms.py:178
@@ -165,7 +165,7 @@ msgstr "E-Mail-Adresse"
 
 #: ajapaik/ajapaik/forms.py:442
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
+msgstr "Das Kommentarfeld unterstützt Formatierungen\n\nAbsätze\nErgänze zwei neue Zeilen um einen neuen Absatz zu beginnen.\n\nFett\n**Geotags** sind die Hauptaufgabe auf Ajapaik.\n\nKursiv\nEs folgen *Refotografie* und *Datierungen*.\n\nWeblinks\nBeteilige dich an der Diskussion in der [Ajapaik-Facebookgruppe](https://www.facebook.com/groups/ajapaiklejad)\n\nBilder\n![Ajapaik ist ein Geschenk für EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:478
 msgid "Nothing to change."
@@ -260,7 +260,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1036
 msgid "Transcribe"
-msgstr ""
+msgstr "Abschrift anfertigen"
 
 #: ajapaik/ajapaik/models.py:1078
 msgid "Map"
@@ -527,7 +527,7 @@ msgstr "Sortieren nach Zeitstempel des Stills"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Aufrufe"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
@@ -535,7 +535,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Datierungen"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
@@ -543,7 +543,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Kommentare"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
-msgstr ""
+msgstr "Sortiere nach Anzahl und ..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:122
 msgid "Change sorting order"
@@ -868,7 +868,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr ""
+msgstr "Einige ähnliche Alben"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:83
 #: ajapaik/ajapaik/templates/_photo_modal.html:269
@@ -878,7 +878,7 @@ msgstr "Teilen"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:113
 msgid "Back to map"
-msgstr ""
+msgstr "Zurück zur Karte"
 
 #: ajapaik/ajapaik/templates/_leaderboard_positions.html:9
 msgid "User Facebook photo"
@@ -1048,7 +1048,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:284
 #: ajapaik/ajapaik/templates/photoview.html:223
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Abschrift dieses Bildes anfertigen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:300
 #: ajapaik/ajapaik/templates/photoview.html:232
@@ -1372,7 +1372,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:275
 msgid "Sorting"
-msgstr ""
+msgstr "Sortierung"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:421
 msgid "This website uses cookies to ensure you get the best experience on our website"
@@ -1388,7 +1388,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/delete.html:10
 msgid "Really remove this comment?"
-msgstr ""
+msgstr "Diesen Kommentar wirklich entfernen?"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:16
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:37
@@ -1397,7 +1397,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
-msgstr ""
+msgstr "Melde dich an, um zu kommentieren"
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
@@ -1593,7 +1593,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
-msgstr ""
+msgstr "Benachrichtigt mich über nachfolgende Kommentare"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -1848,7 +1848,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2905
 msgid "Sorry but we fail to post your comment."
-msgstr ""
+msgstr "Entschuldigung, wir konnten deinen Kommentar nicht veröffentlichen."
 
 #: ajapaik/ajapaik_face_recognition/forms.py:13
 msgid "Subject name"
