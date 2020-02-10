@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Bjankuloski06
+# Author: Violetova
 # Author: Vlad5250
 # --
 # This file is part of the Ajapaik Project
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-20 10:29:30+0000\n"
+"PO-Revision-Date: 2020-02-10 13:49:05+0000\n"
 "X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -920,7 +921,7 @@ msgstr "Е-пошта"
 
 #: ajapaik/ajapaik/templates/_log_in.html:29
 msgid "Password"
-msgstr "Јавка"
+msgstr "Лозинка"
 
 #: ajapaik/ajapaik/templates/_log_in.html:33
 msgid "Register with e-mail"
@@ -1126,7 +1127,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr "Ја заборавивте јавката?"
+msgstr "Ја заборавивте лозинката?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
@@ -1142,7 +1143,7 @@ msgstr "Смени е-пошта"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
-msgstr "Смени јавка"
+msgstr "Смени лозинка"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:38
 msgid "Socialaccount connections"
@@ -1212,7 +1213,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr "Смени јавка"
+msgstr "Смени лозинка"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
