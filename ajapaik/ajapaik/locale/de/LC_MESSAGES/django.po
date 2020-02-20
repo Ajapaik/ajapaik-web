@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-02-06 13:52:45+0000\n"
+"PO-Revision-Date: 2020-02-20 14:56:23+0000\n"
 "X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -276,7 +276,7 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1081
 msgid "Confirmation"
-msgstr ""
+msgstr "Bestätigung"
 
 #: ajapaik/ajapaik/models.py:1082
 msgid "StreetView"
@@ -531,7 +531,7 @@ msgstr "Sortiere nach Zeitpunkt oder Anzahl der Aufrufe"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Geotags"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
@@ -539,7 +539,7 @@ msgstr "Sortiere nach Zeitpunkt oder Anzahl der Datierungen"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Refotos"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
@@ -547,7 +547,7 @@ msgstr "Sortiere nach Zeitpunkt oder Anzahl der Kommentare"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
-msgstr ""
+msgstr "Sortiere nach Zeitpunkt oder Anzahl der Likes"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
@@ -941,65 +941,65 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_photo_modal.html:315
 #: ajapaik/ajapaik/templates/photoview.html:240
 msgid "Album details"
-msgstr ""
+msgstr "Albumdetails"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:22
 #: ajapaik/ajapaik/templates/_mode_select.html:71
 msgid "Show albums"
-msgstr ""
+msgstr "Zeige Alben"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:27
 #: ajapaik/ajapaik/templates/_mode_select.html:75
 msgid "Show pictures"
-msgstr ""
+msgstr "Zeige Bilder"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:29
 #: ajapaik/ajapaik/templates/_mode_select.html:77
 msgid "All pictures"
-msgstr ""
+msgstr "Alle Bilder"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:32
 #: ajapaik/ajapaik/templates/_mode_select.html:79
 msgid "Show my favorites"
-msgstr ""
+msgstr "Zeige meine Favoriten"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:34
 #: ajapaik/ajapaik/templates/_mode_select.html:81
 msgid "My favorites"
-msgstr ""
+msgstr "Meine Favoriten"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:37
 #: ajapaik/ajapaik/templates/_mode_select.html:83
 msgid "Show rephotographed by me"
-msgstr ""
+msgstr "Zeige von mir Refotografiertes"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:39
 #: ajapaik/ajapaik/templates/_mode_select.html:85
 msgid "My rephotos"
-msgstr ""
+msgstr "Meine Refotos"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:46
 msgid "Remove album filter"
-msgstr ""
+msgstr "Albumfilter entfernen"
 
 #: ajapaik/ajapaik/templates/_photo_description_container.html:5
 msgid "Approximate address"
-msgstr ""
+msgstr "Ungefähre Adresse"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:41
 #: ajapaik/ajapaik/templates/photoview.html:60
 msgid "See the other side of photo"
-msgstr ""
+msgstr "Andere Seite des Fotos ansehen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Foto drehen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42
 msgid "Flip photo"
-msgstr ""
+msgstr "Foto kippen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:91
 #: ajapaik/ajapaik/templates/_photo_modal.html:92
@@ -1008,7 +1008,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:133
 #: ajapaik/ajapaik/templates/photoview.html:134
 msgid "similar photo"
-msgstr ""
+msgstr "ähnliches Foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:94
 #: ajapaik/ajapaik/templates/_photo_modal.html:95
@@ -1017,14 +1017,14 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview.html:136
 #: ajapaik/ajapaik/templates/photoview.html:137
 msgid "duplicate photo"
-msgstr ""
+msgstr "doppeltes Foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:243
 #: ajapaik/ajapaik/templates/game.html:54
 #: ajapaik/ajapaik/templates/photoview.html:53
 #: ajapaik/ajapaik/templates/photoview.html:189
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Wähle den Aufnahmeort!"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:195
@@ -1034,7 +1034,7 @@ msgstr "Datiere das Bild"
 #: ajapaik/ajapaik/templates/_photo_modal.html:254
 #: ajapaik/ajapaik/templates/photoview.html:199
 msgid "Add rephoto"
-msgstr ""
+msgstr "Refoto hinzufügen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:257
 #: ajapaik/ajapaik/templates/photoview.html:202
