@@ -5,6 +5,7 @@
 # Author: H2kks
 # Author: Haxpett
 # Author: WikiPhoenix
+# Author: Zache
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-09 19:05:30+0000\n"
+"PO-Revision-Date: 2020-02-27 16:10:19+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -1881,17 +1882,17 @@ msgstr "Vuxen"
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:79
 msgid "Elderly"
-msgstr ""
+msgstr "gamling"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Tundmatu"
-msgstr ""
+msgstr "okänt"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "olämpliga"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:163
@@ -1909,7 +1910,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "Vänligen ange vad som är kön och / eller ålder för den markerade personen"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
