@@ -584,9 +584,8 @@ msgstr "Применить фильтр альбомов"
 #, javascript-format
 msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
-msgstr[0] "Вы набрали % балл"
-msgstr[1] "Вы набрали % баллов"
-msgstr[2] ""
+msgstr[0] "Вы набрали %s балл"
+msgstr[1] "Вы набрали %s баллов"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -626,11 +625,10 @@ msgstr "Не удалось загрузить лица, извините."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
 #, javascript-format
-msgid "Annotation added, thanks!<br />You have gained %s point"
-msgid_plural "Annotation added, thanks!<br />You have gained %s points"
+msgid "Annotation added, thanks!</br>You have gained %s point"
+msgid_plural "Annotation added, thanks!</br>You have gained %s points"
 msgstr[0] "Аннотация добавлена, спасибо!</br>Вы набрали %s баллов"
 msgstr[1] "Аннотация добавлена, спасибо!</br>Вы набрали %s баллов"
-msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -644,13 +642,18 @@ msgstr "Спасибо! Плохой прямоугольник удалён."
 msgid "Failed to send your feedback, sorry."
 msgstr "Не удалось отправить Ваш отзыв, извините."
 
+
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#, javascript-format
+msgid "Thank you!</br>You have gained %s point"
+msgid_plural "Thank you!</br>You have gained %s points"
+
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "Спасибо!</br>Вы набрали %s баллов"
 msgstr[1] "Спасибо!</br>Вы набрали %s баллов"
-msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

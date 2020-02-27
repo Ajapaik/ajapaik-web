@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load socialaccount %}
 
-<br/>
+</br>
 <div><b>
     {% if type == "leaderboard" %}
         {% trans "Log in to save your score" %}
@@ -28,7 +28,7 @@
     <input class="form-control" id="id_password" name="password"
            placeholder="{% trans "Password" %}" required="required" title="" type="password" autocomplete="current-password">
     <input name="next" type="hidden" value="{% if type == "rephoto_upload" %}{{ next }}{% else %}{{ request.get_full_path }}{% endif %}">
-    <br/>
+    </br>
     <a class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
         {% trans "Register with e-mail" %}
     </a>

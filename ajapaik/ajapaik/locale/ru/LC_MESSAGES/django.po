@@ -654,31 +654,28 @@ msgstr "* рефотографирование исторических видо
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr "Ajapaik имеет <b>%(total_photo_count)s</ b> исторических изображений, из которых <b>%(total_photos_tagged)s</ b> изображений было добавлено на карту <b>%(contributing_users)s</ b> пользователями и <b>%(rephoto_count)s</ b> рефотографий для <b>%(rephotographed_photo_count)s</ b> фото, сделанных <b>%(rephotographing_users)s</ b> пользователями."
+msgstr "Ajapaik имеет <b>%(total_photo_count)s</b> исторических изображений, из которых <b>%(total_photos_tagged)s</b> изображений было добавлено на карту <b>%(contributing_users)s</b> пользователями и <b>%(rephoto_count)s</b> рефотографий для <b>%(rephotographed_photo_count)s</b> фото, сделанных <b>%(rephotographing_users)s</b> пользователями."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, fuzzy, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] "{{PLURAL: GETTEXT|Вы предложили местоположение для изображения <b>% (user_geotagged_photos)</b>.|Вы предложили места для <b>% (user_geotagged_photos)</b> фотографий.}}"
-msgstr[1] "{{PLURAL: GETTEXT|Вы предложили местоположение для изображения <b>% (user_geotagged_photos)</b>.|Вы предложили места для <b>% (user_geotagged_photos)</b> фотографий.}}"
-msgstr[2] "{{PLURAL: GETTEXT|Вы предложили местоположение для изображения <b>% (user_geotagged_photos)</b>.|Вы предложили места для <b>% (user_geotagged_photos)</b> фотографий.}}"
+msgstr[0] "Вы предложили местоположение для изображения <b>%(user_geotagged_photos)</b>"
+msgstr[1] "Вы предложили места для <b>%(user_geotagged_photos)</b> фотографий."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
 #, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] "{{PLURAL: GETTEXT|Вы сделали <b>%(user_rephotos)s</ b> рефото для|Вы сделали <b>%(user_rephotos)s</b> рефото для}}"
-msgstr[1] "{{PLURAL: GETTEXT|Вы сделали <b>%(user_rephotos)s</ b> рефото для|Вы сделали <b>%(user_rephotos)s</b> рефото для}}"
-msgstr[2] "{{PLURAL: GETTEXT|Вы сделали <b>%(user_rephotos)s</ b> рефото для|Вы сделали <b>%(user_rephotos)s</b> рефото для}}"
+msgstr[0] "Вы сделали <b>%(user_rephotos)s</b> рефото для"
+msgstr[1] "Вы сделали <b>%(user_rephotos)s</b> рефото для"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] "{{PLURAL: GETTEXT|<b>%(user_rephotographed_photos)s</ b> фото.|<B>% (user_rephotographed_photos) s </ b> фото.}}"
-msgstr[1] "{{PLURAL: GETTEXT|<b>%(user_rephotographed_photos)s</ b> фото.|<B>% (user_rephotographed_photos) s </ b> фото.}}"
-msgstr[2] "{{PLURAL: GETTEXT|<b>%(user_rephotographed_photos)s</ b> фото.|<B>% (user_rephotographed_photos) s </ b> фото.}}"
+msgstr[0] "<b>%(user_rephotographed_photos)s</b> фото."
+msgstr[1] "<b>%(user_rephotographed_photos)s</b> фото."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -807,18 +804,16 @@ msgstr "Список лидеров по вкладам"
 #, fuzzy, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] "{{PLURAL: GETTEXT|Альбом содержит %(counter) исторической фотографии,|Альбом содержит %(counter) исторических фотографий,}}"
-msgstr[1] "{{PLURAL: GETTEXT|Альбом содержит %(counter) исторической фотографии,|Альбом содержит %(counter) исторических фотографий,}}"
-msgstr[2] "{{PLURAL: GETTEXT|Альбом содержит %(counter) исторической фотографии,|Альбом содержит %(counter) исторических фотографий,}}"
+msgstr[0] "Альбом содержит %(counter) исторической фотографии,"
+msgstr[1] "Альбом содержит %(counter) исторических фотографий,"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
 #, fuzzy, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] "{{PLURAL: GETTEXT|%(counter)пользователь указал|%(counter) пользователей указали}}"
-msgstr[1] "{{PLURAL: GETTEXT|%(counter)пользователь указал|%(counter) пользователей указали}}"
-msgstr[2] "{{PLURAL: GETTEXT|%(counter)пользователь указал|%(counter) пользователей указали}}"
+msgstr[0] "%(counter) пользователь указал"
+msgstr[1] "%(counter) пользователей указали"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:106
@@ -832,7 +827,6 @@ msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
 msgstr[0] "%(counter)фото на карте."
 msgstr[1] "%(counter) фото на карте."
-msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -850,17 +844,15 @@ msgstr "все изображения из этого альбома."
 #, fuzzy, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] "{{PLURAL: GETTEXT |Изображение%(counter)в этом альбоме. Фото%(counter)в этом альбоме.}}"
-msgstr[1] "{{PLURAL: GETTEXT |Изображение%(counter)в этом альбоме. Фото%(counter)в этом альбоме.}}"
-msgstr[2] "{{PLURAL: GETTEXT |Изображение%(counter)в этом альбоме. Фото%(counter)в этом альбоме.}}"
+msgstr[0] "Изображение%(counter)в этом альбоме."
+msgstr[1] "Фото%(counter)в этом альбоме."
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
 #, fuzzy, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] "{{PLURAL: GETTEXT |Пользователь%(counter) сделал|Пользователи%(counter)  сделали}}"
-msgstr[1] "{{PLURAL: GETTEXT |Пользователь%(counter) сделал|Пользователи%(counter)  сделали}}"
-msgstr[2] "{{PLURAL: GETTEXT |Пользователь%(counter) сделал|Пользователи%(counter)  сделали}}"
+msgstr[0] "Пользователь%(counter) сделал"
+msgstr[1] "Пользователи%(counter)  сделали}"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
 #, fuzzy, python-format
@@ -868,7 +860,6 @@ msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] "{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}"
 msgstr[1] "{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}"
-msgstr[2] "{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -877,7 +868,6 @@ msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
 msgstr[0] "для %(counter) изображения в альбоме."
 msgstr[1] "для %(counter) изображений в альбоме."
-msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
 #, fuzzy, python-format
@@ -885,7 +875,6 @@ msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] "Вы сделали %(counter)рефото"
 msgstr[1] "Вы сделали %(counter) рефото"
-msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1077,7 +1066,6 @@ msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Изображение принадлежит к альбому"
 msgstr[1] "Изображение принадлежит к альбомам:"
-msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:319
 #: ajapaik/ajapaik/templates/photoview.html:244
@@ -1200,7 +1188,7 @@ msgstr "Войти"
 #: ajapaik/ajapaik/templates/account/login.html:15
 #, fuzzy, python-format
 msgid "Please sign in with one\nof your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\nfor a %(site_name)s account and sign in below:"
-msgstr "Пожалуйста, войдите с одной из ваших существующих сторонних учетных записей. Или <a href=\"%(signup_url)\"> зарегистрируйтесь </a>\nдля учетной записи% (site_name) и войдите ниже:"
+msgstr "Пожалуйста, войдите с одной из ваших существующих сторонних учетных записей. Или <a href=\"%(signup_url)\"> зарегистрируйтесь </a>\nдля учетной записи %(site_name) и войдите ниже:"
 
 #: ajapaik/ajapaik/templates/account/login.html:30
 #, fuzzy, python-format
@@ -1381,9 +1369,8 @@ msgstr "Давайте разместим фотографии на карте"
 #, fuzzy, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме % (counter) фотографий,}}"
-msgstr[1] "{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме % (counter) фотографий,}}"
-msgstr[2] "{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме % (counter) фотографий,}}"
+msgstr[0] "{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме %(counter) фотографий,}}"
+msgstr[1] "{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме %(counter) фотографий,}}"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:203
 msgid "Timepatch (Ajapaik)"
