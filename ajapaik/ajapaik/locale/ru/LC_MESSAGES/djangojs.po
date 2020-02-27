@@ -642,12 +642,6 @@ msgstr "Спасибо! Плохой прямоугольник удалён."
 msgid "Failed to send your feedback, sorry."
 msgstr "Не удалось отправить Ваш отзыв, извините."
 
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
-#, javascript-format
-msgid "Thank you!</br>You have gained %s point"
-msgid_plural "Thank you!</br>You have gained %s points"
-
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
