@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-02-27 16:10:17+0000\n"
+"PO-Revision-Date: 2020-03-02 13:42:52+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -586,6 +586,7 @@ msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
 msgstr[0] "Вы набрали %s балл"
 msgstr[1] "Вы набрали %s баллов"
+msgstr[2] ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -625,10 +626,11 @@ msgstr "Не удалось загрузить лица, извините."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
 #, javascript-format
-msgid "Annotation added, thanks!</br>You have gained %s point"
-msgid_plural "Annotation added, thanks!</br>You have gained %s points"
+msgid "Annotation added, thanks!<br />You have gained %s point"
+msgid_plural "Annotation added, thanks!<br />You have gained %s points"
 msgstr[0] "Аннотация добавлена, спасибо!</br>Вы набрали %s баллов"
 msgstr[1] "Аннотация добавлена, спасибо!</br>Вы набрали %s баллов"
+msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -648,6 +650,7 @@ msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "Спасибо!</br>Вы набрали %s баллов"
 msgstr[1] "Спасибо!</br>Вы набрали %s баллов"
+msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."
