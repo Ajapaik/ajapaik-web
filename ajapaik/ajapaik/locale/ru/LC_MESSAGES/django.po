@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Russian (русский)
 # Exported from translatewiki.net
 #
+# Author: Abijeet Patro
 # Author: Alexander Istomin
 # Author: Eleferen
 # Author: H2kks
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-02 13:42:54+0000\n"
+"PO-Revision-Date: 2020-03-05 16:26:46+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -866,9 +867,9 @@ msgstr[2] ""
 #, fuzzy, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "{{PLURAL: GETTEXT |{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}|}}"
-msgstr[1] "%(counter) рефотограф|{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}|}}"
-msgstr[2] "%(counter) рефотографов|{{PLURAL: GETTEXT |%(counter) рефотограф|%(counter) рефотографов}}|}}"
+msgstr[0] "%(counter) рефотограф"
+msgstr[1] "%(counter) рефотографов"
+msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -1381,9 +1382,9 @@ msgstr "Давайте разместим фотографии на карте"
 #, fuzzy, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "{{PLURAL: GETTEXT |{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме %(counter) фотографий,}}|}}"
-msgstr[1] " В альбоме %(counter) фотография , |{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме %(counter) фотографий,}}|}}"
-msgstr[2] " В альбоме %(counter) фотографий,|{{PLURAL: GETTEXT | В альбоме %(counter) фотография , | В альбоме %(counter) фотографий,}}|}}"
+msgstr[0] "В альбоме %(counter) фотография,"
+msgstr[1] "В альбоме %(counter) фотографий,"
+msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:203
 msgid "Timepatch (Ajapaik)"
