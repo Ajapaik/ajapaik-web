@@ -60,9 +60,7 @@ function createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId) 
         getSubmitButton('margin-top: 10px;')
     ];
 
-    if (annotation.isDeletable) {
-        buttons.push(getDeleteButton(getDeleteObjectAnnotationFunction(popoverId, annotation.id)));
-    }
+    buttons.push(getDeleteButton(getDeleteObjectAnnotationFunction(popoverId, annotation.id)));
 
     buttons.push(getCancelButton(popoverId));
 

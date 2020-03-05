@@ -58,7 +58,12 @@ var constants = {
         },
         common: {
             OPTIONAL: gettext('optional'),
-            UNSURE: gettext('Unsure')
+            UNSURE: gettext('Unsure'),
+            MALE: gettext('Male'),
+            FEMALE: gettext('Female'),
+            CHILD: gettext('Child'),
+            ELDERLY: gettext('Elderly'),
+            ADULT: gettext('Adult')
         },
         button: {
             CANCEL: gettext('Cancel'),

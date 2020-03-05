@@ -137,15 +137,12 @@ function getSubmitButton(style) {
         .append(submitButtonText);
 }
 
-function getSubmitAndCancelButtons(popoverId, isUnsavedRectangle, isWithoutSubmitButton) {
+function getSubmitAndCancelButtons(popoverId, isUnsavedRectangle) {
     var submitButton = getSubmitButton();
     var cancelButton = getCancelButton(popoverId, isUnsavedRectangle);
 
     var wrapper = $('<div style="padding-top: 10px;"></div>');
-
-    if (!isWithoutSubmitButton) {
-        wrapper.append(submitButton);
-    }
+    wrapper.append(submitButton);
 
     return wrapper.append(cancelButton);
 }

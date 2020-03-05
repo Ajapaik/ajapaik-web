@@ -101,11 +101,11 @@ function addFaceAnnotationFeedback(annotationId, payload, onSuccess) {
     );
 }
 
-function editFaceAnnotation(annotationId, payload, onSuccess) {
+function editFaceAnnotation(payload, onSuccess) {
     payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
 
-    putRequest(
-        '/face-recognition/update-annotation/' + annotationId + '/',
+    postRequest(
+        '/face-recognition/api/v1/subject-data/',
         payload,
         constants.translations.queries.UPDATE_FACE_ANNOTATION_SUCCESS,
         constants.translations.queries.UPDATE_FACE_ANNOTATION_FAILED,

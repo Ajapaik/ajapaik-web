@@ -1,3 +1,4 @@
+from datetime import date
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataGuess
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
@@ -10,17 +11,10 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
         pk=annotation_remove_request.annotation_id
     )
 
-    is_deletable = object_annotation_utils.is_face_annotation_deletable(
-        user_id,
-        face_detection_annotation
-    )
+    face_detection_annotation.deleted = date.today()
+    face_detection_annotation.save()
 
-    if is_deletable:
-        get_annotation_subject_data_guesses(face_detection_annotation.id).delete()
-        face_detection_annotation.delete()
-        return True
-
-    return False
+    return True
 
 
 def get_annotation_subject_data_guesses(face_recognition_rectangle_id):

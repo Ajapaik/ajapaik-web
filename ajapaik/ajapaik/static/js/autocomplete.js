@@ -84,8 +84,11 @@ function convertSavedPersonGenderToString(gender) {
 }
 
 function setGenderValueToReadOnlyIfGenderSetForExistingPerson(person, genderSelect) {
-    if (genderSelect && person && person.data.gender) {
+    if (genderSelect && person && person.data && person.data.gender) {
         genderSelect.set(person.data.gender);
+        genderSelect.disable();
+    } else {
+        genderSelect.enable();
     }
 }
 

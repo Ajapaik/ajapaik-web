@@ -95,50 +95,7 @@ function createUserOwnAnnotationObjectPopoverContent(annotation, cancelButton) {
 function createDetectedObjectPopoverContent(annotation, popoverId) {
     var cancelButton = getCancelButton(popoverId);
 
-    if (annotation.isAddedByCurrentUser) {
         return createUserOwnAnnotationObjectPopoverContent(annotation, cancelButton);
-    }
-
-    var selectText = gettext('Specify alternative object (optional)') + ':';
-
-    var buttons = [
-        getSubmitButton(),
-        cancelButton
-    ];
-
-    var buttonGroup = getButtonGroup(buttons);
-
-    var select = getObjectsSelect(true, getObjectDefaultValue(annotation));
-
-    var form = $('<form>', {
-        id: 'feedback-on-detected-object'
-    }).on('submit', getSubmitObjectAnnotationFeedbackFunction(popoverId, annotation.id));
-
-    var inputsWrapper = $('<div class="form-group" style="padding-right:5px; padding-left:5px;"></div>');
-    var questionPrefix = constants.translations.popover.labels.IS_CORRECT_OBJECT_PREFIX;
-    var translatedLabel = JSON.parse(annotation.translations)[window.language];
-
-    var isCorrectObject = annotation.previousFeedback.isCorrectObject;
-    var objectClassCheckbox = getObjectClassCheckbox(
-        questionPrefix + ' ' + translatedLabel,
-        isCorrectObject
-    );
-
-    var selectDisplay = isBoolean(isCorrectObject) && !isCorrectObject ? '' : 'display: none; ';
-    var alternativeObjectSelectWrapper = $('<div>', {
-        id: constants.elements.ALTERNATIVE_OBJECT_SELECT_WRAPPER_ID,
-        style: selectDisplay + 'padding-top: 5px; width: 180px;'
-    });
-
-    return form
-        .append(inputsWrapper
-            .append(objectClassCheckbox)
-            .append(alternativeObjectSelectWrapper
-                .append(selectText)
-                .append(select)
-            )
-        )
-        .append(buttonGroup);
 }
 
 function getObjectFeedbackPopoverTitle(annotation) {

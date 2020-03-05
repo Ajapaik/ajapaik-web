@@ -45,48 +45,48 @@
     </div>
     <div id="first-block" class="d-block pb-3 text-center">
         <div>
-            <button class="guess-button human-male" data=1>
+            <button class="guess-button human-male" data="MALE">
                 {% trans "Male" %}
             </button>
-            <button class="guess-button human-non-binary" data=2>
+            <button class="guess-button human-non-binary" data="NOT_APPLICABLE">
                 {% trans "Non-binary" %}
             </button>
-            <button class="guess-button human-female" data="0">
+            <button class="guess-button human-female" data="FEMALE">
                 {% trans "Female" %}
             </button>
         </div>
         <div>
-            <button class="guess-button skip-next" data=2>
+            <button class="guess-button skip-next" data="SKIP">
                 {% trans "Not sure" %}
             </button>
-            <button class="guess-button circled-cross" data=-1>
+            <button class="guess-button circled-cross" data="NOT-A-FACE">
                 {% trans "Not a Face" %}
             </button>
-            <button class="guess-button info" data=-2>
+            <button class="guess-button info" data="INFO">
                 {% trans "Info" %}
             </button>
         </div>
     </div>
     <div id="second-block" class="d-none pb-3 text-center">
         <div>
-            <button class="guess-button human-child" data=0>
+            <button class="guess-button human-child" data="CHILD">
                 {% trans "Child" %}
             </button>
-            <button class="guess-button human-adult" data=1>
+            <button class="guess-button human-adult" data="ADULT">
                 {% trans "Adult" %}
             </button>
-            <button class="guess-button human-elderly" data=2>
+            <button class="guess-button human-elderly" data="ELDERLY">
                 {% trans "Elderly" %}
             </button>
         </div>
         <div>
-            <button class="guess-button skip-next" data=3>
+            <button class="guess-button skip-next" data="SKIP">
                 {% trans "Not sure" %}
             </button>
-            <button class="guess-button circled-cross" data=-1>
+            <button class="guess-button circled-cross" data="NOT-A-FACE">
                 {% trans "Not a Face" %}
             </button>
-            <button class="guess-button info" data=-2>
+            <button class="guess-button info" data="INFO">
                 {% trans "Info" %}
             </button>
         </div>
@@ -263,9 +263,9 @@
                 url: '/face-recognition/api/v1/subject-data/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    subjectId: subject.subjectId,
+                    annotationId: subject.subjectId,
                     gender: subject.gender,
-                    age: subject.age,
+                    ageGroup: subject.age,
                     profile: profile
                 },
                 success: function () {
@@ -283,7 +283,7 @@
 
         $("#first-block > div > button").on('click', function(e) {
             subject.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            if(subject.gender === '-2') {
+            if(subject.gender === "INFO") {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
@@ -302,7 +302,7 @@
             }
             else {
                 $("#first-block").removeClass("d-block").addClass("d-none");
-                if(subject.gender !== "-1") {
+                if(subject.gender !== "NOT-A-FACE") {
                     $("#second-block").removeClass("d-none").addClass("d-block");
                     addSubjectDataViewPage = 1;
                 }
@@ -313,7 +313,7 @@
         });
         $("#second-block > div > button").on('click', function(e) {
             subject.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            if(subject.age === '-2') {
+            if(subject.age === "INFO") {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
@@ -332,7 +332,7 @@
             }
             else {
                 $("#second-block").removeClass("d-flex").addClass("d-none");
-                if(subject.age !== "-1"){
+                if(subject.age !== "NOT-A-FACE"){
                     window.AddSubjectData(subject)
                 }
                 else{

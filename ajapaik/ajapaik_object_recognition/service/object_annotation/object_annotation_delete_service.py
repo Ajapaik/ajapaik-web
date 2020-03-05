@@ -1,3 +1,4 @@
+from datetime import date
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from ajapaik.ajapaik_object_recognition.domain.annotation_remove_request import AnnotationRemove
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
@@ -11,13 +12,7 @@ def remove_annotation(annotation_remove_request: AnnotationRemove) -> bool:
         user_id=user_id
     )
 
-    is_deletable = object_annotation_utils.is_object_annotation_deletable(
-        user_id,
-        object_detection_annotation
-    )
+    object_detection_annotation.deleted_on = date.today()
+    object_detection_annotation.save()
 
-    if is_deletable:
-        object_detection_annotation.delete()
-        return True
-
-    return False
+    return True

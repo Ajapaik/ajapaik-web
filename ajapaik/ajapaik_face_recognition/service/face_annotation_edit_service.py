@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 
-from ajapaik.ajapaik.models import Album
+from ajapaik.ajapaik.models import Album, Profile
 from ajapaik.ajapaik_face_recognition.api import AddSubjectData
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
@@ -19,24 +19,24 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
     )
 
     if not is_annotation_editable:
-        return False
+        return create_user_feeback(http_request, annotation.id, request)
+    else:
+        if request.new_subject_id > 0:
+            new_subject = Album.objects.get(pk=request.new_subject_id)
+            annotation.subject_consensus = new_subject
 
-    if request.new_subject_id > 0:
-        new_subject = Album.objects.get(pk=request.new_subject_id)
-        annotation.subject_consensus = new_subject
+            user_guess = get_existing_user_guess(annotation, request)
 
-        user_guess = get_existing_user_guess(annotation, request)
+            if user_guess is not None:
+                user_guess.subject_album = new_subject
+                user_guess.save()
 
-        if user_guess is not None:
-            user_guess.subject_album = new_subject
-            user_guess.save()
+        if request.user_id == annotation.user_id:
+            update_user_guesses(http_request, annotation.id, request)
 
-    if request.user_id == annotation.user_id:
-        update_user_guesses(http_request, annotation.id, request)
+        annotation.save()
 
-    annotation.save()
-
-    return True
+        return True
 
 
 def get_existing_user_guess(annotation: FaceRecognitionRectangle, request: FaceAnnotationUpdateRequest):
@@ -72,11 +72,27 @@ def update_user_guesses(http_request: HttpRequest, annotation_id: int, update_re
         user_guess.save()
 
 
+def create_user_feeback(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
+    rectangle = FaceRecognitionRectangle.objects.filter(id=update_request.annotation_id).first()
+    guesser = Profile.objects.filter(user_id=update_request.user_id).first()
+    newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = rectangle, guesser = guesser, gender = update_request.new_gender_guess, age = update_request.new_age_guess)
+    newGuess.save()
+    return True
+    
+
 def get_existing_user_additional_data_guess(guesser, annotation_id):
     try:
         return FaceRecognitionRectangleSubjectDataGuess.objects.get(
             guesser=guesser,
             face_recognition_rectangle_id=annotation_id
         )
+    except FaceRecognitionRectangleSubjectDataGuess.DoesNotExist:
+        return None
+
+def get_existing_data_guess(annotation_id):
+    try:
+        return FaceRecognitionRectangleSubjectDataGuess.objects.get(
+            face_recognition_rectangle_id=annotation_id
+        ).first()
     except FaceRecognitionRectangleSubjectDataGuess.DoesNotExist:
         return None

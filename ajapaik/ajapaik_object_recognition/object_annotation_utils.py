@@ -59,26 +59,6 @@ def is_object_annotation_editable(user_id: int, object_annotation: ObjectDetecti
     return is_annotation_editable_for_user(user_id, created_on, created_by_id)
 
 
-def is_object_annotation_deletable(user_id: int, object_annotation: ObjectDetectionAnnotation):
-    created_on = object_annotation.created_on
-    created_by_id = object_annotation.user_id
-
-    return is_annotation_editable_for_user(user_id, created_on, created_by_id)
-
-
-def is_face_annotation_deletable(user_id: int, annotation: FaceRecognitionRectangle):
-    created_on = annotation.created
-    created_by = annotation.user
-    name = annotation.get_subject_name()
-
-    is_without_name = name is None
-    is_created_by_system = created_by is None
-
-    return is_without_name and is_created_by_system or \
-           is_created_by_system and is_annotation_editable_time_wise(created_on) or \
-           not is_created_by_system and is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
-
-
 def is_face_annotation_editable(user_id: int, annotation: FaceRecognitionRectangle):
     created_on = annotation.created
     created_by = annotation.user

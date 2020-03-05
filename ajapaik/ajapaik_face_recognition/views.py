@@ -356,10 +356,6 @@ def get_subject_data(request, subject_id = None):
             next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
             if album_id is not None:
                 next_action += "?album=" + str(album_id)
-
-    #These variables are used for debugging purposes, remove when going live
-    age = "Undefined"
-    gender = "Undefined"
     hasConsensus = False
     if rectangle != None and rectangle.subject_consensus != None:
             hasConsensus = True
@@ -389,8 +385,6 @@ def get_subject_data(request, subject_id = None):
         'photo': rectangle.photo,
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
-        'gender': gender,
-        'age': age,
         'hasConsensus': hasConsensus
     }
     return render(request, 'add_subject_data.html', context)

@@ -1,13 +1,5 @@
 'use strict';
 
-function getDetectedFaceRectangle(popoverId, annotation, configuration) {
-    return createSavedFaceDetectionRectangle(
-        popoverId,
-        annotation,
-        configuration
-    );
-}
-
 function getDetectedObjectRectangle(popoverId, annotation, configuration) {
     return createSavedObjectDetectionRectangle(
         popoverId,
@@ -52,29 +44,14 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
     var configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
 
     if (annotation.wikiDataId) {
-        if (annotation.isEditable) {
-            return getDetectedObjectModifyRectangle(
-                'ajapaik-object-modify-rectangle-' + annotation.id,
-                annotation,
-                configuration
-            );
-        }
-
-        return getDetectedObjectRectangle(
-            'ajapaik-object-rectangle-' + annotation.id,
+        return getDetectedObjectModifyRectangle(
+            'ajapaik-object-modify-rectangle-' + annotation.id,
             annotation,
             configuration
         );
     } else {
-        if (annotation.isEditable) {
-            return getDetectedFaceModifyRectangle(
-                'ajapaik-face-modify-rectangle-' + annotation.id,
-                annotation,
-                configuration
-            );
-        }
-        return getDetectedFaceRectangle(
-            'ajapaik-face-rectangle-' + annotation.id,
+        return getDetectedFaceModifyRectangle(
+            'ajapaik-face-modify-rectangle-' + annotation.id,
             annotation,
             configuration
         );
