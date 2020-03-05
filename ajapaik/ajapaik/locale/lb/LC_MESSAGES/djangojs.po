@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:17+0000\n"
+"PO-Revision-Date: 2020-01-23 15:06:03+0000\n"
 "Language: lb\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -599,7 +599,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "Confirm"
-msgstr ""
+msgstr "Confirméieren"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
@@ -611,7 +611,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
-msgstr ""
+msgstr "Aloggen"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

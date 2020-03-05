@@ -3,6 +3,7 @@
 #
 # Author: Andru1013
 # Author: Fitoschido
+# Author: Joanmp17
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-09 19:05:28+0000\n"
+"PO-Revision-Date: 2020-02-17 13:52:44+0000\n"
 "X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -391,7 +392,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
-msgstr ""
+msgstr "Foto original"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
@@ -557,7 +558,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
 msgid "How to sort"
@@ -753,7 +754,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_header.html:77
 #: ajapaik/ajapaik/templates/_header_basic.html:11
 msgid "Choose language"
-msgstr ""
+msgstr "Elegir un idioma"
 
 #: ajapaik/ajapaik/templates/_header.html:89
 msgid "About Ajapaik"
@@ -777,7 +778,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:31
 #: ajapaik/ajapaik_face_recognition/models.py:162
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21

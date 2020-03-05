@@ -26,7 +26,7 @@
                 <div class="row">
                     {% blocktrans %}Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which <b>{{ total_photos_tagged }}</b> pictures have been put on the map by <b>{{ contributing_users }}</b> users and <b>{{ rephoto_count }}</b> rephotographs for <b>{{ rephotographed_photo_count }}</b> pictures made by <b>{{ rephotographing_users }}</b> users.{% endblocktrans %}
                 </div>
-                <br/>
+                </br>
                 {% if user_geotagged_photos > 0 %}
                     <div class="row">
                         {% blocktrans count counter=user_geotagged_photos %}You have suggested location for <b>{{ user_geotagged_photos }}</b> picture.{% plural %}You have suggested locations for <b>{{ user_geotagged_photos }}</b> pictures.{% endblocktrans %}

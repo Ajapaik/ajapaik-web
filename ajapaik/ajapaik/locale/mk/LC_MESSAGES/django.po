@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Bjankuloski06
+# Author: Violetova
 # Author: Vlad5250
 # --
 # This file is part of the Ajapaik Project
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"PO-Revision-Date: 2020-02-10 13:49:05+0000\n"
 "X-POT-Import-Date: 2020-01-08 23:30:22+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1232,7 +1233,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign Up"
-msgstr "Регистрација"
+msgstr "Зачленување"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format

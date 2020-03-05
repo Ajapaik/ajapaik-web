@@ -698,8 +698,6 @@ class SourceDetails(AjapaikAPIView):
             photos = Photo.objects.filter(
                 source_url__contains=query,
                 rephoto_of__isnull=True,
-                lat__isnull=False,
-                lon__isnull=False,
             )[start:end]
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
@@ -926,13 +924,14 @@ class api_user_me(AjapaikAPIView):
             if profile.is_legit():
                 content['name'] = profile.get_display_name()
                 content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
-                general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
-                general_user_rank = 0
-                for i in range(0, general_user_leaderboard.count()):
-                    if general_user_leaderboard[i].user_id == profile.user_id:
-                        general_user_rank = (i + 1)
-                        break
-                content['rank'] = general_user_rank
+                # general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
+                # general_user_rank = 0
+                # for i in range(0, general_user_leaderboard.count()):
+                #     if general_user_leaderboard[i].user_id == profile.user_id:
+                #         general_user_rank = (i + 1)
+                #         break
+                # content['rank'] = general_user_rank
+                content['rank'] = 0
         return Response(content)
 
 

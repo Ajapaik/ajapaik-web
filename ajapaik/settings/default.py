@@ -72,7 +72,8 @@ LANGUAGES = (
     ('et', gettext('Estonian')),
     ('en', gettext('English')),
     ('fi', gettext('Finnish')),
-    ('sv', gettext('Swedish'))
+    ('sv', gettext('Swedish')),
+    ('ru', gettext('Russian'))
 )
 
 MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')

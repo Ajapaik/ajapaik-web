@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"PO-Revision-Date: 2020-01-23 15:06:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1565 ajapaik/ajapaik/api.py:1582
 msgid "Something went wrong"
-msgstr ""
+msgstr "Et ass eppes schif gaangen"
 
 #: ajapaik/ajapaik/api.py:1574
 msgid "You have already given feedback for this transcription"

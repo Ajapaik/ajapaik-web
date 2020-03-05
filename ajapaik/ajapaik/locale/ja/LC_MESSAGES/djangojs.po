@@ -1,8 +1,10 @@
-# Translation of Ajapaik Web app - JavaScript to Message documentation (Message documentation)
+# Translation of Ajapaik Web app - JavaScript to Japanese (日本語)
 # Exported from translatewiki.net
 #
-# Author: BaRaN6161 TURK
-# Author: Robby
+# Author: Aefgh39622
+# Author: Buntschann
+# Author: Omotecho
+# Author: Shirayuki
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -10,13 +12,11 @@
 msgid ""
 msgstr ""
 ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-02-03 14:38:09+0000\n"
-"Language: qqq\n"
+"PO-Revision-Date: 2020-01-20 10:29:28+0000\n"
+"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
+"Language: ja\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -54,16 +54,16 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1933
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
-msgstr ""
+msgstr "システムエラー"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:237
 msgid "Go to my location"
-msgstr ""
+msgstr "ホーム地点に移動"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:250
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
-msgstr "{{Identical|Close}}"
+msgstr "閉じる"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:716
 msgid "Pick the shooting location!"
@@ -89,7 +89,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:802
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Anonymous user"
-msgstr ""
+msgstr "匿名ユーザー"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:804
 msgid "Anonymous users"
@@ -158,16 +158,16 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:416
 msgid "Thanks!"
-msgstr ""
+msgstr "ありがとうございます!"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:426
 msgid "YYYY.MM.DD"
-msgstr ""
+msgstr "YYYY.MM.DD（年月日）"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
 msgid "Cancel"
-msgstr ""
+msgstr "中止"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
@@ -196,7 +196,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "Approximate date in brackets"
-msgstr ""
+msgstr "およその日付をカッコ内に記入"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
 msgid "(1944) | (1940.05)..1941.08.21)"
@@ -204,7 +204,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:472
 msgid "You're anonymous"
-msgstr ""
+msgstr "ログインしていません"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
 msgid "Album details"
-msgstr ""
+msgstr "アルバムの詳細"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
 msgid "Approximate address"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
-msgstr "{{Identical|Flip}}"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Geotag pictures in album"
@@ -280,23 +280,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Invert colors"
-msgstr ""
+msgstr "反転色"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "Licence"
-msgstr ""
+msgstr "ライセンス"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Mark stereophoto"
-msgstr ""
+msgstr "立体写真としてマーク"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
 msgid "Number"
-msgstr ""
+msgstr "番号"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
 msgid "photos"
-msgstr ""
+msgstr "写真"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
 msgid "Picture already in album(s)"
@@ -312,15 +312,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures geotagged"
-msgstr ""
+msgstr "画像に位置情報タグをつけました"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures in album"
-msgstr ""
+msgstr "アルバム内の写真"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
-msgstr ""
+msgstr "ポイント"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
 msgid "Remove from selection"
@@ -332,35 +332,35 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
 msgid "Rotate"
-msgstr ""
+msgstr "回転"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
 msgid "Show pictures on map"
-msgstr ""
+msgstr "写真を地図上に表示"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
 msgid "Size"
-msgstr ""
+msgstr "サイズ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
 msgid "Source ID"
-msgstr ""
+msgstr "ソースID"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
 msgid "Source"
-msgstr ""
+msgstr "ソース"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
 msgid "This album contains a film"
-msgstr ""
+msgstr "このアルバムには動画があります"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:44
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:45
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
 msgid "Unknown author"
@@ -408,7 +408,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
 msgid "liked"
-msgstr ""
+msgstr "いいね!しました"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
 msgid "dated"
@@ -428,19 +428,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By timestamp"
-msgstr ""
+msgstr "タイムスタンプ順"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
 msgid "Pictures from the map"
-msgstr ""
+msgstr "地図にある写真"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
 msgid "Albums"
-msgstr "{{Identical|Album}}"
+msgstr "アルバム"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
 msgid "My favorites"
-msgstr ""
+msgstr "お気に入り"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
 msgid "My rephotos"
@@ -488,7 +488,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
 msgid "Object"
-msgstr "{{Identical|Object}}"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
@@ -498,12 +498,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
 msgid "Search box"
-msgstr ""
+msgstr "検索ボックス"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
 msgid "Thank you!"
-msgstr ""
+msgstr "お願いします！"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
 msgid "Median guess"
@@ -540,7 +540,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr ""
+msgstr "位置と撮影方向の両方を保存するにはグリーンのボタンを押します。方向のロックを解除するには地図をクリックし、マーカを正しい位置までドラッグします。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
@@ -552,11 +552,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr ""
+msgstr "マーカが表示している画像の上に来るように地図をドラッグして、正しい位置に合わせたら保存ボタンを押します。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1068
 msgid "Points awarded"
-msgstr ""
+msgstr "獲得ポイント数"
 
 #: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
 msgid "Old Helsinki"
@@ -602,7 +602,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
-msgstr ""
+msgstr "画像には何が書かれていますか？"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
 msgid "You're anonymous, please login to add transcriptions"
@@ -610,7 +610,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

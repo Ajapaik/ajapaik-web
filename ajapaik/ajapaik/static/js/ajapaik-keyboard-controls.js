@@ -24,7 +24,8 @@
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === constants.keyCodes.D && !window.datingFocused && !window.transcriptionFocused) {
+                    } else if (e.keyCode === constants.keyCodes.D && !window.datingFocused && !window.transcriptionFocused && !$("#id_albums-autocomplete:focus").length > 0) {
+                        // d
                         $('#ajapaik-photo-modal-start-dating-button').click();
                     }
                     if (e.keyCode === 32 && window.currentlySelectedPhotoId) {

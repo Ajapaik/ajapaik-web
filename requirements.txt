@@ -1,6 +1,6 @@
 cmake
 django-admin-tools
-django-allauth
+django-allauth==0.40.0
 django-autocomplete-light==2.3.3
 django-bootstrap-dynamic-formsets
 django-bootstrap4
@@ -16,8 +16,8 @@ django-modeltranslation<0.13
 django-redis-cache
 django-subdomains
 django-user-agents
-django==1.11.23
-djangorestframework==3.4.7
+django==1.11.28
+djangorestframework==3.9.4
 face_recognition
 feedparser
 flickrapi

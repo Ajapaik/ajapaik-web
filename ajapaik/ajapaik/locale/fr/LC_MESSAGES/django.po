@@ -21,7 +21,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-01-09 19:05:29+0000\n"
+"PO-Revision-Date: 2020-01-13 15:06:11+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -998,7 +998,7 @@ msgstr "Adresse approximative"
 #: ajapaik/ajapaik/templates/_photo_modal.html:41
 #: ajapaik/ajapaik/templates/photoview.html:60
 msgid "See the other side of photo"
-msgstr "Voi l'autre côté de la photo"
+msgstr "Voir l’autre côté de la photo"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
