@@ -99,6 +99,7 @@
             {% with photo=photo|default:photo %}
                 {% include "_photo_description_container.html" %}
             {% endwith %}
+
         </div>
         {% if rephoto %}
         <div>
@@ -176,13 +177,7 @@
             <span>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</span>
         </div>
     {% endif %}
-    <div class="row" id="ajapaik-photo-modal-like">
-        <div class="fb-like"
-            data-href="
-                            {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}"
-            {% if not request.user_agent.is_pc %}data-layout="button_count"{% endif %} data-action="like" data-show-faces="true" data-share="true">
-        </div>
-    </div>
+
     <div class="row ajapaik-height-48 mt-2">
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}
             <a id="ajapaik-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="float-left"
@@ -199,9 +194,11 @@
         <a title="{% trans "Add rephoto" %}" id="ajapaik-photoview-add-rephoto-button" href="#" class="float-left ml-2">
             <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
         </a>
-        <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-            id="ajapaik-photoview-face-recognition-add-face-button" href="#" class="float-left">
-            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+        <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+            id="mark-object-button"
+            href="#" class="float-left"
+        >
+            <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">format_shapes</i>
         </a>
         <div class="dropdown float-left">
             <a id="ajapaik-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
@@ -248,7 +245,8 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+    {% endif %}
+    {% include '_annotation-filter.html' with numberOfColumns=4 %}
         <div id="ajapaik-comments-container">
         <div id="ajapaik-comment-list"></div>
             <div id="ajapaik-new-comment-form-container">
@@ -326,14 +324,18 @@
     window.updateLeaderboard();
     $(document).ready(function () {
         var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
-            mainPhotoContainer = $('#ajapaik-photoview-main-photo-container'),
             mainPhoto = $('#ajapaik-photoview-main-photo'),
             originalFullscreen = $('#ajapaik-full-screen-image');
+        // $('#ajp-geotagging-container').AjapaikGeotagger();
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
-        mainPhotoContainer.AjapaikFaceTagger();
-        // FIXME: This isn't doing the singleton thing it's supposed to?
-        mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({ photoId: window.photoId });
+
+        ObjectTagger.setPhotoId(window.photoId);
+        ImageAreaSelector.setImageArea('ajapaik-photoview-main-photo-container');
+
+        getObjectAnnotationClasses();
+        getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
+
         $('.dropdown-toggle').dropdown();
         $('.disabled-link').click(function (event) {
             event.preventDefault();
@@ -345,6 +347,8 @@
         } else {
             mainPhoto.addClass('ajapaik-photo-flipped');
         }
+
+        mirrorDetectionAnnotations();
     });
     $('.full-box div').on('click', function (e) {
         if (BigScreen.enabled) {
@@ -365,15 +369,18 @@
     // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
     $(document).on('mouseenter', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
-            $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-            $('#ajapaik-reverse-side-button').show("fade", 250);
-            $('#ajapaik-rotate-photo-button').show("fade", 250);
-            $('.ajapaik-show-similar-photoview-overlay-button').show("fade", 250);
-            $('.ajapaik-show-rephotos-photoview-overlay-button').show("fade", 250);
+            if (!window.isAnnotating) {
+                $('.ajapaik-flip-photo-overlay-button').show("fade", 250);
+                $('#ajapaik-reverse-side-button').show("fade", 250);
+                $('#ajapaik-rotate-photo-button').show("fade", 250);
+                $('.ajapaik-show-similar-photoview-overlay-button').show("fade", 250);
+                $('.ajapaik-show-rephotos-photoview-overlay-button').show("fade", 250);
+            }
+
+            showDetectionRectangles();
         }
         $('.ajapaik-thumbnail-selection-icon').show("fade", 250);
         // === this
-        mainPhotoContainer.data('AjapaikFaceTagger').loadRectangles();
     });
     $(document).on('mouseleave', '#ajapaik-photoview-main-photo-container', function () {
         if (!window.isMobile) {
@@ -382,9 +389,10 @@
             $('#ajapaik-rotate-photo-button').hide("fade", 250);
             $('.ajapaik-show-similar-photoview-overlay-button').hide("fade", 250);
             $('.ajapaik-show-rephotos-photoview-overlay-button').hide("fade", 250);
+
+            hideDetectionRectanglesWithoutOpenPopover();
         }
         $('.ajapaik-thumbnail-selection-icon').hide("fade", 250);
-        mainPhotoContainer.data('AjapaikFaceTagger').removeRectanglesAndButtons();
     });
     $(document).on('mouseenter', '#ajapaik-photoview-rephoto-container', function () {
         if (!window.isMobile) {
@@ -534,9 +542,9 @@
             window.reportDaterOpen();
         }
     });
-    $('#ajapaik-photoview-face-recognition-add-face-button').click(function (e) {
+    $('#mark-object-button').click(function (e) {
         e.preventDefault();
-        mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
+        ObjectTagger.toggleCropping();
     });
     window.startDater = function (photoId) {
         $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({

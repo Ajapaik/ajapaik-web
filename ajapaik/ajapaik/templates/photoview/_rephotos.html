@@ -1,0 +1,71 @@
+{% load i18n comments static %}
+
+{% if photo.rephotos.all|length > 0 %}
+    {% with first_rephoto=photo.rephotos.all.0 %}
+        <div>
+            <div id="ajapaik-photoview-rephoto-wrapper" class="photo-comparison-sidebar__rephoto-wrapper">
+                <div id="ajapaik-photoview-rephoto-container">
+                    <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
+                        <img
+                            id="ajapaik-photoview-rephoto"
+                            class="ajapaik-max-48vw"
+                            alt="{{ photo.description }} {% trans "rephoto" %}"
+                            {% if rephoto %}
+                                src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"
+                            {% else %}
+                                src="{% url 'image_thumb' first_rephoto.id 800 first_rephoto.get_pseudo_slug %}"
+                            {% endif %}
+                        />
+                    </a>
+                    <button
+                            class="btn ajapaik-invert-rephoto-overlay-button"
+                            style="top: 0;{% if request.user_agent.is_pc %} display: none; {% endif %}"
+                    >
+                        <i class="material-icons notranslate">
+                            invert_colors
+                        </i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+
+
+    <div
+        id="ajapaik-photoview-rephoto-selection"
+        class="row photo-comparison-sidebar__image-preview-gallery"
+        style="display: none;"
+    >
+        <a id="left-button" class="photo-comparison-sidebar__image-preview-gallery__control-buttons" style="visibility: hidden;">
+            <i class="material-icons notranslate photo-comparison-sidebar__image-preview-gallery__control-button">
+                chevron_left
+            </i>
+        </a>
+
+        <div class="photo-comparison-sidebar__image-preview-gallery-wrapper">
+            <div id="gallery-content" class="photo-comparison-sidebar__image-preview-gallery-content">
+                {% for rephoto in photo.rephotos.all %}
+                    <img
+                        data-full-image-url="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}"
+                        data-image-preview-rephotos="true"
+                        data-full-screen-url="{% url "image_full" rephoto.id rephoto.get_pseudo_slug %}"
+                        data-share-url="{{ hostname }}{{ rephoto.get_absolute_url }}"
+                        src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                        class="photo-comparison-sidebar__image-preview"
+                        alt="{{ photo.description }} {% trans "rephoto" %}"
+                        title="{{ photo.description }} {% trans "rephoto" %}"
+                    />
+                {% endfor %}
+            </div>
+        </div>
+
+        <a id="right-button" class="photo-comparison-sidebar__image-preview-gallery__control-buttons right">
+            <i class="material-icons notranslate photo-comparison-sidebar__image-preview-gallery__control-button">
+                chevron_right
+            </i>
+        </a>
+    </div>
+{% endif %}
+
+<script src="{% static 'js/photoview/photoview-photos-common.js' %}"></script>
+<script src="{% static 'js/photoview/photoview-rephotos.js' %}"></script>

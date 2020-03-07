@@ -1,0 +1,107 @@
+{% load i18n static %}
+
+<div id="photo-comparison-actions-sidebar">
+    <div id="toggle-comparison-sidebar" class="photo-comparison-sidebar-button">
+        <button id="open-comparison-sidebar-button" class="btn btn-outline-dark">
+        <span style="display: block;">
+            <i class="material-icons notranslate photo-comparison-sidebar__icon">expand_less</i>
+            {% trans "Shooting location" %}
+            <i class="material-icons notranslate photo-comparison-sidebar__icon">expand_less</i>
+        </span>
+            <span style="display: block;">
+            {% trans "Rephotos" %}({{ photo.rephotos.all|length }}) | {% trans "Similar photos" %}({{ similar_photo_count }})
+        </span>
+        </button>
+    </div>
+
+    <div
+        id="comparison-sidebar"
+        class="photo-comparison-sidebar {% if rephoto %} photo-comparison-sidebar--opened {% endif %}"
+        {% if rephoto %}
+            data-is-shared-with-rephoto="true"
+        {% endif %}
+    >
+        <div class="photo-comparison-sidebar__container">
+            <ul class="nav nav-tabs" id="comparison-sidebar-tabs" role="tablist">
+                <li class="nav-item">
+                    <a
+                        class="nav-link photo-comparison-sidebar__tab {% if not photo.lat %} disabled {% endif %}"
+                        id="shooting-location-tab"
+                        data-toggle="tab"
+                        href="#shootingLocation"
+                        role="tab"
+                        aria-controls="shootingLocation"
+                        aria-selected="false"
+                    >
+                        {% trans "Shooting location" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link photo-comparison-sidebar__tab
+                            {% if photo.rephotos.all|length == 0 %} disabled {% endif %}
+                            {% if rephoto %} active {% endif %}
+                        "
+                        id="rephotosTab"
+                        data-toggle="tab"
+                        href="#rephotos"
+                        role="tab"
+                        aria-controls="rephotos"
+                        aria-selected="false"
+                    >
+                        {% trans "Rephotos" %}({{ photo.rephotos.all|length }})
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link photo-comparison-sidebar__tab {% if similar_photo_count == 0 %} disabled {% endif %}"
+                        id="similarPhotosTab"
+                        data-toggle="tab"
+                        href="#similarPhotos"
+                        role="tab"
+                        aria-controls="similarPhotos"
+                        aria-selected="false"
+                    >
+                        {% trans "Similar photos" %}({{ similar_photo_count }})
+                    </a>
+                </li>
+                <li id="close-comparison-sidebar-button-wrapper" class="nav-item ml-auto">
+                    <button id="close-comparison-sidebar-button"
+                            class="btn btn-dark photo-comparison-sidebar__close-button">
+                        {% trans "Close" %}
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content photo-comparison-sidebar__tab-content" id="tab-content">
+                <div
+                    class="tab-pane fade"
+                    id="shootingLocation"
+                    role="tabpanel"
+                    aria-labelledby="shooting-location-tab"
+                >
+                    {% include 'photoview/_shooting_location.html' %}
+                </div>
+                <div
+                    class="tab-pane fade {% if rephoto %} active show {% endif %}"
+                    id="rephotos"
+                    role="tabpanel"
+                    aria-labelledby="rephotosTab"
+                >
+                    {% include 'photoview/_rephotos.html' %}
+                </div>
+                <div
+                    class="tab-pane fade"
+                    id="similarPhotos"
+                    role="tabpanel"
+                    aria-labelledby="similarPhotosTab"
+                >
+                    {% include 'photoview/_similar_photos.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/photoview/photoview-comparison-sidebar.js' %}"></script>
+<link rel="stylesheet" href="{% static "css/photo-comparison-sidebar.css" %}"/>

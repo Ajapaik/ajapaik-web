@@ -1,0 +1,76 @@
+@media (max-width: 767px) {
+  .photo-controls-sidebar {
+      width: 100%;
+      height: 85px;
+      position: fixed;
+      bottom: 0;
+      padding-top: 10px;
+      background-color: #1A1A1A;
+      text-align: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+      z-index: 99;
+    }
+
+    .photo-controls-sidebar__wrapper {
+        left: 10px;
+        overflow: scroll;
+        position: relative;
+        margin-left: 0;
+        margin-right: 0;
+        width: calc(100% - 105px);
+    }
+
+    .photo-controls-sidebar__wrapper--left-scrollable {
+        min-width: 20px;
+        position: absolute;
+        pointer-events: none;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        background: linear-gradient(to right, white, transparent 90%);
+    }
+
+    .photo-controls-sidebar__wrapper--right-scrollable {
+        min-width: 20px;
+        position: absolute;
+        pointer-events: none;
+        bottom: 0;
+        right: 90px;
+        height: 100%;
+        background: linear-gradient(to left, white, transparent 90%);
+    }
+}
+
+@media (min-width: 768px) {
+    .photo-controls-sidebar {
+        width: 81px;
+        height: 100vh;
+        position: fixed;
+        padding-top: 18px;
+        background-color: #1A1A1A;
+        text-align: center;
+        overflow: auto;
+    }
+}
+
+.photo-controls-sidebar__icon {
+    font-size: 30px;
+}
+
+.photo-controls-sidebar__text {
+    color: white;
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+.photo-controls-sidebar__logo {
+    float: left;
+    background: url(../images/ajapaik_266px.png) no-repeat;
+    width: 80px;
+    height: 50px;
+    background-size: 80px;
+    text-indent: -999em;
+    z-index: 1001;
+    margin-bottom: 15px;
+}

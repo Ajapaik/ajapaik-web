@@ -1,35 +1,55 @@
 # coding=utf-8
 from ajapaik.ajapaik.api import AjapaikAPIView
-from ajapaik.ajapaik.models import Profile
+from ajapaik.ajapaik.models import Album, Profile
+from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
+from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.authentication import BasicAuthentication
+
 
 class AddSubjectData(AjapaikAPIView):
     '''
     API endpoint for posting subject data.
     '''
     def post(self, request, format=None):
-        points = 0
-        errors = 0
-        profile = None
+        subject_id = request.POST.get('annotationId', None)
+        age = request.POST.get('ageGroup', None)
+        gender = request.POST.get('gender', None)
+        newSubjectId = request.POST.get('newSubjectId', None)
+
+        additional_subject_data = AddAdditionalSubjectData(subject_rectangle_id=subject_id, age=age, gender=gender, newSubjectId=newSubjectId)
+
+        return self.add_subject_data(additional_subject_data=additional_subject_data, request=request)
+
+    @staticmethod
+    def get_profile(request):
         if request.user.is_anonymous:
             profile = request.POST.get('profile', None)
-            profile = Profile.objects.filter(user_id=profile).first()
+            return Profile.objects.filter(user_id=profile).first()
         else:
-            profile = request.user.profile
-        subjectId = request.POST.get('subjectId', None)
-        age = request.POST.get('age', None)
-        gender = request.POST.get('gender', None)
+            return request.user.profile
+
+    @staticmethod
+    def add_subject_data(additional_subject_data: AddAdditionalSubjectData, request):
+        points = 0
+
+        profile = AddSubjectData.get_profile(request)
+        subject_annotation_rectangle_id = additional_subject_data.subject_annotation_rectangle_id
+        new_subject_id = object_annotation_utils.parse_parameter(additional_subject_data.newSubjectId)
+        age = additional_subject_data.age
+        gender = additional_subject_data.gender
         gender2 = gender
-        if gender == 2:
+
+        if gender == 'NON-BINARY':
             gender2 = None
-        if subjectId is not None:
-            subject = get_object_or_404(FaceRecognitionRectangle, id=subjectId)
+        if subject_annotation_rectangle_id is not None:
+            subject = get_object_or_404(FaceRecognitionRectangle, id=subject_annotation_rectangle_id)
+            if new_subject_id is not None:
+                subject.subject_consensus = Album.objects.filter(id=new_subject_id).first()
+                subject.save()
             if subject is None:
                 return JsonResponse({'status': 400})
             points += FaceRecognitionRectangle.add_subject_data(subject, profile, age, gender2)
+
         return JsonResponse({'points': points})

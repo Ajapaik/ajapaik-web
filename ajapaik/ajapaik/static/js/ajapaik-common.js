@@ -437,7 +437,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             } else {
                 img.removeClass('ajapaik-photo-flipped');
             }
-            window.BigScreen.request(div[0]);
+            openMainPhotoToFullScreen(div);
             fullscreenEnabled = true;
             if (window.isGame) {
                 _gaq.push(['_trackEvent', 'Game', 'Full-screen']);
@@ -1524,6 +1524,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
         if(isPhotoview) {
             photoContainer = $('#ajapaik-photoview-main-photo');
         }
+
+        disableAnnotations();
+
         if (photoContainer.hasClass('rotate90')) {
             photoContainer.removeClass('rotate90').addClass('rotate180');
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
@@ -1544,6 +1547,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
             photoContainer.removeClass('rotate270');
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
             photoFullScreenContainer.removeClass('rotate270');
+
+            enableAnnotations();
         }
         else {
             var photoContainerPadding = (1 - photoContainer.height() / photoContainer.width()) * 50;
@@ -1639,15 +1644,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         $('#ajapaik-curator-album-filter').val(null);
     });
 
-    // Chrome jumps up https://code.google.com/p/chromium/issues/detail?id=142427
-    BigScreen.onexit = function () {
-        if (window.lastScrollPosition) {
-            setTimeout(function () {
-                $(window).scrollTop(window.lastScrollPosition);
-                window.lastScrollPosition = null;
-            }, 500);
-        }
-    };
+    addFullScreenExitListener();
 
     $(document).on('click', '#ajapaik-header-album-more', function (e) {
         e.preventDefault();

@@ -1470,7 +1470,7 @@ a.fullscreen {
 #ajapaik-photoview-container > .row > #ajapaik-photo-modal-map-container > #ajapaik-photo-modal-map-canvas {
   height: calc(100% - 65px);
 }
- 
+
 .modal-content {
   max-width: 99vw !important;
 }

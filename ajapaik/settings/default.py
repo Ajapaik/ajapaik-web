@@ -189,6 +189,7 @@ INSTALLED_APPS = (
     'leaflet',
     'django_celery_beat',
     'ajapaik.ajapaik_face_recognition',
+    'ajapaik.ajapaik_object_recognition',
     'django_user_agents',
 
     # Django allauth and related applications.

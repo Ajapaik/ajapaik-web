@@ -1,0 +1,16 @@
+[
+  {
+    "model": "ajapaik_object_recognition.objectdetectionmodel",
+    "pk": 1,
+    "fields": {
+      "model_file_name": "default_yolov3_weights.h5"
+    }
+  },
+  {
+    "model": "ajapaik_object_recognition.objectdetectionmodel",
+    "pk": 2,
+    "fields": {
+      "model_file_name": "object_detection_yolov3.h5"
+    }
+  }
+]

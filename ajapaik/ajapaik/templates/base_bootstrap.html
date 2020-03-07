@@ -213,16 +213,22 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static "css/material-icons.css" %}">
         <link rel="stylesheet" href="{% static "libs/bootstrap/css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "libs/slimselect/slimselect.min.css" %}">
         <link rel="stylesheet" href="{% static "css/jquery-ui-1.12.1.css" %}">
         <link rel="stylesheet" href="{% static "css/jquery-ui.theme-1.12.1.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload.css" %}">
         <link rel="stylesheet" href="{% static "libs/jQuery-File-Upload-9.9.2/css/jquery.fileupload-ui.css" %}">
         <link rel="stylesheet" href="{% static "libs/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" %}">
         <link rel="stylesheet" href="{% static "css/ajapaik-style.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/annotations.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-geotagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-dater-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-face-tagger-plugin.css" %}"/>
         <link rel="stylesheet" href="{% static "css/ajapaik-vanalinnad-styles.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/switch.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/resizable-box.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/photo-view.css" %}"/>
+        <link rel="stylesheet" href="{% static "css/image-area-selector.css" %}"/>
     {% endcompress %}
     {% block specific_css %}{% endblock %}
     <script type="text/javascript">
@@ -338,6 +344,7 @@
     </script>
     <script>
         var isMobile = '{{ request.user_agent.is_pc }}' === 'False',
+            language = '{{ request.LANGUAGE_CODE }}',
             isMapview = false,
             isGame = false,
             isFrontpage = false,
@@ -400,7 +407,15 @@
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js" %}"></script>
         <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}"></script>
+        <script src="{% static "libs/slimselect/slimselect.min.js" %}"></script>
         <script src="{% static "js/bootstrap-confirmation.min.js" %}"></script>
+
+        <script src="{% static "js/constants.js" %}"></script>
+        <script src="{% static "js/cache.js" %}"></script>
+        <script src="{% static "js/application-utils.js" %}"></script>
+        <script src="{% static "js/request-utils.js" %}"></script>
+        <script src="{% static "js/image-utils.js" %}"></script>
+
         <script src="{% static "js/ajapaik-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajapaik-juks-gmaps.js" %}"></script>
         <script src="{% static "js/ajapaik-helsinki-gmaps.js" %}"></script>
@@ -412,6 +427,22 @@
         <script src="{% static "js/ajapaik-common-nogooglemaps.js" %}"></script>
         <script src="{% static "js/ajapaik-minimap-leaflet-plugin.js" %}"></script>
 {% endif %}
+        <script src="{% static "js/wikidata.js" %}"></script>
+        <script src="{% static "js/image-area-selector.js" %}"></script>
+        <script src="{% static "js/slim-select-elements.js" %}"></script>
+        <script src="{% static "js/draggable-area.js" %}"></script>
+        <script src="{% static "js/add-new-person-popup-initializer.js" %}"></script>
+        <script src="{% static "js/popover-initializer.js" %}"></script>
+        <script src="{% static "js/detection-rectangles-drawer.js" %}"></script>
+        <script src="{% static "js/annotations/annotation.html-factory.js" %}"></script>
+        <script src="{% static "js/annotations/annotation.tagger.js" %}"></script>
+        <script src="{% static "js/annotations/annotation.queries.js" %}"></script>
+        <script src="{% static "js/annotations/popovers/face-annotation.popover.feedback.js" %}"></script>
+        <script src="{% static "js/annotations/popovers/object-annotation.popover.feedback.js" %}"></script>
+        <script src="{% static "js/annotations/popovers/annotation.popover.new.js" %}"></script>
+        <script src="{% static "js/annotations/popovers/object-annotation.popover.edit.js" %}"></script>
+        <script src="{% static "js/annotations/popovers/face-annotation.popover.edit.js" %}"></script>
+        <script src="{% static "js/autocomplete.js" %}"></script>
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-transcriber-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>

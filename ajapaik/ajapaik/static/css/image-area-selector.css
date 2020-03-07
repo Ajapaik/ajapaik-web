@@ -1,0 +1,14 @@
+.image-area-selector__selection {
+    position: absolute;
+    border: 3px dashed white;
+    outline: black solid 1px;
+}
+
+.image-area-selector__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10001;
+}

@@ -1,0 +1,13 @@
+.photo-view__accordion-header {
+    background-color: #4A4A4A;
+    text-align: center;
+    margin-top: 3px;
+}
+
+.photo-view__accordion-header__button {
+    color: white;
+}
+
+.photo-view__accordion-content {
+    background-color: #CCCCCC;
+}

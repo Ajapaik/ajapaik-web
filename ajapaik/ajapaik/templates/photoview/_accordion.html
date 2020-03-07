@@ -1,0 +1,128 @@
+{% load i18n comments static %}
+
+<div>
+    <div id="comparison-sidebar-collapse-wrapper" style="display: none;">
+        <div class="photo-view__accordion-header" id="comparison-sidebar-collapse">
+            <h5 class="mb-0">
+                <button
+                    class="btn btn-link photo-view__accordion-header__button collapsed"
+                    data-toggle="collapse"
+                    data-target="#comparison-actions"
+                    aria-expanded="false"
+                    aria-controls="comparison-actions"
+                >
+                    {% trans "Shooting location" %} | {% trans "Rephotos" %}({{ photo.rephotos.all|length }}) | {% trans "Similar photos" %}({{ similar_photo_count }})
+                    <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="more">
+                        expand_more
+                    </i>
+                    <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="less" style="display: none;">
+                        expand_less
+                    </i>
+                </button>
+            </h5>
+        </div>
+
+        <div
+            id="comparison-actions"
+            class="collapse"
+            aria-labelledby="comparison-sidebar-collapse"
+            data-parent="#comparison-sidebar-collapse"
+        >
+            <div id="comparison-actions-content" class="card-body photo-view__accordion-content">
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-view__accordion-header" id="headingPhotoInfo">
+        <h5 class="mb-0">
+            <button
+                class="btn btn-link photo-view__accordion-header__button"
+                data-toggle="collapse"
+                data-target="#photoInfo"
+                aria-expanded="false"
+                aria-controls="photoInfo"
+            >
+                {% trans "Photo info" %}
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="more" style="display: none;">
+                    expand_more
+                </i>
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="less">
+                    expand_less
+                </i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="photoInfo" class="collapse show" aria-labelledby="headingPhotoInfo" data-parent="#headingPhotoInfo">
+        <div class="card-body photo-view__accordion-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="text-decoration: underline;">
+                        {% trans 'Photo info' %}:
+                    </div>
+
+                    {% include 'photoview/_photo_info.html' %}
+                </div>
+
+                <div class="col-md-6">
+                    <div style="text-decoration: underline;">
+                        {% trans 'Picture belongs to albums' %}:
+                    </div>
+
+                    {% include 'photoview/_albums_info.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-view__accordion-header" id="headingOne">
+        <h5 class="mb-0">
+            <button
+                    class="btn btn-link photo-view__accordion-header__button collapsed"
+                    data-toggle="collapse"
+                    data-target="#filteredAnnotations"
+                    aria-expanded="false"
+                    aria-controls="filteredAnnotations"
+            >
+                {% trans "Filter annotations" %}
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="more">
+                    expand_more
+                </i>
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="less" style="display: none;">
+                    expand_less
+                </i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="filteredAnnotations" class="collapse" aria-labelledby="headingOne" data-parent="#headingOne">
+        <div id="annotation-filters-wrapper" class="card-body photo-view__accordion-content">
+        </div>
+    </div>
+
+    <div class="photo-view__accordion-header" id="commentsHeading">
+        <h5 class="mb-0">
+            <button
+                    class="btn btn-link photo-view__accordion-header__button collapsed"
+                    data-toggle="collapse"
+                    data-target="#comments"
+                    aria-expanded="false"
+                    aria-controls="comments"
+            >
+                {% trans "Comments" %}
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="more">
+                    expand_more
+                </i>
+                <i class="material-icons notranslate photo-view-accordion__icon" data-icon-type="less" style="display: none;">
+                    expand_less
+                </i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="comments" class="collapse" aria-labelledby="commentsHeading" data-parent="#commentsHeading">
+        <div class="card-body photo-view__accordion-content">
+            {% include 'photoview/_comments.html' %}
+        </div>
+    </div>
+</div>

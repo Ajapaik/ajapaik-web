@@ -1,0 +1,73 @@
+.annotation-label {
+    position: absolute;
+    left: 50%;
+    min-width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    background-color: rgba(211, 211, 211, 0.7);
+}
+
+.annotation-label__top {
+    bottom: 100%;
+}
+
+.annotation-label__bottom {
+    top: 100%;
+}
+
+.annotation-button__fullscreen {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: white !important;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.error-display {
+    display: block;
+}
+
+.slim-select-error {
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #dc3545;
+}
+
+.placeholder .hide-on-select {
+    display: none !important;
+}
+
+.placeholder .show-on-select {
+    display: inline !important;
+}
+
+.ss-option .show-on-select {
+    display: none !important;
+}
+
+.ss-disabled {
+    cursor: pointer !important;
+}
+
+.annotation__guiding-overlay {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.annotation__guiding-overlay > .annotation__informative-text {
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hide {
+    display: none;
+}
+
+.annotation-button-disabled {
+    color: #DCDCDC !important;
+    cursor: no-drop;
+}

@@ -17,7 +17,7 @@ from urllib.request import build_opener
 import cv2
 import django_comments
 import requests
-from html import unescape 
+from html import unescape
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
@@ -2229,7 +2229,7 @@ def curator_photo_upload_handler(request):
 							if upload_form.cleaned_data["collections"] == "DIGAR":
 								new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
 							else:
-								# Enable plain http and broken SSL 
+								# Enable plain http and broken SSL
 								ssl._create_default_https_context = ssl._create_unverified_context
 								opener = build_opener()
 								headers = [("User-Agent",
@@ -2765,7 +2765,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 	else:
 		next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
-			
+
 	context = {
 		'is_comparephoto': True,
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,

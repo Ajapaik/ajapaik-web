@@ -7,7 +7,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body" id="ajapaik-modal-body">
+        <div class="modal-body" id="ajapaik-modal-body" style="overflow: initial;">
             <div class="container-fluid">
                 <div class="row" style="margin:0 auto;">
                     <div id="ajapaik-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
@@ -158,8 +158,9 @@
                 </div>
                 <div class="modal-footer row p-0 pt-2">
                     <div class="container-fluid text-left">
+
+                        <!-- start of old photo info -->
                         <div class="row">
-                            <!-- start of old photo info -->
                             <div id="ajapaik-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
                                 <!-- start of transcriber block -->
                                 <div class="row my-3 d-none" id="ajp-transcriber-container"></div>
@@ -224,17 +225,7 @@
                             <!-- end of similar photo info -->
                         </div>
                         <!-- end of new photo info -->
-                        <!-- start of FB like block -->
-                        <div class="col-lg-6 col-md-6 col-sm-12 pl-0 fb-like" 
-                            data-href="{{ hostname }}{{ photo.get_detail_url }}"
-                            {% if not request.user_agent.is_pc %}
-                                data-layout="button_count"
-                            {% endif %}
-                            data-action="like"
-                            data-show-faces="true"
-                            data-share="true">
-                        </div>
-                        <!-- end of FB like block -->
+
                         <!-- start of toolbox block -->
                         <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
                             <div class="ajapaik-mt-1">
@@ -254,9 +245,15 @@
                                    title="{% trans "Add rephoto" %}">
                                     <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">add_a_photo</i>
                                 </a>
-                                <a title="{% trans "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image" %}"
-                                    id="ajapaik-photo-modal-face-recognition-add-face-button" href="#" class="float-left">
-                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">person_pin</i>
+                                <a
+                                    title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+                                    id="mark-object-button"
+                                    class="no-text-decoration float-left"
+                                    style="cursor: pointer;"
+                                >
+                                    <i class="material-icons notranslate ajapaik-text-gray ajapaik-icon-48">
+                                        format_shapes
+                                    </i>
                                 </a>
                                 {% if request.user.profile.is_legit %}
                                     <a id="ajapaik-photo-modal-discuss" class="no-text-decoration float-left"
@@ -326,6 +323,7 @@
                             </div>
                         {% endif %}
                         <!-- end of albums block -->
+                        {% include '_annotation-filter.html' with numberOfColumns=2 %}
                         <!-- start of comment block -->
                         <div class="row" id="ajapaik-comments-container">
                             <div class="col-md-12" id="ajapaik-comment-list"></div>
@@ -487,26 +485,29 @@
         });
     {% endfor %}
     $(document).ready(function () {
+        ImageAreaSelector.setImageArea('ajapaik-modal-photo-container');
+        ObjectTagger.setPhotoId(window.currentlyOpenPhotoId);
+        ObjectTagger.setDetectionRectangleContainer('#ajapaik-modal-body');
+
+        getObjectAnnotationClasses();
+        getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
+
         window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
         $('#ajapaik-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
-        var mainPhotoContainer = $('#ajapaik-modal-photo-container');
-        mainPhotoContainer.AjapaikFaceTagger();
-        mainPhotoContainer.data('AjapaikFaceTagger').initializeFaceTaggerState({photoId: window.currentlyOpenPhotoId});
-        $('#ajapaik-photo-modal-face-recognition-add-face-button').click(function (e) {
+
+        $('#mark-object-button').click(function (e) {
             e.preventDefault();
-            mainPhotoContainer.data('AjapaikFaceTagger').toggleCropping();
+            ObjectTagger.toggleCropping();
         });
+
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
-        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
-            $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').loadRectangles();
-        });
-        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', function () {
-            $('#ajapaik-modal-photo-container').data('AjapaikFaceTagger').removeRectanglesAndButtons();
-        });
+        $(document).on('mouseenter.ajapaik-namespace', '#ajapaik-modal-photo-container', showDetectionRectangles);
+        $(document).on('mouseleave.ajapaik-namespace', '#ajapaik-modal-photo-container', hideDetectionRectanglesWithoutOpenPopover);
+
         window.startDater = function (photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
             $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
@@ -559,7 +560,7 @@
                         if(!$('#ajp-transcriber-confirm-button').is(':visible')) {
                             $('#ajp-transcriber-confirm-button').removeClass('d-none');
                         }
-                    } 
+                    }
                 },
                 error: function() {
                     $.notify("Failed to get transcriptions", {type: 'danger'});
@@ -605,6 +606,9 @@
                     fullScreenPhoto.addClass('ajapaik-photo-flipped');
                 }
             }
+
+            mirrorDetectionAnnotations();
+
             if(fullScreenPhoto !== undefined) {
                 window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
             }
@@ -614,7 +618,7 @@
         rephotoContainer = $('#ajapaik-modal-rephoto-container'),
         similarPhotoContainer = $('#ajapaik-modal-similar-photo-container');
             mainPhotoContainer.hover(function () {
-                if (!window.isMobile) {
+                if (!window.isMobile && !window.isAnnotating) {
                     var $this = $(this);
                     $this.find('.ajapaik-thumbnail-selection-icon').show("fade", 250);
                     $this.find('#ajapaik-reverse-side-button').show("fade", 250);
@@ -623,8 +627,6 @@
                     $this.find('.ajapaik-photo-modal-next-button').show("fade", 250);
                     $this.find('.ajapaik-like-photo-overlay-button').show("fade", 250);
                     $this.find('.ajapaik-flip-photo-overlay-button').show("fade", 250);
-                    $this.find('#ajapaik-reverse-side-button').show("fade", 250);
-                    $this.find('#ajapaik-rotate-photo-button').show("fade", 250);
                     if (window.userClosedSimilarPhotoTools) {
                         $this.find('.ajapaik-show-similar-photo-selection-overlay-button').show("fade", 250);
                     }

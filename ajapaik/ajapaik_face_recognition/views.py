@@ -1,4 +1,3 @@
-import datetime
 import json
 import logging
 from collections import Counter, OrderedDict
@@ -6,7 +5,7 @@ from typing import Optional, Iterable
 
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.utils import timezone
@@ -16,11 +15,18 @@ from PIL import Image
 from ajapaik import settings
 from ajapaik.utils import least_frequent
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Points
+from ajapaik import settings
+from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
+from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
+from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
     FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataGuess
 from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
+from ajapaik.ajapaik_face_recognition.service import face_annotation_feedback_service, face_annotation_edit_service, \
+    face_annotation_delete_service
+from ajapaik.ajapaik_object_recognition import response
 
 log = logging.getLogger(__name__)
 
@@ -63,45 +69,70 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
     return dict_keys[0]
 
 
+def save_subject_object(subject_album, rectangle, user_id, user_profile):
+    status = 200
+
+    new_guess = FaceRecognitionUserGuess(
+        subject_album=subject_album,
+        rectangle=rectangle,
+        user_id=user_id,
+        origin=FaceRecognitionUserGuess.USER
+    )
+    new_guess.save()
+
+    consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
+    current_consensus_album = Album.objects.filter(pk=rectangle.subject_consensus_id).first()
+
+    if consensus_subject != rectangle.subject_consensus_id:
+        # Consensus was either None or it changed
+        if current_consensus_album:
+            AlbumPhoto.objects.filter(album=current_consensus_album, photo=rectangle.photo).delete()
+        if rectangle.photo not in subject_album.photos.all():
+            AlbumPhoto(photo=rectangle.photo, album=subject_album, type=AlbumPhoto.FACE_TAGGED,
+                       profile=user_profile).save()
+            subject_album.save()
+            status = 201
+
+    rectangle.subject_consensus_id = consensus_subject
+
+    points = 75
+    Points(
+        user=user_profile,
+        action=Points.CONFIRM_SUBJECT,
+        points=points,
+        photo=rectangle.photo,
+        subject_confirmation=new_guess,
+        annotation = rectangle,
+        created=timezone.now()
+    ).save()
+
+    rectangle.save()
+
+    return {
+        "status": status,
+        "new_guess_id": new_guess.id,
+        'points': points
+    }
+
+
+def save_subject(form: FaceRecognitionGuessForm, user_id, user_profile):
+    subject_album: Album = form.cleaned_data['subject_album']
+    rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
+
+    return save_subject_object(subject_album, rectangle, user_id, user_profile)
+
+
 def guess_subject(request: HttpRequest) -> HttpResponse:
     status = 200
     if request.method == 'POST':
         form = FaceRecognitionGuessForm(request.POST)
         if form.is_valid():
-            subject_album: Album = form.cleaned_data['subject_album']
-            rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
-            new_guess = FaceRecognitionUserGuess(
-                subject_album=subject_album,
-                rectangle=rectangle,
-                user_id=request.user.id,
-                origin=FaceRecognitionUserGuess.USER
-            )
-            new_guess.save()
-            consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
-            current_consensus_album = Album.objects.filter(pk=rectangle.subject_consensus_id).first()
-            if consensus_subject != rectangle.subject_consensus_id:
-                # Consensus was either None or it changed
-                if current_consensus_album:
-                    AlbumPhoto.objects.filter(album=current_consensus_album, photo=rectangle.photo).delete()
-                if rectangle.photo not in subject_album.photos.all():
-                    AlbumPhoto(photo=rectangle.photo, album=subject_album, type=AlbumPhoto.FACE_TAGGED,
-                               profile=request.user.profile).save()
-                    subject_album.save()
-                    status = 201
-            rectangle.subject_consensus_id = consensus_subject
-            points = 75
-            Points(
-                user=request.user.profile,
-                action=Points.CONFIRM_SUBJECT,
-                points=points,
-                photo=rectangle.photo,
-                subject_confirmation=new_guess,
-                annotation = rectangle,
-                created=timezone.now()
-            ).save()
-            rectangle.save()
+            result = save_subject(form, request.user.id, request.user.profile)
 
-            return HttpResponse(JSONRenderer().render({'id': new_guess.id, 'points': points}), content_type='application/json',
+            status = result["status"]
+            new_guess_id = result["new_guess_id"]
+
+            return HttpResponse(JSONRenderer().render({'id': new_guess_id}), content_type='application/json',
                                 status=status)
 
     return HttpResponse('OK', status=status)
@@ -146,6 +177,30 @@ def add_rectangle(request: HttpRequest) -> HttpResponse:
     return HttpResponse(response_content, content_type='application/json', status=status)
 
 
+def add_person_rectangle(values, photo, user_id):
+    x1 = values['x1']
+    x2 = values['x2']
+    y1 = values['y1']
+    y2 = values['y2']
+
+    # DB stores (top, right, bottom, left)
+    coordinates: Iterable[int] = [
+        int(float(y1)),
+        int(float(x2)),
+        int(float(y2)),
+        int(float(x1))
+    ]
+    new_rectangle = FaceRecognitionRectangle(
+        photo=photo,
+        coordinates=json.dumps(coordinates),
+        user_id=user_id,
+        origin=FaceRecognitionRectangle.USER
+    )
+    new_rectangle.save()
+
+    return new_rectangle.id
+
+
 def get_rectangles(request, photo_id=None):
     rectangles = []
     if photo_id:
@@ -155,31 +210,46 @@ def get_rectangles(request, photo_id=None):
     return HttpResponse(JSONRenderer().render(rectangles), content_type='application/json')
 
 
-# Essentially means 'complain to get it deleted'
-def add_rectangle_feedback(request):
-    form = FaceRecognitionRectangleFeedbackForm(request.POST.copy())
-    deleted = False
-    if form.is_valid():
-        rectangle = form.cleaned_data['rectangle']
-        new_feedback = FaceRecognitionRectangleFeedback(
-            rectangle=rectangle,
-            user_id=request.user.id,
-            is_correct=form.cleaned_data['is_correct']
-        )
-        new_feedback.save()
-        # Allow the owner to delete their own rectangle at will
-        # TODO: Some kind of review process to delete rectangles not liked by N people?
-        # and rectangle.user_id == request.user.id
-        if not new_feedback.is_correct:
-            rectangle.deleted = datetime.datetime.now()
-            rectangle.save()
-            deleted = True
-            # TODO: Also update Photo.people or implement asking of people some other way
-        status = 200
-    else:
-        status = 400
+def add_rectangle_feedback(request, annotation_id):
+    face_annotation_feedback_request = FaceAnnotationFeedbackRequest(
+        request.user.id,
+        annotation_id,
+        QueryDict(request.body)
+    )
+    face_annotation_feedback_service.add_feedback(face_annotation_feedback_request, request)
 
-    return HttpResponse(JSONRenderer().render({'deleted': deleted}), content_type='application/json', status=status)
+    return HttpResponse(JSONRenderer().render({'isOk': True}), content_type='application/json', status=200)
+
+
+def update_annotation(request: HttpRequest, annotation_id: int):
+    if request.method != 'PUT':
+        return response.not_supported()
+
+    face_annotation_update_request = FaceAnnotationUpdateRequest(
+        QueryDict(request.body),
+        annotation_id,
+        request.user.id
+    )
+
+    is_successful = face_annotation_edit_service.update_face_annotation(face_annotation_update_request, request)
+
+    if is_successful:
+        return response.success()
+
+    return response.action_failed()
+
+
+def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
+    if request.method != 'DELETE':
+        return response.not_supported()
+
+    face_annotation_remove_request = FaceAnnotationRemoveRequest(annotation_id, request.user.id)
+    has_removed_successfully = face_annotation_delete_service.remove_annotation(face_annotation_remove_request)
+
+    if has_removed_successfully:
+        return response.success()
+
+    return response.action_failed()
 
 
 def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse:
@@ -189,6 +259,7 @@ def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse
         'form': form
     }
     return render(request, 'guess_subject.html', context)
+
 
 def get_subject_image(request: HttpRequest):
     try:
@@ -285,10 +356,6 @@ def get_subject_data(request, subject_id = None):
             next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
             if album_id is not None:
                 next_action += "?album=" + str(album_id)
-
-    #These variables are used for debugging purposes, remove when going live
-    age = "Undefined"
-    gender = "Undefined"
     hasConsensus = False
     if rectangle != None and rectangle.subject_consensus != None:
             hasConsensus = True
@@ -318,8 +385,6 @@ def get_subject_data(request, subject_id = None):
         'photo': rectangle.photo,
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
-        'gender': gender,
-        'age': age,
         'hasConsensus': hasConsensus
     }
     return render(request, 'add_subject_data.html', context)
