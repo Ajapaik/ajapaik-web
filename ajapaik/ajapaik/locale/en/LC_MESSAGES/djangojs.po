@@ -719,7 +719,7 @@ msgstr "Your annotation info"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr "ange person name"
+msgstr "Change person name"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
