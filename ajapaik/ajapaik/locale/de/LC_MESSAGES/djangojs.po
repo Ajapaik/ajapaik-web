@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1233qwer1234qwer4
+# Author: Ferdinand0101
 # Author: H2kks
 # Author: JenniferSP
 # Author: Mirzali
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-02-06 13:52:45+0000\n"
-"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
+"PO-Revision-Date: 2020-03-09 15:33:28+0000\n"
+"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
@@ -49,10 +50,10 @@ msgstr ""
 msgid "Not selected"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1440
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1456
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1933
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1428
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1444
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1903
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1919
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Systemfehler"
@@ -167,11 +168,13 @@ msgstr "JJJJ.MM.TT"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
+#: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
+#: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
 msgstr "Speichern"
 
@@ -488,6 +491,7 @@ msgid "Vantage point"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
+#: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Object"
 msgstr "Objekt"
 
@@ -613,6 +617,265 @@ msgstr "Du bist anonym, bitte melde dich an, um Abschriften zu ergänzen"
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
 msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:54
+msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:57
+msgid "Object is required"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:60
+msgid "optional"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:61
+msgid "Unsure"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:62
+msgid "Male"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:63
+msgid "Female"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:64
+msgid "Child"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:65
+msgid "Elderly"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:66
+msgid "Adult"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:70
+msgid "Delete"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:75
+msgid "Photo"
+msgstr "Foto"
+
+#: ajapaik/ajapaik/static/js/constants.js:76
+msgid "Photo with selected rephoto"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:81
+msgid "What is displayed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:82
+msgid "Edit face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:83
+msgid "Add name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:84
+msgid "Edit object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:85
+msgid "Edit feedback"
+msgstr "Rückmeldung bearbeiten"
+
+#: ajapaik/ajapaik/static/js/constants.js:86
+msgid "Add feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:87
+msgid "Your annotation info"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:90
+#, fuzzy
+msgid "Change person name"
+msgstr "Personen-Name ändern"
+
+#: ajapaik/ajapaik/static/js/constants.js:91
+msgid "Add person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:92
+msgid "Change object class"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:93
+msgid "Face"
+msgstr "Gesicht"
+
+#: ajapaik/ajapaik/static/js/constants.js:95
+msgid "Is this a face"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:96
+msgid "Is this"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:97
+#: ajapaik/ajapaik/static/js/constants.js:98
+#: ajapaik/ajapaik/static/js/constants.js:99
+msgid "Is this a"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:100
+msgid "Annotation type"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:101
+msgid "Name"
+msgstr "Name"
+
+#: ajapaik/ajapaik/static/js/constants.js:102
+msgid "Object type"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:103
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: ajapaik/ajapaik/static/js/constants.js:104
+msgid "Age"
+msgstr "Alter"
+
+#: ajapaik/ajapaik/static/js/constants.js:108
+msgid "Failed to load object annotation classes"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:109
+msgid "Failed to load annotations"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:110
+msgid "Successfully added object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:111
+msgid "Unable to save object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:112
+msgid "Successfully updated object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:113
+msgid "Unable to update object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:114
+msgid "Successfully added object annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:115
+msgid "Failed to add object annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:116
+msgid "Successfully removed object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:117
+msgid "Unable to remove object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:118
+msgid "Successfully added face annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:119
+msgid "Failed to add face annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:120
+msgid "Successfully edited face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:121
+msgid "Failed to save face annotation edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:122
+msgid "Successfully removed face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:123
+msgid "Failed to remove face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:127
+msgid "Find object"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:128
+#: ajapaik/ajapaik/static/js/constants.js:135
+msgid "Searching"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:129
+msgid "Search for object"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:130
+#: ajapaik/ajapaik/static/js/constants.js:137
+msgid "Need 2 characters"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:131
+#: ajapaik/ajapaik/static/js/constants.js:138
+msgid "No results found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:134
+msgid "Find existing person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:136
+msgid "Enter person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:139
+#: ajapaik/ajapaik/static/js/constants.js:142
+msgid "Add new person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:143
+msgid "Specify person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:148
+msgid "Select age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:149
+msgid "Change age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:150
+msgid "Specify alternative age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:155
+msgid "Select gender"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:156
+msgid "Change gender"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:157
+msgid "Specify alternative gender"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
+msgid "Unknown"
+msgstr "Unbekannt"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

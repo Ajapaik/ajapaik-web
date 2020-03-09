@@ -15,11 +15,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:18+0000\n"
+"PO-Revision-Date: 2020-03-09 15:33:30+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
+"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -51,10 +51,10 @@ msgstr "發生不明錯誤。"
 msgid "Not selected"
 msgstr "尚未選擇"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1440
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1456
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1933
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1428
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1444
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1903
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1919
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "系統錯誤"
@@ -169,11 +169,13 @@ msgstr "YYYY.MM.DD"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
+#: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "取消"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
+#: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
 msgstr "提交"
 
@@ -490,8 +492,9 @@ msgid "Vantage point"
 msgstr "制高點"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
+#: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Object"
-msgstr "物體"
+msgstr "對象"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
@@ -555,7 +558,7 @@ msgstr "拖拉地圖來讓圓圈覆蓋大約位置，在準備好後點擊儲存
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "拖拉地圖來讓標記位於您在圖片所見的物體上方，在準備好後點擊儲存。"
+msgstr "拖拉地圖來讓標記位於您在圖片所見的對象上方，在準備好後點擊儲存。"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1068
 msgid "Points awarded"
@@ -615,6 +618,265 @@ msgstr "您為匿名使用者，請登入來添加轉錄"
 msgid "Login"
 msgstr "登入"
 
+#: ajapaik/ajapaik/static/js/constants.js:54
+msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
+msgstr "點擊（不必拖放）來開始拉動註解。再次點擊來結束拉動。"
+
+#: ajapaik/ajapaik/static/js/constants.js:57
+msgid "Object is required"
+msgstr "需要對象"
+
+#: ajapaik/ajapaik/static/js/constants.js:60
+msgid "optional"
+msgstr "可選"
+
+#: ajapaik/ajapaik/static/js/constants.js:61
+msgid "Unsure"
+msgstr "不確定"
+
+#: ajapaik/ajapaik/static/js/constants.js:62
+msgid "Male"
+msgstr "男性"
+
+#: ajapaik/ajapaik/static/js/constants.js:63
+msgid "Female"
+msgstr "女性"
+
+#: ajapaik/ajapaik/static/js/constants.js:64
+msgid "Child"
+msgstr "兒童"
+
+#: ajapaik/ajapaik/static/js/constants.js:65
+msgid "Elderly"
+msgstr "上年紀"
+
+#: ajapaik/ajapaik/static/js/constants.js:66
+msgid "Adult"
+msgstr "成人"
+
+#: ajapaik/ajapaik/static/js/constants.js:70
+msgid "Delete"
+msgstr "刪除"
+
+#: ajapaik/ajapaik/static/js/constants.js:75
+msgid "Photo"
+msgstr "照片"
+
+#: ajapaik/ajapaik/static/js/constants.js:76
+msgid "Photo with selected rephoto"
+msgstr "帶有所選翻拍照片的照片"
+
+#: ajapaik/ajapaik/static/js/constants.js:81
+msgid "What is displayed"
+msgstr "要展示的是什麼"
+
+#: ajapaik/ajapaik/static/js/constants.js:82
+msgid "Edit face annotation"
+msgstr "添加臉部註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:83
+msgid "Add name"
+msgstr "添加名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:84
+msgid "Edit object annotation"
+msgstr "編輯對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:85
+msgid "Edit feedback"
+msgstr "編輯意見回饋"
+
+#: ajapaik/ajapaik/static/js/constants.js:86
+msgid "Add feedback"
+msgstr "添加意見回饋"
+
+#: ajapaik/ajapaik/static/js/constants.js:87
+msgid "Your annotation info"
+msgstr "您的註解資訊"
+
+#: ajapaik/ajapaik/static/js/constants.js:90
+#, fuzzy
+msgid "Change person name"
+msgstr "更改人物名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:91
+msgid "Add person name"
+msgstr "添加人物名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:92
+msgid "Change object class"
+msgstr "更改對象類別"
+
+#: ajapaik/ajapaik/static/js/constants.js:93
+msgid "Face"
+msgstr "臉部"
+
+#: ajapaik/ajapaik/static/js/constants.js:95
+msgid "Is this a face"
+msgstr "這是一張臉部嗎"
+
+#: ajapaik/ajapaik/static/js/constants.js:96
+msgid "Is this"
+msgstr "這是個"
+
+#: ajapaik/ajapaik/static/js/constants.js:97
+#: ajapaik/ajapaik/static/js/constants.js:98
+#: ajapaik/ajapaik/static/js/constants.js:99
+msgid "Is this a"
+msgstr "這是一個"
+
+#: ajapaik/ajapaik/static/js/constants.js:100
+msgid "Annotation type"
+msgstr "註解類型"
+
+#: ajapaik/ajapaik/static/js/constants.js:101
+msgid "Name"
+msgstr "名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:102
+msgid "Object type"
+msgstr "對象類型"
+
+#: ajapaik/ajapaik/static/js/constants.js:103
+msgid "Gender"
+msgstr "性別"
+
+#: ajapaik/ajapaik/static/js/constants.js:104
+msgid "Age"
+msgstr "年齡"
+
+#: ajapaik/ajapaik/static/js/constants.js:108
+msgid "Failed to load object annotation classes"
+msgstr "載入對象註解類別失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:109
+msgid "Failed to load annotations"
+msgstr "載入註解失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:110
+msgid "Successfully added object annotation"
+msgstr "成功添加對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:111
+msgid "Unable to save object annotation"
+msgstr "無法保存對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:112
+msgid "Successfully updated object annotation"
+msgstr "成功更新對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:113
+msgid "Unable to update object annotation"
+msgstr "無法更新對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:114
+msgid "Successfully added object annotation feedback"
+msgstr "成功添加對象註解意見回饋"
+
+#: ajapaik/ajapaik/static/js/constants.js:115
+msgid "Failed to add object annotation feedback"
+msgstr "添加對象註解意見回饋失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:116
+msgid "Successfully removed object annotation"
+msgstr "成功移除對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:117
+msgid "Unable to remove object annotation"
+msgstr "無法移除對象註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:118
+msgid "Successfully added face annotation feedback"
+msgstr "成功添加臉部註解意見回饋"
+
+#: ajapaik/ajapaik/static/js/constants.js:119
+msgid "Failed to add face annotation feedback"
+msgstr "添加臉部註解意見回饋失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:120
+msgid "Successfully edited face annotation"
+msgstr "成功編輯臉部註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:121
+msgid "Failed to save face annotation edit"
+msgstr "保存臉部註解編輯失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:122
+msgid "Successfully removed face annotation"
+msgstr "成功移除臉部註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:123
+msgid "Failed to remove face annotation"
+msgstr "移除臉部註解失敗"
+
+#: ajapaik/ajapaik/static/js/constants.js:127
+msgid "Find object"
+msgstr "查找對象"
+
+#: ajapaik/ajapaik/static/js/constants.js:128
+#: ajapaik/ajapaik/static/js/constants.js:135
+msgid "Searching"
+msgstr "搜尋中"
+
+#: ajapaik/ajapaik/static/js/constants.js:129
+msgid "Search for object"
+msgstr "搜尋對象"
+
+#: ajapaik/ajapaik/static/js/constants.js:130
+#: ajapaik/ajapaik/static/js/constants.js:137
+msgid "Need 2 characters"
+msgstr "需要 2 名角色"
+
+#: ajapaik/ajapaik/static/js/constants.js:131
+#: ajapaik/ajapaik/static/js/constants.js:138
+msgid "No results found"
+msgstr "查無結果"
+
+#: ajapaik/ajapaik/static/js/constants.js:134
+msgid "Find existing person"
+msgstr "尋找存在人物"
+
+#: ajapaik/ajapaik/static/js/constants.js:136
+msgid "Enter person name"
+msgstr "輸入人物名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:139
+#: ajapaik/ajapaik/static/js/constants.js:142
+msgid "Add new person"
+msgstr "添加新人物"
+
+#: ajapaik/ajapaik/static/js/constants.js:143
+msgid "Specify person name"
+msgstr "指定人物名稱"
+
+#: ajapaik/ajapaik/static/js/constants.js:148
+msgid "Select age group"
+msgstr "選擇年齡群組"
+
+#: ajapaik/ajapaik/static/js/constants.js:149
+msgid "Change age group"
+msgstr "更改年齡群組"
+
+#: ajapaik/ajapaik/static/js/constants.js:150
+msgid "Specify alternative age group"
+msgstr "指定替代年齡群組"
+
+#: ajapaik/ajapaik/static/js/constants.js:155
+msgid "Select gender"
+msgstr "選擇性別"
+
+#: ajapaik/ajapaik/static/js/constants.js:156
+msgid "Change gender"
+msgstr "更改性別"
+
+#: ajapaik/ajapaik/static/js/constants.js:157
+msgid "Specify alternative gender"
+msgstr "指定替代性別"
+
+#: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
+msgid "Unknown"
+msgstr "未知"
+
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
 msgstr "很抱歉，載入臉部失敗。"
@@ -635,7 +897,7 @@ msgstr "感謝您！已移除不恰當的方框。"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
 msgid "Failed to send your feedback, sorry."
-msgstr "很抱歉，發送您的回饋失敗。"
+msgstr "很抱歉，發送您的意見回饋失敗。"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
 #, javascript-format
@@ -649,7 +911,7 @@ msgstr "很抱歉，發送您的提交失敗。"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
 msgid "Failed retrieving person tagging form, sorry."
-msgstr "很抱歉，檢索個人標記表單失敗。"
+msgstr "很抱歉，檢索人物標記表單失敗。"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
 msgid "Who is this?"
