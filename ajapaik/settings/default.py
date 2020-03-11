@@ -66,7 +66,7 @@ FACEBOOK_APP_SECRET = ''
 
 TIME_ZONE = 'Europe/Tallinn'
 
-LANGUAGE_CODE = 'et'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('et', gettext('Estonian')),
