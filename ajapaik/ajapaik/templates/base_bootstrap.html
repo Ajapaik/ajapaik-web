@@ -489,6 +489,14 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TQJJQH');</script>
     <!-- End Google Tag Manager -->
+    <script>
+        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
+        $('.modal').on("hidden.bs.modal", function (e) { 
+            if ($('.modal:visible').length) { 
+                $('body').addClass('modal-open');
+            }
+        });
+    </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
 {% block autocomplete_stuff %}
