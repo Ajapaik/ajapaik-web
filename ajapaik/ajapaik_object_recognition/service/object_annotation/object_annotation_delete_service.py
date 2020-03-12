@@ -8,8 +8,7 @@ def remove_annotation(annotation_remove_request: AnnotationRemove) -> bool:
     user_id = annotation_remove_request.user_id
 
     object_detection_annotation = ObjectDetectionAnnotation.objects.get(
-        pk=annotation_remove_request.annotation_id,
-        user_id=user_id
+        pk=annotation_remove_request.annotation_id
     )
 
     object_detection_annotation.deleted_on = date.today()
