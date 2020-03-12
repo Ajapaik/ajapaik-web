@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:02+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -34,19 +34,19 @@ msgstr "Käännä värit"
 
 #: ajapaik/ajapaik/api.py:1555
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "Tämä litterointi oli jo olemassa, aikaisemman litteroinnin arvosanaa korotettu, kiitos!"
 
 #: ajapaik/ajapaik/api.py:1557
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "Olit jo aikaisemmin lähettänyt tämän litteroinnin, kiitos!"
 
 #: ajapaik/ajapaik/api.py:1560
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "Litterointisi on päivitetty, kiitos!"
 
 #: ajapaik/ajapaik/api.py:1562
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Litterointi lisätty, kiitos!"
 
 #: ajapaik/ajapaik/api.py:1564 ajapaik/ajapaik/api.py:1581
 msgid "Something went wrong"
@@ -54,11 +54,11 @@ msgstr "Jokin meni pieleen"
 
 #: ajapaik/ajapaik/api.py:1573
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "Olet jo aikaisemmin antanut palautetta tästä litteroinnista"
 
 #: ajapaik/ajapaik/api.py:1579
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Palaute litteroinnille lisätty, kiitos!"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -268,7 +268,7 @@ msgstr "Arvaa kohteen ikä"
 
 #: ajapaik/ajapaik/models.py:1041
 msgid "Transcribe"
-msgstr ""
+msgstr "Litteroi"
 
 #: ajapaik/ajapaik/models.py:1083
 msgid "Map"
@@ -738,7 +738,7 @@ msgstr "Luettelo valokuvista joissa kasvoja"
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List albums with postcards"
-msgstr ""
+msgstr "Lista postikortteja sisältävistä albumeista"
 
 #: ajapaik/ajapaik/templates/_header.html:47
 msgid "List postcards"
@@ -1000,7 +1000,7 @@ msgstr "Summittainen osoite"
 #: ajapaik/ajapaik/templates/_photo_modal.html:41
 #: ajapaik/ajapaik/templates/photoview.html:60
 msgid "See the other side of photo"
-msgstr ""
+msgstr "Katso kuvan toinen puoli"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
@@ -1062,7 +1062,6 @@ msgstr "Lisää uusintakuva"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
 msgstr "Merkkaa kasvot - klikkaamalla nappia pääset piirtämään kuvassa olevien kasvojen ympärille neliöt"
 
@@ -1766,60 +1765,60 @@ msgstr "Henkilöt jotka on merkitty tähän kuvaan."
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "Kuvauspaikka"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:52
 msgid "Rephotos"
-msgstr ""
+msgstr "Jälleenvalokuvat"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "Samanlaiset kuvat"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "Kuvan tiedot"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "Kuva kuuluu albumeihin"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Suodata annotoinnit"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "Kommentit"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "Elokuva"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "Kuva-albumi"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "Tiedot"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "Lisää paikka"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "Lisää päiväys"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "Annotoi"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -2061,9 +2060,9 @@ msgstr "suomi"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "Ruotsi"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "Venäjä"
 

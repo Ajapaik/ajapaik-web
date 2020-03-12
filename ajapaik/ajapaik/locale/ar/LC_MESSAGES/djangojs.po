@@ -4,6 +4,7 @@
 # Author: Meno25
 # Author: ديفيد
 # Author: شادي
+# Author: محمد أحمد عبد الفتاح
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:28+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:00+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -584,6 +585,10 @@ msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
 msgstr[0] "لقد ربحت %s نقاط"
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -643,23 +648,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "طفل"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
-msgstr ""
+msgstr "شخص مسن"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
-msgstr ""
+msgstr "بالغ"
 
 #: ajapaik/ajapaik/static/js/constants.js:70
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
-msgstr ""
+msgstr "صورة"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
@@ -675,7 +680,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
-msgstr ""
+msgstr "أضف اسمًا"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
@@ -741,7 +746,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "العمر"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
@@ -836,7 +841,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Enter person name"
-msgstr ""
+msgstr "أدخل اسم الشخص"
 
 #: ajapaik/ajapaik/static/js/constants.js:139
 #: ajapaik/ajapaik/static/js/constants.js:142
@@ -885,6 +890,10 @@ msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
 msgstr[0] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت %s نقطة"
 msgstr[1] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت %s نقاط"
+msgstr[2] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت "
+msgstr[3] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت "
+msgstr[4] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت "
+msgstr[5] "تمت إضافة تعليق توضيحي، شكرا! </br> لقد ربحت "
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -904,6 +913,10 @@ msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "شكرا لك! </br> لقد ربحت %s نقطة"
 msgstr[1] "شكرا لك! </br> لقد ربحت %s نقاط"
+msgstr[2] "شكرا لك! </br> لقد ربحت "
+msgstr[3] "شكرا لك! </br> لقد ربحت "
+msgstr[4] "شكرا لك! </br> لقد ربحت "
+msgstr[5] "شكرا لك! </br> لقد ربحت "
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."

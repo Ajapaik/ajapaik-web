@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
 "Language: lb\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -693,11 +693,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Numm vun der Persoun änneren"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Numm vun der Persoun derbäisetzen"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
@@ -709,11 +709,11 @@ msgstr "Gesiicht"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Ass dëst e Gesiicht"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "Ass dëst"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
@@ -731,7 +731,7 @@ msgstr "Numm"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Typ vun Objet"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
@@ -816,7 +816,7 @@ msgstr "Sichen"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Search for object"
-msgstr ""
+msgstr "Sich nom Objet"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:00+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -623,7 +623,7 @@ msgstr "Logi sisse"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr "Klikk pildil tähistab annotatsiooni esimese nurka, teine klikk lõpetab joonistamise."
+msgstr "Klikiga pildil saate märkida annotatsiooni esimese nurga, teine klikk lõpetab joonistamise."
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
@@ -698,7 +698,6 @@ msgid "Your annotation info"
 msgstr "Sinu annotatsiooni info"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
-#, fuzzy
 msgid "Change person name"
 msgstr "Muuda isiku nime"
 

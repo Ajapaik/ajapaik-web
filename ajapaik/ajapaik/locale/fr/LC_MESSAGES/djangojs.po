@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -623,7 +623,7 @@ msgstr "Connexion"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr ""
+msgstr "Cliquez (sans maintenir le bouton enfoncé) pour commencer à dessiner l’annotation. Cliquez à nouveau pour terminer le dessin."
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
@@ -667,7 +667,7 @@ msgstr "Photo"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
-msgstr ""
+msgstr "Photo avec la rephoto sélectionnée"
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "What is displayed"
@@ -698,7 +698,6 @@ msgid "Your annotation info"
 msgstr "Vos informations d'annotation"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
-#, fuzzy
 msgid "Change person name"
 msgstr "Modifier le nom de la personne"
 
@@ -774,7 +773,7 @@ msgstr "Impossible de mettre à jour l'annotation de l'objet"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Commentaire sur l’annotation de l’objet ajouté avec succès"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
@@ -790,7 +789,7 @@ msgstr "Impossible de supprimer l’annotation de l’objet"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Commentaire sur l’annotation du visage ajouté avec succès"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Failed to add face annotation feedback"
@@ -802,7 +801,7 @@ msgstr "Annotation du visage modifiée avec succès"
 
 #: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "Échec de la sauvegarde de la modification des annotations du visage"
 
 #: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully removed face annotation"

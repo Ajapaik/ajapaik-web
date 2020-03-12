@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:31+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:04+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1046,9 +1046,8 @@ msgstr "Yeniden fotoğraflama ekle"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Yeni bir yüz etiketleyin - bu düğmeye tıklamak ana görüntüye bir yüz dikdörtgeni çizmenizi sağlar"
+msgstr "Yeni bir yüz/nesne etiketleme - bu düğmeyi tıklatmak ana görüntüye bir nesne/yüz dikdörtgeni çizmenizi sağlar"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:260
 msgid "Discuss"
@@ -1748,60 +1747,60 @@ msgstr "Bu fotoğrafta olduğu iddia edilen kişiler"
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "Çekim yeri"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:52
 msgid "Rephotos"
-msgstr ""
+msgstr "Yeniden fotoğraflamalar"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "benzer fotoğraflar"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "Fotoğraf bilgisi"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "Resim albümlere ait"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Ek açıklamaları filtrele"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "Yorumlar"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "fotoğraf albümü"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "Ayrıntılar"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "Konum ekle"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "Tarih ekle"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "Ek açıklama"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -2043,9 +2042,9 @@ msgstr "Fince"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "İsveççe"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "Rusça"
 

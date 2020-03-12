@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:32+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:04+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -723,7 +723,7 @@ msgstr "在地圖上顯示"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List face recognition albums"
-msgstr "列出臉部識別相簿"
+msgstr "列出面孔識別相簿"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List photos with faces"
@@ -1047,9 +1047,8 @@ msgstr "添加翻拍照片"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "標記新面部 - 點擊此按鈕來啟用在主圖片上繪製面部方框"
+msgstr "標記新面孔/對象 - 點擊此按鈕來啟用在主圖片上繪製對象/面孔方框"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:260
 msgid "Discuss"
@@ -1749,60 +1748,60 @@ msgstr "聲稱在此照片上的人物"
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "目標位置"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:52
 msgid "Rephotos"
-msgstr ""
+msgstr "翻拍"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "相似照片"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "照片資訊"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "屬於相簿的圖片"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "篩選註釋"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "評論"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "電影"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "照片相簿"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "詳細資料"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "新增位置"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "新增日期"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "註釋"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -2044,9 +2043,9 @@ msgstr "芬蘭語"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "瑞典語"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "俄語"
 

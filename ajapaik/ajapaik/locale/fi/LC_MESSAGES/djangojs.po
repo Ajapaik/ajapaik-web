@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:00+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -600,11 +600,11 @@ msgstr "Jotain meni vikaan, tarkista verkkoyhteytesi. Mikäli ongelma jatkuu, ni
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:100
 msgid "Transcribed by: "
-msgstr ""
+msgstr "Littoeroinut: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "This transcription is correct"
-msgstr ""
+msgstr "Tämä litterointi on oikein"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "Confirm"
@@ -612,11 +612,11 @@ msgstr "Vahvista"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
-msgstr ""
+msgstr "Mitä kuvaan on kirjoitettu?"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
 msgid "You're anonymous, please login to add transcriptions"
-msgstr "Olet anonyymi, kirjaudu sisään lisätäksesi litterointeja"
+msgstr "Olet anonyymi, kirjaudu sisälle lisätäksesi litterointeja"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
@@ -624,261 +624,261 @@ msgstr "Kirjaudu sisään"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr ""
+msgstr "Klikkaa (älä raahaa) aloittaaksesi litteroinnin. Klikkaa uudestaan lopettaaksesi."
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
-msgstr ""
+msgstr "Kohde on pakollinen"
 
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "optional"
-msgstr ""
+msgstr "valinnainen"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Unsure"
-msgstr ""
+msgstr "Epävarma?"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
-msgstr ""
+msgstr "Mies"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Nainen"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "Lapsi"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
-msgstr ""
+msgstr "Vanhus"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
-msgstr ""
+msgstr "Aikuinen"
 
 #: ajapaik/ajapaik/static/js/constants.js:70
 msgid "Delete"
-msgstr ""
+msgstr "Poista"
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
-msgstr ""
+msgstr "Valokuva"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
-msgstr ""
+msgstr "Valokuva ja valittu jälleenvalokuva"
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "What is displayed"
-msgstr ""
+msgstr "Mitä näytetään"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
-msgstr ""
+msgstr "Muokkaa kasvojen annotointia"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
-msgstr ""
+msgstr "Lisää nimi"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
-msgstr ""
+msgstr "Muokkaa kohteen annotointia"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
-msgstr ""
+msgstr "Muokkaa palautetta"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
-msgstr ""
+msgstr "Lisää palaute"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
-msgstr ""
+msgstr "Annotointisi tiedot"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Muuta henkilön nimeä"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Lisää henkilön nimi"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
-msgstr ""
+msgstr "Muuta kohteen luokitusta"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Kasvot"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Onko tässä kasvot"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "Onko tämä"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "Onko tämä"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
-msgstr ""
+msgstr "Annotoinnin tyyppi"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Kohteen tyyppi"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Sukupuoli"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "Ikä"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "Kohteen annotointiluokitusten lataus epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "Failed to load annotations"
-msgstr ""
+msgstr "Annotointien lataus epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 msgid "Successfully added object annotation"
-msgstr ""
+msgstr "Annotoinnin lisääminen kohteelle onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "Annotoinnin lisääminen kohteelle epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "Annotoinnin päivittäminen kohteelle onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"
-msgstr ""
+msgstr "Annotoinnin päivittäminen kohteelle epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Annotointipalautteen lisääminen kohteelle onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
-msgstr ""
+msgstr "Annotointipalautteen lisääminen kohteelle epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:116
 msgid "Successfully removed object annotation"
-msgstr ""
+msgstr "Annotoinnin poisto kohteesta onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:117
 msgid "Unable to remove object annotation"
-msgstr ""
+msgstr "Annotoinnin poisto kohteesta epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Annotointipalautteen lisääminen kasvoille onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Failed to add face annotation feedback"
-msgstr ""
+msgstr "Annotointipalautteen lisääminen kohteelle epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully edited face annotation"
-msgstr ""
+msgstr "Kasvoannotoinnin muokkaus onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "Kasvoannotoinnin muokkaus epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully removed face annotation"
-msgstr ""
+msgstr "Kasvoannotoinnin poisto onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:123
 msgid "Failed to remove face annotation"
-msgstr ""
+msgstr "Kasvoannotoinnin poisto epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:127
 msgid "Find object"
-msgstr ""
+msgstr "Etsi kohde"
 
 #: ajapaik/ajapaik/static/js/constants.js:128
 #: ajapaik/ajapaik/static/js/constants.js:135
 msgid "Searching"
-msgstr ""
+msgstr "Etsitään"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Search for object"
-msgstr ""
+msgstr "Etsi kohdetta"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Need 2 characters"
-msgstr ""
+msgstr "Tarvitaan 2 kirjainta"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "No results found"
-msgstr ""
+msgstr "Tuloksia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/constants.js:134
 msgid "Find existing person"
-msgstr ""
+msgstr "Etsi henkilöä"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Enter person name"
-msgstr ""
+msgstr "Syötä henkilön nimi"
 
 #: ajapaik/ajapaik/static/js/constants.js:139
 #: ajapaik/ajapaik/static/js/constants.js:142
 msgid "Add new person"
-msgstr ""
+msgstr "Lisää uusi henkilö"
 
 #: ajapaik/ajapaik/static/js/constants.js:143
 msgid "Specify person name"
-msgstr ""
+msgstr "Kerro henkilön nimi"
 
 #: ajapaik/ajapaik/static/js/constants.js:148
 msgid "Select age group"
-msgstr ""
+msgstr "Valitse ikäryhmä"
 
 #: ajapaik/ajapaik/static/js/constants.js:149
 msgid "Change age group"
-msgstr ""
+msgstr "Muuta ikäryhmää"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Specify alternative age group"
-msgstr ""
+msgstr "Täsmennä vaihtoehtoinen ikäryhmä"
 
 #: ajapaik/ajapaik/static/js/constants.js:155
 msgid "Select gender"
-msgstr ""
+msgstr "Valitse sukupuoli"
 
 #: ajapaik/ajapaik/static/js/constants.js:156
 msgid "Change gender"
-msgstr ""
+msgstr "Muuta sukupuolta"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Specify alternative gender"
-msgstr ""
+msgstr "Täsmennä vaihtoehtoinen sukupuoli"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
-msgstr ""
+msgstr "Tuntematon"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
@@ -625,27 +625,27 @@ msgstr "Sgnaché (nen tiré) për ancaminé a dissegné la nòta. Sgnaché torna
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
-msgstr ""
+msgstr "L'oget a l'é obligatòri"
 
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "optional"
-msgstr ""
+msgstr "facoltativ"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Unsure"
-msgstr ""
+msgstr "Nen sigur"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
-msgstr ""
+msgstr "Mas-cc"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Fumela"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "Masnà"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
@@ -685,113 +685,113 @@ msgstr "Modifiché l'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
-msgstr ""
+msgstr "Modifiché ij sugeriment"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
-msgstr ""
+msgstr "Gionté un sugeriment"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
-msgstr ""
+msgstr "Soe anformassion d'anotassion"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Cangé ël nòm ëd la përson-a"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Gionté ël nòm ëd la përson-a"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
-msgstr ""
+msgstr "Cangé la classa d'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Cera"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "É-lo na cera"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "É-lo"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "É-lo un"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
-msgstr ""
+msgstr "Sòrt d'anotassion"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
-msgstr ""
+msgstr "Nòm"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Sòrt d'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Sess"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "Età"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "Falì a carié le classe d'anotassion d'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "Failed to load annotations"
-msgstr ""
+msgstr "Falì a carié j'anotassion"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 msgid "Successfully added object annotation"
-msgstr ""
+msgstr "Anotassion dl'oget giontà con sucess"
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "Impossìbil argistré l'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "Anotassion dl'oget agiornà con sucess"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"
-msgstr ""
+msgstr "Impossìbil agiorné l'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Sugeriment an sl'anotassion ëd l'oget giontà për da bin"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
-msgstr ""
+msgstr "Falì a gionté ël sugeriment an sj'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:116
 msgid "Successfully removed object annotation"
-msgstr ""
+msgstr "Anotassion ëd l'oget gavà për da bin"
 
 #: ajapaik/ajapaik/static/js/constants.js:117
 msgid "Unable to remove object annotation"
-msgstr ""
+msgstr "Impossìbil gavé l'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Sugeriment an sl'anotassion ëd la cera giontà për da bin"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Failed to add face annotation feedback"
-msgstr ""
+msgstr "Falì a gionté ël sugeriment an sj'anotassion ëd la cera"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully edited face annotation"
