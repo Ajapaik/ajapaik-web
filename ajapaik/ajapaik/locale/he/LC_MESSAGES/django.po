@@ -3,6 +3,7 @@
 #
 # Author: Amire80
 # Author: Steeve815
+# Author: Tuvalevsku
 # Author: YaronSh
 # Author: יאיר מן
 # Author: שמזן
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:30+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -1061,9 +1062,8 @@ msgstr "Add rephoto"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
+msgstr "לתייג פרצוף\\חפץ חדש - לחיצה על כפתור זה תאפשר לך לשרטט מרובע חפץ\\פרצוף על העמוד הראשי"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:260
 msgid "Discuss"
@@ -1765,7 +1765,7 @@ msgstr "People claimed to be on this photo"
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "מקום צילום"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
@@ -1786,7 +1786,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "תמונה שייכת לאלבומים"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
@@ -1794,7 +1794,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "תגובות"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
@@ -1806,7 +1806,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "פרטים"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
@@ -2064,5 +2064,5 @@ msgstr ""
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "רוסית"
 

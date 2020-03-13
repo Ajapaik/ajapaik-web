@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:30+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -1019,7 +1019,7 @@ msgstr "Flip photo"
 #: ajapaik/ajapaik/templates/photoview/_similar_photos.html:59
 #: ajapaik/ajapaik/templates/photoview/_similar_photos.html:60
 msgid "similar photo"
-msgstr "ähnlech Foto"
+msgstr "änlech Foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:94
 #: ajapaik/ajapaik/templates/_photo_modal.html:95
@@ -1058,9 +1058,8 @@ msgstr "Add rephoto"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
+msgstr "En neit Gesiiicht/Objet  markéieren - klicken op dëse Knäppchen erlaabt et Iech fir en Objet/Gesiicht op dem Haaptbild ze zeechen"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:260
 msgid "Discuss"
@@ -1774,44 +1773,44 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "änlech Fotoen"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "Informatiounen iwwert d'Foto"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "D'Bild gehéiert zu dësen Albumen"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Notizzen filteren"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "Bemierkungen"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "Film"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "Fotoalbum"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "Detailer"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "Plaz derbäisetzen"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "Datum derbäisetzen"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
@@ -2057,9 +2056,9 @@ msgstr "Finnesch"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "Schweedesch"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "Russesch"
 

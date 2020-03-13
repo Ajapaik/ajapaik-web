@@ -14,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:32+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:05+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1775,7 +1775,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "{{Identical|Comment}}"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
@@ -2041,7 +2041,7 @@ msgstr ""
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "{{identical|Swedish}}"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"

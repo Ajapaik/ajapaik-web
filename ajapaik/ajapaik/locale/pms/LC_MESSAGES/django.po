@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:31+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:03+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1055,9 +1055,8 @@ msgstr "Gionté n'arprodussion fotogràfica"
 #: ajapaik/ajapaik/templates/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photoview.html:197
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:66
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Tichëtté na neuva cera - an sgnacand su sto boton a-j përmëtrà ëd dissegné un retàngol dla facia an sla plancia prinsipal"
+msgstr "Tichëtté na neuva cera/oget - an sgnacand su sto boton a-j përmëtrà ëd dissegné un retàngol dla facia o dl'oget an sla plancia prinsipal"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:260
 msgid "Discuss"
@@ -1759,60 +1758,60 @@ msgstr "Dla gent a l'ha dit d'esse su costa fòto"
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "Locassion ëd la fòto"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:52
 msgid "Rephotos"
-msgstr ""
+msgstr "Arprodussion fotogràfiche"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "fòto similar"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "Anformassion an sla fòto"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "La fòto a aparten a j'àlbom"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Filtré j'anotassion"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "Coment"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "àlbom ëd fòto"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "Detaj"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "Gionté un pòst"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "Gionté na dàita"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "Anoté"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -2054,9 +2053,9 @@ msgstr "Finlandèis"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "Svedèis"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "Russ"
 

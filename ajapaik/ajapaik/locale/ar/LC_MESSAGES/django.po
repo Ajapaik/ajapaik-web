@@ -4,6 +4,7 @@
 # Author: H2kks
 # Author: Meno25
 # Author: ديفيد
+# Author: محمد أحمد عبد الفتاح
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:28+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:00+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -653,6 +654,10 @@ msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture.
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
 msgstr[0] "لقد اقترحت موقعا لصورة <b>%(user_geotagged_photos)s</b>."
 msgstr[1] "You have لقد اقترحت موقاع لصور <b>%(user_geotagged_photos)s</b>."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
 #, python-format
@@ -660,6 +665,10 @@ msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
 msgstr[0] " لقد أجريت <b>%(user_rephotos)s</b> إعادة تصوير ل"
 msgstr[1] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
 #, python-format
@@ -667,6 +676,10 @@ msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] "<b>%(user_rephotographed_photos)s</b> صورة."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> صور."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -798,6 +811,10 @@ msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
 msgstr[0] "يحتوي الألبوم على %(counter)s صورة تاريخية،"
 msgstr[1] "يحتوي الألبوم على %(counter)s صور تاريخية،"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:28
 #: ajapaik/ajapaik/templates/base_bootstrap.html:104
@@ -806,6 +823,10 @@ msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
 msgstr[0] "%(counter)s مستخدم قد وضع"
 msgstr[1] "%(counter)s مستخدمون قد وضعوا"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:30
 #: ajapaik/ajapaik/templates/base_bootstrap.html:106
@@ -819,6 +840,10 @@ msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
 msgstr[0] "%(counter)s صورة على الخريطة."
 msgstr[1] "%(counter)s صور على الخريطة."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -838,6 +863,10 @@ msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
 msgstr[0] "%(counter)s صورة في هذا الألبوم."
 msgstr[1] "%(counter)s صور في هذا الألبوم."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:50
 #, python-format
@@ -845,13 +874,21 @@ msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] "%(counter)s مستخدم قد أجرى"
 msgstr[1] "%(counter)s مستخدمين قد أجروا"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:51
 #, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] "%(counter)s إعادة صورة"
-msgstr[1] "%(counter)s إعادات صور"
+msgstr[1] "PLURAL:GETTEXT"
+msgstr[2] "%(counter)s إعادات صور"
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/_info_modal_content.html:59
@@ -860,6 +897,10 @@ msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
 msgstr[0] "ل%(counter)s صورة في الألبوم."
 msgstr[1] "ل%(counter)s صور في الألبوم."
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:58
 #, python-format
@@ -867,6 +908,10 @@ msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] "لقد قمت بإجراء %(counter)s إعادة تصوير"
 msgstr[1] "لقد قمت بإجراء %(counter)s إعادات تصوير"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1074,6 +1119,10 @@ msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "الصورة تنتمي إلى ألبوم"
 msgstr[1] "الصورة تنتمي إلى ألبومات:"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:316
 #: ajapaik/ajapaik/templates/photoview.html:241
@@ -1381,6 +1430,10 @@ msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] "يحتوي الألبوم على %(counter)s صورة،"
 msgstr[1] "يحتوي الألبوم على %(counter)s صور،"
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:203
 msgid "Timepatch (Ajapaik)"
@@ -1776,7 +1829,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "معلومات الصورة"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
@@ -1788,7 +1841,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
-msgstr ""
+msgstr "التعليقات"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
@@ -1800,7 +1853,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
-msgstr ""
+msgstr "التفاصيل"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
@@ -2054,9 +2107,9 @@ msgstr "الفنلندية"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "السويدية"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "الروسية"
 

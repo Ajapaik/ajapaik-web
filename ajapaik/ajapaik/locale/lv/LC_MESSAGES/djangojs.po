@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
 "X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -581,7 +581,7 @@ msgid "You have gained %s points"
 msgid_plural "You have gained %s points"
 msgstr[0] ""
 msgstr[1] ""
-
+msgstr[2] ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
@@ -883,7 +883,7 @@ msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
 msgstr[0] ""
 msgstr[1] ""
-
+msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
 msgid "Failed to record your rectangle, sorry."
@@ -903,7 +903,7 @@ msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] ""
 msgstr[1] ""
-
+msgstr[2] ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
 msgid "Failed to send your submission, sorry."
