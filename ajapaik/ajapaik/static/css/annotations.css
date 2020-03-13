@@ -9,11 +9,11 @@
 }
 
 .annotation-label__top {
-    bottom: 100%;
+    bottom: calc(100% + 4px);
 }
 
 .annotation-label__bottom {
-    top: 100%;
+    top: calc(100% + 4px);
 }
 
 .annotation-button__fullscreen {

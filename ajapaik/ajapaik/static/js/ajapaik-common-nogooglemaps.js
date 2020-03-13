@@ -1471,10 +1471,16 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
 
     $(document).on('mouseenter', '.annotation-label', function(el) {
         $(el.target).addClass('d-none');
-    })
-
+    });
+    
     $(document).on('mouseleave', '.ajapaik-modal-photo-container, .ajapaik-photo', function() {
         $('.annotation-label').removeClass('d-none');
-    })
+    });
+
+    $(document).on('mouseenter', '.ajapaik-face-rectangle', function(el) {
+        if($(el.target).children()) {
+            $($(el.target).children()[0]).removeClass('d-none');
+        }
+    });
 
 }(jQuery));
