@@ -130,7 +130,7 @@ function initializePersonAutocomplete(autocompleteId, genderSelect) {
                       .split(';')
                       .forEach(function(value) {
                           if (!!value) {
-                              var parts = value.split('-');
+                              var parts = [value.substring(0, value.indexOf('-')) ,value.substring(value.indexOf('-')+1)]
                               var personId = parts[0];
 
                               var personData = JSON.parse(parts[1]);
