@@ -596,9 +596,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         originalPhotoInfoColumn.removeClass("col-lg-12").addClass("col-lg-6");
         $('#ajapaik-photo-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
-        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
-
-        } else {
+        if (!window.isFrontpage && !window.isPhotoview && !window.isSelection) {
             window.syncMapStateToURL();
         }
         userClosedRephotoTools = true;
