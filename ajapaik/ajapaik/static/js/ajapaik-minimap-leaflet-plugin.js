@@ -13,7 +13,7 @@
             return;
         }
         // Create map only if we have coordinates
-        else if (options.latitude && options.longitude) {
+        if (options.latitude && options.longitude) {
             this.UI = $([
                 '<div id="ajapaik-minimap-disabled-overlay"></div>',
                 '<div id="ajapaik-photo-modal-map-canvas"></div>',
@@ -24,13 +24,6 @@
             $(this.node).css("z-index", "99");
             $(this.node).show();
             this.initializeMap();
-        } else {
-            /* this.buildStartGeotaggingButton = function (photoHasLocation) {
-                    var button = $([
-                        '<button id="ajapaik-minimap-disabled-overlay"></div>',
-                        '<div id="ajapaik-photo-modal-map-canvas"></div>'
-                    ].join('\n'));
-                };*/
         }
     };
     AjapaikMinimap.prototype = {
