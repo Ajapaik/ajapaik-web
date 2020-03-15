@@ -1113,7 +1113,7 @@ class PhotosSearch(AjapaikAPIView):
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
 
             photos = Photo.objects.filter(
-                id__in=[item.pk for item in sqs],
+                id__in=[item.pk for item in sqs], postcard_back_of__isnull=True
             )
             if rephotos_only:
                 photos = photos.filter(
