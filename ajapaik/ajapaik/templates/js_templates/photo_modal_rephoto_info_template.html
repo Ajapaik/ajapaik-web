@@ -24,7 +24,7 @@
             {% } else { %}
                 {% if (o.FBUserName) { %}
                     <div class="w-100">
-                        <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                        <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                             {%=o.FBUserName%}
                         </a><br>
                     </div>
@@ -34,7 +34,7 @@
                 {% } else { %}
                     {% if (o.GooglePlusName) { %}
                         <div class="w-100">
-                            <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                            <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                                 {%=o.GooglePlusName%}
                             </a><br>
                         </div>
@@ -44,7 +44,7 @@
                     {% } else { %}
                         {% if (o.FullName) { %}
                             <div class="w-100">
-                                <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.id%}&order1=time&order2=rephotos"{% } %} rel="noopener">
+                                <a target="_blank" {% if (!window.isTabletView) { %}href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos"{% } %} rel="noopener">
                                     {%=o.FullName%}
                                 </a><br>
                             </div>

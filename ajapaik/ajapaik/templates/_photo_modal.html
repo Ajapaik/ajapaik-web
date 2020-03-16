@@ -419,6 +419,7 @@
                 date: '{{ rephoto.date|date:"d.m.Y" }}',
             {% endif %}
             {% if rephoto.user %}
+                user: '{{ rephoto.user.id }}',
                 FBUserName: '{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}',
                 FBUserLink: '{% if rephoto.user.fb_link %}{{ rephoto.user.fb_link }}{% endif %}',
                 GooglePlusName: '{% if rephoto.user.google_plus_name %}{{ rephoto.user.google_plus_name }}{% endif %}',

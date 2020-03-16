@@ -98,9 +98,6 @@
         {% if similar_photos_by %}
             window.rephotosBy = '{{ similar_photos_by|safe }}';
         {% endif %}
-        {% if similar_photos_by_name %}
-            window.similarPhotosByName = '{{ similar_photos_by_name|safe }}';
-        {% endif %}
         {% if album %}
             window.albumId = {{ album.0 }};
             window.albumName = '{{ album.1 }}';
