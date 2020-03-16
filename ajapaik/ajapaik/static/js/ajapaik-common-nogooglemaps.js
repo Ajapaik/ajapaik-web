@@ -533,9 +533,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
                 currentlySelectedSimilarPhotoId = targetId;
                 window.FB.XFBML.parse();
-                if (window.isFrontpage  || window.isSelection) {
-
-                } else {
+                if (!window.isFrontpage && !window.isSelection) {
                     window.syncMapStateToURL();
                 }
                 break;

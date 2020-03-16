@@ -996,14 +996,14 @@ $('.ajapaik-navbar').autoHidingNavbar();
         var targetId = $(this).data('id'),
             infoDiv = $('#ajapaik-photo-modal-similar-photo-info-column'),
             photoDiv = $('#ajapaik-modal-similar-photo-container'),
-            fullscreenDiv = $('#ajapaik-similar-photo-full-screen-image');
+            similarFullScreen = $('#ajapaik-similar-photo-full-screen-image');
         if (!targetId) {
             targetId = currentlySelectedSimilarPhotoId;
         }
         infoDiv.show();
         for (var i = 0; i < window.photoModalSimilarPhotoArray.length; i += 1) {
             if (window.photoModalSimilarPhotoArray[i].id == targetId) {
-                fullscreenDiv.attr('data-src', window.photoModalSimilarPhotoArray[i].fullscreen_url);
+                similarFullScreen.attr('data-src', window.photoModalSimilarPhotoArray[i].fullscreen_url);
                 photoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,i]));
                 infoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[i]));
                 currentlySelectedSimilarPhotoId = targetId;
@@ -1079,9 +1079,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
         $('#ajapaik-photo-rephoto-info-column').hide();
         currentlySelectedRephotoId = false;
-        if (window.isFrontpage || window.isPhotoview || window.isSelection) {
-
-        } else {
+        if (!window.isFrontpage && !window.isPhotoview && !window.isSelection) {
             window.syncMapStateToURL();
         }
         userClosedRephotoTools = true;
@@ -1340,6 +1338,23 @@ $('.ajapaik-navbar').autoHidingNavbar();
         $('#full_leaderboard').click();
     });
 
+    $(document).on('click', '.ajapaik-invert-similar-photo-overlay-button', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var targetDiv = $('#ajapaik-modal-similar-photo');
+        var fullSCreen = $('#ajapaik-similar-photo-full-screen-image');
+        if (targetDiv.hasClass('ajapaik-photo-bw')) {
+            targetDiv.removeClass('ajapaik-photo-bw');
+        } else {
+            targetDiv.addClass('ajapaik-photo-bw');
+        }
+        if (fullSCreen.hasClass('ajapaik-photo-bw')) {
+            fullSCreen.removeClass('ajapaik-photo-bw');
+        } else {
+            fullSCreen.addClass('ajapaik-photo-bw');
+        }
+    });
+
     $(document).on('click', '.ajapaik-invert-rephoto-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1375,25 +1390,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
             _gaq.push(['_trackEvent', 'Mapview', 'General info click']);
         }
     });
-
-    //$(document).on('click', '#ajapaik-mobile-about-button', function (e) {
-    //    var targetDiv = $('#ajapaik-general-info-modal');
-    //    if (window.generalInfoModalURL) {
-    //        $.ajax({
-    //            url: window.generalInfoModalURL,
-    //            success: function (resp) {
-    //                targetDiv.html(resp).modal();
-    //            }
-    //        });
-    //    }
-    //    if (window.isFrontpage) {
-    //        _gaq.push(['_trackEvent', 'Gallery', 'General info click']);
-    //    } else if (window.isGame) {
-    //        _gaq.push(['_trackEvent', 'Game', 'General info click']);
-    //    } else if (window.isMapview) {
-    //        _gaq.push(['_trackEvent', 'Mapview', 'General info click']);
-    //    }
-    //});
 
     $(document).on('focus', '#id_comment', function () {
         $('.ajapaik-photo-modal-previous-button').addClass('ajapaik-photo-modal-previous-button-disabled').addClass('disabled');
@@ -1530,6 +1526,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         if (photoContainer.hasClass('rotate90')) {
             photoContainer.removeClass('rotate90').addClass('rotate180');
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
+            photoContainer.css({"padding-right": "", "padding-left": ""});
             photoFullScreenContainer.removeClass('rotate90').addClass('rotate180');
         }
         else if(photoContainer.hasClass('rotate180')) {
@@ -1546,6 +1543,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         else if(photoContainer.hasClass('rotate270')) {
             photoContainer.removeClass('rotate270');
             photoContainer.css({"padding-bottom": "", "padding-top": ""});
+            photoContainer.css({"padding-right": "", "padding-left": ""});
             photoFullScreenContainer.removeClass('rotate270');
 
             enableAnnotations();
