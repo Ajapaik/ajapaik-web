@@ -112,8 +112,6 @@
         <meta property="og:type" content="website"/>
         {% if rephotos_by_name %}
             <meta property="og:url" content="{{ hostname }}{% url 'frontpage' %}?order1=time&order2=rephotos&page=1&rephotosBy={{ rephotos_by }}"/>
-        {% elif similar_photos_by_name %}
-            <meta property="og:url" content="{{ hostname }}{% url 'frontpage' %}?order1=time&order2=similar_photos&page=1&similar_photos_By={{ similar_photos_By }}"/>
         {% elif photo or rephoto %}
             {% if photo and is_frontpage %}
                 <meta property="og:url" content="{{ hostname }}?photo={{ photo.0 }}"/>

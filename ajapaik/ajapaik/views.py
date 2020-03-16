@@ -1047,7 +1047,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		context['page'] = 1
 		context['show_photos'] = False
 		context['max_page'] = ceil(float(context['total']) / float(page_size))
-
+	
 	return context
 
 
