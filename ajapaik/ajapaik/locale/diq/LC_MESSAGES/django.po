@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:29+0000\n"
+"PO-Revision-Date: 2020-03-16 14:39:17+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,7 +244,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1036
 msgid "Annotation"
-msgstr ""
+msgstr "Bınnote"
 
 #: ajapaik/ajapaik/models.py:1037
 msgid "Confirm subject"
@@ -260,7 +260,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1041
 msgid "Transcribe"
-msgstr ""
+msgstr "Kopyakerdış"
 
 #: ajapaik/ajapaik/models.py:1083
 msgid "Map"
@@ -773,7 +773,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_header.html:106 ajapaik/ajapaik/views.py:1738
 #: ajapaik/ajapaik/views.py:1755 ajapaik/ajapaik/views.py:1791
 msgid "Leaderboard"
-msgstr ""
+msgstr "Lista lideran"
 
 #: ajapaik/ajapaik/templates/_header.html:117
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
