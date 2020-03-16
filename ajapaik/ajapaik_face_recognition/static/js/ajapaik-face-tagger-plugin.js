@@ -82,11 +82,9 @@
 		};
 		this.reportBadRectangle = function (id) {
 			$.ajax({
-				type: 'POST',
-				url: '/face-recognition/add-rectangle-feedback/',
+				type: 'DELETE',
+				url: '/face-recognition/remove-annotation/' + id + '/',
 				data: {
-					rectangle: id,
-					is_correct: false,
 					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
 				},
 				success: function (response) {
