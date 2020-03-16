@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-09 15:33:30+0000\n"
+"PO-Revision-Date: 2020-03-16 14:39:18+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -631,39 +631,39 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "optional"
-msgstr ""
+msgstr "valfri"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Unsure"
-msgstr ""
+msgstr "Osäker"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
-msgstr ""
+msgstr "Man"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Kvinna"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "Barn"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
-msgstr ""
+msgstr "Gammal"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
-msgstr ""
+msgstr "Vuxen"
 
 #: ajapaik/ajapaik/static/js/constants.js:70
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
@@ -671,7 +671,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "What is displayed"
-msgstr ""
+msgstr "Vad som visas"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
@@ -679,7 +679,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
-msgstr ""
+msgstr "Lägg till namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
@@ -687,7 +687,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
-msgstr ""
+msgstr "Redigera återkoppling"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
@@ -707,11 +707,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
-msgstr ""
+msgstr "Ändra objektklass"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Ansikte"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
@@ -719,7 +719,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "Är detta"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
@@ -733,7 +733,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
@@ -745,7 +745,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "Ålder"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
@@ -818,7 +818,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:128
 #: ajapaik/ajapaik/static/js/constants.js:135
 msgid "Searching"
-msgstr ""
+msgstr "Söker"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Search for object"
@@ -827,12 +827,12 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Need 2 characters"
-msgstr ""
+msgstr "Behöver 2 tecken"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "No results found"
-msgstr ""
+msgstr "Inga resultat hittades"
 
 #: ajapaik/ajapaik/static/js/constants.js:134
 msgid "Find existing person"
@@ -845,7 +845,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:139
 #: ajapaik/ajapaik/static/js/constants.js:142
 msgid "Add new person"
-msgstr ""
+msgstr "Lägg till ny person"
 
 #: ajapaik/ajapaik/static/js/constants.js:143
 msgid "Specify person name"
@@ -853,7 +853,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:148
 msgid "Select age group"
-msgstr ""
+msgstr "Välj åldersgrupp"
 
 #: ajapaik/ajapaik/static/js/constants.js:149
 msgid "Change age group"
@@ -865,7 +865,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:155
 msgid "Select gender"
-msgstr ""
+msgstr "Välj kön"
 
 #: ajapaik/ajapaik/static/js/constants.js:156
 msgid "Change gender"
@@ -877,7 +877,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
-msgstr ""
+msgstr "Okänd"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
