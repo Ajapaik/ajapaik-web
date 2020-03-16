@@ -4,7 +4,7 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         $(document).on('keydown', function (e) {
-            if($("#id_login,#id_password").is(":focus")) {
+            if($("input,textarea").is(":focus")) {
                 return;
             }
             if (areHotkeysEnabled()) {
@@ -12,19 +12,19 @@
                     var buttons;
                     if (e.keyCode === constants.keyCodes.ARROW_LEFT) {
                         buttons = $('.ajapaik-photo-modal-previous-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused && !window.transcriptionFocused) {
+                        if (!window.nextPhotoLoading && buttons.length > 0) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
                     } else if (e.keyCode === constants.keyCodes.ARROW_RIGHT) {
                         buttons = $('.ajapaik-photo-modal-next-button');
-                        if (!window.nextPhotoLoading && buttons.length > 0 && !window.datingFocused && !window.transcriptionFocused) {
+                        if (!window.nextPhotoLoading && buttons.length > 0) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
-                    } else if (e.keyCode === constants.keyCodes.D && !window.datingFocused && !window.transcriptionFocused && !$("#id_albums-autocomplete:focus").length > 0) {
+                    } else if (e.keyCode === constants.keyCodes.D) {
                         // d
                         $('#ajapaik-photo-modal-start-dating-button').click();
                     }
@@ -34,7 +34,7 @@
                             window.BigScreen.exit();
                             window.fullscreenEnabled = false;
                         }
-                        if (!window.locationToolsOpen && !window.datingFocused && !window.transcriptionFocused) {
+                        if (!window.locationToolsOpen) {
                             $('#ajapaik-photo-modal-specify-location').click();
                         }
                     }
@@ -84,12 +84,11 @@
                     } else if (e.keyCode === 83) {
                         // s
                         var input = $('#ajp-geotagger-search-box');
-                        if (!input.is(':focus')) {
                             input.focus();
                             setTimeout(function () {
                                 input.val('');
                             }, 0);
-                        }
+
                     }
                 }
                 if (window.isPhotoview && !window.locationToolsOpen && !window.datingFocused && !window.transcriptionFocused) {
