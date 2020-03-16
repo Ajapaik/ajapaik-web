@@ -50,10 +50,6 @@
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.postcards == '1' %} ajapaik-text-white{% endif %}">picture_in_picture</i>
                     </a>
                 {% endif %}
-                <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"
-                    href="{% url "photo_upload_choice" %}">
-                    <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
-                </a>
                 {% if is_newsletter %}
                     <a id="ajapaik-header-newsletter" role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/">
                         <i aria-hidden class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
@@ -64,6 +60,10 @@
                         <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
                 </a>
                 {% endif %}
+                <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"
+                    href="{% url "photo_upload_choice" %}">
+                    <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_curator or is_upload_choice %} ajapaik-text-white{% endif %}">add_circle</i>
+                </a>
                 <a class="ajapaik-header-button{% if not request.session.photo_selection %} d-none{% endif %}" id="ajapaik-header-selection-indicator" role="button" title="{% trans 'Current selection' %}" href="/view-selection">
                     <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_selection %} ajapaik-text-white{% endif %}">content_copy</i>
                     <span class="badge">{{ request.session.photo_selection|length }}</span>
