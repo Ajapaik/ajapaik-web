@@ -1,6 +1,6 @@
 # coding=utf-8
 from ajapaik.ajapaik.api import AjapaikAPIView
-from ajapaik.ajapaik.models import Album, Profile
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Profile
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
@@ -53,3 +53,14 @@ class AddSubjectData(AjapaikAPIView):
             points += FaceRecognitionRectangle.add_subject_data(subject, profile, age, gender2)
 
         return JsonResponse({'points': points})
+
+class AlbumData(AjapaikAPIView):
+    '''
+    API Endpoint to check if album has face annotations
+    '''
+    @staticmethod
+    def get(request, album_id):
+        if Album.objects.filter(id=album_id) is None:
+            return JsonResponse({'Album does not exist'})
+        albumPhotoIds = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
+        return JsonResponse({'hasAnnotations': FaceRecognitionRectangle.objects.filter(deleted=None, photo_id__in=albumPhotoIds).count() > 0})
