@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-16 14:39:18+0000\n"
+"PO-Revision-Date: 2020-03-19 14:01:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -691,7 +691,7 @@ msgstr "Redigera återkoppling"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
-msgstr ""
+msgstr "Lägg till återkoppling"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
@@ -699,11 +699,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Ändra personens namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Lägg till personens namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
@@ -715,7 +715,7 @@ msgstr "Ansikte"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Är detta ett ansikte"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
@@ -725,7 +725,7 @@ msgstr "Är detta"
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "Är detta en"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
@@ -737,11 +737,11 @@ msgstr "Namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Objekttyp"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Kön"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
@@ -813,7 +813,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:127
 msgid "Find object"
-msgstr ""
+msgstr "Hitta objekt"
 
 #: ajapaik/ajapaik/static/js/constants.js:128
 #: ajapaik/ajapaik/static/js/constants.js:135
@@ -836,11 +836,11 @@ msgstr "Inga resultat hittades"
 
 #: ajapaik/ajapaik/static/js/constants.js:134
 msgid "Find existing person"
-msgstr ""
+msgstr "Hitta befintlig person"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Enter person name"
-msgstr ""
+msgstr "Ange personens namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:139
 #: ajapaik/ajapaik/static/js/constants.js:142
@@ -849,7 +849,7 @@ msgstr "Lägg till ny person"
 
 #: ajapaik/ajapaik/static/js/constants.js:143
 msgid "Specify person name"
-msgstr ""
+msgstr "Ange personens namn"
 
 #: ajapaik/ajapaik/static/js/constants.js:148
 msgid "Select age group"
@@ -857,7 +857,7 @@ msgstr "Välj åldersgrupp"
 
 #: ajapaik/ajapaik/static/js/constants.js:149
 msgid "Change age group"
-msgstr ""
+msgstr "Ändra åldersgrupp"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Specify alternative age group"
@@ -869,7 +869,7 @@ msgstr "Välj kön"
 
 #: ajapaik/ajapaik/static/js/constants.js:156
 msgid "Change gender"
-msgstr ""
+msgstr "Ändra kön"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Specify alternative gender"

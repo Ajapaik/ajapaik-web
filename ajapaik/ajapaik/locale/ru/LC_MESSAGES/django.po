@@ -3,12 +3,14 @@
 #
 # Author: Abijeet Patro
 # Author: Alexander Istomin
+# Author: Alexander Yukal
 # Author: Eleferen
 # Author: H2kks
 # Author: Katunchik
 # Author: Movses
 # Author: Okras
 # Author: Puik
+# Author: Radmir Far
 # Author: Roman
 # --
 # This file is part of the Ajapaik Project
@@ -20,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-12 18:18:03+0000\n"
+"PO-Revision-Date: 2020-03-19 14:01:28+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -1091,6 +1093,7 @@ msgstr "Переписать это изображение"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:297
 #: ajapaik/ajapaik/templates/photoview.html:229
+#, fuzzy
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Изображение принадлежит к альбому"
@@ -1799,15 +1802,15 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
 msgid "Photo info"
-msgstr ""
+msgstr "Информация о фото"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:69
 msgid "Picture belongs to albums"
-msgstr ""
+msgstr "Изображение принадлежит альбомам"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Фильтр примечаний"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
@@ -1815,11 +1818,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:12
 msgid "movie"
-msgstr ""
+msgstr "фильм"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:14
 msgid "photo album"
-msgstr ""
+msgstr "Фотоальбом"
 
 #: ajapaik/ajapaik/templates/photoview/_albums_info.html:30
 msgid "Details"
@@ -1831,11 +1834,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
-msgstr ""
+msgstr "Добавить дату"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "Примечание"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
@@ -2077,9 +2080,9 @@ msgstr "Финский"
 
 #: ajapaik/settings/default.py:75
 msgid "Swedish"
-msgstr ""
+msgstr "Шведский"
 
 #: ajapaik/settings/default.py:76
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 

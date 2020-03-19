@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Russian (русский)
 # Exported from translatewiki.net
 #
+# Author: Alexander Yukal
 # Author: Katunchik
 # Author: Okras
 # Author: Roman
@@ -14,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-12 18:18:02+0000\n"
+"PO-Revision-Date: 2020-03-19 14:01:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -106,38 +107,47 @@ msgid "Current location"
 msgstr "Текущее местоположение"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:193
+#, fuzzy
 msgid "Between approximately %(from)s and approximately %(to)s"
 msgstr "Приблизительно от %(from) и приблизительно до %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:199
+#, fuzzy
 msgid "Between approximately %(from)s and %(to)s"
 msgstr "Приблизительно от %(from) и до %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:205
+#, fuzzy
 msgid "Between %(from)s and approximately %(to)s"
 msgstr "От %(from) и приблизительно до %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:211
+#, fuzzy
 msgid "Between %(from)s and %(to)s"
 msgstr "От %(from) до %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:219
+#, fuzzy
 msgid "After approximately %(from)s"
 msgstr "После приблизительно %(from)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:224
+#, fuzzy
 msgid "After %(from)s"
 msgstr "После %(from)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:231
+#, fuzzy
 msgid "Before approximately %(to)s"
 msgstr "До приблизительно %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:236
+#, fuzzy
 msgid "Before %(to)s"
 msgstr "До %(to)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:245
+#, fuzzy
 msgid "Approximately %(date)s"
 msgstr "Приблизительно %(date)"
 
@@ -155,10 +165,12 @@ msgid "Confirm dating"
 msgstr "Подтвердить датирование"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:405
+#, fuzzy
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "Подтверждение датирования дало Вам %(points)очков."
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:410
+#, fuzzy
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "Загрузка датирования дала Вам %(points)очков."
 
@@ -455,6 +467,7 @@ msgid "My rephotos"
 msgstr "Мои переснимки"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#, fuzzy
 msgid "Rephotos by %(user)s"
 msgstr "Фотографии от %(user)"
 
@@ -625,11 +638,11 @@ msgstr "Войти"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr ""
+msgstr "Нажмите (не перетаскивайте), чтобы начать рисовать примечание. Нажмите еще раз, чтобы закончить рисование."
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
-msgstr ""
+msgstr "Требуется объект"
 
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "optional"
@@ -637,7 +650,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Unsure"
-msgstr ""
+msgstr "Неуверенность"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
@@ -653,7 +666,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
-msgstr ""
+msgstr "Пожилой"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
@@ -665,7 +678,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
-msgstr ""
+msgstr "Фото"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
@@ -673,51 +686,51 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "What is displayed"
-msgstr ""
+msgstr "Что отображается"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
-msgstr ""
+msgstr "Редактировать примечание лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
-msgstr ""
+msgstr "Добавить имя"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
-msgstr ""
+msgstr "Редактировать примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
-msgstr ""
+msgstr "Редактировать отзыв"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
-msgstr ""
+msgstr "Добавить отзыв"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
-msgstr ""
+msgstr "Ваша информация примечания"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Изменить имя персоны"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Добавить имя персоны"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
-msgstr ""
+msgstr "Изменить класс объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Лицо"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Лицо ли это"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
@@ -727,11 +740,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "Это ли"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
-msgstr ""
+msgstr "Тип примечания"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
@@ -739,7 +752,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Тип объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
@@ -751,85 +764,85 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "Не удалось загрузить классы объектов примечаний"
 
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "Failed to load annotations"
-msgstr ""
+msgstr "Не удалось загрузить примечания"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 msgid "Successfully added object annotation"
-msgstr ""
+msgstr "Успешно добавлено примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "Невозможно сохранить примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "Примечание объекта успешно обновлено"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"
-msgstr ""
+msgstr "Невозможно обновить примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Отзыв о примечании объекта успешно добавлен"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
-msgstr ""
+msgstr "Не удалось добавить отзыв о примечании объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:116
 msgid "Successfully removed object annotation"
-msgstr ""
+msgstr "Примечание объекта успешно удалено"
 
 #: ajapaik/ajapaik/static/js/constants.js:117
 msgid "Unable to remove object annotation"
-msgstr ""
+msgstr "Невозможно удалить примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Успешно добавлена ​​обратная связь с примечанием лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Failed to add face annotation feedback"
-msgstr ""
+msgstr "Не удалось добавить отзыв о примечании лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully edited face annotation"
-msgstr ""
+msgstr "Успешно отредактированное примечание лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "Не удалось сохранить редактирование примечание лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully removed face annotation"
-msgstr ""
+msgstr "Примечание лица успешно удалено"
 
 #: ajapaik/ajapaik/static/js/constants.js:123
 msgid "Failed to remove face annotation"
-msgstr ""
+msgstr "Не удалось удалить примечание лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:127
 msgid "Find object"
-msgstr ""
+msgstr "Найти объект"
 
 #: ajapaik/ajapaik/static/js/constants.js:128
 #: ajapaik/ajapaik/static/js/constants.js:135
 msgid "Searching"
-msgstr ""
+msgstr "Поиск"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Search for object"
-msgstr ""
+msgstr "Поиск объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Need 2 characters"
-msgstr ""
+msgstr "Необходимо 2 символа"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 #: ajapaik/ajapaik/static/js/constants.js:138
@@ -838,44 +851,44 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:134
 msgid "Find existing person"
-msgstr ""
+msgstr "Найти существующую персону"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Enter person name"
-msgstr ""
+msgstr "Введите имя персоны"
 
 #: ajapaik/ajapaik/static/js/constants.js:139
 #: ajapaik/ajapaik/static/js/constants.js:142
 msgid "Add new person"
-msgstr ""
+msgstr "Добавление новой персоны"
 
 #: ajapaik/ajapaik/static/js/constants.js:143
 msgid "Specify person name"
-msgstr ""
+msgstr "Уточните имя персоны"
 
 #: ajapaik/ajapaik/static/js/constants.js:148
 msgid "Select age group"
-msgstr ""
+msgstr "Выберите возрастную группу"
 
 #: ajapaik/ajapaik/static/js/constants.js:149
 msgid "Change age group"
-msgstr ""
+msgstr "Изменить возрастную группу"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Specify alternative age group"
-msgstr ""
+msgstr "Укажите альтернативную возрастную группу"
 
 #: ajapaik/ajapaik/static/js/constants.js:155
 msgid "Select gender"
-msgstr ""
+msgstr "Выберите пол"
 
 #: ajapaik/ajapaik/static/js/constants.js:156
 msgid "Change gender"
-msgstr ""
+msgstr "Изменить пол"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Specify alternative gender"
-msgstr ""
+msgstr "Укажите альтернативный пол"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
@@ -886,7 +899,7 @@ msgid "Failed to load faces, sorry."
 msgstr "Не удалось загрузить лица, извините."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Annotation added, thanks!<br />You have gained %s point"
 msgid_plural "Annotation added, thanks!<br />You have gained %s points"
 msgstr[0] "Аннотация добавлена, спасибо!</br>Вы набрали %s баллов"
@@ -906,7 +919,7 @@ msgid "Failed to send your feedback, sorry."
 msgstr "Не удалось отправить Ваш отзыв, извините."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "Спасибо!</br>Вы набрали %s баллов"

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
+"PO-Revision-Date: 2020-03-19 14:01:26+0000\n"
 "X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -118,18 +118,22 @@ msgid "After approximately %(from)s"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:224
+#, fuzzy
 msgid "After %(from)s"
 msgstr "Pēc %(no)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:231
+#, fuzzy
 msgid "Before approximately %(to)s"
 msgstr "Pirms aptuveni %(līdz)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:236
+#, fuzzy
 msgid "Before %(to)s"
 msgstr "Pirms %(līdz)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:245
+#, fuzzy
 msgid "Approximately %(date)s"
 msgstr "Aptuveni %(datums)"
 
@@ -147,6 +151,7 @@ msgid "Confirm dating"
 msgstr "Apstiprini datējumu"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:405
+#, fuzzy
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "Datējuma apstiprinājums dod jums %(punktus) punktus."
 
@@ -447,6 +452,7 @@ msgid "My rephotos"
 msgstr "Mani pārfotografējumi"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#, fuzzy
 msgid "Rephotos by %(user)s"
 msgstr "Pārfotografējumus veikuši %(lietotājs)i"
 
