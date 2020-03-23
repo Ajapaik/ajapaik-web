@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-03-12 18:18:01+0000\n"
+"PO-Revision-Date: 2020-03-23 13:56:12+0000\n"
 "X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1781,7 +1781,7 @@ msgstr "La imagen pertenece a los álbumes"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:87
 msgid "Filter annotations"
-msgstr ""
+msgstr "Filtrar anotaciones"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:112
 msgid "Comments"
@@ -1809,7 +1809,7 @@ msgstr "Añadir fecha"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:74
 msgid "Annotate"
-msgstr ""
+msgstr "Anotar"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:10
