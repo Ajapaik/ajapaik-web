@@ -761,6 +761,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		order2 = filter_form.cleaned_data['order2']
 		order3 = filter_form.cleaned_data['order3']
 		my_likes_only = filter_form.cleaned_data['myLikes']
+		source_id = filter_form.cleaned_data['source_id']
 		rephotos_by = None
 		rephotos_by_name = None
 		if filter_form.cleaned_data['rephotosBy']:
@@ -807,6 +808,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			rephotos_profile = Profile.objects.filter(pk=rephotos_by).first()
 			if rephotos_profile:
 				photos = photos.filter(rephotos__user=rephotos_profile)
+		if source_id:
+			photos = photos.filter(source_id=source_id)
 		photos_with_comments = None
 		photos_with_rephotos = None
 		photos_with_similar_photos = None
