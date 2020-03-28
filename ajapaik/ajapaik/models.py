@@ -749,7 +749,6 @@ class Photo(Model):
             album=sourceAlbum
         ).save()
 
-        sourceAlbum.set_calculated_fields()
         sourceAlbum.save()
 
     def light_save(self, *args, **kwargs):

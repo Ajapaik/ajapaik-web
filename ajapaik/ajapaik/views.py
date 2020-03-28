@@ -2707,6 +2707,7 @@ def generate_still_from_video(request):
 				).save()
 				a.set_calculated_fields()
 				a.save()
+				photo.add_to_source_album()
 		context['stillId'] = still.id
 
 	return HttpResponse(json.dumps(context), content_type='application/json')
