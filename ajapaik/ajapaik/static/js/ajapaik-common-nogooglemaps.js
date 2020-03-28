@@ -315,7 +315,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     });
 
     $(document).on('click', '#ajapaik-header-collections', function (e) {
-        console.error("test");
         e.preventDefault();
         var uri = URI(window.location);
         if (uri.query().indexOf('people') > -1) {

@@ -657,13 +657,14 @@
             window.rephotosByName = null;
             switch (selectedMode) {
                 case 'pictures':
+                    $('#ajapaik-header-collections').addClass('d-none');
                     window.showPhotos = true;
                     var currentUrl1 = window.URI(window.location.href);
                     currentUrl1.removeSearch('photos');
                     window.history.replaceState(null, window.title, currentUrl1);
-                    // window.updateFrontpagePhotosAsync();
                     break;
                 case 'albums':
+                    $('#ajapaik-header-collections').removeClass('d-none');
                     if (window.albumId) {
                         window.location.href = '/';
                     }
@@ -674,18 +675,17 @@
                     window.order1 = null;
                     window.order2 = null;
                     window.order3 = null;
-                    // updateFrontpageAlbumsAsync();
                     break;
                 case 'likes':
+                    $('#ajapaik-header-collections').addClass('d-none');
                     window.myLikes = true;
                     window.showPhotos = true;
-                    // window.updateFrontpagePhotosAsync();
                     break;
                 case 'rephotos':
+                    $('#ajapaik-header-collections').addClass('d-none');
                     window.rephotosBy = window.currentProfileId;
                     window.rephotosByName = window.currentProfileName;
                     window.showPhotos = true;
-                    // window.updateFrontpagePhotosAsync();
                     break;
             }
             updateModeSelection();
