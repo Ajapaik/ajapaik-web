@@ -1,4 +1,4 @@
-cmake
+cmake==3.13.3
 django-admin-tools
 django-allauth==0.40.0
 django-autocomplete-light==2.3.3
