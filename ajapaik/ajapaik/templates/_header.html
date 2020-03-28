@@ -42,26 +42,24 @@
                         id="ajapaik-header-people">
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.people == '1' %} ajapaik-text-white{% endif %}">people</i>
                     </a>
+                    {% if not album %}
+                        <a id="ajapaik-header-collections" role="button" title="{% trans 'Pictures by collections' %}">
+                            <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if request.GET.collections == '1' %} ajapaik-text-white{% endif %}">account_balance</i>
+                        </a>
+                    {% endif %}
                     <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
                         href="#"
                         id="ajapaik-header-postcard">
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.postcards == '1' %} ajapaik-text-white{% endif %}">picture_in_picture</i>
+                    </a>
+                    <a id="ajapaik-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
                     </a>
                 {% endif %}
                 {% if is_newsletter %}
                     <a id="ajapaik-header-newsletter" role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/">
                         <i aria-hidden class="material-icons notranslate ajapaik-gray-button ajapaik-text-white">email</i>
                     </a>
-                {% endif %}
-                {% if is_frontpage %}
-                    <a id="ajapaik-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
-                            <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
-                    </a>
-                    {% if not album %}
-                        <a id="ajapaik-header-collections" role="button" title="{% trans 'Categorize faces' %}">
-                            <i aria-hidden class="material-icons notranslate ajapaik-gray-button">account_balance</i>
-                        </a>
-                    {% endif %}
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"
                     href="{% url "photo_upload_choice" %}">
