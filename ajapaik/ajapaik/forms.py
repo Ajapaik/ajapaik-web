@@ -104,6 +104,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     people = forms.BooleanField(initial=False, required=False)
     postcards = forms.BooleanField(initial=False, required=False)
+    collections = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):
@@ -123,7 +124,7 @@ class GalleryFilteringForm(forms.Form):
     lon = forms.FloatField(min_value=-180, max_value=180, required=False)
     q = forms.CharField(required=False)
     myLikes = forms.BooleanField(required=False)
-    source_id = forms.IntegerField(required=False)
+    collections = forms.IntegerField(required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
     postcards = forms.BooleanField(initial=False, required=False)
@@ -344,7 +345,7 @@ class PhotoLikeForm(forms.ModelForm):
 
 
 class AlbumInfoModalForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(atype=Album.CURATED))
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(Q(atype=Album.CURATED) | Q(atype=Album.COLLECTION)))
     linkToGame = forms.BooleanField(required=False)
     linkToMap = forms.BooleanField(required=False)
     linkToGallery = forms.BooleanField(required=False)

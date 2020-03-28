@@ -713,6 +713,8 @@ def frontpage_async_albums(request):
 			photoIDs = Photo.objects.filter(postcard_front_of__isnull=False).values('id')
 			albumPhotos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
 			albums = Album.objects.filter(id__in=albumPhotos, cover_photo__isnull=False, is_public=True)
+		elif form.cleaned_data['collections']:
+			albums = Album.objects.filter(atype=Album.COLLECTION, cover_photo__isnull=False, is_public=True)
 		else:
 			albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
 										  atype=Album.CURATED)
@@ -761,7 +763,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		order2 = filter_form.cleaned_data['order2']
 		order3 = filter_form.cleaned_data['order3']
 		my_likes_only = filter_form.cleaned_data['myLikes']
-		source_id = filter_form.cleaned_data['source_id']
+		source_id = filter_form.cleaned_data['collections']
 		rephotos_by = None
 		rephotos_by_name = None
 		if filter_form.cleaned_data['rephotosBy']:
@@ -808,8 +810,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			rephotos_profile = Profile.objects.filter(pk=rephotos_by).first()
 			if rephotos_profile:
 				photos = photos.filter(rephotos__user=rephotos_profile)
-		if source_id:
-			photos = photos.filter(source_id=source_id)
 		photos_with_comments = None
 		photos_with_rephotos = None
 		photos_with_similar_photos = None
@@ -2285,6 +2285,7 @@ def curator_photo_upload_handler(request):
 							new_photo.image
 							new_photo.save()
 							new_photo.set_aspect_ratio()
+							new_photo.add_to_source_album()
 							new_photo.find_similar()
 							points_for_curating = Points(action=Points.PHOTO_CURATION, photo=new_photo, points=50,
 														 user=profile, created=new_photo.created,
@@ -2486,6 +2487,7 @@ def csv_upload(request):
 		p.width = p.image.width
 		p.height = p.image.height
 		p.save()
+		p.add_to_source_album()
 		AlbumPhoto(album=album, photo=p, profile=profile).save()
 	album.save()
 
@@ -2575,6 +2577,7 @@ def norwegian_csv_upload(request):
 			p.latest_geotag = source_geotag.created
 		p.set_calculated_fields()
 		p.save()
+		p.add_to_source_album()
 	album.save()
 
 	return HttpResponse(failed)
@@ -2802,6 +2805,7 @@ def user_upload(request):
 					profile=request.user.profile
 				).save()
 			form = UserPhotoUploadForm()
+			photo.add_to_source_album()
 			if request.POST.get('geotag') == 'true':
 				return redirect(reverse('frontpage_photos') + '?photo=' + str(photo.id) + '&locationToolsOpen=1')
 			else:

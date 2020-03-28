@@ -207,6 +207,7 @@ def finna_import_photo(id, profile):
             new_photo.set_calculated_fields()
 
         new_photo.save()
+        new_photo.add_to_source_album()
         id = int(new_photo.id)
         photo = Photo.objects.filter(
             pk=id

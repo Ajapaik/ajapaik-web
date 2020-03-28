@@ -33,20 +33,18 @@
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Show on map' %}"
                     href="{% if album %}/map/?album={{ album.0 }}{% else %}#{% endif %}"
-                    id="ajapaik-header-map-button">
+                    id="ajapaik-header-map">
                     <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
                 </a>
                 {% if is_frontpage %}
                     <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
                         href="#"
-                        id="ajapaik-header-people-button">
+                        id="ajapaik-header-people">
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.people == '1' %} ajapaik-text-white{% endif %}">people</i>
                     </a>
-                {% endif %}
-                {% if is_frontpage %}
                     <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
                         href="#"
-                        id="ajapaik-header-postcard-button">
+                        id="ajapaik-header-postcard">
                             <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if request.GET.postcards == '1' %} ajapaik-text-white{% endif %}">picture_in_picture</i>
                     </a>
                 {% endif %}
@@ -56,9 +54,14 @@
                     </a>
                 {% endif %}
                 {% if is_frontpage %}
-                <a id="ajapaik-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
-                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
-                </a>
+                    <a id="ajapaik-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
+                            <i aria-hidden class="material-icons notranslate ajapaik-gray-button">face</i>
+                    </a>
+                    {% if not album %}
+                        <a id="ajapaik-header-collections" role="button" title="{% trans 'Categorize faces' %}">
+                            <i aria-hidden class="material-icons notranslate ajapaik-gray-button">account_balance</i>
+                        </a>
+                    {% endif %}
                 {% endif %}
                 <a role="button" class="ajapaik-header-button" title="{% trans 'Add photos' %}"
                     href="{% url "photo_upload_choice" %}">
@@ -96,7 +99,7 @@
                     </svg>
                 </a>
                 <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
-                id="ajapaik-header-profile-button" class="ajapaik-no-background">
+                id="ajapaik-header-profile" class="ajapaik-no-background">
                     <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajapaik-text-white{% endif %}">account_circle</i>
                 </a>
 

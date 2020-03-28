@@ -574,7 +574,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }, 3000);
     };
 
-    $(document).on('click', '#ajapaik-header-map-button', function (e) {
+    $(document).on('click', '#ajapaik-header-map', function (e) {
         e.preventDefault();
         if (window.isSelection) {
             window.history.go(-1);
@@ -592,7 +592,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajapaik-header-profile-button', function (e) {
+    $(document).on('click', '#ajapaik-header-profile', function (e) {
         e.preventDefault();
         if (!window.isTop50 && !window.isLeaderboard) {
             window.updateLeaderboard();

@@ -121,14 +121,15 @@ class Area(Model):
 
 
 class AlbumPhoto(Model):
-    CURATED, RECURATED, MANUAL, STILL, UPLOADED, FACE_TAGGED = range(6)
+    CURATED, RECURATED, MANUAL, STILL, UPLOADED, FACE_TAGGED, COLLECTION = range(7)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (RECURATED, 'Re-curated'),
         (MANUAL, 'Manual'),
         (STILL, 'Still'),
         (UPLOADED, 'Uploaded'),
-        (FACE_TAGGED, 'Face tagged')
+        (FACE_TAGGED, 'Face tagged'),
+        (COLLECTION, 'Collection')
     )
 
     album = ForeignKey('Album')
@@ -162,12 +163,13 @@ class AlbumPhoto(Model):
 
 
 class Album(Model):
-    CURATED, FAVORITES, AUTO, PERSON = range(4)
+    CURATED, FAVORITES, AUTO, PERSON, COLLECTION = range(5)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
         (FAVORITES, 'Favorites'),
         (AUTO, 'Auto'),
-        (PERSON, 'Person')
+        (PERSON, 'Person'),
+        (COLLECTION, 'Collection')
     )
 
     FEMALE, MALE = range(2)
@@ -207,6 +209,7 @@ class Album(Model):
     modified = DateTimeField(auto_now=True)
     similar_photo_count_with_subalbums = IntegerField(default=0)
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
+    source = ForeignKey('Source', null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -262,7 +265,6 @@ class Album(Model):
         qs = self.photos.filter(rephoto_of__isnull=True)
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-
         return qs.distinct('id')
 
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
@@ -728,6 +730,27 @@ class Photo(Model):
         super(Photo, self).save(*args, **kwargs)
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
+    
+    def add_to_source_album(self, *args, **kwargs):
+        sourceAlbum = Album.objects.filter(source_id=self.source_id).first()
+        if sourceAlbum is None:
+            sourceAlbum = Album(
+                name = self.source.name,
+                slug = self.source.name,
+                atype = Album.COLLECTION,
+                cover_photo = self,
+                source = self.source
+            )
+            sourceAlbum.save()
+
+        AlbumPhoto(
+            type=AlbumPhoto.COLLECTION,
+            photo=self,
+            album=sourceAlbum
+        ).save()
+
+        sourceAlbum.set_calculated_fields()
+        sourceAlbum.save()
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
@@ -779,7 +802,7 @@ class Photo(Model):
                     geotag_coord_map[key] = [g]
             if unique_user_geotags:
                 df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
-                coordinates = df.as_matrix(columns=['lon', 'lat'])
+                coordinates = df[["lon", "lat"]].values
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)

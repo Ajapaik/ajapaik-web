@@ -280,11 +280,14 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         }
     });
 
-    $(document).on('click', '#ajapaik-header-people-button', function (e) {
+    $(document).on('click', '#ajapaik-header-people', function (e) {
         e.preventDefault();
         var uri = URI(window.location);
         if (uri.query().indexOf('postcards') > -1) {
             uri.removeQuery('postcards');
+        }
+        if (uri.query().indexOf('collections') > -1) {
+            uri.removeQuery('collections');
         }
         if (uri.query().indexOf('people') == -1) {
             uri.addQuery('people', 1)
@@ -294,16 +297,37 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         window.location.href = uri;
     });
 
-    $(document).on('click', '#ajapaik-header-postcard-button', function (e) {
+    $(document).on('click', '#ajapaik-header-postcard', function (e) {
         e.preventDefault();
         var uri = URI(window.location);
         if (uri.query().indexOf('people') > -1) {
             uri.removeQuery('people');
         }
+        if (uri.query().indexOf('collections') > -1) {
+            uri.removeQuery('collections');
+        }
         if (uri.query().indexOf('postcards') == -1) {
             uri.addQuery('postcards', 1)
         } else {
             uri.removeQuery('postcards');
+        }
+        window.location.href = uri;
+    });
+
+    $(document).on('click', '#ajapaik-header-collections', function (e) {
+        console.error("test");
+        e.preventDefault();
+        var uri = URI(window.location);
+        if (uri.query().indexOf('people') > -1) {
+            uri.removeQuery('people');
+        }
+        if (uri.query().indexOf('postcards') > -1) {
+            uri.removeQuery('postcards');
+        }
+        if (uri.query().indexOf('collections') == -1) {
+            uri.addQuery('collections', 1)
+        } else {
+            uri.removeQuery('collections');
         }
         window.location.href = uri;
     });
@@ -338,7 +362,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         }, 3000);
     };
 
-    $(document).on('click', '#ajapaik-header-map-button', function (e) {
+    $(document).on('click', '#ajapaik-header-map', function (e) {
         e.preventDefault();
         if (window.isSelection) {
             window.history.go(-1);
@@ -356,7 +380,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         }
     });
 
-    $(document).on('click', '#ajapaik-header-profile-button', function (e) {
+    $(document).on('click', '#ajapaik-header-profile', function (e) {
         e.preventDefault();
         if (!window.isTop50 && !window.isLeaderboard) {
             window.updateLeaderboard();

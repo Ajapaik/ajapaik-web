@@ -14,7 +14,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in {
   min-width: 100%;
   overflow-x: hidden;
 }
-body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajapaik-header-map-button {
+body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajapaik-header-map {
   margin-right: 0 !important;
 }
 
@@ -554,7 +554,7 @@ path:hover {
   display: block;
 }
 
-#ajapaik-header-profile-button > i {
+#ajapaik-header-profile > i {
   font-size: 36px;
 }
 

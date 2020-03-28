@@ -377,7 +377,7 @@
             emailNotice.text(gettext(' You can now log in with your e-mail.'));
         }
         $('#ajp-geotagger-login-container').click(function () {
-            $('#ajapaik-header-profile-button').click();
+            $('#ajapaik-header-profile').click();
         });
         $(window).resize(function () {
             if (that.guessingStarted) {
