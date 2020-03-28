@@ -248,7 +248,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   max-width: 100%;
 }
 
-#ajapaik-header-face {
+#ajapaik-header-face,
+#ajapaik-header-collections {
   cursor: pointer;
 }
 
