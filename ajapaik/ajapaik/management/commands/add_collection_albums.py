@@ -24,7 +24,7 @@ class Command(BaseCommand):
             ).save()
         sources = Source.objects().all()
         for source in sources:
-            album = Album.objects.filter(source_id=source.id).first()
+            album = Album.objects.filter(source=source).first()
             if album is not None:
                 album.set_calculated_fields()
                 album.save()
