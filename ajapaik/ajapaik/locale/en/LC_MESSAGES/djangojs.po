@@ -6,7 +6,7 @@
 msgid ""
 msgstr "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-06 23:51+0200\n"
+"POT-Creation-Date: 2020-03-28 11:04+0200\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -19,38 +19,38 @@ msgstr "Project-Id-Version: Ajapaik\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:320
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr "User denied the request for Geolocation."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:326
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr "Location information is unavailable."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:329
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr "The request to get user location timed out."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:332
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr "An unknown error occurred."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:756
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:801
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1276
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Not selected"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1428
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1444
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1903
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1919
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "System error"
@@ -511,7 +511,7 @@ msgid "Search box"
 msgstr "Search box"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Thank you!"
 msgstr "Thank you!"
 
@@ -914,33 +914,33 @@ msgstr[1] "Annotation added, thanks!<br />You have gained %s points"
 msgid "Failed to record your rectangle, sorry."
 msgstr "Failed to record your rectangle, sorry."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:92
 msgid "Thank you! Bad rectangle deleted."
 msgstr "Thank you! Bad rectangle deleted."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:100
 msgid "Failed to send your feedback, sorry."
 msgstr "Failed to send your feedback, sorry."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:116
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] "Thank you!</br>You have gained %s point"
 msgstr[1] "Thank you!</br>You have gained %s points"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:126
 msgid "Failed to send your submission, sorry."
 msgstr "Failed to send your submission, sorry."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:155
 msgid "Failed retrieving person tagging form, sorry."
 msgstr "Failed retrieving person tagging form, sorry."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:193
 msgid "Who is this?"
 msgstr "Who is this?"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:316
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Are you sure you wish to have this annotation removed?"
