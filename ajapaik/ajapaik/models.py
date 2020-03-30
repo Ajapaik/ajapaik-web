@@ -732,24 +732,25 @@ class Photo(Model):
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
     
     def add_to_source_album(self, *args, **kwargs):
-        sourceAlbum = Album.objects.filter(source_id=self.source_id).first()
-        if sourceAlbum is None:
-            sourceAlbum = Album(
-                name = self.source.name,
-                slug = self.source.name,
-                atype = Album.COLLECTION,
-                cover_photo = self,
-                source = self.source
-            )
+        if self.source_id is not None and self.source_id > 0:
+            sourceAlbum = Album.objects.filter(source_id=self.source_id).first()
+            if sourceAlbum is None:
+                sourceAlbum = Album(
+                    name = self.source.name,
+                    slug = self.source.name,
+                    atype = Album.COLLECTION,
+                    cover_photo = self,
+                    source = self.source
+                )
+                sourceAlbum.save()
+
+            AlbumPhoto(
+                type=AlbumPhoto.COLLECTION,
+                photo=self,
+                album=sourceAlbum
+            ).save()
+
             sourceAlbum.save()
-
-        AlbumPhoto(
-            type=AlbumPhoto.COLLECTION,
-            photo=self,
-            album=sourceAlbum
-        ).save()
-
-        sourceAlbum.save()
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
