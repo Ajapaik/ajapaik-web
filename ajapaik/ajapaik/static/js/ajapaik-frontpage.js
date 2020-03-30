@@ -44,7 +44,6 @@
                     } else {
                         fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     }
-                    $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                     if (window.FB) {
                         window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
                     }
@@ -378,51 +377,11 @@
             window.location.href = '/?album=' + window.albumId;
         };
         window.startGuessLocation = function (photoId) {
-            var startLat,
-                startLon;
-            window.startGuessScrollTop = $(window).scrollTop();
-            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
-                startLat = window.photoModalPhotoLat;
-                startLon = window.photoModalPhotoLng;
-            } else if (window.albumLat && window.albumLon) {
-                startLat = window.albumLat;
-                startLon = window.albumLon;
-            } else if (window.photoModalExtraLat && window.photoModalExtraLng) {
-                startLat = window.photoModalExtraLat;
-                startLon = window.photoModalExtraLng;
+            if (window.albumId) {
+                window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
-                startLat = 59;
-                startLon = 26;
+                window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
             }
-            $('#ajapaik-frontpage-container').hide();
-            $('#ajapaik-photo-modal').hide();
-            $('html').addClass('ajapaik-html-game-map');
-            $('body').removeClass('ajapaik-body-frontpage').addClass('ajapaik-body-game-map');
-            $('.modal-backdrop').hide();
-            $('.footer').hide();
-            $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
-                thumbSrc: '/photo-thumb/' + photoId + '/400/',
-                photoFlipped: window.photoModalCurrentPhotoFlipped,
-                fullScreenSrc: window.photoModalFullscreenImageUrl,
-                description: window.currentPhotoDescription,
-                sourceKey: window.currentPhotoSourceKey,
-                sourceName: window.currentPhotoSourceName,
-                sourceURL: window.currentPhotoSourceURL,
-                startLat: startLat,
-                startLng: startLon,
-                photoId: photoId,
-                uniqueGeotagCount: window.photoModalGeotaggingUserCount,
-                uniqueGeotagWithAzimuthCount: window.photoModalAzimuthCount,
-                mode: 'vantage',
-                markerLocked: true,
-                isGame: false,
-                isMapview: false,
-                isGallery: true,
-                tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
-                hintUsed: true
-            });
-            window.locationToolsOpen = true;
-            syncStateToUrl();
         };
         window.stopGuessLocation = function () {
             $('#ajp-geotagging-container').hide();
@@ -516,7 +475,6 @@
                     if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                         $('#ajapaik-photo-modal-date-row').show();
                     }
-                    $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
                 },
                 error: function () {
                     window.nextPhotoLoading = false;
@@ -567,7 +525,6 @@
         }
         // Page element functionality
         photoModal.on('shown.bs.modal', function () {
-            $('.ajapaik-minimap-confirm-geotag-button').removeClass('ajapaik-minimap-confirm-geotag-button-done');
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal open']);
             syncStateToUrl();
             if (window.straightToSpecify) {

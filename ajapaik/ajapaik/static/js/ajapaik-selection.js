@@ -116,11 +116,11 @@
         window.closePhotoDrawer = function () {
             $('#ajapaik-photo-modal').modal('hide');
         };
-        window.startGuessLocation = function (photoId) {
+        window.startGuessLocation = function () {
             if (window.albumId) {
-                window.open('/geotag/?album=' + window.albumId + '&photo=' + photoId, '_blank');
+                window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
-                window.open('/geotag/?photo=' + photoId, '_blank');
+                window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
             }
         };
         var input = document.getElementById('ajapaik-curator-add-area-name');

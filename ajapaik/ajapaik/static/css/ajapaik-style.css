@@ -1466,6 +1466,28 @@ a.fullscreen {
   position: relative;
 }
 
+#ajapaik-photo-modal-map-container > .ajapaik-minimap-confirm-geotag-button  {
+  position: absolute;
+  left: calc(50% - 85px);
+  bottom: 35px;
+  z-index: 410;
+}
+
+#ajapaik-photo-modal-map-container > .ajapaik-minimap-start-guess-button  {
+  position: absolute;
+  left: calc(50%);
+  bottom: 35px;
+  z-index: 410;
+}
+
+#ajapaik-photoview-container > .row > #ajapaik-photo-modal-map-container > .ajapaik-minimap-confirm-geotag-button  {
+  bottom: 75px;
+}
+
+#ajapaik-photoview-container > .row > #ajapaik-photo-modal-map-container > .ajapaik-minimap-start-guess-button  {
+  bottom: 75px;
+}
+
 #ajapaik-photo-modal-map-canvas {
   height: calc(100% - 25px);
   max-height: 99%;
@@ -1591,6 +1613,7 @@ a.fullscreen {
   padding-left: 0;
   padding-right: 0;
   min-height: 25vh;
+  z-index: 411;
 }
 
 #ajapaik-modal-body,

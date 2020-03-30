@@ -621,15 +621,11 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             window.syncMapStateToURL();
         }
         userClosedRephotoTools = true;
-        if (window.showPhotoMapIfApplicable) {
-            window.showPhotoMapIfApplicable();
-        } else {
-            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
-                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
-                $('#ajapaik-photo-modal-map-container').show();
-                if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
-                    window.ajapaikminimap.invalidateSize();
-                }
+        if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+            originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+            $('#ajapaik-photo-modal-map-container').show();
+            if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
+                window.ajapaikminimap.invalidateSize();
             }
         }
     });
@@ -654,15 +650,11 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             window.syncMapStateToURL();
         }
         userClosedSimilarPhotoTools = true;
-        if (window.showPhotoMapIfApplicable) {
-            window.showPhotoMapIfApplicable();
-        } else {
-            if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
-                originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
-                $('#ajapaik-photo-modal-map-container').show();
-                if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
-                    window.ajapaikminimap.invalidateSize();
-                }
+        if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
+            originalPhotoColumn.removeClass("col-lg-12").addClass("col-lg-6");
+            $('#ajapaik-photo-modal-map-container').show();
+            if (typeof (window.ajapaikminimap) !== "undefined" && typeof (window.ajapaikminimap.invalidateSize) === "function") {
+                window.ajapaikminimap.invalidateSize();
             }
         }
     });
@@ -1124,7 +1116,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         } else if (window.isGame) {
             _gaq.push(['_trackEvent', 'Game', 'Photo modal specify location click']);
         }
-        window.startGuessLocation($(this).data('id'));
+        window.startGuessLocation();
     });
 
     $(document).on('click', '#ajapaik-photo-modal-start-dating-button', function (e) {

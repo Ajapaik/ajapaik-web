@@ -584,6 +584,26 @@
         if (typeof get_photoviewModalOptions === "function") {
             var options = get_photoviewModalOptions();
             $('#ajapaik-photo-modal-map-container').AjapaikMinimap(options);
+            $('.ajapaik-minimap-start-guess-CTA-button').remove();
+            var minimapConfirmGeotagButton = document.createElement('button');
+            $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
+                .addClass('ajapaik-minimap-confirm-geotag-button')
+                .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
+                .data('placement', 'top').data('toggle', 'popover')
+                .data('content', gettext('Confirm correct location'))
+                .html('<i class="material-icons notranslate">beenhere</i>').popover();
+            if (window.photoModalUserHasConfirmedThisLocation) {
+                $(minimapConfirmGeotagButton).addClass('ajapaik-minimap-confirm-geotag-button-done');
+            }
+            $('#ajapaik-photo-modal-map-container').append(minimapConfirmGeotagButton);
+            var minimapStartGuessButton = document.createElement('button');
+            $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
+                .addClass('ajapaik-minimap-start-guess-button')
+                .data('trigger', 'hover')
+                .data('placement', 'top').data('toggle', 'popover')
+                .data('content', gettext('Submit your own location'))
+                .html('<i class="material-icons notranslate">edit_location</i>').popover();
+            $('#ajapaik-photo-modal-map-container').append(minimapStartGuessButton);
         }
     
         var currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
