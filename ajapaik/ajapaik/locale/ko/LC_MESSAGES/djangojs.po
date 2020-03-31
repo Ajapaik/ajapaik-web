@@ -14,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-23 13:56:12+0000\n"
+"PO-Revision-Date: 2020-03-31 13:49:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,38 +22,38 @@ msgstr ""
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:320
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr "사용자는 지리 위치를 위한 요청을 거절했습니다."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:326
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr "위치 정보를 사용할 수 없습니다."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:329
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr "사용자 위치를 가져오는 요청 시간이 초과되었습니다."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:332
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr "알 수 없는 오류가 발생했습니다."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:756
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:801
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1276
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "선택하지 않음"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1428
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1444
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1903
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1919
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "시스템 오류"
@@ -506,7 +506,7 @@ msgid "Search box"
 msgstr "검색 상자"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Thank you!"
 msgstr "감사합니다!"
 
@@ -889,33 +889,33 @@ msgstr[0] ""
 msgid "Failed to record your rectangle, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:92
 msgid "Thank you! Bad rectangle deleted."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:100
 msgid "Failed to send your feedback, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:116
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
 msgstr[0] ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:126
 msgid "Failed to send your submission, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:155
 msgid "Failed retrieving person tagging form, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:193
 msgid "Who is this?"
 msgstr "누구입니까?"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:316
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
 
