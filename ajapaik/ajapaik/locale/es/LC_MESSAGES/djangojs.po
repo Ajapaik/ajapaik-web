@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-03-31 13:49:18+0000\n"
+"PO-Revision-Date: 2020-04-09 13:57:56+0000\n"
 "X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,17 +26,17 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
-msgstr ""
+msgstr "No está disponible la información de ubicación."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
-msgstr ""
+msgstr "Se agotó el tiempo de espera de la solicitud de ubicación del usuario."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "Se produjo un error desconocido."
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
@@ -44,7 +44,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
-msgstr ""
+msgstr "No seleccionado"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
@@ -87,15 +87,15 @@ msgstr "Tú"
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:802
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Anonymous user"
-msgstr ""
+msgstr "Usuario anónimo"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:804
 msgid "Anonymous users"
-msgstr ""
+msgstr "Usuarios anónimos"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:862
 msgid "Current location"
-msgstr ""
+msgstr "Ubicación actual"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
@@ -172,7 +172,7 @@ msgstr "Cancelar"
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
 #: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:453
 msgid "Comment your dating"
@@ -248,7 +248,7 @@ msgstr "Editar"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
-msgstr ""
+msgstr "Voltear"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Geotag pictures in album"
@@ -364,7 +364,7 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
 msgid "Unknown author"
-msgstr "Autor desconocido"
+msgstr "Autoría desconocida"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
 msgid "Earliest"
@@ -569,11 +569,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:742
 msgid "Remove album filter"
-msgstr ""
+msgstr "Quitar filtro de álbum"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:750
 msgid "Apply album filter"
-msgstr ""
+msgstr "Aplicar filtro de álbum"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:63
 #, javascript-format

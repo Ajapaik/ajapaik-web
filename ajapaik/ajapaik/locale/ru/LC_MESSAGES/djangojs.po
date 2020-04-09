@@ -3,6 +3,7 @@
 #
 # Author: Alexander Yukal
 # Author: Katunchik
+# Author: Meerrahtar
 # Author: Okras
 # Author: Roman
 # --
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:20+0000\n"
+"PO-Revision-Date: 2020-04-09 13:57:56+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -654,11 +655,11 @@ msgstr "Неуверенность"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
-msgstr ""
+msgstr "Мужской"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Женский"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
@@ -847,7 +848,7 @@ msgstr "Необходимо 2 символа"
 #: ajapaik/ajapaik/static/js/constants.js:131
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "No results found"
-msgstr ""
+msgstr "Ничего не найдено"
 
 #: ajapaik/ajapaik/static/js/constants.js:134
 msgid "Find existing person"

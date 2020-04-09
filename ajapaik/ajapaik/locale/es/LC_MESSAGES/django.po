@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Andru1013
+# Author: Canaan9801
 # Author: Fitoschido
 # Author: Joanmp17
 # --
@@ -11,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-03-31 13:49:19+0000\n"
+"PO-Revision-Date: 2020-04-09 13:57:56+0000\n"
 "X-POT-Import-Date: 2020-03-28 09:30:39+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,15 +26,15 @@ msgstr "Invertir colores"
 
 #: ajapaik/ajapaik/api.py:1555
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "Esta transcripción ya existe. La transcripción anterior se ha votado positivamente; ¡gracias!"
 
 #: ajapaik/ajapaik/api.py:1557
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "Ya has enviado esta transcripción; ¡gracias!"
 
 #: ajapaik/ajapaik/api.py:1560
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "Se ha actualizado tu transcripción; ¡gracias!"
 
 #: ajapaik/ajapaik/api.py:1562
 msgid "Transcription added, thank you!"
@@ -45,23 +46,23 @@ msgstr "Se produjo un error"
 
 #: ajapaik/ajapaik/api.py:1573
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "Ya has dado comentario sobre esta transcripción."
 
 #: ajapaik/ajapaik/api.py:1579
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Se ha agregado comentario de transcripción, gracias!"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "Se debe fijar el cuadro delimitador"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr ""
+msgstr "El cuadro delimitador debe tener 4 miembros separados por comas"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr ""
+msgstr "Los valores del cuadro delimitador deben ser números"
 
 #: ajapaik/ajapaik/forms.py:16
 msgid "First name"
@@ -164,7 +165,7 @@ msgstr "Dirección de correo electrónico"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
+msgstr "El cuadro de comentarios admite Markdown\n\nPárrafos\nCon dos saltos de renglón se inicia un párrafo nuevo.\n\nNegrita\nEl **geoetiquetaje** es la primera tarea en Ajapaik.\n\nItálica\nA continuación viene la *refotografía* y el *fechado*.\n\nEnlaces\nIncorpórate al debate en el [grupo Ajapaiklejad de FB](https://www.facebook.com/groups/ajapaiklejad).\n\nImágenes\n![Ajapaik es un regalo para la EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:479
 msgid "Nothing to change."
@@ -323,7 +324,7 @@ msgstr "OpenStreetMap"
 
 #: ajapaik/ajapaik/models.py:1135
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1136
 msgid "No map"
@@ -384,7 +385,7 @@ msgstr "Tabla de posiciones de actividad reciente"
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr ""
+msgstr "El leaderboard del álbum %(album_name)s"
 
 #: ajapaik/ajapaik/templates/_block_leaderboard.html:18
 msgid "All time leaderboard"
@@ -396,11 +397,11 @@ msgstr "Foto original"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr ""
+msgstr "Ajapaik es desarrollado por el <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'></a>Sociedad Estonia de Patrimonio Fotográfico (MTÜ Eesti Fotopärand)</a>, listada en la lista de asociaciones sin fines de lucro, fundaciones, y asociaciones religiosas que aprovechan de incentivos de impuestos a los ingresos. Declaramos tus donaciones y por eso recibirás reembolsos del impuesto a los ingresos."
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr ""
+msgstr "Detalles para donaciones únicas"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
@@ -412,93 +413,93 @@ msgstr "Número de cuenta de beneficiario"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:8
 msgid "LHV single payment link"
-msgstr ""
+msgstr "Enlace para el pago único LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:10
 #: ajapaik/ajapaik/templates/_donate_details.html:37
 msgid "LHV bank"
-msgstr ""
+msgstr "banco LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:12
 msgid "Krediidipank single payment link"
-msgstr ""
+msgstr "Enlace para pago único Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:14
 #: ajapaik/ajapaik/templates/_donate_details.html:42
 msgid "Krediidipank"
-msgstr ""
+msgstr "Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:16
 msgid "SEB single payment link"
-msgstr ""
+msgstr "Enlace para pago único SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:18
 #: ajapaik/ajapaik/templates/_donate_details.html:46
 msgid "SEB bank"
-msgstr ""
+msgstr "banco SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:20
 msgid "Swedbank single payment link"
-msgstr ""
+msgstr "Enlace para pago único Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:23
 #: ajapaik/ajapaik/templates/_donate_details.html:50
 msgid "Swedbank"
-msgstr ""
+msgstr "Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:25
 msgid "Nordea single payment link"
-msgstr ""
+msgstr "Enlace para pago único Nordea"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:27
 #: ajapaik/ajapaik/templates/_donate_details.html:54
 msgid "Nordea bank"
-msgstr ""
+msgstr "banco Nordeo"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:29
 msgid "Danske single payment link"
-msgstr ""
+msgstr "Enlace para pago único Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:31
 #: ajapaik/ajapaik/templates/_donate_details.html:58
 msgid "Danske bank"
-msgstr ""
+msgstr "Banco Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
-msgstr ""
+msgstr "Formularios prellenados para pagos vigentes"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:35
 msgid "LHV payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:39
 msgid "Krediidipank payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:44
 msgid "SEB payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:48
 msgid "Swedbank payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:52
 msgid "Nordea payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de Nordea"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:56
 msgid "Danske payment order link"
-msgstr ""
+msgstr "Enlace de requerimiento de pago de Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr ""
+msgstr "Otras maneras de apoyarnos"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr ""
+msgstr "Referencia de Ajapaik Brave"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
@@ -506,23 +507,23 @@ msgstr "Publicidad"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
-msgstr ""
+msgstr "Filtración"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr ""
+msgstr "Organizar por distancia de ti"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
-msgstr ""
+msgstr "Organizar por tiempo y..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr ""
+msgstr "Organizar por el tiempo que se añadieron las fotos"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
-msgstr ""
+msgstr "Organizar por cronomarcador de cada toma"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"

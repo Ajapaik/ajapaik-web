@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:19+0000\n"
+"PO-Revision-Date: 2020-04-09 13:57:56+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -735,7 +735,7 @@ msgstr "Kuva pildid, kus on on nägusid"
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Pictures by collections"
-msgstr ""
+msgstr "Pildid kollektsioonide kaupa"
 
 #: ajapaik/ajapaik/templates/_header.html:50
 msgid "List albums with postcards"
@@ -2069,5 +2069,5 @@ msgstr "vene"
 
 #: ajapaik/settings/default.py:77
 msgid "French"
-msgstr ""
+msgstr "Prantsuse keel"
 
