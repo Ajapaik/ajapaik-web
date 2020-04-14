@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:20+0000\n"
+"PO-Revision-Date: 2020-04-14 03:18:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1560
 msgid "Your transcription has been updated, thank you!"
-msgstr "התרגום שלך עודכן, תודה!"
+msgstr "התמלול שלך עודכן, תודה!"
 
 #: ajapaik/ajapaik/api.py:1562
 msgid "Transcription added, thank you!"
@@ -54,11 +54,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1573
 msgid "You have already given feedback for this transcription"
-msgstr "כבר נתת משוב על התרגום הזה"
+msgstr "כבר נתת משוב על התמלול הזה"
 
 #: ajapaik/ajapaik/api.py:1579
 msgid "Transcription feedback added, thank you!"
-msgstr "משוב תמלול נוסף, תודה!"
+msgstr "משוב התמלול נוסף, תודה!"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -413,24 +413,24 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
-msgstr "Beneficiary's name"
+msgstr "שם המוטב"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:7
 msgid "Beneficiary's account no"
-msgstr "Beneficiary's account no"
+msgstr "מספר החשבון של המוטב"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:8
 msgid "LHV single payment link"
-msgstr "LHV single payment link"
+msgstr "קישור תשלום בודד ב־LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:10
 #: ajapaik/ajapaik/templates/_donate_details.html:37
 msgid "LHV bank"
-msgstr "LHV bank"
+msgstr "בנק LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:12
 msgid "Krediidipank single payment link"
-msgstr "Krediidipank single payment link"
+msgstr "קישור תשלום בודד ב־Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:14
 #: ajapaik/ajapaik/templates/_donate_details.html:42
@@ -439,16 +439,16 @@ msgstr "Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:16
 msgid "SEB single payment link"
-msgstr "SEB single payment link"
+msgstr "קישור תשלום בודד ב־SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:18
 #: ajapaik/ajapaik/templates/_donate_details.html:46
 msgid "SEB bank"
-msgstr "SEB bank"
+msgstr "בנק SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:20
 msgid "Swedbank single payment link"
-msgstr "Swedbank single payment link"
+msgstr "קישור תשלום בודד ב־Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:23
 #: ajapaik/ajapaik/templates/_donate_details.html:50
@@ -457,61 +457,61 @@ msgstr "Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:25
 msgid "Nordea single payment link"
-msgstr "Nordea single payment link"
+msgstr "קישור תשלום בודד ב־Nordea"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:27
 #: ajapaik/ajapaik/templates/_donate_details.html:54
 msgid "Nordea bank"
-msgstr "Nordea bank"
+msgstr "בנק Nordea"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:29
 msgid "Danske single payment link"
-msgstr "Danske single payment link"
+msgstr "קישור תשלום בודד ב־Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:31
 #: ajapaik/ajapaik/templates/_donate_details.html:58
 msgid "Danske bank"
-msgstr "Danske bank"
+msgstr "בנק Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
-msgstr "Prefilled forms for standing payments"
+msgstr "טופסי הוראת קבע ממולאים מראש"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:35
 msgid "LHV payment order link"
-msgstr "LHV payment order link"
+msgstr "קישור העברה בנקאית ב־LHV"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:39
 msgid "Krediidipank payment order link"
-msgstr "Krediidipank payment order link"
+msgstr "קישור העברה בנקאית ב־Krediidipank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:44
 msgid "SEB payment order link"
-msgstr "SEB payment order link"
+msgstr "קישור העברה בנקאית ב־SEB"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:48
 msgid "Swedbank payment order link"
-msgstr "Swedbank payment order link"
+msgstr "קישור העברה בנקאית ב־Swedbank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:52
 msgid "Nordea payment order link"
-msgstr "Nordea payment order link"
+msgstr "קישור העברה בנקאית ב־Nordea"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:56
 msgid "Danske payment order link"
-msgstr "Danske payment order link"
+msgstr "קישור העברה בנקאית ב־Danske"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr "Other ways of supporting us"
+msgstr "דרכים אחרות לתמוך בנו"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr "Ajapaik Brave referral"
+msgstr "הפניית Brave בשביל Ajapaik"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
+msgstr "נסו את דפדפן Brave – הוא מבסס על כרומיום ובאפשרותך לתת לאתרים האהובים עליך מטבע קריפטו."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -519,67 +519,67 @@ msgstr "סינון"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr "Sort by distance from you"
+msgstr "לסנן לפי מרחק ממך"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
-msgstr "Sort by time and ..."
+msgstr "לסנן לפי זמן ו־..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr "Sort by photos' time added"
+msgstr "לסנן לפי זמן הוספת התמונה"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
-msgstr "Sort by stills' timestamp"
+msgstr "לסנן לפי חותם־הזמן של התמונה"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"
-msgstr "Sort by views' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של התצוגות"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
-msgstr "Sort by geotags' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של התגים הגאוגרפיים"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
-msgstr "Sort by datings' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של התארוכים"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
-msgstr "Sort by rephotos' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של התמונות החוזרות"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:92
 msgid "Sort by comments' time added or amount"
-msgstr "Sort by comments' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של התגובות"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:102
 msgid "Sort by likes' time added or amount"
-msgstr "Sort by likes' time added or amount"
+msgstr "לסנן לפי זמן ההוספה או הכמות של סימוני אהבתי"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:112
 msgid "Sort by amount and ..."
-msgstr "Sort by amount and ..."
+msgstr "לסנן לפי כמות ו־..."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:122
 msgid "Change sorting order"
-msgstr "Change sorting order"
+msgstr "לשנות את סדר המיון"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
 msgid "Help"
-msgstr "Help"
+msgstr "עזרה"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr "How to sort"
+msgstr "איך למיין"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
 msgid "From this group"
-msgstr "From this group"
+msgstr "מהקבוצה הזאת"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr "Choose 2 parameters"
+msgstr "יש לבחור 2 פרמטרים"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:58
 msgid "or"
@@ -595,31 +595,31 @@ msgstr "אחד מתוך"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr "orders pictures by distance from you"
+msgstr "ממיין תמונות לפי המרחק ממך"
 
 #: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:105
 msgid "reverses sorting"
-msgstr "reverses sorting"
+msgstr "היפוך מיון"
 
 #: ajapaik/ajapaik/templates/_footer.html:19
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr "Estonian Photographic Heritage Society"
+msgstr "אגודת מורשת הצילום האסטונית"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr "Support Ajapaik"
+msgstr "תמיכה ב־Ajapaik"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support us"
-msgstr "Support us"
+msgstr "לתמוך בנו"
 
 #: ajapaik/ajapaik/templates/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr "See also – Sift.pics"
+msgstr "ר׳ גם – Sift.pics"
 
 #: ajapaik/ajapaik/templates/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/_header.html:121

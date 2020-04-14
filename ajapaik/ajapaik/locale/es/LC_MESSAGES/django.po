@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-04-09 13:57:56+0000\n"
+"PO-Revision-Date: 2020-04-14 03:18:56+0000\n"
 "X-POT-Import-Date: 2020-03-28 09:30:39+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -401,7 +401,7 @@ msgstr "Ajapaik es desarrollado por el <a href='http://xn--fotoprand-z2a.org.ee/
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr "Detalles para donaciones únicas"
+msgstr "Detalles para donaciones puntuales"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"

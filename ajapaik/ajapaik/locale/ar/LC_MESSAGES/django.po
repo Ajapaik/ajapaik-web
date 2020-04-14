@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Arabic (العربية)
 # Exported from translatewiki.net
 #
+# Author: BaRaN6161 TURK
 # Author: H2kks
 # Author: Meno25
 # Author: NEHAOUA
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:18+0000\n"
+"PO-Revision-Date: 2020-04-14 03:18:55+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -745,7 +746,7 @@ msgstr "قائمة الصور مع الوجوه"
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Pictures by collections"
-msgstr ""
+msgstr "الصور حسب المجموعات"
 
 #: ajapaik/ajapaik/templates/_header.html:50
 msgid "List albums with postcards"
@@ -1816,7 +1817,7 @@ msgstr "أشخاص ادعوا أنهم في هذه الصورة"
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:8
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:36
 msgid "Shooting location"
-msgstr ""
+msgstr "موقع التصوير"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
@@ -1828,7 +1829,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr ""
+msgstr "صور مماثلة"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61
@@ -1861,7 +1862,7 @@ msgstr "التفاصيل"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:27
 msgid "Add location"
-msgstr ""
+msgstr "أضف الموقع"
 
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:46
 msgid "Add date"
@@ -2119,5 +2120,5 @@ msgstr "الروسية"
 
 #: ajapaik/settings/default.py:77
 msgid "French"
-msgstr ""
+msgstr "الفرنسية"
 
