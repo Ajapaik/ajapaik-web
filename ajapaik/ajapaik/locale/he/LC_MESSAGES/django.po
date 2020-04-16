@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-04-14 03:18:57+0000\n"
+"PO-Revision-Date: 2020-04-16 15:04:26+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -173,7 +173,7 @@ msgstr "כתובת דוא\"ל"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
+msgstr "תיבת התגובות תומכת במרקדאון.\n\nפסקאות\nהוסיפו שתי ירידות שורה כדי להתחיל פסקה חדשה.\n\nגופן בולט\n**תיוג גאוגרפי** הוא המשימה הראשונה באיאפאיק.\n\nגופן נטוי\nאחרי זה מגיעים *צילום חוזר* ו*תארוך*.\n\nקישורים\nהתטרפו לדיון ב[קבוצת הפייסוק Ajapaiklejad](https://www.facebook.com/groups/ajapaiklejad).\n\nתמונות\n![איאפאיק היא מתנה ל־EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:479
 msgid "Nothing to change."
@@ -405,11 +405,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr ""
+msgstr "את איאפאיק מפתחת <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>אגודת מורשת הצילום האסטונית (MTÜ Eesti Fotopärand)</a>, המופיעה ברשימת האגודות ללא כוונת רווח, מוסדות, ואיגודים דתיים שמקבלים הטבות מס. אנחנו מצהירים על התרומות שלכם ואתם תקבלו על זה החזרי מס."
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr ""
+msgstr "פרטים על תרומות חד־פעמיות"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
@@ -507,11 +507,11 @@ msgstr "דרכים אחרות לתמוך בנו"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
-msgstr "הפניית Brave בשביל Ajapaik"
+msgstr "הפניית ברייב בשביל לאיאפאיק"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:62
 msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "נסו את דפדפן Brave – הוא מבסס על כרומיום ובאפשרותך לתת לאתרים האהובים עליך מטבע קריפטו."
+msgstr "נסו את דפדפן ברייב (Brave) – הוא מבסס על כרומיום ובאפשרותך לתת לאתרים האהובים עליך מטבע מבוזר (קריפטו)."
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -609,7 +609,7 @@ msgstr "אגודת מורשת הצילום האסטונית"
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr "תמיכה ב־Ajapaik"
+msgstr "תמיכה באיאפאיק"
 
 #: ajapaik/ajapaik/templates/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
@@ -631,15 +631,15 @@ msgstr "יציאה"
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
-msgstr "Ajapaik shows how places have changed over time"
+msgstr "איאפאיק מראה איך מקומות השתנו לאורך הזמן"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:14
 msgid "Discover how places looked like years ago by"
-msgstr "Discover how places looked like years ago by"
+msgstr "גלו איך מקומות נראו לפני שנים באמצעות"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
 msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-msgstr "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
+msgstr "* חיפוש תמונות מראות היסטוריים מאוספים של מוזאונים אסטוניים ואצירת תמונות נבחרות באיאפאיק,"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
@@ -652,7 +652,7 @@ msgstr "* rephotographing the historic views from places you visit."
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
+msgstr "באיאפאיק יש <b>%(total_photo_count)s</b> תמונות היסטוריות, מתוכן <b>%(total_photos_tagged)s</b> תמונות הוצבו על המפה על־ידי <b>%(contributing_users)s</b> משתמשים ו־<b>%(rephoto_count)s</b> צילומים חוזרים עבור <b>%(rephotographed_photo_count)s</b> צילומים נעשו על־ידי <b>%(rephotographing_users)s</b> משתמשים."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:32
 #, python-format
@@ -681,41 +681,41 @@ msgstr "General statistics refresh every 10 minutes."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:44
 msgid "Supporters of Ajapaik"
-msgstr "Supporters of Ajapaik"
+msgstr "תומכים באיאפאיק"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:47
 msgid "KulKa logo"
-msgstr "KulKa logo"
+msgstr "סמל KulKa"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:50
 msgid "Ministry of Education logo"
-msgstr "Ministry of Education logo"
+msgstr "סמל משרד החינוך"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
 msgid "EV100 logo"
-msgstr "EV100 logo"
+msgstr "סמל EV100"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:66
 msgid "KYSK logo"
-msgstr "KYSK logo"
+msgstr "סמל KYSK"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 #: ajapaik/ajapaik/templates/_header_basic.html:4
 #: ajapaik/ajapaik/templates/photoview/_sidebar.html:9
 msgid "Back to homepage"
-msgstr "Back to homepage"
+msgstr "חזרה לדף הבית"
 
 #: ajapaik/ajapaik/templates/_header.html:13
 msgid "Search album"
-msgstr "Search album"
+msgstr "חיפוש אלבום"
 
 #: ajapaik/ajapaik/templates/_header.html:16
 msgid "Search photos"
-msgstr "Search photos"
+msgstr "חיפוש תמונות"
 
 #: ajapaik/ajapaik/templates/_header.html:19
 msgid "Show in grid"
-msgstr "Show in grid"
+msgstr "הצגה ברשת"
 
 #: ajapaik/ajapaik/templates/_header.html:30
 #: ajapaik/ajapaik/templates/_info_modal_content.html:116
@@ -772,11 +772,11 @@ msgstr "Choose language"
 
 #: ajapaik/ajapaik/templates/_header.html:90
 msgid "About Ajapaik"
-msgstr "About Ajapaik"
+msgstr "אודות איאפאיק"
 
 #: ajapaik/ajapaik/templates/_header.html:93
 msgid "Ajapaik on Facebook"
-msgstr "Ajapaik on Facebook"
+msgstr "איאפאיק בפייסבוק"
 
 #: ajapaik/ajapaik/templates/_header.html:99
 msgid "Profile and leaderboard"
@@ -1341,7 +1341,7 @@ msgstr "Historic photo of"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
+msgstr "העבירו צילומיים היסטוריים מאוצרות המזואונים אל איאפאיק לשם תיוג גאוגרפי וצילום חוזר"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:47
 #: ajapaik/ajapaik/templates/base_bootstrap.html:49
@@ -1394,7 +1394,7 @@ msgstr[1] "Album has %(counter)s photos,"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:201
 msgid "Timepatch (Ajapaik)"
-msgstr "Timepatch (Ajapaik)"
+msgstr "טלאי זמן (איאפאיק)"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:276
 msgid "Geolocation error"
@@ -1402,7 +1402,7 @@ msgstr "Geolocation error"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:279
 msgid "Sorting"
-msgstr "Sorting"
+msgstr "מיון"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:450
 msgid "This website uses cookies to ensure you get the best experience on our website"
@@ -1410,15 +1410,15 @@ msgstr "This website uses cookies to ensure you get the best experience on our w
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:451
 msgid "Got it!"
-msgstr "Got it!"
+msgstr "הבנתי!"
 
 #: ajapaik/ajapaik/templates/base_bootstrap.html:452
 msgid "More info"
-msgstr "More info"
+msgstr "מידע נוסף"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:10
 msgid "Really remove this comment?"
-msgstr "Really remove this comment?"
+msgstr "באמת להסיר את התגובה הזאת?"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:16
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:37
@@ -1431,25 +1431,25 @@ msgstr "Identify yourself to comment"
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
-msgstr "Your comment"
+msgstr "התגובה שלך"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:14
 msgid "Send"
-msgstr "Send"
+msgstr "שליחה"
 
 #: ajapaik/ajapaik/templates/comments/list.html:22
 msgid "Like"
-msgstr "Like"
+msgstr "אהבתי"
 
 #: ajapaik/ajapaik/templates/comments/list.html:26
 msgid "Dislike"
-msgstr "Dislike"
+msgstr "לא אהבנתי"
 
 #: ajapaik/ajapaik/templates/comments/list.html:30
 #: ajapaik/ajapaik/templates/comments/list.html:90
 msgid "Reply"
-msgstr "Reply"
+msgstr "תגובה"
 
 #: ajapaik/ajapaik/templates/comments/list.html:39
 #: ajapaik/ajapaik/templates/comments/list.html:41
@@ -1464,12 +1464,12 @@ msgstr "Are you sure that you want to delete this comment and all replies?"
 
 #: ajapaik/ajapaik/templates/comments/list.html:47
 msgid "Edit"
-msgstr "Edit"
+msgstr "עריכה"
 
 #: ajapaik/ajapaik/templates/comments/list.html:61
 #: ajapaik/ajapaik/templates/comments/list.html:87
 msgid "supports Markdown"
-msgstr "supports Markdown"
+msgstr "תומך במרקדאון"
 
 #: ajapaik/ajapaik/templates/comments/list.html:64
 #: ajapaik/ajapaik/templates/curator.html:134
@@ -1494,11 +1494,11 @@ msgstr "You have already reviewed all the similar image pairs"
 
 #: ajapaik/ajapaik/templates/curator.html:17
 msgid "Thank you!"
-msgstr "Thank you!"
+msgstr "תודה!"
 
 #: ajapaik/ajapaik/templates/curator.html:23
 msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
-msgstr "Your photos have now been added to Ajapaik and can be interacted with as usual."
+msgstr "הצילומים שלך נוספו עכשיו לאיאפאיק ואפשר לתקשר איתם באופן רגיל."
 
 #: ajapaik/ajapaik/templates/curator.html:25
 msgid "Points awarded for curating"
@@ -1615,11 +1615,11 @@ msgstr "Clear selection"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
-msgstr "Submit selection to Ajapaik"
+msgstr "שליחת הבחירה לאיאפאיק"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr "Reply to"
+msgstr "להשיב ל־"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1903,11 +1903,11 @@ msgstr "Your guess was first."
 
 #: ajapaik/ajapaik/views.py:1877
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
+msgstr "חפשו תמונות ישנות, הוסיפו אותן לאיאפאיק, מצאו את המיקומים שלהם, ושתפו את האלבום שיוצא!"
 
 #: ajapaik/ajapaik/views.py:2267
 msgid "OK"
-msgstr "OK"
+msgstr "אישור"
 
 #: ajapaik/ajapaik/views.py:2326 ajapaik/ajapaik/views.py:2347
 #, python-format
@@ -1916,7 +1916,7 @@ msgstr "שגיאה בהעלאת קובץ: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2343
 msgid "Photo already exists in Ajapaik"
-msgstr "Photo already exists in Ajapaik"
+msgstr "הצילום כבר קיים באיאפאיק"
 
 #: ajapaik/ajapaik/views.py:2366
 msgid "Please add photos to your album"
