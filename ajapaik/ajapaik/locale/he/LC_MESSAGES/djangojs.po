@@ -3,6 +3,7 @@
 #
 # Author: Amire80
 # Author: Steeve815
+# Author: Tuvalevsku
 # Author: שמזן
 # --
 # This file is part of the Ajapaik Project
@@ -13,46 +14,46 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-01-06 16:39:17+0000\n"
+"PO-Revision-Date: 2020-04-20 14:49:22+0000\n"
 "Language: he\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-01-04 19:30:24+0000\n"
+"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:320
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:326
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:329
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:332
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:756
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:801
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1276
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "לא נבחר"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1440
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1456
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1933
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "שגיאת מערכת"
@@ -167,11 +168,13 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
+#: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "ביטול"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
+#: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
 msgstr "שליחה"
 
@@ -221,7 +224,7 @@ msgstr "כתובת מוערכת"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr ""
+msgstr "אתם בטוחים שברצונכם ליצור אלבום עם פחות מ־5 תמונות? אנחנו ממליצים ליצור אלבומים עם 10 תמונות לכל הפחות."
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
 msgid "Author"
@@ -261,7 +264,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
 msgid "Image has no location info"
-msgstr ""
+msgstr "לתמונה אין מידע על מיקום"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
 msgid "Image has only location, no view direction"
@@ -273,11 +276,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
 msgid "Image has similar photos"
-msgstr ""
+msgstr "לתמונה יש תמונות דומות"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
 msgid "Institution"
-msgstr ""
+msgstr "מוסד"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
 msgid "Invert colors"
@@ -285,7 +288,7 @@ msgstr "הפיכת צבעים"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
 msgid "Licence"
-msgstr ""
+msgstr "רישיון"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
 msgid "Mark stereophoto"
@@ -305,15 +308,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "לתמונה מצורפים נתוני מיקום"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr ""
+msgstr "הצילום כבר קיים באיאפאיק. באפשרותך בכל זאת להוסיף אותו לאלבום שלך, אבל לא יתווספו לך נקודות על אצירה"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures geotagged"
-msgstr "תמונות עם תגיות מיקום"
+msgstr "תמונות עם תגי מיקום"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures in album"
@@ -321,7 +324,7 @@ msgstr "תמונות באלבום"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
 msgid "Points"
-msgstr ""
+msgstr "נקודות"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
 msgid "Remove from selection"
@@ -461,7 +464,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "ראית את כל התמונות באלבום הזה, כעת אנחנו מציגים בפניך תמונות אקראיות."
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
@@ -488,6 +491,7 @@ msgid "Vantage point"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
+#: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Object"
 msgstr "עצם"
 
@@ -502,7 +506,7 @@ msgid "Search box"
 msgstr "תיבת חיפוש"
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:96
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
 msgid "Thank you!"
 msgstr "תודה לך!"
 
@@ -604,7 +608,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
-msgstr ""
+msgstr "מה כתוב בתמונה?"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
 msgid "You're anonymous, please login to add transcriptions"
@@ -612,6 +616,264 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
+msgstr "כניסה"
+
+#: ajapaik/ajapaik/static/js/constants.js:54
+msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:57
+msgid "Object is required"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:60
+msgid "optional"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:61
+msgid "Unsure"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:62
+msgid "Male"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:63
+msgid "Female"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:64
+msgid "Child"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:65
+msgid "Elderly"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:66
+msgid "Adult"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:70
+msgid "Delete"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:75
+msgid "Photo"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:76
+msgid "Photo with selected rephoto"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:81
+msgid "What is displayed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:82
+msgid "Edit face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:83
+msgid "Add name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:84
+msgid "Edit object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:85
+msgid "Edit feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:86
+msgid "Add feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:87
+msgid "Your annotation info"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:90
+msgid "Change person name"
+msgstr "לשנות שם אדם"
+
+#: ajapaik/ajapaik/static/js/constants.js:91
+msgid "Add person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:92
+msgid "Change object class"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:93
+msgid "Face"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:95
+msgid "Is this a face"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:96
+msgid "Is this"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:97
+#: ajapaik/ajapaik/static/js/constants.js:98
+#: ajapaik/ajapaik/static/js/constants.js:99
+msgid "Is this a"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:100
+msgid "Annotation type"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:101
+msgid "Name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:102
+msgid "Object type"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:103
+msgid "Gender"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:104
+msgid "Age"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:108
+msgid "Failed to load object annotation classes"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:109
+msgid "Failed to load annotations"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:110
+msgid "Successfully added object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:111
+msgid "Unable to save object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:112
+msgid "Successfully updated object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:113
+msgid "Unable to update object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:114
+msgid "Successfully added object annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:115
+msgid "Failed to add object annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:116
+msgid "Successfully removed object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:117
+msgid "Unable to remove object annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:118
+msgid "Successfully added face annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:119
+msgid "Failed to add face annotation feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:120
+msgid "Successfully edited face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:121
+msgid "Failed to save face annotation edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:122
+msgid "Successfully removed face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:123
+msgid "Failed to remove face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:127
+msgid "Find object"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:128
+#: ajapaik/ajapaik/static/js/constants.js:135
+msgid "Searching"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:129
+msgid "Search for object"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:130
+#: ajapaik/ajapaik/static/js/constants.js:137
+msgid "Need 2 characters"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:131
+#: ajapaik/ajapaik/static/js/constants.js:138
+msgid "No results found"
+msgstr "לא נמצאו תוצאות"
+
+#: ajapaik/ajapaik/static/js/constants.js:134
+msgid "Find existing person"
+msgstr "למצוא אדם קיים"
+
+#: ajapaik/ajapaik/static/js/constants.js:136
+msgid "Enter person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:139
+#: ajapaik/ajapaik/static/js/constants.js:142
+msgid "Add new person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:143
+msgid "Specify person name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:148
+msgid "Select age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:149
+msgid "Change age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:150
+msgid "Specify alternative age group"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:155
+msgid "Select gender"
+msgstr "בחירת מגדר"
+
+#: ajapaik/ajapaik/static/js/constants.js:156
+msgid "Change gender"
+msgstr "שינוי מגדר"
+
+#: ajapaik/ajapaik/static/js/constants.js:157
+msgid "Specify alternative gender"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
+msgid "Unknown"
 msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
@@ -629,34 +891,34 @@ msgstr[1] ""
 msgid "Failed to record your rectangle, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:92
 msgid "Thank you! Bad rectangle deleted."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:102
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:100
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "שליחת המשוב שלך נכשלה, סליחה."
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:118
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:116
 #, javascript-format
 msgid "Thank you!</br>You have gained %s point"
 msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "תודה לך!</br>קיבלת נקודה אחת"
+msgstr[1] "תודה לך!</br>קיבלת %s נקודות"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:128
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:126
 msgid "Failed to send your submission, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:157
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:155
 msgid "Failed retrieving person tagging form, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:195
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:193
 msgid "Who is this?"
 msgstr "מי זה?"
 
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:318
+#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:316
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr ""
 
