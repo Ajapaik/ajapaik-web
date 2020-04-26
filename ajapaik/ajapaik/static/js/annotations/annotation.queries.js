@@ -47,11 +47,19 @@ function getAllAnnotations(customOnSuccess) {
 function addNewDetectionAnnotation(payload, onSuccess) {
     payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
 
+    var successMessage = constants.translations.queries.ADD_FACE_ANNOTATION_SUCCESS;
+    var failMessage = constants.translations.queries.ADD_FACE_ANNOTATION_FAILED;
+
+    if(payload.isSavingObject) {
+        successMessage = constants.translations.queries.ADD_OBJECT_ANNOTATION_SUCCESS;
+        failMessage = constants.translations.queries.ADD_OBJECT_ANNOTATION_FAILED;
+    }
+
     postRequest(
         '/object-recognition/add-annotation',
         payload,
-        constants.translations.queries.ADD_ANNOTATION_SUCCESS,
-        constants.translations.queries.ADD_ANNOTATION_FAILED,
+        successMessage,
+        failMessage,
         onSuccess
     );
 }

@@ -1,4 +1,3 @@
-import autocomplete_light
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
@@ -7,6 +6,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
+
+from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
@@ -43,11 +44,11 @@ class AlbumPhotoInline(admin.TabularInline):
 
 
 class DatingAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Dating, fields='__all__')
+    form = autocomplete_form_factory(Dating)
 
 
 class DatingConfirmationAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(DatingConfirmation, fields='__all__')
+    form = autocomplete_form_factory(DatingConfirmation)
 
 
 class PhotoAdmin(ModelAdmin):
@@ -118,56 +119,55 @@ class PhotoAdmin(ModelAdmin):
 
     inlines = (AlbumPhotoInline,)
 
-    form = autocomplete_light.shortcuts.modelform_factory(Photo, fields='__all__')
+    form = autocomplete_form_factory(Photo)
 
 
 class SkipAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Skip, fields='__all__')
+    form = autocomplete_form_factory(Skip)
 
 
 class GeoTagAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(GeoTag, fields='__all__')
+    form = autocomplete_form_factory(GeoTag)
 
 
 class ProfileAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Profile, fields='__all__')
+    form = autocomplete_form_factory(Profile)
 
 
 class PointsAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Points, fields='__all__')
+    form = autocomplete_form_factory(Points)
 
 
 class AlbumAdmin(ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Album, fields='__all__')
+    form = autocomplete_form_factory(Album)
 
 
 class SourceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Source, fields='__all__')
+    form = autocomplete_form_factory(Source)
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(AlbumPhoto, fields='__all__')
+    form = autocomplete_form_factory(AlbumPhoto)
 
 
 class AreaAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Area, fields='__all__')
+    form = autocomplete_form_factory(Area)
 
 
 class LicenceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Licence, fields='__all__')
+    form = autocomplete_form_factory(Licence)
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Device, fields='__all__')
+    form = autocomplete_form_factory(Device)
 
 
 class VideoAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(Video, fields='__all__')
+    form = autocomplete_form_factory(Video)
 
 
 class MyUserAdmin(admin.ModelAdmin):
-    form = autocomplete_light.shortcuts.modelform_factory(User, fields='__all__')
-
+    form = autocomplete_form_factory(User)
 
 try:
     admin.site.unregister(User)

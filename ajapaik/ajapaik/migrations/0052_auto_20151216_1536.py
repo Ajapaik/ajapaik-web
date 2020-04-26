@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=1, choices=[(b'ABCDEFGHIJKLMNOPQRSTUVWXYZ', b'ABCDEFGHIJKLMNOPQRSTUVWXYZ')])),
                 ('max_members', models.IntegerField()),
                 ('members', models.ManyToManyField(related_name='tour_groups', to='ajapaik.Profile')),
-                ('tour', models.ForeignKey(related_name='tour_groups', to='ajapaik.Tour')),
+                ('tour', models.ForeignKey(related_name='tour_groups', to='ajapaik.Tour', on_delete=models.deletion.CASCADE)),
             ],
             options={
             },
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tour',
             name='user',
-            field=models.ForeignKey(related_name='owned_tours', to='ajapaik.Profile'),
+            field=models.ForeignKey(related_name='owned_tours', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

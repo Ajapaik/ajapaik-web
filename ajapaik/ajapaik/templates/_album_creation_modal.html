@@ -1,5 +1,10 @@
-{% load i18n bootstrap4 %}
+{% load i18n compress static bootstrap4 %}
 
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "libs/autocomplete/css/autocomplete.css" %}">
+    {% endcompress %}
+{% endblock %}
 <div class="modal fade" id="ajapaik-choose-albums-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -20,9 +25,22 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <form class="form">
-                            {% bootstrap_form whole_set_albums_selection_form %}
-                        </form>
+                        <div class="form-group"><label for="id_albums">Albumid</label>
+                            <span id="id_albums-wrapper" class="modern-style autocomplete-light-widget albums multiple" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
+                                <span id="id_albums-deck" class="deck" style="display: inline;"> 
+                                </span>
+                                <input type="text" name="albums-autocomplete" id="id_albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/public-album-autocomplete/" placeholder="type some text to search in this autocomplete" title="" required="" autocomplete="off" style="display: block;">
+                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add_id_albums" style="">
+                                    <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
+                                </a>
+                                <select style="display:none" class="value-select" name="albums" id="id_albums" multiple="multiple"></select>
+                                <span style="display:none" class="remove">ˣ</span>
+                                <span style="display:none" class="choice-template">
+                                    <span class="choice prepend-remove append-option-html">
+                                    </span>
+                                </span>
+                            </span>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -38,6 +56,11 @@
     </div>
 </div>
 {% block specific_js %}
+    {% compress js %}
+        <script src="{% static "js/autocomplete.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-add-album.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
+    {% endcompress %}
     <script>
     $('.close-album-curation-modal').click(function (e) {
         $('#ajapaik-choose-albums-modal').modal('hide');

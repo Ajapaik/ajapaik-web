@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(db_index=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='transcription_feedback', to='ajapaik.Profile')),
+                ('user', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcription_feedback', to='ajapaik.Profile')),
             ],
         ),
     ]

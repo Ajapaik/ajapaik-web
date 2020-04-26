@@ -1,4 +1,4 @@
-{% load i18n comments comments_xtd %}
+{% load i18n comments comments_xtd md2 %}
 
 <ul class="media-list pl-2 pt-2" id="comments">
     {% for comment in comment_list %}
@@ -48,7 +48,7 @@
                     {% endif %}
                 </h6>
                 <div class="comment-text" data-comment-text="{{ comment.comment }}">
-                    {{ comment.comment|render_markup_comment }}
+                    {{ comment.comment|markdown:"safe, code-friendly, code-color" }}
                 </div>
                 <!-- Editing form block start -->
                 <div class='form-group comment-edit-form-{{ comment.pk }} d-none'>
@@ -74,7 +74,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="reply_to" value="{{ comment.pk }}">
                         <input type="hidden" name="next" value="{{ photo.get_detail_url }}"/>
-                        <input type="hidden" name="name" value="{{ user.get_full_name|default:user.username }}"/>
+                        <input type="hidden" name="name" value="{{ user.get_full_name|default:user.get_username}}"/>
                         <input type="hidden" name="email" value="{{ user.email }}"/>
                         <div style="display:none">{{ form.honeypot }}</div>
                         {{ reply_form.content_type }}

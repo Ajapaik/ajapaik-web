@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import CASCADE
 from ajapaik.ajapaik.models import Photo, Profile
 
 
@@ -13,7 +14,7 @@ class ObjectAnnotationClass(models.Model):
     alias = models.TextField(max_length=200, null=True)
     wiki_data_id = models.TextField(max_length=30)
     translations = models.TextField()
-    detection_model = models.ForeignKey(ObjectDetectionModel)
+    detection_model = models.ForeignKey(ObjectDetectionModel, on_delete=CASCADE)
 
     def __str__(self):
         english_translation = self.translations
@@ -26,10 +27,10 @@ class ObjectDetectionAnnotation(models.Model):
     y1 = models.FloatField()
     y2 = models.FloatField()
 
-    photo = models.ForeignKey(Photo)
-    detected_object = models.ForeignKey(ObjectAnnotationClass)
+    photo = models.ForeignKey(Photo, on_delete=CASCADE)
+    detected_object = models.ForeignKey(ObjectAnnotationClass, on_delete=CASCADE)
 
-    user = models.ForeignKey(Profile)
+    user = models.ForeignKey(Profile, on_delete=CASCADE)
 
     is_manual_detection = models.BooleanField()
 
@@ -43,12 +44,12 @@ class ObjectDetectionAnnotation(models.Model):
 
 
 class ObjectAnnotationFeedback(models.Model):
-    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name="feedback")
+    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name="feedback", on_delete=CASCADE)
 
     confirmation = models.BooleanField(default=True)
-    alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True)
+    alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True, on_delete=CASCADE)
 
-    user = models.ForeignKey(Profile)
+    user = models.ForeignKey(Profile, on_delete=CASCADE)
 
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)

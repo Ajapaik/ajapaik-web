@@ -16,13 +16,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transcription',
             name='photo',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Photo'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Photo'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='transcription',
             name='profile',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Profile'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Profile'),
             preserve_default=False,
         ),
         migrations.AlterField(

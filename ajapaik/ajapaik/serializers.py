@@ -1,6 +1,6 @@
 import logging
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Count, Q, Case, When, Value, BooleanField, \
     IntegerField
 from rest_framework import serializers
@@ -115,7 +115,7 @@ class RephotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     date = DateTimeTzAwareField(format='%d-%m-%Y')
     source = serializers.SerializerMethodField()
-    user_name = serializers.CharField(source='user.user.get_full_name')
+    user_name = serializers.CharField(source='user.user.get_full_name', default='Anonymous user')
     is_uploaded_by_current_user = serializers.SerializerMethodField()
 
     def get_image(self, instance):

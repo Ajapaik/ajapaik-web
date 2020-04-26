@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='photolike',
             name='profile',
-            field=models.ForeignKey(related_name='likes', to='ajapaik.Profile'),
+            field=models.ForeignKey(related_name='likes', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

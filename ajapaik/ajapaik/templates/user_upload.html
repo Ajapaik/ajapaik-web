@@ -1,9 +1,15 @@
 {% extends "base_bootstrap.html" %}
-{% load i18n bootstrap4 %}
+{% load i18n bootstrap4 static compress %}
 
 {% block header %}
     {% include "_header.html" %}
 {% endblock %}
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "libs/autocomplete/css/autocomplete.css" %}">
+    {% endcompress %}
+{% endblock %}
+
 
 {% block layout %}
 <div class="container pb-3 w-50{% if not request.user.profile.is_legit %}" id="ajapaik-curator-container"{% else %} pt-5"{% endif %}>
@@ -18,6 +24,20 @@
             <p id="ajapaik-user-upload-waive-rights-text" class="d-none">
                 {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener nofollow">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
             </p>
+            <div class="form-group"><label for="id_albums">Albumid</label>
+                <span id="id_albums-wrapper" class="modern-style autocomplete-light-widget albums multiple" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
+                    <span id="id_albums-deck" class="deck"></span>
+                    <input type="text" name="albums-autocomplete" id="id_albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/public-album-autocomplete/" placeholder="type some text to search in this autocomplete" title="" autocomplete="off">
+                    <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add_id_albums" style="">
+                        <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
+                    </a>
+                    <select style="display:none" class="value-select" name="albums" id="id_albums" multiple="multiple"></select>
+                    <span style="display:none" class="remove">ˣ</span>
+                    <span style="display:none" class="choice-template">
+                        <span class="choice prepend-remove append-option-html"></span>
+                    </span>                
+                </span>
+            </div>
             {% buttons %}
                 <div class="btn-group float-right" role="group" aria-label="ajapaik-add-album-button-group">
                     <button type="submit" name="geotag" value="false" class="btn btn-primary">
@@ -36,6 +56,11 @@
 {% endblock %}
 
 {% block specific_js %}
+    {% compress js %}
+        <script src="{% static "js/autocomplete.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-add-album.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
+    {% endcompress %}
     <script>
         function previewImage() {
             var fr = new FileReader();

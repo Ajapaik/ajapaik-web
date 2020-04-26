@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='then_and_now_rephoto',
-            field=models.ForeignKey(blank=True, to='ajapaik.TourRephoto', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.TourRephoto', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

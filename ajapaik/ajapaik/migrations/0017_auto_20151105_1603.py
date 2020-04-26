@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='dating',
-            field=models.ForeignKey(blank=True, to='ajapaik.Dating', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.Dating', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(

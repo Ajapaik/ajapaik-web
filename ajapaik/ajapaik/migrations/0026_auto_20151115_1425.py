@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tourrephoto',
             name='tour',
-            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Tour'),
+            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Tour', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

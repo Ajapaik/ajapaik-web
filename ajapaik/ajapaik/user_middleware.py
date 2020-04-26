@@ -12,23 +12,23 @@ from ajapaik.ajapaik.models import Action
 
 
 def get_user(request):
-    if request.user and request.user.is_authenticated():
+    if request.user and request.user.is_authenticated:
         return request.user
     else:
         if any(s in request.META.get('HTTP_USER_AGENT', []) for s in settings.BOT_USER_AGENTS):
-            user = authenticate(username=settings.BOT_USERNAME)
+            user = authenticate(request=request, username=settings.BOT_USERNAME)
         else:
             session_id = request.session._get_or_create_session_key()
-            user = authenticate(username=session_id)
-        login(request, user)
+            user = authenticate(request=request, username=session_id)
+
+        login(request=request, user=user, backend='allauth.account.auth_backends.AuthenticationBackend')
 
         return user
 
 
 def set_user(request, user):
     logout(request)
-    authenticate(user=user)
-    login(request, user)
+    login(request=request, user=user, backend='allauth.account.auth_backends.AuthenticationBackend')
 
     return user
 
@@ -45,7 +45,7 @@ class AuthBackend(MiddlewareMixin):
     supports_anonymous_user = False
     supports_inactive_user = True
 
-    def authenticate(self, username=None, password=None, user=None):
+    def authenticate(self, request=None, username=None, password=None, user=None):
         if user is not None:
             return user
         if password is not None:

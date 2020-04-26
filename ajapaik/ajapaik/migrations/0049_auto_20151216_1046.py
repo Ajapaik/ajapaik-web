@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tourrephoto',
             name='original',
-            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Photo'),
+            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

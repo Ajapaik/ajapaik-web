@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transcriptionfeedback',
             name='transcription',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='transcription', to='ajapaik.Transcription'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcription', to='ajapaik.Transcription'),
             preserve_default=False,
         ),
     ]

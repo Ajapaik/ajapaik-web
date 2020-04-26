@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dating',
             name='confirmation_of',
-            field=models.ForeignKey(related_name='confirmations', blank=True, to='ajapaik.Dating', null=True),
+            field=models.ForeignKey(related_name='confirmations', blank=True, to='ajapaik.Dating', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

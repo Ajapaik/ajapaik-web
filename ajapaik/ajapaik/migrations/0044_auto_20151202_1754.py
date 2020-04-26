@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='video',
             name='source',
-            field=models.ForeignKey(blank=True, to='ajapaik.Source', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.Source', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -31,8 +31,8 @@ class Migration(migrations.Migration):
                 ('order', models.IntegerField(default=0)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('photo', models.ForeignKey(to='ajapaik.Photo')),
-                ('tour', models.ForeignKey(to='ajapaik.Tour')),
+                ('photo', models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('tour', models.ForeignKey(to='ajapaik.Tour', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'thenandnow_tourphoto',

@@ -11,7 +11,7 @@
             <fieldset>
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ photo.get_detail_url }}"/>
-                <input type="hidden" name="name" value="{{ user.get_full_name|default:user.username }}"/>
+                <input type="hidden" name="name" value="{{ user.get_full_name|default:user.get_username  }}"/>
                 <input type="hidden" name="email" value="{{ user.email }}"/>
                 {% for field in form %}
                     {% if field.is_hidden %}

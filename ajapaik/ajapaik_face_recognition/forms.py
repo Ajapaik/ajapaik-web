@@ -1,8 +1,10 @@
-import autocomplete_light
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from dal import autocomplete
+
 from ajapaik.ajapaik.models import Photo, Album
+from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
     FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback
 
@@ -19,8 +21,12 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
         fields = ('name', 'gender', 'is_public_figure')
 
 
-class FaceRecognitionGuessForm(autocomplete_light.shortcuts.ModelForm):
-    subject_album = autocomplete_light.shortcuts.ModelChoiceField('SubjectAlbumAutocomplete', label=_('Subject'), required=True)
+class FaceRecognitionGuessForm(forms.ModelForm):
+    subject_album = forms.ModelChoiceField(
+        queryset=Album.objects.all(),
+        required=True,
+        widget=autocomplete.ModelSelect2(url='subject-album-autocomplete')
+    )
     rectangle = forms.ModelChoiceField(queryset=FaceRecognitionRectangle.objects.all(), widget=forms.HiddenInput())
 
     class Meta:

@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('order', models.IntegerField(default=0)),
-                ('photo', models.ForeignKey(to='ajapaik.Photo')),
-                ('tour', models.ForeignKey(to='ajapaik.Tour')),
+                ('photo', models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('tour', models.ForeignKey(to='ajapaik.Tour', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'thenandnow_tourphotoorder',

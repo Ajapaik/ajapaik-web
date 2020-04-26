@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='facerecognitionuserguess',
             name='user',
-            field=models.ForeignKey(related_name='face_recognition_guesses', blank=True, to='ajapaik.Profile', null=True),
+            field=models.ForeignKey(related_name='face_recognition_guesses', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
         ),
     ]

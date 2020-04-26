@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionrectanglefeedback',
             name='alternative_subject',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='ajapaik.Album'),
+            field=models.ForeignKey(null=True, on_delete=models.deletion.CASCADE, to='ajapaik.Album'),
         ),
         migrations.AddField(
             model_name='facerecognitionrectanglefeedback',

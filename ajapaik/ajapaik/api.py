@@ -17,6 +17,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point, GEOSGeometry
 from django.contrib.gis.measure import D
+from django.contrib.gis.db.models.functions import Distance
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -94,11 +95,11 @@ class Login(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def _authenticate_by_email(self, email, password):
+    def _authenticate_by_email(self, request, email, password):
         '''
         Authenticate user with email and password.
         '''
-        user = authenticate(email=email, password=password)
+        user = authenticate(request=request, email=email, password=password)
         if user is not None and not user.is_active:
             # We found user but this user is disabled. "authenticate" doesn't
             # check is user is disabled(at least in Django 1.8).
@@ -176,7 +177,7 @@ class Login(APIView):
                         'session': None,
                         'expires': None,
                     })
-                user = self._authenticate_by_email(email, password)
+                user = self._authenticate_by_email(request, email, password)
                 if user is not None:
                     get_adapter(request).login(request, user)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
@@ -386,10 +387,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
 
             )
         else:
-            ref_location = Point(
-                lon,
-                lat
-            )
+            ref_location = Point(x=lon, y=lat, srid=4326)
             nearby_range = settings.API_DEFAULT_NEARBY_PHOTOS_RANGE*10
             start = 0
             end = settings.API_DEFAULT_NEARBY_MAX_PHOTOS
@@ -399,9 +397,8 @@ class FinnaNearestPhotos(AjapaikAPIView):
                     rephoto_of__isnull=True,
                     lat__isnull=False,
                     lon__isnull=False,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                .distance(ref_location) \
+                ).annotate(distance=Distance(('geography'), ref_location)) \
+                .filter(distance__lte=(D(m=nearby_range))) \
                 .order_by('distance')[start:end]
 
             if not photos:
@@ -411,15 +408,14 @@ class FinnaNearestPhotos(AjapaikAPIView):
                     lat__isnull=False,
                     lon__isnull=False,
                     geography__distance_lte=(ref_location, D(m=nearby_range*100))
-                ) \
-                .distance(ref_location) \
-                .order_by('distance')[start:end]
+                ).annotate(distance=Distance(('geography'), ref_location)) \
+                 .order_by('distance')[start:end]
 
         if photos:
             user_profile = user.profile if user.is_authenticated else None 
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
-               user_profile
+                user_profile
             )
 
             return Response({
@@ -586,7 +582,8 @@ class AlbumNearestPhotos(AjapaikAPIView):
             nearby_range = form.cleaned_data["range"] or settings.API_DEFAULT_NEARBY_PHOTOS_RANGE
             ref_location = Point(
                 round(form.cleaned_data["longitude"], 4),
-                round(form.cleaned_data["latitude"], 4)
+                round(form.cleaned_data["latitude"], 4),
+                srid=4326
             )
             start = form.cleaned_data["start"] or 0
             end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
@@ -599,11 +596,10 @@ class AlbumNearestPhotos(AjapaikAPIView):
                     rephoto_of__isnull=True
                 ).filter(
                     lat__isnull=False,
-                    lon__isnull=False,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[start:end]
+                    lon__isnull=False
+                ).annotate(distance=Distance(('geography'), ref_location)) \
+                .filter(distance__lte=(D(m=nearby_range))) \
+                 .order_by('distance')[start:end]
 
                 #                    .filter(
                 #                        Q(likes__profile=user_profile) | Q(likes__isnull=True)
@@ -625,10 +621,9 @@ class AlbumNearestPhotos(AjapaikAPIView):
                     lat__isnull=False,
                     lon__isnull=False,
                     rephoto_of__isnull=True,
-                    geography__distance_lte=(ref_location, D(m=nearby_range))
-                ) \
-                             .distance(ref_location) \
-                             .order_by('distance')[start:end]
+                ).annotate(distance=Distance(('geography'), ref_location)) \
+                .filter(distance__lte=(D(m=nearby_range))) \
+                .order_by('distance')[start:end]
 
                 photos = serializers.PhotoSerializer.annotate_photos(
                     photos,
@@ -1066,13 +1061,8 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 longitude = form.cleaned_data['longitude']
                 start = form.cleaned_data["start"] or 0
                 end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
-
-                requested_location = GEOSGeometry(
-                    'POINT({} {})'.format(longitude, latitude),
-                    srid=4326
-                )
-                photos = Photo.objects.filter(likes__profile=user_profile) \
-                         .distance(requested_location) \
+                ref_location = Point(x=longitude, y=latitude, srid=4326)
+                photos = Photo.objects.filter(likes__profile=user_profile).annotate(distance=Distance(('geography'), ref_location)) \
                          .order_by('distance')[start:end]
                 photos = serializers.PhotoWithDistanceSerializer.annotate_photos(
                     photos,
@@ -1121,8 +1111,8 @@ class PhotosSearch(AjapaikAPIView):
                 )
 
             if lat and lon:
-                ref_location = Point(lon, lat)
-                photos=photos.distance(ref_location) \
+                ref_location = Point(x=lon, y=lat, srid=4326)
+                photos=photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
             photos = serializers.PhotoSerializer.annotate_photos(
@@ -1175,8 +1165,8 @@ class PhotosInAlbumSearch(AjapaikAPIView):
 
             if lat and lon:
                 print("Sorting by distance");
-                ref_location = Point(lon, lat)
-                photos=photos.distance(ref_location) \
+                ref_location = Point(x=lon, y=lat, srid=4326)
+                photos=photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
 
@@ -1213,16 +1203,14 @@ class UserRephotosSearch(AjapaikAPIView):
 
                 search_phrase = form.cleaned_data['query']
                 sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
-
                 photos = Photo.objects.filter(
                     id__in=[item.pk for item in sqs],
                     rephoto_of__isnull=False,
                     user=user.profile
                 )
-
                 if lat and lon:
-                    ref_location = Point(lon, lat)
-                    photos=photos.distance(ref_location) \
+                    ref_location = Point(x=lon, y=lat, srid=4326)
+                    photos=photos.annotate(distance=Distance(('geography'), ref_location)) \
                         .order_by('distance')
 
                 photos = serializers.PhotoSerializer.annotate_photos(
@@ -1432,8 +1420,8 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 )
 
                 if lat and lon:
-                    ref_location = Point(lon, lat)
-                    photos=photos.distance(ref_location) \
+                    ref_location = Point(x=lon, y=lat, srid=4326)
+                    photos=photos.annotate(distance=Distance(('geography'), ref_location)) \
                         .order_by('distance')[start:end]
                 else:
                     photos=photos.order_by('rephotos__created')[start:end]

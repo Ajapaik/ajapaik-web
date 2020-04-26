@@ -16,14 +16,16 @@
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajapaik-fullscreen-image-container">
         <img id="ajapaik-full-screen-image" class="lazyload" style="display: none;"
-            data-src="{% url "image_full" rectangle.photo.pk rectangle.photo.get_pseudo_slug %}"
-            alt="{{ rectangle.photo.description }}" title="{{ rectangle.photo.description }}" />
+            data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
+            alt="{{ photo.description }}" title="{{ photo.description }}" />
     </div>
 </div>
 <div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
     <div class="d-flex row pt-3">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
-            <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+            <a class="fullscreen" id="ajapaik-full-screen-link" href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
+                <img class="main-image" alt="{{ photo.description }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
+            </a>
             <div class="d-none" id="subject-data-description-container">
                 {% if rectangle.photo.description %}
                     <p>
@@ -59,7 +61,7 @@
             <button class="guess-button skip-next" data="">
                 {% trans "Not sure" %}
             </button>
-            <button class="guess-button circled-cross" data="NOT-A-FACE">
+            <button class="guess-button circled-cross" data="NOT_A_FACE">
                 {% trans "Not a Face" %}
             </button>
             <button class="guess-button info" data="INFO">
@@ -83,7 +85,7 @@
             <button class="guess-button skip-next" data="">
                 {% trans "Not sure" %}
             </button>
-            <button class="guess-button circled-cross" data="NOT-A-FACE">
+            <button class="guess-button circled-cross" data="NOT_A_FACE">
                 {% trans "Not a Face" %}
             </button>
             <button class="guess-button info" data="INFO">
@@ -220,13 +222,13 @@
             $('.ajapaik-face-rectangle').remove();
         }
 
-        this.reportBadRectangle = function (id) {
+        ReportBadRectangle = function (id) {
 			$.ajax({
 				type: 'DELETE',
 				url: '/face-recognition/remove-annotation/' + id  + '/',
-				data: {
-					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-				},
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", window.docCookies.getItem('csrftoken'));
+                },
 				success: function (response) {
 					if (response.deleted) {
 						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
@@ -302,12 +304,12 @@
             }
             else {
                 $("#first-block").removeClass("d-block").addClass("d-none");
-                if(subject.gender !== "NOT-A-FACE") {
+                if(subject.gender !== "NOT_A_FACE") {
                     $("#second-block").removeClass("d-none").addClass("d-block");
                     addSubjectDataViewPage = 1;
                 }
                 else {
-                    reportBadRectangle(currentRectangleId)
+                    ReportBadRectangle(currentRectangleId)
                 }
             }
         });
@@ -332,7 +334,7 @@
             }
             else {
                 $("#second-block").removeClass("d-flex").addClass("d-none");
-                if(subject.age !== "NOT-A-FACE"){
+                if(subject.age !== "NOT_A_FACE"){
                     window.AddSubjectData(subject)
                 }
                 else{

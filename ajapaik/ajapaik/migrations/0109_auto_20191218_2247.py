@@ -16,11 +16,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='postcard_back_of',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='postcard_back', to='ajapaik.Photo'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, related_name='postcard_back', to='ajapaik.Photo'),
         ),
         migrations.AddField(
             model_name='photo',
             name='postcard_front_of',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='postcard_front', to='ajapaik.Photo'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, related_name='postcard_front', to='ajapaik.Photo'),
         )
     ]

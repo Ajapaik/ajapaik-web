@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='imagesimilarityguess',
             name='guesser',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='image_similarity_guesser', to='ajapaik.Profile'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='image_similarity_guesser', to='ajapaik.Profile'),
         ),
     ]

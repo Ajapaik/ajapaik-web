@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(max_length=255)),
                 ('related_id', models.PositiveIntegerField(null=True, blank=True)),
                 ('params', django_extensions.db.fields.json.JSONField(null=True, blank=True)),
-                ('related_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True)),
+                ('related_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True, on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_action',
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('album', models.ForeignKey(to='ajapaik.Album')),
+                ('album', models.ForeignKey(to='ajapaik.Album', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_albumphoto',
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CredentialsModel',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
                 ('credential', oauth2client.contrib.django_orm.CredentialsField(null=True)),
             ],
             options={
@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FlowModel',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
                 ('flow', oauth2client.contrib.django_orm.FlowField(null=True)),
             ],
             options={
@@ -276,10 +276,10 @@ class Migration(migrations.Migration):
                 ('cam_yaw', models.FloatField(null=True, blank=True)),
                 ('cam_pitch', models.FloatField(null=True, blank=True)),
                 ('cam_roll', models.FloatField(null=True, blank=True)),
-                ('area', models.ForeignKey(related_name='areas', blank=True, to='ajapaik.Area', null=True)),
-                ('device', models.ForeignKey(blank=True, to='ajapaik.Device', null=True)),
-                ('licence', models.ForeignKey(blank=True, to='ajapaik.Licence', null=True)),
-                ('rephoto_of', models.ForeignKey(related_name='rephotos', blank=True, to='ajapaik.Photo', null=True)),
+                ('area', models.ForeignKey(related_name='areas', blank=True, to='ajapaik.Area', null=True, on_delete=models.deletion.CASCADE)),
+                ('device', models.ForeignKey(blank=True, to='ajapaik.Device', null=True, on_delete=models.deletion.CASCADE)),
+                ('licence', models.ForeignKey(blank=True, to='ajapaik.Licence', null=True, on_delete=models.deletion.CASCADE)),
+                ('rephoto_of', models.ForeignKey(related_name='rephotos', blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['-id'],
@@ -297,7 +297,7 @@ class Migration(migrations.Migration):
                 ('fb_user_id', models.CharField(max_length=255)),
                 ('text', models.TextField()),
                 ('created', models.DateTimeField()),
-                ('photo', models.ForeignKey(related_name='comments', to='ajapaik.Photo')),
+                ('photo', models.ForeignKey(related_name='comments', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_photocomment',
@@ -315,7 +315,7 @@ class Migration(migrations.Migration):
                 ('old_author', models.CharField(max_length=255, null=True, blank=True)),
                 ('new_author', models.CharField(max_length=255, null=True, blank=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('photo', models.ForeignKey(related_name='metadata_updates', to='ajapaik.Photo')),
+                ('photo', models.ForeignKey(related_name='metadata_updates', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_photometadataupdate',
@@ -329,8 +329,8 @@ class Migration(migrations.Migration):
                 ('action', models.PositiveSmallIntegerField(choices=[(0, b'Geotag'), (1, b'Rephoto'), (2, b'Photo upload'), (3, b'Photo curation')])),
                 ('points', models.IntegerField(default=0)),
                 ('created', models.DateTimeField(db_index=True)),
-                ('geotag', models.ForeignKey(blank=True, to='ajapaik.GeoTag', null=True)),
-                ('photo', models.ForeignKey(blank=True, to='ajapaik.Photo', null=True)),
+                ('geotag', models.ForeignKey(blank=True, to='ajapaik.GeoTag', null=True, on_delete=models.deletion.CASCADE)),
+                ('photo', models.ForeignKey(blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_points',
@@ -341,7 +341,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
                 ('fb_name', models.CharField(max_length=255, null=True, blank=True)),
                 ('fb_link', models.CharField(max_length=255, null=True, blank=True)),
                 ('fb_id', models.CharField(max_length=100, null=True, blank=True)),
@@ -372,8 +372,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('photo', models.ForeignKey(to='ajapaik.Photo')),
-                ('user', models.ForeignKey(related_name='skips', to='ajapaik.Profile')),
+                ('photo', models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='skips', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_skip',
@@ -398,7 +398,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='user',
-            field=models.ForeignKey(related_name='points', to='ajapaik.Profile'),
+            field=models.ForeignKey(related_name='points', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
@@ -408,67 +408,67 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='source',
-            field=models.ForeignKey(blank=True, to='ajapaik.Source', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.Source', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='photo',
             name='user',
-            field=models.ForeignKey(related_name='photos', blank=True, to='ajapaik.Profile', null=True),
+            field=models.ForeignKey(related_name='photos', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='geotag',
             name='photo',
-            field=models.ForeignKey(related_name='geotags', to='ajapaik.Photo'),
+            field=models.ForeignKey(related_name='geotags', to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='geotag',
             name='user',
-            field=models.ForeignKey(related_name='geotags', to='ajapaik.Profile'),
+            field=models.ForeignKey(related_name='geotags', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='flipfeedback',
             name='photo',
-            field=models.ForeignKey(to='ajapaik.Photo'),
+            field=models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='flipfeedback',
             name='user_profile',
-            field=models.ForeignKey(to='ajapaik.Profile'),
+            field=models.ForeignKey(to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='difficultyfeedback',
             name='geotag',
-            field=models.ForeignKey(to='ajapaik.GeoTag'),
+            field=models.ForeignKey(to='ajapaik.GeoTag', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='difficultyfeedback',
             name='photo',
-            field=models.ForeignKey(to='ajapaik.Photo'),
+            field=models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='difficultyfeedback',
             name='user_profile',
-            field=models.ForeignKey(to='ajapaik.Profile'),
+            field=models.ForeignKey(to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='albumphoto',
             name='photo',
-            field=models.ForeignKey(to='ajapaik.Photo'),
+            field=models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='album',
             name='cover_photo',
-            field=models.ForeignKey(blank=True, to='ajapaik.Photo', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -480,13 +480,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='album',
             name='profile',
-            field=models.ForeignKey(related_name='albums', blank=True, to='ajapaik.Profile', null=True),
+            field=models.ForeignKey(related_name='albums', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='album',
             name='subalbum_of',
-            field=models.ForeignKey(related_name='subalbums', blank=True, to='ajapaik.Album', null=True),
+            field=models.ForeignKey(related_name='subalbums', blank=True, to='ajapaik.Album', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.CreateModel(

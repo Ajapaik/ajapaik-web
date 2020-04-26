@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='face_recognition_rectangle_subject_data_guess',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess'),
         ),
         migrations.AlterField(
             model_name='points',
