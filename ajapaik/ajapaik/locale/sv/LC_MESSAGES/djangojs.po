@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:20+0000\n"
+"PO-Revision-Date: 2020-04-27 14:42:11+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -239,7 +239,7 @@ msgstr "Kommentarer"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
 msgid "Comments in album"
-msgstr ""
+msgstr "Kommentarer i album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
 msgid "Date"
@@ -259,7 +259,7 @@ msgstr "Vänd"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Geotag pictures in album"
-msgstr ""
+msgstr "Geotagga bilder i album"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
 msgid "Image has location and view direction info"
@@ -319,7 +319,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
 msgid "Pictures geotagged"
-msgstr ""
+msgstr "Geotaggade bilder"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
 msgid "Pictures in album"
@@ -435,11 +435,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By timestamp"
-msgstr ""
+msgstr "Efter tidsstämpel"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
 msgid "Pictures from the map"
-msgstr ""
+msgstr "Bilder från kartan"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
 msgid "Albums"
@@ -463,7 +463,7 @@ msgstr "Alla foton"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
 msgid "Picture set has no "
-msgstr ""
+msgstr "Bilduppsättning saknar "
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -471,7 +471,7 @@ msgstr "Du har sett alla bilder i detta album, så vi kommer nu visa slumpartade
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:189
 msgid "You have seen all the pictures from this album."
-msgstr ""
+msgstr "Du har sett alla bilder från detta album."
 
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
 msgid "You're anonymous."
@@ -591,7 +591,7 @@ msgstr[1] "Du har fått %s poäng"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
 msgid "Your guess has been changed"
-msgstr ""
+msgstr "Din ändring har ändrats"
 
 #: ajapaik/ajapaik/static/js/ajapaik-selection.js:74
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
@@ -607,11 +607,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
 msgid "Confirm"
-msgstr ""
+msgstr "Bekräfta"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
 msgid "What is written on the image?"
-msgstr ""
+msgstr "Vad står det på bilden?"
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
 msgid "You're anonymous, please login to add transcriptions"
@@ -619,7 +619,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
 msgid "Login"
-msgstr ""
+msgstr "Logga in"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
@@ -822,7 +822,7 @@ msgstr "Söker"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Search for object"
-msgstr ""
+msgstr "Sök efter objekt"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
@@ -861,7 +861,7 @@ msgstr "Ändra åldersgrupp"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Specify alternative age group"
-msgstr ""
+msgstr "Ange alternativ åldersgrupp"
 
 #: ajapaik/ajapaik/static/js/constants.js:155
 msgid "Select gender"
@@ -873,7 +873,7 @@ msgstr "Ändra kön"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Specify alternative gender"
-msgstr ""
+msgstr "Ange alternativt kön"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
@@ -881,7 +881,7 @@ msgstr "Okänd"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
-msgstr ""
+msgstr "Misslyckades att läsa in ansikten, beklagar."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
 #, javascript-format
@@ -900,7 +900,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:100
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Misslyckades att skicka din återkoppling, beklagar."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:116
 #, javascript-format
@@ -911,11 +911,11 @@ msgstr[1] "Tack!</br>Du har fått %s poäng"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:126
 msgid "Failed to send your submission, sorry."
-msgstr ""
+msgstr "Misslyckades att skicka din inlämning, beklagar."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:155
 msgid "Failed retrieving person tagging form, sorry."
-msgstr ""
+msgstr "Misslyckades att hämta formuläret för persontaggning, beklagar."
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:193
 msgid "Who is this?"

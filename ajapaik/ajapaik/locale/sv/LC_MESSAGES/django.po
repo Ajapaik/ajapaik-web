@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:21+0000\n"
+"PO-Revision-Date: 2020-04-27 14:42:13+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1564 ajapaik/ajapaik/api.py:1581
 msgid "Something went wrong"
-msgstr ""
+msgstr "Någonting gick fel"
 
 #: ajapaik/ajapaik/api.py:1573
 msgid "You have already given feedback for this transcription"
@@ -502,7 +502,7 @@ msgstr "Danske payment order link"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:60
 msgid "Other ways of supporting us"
-msgstr ""
+msgstr "Andra sätt att stödja oss"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:61
 msgid "Ajapaik Brave referral"
@@ -733,19 +733,19 @@ msgstr "Lista ansiktsigenkänningsalbum"
 
 #: ajapaik/ajapaik/templates/_header.html:40
 msgid "List photos with faces"
-msgstr ""
+msgstr "Lista upp foton med ansikten"
 
 #: ajapaik/ajapaik/templates/_header.html:46
 msgid "Pictures by collections"
-msgstr ""
+msgstr "Bilder efter samlingar"
 
 #: ajapaik/ajapaik/templates/_header.html:50
 msgid "List albums with postcards"
-msgstr ""
+msgstr "Lista upp album med vykort"
 
 #: ajapaik/ajapaik/templates/_header.html:50
 msgid "List postcards"
-msgstr ""
+msgstr "Lista upp vykort"
 
 #: ajapaik/ajapaik/templates/_header.html:55
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
@@ -920,7 +920,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_log_in.html:15
 msgid "Log in to save selection"
-msgstr ""
+msgstr "Logga in för att spara markering"
 
 #: ajapaik/ajapaik/templates/_log_in.html:19
 msgid "Connect with Facebook"
@@ -994,21 +994,21 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:46
 msgid "Remove album filter"
-msgstr ""
+msgstr "Ta bort albumfilter"
 
 #: ajapaik/ajapaik/templates/_photo_description_container.html:6
 msgid "Approximate address"
-msgstr ""
+msgstr "Uppskattad adress"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:41
 #: ajapaik/ajapaik/templates/photoview.html:60
 msgid "See the other side of photo"
-msgstr ""
+msgstr "Se andra sidan av fotot"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:47
 #: ajapaik/ajapaik/templates/photoview.html:64
 msgid "Rotate photo"
-msgstr ""
+msgstr "Rotera foto"
 
 #: ajapaik/ajapaik/templates/_photo_modal.html:52
 #: ajapaik/ajapaik/templates/_photo_modal_basic.html:42
@@ -1533,7 +1533,7 @@ msgstr "Om fotografierna kommer från samma plats, ange en plats här"
 
 #: ajapaik/ajapaik/templates/curator.html:119
 msgid "Place"
-msgstr ""
+msgstr "Plats"
 
 #: ajapaik/ajapaik/templates/curator_search_controls.html:9
 msgid "Search"
@@ -1847,7 +1847,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload.html:27
 msgid "Upload and mark on map"
-msgstr ""
+msgstr "Ladda upp och markera på karta"
 
 #: ajapaik/ajapaik/templates/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
@@ -2027,15 +2027,15 @@ msgstr "Hoppa över"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
 msgid "Currently the gender is"
-msgstr ""
+msgstr "För tillfället är könet"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:102
 msgid "Currently the age is"
-msgstr ""
+msgstr "För tillfället är åldern"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Ingen data här, kom tillbaka senare"
 
 #: ajapaik/ajapaik_face_recognition/templates/guess_subject.html:13
 msgid "Submit guess"
@@ -2071,5 +2071,5 @@ msgstr "Ryska"
 
 #: ajapaik/settings/default.py:77
 msgid "French"
-msgstr ""
+msgstr "Franska"
 
