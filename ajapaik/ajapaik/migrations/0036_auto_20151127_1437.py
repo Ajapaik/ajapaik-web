@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='video',
-            field=models.ForeignKey(related_name='stills', blank=True, to='ajapaik.Video', null=True),
+            field=models.ForeignKey(related_name='stills', blank=True, to='ajapaik.Video', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(

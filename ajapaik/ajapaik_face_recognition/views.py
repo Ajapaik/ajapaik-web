@@ -3,7 +3,7 @@ import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Count
 from django.http import HttpResponse, HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404, render

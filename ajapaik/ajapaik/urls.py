@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include, url, i18n
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
@@ -8,9 +8,25 @@ from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView, TemplateView
 from django.views.i18n import JavaScriptCatalog
 
+from ajapaik import ajapaik
 from ajapaik.ajapaik import api, delfi, juks, views
 from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
+from ajapaik.ajapaik_face_recognition import urls as fr_urls
+from ajapaik.ajapaik_object_recognition import urls as or_urls
+
+from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAutocomplete, AreaAutocomplete, \
+    DatingAutocomplete, DatingConfirmationAutocomplete, DeviceAutocomplete, FaceRecognitionRectangleAutocomplete, \
+    FaceRecognitionRectangleFeedbackAutocomplete, FaceRecognitionUserGuessAutocomplete, \
+    FaceRecognitionRectangleSubjectDataGuessAutocomplete, GeoTagAutocomplete, \
+    ImageSimilarityAutocomplete, ImageSimilarityGuessAutocomplete, LicenceAutocomplete, \
+    ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
+    PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, PublicAlbumAutocomplete, SkipAutocomplete, \
+    SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
+
+from allauth import urls as allauth_urls
+from admin_tools import urls as admin_urls
+from django_comments_xtd import urls as dcxtd_urls
 
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
@@ -37,7 +53,6 @@ urlpatterns = [
     url(r'^all-time-leaderboard/$', views.all_time_leaderboard, name='all_time_leaderboard'),
     url(r'^top50/$', views.top50, name='top50'),
     url(r'^top50/album/(?P<album_id>\d+)/$', views.top50, name='album_top50'),
-    # url(r'^foto/(?P<photo_id>\d+)/upload/$', views.rephoto_upload), #  Do we need it?
     url(r'^photo/(?P<photo_id>\d+)/upload/$', views.rephoto_upload, name='rephoto_upload'),
     url(r'^photo/like/$', views.update_like_state, name='update_like_state'),
     url(r'^photo-upload-modal/$', views.mapview_photo_upload_modal, name='mapview_photo_upload_modal'),
@@ -156,24 +171,23 @@ sitemaps = {
 
 urlpatterns += [
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
-    url(r'^autocomplete/', include('autocomplete_light.urls')),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^accounts/', include(allauth_urls)),
+    url(r'^admin/', admin.site.urls),
+    url(r'^admin_tools/', include(admin_urls)),
     url(r'^comments/for/(?P<photo_id>\d+)/$', views.CommentList.as_view(), name='comments-for-photo'),
     url(r'^comments/post-one/(?P<photo_id>\d+)/$', login_required(views.PostComment.as_view()), name='comments-post-one'),
     url(r'^comments/delete-one/$', login_required(views.DeleteComment.as_view()), name='comments-delete-one'),
     url(r'^comments/edit-one/$', login_required(views.EditComment.as_view()), name='comments-edit-one'),
     url(r'^comments/like-count/(?P<comment_id>\d+)/$', views.get_comment_like_count, name='comments-like-count'),
-    url(r'^comments/', include('django_comments_xtd.urls')),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^jsi18n/$', JavaScriptCatalog.as_view(packages=['ajapaik'], domain='djangojs'), name='javascript-catalog'),
+    url(r'^comments/', include(dcxtd_urls)),
+    url(r'^i18n/', include(i18n)),
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(packages=['ajapaik.ajapaik'], domain='djangojs'), name='javascript-catalog'),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
     url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True), name='feed'),
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^face-recognition/', include('ajapaik.ajapaik_face_recognition.urls')),
-    url(r'^object-recognition/', include('ajapaik.ajapaik_object_recognition.urls'))
+    url(r'^face-recognition/', include(fr_urls)),
+    url(r'^object-recognition/', include(or_urls))
 ]
 
 if settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
@@ -194,3 +208,33 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(r'^vanalinnad.mooo.com/(.*)', document_root=settings.VANALINNAD_ROOT)
 
+
+urlpatterns += [
+    url(r'^autocomplete/album-autocomplete/$', AlbumAutocomplete.as_view(), name='album-autocomplete'),
+    url(r'^autocomplete/album-photo-autocomplete/$', AlbumPhotoAutocomplete.as_view(), name='album-photo-autocomplete'),
+    url(r'^autocomplete/area-autocomplete/$', AreaAutocomplete.as_view(), name='area-autocomplete'),
+    url(r'^autocomplete/dating-autocomplete/$', DatingAutocomplete.as_view(), name='dating-autocomplete'),
+    url(r'^autocomplete/dating_confirmation-autocomplete/$', DatingConfirmationAutocomplete.as_view(), name='dating-confirmation-autocomplete'),
+    url(r'^autocomplete/device-autocomplete/$', DeviceAutocomplete.as_view(), name='device-autocomplete'),
+    url(r'^autocomplete/face-recognition-rectangle-autocomplete/$', FaceRecognitionRectangleAutocomplete.as_view(), name='face-recognition-rectangle-autocomplete'),
+    url(r'^autocomplete/face-recognition-rectangle-feedback-autocomplete/$', FaceRecognitionRectangleFeedbackAutocomplete.as_view(), name='face-recognition-rectangle-feedback-autocomplete'),
+    url(r'^autocomplete/face-recognition-user-guess-autocomplete/$', FaceRecognitionUserGuessAutocomplete.as_view(), name='face-recognition-user-guess-autocomplete'),
+    url(r'^autocomplete/face-recognition-rectangle-subject-data-guess-autocomplete/$', FaceRecognitionRectangleSubjectDataGuessAutocomplete.as_view(), name='face-recognition-rectangle-subject-data-guess-autocomplete'),
+    url(r'^autocomplete/geotag-autocomplete/$', GeoTagAutocomplete.as_view(), name='geotag-autocomplete'),
+    url(r'^autocomplete/image-similarity-autocomplete/$', ImageSimilarityAutocomplete.as_view(), name='image-similarity-autocomplete'),
+    url(r'^autocomplete/image-similarity-guess-autocomplete/$', ImageSimilarityGuessAutocomplete.as_view(), name='image-similarity-guess-autocomplete'),
+    url(r'^autocomplete/licence-autocomplete/$', LicenceAutocomplete.as_view(), name='licence-autocomplete'),
+    url(r'^autocomplete/object-detection-annotation-autocomplete/$', ObjectDetectionAnnotationAutocomplete.as_view(), name='object-detection-annotation-autocomplete'),
+    url(r'^autocomplete/object-annotation-class-autocomplete/$', ObjectAnnotationClassAutocomplete.as_view(), name='object-annotation-class-autocomplete'),
+    url(r'^autocomplete/object-annotation-feedback-autocomplete/$', ObjectAnnotationFeedbackAutocomplete.as_view(), name='object-annotation-feedback-autocomplete'),
+    url(r'^autocomplete/photo-autocomplete/$', PhotoAutocomplete.as_view(), name='photo-autocomplete'),
+    url(r'^autocomplete/points-autocomplete/$', PointsAutocomplete.as_view(), name='points-autocomplete'),
+    url(r'^autocomplete/profile-autocomplete/$', ProfileAutocomplete.as_view(), name='profile-autocomplete'),
+    url(r'^autocomplete/public-album-autocomplete/$', PublicAlbumAutocomplete.as_view(), name='public-album-autocomplete'),
+    url(r'^autocomplete/skip-autocomplete/$', SkipAutocomplete.as_view(), name='skip-autocomplete'),
+    url(r'^autocomplete/source-autocomplete/$', SourceAutocomplete.as_view(), name='source-autocomplete'),
+    url(r'^autocomplete/subject-album-autocomplete/$', SubjectAlbumAutocomplete.as_view(), name='subject-album-autocomplete'),
+    url(r'^autocomplete/transcription-autocomplete/$', TranscriptionAutocomplete.as_view(), name='transcription-autocomplete'),
+    url(r'^autocomplete/user-autocomplete/$', UserAutocomplete.as_view(), name='user-autocomplete'),
+    url(r'^autocomplete/video-autocomplete/$', VideoAutocomplete.as_view(), name='video-autocomplete'),
+]

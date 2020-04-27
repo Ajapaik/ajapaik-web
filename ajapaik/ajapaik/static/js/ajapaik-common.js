@@ -1863,6 +1863,9 @@ $('.ajapaik-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajapaik-curator-confirm-album-selection-button', function () {
+        if(window.location.pathname.indexOf("curator") > -1) {
+            return;
+        }
         var albums =  $('#id_albums').val(),
             allIds = [],
             i,

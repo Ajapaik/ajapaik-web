@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from ajapaik.ajapaik.models import Photo, Video
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class PhotoSitemap(Sitemap):

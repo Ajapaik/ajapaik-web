@@ -86,13 +86,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='albumphoto',
             name='profile',
-            field=models.ForeignKey(related_name='album_photo_links', blank=True, to='ajapaik.Profile', null=True),
+            field=models.ForeignKey(related_name='album_photo_links', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='difficultyfeedback',
             name='user_profile',
-            field=models.ForeignKey(related_name='difficulty_feedbacks', to='ajapaik.Profile'),
+            field=models.ForeignKey(related_name='difficulty_feedbacks', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(

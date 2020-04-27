@@ -17,17 +17,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='annotation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangle'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangle'),
         ),
         migrations.AddField(
             model_name='points',
             name='image_similarity_confirmation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='ajapaik.ImageSimilarityGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik.ImageSimilarityGuess'),
         ),
         migrations.AddField(
             model_name='points',
             name='subject_confirmation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionUserGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionUserGuess'),
         ),
         migrations.AlterField(
             model_name='album',

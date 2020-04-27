@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('similarity_type', models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Duplikaat'), (1, 'Sarnane'), (2, 'Different')], null=True)),
                 ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('guesser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='guesser', to='ajapaik.Profile')),
+                ('guesser', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='guesser', to='ajapaik.Profile')),
             ],
         ),
         migrations.AddField(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='imagesimilarity',
             name='user_last_modified',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_last_modified', to='ajapaik.Profile'),
+            field=models.ForeignKey(null=True, on_delete=models.deletion.CASCADE, related_name='user_last_modified', to='ajapaik.Profile'),
         ),
         migrations.AlterField(
             model_name='imagesimilarity',
@@ -47,6 +47,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='imagesimilarityguess',
             name='image_similarity',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='image_similarity', to='ajapaik.ImageSimilarity'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='image_similarity', to='ajapaik.ImageSimilarity'),
         ),
     ]

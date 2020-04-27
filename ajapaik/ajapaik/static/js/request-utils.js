@@ -59,6 +59,9 @@ function deleteRequest(uri, successText, failureText, onSuccess, onFailure) {
     $.ajax({
         type: 'DELETE',
         url: uri,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", window.docCookies.getItem('csrftoken'));
+        },
         success: getSuccessHandler(successText, onSuccess),
         error: getFailureHandler(failureText, onFailure)
     });

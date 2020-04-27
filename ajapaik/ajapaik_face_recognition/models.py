@@ -33,14 +33,14 @@ class FaceRecognitionRectangle(models.Model):
         (PICASA, _('Picasa')),
     )
 
-    photo = models.ForeignKey(Photo, related_name='face_recognition_rectangles')
+    photo = models.ForeignKey(Photo, related_name='face_recognition_rectangles', on_delete=CASCADE)
     subjectPhoto = ImageField(_('SubjectPhoto'), upload_to='uploads', blank=True, null=True, max_length=255)
-    subject_consensus = models.ForeignKey(Album, null=True, blank=True,
+    subject_consensus = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
                                           related_name='face_recognition_crowdsourced_rectangles')
-    subject_ai_guess = models.ForeignKey(Album, null=True, blank=True,
+    subject_ai_guess = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
                                          related_name='face_recognition_ai_detected_rectangles')
     # If no user is attached, means OpenCV detected it
-    user = models.ForeignKey(Profile, blank=True, null=True, related_name='face_recognition_rectangles')
+    user = models.ForeignKey(Profile, blank=True, null=True, on_delete=CASCADE, related_name='face_recognition_rectangles')
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
     gender = models.PositiveSmallIntegerField(choices=GENDER, blank=True, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, blank=True, null=True)
@@ -168,9 +168,9 @@ class FaceRecognitionRectangleSubjectDataGuess(models.Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
 
 class FaceRecognitionRectangleFeedback(models.Model):
-    rectangle = models.ForeignKey(FaceRecognitionRectangle, related_name='feedback')
-    user = models.ForeignKey(Profile, related_name='face_recognition_rectangle_feedback')
-    alternative_subject = models.ForeignKey(Album, null=True)
+    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='feedback')
+    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_rectangle_feedback')
+    alternative_subject = models.ForeignKey(Album, on_delete=CASCADE, null=True)
     # So users could downvote bad rectangles
     is_correct = models.BooleanField(default=False)
     is_correct_person = models.NullBooleanField()
@@ -202,10 +202,10 @@ class FaceRecognitionUserGuess(models.Model):
         (PICASA, _('Picasa')),
     )
 
-    subject_album = models.ForeignKey(Album, related_name='face_recognition_guesses')
-    rectangle = models.ForeignKey(FaceRecognitionRectangle, related_name='face_recognition_guesses')
+    subject_album = models.ForeignKey(Album, on_delete=CASCADE, related_name='face_recognition_guesses')
+    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_guesses')
     # Empty user means OpenCV recognized the face automatically
-    user = models.ForeignKey(Profile, related_name='face_recognition_guesses', blank=True, null=True)
+    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_guesses', blank=True, null=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

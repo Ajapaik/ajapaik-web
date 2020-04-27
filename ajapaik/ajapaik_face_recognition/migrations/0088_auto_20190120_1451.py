@@ -18,25 +18,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionuserguess',
             name='subject_album',
-            field=models.ForeignKey(default=1, related_name='face_recognition_guesses', to='ajapaik.Album'),
+            field=models.ForeignKey(default=1, related_name='face_recognition_guesses', to='ajapaik.Album', on_delete=models.deletion.CASCADE),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='facerecognitionrectangle',
             name='subject_ai_guess',
-            field=models.ForeignKey(blank=True, null=True, related_name='face_recognition_ai_detected_rectangles',
+            field=models.ForeignKey(blank=True, null=True, related_name='face_recognition_ai_detected_rectangles', on_delete=models.deletion.CASCADE,
                                     to='ajapaik.Album'),
         ),
         migrations.AlterField(
             model_name='facerecognitionrectangle',
             name='subject_consensus',
-            field=models.ForeignKey(blank=True, null=True, related_name='face_recognition_crowdsourced_rectangles',
+            field=models.ForeignKey(blank=True, null=True, related_name='face_recognition_crowdsourced_rectangles', on_delete=models.deletion.CASCADE,
                                     to='ajapaik.Album'),
         ),
         migrations.AlterField(
             model_name='facerecognitionuserguess',
             name='rectangle',
-            field=models.ForeignKey(related_name='face_recognition_guesses',
+            field=models.ForeignKey(related_name='face_recognition_guesses', on_delete=models.deletion.CASCADE,
                                     to='ajapaik_face_recognition.FaceRecognitionRectangle'),
         ),
     ]

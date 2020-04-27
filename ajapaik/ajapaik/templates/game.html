@@ -105,10 +105,10 @@
             difficultyFeedbackURL = '{% url 'difficulty_feedback' %}',
             gameURL = '{% url 'game' %}',
             mapURL = '{% url 'map' %}',
-            areaId = '{{ area.id|safe }}',
-            albumId = '{{ album.0|safe }}';
+            areaId = '{{ area.id | safe }}',
+            albumId = '{{ album.0 | safe }}';
         {% if photo %}
-            window.preselectedPhotoId = {{ photo.id|safe }};
+            window.preselectedPhotoId = {{ photo.id | safe }};
         {% endif %}
         window.linkToMap = true;
         window.linkToGame = false;
@@ -116,9 +116,9 @@
         window.fbShareGame = true;
         window.isGame = true;
         {% if album.2 and album.3 %}
-            window.startLocation = [{{ album.3|safe }}, {{ album.2|safe }}];
+            window.startLocation = [{{ album.3 | safe }}, {{ album.2 | safe }}];
         {% elif area.lat and area.lon %}
-            window.startLocation = [{{ area.lon|safe }}, {{ area.lat|safe }}];
+            window.startLocation = [{{ area.lon | safe }}, {{ area.lat | safe }}];
         {% else %}
             window.startLocation = [26, 59];
         {% endif %}

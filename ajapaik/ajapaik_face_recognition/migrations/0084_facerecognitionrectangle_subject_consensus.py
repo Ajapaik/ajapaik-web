@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionrectangle',
             name='subject_consensus',
-            field=models.ForeignKey(blank=True, to='ajapaik_face_recognition.FaceRecognitionSubject', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik_face_recognition.FaceRecognitionSubject', null=True, on_delete=models.deletion.CASCADE),
         ),
     ]

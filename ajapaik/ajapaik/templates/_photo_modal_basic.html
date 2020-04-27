@@ -212,9 +212,9 @@
     // This whole template is total ugliness
     window.hostname = '{{ hostname }}';
     window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
-    window.isFrontpage = '{{ is_frontpage|safe }}';
+    window.isFrontpage = '{{ is_frontpage | safe }}';
     window.isFrontpage = window.isFrontpage === 'True';
-    window.isMapview = '{{ is_mapview|safe }}';
+    window.isMapview = '{{ is_mapview | safe }}';
     window.isMapview = window.isMapview === 'True';
     // TODO: Clean
     window.photoModalCurrentImageUrl = '{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}';
@@ -234,20 +234,20 @@
     window.photoModalAzimuthCount = {{ azimuth_count }};
     window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
     window.photoModalUserHasGeotaggedThisPhoto = {{ user_has_geotagged }};
-    window.photoModalFirstGeotaggers = {{ first_geotaggers|safe }};
+    window.photoModalFirstGeotaggers = {{ first_geotaggers | safe }};
     {% if album and album.3 and album.4 %}
-        window.photoModalExtraLat = {{ album.3|safe }};
-        window.photoModalExtraLng = {{ album.4|safe }};
+        window.photoModalExtraLat = {{ album.3 | safe }};
+        window.photoModalExtraLng = {{ album.4 | safe }};
     {% elif photo.area and photo.area.lat and photo.area.lon %}
-        window.photoModalExtraLat = {{ photo.area.lat|safe }};
-        window.photoModalExtraLng = {{ photo.area.lon|safe }};
+        window.photoModalExtraLat = {{ photo.area.lat | safe }};
+        window.photoModalExtraLng = {{ photo.area.lon | safe }};
     {% else %}
         window.photoModalExtraLat = null;
         window.photoModalExtraLng = null;
     {% endif %}
     {% if photo.lat and photo.lon %}
-        window.photoModalPhotoLat = {{ photo.lat|safe }};
-        window.photoModalPhotoLng = {{ photo.lon|safe }};
+        window.photoModalPhotoLat = {{ photo.lat | safe }};
+        window.photoModalPhotoLng = {{ photo.lon | safe }};
         {% if photo.azimuth %}
             window.photoModalPhotoAzimuth = {{ photo.azimuth }};
         {% else %}
@@ -265,7 +265,7 @@
     window.currentPhotoSourceName = '{{ photo.source.description }}';
     window.currentPhotoSourceKey = '{{ photo.source_key }}';
     window.currentPhotoSourceURL = '{{ photo.source_url }}';
-    window.previousDatings = {{ previous_datings|safe }};
+    window.previousDatings = {{ previous_datings | safe }};
     {% for rephoto in photo.rephotos.all %}
         window.photoModalRephotoArray.push({
             id: {{ rephoto.id }},

@@ -86,24 +86,24 @@
         window.start = '{{ start }}';
         window.end = '{{ end }}';
         window.total = '{{ total }}';
-        window.isFrontpage = '{{ is_frontpage|safe }}' === 'True';
-        window.showPhotos = '{{ show_photos|safe }}' === 'True';
-        window.myLikes = '{{ my_likes_only|safe }}' === 'True';
+        window.isFrontpage = '{{ is_frontpage | safe }}' === 'True';
+        window.showPhotos = '{{ show_photos | safe }}' === 'True';
+        window.myLikes = '{{ my_likes_only | safe }}' === 'True';
         {% if rephotos_by %}
-            window.rephotosBy = '{{ rephotos_by|safe }}';
+            window.rephotosBy = '{{ rephotos_by | safe }}';
         {% endif %}
         {% if rephotos_by_name %}
-            window.rephotosByName = '{{ rephotos_by_name|safe }}';
+            window.rephotosByName = '{{ rephotos_by_name | safe }}';
         {% endif %}
         {% if similar_photos_by %}
-            window.rephotosBy = '{{ similar_photos_by|safe }}';
+            window.rephotosBy = '{{ similar_photos_by | safe }}';
         {% endif %}
         {% if album %}
             window.albumId = {{ album.0 }};
             window.albumName = '{{ album.1 }}';
             {% if album.3 and album.4 %}
-                window.albumLat = {{ album.3|safe }};
-                window.albumLon = {{ album.4|safe }};
+                window.albumLat = {{ album.3 | safe }};
+                window.albumLon = {{ album.4 | safe }};
             {% endif %}
         {% endif %}
         window.linkToGame = true;

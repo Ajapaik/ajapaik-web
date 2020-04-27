@@ -14,25 +14,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tour',
             name='user',
-            field=models.ForeignKey(default=1, to='ajapaik.Profile'),
+            field=models.ForeignKey(default=1, to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='tourrephoto',
             name='original',
-            field=models.ForeignKey(default=1, to='ajapaik.Photo'),
+            field=models.ForeignKey(default=1, to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='tourrephoto',
             name='tour',
-            field=models.ForeignKey(default=1, to='ajapaik.Tour'),
+            field=models.ForeignKey(default=1, to='ajapaik.Tour', on_delete=models.deletion.CASCADE),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='tourrephoto',
             name='user',
-            field=models.ForeignKey(default=1, to='ajapaik.Profile'),
+            field=models.ForeignKey(default=1, to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
             preserve_default=False,
         ),
     ]

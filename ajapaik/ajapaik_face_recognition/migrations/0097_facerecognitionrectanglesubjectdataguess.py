@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('gender', models.PositiveSmallIntegerField(choices=[(0, 'Mees'), (1, 'Naine')], null=True)),
                 ('age', models.PositiveSmallIntegerField(choices=[(0, 'Young'), (1, 'Middleage'), (2, 'Old')], null=True)),
                 ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('face_recognition_rectangle', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='face_recognition_rectangle', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
-                ('guesser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subject_data_guesser', to='ajapaik.Profile')),
+                ('face_recognition_rectangle', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='face_recognition_rectangle', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
+                ('guesser', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='subject_data_guesser', to='ajapaik.Profile')),
             ],
         ),
     ]

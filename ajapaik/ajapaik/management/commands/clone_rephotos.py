@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
                 try:
                     production_user = Profile.objects.using('production') \
-                        .get(user__username=rephoto.user.user.username).id
+                        .get(user__username=rephoto.user.user.get_username ).id
                 except Profile.DoesNotExist:
                     production_user = None
                 rephoto_data['user_id'] = production_user

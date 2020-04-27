@@ -1,4 +1,3 @@
-import autocomplete_light
 from allauth.account.forms import SignupForm as AllauthSignupForm
 from django import forms
 from django.db.models import Q
@@ -7,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
+
+from dal import autocomplete
 
 from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
                      Profile, Video)
@@ -375,17 +376,13 @@ class VideoStillCaptureForm(forms.Form):
     timestamp = forms.IntegerField()
 
 
-class UserPhotoUploadForm(autocomplete_light.shortcuts.ModelForm):
-    albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
-    licence = forms.ModelChoiceField(label=_('Licence'), queryset=Licence.objects.filter(is_public=True),
-                                     required=False)
-    uploader_is_author = forms.BooleanField(label=_('I am the author'), required=False)
+class UserPhotoUploadForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('image', 'description', 'author', 'uploader_is_author', 'licence', 'albums')
+        fields = ('image', 'description', 'author', 'uploader_is_author', 'licence')
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40})
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
         }
 
     def clean(self):
@@ -424,7 +421,11 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['open'].label = _('Is open')
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
-    albums = autocomplete_light.shortcuts.ModelMultipleChoiceField('PublicAlbumAutocomplete', label=_('Albums'), required=True)
+    albums = forms.ModelChoiceField(
+        queryset=Album.objects.all(),
+        required=True,
+        widget=autocomplete.ModelSelect2(url='public-album-autocomplete')
+    )
 
     def __init__(self, *args, **kwargs):
         super(CuratorWholeSetAlbumsSelectionForm, self).__init__(*args, **kwargs)
@@ -495,20 +496,20 @@ class ApiFavoritedPhotosForm(forms.Form):
 
 
 class ApiPhotoSearchForm(forms.Form):
-    query = forms.CharField()
+    query = forms.CharField(required=False)
     rephotosOnly = forms.BooleanField(required=False, initial=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiPhotoInAlbumSearchForm(forms.Form):
-    query = forms.CharField()
+    query = forms.CharField(required=False)
     albumId = forms.ModelChoiceField(queryset=Album.objects.all())
     rephotosOnly = forms.BooleanField(required=False, initial=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiUserRephotoSearchForm(forms.Form):
-    query = forms.CharField()
+    query = forms.CharField(required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
@@ -519,7 +520,7 @@ class ApiUserRephotosForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
 class ApiAlbumSearchForm(forms.Form):
-    query = forms.CharField()
+    query = forms.CharField(required=False)
 
 class ApiWikidocsAlbumsSearchForm(forms.Form):
     query = forms.CharField(required=False)

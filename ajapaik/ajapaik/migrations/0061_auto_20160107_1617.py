@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('profile', models.ForeignKey(related_name='tour_views', to='ajapaik.Profile')),
-                ('tour', models.ForeignKey(related_name='tour_views', to='ajapaik.Tour')),
+                ('profile', models.ForeignKey(related_name='tour_views', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
+                ('tour', models.ForeignKey(related_name='tour_views', to='ajapaik.Tour', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'thenandnow_touruniqueview',

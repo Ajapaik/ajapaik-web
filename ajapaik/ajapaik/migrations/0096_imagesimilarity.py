@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('confirmed', models.BooleanField()),
-                ('from_photo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_photo', to='ajapaik.Photo')),
-                ('to_photo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_photo', to='ajapaik.Photo')),
+                ('from_photo', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='from_photo', to='ajapaik.Photo')),
+                ('to_photo', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='to_photo', to='ajapaik.Photo')),
                 ('similarity_type', models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Duplicate'), (1, 'Similar')], null=True)),
             ],
         ),

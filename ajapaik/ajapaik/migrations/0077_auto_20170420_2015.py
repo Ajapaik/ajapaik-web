@@ -40,12 +40,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='credentialsmodel',
             name='id',
-            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE),
         ),
         migrations.AlterField(
             model_name='flowmodel',
             name='id',
-            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE),
         ),
         migrations.AlterField(
             model_name='geotag',

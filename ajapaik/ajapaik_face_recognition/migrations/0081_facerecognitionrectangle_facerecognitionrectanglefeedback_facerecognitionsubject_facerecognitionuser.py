@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
                 ('coordinates', models.TextField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('photo', models.ForeignKey(related_name='face_recognition_rectangles', to='ajapaik.Photo')),
-                ('user', models.ForeignKey(related_name='face_recognition_rectangles', blank=True, to='ajapaik.Profile', null=True)),
+                ('photo', models.ForeignKey(related_name='face_recognition_rectangles', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='face_recognition_rectangles', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
                 ('is_correct', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('rectangle', models.ForeignKey(related_name='feedback', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
-                ('user', models.ForeignKey(related_name='face_recognition_rectangle_feedback', to='ajapaik.Profile')),
+                ('rectangle', models.ForeignKey(related_name='feedback', to='ajapaik_face_recognition.FaceRecognitionRectangle', on_delete=models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='face_recognition_rectangle_feedback', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('gender', models.PositiveSmallIntegerField(blank=True, null=True, choices=[(1, 'Female'), (0, 'Male')])),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(to='ajapaik.Profile')),
+                ('user', models.ForeignKey(to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -52,9 +52,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('rectangle', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionRectangle')),
-                ('subject', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionSubject')),
-                ('user', models.ForeignKey(related_name='face_recognition_guesses', to='ajapaik.Profile')),
+                ('rectangle', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionRectangle', on_delete=models.deletion.CASCADE)),
+                ('subject', models.ForeignKey(related_name='guesses', to='ajapaik_face_recognition.FaceRecognitionSubject', on_delete=models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='face_recognition_guesses', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
         ),
     ]

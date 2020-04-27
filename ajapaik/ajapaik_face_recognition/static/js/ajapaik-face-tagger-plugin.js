@@ -84,9 +84,9 @@
 			$.ajax({
 				type: 'DELETE',
 				url: '/face-recognition/remove-annotation/' + id + '/',
-				data: {
-					csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-				},
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", window.docCookies.getItem('csrftoken'));
+                },
 				success: function (response) {
 					if (response.deleted) {
 						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});

@@ -37,6 +37,8 @@ MEDIA_URL = '/media/'
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 STATICFILES_DIRS = (
     '%s/ajapaik/ajapaik/static' % ABSOLUTE_PROJECT_ROOT,
 )
@@ -99,26 +101,24 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'ajapaik.ajapaik.middleware.SubdomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware'
+    'django_user_agents.middleware.UserAgentMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware'
 ]
 
+DEFAULT_HOST = 'www'
+ROOT_HOSTCONF = 'ajapaik.hosts'
 ROOT_URLCONF = 'ajapaik.ajapaik.urls'
-
-SUBDOMAIN_URLCONFS = {
-    None: 'ajapaik.ajapaik.urls',
-    'opendata': 'ajapaik.ajapaik.urls_opendata'
-}
 
 WSGI_APPLICATION = 'wsgi.application'
 
@@ -170,15 +170,18 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'autocomplete_light',
     'django.contrib.admin',
     'django.contrib.sitemaps',
     'django.contrib.admindocs',
     'django.contrib.gis',
+    'django_markdown2',
     'django_comments_xtd',
     'django_comments',
     'ajapaik.ajapaik',
     'django_extensions',
+    'django_hosts',
+    'dal',
+    'dal_select2',
     'sorl.thumbnail',
     'rest_framework',
     'compressor',
@@ -186,7 +189,6 @@ INSTALLED_APPS = (
     'haystack',
     'registration',
     'bootstrap4',
-    'django_bootstrap_dynamic_formsets',
     'leaflet',
     'django_celery_beat',
     'ajapaik.ajapaik_face_recognition',
@@ -248,7 +250,13 @@ COMMENTS_XTD_CONFIRM_EMAIL = False
 COMMENTS_XTD_FORM_CLASS = 'ajapaik.ajapaik.forms.CommentForm'
 COMMENTS_XTD_MODEL = 'ajapaik.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
-
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+    'default': {
+        'allow_flagging': True,
+        'allow_feedback': True,
+        'show_feedback': True,
+    }
+}
 # FIXME: These break static images
 # COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.rCSSMinFilter']
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']

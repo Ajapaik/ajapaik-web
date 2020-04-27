@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionsubject',
             name='photos',
-            field=models.ManyToManyField(related_name='people', to='ajapaik.Photo'),
+            field=models.ManyToManyField(related_name='people', to='ajapaik.Photo, on_delete=models.deletion.CASCADE'),
         ),
     ]

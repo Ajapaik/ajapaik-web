@@ -3,6 +3,7 @@
 <html lang="{{ request.LANGUAGE_CODE }}" {% if is_game or is_mapview %} class="ajapaik-html-game-map"{% endif %}
       prefix="fb: http://www.facebook.com/2008/fbml">
 <head>
+    <meta name="theme-color" content="#303030">
     <title>
         {% if title %}
             {{ title }} - Ajapaik
@@ -399,10 +400,10 @@
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-ios-1.0.3.min.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/load-image-orientation-1.1.0.min.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/canvas-to-blob.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.iframe-transport.min.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload.min.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.js" %}"></script>
-        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-process.min.js" %}"></script>
+        <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-image.min.js" %}"></script>
         <script src="{% static "libs/jQuery-File-Upload-9.9.2/js/jquery.fileupload-validate.min.js" %}"></script>
         <script src="{% static "libs/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js" %}"></script>
         <script src="{% static "libs/slimselect/slimselect.min.js" %}"></script>
@@ -440,7 +441,7 @@
         <script src="{% static "js/annotations/popovers/annotation.popover.new.js" %}"></script>
         <script src="{% static "js/annotations/popovers/object-annotation.popover.edit.js" %}"></script>
         <script src="{% static "js/annotations/popovers/face-annotation.popover.edit.js" %}"></script>
-        <script src="{% static "js/autocomplete.js" %}"></script>
+        <script src="{% static "js/annotation-autocomplete.js" %}"></script>
         <script src="{% static "js/ajapaik-dater-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-transcriber-plugin.js" %}"></script>
         <script src="{% static "js/ajapaik-face-tagger-plugin.js" %}"></script>
@@ -497,8 +498,5 @@
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
-{% block autocomplete_stuff %}
-    {% include 'autocomplete_light/static.html' %}
-{% endblock %}
 </body>
 </html>

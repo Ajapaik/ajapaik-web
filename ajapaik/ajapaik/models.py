@@ -18,11 +18,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, BigIntegerField, \
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
-    PositiveSmallIntegerField, PointField, GeoManager, Manager, NullBooleanField, permalink, PositiveIntegerField
+    PositiveSmallIntegerField, PointField, Manager, NullBooleanField, PositiveIntegerField
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q
@@ -132,9 +132,9 @@ class AlbumPhoto(Model):
         (COLLECTION, 'Collection')
     )
 
-    album = ForeignKey('Album')
-    photo = ForeignKey('Photo')
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links')
+    album = ForeignKey('Album', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links', on_delete=CASCADE)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
 
@@ -181,9 +181,9 @@ class Album(Model):
     name = CharField(_('Name'), max_length=255, db_index=True)
     slug = SlugField(null=True, blank=True, max_length=255)
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
-    subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums')
+    subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums', on_delete=CASCADE)
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True)
+    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True, on_delete=CASCADE)
     is_public = BooleanField(_('Is public'), default=True)
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
@@ -193,7 +193,7 @@ class Album(Model):
     lat = FloatField(null=True, blank=True, db_index=True)
     lon = FloatField(null=True, blank=True, db_index=True)
     geography = PointField(srid=4326, null=True, blank=True, geography=True, spatial_index=True)
-    cover_photo = ForeignKey('Photo', null=True, blank=True)
+    cover_photo = ForeignKey('Photo', null=True, blank=True, on_delete=CASCADE)
     cover_photo_flipped = BooleanField(default=False)
     photo_count_with_subalbums = IntegerField(default=0)
     rephoto_count_with_subalbums = IntegerField(default=0)
@@ -209,7 +209,7 @@ class Album(Model):
     modified = DateTimeField(auto_now=True)
     similar_photo_count_with_subalbums = IntegerField(default=0)
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
-    source = ForeignKey('Source', null=True, blank=True)
+    source = ForeignKey('Source', null=True, blank=True, on_delete=CASCADE)
 
     original_lat = None
     original_lon = None
@@ -331,12 +331,8 @@ class Album(Model):
         super(Album, self).save(*args, **kwargs)
 
 
-class PhotoManager(GeoManager):
-    use_for_related_fields = True
-
-
 class Photo(Model):
-    objects = PhotoManager()
+    objects = Manager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
@@ -358,12 +354,12 @@ class Photo(Model):
     description = TextField(_('Description'), null=True, blank=True)
     author = CharField(_('Author'), null=True, blank=True, max_length=255)
     uploader_is_author = BooleanField(default=False)
-    licence = ForeignKey('Licence', null=True, blank=True)
+    licence = ForeignKey('Licence', null=True, blank=True, on_delete=CASCADE)
     # Basically keywords describing medium
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
     # Legacy field name, actually profile
-    user = ForeignKey('Profile', related_name='photos', blank=True, null=True)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True, on_delete=CASCADE)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     guess_level = FloatField(default=3)
@@ -382,11 +378,11 @@ class Photo(Model):
     external_id = CharField(max_length=100, null=True, blank=True)
     external_sub_id = CharField(max_length=100, null=True, blank=True)
     source_url = URLField(null=True, blank=True, max_length=1023)
-    source = ForeignKey('Source', null=True, blank=True)
-    device = ForeignKey('Device', null=True, blank=True)
+    source = ForeignKey('Source', null=True, blank=True, on_delete=CASCADE)
+    device = ForeignKey('Device', null=True, blank=True, on_delete=CASCADE)
     # Useless
-    area = ForeignKey('Area', related_name='areas', null=True, blank=True)
-    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos')
+    area = ForeignKey('Area', related_name='areas', null=True, blank=True, on_delete=CASCADE)
+    rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', on_delete=CASCADE)
     first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
@@ -415,14 +411,14 @@ class Photo(Model):
     cam_yaw = FloatField(null=True, blank=True)
     cam_pitch = FloatField(null=True, blank=True)
     cam_roll = FloatField(null=True, blank=True)
-    video = ForeignKey('Video', null=True, blank=True, related_name='stills')
+    video = ForeignKey('Video', null=True, blank=True, related_name='stills', on_delete=CASCADE)
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
     perceptual_hash = BigIntegerField(null=True, blank=True)
     hasSimilar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
-    postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back')
-    postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front')
+    postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back', on_delete=CASCADE)
+    postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front', on_delete=CASCADE)
 
     original_lat = None
     original_lon = None
@@ -591,6 +587,7 @@ class Photo(Model):
         self.light_save()
 
     def find_similar(self):
+        return
         img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
         self.perceptual_hash = phash(img)
         query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
@@ -603,6 +600,7 @@ class Photo(Model):
         self.light_save()
 
     def find_similar_for_existing_photo(self):
+        return
         if self.rephoto_of_id is not None:
             return
         if self.aspect_ratio is None:
@@ -879,7 +877,7 @@ class ImageSimilarity(Model):
         (DUPLICATE, _('Duplicate'))
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
-    user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True)
+    user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True, on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     
@@ -983,7 +981,7 @@ class ImageSimilarityGuess(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
 
 class PhotoMetadataUpdate(Model):
-    photo = ForeignKey('Photo', related_name='metadata_updates')
+    photo = ForeignKey('Photo', related_name='metadata_updates', on_delete=CASCADE)
     old_title = CharField(max_length=255, blank=True, null=True)
     new_title = CharField(max_length=255, blank=True, null=True)
     old_description = TextField(null=True, blank=True)
@@ -997,7 +995,7 @@ class PhotoMetadataUpdate(Model):
 
 
 class PhotoComment(Model):
-    photo = ForeignKey('Photo', related_name='comments')
+    photo = ForeignKey('Photo', related_name='comments', on_delete=CASCADE)
     fb_comment_id = CharField(max_length=255, unique=True)
     fb_object_id = CharField(max_length=255)
     fb_comment_parent_id = CharField(max_length=255, blank=True, null=True)
@@ -1013,18 +1011,18 @@ class PhotoComment(Model):
 
 
 class PhotoLike(Model):
-    photo = ForeignKey('Photo', related_name='likes')
-    profile = ForeignKey('Profile', related_name='likes')
+    photo = ForeignKey('Photo', related_name='likes', on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='likes', on_delete=CASCADE)
     level = PositiveSmallIntegerField(default=1)
     created = DateTimeField(auto_now_add=True)
 
 
 class DifficultyFeedback(Model):
-    photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks')
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks', on_delete=CASCADE)
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
-    geotag = ForeignKey('GeoTag')
+    geotag = ForeignKey('GeoTag', on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -1033,8 +1031,8 @@ class DifficultyFeedback(Model):
 
 # FIXME: Unused model?
 class FlipFeedback(Model):
-    photo = ForeignKey('Photo')
-    user_profile = ForeignKey('Profile')
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    user_profile = ForeignKey('Profile', on_delete=CASCADE)
     flip = NullBooleanField()
     created = DateTimeField(auto_now_add=True)
 
@@ -1064,20 +1062,20 @@ class Points(Model):
         (TRANSCRIBE, _('Transcribe')),
     )
 
-    user = ForeignKey('Profile', related_name='points')
+    user = ForeignKey('Profile', related_name='points', on_delete=CASCADE)
     action = PositiveSmallIntegerField(choices=ACTION_CHOICES, db_index=True)
-    photo = ForeignKey('Photo', null=True, blank=True)
-    album = ForeignKey('Album', null=True, blank=True)
-    geotag = ForeignKey('GeoTag', null=True, blank=True)
-    dating = ForeignKey('Dating', null=True, blank=True)
-    dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True)
-    annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True)
-    face_recognition_rectangle_subject_data_guess = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess', null=True, blank=True)
-    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True)
-    image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True)
+    photo = ForeignKey('Photo', null=True, blank=True, on_delete=CASCADE)
+    album = ForeignKey('Album', null=True, blank=True, on_delete=CASCADE)
+    geotag = ForeignKey('GeoTag', null=True, blank=True, on_delete=CASCADE)
+    dating = ForeignKey('Dating', null=True, blank=True, on_delete=CASCADE)
+    dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True, on_delete=CASCADE)
+    annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True, on_delete=CASCADE)
+    face_recognition_rectangle_subject_data_guess = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess', null=True, blank=True, on_delete=CASCADE)
+    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True, on_delete=CASCADE)
+    image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True, on_delete=CASCADE)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
-    transcription = ForeignKey('Transcription', null=True, blank=True)
+    transcription = ForeignKey('Transcription', null=True, blank=True, on_delete=CASCADE)
 
     class Meta:
         db_table = 'project_points'
@@ -1089,14 +1087,14 @@ class Points(Model):
 
 class Transcription(Model):
     text = CharField(max_length=5000, null=True, blank=True)
-    photo = ForeignKey('Photo', related_name='transcriptions')
-    user = ForeignKey('Profile', related_name='transcriptions')
+    photo = ForeignKey('Photo', related_name='transcriptions', on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='transcriptions', on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
-    user = ForeignKey('Profile', related_name='transcription_feedback')
+    user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
     transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name="transcription")
 
 class GeoTag(Model):
@@ -1149,8 +1147,8 @@ class GeoTag(Model):
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
     photo_flipped = BooleanField(default=False)
-    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True)
-    photo = ForeignKey('Photo', related_name='geotags')
+    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True, on_delete=CASCADE)
+    photo = ForeignKey('Photo', related_name='geotags', on_delete=CASCADE)
     is_correct = BooleanField(default=False)
     azimuth_correct = BooleanField(default=False)
     score = IntegerField(null=True, blank=True)
@@ -1202,7 +1200,7 @@ class Profile(Model):
     objects = BulkUpdateManager()
     facebook = FacebookManager()
 
-    user = OneToOneField(User, primary_key=True)
+    user = OneToOneField(User, primary_key=True, on_delete=CASCADE)
 
     first_name = CharField(max_length=255, null=True, blank=True)
     last_name = CharField(max_length=255, null=True, blank=True)
@@ -1365,8 +1363,8 @@ class Device(Model):
 
 
 class Skip(Model):
-    user = ForeignKey('Profile', related_name='skips')
-    photo = ForeignKey('Photo')
+    user = ForeignKey('Profile', related_name='skips', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -1379,7 +1377,7 @@ class Skip(Model):
 # TODO: Do we need this? Kind of violating users' privacy, no?
 class Action(Model):
     type = CharField(max_length=255)
-    related_type = ForeignKey(ContentType, null=True, blank=True)
+    related_type = ForeignKey(ContentType, null=True, blank=True, on_delete=CASCADE)
     related_id = PositiveIntegerField(null=True, blank=True)
     related_object = GenericForeignKey('related_type', 'related_id')
     params = json.JSONField(null=True, blank=True)
@@ -1452,8 +1450,8 @@ class Dating(Model):
         (YEAR, _('Year')),
     )
 
-    photo = ForeignKey('Photo', related_name='datings')
-    profile = ForeignKey('Profile', related_name='datings')
+    photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='datings', on_delete=CASCADE)
     raw = CharField(max_length=25, null=True, blank=True)
     comment = TextField(blank=True, null=True)
     start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
@@ -1473,8 +1471,8 @@ class Dating(Model):
 
 
 class DatingConfirmation(Model):
-    confirmation_of = ForeignKey('Dating', related_name='confirmations')
-    profile = ForeignKey('Profile', related_name='dating_confirmations')
+    confirmation_of = ForeignKey('Dating', related_name='confirmations', on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='dating_confirmations', on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
@@ -1493,7 +1491,7 @@ class Video(Model):
     height = IntegerField()
     author = CharField(max_length=255, blank=True, null=True)
     date = DateField(blank=True, null=True)
-    source = ForeignKey('Source', blank=True, null=True)
+    source = ForeignKey('Source', blank=True, null=True, on_delete=CASCADE)
     source_key = CharField(max_length=255, blank=True, null=True)
     source_url = URLField(blank=True, null=True)
     cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',

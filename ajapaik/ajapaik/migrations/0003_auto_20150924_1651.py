@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='albumphoto',
             name='profile',
-            field=models.ForeignKey(blank=True, to='ajapaik.Profile', null=True),
+            field=models.ForeignKey(blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
