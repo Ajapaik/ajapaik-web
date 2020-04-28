@@ -21,7 +21,7 @@ class AlbumAutocomplete(autocomplete.Select2QuerySetView):
         qs = Album.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
@@ -45,7 +45,7 @@ class AreaAutocomplete(autocomplete.Select2QuerySetView):
         qs = Area.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
@@ -177,7 +177,7 @@ class LicenceAutocomplete(autocomplete.Select2QuerySetView):
         qs = Licence.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
@@ -250,7 +250,7 @@ class ProfileAutocomplete(autocomplete.Select2QuerySetView):
         qs = Profile.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(last_name__istartswith=self.q) | Q(first_name__istartswith=self.q) | Q(fb_name__istartswith=self.q) | Q(google_plus_name__istartswith=self.q))
+            qs = qs.filter(Q(last_name__icontains=self.q) | Q(first_name__icontains=self.q) | Q(fb_name__icontains=self.q) | Q(google_plus_name__icontains=self.q))
 
         return qs
 
@@ -267,7 +267,7 @@ class PublicAlbumAutocomplete(APIView):
         qs = Album.objects.all().exclude(id__in=exclude)
 
         if q:
-            qs = qs.filter(name__istartswith=q, is_public=True)
+            qs = qs.filter(name__icontains=q, is_public=True)
 
         result = """<span class="block"><em>No matches found</em></span>"""
         if len(qs) > 0:
@@ -296,7 +296,7 @@ class SourceAutocomplete(autocomplete.Select2QuerySetView):
         qs = Source.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
@@ -308,9 +308,9 @@ class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
         qs = Album.objects.filter(atype=Album.PERSON)
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
         for q in qs:
-            if q.gender:
+            if q.gender is not None and q.gender > -1:
                 q.name = q.name + ";" + str(q.gender)
             else:
                 q.name = q.name + ";-1"
@@ -336,7 +336,7 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
         qs = User.objects.all()
 
         if self.q:
-            qs = qs.filter(username__istartswith=self.q)
+            qs = qs.filter(username__icontains=self.q)
 
         return qs
 
@@ -348,6 +348,6 @@ class VideoAutocomplete(autocomplete.Select2QuerySetView):
         qs = Video.objects.all()
 
         if self.q:
-            qs = qs.filter(name__istartswith=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
