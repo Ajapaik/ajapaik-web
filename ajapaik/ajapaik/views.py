@@ -22,6 +22,7 @@ from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sites.models import Site
@@ -820,9 +821,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		if order1 == 'closest' and lat and lon:
 			ref_location = Point(x=lon, y=lat, srid=4326)
 			if order3 == 'reverse':
-				photos = photos.distance(ref_location).order_by('-distance')
+				photos = photos.annotate(distance=Distance(('geography'), ref_location)).order_by('-distance')
 			else:
-				photos = photos.distance(ref_location).order_by('distance')
+				photos = photos.annotate(distance=Distance(('geography'), ref_location)).order_by('distance')
 		elif order1 == 'amount':
 			if order2 == 'comments':
 				if order3 == 'reverse':
