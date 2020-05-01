@@ -328,11 +328,7 @@
                         <div class="row" id="ajapaik-comments-container">
                             <div class="col-md-12" id="ajapaik-comment-list"></div>
                             <div class="col-md-12 pl-1" id="ajapaik-new-comment-form-container">
-                                {% if rephoto %}
-                                    {% render_comment_form for rephoto %}
-                                {% else %}
-                                    {% render_comment_form for photo %}
-                                {% endif %}
+                                {% render_comment_form for photo %}
                             </div>
                         </div>
                         <!-- end of comment block -->

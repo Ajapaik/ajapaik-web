@@ -2848,7 +2848,7 @@ class CommentList(View):
 
 	def get(self, request, photo_id):
 		flat_comment_list = []
-		# Selecting photo's top level commnets(pk == parent_id) and that has
+		# Selecting photo's top level comments(pk == parent_id) and that has
 		# been not removed.
 		comments = self.comment_model.objects.filter(
 			object_pk=photo_id, parent_id=F('pk'), is_removed=False
