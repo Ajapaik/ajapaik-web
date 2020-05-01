@@ -31,11 +31,15 @@
                         <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_game %} ajapaik-text-white{% endif %}">add_location</i>
                     </a>
                 {% endif %}
-                <a role="button" class="ajapaik-header-button" title="{% trans 'Show on map' %}"
-                    href="{% if album %}/map/?album={{ album.0 }}{% else %}#{% endif %}"
-                    id="ajapaik-header-map">
-                    <i aria-hidden class="notranslate material-icons ajapaik-gray-button{% if is_mapview %} ajapaik-text-white{% endif %}">map</i>
-                </a>
+                {% if photo and not is_frontpage %}
+                    <a href="/map{% if photo.lat and photo.lon %}/?mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=16{% elif album.lat and album.lon %}/?mapType=roadmap&lat={{ album.lat }}&lng={{ album.lon }}&zoom=16{% endif %}">
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_map %} ajapaik-text-white{% endif %}">map</i>
+                    </a>
+                {% else %}
+                    <a role="button" id="ajapaik-header-map" class="ajapaik-header-button" title="{% trans 'Show on map' %}" {% if album %}href="/map/?album={{ album.0 }}{% if photo.lat and photo.lon %}&mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=12{% endif %}"{% else %}href="/map"{% endif %}>
+                        <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_map %} ajapaik-text-white{% endif %}">map</i>
+                    </a>
+                {% endif %}
                 {% if is_frontpage %}
                     <a role="button" class="ajapaik-header-button" {% if is_frontpage and not album %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
                         href="#"
