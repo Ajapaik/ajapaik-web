@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 
-from ajapaik.ajapaik.models import Album, Photo, Profile
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Profile
 from ajapaik.ajapaik_face_recognition.api import AddSubjectData
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
@@ -36,6 +36,11 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
 def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
     new_rectangle = FaceRecognitionRectangle.objects.get(pk=new_rectangle_id)
     person_album = Album.objects.get(pk=person_id)
+    if(person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo,album=person_album)) < 1):
+        albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED, profile=user_profile)
+        albumPhoto.save()
+        person_album.set_calculated_fields()
+        person_album.save()
 
     save_subject_object(person_album, new_rectangle, user_id, user_profile)
 

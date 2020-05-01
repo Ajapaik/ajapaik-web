@@ -1,6 +1,6 @@
 # coding=utf-8
 from ajapaik.ajapaik.api import AjapaikAPIView
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Profile
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Profile
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
@@ -13,12 +13,19 @@ class AddSubjectData(AjapaikAPIView):
     API endpoint for posting subject data.
     '''
     def post(self, request, format=None):
-        subject_id = request.POST.get('annotationId', None)
+        annotation_id = request.POST.get('annotationId', None)
         age = request.POST.get('ageGroup', None)
         gender = request.POST.get('gender', None)
         newSubjectId = request.POST.get('newSubjectId', None)
+        person_album = Album.objects.get(pk=newSubjectId)
+        new_rectangle = FaceRecognitionRectangle.objects.get(pk=annotation_id)
+        if(person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo,album=person_album)) < 1):
+            albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED, profile=request.user.profile)
+            albumPhoto.save()
+            person_album.set_calculated_fields()
+            person_album.save()
 
-        additional_subject_data = AddAdditionalSubjectData(subject_rectangle_id=subject_id, age=age, gender=gender, newSubjectId=newSubjectId)
+        additional_subject_data = AddAdditionalSubjectData(subject_rectangle_id=annotation_id, age=age, gender=gender, newSubjectId=newSubjectId)
 
         return self.add_subject_data(additional_subject_data=additional_subject_data, request=request)
 
