@@ -262,7 +262,7 @@
             $('#ajapaik-loading-overlay').show();
             $.ajax({
                 type: 'POST',
-                url: '/face-recognition/api/v1/subject-data/',
+                url: '/face-recognition/guess-subject/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     annotationId: subject.subjectId,
