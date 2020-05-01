@@ -32,7 +32,7 @@
                     </a>
                 {% endif %}
                 {% if photo and not is_frontpage %}
-                    <a href="/map{% if photo.lat and photo.lon %}/?mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=16{% elif album.lat and album.lon %}/?mapType=roadmap&lat={{ album.lat }}&lng={{ album.lon }}&zoom=16{% endif %}">
+                    <a href="/map{% if photo.lat and photo.lon %}/?mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=22{% elif album.lat and album.lon %}/?mapType=roadmap&lat={{ album.lat }}&lng={{ album.lon }}&zoom=22{% endif %}">
                         <i aria-hidden class="material-icons notranslate ajapaik-gray-button{% if is_map %} ajapaik-text-white{% endif %}">map</i>
                     </a>
                 {% else %}
