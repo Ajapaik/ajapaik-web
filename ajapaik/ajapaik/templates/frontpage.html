@@ -110,6 +110,14 @@
         window.linkToMap = true;
         window.linkToGallery = true;
         window.fbShareGallery = true;
+        $(document).on('click', '#ajapaik-frontpage-show-albums-link,#ajapaik-frontpage-show-pictures-link', function() {
+            $('#ajapaik-album-filter-box').val("");
+            $('#ajapaik-photo-filter-box').val("");
+            var split = window.location.search.split('&q=');
+            if(("&q" + split[0]) !== window.location.search) {
+                window.location.search = split[0]
+            }
+        })
     </script>
     {% include "js_templates/frontpage_album_template.html" %}
     {% include "js_templates/frontpage_photo_template.html" %}

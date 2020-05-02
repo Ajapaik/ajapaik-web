@@ -419,9 +419,6 @@
     window.location.href = '/map/photo/' + {{ photo.id }};
     {% endif %}
             });
-    $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function () {
-        window.location.href = '/photos/?order1=time&amp;order2=added';
-    });
     $(document).on('click', '#ajapaik-photoview-header-game-button', function () {
         var albumId = $('#id_album').val(),
             gameURL = '{% url 'game' %}';
