@@ -361,12 +361,27 @@
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
                     if((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
-                        var array = window.location.search.split('&q=');
-                        targetDiv.append(
-                            tmpl(
-                                'ajapaik-frontpage-photo-search-empty-template',
-                                [gettext('No results found for: '), array[array.length - 1]]
-                            ));
+                        if(window.location.search.indexOf('&people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
+                            targetDiv.append(
+                                tmpl(
+                                    'ajapaik-frontpage-photo-search-empty-category-template',
+                                    gettext('No tagged persons in album')
+                                ));
+                        }
+                        else if(window.location.search.indexOf('&postcards=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                            targetDiv.append(
+                                tmpl(
+                                    'ajapaik-frontpage-photo-search-empty-category-template',
+                                    gettext('No postcards in album')
+                                ));
+                        } else {
+                            var array = window.location.search.split('&q=');
+                            targetDiv.append(
+                                tmpl(
+                                    'ajapaik-frontpage-photo-search-empty-template',
+                                    [gettext('No results found for: '), array[array.length - 1]]
+                                ));
+                        }
                         targetDiv.addClass('w-100');
                         targetDiv.height(window.innerHeight);
                         historicPhotoGalleryDiv.removeClass('d-none').removeClass('justified-gallery');

@@ -114,16 +114,30 @@
             $('#ajapaik-album-filter-box').val("");
             $('#ajapaik-photo-filter-box').val("");
             var split = window.location.search.split('&q=');
-            if(("&q" + split[0]) !== window.location.search) {
+            if(("&q=" + split[0]) !== window.location.search) {
                 window.location.search = split[0]
             }
-        })
+        });
+        $(document).on('click', '#ajapaik-frontpage-show-albums-link', function() {
+            var split = window.location.search.split('&');
+            if(split[0].indexOf('album=') > 0) {
+                var newQuery = '';
+                split.shift();
+                if(split.length > 0) {
+                    newQuery = '?' + split[0];
+                    split.shift();
+                    split.forEach(element => newQuery += '&' + element); 
+                }
+                window.location.search = newQuery;
+            }
+        });
     </script>
     {% include "js_templates/frontpage_album_template.html" %}
     {% include "js_templates/frontpage_photo_template.html" %}
     {% include "js_templates/frontpage_video_template.html" %}
     {% include "js_templates/frontpage_album_search_empty_template.html" %}
     {% include "js_templates/frontpage_photo_search_empty_template.html" %}
+    {% include "js_templates/frontpage_photo_search_empty_category_template.html" %}
     {% compress js %}
         <script src="{% static "libs/justifiedGallery/js/jquery.justifiedGallery-3.6.1.min.js" %}"></script>
         <script src="{% static "js/ajapaik-frontpage.js" %}"></script>
