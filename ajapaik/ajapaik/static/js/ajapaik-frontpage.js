@@ -232,7 +232,7 @@
                                     gettext('No results found for: '),
                                     array[array.length-1],
                                     gettext('Did you mean to search from: '),
-                                    gettext('all photos'),
+                                    gettext('all pictures'),
                                     window.location.origin + '/?order1=time&order2=added&page=1&q=' + array[array.length-1]
                                 ]
                             ));
