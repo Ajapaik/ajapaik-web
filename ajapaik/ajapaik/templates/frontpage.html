@@ -110,7 +110,7 @@
         window.linkToMap = true;
         window.linkToGallery = true;
         window.fbShareGallery = true;
-        $(document).on('click', '#ajapaik-frontpage-show-albums-link,#ajapaik-frontpage-show-pictures-link', function() {
+        $(document).on('click', '#ajapaik-frontpage-show-pictures-link', function() {
             $('#ajapaik-album-filter-box').val("");
             $('#ajapaik-photo-filter-box').val("");
             var split = window.location.search.split('&q=');
@@ -119,6 +119,8 @@
             }
         });
         $(document).on('click', '#ajapaik-frontpage-show-albums-link', function() {
+            $('#ajapaik-album-filter-box').val("");
+            $('#ajapaik-photo-filter-box').val("");
             var split = window.location.search.split('&');
             if(split[0].indexOf('album=') > 0) {
                 var newQuery = '';
