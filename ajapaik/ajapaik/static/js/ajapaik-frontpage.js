@@ -218,10 +218,27 @@
                         syncPagingButtons();
                         var targetDiv = $('#ajapaik-album-selection');
                         targetDiv.empty();
-                        for (var i = 0, l = response.albums.length; i < l; i += 1) {
-                            targetDiv.append(tmpl('ajapaik-frontpage-album-template', response.albums[i]));
+                        targetDiv.removeClass('w-100');
+                        if(response.albums.length > 0) {
+                            for (var i = 0, l = response.albums.length; i < l; i += 1) {
+                                targetDiv.append(tmpl('ajapaik-frontpage-album-template', response.albums[i]));
+                            }
+                            albumSelectionDiv.justifiedGallery();
+                        } else {
+                            var array = window.location.search.split("&q=");
+                            targetDiv.append(tmpl(
+                                'ajapaik-frontpage-album-search-empty-template',
+                                [
+                                    gettext('No results found for: '),
+                                    array[array.length-1],
+                                    gettext('Did you mean to search from: '),
+                                    gettext('all photos'),
+                                    window.location.origin + '/?order1=time&order2=added&page=1&q=' + array[array.length-1]
+                                ]
+                            ));
+                            targetDiv.addClass('w-100');
+                            albumSelectionDiv.removeClass('d-none').removeClass('justified-gallery');
                         }
-                        albumSelectionDiv.justifiedGallery();
                         $('#ajapaik-loading-overlay').hide();
                         $(window).scrollTop(0);
                         $('.ajapaik-frontpage-album').hover(function () {
@@ -341,6 +358,17 @@
                     syncStateToUrl();
                     syncPagingButtons();
                     targetDiv.empty();
+                    targetDiv.removeClass('w-100');
+                    if(!response.videos && response.photos.length < 1) {
+                        var array = window.location.search.split('&q=');
+                        targetDiv.append(
+                            tmpl(
+                                'ajapaik-frontpage-photo-search-empty-template',
+                                [gettext('No results found for: '), array[array.length - 1]]
+                            ));
+                        targetDiv.addClass('w-100');
+                        historicPhotoGalleryDiv.removeClass('d-none').removeClass('justified-gallery');
+                    }
                     if (response.videos) {
                         $.each(response.videos, function (k, v) {
                             targetDiv.append(tmpl('ajapaik-frontpage-video-template', v));
