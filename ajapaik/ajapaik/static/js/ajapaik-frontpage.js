@@ -237,6 +237,7 @@
                                 ]
                             ));
                             targetDiv.addClass('w-100');
+                            targetDiv.height(window.innerHeight);
                             albumSelectionDiv.removeClass('d-none').removeClass('justified-gallery');
                         }
                         $('#ajapaik-loading-overlay').hide();
@@ -359,7 +360,7 @@
                     syncPagingButtons();
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
-                    if(!response.videos && response.photos.length < 1) {
+                    if((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
                         var array = window.location.search.split('&q=');
                         targetDiv.append(
                             tmpl(
@@ -367,6 +368,7 @@
                                 [gettext('No results found for: '), array[array.length - 1]]
                             ));
                         targetDiv.addClass('w-100');
+                        targetDiv.height(window.innerHeight);
                         historicPhotoGalleryDiv.removeClass('d-none').removeClass('justified-gallery');
                     }
                     if (response.videos) {
