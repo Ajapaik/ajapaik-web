@@ -735,19 +735,32 @@
     };
 
 
-    var activateAlbumFilter = function () {
+    var activateAlbumFilter = function (showMessage=false) {
         limitByAlbum = true;
         $('#ajapaik-header-album-filter-button-off').hide();
         $('#ajapaik-header-album-filter-button-on').show();
         $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
+        if(showMessage) {
+            var albumFilterMessage = interpolate(
+                gettext('Pictures only in album: %(albumName)s are shown in the sidebar'), 
+                {
+                    'albumName': $("#ajapaik-header-title").clone().children().remove().end().text().trim()
+                },
+                true
+            );
+            $.notify(albumFilterMessage, {type: 'info', placement: { from: "top", align: "left" }});
+        }
     };
 
 
-    var deactivateAlbumFilter = function () {
+    var deactivateAlbumFilter = function (showMessage=false) {
         limitByAlbum = false;
         $('#ajapaik-header-album-filter-button-off').show();
         $('#ajapaik-header-album-filter-button-on').hide();
         $('#ajapaik-header-album-filter-button').prop('title', window.gettext('Apply album filter'));
+        if(showMessage) {
+            $.notify('All images are shown in the sidebar', {type: 'info', placement: { from: "top", align: "left" }});
+        }
     };
 
 
@@ -758,9 +771,9 @@
         $('#ajapaik-game-description-viewing-warning').hide();
         $('#ajapaik-header-album-filter-button').click(function () {
             if (!limitByAlbum) {
-                activateAlbumFilter();
+                activateAlbumFilter(true);
             } else {
-                deactivateAlbumFilter();
+                deactivateAlbumFilter(true);
             }
             window.toggleVisiblePaneElements();
             window.syncMapStateToURL();

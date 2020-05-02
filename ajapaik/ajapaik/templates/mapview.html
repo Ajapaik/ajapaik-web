@@ -128,6 +128,12 @@
                 }
             }
         }
+        {% if album %}
+            var filteringMessage = window.location.search.indexOf("limitToAlbum=1") > 0
+                ? "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+                : "You have opened the map with the album filter off, to turn it on, please tick the box next to album name";
+            $.notify(gettext(filteringMessage), {type: 'info', placement: { from: "top", align: "left" }})
+        {% endif %}
     </script>
     {% compress js %}
         <script src="{% static "js/ajapaik-map.js" %}"></script>
