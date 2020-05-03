@@ -1374,11 +1374,15 @@ $('.ajapaik-navbar').autoHidingNavbar();
 
     $(document).on('click', '#ajapaik-header-about-button', function (e) {
         var targetDiv = $('#ajapaik-general-info-modal');
+        $('#ajapaik-loading-overlay').show();
         if (window.generalInfoModalURL) {
             $.ajax({
                 url: window.generalInfoModalURL,
                 success: function (resp) {
                     targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
                 }
             });
         }

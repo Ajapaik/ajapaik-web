@@ -911,12 +911,16 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     });
 
     $(document).on('click', '#ajapaik-header-about-button', function (e) {
+        $('#ajapaik-loading-overlay').show();
         var targetDiv = $('#ajapaik-general-info-modal');
         if (window.generalInfoModalURL) {
             $.ajax({
                 url: window.generalInfoModalURL,
                 success: function (resp) {
                     targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
                 }
             });
         }
