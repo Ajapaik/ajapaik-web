@@ -230,7 +230,7 @@
                                 'ajapaik-frontpage-album-search-empty-template',
                                 [
                                     gettext('No results found for: '),
-                                    array[array.length-1],
+                                    decodeURI(array[array.length-1]),
                                     gettext('Did you mean to search from: '),
                                     gettext('all pictures'),
                                     window.location.origin + '/?order1=time&order2=added&page=1&q=' + array[array.length-1]
@@ -379,7 +379,7 @@
                             targetDiv.append(
                                 tmpl(
                                     'ajapaik-frontpage-photo-search-empty-template',
-                                    [gettext('No results found for: '), array[array.length - 1]]
+                                    [gettext('No results found for: '), decodeURI(array[array.length - 1])]
                                 ));
                         }
                         targetDiv.addClass('w-100');
