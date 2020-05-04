@@ -12,49 +12,49 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:19+0000\n"
+"PO-Revision-Date: 2020-05-04 13:48:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
+"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr "L'utent a l'ha arfudà l'arcesta ëd geolocalisassion."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:349
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr "L'anformassion an sla posission a l'é nen disponìbil."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:352
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr "L'arcesta për oten-e la localisassion a l'è scadùa."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:355
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr "A-i é staje n'eror dësconossù."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:767
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:812
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Nen selessionà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1920
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Eror ëd sistema"
@@ -371,95 +371,109 @@ msgstr "URL"
 msgid "Unknown author"
 msgstr "Autor dësconossù"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:107
 msgid "Earliest"
 msgstr "Ij pi vej"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:109
 msgid "Latest"
 msgstr "Pi recent"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:114
 msgid "Least"
 msgstr "Mìnim"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:116
 msgid "Most"
 msgstr "Ij pi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:121
 msgid "Pictures furthest from you"
 msgstr "Fòto pi leugne da chiel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:123
 msgid "Pictures closest to you"
 msgstr "Fòto pi davzin-e a chiel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:128
 msgid "commented"
 msgstr "comentà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
 msgid "rephotographed"
 msgstr "torna fotografà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
 msgid "added"
 msgstr "giontà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
 msgid "geotagged"
 msgstr "geolocalisà"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
 msgid "liked"
 msgstr "a l'ha marcà ch'a-j pias"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
 msgid "dated"
 msgstr "daità"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:147
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "viewed"
 msgstr "vist"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:153
 msgid "pictures"
 msgstr "fòto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
 msgid "By reverse timestamp"
 msgstr "An órdin cronològich anvertì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "By timestamp"
 msgstr "Da na mira cronològica"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "Pictures from the map"
 msgstr "Fòto da la carta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:367
+#, fuzzy
+msgid "No results found for: %(query)s"
+msgstr "Gnun arzultà trovà për: "
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:234
+msgid "Did you mean to search from: "
+msgstr "Vorij-lo sërché da: "
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+msgid "all pictures"
+msgstr "tute le fòto"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
 msgid "Albums"
 msgstr "Àlbom"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:268
 msgid "My favorites"
 msgstr "Ij mè preferì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:273
 msgid "My rephotos"
 msgstr "Mie arprodussion fotogràfiche"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "Rephotos by %(user)s"
 msgstr "Arprodussion fotogràfiche ëd %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:281
 msgid "All photos"
 msgstr "Tute le fòto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:352
 msgid "Picture set has no "
 msgstr "L'ansem ëd fòto a l'ha gnun "
 
@@ -786,90 +800,98 @@ msgid "Unable to remove object annotation"
 msgstr "Impossìbil gavé l'anotassion ëd l'oget"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
+msgid "Successfully added face annotation"
+msgstr "Giontà për da bin l'anotassion an sla cera"
+
+#: ajapaik/ajapaik/static/js/constants.js:119
+msgid "Unable to save face annotation"
+msgstr "Falì a argistré l'anotassion an sla cera"
+
+#: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"
 msgstr "Sugeriment an sl'anotassion ëd la cera giontà për da bin"
 
-#: ajapaik/ajapaik/static/js/constants.js:119
+#: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to add face annotation feedback"
 msgstr "Falì a gionté ël sugeriment an sj'anotassion ëd la cera"
 
-#: ajapaik/ajapaik/static/js/constants.js:120
+#: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully edited face annotation"
 msgstr "Anotassion ëd la cera modificà për da bin"
 
-#: ajapaik/ajapaik/static/js/constants.js:121
+#: ajapaik/ajapaik/static/js/constants.js:123
 msgid "Failed to save face annotation edit"
 msgstr "Falì a argistré la modìfica dj'anotassion ëd la cera"
 
-#: ajapaik/ajapaik/static/js/constants.js:122
+#: ajapaik/ajapaik/static/js/constants.js:124
 msgid "Successfully removed face annotation"
 msgstr "Anotassion ëd la cera gavà për da bin"
 
-#: ajapaik/ajapaik/static/js/constants.js:123
+#: ajapaik/ajapaik/static/js/constants.js:125
 msgid "Failed to remove face annotation"
 msgstr "Falì a gavé j'anotassion ëd la cera"
 
-#: ajapaik/ajapaik/static/js/constants.js:127
+#: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Find object"
 msgstr "Trové n'oget"
 
-#: ajapaik/ajapaik/static/js/constants.js:128
-#: ajapaik/ajapaik/static/js/constants.js:135
+#: ajapaik/ajapaik/static/js/constants.js:130
+#: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Searching"
 msgstr "Arserca"
 
-#: ajapaik/ajapaik/static/js/constants.js:129
+#: ajapaik/ajapaik/static/js/constants.js:131
 msgid "Search for object"
 msgstr "Arserca d'oget"
 
-#: ajapaik/ajapaik/static/js/constants.js:130
-#: ajapaik/ajapaik/static/js/constants.js:137
+#: ajapaik/ajapaik/static/js/constants.js:132
+#: ajapaik/ajapaik/static/js/constants.js:139
 msgid "Need 2 characters"
 msgstr "A-i é damanca ëd 2 caràter"
 
-#: ajapaik/ajapaik/static/js/constants.js:131
-#: ajapaik/ajapaik/static/js/constants.js:138
+#: ajapaik/ajapaik/static/js/constants.js:133
+#: ajapaik/ajapaik/static/js/constants.js:140
 msgid "No results found"
 msgstr "Gnun arzultà trovà"
 
-#: ajapaik/ajapaik/static/js/constants.js:134
+#: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
 msgstr "Trové na përson-a esistenta"
 
-#: ajapaik/ajapaik/static/js/constants.js:136
+#: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
 msgstr "Buté ël nòm ëd na përson-a"
 
-#: ajapaik/ajapaik/static/js/constants.js:139
-#: ajapaik/ajapaik/static/js/constants.js:142
+#: ajapaik/ajapaik/static/js/constants.js:141
+#: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
 msgstr "Gionté na neuva përson-a"
 
-#: ajapaik/ajapaik/static/js/constants.js:143
+#: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
 msgstr "Precisé un nòm ëd përson-a"
 
-#: ajapaik/ajapaik/static/js/constants.js:148
+#: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
 msgstr "Selessioné na partìa d'età"
 
-#: ajapaik/ajapaik/static/js/constants.js:149
+#: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
 msgstr "Modifiché la partìa d'età"
 
-#: ajapaik/ajapaik/static/js/constants.js:150
+#: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
 msgstr "Definì na partìa d'età alternativa"
 
-#: ajapaik/ajapaik/static/js/constants.js:155
+#: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
 msgstr "Selessioné ël sess"
 
-#: ajapaik/ajapaik/static/js/constants.js:156
+#: ajapaik/ajapaik/static/js/constants.js:158
 msgid "Change gender"
 msgstr "Modifiché ël sess"
 
-#: ajapaik/ajapaik/static/js/constants.js:157
+#: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
 msgstr "Spessifiché un sess alternativ"
 

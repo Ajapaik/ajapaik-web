@@ -15,46 +15,46 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:20+0000\n"
+"PO-Revision-Date: 2020-05-04 13:48:37+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
+"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
 msgid "User denied the request for Geolocation."
 msgstr "使用者拒絕了地理位置檢測請求。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:349
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:562
 msgid "Location information is unavailable."
 msgstr "位置資訊不可用。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:352
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:565
 msgid "The request to get user location timed out."
 msgstr "請求取得使用者位置逾時。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:355
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:568
 msgid "An unknown error occurred."
 msgstr "發生不明錯誤。"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:767
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:812
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "尚未選擇"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1904
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1920
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "系統錯誤"
@@ -371,95 +371,109 @@ msgstr "網址"
 msgid "Unknown author"
 msgstr "未知作者"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:107
 msgid "Earliest"
 msgstr "最早"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:109
 msgid "Latest"
 msgstr "最新"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:114
 msgid "Least"
 msgstr "最少"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:116
 msgid "Most"
 msgstr "最多"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:121
 msgid "Pictures furthest from you"
 msgstr "離您最遠的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:123
 msgid "Pictures closest to you"
 msgstr "離您最近的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:128
 msgid "commented"
 msgstr "已評論"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:131
 msgid "rephotographed"
 msgstr "已重新翻拍"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:134
 msgid "added"
 msgstr "已添加"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:137
 msgid "geotagged"
 msgstr "已添加地理標籤"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:140
 msgid "liked"
 msgstr "喜歡"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:143
 msgid "dated"
 msgstr "已註明日期"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:147
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "viewed"
 msgstr "已檢視"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:153
 msgid "pictures"
 msgstr "圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
 msgid "By reverse timestamp"
 msgstr "按反向時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "By timestamp"
 msgstr "按時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "Pictures from the map"
 msgstr "來自地圖的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:367
+#, fuzzy
+msgid "No results found for: %(query)s"
+msgstr "找不到結果：\\"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:234
+msgid "Did you mean to search from: "
+msgstr "您是否指要搜尋：\\"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+msgid "all pictures"
+msgstr "全部圖片"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
 msgid "Albums"
 msgstr "相簿"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:268
 msgid "My favorites"
 msgstr "我的個人最愛"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:273
 msgid "My rephotos"
 msgstr "我的翻拍照片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "Rephotos by %(user)s"
 msgstr "翻拍照片由 %(user)s 做出"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:281
 msgid "All photos"
 msgstr "所有照片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:352
 msgid "Picture set has no "
 msgstr "圖片集裡沒有 "
 
@@ -785,90 +799,98 @@ msgid "Unable to remove object annotation"
 msgstr "無法移除對象註解"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
+msgid "Successfully added face annotation"
+msgstr "成功添加臉部註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:119
+msgid "Unable to save face annotation"
+msgstr "無法保存臉部註解"
+
+#: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"
 msgstr "成功添加臉部註解意見回饋"
 
-#: ajapaik/ajapaik/static/js/constants.js:119
+#: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to add face annotation feedback"
 msgstr "添加臉部註解意見回饋失敗"
 
-#: ajapaik/ajapaik/static/js/constants.js:120
+#: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully edited face annotation"
 msgstr "成功編輯臉部註解"
 
-#: ajapaik/ajapaik/static/js/constants.js:121
+#: ajapaik/ajapaik/static/js/constants.js:123
 msgid "Failed to save face annotation edit"
 msgstr "保存臉部註解編輯失敗"
 
-#: ajapaik/ajapaik/static/js/constants.js:122
+#: ajapaik/ajapaik/static/js/constants.js:124
 msgid "Successfully removed face annotation"
 msgstr "成功移除臉部註解"
 
-#: ajapaik/ajapaik/static/js/constants.js:123
+#: ajapaik/ajapaik/static/js/constants.js:125
 msgid "Failed to remove face annotation"
 msgstr "移除臉部註解失敗"
 
-#: ajapaik/ajapaik/static/js/constants.js:127
+#: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Find object"
 msgstr "查找對象"
 
-#: ajapaik/ajapaik/static/js/constants.js:128
-#: ajapaik/ajapaik/static/js/constants.js:135
+#: ajapaik/ajapaik/static/js/constants.js:130
+#: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Searching"
 msgstr "搜尋中"
 
-#: ajapaik/ajapaik/static/js/constants.js:129
+#: ajapaik/ajapaik/static/js/constants.js:131
 msgid "Search for object"
 msgstr "搜尋對象"
 
-#: ajapaik/ajapaik/static/js/constants.js:130
-#: ajapaik/ajapaik/static/js/constants.js:137
+#: ajapaik/ajapaik/static/js/constants.js:132
+#: ajapaik/ajapaik/static/js/constants.js:139
 msgid "Need 2 characters"
 msgstr "需要 2 名角色"
 
-#: ajapaik/ajapaik/static/js/constants.js:131
-#: ajapaik/ajapaik/static/js/constants.js:138
+#: ajapaik/ajapaik/static/js/constants.js:133
+#: ajapaik/ajapaik/static/js/constants.js:140
 msgid "No results found"
 msgstr "查無結果"
 
-#: ajapaik/ajapaik/static/js/constants.js:134
+#: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
 msgstr "尋找存在人物"
 
-#: ajapaik/ajapaik/static/js/constants.js:136
+#: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
 msgstr "輸入人物名稱"
 
-#: ajapaik/ajapaik/static/js/constants.js:139
-#: ajapaik/ajapaik/static/js/constants.js:142
+#: ajapaik/ajapaik/static/js/constants.js:141
+#: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
 msgstr "添加新人物"
 
-#: ajapaik/ajapaik/static/js/constants.js:143
+#: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
 msgstr "指定人物名稱"
 
-#: ajapaik/ajapaik/static/js/constants.js:148
+#: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
 msgstr "選擇年齡群組"
 
-#: ajapaik/ajapaik/static/js/constants.js:149
+#: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
 msgstr "更改年齡群組"
 
-#: ajapaik/ajapaik/static/js/constants.js:150
+#: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
 msgstr "指定替代年齡群組"
 
-#: ajapaik/ajapaik/static/js/constants.js:155
+#: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
 msgstr "選擇性別"
 
-#: ajapaik/ajapaik/static/js/constants.js:156
+#: ajapaik/ajapaik/static/js/constants.js:158
 msgid "Change gender"
 msgstr "更改性別"
 
-#: ajapaik/ajapaik/static/js/constants.js:157
+#: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
 msgstr "指定替代性別"
 
