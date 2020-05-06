@@ -12,6 +12,8 @@ class Command(BaseCommand):
                 if transcriptions.count() > 0:
                     firstTranscription = transcriptions.order_by('created').first()
                     lastTranscription = transcriptions.order_by('-modified').first()
+                    if lastTranscription is None:
+                        lastTranscription = transcriptions.order_by('-created').first()
                     if firstTranscription:
                         photo.first_transcription = firstTranscription.created
                     if lastTranscription:
