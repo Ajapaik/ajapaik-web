@@ -17,5 +17,6 @@ class Command(BaseCommand):
                     if lastTranscription:
                         photo.last_transcription = lastTranscription.modified
                     photo.transcription_count = transcriptions.count()
+                    photo.light_save()
             except Exception:
                 continue
