@@ -12,12 +12,10 @@ class Command(BaseCommand):
                 if transcriptions.count() > 0:
                     firstTranscription = transcriptions.order_by('created').first()
                     lastTranscription = transcriptions.order_by('-modified').first()
-                    if lastTranscription is None:
-                        lastTranscription = transcriptions.order_by('-created').first()
                     if firstTranscription:
                         photo.first_transcription = firstTranscription.created
                     if lastTranscription:
-                        photo.last_transcription = lastTranscription.modified
+                        photo.latest_transcription = lastTranscription.modified
                     photo.transcription_count = transcriptions.count()
                     photo.light_save()
             except Exception:
