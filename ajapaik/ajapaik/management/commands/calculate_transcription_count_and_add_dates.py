@@ -5,7 +5,7 @@ class Command(BaseCommand):
     help = 'Calculate transcription counts and add dates'
 
     def handle(self, *args, **options):
-        photos =  Photo.objects.all().filter(perceptual_hash__isnull=True)
+        photos =  Photo.objects.all()
         for photo in photos:
             try:
                 transcriptions = Transcription.objects.all().filter(photo__id=photo.id)
@@ -15,7 +15,7 @@ class Command(BaseCommand):
                     if firstTranscription:
                         photo.first_transcription = firstTranscription.created
                     if lastTranscription:
-                        photo.last_transcription = firstTranscription.lastTranscription
+                        photo.last_transcription = lastTranscription.modified
                     photo.transcription_count = transcriptions.count()
             except Exception:
                 continue
