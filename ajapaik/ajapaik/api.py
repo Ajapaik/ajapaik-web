@@ -1517,6 +1517,10 @@ class Transcriptions(AjapaikAPIView):
                 if previousTranscriptionByCurrentUser:
                     previousTranscriptionByCurrentUser.text = text
                     previousTranscriptionByCurrentUser.save()
+                    if not photo.first_transcription:
+                        photo.first_transcription = previousTranscriptionByCurrentUser.modified
+                    photo.latest_transcription = previousTranscriptionByCurrentUser.modified
+                    photo.light_save()
                 else:
                     transcription = Transcription(
                         user = user,
@@ -1528,6 +1532,11 @@ class Transcriptions(AjapaikAPIView):
                         user=user,
                         transcription=transcription
                     ).save()
+                    photo.latest_transcription = transcription.created
+                    if not photo.first_transcription:
+                        photo.first_transcription = transcription.created
+                    photo.transcription_count += 1
+                    photo.light_save()
 
             transcriptionsWithSameText = Transcription.objects.filter(photo=photo,text=text).exclude(user=user)
             upvoted = False

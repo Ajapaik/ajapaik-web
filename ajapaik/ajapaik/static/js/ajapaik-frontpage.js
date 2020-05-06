@@ -141,6 +141,9 @@
                 } else if (window.order2 === 'datings') {
                     $('#ajapaik-datings-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('dated');
+                } else if (window.order2 === 'transcriptions') {
+                    $('#ajapaik-transcriptions-filter-icon').attr('class', 'ajapaik-white');
+                    orderingString += ' ' + gettext('transcribed');
                 } else if (window.order2 === 'views') {
                     $('#ajapaik-views-filter-icon').attr('class', 'ajapaik-white');
                     orderingString += ' ' + gettext('viewed');

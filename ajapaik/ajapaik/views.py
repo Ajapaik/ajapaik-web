@@ -857,6 +857,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 					photos = photos.order_by('dating_count')
 				else:
 					photos = photos.order_by('-dating_count')
+			elif order2 == 'transcriptions':
+				if order3 == 'reverse':
+					photos = photos.order_by('transcription_count')
+				else:
+					photos = photos.order_by('-transcription_count')
 			elif order2 == 'similar_photos':
 				if order3 == 'reverse':
 					photos = photos.order_by('similar_photo_count')
@@ -907,6 +912,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				else:
 					photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
 										  order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
+			elif order2 == 'transcriptions':
+				if order3 == 'reverse':
+					photos = photos.extra(select={'first_transcription_is_null': 'project_photo.first_transcription IS NULL', },
+										  order_by=['first_transcription_is_null', 'project_photo.first_transcription'], )
+				else:
+					photos = photos.extra(select={'latest_transcription_is_null': 'project_photo.latest_transcription IS NULL', },
+										  order_by=['latest_transcription_is_null', '-project_photo.latest_transcription'], )
 			elif order2 == 'stills':
 				if order3 == 'reverse':
 					photos = photos.order_by('-video_timestamp')
