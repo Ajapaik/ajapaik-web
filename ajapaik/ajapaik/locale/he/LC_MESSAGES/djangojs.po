@@ -14,12 +14,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-04 13:48:36+0000\n"
+"PO-Revision-Date: 2020-05-07 15:06:33+0000\n"
 "Language: he\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
@@ -50,10 +50,10 @@ msgstr ""
 msgid "Not selected"
 msgstr "לא נבחר"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1904
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1920
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1446
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1462
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1908
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1924
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "שגיאת מערכת"
@@ -419,60 +419,72 @@ msgid "dated"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+msgid "transcribed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "viewed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:153
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "pictures"
 msgstr "תמונות"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By reverse timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "By timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
 msgid "Pictures from the map"
 msgstr "תמונות מהמפה"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:367
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
 msgid "No results found for: %(query)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:234
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
 msgid "Did you mean to search from: "
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
 msgid "all pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"
 msgstr "אלבומים"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:268
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
 msgid "My favorites"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:273
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
 msgid "My rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
 msgid "Rephotos by %(user)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:281
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
 msgid "All photos"
 msgstr "כל התמונות"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:352
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
 msgid "Picture set has no "
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+msgid "No tagged persons in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+msgid "No postcards in album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
@@ -588,7 +600,11 @@ msgstr ""
 msgid "Remove album filter"
 msgstr "הסרת מסנן אלבומים"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:745
+msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Apply album filter"
 msgstr ""
 

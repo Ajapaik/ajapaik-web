@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-04 13:48:35+0000\n"
+"PO-Revision-Date: 2020-05-07 15:06:33+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -21,9 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
+"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
 #: ajapaik/ajapaik/static/js/ajapaik-common.js:556
@@ -962,3 +962,4 @@ msgstr "Kes see on?"
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:316
 msgid "Are you sure you wish to have this annotation removed?"
 msgstr "Olete kindel, et soovite selle märgendi eemaldada?"
+

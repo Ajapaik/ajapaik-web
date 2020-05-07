@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-05-04 13:48:36+0000\n"
+"PO-Revision-Date: 2020-05-07 15:06:33+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-03-28 09:30:39+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-POT-Import-Date: 2020-05-07 12:53:47+0000\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -1772,7 +1772,7 @@ msgstr "Refotod"
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
-msgid "Similar photos"
+msgid "similar photos"
 msgstr "sarnased pildid"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
@@ -1833,7 +1833,7 @@ msgstr "Sinu kasutajakontoga ei ole ühendatud sotsiaalmeedia kontosid."
 msgid "Add a 3rd Party Account"
 msgstr "Lisa kolmanda osapoole konto"
 
-#: ajapaik/ajapaik/templates/user_upload.html:19
+#: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Mina, %(user)s, annan käesolevaga pöördumatult kõigile õiguse kasutada seda enda loodud teost <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commonsi rahvusvahelise litsentsi \"Autorile viitamine + jagamine samadel tingimustel 4.0\" (CC-BY-SA)</a> alusel."
@@ -2058,14 +2058,3 @@ msgstr "vene"
 msgid "French"
 msgstr "Prantsuse keel"
 
-#~ msgid "Licence"
-#~ msgstr "Litsents"
-
-#~ msgid "I am the author"
-#~ msgstr "Mina olen pildi autor"
-
-#~ msgid "Subject"
-#~ msgstr "Subjekt"
-
-#~ msgid "Non-binary"
-#~ msgstr "Mittebinaarne"

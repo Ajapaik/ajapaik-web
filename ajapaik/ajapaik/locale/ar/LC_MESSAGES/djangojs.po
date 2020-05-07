@@ -16,12 +16,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-04 13:48:35+0000\n"
+"PO-Revision-Date: 2020-05-07 15:06:32+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
@@ -52,10 +52,10 @@ msgstr "حدث خطأ غير معروف."
 msgid "Not selected"
 msgstr "غير محدد"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1904
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1920
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1446
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1462
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1908
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1924
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "خطأ في النظام"
@@ -421,62 +421,74 @@ msgid "dated"
 msgstr "مؤرخ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+msgid "transcribed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "viewed"
 msgstr "مراجع"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:153
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "pictures"
 msgstr "الصور"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By reverse timestamp"
 msgstr "بواسطة الطابع الزمني العكسي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "By timestamp"
 msgstr "بواسطة الطابع الزمني"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
 msgid "Pictures from the map"
 msgstr "صور من الخريطة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:367
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
 #, fuzzy
 msgid "No results found for: %(query)s"
 msgstr ":لم يتم العثور على نتائج ل"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:234
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
 msgid "Did you mean to search from: "
 msgstr ":تقصد البحث عن"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
 msgid "all pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"
 msgstr "الألبومات"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:268
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
 msgid "My favorites"
 msgstr "مفضلتي"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:273
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
 msgid "My rephotos"
 msgstr "إعادات تصويري"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
 msgid "Rephotos by %(user)s"
 msgstr "إعادات صور بواسطة %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:281
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
 msgid "All photos"
 msgstr "كل الصور"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:352
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
 msgid "Picture set has no "
 msgstr "مجموعة صور ليس لديها/"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+msgid "No tagged persons in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+msgid "No postcards in album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -591,7 +603,11 @@ msgstr "المدن القديمة"
 msgid "Remove album filter"
 msgstr "إزالة مرشح الألبوم"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:745
+msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Apply album filter"
 msgstr "تطبيق مرشح الألبوم"
 

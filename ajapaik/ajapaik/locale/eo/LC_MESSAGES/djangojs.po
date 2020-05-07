@@ -13,12 +13,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-04 13:48:35+0000\n"
+"PO-Revision-Date: 2020-05-07 15:06:33+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-05-04 12:51:00+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
+"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
@@ -49,10 +49,10 @@ msgstr "Nekonata eraro okazis."
 msgid "Not selected"
 msgstr "Ne elektita"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1904
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1920
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1446
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1462
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1908
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1924
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Sistema eraro"
@@ -422,61 +422,73 @@ msgid "dated"
 msgstr "datitaj"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
+msgid "transcribed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "viewed"
 msgstr "viditaj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:153
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
 msgid "pictures"
 msgstr "bildoj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:157
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
 msgid "By reverse timestamp"
 msgstr "Laŭ tempopunkto male"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
 msgid "By timestamp"
 msgstr "Laŭ tempopunkto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
 msgid "Pictures from the map"
 msgstr "Bildoj de la mapo"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:367
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
 msgid "No results found for: %(query)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:234
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
 msgid "Did you mean to search from: "
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
 msgid "all pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:262
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"
 msgstr "Albumoj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:268
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
 msgid "My favorites"
 msgstr "Miaj legosignoj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:273
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
 msgid "My rephotos"
 msgstr "Miaj refotoj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
 msgid "Rephotos by %(user)s"
 msgstr "Refotoj de %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:281
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
 msgid "All photos"
 msgstr "Ĉiuj fotoj"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:352
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
 msgid "Picture set has no "
 msgstr "Bilda aro havas ne "
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+msgid "No tagged persons in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+msgid "No postcards in album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -591,7 +603,11 @@ msgstr "Antikvaj urboj"
 msgid "Remove album filter"
 msgstr "Forigi albuman filtrilon"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:745
+msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Apply album filter"
 msgstr "Apliki albuman filtrilon"
 
