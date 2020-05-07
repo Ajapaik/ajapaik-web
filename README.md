@@ -101,7 +101,7 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 ## To-do list
 
 - TODO: upgrade to Postgres 11
-- TODO: upgrade to Django 1.11
+- TODO: upgrade to Django 3
 - TODO: py.test
 - TODO: Spatialite for sqlite? Can use in automated tests?
 - TODO: command for regular stats exports
@@ -110,7 +110,6 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: automate stats queries or at least document them better (should be possible with a Google Sheets API key?)
 - TODO: try if integrating Solr tighter will help search (the current solution where everything that matches 'Tartu' is retrieved into an array of IDs no longer performs)
 - TODO: decide between Celery beat & just running cron jobs on the host machine
-- TODO: venv/lib/python3.6/site-packages/oauth2client/xsrfutil.py line 114 just returns True to work around a bug
 - TODO: implement this answer for keeps https://stackoverflow.com/questions/18643998/geodjango-geosexception-error
 - TODO: upgrade our host system to Ubuntu 18.04 (10 years of LTS)
 - TODO: automate regular DB and media/uploads, media/videos backups
