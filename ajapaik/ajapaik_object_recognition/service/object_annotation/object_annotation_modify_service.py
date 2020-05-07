@@ -18,3 +18,9 @@ def update_object_annotation(user_id: int, request: ObjectAnnotationUpdateReques
     annotation.detected_object = detection_class
 
     annotation.save()
+
+    if annotation.photo.first_annotation is None:
+        annotation.photo.first_annotation = annotation.modified_on
+    annotation.photo.latest_annotation = annotation.modified_on
+    annotation.photo.light_save()
+

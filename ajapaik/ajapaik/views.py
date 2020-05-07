@@ -74,7 +74,6 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
 	distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -862,6 +861,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 					photos = photos.order_by('transcription_count')
 				else:
 					photos = photos.order_by('-transcription_count')
+			elif order2 == 'annotations':
+				if order3 == 'reverse':
+					photos = photos.order_by('annotation_count')
+				else:
+					photos = photos.order_by('-annotation_count')
 			elif order2 == 'similar_photos':
 				if order3 == 'reverse':
 					photos = photos.order_by('similar_photo_count')
@@ -919,6 +923,13 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				else:
 					photos = photos.extra(select={'latest_transcription_is_null': 'project_photo.latest_transcription IS NULL', },
 										  order_by=['latest_transcription_is_null', '-project_photo.latest_transcription'], )
+			elif order2 == 'annotations':
+				if order3 == 'reverse':
+					photos = photos.extra(select={'first_annotation_is_null': 'project_photo.first_annotation IS NULL', },
+										  order_by=['first_annotation_is_null', 'project_photo.first_annotation'], )
+				else:
+					photos = photos.extra(select={'latest_annotation_is_null': 'project_photo.latest_annotation IS NULL', },
+										  order_by=['latest_annotation_is_null', '-project_photo.latest_annotation'], )
 			elif order2 == 'stills':
 				if order3 == 'reverse':
 					photos = photos.order_by('-video_timestamp')

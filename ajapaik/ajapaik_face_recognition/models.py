@@ -100,6 +100,9 @@ class FaceRecognitionRectangle(models.Model):
             age = 4
         newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = subject, guesser = profile, gender = gender, age = age)
         newGuess.save()
+        subject.photo.latest_annotation = newGuess.created
+        subject.photo.light_save()
+
         if lastGuessesByOtherUsers.count() > 0:
             results = {}
             sumGender = 0

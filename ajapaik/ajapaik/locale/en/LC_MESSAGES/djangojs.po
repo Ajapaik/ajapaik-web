@@ -424,67 +424,71 @@ msgid "transcribed"
 msgstr "transcribed"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+msgid "annotated"
+msgstr "annotated"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"
 msgstr "viewed"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "pictures"
 msgstr "pictures"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "By reverse timestamp"
 msgstr "By reverse timestamp"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:165
 msgid "By timestamp"
 msgstr "By timestamp"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:169
 msgid "Pictures from the map"
 msgstr "Pictures from the map"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 msgid "No results found for: %(query)s"
 msgstr "No results found for: %(query)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
 msgstr "Did you mean to search from: "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
 msgid "all pictures"
 msgstr "all pictures"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
 msgstr "Albums"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "My favorites"
 msgstr "My favorites"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:280
 msgid "My rephotos"
 msgstr "My rephotos"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:282
 msgid "Rephotos by %(user)s"
 msgstr "Rephotos by %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All photos"
 msgstr "All photos"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
 msgstr "Picture set has no "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:374
 msgid "No tagged persons in album"
 msgstr "No tagged persons in album"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:381
 msgid "No postcards in album"
 msgstr "No postcards in album"
 

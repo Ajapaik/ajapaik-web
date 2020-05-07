@@ -65,8 +65,6 @@ function addNewDetectionAnnotation(payload, onSuccess) {
 }
 
 function updateExistingObjectDetectionAnnotation(payload, onSuccess) {
-    payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
-
     putRequest(
         '/object-recognition/update-annotation',
         payload,
@@ -86,8 +84,6 @@ function deleteSavedObjectAnnotation(annotationId, onSuccess) {
 }
 
 function addObjectAnnotationFeedback(annotationId, payload, onSuccess) {
-    payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
-
     postRequest(
         '/object-recognition/annotation/' + annotationId + '/feedback/',
         payload,
@@ -98,8 +94,6 @@ function addObjectAnnotationFeedback(annotationId, payload, onSuccess) {
 }
 
 function addFaceAnnotationFeedback(annotationId, payload, onSuccess) {
-    payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
-
     postRequest(
         '/face-recognition/annotation/' + annotationId + '/feedback/',
         payload,
@@ -110,8 +104,6 @@ function addFaceAnnotationFeedback(annotationId, payload, onSuccess) {
 }
 
 function editFaceAnnotation(payload, onSuccess) {
-    payload.csrfmiddlewaretoken = window.docCookies.getItem('csrftoken');
-
     postRequest(
         '/face-recognition/api/v1/subject-data/',
         payload,

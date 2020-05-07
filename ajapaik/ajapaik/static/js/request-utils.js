@@ -38,6 +38,9 @@ function getRequest(uri, data, successText, failureText, onSuccess, onFailure, a
 function postRequest(uri, payload, successText, failureText, onSuccess, onFailure) {
     $.ajax({
         type: 'POST',
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+        },
         url: uri,
         data: payload,
         success: getSuccessHandler(successText, onSuccess),
@@ -48,6 +51,9 @@ function postRequest(uri, payload, successText, failureText, onSuccess, onFailur
 function putRequest(uri, payload, successText, failureText, onSuccess, onFailure) {
     $.ajax({
         type: 'PUT',
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+        },
         url: uri,
         data: payload,
         success: getSuccessHandler(successText, onSuccess),
@@ -58,10 +64,10 @@ function putRequest(uri, payload, successText, failureText, onSuccess, onFailure
 function deleteRequest(uri, successText, failureText, onSuccess, onFailure) {
     $.ajax({
         type: 'DELETE',
-        url: uri,
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("X-CSRFToken", window.docCookies.getItem('csrftoken'));
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
         },
+        url: uri,
         success: getSuccessHandler(successText, onSuccess),
         error: getFailureHandler(failureText, onFailure)
     });

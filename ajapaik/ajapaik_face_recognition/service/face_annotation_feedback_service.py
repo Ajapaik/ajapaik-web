@@ -19,10 +19,18 @@ def add_feedback(request: FaceAnnotationFeedbackRequest, http_request: HttpReque
     if existing_feedback is not None:
         set_feedback(existing_feedback, request, user, face_annotation)
         existing_feedback.save()
+        if face_annotation.photo.first_annotation is None:
+            face_annotation.photo.first_annotation = existing_feedback.modified
+        face_annotation.photo.latest_annotation = existing_feedback.modified
+        face_annotation.photo.light_save()
     else:
         new_feedback = FaceRecognitionRectangleFeedback()
         set_feedback(new_feedback, request, user, face_annotation)
         new_feedback.save()
+        if face_annotation.photo.first_annotation is None:
+            face_annotation.photo.first_annotation = new_feedback.modified
+        face_annotation.photo.latest_annotation = new_feedback.modified
+        face_annotation.photo.light_save()
 
     if not request.is_correct_age or not request.is_correct_gender:
         add_gender_and_age_feedback(user, face_annotation, request, http_request)

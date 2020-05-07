@@ -198,6 +198,13 @@ def add_person_rectangle(values, photo, user_id):
     )
     new_rectangle.save()
 
+    
+    if photo.first_annotation is None:
+        photo.first_annotation = new_rectangle.created
+    photo.latest_annotation = new_rectangle.created
+    photo.annotation_count += 1
+    photo.light_save()
+
     return new_rectangle.id
 
 

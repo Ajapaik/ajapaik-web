@@ -36,6 +36,11 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
 
         annotation.save()
 
+        if annotation.photo.first_annotation is None:
+            annotation.photo.first_annotation = annotation.modified   
+        annotation.photo.latest_annotation = annotation.modified
+        annotation.photo.light_save()
+
         return True
 
 

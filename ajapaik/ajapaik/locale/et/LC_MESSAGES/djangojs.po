@@ -426,68 +426,72 @@ msgid "transcribed"
 msgstr "transkribeeritud"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+msgid "annotated"
+msgstr "annoteeritud"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"
 msgstr "vaadatud"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "pictures"
 msgstr "pildid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "By reverse timestamp"
 msgstr "Tagurpidi ajakoodi järgi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:165
 msgid "By timestamp"
 msgstr "Ajakoodi järgi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:169
 msgid "Pictures from the map"
 msgstr "Kaardiakna pildid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 #, fuzzy
 msgid "No results found for: %(query)s"
 msgstr "Otsing \"%(query)s\" ei andnud tulemusi"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
 msgstr "Soovite ehk otsida hoopis: "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
 msgid "all pictures"
 msgstr "kõik pildid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
 msgstr "Albumid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "My favorites"
 msgstr "Minu lemmikud"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:280
 msgid "My rephotos"
 msgstr "Minu refotod"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:282
 msgid "Rephotos by %(user)s"
 msgstr "%(user)s refotod"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All photos"
 msgstr "Kõik fotod"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
 msgstr "Pildivalimis ei ole "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:374
 msgid "No tagged persons in album"
 msgstr "Albumis pole ühtegi näokasti"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:381
 msgid "No postcards in album"
 msgstr "Albumis pole ühtegi postkaarti"
 

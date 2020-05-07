@@ -82,5 +82,10 @@ def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation)
     new_annotation.is_manual_detection = True
 
     new_annotation.user = Profile.objects.get(pk=user_id)
-
     new_annotation.save()
+
+    if new_annotation.photo.first_annotation is None:
+        new_annotation.photo.first_annotation = new_annotation.created_on
+    new_annotation.photo.latest_annotation = new_annotation.created_on
+    new_annotation.photo.annotation_count += 1
+    new_annotation.photo.light_save()
