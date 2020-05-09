@@ -1159,7 +1159,7 @@ msgid "Menu"
 msgstr "Menü"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "E-Mail-Adresse ändern"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1172,7 +1172,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "E-Mail-Adresse bestätigen"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1253,7 +1253,7 @@ msgstr "Dein Passwort ist jetzt geändert."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Registrieren"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1263,7 +1263,7 @@ msgstr "Besitzt du bereits einen Account? Dann <a href=\"%(login_url)s\">logge d
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "Registrierung Geschlossen"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
@@ -1771,7 +1771,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
 msgid "similar photos"
-msgstr "ähnliche Fotos"
+msgstr "Ähnliche Fotos"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:61

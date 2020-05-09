@@ -191,152 +191,152 @@ msgstr "Kuva"
 msgid "Author"
 msgstr "Tekijä"
 
-#: ajapaik/ajapaik/models.py:878 ajapaik/ajapaik/models.py:979
+#: ajapaik/ajapaik/models.py:881 ajapaik/ajapaik/models.py:982
 msgid "Different"
 msgstr "Eri"
 
-#: ajapaik/ajapaik/models.py:879 ajapaik/ajapaik/models.py:980
+#: ajapaik/ajapaik/models.py:882 ajapaik/ajapaik/models.py:983
 msgid "Similar"
 msgstr "Samanlainen"
 
-#: ajapaik/ajapaik/models.py:880 ajapaik/ajapaik/models.py:981
+#: ajapaik/ajapaik/models.py:883 ajapaik/ajapaik/models.py:984
 msgid "Duplicate"
 msgstr "Peilaa"
 
-#: ajapaik/ajapaik/models.py:1052
+#: ajapaik/ajapaik/models.py:1055
 msgid "Geotag"
 msgstr "Paikkamerkki"
 
-#: ajapaik/ajapaik/models.py:1053 ajapaik/ajapaik/models.py:1129
+#: ajapaik/ajapaik/models.py:1056 ajapaik/ajapaik/models.py:1132
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Uusintakuva"
 
-#: ajapaik/ajapaik/models.py:1054
+#: ajapaik/ajapaik/models.py:1057
 msgid "Photo upload"
 msgstr "Valokuvan lataaminen"
 
-#: ajapaik/ajapaik/models.py:1055
+#: ajapaik/ajapaik/models.py:1058
 msgid "Photo curation"
 msgstr "Valokuvan valinta"
 
-#: ajapaik/ajapaik/models.py:1056
+#: ajapaik/ajapaik/models.py:1059
 msgid "Photo re-curation"
 msgstr "Valokuvan uudelleenvalinta"
 
-#: ajapaik/ajapaik/models.py:1057
+#: ajapaik/ajapaik/models.py:1060
 msgid "Dating"
 msgstr "Ajoittaminen"
 
-#: ajapaik/ajapaik/models.py:1058
+#: ajapaik/ajapaik/models.py:1061
 msgid "Dating confirmation"
 msgstr "Ajoituksen vahvistaminen"
 
-#: ajapaik/ajapaik/models.py:1059
+#: ajapaik/ajapaik/models.py:1062
 msgid "Film still"
 msgstr "Elokuvastilli"
 
-#: ajapaik/ajapaik/models.py:1060
+#: ajapaik/ajapaik/models.py:1063
 msgid "Annotation"
 msgstr "Annotaatio"
 
-#: ajapaik/ajapaik/models.py:1061
+#: ajapaik/ajapaik/models.py:1064
 msgid "Confirm subject"
 msgstr "Vahvista aihe"
 
-#: ajapaik/ajapaik/models.py:1062
+#: ajapaik/ajapaik/models.py:1065
 msgid "Confirm Image similarity"
 msgstr "Vahvista kuvan samankaltaisuus"
 
-#: ajapaik/ajapaik/models.py:1063 ajapaik/ajapaik/models.py:1064
+#: ajapaik/ajapaik/models.py:1066 ajapaik/ajapaik/models.py:1067
 msgid "Guess subject age"
 msgstr "Arvaa kohteen ikä"
 
-#: ajapaik/ajapaik/models.py:1065
+#: ajapaik/ajapaik/models.py:1068
 msgid "Transcribe"
 msgstr "Litteroi"
 
-#: ajapaik/ajapaik/models.py:1107
+#: ajapaik/ajapaik/models.py:1110
 msgid "Map"
 msgstr "Kartta"
 
-#: ajapaik/ajapaik/models.py:1108
+#: ajapaik/ajapaik/models.py:1111
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1109
+#: ajapaik/ajapaik/models.py:1112
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1110
+#: ajapaik/ajapaik/models.py:1113
 msgid "Confirmation"
 msgstr "Vahvistus"
 
-#: ajapaik/ajapaik/models.py:1111
+#: ajapaik/ajapaik/models.py:1114
 msgid "StreetView"
 msgstr "StreetView"
 
-#: ajapaik/ajapaik/models.py:1112
+#: ajapaik/ajapaik/models.py:1115
 msgid "Source geotag"
 msgstr "Lähteen paikkamerkki"
 
-#: ajapaik/ajapaik/models.py:1113
+#: ajapaik/ajapaik/models.py:1116
 msgid "Android app"
 msgstr "Android-ohjelma"
 
-#: ajapaik/ajapaik/models.py:1124
+#: ajapaik/ajapaik/models.py:1127
 msgid "Game"
 msgstr "Peli"
 
-#: ajapaik/ajapaik/models.py:1125
+#: ajapaik/ajapaik/models.py:1128
 msgid "Map view"
 msgstr "Karttanäkymä"
 
-#: ajapaik/ajapaik/models.py:1126
+#: ajapaik/ajapaik/models.py:1129
 msgid "Gallery"
 msgstr "Galleria"
 
-#: ajapaik/ajapaik/models.py:1127
+#: ajapaik/ajapaik/models.py:1130
 msgid "Permalink"
 msgstr "Ikilinkki"
 
-#: ajapaik/ajapaik/models.py:1128
+#: ajapaik/ajapaik/models.py:1131
 msgid "Source"
 msgstr "Lähde"
 
-#: ajapaik/ajapaik/models.py:1133
+#: ajapaik/ajapaik/models.py:1136
 msgid "Google map"
 msgstr "Google-kartta"
 
-#: ajapaik/ajapaik/models.py:1134
+#: ajapaik/ajapaik/models.py:1137
 msgid "Google satellite"
 msgstr "Google satelliitti"
 
-#: ajapaik/ajapaik/models.py:1135
+#: ajapaik/ajapaik/models.py:1138
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1136
+#: ajapaik/ajapaik/models.py:1139
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1137
+#: ajapaik/ajapaik/models.py:1140
 msgid "No map"
 msgstr "Ei karttaa"
 
-#: ajapaik/ajapaik/models.py:1259 ajapaik/ajapaik/models.py:1261
+#: ajapaik/ajapaik/models.py:1262 ajapaik/ajapaik/models.py:1264
 msgid "Anonymous user"
 msgstr "Nimetön käyttäjä"
 
-#: ajapaik/ajapaik/models.py:1451
+#: ajapaik/ajapaik/models.py:1454
 msgid "Day"
 msgstr "Päivä"
 
-#: ajapaik/ajapaik/models.py:1452
+#: ajapaik/ajapaik/models.py:1455
 msgid "Month"
 msgstr "Kuukausi"
 
-#: ajapaik/ajapaik/models.py:1453
+#: ajapaik/ajapaik/models.py:1456
 msgid "Year"
 msgstr "Vuosi"
 
@@ -355,6 +355,11 @@ msgstr "Kokoelman tiedot"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:22
 msgid "System error"
 msgstr "Järjestelmävirhe"
+
+#: ajapaik/ajapaik/templates/_album_creation_modal.html:32
+#: ajapaik/ajapaik/templates/user_upload.html:30
+msgid "Search for an existing album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -528,34 +533,38 @@ msgid "Sort by geotags' time added or amount"
 msgstr "Järjestä paikkamerkin lisäysajankohdan tai lukumäärän mukaan"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
-msgid "Sort by datings' time added or amount"
-msgstr "Järjestä ajoituksen lisäysajankohdan tai lukumäärän mukaan"
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
-msgid "Sort by transcriptions' time added or amount"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:91
 msgid "Sort by rephotos' time added or amount"
 msgstr "Järjestä uusintakuvan lisäysajankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:101
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
+msgid "Sort by annotations' time added or amount"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:91
+msgid "Sort by transcriptions' time added or amount"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:100
+msgid "Sort by datings' time added or amount"
+msgstr "Järjestä ajoituksen lisäysajankohdan tai lukumäärän mukaan"
+
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:110
 msgid "Sort by comments' time added or amount"
 msgstr "Järjestä kommenttien lisäysjankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:111
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:120
 msgid "Sort by likes' time added or amount"
 msgstr "Järjestä tykkäysten lisäysajankohdan tai lukumäärän mukaan"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:121
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:130
 msgid "Sort by amount and ..."
 msgstr "Järjestä lukumäärän mukaan ja ..."
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:131
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:140
 msgid "Change sorting order"
 msgstr "Muuta järjestystä"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:140
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:149
 msgid "Help"
 msgstr "Ohjeet"
 
@@ -772,15 +781,15 @@ msgstr "Ajapaik Facebookissa"
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/_header.html:109 ajapaik/ajapaik/views.py:1753
-#: ajapaik/ajapaik/views.py:1770 ajapaik/ajapaik/views.py:1806
+#: ajapaik/ajapaik/templates/_header.html:109 ajapaik/ajapaik/views.py:1764
+#: ajapaik/ajapaik/views.py:1781 ajapaik/ajapaik/views.py:1817
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:31
-#: ajapaik/ajapaik_face_recognition/models.py:200
+#: ajapaik/ajapaik_face_recognition/models.py:203
 msgid "User"
 msgstr "Käyttäjä"
 
@@ -1153,7 +1162,7 @@ msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
 msgid "Forgot password?"
-msgstr "Salasana unohtunut?"
+msgstr "Salasana Unohtunut?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
 msgid "Messages"
@@ -1164,7 +1173,7 @@ msgid "Menu"
 msgstr "Valikko"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "Vaihda sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1177,7 +1186,7 @@ msgstr "Tunnusten yhteydet"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "Vahvista sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1258,7 +1267,7 @@ msgstr "Salasanasi on nyt vaihdettu."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Rekisteröidy"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1268,7 +1277,7 @@ msgstr "Onko sinulla jo tili? <a href=\"%(login_url)s\">Kirjaudu sisään</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "Rekisteröityminen on poissa käytöstä."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
@@ -1850,91 +1859,91 @@ msgstr "Lataa ja merkitse kartalle"
 msgid "Add"
 msgstr "Lisää"
 
-#: ajapaik/ajapaik/views.py:451
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr "Ei tunnistettu käyttäjä"
 
-#: ajapaik/ajapaik/views.py:590
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr "Paikannuspeli"
 
-#: ajapaik/ajapaik/views.py:658
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - uusintakuvat"
 
-#: ajapaik/ajapaik/views.py:1128
+#: ajapaik/ajapaik/views.py:1139
 msgid "Cannot upload to these albums"
 msgstr "Et voi lähettää kuvia näihin albumeihin"
 
-#: ajapaik/ajapaik/views.py:1150
+#: ajapaik/ajapaik/views.py:1161
 msgid "Recuration successful"
 msgstr "Uudelleen valikoiminen onnistui"
 
-#: ajapaik/ajapaik/views.py:1152
+#: ajapaik/ajapaik/views.py:1163
 msgid "Problem with album selection"
 msgstr "Albumin valinnassa on ongelma"
 
-#: ajapaik/ajapaik/views.py:1154
+#: ajapaik/ajapaik/views.py:1165
 msgid "Faulty data submitted"
 msgstr "Viallista tietoa lähetetty"
 
-#: ajapaik/ajapaik/views.py:1471 ajapaik/ajapaik/views.py:1478
-#: ajapaik/ajapaik/views.py:1480
+#: ajapaik/ajapaik/views.py:1482 ajapaik/ajapaik/views.py:1489
+#: ajapaik/ajapaik/views.py:1491
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: ajapaik/ajapaik/views.py:1612
+#: ajapaik/ajapaik/views.py:1623
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Panoksesi ei muuttanut valokuvan arvioitua sijaintia, ainakaan vielä."
 
-#: ajapaik/ajapaik/views.py:1614
+#: ajapaik/ajapaik/views.py:1625
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Valokuva sijoitettiin uuteen sijaintiin panoksesi ansiosta."
 
-#: ajapaik/ajapaik/views.py:1616
+#: ajapaik/ajapaik/views.py:1627
 msgid "Your guess was first."
 msgstr "Sinun arvauksesi oli ensimmäinen."
 
-#: ajapaik/ajapaik/views.py:1889
+#: ajapaik/ajapaik/views.py:1900
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja jaa syntynyt albumi!"
 
-#: ajapaik/ajapaik/views.py:2252
+#: ajapaik/ajapaik/views.py:2263
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2311 ajapaik/ajapaik/views.py:2332
+#: ajapaik/ajapaik/views.py:2322 ajapaik/ajapaik/views.py:2343
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Virhe kuvan tallennuksessa: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2328
+#: ajapaik/ajapaik/views.py:2339
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: ajapaik/ajapaik/views.py:2351
+#: ajapaik/ajapaik/views.py:2362
 msgid "Please add photos to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: ajapaik/ajapaik/views.py:2353
+#: ajapaik/ajapaik/views.py:2364
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: ajapaik/ajapaik/views.py:2669
+#: ajapaik/ajapaik/views.py:2680
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:2799
+#: ajapaik/ajapaik/views.py:2810
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:2817
+#: ajapaik/ajapaik/views.py:2828
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:2899
+#: ajapaik/ajapaik/views.py:2910
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
@@ -1947,12 +1956,12 @@ msgid "Is public figure"
 msgstr "On julkisuuden henkilö"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
-#: ajapaik/ajapaik_face_recognition/models.py:201
+#: ajapaik/ajapaik_face_recognition/models.py:204
 msgid "Algorithm"
 msgstr "Algoritmi"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
-#: ajapaik/ajapaik_face_recognition/models.py:202
+#: ajapaik/ajapaik_face_recognition/models.py:205
 msgid "Picasa"
 msgstr "Picasa"
 
@@ -2059,5 +2068,5 @@ msgstr "Venäjä"
 
 #: ajapaik/settings/default.py:79
 msgid "French"
-msgstr ""
+msgstr "Ranskan"
 

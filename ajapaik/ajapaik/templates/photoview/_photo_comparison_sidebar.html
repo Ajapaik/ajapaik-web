@@ -9,7 +9,7 @@
             <i class="material-icons notranslate photo-comparison-sidebar__icon">expand_less</i>
         </span>
             <span style="display: block;">
-            {% trans "Rephotos" %}({{ photo.rephotos.all|length }}) | {% trans "Similar photos" %}({{ similar_photo_count }})
+            {% trans "Rephotos" %}({{ photo.rephotos.all|length }}) | {% trans "similar photos" %}({{ similar_photo_count }})
         </span>
         </button>
     </div>
@@ -62,7 +62,7 @@
                         aria-controls="similarPhotos"
                         aria-selected="false"
                     >
-                        {% trans "Similar photos" %}({{ similar_photo_count }})
+                        {% trans "similar photos" %}({{ similar_photo_count }})
                     </a>
                 </li>
                 <li id="close-comparison-sidebar-button-wrapper" class="nav-item ml-auto">

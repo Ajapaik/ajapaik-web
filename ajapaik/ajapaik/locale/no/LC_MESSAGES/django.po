@@ -1162,7 +1162,7 @@ msgid "Menu"
 msgstr "Meny"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "Endre e-post"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1175,7 +1175,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "Bekreft e-postadresse"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1256,7 +1256,7 @@ msgstr "Ditt passord er endret."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Registrer deg"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1266,7 +1266,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

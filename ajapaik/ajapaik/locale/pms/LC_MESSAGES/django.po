@@ -1157,7 +1157,7 @@ msgid "Menu"
 msgstr "Lista"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "Cangé l'adrëssa ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1170,7 +1170,7 @@ msgstr "Conession ëd cont sossiaj"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "Confirmé l'adrëssa ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1251,7 +1251,7 @@ msgstr "La soa ciav a l'é adess modificà."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Anscrission"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1261,7 +1261,7 @@ msgstr "A l'ha già un cont? Antlora ch'a <a href=\"%(login_url)s\">rintra ant �
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "Anscrission sarà"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

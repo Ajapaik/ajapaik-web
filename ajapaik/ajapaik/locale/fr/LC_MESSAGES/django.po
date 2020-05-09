@@ -1166,7 +1166,7 @@ msgid "Menu"
 msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "Changer l’adresse de courriel"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1179,7 +1179,7 @@ msgstr "Connexions de comptes sociaux"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "Confirmer l’adresse de courriel"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1260,7 +1260,7 @@ msgstr "Votre mot de passe est maintenant modifié."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "S’inscrire"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1270,7 +1270,7 @@ msgstr "Vous avez déjà un compte ? Alors veuillez <a href=\"%(login_url)s\">
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "Inscriptions fermées"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

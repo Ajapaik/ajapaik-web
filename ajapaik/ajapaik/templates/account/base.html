@@ -36,14 +36,14 @@
       <strong>Menu:</strong>
       <ul>
         {% if request.user.profile.is_legit %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <li><a href="{% url 'account_email' %}">Change e-mail</a></li>
+        <li><a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a>
         <li><a href="{% url 'account_change_password' %}">Change password</a>
         <li><a href="{% url 'socialaccount_connections' %}">Socialaccount connections</a>
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
         {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        <li><a href="{% url 'account_login' %}">Sign in</a></li>
+        <li><a href="{% url 'account_signup' %}">Sign up</a></li>
         {% endif %}
       </ul>
     </div>

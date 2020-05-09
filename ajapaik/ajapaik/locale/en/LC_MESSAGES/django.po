@@ -51,6 +51,10 @@ msgstr "You have already given feedback for this transcription"
 msgid "Transcription feedback added, thank you!"
 msgstr "Transcription feedback added, thank you!"
 
+#: ajapaik/ajapaik/autocomplete_views.py:273
+msgid "No album found"
+msgstr "No album found"
+
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
 msgstr "Bounding box must be set"
@@ -156,15 +160,19 @@ msgstr "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start 
 msgid "Nothing to change."
 msgstr "Nothing to change."
 
-#: ajapaik/ajapaik/models.py:177
+#: ajapaik/ajapaik/models.py:177 ajapaik/ajapaik_face_recognition/models.py:23
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:51
 msgid "Male"
 msgstr "Male"
 
-#: ajapaik/ajapaik/models.py:178
+#: ajapaik/ajapaik/models.py:178 ajapaik/ajapaik_face_recognition/models.py:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:54
 msgid "Female"
 msgstr "Female"
+
+#: ajapaik/ajapaik/models.py:204
+msgid "Gender"
+msgstr "Gender"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -347,6 +355,11 @@ msgstr "Collection info"
 msgid "System error"
 msgstr "System error"
 
+#: ajapaik/ajapaik/templates/_album_creation_modal.html:32
+#: ajapaik/ajapaik/templates/user_upload.html:30
+msgid "Search for an existing album"
+msgstr "Search for an existing album"
+
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:17
 #: ajapaik/ajapaik/templates/comments/list.html:43
@@ -519,20 +532,20 @@ msgid "Sort by geotags' time added or amount"
 msgstr "Sort by geotags' time added or amount"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
-msgid "Sort by datings' time added or amount"
-msgstr "Sort by datings' time added or amount"
+msgid "Sort by rephotos' time added or amount"
+msgstr "Sort by rephotos' time added or amount"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
-msgid "Sort by transcriptions' time added or amount"
-msgstr "Sort by transcriptions' time added or amount"
-
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:91
 msgid "Sort by annotations' time added or amount"
 msgstr "Sort by annotations' time added or amount"
 
+#: ajapaik/ajapaik/templates/_filtering_dropdown.html:91
+msgid "Sort by transcriptions' time added or amount"
+msgstr "Sort by transcriptions' time added or amount"
+
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:100
-msgid "Sort by rephotos' time added or amount"
-msgstr "Sort by rephotos' time added or amount"
+msgid "Sort by datings' time added or amount"
+msgstr "Sort by datings' time added or amount"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:110
 msgid "Sort by comments' time added or amount"
@@ -767,15 +780,15 @@ msgstr "Ajapaik on Facebook"
 msgid "Profile and leaderboard"
 msgstr "Profile and leaderboard"
 
-#: ajapaik/ajapaik/templates/_header.html:109 ajapaik/ajapaik/views.py:1765
-#: ajapaik/ajapaik/views.py:1782 ajapaik/ajapaik/views.py:1818
+#: ajapaik/ajapaik/templates/_header.html:109 ajapaik/ajapaik/views.py:1764
+#: ajapaik/ajapaik/views.py:1781 ajapaik/ajapaik/views.py:1817
 msgid "Leaderboard"
 msgstr "Leaderboard"
 
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:31
-#: ajapaik/ajapaik_face_recognition/models.py:200
+#: ajapaik/ajapaik_face_recognition/models.py:203
 msgid "User"
 msgstr "User"
 
@@ -1147,7 +1160,7 @@ msgstr "You're anonymous. You can now log in with your e-mail."
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:36
 #: ajapaik/ajapaik/templates/account/login.html:40
-msgid "Forgot Password?"
+msgid "Forgot password?"
 msgstr "Forgot password?"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:14
@@ -1159,8 +1172,8 @@ msgid "Menu"
 msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
-msgstr "Change E-mail"
+msgid "Change e-mail"
+msgstr "Change e-mail"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -1172,8 +1185,8 @@ msgstr "Socialaccount connections"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail Address"
-msgstr "Confirm E-mail address"
+msgid "Confirm e-mail address"
+msgstr "Confirm e-mail address"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1192,7 +1205,7 @@ msgstr "This e-mail confirmation link expired or is invalid. Please <a href=\"%(
 #: ajapaik/ajapaik/templates/account/login.html:6
 #: ajapaik/ajapaik/templates/account/login.html:10
 #: ajapaik/ajapaik/templates/account/login.html:41
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Sign in"
 
 #: ajapaik/ajapaik/templates/account/login.html:15
@@ -1253,8 +1266,8 @@ msgstr "Your password is now changed."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
-msgstr "Sign Up"
+msgid "Sign up"
+msgstr "Sign up"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1263,8 +1276,8 @@ msgstr "Already have an account? Then please <a href=\"%(login_url)s\">sign in</
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
-msgstr "Sign Up Closed"
+msgid "Sign up closed"
+msgstr "Sign up closed"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1770,7 +1783,7 @@ msgstr "Rephotos"
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:14
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:12
 #: ajapaik/ajapaik/templates/photoview/_photo_comparison_sidebar.html:65
-msgid "Similar photos"
+msgid "similar photos"
 msgstr "similar photos"
 
 #: ajapaik/ajapaik/templates/photoview/_accordion.html:45
@@ -1845,91 +1858,91 @@ msgstr "Upload and mark on map"
 msgid "Add"
 msgstr "Add"
 
-#: ajapaik/ajapaik/views.py:451
+#: ajapaik/ajapaik/views.py:450
 msgid "Non-authenticated user"
 msgstr "Non-authenticated user"
 
-#: ajapaik/ajapaik/views.py:590
+#: ajapaik/ajapaik/views.py:589
 msgid "Geotagging game"
 msgstr "Geotagging game"
 
-#: ajapaik/ajapaik/views.py:658
+#: ajapaik/ajapaik/views.py:657
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - rephotos"
 
-#: ajapaik/ajapaik/views.py:1140
+#: ajapaik/ajapaik/views.py:1139
 msgid "Cannot upload to these albums"
 msgstr "Cannot upload to these albums"
 
-#: ajapaik/ajapaik/views.py:1162
+#: ajapaik/ajapaik/views.py:1161
 msgid "Recuration successful"
 msgstr "Recuration successful"
 
-#: ajapaik/ajapaik/views.py:1164
+#: ajapaik/ajapaik/views.py:1163
 msgid "Problem with album selection"
 msgstr "Problem with album selection"
 
-#: ajapaik/ajapaik/views.py:1166
+#: ajapaik/ajapaik/views.py:1165
 msgid "Faulty data submitted"
 msgstr "Faulty data submitted"
 
-#: ajapaik/ajapaik/views.py:1483 ajapaik/ajapaik/views.py:1490
-#: ajapaik/ajapaik/views.py:1492
+#: ajapaik/ajapaik/views.py:1482 ajapaik/ajapaik/views.py:1489
+#: ajapaik/ajapaik/views.py:1491
 msgid "Browse photos on map"
 msgstr "Browse photos on map"
 
-#: ajapaik/ajapaik/views.py:1624
+#: ajapaik/ajapaik/views.py:1623
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Your contribution didn't change the estimated location for the photo, not yet anyway."
 
-#: ajapaik/ajapaik/views.py:1626
+#: ajapaik/ajapaik/views.py:1625
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "The photo has been mapped to a new location thanks to you."
 
-#: ajapaik/ajapaik/views.py:1628
+#: ajapaik/ajapaik/views.py:1627
 msgid "Your guess was first."
 msgstr "Your guess was first."
 
-#: ajapaik/ajapaik/views.py:1901
+#: ajapaik/ajapaik/views.py:1900
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 
-#: ajapaik/ajapaik/views.py:2264
+#: ajapaik/ajapaik/views.py:2263
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2323 ajapaik/ajapaik/views.py:2344
+#: ajapaik/ajapaik/views.py:2322 ajapaik/ajapaik/views.py:2343
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Error uploading file: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2340
+#: ajapaik/ajapaik/views.py:2339
 msgid "Photo already exists in Ajapaik"
 msgstr "Photo already exists in Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2363
+#: ajapaik/ajapaik/views.py:2362
 msgid "Please add photos to your album"
 msgstr "Please add photos to your album"
 
-#: ajapaik/ajapaik/views.py:2365
+#: ajapaik/ajapaik/views.py:2364
 msgid "Not enough data submitted"
 msgstr "Not enough data submitted"
 
-#: ajapaik/ajapaik/views.py:2681
+#: ajapaik/ajapaik/views.py:2680
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still from \"%(film)s\" at %(time)s"
 
-#: ajapaik/ajapaik/views.py:2811
+#: ajapaik/ajapaik/views.py:2810
 msgid "Photo uploaded"
 msgstr "Photo uploaded"
 
-#: ajapaik/ajapaik/views.py:2829
+#: ajapaik/ajapaik/views.py:2828
 msgid "Album created"
 msgstr "Album created"
 
-#: ajapaik/ajapaik/views.py:2911
+#: ajapaik/ajapaik/views.py:2910
 msgid "Sorry but we fail to post your comment."
 msgstr "Sorry but we fail to post your comment."
 
@@ -1941,13 +1954,38 @@ msgstr "Subject name"
 msgid "Is public figure"
 msgstr "Is public figure"
 
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
+msgid "Child"
+msgstr "Child"
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
+msgid "Adult"
+msgstr "Adult"
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
+msgid "Elderly"
+msgstr "Elderly"
+
+#: ajapaik/ajapaik_face_recognition/models.py:17
+#: ajapaik/ajapaik_face_recognition/models.py:24
+msgid "Unknown"
+msgstr "Unknown"
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
+msgstr "Not Applicable"
+
 #: ajapaik/ajapaik_face_recognition/models.py:32
-#: ajapaik/ajapaik_face_recognition/models.py:201
+#: ajapaik/ajapaik_face_recognition/models.py:204
 msgid "Algorithm"
 msgstr "Algorithm"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
-#: ajapaik/ajapaik_face_recognition/models.py:202
+#: ajapaik/ajapaik_face_recognition/models.py:205
 msgid "Picasa"
 msgstr "Picasa"
 
@@ -1991,18 +2029,6 @@ msgstr "Info"
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
 msgid "Not sure"
 msgstr "Not sure"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
-msgid "Child"
-msgstr "Child"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
-msgid "Adult"
-msgstr "Adult"
-
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
-msgid "Elderly"
-msgstr "Elderly"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
 msgid "Skip"
@@ -2067,12 +2093,6 @@ msgstr "French"
 
 #~ msgid "Non-binary"
 #~ msgstr "Non-binary"
-
-#~ msgid "Unknown"
-#~ msgstr "Tundmatu"
-
-#~ msgid "Not Applicable"
-#~ msgstr "Not Applicable"
 
 #~ msgid "Unknown author"
 #~ msgstr "Unknown author"

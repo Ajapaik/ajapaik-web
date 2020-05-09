@@ -447,7 +447,7 @@ msgid "Did you mean to search from: "
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
-msgid "all pictures"
+msgid "All pictures"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266

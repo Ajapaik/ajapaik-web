@@ -3,6 +3,7 @@ from django.conf.urls import url
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http.response import HttpResponse
+from django.utils.translation import ugettext as _
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, \
      ImageSimilarityGuess, Licence, Photo, Points, Profile, Skip, Source, Transcription, User, Video
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
@@ -269,7 +270,7 @@ class PublicAlbumAutocomplete(APIView):
         if q:
             qs = qs.filter(Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(name_de__icontains=q) | Q(name_no__icontains=q), is_public=True)
 
-        result = """<span class="block"><em>No matches found</em></span>"""
+        result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
         if len(qs) > 0:
             result = ""
             for q in qs:

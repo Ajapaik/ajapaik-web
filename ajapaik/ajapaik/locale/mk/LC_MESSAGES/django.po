@@ -1155,7 +1155,7 @@ msgid "Menu"
 msgstr "Мени"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "Смени е-пошта"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1168,7 +1168,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "Потврда на е-поштенска адреса"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1249,7 +1249,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Зачленување"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1259,7 +1259,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

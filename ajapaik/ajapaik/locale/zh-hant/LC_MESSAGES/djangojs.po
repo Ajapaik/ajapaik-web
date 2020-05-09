@@ -453,7 +453,7 @@ msgid "Did you mean to search from: "
 msgstr "您是否指要搜尋：\\"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
-msgid "all pictures"
+msgid "All pictures"
 msgstr "全部圖片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266

@@ -952,7 +952,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 				photos = photos.order_by('created')
 			else:
 				photos = photos.order_by('-created')
-		if not filter_form.cleaned_data['postcards']:
+		if not filter_form.cleaned_data['postcards'] and not order2 == 'transcriptions':
 			photos = photos.filter(postcard_back_of__isnull=True)
 		if requested_photo:
 			ids = list(photos.values_list('id', flat=True))

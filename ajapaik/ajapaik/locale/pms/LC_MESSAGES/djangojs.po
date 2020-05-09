@@ -453,8 +453,8 @@ msgid "Did you mean to search from: "
 msgstr "Vorij-lo sërché da: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
-msgid "all pictures"
-msgstr "tute le fòto"
+msgid "All pictures"
+msgstr "Tute le fòto"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"

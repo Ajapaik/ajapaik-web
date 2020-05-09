@@ -1148,7 +1148,7 @@ msgid "Menu"
 msgstr "選單"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "修改電子郵件"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1161,7 +1161,7 @@ msgstr "社會網路帳號連接"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "確認電子郵件地址"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1242,7 +1242,7 @@ msgstr "您的密碼現在已變更。"
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "註冊"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1252,7 +1252,7 @@ msgstr "已經有帳號了嗎？那麼請<a href=\"%(login_url)s\">登入</a>。
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "註冊已關閉"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

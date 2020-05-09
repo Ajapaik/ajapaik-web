@@ -1147,7 +1147,7 @@ msgid "Menu"
 msgstr "메뉴"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
+msgid "Change e-mail"
 msgstr "이메일 바꾸기"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
@@ -1160,7 +1160,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
+msgid "Confirm e-mail address"
 msgstr "이메일 주소 확인"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
@@ -1241,7 +1241,7 @@ msgstr "지금 비밀번호가 변경되었습니다."
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "가입하기"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1251,7 +1251,7 @@ msgstr "이미 계정이 있으십니까? 그렇다면 <a href=\"%(login_url)s\"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10

@@ -455,8 +455,8 @@ msgid "Did you mean to search from: "
 msgstr "Voulez-vous dire une recherche depuis : "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
-msgid "all pictures"
-msgstr "toutes les images"
+msgid "All pictures"
+msgstr "Toutes les images"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"

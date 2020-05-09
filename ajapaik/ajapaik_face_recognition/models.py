@@ -11,18 +11,18 @@ from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 
 CHILD, ADULT, ELDERLY, UNKNOWN, NOT_APPLICABLE = range(5)
 AGE = (
-    (CHILD, "Child"),
-    (ADULT, "Adult"),
-    (ELDERLY, "Elderly"),
-    (UNKNOWN, "Unknown"),
-    (NOT_APPLICABLE, "Not Applicable")
+    (CHILD, _("Child")),
+    (ADULT, _("Adult")),
+    (ELDERLY, _("Elderly")),
+    (UNKNOWN, _("Unknown")),
+    (NOT_APPLICABLE, _("Not Applicable"))
 )
 FEMALE, MALE, UNKNOWN, NOT_APPLICABLE = range(4)
 GENDER = (
-    (FEMALE, 'Female'),
-    (MALE, 'Male'),
-    (UNKNOWN, "Unknown"),
-    (NOT_APPLICABLE, "Not Applicable")
+    (FEMALE, _('Female')),
+    (MALE, _('Male')),
+    (UNKNOWN, _("Unknown")),
+    (NOT_APPLICABLE, _("Not Applicable"))
 )
 
 class FaceRecognitionRectangle(models.Model):

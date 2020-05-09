@@ -455,8 +455,8 @@ msgid "Did you mean to search from: "
 msgstr "Menade du att söka från: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
-msgid "all pictures"
-msgstr "alla bilder"
+msgid "All pictures"
+msgstr "Alla bilder"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
 msgid "Albums"

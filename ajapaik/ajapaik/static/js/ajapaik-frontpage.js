@@ -285,7 +285,7 @@
                     $('#ajapaik-header-rephotos-icon').show();
                     window.updateFrontpagePhotosAsync();
                 } else if (!window.albumId) {
-                    title = gettext('All photos');
+                    title = gettext('All pictures');
                     $('#ajapaik-header-pictures-icon').show();
                     albumSelectionDiv.addClass('ajapaik-invisible d-none');
                     historicPhotoGalleryDiv.removeClass('ajapaik-invisible d-none');

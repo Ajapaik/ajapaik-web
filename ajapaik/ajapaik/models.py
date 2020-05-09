@@ -201,7 +201,7 @@ class Album(Model):
     comments_count_with_subalbums = IntegerField(default=0)
     is_film_still_album = BooleanField(default=False)
     date_of_birth = DateField(blank=True, null=True)
-    gender = PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+    gender = PositiveSmallIntegerField(_('Gender'), choices=GENDER_CHOICES, blank=True, null=True)
     is_public_figure = BooleanField(default=False)
     wikidata_qid = CharField(_('Wikidata identifier'), max_length=255, blank=True, null=True)
     face_encodings = TextField(blank=True, null=True)

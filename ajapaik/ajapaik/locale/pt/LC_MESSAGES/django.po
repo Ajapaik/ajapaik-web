@@ -1155,8 +1155,8 @@ msgid "Menu"
 msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
-msgid "Change E-mail"
-msgstr "Alterar E-mail"
+msgid "Change e-mail"
+msgstr "Alterar e-mail"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -1168,8 +1168,8 @@ msgstr "Ligações de contas sociais"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
-msgid "Confirm E-mail address"
-msgstr "Confirmar endereço de E-mail"
+msgid "Confirm e-mail address"
+msgstr "Confirmar endereço de e-mail"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1249,7 +1249,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
-msgid "Sign Up"
+msgid "Sign up"
 msgstr "Registar-se"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
@@ -1259,7 +1259,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
-msgid "Sign Up Closed"
+msgid "Sign up closed"
 msgstr "Registos Encerrados"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
