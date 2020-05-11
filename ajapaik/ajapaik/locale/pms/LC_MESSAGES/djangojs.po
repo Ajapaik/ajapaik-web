@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-07 15:06:34+0000\n"
+"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
+"X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -421,72 +421,73 @@ msgstr "daità"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "transcribed"
-msgstr ""
+msgstr "trascrit"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+msgid "annotated"
+msgstr "anotà"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"
 msgstr "vist"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "pictures"
 msgstr "fòto"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "By reverse timestamp"
 msgstr "An órdin cronològich anvertì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:165
 msgid "By timestamp"
 msgstr "Da na mira cronològica"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:169
 msgid "Pictures from the map"
 msgstr "Fòto da la carta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 msgid "No results found for: %(query)s"
 msgstr "Gnun arzultà trovà për: %(query)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
 msgstr "Vorij-lo sërché da: "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All pictures"
-msgstr "Tute le fòto"
+msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
 msgstr "Àlbom"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "My favorites"
 msgstr "Ij mè preferì"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:280
 msgid "My rephotos"
 msgstr "Mie arprodussion fotogràfiche"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:282
 msgid "Rephotos by %(user)s"
 msgstr "Arprodussion fotogràfiche ëd %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
-msgid "All photos"
-msgstr "Tute le fòto"
-
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
 msgstr "L'ansem ëd fòto a l'ha gnun "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:374
 msgid "No tagged persons in album"
-msgstr ""
+msgstr "Gnun-a përson-a marcà ant l'àlbom"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:381
 msgid "No postcards in album"
-msgstr ""
+msgstr "Gnun-a cartolin-a ant l'àlbom"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -603,7 +604,7 @@ msgstr "Gavé ël filtr ëd j'àlbom"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:745
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "Mach le fòto ëd l'àlbom: %(albumName)s a son ësmonùe ant la bara lateral"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Apply album filter"

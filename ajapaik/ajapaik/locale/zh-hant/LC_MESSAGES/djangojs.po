@@ -15,11 +15,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-07 15:06:34+0000\n"
+"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-05-07 00:32:00+0000\n"
+"X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -421,72 +421,73 @@ msgstr "已註明日期"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "transcribed"
-msgstr ""
+msgstr "已轉錄"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
+msgid "annotated"
+msgstr "已註釋"
+
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"
 msgstr "已檢視"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:156
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:159
 msgid "pictures"
 msgstr "圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:163
 msgid "By reverse timestamp"
 msgstr "按反向時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:162
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:165
 msgid "By timestamp"
 msgstr "按時間戳"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:166
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:169
 msgid "Pictures from the map"
 msgstr "來自地圖的圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:232
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:382
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 msgid "No results found for: %(query)s"
 msgstr "找不到結果：%(query)s"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:237
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
 msgstr "您是否指要搜尋：\\"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:238
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All pictures"
 msgstr "全部圖片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:266
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
 msgstr "相簿"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:272
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:275
 msgid "My favorites"
 msgstr "我的個人最愛"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:277
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:280
 msgid "My rephotos"
 msgstr "我的翻拍照片"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:279
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:282
 msgid "Rephotos by %(user)s"
 msgstr "翻拍照片由 %(user)s 做出"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:285
-msgid "All photos"
-msgstr "所有照片"
-
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:356
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
 msgstr "圖片集裡沒有 "
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:371
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:374
 msgid "No tagged persons in album"
-msgstr ""
+msgstr "在相簿裡沒有被標記的人物"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:378
+#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:381
 msgid "No postcards in album"
-msgstr ""
+msgstr "在相簿裡沒有明信片"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -603,7 +604,7 @@ msgstr "移除相簿篩選"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:745
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "僅在相簿的圖片：%(albumName)s會顯示在側邊欄"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:760
 msgid "Apply album filter"

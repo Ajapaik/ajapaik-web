@@ -9,10 +9,12 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\n"
+msgstr ""
+""
+"Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-05-07 15:06:33+0000\n"
+"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -20,7 +22,7 @@ msgstr "Project-Id-Version: Ajapaik\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-05-07 12:53:47+0000\n"
+"X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -1177,7 +1179,7 @@ msgstr "Menüü"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change e-mail"
-msgstr "Vaheta E-maili aadressi"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -1190,7 +1192,7 @@ msgstr "Ühendatud sotsiaalkontod"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr "Kinnita e-posti aadress"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1271,7 +1273,7 @@ msgstr "Sinu salasõna on muudetud."
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr "Loo konto"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1281,7 +1283,7 @@ msgstr "Sul juba on konto? Palun <a href=\"%(login_url)s\">logi sisse</a>."
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr "Registreerimine suletud"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1975,11 +1977,13 @@ msgstr "Eakas"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
+#, fuzzy
 msgid "Unknown"
 msgstr "Tundmata"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
+#, fuzzy
 msgid "Not Applicable"
 msgstr "Ei kehti"
 
@@ -2085,3 +2089,4 @@ msgstr "vene"
 #: ajapaik/settings/default.py:79
 msgid "French"
 msgstr "Prantsuse keel"
+
