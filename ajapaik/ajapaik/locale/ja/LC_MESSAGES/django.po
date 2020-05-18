@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: Aefgh39622
 # Author: H2kks
+# Author: Object＊tofu
 # Author: Omotecho
 # Author: Shirayuki
 # Author: 沈澄心
@@ -14,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:19+0000\n"
 "X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,7 +176,7 @@ msgstr "女"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "性別"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"

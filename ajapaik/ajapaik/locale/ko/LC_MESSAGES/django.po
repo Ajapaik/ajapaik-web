@@ -6,6 +6,7 @@
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
+# Author: 그냥기여자
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +58,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "앨범을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -176,7 +177,7 @@ msgstr "여성"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "성별"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -1963,7 +1964,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "알 수 없음"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25

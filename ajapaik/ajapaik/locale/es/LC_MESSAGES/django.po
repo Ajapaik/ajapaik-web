@@ -6,6 +6,7 @@
 # Author: Fitoschido
 # Author: Geryescalier
 # Author: Joanmp17
+# Author: Ncr
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-05-11 15:34:29+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:18+0000\n"
 "X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,7 +175,7 @@ msgstr "Femenino"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "Género"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -360,7 +361,7 @@ msgstr "Error del sistema"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload.html:30
 msgid "Search for an existing album"
-msgstr ""
+msgstr "Buscar un álbum existente"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1974,7 +1975,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25

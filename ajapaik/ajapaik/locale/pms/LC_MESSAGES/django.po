@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-05-11 15:34:31+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:20+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +55,7 @@ msgstr "Sugeriment an sla trascrission giontà, mersì!"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "Gnun àlbom trovà"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -174,7 +174,7 @@ msgstr "Fumela"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "Sess"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -360,7 +360,7 @@ msgstr "Eror ëd sistema"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload.html:30
 msgid "Search for an existing album"
-msgstr ""
+msgstr "Sërché n'àlbom esistent"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1175,7 +1175,7 @@ msgstr "Lista"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:35
 msgid "Change e-mail"
-msgstr ""
+msgstr "Cangé l'adrëssa ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:37
 msgid "Change password"
@@ -1188,7 +1188,7 @@ msgstr "Conession ëd cont sossiaj"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Confirmé l'adrëssa ëd pòsta eletrònica:"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1269,7 +1269,7 @@ msgstr "La soa ciav a l'é adess modificà."
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Anscriv-se"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1279,7 +1279,7 @@ msgstr "A l'ha già un cont? Antlora ch'a <a href=\"%(login_url)s\">rintra ant �
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Anscrission sarà"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1973,13 +1973,11 @@ msgstr "Vej"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
-#, fuzzy
 msgid "Unknown"
-msgstr "Tundmatu"
+msgstr "Sconossù"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "Nen aplicàbil"
 

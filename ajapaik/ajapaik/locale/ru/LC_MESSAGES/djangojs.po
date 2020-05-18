@@ -5,6 +5,7 @@
 # Author: Katunchik
 # Author: Meerrahtar
 # Author: Okras
+# Author: Pacha Tchernof
 # Author: Roman
 # --
 # This file is part of the Ajapaik Project
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-05-11 15:34:30+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:19+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -437,11 +438,11 @@ msgstr "датировано"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "transcribed"
-msgstr ""
+msgstr "транскрибировано"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "annotated"
-msgstr ""
+msgstr "аннотировано"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"

@@ -3,6 +3,7 @@
 #
 # Author: Fitoschido
 # Author: Geryescalier
+# Author: Ncr
 # Author: Unai01
 # --
 # This file is part of the Ajapaik Project
@@ -11,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-05-11 15:34:29+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:18+0000\n"
 "X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -446,11 +447,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 msgid "No results found for: %(query)s"
-msgstr ""
+msgstr "No se encontraron resultados para:%(query)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
-msgstr ""
+msgstr "Quisiste decir buscar desde: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
@@ -813,11 +814,11 @@ msgstr "No se puede quitar la anotación del objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation"
-msgstr ""
+msgstr "Anotación facial agregada exitosamente"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Unable to save face annotation"
-msgstr ""
+msgstr "Imposible guardar la anotación en portada"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"

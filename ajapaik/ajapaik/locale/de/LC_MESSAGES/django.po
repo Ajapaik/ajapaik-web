@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-05-11 15:34:29+0000\n"
+"PO-Revision-Date: 2020-05-18 14:01:18+0000\n"
 "X-POT-Import-Date: 2020-05-11 14:32:51+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -176,7 +176,7 @@ msgstr "Weiblich"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "Geschlecht"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -1976,7 +1976,7 @@ msgstr "Alt"
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
