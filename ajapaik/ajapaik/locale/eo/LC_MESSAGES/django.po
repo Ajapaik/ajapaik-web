@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: H2kks
 # Author: Mirin
+# Author: Robin van der Vliet
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-05-11 15:34:29+0000\n"
+"PO-Revision-Date: 2020-05-26 15:03:13+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,7 +175,7 @@ msgstr "Ina"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "Genro"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -1976,7 +1977,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Nekonata"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
