@@ -1448,8 +1448,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                     $('#ajapaik-curator-add-album-name').val(null);
                     $('#ajapaik-curator-add-area-name-hidden').val(null);
                     $('#ajapaik-curator-add-area-name').val(null);
-                    areaLat = null;
-                    areaLng = null;
+                    window.areaLat = null;
+                    window.areaLng = null;
                     window.loadPossibleParentAlbums();
                     window.loadSelectableAlbums();
                 }
@@ -1463,6 +1463,23 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                 window._gaq.push(['_trackEvent', 'Selection', 'Upload error']);
             }
         });
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right', function (event) {
+        var targetDiv = $('#ajapaik-geotaggers-modal');
+        $('#ajapaik-loading-overlay').show();
+        if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
+            let url = window.geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
+            $.ajax({
+                url,
+                success: function (resp) {
+                    targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
     });
 
     $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {

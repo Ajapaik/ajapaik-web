@@ -11,7 +11,8 @@
         <div class="blockquote">{{ comment|linebreaks }}</div>
         <form action="." method="post">{% csrf_token %}
             {% if next %}
-                <div><input type="hidden" name="next" value="{{ next }}" id="next"/></div>{% endif %}
+                <div><input type="hidden" name="next" value="{{ next }}" id="next"/></div>
+            {% endif %}
             <p class="submit">
                 <input type="submit" name="submit" value="{% trans "Remove" %}"/> or <a
                     href="{{ comment.get_absolute_url }}">{% trans "Cancel" %}</a>

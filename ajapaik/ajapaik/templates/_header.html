@@ -117,10 +117,10 @@
                     {% if request.user.profile.is_legit %}
                         {% with profile=request.user.profile user=request.user %}
                             <div class="facebook-connected">
-                                <p>{% trans "User" %} <b>{{ user.get_full_name }}</b>.</p>
+                                <p>{% trans "You are logged in as" %} <a href="{% url 'me' %}">{{ user.profile.get_display_name }}</a>.</p>
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
-                                    <button class="btn btn-default btn-block d-inline-block" type="submit">{% trans 'Sign Out' %}</button>
+                                    <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign Out' %}</button>
                                 </form>
                             </div>
                         {% endwith %}
@@ -136,26 +136,26 @@
 {% endif %}
 {% block specific_js %}
 <script>
-        let albumDataUrl = '{% if album %}{% url 'face_recognition_api_album_data' album.0 %}{% else %} {% endif%}';
+        let albumDataUrl = "{% if album %}{% url 'face_recognition_api_album_data' album.0 %}{% else %} {% endif%}";
         function handleFaceCategorizationClick(){
-            let album = '{{ album.0 }}';
+            let album = "{{ album.0 }}";
             if(album !== ''){
                 $.ajax({
-                    type: 'GET',
+                    type: "GET",
                     url: albumDataUrl,
                     success: function (response) {
                         if(response.hasAnnotations === true) {
-                            window.location.href = '{% url 'face_recognition_subject_data' %}' + '?album=' + '{{ album.0 }}'
+                            window.location.href = "{% url 'face_recognition_subject_data' %}" + '?album=' + "{{ album.0 }}";
                         } else {
-                            $.notify(gettext('There are no marked faces for categorization. Annotate some for categorization'), {type: 'danger'});
+                            $.notify(gettext('There are no marked faces for categorization. Annotate some for categorization'), {type: "danger"});
                         }
                     },
                     error: function() {
-                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
                     }
                 });
             } else {
-                window.location.href = '{% url 'face_recognition_subject_data' %}';
+                window.location.href = "{% url 'face_recognition_subject_data' %}";
             }
         }
 </script>

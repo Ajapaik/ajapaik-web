@@ -1,21 +1,13 @@
 {% verbatim %}
     <script id="ajapaik-photo-modal-rephoto-template" type="text/x-tmpl">
         <a class="fullscreen" id="ajapaik-rephoto-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
-            {% if (window.isTabletView) { %}
-            <div>
-                <div id="ajapaik-modal-rephoto-zoom-wrapper">
-            {% } %}
             <img src="{%=o[0][o[1]].url%}" id="ajapaik-modal-rephoto" class="img-fluid col-xs-12">
-            {% if (window.isTabletView) { %}
-                </div>
-            </div>
-            {% } %}
         </a>
         <button class="btn ajapaik-close-rephoto-overlay-button" {% if (!isMobile) { %}
             style="display: none;"{% } %}><i class="material-icons notranslate">close</i></button>
         <button class="btn ajapaik-invert-rephoto-overlay-button"
-             {% if (!isMobile) { %}
-            style="display: none;"{% } %}><i class="material-icons notranslate">invert_colors</i></button>
+             {% if (!isMobile) { %}style="display: none;"{% } %}>
+             <i class="material-icons notranslate">invert_colors</i></button>
         {% if (o[0] && o[0].length > 1){ %}
             <div id="ajapaik-rephoto-selection" style="display:none;">
                 {% for(rephoto of o[0]){ %}

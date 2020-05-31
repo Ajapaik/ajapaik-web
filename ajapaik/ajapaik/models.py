@@ -593,17 +593,17 @@ class Photo(Model):
         self.light_save()
 
     def find_similar(self):
-        return
-        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
-        self.perceptual_hash = phash(img)
-        query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
-        if self.aspect_ratio is None:
-            self.aspect_ratio = self.width / self.height
-        photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
-        for similar in photos:
-            ImageSimilarity.add_or_update(self,similar)
-            similar.light_save()
-        self.light_save()
+        if not settings.DEBUG:
+            img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+            self.perceptual_hash = phash(img)
+            query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
+            if self.aspect_ratio is None:
+                self.aspect_ratio = self.width / self.height
+            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
+            for similar in photos:
+                ImageSimilarity.add_or_update(self,similar)
+                similar.light_save()
+            self.light_save()
 
     def find_similar_for_existing_photo(self):
         return
@@ -1035,17 +1035,6 @@ class DifficultyFeedback(Model):
         db_table = 'project_difficultyfeedback'
 
 
-# FIXME: Unused model?
-class FlipFeedback(Model):
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-    user_profile = ForeignKey('Profile', on_delete=CASCADE)
-    flip = NullBooleanField()
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_flipfeedback'
-
-
 class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
@@ -1115,13 +1104,6 @@ class GeoTag(Model):
         (SOURCE_GEOTAG, _('Source geotag')),
         (ANDROIDAPP, _('Android app')),
     )
-    # TODO: Different ways of tagging
-    # VANTAGE_POINT, OBJECT, APPROXIMATE = range(3)
-    # GEOTAGGER_TYPE_CHOICES = (
-    #     (VANTAGE_POINT, _('Vantage point')),
-    #     (OBJECT, _('Object')),
-    #     (APPROXIMATE, _('Approximate')),
-    # )
     GAME, MAP_VIEW, GALLERY, PERMALINK, SOURCE, REPHOTO = range(6)
     ORIGIN_CHOICES = (
         (GAME, _('Game')),
@@ -1149,7 +1131,6 @@ class GeoTag(Model):
     zoom_level = IntegerField(null=True, blank=True)
     origin = PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=0)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=0)
-    # geotagger_type = PositiveSmallIntegerField(choices=GEOTAGGER_TYPE_CHOICES, default=0)
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
     photo_flipped = BooleanField(default=False)

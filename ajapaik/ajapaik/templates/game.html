@@ -96,17 +96,16 @@
             <img id="ajapaik-similar-photo-full-screen-image" alt=""/>
         </div>
     </div>
-    {% include "_full_leaderboard_modal.html" %}
 {% endblock %}
 {% block specific_js %}
     <script>
-        var permalinkURL = '{% url 'photo' %}',
-            streamURL = '{% url 'fetch_stream' %}',
-            difficultyFeedbackURL = '{% url 'difficulty_feedback' %}',
-            gameURL = '{% url 'game' %}',
-            mapURL = '{% url 'map' %}',
-            areaId = '{{ area.id | safe }}',
-            albumId = '{{ album.0 | safe }}';
+        var permalinkURL = "{% url 'photo' %}",
+            streamURL = "{% url 'fetch_stream' %}",
+            difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
+            gameURL = "{% url 'game' %}",
+            mapURL = "{% url 'map' %}",
+            areaId = "{{ area.id | safe }}",
+            albumId = "{{ album.0 | safe }}";
         {% if photo %}
             window.preselectedPhotoId = {{ photo.id | safe }};
         {% endif %}

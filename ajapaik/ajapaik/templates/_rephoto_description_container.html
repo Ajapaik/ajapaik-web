@@ -11,14 +11,14 @@
         <div class="w-100">
             <a id="ajapaik-photo-source"
                 onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
-                href='{{ rephoto.source_url }}' target="_blank">
+                href="{{ rephoto.source_url }}" target="_blank">
                 {{ rephoto.source.description }} {{ rephoto.source_key }}
             </a>
         </div>
     {% else %}
         <div class="w-100">
             <a id="ajapaik-photo-modal-rephoto-user-link"
-                {% if rephoto.user.id %} href="/photos/?rephotosBy={{rephoto.user.id}}&order1=time&order2=rephotos" {% endif %}
+                {% if rephoto.user.id %} href="/user/{{rephoto.user.id}}" {% endif %}
                 target="_blank">
                 {% if rephoto.user.fb_name %}
                     {{ rephoto.user.fb_name }}

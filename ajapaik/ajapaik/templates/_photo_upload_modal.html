@@ -6,7 +6,7 @@
             <div>
                 {% if request.user.profile.is_legit %}
                     {% with profile=request.user.profile user=request.user %}
-                        <p>{% trans "User" %} <b>{{ user.get_full_name }}</b></p>
+                        <p>{% trans "You are logged in as" %} <b>{{ user.get_full_name }}</b></p>
                         <form method="post" action="{% url 'account_logout' %}">
                             {% csrf_token %}
                             <button class="btn btn-default" type="submit">{% trans 'Sign Out' %}</button>
@@ -51,7 +51,7 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        var url = '{% url 'rephoto_upload' photo.pk %}';
+        var url = "{% url 'rephoto_upload' photo.pk %}";
         $('#ajapaik-fileupload-datepicker').datetimepicker();
         $('#ajapaik-upload-photo-button').on('click', function () {
             var $this = $(this),

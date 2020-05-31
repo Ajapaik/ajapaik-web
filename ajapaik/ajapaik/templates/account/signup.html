@@ -1,6 +1,6 @@
 {% extends "account/base_anonymous.html" %}
 
-{% load i18n %}
+{% load i18n bootstrap4 %}
 
 {% block head_title %}{% trans "Sign up" %}{% endblock %}
 
@@ -11,11 +11,11 @@
 
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  {% bootstrap_form form %}
   {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button class="btn btn-light btn-lg" type="submit">{% trans "Sign up" %} &raquo;</button>
+  <button class="btn btn-primary" type="submit">{% trans "Sign up" %}</button>
 </form>
 
 {% endblock %}

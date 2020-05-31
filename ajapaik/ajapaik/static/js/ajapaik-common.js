@@ -6,7 +6,6 @@
 /*global BigScreen*/
 /*global photoLikeURL*/
 /*global docCookies*/
-/*global HelsinkiGooglemApi */
 /*global VanalinnadGooglemApi */
 var map,
     streetPanorama,
@@ -73,8 +72,7 @@ var map,
     closeStreetviewButton,
     albumSelectionDiv,
     handleAlbumChange,
-    updateStatDiv,
-    isTabletView;
+    updateStatDiv;
 
 $('.ajapaik-navbar').autoHidingNavbar();
 
@@ -98,13 +96,12 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 roadmap: google.maps.MapTypeId.ROADMAP,
                 satellite: google.maps.MapTypeId.SATELLITE,
                 OSM: 'OSM',
-                'old-maps': 'old-maps',
-                'old-helsinki': 'old-helsinki'
+                'old-maps': 'old-maps'
             };
 
         if (!startPoint) {
-            latLng = isTabletView ? new google.maps.LatLng(60.1724499211933, 24.934274981618714) : new google.maps.LatLng(59, 26);
-            startingZoom = isTabletView ? 18 : 8;
+            latLng = new google.maps.LatLng(59, 26);
+            startingZoom = 8;
         } else {
             latLng = startPoint;
         }
@@ -128,7 +125,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
         mapTypeIds.push('OSM');
         mapTypeIds.push('old-maps');
-        mapTypeIds.push('old-helsinki');
 
         if (isGameMap) {
             // Geotagger module manages all activity now
@@ -168,7 +164,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         if (allowedMapTypes[mapType]) {
             mapOpts.mapTypeId = allowedMapTypes[mapType];
         } else {
-            mapOpts.mapTypeId = isTabletView ? allowedMapTypes.satellite : allowedMapTypes.roadmap;;
+            mapOpts.mapTypeId = allowedMapTypes.roadmap;;
         }
 
         map = new google.maps.Map(document.getElementById('ajapaik-map-canvas'), mapOpts);
@@ -183,35 +179,18 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }));
 
         var oldMapsCity = getQueryParameterByName('maps-city'),
-            oldMapsIdx = getQueryParameterByName('maps-index');
-        if(!isTabletView){
-            if(oldMapsCity){
-                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
-            }
-            else{
-                commonVgmapi = new VanalinnadGooglemApi(null, false);
-            }
-            commonVgmapi.map = map;
-            var cityDataDoneCallback = function () {
-                commonVgmapi.buildVanalinnadMapCityControl();
-                commonVgmapi.buildMapYearControl();
-                if (window.map.getMapTypeId() === 'old-maps') {
-                    commonVgmapi.showControls();
-                } else {
-                    commonVgmapi.hideControls();
-                }
-                if (!oldMapsIdx) {
-                    commonVgmapi.changeIndex(0);
-                } else {
-                    commonVgmapi.changeIndex(oldMapsIdx);
-                }
-            };
-            commonVgmapi.getCityData(cityDataDoneCallback);
-        } else {
-            commonVgmapi = new HelsinkiGooglemApi(false);
-            commonVgmapi.map = map;
+        oldMapsIdx = getQueryParameterByName('maps-index');
+        if(oldMapsCity){
+            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
+        }
+        else{
+            commonVgmapi = new VanalinnadGooglemApi(null, false);
+        }
+        commonVgmapi.map = map;
+        var cityDataDoneCallback = function () {
+            commonVgmapi.buildVanalinnadMapCityControl();
             commonVgmapi.buildMapYearControl();
-            if (window.map.getMapTypeId() === 'old-helsinki') {
+            if (window.map.getMapTypeId() === 'old-maps') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();
@@ -221,23 +200,17 @@ $('.ajapaik-navbar').autoHidingNavbar();
             } else {
                 commonVgmapi.changeIndex(oldMapsIdx);
             }
-        }
-        if(isTabletView){
-            map.mapTypes.set('old-helsinki', commonVgmapi.helsinkiMapType);
-        }
-        else {
-            map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
-        }
+        };
+        commonVgmapi.getCityData(cityDataDoneCallback);
+        map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
         if (!isGameMap) {
-            if(!isTabletView) {
-                myLocationButton = document.createElement('button');
-                $(myLocationButton)
-                    .addClass('btn btn-light btn-sm')
-                    .prop('id', 'ajapaik-mapview-my-location-button')
-                    .prop('title', gettext('Go to my location'))
-                    .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
-            }
+            myLocationButton = document.createElement('button');
+            $(myLocationButton)
+                .addClass('btn btn-light btn-sm')
+                .prop('id', 'ajapaik-mapview-my-location-button')
+                .prop('title', gettext('Go to my location'))
+                .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             $(input).on('focus', function () {
                 window.hotkeysActive = false;
@@ -266,7 +239,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 window.toggleVisiblePaneElements();
             });
         }
-        
+
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
             let openButton = $('#open-btn');
@@ -977,14 +950,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         currentlySelectedRephotoId = window.photoModalRephotoArray[0]['id'];
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,0]));
-        if(isTabletView){
-            var rephotoWrapper = document.getElementById('ajapaik-modal-rephoto-zoom-wrapper');
-            if(!!rephotoWrapper) {
-                var zm = new Zoom(rephotoWrapper, {
-                    rotate: false
-                });
-            }
-        }
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
         if (!window.isFrontpage && !window.isSelection) {
@@ -1036,14 +1001,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         similarPhotoColum.show();
         currentlySelectedSimilarPhotoId = window.photoModalSimilarPhotoArray[0]['id'];
         similarPhotoDiv.html(tmpl('ajapaik-photo-modal-similar-photo-template', [window.photoModalSimilarPhotoArray,0]));
-        if(isTabletView){
-            var similarPhotoWrapper = document.getElementById('ajapaik-modal-similar-photo-zoom-wrapper');
-            if(!!similarPhotoWrapper) {
-                var zm = new Zoom(similarPhotoWrapper, {
-                    rotate: false
-                });
-            }
-        }
         similarPhotoInfoColumn.html(tmpl('ajapaik-photo-modal-similar-photo-info-template', window.photoModalSimilarPhotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
         if (!window.isFrontpage && !window.isSelection) {
@@ -1910,8 +1867,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
                     $('#ajapaik-curator-add-album-name').val(null);
                     $('#ajapaik-curator-add-area-name-hidden').val(null);
                     $('#ajapaik-curator-add-area-name').val(null);
-                    areaLat = null;
-                    areaLng = null;
+                    window.areaLat = null;
+                    window.areaLng = null;
                     window.loadPossibleParentAlbums();
                     window.loadSelectableAlbums();
                 }
@@ -1925,6 +1882,23 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 window._gaq.push(['_trackEvent', 'Selection', 'Upload error']);
             }
         });
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right', function (event) {
+        var targetDiv = $('#ajapaik-geotaggers-modal');
+        $('#ajapaik-loading-overlay').show();
+        if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
+            let url = geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
+            $.ajax({
+                url,
+                success: function (resp) {
+                    targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
     });
 
     $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {

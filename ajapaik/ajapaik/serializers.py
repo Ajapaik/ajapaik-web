@@ -49,13 +49,14 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
 
 
 class DatingSerializer(serializers.ModelSerializer):
+    profile_id = serializers.IntegerField(source='profile.id')
     full_name = serializers.CharField(source='profile.get_display_name')
     confirmation_count = serializers.IntegerField(source='confirmations.count')
     this_user_has_confirmed = serializers.BooleanField()
 
     class Meta:
         model = Dating
-        fields = ('id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
+        fields = ('id', 'profile_id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
 
 
 class VideoSerializer(serializers.ModelSerializer):

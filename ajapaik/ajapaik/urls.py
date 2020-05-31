@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^info-modal-content/$', views.get_album_info_modal_content, name='info_modal_content'),
     url(r'^ajapaikaja/$', views.game, name='game'),
     url(r'^game/$', views.game, name='game'),
+    url(r'^geotaggers-modal/(?P<photo_id>\d+)/$', views.geotaggers_modal, name='photo_geotaggers'),
     url(r'^geotag/$', views.game, name='game'),
     url(r'^kaart/$', views.mapview, name='map'),
     url(r'^map/$', views.mapview, name='map'),
@@ -44,10 +45,6 @@ urlpatterns = [
     url(r'^map/rephoto/(?P<rephoto_id>\d+)/$', views.mapview, name='map'),
     url(r'^map/photo/(?P<photo_id>\d+)/rephoto/(?P<rephoto_id>\d+)/$', views.mapview, name='map'),
     url(r'^map-data/$', views.map_objects_by_bounding_box, name='map_objects_by_bounding_box'),
-    url(r'^map-tablet/$', views.mapview, name='map-tablet'),
-    url(r'^map-tablet/photo/(?P<photo_id>\d+)/$', views.mapview, name='map-tablet'),
-    url(r'^map-tablet/rephoto/(?P<rephoto_id>\d+)/$', views.mapview, name='map-tablet'),
-    url(r'^map-tablet/photo/(?P<photo_id>\d+)/rephoto/(?P<rephoto_id>\d+)/$', views.mapview, name='map-tablet'),
     url(r'^leaderboard/$', views.leaderboard, name='leaderboard'),
     url(r'^leaderboard/album/(?P<album_id>\d+)/$', views.leaderboard, name='album_leaderboard'),
     url(r'^all-time-leaderboard/$', views.all_time_leaderboard, name='all_time_leaderboard'),
@@ -60,9 +57,9 @@ urlpatterns = [
     url(r'^foto/$', views.photoslug, name='foto'),
     url(r'^foto/(?P<photo_id>\d+)/$', views.photoslug, name='foto'),
     url(r'^foto/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name='foto'),
-    url(r'^photo/$', views.photoslug, name="photo"),
-    url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug, name="photo"),
-    url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name="photo"),
+    url(r'^photo/$', views.photoslug, name='photo'),
+    url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug, name='photo'),
+    url(r'^photo/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.photoslug, name='photo'),
     url(r'^video/(?P<video_id>\d+)/(?P<pseudo_slug>.*)/$', views.videoslug, name='videoslug'),
     url(r'^video-still/$', views.generate_still_from_video),
     # Legacy URLs
@@ -83,9 +80,9 @@ urlpatterns = [
     url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', views.image_thumb, name='image_thumb'),
     url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', views.image_thumb, name='image_thumb'),
     url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.image_full, name='image_full'),
-    url(r'^photo-selection/$', views.photo_selection, name="photo_selection"),
-    url(r'^view-selection/$', views.list_photo_selection, name="list_photo_selection"),
-    url(r'^upload-selection/$', views.upload_photo_selection, name="upload_photo_selection"),
+    url(r'^photo-selection/$', views.photo_selection, name='photo_selection'),
+    url(r'^view-selection/$', views.list_photo_selection, name='list_photo_selection'),
+    url(r'^upload-selection/$', views.upload_photo_selection, name='upload_photo_selection'),
     url(r'^$', views.frontpage, name='frontpage'),
     url(r'^photos/$', views.frontpage, name='frontpage_photos'),
     url(r'^photos/(?P<page>\d+)/$', views.frontpage, name='frontpage_photos'),
@@ -115,7 +112,9 @@ urlpatterns = [
     url(r'^terms/$', views.terms, name='terms'),
     url(r'^compare-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photos, name='compare-photos'),
     url(r'^compare-all-photos/$',views.compare_all_photos, name='compare-all-photos'),
-    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos')
+    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos'),
+    url(r'^me/$',views.me, name='me'),
+    url(r'^user/(?P<user_id>\d+)/$',views.user, name='user')
 ]
 
 urlpatterns += [
@@ -142,7 +141,7 @@ urlpatterns += [
     url(r'^api/v1/photos/filtered/rephotographed-by-user/$', api.PhotosWithUserRephotos.as_view()),
     url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),
     url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
-    url(r'^api/v1/photos/similar/$', api.SubmitSimilarPhotos.as_view(), name="api_submit_similarity"),
+    url(r'^api/v1/photos/similar/$', api.SubmitSimilarPhotos.as_view(), name='api_submit_similarity'),
     url(r'^api/v1/transcriptions/(?P<photo_id>\d+)/$', api.Transcriptions.as_view(), name='api_transcriptions'),
     url(r'^api/v1/transcriptions/', api.Transcriptions.as_view(), name='api_submit_transcription'),
     url(r'^api/v1/transcription-feedback/', api.SubmitTranscriptionFeedback.as_view(), name='api_confirm_transcription')

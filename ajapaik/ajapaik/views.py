@@ -68,12 +68,14 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
 	UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
 	EditCommentForm
-from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, Points, \
-	Album, AlbumPhoto, Area, Licence, Skip, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
+from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
+	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
 	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
 	distance_in_meters, angle_diff
 from .utils import get_comment_replies
@@ -1236,11 +1238,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	is_selection = False
 	site = Site.objects.get_current()
 	if request.is_ajax():
-		basic = request.GET.get('basic')
-		if basic is not None and basic == "true":
-			template = "_photo_modal_basic.html"
-		else:
-			template = "_photo_modal.html"
+		template = "_photo_modal.html"
 		if request.GET.get("isFrontpage"):
 			is_frontpage = True
 		if request.GET.get("isMapview"):
@@ -1489,7 +1487,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context["title"] = area.name + " - " + _("Browse photos on map")
 	else:
 		context["title"] = _("Browse photos on map")
-	context["is_tabletview"] = request.path.find("map-tablet") > 0
 	return render(request, "mapview.html", context)
 
 
@@ -2738,7 +2735,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 				similar_photos = ImageSimilarity.objects.all()
 			else:
 				similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
-			if similar_photos is None:
+			if similar_photos is None or len(similar_photos) < 1:
 				return render(request,'compare_photos_no_results.html')
 			firstSimilar = similar_photos.first()
 		photo_id = firstSimilar.from_photo_id
@@ -2748,7 +2745,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 	first_photo_criterion = Q(from_photo=photo_obj) & Q(to_photo=photo_obj2)
 	second_photo_criterion = Q(from_photo=photo_obj2) & Q(to_photo=photo_obj)
 	master_criterion = Q(first_photo_criterion | second_photo_criterion)
-	if similar_photos is None:
+	if similar_photos is None or len(similar_photos) < 1:
 		similar_photos = ImageSimilarity.objects.exclude(master_criterion | Q(confirmed=True))
 		first_photo = similar_photos.filter(Q(from_photo=photo_obj) & Q(confirmed=False)).first()
 		second_photo = similar_photos.filter(Q(from_photo=photo_obj2) & Q(confirmed=False)).first()
@@ -2965,3 +2962,82 @@ def privacy(request):
 
 def terms(request):
 	return render(request, 'terms.html')
+
+
+
+#################################################################################
+def me(request):
+	return redirect('user', user_id=request.get_user().profile.id)
+
+def user(request, user_id):
+	current_profile = request.get_user().profile
+	profile = get_object_or_404(Profile, pk=user_id)
+	is_current_user = False
+	if current_profile == profile:
+		is_current_user = True
+	if profile.user.is_anonymous:
+		commented_images_qs_count = 0
+	else:
+		commented_images_qs_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
+	curated_images_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True)
+	datings_qs = Dating.objects.filter(profile_id=profile.id).distinct('photo')
+	face_annotations_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id')
+	face_annotations_images_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
+	geotags_qs = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo')
+	geotag_confirmations_qs = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo')
+	object_annotations_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id')
+	object_annotations_images_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
+	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
+	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
+	similar_images_qs = ImageSimilarityGuess.objects.filter(guesser=current_profile).distinct('image_similarity')
+	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
+	action_count = commented_images_qs_count + transcriptions_qs.count() + \
+				   object_annotations_qs.count() + face_annotations_qs.count() + \
+				   curated_images_qs.count() + geotags_qs.count() + \
+				   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
+				   similar_images_qs.count() + geotag_confirmations_qs.count() + \
+				   photolikes_qs.count()
+	
+	user_points = 0
+	for point in profile.points.all():
+		user_points += point.points
+
+	context = {
+		'actions': action_count,
+		'commented_images': commented_images_qs_count,
+		'curated_images': curated_images_qs.count(),
+		'datings': datings_qs.count(),
+		'face_annotations': face_annotations_qs.count(),
+		'face_annotations_images': face_annotations_images_qs.count(),
+		'favorites_link': "/?order1=time&order2=added&page=1&myLikes=1",
+		'geotag_confirmations': geotag_confirmations_qs.count(),
+		'geotagged_images': geotags_qs.count(),
+		'is_current_user': is_current_user,
+		'object_annotations': object_annotations_qs.count(),
+		'object_annotations_images': object_annotations_images_qs.count(),
+		'photolikes': photolikes_qs.count(),
+		'profile': profile,
+		'rephotographed_images': rephoto_qs.count(),
+		'rephotos_link': "/photos/?rephotosBy=" + str(profile.user.id) + "&order1=time&order2=rephotos",
+		'rephotos': rephoto_qs.count(),
+		'similar_images': similar_images_qs.count(),
+		'transcriptions': transcriptions_qs.count(),
+		'user_points': user_points
+	}
+
+	return render(request, 'user.html', context)
+
+#################################################################################
+def geotaggers_modal(request, photo_id):
+	limit = request.GET.get('limit')
+	if limit is not None and limit.isdigit():
+		geotags = GeoTag.objects.filter(photo_id=photo_id).order_by('user','-created').distinct('user').prefetch_related('user')[:int(limit, 10)]
+	else:
+		geotags = GeoTag.objects.filter(photo_id=photo_id).order_by('user','-created').distinct('user').prefetch_related('user')
+	geotaggers = []
+	for geotag in geotags:
+		geotaggers.append({'name': geotag.user.get_display_name(), 'geotagger_id': geotag.user.id, 'created': geotag.created})
+	context = {
+		'geotaggers' : geotaggers
+	}
+	return render(request, '_geotaggers_modal_content.html', context)

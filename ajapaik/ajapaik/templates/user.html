@@ -1,0 +1,62 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Page Not Found" %}
+{% endblock title %}
+
+{% block layout %}
+     <div id="ajapaik-user-info" class="container-fluid px-3 py-5">
+        <div class="mt-4">
+            {% if profile.fb_id %}
+                <img class="profile-picture" src="https://graph.facebook.com/v2.5/{{ profile.fb_id }}/picture?type=large"
+                    alt="{% trans "User Facebook photo" %}"/>
+            {% elif profile.google_plus_picture %}
+                <img class="profile-picture" src="{{ profile.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
+            {% else %}
+                <i class="ajapaik-user-icon material-icons notranslate">account_box</i>
+            {% endif %}
+        </div>
+        <div>
+            <h1>{{ profile.get_display_name }}</h1>
+        </div>
+        {% if is_current_user %}
+            {% if not request.user.profile.is_legit %}
+                <div class="w-100">
+                    {% blocktrans %}You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community.{% endblocktrans %}
+                </div>
+                <div class="w-100">
+                    {% trans "To create an account, click" %} <a href="{% url 'account_signup' %}">&nbsp;{% trans "here" %}</a>.
+                </div>
+            {% endif %}
+            {% if actions > 0 %}
+                {% include "_current_user_info.html" %}
+            {% elif request.user.profile.is_legit %}
+                <div class="w-100">
+                    {% blocktrans %}Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc.{% endblocktrans %}
+                </div>
+            {% endif %}
+            {% if request.user.profile.is_legit %}
+                <br>
+                <a class="w-100" href="{% url 'account_email' %}">Change e-mail</a>
+                <br>
+                <a class="w-100" href="{% url 'account_change_password' %}">Change password</a>
+                <br><br>
+                <div>
+                    <a class="btn btn-secondary" href="{% url 'account_logout' %}">Sign Out</a>
+                </div>
+            {% endif %}
+        {% else %}
+            {% if actions > 0 %}
+                {% include "_user_info.html" %}
+            {% else %}
+            <div class="w-100">
+                {% trans "This user does not have any contributions." %}
+            </div>
+            {% endif %}
+        {% endif %}
+        <div class="mt-2">
+            <button class="btn btn-primary" onclick="window.history.back();">{% trans "Back" %}</button>
+        </div>
+     </div>
+{% endblock layout %}

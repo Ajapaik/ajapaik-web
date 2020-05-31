@@ -72,7 +72,7 @@
         photoId = id;
         $.ajax({
             cache: false,
-            url: isTabletView ? '/photo/' + id + '/?isMapview=1&basic=true' : '/photo/' + id + '/?isMapview=1',
+            url: '/photo/' + id + '/?isMapview=1',
             success: function (result) {
                 openPhotoDrawer(result);
                 var mainPhotoContainer = $('#ajapaik-modal-photo-container'),
@@ -198,9 +198,6 @@
     window.syncMapStateToURL = function () {
         // FIXME: Do this more elegantly
         var historyReplacementString = '/map/';
-        if(window && window.location && window.location.pathname.search("map-tablet") > -1){
-            var historyReplacementString = '/map-tablet/';
-        }
         if (currentlySelectedMarker) {
             historyReplacementString += 'photo/' + currentlySelectedMarker.photoData.id + '/';
         }
@@ -669,59 +666,44 @@
 
     window.initializeMapStateFromOptionalURLParameters = function () {
         var urlMapType = window.getQueryParameterByName('mapType');
-        if(this.isTabletView && urlMapType === 'old-maps'){
-            urlMapType = 'old-helsinki';
+        if (window.preselectPhotoId) {
+            // There's a selected photo specified in the URL, select when ready
+            currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
+            if (window.preselectPhotoLat && window.preselectPhotoLat) {
+                currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
+            }
         }
-        if(!this.isTabletView && urlMapType === 'old-helsinki'){
-            urlMapType = 'old-maps';
-        }
-        // FIXME: What is fromSelect?
-        if (window.getQueryParameterByName('fromSelect')) {
-            if (window.albumLatLng) {
-                window.getMap(window.albumLatLng, 16, false, urlMapType);
+        if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
+            // User has very specific parameters, allow to take precedence
+            window.getMap(new google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')),
+                parseInt(window.getQueryParameterByName('zoom'), 10), false, urlMapType);
+        } else {
+            if (window.preselectPhotoLat && window.preselectPhotoLng) {
+                // We know the location of the photo, let's build the map accordingly
+                window.getMap(new google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
+            } else if (window.albumLatLng) {
+                // There's nothing preselected, but we do know the album the photo's in
+                window.getMap(this.albumLatLng, 16, false, urlMapType);
             } else if (window.areaLatLng) {
                 window.getMap(window.areaLatLng, 16, false, urlMapType);
-            }
-        } else {
-            if (window.preselectPhotoId) {
-                // There's a selected photo specified in the URL, select when ready
-                currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
-                if (window.preselectPhotoLat && window.preselectPhotoLat) {
-                    currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
-                }
-            }
-            if (window.getQueryParameterByName('lat') && window.getQueryParameterByName('lng') && window.getQueryParameterByName('zoom')) {
-                // User has very specific parameters, allow to take precedence
-                window.getMap(new google.maps.LatLng(window.getQueryParameterByName('lat'), window.getQueryParameterByName('lng')),
-                    parseInt(window.getQueryParameterByName('zoom'), 10), false, urlMapType);
             } else {
-                if (window.preselectPhotoLat && window.preselectPhotoLng) {
-                    // We know the location of the photo, let's build the map accordingly
-                    window.getMap(new google.maps.LatLng(window.preselectPhotoLat, window.preselectPhotoLng), 18, false, urlMapType);
-                } else if (window.albumLatLng) {
-                    // There's nothing preselected, but we do know the album the photo's in
-                    window.getMap(this.isTabletView ? new google.maps.LatLng(60.1724499211933, 24.934274981618714) : this.albumLatLng, this.isTabletView ? 18 : 16, false, urlMapType);
-                } else if (window.areaLatLng) {
-                    window.getMap(window.areaLatLng, this.isTabletView ? 18 : 16, false, urlMapType);
-                } else {
-                    // No idea
-                    window.getMap(null, 16, false, urlMapType);
-                }
+                // No idea
+                window.getMap(null, 16, false, urlMapType);
             }
-            if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
-                window.userClosedRephotoTools = true;
-                window.loadPhoto(window.preselectPhotoId);
-                window.clickSpecifyAfterPageLoad = true;
-                photoDrawerOpen = true;
-            } else if (window.preselectRephotoId) {
-                window.loadPhoto(window.preselectPhotoId);
-                window.currentlySelectedRephotoId = window.preselectRephotoId;
-                photoDrawerOpen = true;
-            } else if (window.getQueryParameterByName('photoModalOpen') && window.preselectPhotoId) {
-                window.userClosedRephotoTools = true;
-                window.loadPhoto(window.preselectPhotoId);
-                photoDrawerOpen = true;
-            }
+        }
+        if (window.preselectPhotoId && window.getQueryParameterByName('straightToSpecify')) {
+            window.userClosedRephotoTools = true;
+            window.loadPhoto(window.preselectPhotoId);
+            window.clickSpecifyAfterPageLoad = true;
+            photoDrawerOpen = true;
+        } else if (window.preselectRephotoId) {
+            window.loadPhoto(window.preselectPhotoId);
+            window.currentlySelectedRephotoId = window.preselectRephotoId;
+            photoDrawerOpen = true;
+        } else if (window.getQueryParameterByName('photoModalOpen') && window.preselectPhotoId) {
+            window.userClosedRephotoTools = true;
+            window.loadPhoto(window.preselectPhotoId);
+            photoDrawerOpen = true;
         }
         if (window.getQueryParameterByName('limitToAlbum') == 0) {
             deactivateAlbumFilter();
