@@ -33,7 +33,7 @@
                 {% include "_current_user_info.html" %}
             {% elif request.user.profile.is_legit %}
                 <div class="w-100">
-                    {% blocktrans %} Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc.{% endblocktrans %}
+                    {% blocktrans %}Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc.{% endblocktrans %}
                 </div>
             {% endif %}
             {% if request.user.profile.is_legit %}

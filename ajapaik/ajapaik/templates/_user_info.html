@@ -5,7 +5,7 @@
 <ul>
     {% if curated_images > 0 %}
         <li>
-            {% blocktrans with name=profile.get_display_name count counter=curated_images %}curated <b>{{ curated_images }}</b> images{% plural %}curated <b>{{ curated_images }}</b> images{% endblocktrans %}
+            {% blocktrans with name=profile.get_display_name count counter=curated_images %}curated <b>{{ curated_images }}</b> image{% plural %}curated <b>{{ curated_images }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if geotagged_images > 0 %}
@@ -20,13 +20,13 @@
     {% endif %}
     {% if rephotos > 0 %}
         <li>
-            {% blocktrans with name=profile.get_display_name link=rephotos_link count counter=rephotographed_images %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for {% endblocktrans %}
+            {% blocktrans with name=profile.get_display_name link=rephotos_link count counter=rephotographed_images %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for{% endblocktrans %}
             {% blocktrans count counter=rephotographed_images %}<b>{{ rephotographed_images }}</b> image{% plural %}<b>{{ rephotographed_images }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if commented_images > 0 %}
         <li>
-            {% blocktrans with name=profile.get_display_name count counter=commented_images %}commented on <b>{{ commented_images }} image</b>{% plural %}commented on <b>{{ commented_images }}</b>  images{% endblocktrans %}
+            {% blocktrans with name=profile.get_display_name count counter=commented_images %}commented on <b>{{ commented_images }}</b> image{% plural %}commented on <b>{{ commented_images }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if datings > 0 %}

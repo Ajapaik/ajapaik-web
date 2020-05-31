@@ -20,18 +20,18 @@
     {% endif %}
     {% if rephotos > 0 %}
         <li>
-            {% blocktrans with link=rephotos_link count counter=rephotographed_images %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for {% endblocktrans %}
+            {% blocktrans with link=rephotos_link count counter=rephotographed_images %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for{% endblocktrans %}
             {% blocktrans count counter=rephotographed_images %}<b>{{ rephotographed_images }}</b> image{% plural %}<b>{{ rephotographed_images }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if commented_images > 0 %}
         <li>
-            {% blocktrans count counter=commented_images %}commented on <b>{{ commented_images }} images</b>{% plural %}commented on <b>{{ commented_images }}</b>  images{% endblocktrans %}
+            {% blocktrans count counter=commented_images %}commented on <b>{{ commented_images }}</b> image{% plural %}commented on <b>{{ commented_images }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if datings > 0 %}
         <li>
-            {% blocktrans count counter=datings %}specified a date for <b>{{ datings }}</b> image{% plural %}specified date for  for <b>{{ datings }}</b> images{% endblocktrans %}
+            {% blocktrans count counter=datings %}specified a date for <b>{{ datings }}</b> image{% plural %}specified date for <b>{{ datings }}</b> images{% endblocktrans %}
         </li>
     {% endif %}
     {% if face_annotations > 0 %}
