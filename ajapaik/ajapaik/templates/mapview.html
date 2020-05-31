@@ -2,27 +2,17 @@
 {% load i18n compress static %}
 
 {% block header %}
-    {% if is_tabletview %}
-        {% include "_header_basic.html" %}
-    {% else %}
         {% include "_header.html" %}
-    {% endif %}
 {% endblock %}
 
 {% block specific_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "css/ajapaik-map-sidepanel.css" %}">
-        {% if is_tabletview %}
-            <link rel="stylesheet" href="{% static "css/ajapaik-tablet-map.css" %}">
-        {% endif %}
     {% endcompress %}
     {% include "js_templates/map_view_side_panel_element.html" %}
 {% endblock %}
 
 {% block layout %}
-    {% if is_tabletview %}
-        {% include "_map_tutorial_modal.html" %}
-    {% endif %}
     <div class="modal fade" id="ajapaik-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
     <div class="w-100">
         <div id="map-side-panel" class="side-panel">
@@ -86,48 +76,6 @@
         {% if selected_rephoto %}
             var preselectRephotoId = "{{ selected_rephoto.id }}";
         {% endif %}
-
-        if (isTabletView) {
-            showModal = function() {
-                if(!$('#ajapaikMapTutorialModal').is(":visible")){
-                    $('#ajapaikMapTutorialModal').modal();
-                }
-            }
-
-            var idleTime = 0;
-            $(document).ready(function () {
-                function resetTimer () {
-                    idleTime = 0;
-                    if($('#ajapaikMapTutorialModal').is(":visible")){
-                        $('#ajapaikMapTutorialModal').modal('toggle');
-                    }
-                }
-
-                //Increment the idle time counter every second.
-                var idleInterval = setInterval(timerIncrement, 1000); 
-                //Zero the idle timer on mouse movement.
-                $(this).mousemove(function (e) {
-                    resetTimer();
-                });
-                $(this).keypress(function (e) {
-                    resetTimer();
-                });
-                //Zero the idle timer on touch events.
-                $(this).bind('touchstart', function(){
-                    resetTimer();
-                });
-                $(this).bind('touchmove', function(){
-                    resetTimer();
-                });
-            });
-
-            function timerIncrement() {
-                idleTime = idleTime + 1;
-                if (idleTime > 179) { 
-                    showModal();
-                }
-            }
-        }
         {% if album %}
             var filteringMessage = window.location.search.indexOf("limitToAlbum=0") < 0 
                 ? "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
@@ -138,7 +86,6 @@
     {% compress js %}
         <script src="{% static "js/ajapaik-map.js" %}"></script>
         <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
-        <script type="text/javascript" src="{% static "js/zoom-1.0.7.min.js" %}"></script>
     {% endcompress %}
     {% include "_rephoto_upload_modal.html" %}
 {% endblock %}

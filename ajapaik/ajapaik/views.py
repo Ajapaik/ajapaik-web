@@ -1236,10 +1236,6 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	is_selection = False
 	site = Site.objects.get_current()
 	if request.is_ajax():
-		basic = request.GET.get('basic')
-		if basic is not None and basic == "true":
-			template = "_photo_modal_basic.html"
-		else:
 			template = "_photo_modal.html"
 		if request.GET.get("isFrontpage"):
 			is_frontpage = True
@@ -1489,7 +1485,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context["title"] = area.name + " - " + _("Browse photos on map")
 	else:
 		context["title"] = _("Browse photos on map")
-	context["is_tabletview"] = request.path.find("map-tablet") > 0
 	return render(request, "mapview.html", context)
 
 

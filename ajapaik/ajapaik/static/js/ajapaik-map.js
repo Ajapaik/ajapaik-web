@@ -666,12 +666,6 @@
 
     window.initializeMapStateFromOptionalURLParameters = function () {
         var urlMapType = window.getQueryParameterByName('mapType');
-        if(this.isTabletView && urlMapType === 'old-maps'){
-            urlMapType = 'old-helsinki';
-        }
-        if(!this.isTabletView && urlMapType === 'old-helsinki'){
-            urlMapType = 'old-maps';
-        }
         if (window.preselectPhotoId) {
             // There's a selected photo specified in the URL, select when ready
             currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
