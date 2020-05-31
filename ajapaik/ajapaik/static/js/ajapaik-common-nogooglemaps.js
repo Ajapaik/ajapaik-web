@@ -1448,8 +1448,8 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
                     $('#ajapaik-curator-add-album-name').val(null);
                     $('#ajapaik-curator-add-area-name-hidden').val(null);
                     $('#ajapaik-curator-add-area-name').val(null);
-                    areaLat = null;
-                    areaLng = null;
+                    window.areaLat = null;
+                    window.areaLng = null;
                     window.loadPossibleParentAlbums();
                     window.loadSelectableAlbums();
                 }

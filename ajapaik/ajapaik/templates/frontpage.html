@@ -63,44 +63,44 @@
 
 {% block specific_js %}
     <script>
-        window.title = '{{ title }}';
-        window.currentPage = parseInt('{{ page }}', 10);
-        window.maxPage = parseInt('{{ max_page }}', 10);
+        window.title = "{{ title }}";
+        window.currentPage = parseInt("{{ page }}", 10);
+        window.maxPage = parseInt("{{ max_page }}", 10);
         window.nextPageOnModalClose = false;
         window.previousPageOnModalClose = false;
-        window.photoURL = '{% url "photo" %}';
-        window.photoThumbURL = '{% url "image_thumb" %}';
-        window.frontpageAsyncURL = '{% url "frontpage_async_data" %}';
-        window.frontpageAlbumsAsyncURL = '{% url "frontpage_async_albums" %}';
+        window.photoURL = "{% url 'photo' %}";
+        window.photoThumbURL = "{% url 'image_thumb' %}";
+        window.frontpageAsyncURL = "{% url 'frontpage_async_data' %}";
+        window.frontpageAlbumsAsyncURL = "{% url 'frontpage_async_albums' %}";
         window.nextPhotoLoading = false;
         window.userClosedRephotoTools = false;
         window.userClosedSimilarPhotoTools = true;
         window.useButtonLink = true;
-        window.currentlySelectedPhotoId = '{{ photo.0 }}';
+        window.currentlySelectedPhotoId = "{{ photo.0 }}";
         window.albumId = null;
         window.userLat = null;
         window.userLon = null;
-        window.order1 = '{{ order1 }}';
-        window.order2 = '{{ order2 }}';
-        window.order3 = '{{ order3 }}';
-        window.start = '{{ start }}';
-        window.end = '{{ end }}';
-        window.total = '{{ total }}';
-        window.isFrontpage = '{{ is_frontpage | safe }}' === 'True';
-        window.showPhotos = '{{ show_photos | safe }}' === 'True';
-        window.myLikes = '{{ my_likes_only | safe }}' === 'True';
+        window.order1 = "{{ order1 }}";
+        window.order2 = "{{ order2 }}";
+        window.order3 = "{{ order3 }}";
+        window.start = "{{ start }}";
+        window.end = "{{ end }}";
+        window.total = "{{ total }}";
+        window.isFrontpage = "{{ is_frontpage | safe }}" === 'True';
+        window.showPhotos = "{{ show_photos | safe }}" === 'True';
+        window.myLikes = "{{ my_likes_only | safe }}" === 'True';
         {% if rephotos_by %}
-            window.rephotosBy = '{{ rephotos_by | safe }}';
+            window.rephotosBy = "{{ rephotos_by | safe }}";
         {% endif %}
         {% if rephotos_by_name %}
-            window.rephotosByName = '{{ rephotos_by_name | safe }}';
+            window.rephotosByName = "{{ rephotos_by_name | safe }}";
         {% endif %}
         {% if similar_photos_by %}
-            window.rephotosBy = '{{ similar_photos_by | safe }}';
+            window.rephotosBy = "{{ similar_photos_by | safe }}";
         {% endif %}
         {% if album %}
             window.albumId = {{ album.0 }};
-            window.albumName = '{{ album.1 }}';
+            window.albumName = "{{ album.1 }}";
             {% if album.3 and album.4 %}
                 window.albumLat = {{ album.3 | safe }};
                 window.albumLon = {{ album.4 | safe }};

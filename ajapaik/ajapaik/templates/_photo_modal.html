@@ -24,9 +24,9 @@
                                         id="ajapaik-modal-photo"/>
                             </a>
                             {% if not is_mapview %}
-                            <div class="ajapaik-photo-modal-next-button">
-                                <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
-                            </div>
+                                <div class="ajapaik-photo-modal-next-button">
+                                    <i class="material-icons ajapaik-icon-48 notranslate">navigate_next</i>
+                                </div>
                             {% endif %}
                             {% if request.user.profile.is_legit %}
                                 <button class="ajapaik-thumbnail-selection-icon{% if photo.in_selection %} ajapaik-thumbnail-selection-icon-blue{% endif %}"
@@ -82,41 +82,41 @@
                         </div>
                     </div>
                     {% if similar_photos.0 %}
-                    <div id="ajapaik-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
-                        <div id="ajapaik-modal-similar-photo-container" class="float-left">
-                            <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
-                                <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
-                                    class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"
-                                    {% if similar_photos.all.0.similarity_type == 1 %}
-                                    alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
-                                    title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
-                                    {% else %}
-                                    alt="{{ similar_photos.all.0.to_photo.description }}  {% trans "duplicate photo" %}"
-                                    title="{{ similar_photos.all.0.to_photo.description }} {% trans "duplicate photo" %}"
-                                    {% endif %}/>
-                                <button id="modal-compare-similar" class="btn ajapaik-compare-similar-overlay-button"
-                                {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
-                                    <i class="material-icons notranslate">compare</i>
-                                </button>
-                                <button class="ajapaik-close-similar-photo-overlay-button"
-                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                    <i class="material-icons notranslate">close</i>
-                                </button>
-                            </a>
-                            {% if similar_photos|length > 1 %}
-                                <div id="ajapaik-similar-photo-selection" style="display:none;">
-                                    {% for similar in similar_photos %}
-                                        <div class="ajapaik-photo-modal-similar-photo-thumb"
-                                            id="ajapaik-similar-photo-thumb-{{ similar.to_photo.id }}" data-id="{{ similar.to_photo.id }}">
-                                            <img class="img-fluid"
-                                                src="{% url 'image_thumb' similar.to_photo.id 250 similar.to_photo.get_pseudo_slug %}"
-                                                data-id="{{ similar.to_photo.id }}"/>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
+                        <div id="ajapaik-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
+                            <div id="ajapaik-modal-similar-photo-container" class="float-left">
+                                <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
+                                    <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
+                                        class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"
+                                        {% if similar_photos.all.0.similarity_type == 1 %}
+                                        alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
+                                        {% else %}
+                                        alt="{{ similar_photos.all.0.to_photo.description }}  {% trans "duplicate photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "duplicate photo" %}"
+                                        {% endif %}/>
+                                    <button id="modal-compare-similar" class="btn ajapaik-compare-similar-overlay-button"
+                                    {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
+                                        <i class="material-icons notranslate">compare</i>
+                                    </button>
+                                    <button class="ajapaik-close-similar-photo-overlay-button"
+                                        {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
+                                        <i class="material-icons notranslate">close</i>
+                                    </button>
+                                </a>
+                                {% if similar_photos|length > 1 %}
+                                    <div id="ajapaik-similar-photo-selection" style="display:none;">
+                                        {% for similar in similar_photos %}
+                                            <div class="ajapaik-photo-modal-similar-photo-thumb"
+                                                id="ajapaik-similar-photo-thumb-{{ similar.to_photo.id }}" data-id="{{ similar.to_photo.id }}">
+                                                <img class="img-fluid"
+                                                    src="{% url 'image_thumb' similar.to_photo.id 250 similar.to_photo.get_pseudo_slug %}"
+                                                    data-id="{{ similar.to_photo.id }}"/>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
                 {% endif %}
                 {% if photo.rephotos.all.0 %}
                     <div id="ajapaik-photo-modal-rephoto-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
@@ -208,7 +208,7 @@
                                     {% endif %}
                                     {% if similar_photos.all.0.to_photo.source_url %}
                                         <div class="d-inline-block" id="ajapaik-photo-source">
-                                            <a href='{{ similar_photos.all.0.to_photo.source_url }}'
+                                            <a href="{{ similar_photos.all.0.to_photo.source_url }}"
                                                 target="_blank" rel="noopener nofollow">
                                                 {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
                                                     {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
@@ -347,26 +347,26 @@
 </div>
 <script>
     // This whole template is total ugliness
-    window.hostname = '{{ hostname }}';
-    window.originalPhotoAbsoluteURL = '{{ photo.get_absolute_url }}';
-    window.isFrontpage = '{{ is_frontpage | safe }}';
+    window.hostname = "{{ hostname }}";
+    window.originalPhotoAbsoluteURL = "{{ photo.get_absolute_url }}";
+    window.isFrontpage = "{{ is_frontpage | safe }}";
     window.isFrontpage = window.isFrontpage === 'True';
-    window.isMapview = '{{ is_mapview | safe }}';
+    window.isMapview = "{{ is_mapview | safe }}";
     window.isMapview = window.isMapview === 'True';
     // TODO: Clean
-    window.photoModalCurrentImageUrl = '{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}';
-    window.currentPhotoOriginalWidth = '{{ photo.width }}';
-    window.currentPhotoOriginalHeight = '{{ photo.height }}';
-    window.currentPhotoURL = '{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}';
-    window.currentPhotoLat = '{{ photo.lat }}';
-    window.currentPhotoLon = '{{ photo.lon }}';
+    window.photoModalCurrentImageUrl = "{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}";
+    window.currentPhotoOriginalWidth = "{{ photo.width }}";
+    window.currentPhotoOriginalHeight = "{{ photo.height }}";
+    window.currentPhotoURL = "{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}";
+    window.currentPhotoLat = "{{ photo.lat }}";
+    window.currentPhotoLon = "{{ photo.lon }}";
     window.photoModalCurrentPhotoFlipped = false;
     window.photoModalRephotoArray = [];
     window.photoModalSimilarPhotoArray = [];
     window.currentlyOpenPhotoId = {{ photo.id }};
-    window.photoModalFullscreenImageUrl = '{{ fullscreen.url }}';
-    window.photoModalRephotoFullscreenImageUrl = '{{ rephoto_fullscreen.url }}';
-    window.photoModalSimilarFullscreenImageUrl = '{{ similar_fullscreen.url }}'
+    window.photoModalFullscreenImageUrl = "{{ fullscreen.url }}";
+    window.photoModalRephotoFullscreenImageUrl = "{{ rephoto_fullscreen.url }}";
+    window.photoModalSimilarFullscreenImageUrl = "{{ similar_fullscreen.url }}"
     window.photoModalGeotaggingUserCount = {{ geotag_count }};
     window.photoModalAzimuthCount = {{ azimuth_count }};
     window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
@@ -395,89 +395,89 @@
         window.photoModalPhotoLng = null;
     {% endif %}
     {% if description %}
-        window.currentPhotoDescription = '{{ photo.description|remove_newlines|escapejs }}';
+        window.currentPhotoDescription = "{{ photo.description|remove_newlines|escapejs }}";
     {% else %}
         window.currentPhotoDescription = false;
     {% endif %}
-    window.currentPhotoSourceName = '{{ photo.source.description }}';
-    window.currentPhotoSourceKey = '{{ photo.source_key }}';
-    window.currentPhotoSourceURL = '{{ photo.source_url }}';
+    window.currentPhotoSourceName = "{{ photo.source.description }}";
+    window.currentPhotoSourceKey = "{{ photo.source_key }}";
+    window.currentPhotoSourceURL = "{{ photo.source_url }}";
     window.previousDatings = {{ previous_datings | safe }};
     {% for rephoto in photo.rephotos.all %}
         window.photoModalRephotoArray.push({
             id: {{ rephoto.id }},
-            url: '{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}',
-            fb_url: '{{ hostname }}{{ rephoto.get_detail_url }}',
-            fullscreen_url: '{% url 'image_full' rephoto.pk rephoto.get_pseudo_slug %}',
-            fullscreen_width: '{{ rephoto.width }}',
-            fullscreen_height: '{{ rephoto.height }}',
+            url: "{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}",
+            fb_url: "{{ hostname }}{{ rephoto.get_detail_url }}",
+            fullscreen_url: "{% url 'image_full' rephoto.pk rephoto.get_pseudo_slug %}",
+            fullscreen_width: "{{ rephoto.width }}",
+            fullscreen_height: "{{ rephoto.height }}",
             {% if rephoto.date %}
-                date: '{{ rephoto.date|date:"d.m.Y" }}',
+                date: "{{ rephoto.date|date:"d.m.Y" }}",
             {% endif %}
             {% if rephoto.user %}
-                user: '{{ rephoto.user.id }}',
-                FBUserName: '{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}',
-                FBUserLink: '{% if rephoto.user.fb_link %}{{ rephoto.user.fb_link }}{% endif %}',
-                GooglePlusName: '{% if rephoto.user.google_plus_name %}{{ rephoto.user.google_plus_name }}{% endif %}',
-                GooglePlusLink: '{% if rephoto.user.google_plus_link %}{{ rephoto.user.google_plus_link }}{% endif %}',
-                FullName: '{{ rephoto.user.get_display_name }}',
+                user: "{{ rephoto.user.id }}",
+                FBUserName: "{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}",
+                FBUserLink: "{% if rephoto.user.fb_link %}{{ rephoto.user.fb_link }}{% endif %}",
+                GooglePlusName: "{% if rephoto.user.google_plus_name %}{{ rephoto.user.google_plus_name }}{% endif %}",
+                GooglePlusLink: "{% if rephoto.user.google_plus_link %}{{ rephoto.user.google_plus_link }}{% endif %}",
+                FullName: "{{ rephoto.user.get_display_name }}",
             {% endif %}
             {% if rephoto.author %}
-                author: '{{ rephoto.author }}',
+                author: "{{ rephoto.author }}",
             {% endif %}
             {% if rephoto.licence %}
                 licence: true,
             {% endif %}
             {% if rephoto.source %}
-                source: '{{ rephoto.source.description }}',
-                sourceKey: '{{ rephoto.source_key }}',
-                sourceURL: '{{ rephoto.source_url }}'
+                source: "{{ rephoto.source.description }}",
+                sourceKey: "{{ rephoto.source_key }}",
+                sourceURL: "{{ rephoto.source_url }}"
             {% endif %}
         });
     {% endfor %}
     {% for similar in similar_photos.all %}
     window.photoModalSimilarPhotoArray.push({
             id: {{ similar.to_photo_id }},
-            address: '{{ similar.to_photo.address}}',
-            lat: '{{ similar.to_photo.lat}}',
-            lon: '{{ similar.to_photo.lon}}',
+            address: "{{ similar.to_photo.address}}",
+            lat: "{{ similar.to_photo.lat}}",
+            lon: "{{ similar.to_photo.lon}}",
             {% if similar.to_photo.author %}
-                author: '{{ similar.to_photo.author}}',
+                author: "{{ similar.to_photo.author}}",
             {% endif %}
             {% if similar.to_photo.description %}
-                description: '{{ similar.to_photo.description}}',
+                description: "{{ similar.to_photo.description}}",
             {% endif %}
             {% if similar.to_photo.date_text %}
-                date_text: '{{ similar.to_photo.date_text}}',
+                date_text: "{{ similar.to_photo.date_text}}",
             {% endif %}
-            url: '{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.get_pseudo_slug %}',
-            fb_url: '{{ hostname }}{{ similar.to_photo.get_detail_url }}',
-            fullscreen_url: '{% url 'image_full' similar.to_photo.pk similar.to_photo.get_pseudo_slug %}',
-            fullscreen_width: '{{ similar.to_photo.width }}',
-            fullscreen_height: '{{ similar.to_photo.height }}',
+            url: "{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.get_pseudo_slug %}",
+            fb_url: "{{ hostname }}{{ similar.to_photo.get_detail_url }}",
+            fullscreen_url: "{% url 'image_full' similar.to_photo.pk similar.to_photo.get_pseudo_slug %}",
+            fullscreen_width: "{{ similar.to_photo.width }}",
+            fullscreen_height: "{{ similar.to_photo.height }}",
             {% if similar.to_photo.date %}
-                date: '{{ similar.to_photo.date|date:"d.m.Y" }}',
+                date: "{{ similar.to_photo.date|date:"d.m.Y" }}",
             {% endif %}
             {% if similar.to_photo.user %}
-                FBUserName: '{% if similar.to_photo.user.fb_name %}{{ similar.to_photo.user.fb_name }}{% endif %}',
-                FBUserLink: '{% if similar.to_photo.user.fb_link %}{{ similar.to_photo.user.fb_link }}{% endif %}',
-                GooglePlusName: '{% if similar.to_photo.user.google_plus_name %}{{ similar.to_photo.user.google_plus_name }}{% endif %}',
-                GooglePlusLink: '{% if similar.to_photo.user.google_plus_link %}{{ similar.to_photo.user.google_plus_link }}{% endif %}',
-                FullName: '{{ similar.to_photo.user.get_display_name }}',
+                FBUserName: "{% if similar.to_photo.user.fb_name %}{{ similar.to_photo.user.fb_name }}{% endif %}",
+                FBUserLink: "{% if similar.to_photo.user.fb_link %}{{ similar.to_photo.user.fb_link }}{% endif %}",
+                GooglePlusName: "{% if similar.to_photo.user.google_plus_name %}{{ similar.to_photo.user.google_plus_name }}{% endif %}",
+                GooglePlusLink: "{% if similar.to_photo.user.google_plus_link %}{{ similar.to_photo.user.google_plus_link }}{% endif %}",
+                FullName: "{{ similar.to_photo.user.get_display_name }}",
             {% endif %}
             {% if similar.to_photo.author %}
-                author: '{{ similar.to_photo.author }}',
+                author: "{{ similar.to_photo.author }}",
             {% endif %}
             licence: {
-                name: '{{ similar.to_photo.licence.name }}',
-                url: '{{ similar.to_photo.licence.url }}',
-                image_url: '{{ similar.to_photo.licence.image_url }}',
-                is_public: '{{ similar.to_photo.licence.is_public }}'
+                name: "{{ similar.to_photo.licence.name }}",
+                url: "{{ similar.to_photo.licence.url }}",
+                image_url: "{{ similar.to_photo.licence.image_url }}",
+                is_public: "{{ similar.to_photo.licence.is_public }}"
             },
             {% if similar.to_photo.source %}
-                source: '{{ similar.to_photo.source.description }}',
-                sourceKey: '{{ similar.to_photo.source_key }}',
-                sourceURL: '{{ similar.to_photo.source_url }}'
+                source: "{{ similar.to_photo.source.description }}",
+                sourceKey: "{{ similar.to_photo.source_key }}",
+                sourceURL: "{{ similar.to_photo.source_url }}"
             {% endif %}
         });
     {% endfor %}
@@ -489,7 +489,7 @@
         getObjectAnnotationClasses();
         getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 
-        window._gaq.push(['_trackPageview', '{{ photo.get_absolute_url }}']);
+        window._gaq.push(['_trackPageview', "{{ photo.get_absolute_url }}"]);
         $('#ajapaik-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
         $('#ajapaik-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
@@ -522,7 +522,7 @@
         };
         window.updateDatings = function () {
             $.ajax({
-                url: '{% url 'get_datings' photo.id %}',
+                url: "{% url 'get_datings' photo.id %}",
                 success: function (result) {
                     $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
                     $('#ajapaik-photo-modal-start-dating-button').find('.badge').html(result.datings.length);
@@ -548,7 +548,7 @@
         };
         window.updateTranscriptions = function () {
             $.ajax({
-                url: '{% url 'api_transcriptions' photo.id %}',
+                url: "{% url 'api_transcriptions' photo.id %}",
                 success: function (result) {
                     window.currentPhotoTranscriptions = result.transcriptions;
                     if(window.currentPhotoTranscriptions.length > 0) {
@@ -560,7 +560,7 @@
                     }
                 },
                 error: function() {
-                    $.notify("Failed to get transcriptions", {type: 'danger'});
+                    $.notify("Failed to get transcriptions", {type: "danger"});
                 }
             });
         };

@@ -97,11 +97,8 @@
         },
 
         getMarkerArrow: function (point, options) {
-            // FIXME: svg doesn't work with msie;
-
-            // https://commons.wikimedia.org/wiki/File:Ic_navigation_48px.svg
             var pointerIcon = new L.icon({
-                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Ic_navigation_48px.svg/200px-Ic_navigation_48px.svg.png',
+                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Ic_navigation_48px.svg',
                 iconSize: [48, 48], // size of the icon
                 iconAnchor: [24, 24], // point of the icon which will correspond to marker's location
                 popupAnchor: [-3, -26] // point from which the popup should open relative to the iconAnchor
@@ -117,11 +114,8 @@
         },
 
         getMarker: function (point, options) {
-            // FIXME: svg doesn't work with msie;
-
-            // https://commons.wikimedia.org/wiki/File:Ic_location_on_48px.svg
             var pointerIcon = new L.icon({
-                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Ic_location_on_48px.svg/200px-Ic_location_on_48px.svg.png',
+                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Ic_location_on_48px.svg',
                 iconSize: [48, 48], // size of the icon
                 iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
                 popupAnchor: [-3, -26] // point from which the popup should open relative to the iconAnchor

@@ -23,25 +23,25 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'photo': 'photo',
             'profile': 'profile'
         }
-    elif ac_model ==  DatingConfirmation:
+    elif ac_model == DatingConfirmation:
         field_url_dict = {
             'confirmation_of': 'dating',
             'profile': 'profile'
         }
-    elif ac_model ==  FaceRecognitionRectangle:
+    elif ac_model == FaceRecognitionRectangle:
         field_url_dict = {
             'photo': 'photo',
             'subject_consensus': 'album',
             'subject_ai_guess': 'album',
             'user': 'profile'
         }
-    elif ac_model ==  FaceRecognitionRectangleFeedback:
+    elif ac_model == FaceRecognitionRectangleFeedback:
         field_url_dict = {
             'rectangle': 'face-recognition-rectangle',
             'user': 'profile',
             'alternative_subject': 'album'
         }
-    elif ac_model ==  FaceRecognitionUserGuess:
+    elif ac_model == FaceRecognitionUserGuess:
         field_url_dict = {
             'subject_album': 'album',
             'rectangle': 'face-recognition-rectangle',
@@ -52,7 +52,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'face_recognition_rectangle': 'face-recognition-rectangle',
             'guesser': 'profile'
         }
-    elif ac_model ==  GeoTag:
+    elif ac_model == GeoTag:
         field_url_dict = {
             'user': 'profile',
             'photo': 'photo'
@@ -84,7 +84,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'alternative_object': 'object-annotation-class',
             'user': 'profile'
         }
-    elif ac_model ==  Photo:
+    elif ac_model == Photo:
         field_url_dict = {
             'similar_photos': 'image-similarity',
             'licence': 'licence',
@@ -97,7 +97,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'postcard_back_of': 'photo',
             'postcard_front_of': 'photo'
         }
-    elif ac_model ==  Points:
+    elif ac_model == Points:
         field_url_dict = {
             'user': 'profile',
             'photo': 'photo',
@@ -111,12 +111,12 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'image_similarity_confirmation': 'image-similarity-guess',
             'transcription': 'transcription'
         }    
-    elif ac_model ==  Skip:
+    elif ac_model == Skip:
         field_url_dict = {
             'user':'profile',
             'photo':'photo'
         }    
-    elif ac_model ==  Video:
+    elif ac_model == Video:
         field_url_dict = {
             'source': 'source'
         }

@@ -61,12 +61,12 @@
     <script>
         var isTabletView = '{{ is_tabletview }}' === "True";
         $('#ajp-geotagging-container').AjapaikGeotagger();
-        var title = '{{ title }}',
+        var title = "{{ title }}",
             leaderboardFullURL = "{% url "top50" %}",
             difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
             mapDataURL = "{% url "map_objects_by_bounding_box" %}";
             {% if album %}
-                var albumId = '{{ album.0 | safe }}';
+                var albumId = "{{ album.0 | safe }}";
                 {% if album.1 and album.2 %}
                     window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
                 {% endif %}
@@ -77,14 +77,14 @@
         window.linkToGallery = true;
         window.fbShareMap = true;
         {% if selected_photo %}
-            var preselectPhotoId = '{{ selected_photo.id }}';
+            var preselectPhotoId = "{{ selected_photo.id }}";
             {% if selected_photo.lat and selected_photo.lon %}
-                var preselectPhotoLat = '{{ selected_photo.lat | safe }}',
-                    preselectPhotoLng = '{{ selected_photo.lon | safe }}';
+                var preselectPhotoLat = "{{ selected_photo.lat | safe }}",
+                    preselectPhotoLng = "{{ selected_photo.lon | safe }}";
             {% endif %}
         {% endif %}
         {% if selected_rephoto %}
-            var preselectRephotoId = '{{ selected_rephoto.id }}';
+            var preselectRephotoId = "{{ selected_rephoto.id }}";
         {% endif %}
 
         if (isTabletView) {
@@ -132,7 +132,7 @@
             var filteringMessage = window.location.search.indexOf("limitToAlbum=0") < 0 
                 ? "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
                 : "You have opened the map with the album filter off, to turn it on, please tick the box next to album name";
-            $.notify(gettext(filteringMessage), {type: 'info', placement: { from: "top", align: "left" }})
+            $.notify(gettext(filteringMessage), {type: "info", placement: { from: "top", align: "left" }})
         {% endif %}
     </script>
     {% compress js %}

@@ -149,8 +149,8 @@
         window.isAddSubjectDataView = true;
         window.addSubjectDataViewPage = 0;
         var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
-        var currentRectangleId = '{{ rectangle.id }}';
-        var hasConsensus = '{{ hasConsensus }}';
+        var currentRectangleId = "{{ rectangle.id }}";
+        var hasConsensus = "{{ hasConsensus }}";
         var subject = {
             subjectId: {{ rectangle.id }},
             gender: undefined,
@@ -163,8 +163,8 @@
             $("#second-block").removeClass("d-none").addClass("d-block");
             subject.gender = 3;
         }
-        window.currentPhotoOriginalWidth = '{{ photo.width }}';
-        window.currentPhotoOriginalHeight = '{{ photo.height }}';
+        window.currentPhotoOriginalWidth = "{{ photo.width }}";
+        window.currentPhotoOriginalHeight = "{{ photo.height }}";
         resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
             if($(window).width() / ($(window).height() - 275) > imageRatio) {
@@ -228,14 +228,14 @@
                 },
 				success: function (response) {
 					if (response.deleted) {
-						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
+						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: "success"});
 					} else {
-						$.notify(gettext('Thank you!'), {type: 'success'});
+						$.notify(gettext('Thank you!'), {type: "success"});
 					}
-                    window.location.href = '{{next_action}}';
+                    window.location.href = "{{next_action}}";
 				},
 				error: function () {
-                    $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
+                    $.notify(gettext('Failed to send your feedback, sorry.'), {type: "danger"});
                     $("#third-block").removeClass("d-none").addClass("d-flex");
                 }
 			});
@@ -258,7 +258,7 @@
         AddSubjectData = function(subject, profile){
             $('#ajapaik-loading-overlay').show();
             $.ajax({
-                type: 'POST',
+                type: "POST",
                 url: '/face-recognition/guess-subject/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
@@ -268,11 +268,11 @@
                     profile: profile
                 },
                 success: function () {
-                    window.location.href = '{{next_action}}';
+                    window.location.href = "{{next_action}}";
                 },
                 error: function () {
                     $("#third-block").removeClass("d-none").addClass("d-flex");
-                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
                 },
                 complete: function () {
                     $('#ajapaik-loading-overlay').hide();
@@ -340,7 +340,7 @@
             }
         });
         $("#third-block > button").on('click', function(e) {
-            window.location.href = '{{next_action}}';
+            window.location.href = "{{next_action}}";
         });
     </script>
 {% endblock %}

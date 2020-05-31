@@ -384,7 +384,6 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 id__in=[item.pk for item in sqs],
                 albums=album,
                 rephoto_of__isnull=True
-
             )
         else:
             ref_location = Point(x=lon, y=lat, srid=4326)

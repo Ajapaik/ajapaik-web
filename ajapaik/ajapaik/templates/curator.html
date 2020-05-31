@@ -195,7 +195,7 @@
                                 item = $(item);
                                 $.ajax({
                                     url: item.attr('data-src'),
-                                    type: 'GET',
+                                    type: "GET",
                                     mimeType: 'text/plain; charset=x-user-defined',
                                     success: function (response) {
                                         item.attr('src', 'data:image/jpeg;base64,' + base64Encode(response))
@@ -228,9 +228,9 @@
                 loadMyAlbums();
                 $('.ajapaik-navbar').autoHidingNavbar();
             });
-            var gameUrl = '{% url "game" %}',
+            var gameUrl = "{% url 'game' %}",
                 resultCount = 0,
-                url = '{% url "curator_search" %}',
+                url = "{% url 'curator_search' %}",
                 start = 200,
                 resultIds = [],
                 fullResultSet = {},
@@ -267,8 +267,8 @@
             };
             var loadMyAlbums = function () {
                 $.ajax({
-                    type: 'POST',
-                    url: '{% url "curator_my_album_list" %}',
+                    type: "POST",
+                    url: "{% url 'curator_my_album_list' %}",
                     data: {
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
@@ -305,7 +305,7 @@
                     useFotis = $('#ajapaik-curator-search-use-fotis').prop('checked');
                 start += 200;
                 $.ajax({
-                    type: 'POST',
+                    type: "POST",
                     url: url,
                     traditional: true,
                     data: {
@@ -424,7 +424,7 @@
                     });
                 }
                 $.ajax({
-                    type: 'POST',
+                    type: "POST",
                     url: url,
                     data: {
                         // testing: true,
@@ -500,7 +500,7 @@
             window.replaceAll = function (string, find, replace) {
                 return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
-            window.photoPermalink = '{% url "photo" %}';
+            window.photoPermalink = "{% url 'photo' %}";
             window.formatId = function (id) {
                 id = '' + id;
                 id = window.replaceAll(id, ':', '');
@@ -653,8 +653,8 @@
             $(document).on('click', '.ajapaik-curator-edit-album-button', function () {
                 var targetId = $(this)[0].dataset.id;
                 $.ajax({
-                    type: 'POST',
-                    url: '{% url "curator_get_album_info" %}',
+                    type: "POST",
+                    url: "{% url 'curator_get_album_info' %}",
                     data: {
                         albumId: targetId,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
@@ -684,8 +684,8 @@
                 }
                 $('#ajapaik-curator-edit-album-error').removeClass('d-block').addClass('d-none');
                 $.ajax({
-                    type: 'POST',
-                    url: '{% url "curator_update_my_album" %}',
+                    type: "POST",
+                    url: "{% url 'curator_update_my_album' %}",
                     data: {
                         albumId: targetId,
                         name: $('#ajapaik-curator-change-album-name').val(),
@@ -721,8 +721,8 @@
                 }
                 $('#ajapaik-loading-overlay').show();
                 $.ajax({
-                    type: 'POST',
-                    url: '{% url "curator_photo_upload_handler" %}',
+                    type: "POST",
+                    url: "{% url 'curator_photo_upload_handler' %}",
                     data: {
                         selection: selection,
                         albums: albums,

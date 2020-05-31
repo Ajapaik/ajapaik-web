@@ -342,30 +342,30 @@
         })();
     </script>
     <script>
-        var isMobile = '{{ request.user_agent.is_pc }}' === 'False',
-            language = '{{ request.LANGUAGE_CODE }}',
+        var isMobile = "{{ request.user_agent.is_pc }}" === 'False',
+            language = "{{ request.LANGUAGE_CODE }}",
             isMapview = false,
             isGame = false,
             isFrontpage = false,
-            currentLocale = '{{ LANGUAGE_CODE }}',
-            saveLocationURL = '{% url 'geotag_add' %}',
-            difficultyFeedbackURL = '{% url 'difficulty_feedback' %}',
-            confirmLocationURL = '{% url 'geotag_confirm' %}',
-            leaderboardUpdateURL = '{% url 'leaderboard' %}',
-            leaderboardFullURL = '{% url 'top50' %}',
-            photoSelectionURL = '{% url 'photo_selection' %}',
-            photoLikeURL = '{% url 'update_like_state' %}',
-            generalInfoModalURL = '{% url 'general_info_modal_content' %}',
-            submitDatingURL = '{% url 'submit_dating' %}',
-            submitTranscriptionURL = '{% url 'api_submit_transcription' %}',
-            confirmTranscriptionURL = '{% url 'api_confirm_transcription' %}', 
-            infoModalURL = '{% url 'info_modal_content' %}',
-            photoUploadModalURL = '{% url 'mapview_photo_upload_modal' %}',
-            curatorSelectableAlbumsURL = '{% url 'curator_selectable_albums' %}',
-            curatorSelectableParentAlbumsURL = '{% url 'curator_selectable_parent_albums' %}',
-            mapviewURL = '{% url 'map' %}',
-            gameURL = '{% url 'game' %}',
-            lastGeotaggedPhotoId = '{{ last_geotagged_photo_id }}',
+            currentLocale = "{{ LANGUAGE_CODE }}",
+            saveLocationURL = "{% url 'geotag_add' %}",
+            difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
+            confirmLocationURL = "{% url 'geotag_confirm' %}",
+            leaderboardUpdateURL = "{% url 'leaderboard' %}",
+            leaderboardFullURL = "{% url 'top50' %}",
+            photoSelectionURL = "{% url 'photo_selection' %}",
+            photoLikeURL = "{% url 'update_like_state' %}",
+            generalInfoModalURL = "{% url 'general_info_modal_content' %}",
+            submitDatingURL = "{% url 'submit_dating' %}",
+            submitTranscriptionURL = "{% url 'api_submit_transcription' %}",
+            confirmTranscriptionURL = "{% url 'api_confirm_transcription' %}", 
+            infoModalURL = "{% url 'info_modal_content' %}",
+            photoUploadModalURL = "{% url 'mapview_photo_upload_modal' %}",
+            curatorSelectableAlbumsURL = "{% url 'curator_selectable_albums' %}",
+            curatorSelectableParentAlbumsURL = "{% url 'curator_selectable_parent_albums' %}",
+            mapviewURL = "{% url 'map' %}",
+            gameURL = "{% url 'game' %}",
+            lastGeotaggedPhotoId = "{{ last_geotagged_photo_id }}",
             hotkeysActive = true,
         {% if request.user.profile.is_legit %}
             userIsSocialConnected = true;
@@ -458,13 +458,13 @@
     <script type="text/javascript">
         {% if request.user.profile %}
             window.currentProfileId = {{ request.user.profile.pk }};
-            window.currentProfileName = '{{ request.user.profile.get_display_name }}';
+            window.currentProfileName = "{{ request.user.profile.get_display_name }}";
             {% if request.user.profile.fb_email %}
-                window.currentProfileEmail = '{{ request.user.profile.fb_email }}';
+                window.currentProfileEmail = "{{ request.user.profile.fb_email }}";
             {% elif request.user.profile.google_plus_email %}
-                window.currentProfileEmail = '{{ request.user.profile.google_plus_email }}';
+                window.currentProfileEmail = "{{ request.user.profile.google_plus_email }}";
             {% elif request.user.email %}
-                window.currentProfileEmail = '{{ request.user.email }}';
+                window.currentProfileEmail = "{{ request.user.email }}";
             {% endif %}
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
