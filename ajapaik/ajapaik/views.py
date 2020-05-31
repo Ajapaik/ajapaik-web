@@ -3034,6 +3034,7 @@ def geotaggers_modal(request, photo_id):
 		geotags = GeoTag.objects.filter(photo_id=photo_id).order_by('user','-created').distinct('user').prefetch_related('user')[:int(limit, 10)]
 	else:
 		geotags = GeoTag.objects.filter(photo_id=photo_id).order_by('user','-created').distinct('user').prefetch_related('user')
+	geotags = sorted(geotags, key=operator.attrgetter('created'), reverse=True)
 	geotaggers = []
 	for geotag in geotags:
 		geotaggers.append({'name': geotag.user.get_display_name(), 'geotagger_id': geotag.user.id, 'created': geotag.created})
