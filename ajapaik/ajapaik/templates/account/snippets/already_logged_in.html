@@ -1,0 +1,4 @@
+
+{% load i18n %}
+
+<p><strong>{% trans "Note" %}:</strong> {% blocktrans with user_name=request.user.profile.get_display_name %}you are already logged in as {{ user_name }}{% endblocktrans %}</p>

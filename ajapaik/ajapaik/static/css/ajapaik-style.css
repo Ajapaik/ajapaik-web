@@ -257,6 +257,10 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
   font-size: 0;
 }
 
+.ajapaik-header-button > svg {
+  vertical-align: baseline;
+}
+
 .ajapaik-photo-flipped {
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
@@ -345,19 +349,19 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajap
 }
 
 .ajapaik-minimap-geotagging-user-single-person {
-  background: transparent url(../images/material-design-icons/ic_person_black_24px.svg) no-repeat center !important;
+  background: transparent url(../images/material-design-icons/ic_person_black_24px.svg) no-repeat left !important;
 }
 
 .ajapaik-minimap-geotagging-user-multiple-people {
-  background: transparent url(../images/material-design-icons/ic_people_black_24px.svg) no-repeat center !important;
+  background: transparent url(../images/material-design-icons/ic_people_black_24px.svg) no-repeat left !important;
 }
 
 .ajapaik-minimap-geotagging-user-multiple-people.ajapaik-minimap-geotagging-user-active {
-  background: transparent url(../images/material-design-icons/ic_people_blue_24px.svg) no-repeat center !important;
+  background: transparent url(../images/material-design-icons/ic_people_blue_24px.svg) no-repeat left !important;
 }
 
 .ajapaik-minimap-geotagging-user-single-person.ajapaik-minimap-geotagging-user-active {
-  background: transparent url(../images/material-design-icons/ic_person_blue_24px.svg) no-repeat center !important;
+  background: transparent url(../images/material-design-icons/ic_person_blue_24px.svg) no-repeat left !important;
 }
 
 #ajapaik-minimap-disabled-overlay {
@@ -2563,9 +2567,17 @@ input[type=search]::-webkit-search-cancel-button {
   text-decoration: none;
 }
 
-#ajapaik-general-info-modal-content > .row > b {
+#ajapaik-general-info-modal-content > .row > b,
+#ajapaik-user-info > .row > b {
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.ajapaik-user-icon {
+  line-height: 0.75;
+  margin-left: -28px;
+  font-size: 267px;
+  color: #888;
 }
 
 #ajapaik-modal-similar-photo {
@@ -2609,19 +2621,11 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   opacity: 1 !important;
 }
 
-
-#ajapaikMapTutorialModal {
-  z-index: 9999;
-}
-
-#ajapaikMapTutorialModal > .modal-dialog > .modal-content {
-  border-radius: 20%;
-  min-height: 100px;
-  max-height: 75%;
-  border-radius: 50px;
-  border: 10px black solid;
-}
-
 #ajp-transcriber-text {
   height: 150px;
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
 }

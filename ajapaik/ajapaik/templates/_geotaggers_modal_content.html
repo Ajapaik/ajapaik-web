@@ -1,0 +1,31 @@
+{% load i18n %}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content pb-2">
+        <div class="modal-header" style="border-bottom: 0 none;">
+            <h4>{% trans "This user / These users have suggested location for this picture" %}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="table ">
+                <tr>
+                    <th scope="col">{% trans "Name" %}</th>
+                    <th scope="col">{% trans "Modified" %}</th>
+                </tr>
+                {% for geotagger in geotaggers %}
+                <tr>
+                    <td>
+                        <a href="/user/{{ geotagger.geotagger_id }}">
+                            {{ geotagger.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ geotagger.created|date:"d.m.Y H:i" }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>    
+</div>

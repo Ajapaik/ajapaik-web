@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^info-modal-content/$', views.get_album_info_modal_content, name='info_modal_content'),
     url(r'^ajapaikaja/$', views.game, name='game'),
     url(r'^game/$', views.game, name='game'),
+    url(r'^geotaggers-modal/(?P<photo_id>\d+)/$', views.geotaggers_modal, name='photo_geotaggers'),
     url(r'^geotag/$', views.game, name='game'),
     url(r'^kaart/$', views.mapview, name='map'),
     url(r'^map/$', views.mapview, name='map'),
@@ -111,7 +112,9 @@ urlpatterns = [
     url(r'^terms/$', views.terms, name='terms'),
     url(r'^compare-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_photos, name='compare-photos'),
     url(r'^compare-all-photos/$',views.compare_all_photos, name='compare-all-photos'),
-    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos')
+    url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos'),
+    url(r'^me/$',views.me, name='me'),
+    url(r'^user/(?P<user_id>\d+)/$',views.user, name='user')
 ]
 
 urlpatterns += [

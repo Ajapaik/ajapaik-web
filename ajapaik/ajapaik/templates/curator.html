@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block layout %}
-    {% include "_full_leaderboard_modal.html" %}
     <div class="container{% if not request.user.profile.is_legit %} pb-3 w-50{% endif %}" id="ajapaik-curator-container">
         {% if request.user.profile.is_legit %}
             {% include "_album_creation_modal.html" %}

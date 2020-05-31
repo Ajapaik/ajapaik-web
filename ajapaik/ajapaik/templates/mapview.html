@@ -2,7 +2,7 @@
 {% load i18n compress static %}
 
 {% block header %}
-        {% include "_header.html" %}
+    {% include "_header.html" %}
 {% endblock %}
 
 {% block specific_css %}
@@ -29,7 +29,6 @@
         </div>
     </div>
     <div id="ajp-geotagging-container"></div>
-    {% include "_full_leaderboard_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajapaik-fullscreen-image-container">
             <img id="ajapaik-full-screen-image" alt=""/>
@@ -49,7 +48,6 @@
 
 {% block specific_js %}
     <script>
-        var isTabletView = '{{ is_tabletview }}' === "True";
         $('#ajp-geotagging-container').AjapaikGeotagger();
         var title = "{{ title }}",
             leaderboardFullURL = "{% url "top50" %}",
@@ -88,4 +86,5 @@
         <script src="{% static "js/markerclustererplus-2.1.1.js" %}"></script>
     {% endcompress %}
     {% include "_rephoto_upload_modal.html" %}
+    {% include "_geotaggers_modal.html" %}
 {% endblock %}

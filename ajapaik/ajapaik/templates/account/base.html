@@ -1,54 +1,48 @@
-{% extends is_then_and_now|yesno:"then_and_now/base.html,base_bootstrap.html" %}
+{% extends "base_bootstrap.html" %}
 
 {% load i18n %}
 {% block layout %}
     <div class="container">
-        <div class="row pt-5">
+        <div class="row pt-4">
             <div class="pt-5 col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-xl-offset-3">
+              {% block body %}
 
-    {% block body %}
+                {% if messages %}
+                  <div>
+                    <strong>Messages:</strong>
+                    <ul>
+                      {% for message in messages %}
+                        {{message}}<br>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    <div>
-    {% if request.user.profile.is_legit %}
-    {% block content %}
-    {% endblock %}
-    {% endif %}
-    {% endblock %}
-
-    {% if request.user.profile.is_legit %}
-    {% block extra_body %}
-    {% endblock %}
-    {% endif %}
-    </div>
-
-    <div class='allauth-menu'>
-      <strong>Menu:</strong>
-      <ul>
-        {% if request.user.profile.is_legit %}
-        <li><a href="{% url 'account_email' %}">Change e-mail</a></li>
-        <li><a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a>
-        <li><a href="{% url 'account_change_password' %}">Change password</a>
-        <li><a href="{% url 'socialaccount_connections' %}">Socialaccount connections</a>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign in</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign up</a></li>
-        {% endif %}
-      </ul>
-    </div>
-
+                <div>
+                {% if request.user.profile.is_legit %}
+                  {% block content %}
+                  {% endblock %}
+                {% endif %}
+              {% endblock %}
+              {% if request.user.profile.is_legit %}
+                {% block extra_body %}
+                {% endblock %}
+              {% endif %}
             </div>
+            <div class='allauth-menu'>
+              <strong>Menu:</strong><br>
+              {% if request.user.profile.is_legit %}
+                <a href="{% url 'account_email' %}">Change e-mail</a><br>
+                <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a><br>
+                <a href="{% url 'account_change_password' %}">Change password</a><br>
+                <a href="{% url 'socialaccount_connections' %}">Socialaccount connections</a><br>
+                <a href="{% url 'account_logout' %}">Sign Out</a>
+              {% else %}
+                <a href="{% url 'account_login' %}">Sign in</a><br>
+                <a href="{% url 'account_signup' %}">Sign up</a>
+              {% endif %}
+            </div>
+          </div>
         </div>
     </div>
 {% endblock %}

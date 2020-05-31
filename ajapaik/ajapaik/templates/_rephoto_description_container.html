@@ -18,7 +18,7 @@
     {% else %}
         <div class="w-100">
             <a id="ajapaik-photo-modal-rephoto-user-link"
-                {% if rephoto.user.id %} href="/photos/?rephotosBy={{rephoto.user.id}}&order1=time&order2=rephotos" {% endif %}
+                {% if rephoto.user.id %} href="/user/{{rephoto.user.id}}" {% endif %}
                 target="_blank">
                 {% if rephoto.user.fb_name %}
                     {{ rephoto.user.fb_name }}

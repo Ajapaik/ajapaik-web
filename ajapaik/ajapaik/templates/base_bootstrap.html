@@ -73,7 +73,7 @@
             {% trans 'historic,pictures,old,photos' %}
         {% endif %}
         ">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is"/>
     <meta name="msvalidate.01" content="0AFAD3D32395E8F3F75621502B39878C" />
@@ -276,6 +276,7 @@
   <strong>{% trans "Sorting" %}:</strong> <span id="ajapaik-sorting-error-message"></span>
 </div>
 {% include "_general_info_modal.html" %}
+{% include "_full_leaderboard_modal.html" %}
 {% block header %}
     {% include "_header.html" %}
 {% endblock header %}
@@ -288,6 +289,9 @@
 {% endif %}
 {% block global_js %}
     <script>
+        window.addEventListener("beforeunload", function (event) {
+            $('#ajapaik-loading-overlay').show();
+        });
         window.fbAsyncInit = function () {
             FB.init({appId: "201052296573134", status: !0, cookie: !0, xfbml: !0, version: 'v2.3'});
             try {
@@ -352,6 +356,7 @@
             photoSelectionURL = "{% url 'photo_selection' %}",
             photoLikeURL = "{% url 'update_like_state' %}",
             generalInfoModalURL = "{% url 'general_info_modal_content' %}",
+            geotaggersListURL = "{% url 'photo_geotaggers' 0 %}",
             submitDatingURL = "{% url 'submit_dating' %}",
             submitTranscriptionURL = "{% url 'api_submit_transcription' %}",
             confirmTranscriptionURL = "{% url 'api_confirm_transcription' %}", 

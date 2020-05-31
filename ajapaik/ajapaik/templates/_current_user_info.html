@@ -1,0 +1,86 @@
+{% load i18n %}
+<div class="w-100">
+    {% trans "You have" %}
+</div>
+<ul class="mb-0">
+    {% if curated_images > 0 %}
+        <li>
+            {% blocktrans count counter=curated_images %}curated <b>{{ curated_images }}</b> image{% plural %}curated <b>{{ curated_images }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if geotagged_images > 0 %}
+        <li>
+            {% blocktrans count counter=geotagged_images %}suggested location for <b>{{ geotagged_images }}</b> image{% plural %}suggested locations for <b>{{ geotagged_images }}</b> image{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if geotag_confirmations > 0 %}
+        <li>
+            {% blocktrans count counter=geotag_confirmations %}confirmed location for <b>{{ geotag_confirmations }}</b> image{% plural %}confirmed locations for <b>{{ geotag_confirmations }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if rephotos > 0 %}
+        <li>
+            {% blocktrans with link=rephotos_link count counter=rephotographed_images %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for {% endblocktrans %}
+            {% blocktrans count counter=rephotographed_images %}<b>{{ rephotographed_images }}</b> image{% plural %}<b>{{ rephotographed_images }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if commented_images > 0 %}
+        <li>
+            {% blocktrans count counter=commented_images %}commented on <b>{{ commented_images }} images</b>{% plural %}commented on <b>{{ commented_images }}</b>  images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if datings > 0 %}
+        <li>
+            {% blocktrans count counter=datings %}specified a date for <b>{{ datings }}</b> image{% plural %}specified date for  for <b>{{ datings }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if face_annotations > 0 %}
+        <li>
+            {% blocktrans count counter=face_annotations %}annotated <b>{{ face_annotations }}</b> face on{% plural %}annotated <b>{{ face_annotations }}</b> faces on{% endblocktrans %}
+            {% blocktrans count counter=face_annotations_images %}<b>{{ face_annotations_images }}</b> image{% plural %}<b>{{ face_annotations_images }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if object_annotations > 0 %}
+        <li>
+            {% blocktrans count counter=object_annotations %}annotated <b>{{ object_annotations }}</b> object on{% plural %}annotated <b>{{ object_annotations }}</b> objects on{% endblocktrans %}
+            {% blocktrans count counter=object_annotations_images %}<b>{{ object_annotations_images }}</b> image{% plural %}<b>{{ object_annotations_images }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if transcriptions > 0 %}
+        <li>
+            {% blocktrans count counter=transcriptions %}transcribed text on <b>{{ transcriptions }}</b> image{% plural %}added transcribed text on <b>{{ transcriptions }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if similar_images > 0 %}
+        <li>
+            {% blocktrans count counter=similar_images %}connected <b>{{ similar_images }}</b> similar image{% plural %}connected <b>{{ similar_images }}</b> similar images{% endblocktrans %}
+        </li>
+    {% endif %}
+    {% if photolikes > 0 %}
+        <li>
+            {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> image{% plural %}favorited <b>{{ photolikes }}</b> images{% endblocktrans %}
+        </li>
+    {% endif %}
+</ul>
+{% if user_points > 0 %}
+    <div class="w-100">
+        {% blocktrans count counter=user_points %}You have <b>{{ user_points }} point in total</b>{% plural %}You have <b>{{ user_points }}</b> points in total{% endblocktrans %}
+    </div>
+{% endif %}
+{% if rephotos > 0 or photolikes > 0 %}
+    <div class="w-100">
+        {% trans "View your" %}
+    </div>
+    <ul>
+        {% if rephotos > 0  %}
+            <li>
+                <a href="{{ link }}">{% blocktrans with link=rephotos_link %}rephotos{% endblocktrans %}</a>
+            </li>
+        {% endif %}
+        {% if photolikes > 0 %}
+            <li>
+                <a href="{{ link }}">{% blocktrans with link=favorites_link %}favorite photos{% endblocktrans %}</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

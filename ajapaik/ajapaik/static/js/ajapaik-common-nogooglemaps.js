@@ -1465,6 +1465,23 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         });
     });
 
+    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right', function (event) {
+        var targetDiv = $('#ajapaik-geotaggers-modal');
+        $('#ajapaik-loading-overlay').show();
+        if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
+            let url = window.geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
+            $.ajax({
+                url,
+                success: function (resp) {
+                    targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
+    });
+
     $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {
         event.preventDefault();
         var link = $(this);

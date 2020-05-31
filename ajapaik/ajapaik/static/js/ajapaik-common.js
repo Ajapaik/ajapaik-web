@@ -179,38 +179,38 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }));
 
         var oldMapsCity = getQueryParameterByName('maps-city'),
-            oldMapsIdx = getQueryParameterByName('maps-index');
-            if(oldMapsCity){
-                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
+        oldMapsIdx = getQueryParameterByName('maps-index');
+        if(oldMapsCity){
+            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
+        }
+        else{
+            commonVgmapi = new VanalinnadGooglemApi(null, false);
+        }
+        commonVgmapi.map = map;
+        var cityDataDoneCallback = function () {
+            commonVgmapi.buildVanalinnadMapCityControl();
+            commonVgmapi.buildMapYearControl();
+            if (window.map.getMapTypeId() === 'old-maps') {
+                commonVgmapi.showControls();
+            } else {
+                commonVgmapi.hideControls();
             }
-            else{
-                commonVgmapi = new VanalinnadGooglemApi(null, false);
+            if (!oldMapsIdx) {
+                commonVgmapi.changeIndex(0);
+            } else {
+                commonVgmapi.changeIndex(oldMapsIdx);
             }
-            commonVgmapi.map = map;
-            var cityDataDoneCallback = function () {
-                commonVgmapi.buildVanalinnadMapCityControl();
-                commonVgmapi.buildMapYearControl();
-                if (window.map.getMapTypeId() === 'old-maps') {
-                    commonVgmapi.showControls();
-                } else {
-                    commonVgmapi.hideControls();
-                }
-                if (!oldMapsIdx) {
-                    commonVgmapi.changeIndex(0);
-                } else {
-                    commonVgmapi.changeIndex(oldMapsIdx);
-                }
-            };
-            commonVgmapi.getCityData(cityDataDoneCallback);
-            map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
+        };
+        commonVgmapi.getCityData(cityDataDoneCallback);
+        map.mapTypes.set('old-maps', commonVgmapi.juksMapType);
         if (!isGameMap) {
-                myLocationButton = document.createElement('button');
-                $(myLocationButton)
-                    .addClass('btn btn-light btn-sm')
-                    .prop('id', 'ajapaik-mapview-my-location-button')
-                    .prop('title', gettext('Go to my location'))
-                    .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
+            myLocationButton = document.createElement('button');
+            $(myLocationButton)
+                .addClass('btn btn-light btn-sm')
+                .prop('id', 'ajapaik-mapview-my-location-button')
+                .prop('title', gettext('Go to my location'))
+                .html('<i class="glyphicon ajapaik-icon ajapaik-icon-my-location"></i>');
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(myLocationButton);
             input = /** @type {HTMLInputElement} */(document.getElementById('pac-input-mapview'));
             $(input).on('focus', function () {
                 window.hotkeysActive = false;
@@ -239,7 +239,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 window.toggleVisiblePaneElements();
             });
         }
-        
+
         streetviewVisibleChangedListener = google.maps.event.addListener(streetPanorama, 'visible_changed', function () {
             // Works only in map view
             let openButton = $('#open-btn');
@@ -1882,6 +1882,23 @@ $('.ajapaik-navbar').autoHidingNavbar();
                 window._gaq.push(['_trackEvent', 'Selection', 'Upload error']);
             }
         });
+    });
+
+    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right', function (event) {
+        var targetDiv = $('#ajapaik-geotaggers-modal');
+        $('#ajapaik-loading-overlay').show();
+        if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
+            let url = geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
+            $.ajax({
+                url,
+                success: function (resp) {
+                    targetDiv.html(resp).modal();
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
     });
 
     $(document).on('click', '#ajapaik-comment-list a[data-action="like"],a[data-action="dislike"]', function (event) {

@@ -8,6 +8,7 @@
 {% block layout %}
 {% include "_info_modal.html" %}
 {% include "_rephoto_upload_modal.html" %}
+{% include "_geotaggers_modal.html" %}
 {% include "_album_creation_modal.html" %}
 {% include "js_templates/curator_album_selection_separator.html" %}
 {% include "js_templates/curator_album_selection_option.html" %}
@@ -102,25 +103,25 @@
 
         </div>
         {% if rephoto %}
-        <div>
-            <div id="ajapaik-photoview-rephoto-wrapper">
-                <div id="ajapaik-photoview-rephoto-container">
-                    <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
-                        <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw" alt="{{ photo.description }} {% trans "rephoto" %}"
-                            src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
-                    </a>
-                    <button class="btn ajapaik-close-rephoto-overlay-button"
-                        {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
-                            class="material-icons notranslate">close</i></button>
-                    <button class="btn ajapaik-invert-rephoto-overlay-button"
-                        {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
-                            class="material-icons notranslate">invert_colors</i></button>
+            <div>
+                <div id="ajapaik-photoview-rephoto-wrapper">
+                    <div id="ajapaik-photoview-rephoto-container">
+                        <a class="fullscreen" id="ajapaik-rephoto-full-screen-link">
+                            <img id="ajapaik-photoview-rephoto" class="ajapaik-max-48vw" alt="{{ photo.description }} {% trans "rephoto" %}"
+                                src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
+                        </a>
+                        <button class="btn ajapaik-close-rephoto-overlay-button"
+                            {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+                                class="material-icons notranslate">close</i></button>
+                        <button class="btn ajapaik-invert-rephoto-overlay-button"
+                            {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><i
+                                class="material-icons notranslate">invert_colors</i></button>
+                    </div>
+                    {% with rephoto=rephoto|default:rephoto %}
+                        {% include "_rephoto_description_container.html" %}
+                    {% endwith %}
                 </div>
-                {% with rephoto=rephoto|default:rephoto %}
-                    {% include "_rephoto_description_container.html" %}
-                {% endwith %}
             </div>
-        </div>
         {% endif %}
         {% if similar_photo_count > 0 %}
             <div id="ajapaik-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or photo.rephotos.all|length > 0 %} d-none{% endif %}">
@@ -254,7 +255,6 @@
             </div>
         </div>
     </div>
-{% include "_full_leaderboard_modal.html" %}
     <div id="ajp-geotagging-container"></div>
 </div>
 {% endblock %}
@@ -292,15 +292,15 @@
     window.hostname = "{{ hostname }}";
     // Some fake variables to reuse photo modal mini-map component
     {% if photo.lat and photo.lon %}
-    window.photoModalPhotoLat = {{ photo.lat | safe }};
-    window.photoModalPhotoLng = {{ photo.lon | safe }};
+        window.photoModalPhotoLat = {{ photo.lat | safe }};
+        window.photoModalPhotoLng = {{ photo.lon | safe }};
     {% endif %}
     {% if photo.azimuth %}
-    window.photoModalPhotoAzimuth = {{ photo.azimuth | safe }};
+        window.photoModalPhotoAzimuth = {{ photo.azimuth | safe }};
     {% endif %}
     {% if album.1 and album.2 %}
-    window.albumLat = {{ album.1 | safe }};
-    window.albumLon = {{ album.2 | safe }};
+        window.albumLat = {{ album.1 | safe }};
+        window.albumLon = {{ album.2 | safe }};
     {% endif %}
     window.currentPhotoSourceName = "{{ photo.source.description }}";
     window.currentPhotoSourceKey = "{{ photo.source_key }}";
@@ -413,10 +413,10 @@
                 });
             });
     $(document).on('click', '#ajapaik-photoview-map-button', function () {
-        {% if album.0 %}
+    {% if album.0 %}
         window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.0 }};
     {% else %}
-    window.location.href = '/map/photo/' + {{ photo.id }};
+        window.location.href = '/map/photo/' + {{ photo.id }};
     {% endif %}
             });
     $(document).on('click', '#ajapaik-photoview-header-game-button', function () {

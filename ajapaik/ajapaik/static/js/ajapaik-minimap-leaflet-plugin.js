@@ -75,7 +75,7 @@
                 map.invalidateSize();
 
                 // overwrite L.easybutton look and feel
-                $("span.ajapaik-minimap-geotagging-user-text").css('padding-left', '2em');
+                $("span.ajapaik-minimap-geotagging-user-text").css('padding-left', '1.2em');
                 $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('cursor', 'default');
                 $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('pointer-events', 'none');
                 $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('width', '4.5em');
