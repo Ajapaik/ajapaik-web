@@ -770,7 +770,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		rephotos_by_name = None
 		if filter_form.cleaned_data['rephotosBy']:
 			rephotos_by = filter_form.cleaned_data['rephotosBy']
-			name = rephotos_by.get_display_name()
+			name = rephotos_by.get_display_name
 			rephotos_by = rephotos_by.pk
 			rephotos_by_name = name
 		default_ordering = False
@@ -1217,7 +1217,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 				Q(user__first_name__isnull=False, user__last_name__isnull=False, is_correct=True))[:3]
 			if len(correct_geotags_from_authenticated_users) > 0:
 				for each in correct_geotags_from_authenticated_users:
-					first_geotaggers.append([each.user.get_display_name(), each.lat, each.lon, each.azimuth])
+					first_geotaggers.append([each.user.get_display_name, each.lat, each.lon, each.azimuth])
 			first_geotaggers = json.dumps(first_geotaggers)
 		azimuth_count = geotags.filter(azimuth__isnull=False).count()
 		first_rephoto = photo_obj.rephotos.all().first()
@@ -2786,7 +2786,7 @@ def user_upload(request):
 			photo = form.save(commit=False)
 			photo.user = request.user.profile
 			if photo.uploader_is_author:
-				photo.author = request.user.profile.get_display_name()
+				photo.author = request.user.profile.get_display_name
 				photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
 			photo.save()
 			photo.set_aspect_ratio()
@@ -3037,7 +3037,7 @@ def geotaggers_modal(request, photo_id):
 	geotags = sorted(geotags, key=operator.attrgetter('created'), reverse=True)
 	geotaggers = []
 	for geotag in geotags:
-		geotaggers.append({'name': geotag.user.get_display_name(), 'geotagger_id': geotag.user.id, 'created': geotag.created})
+		geotaggers.append({'name': geotag.user.get_display_name, 'geotagger_id': geotag.user.id, 'created': geotag.created})
 	context = {
 		'geotaggers' : geotaggers
 	}

@@ -145,7 +145,7 @@ class AlbumPhoto(Model):
 
     def __unicode__(self):
         if self.profile:
-            profilename = self.profile.get_display_name()
+            profilename = self.profile.get_display_name
         else:
             profilename = 'None'
 
@@ -1229,6 +1229,7 @@ class Profile(Model):
 
         return False
 
+    @property
     def get_display_name(self):
         if self.first_name and self.last_name:
             return '%s %s' % (self.first_name, self.last_name)
@@ -1245,7 +1246,7 @@ class Profile(Model):
             return _('Anonymous user')
 
     def __unicode__(self):
-        return u"%s" % (self.get_display_name(),)
+        return u"%s" % (self.get_display_name,)
 
     def __str__(self):
         return self.__unicode__()

@@ -916,7 +916,7 @@ class api_user_me(AjapaikAPIView):
         if user.is_authenticated:
             profile = user.profile
             if profile.is_legit():
-                content['name'] = profile.get_display_name()
+                content['name'] = profile.get_display_name
                 content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
                 # general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
                 # general_user_rank = 0
@@ -1498,7 +1498,7 @@ class Transcriptions(AjapaikAPIView):
                 if fb.transcription_id == transcription["id"]:
                     transcription["feedback_count"] +=1
             profile = Profile.objects.filter(user_id=transcription["user_id"]).first()
-            transcription["user_name"] = profile.get_display_name()
+            transcription["user_name"] = profile.get_display_name
         def feedback_count(elem):
             return elem["feedback_count"]
         data = { 'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True) }
