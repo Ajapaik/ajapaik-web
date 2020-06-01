@@ -74,12 +74,12 @@
     <ul>
         {% if rephotos > 0  %}
             <li>
-                <a href="{{ link }}">{% blocktrans with link=rephotos_link %}rephotos{% endblocktrans %}</a>
+                <a href="{{ rephotos_link }}">{% trans "rephotos" %}</a>
             </li>
         {% endif %}
         {% if photolikes > 0 %}
             <li>
-                <a href="{{ link }}">{% blocktrans with link=favorites_link %}favorite pictures{% endblocktrans %}</a>
+                <a href="{{ favorites_link }}">{% trans "favorite pictures" %}</a>
             </li>
         {% endif %}
     </ul>
