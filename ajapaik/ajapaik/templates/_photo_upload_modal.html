@@ -5,8 +5,8 @@
         <div class="modal-body">
             <div>
                 {% if request.user.profile.is_legit %}
-                    {% with profile=request.user.profile user=request.user %}
-                        <p>{% trans "You are logged in as" %} <b>{{ user.get_full_name }}</b></p>
+                    {% with profile=request.user.profile %}
+                        <p>{% trans "You are logged in as" %} <b>{{ profile.get_display_name }}</b></p>
                         <form method="post" action="{% url 'account_logout' %}">
                             {% csrf_token %}
                             <button class="btn btn-secondary" type="submit">{% trans 'Sign Out' %}</button>

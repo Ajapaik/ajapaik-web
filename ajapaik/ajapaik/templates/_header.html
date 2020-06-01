@@ -115,9 +115,9 @@
                         {% endif %}
                     </ul>
                     {% if request.user.profile.is_legit %}
-                        {% with profile=request.user.profile user=request.user %}
+                        {% with profile=request.user.profile %}
                             <div class="facebook-connected">
-                                <p>{% trans "You are logged in as" %} <a href="{% url 'me' %}">{{ user.profile.get_display_name }}</a>.</p>
+                                <p>{% trans "You are logged in as" %} <a href="{% url 'me' %}">{{ profile.get_display_name }}</a>.</p>
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
                                     <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign Out' %}</button>
