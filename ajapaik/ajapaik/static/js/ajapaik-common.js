@@ -1884,7 +1884,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         });
     });
 
-    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right', function (event) {
+    $(document).on('click', '#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right, .ajapaik-minimap-geotagging-user-number, #ajp-geotagger-stats-container > i, #ajp-geotagger-stats-container > span', function (event) {
         var targetDiv = $('#ajapaik-geotaggers-modal');
         $('#ajapaik-loading-overlay').show();
         if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
