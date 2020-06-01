@@ -2989,7 +2989,7 @@ def user(request, user_id):
 	object_annotations_images_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
 	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
 	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
-	similar_images_qs = ImageSimilarityGuess.objects.filter(guesser=current_profile).distinct('image_similarity')
+	similar_images_qs = ImageSimilarityGuess.objects.filter(guesser=profile).distinct('image_similarity')
 	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
 	action_count = commented_images_qs_count + transcriptions_qs.count() + \
 				   object_annotations_qs.count() + face_annotations_qs.count() + \
