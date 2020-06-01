@@ -2976,26 +2976,26 @@ def user(request, user_id):
 	if current_profile == profile:
 		is_current_user = True
 	if profile.user.is_anonymous:
-		commented_images_qs_count = 0
+		commented_pictures_qs_count = 0
 	else:
-		commented_images_qs_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
-	curated_images_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True)
+		commented_pictures_qs_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
+	curated_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True)
 	datings_qs = Dating.objects.filter(profile_id=profile.id).distinct('photo')
 	face_annotations_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id')
-	face_annotations_images_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
+	face_annotations_pictures_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
 	geotags_qs = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo')
 	geotag_confirmations_qs = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo')
 	object_annotations_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id')
-	object_annotations_images_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
+	object_annotations_pictures_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
 	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
 	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
-	similar_images_qs = ImageSimilarityGuess.objects.filter(guesser=profile).distinct('image_similarity')
+	similar_pictures_qs = ImageSimilarityGuess.objects.filter(guesser=profile).distinct('image_similarity')
 	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
-	action_count = commented_images_qs_count + transcriptions_qs.count() + \
+	action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
 				   object_annotations_qs.count() + face_annotations_qs.count() + \
-				   curated_images_qs.count() + geotags_qs.count() + \
+				   curated_pictures_qs.count() + geotags_qs.count() + \
 				   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
-				   similar_images_qs.count() + geotag_confirmations_qs.count() + \
+				   similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
 				   photolikes_qs.count()
 	
 	user_points = 0
@@ -3004,23 +3004,23 @@ def user(request, user_id):
 
 	context = {
 		'actions': action_count,
-		'commented_images': commented_images_qs_count,
-		'curated_images': curated_images_qs.count(),
+		'commented_pictures': commented_pictures_qs_count,
+		'curated_pictures': curated_pictures_qs.count(),
 		'datings': datings_qs.count(),
 		'face_annotations': face_annotations_qs.count(),
-		'face_annotations_images': face_annotations_images_qs.count(),
+		'face_annotations_pictures': face_annotations_pictures_qs.count(),
 		'favorites_link': "/?order1=time&order2=added&page=1&myLikes=1",
 		'geotag_confirmations': geotag_confirmations_qs.count(),
-		'geotagged_images': geotags_qs.count(),
+		'geotagged_pictures': geotags_qs.count(),
 		'is_current_user': is_current_user,
 		'object_annotations': object_annotations_qs.count(),
-		'object_annotations_images': object_annotations_images_qs.count(),
+		'object_annotations_pictures': object_annotations_pictures_qs.count(),
 		'photolikes': photolikes_qs.count(),
 		'profile': profile,
-		'rephotographed_images': rephoto_qs.count(),
+		'rephotographed_pictures': rephoto_qs.count(),
 		'rephotos_link': "/photos/?rephotosBy=" + str(profile.user.id) + "&order1=time&order2=rephotos",
 		'rephotos': rephoto_qs.count(),
-		'similar_images': similar_images_qs.count(),
+		'similar_pictures': similar_pictures_qs.count(),
 		'transcriptions': transcriptions_qs.count(),
 		'user_points': user_points
 	}
