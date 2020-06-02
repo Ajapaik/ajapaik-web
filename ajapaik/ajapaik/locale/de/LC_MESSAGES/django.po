@@ -763,7 +763,7 @@ msgstr "Siehe auch – Sift.pics"
 #: ajapaik/ajapaik/templates/account/logout.html:5
 #: ajapaik/ajapaik/templates/account/logout.html:8
 #: ajapaik/ajapaik/templates/account/logout.html:17
-msgid "Sign Out"
+msgid "Sign out"
 msgstr "Abmelden"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6

@@ -624,7 +624,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_header.html:123
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:12
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:39
-msgid "Sign Out"
+msgid "Sign out"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6

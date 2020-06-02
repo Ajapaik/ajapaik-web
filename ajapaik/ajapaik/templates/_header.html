@@ -120,7 +120,7 @@
                                 <p>{% trans "You are logged in as" %} <a href="{% url 'me' %}">{{ profile.get_display_name }}</a>.</p>
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
-                                    <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign Out' %}</button>
+                                    <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign out' %}</button>
                                 </form>
                             </div>
                         {% endwith %}
