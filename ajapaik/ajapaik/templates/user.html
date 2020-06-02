@@ -38,12 +38,12 @@
             {% endif %}
             {% if request.user.profile.is_legit %}
                 <br>
-                <a class="w-100" href="{% url 'account_email' %}">Change e-mail</a>
+                <a class="w-100" href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a>
                 <br>
-                <a class="w-100" href="{% url 'account_change_password' %}">Change password</a>
+                <a class="w-100" href="{% url 'account_change_password' %}">{% trans "Change password" %}</a>
                 <br><br>
                 <div>
-                    <a class="btn btn-secondary" href="{% url 'account_logout' %}">Sign Out</a>
+                    <a class="btn btn-secondary" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
                 </div>
             {% endif %}
         {% else %}

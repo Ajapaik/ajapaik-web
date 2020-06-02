@@ -32,14 +32,14 @@
             <div class='allauth-menu'>
               <strong>Menu:</strong><br>
               {% if request.user.profile.is_legit %}
-                <a href="{% url 'account_email' %}">Change e-mail</a><br>
+                <a href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a><br>
                 <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a><br>
-                <a href="{% url 'account_change_password' %}">Change password</a><br>
-                <a href="{% url 'socialaccount_connections' %}">Socialaccount connections</a><br>
-                <a href="{% url 'account_logout' %}">Sign Out</a>
+                <a href="{% url 'account_change_password' %}">{% trans "Change password" %}</a><br>
+                <a href="{% url 'socialaccount_connections' %}">{% trans "Socialaccount connections" %}</a><br>
+                <a href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
               {% else %}
-                <a href="{% url 'account_login' %}">Sign in</a><br>
-                <a href="{% url 'account_signup' %}">Sign up</a>
+                <a href="{% url 'account_login' %}">{% trans "Sign in" %}</a><br>
+                <a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
               {% endif %}
             </div>
           </div>
