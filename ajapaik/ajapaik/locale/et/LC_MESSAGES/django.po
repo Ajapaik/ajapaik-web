@@ -408,24 +408,24 @@ msgstr "Sa oled"
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
 #, python-format
-msgid "curated <b>%(curated_images)s</b> image"
-msgid_plural "curated <b>%(curated_images)s</b> images"
-msgstr[0] "kureerinud <b>%(curated_images)s</b> pildi"
-msgstr[1] "kureerinud <b>%(curated_images)s</b> pilti"
+msgid "curated <b>%(curated_pictures)s</b> picture"
+msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
+msgstr[0] "kureerinud <b>%(curated_pictures)s</b> pildi"
+msgstr[1] "kureerinud <b>%(curated_pictures)s</b> pilti"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
-msgid "suggested location for <b>%(geotagged_images)s</b> image"
-msgid_plural "suggested locations for <b>%(geotagged_images)s</b> image"
-msgstr[0] "pakkunud asukoha <b>%(geotagged_images)s</b> pildile"
-msgstr[1] "pakkunud asukohti <b>%(geotagged_images)s</b> pildile"
+msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
+msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
+msgstr[0] "pakkunud asukoha <b>%(geotagged_pictures)s</b> pildile"
+msgstr[1] "pakkunud asukohti <b>%(geotagged_pictures)s</b> pildile"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
 #, python-format
-msgid "confirmed location for <b>%(geotag_confirmations)s</b> image"
-msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> images"
+msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
+msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
 msgstr[0] "kinnitanud <b>%(geotag_confirmations)s</b> pildi asukoha"
 msgstr[1] "kinnitanud <b>%(geotag_confirmations)s</b> pildi asukohad"
 
@@ -440,23 +440,23 @@ msgstr[1] "teinud <b><a href=\"%(link)s\">%(rephotos)s ülepildistust</a></b>"
 #: ajapaik/ajapaik/templates/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/_user_info.html:24
 #, python-format
-msgid "<b>%(rephotographed_images)s</b> image"
-msgid_plural "<b>%(rephotographed_images)s</b> images"
-msgstr[0] "<b>%(rephotographed_images)s</b> pildile"
-msgstr[1] "<b>%(rephotographed_images)s</b> pildile"
+msgid "<b>%(rephotographed_pictures)s</b> picture"
+msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
+msgstr[0] "<b>%(rephotographed_pictures)s</b> pildile"
+msgstr[1] "<b>%(rephotographed_pictures)s</b> pildile"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
-msgid "commented on <b>%(commented_images)s</b> image"
-msgid_plural "commented on <b>%(commented_images)s</b> images"
-msgstr[0] "kommenteerinud <b>%(commented_images)s</b> pilti"
-msgstr[1] "kommenteerinud <b>%(commented_images)s</b> pilti"
+msgid "commented on <b>%(commented_pictures)s</b> picture"
+msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
+msgstr[0] "kommenteerinud <b>%(commented_pictures)s</b> pilti"
+msgstr[1] "kommenteerinud <b>%(commented_pictures)s</b> pilti"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
-msgid "specified a date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified a date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "täpsustanud <b>%(datings)s</b> pildi dateeringut"
 msgstr[1] "täpsustanud <b>%(datings)s</b> pildi dateeringut"
 
@@ -470,10 +470,10 @@ msgstr[1] "märgendanud <b>%(face_annotations)s</b> nägu"
 #: ajapaik/ajapaik/templates/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/_user_info.html:40
 #, python-format
-msgid "<b>%(face_annotations_images)s</b> image"
-msgid_plural "<b>%(face_annotations_images)s</b> images"
-msgstr[0] "<b>%(face_annotations_images)s</b> pildil"
-msgstr[1] "<b>%(face_annotations_images)s</b> pildil"
+msgid "<b>%(face_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
+msgstr[0] "<b>%(face_annotations_pictures)s</b> pildil"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> pildil"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/_user_info.html:45
@@ -485,31 +485,31 @@ msgstr[1] "märgendanud <b>%(object_annotations)s</b> objekti"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations_images)s</b> image"
-msgid_plural "<b>%(object_annotations_images)s</b> images"
-msgstr[0] "<b>%(object_annotations_images)s</b> pildil"
-msgstr[1] "<b>%(object_annotations_images)s</b> pildil"
+msgid "<b>%(object_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
+msgstr[0] "<b>%(object_annotations_pictures)s</b> pildil"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> pildil"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
-msgid "transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "added transcribed text on <b>%(transcriptions)s</b> images"
+msgid "transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] "transkribeerinud teksti <b>%(transcriptions)s</b> pildil"
 msgstr[1] "transkribeerinud teksti <b>%(transcriptions)s</b> pildil"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/_user_info.html:56
 #, python-format
-msgid "connected <b>%(similar_images)s</b> similar image"
-msgid_plural "connected <b>%(similar_images)s</b> similar images"
-msgstr[0] "ühendanud omavahel <b>%(similar_images)s</b> sarnase pildi"
-msgstr[1] "ühendanud omavahel <b>%(similar_images)s</b> sarnast pilti"
+msgid "connected <b>%(similar_pictures)s</b> similar picture"
+msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
+msgstr[0] "ühendanud omavahel <b>%(similar_pictures)s</b> sarnase pildi"
+msgstr[1] "ühendanud omavahel <b>%(similar_pictures)s</b> sarnast pilti"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61
 #, python-format
-msgid "favorited <b>%(photolikes)s</b> image"
-msgid_plural "favorited <b>%(photolikes)s</b> images"
+msgid "favorited <b>%(photolikes)s</b> picture"
+msgid_plural "favorited <b>%(photolikes)s</b> pictures"
 msgstr[0] "märkinud lemmikuks <b>%(photolikes)s</b> pildi"
 msgstr[1] "märkinud lemmikuks <b>%(photolikes)s</b> pilti"
 
@@ -529,7 +529,7 @@ msgid "rephotos"
 msgstr "ülepildistusi"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
-msgid "favorite photos"
+msgid "favorite pictures"
 msgstr "lemmikpilte"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
@@ -1305,8 +1305,8 @@ msgstr "%(name)s on"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
-msgid "specified date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "täpsustanud <b>%(datings)s</b> pildi dateeringut"
 msgstr[1] "täpsustanud <b>%(datings)s</b> pildi dateeringut"
 
@@ -1319,15 +1319,15 @@ msgstr[1] "Sa oled märgendanud <b>%(face_annotations)s</b> nägu"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations)s</b> image"
-msgid_plural "<b>%(object_annotations)s</b> images"
+msgid "<b>%(object_annotations)s</b> picture"
+msgid_plural "<b>%(object_annotations)s</b> pictures"
 msgstr[0] "<b>%(object_annotations)s</b> pildil"
 msgstr[1] "<b>%(object_annotations)s</b> pildil"
 
 #: ajapaik/ajapaik/templates/_user_info.html:51
 #, python-format
-msgid "added transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "transcribed text on <b>%(transcriptions)s</b> images"
+msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] "transkribeerinud teksti <b>%(transcriptions)s</b> pildil"
 msgstr[1] "transcribeerinud teksti <b>%(transcriptions)s</b> pildil"
 
