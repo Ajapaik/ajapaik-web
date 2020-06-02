@@ -3036,6 +3036,8 @@ def geotaggers_modal(request, photo_id):
 		geotags = GeoTag.objects.filter(photo_id=photo_id).order_by('user','-created').distinct('user').prefetch_related('user')
 	geotags = sorted(geotags, key=operator.attrgetter('created'), reverse=True)
 	geotaggers = []
+	if(len(geotags) < 1):	
+		return HttpResponse('No geotaggers found for image', status=404)
 	for geotag in geotags:
 		geotaggers.append({'name': geotag.user.get_display_name, 'geotagger_id': geotag.user.id, 'created': geotag.created})
 	context = {
