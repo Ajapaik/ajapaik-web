@@ -3040,8 +3040,8 @@ def geotaggers_modal(request, photo_id):
 		return HttpResponse('No geotags found for image', status=404)
 	for geotag in geotags:
 		if geotag.user is None:
-			if geotag.photo.source is None:
-				geotaggers.append({'name': dict(geotag.ORIGIN_CHOICES)[geotag.origin], 'created': geotag.created})
+			if geotag.origin == GeoTag.REPHOTO or geotag.photo.source is None:
+				geotaggers.append({'name': _(dict(geotag.ORIGIN_CHOICES)[geotag.origin]), 'created': geotag.created})
 			else:
 				geotaggers.append({'name': geotag.photo.source.name, 'created': geotag.created})
 		else:
