@@ -1936,4 +1936,10 @@ $('.ajapaik-navbar').autoHidingNavbar();
             $($(el.target).children()[0]).removeClass('d-none');
         }
     });
+    window.backClick = function() {
+        if (document.referrer.indexOf(window.location.host) !== -1) {
+            history.go(-1); return false;
+        }
+        else { window.location.href = '/'; }
+    };
 }(jQuery));
