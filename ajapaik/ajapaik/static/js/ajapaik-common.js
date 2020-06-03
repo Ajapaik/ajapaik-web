@@ -34,6 +34,8 @@ var map,
         enableCloseButton: true,
         visible: false
     },
+    dottedAzimuthLineSymbol,	
+    dottedAzimuthLine,
     getQueryParameterByName,
     scoreboardShown = false,
     showScoreboard,
@@ -333,6 +335,29 @@ $('.ajapaik-navbar').autoHidingNavbar();
 
         return R * c;
     };
+
+    // Used in map view and mini-map	
+    dottedAzimuthLineSymbol = {	
+        path: google.maps.SymbolPath.CIRCLE,	
+        strokeOpacity: 1,	
+        strokeWeight: 1.5,	
+        strokeColor: 'red',	
+        scale: 0.75	
+    };	
+
+    dottedAzimuthLine = new google.maps.Polyline({	
+        geodesic: false,	
+        strokeOpacity: 0,	
+        icons: [	
+            {	
+                icon: dottedAzimuthLineSymbol,	
+                offset: '0',	
+                repeat: '7px'	
+            }	
+        ],	
+        visible: false,	
+        clickable: false	
+    });
 
     getQueryParameterByName = function (name) {
         var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
@@ -788,7 +813,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
                         icons: [
                             {
                                 icon: {
-                                    path: google.maps.SymbolPath.CIRCLE,
+                                    path: dottedAzimuthLineSymbol,
                                     strokeOpacity: 1,
                                     strokeWeight: 1.5,
                                     strokeColor: 'red',

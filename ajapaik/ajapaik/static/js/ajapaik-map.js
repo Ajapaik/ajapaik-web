@@ -36,26 +36,6 @@
         anchor: new google.maps.Point(12, 0)
     };
 
-    var dottedAzimuthLine = new google.maps.Polyline({
-        geodesic: false,
-        strokeOpacity: 0,
-        icons: [
-            {
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    strokeOpacity: 1,
-                    strokeWeight: 1.5,
-                    strokeColor: 'red',
-                    scale: 0.75
-                },
-                offset: '0',
-                repeat: '7px'
-            }
-        ],
-        visible: false,
-        clickable: false
-    });
-
     var sidePanelPhotosBunchSize = 10;
 
     // Variables
@@ -71,7 +51,6 @@
         currentMapDataRequest,
         photoDrawerOpen = false,
         markers = [],
-        temporalMapFilterTimeout,
         loadedPhotosCount = 0,
         centerOnMapAfterLocating = false,
         current_bunch = 1;
