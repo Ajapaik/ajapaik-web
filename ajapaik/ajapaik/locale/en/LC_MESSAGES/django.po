@@ -833,9 +833,14 @@ msgstr "EV100 logo"
 msgid "KYSK logo"
 msgstr "KYSK logo"
 
-#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:5
-msgid "This user / These users have suggested location for this picture"
-msgstr "This user / These users have suggested location for this picture"
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
+msgid "This user has suggested location for this picture"
+msgstr "This user has suggested location for this picture"
+
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
+msgid "These users have suggested location for this picture"
+msgstr "These users have suggested location for this picture"
+
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"

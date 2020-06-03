@@ -3037,7 +3037,7 @@ def geotaggers_modal(request, photo_id):
 	geotags = sorted(geotags, key=operator.attrgetter('created'), reverse=True)
 	geotaggers = []
 	if(len(geotags) < 1):	
-		return HttpResponse('No geotaggers found for image', status=404)
+		return HttpResponse('No geotags found for image', status=404)
 	for geotag in geotags:
 		if geotag.user is None:
 			if geotag.photo.source is None:
