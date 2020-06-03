@@ -1304,8 +1304,8 @@ msgstr "Lisaks nuppudele on sarnasusseost võimalik märkida ka klaviatuurilt (n
 
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
-msgid "%(name)s has"
-msgstr "%(name)s on"
+msgid "<b>%(name)s</b> has"
+msgstr "<b>%(name)s</b> on"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
@@ -1337,10 +1337,10 @@ msgstr[1] "transcribeerinud teksti <b>%(transcriptions)s</b> pildil"
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
-msgid "%(name)s has <b>%(user_points)s point in total</b>"
-msgid_plural "%(name)s has <b>%(user_points)s</b> points in total"
-msgstr[0] "Kasutajal %(name)s on kokku <b>%(user_points)s punkt</b>"
-msgstr[1] "Kasutajal %(name)s on kokku <b>%(user_points)s</b> punkti"
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
+msgstr[0] "kokku <b>%(user_points)s punkt</b>"
+msgstr[1] "kokku <b>%(user_points)s</b> punkti"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."

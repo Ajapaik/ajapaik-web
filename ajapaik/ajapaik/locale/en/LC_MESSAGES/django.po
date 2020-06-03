@@ -1299,8 +1299,8 @@ msgstr "The decision can also be made on keyboard (1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
-msgid "%(name)s has"
-msgstr "%(name)s has"
+msgid "<b>%(name)s</b> has"
+msgstr "<b>%(name)s</b> has"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
@@ -1332,10 +1332,10 @@ msgstr[1] "transcribed text on <b>%(transcriptions)s</b> pictures"
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
-msgid "%(name)s has <b>%(user_points)s point in total</b>"
-msgid_plural "%(name)s has <b>%(user_points)s</b> points in total"
-msgstr[0] "%(name)s has <b>%(user_points)s point in total</b>"
-msgstr[1] "%(name)s has <b>%(user_points)s</b> points in total"
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
+msgstr[0] "<b>%(user_points)s point in total</b>"
+msgstr[1] "<b>%(user_points)s</b> points in total"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."

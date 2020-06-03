@@ -7,7 +7,7 @@
 
 {% block layout %}
      <div id="ajapaik-user-info" class="container-fluid px-3 py-5">
-        <div class="mt-4">
+        <div class="mt-4" style="height: 200px;">
             {% if profile.fb_id %}
                 <img class="profile-picture" src="https://graph.facebook.com/v2.5/{{ profile.fb_id }}/picture?type=large"
                     alt="{% trans "User Facebook photo" %}"/>
@@ -18,7 +18,13 @@
             {% endif %}
         </div>
         <div>
-            <h1>{{ profile.get_display_name }}</h1>
+            {% if is_current_user %}
+                <h3>{{ profile.get_display_name }}</h3>
+            {% else %}
+                <div class="w-100">
+                    <h3>{% blocktrans with name=profile.get_display_name %}<b>{{ name }}</b> has{% endblocktrans %}</h3>
+                </div>
+            {% endif %}
         </div>
         {% if is_current_user %}
             {% if not request.user.profile.is_legit %}
@@ -37,7 +43,6 @@
                 </div>
             {% endif %}
             {% if request.user.profile.is_legit %}
-                <br>
                 <a class="w-100" href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a>
                 <br>
                 <a class="w-100" href="{% url 'account_change_password' %}">{% trans "Change password" %}</a>

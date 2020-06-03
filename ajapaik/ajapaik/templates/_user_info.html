@@ -1,7 +1,4 @@
 {% load i18n %}
-<div class="w-100">
-    {% blocktrans %}{{ name }} has{% endblocktrans %}
-</div>
 <ul>
     {% if curated_pictures > 0 %}
         <li>
@@ -61,10 +58,9 @@
             {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> picture{% plural %}favorited <b>{{ photolikes }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
-    <br>
-</ul>
-{% if profile.points > 0 %}
-    <div class="w-100">
-        {% blocktrans count counter=user_points %}{{ name }} has <b>{{ user_points }} point in total</b>{% plural %}{{ name }} has <b>{{ user_points }}</b> points in total{% endblocktrans %}
-    </div>
+    {% if user_points > 0 %}
+        <li>
+            {% blocktrans count counter=user_points %}<b>{{ user_points }} point in total</b>{% plural %}<b>{{ user_points }}</b> points in total{% endblocktrans %}
+        </li>
 {% endif %}
+</ul>
