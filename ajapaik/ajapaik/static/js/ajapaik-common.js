@@ -34,18 +34,12 @@ var map,
         enableCloseButton: true,
         visible: false
     },
-    dottedAzimuthLineSymbol,
-    dottedAzimuthLine,
     getQueryParameterByName,
     scoreboardShown = false,
     showScoreboard,
     hideScoreboard,
     updateLeaderboard,
     now,
-    paneNow,
-    firstPaneDone,
-    mapDataTimeout,
-    lastTriggeredPane,
     isPhotoview,
     photoPanelClosedByStreetView = false,
     mapTypeChangedListener,
@@ -340,29 +334,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         return R * c;
     };
 
-    // Used in map view and mini-map
-    dottedAzimuthLineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
-        strokeOpacity: 1,
-        strokeWeight: 1.5,
-        strokeColor: 'red',
-        scale: 0.75
-    };
-
-    dottedAzimuthLine = new google.maps.Polyline({
-        geodesic: false,
-        strokeOpacity: 0,
-        icons: [
-            {
-                icon: dottedAzimuthLineSymbol,
-                offset: '0',
-                repeat: '7px'
-            }
-        ],
-        visible: false,
-        clickable: false
-    });
-
     getQueryParameterByName = function (name) {
         var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -579,13 +550,19 @@ $('.ajapaik-navbar').autoHidingNavbar();
 
     updateStatDiv = function (count) {
         var statDiv = $('.ajapaik-minimap-geotagging-user-number');
-        statDiv.find('span').empty().text(count);
-        statDiv.find('.ajapaik-minimap-geotagging-user-multiple-people').remove();
-        statDiv.find('.ajapaik-minimap-geotagging-user-single-person').remove();
-        if (count > 1) {
-            statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
+        if(statDiv.length === 0) {
+            statDiv = $('#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > div > span > span');
+            statDiv.empty().text(count);
+            statDiv.removeClass('ajapaik-minimap-geotagging-user-multiple-people');
+            statDiv.removeClass('ajapaik-minimap-geotagging-user-single-person');
+            if (count > 1) {
+                statDiv.addClass('ajapaik-minimap-geotagging-user-multiple-people');
+            } else {
+                statDiv.addClass('ajapaik-minimap-geotagging-user-single-person');
+            }
+            statDiv.addClass('ajapaik-minimap-geotagging-user-active');
         } else {
-            statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
+            statDiv.find('span').empty().text(count);
         }
     };
 
@@ -810,7 +787,13 @@ $('.ajapaik-navbar').autoHidingNavbar();
                         strokeOpacity: 0,
                         icons: [
                             {
-                                icon: dottedAzimuthLineSymbol,
+                                icon: {
+                                    path: google.maps.SymbolPath.CIRCLE,
+                                    strokeOpacity: 1,
+                                    strokeWeight: 1.5,
+                                    strokeColor: 'red',
+                                    scale: 0.75
+                                },
                                 offset: '0',
                                 repeat: '7px'
                             }
@@ -948,7 +931,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         rephotoInfoColumn.show();
         rephotoColumn.show();
         currentlySelectedRephotoId = window.photoModalRephotoArray[0]['id'];
-        rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         rephotoDiv.html(tmpl('ajapaik-photo-modal-rephoto-template', [window.photoModalRephotoArray,0]));
         rephotoInfoColumn.html(tmpl('ajapaik-photo-modal-rephoto-info-template', window.photoModalRephotoArray[0]));
         $('#ajapaik-photo-modal-map-container').hide();
@@ -983,7 +965,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
     $(document).on('click', '.ajapaik-show-similar-photo-selection-overlay-button', function () {
         $(this).hide();
         userClosedSimilarPhotoTools = false;
-        $('.ajapaik-close-rephoto-overlay-button').click()
+        $('.ajapaik-close-rephoto-overlay-button').click();
         userClosedRephotoTools = true;
         var similarPhotoColum = $('#ajapaik-photo-modal-similar-photo-column'),
             similarPhotoInfoColumn = $('#ajapaik-photo-modal-similar-photo-info-column'),
@@ -1330,8 +1312,8 @@ $('.ajapaik-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajapaik-header-about-button', function (e) {
-        var targetDiv = $('#ajapaik-general-info-modal');
         $('#ajapaik-loading-overlay').show();
+        var targetDiv = $('#ajapaik-general-info-modal');
         if (window.generalInfoModalURL) {
             $.ajax({
                 url: window.generalInfoModalURL,
@@ -1638,11 +1620,6 @@ $('.ajapaik-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '.ajapaik-minimap-geotagging-user-number', function () {
-        var $this = $(this);
-        // TODO: Finish?
-    });
-
     $(document).on('click', '.ajapaik-album-selection-album-more-button, .ajapaik-photo-modal-album-more-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1888,7 +1865,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
         var targetDiv = $('#ajapaik-geotaggers-modal');
         $('#ajapaik-loading-overlay').show();
         if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
-            let url = geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
+            let url = window.geotaggersListURL.replace("0", window.currentlyOpenPhotoId);
             $.ajax({
                 url,
                 success: function (resp) {
@@ -1936,6 +1913,7 @@ $('.ajapaik-navbar').autoHidingNavbar();
             $($(el.target).children()[0]).removeClass('d-none');
         }
     });
+
     window.backClick = function() {
         if (document.referrer.indexOf(window.location.host) !== -1) {
             history.go(-1); return false;

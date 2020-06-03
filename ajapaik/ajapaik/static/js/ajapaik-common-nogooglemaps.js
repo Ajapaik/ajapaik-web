@@ -12,21 +12,14 @@ var map,
     searchBox,
     commonVgmapi,
     getMap,
-    firstResizeDone = false,
     marker,
     bypass = false,
-    dottedAzimuthLineSymbol,
-    dottedAzimuthLine,
     getQueryParameterByName,
     scoreboardShown = false,
     showScoreboard,
     hideScoreboard,
     updateLeaderboard,
     now,
-    paneNow,
-    firstPaneDone,
-    mapDataTimeout,
-    lastTriggeredPane,
     isPhotoview,
     guessLocationStarted = false,
     streetviewVisibleChangedListener,
@@ -393,13 +386,19 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
 
     updateStatDiv = function (count) {
         var statDiv = $('.ajapaik-minimap-geotagging-user-number');
-        statDiv.find('span').empty().text(count);
-        statDiv.find('.ajapaik-minimap-geotagging-user-multiple-people').remove();
-        statDiv.find('.ajapaik-minimap-geotagging-user-single-person').remove();
-        if (count > 1) {
-            statDiv.append('<div class="ajapaik-minimap-geotagging-user-multiple-people"></div>');
+        if(statDiv.length === 0) {
+            statDiv = $('#ajapaik-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > div > span > span');
+            statDiv.empty().text(count);
+            statDiv.removeClass('ajapaik-minimap-geotagging-user-multiple-people');
+            statDiv.removeClass('ajapaik-minimap-geotagging-user-single-person');
+            if (count > 1) {
+                statDiv.addClass('ajapaik-minimap-geotagging-user-multiple-people');
+            } else {
+                statDiv.addClass('ajapaik-minimap-geotagging-user-single-person');
+            }
+            statDiv.addClass('ajapaik-minimap-geotagging-user-active');
         } else {
-            statDiv.append('<div class="ajapaik-minimap-geotagging-user-single-person"></div>');
+            statDiv.find('span').empty().text(count);
         }
     };
 
@@ -521,7 +520,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
             originalPhotoInfoColumn = $('#ajapaik-photo-modal-original-photo-info-column');
             
         if (window.photoModalRephotoArray.length > 1) {
-                $('#ajapaik-rephoto-selection').show();
+            $('#ajapaik-rephoto-selection').show();
         }
         else if(window.photoModalSimilarPhotoArray.length > 1) {
             $('#ajapaik-similar-photo-selection').show();
@@ -1217,11 +1216,6 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
         } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
         }
-    });
-
-    $(document).on('click', '.ajapaik-minimap-geotagging-user-number', function () {
-        var $this = $(this);
-        // TODO: Finish?
     });
 
     $(document).on('click', '.ajapaik-album-selection-album-more-button, .ajapaik-photo-modal-album-more-button', function (e) {
