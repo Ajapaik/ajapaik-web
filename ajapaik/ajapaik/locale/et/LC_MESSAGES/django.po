@@ -1312,10 +1312,10 @@ msgstr[1] "täpsustanud <b>%(datings)s</b> pildi dateeringut"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
 #, python-format
-msgid "You have annotated <b>%(face_annotations)s</b> face on"
-msgid_plural "You have annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] "Sa oled märgendanud <b>%(face_annotations)s</b> näo"
-msgstr[1] "Sa oled märgendanud <b>%(face_annotations)s</b> nägu"
+msgid "has annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
+msgstr[0] "on märgendanud <b>%(face_annotations)s</b> näo"
+msgstr[1] "on märgendanud <b>%(face_annotations)s</b> nägu"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format

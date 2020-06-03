@@ -1306,10 +1306,10 @@ msgstr[1] "specified date for <b>%(datings)s</b> pictures"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
 #, python-format
-msgid "You have annotated <b>%(face_annotations)s</b> face on"
-msgid_plural "You have annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] "You have annotated <b>%(face_annotations)s</b> face on"
-msgstr[1] "You have annotated <b>%(face_annotations)s</b> faces on"
+msgid "has annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
+msgstr[0] "has annotated <b>%(face_annotations)s</b> face on"
+msgstr[1] "has annotated <b>%(face_annotations)s</b> faces on"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
