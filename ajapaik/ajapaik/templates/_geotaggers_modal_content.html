@@ -16,9 +16,13 @@
                 {% for geotagger in geotaggers %}
                 <tr>
                     <td>
-                        <a href="/user/{{ geotagger.geotagger_id }}">
+                        {% if geotagger_id.geotagger_id %}
+                            <a href="/user/{{ geotagger.geotagger_id }}">
+                                {{ geotagger.name }}
+                            </a>
+                        {% else %}
                             {{ geotagger.name }}
-                        </a>
+                        {% endif %}
                     </td>
                     <td>
                         {{ geotagger.created|date:"d.m.Y H:i" }}
