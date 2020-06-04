@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Arabic (العربية)
 # Exported from translatewiki.net
 #
+# Author: Abijeet Patro
 # Author: BaRaN6161 TURK
 # Author: H2kks
 # Author: Meno25
@@ -17,11 +18,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:00+0000\n"
+"PO-Revision-Date: 2020-06-04 15:41:31+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
@@ -408,8 +409,8 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
 #, python-format
-msgid "curated <b>%(curated_images)s</b> image"
-msgid_plural "curated <b>%(curated_images)s</b> images"
+msgid "curated <b>%(curated_pictures)s</b> picture"
+msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -420,8 +421,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
-msgid "suggested location for <b>%(geotagged_images)s</b> image"
-msgid_plural "suggested locations for <b>%(geotagged_images)s</b> image"
+msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
+msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -432,8 +433,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
 #, python-format
-msgid "confirmed location for <b>%(geotag_confirmations)s</b> image"
-msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> images"
+msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
+msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -456,8 +457,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/_user_info.html:24
 #, python-format
-msgid "<b>%(rephotographed_images)s</b> image"
-msgid_plural "<b>%(rephotographed_images)s</b> images"
+msgid "<b>%(rephotographed_pictures)s</b> picture"
+msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -468,8 +469,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
-msgid "commented on <b>%(commented_images)s</b> image"
-msgid_plural "commented on <b>%(commented_images)s</b> images"
+msgid "commented on <b>%(commented_pictures)s</b> picture"
+msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -479,8 +480,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
-msgid "specified a date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified a date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -502,8 +503,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/_user_info.html:40
 #, python-format
-msgid "<b>%(face_annotations_images)s</b> image"
-msgid_plural "<b>%(face_annotations_images)s</b> images"
+msgid "<b>%(face_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -525,8 +526,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations_images)s</b> image"
-msgid_plural "<b>%(object_annotations_images)s</b> images"
+msgid "<b>%(object_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -536,8 +537,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
-msgid "transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "added transcribed text on <b>%(transcriptions)s</b> images"
+msgid "transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -548,8 +549,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/_user_info.html:56
 #, python-format
-msgid "connected <b>%(similar_images)s</b> similar image"
-msgid_plural "connected <b>%(similar_images)s</b> similar images"
+msgid "connected <b>%(similar_pictures)s</b> similar picture"
+msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -560,8 +561,8 @@ msgstr[5] ""
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61
 #, python-format
-msgid "favorited <b>%(photolikes)s</b> image"
-msgid_plural "favorited <b>%(photolikes)s</b> images"
+msgid "favorited <b>%(photolikes)s</b> picture"
+msgid_plural "favorited <b>%(photolikes)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -589,7 +590,7 @@ msgid "rephotos"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
-msgid "favorite photos"
+msgid "favorite pictures"
 msgstr "الصور المفضلة"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
@@ -866,26 +867,26 @@ msgstr[4] ""
 msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:37
-#, python-format
+#, fuzzy, python-format
 msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
 msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
 msgstr[0] " لقد أجريت <b>%(user_rephotos)s</b> إعادة تصوير ل"
 msgstr[1] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[2] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
+msgstr[3] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
+msgstr[4] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
+msgstr[5] "لقد أجريت <b>%(user_rephotos)s</b> إعادات تصوير ل"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:38
-#, python-format
+#, fuzzy, python-format
 msgid "<b>%(user_rephotographed_photos)s</b> picture."
 msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
 msgstr[0] "<b>%(user_rephotographed_photos)s</b> صورة."
 msgstr[1] "<b>%(user_rephotographed_photos)s</b> صور."
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[2] "<b>%(user_rephotographed_photos)s</b> صور."
+msgstr[3] "<b>%(user_rephotographed_photos)s</b> صور."
+msgstr[4] "<b>%(user_rephotographed_photos)s</b> صور."
+msgstr[5] "<b>%(user_rephotographed_photos)s</b> صور."
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -911,8 +912,12 @@ msgstr "شعار EV100"
 msgid "KYSK logo"
 msgstr "شعار KYSK"
 
-#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:5
-msgid "This user / These users have suggested location for this picture"
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
+msgid "This user has suggested location for this picture"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
+msgid "These users have suggested location for this picture"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
@@ -1408,13 +1413,13 @@ msgstr "يمكن أيضا اتخاذ القرار على لوحة المفاتي
 
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
-msgid "%(name)s has"
+msgid "<b>%(name)s</b> has"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
-msgid "specified date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -1424,8 +1429,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
 #, python-format
-msgid "You have annotated <b>%(face_annotations)s</b> face on"
-msgid_plural "You have annotated <b>%(face_annotations)s</b> faces on"
+msgid "has annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -1435,8 +1440,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations)s</b> image"
-msgid_plural "<b>%(object_annotations)s</b> images"
+msgid "<b>%(object_annotations)s</b> picture"
+msgid_plural "<b>%(object_annotations)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -1446,8 +1451,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:51
 #, python-format
-msgid "added transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "transcribed text on <b>%(transcriptions)s</b> images"
+msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -1457,8 +1462,8 @@ msgstr[5] ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
-msgid "%(name)s has <b>%(user_points)s point in total</b>"
-msgid_plural "%(name)s has <b>%(user_points)s</b> points in total"
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""

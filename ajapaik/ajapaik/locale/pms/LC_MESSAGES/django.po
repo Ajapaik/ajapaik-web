@@ -13,11 +13,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:02+0000\n"
+"PO-Revision-Date: 2020-06-04 15:41:34+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -404,24 +404,24 @@ msgstr "Chiel a l'ha"
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
 #, python-format
-msgid "curated <b>%(curated_images)s</b> image"
-msgid_plural "curated <b>%(curated_images)s</b> images"
+msgid "curated <b>%(curated_pictures)s</b> picture"
+msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
 msgstr[0] "curà <b>%(curated_images)s</b> plancia"
 msgstr[1] "curà <b>%(curated_images)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
-msgid "suggested location for <b>%(geotagged_images)s</b> image"
-msgid_plural "suggested locations for <b>%(geotagged_images)s</b> image"
+msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
+msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
 msgstr[0] "sugerì la locassion për <b>%(geotagged_images)s</b> plancia"
 msgstr[1] "sugerì la locassion për <b>%(geotagged_images)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
 #, python-format
-msgid "confirmed location for <b>%(geotag_confirmations)s</b> image"
-msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> images"
+msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
+msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
 msgstr[0] "confirà la locassion për <b>%(geotag_confirmations)s</b> plancia"
 msgstr[1] "confirmà la locassion për <b>%(geotag_confirmations)s</b> plance"
 
@@ -436,23 +436,23 @@ msgstr[1] "fàit <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> për"
 #: ajapaik/ajapaik/templates/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/_user_info.html:24
 #, python-format
-msgid "<b>%(rephotographed_images)s</b> image"
-msgid_plural "<b>%(rephotographed_images)s</b> images"
+msgid "<b>%(rephotographed_pictures)s</b> picture"
+msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
 msgstr[0] "<b>%(rephotographed_images)s</b> plancia"
 msgstr[1] "<b>%(rephotographed_images)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
-msgid "commented on <b>%(commented_images)s</b> image"
-msgid_plural "commented on <b>%(commented_images)s</b> images"
+msgid "commented on <b>%(commented_pictures)s</b> picture"
+msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
 msgstr[0] "comentà <b>%(commented_images)s</b> plancia"
 msgstr[1] "comentà <b>%(commented_images)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
-msgid "specified a date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified a date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "spessificà na dàita për <b>%(datings)s</b> plancia"
 msgstr[1] "spessificà na dàita për <b>%(datings)s</b> plance"
 
@@ -466,8 +466,8 @@ msgstr[1] "anotà <b>%(face_annotations)s</b> facia an su"
 #: ajapaik/ajapaik/templates/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/_user_info.html:40
 #, python-format
-msgid "<b>%(face_annotations_images)s</b> image"
-msgid_plural "<b>%(face_annotations_images)s</b> images"
+msgid "<b>%(face_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
 msgstr[0] "<b>%(face_annotations_images)s</b> plancia"
 msgstr[1] "<b>%(face_annotations_images)s</b> plance"
 
@@ -481,31 +481,31 @@ msgstr[1] "anotà <b>%(object_annotations)s</b> oget su"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations_images)s</b> image"
-msgid_plural "<b>%(object_annotations_images)s</b> images"
+msgid "<b>%(object_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
 msgstr[0] "<b>%(object_annotations_images)s</b> plancia"
 msgstr[1] "<b>%(object_annotations_images)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
-msgid "transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "added transcribed text on <b>%(transcriptions)s</b> images"
+msgid "transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] "trascrivù dël test su <b>%(transcriptions)s</b> plancia"
 msgstr[1] "giontà dël test trascrivù su <b>%(transcriptions)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/_user_info.html:56
 #, python-format
-msgid "connected <b>%(similar_images)s</b> similar image"
-msgid_plural "connected <b>%(similar_images)s</b> similar images"
+msgid "connected <b>%(similar_pictures)s</b> similar picture"
+msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
 msgstr[0] "colegà <b>%(similar_images)s</b> plancia sìmil"
 msgstr[1] "colegà <b>%(similar_images)s</b> plance sìmij"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61
 #, python-format
-msgid "favorited <b>%(photolikes)s</b> image"
-msgid_plural "favorited <b>%(photolikes)s</b> images"
+msgid "favorited <b>%(photolikes)s</b> picture"
+msgid_plural "favorited <b>%(photolikes)s</b> pictures"
 msgstr[0] "preferì <b>%(photolikes)s</b> plancia"
 msgstr[1] "preferì <b>%(photolikes)s</b> plance"
 
@@ -525,7 +525,7 @@ msgid "rephotos"
 msgstr "arprodussion fotogràfiche"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
-msgid "favorite photos"
+msgid "favorite pictures"
 msgstr "fòto preferìe"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
@@ -835,9 +835,13 @@ msgstr "Marca d'EV100"
 msgid "KYSK logo"
 msgstr "Marca ëd KYSK"
 
-#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:5
-msgid "This user / These users have suggested location for this picture"
-msgstr "S'utent a l'ha / Si utent a l'han sugerì na locassion për costa fòto"
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
+msgid "This user has suggested location for this picture"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
+msgid "These users have suggested location for this picture"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
@@ -1296,41 +1300,41 @@ msgstr "La decision a peul ëdcò esse pijà an sla tastadura (1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
-msgid "%(name)s has"
-msgstr "%(name)s a l'ha"
+msgid "<b>%(name)s</b> has"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
-msgid "specified date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
+msgid "specified date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "spessificà na dàita për <b>%(datings)s</b> plancia"
 msgstr[1] "spessificà na dàita për <b>%(datings)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
-#, python-format
-msgid "You have annotated <b>%(face_annotations)s</b> face on"
-msgid_plural "You have annotated <b>%(face_annotations)s</b> faces on"
+#, fuzzy, python-format
+msgid "has annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
 msgstr[0] "Chiel a l'ha anotà <b>%(face_annotations)s</b> facia an su"
 msgstr[1] "Chiel a l'ha anotà <b>%(face_annotations)s</b> facia an su"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations)s</b> image"
-msgid_plural "<b>%(object_annotations)s</b> images"
+msgid "<b>%(object_annotations)s</b> picture"
+msgid_plural "<b>%(object_annotations)s</b> pictures"
 msgstr[0] "<b>%(object_annotations)s</b> plancia"
 msgstr[1] "<b>%(object_annotations)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_user_info.html:51
 #, python-format
-msgid "added transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "transcribed text on <b>%(transcriptions)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
+msgstr[0] "giontà dël test trascrivù su <b>%(transcriptions)s</b> plancia"
+msgstr[1] "giontà dël test trascrivù su <b>%(transcriptions)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
-msgid "%(name)s has <b>%(user_points)s point in total</b>"
-msgid_plural "%(name)s has <b>%(user_points)s</b> points in total"
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1367,31 +1371,31 @@ msgstr "Conession ëd cont sossiaj"
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email.html:8
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Adrësse ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/account/email.html:10
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "J'adrësse ëd pòsta eletrònica sì-dapress a son assossià a sò cont:"
 
 #: ajapaik/ajapaik/templates/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Verificà"
 
 #: ajapaik/ajapaik/templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Nen verificà"
 
 #: ajapaik/ajapaik/templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Prinsipal"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "Fé dventé prinsipal"
 
 #: ajapaik/ajapaik/templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Mandé torna na verìfica"
 
 #: ajapaik/ajapaik/templates/account/email.html:36
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1401,19 +1405,19 @@ msgstr "Eliminé"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "Warning:"
-msgstr ""
+msgstr "Atension:"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "Al moment chiel a l'ha gnun-a adrëssa ëd pòsta eletrònica definìa. A dovrìa për da bon gionté n'adrëssa ëd pòsta eletrònica, an manera ëd podèj arsèive dle notìfiche, cangé soa ciav, e via fòrt."
 
 #: ajapaik/ajapaik/templates/account/email.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "Gionté n'adrëssa ëd pòsta eletrònica"
 
 #: ajapaik/ajapaik/templates/account/email.html:59
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Veul-lo për da bon gavé l'adrëssa ëd pòsta eletrònica selessionà?"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1443,16 +1447,16 @@ msgstr "Rintré ant ël sistema"
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "Për piasì, ch'a rintra ant ël sistema con un\n  dij sò cont ëd terse part esistent. Opura, <a href=\"%(signup_url)s\">ch'as anscriva</a>\n  për un cont %(site_name)s e ch'a rintra ant ël sistema sì-sota:"
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "S'a l'ha ancor nen creà un cont, për prima còsa për piasì <a href=\"%(signup_url)s\">ch'as anscriva</a>."
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "É-lo sigur ëd vorèj seurte da 'nt ël sistema?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -1506,7 +1510,7 @@ msgstr "La soa ciav a l'é adess modificà."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set.html:13
 msgid "Set Password"
-msgstr ""
+msgstr "Definì na ciav"
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1530,12 +1534,12 @@ msgstr "An dëspias, ma j'anscrission a son al moment sarà."
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Nòta"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "a l'é già rintrà ant ël sistema tanme %(user_name)s"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -2095,23 +2099,23 @@ msgstr "Gionté un cont ters"
 
 #: ajapaik/ajapaik/templates/user.html:26
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "Chiel a l'é bin-ëvnù a navighé e ëdcò contribuì ëd fasson anònima, ma i lo ancoragioma a creesse un cont Ajapaik e unisse a la comunità ëd coj ch'a contribuisso."
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "To create an account, click"
-msgstr ""
+msgstr "Për creé un cont, sgnaché"
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "here"
-msgstr ""
+msgstr "ambelessì"
 
 #: ajapaik/ajapaik/templates/user.html:36
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Bin-ëvnù su Ajapaik - la piataforma duverta al pùblich për le fòto stòriche. A l'é bin-evnù a tichëtté le posission geogràfiche, comenté le fòto, tichëtté le face, e via fòrt."
 
 #: ajapaik/ajapaik/templates/user.html:54
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "S'utent-sì a l'ha gnun-e contibussion."
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format

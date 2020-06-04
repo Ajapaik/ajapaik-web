@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2020-06-01 20:28:01+0000\n"
+"PO-Revision-Date: 2020-06-04 15:41:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -424,11 +424,11 @@ msgstr "ajoitettua"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:146
 msgid "transcribed"
-msgstr ""
+msgstr "litteroitu"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:149
 msgid "annotated"
-msgstr ""
+msgstr "merkitty"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:152
 msgid "viewed"
@@ -453,15 +453,15 @@ msgstr "Kuvia kartalta"
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
 msgid "No results found for: %(query)s"
-msgstr ""
+msgstr "Ei tuloksia haulle: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "
-msgstr ""
+msgstr "Yrititkö hakea: "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
 msgid "all pictures"
-msgstr ""
+msgstr "kaikki kuvat"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
@@ -481,7 +481,7 @@ msgstr "Uusintakuvaa käyttäjältä %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All pictures"
-msgstr ""
+msgstr "Kaikki kuvat"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
@@ -489,11 +489,11 @@ msgstr "Kuvasarjassa ei ole "
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:374
 msgid "No tagged persons in album"
-msgstr ""
+msgstr "Ei merkittyjä ihmisiä tässä albumissa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:381
 msgid "No postcards in album"
-msgstr ""
+msgstr "Ei postikortteja tässä albumissa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -606,7 +606,7 @@ msgstr "Poista albumin suodatin"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:727
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "Ainoastaan tässä albumissa olevat kuvat: %(albumName)s näytetään sivupalkissa"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:742
 msgid "Apply album filter"
@@ -819,11 +819,11 @@ msgstr "Annotoinnin poisto kohteesta epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation"
-msgstr ""
+msgstr "Annotoinnin lisääminen kasvoille onnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Unable to save face annotation"
-msgstr ""
+msgstr "Annotoinnin lisääminen kasvoille epäonnistui"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"

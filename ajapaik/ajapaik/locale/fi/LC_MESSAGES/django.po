@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-06-01 20:28:01+0000\n"
+"PO-Revision-Date: 2020-06-04 15:41:33+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -62,7 +62,7 @@ msgstr "Palaute litteroinnille lisätty, kiitos!"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "Albumia ei löydy"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -182,7 +182,7 @@ msgstr "Nainen"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Gender"
-msgstr ""
+msgstr "Sukupuoli"
 
 #: ajapaik/ajapaik/models.py:206
 msgid "Wikidata identifier"
@@ -369,7 +369,7 @@ msgstr "Järjestelmävirhe"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload.html:30
 msgid "Search for an existing album"
-msgstr ""
+msgstr "Etsi olemassaolevat albumit"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:18
@@ -406,134 +406,134 @@ msgstr "Alkuperäinen valokuva"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Sinulla on"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
 #, python-format
-msgid "curated <b>%(curated_images)s</b> image"
-msgid_plural "curated <b>%(curated_images)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "curated <b>%(curated_pictures)s</b> picture"
+msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
+msgstr[0] "kuratoitu <b>%(curated_pictures)s</b> kuva"
+msgstr[1] "kuratoitu <b>%(curated_pictures)s</b> kuvaa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
-msgid "suggested location for <b>%(geotagged_images)s</b> image"
-msgid_plural "suggested locations for <b>%(geotagged_images)s</b> image"
-msgstr[0] ""
-msgstr[1] ""
+msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
+msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
+msgstr[0] "ehdottanut sijaintia <b>%(geotagged_pictures)s</b> kuvalle"
+msgstr[1] "ehdottanut sijaintia <b>%(geotagged_pictures)s</b> kuvalle"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
 #, python-format
-msgid "confirmed location for <b>%(geotag_confirmations)s</b> image"
-msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
+msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
+msgstr[0] "varmistanut sijainnin <b>%(geotag_confirmations)s</b> kuvalle"
+msgstr[1] "varmistanut sijainnin <b>%(geotag_confirmations)s</b> kuvalle"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/_user_info.html:23
 #, python-format
 msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
 msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ottanut <b><a href=\"%(link)s\">%(rephotos)s jälleenvalokuvaa</a></b> "
+msgstr[1] "ottanut <b><a href=\"%(link)s\">%(rephotos)s jälleenvalokuvaa</a></b>"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/_user_info.html:24
 #, python-format
-msgid "<b>%(rephotographed_images)s</b> image"
-msgid_plural "<b>%(rephotographed_images)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>%(rephotographed_pictures)s</b> picture"
+msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
+msgstr[0] "<b>%(rephotographed_pictures)s</b> kuva"
+msgstr[1] "<b>%(rephotographed_pictures)s</b> kuvaa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
-msgid "commented on <b>%(commented_images)s</b> image"
-msgid_plural "commented on <b>%(commented_images)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "commented on <b>%(commented_pictures)s</b> picture"
+msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
+msgstr[0] "kommentteja <b>%(commented_pictures)s</b> kuvassa"
+msgstr[1] "kommentteja <b>%(commented_pictures)s</b> kuvassa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
-msgid "specified a date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "specified a date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
+msgstr[0] "lisätty päiväys <b>%(datings)s</b> kuvaan"
+msgstr[1] "lisätty päiväys <b>%(datings)s</b> kuvaan"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:39
 #, python-format
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "merkitty kasvoja <b>%(face_annotations)s</b> kuvaan"
+msgstr[1] "merkitty kasvoja <b>%(face_annotations)s</b> kuvaan"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/_user_info.html:40
 #, python-format
-msgid "<b>%(face_annotations_images)s</b> image"
-msgid_plural "<b>%(face_annotations_images)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>%(face_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
+msgstr[0] "<b>%(face_annotations_pictures)s</b> kuva"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> kuvaa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/_user_info.html:45
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "merkitty kuvaan <b>%(object_annotations)s</b> objekti"
+msgstr[1] "merkitty kuvaan <b>%(object_annotations)s</b> objektia"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations_images)s</b> image"
-msgid_plural "<b>%(object_annotations_images)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>%(object_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
+msgstr[0] "<b>%(object_annotations_pictures)s</b> kuva"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> kuvaa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
-msgid "transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "added transcribed text on <b>%(transcriptions)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
+msgstr[0] "litteroinut tekstiä <b>%(transcriptions)s</b> kuvasta"
+msgstr[1] "litteroinut tekstiä <b>%(transcriptions)s</b> kuvasta"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/_user_info.html:56
 #, python-format
-msgid "connected <b>%(similar_images)s</b> similar image"
-msgid_plural "connected <b>%(similar_images)s</b> similar images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "connected <b>%(similar_pictures)s</b> similar picture"
+msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
+msgstr[0] "yhdistänyt <b>%(similar_pictures)s</b> samanlaisen kuvan"
+msgstr[1] "yhdistänyt <b>%(similar_pictures)s</b> samanlaista kuvaa"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61
 #, python-format
-msgid "favorited <b>%(photolikes)s</b> image"
-msgid_plural "favorited <b>%(photolikes)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "favorited <b>%(photolikes)s</b> picture"
+msgid_plural "favorited <b>%(photolikes)s</b> pictures"
+msgstr[0] "tykännyt <b>%(photolikes)s</b> kuvasta"
+msgstr[1] "tykännyt <b>%(photolikes)s</b> kuvasta"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:67
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sinulla on <b>%(user_points)s piste yhteensä</b>"
+msgstr[1] "Sinulla on<b>%(user_points)s</b> pistettä yhteensä"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:72
 msgid "View your"
-msgstr ""
+msgstr "Katso sinun"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:77
 msgid "rephotos"
-msgstr ""
+msgstr "jälleenvalokuvat"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
-msgid "favorite photos"
-msgstr ""
+msgid "favorite pictures"
+msgstr "suosikkikuvat"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
@@ -679,11 +679,11 @@ msgstr "Järjestä uusintakuvan lisäysajankohdan tai lukumäärän mukaan"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
 msgid "Sort by annotations' time added or amount"
-msgstr ""
+msgstr "lajittele kuvat merkkausten lisäysajankohdan tai lukumäärän mukaan"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:91
 msgid "Sort by transcriptions' time added or amount"
-msgstr ""
+msgstr "lajittele kuvat litterointien lisäysajankohdan tai lukumäärän mukaan"
 
 #: ajapaik/ajapaik/templates/_filtering_dropdown.html:100
 msgid "Sort by datings' time added or amount"
@@ -842,13 +842,17 @@ msgstr "EV100 logo"
 msgid "KYSK logo"
 msgstr "KYSK logo"
 
-#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:5
-msgid "This user / These users have suggested location for this picture"
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
+msgid "This user has suggested location for this picture"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
+msgid "These users have suggested location for this picture"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
-msgstr ""
+msgstr "Muokattu"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 #: ajapaik/ajapaik/templates/_header_basic.html:4
@@ -889,7 +893,7 @@ msgstr "Luettelo valokuvista joissa kasvoja"
 
 #: ajapaik/ajapaik/templates/_header.html:49
 msgid "Pictures by collections"
-msgstr ""
+msgstr "Kuvat kokoelmien mukaan"
 
 #: ajapaik/ajapaik/templates/_header.html:52
 msgid "List albums with postcards"
@@ -941,7 +945,7 @@ msgstr "Pistetaulukko"
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Olet kirjautunut sisään nimellä"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
@@ -1303,41 +1307,41 @@ msgstr "Valinnan voi tehdä myös näppäimistöllä (1,2,3)."
 
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
-msgid "%(name)s has"
+msgid "<b>%(name)s</b> has"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
-msgid "specified date for <b>%(datings)s</b> image"
-msgid_plural "specified date for <b>%(datings)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "specified date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
+msgstr[0] "määrittelit päiväyksen <b>%(datings)s</b> kuvaan"
+msgstr[1] "määrittelit päiväyksen <b>%(datings)s</b> kuvalle"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
 #, python-format
-msgid "You have annotated <b>%(face_annotations)s</b> face on"
-msgid_plural "You have annotated <b>%(face_annotations)s</b> faces on"
+msgid "has annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
-msgid "<b>%(object_annotations)s</b> image"
-msgid_plural "<b>%(object_annotations)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "<b>%(object_annotations)s</b> picture"
+msgid_plural "<b>%(object_annotations)s</b> pictures"
+msgstr[0] "<b>%(object_annotations)s</b> kuva"
+msgstr[1] "<b>%(object_annotations)s</b> kuvaa"
 
 #: ajapaik/ajapaik/templates/_user_info.html:51
 #, python-format
-msgid "added transcribed text on <b>%(transcriptions)s</b> image"
-msgid_plural "transcribed text on <b>%(transcriptions)s</b> images"
-msgstr[0] ""
-msgstr[1] ""
+msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
+msgstr[0] "litteroinut tekstiä <b>%(transcriptions)s</b> kuvassa"
+msgstr[1] "litteroinut tekstiä <b>%(transcriptions)s</b> kuvassa"
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
-msgid "%(name)s has <b>%(user_points)s point in total</b>"
-msgid_plural "%(name)s has <b>%(user_points)s</b> points in total"
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1361,7 +1365,7 @@ msgstr "Valikko"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
 msgid "Change e-mail"
-msgstr ""
+msgstr "Vaihda sähköpostiosoitetta"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
 msgid "Change password"
@@ -1374,31 +1378,31 @@ msgstr "Tunnusten yhteydet"
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email.html:8
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Sähköpostiosoitteet"
 
 #: ajapaik/ajapaik/templates/account/email.html:10
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Seuraavat sähköpostiosoitteet on liitetty tunnukseesi"
 
 #: ajapaik/ajapaik/templates/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Varmistettu"
 
 #: ajapaik/ajapaik/templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Varmistamaton"
 
 #: ajapaik/ajapaik/templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Ensisijainen"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "Muuta ensisijaiseksi"
 
 #: ajapaik/ajapaik/templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Lähetä varmistus uudestaan"
 
 #: ajapaik/ajapaik/templates/account/email.html:36
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1408,24 +1412,24 @@ msgstr "Poista"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "Warning:"
-msgstr ""
+msgstr "Varoitus"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "Sinulla ei ole yhtään sähköpostiosoitetta asetettuna. Sinun kannattaa asettaa sähköpostiosoite jotta pystyt vastaanottamaan ilmoituksia, palauttamaan salasanasi, jne."
 
 #: ajapaik/ajapaik/templates/account/email.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "Lisää sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/email.html:59
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Haluatko todella poistaa valitun sähköpostiosoitteen?"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Varmista sähköpostiosoite"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1450,16 +1454,16 @@ msgstr "Kirjaudu"
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "Kirjaudu sisään \n  käyttäen kirjautumispalvelua. Tai <a href=\"%(signup_url)s\">rekisteröi</a> \n  %(site_name)s-tili ja kirjaudu sisään alla olevalla lomakkeella:"
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "Jos et ole luonut vielä tiliä, niin <a href=\"%(signup_url)s\">rekisteröidy</a> ensin."
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Haluatko varmasti kirjautua ulos?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -1513,13 +1517,13 @@ msgstr "Salasanasi on nyt vaihdettu."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set.html:13
 msgid "Set Password"
-msgstr ""
+msgstr "Uusi salasana"
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Luo tunnus"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1529,7 +1533,7 @@ msgstr "Onko sinulla jo tili? <a href=\"%(login_url)s\">Kirjaudu sisään</a>."
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Rekisteröityminen on poissa käytöstä"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1537,12 +1541,12 @@ msgstr "Valitettavasti rekisteröityminen on pois käytöstä"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Huomio"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "olet jo kirjautuneena käyttäjänä %(user_name)s"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -2102,23 +2106,23 @@ msgstr "Lisää kolmannen osapuolen tili"
 
 #: ajapaik/ajapaik/templates/user.html:26
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "Olet tervetullut selaamaamaan ja osallistumaan anonyymisti, mutta suosittelemme luomaan Ajapaik-tilin ja liittymään yhteisöön."
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "To create an account, click"
-msgstr ""
+msgstr "Luodaksesi tilin, klikkaa"
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "here"
-msgstr ""
+msgstr "tänne"
 
 #: ajapaik/ajapaik/templates/user.html:36
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Tervetuloa Ajapaikkiin - historiallisten valokuvien joukkoistamisalustaan. Olet tervettullut asettamaan kuville sijaintitietoja, merkitsemään henkiöitä ja kommentoimaan kuvia."
 
 #: ajapaik/ajapaik/templates/user.html:54
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Käyttäjällä ei ole vielä yhtään lisäystä."
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
@@ -2247,13 +2251,11 @@ msgstr "Vanhus"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
-#, fuzzy
 msgid "Unknown"
-msgstr "Tuntematon tekijä"
+msgstr "Tuntematon"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "Ei soveltuva"
 
