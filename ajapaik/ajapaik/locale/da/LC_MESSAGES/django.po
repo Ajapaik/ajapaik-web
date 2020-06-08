@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-04 15:41:32+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:17+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -403,7 +403,7 @@ msgstr "Original photo"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Du har"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
@@ -2115,7 +2115,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "here"
-msgstr ""
+msgstr "her"
 
 #: ajapaik/ajapaik/templates/user.html:36
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."

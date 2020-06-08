@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-04 15:41:33+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -765,7 +765,7 @@ msgstr "See also – Sift.pics"
 #: ajapaik/ajapaik/templates/account/logout.html:8
 #: ajapaik/ajapaik/templates/account/logout.html:17
 msgid "Sign out"
-msgstr "Sign out"
+msgstr "Ofmellen"
 
 #: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
 #: ajapaik/ajapaik/templates/base_bootstrap.html:42
@@ -2118,7 +2118,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user.html:54
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Dëse Benotzer huet keng Kontributiounen."
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
@@ -2252,7 +2252,6 @@ msgstr "Onbekannt"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "Net applicabel"
 

@@ -11,6 +11,7 @@
 # Author: Viztor
 # Author: Ywang
 # Author: 予弦
+# Author: 列维劳德
 # Author: 沈澄心
 # Author: 神樂坂秀吉
 # --
@@ -20,7 +21,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-06-04 15:41:35+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:20+0000\n"
 "X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -826,7 +827,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "这名用户已为该图片提供了建议的地址"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"

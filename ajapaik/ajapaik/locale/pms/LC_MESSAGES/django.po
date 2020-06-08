@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-04 15:41:34+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:19+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -837,11 +837,11 @@ msgstr "Marca ëd KYSK"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Cost utent a l'ha sugerì na locassion për costa fòto"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Costi utent a l'han sugerì na locassion për costa fòto"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
@@ -1301,7 +1301,7 @@ msgstr "La decision a peul ëdcò esse pijà an sla tastadura (1, 2, 3)."
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> a l'ha"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
@@ -1311,11 +1311,11 @@ msgstr[0] "spessificà na dàita për <b>%(datings)s</b> plancia"
 msgstr[1] "spessificà na dàita për <b>%(datings)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
-#, fuzzy, python-format
+#, python-format
 msgid "has annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] "Chiel a l'ha anotà <b>%(face_annotations)s</b> facia an su"
-msgstr[1] "Chiel a l'ha anotà <b>%(face_annotations)s</b> facia an su"
+msgstr[0] "a l'ha anotà <b>%(face_annotations)s</b> facia an su"
+msgstr[1] "a l'ha anotà <b>%(face_annotations)s</b> facia an su"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
@@ -1335,8 +1335,8 @@ msgstr[1] "giontà dël test trascrivù su <b>%(transcriptions)s</b> plance"
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(user_points)s pont an total</b>"
+msgstr[1] "<b>%(user_points)s</b> pont an total"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."

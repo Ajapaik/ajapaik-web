@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-04 15:41:34+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:19+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -840,11 +840,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Esses usuários sugeriram local para esta foto"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
-msgstr ""
+msgstr "Modificada"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 #: ajapaik/ajapaik/templates/_header_basic.html:4
@@ -1371,7 +1371,7 @@ msgstr "Conexões de conta social"
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email.html:8
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Endereço de e-mail"
 
 #: ajapaik/ajapaik/templates/account/email.html:10
 msgid "The following E-mail addresses are associated with your account:"
@@ -1383,11 +1383,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Não verificado"
 
 #: ajapaik/ajapaik/templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Principal"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
@@ -1516,7 +1516,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Criar conta"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1534,7 +1534,7 @@ msgstr "Desculpe, mas a inscrição está atualmente fechada."
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format

@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:02+0000\n"
+"PO-Revision-Date: 2020-06-08 15:01:18+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -109,9 +109,8 @@ msgid "Current location"
 msgstr "Текущее местоположение"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:193
-#, fuzzy
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "Приблизительно от %(from) и приблизительно до %(to)"
+msgstr "Приблизительно от %(from)s и приблизительно до %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:199
 #, fuzzy
@@ -475,7 +474,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:241
 msgid "all pictures"
-msgstr ""
+msgstr "все фотографии"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:269
 msgid "Albums"
@@ -496,7 +495,7 @@ msgstr "Фотографии от %(user)"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:288
 msgid "All pictures"
-msgstr ""
+msgstr "Все фотографии"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:359
 msgid "Picture set has no "
@@ -693,7 +692,7 @@ msgstr "Женский"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "Ребёнок"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
@@ -701,11 +700,11 @@ msgstr "Пожилой"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
-msgstr ""
+msgstr "Взрослый"
 
 #: ajapaik/ajapaik/static/js/constants.js:70
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
@@ -787,11 +786,11 @@ msgstr "Тип объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Пол"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "Возраст"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
@@ -931,7 +930,7 @@ msgstr "Укажите альтернативный пол"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестно"
 
 #: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
 msgid "Failed to load faces, sorry."
