@@ -406,16 +406,16 @@ msgstr "Chiel a l'ha"
 #, python-format
 msgid "curated <b>%(curated_pictures)s</b> picture"
 msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
-msgstr[0] "curà <b>%(curated_images)s</b> plancia"
-msgstr[1] "curà <b>%(curated_images)s</b> plance"
+msgstr[0] "curà <b>%(curated_pictures)s</b> plancia"
+msgstr[1] "curà <b>%(curated_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
-msgstr[0] "sugerì la locassion për <b>%(geotagged_images)s</b> plancia"
-msgstr[1] "sugerì la locassion për <b>%(geotagged_images)s</b> plance"
+msgstr[0] "sugerì la locassion për <b>%(geotagged_pictures)s</b> plancia"
+msgstr[1] "sugerì la locassion për <b>%(geotagged_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
@@ -438,16 +438,16 @@ msgstr[1] "fàit <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> për"
 #, python-format
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
-msgstr[0] "<b>%(rephotographed_images)s</b> plancia"
-msgstr[1] "<b>%(rephotographed_images)s</b> plance"
+msgstr[0] "<b>%(rephotographed_pictures)s</b> plancia"
+msgstr[1] "<b>%(rephotographed_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
 msgid "commented on <b>%(commented_pictures)s</b> picture"
 msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
-msgstr[0] "comentà <b>%(commented_images)s</b> plancia"
-msgstr[1] "comentà <b>%(commented_images)s</b> plance"
+msgstr[0] "comentà <b>%(commented_pictures)s</b> plancia"
+msgstr[1] "comentà <b>%(commented_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
@@ -468,8 +468,8 @@ msgstr[1] "anotà <b>%(face_annotations)s</b> facia an su"
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] "<b>%(face_annotations_images)s</b> plancia"
-msgstr[1] "<b>%(face_annotations_images)s</b> plance"
+msgstr[0] "<b>%(face_annotations_pictures)s</b> plancia"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/_user_info.html:45
@@ -483,8 +483,8 @@ msgstr[1] "anotà <b>%(object_annotations)s</b> oget su"
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] "<b>%(object_annotations_images)s</b> plancia"
-msgstr[1] "<b>%(object_annotations_images)s</b> plance"
+msgstr[0] "<b>%(object_annotations_pictures)s</b> plancia"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> plance"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
@@ -498,8 +498,8 @@ msgstr[1] "giontà dël test trascrivù su <b>%(transcriptions)s</b> plance"
 #, python-format
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
-msgstr[0] "colegà <b>%(similar_images)s</b> plancia sìmil"
-msgstr[1] "colegà <b>%(similar_images)s</b> plance sìmij"
+msgstr[0] "colegà <b>%(similar_pictures)s</b> plancia sìmil"
+msgstr[1] "colegà <b>%(similar_pictures)s</b> plance sìmij"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61

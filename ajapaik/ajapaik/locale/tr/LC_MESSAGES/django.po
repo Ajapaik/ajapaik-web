@@ -416,7 +416,7 @@ msgstr[0] "küratörlü <b>%(curated_pictures)s</b> resim"
 #, python-format
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
-msgstr[0] "<b>%(geotagged_images)s</b> resim için önerilen yer"
+msgstr[0] "<b>%(geotagged_pictures)s</b> resim için önerilen yer"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
