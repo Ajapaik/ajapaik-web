@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: H2kks
 # Author: KK
+# Author: Muovipullo
 # Author: Nike
 # Author: Pyscowicz
 # Author: Zache
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-06-04 15:41:33+0000\n"
+"PO-Revision-Date: 2020-06-11 17:21:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1412,7 +1413,7 @@ msgstr "Poista"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "Warning:"
-msgstr "Varoitus"
+msgstr "Varoitus:"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
