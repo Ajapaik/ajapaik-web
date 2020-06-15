@@ -23,7 +23,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-08 15:01:18+0000\n"
+"PO-Revision-Date: 2020-06-15 20:09:32+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -532,7 +532,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:77
 msgid "rephotos"
-msgstr ""
+msgstr "rephotos"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
 msgid "favorite pictures"
@@ -847,15 +847,15 @@ msgstr "Logo de KYSK"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Cet utilisateur a suggéré un emplacement pour cette image"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Ces utilisateurs ont suggéré un emplacement pour cette image"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
-msgstr ""
+msgstr "Modifié"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 #: ajapaik/ajapaik/templates/_header_basic.html:4
@@ -1311,7 +1311,7 @@ msgstr "La décision peut aussi être prise au clavier (1, 2, 3)."
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> a"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
@@ -1381,7 +1381,7 @@ msgstr "Connexions de comptes sociaux"
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email.html:8
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Adresses courriel"
 
 #: ajapaik/ajapaik/templates/account/email.html:10
 msgid "The following E-mail addresses are associated with your account:"
@@ -1389,15 +1389,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Vérifié"
 
 #: ajapaik/ajapaik/templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Non vérifié"
 
 #: ajapaik/ajapaik/templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Principal"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
@@ -1415,7 +1415,7 @@ msgstr "Supprimer"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "Warning:"
-msgstr ""
+msgstr "Avertissement :"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
@@ -1423,7 +1423,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "Ajouter une adresse courriel"
 
 #: ajapaik/ajapaik/templates/account/email.html:59
 msgid "Do you really want to remove the selected e-mail address?"
@@ -1520,7 +1520,7 @@ msgstr "Votre mot de passe est maintenant modifié."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set.html:13
 msgid "Set Password"
-msgstr ""
+msgstr "Définir le mot de passe"
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1544,7 +1544,7 @@ msgstr "Nous sommes désolés, mais les inscriptions sont actuellement fermées.
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
