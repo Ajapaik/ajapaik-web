@@ -594,8 +594,8 @@ msgid "Points awarded"
 msgstr "積分獎勵"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
-msgid "Vanalinnad"
-msgstr "舊地圖"
+msgid "Historic maps"
+msgstr "歷史地圖"
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:724
 msgid "Remove album filter"

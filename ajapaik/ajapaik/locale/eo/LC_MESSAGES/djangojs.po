@@ -596,8 +596,8 @@ msgid "Points awarded"
 msgstr "Poentoj donitaj"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
-msgid "Vanalinnad"
-msgstr "Antikvaj urboj"
+msgid "Historic maps"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:724
 msgid "Remove album filter"
