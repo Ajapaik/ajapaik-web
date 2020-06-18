@@ -23,7 +23,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-15 20:09:32+0000\n"
+"PO-Revision-Date: 2020-06-18 19:12:07+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -528,7 +528,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:72
 msgid "View your"
-msgstr ""
+msgstr "Afficher votre"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:77
 msgid "rephotos"
@@ -536,7 +536,7 @@ msgstr "rephotos"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
 msgid "favorite pictures"
-msgstr ""
+msgstr "images favorites"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
@@ -948,7 +948,7 @@ msgstr "Tableau de classement"
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Vous êtes connecté en tant que"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
@@ -1401,11 +1401,11 @@ msgstr "Principal"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "Rendre principal"
 
 #: ajapaik/ajapaik/templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Renvoyer la vérification"
 
 #: ajapaik/ajapaik/templates/account/email.html:36
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1466,7 +1466,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir vous déconnecter ?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -1549,7 +1549,7 @@ msgstr "Note"
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "vous êtes déjà connecté en tant que %(user_name)s"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -2113,11 +2113,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "To create an account, click"
-msgstr ""
+msgstr "Pour créer un compte, cliquez sur"
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "here"
-msgstr ""
+msgstr "ici"
 
 #: ajapaik/ajapaik/templates/user.html:36
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2125,7 +2125,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user.html:54
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Cet utilisateur n'a aucune contribution."
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
