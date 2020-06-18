@@ -596,7 +596,7 @@ msgid "Points awarded"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
-msgid "Vanalinnad"
+msgid "Historic maps"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:724

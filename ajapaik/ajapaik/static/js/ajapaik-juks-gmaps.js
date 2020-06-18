@@ -54,7 +54,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             }
         },
         tileSize: new google.maps.Size(256, 256),
-        name: gettext('Vanalinnad'),
+        name: gettext('Historic maps'),
         maxZoom: 18
     });
     this.changeIndex = function (index) {
@@ -175,10 +175,10 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.citySelection);
         } else {
             if(window.innerWidth > 768) {
-                that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.yearSelection);
+                that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
             }
             else {
-                that.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(that.yearSelection);
+                that.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(that.citySelection);
             }
         }
     };

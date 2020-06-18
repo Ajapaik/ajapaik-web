@@ -534,8 +534,8 @@ msgid "Points awarded"
 msgstr "النقاط الممنوحة"
 
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
-msgid "Vanalinnad"
-msgstr "المدن القديمة"
+msgid "Historic maps"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-map.js:787
 msgid "Remove album filter"
