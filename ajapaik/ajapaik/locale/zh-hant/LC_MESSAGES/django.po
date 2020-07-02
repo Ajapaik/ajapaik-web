@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-06-04 15:41:35+0000\n"
+"PO-Revision-Date: 2020-07-02 15:41:43+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -216,7 +216,7 @@ msgstr "地理標籤"
 #: ajapaik/ajapaik/models.py:1045 ajapaik/ajapaik/models.py:1114
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr "翻拍"
+msgstr "翻拍照片"
 
 #: ajapaik/ajapaik/models.py:1046
 msgid "Photo upload"
@@ -403,119 +403,119 @@ msgstr "原始照片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "您有"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:8
 #, python-format
 msgid "curated <b>%(curated_pictures)s</b> picture"
 msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "策展 <b>%(curated_pictures)s</b> 張照片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/_user_info.html:13
 #, python-format
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
-msgstr[0] ""
+msgstr[0] "建議 <b>%(geotagged_pictures)s</b> 張圖片的位置。"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/_user_info.html:18
 #, python-format
 msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
 msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "貢獻 <b>%(geotag_confirmations)s</b> 張圖片的位置"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/_user_info.html:23
 #, python-format
 msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
 msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
-msgstr[0] ""
+msgstr[0] "做出<b><a href=\"%(link)s\"> %(rephotos)s 張翻拍照片</a></b>用於"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/_user_info.html:24
 #, python-format
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "<b>%(rephotographed_pictures)s</b>圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/_user_info.html:29
 #, python-format
 msgid "commented on <b>%(commented_pictures)s</b> picture"
 msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "評論 <b>%(commented_pictures)s</b> 張圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:34
 #, python-format
 msgid "specified a date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "指定 <b>%(datings)s</b> 張圖片的日期"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:39
 #, python-format
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
+msgstr[0] "註釋 <b>%(face_annotations)s</b> 張面孔在"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/_user_info.html:40
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "<b>%(face_annotations_pictures)s</b>圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/_user_info.html:45
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
+msgstr[0] "註釋 <b>%(object_annotations)s</b> 個對象在"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "<b>%(object_annotations_pictures)s</b>圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:51
 #, python-format
 msgid "transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "添加轉錄文字在 <b>%(transcriptions)s</b> 張圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/_user_info.html:56
 #, python-format
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
-msgstr[0] ""
+msgstr[0] "連接 <b>%(similar_pictures)s</b> 張相似圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/_user_info.html:61
 #, python-format
 msgid "favorited <b>%(photolikes)s</b> picture"
 msgid_plural "favorited <b>%(photolikes)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "<b>%(photolikes)s</b> 張個人最愛圖片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:67
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
+msgstr[0] "您的積分目前總共是 <b>%(user_points)s"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:72
 msgid "View your"
-msgstr ""
+msgstr "檢視您的"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:77
 msgid "rephotos"
-msgstr ""
+msgstr "翻拍照片"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:82
 msgid "favorite pictures"
-msgstr ""
+msgstr "個人最愛圖片"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
@@ -823,15 +823,15 @@ msgstr "KYSK 標誌"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "該名使用者已建議對於此圖片的位置"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "這些使用者已建議對於此圖片的位置"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:14
 msgid "Modified"
-msgstr ""
+msgstr "已修改"
 
 #: ajapaik/ajapaik/templates/_header.html:4
 #: ajapaik/ajapaik/templates/_header_basic.html:4
@@ -924,7 +924,7 @@ msgstr "排行榜"
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "您已登入為"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
@@ -1278,37 +1278,37 @@ msgstr "可用鍵盤來決定（1、2、3）。"
 #: ajapaik/ajapaik/templates/_user_info.html:3
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b>有"
 
 #: ajapaik/ajapaik/templates/_user_info.html:34
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "指定 <b>%(datings)s</b> 張圖片的日期"
 
 #: ajapaik/ajapaik/templates/_user_info.html:39
 #, python-format
 msgid "has annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
+msgstr[0] "註釋 <b>%(face_annotations)s</b> 張面孔在"
 
 #: ajapaik/ajapaik/templates/_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "<b>%(object_annotations)s</b>圖片"
 
 #: ajapaik/ajapaik/templates/_user_info.html:51
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "添加轉錄文字在 <b>%(transcriptions)s</b> 張圖片"
 
 #: ajapaik/ajapaik/templates/_user_info.html:68
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
+msgstr[0] "總積分 <b>%(user_points)s</b>"
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1343,31 +1343,31 @@ msgstr "社會網路帳號連接"
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email.html:8
 msgid "E-mail addresses"
-msgstr ""
+msgstr "電子郵件地址"
 
 #: ajapaik/ajapaik/templates/account/email.html:10
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "以下是與您的帳號關聯的電子郵件地址："
 
 #: ajapaik/ajapaik/templates/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "已驗證"
 
 #: ajapaik/ajapaik/templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "未驗證"
 
 #: ajapaik/ajapaik/templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "首選"
 
 #: ajapaik/ajapaik/templates/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "設為首選"
 
 #: ajapaik/ajapaik/templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "重新發送驗證碼"
 
 #: ajapaik/ajapaik/templates/account/email.html:36
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1377,19 +1377,19 @@ msgstr "移除"
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "Warning:"
-msgstr ""
+msgstr "警告："
 
 #: ajapaik/ajapaik/templates/account/email.html:44
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "您目前還沒有設定任何電子郵件地址。您應添加電子郵件地址讓您可以接收通知，並可用於重新設定您的密碼等其它功能。"
 
 #: ajapaik/ajapaik/templates/account/email.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "添加電子郵件"
 
 #: ajapaik/ajapaik/templates/account/email.html:59
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "您確定要移除所選的電子郵件地址嗎？"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -1419,16 +1419,16 @@ msgstr "登入"
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "請以您現有的第三方帳號登入，或是<a href=\"%(signup_url)s\">註冊</a>以下%(site_name)s的帳號後登入："
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "如果您還沒有建立一個帳號，請先<a href=\"%(signup_url)s\">註冊</a>。"
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "您確定要登出嗎？"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -1482,7 +1482,7 @@ msgstr "您的密碼現在已變更。"
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set.html:13
 msgid "Set Password"
-msgstr ""
+msgstr "設定密碼"
 
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
@@ -1506,12 +1506,12 @@ msgstr "很抱歉，但註冊目前已關閉。"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "備註"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "您以帳號 %(user_name)s 登入"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -2070,11 +2070,11 @@ msgstr "添加第三方帳號"
 
 #: ajapaik/ajapaik/templates/user.html:26
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "歡迎您以匿名身份瀏覽並做出貢獻，但我們建議您建立一個自己用的 Ajapaik 帳號並加入貢獻者社群。"
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "To create an account, click"
-msgstr ""
+msgstr "要建立帳號，請點擊"
 
 #: ajapaik/ajapaik/templates/user.html:29
 msgid "here"
@@ -2082,11 +2082,11 @@ msgstr "在此"
 
 #: ajapaik/ajapaik/templates/user.html:36
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "歡迎來到 Ajapaik – 一個用於歷史照片的眾包平台。歡迎您在 Ajapaik 上進行地理標記、評論圖片、或是標記面孔等等。"
 
 #: ajapaik/ajapaik/templates/user.html:54
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "此使用者沒有任何貢獻。"
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-06-11 17:21:23+0000\n"
+"PO-Revision-Date: 2020-07-02 15:41:41+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -845,7 +845,7 @@ msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Tämä käyttäjä on ehdottanut sijaintia tälle kuvalle"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
