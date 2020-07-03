@@ -17,17 +17,21 @@ function VanalinnadGooglemApi(city, isGeotagger) {
     this.isGeotagger = isGeotagger;
     this.vanalinnadCitiesMap = {
         'Haapsalu': 'Haapsalu',
+        'Kärdla': 'Kardla',
         'Kuressaare': 'Kuressaare',
         'Narva': 'Narva',
         'Paide': 'Paide',
+        'Paldiski': 'Paldiski',
         'Pärnu': 'Parnu',
+        'Põltsamaa': 'Poltsamaa',
+        'Põlva': 'Polva',
         'Rakvere': 'Rakvere',
+        'Rapla': 'Rapla',
         'Tallinn': 'Tallinn',
         'Tartu': 'Tartu',
         'Valga': 'Valga',
         'Viljandi': 'Viljandi',
-        'Võru': 'Voru',
-        'Puurmanni & Tahkuna': 'sandbox'
+        'Võru': 'Voru'
     };
     this.juksMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
@@ -129,6 +133,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
             if (typeof window.reportVanalinnadYearChange === 'function') {
                 window.reportVanalinnadYearChange(value);
             }
+            that.map.setZoom(16);
         });
 
         that.yearSelection = vanalinnadYearSelection.get(0);
