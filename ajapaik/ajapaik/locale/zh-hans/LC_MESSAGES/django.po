@@ -7,6 +7,7 @@
 # Author: Aefgh39622
 # Author: Josephine W.
 # Author: Looong
+# Author: Shuiwater
 # Author: SomeyaMako
 # Author: Viztor
 # Author: Ywang
@@ -21,7 +22,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-06-08 15:01:20+0000\n"
+"PO-Revision-Date: 2020-07-06 16:42:38+0000\n"
 "X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,7 +48,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1558
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "抄写已经被添加，谢谢！"
 
 #: ajapaik/ajapaik/api.py:1560 ajapaik/ajapaik/api.py:1577
 msgid "Something went wrong"
