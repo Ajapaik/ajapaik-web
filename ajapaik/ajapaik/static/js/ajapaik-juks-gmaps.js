@@ -33,45 +33,73 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         'Viljandi': 'Viljandi',
         'Võru': 'Voru'
     };
+
     this.juksMapType = new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
             // 'Wrap' x (longitude) at 180th meridian properly
             // NB: Don't touch coord.x because coord param is by reference, and changing it's x property breaks something in Google's lib
-            var tilesPerGlobe = 1 << zoom,
+            let tilesPerGlobe = 1 << zoom,
                 x = coord.x % tilesPerGlobe;
             if (x < 0) {
                 x = tilesPerGlobe + x;
             }
-            // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
-            var tmsY = ((1 << zoom) - 1 - coord.y);
-            if (that.vars.layerIndex < 0 || zoom < 12 || zoom > 16 ||
-                x < that.tileX(that.vars.layers[that.vars.layerIndex].bounds[0], zoom) ||
-                x > that.tileX(that.vars.layers[that.vars.layerIndex].bounds[2], zoom) ||
-                coord.y > that.tileY(that.vars.layers[that.vars.layerIndex].bounds[1], zoom) ||
-                coord.y < that.tileY(that.vars.layers[that.vars.layerIndex].bounds[3], zoom) ||
-                that.existsInStruct([that.vars.layers[that.vars.layerIndex].year, '' + zoom, '' + x, tmsY], that.empty)
-            ) {
-                return 'https://a.tile.openstreetmap.org/' + zoom + '/' + x + '/' + coord.y + '.png';
-            } else {
-                return that.vars.vanalinnadTiles + 'raster/places/' + that.vars.site + '/' +
-                    that.vars.layers[that.vars.layerIndex].year + '/' + zoom + '/' + x + '/' + tmsY + '.jpg';
-            }
+            return 'https://a.tile.openstreetmap.org/' + zoom + '/' + x + '/' + coord.y + '.png';
         },
         tileSize: new google.maps.Size(256, 256),
         name: gettext('Historic maps'),
         maxZoom: 18
     });
+
+    this.setLayer = function() {
+        let historicalMapsOverlay = new google.maps.ImageMapType({
+            getTileUrl: function (coord, zoom) {
+                let tilesPerGlobe = 1 << zoom,
+                x = coord.x % tilesPerGlobe;
+                if (x < 0) {
+                    x = tilesPerGlobe + x;
+                }
+                // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
+                let tmsY = ((1 << zoom) - 1 - coord.y);
+                if (that.vars.layerIndex < 0 || zoom < 12 || zoom > 16 ||
+                    x < that.tileX(that.vars.layers[that.vars.layerIndex].bounds[0], zoom) ||
+                    x > that.tileX(that.vars.layers[that.vars.layerIndex].bounds[2], zoom) ||
+                    coord.y > that.tileY(that.vars.layers[that.vars.layerIndex].bounds[1], zoom) ||
+                    coord.y < that.tileY(that.vars.layers[that.vars.layerIndex].bounds[3], zoom) ||
+                    that.existsInStruct([that.vars.layers[that.vars.layerIndex].year, '' + zoom, '' + x, tmsY], that.empty)
+                ) {
+                    return '/static/images/map/tile.png';
+                } else {
+                    return that.vars.vanalinnadTiles + 'raster/places/' + that.vars.site + '/' +
+                        that.vars.layers[that.vars.layerIndex].year + '/' + zoom + '/' + x + '/' + tmsY + '.jpg';
+                }
+            },
+            tileSize: new google.maps.Size(256, 256),
+            maxZoom: 16,
+            minZoom: 12
+        });
+        map.overlayMapTypes.push(historicalMapsOverlay);
+    };
+
     this.changeIndex = function (index) {
+        if(index === this.vars.layerIndex || index < 0){
+            return;
+        }
         this.vars.layerIndex = index;
+        map.overlayMapTypes.clear();
+        if(window.map.getMapTypeId() && window.map.getMapTypeId() === 'old-maps'){
+            this.setLayer();
+        }
         this.refreshMap();
     };
     this.showControls = function () {
         $(that.citySelection).show();
         $(that.yearSelection).show();
+        that.setLayer();
     };
     this.hideControls = function () {
         $(that.citySelection).hide();
         $(that.yearSelection).hide();
+        map.overlayMapTypes.clear();
     };
     this.getCityData = function (callback) {
         $.ajax({
@@ -134,6 +162,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
                 window.reportVanalinnadYearChange(value);
             }
             that.map.setZoom(16);
+            that.setLayer();
         });
 
         that.yearSelection = vanalinnadYearSelection.get(0);
