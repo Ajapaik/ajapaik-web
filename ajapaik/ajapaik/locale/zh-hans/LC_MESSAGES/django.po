@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-06 16:42:38+0000\n"
+"PO-Revision-Date: 2020-07-10 09:28:36+0000\n"
 "X-POT-Import-Date: 2020-06-04 09:58:47+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Nothing to change."
-msgstr ""
+msgstr "没有改变"
 
 #: ajapaik/ajapaik/models.py:177 ajapaik/ajapaik_face_recognition/models.py:23
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:51
@@ -229,7 +229,7 @@ msgstr "照片上传"
 
 #: ajapaik/ajapaik/models.py:1047
 msgid "Photo curation"
-msgstr ""
+msgstr "照片管理"
 
 #: ajapaik/ajapaik/models.py:1048
 msgid "Photo re-curation"

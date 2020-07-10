@@ -4,6 +4,7 @@
 # Author: BaRaN6161 TURK
 # Author: Puik
 # Author: Robby
+# Author: عمر العنزي
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,11 +14,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:02+0000\n"
+"PO-Revision-Date: 2020-07-10 09:28:35+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -789,7 +790,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "انا احبك عمر"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"

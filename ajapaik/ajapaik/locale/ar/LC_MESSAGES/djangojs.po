@@ -6,6 +6,7 @@
 # Author: Tala Ali
 # Author: ديفيد
 # Author: شادي
+# Author: عمر العنزي
 # Author: محمد أحمد عبد الفتاح
 # --
 # This file is part of the Ajapaik Project
@@ -16,11 +17,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:00+0000\n"
+"PO-Revision-Date: 2020-07-10 09:28:33+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
 "X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
@@ -794,7 +795,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "عمر العنزي"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
