@@ -2349,7 +2349,7 @@ def curator_photo_upload_handler(request):
 		if general_albums:
 			for ga in general_albums:
 				requests.post(
-					'https://graph.facebook.com/v2.5/?id='+ (request.build_absolute_uri(reverse('game'))
+					'https://graph.facebook.com/v7.0/?id='+ (request.build_absolute_uri(reverse('game'))
 					+ '?album=' + str(ga.id))
 					+ '&scrape=true'
 				)
@@ -3039,10 +3039,10 @@ def user_settings_modal(request):
 		})
 	context = {
 		'form': form,
-		'isModal': modal is not None and modal == 'true'
+		'isModal': True
 	}
 
-	return render(request, 'user_settings_modal_content.html', context)
+	return render(request, '_user_settings_modal_content.html', context)
 
 def user_settings(request):
 	context = {}
