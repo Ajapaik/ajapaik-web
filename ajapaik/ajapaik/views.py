@@ -240,10 +240,10 @@ def _get_exif_data(img):
 	exif_data = {}
 	for (tag, value) in exif.items():
 		decoded = TAGS.get(tag, tag)
-		if decoded == "GPSInfo":
+		if decoded == 'GPSInfo':
 			for t in value:
 				sub_decoded = GPSTAGS.get(t, t)
-				exif_data[str(decoded) + "." + str(sub_decoded)] = value[t]
+				exif_data[str(decoded) + '.' + str(sub_decoded)] = value[t]
 		elif len(str(value)) < 50:
 			exif_data[decoded] = value
 		else:
@@ -253,31 +253,31 @@ def _get_exif_data(img):
 
 
 def _extract_and_save_data_from_exif(photo_with_exif):
-	img = Image.open(settings.MEDIA_ROOT + "/" + str(photo_with_exif.image))
+	img = Image.open(settings.MEDIA_ROOT + '/' + str(photo_with_exif.image))
 	exif_data = _get_exif_data(img)
 	if exif_data:
-		if "GPSInfo.GPSLatitudeRef" in exif_data and "GPSInfo.GPSLatitude" in exif_data and "GPSInfo.GPSLongitudeRef" \
-				in exif_data and "GPSInfo.GPSLongitude" in exif_data:
-			gps_latitude_ref = exif_data.get("GPSInfo.GPSLatitudeRef")
-			gps_latitude = exif_data.get("GPSInfo.GPSLatitude")
-			gps_longitude_ref = exif_data.get("GPSInfo.GPSLongitudeRef")
-			gps_longitude = exif_data.get("GPSInfo.GPSLongitude")
+		if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' \
+				in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
+			gps_latitude_ref = exif_data.get('GPSInfo.GPSLatitudeRef')
+			gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
+			gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
+			gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
 			lat = convert_to_degrees(gps_latitude)
-			if gps_latitude_ref != "N":
+			if gps_latitude_ref != 'N':
 				lat = 0 - lat
 			lon = convert_to_degrees(gps_longitude)
-			if gps_longitude_ref != "E":
+			if gps_longitude_ref != 'E':
 				lon = 0 - lon
 			photo_with_exif.lat = lat
 			photo_with_exif.lon = lon
 			photo_with_exif.save()
-		if "Make" in exif_data or "Model" in exif_data or "LensMake" in exif_data or "LensModel" in exif_data \
-				or "Software" in exif_data:
-			camera_make = exif_data.get("Make")
-			camera_model = exif_data.get("Model")
-			lens_make = exif_data.get("LensMake")
-			lens_model = exif_data.get("LensModel")
-			software = exif_data.get("Software")
+		if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data \
+				or 'Software' in exif_data:
+			camera_make = exif_data.get('Make')
+			camera_model = exif_data.get('Model')
+			lens_make = exif_data.get('LensMake')
+			lens_model = exif_data.get('LensModel')
+			software = exif_data.get('Software')
 			try:
 				device = Device.objects.get(camera_make=camera_make, camera_model=camera_model, lens_make=lens_make,
 											lens_model=lens_model, software=software)
@@ -290,22 +290,22 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 					device = None
 			photo_with_exif.device = device
 			photo_with_exif.save()
-		if "DateTimeOriginal" in exif_data and not photo_with_exif.date:
-			date_taken = exif_data.get("DateTimeOriginal")
+		if 'DateTimeOriginal' in exif_data and not photo_with_exif.date:
+			date_taken = exif_data.get('DateTimeOriginal')
 			try:
-				parsed_time = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+				parsed_time = strptime(date_taken, '%Y:%m:%d %H:%M:%S')
 			except ValueError:
 				parsed_time = None
 			if parsed_time:
-				parsed_time = strftime("%H:%M:%S", parsed_time)
+				parsed_time = strftime('%H:%M:%S', parsed_time)
 			# ignore default camera dates
-			if parsed_time and parsed_time != "12:00:00" and parsed_time != "00:00:00":
+			if parsed_time and parsed_time != '12:00:00' and parsed_time != '00:00:00':
 				try:
-					parsed_date = strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+					parsed_date = strptime(date_taken, '%Y:%m:%d %H:%M:%S')
 				except ValueError:
 					parsed_date = None
 				if parsed_date:
-					photo_with_exif.date = strftime("%Y-%m-%d", parsed_date)
+					photo_with_exif.date = strftime('%Y-%m-%d', parsed_date)
 					photo_with_exif.save()
 		return True
 	else:
@@ -525,10 +525,10 @@ def logout(request):
 
 	logout(request)
 
-	if "HTTP_REFERER" in request.META:
-		return redirect(request.META["HTTP_REFERER"])
+	if 'HTTP_REFERER' in request.META:
+		return redirect(request.META['HTTP_REFERER'])
 
-	return redirect("/")
+	return redirect('/')
 
 
 @ensure_csrf_cookie
@@ -546,69 +546,69 @@ def game(request):
 	album = None
 	area = None
 	context = {
-		"albums": _get_album_choices()
+		'albums': _get_album_choices()
 	}
 
 	if game_photo_selection_form.is_valid():
-		p = game_photo_selection_form.cleaned_data["photo"]
-		context["photo"] = p
-		album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct("album_id").values_list("album_id", flat=True)
+		p = game_photo_selection_form.cleaned_data['photo']
+		context['photo'] = p
+		album_ids = AlbumPhoto.objects.filter(photo_id=p.id).distinct('album_id').values_list('album_id', flat=True)
 		album = Album.objects.filter(id__in=album_ids, atype=Album.CURATED).order_by('-created').first()
 	elif game_album_selection_form.is_valid():
-		album = game_album_selection_form.cleaned_data["album"]
+		album = game_album_selection_form.cleaned_data['album']
 	else:
 		if area_selection_form.is_valid():
-			area = area_selection_form.cleaned_data["area"]
+			area = area_selection_form.cleaned_data['area']
 		else:
-			old_city_id = request.GET.get("city__pk") or None
+			old_city_id = request.GET.get('city__pk') or None
 			if old_city_id is not None:
 				area = Area.objects.get(pk=old_city_id)
-		context["area"] = area
+		context['area'] = area
 
 	facebook_share_photos = None
 	if album:
-		context["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
+		context['album'] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
 		qs = album.photos.filter(rephoto_of__isnull=True)
 		for sa in album.subalbums.exclude(atype=Album.AUTO):
 			qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-		context["album_photo_count"] = qs.distinct('id').count()
+		context['album_photo_count'] = qs.distinct('id').count()
 		facebook_share_photos = album.photos.all()
 	elif area:
-		facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by("?")
+		facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by('?')
 
-	context["facebook_share_photos"] = []
+	context['facebook_share_photos'] = []
 	if facebook_share_photos:
 		for each in facebook_share_photos[:5]:
-			context["facebook_share_photos"].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
+			context['facebook_share_photos'].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
 
 	site = Site.objects.get_current()
-	context["hostname"] = "https://%s" % (site.domain,)
+	context['hostname'] = 'https://%s' % (site.domain,)
 	if album:
-		context["title"] = album.name
+		context['title'] = album.name
 	elif area:
-		context["title"] = area.name
+		context['title'] = area.name
 	else:
-		context["title"] = _("Geotagging game")
-	context["is_game"] = True
-	context["area_selection_form"] = area_selection_form
-	context["album_selection_form"] = album_selection_form
-	context["last_geotagged_photo_id"] = Photo.objects.order_by('-latest_geotag').first().id
-	context["ajapaik_facebook_link"] = settings.AJAPAIK_FACEBOOK_LINK
-	context["user_has_likes"] = user_has_likes
-	context["user_has_rephotos"] = user_has_rephotos
+		context['title'] = _('Geotagging game')
+	context['is_game'] = True
+	context['area_selection_form'] = area_selection_form
+	context['album_selection_form'] = album_selection_form
+	context['last_geotagged_photo_id'] = Photo.objects.order_by('-latest_geotag').first().id
+	context['ajapaik_facebook_link'] = settings.AJAPAIK_FACEBOOK_LINK
+	context['user_has_likes'] = user_has_likes
+	context['user_has_rephotos'] = user_has_rephotos
 
-	return render(request, "game.html", context)
+	return render(request, 'game.html', context)
 
 
 def fetch_stream(request):
 	profile = request.get_user().profile
 	form = GameNextPhotoForm(request.GET)
-	data = {"photo": None, "userSeenAll": False, "nothingMoreToShow": False}
+	data = {'photo': None, 'userSeenAll': False, 'nothingMoreToShow': False}
 	if form.is_valid():
 		qs = Photo.objects.filter(rephoto_of__isnull=True)
-		form_area = form.cleaned_data["area"]
-		form_album = form.cleaned_data["album"]
-		form_photo = form.cleaned_data["photo"]
+		form_area = form.cleaned_data['area']
+		form_album = form.cleaned_data['album']
+		form_photo = form.cleaned_data['photo']
 		# TODO: Correct implementation
 		if form_photo:
 			form_photo.user_already_confirmed = False
@@ -623,15 +623,15 @@ def fetch_stream(request):
 			form_photo.user_likes = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=1).exists()
 			form_photo.user_loves = PhotoLike.objects.filter(profile=profile, photo=form_photo, level=2).exists()
 			form_photo.user_like_count = PhotoLike.objects.filter(photo=form_photo).distinct('profile').count()
-			data = {"photo": Photo.get_game_json_format_photo(form_photo), "userSeenAll": False,
-					"nothingMoreToShow": False}
+			data = {'photo': Photo.get_game_json_format_photo(form_photo), 'userSeenAll': False,
+					'nothingMoreToShow': False}
 		else:
 			if form_album:
 				# TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
-				photos_ids_in_album = list(form_album.photos.values_list("id", flat=True))
+				photos_ids_in_album = list(form_album.photos.values_list('id', flat=True))
 				subalbums = form_album.subalbums.exclude(atype=Album.AUTO)
 				for sa in subalbums:
-					photos_ids_in_subalbum = list(sa.photos.values_list("id", flat=True))
+					photos_ids_in_subalbum = list(sa.photos.values_list('id', flat=True))
 					photos_ids_in_album += photos_ids_in_subalbum
 				qs = qs.filter(pk__in=photos_ids_in_album)
 			elif form_area:
@@ -639,11 +639,11 @@ def fetch_stream(request):
 			# FIXME: Ugly
 			try:
 				response = Photo.get_next_photo_to_geotag(qs, request)
-				data = {"photo": response[0], "userSeenAll": response[1], "nothingMoreToShow": response[2]}
+				data = {'photo': response[0], 'userSeenAll': response[1], 'nothingMoreToShow': response[2]}
 			except IndexError:
 				pass
 
-	return HttpResponse(json.dumps(data), content_type="application/json")
+	return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 # Params for old URL support
@@ -696,7 +696,7 @@ def frontpage_async_data(request):
 	data = _get_filtered_data_for_frontpage(request)
 	data['fb_share_photos'] = None
 
-	return HttpResponse(json.dumps(data), content_type="application/json")
+	return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def frontpage_async_albums(request):
@@ -1096,7 +1096,7 @@ def photo_selection(request):
 				del helper[photo_id]
 			request.session['photo_selection'] = helper
 
-	return HttpResponse(json.dumps(request.session['photo_selection']), content_type="application/json")
+	return HttpResponse(json.dumps(request.session['photo_selection']), content_type='application/json')
 
 
 def list_photo_selection(request):
@@ -1166,13 +1166,13 @@ def upload_photo_selection(request):
 	else:
 		context['error'] = _('Faulty data submitted')
 
-	return HttpResponse(json.dumps(context), content_type="application/json")
+	return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 # FIXME: This should either be used more or not at all
 def _make_fullscreen(p):
 	if p and p.image:
-		return {"url": p.image.url, "size": [p.image.width, p.image.height]}
+		return {'url': p.image.url, 'size': [p.image.width, p.image.height]}
 
 
 def videoslug(request, video_id, pseudo_slug=None):
@@ -1200,7 +1200,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	# switch places if rephoto url
 	rephoto = None
 	first_rephoto = None
-	if hasattr(photo_obj, "rephoto_of") and photo_obj.rephoto_of is not None:
+	if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
 		rephoto = photo_obj
 		photo_obj = photo_obj.rephoto_of
 
@@ -1210,7 +1210,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	first_geotaggers = []
 	if photo_obj:
 		original_thumb_size = get_thumbnail(photo_obj.image, '1024x1024').size
-		geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct("user_id").order_by("user_id", "-created")
+		geotags = GeoTag.objects.filter(photo_id=photo_obj.id).distinct('user_id').order_by('user_id', '-created')
 		geotag_count = geotags.count()
 		if geotag_count > 0:
 			correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(
@@ -1238,23 +1238,23 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	is_selection = False
 	site = Site.objects.get_current()
 	if request.is_ajax():
-		template = "_photo_modal.html"
-		if request.GET.get("isFrontpage"):
+		template = '_photo_modal.html'
+		if request.GET.get('isFrontpage'):
 			is_frontpage = True
-		if request.GET.get("isMapview"):
+		if request.GET.get('isMapview'):
 			is_mapview = True
 		if request.GET.get('isSelection'):
 			is_selection = True
 	else:
-		template = "photoview.html"
+		template = 'photoview.html'
 	if not photo_obj.description:
-		title = "Unknown photo"
+		title = 'Unknown photo'
 	else:
-		title = " ".join(photo_obj.description.split(" ")[:5])[:50]
+		title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
 		if photo_obj.author:
 			title += u' – ' + photo_obj.author
 
-	album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list("album_id", flat=True)
+	album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
 	full_album_id_list = list(album_ids)
 	albums = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).prefetch_related('subalbum_of')
 	for each in albums:
@@ -1272,7 +1272,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	next_photo = None
 	previous_photo = None
 	if album:
-		album_selection_form = AlbumSelectionForm({"album": album.id})
+		album_selection_form = AlbumSelectionForm({'album': album.id})
 		if not request.is_ajax():
 			next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
 			previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').last()
@@ -1331,7 +1331,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	for each in previous_datings:
 		each.this_user_has_confirmed = each.confirmations.filter(profile=profile).exists()
 	serialized_datings = DatingSerializer(previous_datings, many=True).data
-	serialized_datings = JSONRenderer().render(serialized_datings).decode("utf-8")
+	serialized_datings = JSONRenderer().render(serialized_datings).decode('utf-8')
 
 	strings = []
 	if photo_obj.source:
@@ -1341,10 +1341,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	next_similar_photo = photo_obj
 	if next_photo is not None:
 		next_similar_photo = next_photo
-	compare_photos_url = request.build_absolute_uri(reverse("compare-photos", args=(photo_obj.id,next_similar_photo.id)))
+	compare_photos_url = request.build_absolute_uri(reverse('compare-photos', args=(photo_obj.id,next_similar_photo.id)))
 	imageSimilarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
 	if len(imageSimilarities) > 0:
-		compare_photos_url = request.build_absolute_uri(reverse("compare-photos", args=(photo_obj.id,imageSimilarities.first().to_photo_id)))
+		compare_photos_url = request.build_absolute_uri(reverse('compare-photos', args=(photo_obj.id,imageSimilarities.first().to_photo_id)))
 
 	people = [x.name for x in photo_obj.people]
 	similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id).exclude(similarity_type=0)
@@ -1362,44 +1362,44 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		reverse_side = photo_obj.postcard_front_of
 
 	context = {
-		"photo": photo_obj,
-		"similar_photos": similar_photos,
-		"previous_datings": serialized_datings,
-		"datings_count": previous_datings.count(),
-		"original_thumb_size": original_thumb_size,
-		"user_confirmed_this_location": user_confirmed_this_location,
-		"user_has_geotagged": user_has_geotagged,
-		"fb_url": request.build_absolute_uri(reverse('photo', args=(photo_obj.id,))),
-		"licence": Licence.objects.get(id=17),  # CC BY 4.0
-		"area": photo_obj.area,
-		"album": album,
-		"albums": albums,
-		"is_frontpage": is_frontpage,
-		"is_mapview": is_mapview,
-		"is_selection": is_selection,
-		"album_selection_form": album_selection_form,
-		"geotag_count": geotag_count,
-		"azimuth_count": azimuth_count,
-		"fullscreen": _make_fullscreen(photo_obj),
-		"rephoto_fullscreen": rephoto_fullscreen,
-		"similar_fullscreen": similar_fullscreen,
-		"title": title,
-		"description": desc,
-		"rephoto": rephoto,
-		"hostname": "https://%s" % (site.domain,),
-		"first_geotaggers": first_geotaggers,
-		"is_photoview": True,
-		"ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
-		"user_has_likes": user_has_likes,
-		"user_has_rephotos": user_has_rephotos,
-		"next_photo": next_photo,
-		"previous_photo": previous_photo,
-		"similar_photo_count": similar_photos.count(),
-		"confirmed_similar_photo_count": similar_photos.filter(confirmed=True).count(),
-		"compare_photos_url" : compare_photos_url,
-		"reverse_side" : reverse_side,
+		'photo': photo_obj,
+		'similar_photos': similar_photos,
+		'previous_datings': serialized_datings,
+		'datings_count': previous_datings.count(),
+		'original_thumb_size': original_thumb_size,
+		'user_confirmed_this_location': user_confirmed_this_location,
+		'user_has_geotagged': user_has_geotagged,
+		'fb_url': request.build_absolute_uri(reverse('photo', args=(photo_obj.id,))),
+		'licence': Licence.objects.get(id=17),  # CC BY 4.0
+		'area': photo_obj.area,
+		'album': album,
+		'albums': albums,
+		'is_frontpage': is_frontpage,
+		'is_mapview': is_mapview,
+		'is_selection': is_selection,
+		'album_selection_form': album_selection_form,
+		'geotag_count': geotag_count,
+		'azimuth_count': azimuth_count,
+		'fullscreen': _make_fullscreen(photo_obj),
+		'rephoto_fullscreen': rephoto_fullscreen,
+		'similar_fullscreen': similar_fullscreen,
+		'title': title,
+		'description': desc,
+		'rephoto': rephoto,
+		'hostname': 'https://%s' % (site.domain,),
+		'first_geotaggers': first_geotaggers,
+		'is_photoview': True,
+		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+		'user_has_likes': user_has_likes,
+		'user_has_rephotos': user_has_rephotos,
+		'next_photo': next_photo,
+		'previous_photo': previous_photo,
+		'similar_photo_count': similar_photos.count(),
+		'confirmed_similar_photo_count': similar_photos.filter(confirmed=True).count(),
+		'compare_photos_url' : compare_photos_url,
+		'reverse_side' : reverse_side,
 		# TODO: Needs more data than just the names
-		"people": people,
+		'people': people,
 		'whole_set_albums_selection_form': whole_set_albums_selection_form
 	}
 
@@ -1412,7 +1412,7 @@ def mapview_photo_upload_modal(request, photo_id):
 	context = {
 		'photo': photo,
 		'licence': licence,
-		'next': request.META["HTTP_REFERER"]
+		'next': request.META['HTTP_REFERER']
 	}
 	return render(request, '_photo_upload_modal.html', context)
 
@@ -1431,11 +1431,11 @@ def mapview(request, photo_id=None, rephoto_id=None):
 	area = None
 	album = None
 	if area_selection_form.is_valid():
-		area = area_selection_form.cleaned_data["area"]
+		area = area_selection_form.cleaned_data['area']
 		photos_qs = photos_qs.filter(area=area)
 
 	if game_album_selection_form.is_valid():
-		album = game_album_selection_form.cleaned_data["album"]
+		album = game_album_selection_form.cleaned_data['album']
 		photos_qs = album.photos.prefetch_related('subalbums')
 		for sa in album.subalbums.exclude(atype=Album.AUTO):
 			photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
@@ -1452,8 +1452,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
 			selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of.id).first()
 
 	if selected_photo and album is None:
-		photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list("album_id", flat=True)
-		album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by("-created").first()
+		photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list('album_id', flat=True)
+		album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by('-created').first()
 		if album:
 			photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
 			for sa in album.subalbums.exclude(atype=Album.AUTO):
@@ -1468,26 +1468,26 @@ def mapview(request, photo_id=None, rephoto_id=None):
 	geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
 	site = Site.objects.get_current()
-	context = {"area": area, "last_geotagged_photo_id": Photo.objects.order_by('-latest_geotag').first().id,
-		   "total_photo_count": photos_qs.distinct('id').count(), "geotagging_user_count": geotagging_user_count,
-		   "geotagged_photo_count": geotagged_photo_count, "albums": albums, "hostname": "https://%s" % (site.domain,),
-		   "selected_photo": selected_photo, "selected_rephoto": selected_rephoto, "is_mapview": True,
-		   "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK, "album": None, "user_has_likes": user_has_likes,
-		   "user_has_rephotos": user_has_rephotos}
+	context = {'area': area, 'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id,
+		   'total_photo_count': photos_qs.distinct('id').count(), 'geotagging_user_count': geotagging_user_count,
+		   'geotagged_photo_count': geotagged_photo_count, 'albums': albums, 'hostname': 'https://%s' % (site.domain,),
+		   'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
+		   'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK, 'album': None, 'user_has_likes': user_has_likes,
+		   'user_has_rephotos': user_has_rephotos}
 
 	if album is not None:
-		context["album"] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
-		context["title"] = album.name + " - " + _("Browse photos on map")
-		context["facebook_share_photos"] = []
+		context['album'] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
+		context['title'] = album.name + ' - ' + _('Browse photos on map')
+		context['facebook_share_photos'] = []
 		facebook_share_photos = album.photos.all()[:5]
 		for each in facebook_share_photos:
 			each = [each.pk, each.get_pseudo_slug(), each.width, each.height]
-			context["facebook_share_photos"].append(each)
+			context['facebook_share_photos'].append(each)
 	elif area is not None:
-		context["title"] = area.name + " - " + _("Browse photos on map")
+		context['title'] = area.name + ' - ' + _('Browse photos on map')
 	else:
-		context["title"] = _("Browse photos on map")
-	return render(request, "mapview.html", context)
+		context['title'] = _('Browse photos on map')
+	return render(request, 'mapview.html', context)
 
 
 def map_objects_by_bounding_box(request):
@@ -1676,9 +1676,9 @@ def geotag_confirm(request):
 			p.save()
 			profile.set_calculated_fields()
 			profile.save()
-		context["new_geotag_count"] = GeoTag.objects.filter(photo=p).distinct('user').count()
+		context['new_geotag_count'] = GeoTag.objects.filter(photo=p).distinct('user').count()
 
-	return HttpResponse(json.dumps(context), content_type="application/json")
+	return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 def leaderboard(request, album_id=None):
@@ -1822,11 +1822,11 @@ def difficulty_feedback(request):
 	user_profile = request.get_user().profile
 	# FIXME: Form, better error handling
 	if not user_profile:
-		return HttpResponse("Error", status=500)
+		return HttpResponse('Error', status=500)
 	user_trustworthiness = _calc_trustworthiness(user_profile.pk)
-	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by("-created").first()
-	level = request.POST.get("level") or None
-	photo_id = request.POST.get("photo_id") or None
+	user_last_geotag = GeoTag.objects.filter(user=user_profile).order_by('-created').first()
+	level = request.POST.get('level') or None
+	photo_id = request.POST.get('photo_id') or None
 	# FIXME: Why so many lines?
 	if user_profile and level and photo_id and user_last_geotag:
 		feedback_object = DifficultyFeedback()
@@ -1841,7 +1841,7 @@ def difficulty_feedback(request):
 		photo.set_calculated_fields()
 		photo.save()
 
-	return HttpResponse("OK")
+	return HttpResponse('OK')
 
 
 def public_add_album(request):
@@ -1849,16 +1849,16 @@ def public_add_album(request):
 	add_album_form = AddAlbumForm(request.POST)
 	if add_album_form.is_valid():
 		user_profile = request.get_user().profile
-		name = add_album_form.cleaned_data["name"]
-		description = add_album_form.cleaned_data["description"]
+		name = add_album_form.cleaned_data['name']
+		description = add_album_form.cleaned_data['description']
 		if user_profile:
 			new_album = Album(
 				name=name, description=description, atype=Album.COLLECTION, profile=user_profile, is_public=False)
 			new_album.save()
 			selectable_albums = Album.objects.filter(Q(atype=Album.FRONTPAGE) | Q(profile=user_profile))
-			selectable_albums = [{"id": x.id, "name": x.name} for x in selectable_albums]
-			return HttpResponse(json.dumps(selectable_albums), content_type="application/json")
-	return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
+			selectable_albums = [{'id': x.id, 'name': x.name} for x in selectable_albums]
+			return HttpResponse(json.dumps(selectable_albums), content_type='application/json')
+	return HttpResponse(json.dumps('Error'), content_type='application/json', status=400)
 
 
 def public_add_area(request):
@@ -1866,19 +1866,19 @@ def public_add_area(request):
 	# TODO: Better duplicate handling
 	if add_area_form.is_valid():
 		try:
-			Area.objects.get(name=add_area_form.cleaned_data["name"])
+			Area.objects.get(name=add_area_form.cleaned_data['name'])
 		except ObjectDoesNotExist:
 			user_profile = request.get_user().profile
-			name = add_area_form.cleaned_data["name"]
-			lat = add_area_form.cleaned_data["lat"]
-			lon = add_area_form.cleaned_data["lon"]
+			name = add_area_form.cleaned_data['name']
+			lat = add_area_form.cleaned_data['lat']
+			lon = add_area_form.cleaned_data['lon']
 			if user_profile:
 				new_area = Area(name=name, lat=lat, lon=lon)
 				new_area.save()
 				selectable_areas = Area.objects.order_by('name').all()
 				selectable_areas = [{'id': x.id, 'name': x.name} for x in selectable_areas]
-				return HttpResponse(json.dumps(selectable_areas), content_type="application/json")
-	return HttpResponse(json.dumps("Error"), content_type="application/json", status=400)
+				return HttpResponse(json.dumps(selectable_areas), content_type='application/json')
+	return HttpResponse(json.dumps('Error'), content_type='application/json', status=400)
 
 
 @ensure_csrf_cookie
@@ -1943,10 +1943,10 @@ def _join_2_json_objects(obj1, obj2):
 				if 'ids' in dict_b['result']:
 					result['ids'] = dict_b['result']['ids']
 		except TypeError:
-                    print("TypeError1", file=sys.stderr)
+                    print('TypeError1', file=sys.stderr)
                     pass
 	except TypeError:
-            print("TypeError2", file=sys.stderr)
+            print('TypeError2', file=sys.stderr)
             pass
 
 	return json.dumps({'result': result})
@@ -2001,7 +2001,7 @@ def curator_search(request):
 					fotis_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
 					form.cleaned_data['flickrPage']))
 
-	return HttpResponse(response, content_type="application/json")
+	return HttpResponse(response, content_type='application/json')
 
 
 def curator_my_album_list(request):
@@ -2020,7 +2020,7 @@ def curator_selectable_albums(request):
 				Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
 	)
 
-	return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+	return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
 
 def curator_selectable_parent_albums(request, album_id=None):
@@ -2033,58 +2033,58 @@ def curator_selectable_parent_albums(request, album_id=None):
 		qs = qs.exclude(pk=album_id)
 	serializer = CuratorAlbumSelectionAlbumSerializer(qs, many=True)
 
-	return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
+	return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
 
 # TODO: Replace with Django REST API
 def curator_get_album_info(request):
-	album_id = request.POST.get("albumId") or None
+	album_id = request.POST.get('albumId') or None
 	if album_id is not None:
 		try:
 			album = Album.objects.get(pk=album_id)
 			serializer = CuratorAlbumInfoSerializer(album)
 		except ObjectDoesNotExist:
-			return HttpResponse("Album does not exist", status=404)
-		return HttpResponse(JSONRenderer().render(serializer.data), content_type="application/json")
-	return HttpResponse("No album ID", status=500)
+			return HttpResponse('Album does not exist', status=404)
+		return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+	return HttpResponse('No album ID', status=500)
 
 
 # TODO: Replace with Django REST API
 def curator_update_my_album(request):
-	album_id = request.POST.get("albumId") or None
+	album_id = request.POST.get('albumId') or None
 	user_profile = request.get_user().profile
 	album_edit_form = CuratorAlbumEditForm(request.POST)
 	if album_id is not None and user_profile and album_edit_form.is_valid():
 		try:
 			album = Album.objects.get(pk=album_id, profile=user_profile)
-			album.name = album_edit_form.cleaned_data["name"]
-			album.description = album_edit_form.cleaned_data["description"]
-			album.open = album_edit_form.cleaned_data["open"]
-			album.is_public = album_edit_form.cleaned_data["is_public"]
+			album.name = album_edit_form.cleaned_data['name']
+			album.description = album_edit_form.cleaned_data['description']
+			album.open = album_edit_form.cleaned_data['open']
+			album.is_public = album_edit_form.cleaned_data['is_public']
 			if album_edit_form.cleaned_data['areaLat'] and album_edit_form.cleaned_data['areaLng']:
 				album.lat = album_edit_form.cleaned_data['areaLat']
 				album.lon = album_edit_form.cleaned_data['areaLng']
-			parent_album = album_edit_form.cleaned_data["parent_album"]
+			parent_album = album_edit_form.cleaned_data['parent_album']
 			if parent_album:
 				try:
 					parent_album = Album.objects.get(
 						Q(profile=user_profile, pk=parent_album.id) | Q(open=True, pk=parent_album.id))
 					album.subalbum_of = parent_album
 				except ObjectDoesNotExist:
-					return HttpResponse("Faulty data", status=500)
+					return HttpResponse('Faulty data', status=500)
 			else:
 				album.subalbum_of = None
 			album.save()
-			return HttpResponse("OK", status=200)
+			return HttpResponse('OK', status=200)
 		except ObjectDoesNotExist:
-			return HttpResponse("Album does not exist", status=404)
+			return HttpResponse('Album does not exist', status=404)
 
-	return HttpResponse("Faulty data", status=500)
+	return HttpResponse('Faulty data', status=500)
 
 def _get_licence_name_by_url(url):
     title=url
     try:
-        html=requests.get(url, {}).text.replace("\n", "")
+        html=requests.get(url, {}).text.replace('\n', '')
         title_search = re.search('<title>(.*)</title>', html, re.IGNORECASE)
 
         if title_search:
@@ -2097,11 +2097,11 @@ def _get_licence_name_by_url(url):
 def curator_photo_upload_handler(request):
 	profile = request.get_user().profile
 
-	etera_token = request.POST.get("eteraToken")
+	etera_token = request.POST.get('eteraToken')
 
 	curator_album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
 
-	selection_json = request.POST.get("selection") or None
+	selection_json = request.POST.get('selection') or None
 	selection = None
 	if selection_json is not None:
 		selection = json.loads(selection_json)
@@ -2109,17 +2109,17 @@ def curator_photo_upload_handler(request):
 	all_curating_points = []
 	total_points_for_curating = 0
 	context = {
-		"photos": {}
+		'photos': {}
 	}
 
 	if selection and len(selection) > 0 and profile is not None and curator_album_selection_form.is_valid():
 		general_albums = Album.objects.filter(id__in=request.POST.getlist('albums'))
 		if len(general_albums) > 0:
-			context["album_id"] = general_albums[0].pk
+			context['album_id'] = general_albums[0].pk
 		else:
-			context["album_id"] = None
+			context['album_id'] = None
 		default_album = Album(
-			name=str(profile.id) + "-" + str(timezone.now()),
+			name=str(profile.id) + '-' + str(timezone.now()),
 			atype=Album.AUTO,
 			profile=profile,
 			is_public=False,
@@ -2134,60 +2134,60 @@ def curator_photo_upload_handler(request):
 			awarded_curator_points = []
 			if upload_form.is_valid():
 				# print (upload_form.cleaned_data)
-				if upload_form.cleaned_data["institution"]:
-					if upload_form.cleaned_data["institution"] == 'Flickr Commons':
+				if upload_form.cleaned_data['institution']:
+					if upload_form.cleaned_data['institution'] == 'Flickr Commons':
 						licence = flickr_licence
 					else:
 						# For Finna
-						if upload_form.cleaned_data["licence"]:
-							licence = Licence.objects.filter(name=upload_form.cleaned_data["licence"]).first()
+						if upload_form.cleaned_data['licence']:
+							licence = Licence.objects.filter(name=upload_form.cleaned_data['licence']).first()
 							if not licence:
-								licence = Licence.objects.filter(url=upload_form.cleaned_data["licenceUrl"]).first()
+								licence = Licence.objects.filter(url=upload_form.cleaned_data['licenceUrl']).first()
 							if not licence:
-                                                                licence_name=upload_form.cleaned_data["licence"]
-                                                                if upload_form.cleaned_data["licence"] == upload_form.cleaned_data["licenceUrl"]:
-                                                                    licence_name=_get_licence_name_by_url(upload_form.cleaned_data["licenceUrl"])
+                                                                licence_name=upload_form.cleaned_data['licence']
+                                                                if upload_form.cleaned_data['licence'] == upload_form.cleaned_data['licenceUrl']:
+                                                                    licence_name=_get_licence_name_by_url(upload_form.cleaned_data['licenceUrl'])
 
                                                                 licence = Licence(
                                                                     name=licence_name,
-                                                                    url=upload_form.cleaned_data["licenceUrl"] or ""
+                                                                    url=upload_form.cleaned_data['licenceUrl'] or ''
                                                                 )
                                                                 licence.save()
 						else:
 							licence = unknown_licence
-					upload_form.cleaned_data["institution"] = upload_form.cleaned_data["institution"].split(",")[0]
-					if upload_form.cleaned_data["institution"] == "ETERA":
-						upload_form.cleaned_data["institution"] = 'TLÜAR ETERA'
+					upload_form.cleaned_data['institution'] = upload_form.cleaned_data['institution'].split(',')[0]
+					if upload_form.cleaned_data['institution'] == 'ETERA':
+						upload_form.cleaned_data['institution'] = 'TLÜAR ETERA'
 					try:
-						source = Source.objects.get(description=upload_form.cleaned_data["institution"])
+						source = Source.objects.get(description=upload_form.cleaned_data['institution'])
 					except ObjectDoesNotExist:
 						source = Source(
-							name=upload_form.cleaned_data["institution"],
-							description=upload_form.cleaned_data["institution"]
+							name=upload_form.cleaned_data['institution'],
+							description=upload_form.cleaned_data['institution']
 						)
 						source.save()
 				else:
 					licence = unknown_licence
-					source = Source.objects.get(name="AJP")
+					source = Source.objects.get(name='AJP')
 				existing_photo = None
-				if upload_form.cleaned_data["id"] and upload_form.cleaned_data["id"] != "":
-					if upload_form.cleaned_data["collections"] == "DIGAR":
-						incoming_muis_id = upload_form.cleaned_data["identifyingNumber"]
+				if upload_form.cleaned_data['id'] and upload_form.cleaned_data['id'] != '':
+					if upload_form.cleaned_data['collections'] == 'DIGAR':
+						incoming_muis_id = upload_form.cleaned_data['identifyingNumber']
 					else:
-						incoming_muis_id = upload_form.cleaned_data["id"]
-					if 'ETERA' in upload_form.cleaned_data["institution"]:
-						upload_form.cleaned_data["types"] = "photo"
+						incoming_muis_id = upload_form.cleaned_data['id']
+					if 'ETERA' in upload_form.cleaned_data['institution']:
+						upload_form.cleaned_data['types'] = 'photo'
 					if '_' in incoming_muis_id \
-						and not ('finna.fi' in upload_form.cleaned_data["urlToRecord"]) \
-						and not ('europeana.eu' in upload_form.cleaned_data["urlToRecord"]):
+						and not ('finna.fi' in upload_form.cleaned_data['urlToRecord']) \
+						and not ('europeana.eu' in upload_form.cleaned_data['urlToRecord']):
 						muis_id = incoming_muis_id.split('_')[0]
 						muis_media_id = incoming_muis_id.split('_')[1]
 					else:
 						muis_id = incoming_muis_id
 						muis_media_id = None
-					if upload_form.cleaned_data["collections"] == "DIGAR":
-						upload_form.cleaned_data["identifyingNumber"] = 'nlib-digar:' + upload_form.cleaned_data[
-							"identifyingNumber"]
+					if upload_form.cleaned_data['collections'] == 'DIGAR':
+						upload_form.cleaned_data['identifyingNumber'] = 'nlib-digar:' + upload_form.cleaned_data[
+							'identifyingNumber']
 						muis_media_id = 1
 					try:
 						if muis_media_id:
@@ -2200,66 +2200,66 @@ def curator_photo_upload_handler(request):
 						pass
 					if not existing_photo:
 						new_photo = None
-						if upload_form.cleaned_data["date"] == "[]":
-							upload_form.cleaned_data["date"] = None
+						if upload_form.cleaned_data['date'] == '[]':
+							upload_form.cleaned_data['date'] = None
 						try:
 							new_photo = Photo(
 								user=profile,
-								author=upload_form.cleaned_data["creators"],
-								description=upload_form.cleaned_data["title"].rstrip(),
+								author=upload_form.cleaned_data['creators'],
+								description=upload_form.cleaned_data['title'].rstrip(),
 								source=source,
-								types=upload_form.cleaned_data["types"] if upload_form.cleaned_data["types"] else None,
-								keywords=upload_form.cleaned_data["keywords"].strip() if upload_form.cleaned_data["keywords"] else None,
-								date_text=upload_form.cleaned_data["date"] if upload_form.cleaned_data["date"] else None,
+								types=upload_form.cleaned_data['types'] if upload_form.cleaned_data['types'] else None,
+								keywords=upload_form.cleaned_data['keywords'].strip() if upload_form.cleaned_data['keywords'] else None,
+								date_text=upload_form.cleaned_data['date'] if upload_form.cleaned_data['date'] else None,
 								licence=licence,
 								external_id=muis_id,
 								external_sub_id=muis_media_id,
-								source_key=upload_form.cleaned_data["identifyingNumber"],
-								source_url=upload_form.cleaned_data["urlToRecord"],
-								flip=upload_form.cleaned_data["flip"],
-								invert=upload_form.cleaned_data["invert"],
-								stereo=upload_form.cleaned_data["stereo"],
-								rotated=upload_form.cleaned_data["rotated"]
+								source_key=upload_form.cleaned_data['identifyingNumber'],
+								source_url=upload_form.cleaned_data['urlToRecord'],
+								flip=upload_form.cleaned_data['flip'],
+								invert=upload_form.cleaned_data['invert'],
+								stereo=upload_form.cleaned_data['stereo'],
+								rotated=upload_form.cleaned_data['rotated']
 							)
 							new_photo.save()
-							if upload_form.cleaned_data["collections"] == "DIGAR":
+							if upload_form.cleaned_data['collections'] == 'DIGAR':
 								new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
 							else:
 								# Enable plain http and broken SSL
 								ssl._create_default_https_context = ssl._create_unverified_context
 								opener = build_opener()
-								headers = [("User-Agent",
-											"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+								headers = [('User-Agent',
+											'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
 								if etera_token:
-									headers.append(("Authorization", "Bearer " + etera_token))
+									headers.append(('Authorization', 'Bearer ' + etera_token))
 								opener.addheaders = headers
-								img_response = opener.open(upload_form.cleaned_data["imageUrl"])
+								img_response = opener.open(upload_form.cleaned_data['imageUrl'])
 								if 'ETERA' in new_photo.source.description:
 									img = ContentFile(img_response.read())
-									new_photo.image_no_watermark.save("etera.jpg", img)
+									new_photo.image_no_watermark.save('etera.jpg', img)
 									new_photo.watermark()
 								else:
-									new_photo.image.save("muis.jpg", ContentFile(img_response.read()))
+									new_photo.image.save('muis.jpg', ContentFile(img_response.read()))
 							if new_photo.invert:
-								photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+								photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
 								img = Image.open(photo_path)
 								inverted_grayscale_image = ImageOps.invert(img).convert('L')
 								inverted_grayscale_image.save(photo_path)
 							if new_photo.rotated is not None and new_photo.rotated > 0:
-								photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+								photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
 								img = Image.open(photo_path)
 								rot = img.rotate(new_photo.rotated, expand=1)
 								rot.save(photo_path)
 								new_photo.width, new_photo.height = rot.size
 							if new_photo.flip:
-								photo_path = settings.MEDIA_ROOT + "/" + str(new_photo.image)
+								photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
 								img = Image.open(photo_path)
 								flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
 								flipped_image.save(photo_path)
-							context["photos"][k] = {}
-							context["photos"][k]["message"] = _("OK")
-							lat = upload_form.cleaned_data["latitude"]
-							lng = upload_form.cleaned_data["longitude"]
+							context['photos'][k] = {}
+							context['photos'][k]['message'] = _('OK')
+							lat = upload_form.cleaned_data['latitude']
+							lng = upload_form.cleaned_data['longitude']
 							if lat and lng and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
 																		 photo__source_key=new_photo.source_key).exists():
 								source_geotag = GeoTag(
@@ -2305,7 +2305,7 @@ def curator_photo_upload_handler(request):
 											type=AlbumPhoto.CURATED)
 							ap.save()
 							created_album_photo_links.append(ap)
-							context["photos"][k]["success"] = True
+							context['photos'][k]['success'] = True
 							all_curating_points.append(points_for_curating)
 						except Exception as e:
 							if new_photo:
@@ -2315,8 +2315,8 @@ def curator_photo_upload_handler(request):
 								ap.delete()
 							for cp in awarded_curator_points:
 								cp.delete()
-							context["photos"][k] = {}
-							context["photos"][k]["error"] = _("Error uploading file: %s (%s)" % (e, imageUrl))
+							context['photos'][k] = {}
+							context['photos'][k]['error'] = _('Error uploading file: %s (%s)' % (e, imageUrl))
 					else:
 						if len(general_albums) > 0:
 							for a in general_albums:
@@ -2331,24 +2331,24 @@ def curator_photo_upload_handler(request):
 						dap = AlbumPhoto(photo=existing_photo, album=default_album, profile=profile,
 										 type=AlbumPhoto.RECURATED)
 						dap.save()
-						context["photos"][k] = {}
-						context["photos"][k]["success"] = True
-						context["photos"][k]["message"] = _("Photo already exists in Ajapaik")
+						context['photos'][k] = {}
+						context['photos'][k]['success'] = True
+						context['photos'][k]['message'] = _('Photo already exists in Ajapaik')
 			else:
 				print(upload_form.errors)
-				context["photos"][k] = {}
-				context["photos"][k]["error"] = _("Error uploading file: %s (%s)" % (upload_form.errors, imageUrl))
+				context['photos'][k] = {}
+				context['photos'][k]['error'] = _('Error uploading file: %s (%s)' % (upload_form.errors, imageUrl))
 
 		if general_albums:
 			for ga in general_albums:
 				requests.post(
 					'https://graph.facebook.com/v2.5/?id='+ (request.build_absolute_uri(reverse('game'))
-					+ "?album=" + str(ga.id))
-					+ "&scrape=true"
+					+ '?album=' + str(ga.id))
+					+ '&scrape=true'
 				)
 		for cp in all_curating_points:
 			total_points_for_curating += cp.points
-		context["total_points_for_curating"] = total_points_for_curating
+		context['total_points_for_curating'] = total_points_for_curating
 		if len(general_albums) > 0:
 			for album in general_albums:
 				album.save()
@@ -2356,13 +2356,13 @@ def curator_photo_upload_handler(request):
 					album.subalbum_of.save()
 	else:
 		if not selection or len(selection) == 0:
-			error = _("Please add photos to your album")
+			error = _('Please add photos to your album')
 		else:
-			error = _("Not enough data submitted")
+			error = _('Not enough data submitted')
 		context = {
-			"error": error
+			'error': error
 		}
-	return HttpResponse(json.dumps(context), content_type="application/json")
+	return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 def update_like_state(request):
@@ -2408,7 +2408,7 @@ def update_like_state(request):
 			p.latest_like = None
 		p.light_save()
 
-	return HttpResponse(json.dumps(context), content_type="application/json")
+	return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 @user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
@@ -2719,12 +2719,12 @@ def photo_upload_choice(request):
 	return render(request, 'photo_upload_choice.html', context)
 
 def compare_all_photos(request, photo_id=None, photo_id_2=None):
-	return compare_photos_generic(request,photo_id,photo_id_2,"compare-all-photos", True)
+	return compare_photos_generic(request,photo_id,photo_id_2,'compare-all-photos', True)
 
 def compare_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2)
 
-def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compare-photos", compareAll = False):
+def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compare-photos', compareAll = False):
 	profile = request.get_user().profile
 	similar_photos = None
 	if (photo_id is None or photo_id_2 is None):
@@ -2762,7 +2762,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view="compar
 		else:
 			next_pair = None
 	if next_pair is None:
-		next_action = request.build_absolute_uri(reverse("photo", args=(photo_obj.id,photo_obj.get_pseudo_slug())))
+		next_action = request.build_absolute_uri(reverse('photo', args=(photo_obj.id,photo_obj.get_pseudo_slug())))
 	else:
 		next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id,next_pair.to_photo.id)))
 
@@ -2952,10 +2952,6 @@ class DeleteComment(View):
 			'status': 200
 		})
 
-
-################################################################################
-
-
 def privacy(request):
 	return render(request, 'privacy.html')
 
@@ -2964,10 +2960,9 @@ def terms(request):
 	return render(request, 'terms.html')
 
 
-
-#################################################################################
 def me(request):
 	return redirect('user', user_id=request.get_user().profile.id)
+
 
 def user(request, user_id):
 	current_profile = request.get_user().profile
@@ -3009,7 +3004,7 @@ def user(request, user_id):
 		'datings': datings_qs.count(),
 		'face_annotations': face_annotations_qs.count(),
 		'face_annotations_pictures': face_annotations_pictures_qs.count(),
-		'favorites_link': "/?order1=time&order2=added&page=1&myLikes=1",
+		'favorites_link': '/?order1=time&order2=added&page=1&myLikes=1',
 		'geotag_confirmations': geotag_confirmations_qs.count(),
 		'geotagged_pictures': geotags_qs.count(),
 		'is_current_user': is_current_user,
@@ -3018,7 +3013,7 @@ def user(request, user_id):
 		'photolikes': photolikes_qs.count(),
 		'profile': profile,
 		'rephotographed_pictures': rephoto_qs.count(),
-		'rephotos_link': "/photos/?rephotosBy=" + str(profile.user.id) + "&order1=time&order2=rephotos",
+		'rephotos_link': '/photos/?rephotosBy=' + str(profile.user.id) + '&order1=time&order2=rephotos',
 		'rephotos': rephoto_qs.count(),
 		'similar_pictures': similar_pictures_qs.count(),
 		'transcriptions': transcriptions_qs.count(),
