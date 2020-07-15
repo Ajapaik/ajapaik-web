@@ -2348,15 +2348,15 @@ msgstr "Supprimer l’annotation"
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr "estonien"
+msgstr "Estonien"
 
 #: ajapaik/settings/default.py:75
 msgid "English"
-msgstr "anglais"
+msgstr "Anglais"
 
 #: ajapaik/settings/default.py:76
 msgid "Finnish"
-msgstr "finnois"
+msgstr "Finnois"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"

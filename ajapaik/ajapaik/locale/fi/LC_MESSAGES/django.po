@@ -2346,15 +2346,15 @@ msgstr "Poista merkintä"
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr "viro"
+msgstr "Viro"
 
 #: ajapaik/settings/default.py:75
 msgid "English"
-msgstr "englanti"
+msgstr "Englanti"
 
 #: ajapaik/settings/default.py:76
 msgid "Finnish"
-msgstr "suomi"
+msgstr "Suomi"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"

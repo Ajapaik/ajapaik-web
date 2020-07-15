@@ -2342,23 +2342,23 @@ msgstr "Kustuta annotatsioon"
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr "eesti"
+msgstr "Eesti"
 
 #: ajapaik/settings/default.py:75
 msgid "English"
-msgstr "inglise"
+msgstr "Inglise"
 
 #: ajapaik/settings/default.py:76
 msgid "Finnish"
-msgstr "soome"
+msgstr "Soome"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"
-msgstr "rootsi"
+msgstr "Rootsi"
 
 #: ajapaik/settings/default.py:78
 msgid "Russian"
-msgstr "vene"
+msgstr "Vene"
 
 #: ajapaik/settings/default.py:79
 msgid "French"

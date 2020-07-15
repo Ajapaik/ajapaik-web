@@ -2358,11 +2358,11 @@ msgstr "Finsk"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"
-msgstr "svensk"
+msgstr "Svensk"
 
 #: ajapaik/settings/default.py:78
 msgid "Russian"
-msgstr "russisk"
+msgstr "Russisk"
 
 #: ajapaik/settings/default.py:79
 msgid "French"
