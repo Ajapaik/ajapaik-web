@@ -1,11 +1,12 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
 from django import forms
-from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.utils.translation import activate, get_language_info, ugettext_lazy as _
 
 from dal import autocomplete
 
@@ -419,6 +420,32 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['description'].label = _('Description')
         self.fields['is_public'].label = _('Is public')
         self.fields['open'].label = _('Is open')
+
+class UserSettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('preferred_language', 'newsletter_consent')
+        languages = settings.LANGUAGES
+        translated_languages = []
+        for language in languages:
+            li = get_language_info(language[0])
+            translated_languages.append((language[0], (li['name_local'].capitalize())))
+        labels = {
+            'preferred_language': _('My preferred language is'),
+            'newsletter_consent': _('I wish to receive the newsletter')
+        }
+        widgets = {
+            'preferred_language': forms.Select(choices=translated_languages),
+            'newsletter_consent': forms.Select(choices=[(True, _('Yes')),(False, _('No'))]),
+        }
+
+    def clean(self):
+        super(UserSettingsForm, self).clean()
+        if not self.cleaned_data.get('preferred_language'):
+            self.errors['preferred_language'] = [_('Please specify your prefered language')]
+        if self.cleaned_data.get('newsletter_consent') is None:
+            self.errors['newsletter_consent'] = [_('Please specify whether you would like to receive the newsletter')]
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
     albums = forms.ModelChoiceField(

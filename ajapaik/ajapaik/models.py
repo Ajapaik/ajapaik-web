@@ -1216,6 +1216,8 @@ class Profile(Model):
     score_rephoto = PositiveIntegerField(default=0, db_index=True)
     score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
+    newsletter_consent = BooleanField(null=True)
+    preferred_language = CharField(max_length=8, null=True, blank=True)
 
     class Meta:
         db_table = 'project_profile'
@@ -1323,6 +1325,12 @@ class Profile(Model):
             if p.points:
                 all_time_score += p.points
         self.score = all_time_score
+    
+    def get_preferred_language(self):
+        if not self.preferred_language:
+            return settings.LANGUAGES[0][0]
+        else:
+            return self.preferred_language
 
 class Source(Model):
     name = CharField(max_length=255)
@@ -1336,6 +1344,13 @@ class Source(Model):
     class Meta:
         db_table = 'project_source'
 
+class ProfileMergeToken(Model):
+    token = CharField(max_length=36)
+    created = DateTimeField(auto_now_add=True)
+    used = DateTimeField(null=True, blank=True)
+    profile = ForeignKey('Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
+    source_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_from_profile', on_delete=CASCADE)
+    target_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_into_profile', on_delete=CASCADE)
 
 class Device(Model):
     camera_make = CharField(null=True, blank=True, max_length=255)

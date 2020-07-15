@@ -22,7 +22,7 @@ def migrate_users(apps, schema_editor):
     ### Moving contribution data from duplicating social users to email
     ### registered user.
     ############################################################################
-    # Users registerd with email. Users which have email but haven't google or
+    # Users registered with email. Users which have email but haven't google or
     # Facebook id.
     email_users = User.objects \
         .filter(
@@ -40,7 +40,7 @@ def migrate_users(apps, schema_editor):
         verified = True
         if hasattr(email_user, 'registrationprofile'):
             # If we have instance of RegistrationProfile model. We use it to
-            # know did email was activated.
+            # know if email was activated.
             verified = email_user.registrationprofile.activated
         try:
             with transaction.atomic():

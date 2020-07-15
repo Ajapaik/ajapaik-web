@@ -26,10 +26,8 @@
             {% if request.user.profile.is_legit %}
               <div class='allauth-menu'>
                 <strong>{% trans "Menu" %} :</strong><br>
-                  <a href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a><br>
                   <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a><br>
-                  <a href="{% url 'account_change_password' %}">{% trans "Change password" %}</a><br>
-                  <a href="{% url 'socialaccount_connections' %}">{% trans "Socialaccount connections" %}</a><br>
+                  <a href="{% url 'user_settings' %}">{% trans "User settings" %}</a><br>
                   <a href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
               </div>
             {% endif %}

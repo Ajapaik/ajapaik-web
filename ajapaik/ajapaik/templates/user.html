@@ -43,11 +43,10 @@
                 </div>
             {% endif %}
             {% if request.user.profile.is_legit %}
-                <a class="w-100" href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a>
-                <br>
-                <a class="w-100" href="{% url 'account_change_password' %}">{% trans "Change password" %}</a>
-                <br><br>
                 <div>
+                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>                    
+                </div>
+                <div class="mt-2">
                     <a class="btn btn-secondary" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
                 </div>
             {% endif %}

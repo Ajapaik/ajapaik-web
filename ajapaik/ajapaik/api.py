@@ -1,6 +1,7 @@
 # coding=utf-8
 import logging
 import sys
+import datetime
 import time
 import io
 import re
@@ -24,6 +25,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
@@ -32,6 +35,7 @@ from haystack.query import SearchQuerySet
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
     authentication_classes, parser_classes
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -51,9 +55,8 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
-from django.utils.decorators import method_decorator
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.utils import merge_profiles
 
 
 log = logging.getLogger(__name__)
@@ -1576,3 +1579,50 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
                 return JsonResponse({'message': _('Transcription feedback added, thank you!')})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class UserSettings(AjapaikAPIView):
+    '''
+    API endpoint for saving user settings
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.preferred_language = request.POST['preferredLanguage']
+            profile.newsletter_consent = request.POST['newsletterConsent']
+            profile.save()
+            return JsonResponse({'message': _('User settings have been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class MergeProfiles(AjapaikAPIView):
+    '''
+    API endpoint for merging two users' points, photos, annotations, datings, etc..
+    '''
+    def post(self, request, format=None):
+        reverse = request.POST['reverse']
+        token = request.POST['token']
+        if token is None:
+            return JsonResponse({'error': _('Required parameter, token is missing')}, status=400)
+        profileMergeToken = ProfileMergeToken.objects.filter(token=token).first()
+        if profileMergeToken is None:
+            return JsonResponse({'error': _('Invalid token')}, status=401)
+        if profileMergeToken.used is not None or (profileMergeToken.created < (timezone.now() - datetime.timedelta(hours=1))):
+            return JsonResponse({'error': _('Expired token')}, status=401)
+        if request.user and request.user.profile and request.user.profile.is_legit():
+            if request.user.profile.id is not profileMergeToken.profile.id:
+                if reverse == 'true':
+                    merge_profiles(request.user.profile, profileMergeToken.profile)
+                    profileMergeToken.source_profile = request.user.profile
+                    profileMergeToken.target_profile = profileMergeToken.profile
+                else:
+                    merge_profiles(profileMergeToken.profile, request.user.profile)
+                    login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
+                    profileMergeToken.source_profile = profileMergeToken.profile
+                    profileMergeToken.target_profile = request.user.profile
+                profileMergeToken.used = datetime.datetime.now()
+                profileMergeToken.save()
+                return JsonResponse({'message': _('All contributions from the previous account were added to current')})
+            else:
+                return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
+        else:
+            return JsonResponse({'error': _('Please login with an account that is registered')}, status=401)

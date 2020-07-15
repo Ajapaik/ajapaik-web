@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div style="height: 200px;">
+    {% if profile.fb_id %}
+        <img class="profile-picture" src="https://graph.facebook.com/v2.5/{{ profile.fb_id }}/picture?type=large"
+            alt="{% trans "User Facebook photo" %}"/>
+    {% elif profile.google_plus_picture %}
+        <img class="profile-picture" src="{{ profile.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
+    {% else %}
+        <i class="ajapaik-user-icon material-icons notranslate">account_box</i>
+    {% endif %}
+</div>
+<h3><a href="{% url 'user' profile.id %}">{{ profile.get_display_name }}</a></h3>
+{% if social_accounts %}
+    <b>{% trans "This account is connected to:" %}</b>
+    <ul>
+        {% for account in social_accounts.all %}
+            <li>{{ account.provider|title }}: {% if account.provider == 'facebook' %}{{ account.extra_data.name }}{% else %}{{ account.extra_data.email }}{% endif %}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <b>{% trans "This account is not connected to any other" %}</b></br>
+{% endif %}

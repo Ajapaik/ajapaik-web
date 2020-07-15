@@ -31,8 +31,8 @@ from django_comments_xtd import urls as dcxtd_urls
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
     url(r'^difficulty-feedback/', views.difficulty_feedback, name='difficulty_feedback'),
-    url(r'^geotag/add/', views.geotag_add, name='geotag_add'),
-    url(r'^geotag/confirm/', views.geotag_confirm, name='geotag_confirm'),
+    url(r'^geotag/add/$', views.geotag_add, name='geotag_add'),
+    url(r'^geotag/confirm/$', views.geotag_confirm, name='geotag_confirm'),
     url(r'^general-info-modal-content/$', views.get_general_info_modal_content, name='general_info_modal_content'),
     url(r'^info-modal-content/$', views.get_album_info_modal_content, name='info_modal_content'),
     url(r'^ajapaikaja/$', views.game, name='game'),
@@ -114,7 +114,10 @@ urlpatterns = [
     url(r'^compare-all-photos/$',views.compare_all_photos, name='compare-all-photos'),
     url(r'^compare-all-photos/(?P<photo_id>\d+)/(?P<photo_id_2>\d+)/$',views.compare_all_photos, name='compare-all-photos'),
     url(r'^me/$',views.me, name='me'),
-    url(r'^user/(?P<user_id>\d+)/$',views.user, name='user')
+    url(r'^user/(?P<user_id>\d+)/$',views.user, name='user'),
+    url(r'^user/settings/$',views.user_settings , name='user_settings'),
+     url(r'^user/settings-modal/$',views.user_settings_modal , name='user_settings_modal'),
+    url(r'^user/merge-accounts/$',views.merge_accounts , name='merge_accounts'),
 ]
 
 urlpatterns += [
@@ -143,8 +146,10 @@ urlpatterns += [
     url(r'^api/v1/photos/search/user-rephotos/$', api.UserRephotosSearch.as_view()),
     url(r'^api/v1/photos/similar/$', api.SubmitSimilarPhotos.as_view(), name='api_submit_similarity'),
     url(r'^api/v1/transcriptions/(?P<photo_id>\d+)/$', api.Transcriptions.as_view(), name='api_transcriptions'),
-    url(r'^api/v1/transcriptions/', api.Transcriptions.as_view(), name='api_submit_transcription'),
-    url(r'^api/v1/transcription-feedback/', api.SubmitTranscriptionFeedback.as_view(), name='api_confirm_transcription')
+    url(r'^api/v1/transcriptions/$', api.Transcriptions.as_view(), name='api_submit_transcription'),
+    url(r'^api/v1/transcription-feedback/$', api.SubmitTranscriptionFeedback.as_view(), name='api_confirm_transcription'),
+    url(r'^api/v1/user-settings/$', api.UserSettings.as_view(), name='api_submit_user_settings'),
+    url(r'^api/v1/merge-profiles/$', api.MergeProfiles.as_view(), name='api_merge_users')
 ]
 
 urlpatterns += [
@@ -170,6 +175,9 @@ sitemaps = {
 
 urlpatterns += [
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
+    url(r'^accounts/email/$', views.MyEmailView.as_view(), name="account_email"),
+    url(r'^accounts/password/change/$', views.MyPasswordChangeView.as_view(), name="account_change_password"),
+    url(r'^accounts/social/connections/$', views.MyConnectionsView.as_view(), name="socialaccount_connections"),
     url(r'^accounts/', include(allauth_urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^admin_tools/', include(admin_urls)),

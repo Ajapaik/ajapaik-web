@@ -20,8 +20,14 @@ import requests
 from html import unescape
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
+from allauth.account.forms import AddEmailForm, ChangePasswordForm
+from allauth.account.views import EmailView, PasswordChangeView
+from allauth.socialaccount.forms import DisconnectForm
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.views import ConnectionsView
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
@@ -31,7 +37,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse, JsonResponse
 from django.http.multipartparser import MultiPartParser
@@ -53,6 +59,7 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 from requests import get
+from uuid import uuid4
 
 from ajapaik.ajapaik.curator_drivers.common import CuratorSearchForm
 from ajapaik.ajapaik.curator_drivers.finna import FinnaDriver
@@ -66,11 +73,11 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
 	SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
 	AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
-	UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, CuratorWholeSetAlbumsSelectionForm, \
-	EditCommentForm
+	UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, UserSettingsForm, \
+	EditCommentForm, CuratorWholeSetAlbumsSelectionForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
-	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess
+	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess, ProfileMergeToken
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
@@ -3022,7 +3029,101 @@ def user(request, user_id):
 
 	return render(request, 'user.html', context)
 
-#################################################################################
+def user_settings_modal(request):
+	form = None
+	if (hasattr(request.user, 'profile')):
+		profile = request.user.profile
+		form = UserSettingsForm(data={
+			'preferred_language': request.user.profile.preferred_language,
+			'newsletter_consent': request.user.profile.newsletter_consent
+		})
+	context = {
+		'form': form,
+		'isModal': modal is not None and modal == 'true'
+	}
+
+	return render(request, 'user_settings_modal_content.html', context)
+
+def user_settings(request):
+	context = {}
+	token = request.GET.get('token')
+	profile = None
+	form = None
+	invalid = False
+	initial = False
+	if (hasattr(request.user, 'profile')):
+		profile = request.user.profile
+		context['profile'] = profile
+		form = UserSettingsForm(data={
+			'preferred_language': profile.preferred_language,
+			'newsletter_consent': profile.newsletter_consent
+		})
+	context['form'] = form
+
+	if token is None:
+		if profile and profile.is_legit():
+			token = ProfileMergeToken(token=str(uuid4()), profile=profile)
+			token.save()
+		initial = True
+	else:
+		token = ProfileMergeToken.objects.filter(token=token, used=None, created__gte=datetime.date.today() - datetime.timedelta(hours=1)).first()
+		if token is None:
+			invalid = True
+			if profile and profile.is_legit():
+				token = ProfileMergeToken(token=str(uuid4()), profile=profile)
+				token.save()
+			else:
+				context['next'] = request.path
+		else:
+			context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
+			context['link'] = reverse('user', args=(token.profile.id,))
+	if token and token.token:
+		context['next'] = request.path + '?token=' + token.token
+	context['me'] = reverse('me')
+	context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
+	context['token'] = token
+	context['email_form'] = AddEmailForm()
+	context['password_form'] = ChangePasswordForm()
+	context['invalid'] = invalid
+	context['initial'] = initial
+	if profile:
+		context['show_accordion'] = not invalid and profile and profile.is_legit and not initial
+		context['social_account_form'] = DisconnectForm(request=request)
+
+	return render(request, 'user_settings.html', context)
+
+
+def merge_accounts(request):
+	context = {}
+	token = request.GET.get('token')
+	if (hasattr(request.user, 'profile')):
+		context['profile'] = request.user.profile
+	if token is None:
+		if context['profile'] and request.user.profile.is_legit():
+			token = ProfileMergeToken(token=str(uuid4()), profile=request.user.profile)
+			token.save()
+		context['initial'] = True
+	else:
+		token = ProfileMergeToken.objects.filter(token=token, used=None, created__gte=datetime.date.today() - datetime.timedelta(hours=1)).first()
+		if token is None:
+			context['invalid'] = True
+			if context['profile'] and request.user.profile.is_legit():
+				token = ProfileMergeToken(token=str(uuid4()), profile=request.user.profile)
+				token.save()
+			else:
+				context['next'] = request.path
+		else:
+			context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
+			context['link'] = reverse('user', args=(token.profile.id,))
+	if token and token.token:
+		context['next'] = request.path + '?token=' + token.token
+	context['me'] = reverse('me')
+	context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
+	context['token'] = token
+
+	return render(request, 'merge_accounts.html', context)
+
+
 def geotaggers_modal(request, photo_id):
 	limit = request.GET.get('limit')
 	if limit is not None and limit.isdigit():
@@ -3045,3 +3146,12 @@ def geotaggers_modal(request, photo_id):
 		'geotaggers' : geotaggers
 	}
 	return render(request, '_geotaggers_modal_content.html', context)
+
+class MyPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    success_url = reverse_lazy('user_settings')
+
+class MyConnectionsView(LoginRequiredMixin, ConnectionsView):
+    success_url = reverse_lazy('user_settings')
+
+class MyEmailView(LoginRequiredMixin, EmailView):
+    success_url = reverse_lazy('user_settings')
