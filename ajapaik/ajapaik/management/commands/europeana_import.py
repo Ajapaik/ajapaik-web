@@ -12,8 +12,8 @@ from ajapaik.ajapaik.models import Area, Album, Source, Photo, AlbumPhoto
 
 # TODO: Old API, remake?
 class Command(BaseCommand):
-    help = "Will download data from Europeana"
-    args = "query geoname target_album text_language"
+    help = 'Will download data from Europeana'
+    args = 'query geoname target_album text_language'
 
     @staticmethod
     def _resource_already_exists(provider=None, identifier=None):
@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
     def query_europeana(self, query_term, start=1, size=96):
         qf_buf = []
-        qf_buf.append("TYPE:IMAGE")
+        qf_buf.append('TYPE:IMAGE')
         arguments = {
             'wskey': settings.EUROPEANA_API_KEY,
             'query': query_term,
@@ -49,8 +49,8 @@ class Command(BaseCommand):
         return results
 
     def handle(self, *args, **options):
-        self.query_url = "http://europeana.eu/api/v2/search.json"
-        self.resource_url = "http://europeana.eu/api/v2/record"
+        self.query_url = 'http://europeana.eu/api/v2/search.json'
+        self.resource_url = 'http://europeana.eu/api/v2/record'
         query = args[0]
         geoname = args[1]
         album_name = args[2]
@@ -70,30 +70,30 @@ class Command(BaseCommand):
             album = new_album
         translation.activate(text_language)
         query_result = self.query_europeana(query)
-        item_count = int(query_result["itemsCount"])
+        item_count = int(query_result['itemsCount'])
         ret = []
         for i in xrange(0, item_count):
-            if "dataProvider" in query_result["items"][i] and "id" in query_result["items"][i]:
-                if not self._resource_already_exists(query_result["items"][i]["dataProvider"][0],
-                                                     query_result["items"][i]["id"]):
+            if 'dataProvider' in query_result['items'][i] and 'id' in query_result['items'][i]:
+                if not self._resource_already_exists(query_result['items'][i]['dataProvider'][0],
+                                                     query_result['items'][i]['id']):
                     new_photo = Photo(
                         area=area,
-                        source=Source.objects.get(description=query_result["items"][i]["dataProvider"][0]),
-                        source_key=query_result["items"][i]["id"],
-                        licence="Public domain"
+                        source=Source.objects.get(description=query_result['items'][i]['dataProvider'][0]),
+                        source_key=query_result['items'][i]['id'],
+                        licence='Public domain'
                     )
-                    if "edmIsShownAt" in query_result["items"][i]:
-                        new_photo.source_url = query_result["items"][i]["edmIsShownAt"][0]
-                    if "edmAgentLabel" in query_result["items"][i]:
-                        new_photo.author = query_result["items"][i]["edmAgentLabel"][0]["def"]
-                    if "title" in query_result["items"][i]:
-                        new_photo.description = query_result["items"][i]["title"][0]
+                    if 'edmIsShownAt' in query_result['items'][i]:
+                        new_photo.source_url = query_result['items'][i]['edmIsShownAt'][0]
+                    if 'edmAgentLabel' in query_result['items'][i]:
+                        new_photo.author = query_result['items'][i]['edmAgentLabel'][0]['def']
+                    if 'title' in query_result['items'][i]:
+                        new_photo.description = query_result['items'][i]['title'][0]
                     opener = build_opener()
-                    opener.addheaders = [("User-Agent",
-                                          "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                    opener.addheaders = [('User-Agent',
+                                          'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
                     try:
-                        img_response = opener.open(query_result["items"][i]["edmIsShownBy"][0])
-                        new_photo.image.save("europeana.jpg", ContentFile(img_response.read()))
+                        img_response = opener.open(query_result['items'][i]['edmIsShownBy'][0])
+                        new_photo.image.save('europeana.jpg', ContentFile(img_response.read()))
                         new_photo.save()
                         ap = AlbumPhoto(album=album, photo=new_photo)
                         ap.save()

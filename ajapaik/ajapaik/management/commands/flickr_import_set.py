@@ -58,10 +58,10 @@ class Command(BaseCommand):
                 try:
                     image_url = image_url_template % (photo['farm'], photo['server'], photo['id'], photo['secret'])
                     opener = build_opener()
-                    opener.addheaders = [("User-Agent",
-                                          "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
+                    opener.addheaders = [('User-Agent',
+                                          'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
                     img_response = opener.open(image_url)
-                    new_photo.image.save("ceric.jpg", ContentFile(img_response.read()))
+                    new_photo.image.save('ceric.jpg', ContentFile(img_response.read()))
                     new_photo.save()
                     if photo['latitude'] and photo['longitude']:
                         source_geotag = GeoTag(
@@ -84,6 +84,6 @@ class Command(BaseCommand):
                         album.cover_photo = new_photo
                         album.light_save()
                 except:
-                    # print "Problem loading image %s" % photo['id']
+                    # print 'Problem loading image %s' % photo['id']
                     continue
         album.save()

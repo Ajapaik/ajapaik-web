@@ -11,18 +11,18 @@ from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 
 CHILD, ADULT, ELDERLY, UNKNOWN, NOT_APPLICABLE = range(5)
 AGE = (
-    (CHILD, _("Child")),
-    (ADULT, _("Adult")),
-    (ELDERLY, _("Elderly")),
-    (UNKNOWN, _("Unknown")),
-    (NOT_APPLICABLE, _("Not Applicable"))
+    (CHILD, _('Child')),
+    (ADULT, _('Adult')),
+    (ELDERLY, _('Elderly')),
+    (UNKNOWN, _('Unknown')),
+    (NOT_APPLICABLE, _('Not Applicable'))
 )
 FEMALE, MALE, UNKNOWN, NOT_APPLICABLE = range(4)
 GENDER = (
     (FEMALE, _('Female')),
     (MALE, _('Male')),
-    (UNKNOWN, _("Unknown")),
-    (NOT_APPLICABLE, _("Not Applicable"))
+    (UNKNOWN, _('Unknown')),
+    (NOT_APPLICABLE, _('Not Applicable'))
 )
 
 class FaceRecognitionRectangle(models.Model):
@@ -78,25 +78,25 @@ class FaceRecognitionRectangle(models.Model):
         lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
         lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
         lastGuessesByOtherUsers = lastGuesses.exclude(guesser_id=profile.id)
-        if gender == "SKIP":
+        if gender == 'SKIP':
             gender = subject.subject_consensus.gender
-        if gender == "FEMALE":
+        if gender == 'FEMALE':
             gender = 0
-        if gender == "MALE":
+        if gender == 'MALE':
             gender = 1
-        if gender == "UNSURE" or gender == "UNKNOWN" or gender == "":
+        if gender == 'UNSURE' or gender == 'UNKNOWN' or gender == '':
             gender = 2
-        if gender == "NOT_APPLICABLE":
+        if gender == 'NOT_APPLICABLE':
             gender = 3
-        if age == "CHILD":
+        if age == 'CHILD':
             age = 0
-        if age == "ADULT":
+        if age == 'ADULT':
             age = 1
-        if age == "ELDERLY":
+        if age == 'ELDERLY':
             age = 2
-        if age == "UNSURE" or age == "UNKNOWN" or age == "":
+        if age == 'UNSURE' or age == 'UNKNOWN' or age == '':
             age = 3
-        if age == "NOT_APPLICABLE":
+        if age == 'NOT_APPLICABLE':
             age = 4
         newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = subject, guesser = profile, gender = gender, age = age)
         newGuess.save()
@@ -116,8 +116,8 @@ class FaceRecognitionRectangle(models.Model):
                 sumAge = int(str(age), 10)
                 guessCountAge = 1
             unknowns = {
-                "age": 0,
-                "gender": 0
+                'age': 0,
+                'gender': 0
             }
             ageGuesses = []
             genderGuesses = []
@@ -164,8 +164,8 @@ class FaceRecognitionRectangle(models.Model):
         return points
 
 class FaceRecognitionRectangleSubjectDataGuess(models.Model):
-    face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name="face_recognition_rectangle")
-    guesser = models.ForeignKey(Profile, on_delete=CASCADE, related_name="subject_data_guesser")
+    face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_rectangle')
+    guesser = models.ForeignKey(Profile, on_delete=CASCADE, related_name='subject_data_guesser')
     gender = models.PositiveSmallIntegerField(choices=GENDER, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)

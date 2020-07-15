@@ -35,8 +35,8 @@ class EuropeanaDriver(object):
         }
 
         url=re.search('https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|\#|$)',url).group(1)
-        json_url="https://www.europeana.eu/api/v2/" + url + ".json"
-        record_url="https://www.europeana.eu/portal/" + url +".html"
+        json_url='https://www.europeana.eu/api/v2/' + url + '.json'
+        record_url='https://www.europeana.eu/portal/' + url +'.html'
         json=loads(get(json_url, {'wskey':settings.EUROPEANA_API_KEY}).text)
 
         print(json_url)
@@ -47,7 +47,7 @@ class EuropeanaDriver(object):
         title = None
         id = None
         description = None
-        authors=""
+        authors=''
         langs = ['def', 'en', 'fi', 'ee', 'se']
 
 
@@ -76,11 +76,11 @@ class EuropeanaDriver(object):
                     description = pp['dcDescription']
 
                 if 'dcCreator' in pp:
-                    if 'http' not in ", ".join(pp['dcCreator']['def']):
+                    if 'http' not in ', '.join(pp['dcCreator']['def']):
                         authors = pp['dcCreator']
 
                 if 'dcDate' in pp and 'def' in pp['dcDate']:
-                    date = pp['dcDate']['def'][0].replace("start=", "").replace(";end="," - ")
+                    date = pp['dcDate']['def'][0].replace('start=', '').replace(';end=',' - ')
 
             if 'places' in d:
                 for place in d['places']:
@@ -115,7 +115,7 @@ class EuropeanaDriver(object):
             response['pages']=1
 
         print(json)
-        print("---------------")
+        print('---------------')
         print(response)
         return response
 
@@ -124,8 +124,8 @@ class EuropeanaDriver(object):
         page_count = 0
         total_hits = 0
         titles = []
-        petscan_url=""
-        outlinks_page=""
+        petscan_url=''
+        outlinks_page=''
 
         response= {
             'titles': titles,
@@ -188,39 +188,39 @@ class EuropeanaDriver(object):
                 if 'date' in p:
                     date=p['date']
 
-                title=""
-                description=""
+                title=''
+                description=''
 
                 if 'dcDescriptionLangAware' in p:
-                    prefix=""
+                    prefix=''
                     for lang in titlelangs:
                         if lang in p['dcDescriptionLangAware'] and p['dcDescriptionLangAware']:
                             for desc in p['dcDescriptionLangAware'][lang]:
                                 if len(desc)>3 and desc not in description:
                                     description+=prefix + desc
-                                    prefix=" - "
+                                    prefix=' - '
                             break
 
                 if 'dcTitleLangAware' in p:
-                    prefix=""
+                    prefix=''
                     for lang in titlelangs:
                         if lang in p['dcTitleLangAware']:
                             for titledesc in p['dcTitleLangAware'][lang]:
                                 if len(titledesc)>3 and not titledesc in description and not titledesc in title:
                                     title+=prefix + titledesc
-                                    prefix=" - "
+                                    prefix=' - '
                             break
 
-                if title != "" and title not in description:
-                    title = title + " - " + description
-                elif title=="":
+                if title != '' and title not in description:
+                    title = title + ' - ' + description
+                elif title=='':
                     title=description
 
-                if ('title' in p and (not title or title == "")):
+                if ('title' in p and (not title or title == '')):
                     if isinstance(p['title'], list):
-                        title=", ".join(set(p['title']))
+                        title=', '.join(set(p['title']))
                     elif isinstance(p['title'], dict):
-                        title=", ".join(set(p['title']))
+                        title=', '.join(set(p['title']))
                     else:
                         title=p['title'].strip()
 
@@ -237,10 +237,10 @@ class EuropeanaDriver(object):
 
                 if 'dcCreatorLangAware' in p:
                     for lang in p['dcCreatorLangAware']:
-                        author=", ".join(filter(_filter_out_url, set(p['dcCreatorLangAware'][lang])))
+                        author=', '.join(filter(_filter_out_url, set(p['dcCreatorLangAware'][lang])))
                 elif 'edmAgentLabelLangAware' in p:
                     for lang in p['edmAgentLabelLangAware']:
-                        author=", ".join(set(p['edmAgentLabelLangAware'][lang]))
+                        author=', '.join(set(p['edmAgentLabelLangAware'][lang]))
 
                 if 'edmIsShownBy' in p:
                     for url in p['edmIsShownBy']:
@@ -268,25 +268,25 @@ class EuropeanaDriver(object):
                 if longitude:
                     longitude=longitude[0]
 
-                if not imageUrl or imageUrl =="":
+                if not imageUrl or imageUrl =='':
                     continue
-                if not licenceUrl or licenceUrl =="":
+                if not licenceUrl or licenceUrl =='':
                     continue
-                if not licenceDesc or licenceDesc =="":
+                if not licenceDesc or licenceDesc =='':
                     continue
-                if not title or title =="":
+                if not title or title =='':
                     continue
 
                 transformed_item = {
                     'isEuropeanaResult': True,
                     'cachedThumbnailUrl': thumbnailUrl,
                     'title': title,
-                    'institution': "Europeana / " + institution ,
+                    'institution': 'Europeana / ' + institution ,
                     'imageUrl': imageUrl,
                     'id': p['id'],
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
-                    'urlToRecord': p['guid'].split("?")[0],
+                    'urlToRecord': p['guid'].split('?')[0],
                     'latitude': latitude,
                     'longitude': longitude,
                     'creators':author,
@@ -296,26 +296,26 @@ class EuropeanaDriver(object):
                     'date' : date
                 }
 #            except Exception as e:
-#                print("--------------\nSkipping: " +str(e) , file=sys.stderr)
+#                print('--------------\nSkipping: ' +str(e) , file=sys.stderr)
 #                print(p, file=sys.stderr)
 #                continue
 
 
-            print("DEBUG\n" + p['id'] + "\n" + institution)
+            print('DEBUG\n' + p['id'] + '\n' + institution)
             # External will break when saving the photo
             existing_photo =  Photo.objects.filter(external_id=p['id'], source__description=transformed_item['institution']).first()
             if remove_existing and existing_photo:
-                print("remove existing", file=sys.stderr)
+                print('remove existing', file=sys.stderr)
                 continue
 
             existing_photo =  Photo.objects.filter(source_key=p['id'], source__description=transformed_item['institution']).first()
             if remove_existing and existing_photo:
-                print("remove existing", file=sys.stderr)
+                print('remove existing', file=sys.stderr)
                 continue
 
             existing_photo =  Photo.objects.filter(source_url=transformed_item['urlToRecord']).first()
             if remove_existing and existing_photo:
-                print("remove existing", file=sys.stderr)
+                print('remove existing', file=sys.stderr)
                 continue
 
 

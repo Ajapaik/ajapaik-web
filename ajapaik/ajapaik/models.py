@@ -572,7 +572,7 @@ class Photo(Model):
 
     def do_flip(self):
         # FIXME: Somehow fails silently?
-        photo_path = settings.MEDIA_ROOT + "/" + str(self.image)
+        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
@@ -806,7 +806,7 @@ class Photo(Model):
                     geotag_coord_map[key] = [g]
             if unique_user_geotags:
                 df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
-                coordinates = df[["lon", "lat"]].values
+                coordinates = df[['lon', 'lat']].values
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
@@ -873,8 +873,8 @@ class Photo(Model):
                         self.azimuth_confidence = None
 
 class ImageSimilarity(Model):
-    from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="from_photo")
-    to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="to_photo")
+    from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='from_photo')
+    to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='to_photo')
     confirmed = BooleanField()
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
@@ -975,8 +975,8 @@ class ImageSimilarity(Model):
         return points
 
 class ImageSimilarityGuess(Model):
-    image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name="image_similarity")
-    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name="image_similarity_guesser")
+    image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
+    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_guesser')
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1090,7 +1090,7 @@ class Transcription(Model):
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
-    transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name="transcription")
+    transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name='transcription')
 
 class GeoTag(Model):
     MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG, ANDROIDAPP = range(7)
@@ -1216,6 +1216,7 @@ class Profile(Model):
     score_rephoto = PositiveIntegerField(default=0, db_index=True)
     score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
+
     class Meta:
         db_table = 'project_profile'
 
@@ -1246,7 +1247,7 @@ class Profile(Model):
             return _('Anonymous user')
 
     def __unicode__(self):
-        return u"%s" % (self.get_display_name,)
+        return u'%s' % (self.get_display_name,)
 
     def __str__(self):
         return self.__unicode__()
