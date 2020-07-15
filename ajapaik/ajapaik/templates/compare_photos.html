@@ -81,11 +81,11 @@
             var d = new Date();
             d.setTime(d.getTime() + 86400000);
             document.cookie = 'similarityModalShown=true;expires=' + d + ';path=/'; 
-            $('#ajapaikSimilarImagesTutorialModal').modal();
+            $('#ajapaik-similar-images-tutorial-modal').modal();
         }
 
         $('#close-similar-modal').on('click', function() {
-            $('#ajapaikSimilarImagesTutorialModal').modal('toggle');
+            $('#ajapaik-similar-images-tutorial-modal').modal('toggle');
         });
 
         var height1 = "{{ photo.height }}"

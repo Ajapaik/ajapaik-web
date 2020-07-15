@@ -86,7 +86,7 @@
                             <div id="ajapaik-modal-similar-photo-container" class="float-left">
                                 <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
                                     <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
-                                        class="img-fluid ajapaik-photoview-similar-thumb" id="ajapaik-modal-similar-photo"
+                                        class="img-fluid ajapaik-photoview-thumbnail" id="ajapaik-modal-similar-photo"
                                         {% if similar_photos.all.0.similarity_type == 1 %}
                                         alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
                                         title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
