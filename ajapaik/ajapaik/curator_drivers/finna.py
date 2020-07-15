@@ -20,7 +20,7 @@ def finna_cut_title(title, shortTitle):
     return title[:255]
 
 def finna_add_to_album(photo, target_album):
-    if target_album and target_album != "":
+    if target_album and target_album != '':
         album = Album.objects.filter(name_en=target_album).first()
 
         if not album:
@@ -44,9 +44,9 @@ def finna_find_photo_by_url(record_url, profile):
             # Already in database?
             external_id = m.group(2)
             # Detect old imports where ':' and '+' character is urlencoded
-            external_id_urlencoded_1 = external_id.replace(":", "%3A")
-            external_id_urlencoded_2 = external_id.replace("+", "%2B")
-            external_id_urlencoded_3 = external_id_urlencoded_1.replace("+", "%2B")
+            external_id_urlencoded_1 = external_id.replace(':', '%3A')
+            external_id_urlencoded_2 = external_id.replace('+', '%2B')
+            external_id_urlencoded_3 = external_id_urlencoded_1.replace('+', '%2B')
             photo = Photo.objects.filter(
                 external_id__in=[external_id, external_id_urlencoded_1, external_id_urlencoded_2, external_id_urlencoded_3],
             ).first()
@@ -58,9 +58,9 @@ def finna_find_photo_by_url(record_url, profile):
             m = re.search('hkm\.', record_url)
 
             if photo and m:
-                finna_add_to_album(photo, "Helsinki")
+                finna_add_to_album(photo, 'Helsinki')
             elif photo:
-                finna_add_to_album(photo, "Finland")
+                finna_add_to_album(photo, 'Finland')
 
     return photo
 
@@ -79,7 +79,7 @@ def finna_import_photo(id, profile):
 
     if p and p[0]:
         p = p[0]
-        comma = ", "
+        comma = ', '
 
         if not len(p['images']):
             return None
@@ -107,20 +107,20 @@ def finna_import_photo(id, profile):
 
         title=p.get('title').rstrip()
 
-        summary=""
+        summary=''
         if 'summary' in p:
            for each in p['summary']: 
               if len(each.rstrip())>len(summary):
-                 summary=re.sub("--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$", "", each).rstrip()
+                 summary=re.sub('--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$', '', each).rstrip()
 
         if title in summary:
            description=summary
         elif len(title) < 20:
-           description=title + "; " + summary
+           description=title + '; ' + summary
         else:
            description=title
 
-        address=""
+        address=''
         if 'rawData' in p and 'geographic' in p['rawData']:
            for each in p['rawData']['geographic']: 
               if len(each.rstrip())>len(address):
@@ -146,7 +146,7 @@ def finna_import_photo(id, profile):
 
         source = Source.objects.filter(description=institution).first()
         if not source:
-            #print >> sys.stderr, ('Saving missing source "%s"' % institution)
+            #print >> sys.stderr, ('Saving missing source '%s'' % institution)
             source = Source(
                 name=institution,
                 description=institution
@@ -159,7 +159,7 @@ def finna_import_photo(id, profile):
         external_sub_id = None  # muis_media_id
         if '_' in p['id']:
             external_id = p['id'].split('_')[0]
-            external_sub_id = p["id"].split('_')[1]
+            external_sub_id = p['id'].split('_')[1]
 
         new_photo = Photo(
             user=profile,
@@ -180,11 +180,11 @@ def finna_import_photo(id, profile):
         )
 
         opener = build_opener()
-        opener.addheaders = [("User-Agent",
-                              "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-        img_url = 'https://www.finna.fi' + p['images'][0].replace("size=large", "size=master")
+        opener.addheaders = [('User-Agent',
+                              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+        img_url = 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master')
         img_response = opener.open(img_url)
-        new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
+        new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
         #print >> sys.stderr, ('import_finna_photo saving file')
         new_photo.save()
@@ -240,15 +240,15 @@ class FinnaDriver(object):
                         'year', 'summary', 'rawData'],
             'filter[]': [
                 'free_online_boolean:"1"',
-                #		'~format:"0/Place/"',
-                #		'~format:"0/Image/"',
-                #		'~usage_rights_str_mv:"usage_B"',
+                #		'~format:'0/Place/'',
+                #		'~format:'0/Image/'',
+                #		'~usage_rights_str_mv:'usage_B'',
             ],
 
         }).text)
 
     def transform_response(self, response, remove_existing=False, finna_page=1):
-        description2 = ""
+        description2 = ''
         ids = None
         page_count = 0
         if 'records' in response:
@@ -286,13 +286,13 @@ class FinnaDriver(object):
                             p['latitude'] = lat
                             break
 
-                summary=""
+                summary=''
                 if 'summary' in p:
                    for each in p['summary']: 
                       if len(each.rstrip())>len(summary):
                          summary=each.rstrip()
 
-                address=""
+                address=''
                 if 'rawData' in p and 'geographic' in p['rawData']:
                    for each in p['rawData']['geographic']: 
                       if len(each.rstrip())>len(address):
@@ -328,7 +328,7 @@ class FinnaDriver(object):
                     'institution': institution,
                     'date': p.get('year', None),
                     'cachedThumbnailUrl': 'https://www.finna.fi' + p['images'][0] if len(p['images']) else None,
-                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace("size=large", "size=master") if len(p['images']) else None,
+                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master') if len(p['images']) else None,
                     'urlToRecord': 'https://www.finna.fi' + p['recordPage'],
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),

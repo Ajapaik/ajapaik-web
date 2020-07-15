@@ -9,7 +9,7 @@
      <div id="ajapaik-user-info" class="container-fluid px-3 py-5">
         <div class="mt-4" style="height: 200px;">
             {% if profile.fb_id %}
-                <img class="profile-picture" src="https://graph.facebook.com/v2.5/{{ profile.fb_id }}/picture?type=large"
+                <img class="profile-picture" src="https://graph.facebook.com/v7.0/{{ profile.fb_id }}/picture?type=large"
                     alt="{% trans "User Facebook photo" %}"/>
             {% elif profile.google_plus_picture %}
                 <img class="profile-picture" src="{{ profile.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
@@ -43,11 +43,10 @@
                 </div>
             {% endif %}
             {% if request.user.profile.is_legit %}
-                <a class="w-100" href="{% url 'account_email' %}">{% trans "Change e-mail" %}</a>
-                <br>
-                <a class="w-100" href="{% url 'account_change_password' %}">{% trans "Change password" %}</a>
-                <br><br>
                 <div>
+                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>                    
+                </div>
+                <div class="mt-2">
                     <a class="btn btn-secondary" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
                 </div>
             {% endif %}

@@ -272,9 +272,9 @@ class PublicAlbumAutocomplete(APIView):
 
         result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
         if len(qs) > 0:
-            result = ""
+            result = ''
             for q in qs:
-                result+= "<span data-value=" + str(q.id) + ">" + q.name + "</span>"
+                result+= '<span data-value=' + str(q.id) + '>' + q.name + '</span>'
         return HttpResponse(result, status=200)
 
 class SkipAutocomplete(autocomplete.Select2QuerySetView):
@@ -312,9 +312,9 @@ class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
         for q in qs:
             if q.gender is not None and q.gender > -1:
-                q.name = q.name + ";" + str(q.gender)
+                q.name = q.name + ';' + str(q.gender)
             else:
-                q.name = q.name + ";-1"
+                q.name = q.name + ';-1'
         return qs
 
 class TranscriptionAutocomplete(autocomplete.Select2QuerySetView):

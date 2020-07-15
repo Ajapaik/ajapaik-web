@@ -37,22 +37,22 @@ class CommonsDriver(object):
         page_count = 0
         total_hits = 0
         titles = []
-        petscan_url=""
-        outlinks_page=""
+        petscan_url=''
+        outlinks_page=''
 
         if cleaned_data['fullSearch'].strip().replace('http://', 'https://', ).startswith('https://petscan.wmflabs.org/'):
-            petscan_url=cleaned_data['fullSearch'].strip() + "&format=json"
+            petscan_url=cleaned_data['fullSearch'].strip() + '&format=json'
         elif cleaned_data['fullSearch'].strip().replace('http://', 'https://').startswith('https://commons.wikimedia.org/wiki/Category:'):
             target=re.search('https://commons.wikimedia.org/wiki/Category:(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
-            petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&categories=" +target;
+            petscan_url='https://petscan.wmflabs.org/?psid=10268672&format=json&categories=' +target;
             print(petscan_url)
         elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/'):
             target=re.search('https://commons.wikimedia.org/wiki/(.*?)(\?|\#|$)',cleaned_data['fullSearch']).group(1)
-            petscan_url="https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes=" +target;
+            petscan_url='https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes=' +target;
             outlinks_page=target
             print(petscan_url)
 
-        if petscan_url!="":
+        if petscan_url!='':
             titles_all=[]
             json=loads(get(petscan_url, {}).text)
 
@@ -60,14 +60,14 @@ class CommonsDriver(object):
             offset=self.page_size*(cleaned_data['flickrPage']-1)
             if '*' in json and json['*'][0] and 'a' in json['*'][0] and '*' in json['*'][0]['a']:
                 for p in json['*'][0]['a']['*']:
-                    if p['nstext']=="File":
-                        titles_all.append("File:" + p['title'].strip() )
+                    if p['nstext']=='File':
+                        titles_all.append('File:' + p['title'].strip() )
 
             # Failback. Read imagelinks from html
-            if outlinks_page!="":
-                url="https://commons.wikimedia.org/wiki/" + outlinks_page
+            if outlinks_page!='':
+                url='https://commons.wikimedia.org/wiki/' + outlinks_page
                 html=get(url, {}).text
-                urls=re.findall('(file:.*?\.jpe?g)\"', html, re.IGNORECASE)
+                urls=re.findall('(file:.*?\.jpe?g)\'', html, re.IGNORECASE)
                 for u in urls:
                     u=urllib.parse.unquote(u)
                     if not u in titles_all:
@@ -145,23 +145,23 @@ class CommonsDriver(object):
                         # p['page_id'] maybe from another wiki, so we need to get Wikimedia Commons page_id from imageinfo.
                         existing_photo =  Photo.objects.filter(external_id=pageid, source__description='Wikimedia Commons').first()
                         if remove_existing and existing_photo:
-                            print("continue", file=sys.stderr)
+                            print('continue', file=sys.stderr)
                             continue
 
                         nn=nn+1
-                        title=""
-                        author=""
+                        title=''
+                        author=''
                         description=None
-                        date=""
-                        uploader=""
+                        date=''
+                        uploader=''
                         latitude=None
                         longitude=None
-                        licence=""
-                        licenceDesc=""
-                        licenceUrl=""
-                        recordUrl=""
+                        licence=''
+                        licenceDesc=''
+                        licenceUrl=''
+                        recordUrl=''
                         thumbnailUrl=None
-                        credit=""
+                        credit=''
 
                         pp=imageinfo['query']['pages'][pageid]
                         if 'title' in pp:
@@ -227,21 +227,21 @@ class CommonsDriver(object):
                                     longitude=em['GPSLongitude']['value']
 
                                 if description and description!=title and not title in description:
-                                    title=title + " - " + description
+                                    title=title + ' - ' + description
 
-                        if not author or author =="":
+                        if not author or author =='':
                             continue
 
-                        if not credit or credit =="":
+                        if not credit or credit =='':
                             continue
 
-                        if not licence or licence =="":
+                        if not licence or licence =='':
                             continue
 
-                        if not licenceDesc or licenceDesc =="":
+                        if not licenceDesc or licenceDesc =='':
                             continue
 
-                        if not title or title =="":
+                        if not title or title =='':
                             continue
 
                         try:
@@ -264,7 +264,7 @@ class CommonsDriver(object):
                                 'date':date
                             }
                         except:
-                            print("Skipping: " + p.title, file=sys.stderr)
+                            print('Skipping: ' + p.title, file=sys.stderr)
                             continue
 
                         if existing_photo:
@@ -276,6 +276,6 @@ class CommonsDriver(object):
 #                        print(transformed_item, file=sys.stderr)
                         transformed['result']['firstRecordViews'].append(transformed_item)
 
-        print(nn, " photos found")
+        print(nn, ' photos found')
         transformed = dumps(transformed)
         return transformed

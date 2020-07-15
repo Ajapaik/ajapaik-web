@@ -130,7 +130,7 @@
                         <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row ajapaik-photoview-similar-image-row">
                             <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
-                                    class="img-fluid ajapaik-photoview-similar-thumb"
+                                    class="img-fluid ajapaik-photoview-thumbnail"
                                     {% if similarity.similarity_type == 1 %}
                                     alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
                                     title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
@@ -159,7 +159,7 @@
                     <div class="row ajapaik-no-right-margin-row ajapaik-no-left-margin-row">
                         <a class="w-100" href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
                             <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
-                                class="img-responsive col-xs-12 ajapaik-photoview-rephoto-thumb"
+                                class="img-responsive col-xs-12 ajapaik-photoview-thumbnail"
                                 alt="{{ photo.description }} {% trans "rephoto" %}"
                                 title="{{ photo.description }} {% trans "rephoto" %}"/>
                         </a>
@@ -322,7 +322,6 @@
         var rephotoUploadModal = $('#ajapaik-rephoto-upload-modal'),
             mainPhoto = $('#ajapaik-photoview-main-photo'),
             originalFullscreen = $('#ajapaik-full-screen-image');
-        // $('#ajp-geotagging-container').AjapaikGeotagger();
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
 

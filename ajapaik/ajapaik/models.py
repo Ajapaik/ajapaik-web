@@ -572,7 +572,7 @@ class Photo(Model):
 
     def do_flip(self):
         # FIXME: Somehow fails silently?
-        photo_path = settings.MEDIA_ROOT + "/" + str(self.image)
+        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
@@ -806,7 +806,7 @@ class Photo(Model):
                     geotag_coord_map[key] = [g]
             if unique_user_geotags:
                 df = DataFrame(data=[[x.lon, x.lat] for x in unique_user_geotags], columns=['lon', 'lat'])
-                coordinates = df[["lon", "lat"]].values
+                coordinates = df[['lon', 'lat']].values
                 db = DBSCAN(eps=0.0003, min_samples=1).fit(coordinates)
                 labels = db.labels_
                 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
@@ -873,8 +873,8 @@ class Photo(Model):
                         self.azimuth_confidence = None
 
 class ImageSimilarity(Model):
-    from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="from_photo")
-    to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name="to_photo")
+    from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='from_photo')
+    to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='to_photo')
     confirmed = BooleanField()
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
@@ -975,8 +975,8 @@ class ImageSimilarity(Model):
         return points
 
 class ImageSimilarityGuess(Model):
-    image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name="image_similarity")
-    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name="image_similarity_guesser")
+    image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
+    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_guesser')
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1090,7 +1090,7 @@ class Transcription(Model):
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
-    transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name="transcription")
+    transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name='transcription')
 
 class GeoTag(Model):
     MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG, ANDROIDAPP = range(7)
@@ -1173,7 +1173,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v2.5/me?access_token=%s' % access_token))
+        data = loads(self.url_read('https://graph.facebook.com/v7.0/me?access_token=%s' % access_token))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 
@@ -1216,6 +1216,9 @@ class Profile(Model):
     score_rephoto = PositiveIntegerField(default=0, db_index=True)
     score_recent_activity = PositiveIntegerField(default=0, db_index=True)
 
+    newsletter_consent = BooleanField(null=True)
+    preferred_language = CharField(max_length=8, null=True, blank=True)
+
     class Meta:
         db_table = 'project_profile'
 
@@ -1246,7 +1249,7 @@ class Profile(Model):
             return _('Anonymous user')
 
     def __unicode__(self):
-        return u"%s" % (self.get_display_name,)
+        return u'%s' % (self.get_display_name,)
 
     def __str__(self):
         return self.__unicode__()
@@ -1322,6 +1325,12 @@ class Profile(Model):
             if p.points:
                 all_time_score += p.points
         self.score = all_time_score
+    
+    def get_preferred_language(self):
+        if not self.preferred_language:
+            return settings.LANGUAGES[0][0]
+        else:
+            return self.preferred_language
 
 class Source(Model):
     name = CharField(max_length=255)
@@ -1335,6 +1344,13 @@ class Source(Model):
     class Meta:
         db_table = 'project_source'
 
+class ProfileMergeToken(Model):
+    token = CharField(max_length=36)
+    created = DateTimeField(auto_now_add=True)
+    used = DateTimeField(null=True, blank=True)
+    profile = ForeignKey('Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
+    source_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_from_profile', on_delete=CASCADE)
+    target_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_into_profile', on_delete=CASCADE)
 
 class Device(Model):
     camera_make = CharField(null=True, blank=True, max_length=255)

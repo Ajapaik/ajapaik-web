@@ -13,8 +13,8 @@ from ajapaik.ajapaik.models import Source, Photo, Album, AlbumPhoto, Licence
 
 # This script was made for a single use, review before running
 class Command(BaseCommand):
-    help = "Will download data from Finna"
-    args = "url target_album"
+    help = 'Will download data from Finna'
+    args = 'url target_album'
 
     @staticmethod
     def _set_query_parameter(url, param_name, param_value):
@@ -46,23 +46,23 @@ class Command(BaseCommand):
 
     def _create_photos_from_xml_response(self, xml_response):
         for elem in xml_response:
-            if elem.tag == "docs":
+            if elem.tag == 'docs':
                 if  not self._resource_already_exists(elem):
                     new_photo = Photo(
-                        title=elem.find("title").text,
-                        description=elem.find("title_sort").text,
+                        title=elem.find('title').text,
+                        description=elem.find('title_sort').text,
                         source=Source.objects.get(description=elem.find('institution').text),
-                        source_key=elem.find("identifier").text,
-                        external_id=elem.find("identifier").text,
-                        date_text=getattr(elem.find("main_date_str"), 'text', None),
-                        author=elem.find("author").text,
-                        source_url=elem.find("record_link").text,
+                        source_key=elem.find('identifier').text,
+                        external_id=elem.find('identifier').text,
+                        date_text=getattr(elem.find('main_date_str'), 'text', None),
+                        author=elem.find('author').text,
+                        source_url=elem.find('record_link').text,
                         licence=Licence.objects.filter(url='https://creativecommons.org/about/pdm').first()
                     )
                     opener = build_opener()
-                    opener.addheaders = [("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")]
-                    img_response = opener.open(elem.find("image_links").text)
-                    new_photo.image.save("finna.jpg", ContentFile(img_response.read()))
+                    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+                    img_response = opener.open(elem.find('image_links').text)
+                    new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
                     new_photo.save()
                     ap = AlbumPhoto(album=self.album, photo=new_photo)
                     ap.save()
@@ -86,8 +86,8 @@ class Command(BaseCommand):
         # For testing
         #f = open(ABSOLUTE_PROJECT_ROOT + '/ajapaik/home/management/commands/finna_import_test_xml.xml', 'r')
         #data = etree.fromstring(f.read(), parser=parser)
-        xml_response = data.find("response")
-        number_of_items = int(xml_response.find("numFound").text)
+        xml_response = data.find('response')
+        number_of_items = int(xml_response.find('numFound').text)
         pages_to_get = int(ceil(number_of_items / items_per_page))
         self._create_photos_from_xml_response(xml_response)
         if pages_to_get > 1:
@@ -97,5 +97,5 @@ class Command(BaseCommand):
                 request = Request(url)
                 response = urlopen(request)
                 data = etree.fromstring(response.read(), parser=parser)
-                xml_response = data.find("response")
+                xml_response = data.find('response')
                 self._create_photos_from_xml_response(xml_response)

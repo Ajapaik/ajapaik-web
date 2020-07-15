@@ -275,6 +275,7 @@
 </div>
 {% include "_general_info_modal.html" %}
 {% include "_full_leaderboard_modal.html" %}
+{% include "_user_settings_modal.html" %}
 {% block header %}
     {% include "_header.html" %}
 {% endblock header %}
@@ -357,6 +358,8 @@
             geotaggersListURL = "{% url 'photo_geotaggers' 0 %}",
             submitDatingURL = "{% url 'submit_dating' %}",
             submitTranscriptionURL = "{% url 'api_submit_transcription' %}",
+            userSettingsURL = "{% url 'user_settings' %}",
+            userSettingsModalContentURL = "{% url 'user_settings_modal' %}",
             confirmTranscriptionURL = "{% url 'api_confirm_transcription' %}", 
             infoModalURL = "{% url 'info_modal_content' %}",
             photoUploadModalURL = "{% url 'mapview_photo_upload_modal' %}",
@@ -370,6 +373,24 @@
             userIsSocialConnected = true;
         {% else %}
             userIsSocialConnected = false;
+        {% endif %}
+        {% if request.user.profile and request.user.profile.is_legit and request.user.profile.newsletter_consent == None %}
+            var targetDiv = $('#ajapaik-user-settings-modal > .modal-dialog > .modal-content');
+            if (window.userSettingsModalContentURL && window.location.pathname !== userSettingsURL) {
+                $.ajax({
+                    url: window.userSettingsModalContentURL,
+                    success: function (resp) {
+                        targetDiv.append(resp);
+                        $('#ajapaik-user-settings-modal').modal();
+                    },
+                    error: function () {
+                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
+                    },
+                    complete: function () {
+                        $('#ajapaik-loading-overlay').hide();
+                    }
+                });
+            }
         {% endif %}
     </script>
     {# TODO: We don't need tons of file upload stuff for the small rephoto upload windows #}

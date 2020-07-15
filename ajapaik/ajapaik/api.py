@@ -1,6 +1,7 @@
 # coding=utf-8
 import logging
 import sys
+import datetime
 import time
 import io
 import re
@@ -24,6 +25,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
@@ -32,6 +35,7 @@ from haystack.query import SearchQuerySet
 from rest_framework import authentication, exceptions
 from rest_framework.decorators import api_view, permission_classes, \
     authentication_classes, parser_classes
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -51,9 +55,8 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
-from django.utils.decorators import method_decorator
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.utils import merge_profiles
 
 
 log = logging.getLogger(__name__)
@@ -101,7 +104,7 @@ class Login(APIView):
         '''
         user = authenticate(request=request, email=email, password=password)
         if user is not None and not user.is_active:
-            # We found user but this user is disabled. "authenticate" doesn't
+            # We found user but this user is disabled. 'authenticate' doesn't
             # check is user is disabled(at least in Django 1.8).
             return
         return user
@@ -449,7 +452,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
             '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
         ]
 
-        if album == "1918":
+        if album == '1918':
             finna_filters.append('~era_facet:"1918"')
 
         finna_result_json = requests.get(self.search_url, {
@@ -474,16 +477,16 @@ class FinnaNearestPhotos(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiFinnaNearestPhotosForm(data)
         if form.is_valid():
-            lon = round(form.cleaned_data["longitude"], 4)
-            lat = round(form.cleaned_data["latitude"], 4)
-            query = form.cleaned_data["query"] or ""
-            album = form.cleaned_data["album"] or ""
-            if query == "":
+            lon = round(form.cleaned_data['longitude'], 4)
+            lat = round(form.cleaned_data['latitude'], 4)
+            query = form.cleaned_data['query'] or ''
+            album = form.cleaned_data['album'] or ''
+            if query == '':
                 distance = 0.1
             else:
                 distance = 100000
 
-            if album=="signebrander":
+            if album=='signebrander':
                 return self._get_signe_results(lat, lon, query, user, request)
 
             photos = []
@@ -563,7 +566,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 'foo' : 'bar',
                 'photos': []
             })
-        return HttpResponse(response, content_type="application/json")
+        return HttpResponse(response, content_type='application/json')
 
 
 class AlbumNearestPhotos(AjapaikAPIView):
@@ -577,15 +580,15 @@ class AlbumNearestPhotos(AjapaikAPIView):
         user_profile = user.profile if user.is_authenticated else None 
 
         if form.is_valid():
-            album = form.cleaned_data["id"]
-            nearby_range = form.cleaned_data["range"] or settings.API_DEFAULT_NEARBY_PHOTOS_RANGE
+            album = form.cleaned_data['id']
+            nearby_range = form.cleaned_data['range'] or settings.API_DEFAULT_NEARBY_PHOTOS_RANGE
             ref_location = Point(
-                round(form.cleaned_data["longitude"], 4),
-                round(form.cleaned_data["latitude"], 4),
+                round(form.cleaned_data['longitude'], 4),
+                round(form.cleaned_data['latitude'], 4),
                 srid=4326
             )
-            start = form.cleaned_data["start"] or 0
-            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
+            start = form.cleaned_data['start'] or 0
+            end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
             if album:
                 photos = Photo.objects \
                              .filter(
@@ -651,9 +654,9 @@ class AlbumDetails(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiAlbumStateForm(data)
         if form.is_valid():
-            album = form.cleaned_data["id"]
-            start = form.cleaned_data["start"] or 0
-            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
+            album = form.cleaned_data['id']
+            start = form.cleaned_data['start'] or 0
+            end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
 
             photos = Photo.objects.filter(
                 Q(albums=album)
@@ -685,9 +688,9 @@ class SourceDetails(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiAlbumSourceForm(data)
         if form.is_valid():
-            query = form.cleaned_data["query"]
-            start = form.cleaned_data["start"] or 0
-            end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 1000)
+            query = form.cleaned_data['query']
+            start = form.cleaned_data['start'] or 0
+            end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 1000)
 
             photos = Photo.objects.filter(
                 source_url__contains=query,
@@ -870,6 +873,7 @@ class RephotoUpload(APIView):
                     is_correct=False,
                     geography=geography,
                     photo_flipped=is_rephoto_flipped,
+                    user=user_profile
                 )
                 rephoto_geotag.save()
                 # Investigate why this will always set geotag.is_correct=True 
@@ -1058,8 +1062,8 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 user_profile = user.profile
                 latitude = form.cleaned_data['latitude']
                 longitude = form.cleaned_data['longitude']
-                start = form.cleaned_data["start"] or 0
-                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
+                start = form.cleaned_data['start'] or 0
+                end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
                 ref_location = Point(x=longitude, y=latitude, srid=4326)
                 photos = Photo.objects.filter(likes__profile=user_profile).annotate(distance=Distance(('geography'), ref_location)) \
                          .order_by('distance')[start:end]
@@ -1093,8 +1097,8 @@ class PhotosSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoSearchForm(data)
         if form.is_valid():
-            lon = form.cleaned_data["longitude"] or None
-            lat = form.cleaned_data["latitude"] or None
+            lon = form.cleaned_data['longitude'] or None
+            lat = form.cleaned_data['latitude'] or None
             search_phrase = form.cleaned_data['query']
             rephotos_only = form.cleaned_data['rephotosOnly']
             profile=user.profile if user.is_authenticated else None
@@ -1141,8 +1145,8 @@ class PhotosInAlbumSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiPhotoInAlbumSearchForm(data)
         if form.is_valid():
-            lon = form.cleaned_data["longitude"] or None
-            lat = form.cleaned_data["latitude"] or None
+            lon = form.cleaned_data['longitude'] or None
+            lat = form.cleaned_data['latitude'] or None
             search_phrase = form.cleaned_data['query']
             album = form.cleaned_data['albumId']
             rephotos_only = form.cleaned_data['rephotosOnly']
@@ -1163,7 +1167,7 @@ class PhotosInAlbumSearch(AjapaikAPIView):
 
 
             if lat and lon:
-                print("Sorting by distance");
+                print('Sorting by distance')
                 ref_location = Point(x=lon, y=lat, srid=4326)
                 photos=photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
@@ -1197,8 +1201,8 @@ class UserRephotosSearch(AjapaikAPIView):
         form = forms.ApiUserRephotoSearchForm(data)
         if form.is_valid():
             if user.is_authenticated:
-                lon = form.cleaned_data["longitude"] or None
-                lat = form.cleaned_data["latitude"] or None
+                lon = form.cleaned_data['longitude'] or None
+                lat = form.cleaned_data['latitude'] or None
 
                 search_phrase = form.cleaned_data['query']
                 sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
@@ -1289,12 +1293,12 @@ class WikidocsAlbumsSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumsSearchForm(data)
         if form.is_valid():
-            lon = form.cleaned_data["longitude"]
-            lat = form.cleaned_data["latitude"] 
-            language = form.cleaned_data["language"] or request.LANGUAGE_CODE 
-            query = form.cleaned_data["query"] or ""
-            start = form.cleaned_data["start"] or 0
-            limit = form.cleaned_data["limit"] or 50
+            lon = form.cleaned_data['longitude']
+            lat = form.cleaned_data['latitude'] 
+            language = form.cleaned_data['language'] or request.LANGUAGE_CODE 
+            query = form.cleaned_data['query'] or ''
+            start = form.cleaned_data['start'] or 0
+            limit = form.cleaned_data['limit'] or 50
 
 #            user_profile = user.profile or None
             res = requests.get(self.search_url, {
@@ -1345,13 +1349,13 @@ class WikidocsAlbumSearch(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumSearchForm(data)
         if form.is_valid():
-            lon = form.cleaned_data["longitude"]
-            lat = form.cleaned_data["latitude"] 
-            language = form.cleaned_data["language"] or request.LANGUAGE_CODE 
-            query = form.cleaned_data["query"] or ""
-            id = form.cleaned_data["id"] or ""
-            start = form.cleaned_data["start"] or 0
-            limit = form.cleaned_data["limit"] or 50
+            lon = form.cleaned_data['longitude']
+            lat = form.cleaned_data['latitude'] 
+            language = form.cleaned_data['language'] or request.LANGUAGE_CODE 
+            query = form.cleaned_data['query'] or ''
+            id = form.cleaned_data['id'] or ''
+            start = form.cleaned_data['start'] or 0
+            limit = form.cleaned_data['limit'] or 50
 
             # user_profile = user.profile or None
             res = requests.get(self.search_url, {
@@ -1409,10 +1413,10 @@ class PhotosWithUserRephotos(AjapaikAPIView):
         form = forms.ApiUserRephotosForm(data)
         if form.is_valid():
             if user.is_authenticated:
-                lon = form.cleaned_data["longitude"] or None
-                lat = form.cleaned_data["latitude"] or None
-                start = form.cleaned_data["start"] or 0
-                end = start + (form.cleaned_data["limit"] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
+                lon = form.cleaned_data['longitude'] or None
+                lat = form.cleaned_data['latitude'] or None
+                start = form.cleaned_data['start'] or 0
+                end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS * 2)
 
                 photos = Photo.objects.filter(
                     rephotos__user=user.profile
@@ -1458,8 +1462,8 @@ class SubmitSimilarPhotos(AjapaikAPIView):
         points = 0
         errors = 0
         profile = request.user.profile
-        photos = request.POST['photos'].split(",")
-        photos2 = request.POST['photos'].split(",")
+        photos = request.POST['photos'].split(',')
+        photos2 = request.POST['photos'].split(',')
         confirmed = request.POST['confirmed']
         similarity_type = request.POST['similarity_type']
         if photos is not None:
@@ -1493,14 +1497,14 @@ class Transcriptions(AjapaikAPIView):
         ids = transcriptions.values_list('id', flat=True)
         feedback = TranscriptionFeedback.objects.filter(transcription_id__in=ids)
         for transcription in transcriptions:
-            transcription["feedback_count"] = 0
+            transcription['feedback_count'] = 0
             for fb in feedback:
-                if fb.transcription_id == transcription["id"]:
-                    transcription["feedback_count"] +=1
-            profile = Profile.objects.filter(user_id=transcription["user_id"]).first()
-            transcription["user_name"] = profile.get_display_name
+                if fb.transcription_id == transcription['id']:
+                    transcription['feedback_count'] +=1
+            profile = Profile.objects.filter(user_id=transcription['user_id']).first()
+            transcription['user_name'] = profile.get_display_name
         def feedback_count(elem):
-            return elem["feedback_count"]
+            return elem['feedback_count']
         data = { 'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True) }
         return JsonResponse(data, safe=False)
 
@@ -1575,3 +1579,50 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
                 return JsonResponse({'message': _('Transcription feedback added, thank you!')})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class UserSettings(AjapaikAPIView):
+    '''
+    API endpoint for saving user settings
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.preferred_language = request.POST['preferredLanguage']
+            profile.newsletter_consent = request.POST['newsletterConsent']
+            profile.save()
+            return JsonResponse({'message': _('User settings have been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class MergeProfiles(AjapaikAPIView):
+    '''
+    API endpoint for merging two users' points, photos, annotations, datings, etc..
+    '''
+    def post(self, request, format=None):
+        reverse = request.POST['reverse']
+        token = request.POST['token']
+        if token is None:
+            return JsonResponse({'error': _('Required parameter, token is missing')}, status=400)
+        profileMergeToken = ProfileMergeToken.objects.filter(token=token).first()
+        if profileMergeToken is None:
+            return JsonResponse({'error': _('Invalid token')}, status=401)
+        if profileMergeToken.used is not None or (profileMergeToken.created < (timezone.now() - datetime.timedelta(hours=1))):
+            return JsonResponse({'error': _('Expired token')}, status=401)
+        if request.user and request.user.profile and request.user.profile.is_legit():
+            if request.user.profile.id is not profileMergeToken.profile.id:
+                if reverse == 'true':
+                    merge_profiles(request.user.profile, profileMergeToken.profile)
+                    profileMergeToken.source_profile = request.user.profile
+                    profileMergeToken.target_profile = profileMergeToken.profile
+                else:
+                    merge_profiles(profileMergeToken.profile, request.user.profile)
+                    login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
+                    profileMergeToken.source_profile = profileMergeToken.profile
+                    profileMergeToken.target_profile = request.user.profile
+                profileMergeToken.used = datetime.datetime.now()
+                profileMergeToken.save()
+                return JsonResponse({'message': _('All contributions from the previous account were added to current')})
+            else:
+                return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
+        else:
+            return JsonResponse({'error': _('Please login with an account that is registered')}, status=401)

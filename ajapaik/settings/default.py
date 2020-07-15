@@ -387,6 +387,7 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_ADAPTER = 'ajapaik.ajapaik.social_account_adapter.MySocialAccountAdapter'
 # Autologin, after email confirmation, only works when confirming the email
 # address immediately after signing up, assuming users didn’t close their
 # browser or used some sort of private browsing mode.

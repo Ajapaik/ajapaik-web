@@ -44,7 +44,7 @@ class ObjectDetectionAnnotation(models.Model):
 
 
 class ObjectAnnotationFeedback(models.Model):
-    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name="feedback", on_delete=CASCADE)
+    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name='feedback', on_delete=CASCADE)
 
     confirmation = models.BooleanField(default=True)
     alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True, on_delete=CASCADE)

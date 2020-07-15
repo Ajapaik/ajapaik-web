@@ -1,0 +1,116 @@
+{% load i18n %}
+
+{% block layout %}
+     <div class="container-fluid px-3">
+        <div class="row">
+            {% if show_merge_section  %}
+                <div class="col-sm-12 pb-5">
+                    {% include "_user_card.html" with profile=profile social_accounts=profile_social_accounts %}
+                    <input type='checkbox' name='user-1' value='{{ profile.get_display_name }}'>
+                    <label for="user-1">{% trans "Keep this account (the other one will be merged)" %}</label>
+                </div>
+                <div class="col-sm-12">
+                    {% include "_user_card.html" with profile=token.profile social_accounts=token_profile_social_accounts %}
+                    <input type='checkbox' name='user-2' value='{{ token.profile.get_display_name }}'>
+                    <label for="user-2">{% trans "Keep this account (the other one will be merged)" %}</label>
+                </div>
+                <div id="user-1-merge-text" class="col-sm-12 d-none">
+                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=profile.id %} You are about to merge your current <a href="{{ me }}">account</a> with <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
+                </div>
+                <div id="user-2-merge-text" class="col-sm-12 d-none">
+                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=token.profile.id %} Your current <a href="{{ me }}">account</a> will be merged into <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
+                </div>
+                <div id="user-merge-info" class="col-sm-12">
+                    <p>{% trans "Please select which account would you like to keep using after" %}</p>
+                </div>
+                <div class="col-sm-12">
+                    <button class="primaryAction btn btn-primary" disabled>{% trans "Merge the accounts" %}</button>
+                </div>
+            {% else %}
+                <div class="col">
+                    {% if invalid %}
+                        <h1>{% trans "Invalid token, please try again or contact customer support" %}</h1>
+                    {% elif not profile or profile and not profile.is_legit %}
+                        <h1>{% trans "Please login to start merging accounts" %}</h1>
+                    {% else %}
+                        <h1>{% trans "To merge your accounts, please login with your other account" %}</h1>
+                    {% endif %}
+                    {% include "_log_in.html" with next=next %}
+                </div>
+            {% endif %}
+        </div>
+     </div>
+{% endblock %}
+{% block specific_js %}
+    <script>
+        var currentProfileUrl = "{% url 'me' %}";
+        var mergeUrl = "{% url 'api_merge_users' %}";
+        var reverse = undefined;
+        $('.primaryAction').on('click', function() {
+            SubmitMergeRequest();
+        });
+
+        $("input[name='user-1']").click(function() {
+            var paramChangeBoxes = $("input[name='user-2']");
+            if ($(this).is(':checked')) {
+                paramChangeBoxes.prop('checked', false);
+                $('#user-1-merge-text').removeClass('d-none');
+                $('#user-2-merge-text').addClass('d-none');
+                $('#user-merge-info').addClass('d-none');
+                $('.primaryAction').prop('disabled', false);
+                reverse = true;
+            }
+            else {
+                if (!$(this).is(':checked')) {
+                    $('#user-merge-info').removeClass('d-none');
+                    $('.primaryAction').prop('disabled', true);
+                }
+                $('#user-1-merge-text').addClass('d-none');
+            }
+        });
+
+        
+        $("input[name='user-2']").click(function() {
+            var paramChangeBoxes = $("input[name='user-1']");
+            if ($(this).is(':checked')) {
+                paramChangeBoxes.prop('checked', false);
+                $('#user-2-merge-text').removeClass('d-none');
+                $('#user-1-merge-text').addClass('d-none');
+                $('#user-merge-info').addClass('d-none');
+                $('.primaryAction').prop('disabled', false);
+                reverse = false;
+            }
+            else {
+                if (!$(this).is(':checked')) {
+                    $('#user-merge-info').removeClass('d-none');
+                    $('.primaryAction').prop('disabled', true);
+                }
+                $('#user-2-merge-text').addClass('d-none');
+            }
+        });
+
+        SubmitMergeRequest = function(subject, profile){
+            $('#ajapaik-loading-overlay').show();
+            $.ajax({
+                type: "POST",
+                url: mergeUrl,
+                data: {
+                    token: '{{ token.token }}',
+                    reverse: reverse
+                },
+                success: function (response) {
+                    $.notify(gettext(response.message), {type: 'success'});
+                    setTimeout(function() {
+                        window.location.href = currentProfileUrl;
+                    }, 3000);
+                },
+                error: function (response) {
+                    $.notify(response.message, {type: "danger"});
+                },
+                complete: function () {
+                    $('#ajapaik-loading-overlay').hide();
+                }
+            });
+        }
+    </script>
+{% endblock %}

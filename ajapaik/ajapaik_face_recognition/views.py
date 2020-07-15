@@ -109,8 +109,8 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
     rectangle.save()
 
     return {
-        "status": status,
-        "new_guess_id": new_guess.id,
+        'status': status,
+        'new_guess_id': new_guess.id,
         'points': points
     }
 
@@ -129,8 +129,8 @@ def guess_subject(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             result = save_subject(form, request.user.id, request.user.profile)
 
-            status = result["status"]
-            new_guess_id = result["new_guess_id"]
+            status = result['status']
+            new_guess_id = result['new_guess_id']
 
             return HttpResponse(JSONRenderer().render({'id': new_guess_id}), content_type='application/json',
                                 status=status)
@@ -275,12 +275,12 @@ def get_subject_image(request: HttpRequest):
         if (rectangle is None or request.rectangle_id is None):
             rectangle = FaceRecognitionRectangle.objects.first()
         photo = rectangle.subjectPhoto
-        with open(settings.MEDIA_ROOT + "/portraits/" + str(rectangle.id), "rb") as f:
-            return HttpResponse(f.read(), content_type="image/jpeg")
+        with open(settings.MEDIA_ROOT + '/portraits/' + str(rectangle.id), 'rb') as f:
+            return HttpResponse(f.read(), content_type='image/jpeg')
     except:
         white = Image.new('RGBA', (32, 32), (255,255,255,0))
-        response = HttpResponse(content_type="image/jpeg")
-        white.save(response, "JPEG")
+        response = HttpResponse(content_type='image/jpeg')
+        white.save(response, 'JPEG')
         return response
 
 def get_subject_data_empty(request):
@@ -358,34 +358,34 @@ def get_subject_data(request, subject_id = None):
             else:
                 nextRectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
         if nextRectangle is None:
-            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(nextRectangle.id,)))
         else:
-            next_action = request.build_absolute_uri(reverse("face_recognition_subject_data", args=(nextRectangle.id,)))
+            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(nextRectangle.id,)))
             if album_id is not None:
-                next_action += "?album=" + str(album_id)
+                next_action += '?album=' + str(album_id)
     hasConsensus = False
     if rectangle != None and rectangle.subject_consensus != None:
             hasConsensus = True
             temp = rectangle.subject_consensus.gender
             if rectangle.subject_consensus.gender == 0:
-                gender = "Female"
+                gender = 'Female'
             else:
-                gender = "Male"
+                gender = 'Male'
     else:
         if rectangle.gender == 0:
-            gender = "Female"
+            gender = 'Female'
         if rectangle.gender == 1:
-            gender = "Male"
+            gender = 'Male'
         if rectangle.gender == 2:
-            gender = "Not sure"
+            gender = 'Not sure'
     if rectangle.age == 0:
-        age = "Child"
+        age = 'Child'
     if rectangle.age == 1:
-        age = "Adult"
+        age = 'Adult'
     if rectangle.age == 2:
-        age = "Elder"
+        age = 'Elder'
     if rectangle.age == 3:
-        age = "Not Sure"
+        age = 'Not Sure'
 
     context = {
         'rectangle': rectangle,

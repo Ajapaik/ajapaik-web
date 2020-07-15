@@ -23,7 +23,7 @@ class Command(BaseCommand):
         #     for each in qs:
         #         each.photo = each.geotag.photo
         #     Points.bulk.bulk_update(qs, update_fields=['photo_id'])
-        #     print "Done"
+        #     print 'Done'
         #     i += 1
         #     if i > 15:
         #         break

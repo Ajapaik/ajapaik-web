@@ -34,7 +34,7 @@ class NorwegianCSVUploadAdmin(admin.ModelAdmin):
 class AlbumPhotoInline(admin.TabularInline):
     model = AlbumPhoto
     fields = 'album',
-    raw_id_fields = ("album",)
+    raw_id_fields = ('album',)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(AlbumPhotoInline, self).formfield_for_dbfield(db_field, **kwargs)
@@ -86,9 +86,9 @@ class PhotoAdmin(ModelAdmin):
 
     def _invertcolors(self, id):
         from django.http.response import HttpResponse
-        photo = Photo.objects.filter(pk=id.split("/")[0]).first()
+        photo = Photo.objects.filter(pk=id.split('/')[0]).first()
         if photo:
-            photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)
+            photo_path = settings.MEDIA_ROOT + '/' + str(photo.image)
             img = Image.open(photo_path)
             inverted_grayscale_image = ImageOps.invert(img).convert('L')
             inverted_grayscale_image.save(photo_path)
