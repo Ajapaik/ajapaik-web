@@ -61,12 +61,12 @@
                 <div class="card">
                     <div class="card-header" id="headingFour">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="{% if show_accordion %}true{% else %}false{% endif %}" aria-controls="collapseFour">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                 {% trans "Account Connections" %}
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseFour" class="collapse{% if show_accordion %}show{% endif %}" aria-labelledby="headingFour" data-parent="#settingsAccordionFour">
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#settingsAccordionFour">
                         <div class="card-body">
                             {% include "socialaccount/connections_content.html" with form=social_account_form %}
                         </div>
