@@ -54,11 +54,11 @@ msgstr "Transcription feedback added, thank you!"
 
 #: ajapaik/ajapaik/api.py:1593
 msgid "User settings have been saved"
-msgstr ""
+msgstr "User settings have been saved"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Required parameter, token is missing"
 
 #: ajapaik/ajapaik/api.py:1608
 #, fuzzy
@@ -68,19 +68,19 @@ msgstr "Bad Token"
 
 #: ajapaik/ajapaik/api.py:1610
 msgid "Expired token"
-msgstr ""
+msgstr "Expired token"
 
 #: ajapaik/ajapaik/api.py:1624
 msgid "All contributions from the previous account were added to current"
-msgstr ""
+msgstr "All contributions from the previous account were added to current"
 
 #: ajapaik/ajapaik/api.py:1626
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Please login with a different account, you are currently logged in with the same account that you are merging from"
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login with an account that is registered"
-msgstr ""
+msgstr "Please login with an account that is registered"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -182,29 +182,27 @@ msgstr "Is open"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "My preferred language is"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "My preferred language is"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: ajapaik/ajapaik/forms.py:440
-#, fuzzy
-#| msgid "Note"
 msgid "No"
-msgstr "Note"
+msgstr "No"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Please specify your prefered language"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Please specify whether you would like to receive the newsletter"
 
 #: ajapaik/ajapaik/forms.py:466
 msgid "Email address"
@@ -1368,7 +1366,7 @@ msgstr "Socialaccount connections"
 
 #: ajapaik/ajapaik/templates/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "This account is not connected to any other"
 
 #: ajapaik/ajapaik/templates/_user_info.html:31
 #, python-format
@@ -1407,11 +1405,11 @@ msgstr[1] "<b>%(user_points)s</b> points in total"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Welcome back"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
-msgstr ""
+msgstr "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1427,7 +1425,7 @@ msgstr "Forgot password?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "User settings"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -2056,37 +2054,37 @@ msgstr "Search box"
 #: ajapaik/ajapaik/templates/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "Keep this account (the other one will be merged)"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:18
 #, python-format
-msgid " You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
+msgstr "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:21
 #, python-format
-msgid " Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
+msgstr "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "Please select which account would you like to keep using after"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Merge the accounts"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Invalid token, please try again or contact customer support"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:34
 msgid "Please login to start merging accounts"
-msgstr ""
+msgstr "Please login to start merging accounts"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:36
 msgid "To merge your accounts, please login with your other account"
-msgstr ""
+msgstr "To merge your accounts, please login with your other account"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
@@ -2233,11 +2231,11 @@ msgstr "This user does not have any contributions."
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
 msgid "%(username)s's settings"
-msgstr ""
+msgstr "%(username)s's settings"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Newsletter and language settings"
 
 #: ajapaik/ajapaik/templates/user_settings.html:49
 msgid "Change password"
@@ -2245,7 +2243,7 @@ msgstr "Change password"
 
 #: ajapaik/ajapaik/templates/user_settings.html:81
 msgid "Merge this account with an existing account"
-msgstr ""
+msgstr "Merge this account with an existing account"
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
