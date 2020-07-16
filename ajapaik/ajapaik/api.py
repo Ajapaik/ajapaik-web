@@ -1612,13 +1612,13 @@ class MergeProfiles(AjapaikAPIView):
             if request.user.profile.id is not profileMergeToken.profile.id:
                 if reverse == 'true':
                     merge_profiles(request.user.profile, profileMergeToken.profile)
-                    profileMergeToken.source_profile = request.user.profile
-                    profileMergeToken.target_profile = profileMergeToken.profile
+                    profileMergeToken.target_profile = request.user.profile
+                    profileMergeToken.source_profile = profileMergeToken.profile
                 else:
                     merge_profiles(profileMergeToken.profile, request.user.profile)
+                    profileMergeToken.target_profile = profileMergeToken.profile
+                    profileMergeToken.source_profile = request.user.profile
                     login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
-                    profileMergeToken.source_profile = profileMergeToken.profile
-                    profileMergeToken.target_profile = request.user.profile
                 profileMergeToken.used = datetime.datetime.now()
                 profileMergeToken.save()
                 return JsonResponse({'message': _('All contributions from the previous account were added to current')})

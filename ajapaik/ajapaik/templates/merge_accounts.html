@@ -15,10 +15,10 @@
                     <label for="user-2">{% trans "Keep this account (the other one will be merged)" %}</label>
                 </div>
                 <div id="user-1-merge-text" class="col-sm-12 d-none">
-                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=profile.id %} You are about to merge your current <a href="{{ me }}">account</a> with <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
+                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=profile.id %}You are about to merge your current <a href="{{ me }}">account</a> with <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
                 </div>
                 <div id="user-2-merge-text" class="col-sm-12 d-none">
-                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=token.profile.id %} Your current <a href="{{ me }}">account</a> will be merged into <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
+                    <p>{% blocktrans with name=profile.get_display_name me=me link=link id=token.profile.id %}Your current <a href="{{ me }}">account</a> will be merged into <a href="{{ link }}" target="_blank">{{ name }}</a>'s account. Your user id will be: {{ id }}{% endblocktrans %}</p>
                 </div>
                 <div id="user-merge-info" class="col-sm-12">
                     <p>{% trans "Please select which account would you like to keep using after" %}</p>
