@@ -1621,8 +1621,8 @@ class MergeProfiles(AjapaikAPIView):
                     login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
                 profileMergeToken.used = datetime.datetime.now()
                 profileMergeToken.save()
-                return JsonResponse({'message': _('All contributions from the previous account were added to current')})
+                return JsonResponse({'message': _('Contributions and settings from the other account were added to current')})
             else:
                 return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
         else:
-            return JsonResponse({'error': _('Please login with an account that is registered')}, status=401)
+            return JsonResponse({'error': _('Please login')}, status=401)

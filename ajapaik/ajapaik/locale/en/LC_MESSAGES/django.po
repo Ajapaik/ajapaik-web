@@ -71,16 +71,16 @@ msgid "Expired token"
 msgstr "Expired token"
 
 #: ajapaik/ajapaik/api.py:1624
-msgid "All contributions from the previous account were added to current"
-msgstr "All contributions from the previous account were added to current"
+msgid "Contributions and settings from the other account were added to current"
+msgstr "Contributions and settings from the other account were added to current"
 
 #: ajapaik/ajapaik/api.py:1626
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
 msgstr "Please login with a different account, you are currently logged in with the same account that you are merging from"
 
 #: ajapaik/ajapaik/api.py:1628
-msgid "Please login with an account that is registered"
-msgstr "Please login with an account that is registered"
+msgid "Please login"
+msgstr "Please login"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -2079,12 +2079,12 @@ msgid "Invalid token, please try again or contact customer support"
 msgstr "Invalid token, please try again or contact customer support"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:34
-msgid "Please login to start merging accounts"
-msgstr "Please login to start merging accounts"
+msgid "Please login to transfer contributions and settings from one account to other"
+msgstr "Please login to transfer contributions and settings from one account to other"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:36
-msgid "To merge your accounts, please login with your other account"
-msgstr "To merge your accounts, please login with your other account"
+msgid "To transfer settings and contributions from one account to other, please login with your other account"
+msgstr "To transfer settings and contributions from one account to other, please login with your other account"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
@@ -2242,8 +2242,8 @@ msgid "Change password"
 msgstr "Change password"
 
 #: ajapaik/ajapaik/templates/user_settings.html:81
-msgid "Merge this account with an existing account"
-msgstr "Merge this account with an existing account"
+msgid "Merge another Ajapaik account with current one"
+msgstr "Merge another Ajapaik account with current one"
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format

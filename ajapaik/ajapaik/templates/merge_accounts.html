@@ -31,9 +31,9 @@
                     {% if invalid %}
                         <h1>{% trans "Invalid token, please try again or contact customer support" %}</h1>
                     {% elif not profile or profile and not profile.is_legit %}
-                        <h1>{% trans "Please login to start merging accounts" %}</h1>
+                        <h1>{% trans "Please login to transfer contributions and settings from one account to other" %}</h1>
                     {% else %}
-                        <h1>{% trans "To merge your accounts, please login with your other account" %}</h1>
+                        <h1>{% trans "To transfer settings and contributions from one account to other, please login with your other account" %}</h1>
                     {% endif %}
                     {% include "_log_in.html" with next=next %}
                 </div>
