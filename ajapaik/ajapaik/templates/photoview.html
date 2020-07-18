@@ -172,12 +172,6 @@
             <div id="ajapaik-photo-modal-map-canvas"></div>
         </div>
     </div>
-    {% if people %}
-        <div class="row">
-            <!--TODO: Highlight rectangle when name hovered?-->
-            <span>{% trans "People claimed to be on this photo" %}: {{ people|join:', ' }}</span>
-        </div>
-    {% endif %}
 
     <div class="row ajapaik-height-48 mt-2">
         {% if not is_frontpage and is_photoview or is_game or is_mapview %}
