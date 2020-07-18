@@ -5,7 +5,7 @@
 
     {% if people %}
         <!--TODO: Highlight rectangle when name hovered?-->
-        <span>{% trans "People claimed to be on this photo" %}: {{ people|join:',' }}</span>
+        <span>{% trans "People claimed to be on this photo" %}: {{ people|join:', ' }}</span>
     {% endif %}
 
 {% endwith %}
