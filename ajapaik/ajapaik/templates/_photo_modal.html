@@ -438,17 +438,17 @@
     {% for similar in similar_photos.all %}
     window.photoModalSimilarPhotoArray.push({
             id: {{ similar.to_photo_id }},
-            address: "{{ similar.to_photo.address}}",
-            lat: "{{ similar.to_photo.lat}}",
-            lon: "{{ similar.to_photo.lon}}",
+            address: "{{ similar.to_photo.address }}",
+            lat: "{{ similar.to_photo.lat }}",
+            lon: "{{ similar.to_photo.lon }}",
             {% if similar.to_photo.author %}
-                author: "{{ similar.to_photo.author}}",
+                author: "{{ similar.to_photo.author }}",
             {% endif %}
             {% if similar.to_photo.description %}
-                description: "{{ similar.to_photo.description}}",
+                description: "{{ similar.to_photo.description }}",
             {% endif %}
             {% if similar.to_photo.date_text %}
-                date_text: "{{ similar.to_photo.date_text}}",
+                date_text: "{{ similar.to_photo.date_text }}",
             {% endif %}
             url: "{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.get_pseudo_slug %}",
             fb_url: "{{ hostname }}{{ similar.to_photo.get_detail_url }}",
