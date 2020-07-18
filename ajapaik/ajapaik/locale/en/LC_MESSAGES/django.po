@@ -1951,6 +1951,18 @@ msgstr "Reply to"
 msgid "Notify me about follow-up comments"
 msgstr "Notify me about follow-up comments"
 
+#: ajapaik/ajapaik/templates/dummy_translations.html:4
+msgid "Current Password"
+msgstr "Current Password"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:5
+msgid "New Password"
+msgstr "New Password"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:6
+msgid "New Password (again)"
+msgstr "New Password (again)"
+
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
 msgstr "Interior "

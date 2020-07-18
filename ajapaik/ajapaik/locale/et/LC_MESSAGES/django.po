@@ -1953,6 +1953,18 @@ msgstr "Vasta"
 msgid "Notify me about follow-up comments"
 msgstr "Teavita mind vastuskommentaaridest"
 
+#: ajapaik/ajapaik/templates/dummy_translations.html:4
+msgid "Current Password"
+msgstr "Praegune parool"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:5
+msgid "New Password"
+msgstr "Uus parool"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:6
+msgid "New Password (again)"
+msgstr "Uus parool (uuesti)"
+
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
 msgstr "Sisevaade"
