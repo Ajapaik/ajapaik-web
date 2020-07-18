@@ -1319,6 +1319,7 @@ a.fullscreen {
 .ajapaik-photo-modal-rephoto-thumb {
   width: 20%;
   margin: 0;
+  display: -webkit-box;
 }
 
 .ajapaik-photo-modal-similar-photo-thumb img,
