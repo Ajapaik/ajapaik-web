@@ -445,7 +445,7 @@
                 author: "{{ similar.to_photo.author }}",
             {% endif %}
             {% if similar.to_photo.description %}
-                description: "{{ similar.to_photo.description }}",
+                description: "{{ similar.to_photo.description|remove_newlines|escapejs }}",
             {% endif %}
             {% if similar.to_photo.date_text %}
                 date_text: "{{ similar.to_photo.date_text }}",
