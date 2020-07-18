@@ -29,9 +29,11 @@
            placeholder="{% trans "Password" %}" required="required" title="" type="password" autocomplete="current-password">
     <input name="next" type="hidden" value="{% if next %}{{ next }}{% else %}{{ request.get_full_path }}{% endif %}">
     </br>
-    <a class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
-        {% trans "Register with e-mail" %}
-    </a>
+    {% if not hide_registration %}
+        <a class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
+            {% trans "Register with e-mail" %}
+        </a>
+    {% endif %}
     <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button">
         {% trans "Log in" %}
     </button>

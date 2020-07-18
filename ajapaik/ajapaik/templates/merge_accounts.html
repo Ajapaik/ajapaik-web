@@ -35,7 +35,7 @@
                     {% else %}
                         <h1>{% trans "To transfer settings and contributions from one account to other, please login with your other account" %}</h1>
                     {% endif %}
-                    {% include "_log_in.html" with next=next %}
+                    {% include "_log_in.html" with next=next hide_registration=True %}
                 </div>
             {% endif %}
         </div>
