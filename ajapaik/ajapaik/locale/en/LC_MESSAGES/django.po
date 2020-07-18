@@ -2230,8 +2230,8 @@ msgstr "This user does not have any contributions."
 
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
-msgid "%(username)s's settings"
-msgstr "%(username)s's settings"
+msgid "%(username)s settings"
+msgstr "%(username)s settings"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"

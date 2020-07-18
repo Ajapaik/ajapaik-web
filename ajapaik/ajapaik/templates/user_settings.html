@@ -8,7 +8,7 @@
 {% block layout %}
     <div class="container-fluid px-3 py-5">
         {% if request.user.profile.is_legit %}
-            <h1 class="pt-4">{% blocktrans with username=request.user.profile.get_display_name %}{{username}}'s settings{% endblocktrans %}</h1>
+            <h1 class="pt-4">{% blocktrans with username=request.user.profile.get_display_name %}{{username}} settings{% endblocktrans %}</h1>
             <div class="accordion" id="settingsAccordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
