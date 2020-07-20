@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-06-01 20:28:00+0000\n"
+"PO-Revision-Date: 2020-07-20 17:41:34+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -21,86 +21,86 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-06-01 05:14:56+0000\n"
+"X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:529
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:338
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:525
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:349
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:535
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:531
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:352
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:538
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:347
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:534
 msgid "The request to get user location timed out."
 msgstr "Asukohainfo päring aegus."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:355
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:541
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:537
 msgid "An unknown error occurred."
 msgstr "Tekkis teadmata viga."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:767
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:812
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1186
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:813
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1193
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1238
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Pole valitud"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1446
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1462
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1865
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1881
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1867
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1883
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Süsteemiviga"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:211
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:207
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:223
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:219
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Sulge"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:689
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:691
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:700
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:752
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:702
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:754
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:733
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:735
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:744
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:746
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:773
 msgid "You"
 msgstr "Sina"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:775
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:777
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:777
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:835
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:843
 msgid "Current location"
 msgstr "Pakutud asukoht"
 
@@ -595,19 +595,19 @@ msgstr "Nihuta kaarti nii, et marker jääks pildil kujutatud objekti peale, see
 msgid "Points awarded"
 msgstr "Saadud punktid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
+#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:49
 msgid "Historic maps"
 msgstr "Ajaloolised kaardid"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:724
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:723
 msgid "Remove album filter"
 msgstr "Eemalda albumi filter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:727
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:726
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
 msgstr "%(albumName)s albumi pildid on nähtaval külgmenüüs"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:741
 msgid "Apply album filter"
 msgstr "Rakenda albumi filter"
 

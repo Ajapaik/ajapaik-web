@@ -11,90 +11,90 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-06-22 15:16:39+0000\n"
+"PO-Revision-Date: 2020-07-20 17:41:35+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:343
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:529
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:338
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:525
 msgid "User denied the request for Geolocation."
 msgstr "Usuário negou a solicitação de geolocalização."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:349
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:535
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:531
 msgid "Location information is unavailable."
 msgstr "As informações de localização estão indisponíveis."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:352
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:538
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:347
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:534
 msgid "The request to get user location timed out."
 msgstr "A requisição pela localização do usuário excedeu o tempo limite."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:355
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:541
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:537
 msgid "An unknown error occurred."
 msgstr "Ocorreu um erro desconhecido."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:767
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:812
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1186
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1231
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:768
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:813
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1193
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1238
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
 msgid "Not selected"
 msgstr "Não selecionado"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1446
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1462
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1865
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1881
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1442
+#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1458
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1867
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:1883
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
 msgid "System error"
 msgstr "Erro no sistema"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:211
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:207
 msgid "Go to my location"
 msgstr "Ir para minha localização"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:223
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:219
 #: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Fechar"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:689
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:691
 msgid "Pick the shooting location!"
 msgstr "Escolha o local de tiro!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:700
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:752
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:702
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:754
 msgid "Geotagged by this many users"
 msgstr "Geomarcado por muitos usuários"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:733
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:735
 msgid "Confirm correct location"
 msgstr "Confirmar a localização correta"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:744
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:746
 msgid "Submit your own location"
 msgstr "Enviar sua própria localização"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:773
 msgid "You"
 msgstr "Você"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:775
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:777
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Usuário anônimo"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:777
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
 msgid "Anonymous users"
 msgstr "Usuários anônimos"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:835
+#: ajapaik/ajapaik/static/js/ajapaik-common.js:843
 msgid "Current location"
 msgstr "Localização atual"
 
@@ -590,19 +590,19 @@ msgstr "Arraste o mapa para que o marcador fique no topo do objeto que você vê
 msgid "Points awarded"
 msgstr "Pontos atribuídos"
 
-#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
+#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:49
 msgid "Historic maps"
 msgstr "Mapas históricos"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:724
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:723
 msgid "Remove album filter"
 msgstr "Remover o filtro de álbuns"
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:727
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:726
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
+#: ajapaik/ajapaik/static/js/ajapaik-map.js:741
 msgid "Apply album filter"
 msgstr "Aplicar filtro de álbum"
 
