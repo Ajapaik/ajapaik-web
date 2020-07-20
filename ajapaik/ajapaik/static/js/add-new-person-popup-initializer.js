@@ -29,6 +29,9 @@ function showAddAnotherPopup(triggeringLink) {
     function removeOverlay() {
         if (win.closed) {
             $('#yourlabs_overlay').remove();
+            let previousValue = $('#autocomplete-wrapper input').val(); 
+            $('#autocomplete-wrapper input').val("");
+            $('#autocomplete-wrapper input').val(previousValue);
         } else {
             setTimeout(removeOverlay, 500);
         }
