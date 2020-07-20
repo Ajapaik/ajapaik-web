@@ -1515,7 +1515,7 @@ if (typeof (google) !== "undefined" && typeof (google.maps) !== "undefined") {
     });
 
     window.backClick = function() {
-        if (document.referrer.indexOf(window.location.host) !== -1) {
+        if (document.referrer.indexOf(window.location.origin) == 0) {
             history.go(-1); return false;
         }
         else { window.location.href = '/'; }
