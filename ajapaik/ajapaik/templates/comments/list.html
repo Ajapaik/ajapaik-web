@@ -16,7 +16,7 @@
             </div>
             <div class="media-body pl-2">
                 <h6 class="media-heading">
-                    <a href="/user{{ comment.user.profile.id }}">{{ comment.user.profile.get_display_name }}</a>&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
+                    <a href="{% url 'user' comment.user.profile.id %}">{{ comment.user.profile.get_display_name }}</a>&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                     <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Like" %}
                         <span class="{% if comment.like_count <= 0 %}d-none{% endif %}" id="ajapaik-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>
