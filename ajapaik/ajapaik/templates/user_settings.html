@@ -92,7 +92,7 @@
         {% else %}
             {% include "_log_in.html" %}
         {% endif %}
-        <button class="btn btn-primary mt-3" onclick="window.backClick();">{% trans "Back" %}</button>
+        <a class="btn btn-primary mt-3" href="{% url 'me' %}">{% trans "Back" %}</a>
     </div>
 {% endblock layout %}
 {% block specific_js %}
