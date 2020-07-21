@@ -7,6 +7,7 @@ from django_comments_xtd.forms import XtdCommentForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.translation import activate, get_language_info, ugettext_lazy as _
+from captcha.fields import ReCaptchaField
 
 from dal import autocomplete
 
@@ -15,8 +16,14 @@ from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
 
 
 class SignupForm(AllauthSignupForm):
+    email = forms.CharField(label=_('Email'), max_length=254)
     first_name = forms.CharField(label=_('First name'), max_length=30)
     last_name = forms.CharField(label=_('Last name'), max_length=30)
+    password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput)
+    captcha = ReCaptchaField()
+
+    field_order = ['email', 'first_name', 'last_name', 'password1', 'password2', 'captcha']
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
