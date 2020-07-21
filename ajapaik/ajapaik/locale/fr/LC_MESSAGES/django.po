@@ -191,13 +191,13 @@ msgstr "Est publique"
 msgid "Is open"
 msgstr "Est ouvert"
 
-#: ajapaik/ajapaik/forms.py:435
-msgid "My preferred language is"
-msgstr ""
-
-#: ajapaik/ajapaik/forms.py:436
+#: ajapaik/ajapaik/forms.py:442
 msgid "My preferred language is"
 msgstr "Langue préférée :"
+
+#: ajapaik/ajapaik/forms.py:443
+msgid "I wish to receive the newsletter"
+msgstr ""
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"

@@ -185,12 +185,12 @@ msgstr "Er offentlig"
 msgid "Is open"
 msgstr "Er åben"
 
-#: ajapaik/ajapaik/forms.py:435
+#: ajapaik/ajapaik/forms.py:442
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:436
-msgid "My preferred language is"
+#: ajapaik/ajapaik/forms.py:443
+msgid "I wish to receive the newsletter"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:440

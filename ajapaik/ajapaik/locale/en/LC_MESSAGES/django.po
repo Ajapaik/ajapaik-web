@@ -186,7 +186,7 @@ msgstr "My preferred language is"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr "My preferred language is"
+msgstr "I wish to receive the newsletter"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"

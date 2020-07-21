@@ -182,12 +182,12 @@ msgstr "Checkbox for album parameter – public albums are shown in the albums 
 msgid "Is open"
 msgstr "Checkbox for album parameter – other users (not only the creator of the album) can add pictures to 'open' albums"
 
-#: ajapaik/ajapaik/forms.py:435
+#: ajapaik/ajapaik/forms.py:442
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:436
-msgid "My preferred language is"
+#: ajapaik/ajapaik/forms.py:443
+msgid "I wish to receive the newsletter"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:440
