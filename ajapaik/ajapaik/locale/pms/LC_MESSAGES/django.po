@@ -13,12 +13,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-20 17:41:36+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:10+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -56,32 +56,32 @@ msgstr "Sugeriment an sla trascrission giontà, mersì!"
 
 #: ajapaik/ajapaik/api.py:1593
 msgid "User settings have been saved"
-msgstr ""
+msgstr "I paràmeter d'utent a son ëstàit argistrà"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Paràmeter obligatòri, ël geton a manca"
 
 #: ajapaik/ajapaik/api.py:1608
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Geton incompatìbil"
 
 #: ajapaik/ajapaik/api.py:1610
 msgid "Expired token"
-msgstr ""
+msgstr "Geton ëscadù"
 
 #: ajapaik/ajapaik/api.py:1624
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "Le contribussion e ij paràmeter ëd l'àutr cont a son ëstàit giontà a l'atual"
 
 #: ajapaik/ajapaik/api.py:1626
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Për piasì, ch'a rintra ant ël sistema con n'àutr cont, adess a l'é colegà con ël cont con ël qual a fà la fusion"
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "Për piasì, ch'a rintra ant ël sistema"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -181,29 +181,30 @@ msgstr "a l'é pùblich"
 msgid "Is open"
 msgstr "a l'é duvert"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "Mia lenga preferìa a l'é"
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
+#, fuzzy
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Mia lenga preferìa a l'é"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "É"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "Nò"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Për piasì, ch'a spessìfica soa lenga preferìa"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Për piasì, ch'a spessìfica s'a veul arsèive ël boletin d'anformassion"
 
 #: ajapaik/ajapaik/forms.py:466
 msgid "Email address"
@@ -1362,11 +1363,11 @@ msgstr "La decision a peul ëdcò esse pijà an sla tastadura (1, 2, 3)."
 #: ajapaik/ajapaik/templates/_user_card.html:15
 #| msgid "Socialaccount connections"
 msgid "!!FUZZY!!Socialaccount connections"
-msgstr ""
+msgstr "Conession dël cont sossial"
 
 #: ajapaik/ajapaik/templates/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Ës cont a l'é colegà a gnun d'àutri"
 
 #: ajapaik/ajapaik/templates/_user_info.html:31
 #, python-format
@@ -1405,11 +1406,11 @@ msgstr[1] "<b>%(user_points)s</b> pont an total"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Bin tornà"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
-msgstr ""
+msgstr "Për piasì, ch'a spessìfica s'a veul arsèive ël boletin d'anformassion e cola ch'a l'é soa lenga preferìa për comuniché."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -1425,7 +1426,7 @@ msgstr "Ciav dësmentià?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Paràmeter d'utent"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1953,15 +1954,15 @@ msgstr "Aviseme dij coment sucessiv"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Ciav atual"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Neuva ciav"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Neuva ciav (torna)"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "

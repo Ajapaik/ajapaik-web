@@ -15,12 +15,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-20 17:41:34+0000\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:08+0000\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -183,21 +183,22 @@ msgstr "Es público"
 msgid "Is open"
 msgstr "Está abierto"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
+#, fuzzy
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Mi idioma preferido es"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
@@ -1427,7 +1428,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Configuración de usuario"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1955,15 +1956,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Contraseña actual"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Contraseña nueva"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Contraseña nueva (de nuevo)"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -2086,7 +2087,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Fusionar las cuentas"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"

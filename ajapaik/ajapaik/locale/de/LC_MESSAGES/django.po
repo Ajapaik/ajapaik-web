@@ -3,6 +3,7 @@
 #
 # Author: 1233qwer1234qwer4
 # Author: Abijeet Patro
+# Author: DraconicDark
 # Author: FF11
 # Author: H2kks
 # Author: ImaCow
@@ -16,12 +17,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-20 17:41:34+0000\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:08+0000\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -59,11 +60,11 @@ msgstr "Rückmeldung zur Abschrift ergänzt, vielen Dank!"
 
 #: ajapaik/ajapaik/api.py:1593
 msgid "User settings have been saved"
-msgstr ""
+msgstr "Benutzereinstellungen wurden gespeichert"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Erforderlicher Parameter, Token fehlt"
 
 #: ajapaik/ajapaik/api.py:1608
 #| msgid "Bad Token"
@@ -184,29 +185,29 @@ msgstr "Ist öffentlich"
 msgid "Is open"
 msgstr "Ist offen"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "Meine bevorzugte Sprache ist"
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Ich möchte den Newsletter erhalten"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Bitte deine bevorzugte Sprache angeben"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Bitte angeben, ob du den Newsletter erhalten möchtest"
 
 #: ajapaik/ajapaik/forms.py:466
 msgid "Email address"
@@ -1408,7 +1409,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Willkommen zurück"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -1428,7 +1429,7 @@ msgstr "Passwort vergessen?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Benutzereinstellungen"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1456,12 +1457,12 @@ msgstr "Menü"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/templates/user_settings.html:33
 msgid "E-mail addresses"
-msgstr ""
+msgstr "E-Mail-Adressen"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "E-Mail-Adresse bestätigen"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1479,27 +1480,27 @@ msgstr "Der E-Mail-Bestätigungslink ist abgelaufen oder ungültig. Bitte <a hre
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Die folgenden E-Mail-Adressen sind mit deinem Konto verknüpft:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
 msgid "Verified"
-msgstr ""
+msgstr "Bestätigt"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
 msgid "Unverified"
-msgstr ""
+msgstr "Unbestätigt"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
 msgid "Primary"
-msgstr ""
+msgstr "Primär"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"
-msgstr ""
+msgstr "Primär machen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:30
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Verifizierung erneut senden"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:31
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -1509,19 +1510,19 @@ msgstr "Entfernen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:39
 msgid "Warning:"
-msgstr ""
+msgstr "Warnung:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:39
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "Du hast derzeit keine E-Mail-Adresse eingerichtet. Du solltest wirklich eine E-Mail-Adresse hinzufügen, damit du Benachrichtigungen erhalten, dein Passwort zurücksetzen kannst usw."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:45
 msgid "Add E-mail"
-msgstr ""
+msgstr "E-Mail hinzufügen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:52
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Willst du die ausgewählte E-Mail-Adresse wirklich entfernen?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format

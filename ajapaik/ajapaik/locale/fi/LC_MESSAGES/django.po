@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-07-20 17:41:35+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:09+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -26,8 +26,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -189,11 +189,11 @@ msgstr "On julkinen"
 msgid "Is open"
 msgstr "On avoin"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
 msgstr ""
 

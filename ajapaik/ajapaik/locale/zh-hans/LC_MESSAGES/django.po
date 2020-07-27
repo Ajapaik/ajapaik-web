@@ -22,12 +22,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-20 17:41:37+0000\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:10+0000\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-Hans\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -90,7 +90,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "请登录"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -190,25 +190,25 @@ msgstr "是公开的"
 msgid "Is open"
 msgstr "是开放的"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "我首选的语言是"
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "我希望收到简讯"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "请选择您首选的语言"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
@@ -1383,7 +1383,7 @@ msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "欢迎回来"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -1403,7 +1403,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "用户设置"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1930,15 +1930,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "当前密码"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "新密码（重复）"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -2061,7 +2061,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "合并账户"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"

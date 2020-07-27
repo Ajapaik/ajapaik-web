@@ -16,12 +16,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-20 17:41:35+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:09+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -59,7 +59,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1593
 msgid "User settings have been saved"
-msgstr ""
+msgstr "사용자 설정이 저장되었습니다"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "로그인해 주십시오"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -184,21 +184,21 @@ msgstr ""
 msgid "Is open"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
 msgstr ""
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "예"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "아니오"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
@@ -1376,7 +1376,7 @@ msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "다시 온 것을 환영합니다"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -1396,7 +1396,7 @@ msgstr "비밀번호를 잊으셨나요?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "사용자 설정"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1923,15 +1923,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "현재 비밀번호"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "새 비밀번호"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "새 비밀번호 (재입력)"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -2213,7 +2213,7 @@ msgstr "이 사용자는 어떠한 기여도 하지 않았습니다."
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "%(username)s 설정"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"

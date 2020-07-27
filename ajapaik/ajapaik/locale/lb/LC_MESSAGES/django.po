@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-20 17:41:35+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "Loggt Iech wgl. an"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -184,21 +184,21 @@ msgstr "Is public"
 msgid "Is open"
 msgstr "Is open"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "Meng léifste Sprooch ass"
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Ech wëll d'Newsletter kréien"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "Jo"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "Neen"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
@@ -1408,7 +1408,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Frou Iech erëm ze gesinn"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -1428,7 +1428,7 @@ msgstr "Passwuert vergiess?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Benotzerastellungen"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1956,15 +1956,15 @@ msgstr "Notify me about follow-up comments"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Aktuellt Passwuert"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Neit Passwuert"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Neit Passwuert (widderhuelen)"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -2087,7 +2087,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "D'Benotzerkonten zesummeféieren"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
@@ -2246,7 +2246,7 @@ msgstr "Dëse Benotzer huet keng Kontributiounen."
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "Astellunge vum %(username)s"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"

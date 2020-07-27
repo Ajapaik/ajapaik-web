@@ -12,12 +12,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-20 17:41:36+0000\n"
-"X-POT-Import-Date: 2020-07-20 13:46:16+0000\n"
+"PO-Revision-Date: 2020-07-27 16:18:10+0000\n"
+"X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-04-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -180,11 +180,11 @@ msgstr "É público"
 msgid "Is open"
 msgstr "É aberto"
 
-#: ajapaik/ajapaik/forms.py:442
+#: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
 msgstr ""
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
 msgstr ""
 
