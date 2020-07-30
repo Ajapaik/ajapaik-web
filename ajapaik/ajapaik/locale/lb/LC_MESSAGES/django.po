@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-27 16:18:09+0000\n"
+"PO-Revision-Date: 2020-07-30 13:24:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -1369,7 +1369,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Dëse Benotzerkont ass mat kengem anere Benotzerkont verbonnen"
 
 #: ajapaik/ajapaik/templates/_user_info.html:31
 #, python-format
@@ -2250,7 +2250,7 @@ msgstr "Astellunge vum %(username)s"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Newsletter a Sproochastellungen"
 
 #: ajapaik/ajapaik/templates/user_settings.html:49
 msgid "Change password"
