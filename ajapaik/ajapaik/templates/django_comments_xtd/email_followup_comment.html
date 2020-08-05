@@ -1,0 +1,16 @@
+<p>{{ user_name }},</p>
+
+<p>There is a new comment following up yours.</p>
+
+<p>Sent by: {% if comment.user.profile %}<a href="https://{{ site.domain }}/user/{{ comment.user.profile.id }}">{{ comment.user.profile.get_display_name }}</a>{% else %}{{ comment.name }}{% endif %}, {{ comment.submit_date|date:"SHORT_DATE_FORMAT" }}<br/>
+<a href="http://{{ site.domain }}{{ comment.content_object.get_absolute_url }}">http://{{ site.domain }}{{ comment.content_object.get_absolute_url }}</a></p>
+
+<p>The comment:<br/>
+<i>{{ comment.comment }}</i>
+</p>
+
+<p>Click <a href="http://{{ site.domain }}{{ mute_url }}">http://{{ site.domain }}{{ mute_url|slice:":40" }}...</a> to mute the comments thread. You will no longer receive follow-up notifications.</p>
+<p>--<br/>
+Kind regards,<br/>
+{{ site }}
+</p>
