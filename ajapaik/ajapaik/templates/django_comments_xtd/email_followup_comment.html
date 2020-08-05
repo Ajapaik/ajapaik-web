@@ -2,7 +2,7 @@
 
 <p>There is a new comment following up yours.</p>
 
-<p>Sent by: {% if comment.user.profile %}<a href="{% url 'user' comment.user.profile.id %}">{{ comment.user.profile.get_display_name }}</a>{% else %}{{ comment.name }}{% endif %}, {{ comment.submit_date|date:"SHORT_DATE_FORMAT" }}<br/>
+<p>Sent by: {% if comment.user.profile %}<a href="https://{{ site.domain }}/user/{{ comment.user.profile.id }}">{{ comment.user.profile.get_display_name }}</a>{% else %}{{ comment.name }}{% endif %}, {{ comment.submit_date|date:"SHORT_DATE_FORMAT" }}<br/>
 <a href="http://{{ site.domain }}{{ comment.content_object.get_absolute_url }}">http://{{ site.domain }}{{ comment.content_object.get_absolute_url }}</a></p>
 
 <p>The comment:<br/>
