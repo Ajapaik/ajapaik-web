@@ -606,7 +606,6 @@ class Photo(Model):
             self.light_save()
 
     def find_similar_for_existing_photo(self):
-        return
         if self.rephoto_of_id is not None:
             return
         if self.aspect_ratio is None:
@@ -618,8 +617,8 @@ class Photo(Model):
             query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id IS NULL AND aspect_ratio > %s AND aspect_ratio < %s'
             photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
         for similar in photos:
-            list1 = ImageSimilarity.objects.filter(Q(from_photo=self.id) & Q(to_photo=similar.id))
-            list2 = ImageSimilarity.objects.filter(Q(from_photo=similar.id) & Q(to_photo=self.id))
+            list1 = ImageSimilarity.objects.filter(Q(from_photo=self) & Q(to_photo=similar))
+            list2 = ImageSimilarity.objects.filter(Q(from_photo=similar) & Q(to_photo=self))
             if list1.count() < 1 or list2.count() < 1:
                 ImageSimilarity.add_or_update(self,similar)
             similar.light_save()
@@ -891,76 +890,52 @@ class ImageSimilarity(Model):
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
         points = 0
-        iterator = 0
-        if qs.count() > 0:
-            for item in qs:
-                if iterator > 1:
-                    item.delete()
-                else:
-                    guess = ImageSimilarityGuess(image_similarity=item, guesser=self.user_last_modified, similarity_type=self.similarity_type)
-                    guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=item.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
-                    if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
-                        points = 10
-                    item.confirmed = self.confirmed
-                    if self.similarity_type is not None:
-                        firstGuess = 0
-                        secondGuess = 1
-                        if self.similarity_type == 0:
-                            firstGuess = 2
-                        if self.similarity_type == 1:
-                            secondGuess = 2   
-                        if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
-                            and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
-                            guess.guesser = self.user_last_modified
-                            item.similarity_type = self.similarity_type
-                            if self.similarity_type == 1 or self.similarity_type == 2:
-                                item.from_photo.hasSimilar = True
-                                item.to_photo.hasSimilar = True
-                            elif self.similarity_type == 0:
-                                positiveSimilarities = imageSimilarity.objects.filter((Q(from_photo_id=item.from_photo.id) & Q(to_photo_id=item.to_photo.id) & Q(similarity_type > 0)) | (Q(from_photo_id=item.from_photo.id) & Q(to_photo_id=item.to_photo.id) & Q(similarity_type > 0))).all()
-                                if len (positiveSimilarities) < 1:
-                                    item.from_photo.hasSimilar = False
-                                    item.to_photo.hasSimilar = False
-                    item.user_last_modified = self.user_last_modified
-                    item.save()
-                    firstSimilar = ImageSimilarity.objects.filter(from_photo_id=item.from_photo.id).exclude(similarity_type=0).first()
-                    secondSimilar = ImageSimilarity.objects.filter(from_photo_id=item.to_photo.id).exclude(similarity_type=0).first()
-                    if firstSimilar is not None:
-                        item.from_photo.hasSimilar = True
-                    else:
-                        item.from_photo.hasSimilar = False
-                    item.from_photo.save()
-                    if secondSimilar is not None:
-                        item.to_photo.hasSimilar = True
-                    else:
-                        item.to_photo.hasSimilar = False
-                    item.to_photo.save()
-                    guess.save()
-                    if points > 0:
-                        Points(
-                            user=self.user_last_modified,
-                            action=Points.CONFIRM_IMAGE_SIMILARITY,
-                            points=points,
-                            image_similarity_confirmation = guess,
-                            created=timezone.now()
-                        ).save()
-                iterator += 1
-        else:
-            self.from_photo.save()
-            self.to_photo.save()
+        if qs.count() == 0:
             self.save()
             if self.user_last_modified is not None:
                 guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
                 guess.save()
                 points = 10
-                if points > 0:
-                    Points(
-                        user=self.user_last_modified,
-                        action=Points.CONFIRM_IMAGE_SIMILARITY,
-                        points=points,
-                        image_similarity_confirmation = guess,
-                        created=timezone.now()
-                    ).save()
+        else:
+            imageSimilarity = qs.first()
+            imageSimilarity.confirmed = self.confirmed
+            imageSimilarity.user_last_modified = self.user_last_modified
+            qs.exclude(id=imageSimilarity.id).delete()
+            guess = ImageSimilarityGuess(image_similarity=imageSimilarity, guesser=self.user_last_modified, similarity_type=self.similarity_type)
+            guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=imageSimilarity.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
+            if self.similarity_type:
+                firstGuess = 0 if self.similarity_type == 1 else 1
+                secondGuess = 0 if self.similarity_type == 2 else 2
+                if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
+                    and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
+                    guess.guesser = self.user_last_modified
+                    imageSimilarity.similarity_type = self.similarity_type
+                    if self.similarity_type == 0:
+                        hasSimilar = ImageSimilarity.objects.filter(\
+                            Q(from_photo_id=imageSimilarity.from_photo.id) &\
+                            Q(to_photo_id=imageSimilarity.to_photo.id) &\
+                            Q(similarity_type > 0)).first() is not None
+                        imageSimilarity.from_photo.hasSimilar = hasSimilar
+                        imageSimilarity.to_photo.hasSimilar = hasSimilar
+            imageSimilarity.save()
+            imageSimilarity.to_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
+                .exclude(similarity_type=0).first() is not None
+            imageSimilarity.from_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
+                .exclude(similarity_type=0).first() is not None
+            imageSimilarity.from_photo.save()
+            imageSimilarity.to_photo.save()
+            guess.save()
+
+            if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
+                points = 10
+        if points > 0:
+            Points(
+                user=self.user_last_modified,
+                action=Points.CONFIRM_IMAGE_SIMILARITY,
+                points=points,
+                image_similarity_confirmation = guess,
+                created=timezone.now()
+            ).save()
         return points
 
 
