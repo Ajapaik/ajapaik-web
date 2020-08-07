@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-07-27 16:18:09+0000\n"
+"PO-Revision-Date: 2020-08-07 07:36:17+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -64,7 +64,7 @@ msgstr "Palaute litteroinnille lisätty, kiitos!"
 
 #: ajapaik/ajapaik/api.py:1593
 msgid "User settings have been saved"
-msgstr ""
+msgstr "Käyttäjäasetukset on tallennettu"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "Kirjaudu sisään"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
@@ -191,19 +191,19 @@ msgstr "On avoin"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "My preferred language is"
-msgstr ""
+msgstr "Ensisijainen kieleni on"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Haluan vastaanottaa uutiskirjeen"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
-msgstr ""
+msgstr "Kyllä"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
@@ -661,7 +661,7 @@ msgstr "Danske single payment link"
 #: ajapaik/ajapaik/templates/_donate_details.html:31
 #: ajapaik/ajapaik/templates/_donate_details.html:58
 msgid "Danske bank"
-msgstr "Danske bank"
+msgstr "Danske Bank"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
@@ -1413,7 +1413,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Tervetuloa takaisin"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -1433,7 +1433,7 @@ msgstr "Salasana Unohtunut?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Käyttäjäasetukset"
 
 #: ajapaik/ajapaik/templates/account/base.html:39
 #: ajapaik/ajapaik/templates/account/login.html:4
@@ -1961,15 +1961,15 @@ msgstr "Ilmoita jatkokommenteista"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Nykyinen salasana"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Uusi salasana"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Uusi salasana (uudelleen)"
 
 #: ajapaik/ajapaik/templates/extra_translations.html:2
 msgid "Interior "
@@ -2092,7 +2092,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Yhdistä tunnukset"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
@@ -2251,11 +2251,11 @@ msgstr "Käyttäjällä ei ole vielä yhtään lisäystä."
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "Käyttäjän %(username)s asetukset"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Uutiskirje ja kieliasetukset"
 
 #: ajapaik/ajapaik/templates/user_settings.html:49
 msgid "Change password"
@@ -2486,25 +2486,25 @@ msgstr "Poista merkintä"
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr "Viro"
+msgstr "viro"
 
 #: ajapaik/settings/default.py:75
 msgid "English"
-msgstr "Englanti"
+msgstr "englanti"
 
 #: ajapaik/settings/default.py:76
 msgid "Finnish"
-msgstr "Suomi"
+msgstr "suomi"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"
-msgstr "Ruotsi"
+msgstr "ruotsi"
 
 #: ajapaik/settings/default.py:78
 msgid "Russian"
-msgstr "Venäjä"
+msgstr "venäjä"
 
 #: ajapaik/settings/default.py:79
 msgid "French"
-msgstr "Ranskan"
+msgstr "ranska"
 
