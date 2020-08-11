@@ -718,7 +718,6 @@ def frontpage_async_albums(request):
 		if form.cleaned_data['people']:
 			albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
 		elif form.cleaned_data['postcards']:
-			postcard_albums = []
 			photoIDs = Photo.objects.filter(postcard_front_of__isnull=False).values('id')
 			albumPhotos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
 			albums = Album.objects.filter(id__in=albumPhotos, cover_photo__isnull=False, is_public=True)
@@ -772,7 +771,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		order2 = filter_form.cleaned_data['order2']
 		order3 = filter_form.cleaned_data['order3']
 		my_likes_only = filter_form.cleaned_data['myLikes']
-		source_id = filter_form.cleaned_data['collections']
 		rephotos_by = None
 		rephotos_by_name = None
 		if filter_form.cleaned_data['rephotosBy']:
@@ -2512,7 +2510,7 @@ def norwegian_csv_upload(request):
 	album = Album.objects.get(pk=album_id)
 	licence = Licence.objects.get(name='Attribution 4.0 International')
 	failed = []
-	for key, value in photos_metadata.items():
+	for key, _ in photos_metadata.items():
 		meta_for_this_image = photos_metadata[key]
 		response = requests.get(meta_for_this_image.get('image_url'), stream=True)
 		source_name = meta_for_this_image.get('institution') or 'Ajapaik'

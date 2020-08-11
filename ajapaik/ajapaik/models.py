@@ -315,7 +315,7 @@ class Album(Model):
         for each in qs:
             for similarity in each.similar_photos.all():
                 temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                for item in temp:
+                for _ in temp:
                     count += 1
         return count
 
@@ -886,48 +886,55 @@ class ImageSimilarity(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     
-    
+    def __add__(self):
+        self.save()
+        if self.user_last_modified is not None:
+            guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
+            guess.save()
+            return 10, guess
+
+    def __update__(self, qs):
+        imageSimilarity = qs.first()
+        imageSimilarity.confirmed = self.confirmed
+        imageSimilarity.user_last_modified = self.user_last_modified
+        qs.exclude(id=imageSimilarity.id).delete()
+        guess = ImageSimilarityGuess(image_similarity=imageSimilarity, guesser=self.user_last_modified, similarity_type=self.similarity_type)
+        guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=imageSimilarity.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
+        if self.similarity_type:
+            firstGuess = 0 if self.similarity_type == 1 else 1
+            secondGuess = 0 if self.similarity_type == 2 else 2
+            if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
+                and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
+                guess.guesser = self.user_last_modified
+                imageSimilarity.similarity_type = self.similarity_type
+                if self.similarity_type == 0:
+                    hasSimilar = ImageSimilarity.objects.filter(\
+                        Q(from_photo_id=imageSimilarity.from_photo.id) &\
+                        Q(to_photo_id=imageSimilarity.to_photo.id) &\
+                        Q(similarity_type__gt=0)).first() is not None
+                    imageSimilarity.from_photo.hasSimilar = hasSimilar
+                    imageSimilarity.to_photo.hasSimilar = hasSimilar
+        imageSimilarity.save()
+        imageSimilarity.to_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
+            .exclude(similarity_type=0).first() is not None
+        imageSimilarity.from_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
+            .exclude(similarity_type=0).first() is not None
+        imageSimilarity.from_photo.save()
+        imageSimilarity.to_photo.save()
+        guess.save()
+
+        if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
+            return 10, guess
+        else:
+            return 0, guess
+
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
         points = 0
         if qs.count() == 0:
-            self.save()
-            if self.user_last_modified is not None:
-                guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
-                guess.save()
-                points = 10
+            points, guess = self.__add__()
         else:
-            imageSimilarity = qs.first()
-            imageSimilarity.confirmed = self.confirmed
-            imageSimilarity.user_last_modified = self.user_last_modified
-            qs.exclude(id=imageSimilarity.id).delete()
-            guess = ImageSimilarityGuess(image_similarity=imageSimilarity, guesser=self.user_last_modified, similarity_type=self.similarity_type)
-            guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=imageSimilarity.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
-            if self.similarity_type:
-                firstGuess = 0 if self.similarity_type == 1 else 1
-                secondGuess = 0 if self.similarity_type == 2 else 2
-                if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
-                    and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
-                    guess.guesser = self.user_last_modified
-                    imageSimilarity.similarity_type = self.similarity_type
-                    if self.similarity_type == 0:
-                        hasSimilar = ImageSimilarity.objects.filter(\
-                            Q(from_photo_id=imageSimilarity.from_photo.id) &\
-                            Q(to_photo_id=imageSimilarity.to_photo.id) &\
-                            Q(similarity_type > 0)).first() is not None
-                        imageSimilarity.from_photo.hasSimilar = hasSimilar
-                        imageSimilarity.to_photo.hasSimilar = hasSimilar
-            imageSimilarity.save()
-            imageSimilarity.to_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
-                .exclude(similarity_type=0).first() is not None
-            imageSimilarity.from_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
-                .exclude(similarity_type=0).first() is not None
-            imageSimilarity.from_photo.save()
-            imageSimilarity.to_photo.save()
-            guess.save()
-
-            if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
-                points = 10
+            points, guess = self.__update__(qs)
         if points > 0:
             Points(
                 user=self.user_last_modified,

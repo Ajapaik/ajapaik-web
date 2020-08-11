@@ -6,8 +6,6 @@ from ajapaik.ajapaik_object_recognition import object_annotation_utils
 
 
 def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) -> bool:
-    user_id = annotation_remove_request.user_id
-
     face_detection_annotation = FaceRecognitionRectangle.objects.get(
         pk=annotation_remove_request.annotation_id
     )

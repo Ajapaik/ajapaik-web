@@ -294,13 +294,13 @@ class AjapaikAPIView(APIView):
             'photos': []
         })
 
-    def _reset_session_cookie(self, response):
-        if 'sessionid' in response.session.keys():
-            session_id=response.session['sessionid'];
+    def _reset_session_cookie(self, request):
+        if 'sessionid' in request.session.keys():
+            session_id=request.session['sessionid']
             s=Session.objects.get(session_key=session_id)
             if not s:
                 del request.session['sessionid']
-        return response;
+        return request
 
     def post(self, request, format=None):
         request=self._reset_session_cookie(request)
@@ -566,8 +566,6 @@ class FinnaNearestPhotos(AjapaikAPIView):
                 'foo' : 'bar',
                 'photos': []
             })
-        return HttpResponse(response, content_type='application/json')
-
 
 class AlbumNearestPhotos(AjapaikAPIView):
     '''
@@ -696,9 +694,6 @@ class SourceDetails(AjapaikAPIView):
                 source_url__contains=query,
                 rephoto_of__isnull=True,
             )[start:end]
-            response_data = {
-                'error': RESPONSE_STATUSES['OK']
-            }
 
             photos = serializers.PhotoSerializer.annotate_photos(
                 photos,
@@ -1250,7 +1245,6 @@ class AlbumsSearch(AjapaikAPIView):
         form = forms.ApiAlbumSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-            user_profile = user.profile if user.is_authenticated else None
 
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(search_phrase))
 
@@ -1288,7 +1282,7 @@ class WikidocsAlbumsSearch(AjapaikAPIView):
     API endpoint to search for albums by given search phrase.
     '''
 
-    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs.php';
+    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs.php'
 
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumsSearchForm(data)
@@ -1305,11 +1299,11 @@ class WikidocsAlbumsSearch(AjapaikAPIView):
                 'lat': lat,
                 'lon': lon,
                 'search': query,
-                'start': 0,
+                'start': start,
                 'limit': limit,
                 'language':language
-            });
-            albums=[];
+            })
+            albums=[]
             for p in res.json():
                 try:
                     album = {
@@ -1344,7 +1338,7 @@ class WikidocsAlbumSearch(AjapaikAPIView):
     API endpoint to search for albums by given search phrase.
     '''
 
-    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs_qid_album.php';
+    search_url='https://tools.wmflabs.org/fiwiki-tools/hkmtools/wikidocs_qid_album.php'
 
     def _handle_request(self, data, user, request):
         form = forms.ApiWikidocsAlbumSearchForm(data)
@@ -1363,11 +1357,11 @@ class WikidocsAlbumSearch(AjapaikAPIView):
                 'lon': lon,
                 'search': query,
                 'qid': id,
-                'start': 0,
+                'start': start,
                 'limit': limit,
                 'language':language
-            });
-            photos=[];
+            })
+            photos=[]
             for p in res.json():
                 try:
                 # Coordinates are disabled because center coordinates aren't good enough
@@ -1460,7 +1454,6 @@ class SubmitSimilarPhotos(AjapaikAPIView):
     '''
     def post(self, request, format=None):
         points = 0
-        errors = 0
         profile = request.user.profile
         photos = request.POST['photos'].split(',')
         photos2 = request.POST['photos'].split(',')
@@ -1572,7 +1565,7 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'], user_id = request.user.profile.id).count() > 0:
                 return JsonResponse({'message': _('You have already given feedback for this transcription')})
             else:
-                transcriptionFeedback = TranscriptionFeedback(
+                TranscriptionFeedback(
                     user=get_object_or_404(Profile, pk=request.user.profile.id),
                     transcription=get_object_or_404(Transcription, id=request.POST['id'])
                 ).save()

@@ -7,7 +7,7 @@ def refresh_albums():
     try:
         management.call_command('refresh_albums', verbosity=0)
         return 'Albums refreshed'
-    except:
+    except Exception as e:
         print(e)
 
 # TODO: Stats export

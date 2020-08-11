@@ -74,7 +74,7 @@ class FaceRecognitionRectangle(models.Model):
 
         return subject_album
 
-    def add_subject_data(subject, profile, age, gender):
+    def add_subject_data(self, subject, profile, age, gender):
         lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
         lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
         lastGuessesByOtherUsers = lastGuesses.exclude(guesser_id=profile.id)
@@ -104,21 +104,6 @@ class FaceRecognitionRectangle(models.Model):
         subject.photo.light_save()
 
         if lastGuessesByOtherUsers.count() > 0:
-            results = {}
-            sumGender = 0
-            guessCountGender = 0
-            sumAge = 0
-            guessCountAge = 0
-            if gender != None:
-                sumGender = int(str(gender), 10)
-                guessCountGender = 1
-            if age != None:
-                sumAge = int(str(age), 10)
-                guessCountAge = 1
-            unknowns = {
-                'age': 0,
-                'gender': 0
-            }
             ageGuesses = []
             genderGuesses = []
             for guess in lastGuessesByOtherUsers:
