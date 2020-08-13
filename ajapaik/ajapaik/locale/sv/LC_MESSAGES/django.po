@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-27 16:18:10+0000\n"
+"PO-Revision-Date: 2020-08-13 17:12:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -52,7 +52,7 @@ msgstr ""
 #: ajapaik/ajapaik/api.py:1564 ajapaik/ajapaik/api.py:1581
 #: ajapaik/ajapaik/api.py:1595
 msgid "Something went wrong"
-msgstr "Någonting gick fel"
+msgstr "Någonting blev fel"
 
 #: ajapaik/ajapaik/api.py:1573
 msgid "You have already given feedback for this transcription"
@@ -109,11 +109,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:18
 msgid "First name"
-msgstr "First name"
+msgstr "Förnamn"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "Last name"
-msgstr "Last name"
+msgstr "Efternamn"
 
 #: ajapaik/ajapaik/forms.py:93 ajapaik/ajapaik/forms.py:161
 #: ajapaik/ajapaik/forms.py:182
@@ -223,7 +223,7 @@ msgstr "Kommentarsfältet har stöd för Markdown\n\nParagrafer\nLägg till två
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "Nothing to change."
-msgstr "Ingenting är ändra."
+msgstr "Ingenting att ändra."
 
 #: ajapaik/ajapaik/models.py:177 ajapaik/ajapaik_face_recognition/models.py:23
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:51
@@ -408,7 +408,7 @@ msgstr "År"
 #: ajapaik/ajapaik/templates/user.html:5
 #: ajapaik/ajapaik/templates/user_settings.html:5
 msgid "Page Not Found"
-msgstr "Sidan hittades ej"
+msgstr "Sidan hittades inte"
 
 #: ajapaik/ajapaik/templates/404.html:14 ajapaik/ajapaik/templates/user.html:63
 #: ajapaik/ajapaik/templates/user_settings.html:95
@@ -417,7 +417,7 @@ msgstr "Tillbaka"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:12
 msgid "Collection info"
-msgstr "Samlings Info"
+msgstr "Samlingsinfo"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:22
 msgid "System error"
@@ -599,7 +599,7 @@ msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/
 
 #: ajapaik/ajapaik/templates/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr "Details for one-time donations"
+msgstr "Detaljer för engångsdonationer"
 
 #: ajapaik/ajapaik/templates/_donate_details.html:6
 msgid "Beneficiary's name"
@@ -2397,9 +2397,8 @@ msgstr "Okänd"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
-msgstr "olämpliga"
+msgstr "Går inte att tillämpa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:31
 #: ajapaik/ajapaik_face_recognition/models.py:203

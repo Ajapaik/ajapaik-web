@@ -10,6 +10,7 @@
 # Author: Mirzali
 # Author: Symposiarch
 # Author: Tiin
+# Author: Umherirrender
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -17,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-27 16:18:08+0000\n"
+"PO-Revision-Date: 2020-08-13 17:12:45+0000\n"
 "X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -451,9 +452,8 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:235
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:385
-#, fuzzy
 msgid "No results found for: %(query)s"
-msgstr "Keine Ergebnisse gefunden für:\\"
+msgstr "Keine Ergebnisse gefunden für: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:240
 msgid "Did you mean to search from: "

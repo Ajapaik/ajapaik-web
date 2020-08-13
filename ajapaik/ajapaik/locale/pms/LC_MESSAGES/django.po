@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-07-27 16:18:10+0000\n"
+"PO-Revision-Date: 2020-08-13 17:12:48+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,9 +186,8 @@ msgid "My preferred language is"
 msgstr "Mia lenga preferìa a l'é"
 
 #: ajapaik/ajapaik/forms.py:436
-#, fuzzy
 msgid "I wish to receive the newsletter"
-msgstr "Mia lenga preferìa a l'é"
+msgstr "I desìdero arsèive ël boletin d'anformassion"
 
 #: ajapaik/ajapaik/forms.py:440
 msgid "Yes"
@@ -2067,37 +2066,37 @@ msgstr "Casela d'arserca"
 #: ajapaik/ajapaik/templates/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "Goerné 's cont-sì (l'àutr a sarà fondù)"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:18
 #, python-format
 msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "A sta për fonde so <a href=\"%(me)s\">cont</a> atual con ël cont ëd <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Sò id utent a sarà: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:21
 #, python-format
 msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "Sò <a href=\"%(me)s\">cont</a> atual a sarà fondù ant ël cont ëd <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Sò id utent a sarà: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "Për piasì, ch'a selession-a che cont a vorërìa seghité a dovré apress"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Unifiché ij cont"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Geton nen vàlid, për piasì ch'a preuva torna o ch'a contata ël servissi client"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr ""
+msgstr "Për piasì, ch'a rintra ant ël sistema për trasferì le contribussion e ij paràmeter da 'n cont a l'àutr"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr ""
+msgstr "Për trasferì ij paràmeter e le contribussion da 'n cont a l'àutr, për piasì ch'a rintra ant ël sistema con sò àutr cont"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
@@ -2244,11 +2243,11 @@ msgstr "S'utent-sì a l'ha gnun-e contibussion."
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "paràmeter ëd %(username)s"
 
 #: ajapaik/ajapaik/templates/user_settings.html:17
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Boletin d'anformassion e paràmeter ëd lenga"
 
 #: ajapaik/ajapaik/templates/user_settings.html:49
 msgid "Change password"
@@ -2256,7 +2255,7 @@ msgstr "Cangé 'd ciav"
 
 #: ajapaik/ajapaik/templates/user_settings.html:81
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Unifiché n'àutr cont Ajapaik con cost-sì"
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
