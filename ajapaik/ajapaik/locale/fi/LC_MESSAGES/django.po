@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-08-07 07:36:17+0000\n"
+"PO-Revision-Date: 2020-08-17 17:13:48+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -77,7 +77,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1610
 msgid "Expired token"
-msgstr ""
+msgstr "Vanhentunut poletti"
 
 #: ajapaik/ajapaik/api.py:1624
 msgid "Contributions and settings from the other account were added to current"
@@ -207,7 +207,7 @@ msgstr "Ei"
 
 #: ajapaik/ajapaik/forms.py:446
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Määritä kielesi"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
