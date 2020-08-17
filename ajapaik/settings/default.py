@@ -135,7 +135,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                'ajapaik.ajapaik.context_processors.analytics',
+                'ajapaik.ajapaik.context_processors.google_maps_api_key',
                 'ajapaik.ajapaik.context_processors.is_user_upload',
             ),
             'loaders': (

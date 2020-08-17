@@ -398,8 +398,8 @@
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'javascript-catalog' %}?_={% now "U" %}"></script>
 {% if not is_frontpage and not is_photoview or is_game or is_mapview  %}
-    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key=AIzaSyBHl2qOOLdHrYgsKAEi-TqsP-DkQYe1NEc"></script>
-    {% else %}
+    <script src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={{ google_maps_api_key }}"></script>
+{% else %}
        {% leaflet_js %}
 {% endif %}
     <script src="{% static "js/jquery.URI-1.19.1.min.js" %}"></script>

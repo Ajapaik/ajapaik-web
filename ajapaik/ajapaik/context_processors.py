@@ -1,13 +1,10 @@
 from django.conf import settings
 
 
-def analytics(self):
+def google_maps_api_key(self):
     return {
-        'analytics': {
-            'google_analytics_key': settings.GOOGLE_ANALYTICS_KEY,
-        }
+        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
     }
-
 
 def is_user_upload(request):
     ret = False
