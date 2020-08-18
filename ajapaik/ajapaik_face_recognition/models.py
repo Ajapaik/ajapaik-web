@@ -74,12 +74,12 @@ class FaceRecognitionRectangle(models.Model):
 
         return subject_album
 
-    def add_subject_data(self, subject, profile, age, gender):
-        lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle_id = subject.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
+    def add_subject_data(self, profile, age, gender):
+        lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle = self).order_by('guesser_id', '-created').all().distinct('guesser_id')
         lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
         lastGuessesByOtherUsers = lastGuesses.exclude(guesser_id=profile.id)
         if gender == 'SKIP':
-            gender = subject.subject_consensus.gender
+            gender = self.subject_consensus.gender
         if gender == 'FEMALE':
             gender = 0
         if gender == 'MALE':
@@ -98,10 +98,10 @@ class FaceRecognitionRectangle(models.Model):
             age = 3
         if age == 'NOT_APPLICABLE':
             age = 4
-        newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = subject, guesser = profile, gender = gender, age = age)
+        newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = self, guesser = profile, gender = gender, age = age)
         newGuess.save()
-        subject.photo.latest_annotation = newGuess.created
-        subject.photo.light_save()
+        self.photo.latest_annotation = newGuess.created
+        self.photo.light_save()
 
         if lastGuessesByOtherUsers.count() > 0:
             ageGuesses = []
@@ -112,23 +112,23 @@ class FaceRecognitionRectangle(models.Model):
                 if(guess.gender != None and guess.gender != 3):
                     genderGuesses.append(guess.age)
             if len(ageGuesses) > 0:
-                subject.age = most_frequent(ageGuesses)
+                self.age = most_frequent(ageGuesses)
             else:
-                subject.age = age
+                self.age = age
             if len(genderGuesses) > 0:
-                subject.gender = most_frequent(genderGuesses)
+                self.gender = most_frequent(genderGuesses)
             else:
-                subject.gender = gender
+                self.gender = gender
         else:
-            subject.age = age
-            subject.gender = gender
-        subject.save()
+            self.age = age
+            self.gender = gender
+        self.save()
         points = 0
         if(lastGuessByCurrentUser is None and int(age) < 3):
             ageGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_AGE,
-                annotation = subject,
+                annotation = self,
                 created=timezone.now(),
                 face_recognition_rectangle_subject_data_guess = newGuess,
                 points=ageGuessPoints,
@@ -139,7 +139,7 @@ class FaceRecognitionRectangle(models.Model):
             genderGuessPoints = 20
             Points(
                 action=Points.GUESS_SUBJECT_GENDER,
-                annotation = subject,
+                annotation = self,
                 created=timezone.now(),
                 face_recognition_rectangle_subject_data_guess = newGuess,
                 points=genderGuessPoints,
