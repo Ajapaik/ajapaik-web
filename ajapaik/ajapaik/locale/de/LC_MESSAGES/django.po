@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-07-27 16:18:08+0000\n"
+"PO-Revision-Date: 2020-08-21 15:17:46+0000\n"
 "X-POT-Import-Date: 2020-07-22 14:12:50+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1610
 msgid "Expired token"
-msgstr ""
+msgstr "Abgelaufenes Token"
 
 #: ajapaik/ajapaik/api.py:1624
 msgid "Contributions and settings from the other account were added to current"
@@ -81,15 +81,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1626
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Bitte mit einem anderen Konto anmelden. Du bist derzeit mit demselben Konto angemeldet, von dem aus du fusionierst."
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
-msgstr ""
+msgstr "Anmelden bitte"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "Kein Album gefunden"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -338,7 +338,7 @@ msgstr "StreetView"
 
 #: ajapaik/ajapaik/models.py:1104
 msgid "Source geotag"
-msgstr ""
+msgstr "Quell-Geotag"
 
 #: ajapaik/ajapaik/models.py:1105
 msgid "Android app"
@@ -413,7 +413,7 @@ msgstr "Zurück"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:12
 msgid "Collection info"
-msgstr ""
+msgstr "Infos zur Sammlung"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:22
 msgid "System error"
@@ -422,7 +422,7 @@ msgstr "Systemfehler"
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload.html:30
 msgid "Search for an existing album"
-msgstr ""
+msgstr "Nach einem vorhandenen Album suchen"
 
 #: ajapaik/ajapaik/templates/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/comments/delete.html:18
@@ -460,7 +460,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Du hast"
 
 #: ajapaik/ajapaik/templates/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/_user_info.html:5
@@ -937,7 +937,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_header.html:39
 #: ajapaik/ajapaik/templates/_info_modal_content.html:111
 msgid "Show on map"
-msgstr ""
+msgstr "Auf Karte anzeigen"
 
 #: ajapaik/ajapaik/templates/_header.html:44
 msgid "List face recognition albums"
@@ -949,7 +949,7 @@ msgstr "Fotos mit Gesichtern auflisten"
 
 #: ajapaik/ajapaik/templates/_header.html:49
 msgid "Pictures by collections"
-msgstr ""
+msgstr "Bilder nach Sammlungen"
 
 #: ajapaik/ajapaik/templates/_header.html:52
 msgid "List albums with postcards"
@@ -1001,12 +1001,12 @@ msgstr "Bestenliste"
 #: ajapaik/ajapaik/templates/_header.html:120
 #: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Du bist angemeldet als"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr ""
+msgstr "Album kuratiert von"
 
 #: ajapaik/ajapaik/templates/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
@@ -1443,7 +1443,7 @@ msgstr "Anmelden"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Registrieren"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -2088,19 +2088,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Benutzerkonten zusammenführen"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Ungültiges Token, versuch es bitte erneut oder wende dich an den Kundendienst"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr ""
+msgstr "Bitte einloggen, um Beiträge und Einstellungen von einem Konto auf ein anderes zu übertragen"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr ""
+msgstr "Um Einstellungen und Beiträge von einem Konto auf ein anderes zu übertragen,  bitte mit deinem anderen Konto anmelden"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
@@ -2108,11 +2108,11 @@ msgstr "Zum Alblum hinzufügen"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:24
 msgid "Images have overlapping content"
-msgstr ""
+msgstr "Bilder haben überlappenden Inhalt"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:28
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "Alle Bilder sind von der gleichen Aufnahme"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:37
 msgid "You can re-order photos by dragging and dropping"
@@ -2120,11 +2120,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:13
 msgid "Import from public collections"
-msgstr ""
+msgstr "Import aus öffentlichen Sammlungen"
 
 #: ajapaik/ajapaik/templates/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr ""
+msgstr "Selbst hochladen"
 
 #: ajapaik/ajapaik/templates/photoview.html:27
 #: ajapaik/ajapaik/templates/photoview.html:29
@@ -2238,11 +2238,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Willkommen bei Ajapaik – Crowdsourcing-Plattform für historische Fotografien. Du bist herzlich eingeladen, die Bilder zu geotaggen und zu kommentieren, Gesichter zu taggen usw."
 
 #: ajapaik/ajapaik/templates/user.html:58
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Dieser Benutzer hat keine Beiträge."
 
 #: ajapaik/ajapaik/templates/user_settings.html:11
 #, python-format
@@ -2482,7 +2482,7 @@ msgstr "Anmerkung löschen"
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr ""
+msgstr "Estnisch"
 
 #: ajapaik/settings/default.py:75
 msgid "English"

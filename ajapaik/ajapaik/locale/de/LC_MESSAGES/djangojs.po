@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1233qwer1234qwer4
+# Author: DraconicDark
 # Author: FF11
 # Author: Ferdinand0101
 # Author: H2kks
@@ -18,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-08-13 17:12:45+0000\n"
+"PO-Revision-Date: 2020-08-21 15:17:46+0000\n"
 "X-POT-Import-Date: 2020-06-18 14:44:21+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -252,11 +253,11 @@ msgstr "Beschreibung"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
 msgid "Flip"
-msgstr ""
+msgstr "Kippen"
 
 #: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
 msgid "Geotag pictures in album"

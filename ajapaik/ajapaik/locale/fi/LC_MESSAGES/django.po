@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-08-17 17:13:48+0000\n"
+"PO-Revision-Date: 2020-08-21 15:17:47+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -68,12 +68,12 @@ msgstr "Käyttäjäasetukset on tallennettu"
 
 #: ajapaik/ajapaik/api.py:1605
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Pakollinen parametri, token puuttuu."
 
 #: ajapaik/ajapaik/api.py:1608
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Vanhentunut kirjautuminen"
 
 #: ajapaik/ajapaik/api.py:1610
 msgid "Expired token"
@@ -81,11 +81,11 @@ msgstr "Vanhentunut poletti"
 
 #: ajapaik/ajapaik/api.py:1624
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "Muokkaukset ja asetukset toisesta tunnuksesta on yhdistetty nykyiseen"
 
 #: ajapaik/ajapaik/api.py:1626
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Kirjaudu sisälle toisella tunnuksella, olet parhaillaan kirjautuneena sillä tunnuksella jota olet yhdistämässä"
 
 #: ajapaik/ajapaik/api.py:1628
 msgid "Please login"
@@ -211,7 +211,7 @@ msgstr "Määritä kielesi"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Haluatko vastaanottaa uutiskirjeen"
 
 #: ajapaik/ajapaik/forms.py:466
 msgid "Email address"
@@ -908,7 +908,7 @@ msgstr "Tämä käyttäjä on ehdottanut sijaintia tälle kuvalle"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Nämä käyttäjät ovat ehdottaneet kuvalle sijaintia"
 
 #: ajapaik/ajapaik/templates/_geotaggers_modal_content.html:18
 msgid "Modified"
@@ -1370,11 +1370,11 @@ msgstr "Valinnan voi tehdä myös näppäimistöllä (1,2,3)."
 #: ajapaik/ajapaik/templates/_user_card.html:15
 #| msgid "Socialaccount connections"
 msgid "!!FUZZY!!Socialaccount connections"
-msgstr ""
+msgstr "Tämä tili on yhdistetty:"
 
 #: ajapaik/ajapaik/templates/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Tätä tiliä ei ole yhdistetty mihinkään muuhun tiliin"
 
 #: ajapaik/ajapaik/templates/_user_info.html:31
 #, python-format
@@ -1387,8 +1387,8 @@ msgstr[1] "määrittelit päiväyksen <b>%(datings)s</b> kuvalle"
 #, python-format
 msgid "has annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "has annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "merkitty kasvoja <b>%(face_annotations)s</b> kuvaan"
+msgstr[1] "merkitty kasvoja <b>%(face_annotations)s</b> kuvaan"
 
 #: ajapaik/ajapaik/templates/_user_info.html:43
 #, python-format
@@ -1408,8 +1408,8 @@ msgstr[1] "litteroinut tekstiä <b>%(transcriptions)s</b> kuvassa"
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(user_points)s piste yhteensä</b>"
+msgstr[1] "<b>%(user_points)s</b> pistettä yhteensä"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:6
 msgid "Welcome back"
@@ -1417,7 +1417,7 @@ msgstr "Tervetuloa takaisin"
 
 #: ajapaik/ajapaik/templates/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
-msgstr ""
+msgstr "Määritä haluatko saada uutiskirjeen sekä ensisijaisen kommunikointikielen."
 
 #: ajapaik/ajapaik/templates/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
@@ -2074,21 +2074,21 @@ msgstr "Hakukenttä"
 #: ajapaik/ajapaik/templates/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "Jatka tällä käyttäjällä (toisen käyttäjän tiedot yhdistetään tähän)"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:18
 #, python-format
 msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "Olet yhdistämässä nykyistä <a href=\"%(me)s\">käyttäjätunnustasi</a> ja <a href=\"%(link)s\" target=\"_blank\">%(name)s</a> käyttäjätunnusta. Uusi käyttäjätunnuksesi tulee olemaan: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:21
 #, python-format
 msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "Nykyinen <a href=\"%(me)s\">käyttäjätunnuksesi</a> yhdistetään <a href=\"%(link)s\" target=\"_blank\">%(name)s</a> käyttäjätunnukseen. Uusi käyttäjätunnuksesi on: %(id)s"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "Määritä, mitä käyttäjätunnusta haluat käyttää myöhemmin"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:27
 msgid "Merge the accounts"
@@ -2096,15 +2096,15 @@ msgstr "Yhdistä tunnukset"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Virheellinen tunnus, yritä uudelleen tai ota yhteyttä asiakastukeen"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr ""
+msgstr "Ole hyvä ja kirjaudu sisään siirtääksesi muokkaukset ja asetukset käyttäjätunnukselta toiselle"
 
 #: ajapaik/ajapaik/templates/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr ""
+msgstr "Siirtääksesi asetukset ja muokkaukset käyttäjätunnukselta toiselle, kirjaudu sisään toisella tunnuksellasi"
 
 #: ajapaik/ajapaik/templates/photo_selection.html:15
 msgid "Add to album"
@@ -2226,7 +2226,7 @@ msgstr "Lisää kolmannen osapuolen tili"
 #: ajapaik/ajapaik/templates/user.html:25
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> on"
 
 #: ajapaik/ajapaik/templates/user.html:32
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
@@ -2263,7 +2263,7 @@ msgstr "Vaihda salasana"
 
 #: ajapaik/ajapaik/templates/user_settings.html:81
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Yhdistä toinen Ajapaik-käyttäjätunnus nykyiseen"
 
 #: ajapaik/ajapaik/templates/user_upload.html:25
 #, python-format
