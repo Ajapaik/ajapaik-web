@@ -305,6 +305,7 @@ class AjapaikAPIView(APIView):
             # Do nothing 
             print("Not urlencoded")
 
+        return post
 
     def _handle_request(self, data, user, request):
         return Response({
