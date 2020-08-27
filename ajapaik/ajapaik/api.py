@@ -9,6 +9,7 @@ import json
 from json import loads
 from urllib.request import urlopen
 from urllib.parse import quote
+from urllib.parse import parse_qs
 import logging
 
 import requests
@@ -288,6 +289,23 @@ class AjapaikAPIView(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
+    def _fix_latin1_query_param(self, post, body): 
+        try:
+            # If fails then string is not urlencoded
+            body=body.decode("ascii")
+            try:
+                latin1=parse_qs(body,encoding="latin-1")
+                if ('query' in latin1):
+                    post['query']=latin1['query'][0]
+            except:
+                # Do nothing
+                print("Latin1 failed")
+
+        except:
+            # Do nothing 
+            print("Not urlencoded")
+
+
     def _handle_request(self, data, user, request):
         return Response({
             'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
@@ -303,8 +321,10 @@ class AjapaikAPIView(APIView):
         return request
 
     def post(self, request, format=None):
+        body=request.body
+        post=self._fix_latin1_query_param(request.POST.copy(), body)
         request=self._reset_session_cookie(request)
-        return self._handle_request(request.data, request.user, request)
+        return self._handle_request(post, request.user, request)
 
     def get(self, request, format=None):
         request=self._reset_session_cookie(request)
@@ -1200,6 +1220,7 @@ class UserRephotosSearch(AjapaikAPIView):
                 lat = form.cleaned_data['latitude'] or None
 
                 search_phrase = form.cleaned_data['query']
+
                 sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(search_phrase))
                 photos = Photo.objects.filter(
                     id__in=[item.pk for item in sqs],
@@ -1245,7 +1266,6 @@ class AlbumsSearch(AjapaikAPIView):
         form = forms.ApiAlbumSearchForm(data)
         if form.is_valid():
             search_phrase = form.cleaned_data['query']
-
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(search_phrase))
 
             albums = Album.objects.filter(
@@ -1269,7 +1289,10 @@ class AlbumsSearch(AjapaikAPIView):
 
     def post(self, request, format=None):
         user = request.user or None
-        return self._handle_request(request.data, user, request)
+        body = request.body
+        post = self._fix_latin1_query_param(request.POST.copy(), body)
+
+        return self._handle_request(post, user, request)
 
     def get(self, request, format=None):
         user = request.user or None
