@@ -289,22 +289,23 @@ class AjapaikAPIView(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def _fix_latin1_query_param(self, post, body): 
-        try:
-            # If fails then string is not urlencoded
-            body=body.decode("ascii")
+    def _fix_latin1_query_param(self, request, body):
+        post=request.POST.copy()
+        if request.encoding != "UTF-8":
             try:
-                latin1=parse_qs(body,encoding="latin-1")
-                if ('query' in latin1):
-                    post['query']=latin1['query'][0]
+                # If fails then string is not urlencoded
+                body=body.decode("ascii")
+                try:
+                    latin1=parse_qs(body,encoding="latin-1")
+                    if ('query' in latin1):
+                        post['query']=latin1['query'][0]
+                except:
+                    # Do nothing
+                    print("Latin1 failed")
+
             except:
-                # Do nothing
-                print("Latin1 failed")
-
-        except:
-            # Do nothing 
-            print("Not urlencoded")
-
+                # Do nothing 
+                print("Not urlencoded")
         return post
 
     def _handle_request(self, data, user, request):
@@ -323,7 +324,7 @@ class AjapaikAPIView(APIView):
 
     def post(self, request, format=None):
         body=request.body
-        post=self._fix_latin1_query_param(request.POST.copy(), body)
+        post=self._fix_latin1_query_param(request, body)
         request=self._reset_session_cookie(request)
         return self._handle_request(post, request.user, request)
 
@@ -1291,7 +1292,7 @@ class AlbumsSearch(AjapaikAPIView):
     def post(self, request, format=None):
         user = request.user or None
         body = request.body
-        post = self._fix_latin1_query_param(request.POST.copy(), body)
+        post = self._fix_latin1_query_param(request, body)
 
         return self._handle_request(post, user, request)
 
