@@ -215,7 +215,8 @@ class Login(APIView):
                 user = self._authenticate_with_facebook(request._request,
                                                         access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
-                
+                # TODO: Finish API endpoint for Wikimedia Commons login
+                pass
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
                 # Deprecated. Kept for backwards compatibility.
                 user = None
