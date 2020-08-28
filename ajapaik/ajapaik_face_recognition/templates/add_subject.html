@@ -1,4 +1,4 @@
-{% extends "base_bootstrap.html" %}
+{% extends "core/base_bootstrap.html" %}
 {% load i18n bootstrap4 %}
 
 {% block header %}{% endblock header %}
@@ -15,7 +15,7 @@
             {% bootstrap_form form %}
             {% buttons %}
                 <div class="mb-4" class="btn-group float-right" role="group"
-                     aria-label="ajapaik-add-face-recogntion-subject-button-group">
+                     aria-label="ajp-add-face-recogntion-subject-button-group">
                     <button type="button" class="btn btn-danger" onclick="window.close();">
                         {% trans "Close" %}
                     </button>

@@ -202,6 +202,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons'
 )
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
@@ -415,5 +416,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'offline',
         }
+    },
+    'wikimedia-commons': {
+        'METHOD': 'oauth2',
+        'SCOPE': [
+            'basic',
+            'editpage',
+            'uploadfile'
+        ]
     },
 }

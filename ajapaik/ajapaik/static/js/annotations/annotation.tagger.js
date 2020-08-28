@@ -20,7 +20,7 @@ var ObjectTagger = {
     stopCropping: function () {
         this.isInCropMode = false;
 
-        $('#ajapaik-full-screen-link').css('cursor', 'zoom-in');
+        $('#ajp-full-screen-link').css('cursor', 'zoom-in');
 
         enableMovingBetweenPictures();
         ImageAreaSelector.performCleanup();

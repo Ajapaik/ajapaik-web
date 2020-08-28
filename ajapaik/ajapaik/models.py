@@ -1170,6 +1170,7 @@ class Profile(Model):
     facebook = FacebookManager()
 
     user = OneToOneField(User, primary_key=True, on_delete=CASCADE)
+    display_name = CharField(max_length=255, null=True, blank=True)
 
     first_name = CharField(max_length=255, null=True, blank=True)
     last_name = CharField(max_length=255, null=True, blank=True)
@@ -1200,6 +1201,7 @@ class Profile(Model):
 
     newsletter_consent = BooleanField(null=True)
     preferred_language = CharField(max_length=8, null=True, blank=True)
+    wikimedia_commons_rephoto_upload_consent = BooleanField(null=True)
 
     class Meta:
         db_table = 'project_profile'
@@ -1216,7 +1218,9 @@ class Profile(Model):
 
     @property
     def get_display_name(self):
-        if self.first_name and self.last_name:
+        if self.display_name:
+            return self.display_name
+        elif self.first_name and self.last_name:
             return '%s %s' % (self.first_name, self.last_name)
         elif self.google_plus_name:
             return self.google_plus_name
@@ -1502,6 +1506,10 @@ class Video(Model):
     def get_absolute_url(self):
         return reverse('videoslug', args=(self.id, self.slug))
 
+class ProfileDisplayNameChange(Model):
+    profile = ForeignKey('Profile', related_name='display_name_changes', on_delete=CASCADE)
+    display_name = CharField(max_length=255, null=True, blank=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
 
 class MyXtdComment(XtdComment):
     facebook_comment_id = CharField(max_length=255, blank=True, null=True)
@@ -1549,3 +1557,10 @@ class MyXtdComment(XtdComment):
 
     def dislike_count(self):
         return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
+    
+    class WikimediaCommonsUpload(Model):
+        response_code= IntegerField(null=True, editable=False)
+        response_data = TextField(null=True, editable=False)
+        created = DateTimeField(auto_now_add=True, db_index=True)
+        photo = ForeignKey('Photo', on_delete=CASCADE)
+        url = URLField(null=True, blank=True, max_length=1023)

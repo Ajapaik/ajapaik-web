@@ -1,8 +1,8 @@
-{% extends "base_bootstrap.html" %}
+{% extends "core/base_bootstrap.html" %}
 {% load i18n static compress %}
 
 {% block header %}
-    {% include "_header.html" %}
+    {% include "core/_header.html" %}
 {% endblock %}
 {% block layout %}
 <div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;">
@@ -12,5 +12,5 @@
 </div>
 {% endblock %}
 {% block footer %}
-    {% include "_footer.html" %}
+    {% include "core/_footer.html" %}
 {% endblock %}

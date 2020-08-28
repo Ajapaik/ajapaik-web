@@ -8,8 +8,8 @@ import re
 import json
 from json import loads
 from urllib.request import urlopen
-from urllib.parse import quote
 from urllib.parse import parse_qs
+from urllib.parse import quote
 import logging
 
 import requests
@@ -56,7 +56,8 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from ajapaik.ajapaik.utils import merge_profiles
 
 
@@ -145,6 +146,27 @@ class Login(APIView):
         except:
             return None
 
+    def _authenticate_with_wikimedia_commons(self, request, token):
+        '''
+        Returns user by ID token that we get from mobile application after user
+        authentication there.
+        '''
+        try:
+            adapter = WikimediaCommonsOAuth2Adapter(request)
+            app = adapter.get_provider().get_app(request)
+            token = adapter.parse_token({'access_token': access_token})
+            token.app = app
+            login = adapter.complete_login(request, app, token)
+            login.token = token
+            login.state = {
+                'auth_params': '',
+                'process': 'login',
+                'scope': ''
+            }
+            complete_social_login(request, login)
+            return login.user
+        except:
+            return None
 
     def _authenticate_with_facebook(self, request, access_token):
         '''
@@ -192,8 +214,10 @@ class Login(APIView):
                 access_token = form.cleaned_data['password']
                 user = self._authenticate_with_facebook(request._request,
                                                         access_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
+                
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
-                # Deprecated. Keeped for back compatibility.
+                # Deprecated. Kept for backwards compatibility.
                 user = None
 
             if user is None:
@@ -927,6 +951,19 @@ class RephotoUpload(APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
             })
 
+class RephotoUploadSettings(AjapaikAPIView):
+    '''
+    API endpoint for saving rephoto upload settings
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
+            profile.save()
+            return JsonResponse({'message': _('Rephoto upload settings have been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
 class api_user_me(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         content = {
@@ -1534,13 +1571,13 @@ class Transcriptions(AjapaikAPIView):
             text = request.POST['text']
 
             if count < 1:
-                previousTranscriptionByCurrentUser = Transcription.objects.filter(photo=photo, user=user).first()
-                if previousTranscriptionByCurrentUser:
-                    previousTranscriptionByCurrentUser.text = text
-                    previousTranscriptionByCurrentUser.save()
+                previous_transcription_by_current_user = Transcription.objects.filter(photo=photo, user=user).first()
+                if previous_transcription_by_current_user:
+                    previous_transcription_by_current_user.text = text
+                    previous_transcription_by_current_user.save()
                     if not photo.first_transcription:
-                        photo.first_transcription = previousTranscriptionByCurrentUser.modified
-                    photo.latest_transcription = previousTranscriptionByCurrentUser.modified
+                        photo.first_transcription = previous_transcription_by_current_user.modified
+                    photo.latest_transcription = previous_transcription_by_current_user.modified
                     photo.light_save()
                 else:
                     transcription = Transcription(
@@ -1574,7 +1611,7 @@ class Transcriptions(AjapaikAPIView):
                 else:
                     return JsonResponse({'message': _('You have already submitted this transcription, thank you!')})
             else:
-                if previousTranscriptionByCurrentUser:
+                if previous_transcription_by_current_user:
                     return JsonResponse({'message': _('Your transcription has been updated, thank you!')})
                 else:
                     return JsonResponse({'message': _('Transcription added, thank you!')})
@@ -1612,6 +1649,21 @@ class UserSettings(AjapaikAPIView):
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
+class ChangeProfileDisplayName(AjapaikAPIView):
+    '''
+    API endpoint for changing user display name
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.display_name = request.POST['display_name']
+            profile.save()
+            profile_display_name_change = ProfileDisplayNameChange(display_name=request.POST['display_name'], profile=profile)
+            profile_display_name_change.save()
+            return JsonResponse({'message': _('User display name has been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
 class MergeProfiles(AjapaikAPIView):
     '''
     API endpoint for merging two users' points, photos, annotations, datings, etc..
@@ -1621,24 +1673,24 @@ class MergeProfiles(AjapaikAPIView):
         token = request.POST['token']
         if token is None:
             return JsonResponse({'error': _('Required parameter, token is missing')}, status=400)
-        profileMergeToken = ProfileMergeToken.objects.filter(token=token).first()
-        if profileMergeToken is None:
+        profile_merge_token = ProfileMergeToken.objects.filter(token=token).first()
+        if profile_merge_token is None:
             return JsonResponse({'error': _('Invalid token')}, status=401)
-        if profileMergeToken.used is not None or (profileMergeToken.created < (timezone.now() - datetime.timedelta(hours=1))):
+        if profile_merge_token.used is not None or (profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
             return JsonResponse({'error': _('Expired token')}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id is not profileMergeToken.profile.id:
+            if request.user.profile.id is not profile_merge_token.profile.id:
                 if reverse == 'true':
-                    merge_profiles(request.user.profile, profileMergeToken.profile)
-                    profileMergeToken.target_profile = request.user.profile
-                    profileMergeToken.source_profile = profileMergeToken.profile
+                    merge_profiles(request.user.profile, profile_merge_token.profile)
+                    profile_merge_token.target_profile = request.user.profile
+                    profile_merge_token.source_profile = profile_merge_token.profile
                 else:
-                    merge_profiles(profileMergeToken.profile, request.user.profile)
-                    profileMergeToken.target_profile = profileMergeToken.profile
-                    profileMergeToken.source_profile = request.user.profile
-                    login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
-                profileMergeToken.used = datetime.datetime.now()
-                profileMergeToken.save()
+                    merge_profiles(profile_merge_token.profile, request.user.profile)
+                    profile_merge_token.target_profile = profile_merge_token.profile
+                    profile_merge_token.source_profile = request.user.profile
+                    login(request, profile_merge_token.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
+                profile_merge_token.used = datetime.datetime.now()
+                profile_merge_token.save()
                 return JsonResponse({'message': _('Contributions and settings from the other account were added to current')})
             else:
                 return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})

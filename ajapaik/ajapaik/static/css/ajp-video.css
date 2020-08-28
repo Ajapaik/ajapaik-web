@@ -1,0 +1,88 @@
+#ajp-video-modal-still-button {
+    background: none;
+}
+
+#ajp-video-modal-still-button > i {
+    font-size: 48px;
+}
+
+#ajp-video-modal-still-button.enabled > i {
+    color: black;
+}
+
+#ajp-video-modal-still-button.disabled > i {
+    color: #888;
+}
+
+#ajp-video-modal-anonymous-icon {
+    position: relative;
+    top: 6px;
+    left: 6px;
+    cursor: pointer;
+}
+
+#ajp-video-modal-anonymous-warning {
+    margin-left: 20px;
+}
+
+#ajp-video-modal-body {
+    padding-left: 40px;
+}
+
+.ajp-album-selection-film-icon {
+    display: inline-block;
+    width: 30px;
+}
+
+.ajp-album-selection-film-icon > i {
+    position: relative;
+    top: 9px;
+}
+
+.ajp-frontpage-video-container > i {
+    color: white;
+    font-size: 48px;
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+}
+
+#ajp-header-movie-indicator {
+    position: relative;
+    top: -2px;
+}
+
+#ajp-video-modal-info-column {
+    text-align: left;
+}
+
+#ajp-modal-video {
+    width: 100%;
+    height: 100%;
+}
+
+#ajp-videoview-video {
+    width: 100%;
+    height: 100%;
+}
+
+#ajp-videoview-album-list {
+    margin-top: 20px;
+}
+
+#ajp-videoview-album-list > div > i {
+    font-size: 36px;
+    color: #888;
+}
+
+#ajp-video-modal-speed-buttons > button {
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+}
+
+#ajp-videoview-speed-buttons > button {
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+}

@@ -250,7 +250,7 @@ var ImageAreaSelector = (function () {
 })();
 
 function copyAnnotateButtonToFullScreenView() {
-    var fullScreenContainer = $('#ajapaik-fullscreen-image-container');
+    var fullScreenContainer = $('#ajp-fullscreen-image-container');
 
     var annotateButton = fullScreenContainer.find('#mark-object-button');
     var isButtonAlreadyPresent = annotateButton.length > 0;
@@ -267,7 +267,7 @@ function copyAnnotateButtonToFullScreenView() {
     var markObjectClone = $('#mark-object-button').clone();
     markObjectClone.css('z-index', 1);
 
-    markObjectClone.find('i').removeClass('ajapaik-text-gray');
+    markObjectClone.find('i').removeClass('ajp-text-gray');
     markObjectClone.addClass('annotation-button__fullscreen');
 
     markObjectClone.on('click', function(event) {

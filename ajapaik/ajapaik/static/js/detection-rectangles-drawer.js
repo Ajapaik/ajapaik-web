@@ -45,13 +45,13 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
 
     if (annotation.wikiDataId) {
         return getDetectedObjectModifyRectangle(
-            'ajapaik-object-modify-rectangle-' + annotation.id,
+            'ajp-object-modify-rectangle-' + annotation.id,
             annotation,
             configuration
         );
     } else {
         return getDetectedFaceModifyRectangle(
-            'ajapaik-face-modify-rectangle-' + annotation.id,
+            'ajp-face-modify-rectangle-' + annotation.id,
             annotation,
             configuration
         );

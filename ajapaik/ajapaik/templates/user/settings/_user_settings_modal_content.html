@@ -1,0 +1,43 @@
+{% load i18n bootstrap4 %}
+{% csrf_token %}
+{% bootstrap_form form %}
+<button id="user-settings-upload-submit-button" class="primaryAction btn btn-primary" type="submit">{% trans "Submit" %}</button>
+{% block specific_js %}
+    <script>
+        var settingsUrl = "{% url 'api_submit_user_settings' %}";
+        var isModal = "{{ isModal }}" == "True";
+
+        $('#user-settings-upload-submit-button').on('click', function() {
+            SaveSettings();
+        });
+
+        SaveSettings = function(subject, profile){
+            let preferredLanguageE = document.getElementById("id_preferred_language");
+            let preferredLanguage= preferredLanguageE.options[preferredLanguageE.selectedIndex].value;
+            let newsletterConsentE = document.getElementById("id_newsletter_consent");
+            let newsletterConsent= newsletterConsentE.options[newsletterConsentE.selectedIndex].value;
+            $('#ajp-loading-overlay').show();
+            $.ajax({
+                type: "POST",
+                url: settingsUrl,
+                data: {
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                    preferredLanguage: preferredLanguage,
+                    newsletterConsent: newsletterConsent
+                },
+                success: function (response) {
+                    $.notify(gettext(response.message), {type: 'success'});
+                },
+                error: function (response) {
+                    $.notify(response.message, {type: "danger"});
+                },
+                complete: function () {
+                    $('#ajp-loading-overlay').hide();
+                    if(isModal) {
+                        $('#ajp-user-settings-modal').modal('hide');
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

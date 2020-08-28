@@ -1,0 +1,88 @@
+#subject-data-container {
+    flex-direction: column;
+    align-items: center;
+}
+
+.guess-button {
+    border: none;
+    max-lines: 135px;
+    min-width: 100px;
+    height: 90px;
+    font-size: 16px;
+    padding-top: 50px;
+    background-position-x: center;
+    background-position-y: 15px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.guess-button:hover {
+    background-color: #d5d5d5;
+}
+
+.guess-button:focus,
+.guess-button:active {
+    outline: none;
+}
+
+.human-child {
+    background-position-y: 20px;
+    background-position-x: center;
+    background-image: url(../images/material-design-icons/ic_human_child.svg);
+}
+
+.human-elderly {
+    background-size: 54px;
+    background-image: url(../images/material-design-icons/ic_human_elderly.svg);
+}
+
+.human-female {
+    background-image: url(../images/material-design-icons/ic_human_female.svg);
+}
+
+.human-male {
+    background-image: url(../images/material-design-icons/ic_human_male.svg);
+}
+
+.human-adult {
+    background-image: url(../images/material-design-icons/ic_human_adult.svg);
+}
+
+.skip-next {
+    background-image: url(../images/material-design-icons/ic_skip_next.svg);
+}
+
+.circled-cross {
+    background-image: url(../images/material-design-icons/ic_circled_cross.svg);
+}
+
+.info {
+    background-image: url(../images/material-design-icons/ic_info.svg);
+}
+
+.main-image {
+    max-height: 80vh;
+    max-width: 100vw;
+}
+
+#first-block, #second-block {
+    justify-content: center;
+}
+
+.navbar.navbar-default.navbar-fixed-top.ajp-navbar.w-100.py-0 {
+    height: 60px;
+}
+
+#subject-data-description-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    min-height: 100px;
+    color: white;
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 5px;
+    text-align: left;
+    font-size: 18px;
+}

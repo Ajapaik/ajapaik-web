@@ -87,7 +87,7 @@ msgstr "الوصف مفقود"
 msgid "Missing licence"
 msgstr "الرخصة مفقودة"
 
-#: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator.html:103
+#: ajapaik/ajapaik/forms.py:408 ajapaik/ajapaik/templates/curator/curator.html:103
 msgid "Parent album"
 msgstr "الألبوم الرئيسي"
 
@@ -119,12 +119,12 @@ msgstr "أنثى"
 msgid "Male"
 msgstr "ذكر"
 
-#: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator.html:69
+#: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/templates/curator/curator.html:69
 msgid "Name"
 msgstr "الاسم"
 
 #: ajapaik/ajapaik/models.py:182 ajapaik/ajapaik/models.py:350
-#: ajapaik/ajapaik/templates/curator.html:78
+#: ajapaik/ajapaik/templates/curator/curator.html:78
 msgid "Description"
 msgstr "الوصف"
 
@@ -269,15 +269,15 @@ msgstr "الصفحة غير موجودة"
 msgid "Back"
 msgstr "رجوع"
 
-#: ajapaik/ajapaik/templates/_album_creation_modal.html:7
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:7
 msgid "Collection info"
 msgstr "معلومات المجموعة"
 
-#: ajapaik/ajapaik/templates/_album_creation_modal.html:17
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:17
 msgid "System error"
 msgstr "خطأ في النظام"
 
-#: ajapaik/ajapaik/templates/_album_creation_modal.html:31
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:31
 #: ajapaik/ajapaik/templates/comments/delete.html:17
 #: ajapaik/ajapaik/templates/comments/list.html:43
 #: ajapaik/ajapaik/templates/comments/list.html:65
@@ -287,23 +287,23 @@ msgstr "خطأ في النظام"
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: ajapaik/ajapaik/templates/_album_creation_modal.html:34
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:34
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
 #: ajapaik/ajapaik/templates/registration/registration_form.html:14
 msgid "Submit"
 msgstr "إرسال"
 
-#: ajapaik/ajapaik/templates/_block_leaderboard.html:12
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
 msgstr "متصدرو النشاط الأخير"
 
-#: ajapaik/ajapaik/templates/_block_leaderboard.html:15
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
 msgstr "متصدرو الألبوم %(album_name)s"
 
-#: ajapaik/ajapaik/templates/_block_leaderboard.html:18
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:18
 msgid "All time leaderboard"
 msgstr "متصدرو كل الوقت"
 
@@ -311,466 +311,466 @@ msgstr "متصدرو كل الوقت"
 msgid "Original photo"
 msgstr "الصورة الأصلية"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:4
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
 msgstr "تم تطوير أجابيك بواسطة<a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>جمعية التراث الإستوني للتصوير الفوتوغرافي (MTÜ Eesti Fotopärand)</a> المدرجة في قائمة الجمعيات غير الربحية والمؤسسات والجمعيات الدينية المستفيدة من حوافز ضريبة الدخل، نعلن تبرعاتك وسوف تحصل على استرداد لضريبة الدخل لذلك."
 
-#: ajapaik/ajapaik/templates/_donate_details.html:5
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Details for one-time donations"
 msgstr "تفاصيل عن التبرعات لمرة واحدة"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:6
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:6
 msgid "Beneficiary's name"
 msgstr "اسم المستفيد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:7
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:7
 msgid "Beneficiary's account no"
 msgstr "حساب المستفيد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:8
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:8
 msgid "LHV single payment link"
 msgstr "رابط دفع LHV واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:10
-#: ajapaik/ajapaik/templates/_donate_details.html:37
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:10
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:37
 msgid "LHV bank"
 msgstr "بنك LHV"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:12
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:12
 msgid "Krediidipank single payment link"
 msgstr "رابط دفع كريديديبنك واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:14
-#: ajapaik/ajapaik/templates/_donate_details.html:42
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:14
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:42
 msgid "Krediidipank"
 msgstr "كريديديبنك"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:16
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:16
 msgid "SEB single payment link"
 msgstr "رابط دفع SEB واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:18
-#: ajapaik/ajapaik/templates/_donate_details.html:46
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:18
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:46
 msgid "SEB bank"
 msgstr "بنك SEB"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:20
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:20
 msgid "Swedbank single payment link"
 msgstr "رابط دفع سويدبنك واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:23
-#: ajapaik/ajapaik/templates/_donate_details.html:50
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:23
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:50
 msgid "Swedbank"
 msgstr "سويدبنك"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:25
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:25
 msgid "Nordea single payment link"
 msgstr "رابط دفع نورديا واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:27
-#: ajapaik/ajapaik/templates/_donate_details.html:54
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:27
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:54
 msgid "Nordea bank"
 msgstr "بنك نورديا"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:29
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:29
 msgid "Danske single payment link"
 msgstr "رابط دفع دانماركي واحد"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:31
-#: ajapaik/ajapaik/templates/_donate_details.html:58
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:31
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:58
 msgid "Danske bank"
 msgstr "البنك الدنماركي"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:34
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
 msgstr "نماذج مملوءة مسبقا للدفعات الدائمة"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:35
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:35
 msgid "LHV payment order link"
 msgstr "رابط طلب دفع LHV"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:39
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:39
 msgid "Krediidipank payment order link"
 msgstr "رابط طلب دفع كريديديبنك"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:44
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:44
 msgid "SEB payment order link"
 msgstr "رابط طلب دفع SEB"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:48
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:48
 msgid "Swedbank payment order link"
 msgstr "سويدبنك رابط طلب دفع سويدبنك"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:52
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:52
 msgid "Nordea payment order link"
 msgstr "رابط طلب دفع نورديا"
 
-#: ajapaik/ajapaik/templates/_donate_details.html:56
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:56
 msgid "Danske payment order link"
 msgstr "رابط طلب دفع الدنماركي"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:2
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
 msgstr "تصفية"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:12
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
 msgstr "فرز حسب المسافة منك"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:22
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
 msgstr "فرز حسب الوقت و..."
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:32
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
 msgstr "فرز حسب وقت الصور المضافة"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:43
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
 msgstr "فرز حسب الطوابع الزمنية"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:53
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:53
 msgid "Sort by views' time added or amount"
 msgstr "فرز حسب وقت المشاهدة أو المبلغ"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:62
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:62
 msgid "Sort by geotags' time added or amount"
 msgstr "فرز حسب وقت الوسوم الجغرافية المضافة أو المبلغ"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:72
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:72
 msgid "Sort by datings' time added or amount"
 msgstr "رتب حسب التواريخ المضافة أو المبلغ"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:82
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Sort by rephotos' time added or amount"
 msgstr "فرز حسب وقت أو كمية إعادة الصور المضافة"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:104
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:104
 msgid "Sort by comments' time added or amount"
 msgstr "فرز حسب وقت أو كمية التعليقات المضافة"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:114
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:114
 msgid "Sort by likes' time added or amount"
 msgstr "فرز حسب وقت أو كمية الإعجابات المضافة"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:124
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:124
 msgid "Sort by amount and ..."
 msgstr "فرز حسب الكمية و..."
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:134
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:134
 msgid "Change sorting order"
 msgstr "تغيير ترتيب الفرز"
 
-#: ajapaik/ajapaik/templates/_filtering_dropdown.html:143
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:143
 msgid "Help"
 msgstr "مساعدة"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "كيفية الفرز"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "من هذه المجموعة"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "اختيار وسيطين"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
 msgid "or"
 msgstr "أو"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
 msgid "and"
 msgstr "و"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
 msgid "1 of"
 msgstr "1 من"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr "يرتب الصور عن بعد منك"
 
-#: ajapaik/ajapaik/templates/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr "عكس الفرز"
 
-#: ajapaik/ajapaik/templates/_footer.html:19
+#: ajapaik/ajapaik/templates/core/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
 msgstr "جمعية التراث الفوتوغرافي الإستونية"
 
-#: ajapaik/ajapaik/templates/_footer.html:29
+#: ajapaik/ajapaik/templates/core/_footer.html:29
 msgid "Support Ajapaik"
 msgstr "دعم أجابيك"
 
-#: ajapaik/ajapaik/templates/_footer.html:29
+#: ajapaik/ajapaik/templates/core/_footer.html:29
 msgid "Support us"
 msgstr "ادعمنا"
 
-#: ajapaik/ajapaik/templates/_footer.html:34
+#: ajapaik/ajapaik/templates/core/_footer.html:34
 msgid "See also – Sift.pics"
 msgstr "انظر أيضا – Sift.pics"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:6
-#: ajapaik/ajapaik/templates/base_bootstrap.html:41
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:41
 msgid "Ajapaik shows how places have changed over time"
 msgstr "يظهر أجابيك كيف تغيرت الأماكن بمرور الوقت"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:14
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Discover how places looked like years ago by"
 msgstr "اكتشف كيف بدت الأماكن منذ سنوات مضت"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:17
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
 msgstr "* البحث عن الصور التاريخية من مجموعات المتاحف الإستونية وتنسيق الصور المختارة إلى أجابيك"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:20
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "* geotagging pictures from places you are familiar with and"
 msgstr "* تحديد الوسم الجغرافي الصور من الأماكن التي تعرفها"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:23
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "* rephotographing the historic views from places you visit."
 msgstr "* إعادة تصوير المناظر التاريخية من الأماكن التي تزورها."
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:27
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 #, python-format
 msgid "\n                        Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n                    "
 msgstr "\n                        يحتوي أجابيك على  <b>%(total_photo_count)s</b> صور تاريخية، منها منها\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:30
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:30
 #, python-format
 msgid "\n                        <b>%(total_photos_tagged)s</b> pictures have been put on the map by\n                    "
 msgstr "\n                             تم وضع صور <b>%(total_photos_tagged)s</b> على الخريطة بواسطة\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:33
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:33
 #, python-format
 msgid "\n                        <b>%(contributing_users)s</b> users and\n                    "
 msgstr "\n                        <b>%(contributing_users)s</b> من المستخدمين و\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:36
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:36
 #, python-format
 msgid "\n                        <b>%(rephoto_count)s</b> rephotographs for\n                    "
 msgstr "\n                        إعادة تصوير <b>%(rephoto_count)s</b> ل\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:39
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:39
 #, python-format
 msgid "\n                        <b>%(rephotographed_photo_count)s</b> pictures made by\n                    "
 msgstr "\n                       صور <b>%(rephotographed_photo_count)s</b> أنشأها\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:42
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:42
 #, python-format
 msgid "\n                        <b>%(rephotographing_users)s</b> users.\n                    "
 msgstr "\n                        <b>%(rephotographing_users)s</b> مستخدمين.\n                    "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:49
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:49
 #, python-format
 msgid "\n                            You have suggested location for <b>%(user_geotagged_photos)s</b> picture.\n                        "
 msgid_plural "\n                            You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures.\n                        "
 msgstr[0] "\n                            لقد اقترحت موقعا لصورة <b>%(user_geotagged_photos)s</b>.\n                        "
 msgstr[1] "\n                            لقد اقترحت موقعا لصور <b>%(user_geotagged_photos)s</b>.\n                        "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:58
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:58
 #, python-format
 msgid "\n                            You have made <b>%(user_rephotos)s</b> rephoto for\n                        "
 msgid_plural "\n                            You have made <b>%(user_rephotos)s</b> rephotos for\n                        "
 msgstr[0] "\n                             لقد قمت بإجراء <b>%(user_rephotos)s</b> إعادة تصوير لـ\n                        "
 msgstr[1] "\n                             لقد قمت بإجراء <b>%(user_rephotos)s</b> إعادات تصوير لـ\n                        "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:63
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:63
 #, python-format
 msgid "\n                            <b>%(user_rephotographed_photos)s</b> picture.\n                        "
 msgid_plural "\n                            <b>%(user_rephotographed_photos)s</b> pictures.\n                        "
 msgstr[0] "\n                           صورة <b>%(user_rephotographed_photos)s</b>.\n                        "
 msgstr[1] "\n                            صور <b>%(user_rephotographed_photos)s</b>.\n                        "
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:70
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:70
 msgid "General statistics refresh every 10 minutes"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:73
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:73
 msgid "Supporters of Ajapaik"
 msgstr "داعمو أجابيك"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:76
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:76
 msgid "KulKa logo"
 msgstr "شعار كولكا"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:79
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:79
 msgid "Ministry of Education logo"
 msgstr "شعار وزارة التعليم"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:92
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:92
 msgid "EV100 logo"
 msgstr "شعار EV100"
 
-#: ajapaik/ajapaik/templates/_general_info_modal_content.html:95
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:95
 msgid "KYSK logo"
 msgstr "شعار KYSK"
 
-#: ajapaik/ajapaik/templates/_header.html:4
+#: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
 msgstr "العودة إلى الصفحة الرئيسية"
 
-#: ajapaik/ajapaik/templates/_header.html:13
+#: ajapaik/ajapaik/templates/core/_header.html:13
 msgid "Search album"
 msgstr "بحث الألبوم"
 
-#: ajapaik/ajapaik/templates/_header.html:16
+#: ajapaik/ajapaik/templates/core/_header.html:16
 msgid "Search photos"
 msgstr "بحث الصور"
 
-#: ajapaik/ajapaik/templates/_header.html:19
+#: ajapaik/ajapaik/templates/core/_header.html:19
 msgid "Show in grid"
 msgstr "عرض في شبكة"
 
-#: ajapaik/ajapaik/templates/_header.html:30
-#: ajapaik/ajapaik/templates/_info_modal_content.html:154
-#: ajapaik/ajapaik/templates/_info_modal_content.html:156
+#: ajapaik/ajapaik/templates/core/_header.html:30
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:154
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:156
 msgid "Geotag pictures"
 msgstr "صور الوسوم الجغرافية"
 
-#: ajapaik/ajapaik/templates/_header.html:34
-#: ajapaik/ajapaik/templates/_info_modal_content.html:149
+#: ajapaik/ajapaik/templates/core/_header.html:34
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:149
 msgid "Show on map"
 msgstr "عرض على الخريطة"
 
-#: ajapaik/ajapaik/templates/_header.html:40
+#: ajapaik/ajapaik/templates/core/_header.html:40
 msgid "List face recognition albums"
 msgstr "قائمة ألبومات التعرف على الوجوه"
 
-#: ajapaik/ajapaik/templates/_header.html:46
+#: ajapaik/ajapaik/templates/core/_header.html:46
 msgid "Add photos"
 msgstr "إضافة صور"
 
-#: ajapaik/ajapaik/templates/_header.html:51
+#: ajapaik/ajapaik/templates/core/_header.html:51
 msgid "Newsletters"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/_header.html:55
+#: ajapaik/ajapaik/templates/core/_header.html:55
 msgid "Current selection"
 msgstr "الاختيار الحالي"
 
-#: ajapaik/ajapaik/templates/_header.html:65
+#: ajapaik/ajapaik/templates/core/_header.html:65
 msgid "Choose language"
 msgstr "اختيار اللغة"
 
-#: ajapaik/ajapaik/templates/_header.html:77
+#: ajapaik/ajapaik/templates/core/_header.html:77
 msgid "About Ajapaik"
 msgstr "حول أجابيك"
 
-#: ajapaik/ajapaik/templates/_header.html:80
+#: ajapaik/ajapaik/templates/core/_header.html:80
 msgid "Ajapaik on Facebook"
 msgstr "أجابيك في فيسبوك"
 
-#: ajapaik/ajapaik/templates/_header.html:86
+#: ajapaik/ajapaik/templates/core/_header.html:86
 msgid "Profile and leaderboard"
 msgstr "الملف الشخصي والمتصدرون"
 
-#: ajapaik/ajapaik/templates/_header.html:94 ajapaik/ajapaik/views.py:1714
+#: ajapaik/ajapaik/templates/core/_header.html:94 ajapaik/ajapaik/views.py:1714
 #: ajapaik/ajapaik/views.py:1731 ajapaik/ajapaik/views.py:1767
 msgid "Leaderboard"
 msgstr "المتصدرون"
 
-#: ajapaik/ajapaik/templates/_header.html:105
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:9
+#: ajapaik/ajapaik/templates/core/_header.html:105
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
 msgid "User"
 msgstr "المستخدم"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:14
-#: ajapaik/ajapaik/templates/_info_modal_content.html:21
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
 msgid "Album curated by"
 msgstr "الألبوم برعاية"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:23
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
 msgstr "المتصدرون المساهمون"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:27
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:27
 #, python-format
 msgid "\n                    Album has %(counter)s historic picture,\n                "
 msgid_plural "\n                    Album has %(counter)s historic pictures,\n                "
 msgstr[0] "\n                    يحتوي الألبوم على %(counter)s  صورة تاريخية،\n                "
 msgstr[1] "\n                    يحتوي الألبوم على %(counter)s  صور تاريخية،\n                "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:32
-#: ajapaik/ajapaik/templates/base_bootstrap.html:106
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:106
 #, python-format
 msgid "\n                    %(counter)s user has put\n                "
 msgid_plural "\n                    %(counter)s users have put\n                "
 msgstr[0] "\n                    %(counter)s مستخدم وضع\n                "
 msgstr[1] "\n                    %(counter)s مستخدم وضعوا\n                "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:38
-#: ajapaik/ajapaik/templates/base_bootstrap.html:112
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:38
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:112
 msgid "all the pictures on the map."
 msgstr "كل الصور على الخريطة."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:40
-#: ajapaik/ajapaik/templates/base_bootstrap.html:114
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:40
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:114
 #, python-format
 msgid "\n                        %(counter)s picture on the map.\n                    "
 msgid_plural "\n                        %(counter)s pictures on the map.\n                    "
 msgstr[0] "\n                        %(counter)s صورة على الخريطة.\n                    "
 msgstr[1] "\n                        %(counter)s صور على الخريطة.\n                    "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:49
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:49
 msgid "You haven't made any location suggestions for pictures in this album."
 msgstr "لم تقدم أية اقتراحات بشأن موقع للصور في هذا الألبوم."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:51
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
 msgid "You have made a location suggestion for"
 msgstr "لقد قدمت اقتراح موقع لـ"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:53
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:53
 msgid "all the pictures from this album."
 msgstr "كل الصور من هذا الألبوم."
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:55
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:55
 #, python-format
 msgid "\n                            %(counter)s picture in this album.\n                        "
 msgid_plural "\n                            %(counter)s pictures in this album.\n                        "
 msgstr[0] "\n                            %(counter)s صورة في هذا الألبوم.\n                        "
 msgstr[1] "\n                            %(counter)s صور في هذا الألبوم.\n                        "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:66
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:66
 #, python-format
 msgid "\n                            %(counter)s user has made\n                        "
 msgid_plural "\n                            %(counter)s users have made\n                        "
 msgstr[0] "\n                            قام %(counter)s مستخدم بعمل\n                        "
 msgstr[1] "\n                            قام %(counter)s مستخدمين بعمل\n                        "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:71
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:71
 #, python-format
 msgid "\n                            %(counter)s rephotograph\n                        "
 msgid_plural "\n                            %(counter)s rephotographs\n                        "
 msgstr[0] "\n                            %(counter)s إعادة صورة\n                        "
 msgstr[1] "\n                            %(counter)s إعادات صور\n                        "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:76
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:76
 #, python-format
 msgid "\n                            for %(counter)s picture in the album.\n                        "
 msgid_plural "\n                            for %(counter)s picture in the album.\n                        "
 msgstr[0] "\n                            لصورة %(counter)s في الألبوم.\n                        "
 msgstr[1] "\n                            لصورة %(counter)s في الألبوم.\n                        "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:86
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:86
 #, python-format
 msgid "\n                        You have made %(counter)s rephoto\n                    "
 msgid_plural "\n                        You have made %(counter)s rephotos\n                    "
 msgstr[0] "\n                        لقد قمت بعمل %(counter)s إعادة تصوير\n                    "
 msgstr[1] "\n                         لقد قمت بعمل %(counter)s إعادات تصوير\n                    "
-#: ajapaik/ajapaik/templates/_info_modal_content.html:91
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:91
 #, python-format
 msgid "\n                        for %(counter)s picture in the album.\n                    "
 msgid_plural "\n                        for %(counter)s picures in the album.\n                    "
 msgstr[0] "\n                        لصورة %(counter)s في الألبوم.\n                    "
 msgstr[1] "\n                        لصور %(counter)s في الألبوم.\n                    "
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:101
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:101
 #| msgid ""
 #| "\n"
 #| "                            %(counter)s rephotograph\n"
@@ -785,75 +785,75 @@ msgid_plural "\n                            %(counter)s rephotographs\n         
 msgstr[0] ""
 msgstr[1] ""
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:112
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:112
 msgid "Some nearby albums"
 msgstr "بعض الألبومات القريبة"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:121
-#: ajapaik/ajapaik/templates/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/photoview.html:191
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:121
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:330
+#: ajapaik/ajapaik/templates/photo/photoview.html:191
 msgid "Share"
 msgstr "مشاركة"
 
-#: ajapaik/ajapaik/templates/_info_modal_content.html:151
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:151
 msgid "Back to map"
 msgstr "الرجوع إلى الخريطة"
 
-#: ajapaik/ajapaik/templates/_leaderboard_positions.html:9
+#: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 msgid "User Facebook photo"
 msgstr "صورة فيسبوك المستخدم"
 
-#: ajapaik/ajapaik/templates/_leaderboard_positions.html:11
+#: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 msgid "User Google photo"
 msgstr "صورة جوجل المستخدم"
 
-#: ajapaik/ajapaik/templates/_log_in.html:7
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:7
 msgid "Log in to save your score"
 msgstr "تسجيل الدخول لحفظ درجاتك"
 
-#: ajapaik/ajapaik/templates/_log_in.html:9
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:9
 msgid "Log in to upload rephoto"
 msgstr "تسجيل الدخول لرفع إعادة صورة"
 
-#: ajapaik/ajapaik/templates/_log_in.html:11
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:11
 msgid "Log in to curate content"
 msgstr "تسجيل الدخول لرعاية المحتوى"
 
-#: ajapaik/ajapaik/templates/_log_in.html:13
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:13
 msgid "Log in to create still frames"
 msgstr "تسجيل الدخول لإنشاء إطارات ثابتة"
 
-#: ajapaik/ajapaik/templates/_log_in.html:15
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:15
 msgid "Log in to save selection"
 msgstr "تسجيل الدخول لحفظ الاختيار"
 
-#: ajapaik/ajapaik/templates/_log_in.html:19
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:19
 #: ajapaik/ajapaik/templates/registration/login.html:38
 #: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "تواصل مع فيسبوك"
 
-#: ajapaik/ajapaik/templates/_log_in.html:22
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #: ajapaik/ajapaik/templates/registration/login.html:43
 #: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "تواصل مع جوجل"
 
-#: ajapaik/ajapaik/templates/_log_in.html:27
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:27
 msgid "E-mail address"
 msgstr "عنوان البريد الإلكتروني"
 
-#: ajapaik/ajapaik/templates/_log_in.html:29
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 #: ajapaik/ajapaik/templates/registration/login.html:18
 #: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "كلمة السر"
 
-#: ajapaik/ajapaik/templates/_log_in.html:33
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:33
 msgid "Register with e-mail"
 msgstr "سجل بالبريد الإلكتروني"
 
-#: ajapaik/ajapaik/templates/_log_in.html:36
+#: ajapaik/ajapaik/templates/authentication/_log_in.html:36
 #: ajapaik/ajapaik/templates/registration/login.html:9
 #: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
@@ -865,8 +865,8 @@ msgid "Click to choose"
 msgstr "انقر للاختيار"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
-#: ajapaik/ajapaik/templates/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/photoview.html:219
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:371
+#: ajapaik/ajapaik/templates/photo/photoview.html:219
 msgid "Album details"
 msgstr "تفاصيل الألبوم"
 
@@ -909,103 +909,103 @@ msgstr "إعادات تصويري"
 msgid "Remove album filter"
 msgstr "إزالة مرشح الألبوم"
 
-#: ajapaik/ajapaik/templates/_photo_description_container.html:5
+#: ajapaik/ajapaik/templates/photo/_photo_description_container.html:5
 msgid "Approximate address"
 msgstr "العنوان التقريبي"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:39
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:39
 msgid "Flip photo"
 msgstr "قلب الصورة"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:232
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:232
 msgid "Unknown author"
 msgstr "مؤلف مجهول"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:304
-#: ajapaik/ajapaik/templates/game.html:53
-#: ajapaik/ajapaik/templates/photoview.html:48
-#: ajapaik/ajapaik/templates/photoview.html:173
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:304
+#: ajapaik/ajapaik/templates/common/game.html:53
+#: ajapaik/ajapaik/templates/photo/photoview.html:48
+#: ajapaik/ajapaik/templates/photo/photoview.html:173
 msgid "Pick the shooting location!"
 msgstr "اختيار موقع التصوير!"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/photoview.html:179
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:310
+#: ajapaik/ajapaik/templates/photo/photoview.html:179
 msgid "Date this image"
 msgstr "تاريخ هذه الصورة"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/photoview.html:183
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:315
+#: ajapaik/ajapaik/templates/photo/photoview.html:183
 msgid "Add rephoto"
 msgstr "إضافة إعادة تصوير"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/photoview.html:186
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:318
+#: ajapaik/ajapaik/templates/photo/photoview.html:186
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "وسم وجه جديد: سيمكنك النقر فوق هذا الزر من رسم مستطيل للوجه على الصورة الرئيسية"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:324
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:324
 msgid "Discuss"
 msgstr "مناقشة"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/photoview.html:211
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:356
+#: ajapaik/ajapaik/templates/photo/photoview.html:211
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "الصورة تنتمي إلى ألبوم"
 msgstr[1] "الصورة تنتمي إلى ألبومات:"
 
-#: ajapaik/ajapaik/templates/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/photoview.html:223
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:375
+#: ajapaik/ajapaik/templates/photo/photoview.html:223
 msgid "Curator"
 msgstr "الأمين"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:21
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:21
 msgid "Taken"
 msgstr "اُلتقِطت في"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:23
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:103
-#: ajapaik/ajapaik/templates/user_upload.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:103
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:23
 msgid "Upload"
 msgstr "رفع"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:28
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:28
 msgid "Select file..."
 msgstr "اختر ملفا..."
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:38
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
 msgstr "قم بعمل تصوير معاصر من نفس المكان الذي اُلتقِطت فيه الصورة التاريخية وارفعها، سوف يُنسَب إعادة التصوير تم الرفع لك تحت"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:39
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:39
 msgid "licence"
 msgstr "الرخصة"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:44
-#: ajapaik/ajapaik/templates/curator.html:38
-#: ajapaik/ajapaik/templates/curator.html:130
-#: ajapaik/ajapaik/templates/user_upload_add_album.html:19
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:44
+#: ajapaik/ajapaik/templates/curator/curator.html:38
+#: ajapaik/ajapaik/templates/curator/curator.html:130
+#: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
 msgstr "إغلاق"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:59
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:59
 msgid "Abort"
 msgstr "إجهاض"
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:81
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:81
 msgid "Select new file..."
 msgstr "تحديد ملف جديد..."
 
-#: ajapaik/ajapaik/templates/_photo_upload_modal.html:111
+#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:111
 msgid "File upload failed."
 msgstr "فشل رفع الملف."
 
-#: ajapaik/ajapaik/templates/_rephoto_description_container.html:35
+#: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:35
 msgid "Date taken"
 msgstr "تاريخ الالتقاط"
 
-#: ajapaik/ajapaik/templates/_video_modal.html:27
+#: ajapaik/ajapaik/templates/video/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "أنت مجهول، يمكنك الآن تسجيل الدخول باستخدام بريدك الإلكتروني."
 
@@ -1066,112 +1066,112 @@ msgstr "ZIP"
 msgid "Upload The Digital Archives of Norway photos via CSV file"
 msgstr "رفع صور المحفوظات الرقمية للنرويج عبر ملف CSV"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:16
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:16
 msgid "Gallery of old historic photos from the album"
 msgstr "معرض للصور التاريخية القديمة من الألبوم"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:18
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:18
 msgid "Historic photo gallery"
 msgstr "معرض الصور التاريخية"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:22
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:22
 msgid "Mapped old historic photos from the album"
 msgstr "تعيين الصور التاريخية القديمة من الألبوم"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:24
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:24
 msgid "Mapped old historic photos"
 msgstr "تم تعيين الصور التاريخية القديمة"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:28
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:28
 msgid "Help geotag old historic photos from the album"
 msgstr "المساعدة في الوسم الجغرافي للصور التاريخية القديمة من الألبوم"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:30
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:30
 msgid "Help geotag old historic photos"
 msgstr "المساعدة في الوسم الجغرافي للصور التاريخية القديمة"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:34
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:34
 msgid "Before and after view of"
 msgstr "قبل وبعد عرض"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:36
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:36
 msgid "Historic photo of"
 msgstr "الصورة التاريخية ل"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:39
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:39
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
 msgstr "تنسيق الصور التاريخية من المتاحف في أجابيك للوسم الجغرافي وإعادة التصوير"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:47
-#: ajapaik/ajapaik/templates/base_bootstrap.html:49
-#: ajapaik/ajapaik/templates/base_bootstrap.html:72
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:47
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:49
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:72
 msgid "historic,pictures,old,photos"
 msgstr "التاريخية، صور، القديمة، صور"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:53
-#: ajapaik/ajapaik/templates/base_bootstrap.html:55
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:53
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:55
 msgid "historic,pictures,old,photos,map,geotagged,location"
 msgstr "التاريخية، الصور، القديمة،الصور،الخرائط، موسومة جغرافيا، الموقع"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:59
-#: ajapaik/ajapaik/templates/base_bootstrap.html:61
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:59
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:61
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
 msgstr "التاريخية، الصور، القديمة، الصور، من مصادر الحشد، الوسم الجغرافي، لعبة"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:65
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:65
 msgid "historic,picture,old,photo,before,after"
 msgstr "التاريخية، الصورة، القديمة، صور، قبل، بعد"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:67
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:67
 msgid "historic,picture,old,photo"
 msgstr "التاريخية، الصورة، القديمة، صور"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:70
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:70
 msgid "search,museum,old,photos,pictures,historic"
 msgstr "البحث، المتحف، القديمة، الصور، والصور، تاريخية"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:90
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:90
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgstr "معرض إعادة التصوير بواسطة %(rephotos_by_name)s"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:96
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:96
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
 msgstr "يحتوي الألبوم على %(album_photo_count)s صور تاريخية، لنضع الصور على الخريطة!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:98
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:98
 msgid "Let's put pictures on the map"
 msgstr "دعونا نضع الصور على الخريطة"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:101
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #, python-format
 msgid "\n                    Album has %(counter)s photo,\n                "
 msgid_plural "\n                    Album has %(counter)s photos,\n                "
 msgstr[0] "\n                    يحتوي الألبوم على %(counter)s صورة،\n                "
 msgstr[1] "\n                    يحتوي الألبوم على %(counter)s صور،\n                "
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:213
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:213
 msgid "Timepatch (Ajapaik)"
 msgstr "تيمباتش (أجابيك)"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:282
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:282
 msgid "Geolocation error"
 msgstr "خطأ في الوسم الجغرافي"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:285
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:285
 msgid "Sorting"
 msgstr "فرز"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:429
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:429
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "يستخدم هذا الموقع ملفات تعريف الارتباط لضمان حصولك على أفضل تجربة على موقعنا"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:430
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:430
 msgid "Got it!"
 msgstr "فهمت!"
 
-#: ajapaik/ajapaik/templates/base_bootstrap.html:431
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:431
 msgid "More info"
 msgstr "مزيد من المعلومات"
 
@@ -1231,125 +1231,125 @@ msgid "supports Markdown"
 msgstr "يدعم ماركداون"
 
 #: ajapaik/ajapaik/templates/comments/list.html:64
-#: ajapaik/ajapaik/templates/curator.html:134
+#: ajapaik/ajapaik/templates/curator/curator.html:134
 msgid "Save"
 msgstr "حفظ"
 
-#: ajapaik/ajapaik/templates/curator.html:17
+#: ajapaik/ajapaik/templates/curator/curator.html:17
 msgid "Thank you!"
 msgstr "شكرا لك!"
 
-#: ajapaik/ajapaik/templates/curator.html:23
+#: ajapaik/ajapaik/templates/curator/curator.html:23
 msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
 msgstr "تمت الآن إضافة صورك إلى أجابيك ويمكن التفاعل معها كالمعتاد."
 
-#: ajapaik/ajapaik/templates/curator.html:25
+#: ajapaik/ajapaik/templates/curator/curator.html:25
 msgid "Points awarded for curating"
 msgstr "النقاط الممنوحة للتنسيق"
 
-#: ajapaik/ajapaik/templates/curator.html:28
+#: ajapaik/ajapaik/templates/curator/curator.html:28
 msgid "You can start geotagging the new content here"
 msgstr "يمكنك البدء في تحديد الوسم الجغرافي للمحتوى الجديد هنا"
 
-#: ajapaik/ajapaik/templates/curator.html:32
+#: ajapaik/ajapaik/templates/curator/curator.html:32
 msgid "Tell your friends on Facebook"
 msgstr "أخبر أصدقاءك على فيسبوك"
 
-#: ajapaik/ajapaik/templates/curator.html:51
+#: ajapaik/ajapaik/templates/curator/curator.html:51
 msgid "Edit your album"
 msgstr "تحرير ألبومك"
 
-#: ajapaik/ajapaik/templates/curator.html:62
+#: ajapaik/ajapaik/templates/curator/curator.html:62
 msgid "Error"
 msgstr "خطأ"
 
-#: ajapaik/ajapaik/templates/curator.html:89
+#: ajapaik/ajapaik/templates/curator/curator.html:89
 msgid "Open album (anyone can add photos)"
 msgstr "فتح الألبوم (يمكن لأي شخص إضافة الصور)"
 
-#: ajapaik/ajapaik/templates/curator.html:97
+#: ajapaik/ajapaik/templates/curator/curator.html:97
 msgid "Visible (shown in selection)"
 msgstr "مرئي (يظهر في الاختيار)"
 
-#: ajapaik/ajapaik/templates/curator.html:113
+#: ajapaik/ajapaik/templates/curator/curator.html:113
 msgid "If the photos are from the same place, specify a location here"
 msgstr "إذا كانت الصور من نفس المكان ، فحدد موقعا هنا"
 
-#: ajapaik/ajapaik/templates/curator.html:119
+#: ajapaik/ajapaik/templates/curator/curator.html:119
 msgid "Place"
 msgstr "مكان"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:9
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
 msgstr "بحث"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:16
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:16
 msgid "Selection"
 msgstr "اختيار"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:23
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:23
 msgid "My albums"
 msgstr "ألبوماتي"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:35
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
 msgid "Full search"
 msgstr "بحث كامل"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:41
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:41
 msgid "Search!"
 msgstr "بحث!"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:46
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:46
 #: ajapaik/ajapaik/templates/js_templates/map_view_side_panel.html:10
 msgid "Load more"
 msgstr "تحميل المزيد"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:51
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:51
 msgid "Select all"
 msgstr "اختر الكل"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:58
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:58
 msgid "Filter existing"
 msgstr "تصفية الموجود"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:62
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:62
 msgid "MUIS"
 msgstr "نظام معلومات المتاحف"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:66
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:66
 msgid "DIGAR"
 msgstr "DIGAR"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:70
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:70
 msgid "MKA"
 msgstr "MKA"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:74
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:74
 msgid "ETERA"
 msgstr "ETERA"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:78
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:78
 msgid "UTLIB"
 msgstr "UTLIB"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:82
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:82
 msgid "Fotis"
 msgstr "Fotis"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:86
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:86
 msgid "Finna"
 msgstr "Finna"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:91
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:91
 msgid "Flickr Commons"
 msgstr "فليكر كومنز"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:102
-#: ajapaik/ajapaik/templates/photo_selection.html:21
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:102
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:21
 msgid "Clear selection"
 msgstr "مسح الاختيار"
 
-#: ajapaik/ajapaik/templates/curator_search_controls.html:108
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:108
 msgid "Submit selection to Ajapaik"
 msgstr "إرسال التحديد إلى أجابيك"
 
@@ -1425,59 +1425,59 @@ msgstr "عام "
 msgid "Private "
 msgstr "خاص "
 
-#: ajapaik/ajapaik/templates/frontpage.html:30
+#: ajapaik/ajapaik/templates/common/frontpage.html:30
 msgid "Authentication"
 msgstr "المصادقة"
 
-#: ajapaik/ajapaik/templates/game.html:25
+#: ajapaik/ajapaik/templates/common/game.html:25
 msgid "Game modal photo"
 msgstr "صورة مودال اللعبة"
 
-#: ajapaik/ajapaik/templates/game.html:48
+#: ajapaik/ajapaik/templates/common/game.html:48
 msgid "Show description"
 msgstr "عرض الوصف"
 
-#: ajapaik/ajapaik/templates/game.html:65
+#: ajapaik/ajapaik/templates/common/game.html:65
 msgid "The picture has not yet been pinned on the map. Be the first!"
 msgstr "لم يتم تثبيت الصورة بعد على الخريطة، كن الأول!"
 
-#: ajapaik/ajapaik/templates/game.html:68
+#: ajapaik/ajapaik/templates/common/game.html:68
 msgid "1 suggestion has been submitted for this picture. Add yours!"
 msgstr "تم تقديم اقتراح واحد لهذه الصورة، أضف الخاص بك!"
 
-#: ajapaik/ajapaik/templates/game.html:72
+#: ajapaik/ajapaik/templates/common/game.html:72
 msgid "suggestions have been submitted for this picture. Add yours!"
 msgstr "تم تقديم اقتراحات لهذه الصورة، أضف الخاص بك!"
 
-#: ajapaik/ajapaik/templates/leaderboard.html:19
+#: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
 msgstr "العودة إلى الصفحة الرئيسية"
 
-#: ajapaik/ajapaik/templates/mapview.html:21
+#: ajapaik/ajapaik/templates/common/mapview.html:21
 msgid "Search box"
 msgstr "صندوق البحث"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:15
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:15
 msgid "Add to album"
 msgstr "أضف إلى الألبوم"
 
-#: ajapaik/ajapaik/templates/photo_selection.html:35
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:35
 msgid "You can re-order photos by dragging and dropping"
 msgstr "يمكنك إعادة ترتيب الصور عن طريق السحب والإفلات"
 
-#: ajapaik/ajapaik/templates/photo_upload_choice.html:13
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
 msgid "Import from public collections"
 msgstr "استيراد من المجموعات العامة"
 
-#: ajapaik/ajapaik/templates/photo_upload_choice.html:20
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
 msgstr "ارفع بنفسك"
 
-#: ajapaik/ajapaik/templates/photoview.html:21
-#: ajapaik/ajapaik/templates/photoview.html:23
-#: ajapaik/ajapaik/templates/photoview.html:92
-#: ajapaik/ajapaik/templates/photoview.html:145
-#: ajapaik/ajapaik/templates/photoview.html:146
+#: ajapaik/ajapaik/templates/photo/photoview.html:21
+#: ajapaik/ajapaik/templates/photo/photoview.html:23
+#: ajapaik/ajapaik/templates/photo/photoview.html:92
+#: ajapaik/ajapaik/templates/photo/photoview.html:145
+#: ajapaik/ajapaik/templates/photo/photoview.html:146
 msgid "rephoto"
 msgstr "إعادة التصوير"
 
@@ -1537,11 +1537,11 @@ msgstr "تم إرسال بريد التفعيل!"
 msgid "Registration form"
 msgstr "نموذج التسجيل"
 
-#: ajapaik/ajapaik/templates/user_upload.html:26
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 msgid "Upload and mark on map"
 msgstr "الرفع والوسم على الخريطة"
 
-#: ajapaik/ajapaik/templates/user_upload_add_album.html:22
+#: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:23
 msgid "Add"
 msgstr "إضافة"

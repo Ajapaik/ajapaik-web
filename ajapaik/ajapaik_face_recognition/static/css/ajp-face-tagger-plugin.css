@@ -1,0 +1,11 @@
+.alert {
+    z-index: 100000 !important;
+}
+
+.ajp-face-recognition-form-submit-button {
+    float: right;
+}
+
+.ajp-face-recognition-form-remove-rectangle-button {
+    float: left;
+}

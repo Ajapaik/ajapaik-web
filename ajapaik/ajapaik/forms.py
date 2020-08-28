@@ -43,6 +43,7 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_AJAPAIK = 'ajapaik'
     LOGIN_TYPE_GOOGLE = 'google'
     LOGIN_TYPE_FACEBOOK = 'fb'
+    LOGIN_TYPE_WIKIMEDIA_COMMONS = 'wikimedia-commons'
     LOGIN_TYPES = [
         (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
                                     # This deprecated behaviour before
@@ -50,6 +51,7 @@ class APILoginForm(forms.Form):
         (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
         (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+        (LOGIN_TYPE_WIKIMEDIA_COMMONS, 'Wikimedia Commons')
     ]
 
     OS_TYPE_ANDROID = 'android'
@@ -72,10 +74,12 @@ class APIRegisterForm(forms.Form):
     REGISTRATION_TYPE_AJAPAIK = 'ajapaik'
     REGISTRATION_TYPE_GOOGLE = 'google'
     REGISTRATION_TYPE_FACEBOOK = 'facebook'
+    REGISTRATION_TYPE_WIKIMEDIA_COMMONS = 'wikimedia_commons'
     REGISTRATION_TYPES = [
         (REGISTRATION_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (REGISTRATION_TYPE_GOOGLE, 'Google'),  # Google login.
         (REGISTRATION_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
+        (REGISTRATION_TYPE_WIKIMEDIA_COMMONS, 'WikimediaCommons')
     ]
 
     OS_TYPE_ANDROID = 'android'
@@ -453,6 +457,31 @@ class UserSettingsForm(forms.ModelForm):
             self.errors['preferred_language'] = [_('Please specify your prefered language')]
         if self.cleaned_data.get('newsletter_consent') is None:
             self.errors['newsletter_consent'] = [_('Please specify whether you would like to receive the newsletter')]
+
+class RephotoUploadSettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('wikimedia_commons_rephoto_upload_consent', )
+        labels = {
+            'wikimedia_commons_rephoto_upload_consent': _('I wish to to upload my rephotos to Wikimedia Commons')
+        }
+        widgets = {
+            'wikimedia_commons_rephoto_upload_consent': forms.Select(choices=[(True, _('Yes')),(False, _('No'))])
+        }
+
+    def clean(self):
+        super(RephotoUploadSettingsForm, self).clean()
+        if self.cleaned_data.get('wikimedia_commons_rephoto_upload_consent') is None:
+            self.errors['wikimedia_commons_rephoto_upload_consent'] = [_('Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well')]
+
+class ChangeDisplayNameForm(forms.Form):
+    display_name = forms.CharField()
+
+    def clean(self):
+        super(ChangeDisplayNameForm, self).clean()
+        if self.cleaned_data.get('display_name') is None:
+            self.errors['display_name'] = [_('Please specify what would you like your display name to be')]
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
     albums = forms.ModelChoiceField(

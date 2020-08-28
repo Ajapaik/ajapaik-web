@@ -1,54 +1,54 @@
 {% load i18n ajapaik_templatetags %}
 {% if album %}
     {% if is_mapview or is_game or is_frontpage %}
-        <div class="dropdown float-left pt-3" id="ajapaik-header-album-name">
-            <a href="#" class="dropdown ajapaik-no-background ajapaik-text-white" data-toggle="dropdown"
-                class="dropdown-toggle ajapaik-no-background ajapaik-text-white">
+        <div class="dropdown float-left pt-3" id="ajp-header-album-name">
+            <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown"
+                class="dropdown-toggle ajp-no-background ajp-text-white">
                 {% if album.5 %}
-                    <i id="ajapaik-header-movie-indicator" class="material-icons notranslate float-left">movie</i>
+                    <i id="ajp-header-movie-indicator" class="material-icons notranslate float-left">movie</i>
                 {% else %}
                     <i class="material-icons notranslate float-left">photo_album</i>
                 {% endif %}
-                <span id="ajapaik-header-title" class="float-left">
-                    {{ album.1 }} <i id="ajapaik-header-arrow-drop-down"
+                <span id="ajp-header-title" class="float-left">
+                    {{ album.1 }} <i id="ajp-header-arrow-drop-down"
                                         class="material-icons notranslate"
                                         title="{% trans 'Click to choose' %}">arrow_drop_down</i>
                 </span>
             </a>
-            <i id="ajapaik-header-album-more" class="material-icons notranslate ajapaik-text-white"
+            <i id="ajp-header-album-more" class="material-icons notranslate ajp-text-white"
                 title="{% trans 'Album details' %}">more</i>
-            <div class="dropdown-menu with-album ajapaik-dropdown" id="ajapaik-mode-select">
-                <a href="#" class="dropdown-item" class="dropdown-item" id="ajapaik-frontpage-show-albums-link"
+            <div class="dropdown-menu with-album ajp-dropdown" id="ajp-mode-select">
+                <a href="#" class="dropdown-item" class="dropdown-item" id="ajp-frontpage-show-albums-link"
                     data-mode="albums" title="{% trans "Show albums" %}">
                     <i class="material-icons notranslate">collections_bookmark</i>
-                        <span class="ajapaik-bottom-4px">{% trans "Albums" %}</span>
+                        <span class="ajp-bottom-4px">{% trans "Albums" %}</span>
                 </a>
-                <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-pictures-link"
+                <a href="#" class="dropdown-item" id="ajp-frontpage-show-pictures-link"
                     data-mode="pictures" title="{% trans "Show pictures" %}">
                     <i class="material-icons notranslate">collections</i>
-                        <span class="ajapaik-bottom-4px">{% trans "All pictures" %}</span>
+                        <span class="ajp-bottom-4px">{% trans "All pictures" %}</span>
                 </a>
-                <a href="#" id="ajapaik-frontpage-show-liked-link"
+                <a href="#" id="ajp-frontpage-show-liked-link"
                     data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
                     <i class="material-icons notranslate">favorite</i>
-                        <span class="ajapaik-bottom-4px">{% trans "My favorites" %}</span>
+                        <span class="ajp-bottom-4px">{% trans "My favorites" %}</span>
                 </a>
-                <a href="#" id="ajapaik-frontpage-show-rephotographed-link"
+                <a href="#" id="ajp-frontpage-show-rephotographed-link"
                     data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
                     <i class="material-icons notranslate">library_add</i> 
-                        <span class="ajapaik-bottom-4px">{% trans "My rephotos" %}</span>
+                        <span class="ajp-bottom-4px">{% trans "My rephotos" %}</span>
                 </a>
             </div>
         </div>
     {% endif %}
     {% if is_mapview and album %}
-        <li class="float-left ajapaik-album-filter-list-item">
-            <div title="{% trans 'Remove album filter' %}" id="ajapaik-header-album-filter-button"
-                class="ajapaik-no-background">
-                <i id="ajapaik-header-album-filter-button-on"
-                    class="material-icons notranslate ajapaik-gray-button">check_box</i>
-                <i id="ajapaik-header-album-filter-button-off"
-                    class="material-icons notranslate ajapaik-gray-button">check_box_outline_blank</i>
+        <li class="float-left ajp-album-filter-list-item">
+            <div title="{% trans 'Remove album filter' %}" id="ajp-header-album-filter-button"
+                class="ajp-no-background">
+                <i id="ajp-header-album-filter-button-on"
+                    class="material-icons notranslate ajp-gray-button">check_box</i>
+                <i id="ajp-header-album-filter-button-off"
+                    class="material-icons notranslate ajp-gray-button">check_box_outline_blank</i>
             </div>
         </li>
     {% endif %}
@@ -56,33 +56,33 @@
 {% if is_frontpage and not album %}
     <div class="dropdown float-left pt-3" style="height:50px;">
         <!--FIXME: DRY-->
-        <a href="#" class="dropdown ajapaik-no-background ajapaik-text-white" data-toggle="dropdown" id="ajapaik-header-selected-mode">
-            <i id="ajapaik-header-album-icon" class="material-icons notranslate">collections_bookmark</i>
-            <i id="ajapaik-header-pictures-icon" class="material-icons notranslate">collections</i>
-            <i id="ajapaik-header-image-icon" class="material-icons notranslate">insert_image</i>
-            <i id="ajapaik-header-likes-icon" class="material-icons notranslate">favorite</i>
-            <i id="ajapaik-header-rephotos-icon" class="material-icons notranslate">library_add</i>
+        <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown" id="ajp-header-selected-mode">
+            <i id="ajp-header-album-icon" class="material-icons notranslate">collections_bookmark</i>
+            <i id="ajp-header-pictures-icon" class="material-icons notranslate">collections</i>
+            <i id="ajp-header-image-icon" class="material-icons notranslate">insert_image</i>
+            <i id="ajp-header-likes-icon" class="material-icons notranslate">favorite</i>
+            <i id="ajp-header-rephotos-icon" class="material-icons notranslate">library_add</i>
             <i class="material-icons notranslate float-left">photo_album</i>
-            <span id="ajapaik-header-title" title="">
-                <i id="ajapaik-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i>
+            <span id="ajp-header-title" title="">
+                <i id="ajp-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i>
             </span>
         </a>
-        <div class="dropdown-menu ajapaik-dropdown" id="ajapaik-mode-select">
-            <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-albums-link" data-mode="albums" title="{% trans "Show albums" %}">
+        <div class="dropdown-menu ajp-dropdown" id="ajp-mode-select">
+            <a href="#" class="dropdown-item" id="ajp-frontpage-show-albums-link" data-mode="albums" title="{% trans "Show albums" %}">
                 <i class="material-icons notranslate">collections_bookmark</i>
-                    <span class="ajapaik-bottom-4px">{% trans "Albums" %}</span>
+                    <span class="ajp-bottom-4px">{% trans "Albums" %}</span>
             </a>
-            <a href="#" class="dropdown-item" id="ajapaik-frontpage-show-pictures-link" data-mode="pictures" title="{% trans "Show pictures" %}">
+            <a href="#" class="dropdown-item" id="ajp-frontpage-show-pictures-link" data-mode="pictures" title="{% trans "Show pictures" %}">
                 <i class="material-icons notranslate">collections</i>
-                    <span class="ajapaik-bottom-4px">{% trans "All pictures" %}</span>
+                    <span class="ajp-bottom-4px">{% trans "All pictures" %}</span>
             </a>
-            <a href="#" id="ajapaik-frontpage-show-liked-link" data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
+            <a href="#" id="ajp-frontpage-show-liked-link" data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
                 <i class="material-icons notranslate">favorite</i>
-                    <span class="ajapaik-bottom-4px">{% trans "My favorites" %}</span>
+                    <span class="ajp-bottom-4px">{% trans "My favorites" %}</span>
             </a>
-            <a href="#" id="ajapaik-frontpage-show-rephotographed-link" data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
+            <a href="#" id="ajp-frontpage-show-rephotographed-link" data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
                 <i class="material-icons notranslate">library_add</i>
-                    <span class="ajapaik-bottom-4px">{% trans "My rephotos" %}</span>
+                    <span class="ajp-bottom-4px">{% trans "My rephotos" %}</span>
             </a>
         </div>
     </div>

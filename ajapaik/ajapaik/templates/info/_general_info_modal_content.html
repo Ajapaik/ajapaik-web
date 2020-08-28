@@ -1,0 +1,72 @@
+{% load i18n %}
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content pb-2">
+        <div class="modal-header">
+            <h4>{% trans "Ajapaik shows how places have changed over time" %}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div id="ajp-general-info-modal-content" class="container-fluid">
+                <div class="row">
+                    {% trans "Discover how places looked like years ago by" %}
+                </div>
+                <div class="row">
+                    <div class="col-12">{% trans "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik," %}</div>
+                </div>
+                <div class="row">
+                    <div class="col-12">{% trans "* geotagging pictures from places you are familiar with and" %}</div>
+                </div>
+                <div class="row">
+                    <div class="col-12">{% trans "* rephotographing the historic views from places you visit." %}</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    {% blocktrans %}Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which <b>{{ total_photos_tagged }}</b> pictures have been put on the map by <b>{{ contributing_users }}</b> users and <b>{{ rephoto_count }}</b> rephotographs for <b>{{ rephotographed_photo_count }}</b> pictures made by <b>{{ rephotographing_users }}</b> users.{% endblocktrans %}
+                </div>
+                </br>
+                {% if user_geotagged_photos > 0 %}
+                    <div class="row">
+                        {% blocktrans count counter=user_geotagged_photos %}You have suggested location for <b>{{ user_geotagged_photos }}</b> picture.{% plural %}You have suggested locations for <b>{{ user_geotagged_photos }}</b> pictures.{% endblocktrans %}
+                    </div>
+                {% endif %}
+                {% if user_rephotos > 0 %}
+                    <div class="row">
+                        {% blocktrans count counter=user_rephotographed_photos %}You have made <b>{{ user_rephotos }}</b> rephoto for{% plural %}You have made <b>{{ user_rephotos }}</b> rephotos for{% endblocktrans %}
+                        {% blocktrans count counter=user_rephotographed_photos %}<b>{{ user_rephotographed_photos }}</b> picture.{% plural %}<b>{{ user_rephotographed_photos }}</b> pictures.{% endblocktrans %}
+                    </div>
+                {% endif %}
+                <div class="row font-italic">{% trans "General statistics refresh every 10 minutes." %}</div>
+                <div class="row">&nbsp;</div>
+                <br>
+                <h4>{% trans "Supporters of Ajapaik" %}</h4>
+                <div class="row d-block" style="font-size:0">
+                    <a class="d-inline-block w-50" href="https://www.kulka.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "KulKa logo" %}" class="img-fluid lazyload" data-src="{{ STATIC_URL }}images/logo-kulka.png">
+                    </a>
+                    <a class="d-inline-block w-50" href="https://www.kul.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "Ministry of Education logo" %}" class="img-fluid lazyload" src="{{ STATIC_URL }}images/logo-ministry-of-culture{% if LANGUAGE_CODE == "et" %}_et{% endif %}.png">
+                    </a>
+                </div>
+                <div class="row d-block" style="font-size:0">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <a class="d-inline-block w-25" target="_blank" href="{% if LANGUAGE_CODE == "et" %}
+                        https://ev100.ee/et/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% elif LANGUAGE_CODE == "ru" %}
+                        https://ev100.ee/ru/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% else %}
+                        https://ev100.ee/en/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
+                    {% endif %}" rel="noopener">
+                        <img class="w-100 media-object lazyload" data-src="{{ STATIC_URL }}images/ev100.png"
+                            alt="{% trans "EV100 logo" %}">
+                    </a>
+                    <a class="d-inline-block w-75" href="https://www.kysk.ee/" target="_blank" rel="noopener">
+                        <img alt="{% trans "KYSK logo" %}" class="img-fluid lazyload" data-src="{{ STATIC_URL }}images/logo-kysk.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
