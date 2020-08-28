@@ -8,6 +8,7 @@ import re
 import json
 from json import loads
 from urllib.request import urlopen
+from urllib.parse import parse_qs
 from urllib.parse import quote
 import logging
 
@@ -213,6 +214,8 @@ class Login(APIView):
                 access_token = form.cleaned_data['password']
                 user = self._authenticate_with_facebook(request._request,
                                                         access_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
+                
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
                 # Deprecated. Kept for backwards compatibility.
                 user = None
