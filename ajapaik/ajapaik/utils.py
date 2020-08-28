@@ -82,10 +82,10 @@ def merge_profiles(target_profile, source_profile):
             setattr(target_profile, attribute, attr2)
     target_profile.save()
 
-    socialAccounts = SocialAccount.objects.filter(user_id=source_profile.user.id)
-    for socialAccount in socialAccounts:
-        socialAccount.user = target_profile.user
-        socialAccount.save()
+    social_accounts = SocialAccount.objects.filter(user_id=source_profile.user.id)
+    for social_account in social_accounts:
+        social_account.user = target_profile.user
+        social_account.save()
     
     emails = EmailAddress.objects.filter(user_id=source_profile.user.id)
     for email in emails:

@@ -74,9 +74,9 @@ def most_frequent(List):
     uniques = list(set(List))
       
     for i in uniques: 
-        currentFrequency = List.count(i) 
-        if(currentFrequency >= counter): 
-            counter = currentFrequency 
+        current_frequency = List.count(i) 
+        if(current_frequency >= counter): 
+            counter = current_frequency 
             num = i 
     return num
 
@@ -86,8 +86,8 @@ def least_frequent(List):
     uniques = list(set(List))
       
     for i in uniques: 
-        currentFrequency = List.count(i) 
-        if(counter == None or currentFrequency < counter): 
-            counter = currentFrequency 
+        current_frequency = List.count(i) 
+        if(counter == None or current_frequency < counter): 
+            counter = current_frequency 
             num = i
     return num 

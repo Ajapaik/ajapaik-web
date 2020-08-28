@@ -289,19 +289,19 @@ def get_subject_data_empty(request):
 def get_subject_data(request, subject_id = None):
     profile = request.get_user().profile
     rectangle = None
-    nextRectangle = None
-    hasUnverified = False
+    next_rectangle = None
+    has_unverified = False
     album_id = request.GET.get('album')
     if album_id is not None and album_id.isdigit():
         album_id = int(album_id, 10)
     else:
         album_id = None
-    unverifiedRectangles = FaceRecognitionRectangle.objects.filter(gender=None, deleted=None)
+    unverified_rectangles = FaceRecognitionRectangle.objects.filter(gender=None, deleted=None)
     if album_id is not None:
         albumPhotoIds = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
-        unverifiedRectangles = unverifiedRectangles.filter(photo_id__in=albumPhotoIds)
-    if unverifiedRectangles.count() > 1:
-        rectangles = unverifiedRectangles
+        unverified_rectangles = unverified_rectangles.filter(photo_id__in=albumPhotoIds)
+    if unverified_rectangles.count() > 1:
+        rectangles = unverified_rectangles
     else:
         # TODO: If album_id and subject_id were specified,
         #       but subject_id is not of a photo belonging to album,
@@ -328,14 +328,14 @@ def get_subject_data(request, subject_id = None):
                         guessIds.append(guess)
                 rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?')
                 if rectangles is not None:
-                    nextRectangle = rectangles.first()
+                    next_rectangle = rectangles.first()
                 else:
                     allRectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
                     if allRectangles is not None:
                         if album_id is not None:
-                            nextRectangle = allRectangles.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+                            next_rectangle = allRectangles.filter(photo_id__in=albumPhotoIds).order_by('?').first()
                         else:
-                            nextRectangle = allRectangles.order_by('?').first()
+                            next_rectangle = allRectangles.order_by('?').first()
     if subject_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()
@@ -350,20 +350,20 @@ def get_subject_data(request, subject_id = None):
     if rectangle is None:
         return render(request, 'add_subject_data_empty.html')
     else:
-        if nextRectangle is None:
-            nextRectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
-        if nextRectangle is None:
+        if next_rectangle is None:
+            next_rectangle = rectangles.exclude(id=rectangle.id).order_by('?').first()
+        if next_rectangle is None:
             if album_id is None:
-                nextRectangle = FaceRecognitionRectangle.objects.order_by('?').first()
+                next_rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
             else:
-                nextRectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
-        if nextRectangle is None:
-            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(nextRectangle.id,)))
+                next_rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+        if next_rectangle is None:
+            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
         else:
-            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(nextRectangle.id,)))
+            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
             if album_id is not None:
                 next_action += '?album=' + str(album_id)
-    hasConsensus = False
+    has_consensus = False
     if rectangle != None and rectangle.subject_consensus != None:
             hasConsensus = True
             temp = rectangle.subject_consensus.gender

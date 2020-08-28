@@ -1534,13 +1534,13 @@ class Transcriptions(AjapaikAPIView):
             text = request.POST['text']
 
             if count < 1:
-                previousTranscriptionByCurrentUser = Transcription.objects.filter(photo=photo, user=user).first()
-                if previousTranscriptionByCurrentUser:
-                    previousTranscriptionByCurrentUser.text = text
-                    previousTranscriptionByCurrentUser.save()
+                previous_transcription_by_current_user = Transcription.objects.filter(photo=photo, user=user).first()
+                if previous_transcription_by_current_user:
+                    previous_transcription_by_current_user.text = text
+                    previous_transcription_by_current_user.save()
                     if not photo.first_transcription:
-                        photo.first_transcription = previousTranscriptionByCurrentUser.modified
-                    photo.latest_transcription = previousTranscriptionByCurrentUser.modified
+                        photo.first_transcription = previous_transcription_by_current_user.modified
+                    photo.latest_transcription = previous_transcription_by_current_user.modified
                     photo.light_save()
                 else:
                     transcription = Transcription(
@@ -1574,7 +1574,7 @@ class Transcriptions(AjapaikAPIView):
                 else:
                     return JsonResponse({'message': _('You have already submitted this transcription, thank you!')})
             else:
-                if previousTranscriptionByCurrentUser:
+                if previous_transcription_by_current_user:
                     return JsonResponse({'message': _('Your transcription has been updated, thank you!')})
                 else:
                     return JsonResponse({'message': _('Transcription added, thank you!')})
@@ -1621,24 +1621,24 @@ class MergeProfiles(AjapaikAPIView):
         token = request.POST['token']
         if token is None:
             return JsonResponse({'error': _('Required parameter, token is missing')}, status=400)
-        profileMergeToken = ProfileMergeToken.objects.filter(token=token).first()
-        if profileMergeToken is None:
+        profile_merge_token = ProfileMergeToken.objects.filter(token=token).first()
+        if profile_merge_token is None:
             return JsonResponse({'error': _('Invalid token')}, status=401)
-        if profileMergeToken.used is not None or (profileMergeToken.created < (timezone.now() - datetime.timedelta(hours=1))):
+        if profile_merge_token.used is not None or (profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
             return JsonResponse({'error': _('Expired token')}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id is not profileMergeToken.profile.id:
+            if request.user.profile.id is not profile_merge_token.profile.id:
                 if reverse == 'true':
-                    merge_profiles(request.user.profile, profileMergeToken.profile)
-                    profileMergeToken.target_profile = request.user.profile
-                    profileMergeToken.source_profile = profileMergeToken.profile
+                    merge_profiles(request.user.profile, profile_merge_token.profile)
+                    profile_merge_token.target_profile = request.user.profile
+                    profile_merge_token.source_profile = profile_merge_token.profile
                 else:
-                    merge_profiles(profileMergeToken.profile, request.user.profile)
-                    profileMergeToken.target_profile = profileMergeToken.profile
-                    profileMergeToken.source_profile = request.user.profile
-                    login(request, profileMergeToken.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
-                profileMergeToken.used = datetime.datetime.now()
-                profileMergeToken.save()
+                    merge_profiles(profile_merge_token.profile, request.user.profile)
+                    profile_merge_token.target_profile = profile_merge_token.profile
+                    profile_merge_token.source_profile = request.user.profile
+                    login(request, profile_merge_token.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
+                profile_merge_token.used = datetime.datetime.now()
+                profile_merge_token.save()
                 return JsonResponse({'message': _('Contributions and settings from the other account were added to current')})
             else:
                 return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
