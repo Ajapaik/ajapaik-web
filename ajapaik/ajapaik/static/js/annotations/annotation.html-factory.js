@@ -303,7 +303,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         id: popoverId,
         'data-is-detection-rectangle': true,
         'data-annotation-identifier': getAnnotationIdentifier(configuration.annotation),
-        class: 'ajapaik-face-rectangle',
+        class: 'ajp-face-rectangle',
         css: {
             position: 'absolute',
             left: configuration.leftEdgeDistancePercentage + '%',

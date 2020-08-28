@@ -4,44 +4,44 @@
 
 function hideControlsOnImage() {
     if (!window.isMobile) {
-        $('.ajapaik-flip-photo-overlay-button').hide('fade', 250);
-        $('.ajapaik-show-similar-photoview-overlay-button').hide('fade', 250);
-        $('.ajapaik-show-rephotos-photoview-overlay-button').hide('fade', 250);
+        $('.ajp-flip-photo-overlay-button').hide('fade', 250);
+        $('.ajp-show-similar-photoview-overlay-button').hide('fade', 250);
+        $('.ajp-show-rephotos-photoview-overlay-button').hide('fade', 250);
     }
 
-    $('.ajapaik-photo-modal-previous-button').hide('fade', 250);
-    $('.ajapaik-photo-modal-next-button').hide('fade', 250);
-    $('.ajapaik-thumbnail-selection-icon').hide('fade', 250);
-    $('.ajapaik-like-photo-overlay-button').hide('fade', 250);
+    $('.ajp-photo-modal-previous-button').hide('fade', 250);
+    $('.ajp-photo-modal-next-button').hide('fade', 250);
+    $('.ajp-thumbnail-selection-icon').hide('fade', 250);
+    $('.ajp-like-photo-overlay-button').hide('fade', 250);
 }
 
 function showControlsOnImage() {
     if (!window.isMobile) {
-        $('.ajapaik-flip-photo-overlay-button').show('fade', 250);
-        $('.ajapaik-show-similar-photoview-overlay-button').show('fade', 250);
-        $('.ajapaik-show-rephotos-photoview-overlay-button').show('fade', 250);
+        $('.ajp-flip-photo-overlay-button').show('fade', 250);
+        $('.ajp-show-similar-photoview-overlay-button').show('fade', 250);
+        $('.ajp-show-rephotos-photoview-overlay-button').show('fade', 250);
     }
 
-    $('.ajapaik-photo-modal-previous-button').show('fade', 250);
-    $('.ajapaik-photo-modal-next-button').show('fade', 250);
-    $('.ajapaik-thumbnail-selection-icon').show('fade', 250);
-    $('.ajapaik-like-photo-overlay-button').show('fade', 250);
+    $('.ajp-photo-modal-previous-button').show('fade', 250);
+    $('.ajp-photo-modal-next-button').show('fade', 250);
+    $('.ajp-thumbnail-selection-icon').show('fade', 250);
+    $('.ajp-like-photo-overlay-button').show('fade', 250);
 }
 
 function disableMovingBetweenPictures() {
-    $('.ajapaik-photo-modal-previous-button').css('pointer-events', 'none');
-    $('.ajapaik-photo-modal-next-button').css('pointer-events', 'none');
+    $('.ajp-photo-modal-previous-button').css('pointer-events', 'none');
+    $('.ajp-photo-modal-next-button').css('pointer-events', 'none');
 }
 
 function enableMovingBetweenPictures() {
-    $('.ajapaik-photo-modal-previous-button').css('pointer-events', 'auto');
-    $('.ajapaik-photo-modal-next-button').css('pointer-events', 'auto');
+    $('.ajp-photo-modal-previous-button').css('pointer-events', 'auto');
+    $('.ajp-photo-modal-next-button').css('pointer-events', 'auto');
 }
 
 function disableImageSubmitControls() {
-    $(document).off('click', '.ajapaik-face-recognition-form-remove-rectangle-button');
-    $(document).off('click', '.ajapaik-face-recognition-form-submit-button');
-    $(document).off('click', '.ajapaik-face-recognition-form-cancel-button');
+    $(document).off('click', '.ajp-face-recognition-form-remove-rectangle-button');
+    $(document).off('click', '.ajp-face-recognition-form-submit-button');
+    $(document).off('click', '.ajp-face-recognition-form-cancel-button');
 }
 
 function getDetectionRectangle(rectangle, imageAreaDimensions) {
@@ -51,7 +51,7 @@ function getDetectionRectangle(rectangle, imageAreaDimensions) {
     var width = (rectangle.x2 - rectangle.x1);
     var height = (rectangle.y2 - rectangle.y1);
 
-    var rectangleId = 'ajapaik-object-rectangle-new-detection-' + new Date().getMilliseconds();
+    var rectangleId = 'ajp-object-rectangle-new-detection-' + new Date().getMilliseconds();
     var configuration = {
         leftEdgeDistancePercentage: (leftEdgeDistance / imageAreaDimensions.width) * 100,
         topEdgeDistancePercentage: (topEdgeDistance / imageAreaDimensions.height) * 100,

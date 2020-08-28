@@ -12,7 +12,7 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialV
 
         var form = $(event.target);
         var selectedObjectId = form
-            .find("#" + constants.elements.OBJECT_CLASS_SELECT_ID)
+            .find('#' + constants.elements.OBJECT_CLASS_SELECT_ID)
             .val();
 
         var closePopover = function() {

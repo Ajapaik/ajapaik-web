@@ -12,7 +12,7 @@ function initializeClosingPopoverWhenClickingOutsideOfPopover() {
             }
 
             if (hasNotClickedRegularPopoverEnablingElement) {
-                $('#ajapaik-sharing-dropdown-button').popover('hide');
+                $('#ajp-sharing-dropdown-button').popover('hide');
             }
         }
     });
