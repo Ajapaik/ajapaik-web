@@ -48,8 +48,6 @@ class AddSubjectData(AjapaikAPIView):
         new_subject_id = object_annotation_utils.parse_parameter(additional_subject_data.newSubjectId)
         age = additional_subject_data.age
         gender = additional_subject_data.gender
-        if gender == 'NON-BINARY':
-            gender = None
         if subject_annotation_rectangle_id is not None:
             subject = get_object_or_404(FaceRecognitionRectangle, id=subject_annotation_rectangle_id)
             if new_subject_id is not None:

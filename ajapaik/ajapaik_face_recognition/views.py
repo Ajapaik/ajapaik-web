@@ -122,22 +122,6 @@ def save_subject(form: FaceRecognitionGuessForm, user_id, user_profile):
     return save_subject_object(subject_album, rectangle, user_id, user_profile)
 
 
-def guess_subject(request: HttpRequest) -> HttpResponse:
-    status = 200
-    if request.method == 'POST':
-        form = FaceRecognitionGuessForm(request.POST)
-        if form.is_valid():
-            result = save_subject(form, request.user.id, request.user.profile)
-
-            status = result['status']
-            new_guess_id = result['new_guess_id']
-
-            return HttpResponse(JSONRenderer().render({'id': new_guess_id}), content_type='application/json',
-                                status=status)
-
-    return HttpResponse('OK', status=status)
-
-
 def add_rectangle(request: HttpRequest) -> HttpResponse:
     form = FaceRecognitionRectangleSubmitForm(request.POST.copy())
     if form.is_valid():
@@ -259,15 +243,6 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
     return response.action_failed()
 
 
-def get_guess_form_html(request: HttpRequest, rectangle_id: int) -> HttpResponse:
-    form = FaceRecognitionGuessForm(initial={'rectangle': rectangle_id})
-    context = {
-        'rectangle_id': rectangle_id,
-        'form': form
-    }
-    return render(request, 'guess_subject.html', context)
-
-
 def get_subject_image(request: HttpRequest):
     try:
         if(request.rectangle_id):
@@ -365,33 +340,18 @@ def get_subject_data(request, subject_id = None):
                 next_action += '?album=' + str(album_id)
     has_consensus = False
     if rectangle != None and rectangle.subject_consensus != None:
-            hasConsensus = True
-            temp = rectangle.subject_consensus.gender
-            if rectangle.subject_consensus.gender == 0:
-                gender = 'Female'
-            else:
-                gender = 'Male'
-    else:
-        if rectangle.gender == 0:
-            gender = 'Female'
-        if rectangle.gender == 1:
-            gender = 'Male'
-        if rectangle.gender == 2:
-            gender = 'Not sure'
-    if rectangle.age == 0:
-        age = 'Child'
-    if rectangle.age == 1:
-        age = 'Adult'
-    if rectangle.age == 2:
-        age = 'Elder'
-    if rectangle.age == 3:
-        age = 'Not Sure'
+        has_consensus = True
+        subject_id = rectangle.subject_consensus.id
+    elif rectangle != None and rectangle.subject_ai_guess != None:
+        has_consensus = True
+        subject_id = rectangle.subject_ai_guess.id
 
     context = {
         'rectangle': rectangle,
         'photo': rectangle.photo,
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
-        'hasConsensus': hasConsensus
+        'has_consensus': has_consensus,
+        'subject_id': subject_id
     }
     return render(request, 'add_subject_data.html', context)
