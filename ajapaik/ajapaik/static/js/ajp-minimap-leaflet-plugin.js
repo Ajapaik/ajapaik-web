@@ -15,13 +15,13 @@
         // Create map only if we have coordinates
         if (options.latitude && options.longitude) {
             this.UI = $([
-                '<div id="ajapaik-minimap-disabled-overlay"></div>',
-                '<div id="ajapaik-photo-modal-map-canvas"></div>',
-                '<div id="ajapaik-photo-modal-map-textbox"></div>',
+                '<div id="ajp-minimap-disabled-overlay"></div>',
+                '<div id="ajp-photo-modal-map-canvas"></div>',
+                '<div id="ajp-photo-modal-map-textbox"></div>',
             ].join('\n'));
 
             $(this.node).html(this.UI);
-            $(this.node).css("z-index", "99");
+            $(this.node).css('z-index', '99');
             $(this.node).show();
             this.initializeMap();
         }
@@ -30,8 +30,8 @@
         constructor: AjapaikMinimap,
         initializeMap: function () {
             var that = this;
-            that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
-            var map = L.map('ajapaik-photo-modal-map-canvas', { fullscreenControl: true });
+            that.mapCanvas = that.UI.find('#ajp-photo-modal-map-canvas');
+            var map = L.map('ajp-photo-modal-map-canvas', { fullscreenControl: true });
 
             // OSM layer
             var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -59,27 +59,27 @@
             }
 
             // Top right corner user count
-            if (typeof (that.options.geotaggingUserCount) !== "undefined") {
+            if (typeof (that.options.geotaggingUserCount) !== 'undefined') {
                 var geotaggingUserCount = this.getGeotaggingUserCountButton(that.options);
                 geotaggingUserCount.addTo(map);
             }
-            // global reference to map for ajapaik-common-nogooglemaps.js
+            // global reference to map for ajp-common-nogooglemaps.js
             window.ajapaikminimap = map;
 
             // add helper text
             var coordinatelink = this.getCoordinateLink(that.initialMapCenter);
-            $("#ajapaik-photo-modal-map-textbox").append(coordinatelink);
+            $('#ajp-photo-modal-map-textbox').append(coordinatelink);
 
             // In modal view map doesn't know it's size until elements are created
             setTimeout(function () {
                 map.invalidateSize();
 
                 // overwrite L.easybutton look and feel
-                $("span.ajapaik-minimap-geotagging-user-text").css('padding-left', '1.2em');
-                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('cursor', 'default');
-                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('pointer-events', 'none');
-                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().css('width', '4.5em');
-                $("span.ajapaik-minimap-geotagging-user-text").parent().parent().parent().css('background-color', 'white');
+                $('span.ajp-minimap-geotagging-user-text').css('padding-left', '1.2em');
+                $('span.ajp-minimap-geotagging-user-text').parent().parent().css('cursor', 'default');
+                $('span.ajp-minimap-geotagging-user-text').parent().parent().css('pointer-events', 'none');
+                $('span.ajp-minimap-geotagging-user-text').parent().parent().css('width', '4.5em');
+                $('span.ajp-minimap-geotagging-user-text').parent().parent().parent().css('background-color', 'white');
             }, 500);
 
             // For slow networks (500 ms failed in train)
@@ -89,10 +89,10 @@
 
         },
         getCoordinateLink: function (point) {
-            var link = $("<a>");
-            var url = "https://www.openstreetmap.org/?mlat=" + point.lat + "&mlon=" + point.lng + "#map=15/" + point.lat + "/" + point.lng;
+            var link = $('<a>');
+            var url = 'https://www.openstreetmap.org/?mlat=' + point.lat + '&mlon=' + point.lng + '#map=15/' + point.lat + '/' + point.lng;
             link.attr('href', url);
-            link.text(point.lat + "° N " + point.lng + "° E");
+            link.text(point.lat + '° N ' + point.lng + '° E');
             return link;
         },
 
@@ -134,14 +134,14 @@
             return azimuth_fixed;
         },
 
-        // copied from ajapaik-geotagger-plugin.js
+        // copied from ajp-geotagger-plugin.js
         getAzimuthBetweenTwoPoints: function (p1, p2) {
             var x = p2.lat - p1.lat,
                 y = p2.lng - p1.lng;
             return Math.atan2(y, x);
         },
 
-        // copied from ajapaik-geotagger-plugin.js
+        // copied from ajp-geotagger-plugin.js
         radiansToDegrees: function (rad) {
             var ret = rad * (180 / Math.PI);
             if (ret < 0) {
@@ -150,12 +150,12 @@
             return ret;
         },
 
-        // copied from ajapaik-geotagger-plugin.js
+        // copied from ajp-geotagger-plugin.js
         degreesToRadians: function (deg) {
             return deg * Math.PI / 180;
         },
 
-        // modified from ajapaik-geotagger-plugin.js
+        // modified from ajp-geotagger-plugin.js
         simpleCalculateMapLineEndPoint: function (startPoint, azimuth, lineLength) {
             azimuth = this.degreesToRadians(azimuth);
             var newLat = (Math.cos(azimuth) * lineLength) + startPoint.lat,
@@ -179,17 +179,17 @@
             return markerline;
         },
         getGeotaggingUserCountButton: function (options) {
-            var e = $("<span>");
-            e.addClass("ajapaik-minimap-geotagging-user-text");
-            e.css("font-size", "150%");
+            var e = $('<span>');
+            e.addClass('ajp-minimap-geotagging-user-text');
+            e.css('font-size', '150%');
             e.text(options.geotaggingUserCount);
 
-            if (options.geotaggingUserCount == 1) e.addClass("ajapaik-minimap-geotagging-user-single-person");
-            else if (options.geotaggingUserCount > 1) e.addClass("ajapaik-minimap-geotagging-user-multiple-people");
-            if (options.userHasGeotaggedThisPhoto == 1) e.addClass("ajapaik-minimap-geotagging-user-active")
+            if (options.geotaggingUserCount == 1) e.addClass('ajp-minimap-geotagging-user-single-person');
+            else if (options.geotaggingUserCount > 1) e.addClass('ajp-minimap-geotagging-user-multiple-people');
+            if (options.userHasGeotaggedThisPhoto == 1) e.addClass('ajp-minimap-geotagging-user-active')
 
             // create temporary div to get the outerhtml
-            var html_value = $("<div>").append(e).html();
+            var html_value = $('<div>').append(e).html();
             var button = L.easyButton(html_value, function () {
             });
             button.disable();
@@ -205,7 +205,7 @@
     };
 }());
 
-// Helper function for Reading global variables from ajapaik/ajapaik/templates/_photo_modal.html
+// Helper function for Reading global variables from ajapaik/ajapaik/templates/photo/_photo_modal.html
 
 function get_photoviewModalOptions() {
     var options = {};

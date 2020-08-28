@@ -3,12 +3,12 @@
     /*global docCookies*/
     /*global albumId*/
     /*global loadPhoto*/
-    var videoModal = $('#ajapaik-video-modal'),
-        videoviewVideo = $('#ajapaik-videoview-video'),
-        videoviewSpeedButtons = $('#ajapaik-videoview-speed-buttons').find('button'),
+    var videoModal = $('#ajp-video-modal'),
+        videoviewVideo = $('#ajp-videoview-video'),
+        videoviewSpeedButtons = $('#ajp-videoview-speed-buttons').find('button'),
         doc = $(document),
         stillButton,
-        videoviewStillButton = $('#ajapaik-video-modal-still-button'),
+        videoviewStillButton = $('#ajp-video-modal-still-button'),
         modalVideo,
         currentVideoTime,
         syncStateToUrl = function () {
@@ -53,33 +53,33 @@
             currentVideoTime = parseInt(modalVideo.get(0).currentTime, 10);
             syncStateToUrl();
         };
-    doc.on('click', '#ajapaik-video-modal-close-button', function (e) {
+    doc.on('click', '#ajp-video-modal-close-button', function (e) {
         e.preventDefault();
-        $('#ajapaik-video-modal').modal('hide');
+        $('#ajp-video-modal').modal('hide');
     });
-    doc.on('click', '.ajapaik-frontpage-video-container', function (e) {
+    doc.on('click', '.ajp-frontpage-video-container', function (e) {
         e.preventDefault();
     });
-    doc.on('click', '.ajapaik-frontpage-video', function () {
+    doc.on('click', '.ajp-frontpage-video', function () {
         var id = $(this).data('id');
         window.loadVideo(id, $(this).data('slug'));
         if (typeof window.reportVideoModalOpen === 'function') {
             window.reportVideoModalOpen(id);
         }
     });
-    doc.on('click', '#ajapaik-video-modal-anonymous-icon', function () {
+    doc.on('click', '#ajp-video-modal-anonymous-icon', function () {
         modalVideo.get(0).pause();
-        $('#ajapaik-anonymous-login-modal').modal();
+        $('#ajp-anonymous-login-modal').modal();
         if (typeof window.reportVideoModalAnonymousLoginStart === 'function') {
             window.reportVideoModalAnonymousLoginStart();
         }
     });
-    doc.on('click', '#ajapaik-video-modal-source-link', function () {
+    doc.on('click', '#ajp-video-modal-source-link', function () {
         if (typeof window.reportVideoModalSourceLinkClick === 'function') {
             window.reportVideoModalSourceLinkClick($(this).data('id'));
         }
     });
-    doc.on('click', '#ajapaik-video-modal-speed-buttons button', function () {
+    doc.on('click', '#ajp-video-modal-speed-buttons button', function () {
         var $this = $(this);
         $this.parent().find('button').removeClass('active');
         $this.addClass('active');
@@ -132,12 +132,12 @@
                 videoviewVideo.get(0).currentTime = parseInt(window.getQueryParameterByName('t'), 10);
             }
         });
-        $('#ajapaik-videoview-source-link').click(function () {
+        $('#ajp-videoview-source-link').click(function () {
             if (typeof window.reportVideoviewSourceLinkClick === 'function') {
                 window.reportVideoviewSourceLinkClick($(this).data('id'));
             }
         });
-        $('.ajapaik-videoview-album-link').click(function () {
+        $('.ajp-videoview-album-link').click(function () {
             if (typeof window.reportVideoviewAlbumLinkClick === 'function') {
                 window.reportVideoviewAlbumLinkClick();
             }
@@ -151,11 +151,11 @@
             success: function (result) {
                 videoModal.html(result);
                 videoModal.modal();
-                modalVideo = videoModal.find('#ajapaik-modal-video');
+                modalVideo = videoModal.find('#ajp-modal-video');
                 modalVideo.on('pause', onPause);
                 modalVideo.on('play', onPlay);
                 modalVideo.on('timeupdate', onTimeupdate);
-                stillButton = videoModal.find('#ajapaik-video-modal-still-button');
+                stillButton = videoModal.find('#ajp-video-modal-still-button');
                 stillButton.on('click', onStill);
                 modalVideo.on('loadedmetadata', function () {
                     if (window.currentVideoTimeTarget) {

@@ -146,7 +146,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         if (that.yearSelection) {
             that.yearSelection.parentElement.removeChild(that.yearSelection);
         }
-        var vanalinnadYearSelection = $('<select class="ajapaik-map-vanalinnad-year-select"></select>');
+        var vanalinnadYearSelection = $('<select class="ajp-map-vanalinnad-year-select"></select>');
         $.each(that.vars.layers, function (k, v) {
             var vanalinnadYearSelectionOption = $('<option value="' + k + '">' + v.year + '</option>');
             if (that.vars.layerIndex === k) {
@@ -176,7 +176,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
         }
     };
     this.buildVanalinnadMapCityControl = function () {
-        var vanalinnadCitySelection = $('<select class="ajapaik-map-vanalinnad-city-select"></select>');
+        var vanalinnadCitySelection = $('<select class="ajp-map-vanalinnad-city-select"></select>');
         $.each(that.vanalinnadCitiesMap, function (k, v) {
             var vanalinnadCitySelectionOption = $('<option value="' + v + '">' + k + '</option>');
             if (that.vars.site === v) {

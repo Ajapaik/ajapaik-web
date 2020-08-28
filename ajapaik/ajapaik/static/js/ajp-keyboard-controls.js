@@ -4,21 +4,21 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         $(document).on('keydown', function (e) {
-            if($("input,textarea").is(":focus")) {
+            if($('input,textarea').is(':focus')) {
                 return;
             }
             if (areHotkeysEnabled()) {
                 if (window.isGame || window.isFrontpage) {
                     var buttons;
                     if (e.keyCode === constants.keyCodes.ARROW_LEFT) {
-                        buttons = $('.ajapaik-photo-modal-previous-button');
+                        buttons = $('.ajp-photo-modal-previous-button');
                         if (!window.nextPhotoLoading && buttons.length > 0) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
                             }
                         }
                     } else if (e.keyCode === constants.keyCodes.ARROW_RIGHT) {
-                        buttons = $('.ajapaik-photo-modal-next-button');
+                        buttons = $('.ajp-photo-modal-next-button');
                         if (!window.nextPhotoLoading && buttons.length > 0) {
                             if (!$(buttons[0]).hasClass('disabled')) {
                                 buttons[0].click();
@@ -26,7 +26,7 @@
                         }
                     } else if (e.keyCode === constants.keyCodes.D) {
                         // d
-                        $('#ajapaik-photo-modal-start-dating-button').click();
+                        $('#ajp-photo-modal-start-dating-button').click();
                     }
                     if (e.keyCode === 32 && window.currentlySelectedPhotoId) {
                         // space
@@ -35,7 +35,7 @@
                             window.fullscreenEnabled = false;
                         }
                         if (!window.locationToolsOpen) {
-                            $('#ajapaik-photo-modal-specify-location').click();
+                            $('#ajp-photo-modal-specify-location').click();
                         }
                     }
                 }
@@ -47,7 +47,7 @@
                             window.fullscreenEnabled = false;
                         }
                         if (!window.locationToolsOpen) {
-                            $('.ajapaik-game-specify-location-button')[0].click();
+                            $('.ajp-game-specify-location-button')[0].click();
                         }
                     } else if (e.keyCode === 13) {
                         // enter
@@ -95,20 +95,20 @@
                     var targets;
                     if (e.keyCode === 37) {
                         // left
-                        targets = $('.ajapaik-photo-modal-previous-button');
+                        targets = $('.ajp-photo-modal-previous-button');
                         if (targets.length > 0) {
                             targets[0].click();
                         }
                     } else if (e.keyCode === 39) {
                         // right
-                        targets = $('.ajapaik-photo-modal-next-button');
+                        targets = $('.ajp-photo-modal-next-button');
                         if (targets.length > 0) {
                             targets[0].click();
                         }
                     } else if (e.keyCode === 68) {
                         // FIXME: Re-enable?
                         // d
-                        // $('#ajapaik-photoview-start-dating-button').click();
+                        // $('#ajp-photoview-start-dating-button').click();
                     }
                 }
 

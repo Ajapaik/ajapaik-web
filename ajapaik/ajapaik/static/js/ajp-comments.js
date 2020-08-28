@@ -3,16 +3,16 @@ $(document).ready(function () {
 
 
     // Set focus for comment form when comment icon pressed.
-    $('#ajapaik-photo-modal-discuss').click(function(event){
+    $('#ajp-photo-modal-discuss').click(function(event){
         event.preventDefault();
         $('#id_comment').focus();
     });
 
     // Disable hotkeys when typing message.
-    $('#ajapaik-comments-container').on('focus', 'textarea', function() {
+    $('#ajp-comments-container').on('focus', 'textarea', function() {
         window.hotkeysActive = false;
     });
-    $('#ajapaik-comments-container').on('blur', 'textarea', function() {
+    $('#ajp-comments-container').on('blur', 'textarea', function() {
         window.hotkeysActive = true;
     });
 
@@ -20,11 +20,11 @@ $(document).ready(function () {
     // Fetching comment list when page is loaded and when new comment posted.
     var fetchComments = function() {
         var _setup_links_in_comments = function() {
-            $('#ajapaik-comment-list .comment-text a').attr('target', '_blank');
+            $('#ajp-comment-list .comment-text a').attr('target', '_blank');
         };
 
         var _setup_comment_count = function(count) {
-            comments_count = $('#ajapaik-photo-modal-discuss span[class~="badge"]');
+            comments_count = $('#ajp-photo-modal-discuss span[class~="badge"]');
             if(comments_count) {
                 comments_count.html(count);
                 if(count === 0) {
@@ -40,7 +40,7 @@ $(document).ready(function () {
             type: 'GET',
             url: '/comments/for/' + photo_id + '/',
             success: function (response) {
-                $('#ajapaik-comment-list').html(response.content);
+                $('#ajp-comment-list').html(response.content);
                 $('[data-toggle=confirmation]').confirmation({
                     rootSelector: '[data-toggle=confirmation]',
                 });
@@ -76,15 +76,15 @@ $(document).ready(function () {
 
 
     // Post new comment (send button pressed).
-    $('#ajapaik-comment-form').submit(function(event) {
-        var form = $('#ajapaik-comment-form');
+    $('#ajp-comment-form').submit(function(event) {
+        var form = $('#ajp-comment-form');
         post_comment(form);
         event.preventDefault();
     });
 
 
     // Delete comment (delete link pressed).
-    $("#ajapaik-comment-list").on('click', 'h6[class="media-heading"]', function(event) {
+    $('#ajp-comment-list').on('click', 'h6[class="media-heading"]', function(event) {
         var action = $(event.target).data('action');
         var comment_id = $(event.target).data('comment-id');
         if(action === 'delete' && comment_id) {
@@ -105,10 +105,10 @@ $(document).ready(function () {
 
 
     // Show reply form (reply link pressed).
-    $('#ajapaik-comment-list').on('click', 'a[data-action="reply"]', function(event) {
+    $('#ajp-comment-list').on('click', 'a[data-action="reply"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
-        var all_reply_form_divs = $('#ajapaik-comment-list div[class*="comment-reply-form-"]');
-        var reply_form_div = $('#ajapaik-comment-list div[class~="comment-reply-form-' + comment_id + '"]');
+        var all_reply_form_divs = $('#ajp-comment-list div[class*="comment-reply-form-"]');
+        var reply_form_div = $('#ajp-comment-list div[class~="comment-reply-form-' + comment_id + '"]');
 
         // Hide all forms and show only requested.
         all_reply_form_divs.addClass('d-none');
@@ -119,26 +119,26 @@ $(document).ready(function () {
 
 
     // Exit reply form (cancel button pressed).
-    $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
-        var all_reply_form_divs = $('#ajapaik-comment-list div[class*="comment-reply-form-"]');
+    $('#ajp-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
+        var all_reply_form_divs = $('#ajp-comment-list div[class*="comment-reply-form-"]');
         all_reply_form_divs.addClass('d-none');
     });
 
 
     // Post reply for comment (reply button pressed).
-    $('#ajapaik-comment-list').on('click', 'button[data-action="reply"]', function(event) {
+    $('#ajp-comment-list').on('click', 'button[data-action="reply"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
-        var form = $('#ajapaik-comment-list div[class~="comment-reply-form-' + comment_id + '"]').find('form');
+        var form = $('#ajp-comment-list div[class~="comment-reply-form-' + comment_id + '"]').find('form');
         post_comment(form);
         event.preventDefault();
     });
 
 
     // Show edit form (edit link pressed).
-    $('#ajapaik-comment-list').on('click', 'a[data-action="edit"]', function(event) {
+    $('#ajp-comment-list').on('click', 'a[data-action="edit"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
-        var all_edit_form_divs = $('#ajapaik-comment-list div[class*="comment-edit-form-"]');
-        var edit_form_div = $('#ajapaik-comment-list div[class~="comment-edit-form-' + comment_id + '"]');
+        var all_edit_form_divs = $('#ajp-comment-list div[class*="comment-edit-form-"]');
+        var edit_form_div = $('#ajp-comment-list div[class~="comment-edit-form-' + comment_id + '"]');
         var comment_container = $('#c' + comment_id + ' .comment-text');
         var comment_text = comment_container.data('comment-text');
         var comment_textarea = edit_form_div.find('textarea');
@@ -155,9 +155,9 @@ $(document).ready(function () {
 
 
     // Exit edit form (cancel button pressed).
-    $('#ajapaik-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
+    $('#ajp-comment-list').on('click', 'button[data-action="cancel"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
-        var all_edit_form_divs = $('#ajapaik-comment-list div[class*="comment-edit-form-"]');
+        var all_edit_form_divs = $('#ajp-comment-list div[class*="comment-edit-form-"]');
         var comment_container = $('#c' + comment_id + ' .comment-text');
 
         comment_container.removeClass('d-none');
@@ -166,9 +166,9 @@ $(document).ready(function () {
 
 
     // Update comment (edit button pressed).
-    $('#ajapaik-comment-list').on('click', 'button[data-action="edit"]', function(event) {
+    $('#ajp-comment-list').on('click', 'button[data-action="edit"]', function(event) {
         var comment_id = $(event.target).data('comment-id');
-        var form = $('#ajapaik-comment-list div[class~="comment-edit-form-' + comment_id + '"]').find('form');
+        var form = $('#ajp-comment-list div[class~="comment-edit-form-' + comment_id + '"]').find('form');
         $.ajax({
             type: 'POST',
             url: '/comments/edit-one/',

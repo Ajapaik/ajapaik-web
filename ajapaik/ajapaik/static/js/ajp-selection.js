@@ -7,13 +7,13 @@
         // TODO: Made in a rush, clean up when there's time
         var areaLat,
             areaLng;
-        $('#ajapaik-selection-middle-panel').find('.panel-body').sortable();
+        $('#ajp-selection-middle-panel').find('.panel-body').sortable();
         window.updateLeaderboard();
         var openPhotoDrawer = function (content) {
-            var fullScreenImage = $('#ajapaik-full-screen-image');
-            $('#ajapaik-photo-modal').html(content).modal().find('#ajapaik-modal-photo').on('load', function () {
+            var fullScreenImage = $('#ajp-full-screen-image');
+            $('#ajp-photo-modal').html(content).modal().find('#ajp-modal-photo').on('load', function () {
                 fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
-                window.FB.XFBML.parse($('#ajapaik-photo-modal-like').get(0));
+                window.FB.XFBML.parse($('#ajp-photo-modal-like').get(0));
             });
         };
         window.loadPhoto = function (id) {
@@ -22,26 +22,26 @@
                 url: '/photo/' + id + '/?isSelection=1',
                 success: function (result) {
                     openPhotoDrawer(result);
-                    var imgContainer = $('#ajapaik-frontpage-image-container-' + id),
+                    var imgContainer = $('#ajp-frontpage-image-container-' + id),
                         nextId = imgContainer.next().data('id'),
                         previousId = imgContainer.prev().data('id'),
-                        nextButton = $('.ajapaik-photo-modal-next-button'),
-                        previousButton = $('.ajapaik-photo-modal-previous-button');
+                        nextButton = $('.ajp-photo-modal-next-button'),
+                        previousButton = $('.ajp-photo-modal-previous-button');
                     if (!nextId) {
-                        nextButton.addClass('ajapaik-photo-modal-next-button-disabled');
+                        nextButton.addClass('ajp-photo-modal-next-button-disabled');
                     } else {
-                        nextButton.removeClass('ajapaik-photo-modal-next-button-disabled');
+                        nextButton.removeClass('ajp-photo-modal-next-button-disabled');
                     }
                     if (!previousId) {
-                        previousButton.addClass('ajapaik-photo-modal-previous-button-disabled');
+                        previousButton.addClass('ajp-photo-modal-previous-button-disabled');
                     } else {
-                        previousButton.removeClass('ajapaik-photo-modal-previous-button-disabled');
+                        previousButton.removeClass('ajp-photo-modal-previous-button-disabled');
                     }
                 }
             });
         };
         window.selectionAddSimilarity = function(type) {
-            $('#ajapaik-loading-overlay').show();
+            $('#ajp-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
                 var photos = []
                 for (var key in response) {
@@ -49,12 +49,12 @@
                 }
                 $.ajax({
                     type: 'POST',
-                    url: window.location.origin + "/api/v1/photos/similar/",
+                    url: window.location.origin + '/api/v1/photos/similar/',
                     data: {
                         csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                         confirmed: true,
                         similarity_type: type,
-                        photos: photos.join(",")
+                        photos: photos.join(',')
                     },
                     success: function (response) {
                         var points = response.points
@@ -74,31 +74,31 @@
                         $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
                     },
                     complete: function () {
-                        $('#ajapaik-loading-overlay').hide();
+                        $('#ajp-loading-overlay').hide();
                     }
                 });
             });
         };
-        $(document).on('click', '.ajapaik-photo-selection-thumbnail-link', function (e) {
+        $(document).on('click', '.ajp-photo-selection-thumbnail-link', function (e) {
             e.preventDefault();
             window.loadPhoto($(this).data('id'));
         });
-        $(document).on('mouseenter', '.ajapaik-photo-selection-thumbnail-link', function () {
-            $(this).find('.ajapaik-remove-from-selection-button').show();
+        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail-link', function () {
+            $(this).find('.ajp-remove-from-selection-button').show();
         });
-        $(document).on('mouseenter', '.ajapaik-photo-selection-thumbnail', function () {
-            $(this).parent().find('.ajapaik-remove-from-selection-button').show();
+        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail', function () {
+            $(this).parent().find('.ajp-remove-from-selection-button').show();
         });
-        $(document).on('mouseout', '.ajapaik-photo-selection-thumbnail', function () {
-            $(this).parent().find('.ajapaik-remove-from-selection-button').hide();
+        $(document).on('mouseout', '.ajp-photo-selection-thumbnail', function () {
+            $(this).parent().find('.ajp-remove-from-selection-button').hide();
         });
-        $(document).on('mouseenter', '.ajapaik-remove-from-selection-button', function () {
+        $(document).on('mouseenter', '.ajp-remove-from-selection-button', function () {
             $(this).show();
         });
-        $(document).on('mouseout', '.ajapaik-remove-from-selection-button', function () {
+        $(document).on('mouseout', '.ajp-remove-from-selection-button', function () {
             $(this).hide();
         });
-        $(document).on('click', '#ajapaik-photo-selection-clear-selection-button', function () {
+        $(document).on('click', '#ajp-photo-selection-clear-selection-button', function () {
             var data = {
                 clear: true,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
@@ -107,14 +107,14 @@
                 window.location.reload();
             });
         });
-        $(document).on('click', '#ajapaik-photo-selection-add-similarity', function () {
+        $(document).on('click', '#ajp-photo-selection-add-similarity', function () {
             selectionAddSimilarity(1);
         });
-        $(document).on('click', '#ajapaik-photo-selection-add-duplicate', function () {
+        $(document).on('click', '#ajp-photo-selection-add-duplicate', function () {
             selectionAddSimilarity(2);
         });
         window.closePhotoDrawer = function () {
-            $('#ajapaik-photo-modal').modal('hide');
+            $('#ajp-photo-modal').modal('hide');
         };
         window.startGuessLocation = function () {
             if (window.albumId) {
@@ -123,19 +123,19 @@
                 window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
             }
         };
-        var input = document.getElementById('ajapaik-curator-add-area-name');
+        var input = document.getElementById('ajp-curator-add-area-name');
         if (input) {
             var options = {};
             var autocomplete = new window.google.maps.places.Autocomplete(input, options);
             window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var place = autocomplete.getPlace();
-                $('#ajapaik-curator-add-area-name-hidden').val(place.name);
+                $('#ajp-curator-add-area-name-hidden').val(place.name);
                 areaLat = place.geometry.location.lat();
                 areaLng = place.geometry.location.lng();
                 window._gaq.push(['_trackEvent', 'Selection', 'Autocomplete place changed']);
             });
         }
-        $(document).on('click', '.ajapaik-remove-from-selection-button', function (e) {
+        $(document).on('click', '.ajp-remove-from-selection-button', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var $this = $(this),
@@ -145,10 +145,10 @@
                 };
             $.post(window.photoSelectionURL, data, function (response) {
                 var len = Object.keys(response).length,
-                    target = $('#ajapaik-header-selection-indicator');
+                    target = $('#ajp-header-selection-indicator');
                 if (len < 2) {
-                    $('#ajapaik-photo-selection-add-similarity').addClass('d-none');
-                    $('#ajapaik-photo-selection-add-duplicate').addClass('d-none');
+                    $('#ajp-photo-selection-add-similarity').addClass('d-none');
+                    $('#ajp-photo-selection-add-duplicate').addClass('d-none');
                 }
                 if (len > 0) {
                     target.removeClass('d-none');

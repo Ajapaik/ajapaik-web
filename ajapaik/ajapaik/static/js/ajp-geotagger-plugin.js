@@ -377,7 +377,7 @@
             emailNotice.text(gettext(' You can now log in with your e-mail.'));
         }
         $('#ajp-geotagger-login-container').click(function () {
-            $('#ajapaik-header-profile').click();
+            $('#ajp-header-profile').click();
         });
         $(window).resize(function () {
             if (that.guessingStarted) {
@@ -934,7 +934,7 @@
                 buttonControls = $('#ajp-geotagger-button-controls'),
                 geotaggerPanel = $('#ajp-geotagger-panel'),
                 thumbHeight = this.geotaggerImageThumb.height();
-            if (window.matchMedia("(min-width: 992px)").matches) {
+            if (window.matchMedia('(min-width: 992px)').matches) {
                 confirmControls.removeClass('col-offset-6 col-sm-offset-6');
                 targetParent.css('width', geotaggerPanel.width()).css('height', 'auto');
                 geotaggerPanel.css('max-height', '100%').css('height', '100%');

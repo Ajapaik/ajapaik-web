@@ -30,13 +30,13 @@
             anchor: new google.maps.Point(12, 18)
         };
         this.UI = $([
-            '<div id="ajapaik-minimap-disabled-overlay"></div>',
-            '<div id="ajapaik-photo-modal-map-canvas"></div>'
+            '<div id="ajp-minimap-disabled-overlay"></div>',
+            '<div id="ajp-photo-modal-map-canvas"></div>'
         ].join('\n'));
         this.buildStartGeotaggingButton = function (photoHasLocation) {
             var button = $([
-                '<button id="ajapaik-minimap-disabled-overlay"></div>',
-                '<div id="ajapaik-photo-modal-map-canvas"></div>'
+                '<button id="ajp-minimap-disabled-overlay"></div>',
+                '<div id="ajp-photo-modal-map-canvas"></div>'
             ].join('\n'));
         };
         $(this.node).html(this.UI);
@@ -45,13 +45,13 @@
         constructor: AjapaikMinimap,
         initializeMap: function () {
             var that = this;
-            that.mapCanvas = that.UI.find('#ajapaik-photo-modal-map-canvas');
+            that.mapCanvas = that.UI.find('#ajp-photo-modal-map-canvas');
             $(that.node).css('height', that.options.height + 'px');
             that.initialMapCenter = {
                 lat: that.options.latitude,
                 lng: that.options.longitude
             };
-            that.minimap = new google.maps.Map(document.getElementById('ajapaik-photo-modal-map-canvas'), {
+            that.minimap = new google.maps.Map(document.getElementById('ajp-photo-modal-map-canvas'), {
                 center: that.initialMapCenter,
                 zoom: 17,
                 mapTypeControl: false,

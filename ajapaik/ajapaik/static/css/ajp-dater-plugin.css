@@ -79,12 +79,12 @@
 
 #ajp-dater-panel,
 #ajp-dater-tutorial-card,
-section.ajapaik-map-dating-range-slider input::-webkit-slider-thumb,
-section.ajapaik-map-dating-range-slider input::-moz-range-thumb,
-section.ajapaik-map-dating-range-slider input::-moz-range-track,
-#ajp-dater-anonymous-user-card > span,#ajapaik-photo-modal-start-dating-button,
+section.ajp-map-dating-range-slider input::-webkit-slider-thumb,
+section.ajp-map-dating-range-slider input::-moz-range-thumb,
+section.ajp-map-dating-range-slider input::-moz-range-track,
+#ajp-dater-anonymous-user-card > span,#ajp-photo-modal-start-dating-button,
 .ajp-dater-confirm-button,
-section.ajapaik-map-dating-range-slider {
+section.ajp-map-dating-range-slider {
     position: relative;
 }
 
@@ -98,11 +98,11 @@ section.ajapaik-map-dating-range-slider {
     background: none;
 }
 
-#ajapaik-photoview-start-dating-button {
+#ajp-photoview-start-dating-button {
     text-decoration: none;
 }
 
-#ajapaik-photoview-start-dating-button > .badge {
+#ajp-photoview-start-dating-button > .badge {
     margin-left: -25px;
     margin-bottom: 4px;
 }
@@ -120,13 +120,13 @@ section.ajapaik-map-dating-range-slider {
     color: #007fff;
 }
 
-section.ajapaik-map-dating-range-slider {
+section.ajp-map-dating-range-slider {
     width: 50%;
     height: 35px;
     text-align: center;
 }
 
-section.ajapaik-map-dating-range-slider input {
+section.ajp-map-dating-range-slider input {
     pointer-events: none;
     position: absolute;
     overflow: hidden;
@@ -139,36 +139,36 @@ section.ajapaik-map-dating-range-slider input {
     padding: 0;
 }
 
-section.ajapaik-map-dating-range-slider input::-webkit-slider-thumb {
+section.ajp-map-dating-range-slider input::-webkit-slider-thumb {
     pointer-events: all;
     z-index: 1;
     outline: 0;
 }
 
-section.ajapaik-map-dating-range-slider input::-moz-range-thumb {
+section.ajp-map-dating-range-slider input::-moz-range-thumb {
     pointer-events: all;
     z-index: 10;
     -moz-appearance: none;
     width: 9px;
 }
 
-section.ajapaik-map-dating-range-slider input::-webkit-slider-thumb,
-section.ajapaik-map-dating-range-slider input::-moz-range-thumb {
+section.ajp-map-dating-range-slider input::-webkit-slider-thumb,
+section.ajp-map-dating-range-slider input::-moz-range-thumb {
     pointer-events: all;
 }
 
-section.ajapaik-map-dating-range-slider input::-moz-range-track {
+section.ajp-map-dating-range-slider input::-moz-range-track {
     z-index: -1;
     background-color: rgba(0, 0, 0, 1);
 }
 
-section.ajapaik-map-dating-range-slider input:last-of-type::-moz-range-track {
+section.ajp-map-dating-range-slider input:last-of-type::-moz-range-track {
     -moz-appearance: none;
     background: none transparent;
 }
 
-section.ajapaik-map-dating-range-slider input::-moz-range-track,
-section.ajapaik-map-dating-range-slider input[type=range]::-moz-focus-outer,
-section.ajapaik-map-dating-range-slider input:last-of-type::-moz-range-track {
+section.ajp-map-dating-range-slider input::-moz-range-track,
+section.ajp-map-dating-range-slider input[type=range]::-moz-focus-outer,
+section.ajp-map-dating-range-slider input:last-of-type::-moz-range-track {
     border: 0;
 }

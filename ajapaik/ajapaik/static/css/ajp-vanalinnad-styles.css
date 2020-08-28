@@ -1,4 +1,4 @@
-.ajapaik-map-vanalinnad-city-select {
+.ajp-map-vanalinnad-city-select {
     margin-bottom: 12px;
     display: none;
     background-color: rgba(255 ,255,255);
@@ -11,7 +11,7 @@
     max-width: 125px;
 }
 
-.ajapaik-map-vanalinnad-year-select {
+.ajp-map-vanalinnad-year-select {
     margin-bottom: 12px;
     display: none;
     background-color: rgba(255 ,255,255);
@@ -25,7 +25,7 @@
 }
 
 @media (min-width: 769px) {
-    #ajapaik-map-canvas .ajapaik-map-vanalinnad-year-select {
+    #ajp-map-canvas .ajp-map-vanalinnad-year-select {
         left: auto !important;
         right: calc(50vw - 300px) !important;
         height: 40px;
@@ -33,14 +33,14 @@
 }
 
 @media (max-width: 768px) {
-    #ajapaik-map-canvas .ajapaik-map-vanalinnad-year-select {
+    #ajp-map-canvas .ajp-map-vanalinnad-year-select {
         left: auto !important;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
         right: 119px !important;
         margin-bottom: 40px;
     }
-    #ajapaik-map-canvas .ajapaik-map-vanalinnad-city-select {
+    #ajp-map-canvas .ajp-map-vanalinnad-city-select {
         left: auto !important;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
@@ -50,13 +50,13 @@
 }
 
 @media (max-width: 530px) {
-    #ajapaik-map-canvas .ajapaik-map-vanalinnad-year-select {
+    #ajp-map-canvas .ajp-map-vanalinnad-year-select {
         right: 0px !important;
         border-bottom-left-radius: 0px;
         bottom: 84px !important;
         margin-bottom: 0px;
     }
-    #ajapaik-map-canvas .ajapaik-map-vanalinnad-city-select {
+    #ajp-map-canvas .ajp-map-vanalinnad-city-select {
         right: 0px !important;
         border-bottom-left-radius: 0px;
         bottom: 44px !important;

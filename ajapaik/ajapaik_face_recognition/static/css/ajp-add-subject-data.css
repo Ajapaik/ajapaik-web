@@ -48,10 +48,6 @@
     background-image: url(../images/material-design-icons/ic_human_adult.svg);
 }
 
-.human-non-binary {
-    background-image: url(../images/material-design-icons/ic_human_non_binary.svg);
-}
-
 .skip-next {
     background-image: url(../images/material-design-icons/ic_skip_next.svg);
 }
@@ -73,7 +69,7 @@
     justify-content: center;
 }
 
-.navbar.navbar-default.navbar-fixed-top.ajapaik-navbar.w-100.py-0 {
+.navbar.navbar-default.navbar-fixed-top.ajp-navbar.w-100.py-0 {
     height: 60px;
 }
 
