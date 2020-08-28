@@ -1,16 +1,16 @@
 {% verbatim %}
-    <script id="ajapaik-photo-modal-rephoto-info-template" type="text/x-tmpl">
+    <script id="ajp-photo-modal-rephoto-info-template" type="text/x-tmpl">
         {% if (o.source && o.sourceKey && o.sourceURL) { %}
             {% if (o.author) { %}
                 <div class="w-100"><b>{%=o.author%}</b></div>
                 {% if (o.licence) { %}
                     <div class="w-100">
-                            {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                            {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                     </div>
                 {% } %}
             {% } %}
             <div class="w-100">
-                <a id="ajapaik-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
+                <a id="ajp-photo-modal-rephoto-source" href='{%=o.sourceURL%}'
                    target="_blank" rel="noopener nofollow">
                     {%=o.source%} {%=o.sourceKey%}
                 </a>
@@ -19,7 +19,7 @@
             {% if (o.author) { %}
                 <div class="w-100"><b>{%=o.author%}</b></div>
                 <div class="w-100">
-                    {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                    {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                 </div>
             {% } else { %}
                 {% if (o.FBUserName) { %}
@@ -29,7 +29,7 @@
                         </a><br>
                     </div>
                     <div class="w-100">
-                        {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                        {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                     </div>
                 {% } else { %}
                     {% if (o.GooglePlusName) { %}
@@ -39,7 +39,7 @@
                             </a><br>
                         </div>
                         <div class="w-100">
-                            {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                            {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
                         {% if (o.FullName) { %}
@@ -49,7 +49,7 @@
                                 </a><br>
                             </div>
                             <div class="w-100">
-                                {% endverbatim %}{% include "_licence.html" %}{% verbatim %}
+                                {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                             </div>
                         {% } else { %}
                             <div class="w-100"><b>{%=gettext('Unknown author')%}</b></div>

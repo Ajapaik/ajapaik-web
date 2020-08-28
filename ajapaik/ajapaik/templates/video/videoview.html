@@ -1,0 +1,74 @@
+{% extends "core/base_bootstrap.html" %}
+{% load i18n compress static %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/ajp-video.css" %}"/>
+    {% endcompress %}
+{% endblock %}
+
+{% block header %}
+    {% include "core/_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    {% include "info/_info_modal.html" %}
+    <div class="container">
+        <div class="col-12">
+            <div class="row">
+                <video id="ajp-videoview-video" autoplay controls src="{{ video.file.url }}"></video>
+                <div id="ajp-videoview-speed-buttons" class="btn-group" role="group">
+                    <button type="button" data-speed="0.25" class="btn btn-secondary">0.25x</button>
+                    <button type="button" data-speed="0.5" class="btn btn-secondary">0.5x</button>
+                    <button type="button" data-speed="1" class="btn btn-secondary active">1x</button>
+                    <button type="button" data-speed="1.25" class="btn btn-secondary">1.25x</button>
+                    <button type="button" data-speed="1.5" class="btn btn-secondary">1.5x</button>
+                    <button type="button" data-speed="2" class="btn btn-secondary">2x</button>
+                    <button type="button" data-speed="3" class="btn btn-secondary">3x</button>
+                    <button type="button" data-speed="4" class="btn btn-secondary">4x</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9" id="ajp-videoview-info-column">
+                    {% if video.author %}
+                        <div class="row"><b>{{ video.author }}</b></div>{% endif %}
+                    <div class="row">{{ video.name }}</div>
+                    {% if video.date %}
+                        <div class="row">{{ video.date|date:"Y" }}</div>{% endif %}
+                    {% if video.source and video.source_key and video.source_url %}
+                        <div class="row">
+                            <a id="ajp-videoview-source-link" data-id="{{ video.id }}" target="_blank"
+                               href="{{ video.source_url }}" title="{{ video.source.description }}"
+                               class="float-left" rel="noopener">{{ video.source.description }} {{ video.source_key }}</a>
+                        </div>
+                    {% endif %}
+                    {% if video.albums.all|length > 0 %}
+                        <i class="material-icons notranslate">movie</i>
+                    {% endif %}
+                    {% for a in video.albums.all %}
+                        <div class="row" id="ajp-videoview-album-list">
+                                <div class=col-auto">
+                                    <a class="ajp-videoview-album-link"
+                                       href="{% url 'frontpage' %}?album={{ a.id }}">{{ a.name }}</a>
+                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-3">
+                    <button id="ajp-video-modal-still-button" class="btn disabled float-right"><i
+                            class="material-icons notranslate">camera</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        window.currentVideoId = {{ video.id }};
+        window.albumId = {{ video.albums.all.0.id }};
+    </script>
+    {% compress js %}
+        <script src="{% static "js/ajp-video.js" %}"></script>
+    {% endcompress %}
+{% endblock %}

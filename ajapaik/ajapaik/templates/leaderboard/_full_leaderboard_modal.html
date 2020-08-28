@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div class="modal fade" id="ajp-full-leaderboard-modal" tabindex="-1" role="dialog"
+     aria-labelledby="full_leaderboard" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ajp-no-bottom-border-modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body pt-0">
+                <div id="leaderboard_browser">
+                    <div class="single">
+                        <div class="score-container pt-0">
+                            <ul class="scoreboard p-3"></ul>
+                            {% if request.user.profile.is_legit %}
+                                {% with profile=request.user.profile user=request.user %}
+                                    <div class="facebook-connected">
+                                        <form method="post" action="{% url 'account_logout' %}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign out' %}</button>
+                                        </form>
+                                    </div>
+                                {% endwith %}
+                            {% else %}
+                                    {% include "authentication/_log_in.html" with type="leaderboard" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

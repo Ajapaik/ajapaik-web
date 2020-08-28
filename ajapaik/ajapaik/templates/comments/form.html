@@ -1,13 +1,13 @@
 {% load i18n comments %}
 
 {% if not user.profile.is_legit %}
-    <a href="javaScript:void(0);" id="ajapaik-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
+    <a href="javaScript:void(0);" id="ajp-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
 {% else %}
     <h4 class="pl-3">{% trans "Your comment" %}</h4>
     <div>
         <div class="d-none" data-comment-element="preview"></div>
         <form method="POST" data-comment-element="form" data-comment-id="{{ cid|default:'main' }}"
-            action="{% comment_form_target %}" class="form-horizontal" id="ajapaik-comment-form">
+            action="{% comment_form_target %}" class="form-horizontal" id="ajp-comment-form">
             <fieldset>
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ photo.get_detail_url }}"/>

@@ -1,0 +1,25 @@
+{% extends "core/base_bootstrap.html" %}
+{% load i18n %}
+
+{% block header %}
+    {% include "core/_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container pt-5">
+        <div class="text-center d-block">
+            <a href="{% url "curator" %}" class="btn btn-primary mt-5 d-inline-block">
+                <h3 class="ajp-text-white">
+                    {% trans "Import from public collections" %}
+                </h3>
+            </a>
+        </div>
+        <div class="text-center d-block">
+            <a href="{% url "user_upload" %}" class="btn btn-primary mt-3 d-inline-block">
+                <h3 class="ajp-text-white">
+                    {% trans "Upload yourself" %}
+                </h3>
+            </a>
+        </div>
+    </div>
+{% endblock %}

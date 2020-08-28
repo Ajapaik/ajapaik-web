@@ -1,0 +1,69 @@
+{% load i18n compress static bootstrap4 %}
+
+{% block specific_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "libs/autocomplete/css/autocomplete.css" %}">
+    {% endcompress %}
+{% endblock %}
+<div class="modal fade" id="ajp-choose-albums-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{% trans "Collection info" %}</h4>
+                <button type="button" class="close close-album-curation-modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" id="ajp-curator-upload-error" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span id="ajp-curator-upload-error-message">{% trans "System error" %}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group"><label for="id-albums">Albumid</label>
+                            <span id="id-albums-wrapper" class="modern-style autocomplete-light-widget albums multiple" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
+                                <span id="id-albums-deck" class="deck" style="display: inline;"> 
+                                </span>
+                                <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/public-album-autocomplete/" placeholder="{% trans "Search for an existing album" %}" title="" required="" autocomplete="off" style="display: block;">
+                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add-id-albums" style="">
+                                    <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
+                                </a>
+                                <select style="display:none" class="value-select" name="albums" id="id-albums" multiple="multiple"></select>
+                                <span style="display:none" class="remove">ˣ</span>
+                                <span style="display:none" class="choice-template">
+                                    <span class="choice prepend-remove append-option-html">
+                                    </span>
+                                </span>
+                            </span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-album-curation-modal" id="ajp-curator-cancel-album-selection-button">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-success" id="ajp-curator-confirm-album-selection-button">
+                    {% trans "Submit" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% block specific_js %}
+    {% compress js %}
+        <script src="{% static "js/autocomplete.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-add-album.js" %}"></script>
+        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
+    {% endcompress %}
+    <script>
+    $('.close-album-curation-modal').click(function (e) {
+        $('#ajp-choose-albums-modal').modal('hide');
+    });
+    </script>
+ {% endblock %}
