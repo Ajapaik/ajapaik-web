@@ -9,7 +9,6 @@ import json
 from json import loads
 from urllib.request import urlopen
 from urllib.parse import quote
-from urllib.parse import parse_qs
 import logging
 
 import requests
@@ -56,7 +55,8 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from ajapaik.ajapaik.utils import merge_profiles
 
 
@@ -145,6 +145,27 @@ class Login(APIView):
         except:
             return None
 
+    def _authenticate_with_wikimedia_commons(self, request, token):
+        '''
+        Returns user by ID token that we get from mobile application after user
+        authentication there.
+        '''
+        try:
+            adapter = WikimediaCommonsOAuth2Adapter(request)
+            app = adapter.get_provider().get_app(request)
+            token = adapter.parse_token({'access_token': access_token})
+            token.app = app
+            login = adapter.complete_login(request, app, token)
+            login.token = token
+            login.state = {
+                'auth_params': '',
+                'process': 'login',
+                'scope': ''
+            }
+            complete_social_login(request, login)
+            return login.user
+        except:
+            return None
 
     def _authenticate_with_facebook(self, request, access_token):
         '''
@@ -193,7 +214,7 @@ class Login(APIView):
                 user = self._authenticate_with_facebook(request._request,
                                                         access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
-                # Deprecated. Keeped for back compatibility.
+                # Deprecated. Kept for backwards compatibility.
                 user = None
 
             if user is None:
@@ -927,6 +948,19 @@ class RephotoUpload(APIView):
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
             })
 
+class RephotoUploadSettings(AjapaikAPIView):
+    '''
+    API endpoint for saving rephoto upload settings
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
+            profile.save()
+            return JsonResponse({'message': _('Rephoto upload settings have been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
 class api_user_me(AjapaikAPIView):
     def _handle_request(self, data, user, request):
         content = {
@@ -1609,6 +1643,21 @@ class UserSettings(AjapaikAPIView):
             profile.newsletter_consent = request.POST['newsletterConsent']
             profile.save()
             return JsonResponse({'message': _('User settings have been saved')})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+
+class ChangeProfileDisplayName(AjapaikAPIView):
+    '''
+    API endpoint for changing user display name
+    '''
+    def post(self, request, format=None):
+        try:
+            profile = request.user.profile
+            profile.display_name = request.POST['display_name']
+            profile.save()
+            profile_display_name_change = ProfileDisplayNameChange(display_name=request.POST['display_name'], profile=profile)
+            profile_display_name_change.save()
+            return JsonResponse({'message': _('User display name has been saved')})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 

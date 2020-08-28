@@ -23,7 +23,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from allauth.account.forms import AddEmailForm, ChangePasswordForm
 from allauth.account.views import EmailView, PasswordChangeView
 from allauth.socialaccount.forms import DisconnectForm
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.views import ConnectionsView
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
@@ -69,12 +69,12 @@ from ajapaik.ajapaik.curator_drivers.flickr_commons import FlickrCommonsDriver
 from ajapaik.ajapaik.curator_drivers.fotis import FotisDriver
 from ajapaik.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-	CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, SubmitGeotagForm, \
+	CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, ChangeDisplayNameForm, SubmitGeotagForm, \
 	GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
 	SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
 	AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
 	UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, UserSettingsForm, \
-	EditCommentForm, CuratorWholeSetAlbumsSelectionForm
+	EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
 	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess, ProfileMergeToken
@@ -158,7 +158,7 @@ def get_general_info_modal_content(request):
 		'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
 	}
 
-	return render(request, '_general_info_modal_content.html', context)
+	return render(request, 'info/_general_info_modal_content.html', context)
 
 
 def get_album_info_modal_content(request):
@@ -232,7 +232,7 @@ def get_album_info_modal_content(request):
 		context['share_map_link'] = request.build_absolute_uri(reverse('map')) + '?album=' + album_id_str
 		context['share_gallery_link'] = request.build_absolute_uri(reverse('frontpage')) + '?album=' + album_id_str
 
-		return render(request, '_info_modal_content.html', context)
+		return render(request, 'info/_info_modal_content.html', context)
 
 	return HttpResponse('Error')
 
@@ -455,7 +455,8 @@ def rephoto_upload(request, photo_id):
 		#         user = request.get_user()
 		#         profile = user.profile
 		#         profile.update_from_fb_data(token, fb_data)
-		if not profile.fb_id and not profile.google_plus_id and not user.email:
+		social_account = SocialAccount.objects.filter(user=request.user).first()
+		if not social_account and not user.email:
 			return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
 		if 'user_file[]' in request.FILES.keys():
 			for f in request.FILES.getlist('user_file[]'):
@@ -604,7 +605,7 @@ def game(request):
 	context['user_has_likes'] = user_has_likes
 	context['user_has_rephotos'] = user_has_rephotos
 
-	return render(request, 'game.html', context)
+	return render(request, 'common/game.html', context)
 
 
 def fetch_stream(request):
@@ -696,7 +697,7 @@ def frontpage(request, album_id=None, page=None):
 		'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
 	}
 
-	return render(request, 'frontpage.html', context)
+	return render(request, 'common/frontpage.html', context)
 
 
 def frontpage_async_data(request):
@@ -1127,7 +1128,7 @@ def list_photo_selection(request):
 		'whole_set_albums_selection_form': whole_set_albums_selection_form
 	}
 
-	return render(request, 'photo_selection.html', context)
+	return render(request, 'photo/selection/photo_selection.html', context)
 
 
 def upload_photo_selection(request):
@@ -1183,9 +1184,9 @@ def _make_fullscreen(p):
 def videoslug(request, video_id, pseudo_slug=None):
 	video = get_object_or_404(Video, pk=video_id)
 	if request.is_ajax():
-		template = '_video_modal.html'
+		template = 'video/_video_modal.html'
 	else:
-		template = 'videoview.html'
+		template = 'video/videoview.html'
 
 	return render(request, template, {'video': video,})
 
@@ -1243,7 +1244,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	is_selection = False
 	site = Site.objects.get_current()
 	if request.is_ajax():
-		template = '_photo_modal.html'
+		template = 'photo/_photo_modal.html'
 		if request.GET.get('isFrontpage'):
 			is_frontpage = True
 		if request.GET.get('isMapview'):
@@ -1251,7 +1252,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		if request.GET.get('isSelection'):
 			is_selection = True
 	else:
-		template = 'photoview.html'
+		template = 'photo/photoview.html'
 	if not photo_obj.description:
 		title = 'Unknown photo'
 	else:
@@ -1419,7 +1420,7 @@ def mapview_photo_upload_modal(request, photo_id):
 		'licence': licence,
 		'next': request.META['HTTP_REFERER']
 	}
-	return render(request, '_photo_upload_modal.html', context)
+	return render(request, 'photo/upload/_photo_upload_modal.html', context)
 
 
 @ensure_csrf_cookie
@@ -1492,7 +1493,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context['title'] = area.name + ' - ' + _('Browse photos on map')
 	else:
 		context['title'] = _('Browse photos on map')
-	return render(request, 'mapview.html', context)
+	return render(request, 'common/mapview.html', context)
 
 
 def map_objects_by_bounding_box(request):
@@ -1756,9 +1757,9 @@ def leaderboard(request, album_id=None):
 			n += 1
 		general_leaderboard = nearby_users
 	if request.is_ajax():
-		template = '_block_leaderboard.html'
+		template = 'leaderboard/_block_leaderboard.html'
 	else:
-		template = 'leaderboard.html'
+		template = 'leaderboard/leaderboard.html'
 	# FIXME: this shouldn't be necessary, there are easier ways to construct URLs
 	site = Site.objects.get_current()
 	context = {
@@ -1775,7 +1776,7 @@ def leaderboard(request, album_id=None):
 def all_time_leaderboard(request):
 	_calculate_recent_activity_scores()
 	atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
-	template = ['', '_block_leaderboard.html', 'leaderboard.html'][request.is_ajax() and 1 or 2]
+	template = ['', 'leaderboard/_block_leaderboard.html', 'leaderboard/leaderboard.html'][request.is_ajax() and 1 or 2]
 	site = Site.objects.get_current()
 	context = {
 		'hostname': 'https://%s' % (site.domain,),
@@ -1806,9 +1807,9 @@ def top50(request, album_id=None):
 		each.position = n
 		n += 1
 	if request.is_ajax():
-		template = '_block_leaderboard.html'
+		template = 'leaderboard/_block_leaderboard.html'
 	else:
-		template = 'leaderboard.html'
+		template = 'leaderboard/leaderboard.html'
 	site = Site.objects.get_current()
 	context = {
 		'activity_leaderboard': activity_leaderboard,
@@ -1910,7 +1911,7 @@ def curator(request):
 		'whole_set_albums_selection_form': CuratorWholeSetAlbumsSelectionForm()
 	}
 
-	return render(request, 'curator.html', context)
+	return render(request, 'curator/curator.html', context)
 
 
 def _curator_get_records_by_ids(ids):
@@ -2712,7 +2713,7 @@ def generate_still_from_video(request):
 
 
 def donate(request):
-	return render(request, 'donate.html', {'is_donate': True})
+	return render(request, 'donate/donate.html', {'is_donate': True})
 
 
 def photo_upload_choice(request):
@@ -2721,7 +2722,90 @@ def photo_upload_choice(request):
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
 	}
 
-	return render(request, 'photo_upload_choice.html', context)
+	return render(request, 'photo/upload/photo_upload_choice.html', context)
+
+def upload_photo_to_wikimedia_commons(request, path):
+	social_token = None
+	if request.user and request.user.profile:
+		social_account = SocialAccount.objects.filter(user=request.user).first()
+		social_token = SocialToken.objects.filter(account=social_account, expires_at__gt=datetime.date.today()).last()
+	if social_token:
+		S = requests.Session()
+		URL = "https://commons.wikimedia.org/w/api.php"
+		FILE_PATH = path
+
+		# Step 1: Retrieve a login token
+		PARAMS_1 = {
+			"action": "query",
+			"meta": "tokens",
+			"type": "login",
+			"format": "json"
+		}
+
+		headers = {
+			"Authentication": "Bearer " + social_token.token
+		}
+
+		R = S.get(url=URL, params=PARAMS_1, headers=headers)
+		DATA = R.json()
+		print(DATA)
+
+		LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
+
+		# Step 2: Send a post request to login. Use of main account for login is not
+		# supported. Obtain credentials via Special:BotPasswords
+		# (https://www.mediawiki.org/wiki/Special:BotPasswords) for lgname & lgpassword
+		PARAMS_2 = {
+			"action": "login",
+			"format": "json",
+			"lgtoken": LOGIN_TOKEN
+		}
+
+		R = S.post(URL, data=PARAMS_2, headers=headers)
+		DATA = R.json()
+		print(DATA)
+
+		# Step 3: Obtain a CSRF token
+		PARAMS_3 = {
+			"action": "query",
+			"meta":"tokens",
+			"format":"json"
+		}
+
+		R = S.get(url=URL, params=PARAMS_3, headers=headers)
+
+		DATA = R.json()
+		print(DATA)
+
+		CSRF_TOKEN = DATA["query"]["tokens"]["csrftoken"]
+
+		# Step 4: Post request to upload a file directly
+		PARAMS_4 = {
+			"action": "upload",
+			"filename": "file_1.jpg",
+			"format": "json",
+			"token": CSRF_TOKEN,
+			"ignorewarnings": 1
+		}
+
+		FILE = {'file':('file_1.jpg', open(FILE_PATH, 'rb'), 'multipart/form-data')}
+
+		R = S.post(URL, files=FILE, data=PARAMS_4)
+		DATA = R.json()
+		print(DATA)
+
+def rephoto_upload_settings_modal(request):
+	form = None
+	if (hasattr(request.user, 'profile')):
+		profile = request.user.profile
+		form = RephotoUploadSettingsForm(data={'wikimedia_commons_rephoto_upload_consent': profile.wikimedia_commons_rephoto_upload_consent})
+
+	context = {
+		'form': form,
+		'isModal': True
+	}
+
+	return render(request, 'rephoto_upload/_rephoto_upload_settings_modal_content.html', context)
 
 def compare_all_photos(request, photo_id=None, photo_id_2=None):
 	return compare_photos_generic(request,photo_id,photo_id_2,'compare-all-photos', True)
@@ -2741,7 +2825,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
 			else:
 				similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
 			if similar_photos is None or len(similar_photos) < 1:
-				return render(request,'compare_photos_no_results.html')
+				return render(request,'compare_photos/compare_photos_no_results.html')
 			firstSimilar = similar_photos.first()
 		photo_id = firstSimilar.from_photo_id
 		photo_id_2 = firstSimilar.to_photo_id
@@ -2778,7 +2862,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
 		'photo2': photo_obj2,
 		'next_action': next_action
 	}
-	return render(request,'compare_photos.html', context)
+	return render(request,'compare_photos/compare_photos.html', context)
 
 def user_upload(request):
 	context = {
@@ -2814,7 +2898,7 @@ def user_upload(request):
 		form = UserPhotoUploadForm()
 	context['form'] = form
 
-	return render(request, 'user_upload.html', context)
+	return render(request, 'user_upload/user_upload.html', context)
 
 
 def user_upload_add_album(request):
@@ -2832,7 +2916,7 @@ def user_upload_add_album(request):
 		form = UserPhotoUploadAddAlbumForm(profile=request.user.profile)
 	context['form'] = form
 
-	return render(request, 'user_upload_add_album.html', context)
+	return render(request, 'user_upload/user_upload_add_album.html', context)
 
 
 ################################################################################
@@ -2958,11 +3042,11 @@ class DeleteComment(View):
 		})
 
 def privacy(request):
-	return render(request, 'privacy.html')
+	return render(request, 't&c/privacy.html')
 
 
 def terms(request):
-	return render(request, 'terms.html')
+	return render(request, 't&c/terms.html')
 
 
 def me(request):
@@ -3028,7 +3112,7 @@ def user(request, user_id):
 		'user_points': user_points
 	}
 
-	return render(request, 'user.html', context)
+	return render(request, 'user/user.html', context)
 
 def user_settings_modal(request):
 	form = None
@@ -3043,23 +3127,27 @@ def user_settings_modal(request):
 		'isModal': True
 	}
 
-	return render(request, '_user_settings_modal_content.html', context)
+	return render(request, 'user/settings/_user_settings_modal_content.html', context)
 
 def user_settings(request):
 	context = {}
 	token = request.GET.get('token')
 	profile = None
-	form = None
+	user_settings_form = None
+	rephoto_upload_settings_form = None
 	invalid = False
 	initial = False
+	show_accordion = False
+	social_account_form = None
 	if (hasattr(request.user, 'profile')):
 		profile = request.user.profile
 		context['profile'] = profile
-		form = UserSettingsForm(data={
+		user_settings_form = UserSettingsForm(data={
 			'preferred_language': profile.preferred_language,
 			'newsletter_consent': profile.newsletter_consent
 		})
-	context['form'] = form
+		rephoto_upload_settings_form = RephotoUploadSettingsForm(data={'wikimedia_commons_rephoto_upload_consent': profile.wikimedia_commons_rephoto_upload_consent})
+
 
 	if token is None:
 		if profile and profile.is_legit():
@@ -3083,15 +3171,39 @@ def user_settings(request):
 	context['me'] = reverse('me')
 	context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
 	context['token'] = token
-	context['email_form'] = AddEmailForm()
-	context['password_form'] = ChangePasswordForm()
+	display_name_form = ChangeDisplayNameForm(data={'display_name': profile.display_name,})
+	email_form = AddEmailForm()
+	password_form = ChangePasswordForm()
 	context['invalid'] = invalid
 	context['initial'] = initial
 	if profile:
-		context['show_accordion'] = not invalid and profile and profile.is_legit and not initial
-		context['social_account_form'] = DisconnectForm(request=request)
+		show_accordion = not invalid and profile and profile.is_legit and not initial
+		context['show_accordion'] = show_accordion
+		social_account_form = DisconnectForm(request=request)
 
-	return render(request, 'user_settings.html', context)
+	context['accordion_list'] = [
+		{"id": 1, "heading": "Change display name", "template": "user/display_name/change_display_name.html", "form": display_name_form, "show_merge_section": None},
+		{"id": 2, "heading": "Newsletter and language settings", "template": "user/settings/_user_settings_modal_content.html", "form": user_settings_form, "show_merge_section": None},
+		{"id": 3, "heading": "Rephoto upload settings", "template": "rephoto_upload/_rephoto_upload_settings_modal_content.html", "form": rephoto_upload_settings_form , "show_merge_section": None},
+		{"id": 4, "heading": "E-mail addresses", "template": "account/email_content.html", "form": email_form, "show_merge_section": None},
+		{"id": 5, "heading": "Change password", "template": "account/password_change_form.html", "form": password_form , "show_merge_section": None},
+		{"id": 6, "heading": "Account Connections", "template": "socialaccount/connections_content.html", "form": social_account_form, "show_merge_section": None},
+		{"id": 7, "heading": "Merge another Ajapaik account with current one", "template": "user/merge/merge_accounts.html", "form": None, "show_merge_section": show_accordion}
+	]
+	return render(request, 'user/settings/user_settings.html', context)
+
+def profile_change_display_name(request):
+	form = None
+	if (hasattr(request.user, 'profile')):
+		profile = request.user.profile
+		form = ChangeDisplayNameForm(data={
+			'display_name': request.user.profile.display_name
+		})
+	context = {
+		'form': form
+	}
+
+	return render(request, 'user/display_name/change_display_name.html', context)
 
 
 def merge_accounts(request):
@@ -3122,7 +3234,7 @@ def merge_accounts(request):
 	context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
 	context['token'] = token
 
-	return render(request, 'merge_accounts.html', context)
+	return render(request, 'user/merge/merge_accounts.html', context)
 
 
 def geotaggers_modal(request, photo_id):
@@ -3146,7 +3258,7 @@ def geotaggers_modal(request, photo_id):
 	context = {
 		'geotaggers' : geotaggers
 	}
-	return render(request, '_geotaggers_modal_content.html', context)
+	return render(request, 'geotaggers/_geotaggers_modal_content.html', context)
 
 class MyPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('user_settings')

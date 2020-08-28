@@ -1,3 +1,5 @@
+from allauth.socialaccount.models import SocialAccount
+
 from django.template import Library, Node, Variable
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
@@ -35,7 +37,7 @@ def settings_value(name):
     return getattr(settings, name, '')
 
 
-@register.filter
+@register.filter()
 def div(value, arg):
     try:
         value = int(value)
@@ -45,11 +47,12 @@ def div(value, arg):
         pass
     return ''
 
+@register.filter()
+def user_is_connected_to_wiki_account(user):
+    return SocialAccount.objects.filter(provider='wikimedia-commons', user=user).first() is not None
 
+@register.filter(is_safe=True)
+@stringfilter
 def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     return mark_safe(normalized_text.replace('\n', ' '))
-
-remove_newlines.is_safe = True
-remove_newlines = stringfilter(remove_newlines)
-register.filter(remove_newlines)

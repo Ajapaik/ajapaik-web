@@ -116,8 +116,9 @@ urlpatterns = [
     url(r'^me/$',views.me, name='me'),
     url(r'^user/(?P<user_id>\d+)/$',views.user, name='user'),
     url(r'^user/settings/$',views.user_settings , name='user_settings'),
-     url(r'^user/settings-modal/$',views.user_settings_modal , name='user_settings_modal'),
+    url(r'^user/settings-modal/$',views.user_settings_modal , name='user_settings_modal'),
     url(r'^user/merge-accounts/$',views.merge_accounts , name='merge_accounts'),
+    url(r'^photo-upload/settings-modal/$',views.rephoto_upload_settings_modal , name='rephoto_upload_settings_modal'),
 ]
 
 urlpatterns += [
@@ -138,6 +139,7 @@ urlpatterns += [
     url(r'^api/v1/wikidocumentaries/photos/$', api.WikidocsAlbumSearch.as_view()),
     url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
+    url(r'^api/v1/photo/upload/settings$', api.RephotoUploadSettings.as_view(), name='api_submit_rephoto_upload_settings'),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
     url(r'^api/v1/photo/fetch-hkm-finna/$', api.FetchFinnaPhoto.as_view()),
     url(r'^api/v1/photos/favorite/order-by-distance-to-location/$', api.UserFavoritePhotoList.as_view()),
@@ -148,6 +150,7 @@ urlpatterns += [
     url(r'^api/v1/transcriptions/(?P<photo_id>\d+)/$', api.Transcriptions.as_view(), name='api_transcriptions'),
     url(r'^api/v1/transcriptions/$', api.Transcriptions.as_view(), name='api_submit_transcription'),
     url(r'^api/v1/transcription-feedback/$', api.SubmitTranscriptionFeedback.as_view(), name='api_confirm_transcription'),
+    url(r'^api/v1/change-profile-display-name$', api.ChangeProfileDisplayName.as_view(), name='api_change_profile_display_name'),
     url(r'^api/v1/user-settings/$', api.UserSettings.as_view(), name='api_submit_user_settings'),
     url(r'^api/v1/merge-profiles/$', api.MergeProfiles.as_view(), name='api_merge_users')
 ]
