@@ -12,10 +12,9 @@ from allauth.socialaccount.providers.oauth2.client import (
 class WikimediaCommonsOAuth2Client(OAuth2Client):
 
     def get_redirect_url(self, authorization_url, extra_params):
-        print(self.consumer_key)
         params = {
             'client_id': self.consumer_key,
-            'redirect_uri': self.redirect_uri,
+            'redirect_uri': self.callback_url,
             'scope': self.scope,
             'response_type': 'code'
         }
@@ -30,7 +29,7 @@ class WikimediaCommonsOAuth2Client(OAuth2Client):
     def get_access_token(self, code):
         data = {'client_id': self.consumer_key,
                 'client_secret': self.consumer_secret,
-                'redirect_uri': self.redirect_uri,
+                'redirect_uri': self.callback_url,
                 'grant_type': 'authorization_code',
                 'code': code}
         params = None
