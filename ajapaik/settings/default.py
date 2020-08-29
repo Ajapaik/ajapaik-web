@@ -380,7 +380,7 @@ ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
-ACCOUNT_USER_DISPLAY = lambda user: user.profile.fb_name if (user.profile and user.profile.fb_name) else user.get_full_name()
+ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (user.profile and user.profile.display_name) else user.get_full_name()
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
