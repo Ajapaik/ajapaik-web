@@ -20,4 +20,18 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
                 user.profile.display_name = user.profile.first_name
             elif user.profile.last_name:
                 user.profile.display_name = user.profile.last_name
+            
+            if social_account.provider == 'google':
+                user.profile.google_plus_id = social_account.uid
+                if social_account.extra_data.get('picture'):
+                    user.profile.google_plus_picture = social_account.extra_data.get('picture')
+                if social_account.extra_data.get('email'):
+                    user.profile.google_plus_email = social_account.extra_data.get('email')
+            
+            if social_account.provider == 'facebook':
+                user.profile.fb_id = social_account.uid
+                if social_account.extra_data.get('email'):
+                    user.profile.fb_email = social_account.extra_data.get('email')
             user.profile.save()
+
+            
