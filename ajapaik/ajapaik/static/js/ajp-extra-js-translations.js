@@ -44,4 +44,6 @@
     gettext('Title');
     gettext('URL');
     gettext('Unknown author');
+    gettext('You have opened the map with the album filter on, to turn it off, please untick the box next to album name');
+    gettext('You have opened the map with the album filter off, to turn it on, please tick the box next to album name');
 }());
