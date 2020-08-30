@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n ajapaik_templatetags %}
 {% if request.user.profile.is_legit %}
     <h1>{% trans "Account Connections" %}</h1>
 
@@ -21,7 +21,7 @@
                         {% if account.get_brand.id == 'wikimedia-commons' %}
                             {% trans 'User' %}: <a href="https://commons.wikimedia.org/wiki/User:{{ account }}" target="_blank">{{ account }}</a>
                         {% elif account.get_brand.id == 'google' %}
-                            {% trans 'Email' %}: {{ account }}
+                            {% trans 'Email' %}: {{ base_account.extra_data.email }}
                         {% else %}
                             {% trans 'Name' %}: {{ account }}
                         {% endif %}
