@@ -179,7 +179,7 @@ msgstr "Loobu"
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
 #: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
-msgstr "Saada"
+msgstr "Salvesta"
 
 #: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:453
 msgid "Comment your dating"
