@@ -8,7 +8,7 @@
 msgid ""
 msgstr "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-28 17:16+0300\n"
+"POT-Creation-Date: 2020-08-31 01:35+0300\n"
 "PO-Revision-Date: 2019-02-16 22:56+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -106,6 +106,8 @@ msgid "Bounding box values must be numbers"
 msgstr "Bounding box values must be numbers"
 
 #: ajapaik/ajapaik/forms.py:19
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
+#: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
 msgstr "Email"
 
@@ -185,6 +187,8 @@ msgstr "Person"
 #: ajapaik/ajapaik/forms.py:430 ajapaik/ajapaik/models.py:181
 #: ajapaik/ajapaik/templates/curator/curator.html:68
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:17
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:26
+#: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Name"
 msgstr "Name"
 
@@ -560,6 +564,7 @@ msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
+#: ajapaik/ajapaik/templates/dummy_translations.html:12
 msgid "E-mail addresses"
 msgstr "E-mail addresses"
 
@@ -586,45 +591,45 @@ msgstr "This e-mail confirmation link expired or is invalid. Please <a href=\"%(
 msgid "The following E-mail addresses are associated with your account:"
 msgstr "The following E-mail addresses are associated with your account:"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:19
+#: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
 msgstr "verified"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:21
+#: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
 msgstr "unverified"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:23
+#: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
 msgstr "primary"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:29
+#: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
 msgstr "Make Primary"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:30
+#: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
 msgstr "Re-send Verification"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:31
+#: ajapaik/ajapaik/templates/account/email_content.html:26
 #: ajapaik/ajapaik/templates/comments/delete.html:17
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:31
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:33
 msgid "Remove"
 msgstr "Remove"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:39
+#: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
 msgstr "Warning:"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:39
+#: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
 msgstr "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
 
-#: ajapaik/ajapaik/templates/account/email_content.html:45
+#: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
 msgstr "Add E-mail"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:52
+#: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Do you really want to remove the selected e-mail address?"
 
@@ -692,7 +697,7 @@ msgstr "Your password is now changed."
 
 #: ajapaik/ajapaik/templates/account/password_set.html:5
 #: ajapaik/ajapaik/templates/account/password_set.html:8
-#: ajapaik/ajapaik/templates/account/password_set.html:13
+#: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
 msgstr "Set Password"
 
@@ -1438,6 +1443,36 @@ msgstr "New Password"
 msgid "New Password (again)"
 msgstr "New Password (again)"
 
+#: ajapaik/ajapaik/templates/dummy_translations.html:7
+msgid "Set password"
+msgstr "Set password"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:8
+msgid "Change password"
+msgstr "Change password"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:9
+msgid "Change display name"
+msgstr "Change display name"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:10
+msgid "Newsletter and language settings"
+msgstr "Newsletter and language settings"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:11
+msgid "Rephoto upload settings"
+msgstr "Rephoto upload settings"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:13
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+msgid "Account Connections"
+msgstr "Account Connections"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:14
+msgid "Merge another Ajapaik account with current one"
+msgstr "Merge another Ajapaik account with current one"
+
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
 msgstr "Filtering"
@@ -1875,20 +1910,22 @@ msgstr "Social Network Login Failure"
 msgid "An error occurred while attempting to login via your social network account."
 msgstr "An error occurred while attempting to login via your social network account."
 
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-msgid "Account Connections"
-msgstr "Account Connections"
-
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
 msgstr "You can sign in to your account using any of the following third party accounts:"
 
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:36
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:22
+#: ajapaik/ajapaik/templates/user/_user_card.html:18
+#: ajapaik/ajapaik_face_recognition/models.py:31
+#: ajapaik/ajapaik_face_recognition/models.py:188
+msgid "User"
+msgstr "User"
+
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:38
 msgid "You currently have no social network accounts connected to this account."
 msgstr "You currently have no social network accounts connected to this account."
 
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:39
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:41
 msgid "Add a 3rd Party Account"
 msgstr "Add a 3rd Party Account"
 
@@ -2274,11 +2311,6 @@ msgstr "Unknown"
 msgid "Not Applicable"
 msgstr "Not Applicable"
 
-#: ajapaik/ajapaik_face_recognition/models.py:31
-#: ajapaik/ajapaik_face_recognition/models.py:188
-msgid "User"
-msgstr "User"
-
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:189
 msgid "Algorithm"
@@ -2471,15 +2503,6 @@ msgstr "French"
 
 #~ msgid "Annotate"
 #~ msgstr "Annotate"
-
-#~ msgid "Newsletter and language settings"
-#~ msgstr "Newsletter and language settings"
-
-#~ msgid "Change password"
-#~ msgstr "Change password"
-
-#~ msgid "Merge another Ajapaik account with current one"
-#~ msgstr "Merge another Ajapaik account with current one"
 
 #~ msgid "Change e-mail"
 #~ msgstr "Change e-mail"

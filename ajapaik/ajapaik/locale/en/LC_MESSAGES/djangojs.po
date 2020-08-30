@@ -6,7 +6,7 @@
 msgid ""
 msgstr "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-28 17:16+0300\n"
+"POT-Creation-Date: 2020-08-31 01:38+0300\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -366,6 +366,14 @@ msgstr "URL"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "Unknown author"
 msgstr "Unknown author"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+msgstr "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
+msgstr "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "Earliest"
