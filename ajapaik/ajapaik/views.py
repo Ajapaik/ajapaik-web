@@ -20,8 +20,8 @@ import requests
 from html import unescape
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
-from allauth.account.forms import AddEmailForm, ChangePasswordForm
-from allauth.account.views import EmailView, PasswordChangeView
+from allauth.account.forms import AddEmailForm, ChangePasswordForm, SetPasswordForm
+from allauth.account.views import EmailView, PasswordChangeView, PasswordSetView
 from allauth.socialaccount.forms import DisconnectForm
 from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.views import ConnectionsView
@@ -3173,7 +3173,6 @@ def user_settings(request):
 	context['token'] = token
 	display_name_form = ChangeDisplayNameForm(data={'display_name': profile.display_name,})
 	email_form = AddEmailForm()
-	password_form = ChangePasswordForm()
 	context['invalid'] = invalid
 	context['initial'] = initial
 	if profile:
@@ -3181,12 +3180,16 @@ def user_settings(request):
 		context['show_accordion'] = show_accordion
 		social_account_form = DisconnectForm(request=request)
 
-	context['accordion_list'] = [
+	password_accordion = {"id": 5, "heading": "Set password", "template": "account/password_set_form.html", "form": SetPasswordForm(), "show_merge_section": None}
+	if request.user.has_usable_password():
+		password_accordion = {"id": 5, "heading": "Change password", "template": "account/password_change_form.html", "form": ChangePasswordForm(), "show_merge_section": None}
+
+	context['accordions'] = [
 		{"id": 1, "heading": "Change display name", "template": "user/display_name/change_display_name.html", "form": display_name_form, "show_merge_section": None},
 		{"id": 2, "heading": "Newsletter and language settings", "template": "user/settings/_user_settings_modal_content.html", "form": user_settings_form, "show_merge_section": None},
 		{"id": 3, "heading": "Rephoto upload settings", "template": "rephoto_upload/_rephoto_upload_settings_modal_content.html", "form": rephoto_upload_settings_form , "show_merge_section": None},
 		{"id": 4, "heading": "E-mail addresses", "template": "account/email_content.html", "form": email_form, "show_merge_section": None},
-		{"id": 5, "heading": "Change password", "template": "account/password_change_form.html", "form": password_form , "show_merge_section": None},
+		password_accordion,
 		{"id": 6, "heading": "Account Connections", "template": "socialaccount/connections_content.html", "form": social_account_form, "show_merge_section": None},
 		{"id": 7, "heading": "Merge another Ajapaik account with current one", "template": "user/merge/merge_accounts.html", "form": None, "show_merge_section": show_accordion}
 	]
@@ -3259,6 +3262,9 @@ def geotaggers_modal(request, photo_id):
 		'geotaggers' : geotaggers
 	}
 	return render(request, 'geotaggers/_geotaggers_modal_content.html', context)
+
+class MyPasswordSetView(LoginRequiredMixin, PasswordSetView):
+	success_url = reverse_lazy('user_settings')
 
 class MyPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('user_settings')

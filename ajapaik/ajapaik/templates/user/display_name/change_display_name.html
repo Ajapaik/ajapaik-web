@@ -24,6 +24,7 @@
                     $.notify(gettext(response.message), {type: 'success'}); 
                     $('#display-name-settings').text(interpolate(gettext('%(username)s settings'), {username: displayName}, true));
                     $('.clearfix.you > .name > a').text(displayName);
+                    $('#ajp-dropdown-user-link').text(displayName);
                 },
                 error: function (response) {
                     $.notify(response.message, {type: "danger"});
