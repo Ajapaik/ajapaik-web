@@ -1482,15 +1482,15 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
+msgid "verified"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
+msgid "unverified"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
+msgid "primary"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29

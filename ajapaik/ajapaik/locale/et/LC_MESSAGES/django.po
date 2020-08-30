@@ -440,7 +440,7 @@ msgstr "Loobu"
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:21
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:19
 msgid "Submit"
-msgstr "Saada"
+msgstr "Salvesta"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
@@ -1484,16 +1484,16 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "Järgmised meiliaadressid on seotud Sinu kontoga:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
-msgstr "Kinnitatud"
+msgid "verified"
+msgstr "kinnitatud"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
-msgstr "Kinnitamata"
+msgid "unverified"
+msgstr "kinnitamata"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
-msgstr "Peamine"
+msgid "primary"
+msgstr "peamine"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"

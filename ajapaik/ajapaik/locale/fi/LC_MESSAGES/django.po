@@ -1487,16 +1487,16 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "Seuraavat sähköpostiosoitteet on liitetty tunnukseesi"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
-msgstr "Varmistettu"
+msgid "verified"
+msgstr "varmistettu"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
-msgstr "Varmistamaton"
+msgid "unverified"
+msgstr "varmistamaton"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
-msgstr "Ensisijainen"
+msgid "primary"
+msgstr "ensisijainen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"

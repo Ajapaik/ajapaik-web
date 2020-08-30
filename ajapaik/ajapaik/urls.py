@@ -180,6 +180,7 @@ urlpatterns += [
     url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
     url(r'^accounts/email/$', views.MyEmailView.as_view(), name="account_email"),
     url(r'^accounts/password/change/$', views.MyPasswordChangeView.as_view(), name="account_change_password"),
+    url(r'^accounts/password/set/$', views.MyPasswordSetView.as_view(), name="account_set_password"),
     url(r'^accounts/social/connections/$', views.MyConnectionsView.as_view(), name="socialaccount_connections"),
     url(r'^accounts/', include(allauth_urls)),
     url(r'^admin/', admin.site.urls),

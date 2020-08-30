@@ -18,13 +18,13 @@
             {% endif %}
         </div>
         <div>
-            {% if is_current_user %}
-                <h3>{{ profile.get_display_name }}</h3>
+            <h3>
+            {% if is_current_user or actions == 0 %}
+                <b>{{ profile.get_display_name }}</b>
             {% else %}
-                <div class="w-100">
-                    <h3>{% blocktrans with name=profile.get_display_name %}<b>{{ name }}</b> has{% endblocktrans %}</h3>
-                </div>
+                {% blocktrans with name=profile.get_display_name %}<b>{{ name }}</b> has{% endblocktrans %}
             {% endif %}
+            </h3>
         </div>
         {% if is_current_user %}
             {% if not request.user.profile.is_legit %}

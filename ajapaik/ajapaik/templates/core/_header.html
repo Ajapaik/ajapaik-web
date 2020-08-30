@@ -100,7 +100,7 @@
                 </a>
                 <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                 id="ajp-header-profile" class="ajp-no-background">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajp-text-white{% endif %}">account_circle</i>
+                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.is_legit %} ajp-text-white{% endif %}">account_circle</i>
                 </a>
 
                 <div class="score-container">
@@ -117,7 +117,7 @@
                     {% if request.user.profile.is_legit %}
                         {% with profile=request.user.profile %}
                             <div class="facebook-connected">
-                                <p>{% trans "You are logged in as" %} <a href="{% url 'me' %}">{{ profile.get_display_name }}</a>.</p>
+                                <p>{% trans "You are logged in as" %} <a id="ajp-dropdown-user-link" href="{% url 'me' %}">{{ profile.get_display_name }}</a>.</p>
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}
                                     <button class="btn btn-secondary btn-block d-inline-block" type="submit">{% trans 'Sign out' %}</button>

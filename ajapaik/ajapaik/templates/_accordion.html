@@ -1,14 +1,15 @@
 {% load i18n %}
-<div class="accordion" id="settings-accordion">
+<div class="accordion" id="settings-accordion-{{ id }}">
     <div class="card">
-        <div class="card-header" id="heading{{ id }}">
+        <div class="card-header" id="heading-{{ id }}">
             <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ id }}" aria-expanded="{% if show_merge_section %}true{% else %}false{% endif %}" aria-controls="collapse{{ id }}">
+                <button class="ajp-accordion-button btn btn-link w-100" type="button" data-toggle="collapse" data-target="#collapse-{{ id }}" aria-expanded="{% if show_merge_section %}true{% else %}false{% endif %}" aria-controls="collapse-{{ id }}">
                     {% trans heading %}
+                    <i class="material-icons notranslate ajp-gray-button">keyboard_arrow_down</i>
                 </button>
             </h2>
         </div>
-        <div id="collapse{{ id }}" class="collapse{% if show_merge_section %} show{% endif %}" aria-labelledby="heading{{ id }}" data-parent="#settings-accordion">
+        <div id="collapse-{{ id }}" class="collapse{% if show_merge_section %} show{% endif %}" aria-labelledby="heading-{{ id }}" data-parent="#settings-accordion-{{ id }}">
             <div class="card-body">
                 {% if show_merge_section %}
                     {% include template with show_merge_section=show_merge_section %}

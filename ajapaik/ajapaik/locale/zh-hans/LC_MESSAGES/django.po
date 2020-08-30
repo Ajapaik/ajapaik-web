@@ -1457,15 +1457,15 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "下列电子邮件地址已与你的账户关联。"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
+msgid "verified"
 msgstr "已验证"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
+msgid "unverified"
 msgstr "未验证"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
+msgid "primary"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29

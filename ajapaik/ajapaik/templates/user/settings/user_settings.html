@@ -9,7 +9,7 @@
     <div class="container-fluid px-3 py-5">
         {% if request.user.profile.is_legit %}
             <h1 id="display-name-settings" class="pt-4">{% blocktrans with username=request.user.profile.get_display_name %}{{username}} settings{% endblocktrans %}</h1>
-            {% for accordion in accordion_list %}
+            {% for accordion in accordions %}
                 {% include "_accordion.html" with id=accordion.id heading=accordion.heading form=accordion.form template=accordion.template show_merge_section=accordion.show_merge_section %}
             {% endfor %}
         {% else %}
