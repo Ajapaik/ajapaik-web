@@ -1452,15 +1452,15 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "以下是與您的帳號關聯的電子郵件地址："
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
+msgid "verified"
 msgstr "已驗證"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
+msgid "unverified"
 msgstr "未驗證"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
+msgid "primary"
 msgstr "首選"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29

@@ -1490,16 +1490,16 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "Les adresses courriel suivantes sont associées à votre compte."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
-msgstr "Vérifié"
+msgid "verified"
+msgstr "vérifié"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
-msgstr "Non vérifié"
+msgid "unverified"
+msgstr "non vérifié"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
-msgstr "Principal"
+msgid "primary"
+msgstr "principal"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"

@@ -1450,16 +1450,16 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "Aşağıdaki e-posta adresleri hesabınızla ilişkilendirilmiş:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
-msgstr "Onaylı"
+msgid "verified"
+msgstr "onaylı"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
-msgstr "Onaylanmamış"
+msgid "unverified"
+msgstr "onaylanmamış"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
-msgstr "Birincil"
+msgid "primary"
+msgstr "birincil"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"

@@ -1479,16 +1479,16 @@ msgid "The following E-mail addresses are associated with your account:"
 msgstr "J'adrësse ëd pòsta eletrònica sì-dapress a son assossià a sò cont:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:19
-msgid "Verified"
-msgstr "Verificà"
+msgid "verified"
+msgstr "verificà"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
-msgid "Unverified"
-msgstr "Nen verificà"
+msgid "unverified"
+msgstr "nen verificà"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
-msgid "Primary"
-msgstr "Prinsipal"
+msgid "primary"
+msgstr "prinsipal"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:29
 msgid "Make Primary"
