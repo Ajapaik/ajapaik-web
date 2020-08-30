@@ -100,7 +100,7 @@
                 </a>
                 <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                 id="ajp-header-profile" class="ajp-no-background">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.fb_id or request.user.profile.google_plus_id or request.user.email %} ajp-text-white{% endif %}">account_circle</i>
+                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.is_legit %} ajp-text-white{% endif %}">account_circle</i>
                 </a>
 
                 <div class="score-container">
