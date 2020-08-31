@@ -6,7 +6,7 @@
 msgid ""
 msgstr "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-31 01:38+0300\n"
+"POT-Creation-Date: 2020-09-01 02:13+0300\n"
 "PO-Revision-Date: 2017-12-12 12:59+0000\n"
 "Last-Translator: Lauri Elias\n"
 "Language-Team: English (http://www.transifex.com/estonian-photographic-"
@@ -611,6 +611,10 @@ msgstr "Pictures only in album: %(albumName)s are shown in the sidebar"
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
 msgstr "Apply album filter"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
+msgstr "All images are shown in the sidebar"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format
