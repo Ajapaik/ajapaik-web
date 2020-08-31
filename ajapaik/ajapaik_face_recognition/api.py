@@ -19,7 +19,7 @@ class AddSubjectData(AjapaikAPIView):
         newSubjectId = request.POST.get('newSubjectId', None)
         person_album = None
         if newSubjectId is not None and newSubjectId is not '':
-            person_album = Album.objects.get(pk=newSubjectId)
+            person_album = Album.objects.filter(pk=newSubjectId).first()
         new_rectangle = FaceRecognitionRectangle.objects.get(pk=annotation_id)
         if(person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo,album=person_album)) < 1):
             albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED, profile=request.user.profile)
