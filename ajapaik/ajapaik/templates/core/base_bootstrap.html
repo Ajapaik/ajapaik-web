@@ -370,11 +370,11 @@
             mapviewURL = "{% url 'map' %}",
             gameURL = "{% url 'game' %}",
             lastGeotaggedPhotoId = "{{ last_geotagged_photo_id }}",
-            hotkeysActive = true,
+            hotkeysActive = true;
         {% if request.user.profile.is_legit %}
-            userIsSocialConnected = true;
+            var userIsSocialConnected = true;
         {% else %}
-            userIsSocialConnected = false;
+            var userIsSocialConnected = false;
         {% endif %}
         {% if request.user.profile and request.user.profile.is_legit %}
             {% if request.user.profile.newsletter_consent == None %}
