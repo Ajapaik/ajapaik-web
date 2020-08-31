@@ -394,6 +394,7 @@
                         }
                     });
                 }
+            /*
             {% elif request.user.profile.wikimedia_commons_rephoto_upload_consent == None and request.user|user_is_connected_to_wiki_account %}
                 var targetDiv = $('#ajp-rephoto-upload-settings-modal > .modal-dialog > .modal-content');
                 if (window.rephotoUploadSettingsModalContentURL && window.location.pathname !== userSettingsURL) {
@@ -411,6 +412,7 @@
                         }
                     });
                 }
+            */
             {% endif %}
         {% endif %}
     </script>

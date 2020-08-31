@@ -3180,18 +3180,19 @@ def user_settings(request):
 		context['show_accordion'] = show_accordion
 		social_account_form = DisconnectForm(request=request)
 
-	password_accordion = {"id": 5, "heading": "Set password", "template": "account/password_set_form.html", "form": SetPasswordForm(), "show_merge_section": None}
+	password_accordion = {"id": 4, "heading": "Set password", "template": "account/password_set_form.html", "form": SetPasswordForm(), "show_merge_section": None}
 	if request.user.has_usable_password():
-		password_accordion = {"id": 5, "heading": "Change password", "template": "account/password_change_form.html", "form": ChangePasswordForm(), "show_merge_section": None}
+		password_accordion = {"id": 4, "heading": "Change password", "template": "account/password_change_form.html", "form": ChangePasswordForm(), "show_merge_section": None}
+
+	#rephoto_upload_accordion = {"id": 3, "heading": "Rephoto upload settings", "template": "rephoto_upload/_rephoto_upload_settings_modal_content.html", "form": rephoto_upload_settings_form , "show_merge_section": None}
 
 	context['accordions'] = [
 		{"id": 1, "heading": "Change display name", "template": "user/display_name/change_display_name.html", "form": display_name_form, "show_merge_section": None},
 		{"id": 2, "heading": "Newsletter and language settings", "template": "user/settings/_user_settings_modal_content.html", "form": user_settings_form, "show_merge_section": None},
-		{"id": 3, "heading": "Rephoto upload settings", "template": "rephoto_upload/_rephoto_upload_settings_modal_content.html", "form": rephoto_upload_settings_form , "show_merge_section": None},
-		{"id": 4, "heading": "E-mail addresses", "template": "account/email_content.html", "form": email_form, "show_merge_section": None},
+		{"id": 3, "heading": "E-mail addresses", "template": "account/email_content.html", "form": email_form, "show_merge_section": None},
 		password_accordion,
-		{"id": 6, "heading": "Account Connections", "template": "socialaccount/connections_content.html", "form": social_account_form, "show_merge_section": None},
-		{"id": 7, "heading": "Merge another Ajapaik account with current one", "template": "user/merge/merge_accounts.html", "form": None, "show_merge_section": show_accordion}
+		{"id": 5, "heading": "Account Connections", "template": "socialaccount/connections_content.html", "form": social_account_form, "show_merge_section": None},
+		{"id": 6, "heading": "Merge another Ajapaik account with current one", "template": "user/merge/merge_accounts.html", "form": None, "show_merge_section": show_accordion}
 	]
 	return render(request, 'user/settings/user_settings.html', context)
 
