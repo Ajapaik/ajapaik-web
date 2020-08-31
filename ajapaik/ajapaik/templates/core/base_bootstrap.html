@@ -394,25 +394,6 @@
                         }
                     });
                 }
-            /*
-            {% elif request.user.profile.wikimedia_commons_rephoto_upload_consent == None and request.user|user_is_connected_to_wiki_account %}
-                var targetDiv = $('#ajp-rephoto-upload-settings-modal > .modal-dialog > .modal-content');
-                if (window.rephotoUploadSettingsModalContentURL && window.location.pathname !== userSettingsURL) {
-                    $.ajax({
-                        url: window.rephotoUploadSettingsModalContentURL,
-                        success: function (resp) {
-                            targetDiv.append(resp);
-                            $('#ajp-rephoto-upload-settings-modal').modal();
-                        },
-                        error: function () {
-                            $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
-                        },
-                        complete: function () {
-                            $('#ajp-loading-overlay').hide();
-                        }
-                    });
-                }
-            */
             {% endif %}
         {% endif %}
     </script>
