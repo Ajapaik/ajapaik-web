@@ -261,7 +261,7 @@ def get_subject_image(request: HttpRequest):
 def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
-def get_subject_data(request, subject_id = None):
+def get_subject_data(request, rectangle_id = None):
     profile = request.get_user().profile
     rectangle = None
     next_rectangle = None
@@ -278,8 +278,8 @@ def get_subject_data(request, subject_id = None):
     if unverified_rectangles.count() > 1:
         rectangles = unverified_rectangles
     else:
-        # TODO: If album_id and subject_id were specified,
-        #       but subject_id is not of a photo belonging to album,
+        # TODO: If album_id and rectangle_id were specified,
+        #       but rectangle_id is not of a photo belonging to album,
         #       then the images will be shown from all guesses of the user.
         #       It should only show from previous guesses of the user, which
         #       are of rectangles belonging to photos which are in album with album_id
@@ -299,7 +299,7 @@ def get_subject_data(request, subject_id = None):
                     rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
                 guessIds = []
                 for guess in guesses:
-                    if subject_id != str(guess):
+                    if rectangle_id != str(guess):
                         guessIds.append(guess)
                 rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?')
                 if rectangles is not None:
@@ -311,12 +311,12 @@ def get_subject_data(request, subject_id = None):
                             next_rectangle = allRectangles.filter(photo_id__in=albumPhotoIds).order_by('?').first()
                         else:
                             next_rectangle = allRectangles.order_by('?').first()
-    if subject_id is None:
+    if rectangle_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()
     else:
         if rectangle is None:
-            rectangle = get_object_or_404(FaceRecognitionRectangle, id=subject_id)
+            rectangle = get_object_or_404(FaceRecognitionRectangle, id=rectangle_id)
     if rectangle is None:
         if album_id is None:
             rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
@@ -339,6 +339,7 @@ def get_subject_data(request, subject_id = None):
             if album_id is not None:
                 next_action += '?album=' + str(album_id)
     has_consensus = False
+    subject_id = None
     if rectangle != None and rectangle.subject_consensus != None:
         has_consensus = True
         subject_id = rectangle.subject_consensus.id
