@@ -13,11 +13,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:46+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-08-31 00:31:38+0000\n"
+"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -617,6 +617,10 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
 msgstr "Apliki albuman filtrilon"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format

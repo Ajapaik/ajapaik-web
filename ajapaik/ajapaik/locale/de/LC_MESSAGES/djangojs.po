@@ -3,6 +3,7 @@
 #
 # Author: 1233qwer1234qwer4
 # Author: DraconicDark
+# Author: Elliot
 # Author: FF11
 # Author: Ferdinand0101
 # Author: H2kks
@@ -19,8 +20,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-08-31 14:03:46+0000\n"
-"X-POT-Import-Date: 2020-08-31 00:31:38+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:06+0000\n"
+"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
@@ -381,7 +382,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "Sie haben die Karte geöffnet und die Filterleiste ausgeschaltet, bitte kreuzen sie das Kästchen neben Filterleiste an."
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "Earliest"
@@ -618,6 +619,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63

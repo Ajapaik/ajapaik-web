@@ -3,6 +3,7 @@
 #
 # Author: A Retired User
 # Author: Abijeet Patro
+# Author: Songhee
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:47+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -237,11 +238,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:467
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "나의 사진을 Wikimedia Commons에 업로드하고 싶습니다"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "당신의 사진이 Wikimedia Commons에도 업로드 되어질지 여부를 지정해 주세요."
 
 #: ajapaik/ajapaik/forms.py:484
 msgid "Please specify what would you like your display name to be"
@@ -809,7 +810,7 @@ msgstr "선택 항목을 저장하기 위해 로그인"
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "%(provider)s와 연결"
 
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 msgid "E-mail address"
@@ -1447,7 +1448,7 @@ msgstr "새 비밀번호 (재입력)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "비밀번호 설정"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1455,7 +1456,7 @@ msgstr "비밀번호 바꾸기"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "표출 이름 변경"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
@@ -1463,7 +1464,7 @@ msgstr "소식지와 언어 설정"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Rephoto 업로드 설정"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
@@ -1891,7 +1892,7 @@ msgstr "다시 온 것을 환영합니다"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr ""
+msgstr "당신의 사진을 Wikimedia Commons에도 업로드할지 여부를 지정해 주세요."
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8

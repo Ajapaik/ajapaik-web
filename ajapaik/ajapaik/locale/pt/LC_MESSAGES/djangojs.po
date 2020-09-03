@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
-"X-POT-Import-Date: 2020-08-31 00:31:38+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
+"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
@@ -609,6 +609,10 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
 msgstr "Aplicar filtro do álbum"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format

@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:49+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:09+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -599,15 +599,15 @@ msgstr "Aşağıdaki e-posta adresleri hesabınızla ilişkilendirilmiş:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "onaylı"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "onaylanmamış"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "birincil"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
@@ -1448,7 +1448,7 @@ msgstr "Yeni parola (tekrar)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Parolayı ayarla"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1456,7 +1456,7 @@ msgstr "Parolayı değiştir"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "Görünen adı değiştir"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
@@ -1464,7 +1464,7 @@ msgstr "Bülten ve dil ayarları"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Yeniden fotoğraflama yükleme ayarları"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5

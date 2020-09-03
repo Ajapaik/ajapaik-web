@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Abbe98
+# Author: Sabelöga
 # Author: WikiPhoenix
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-08-31 00:31:38+0000\n"
+"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:338
 #: ajapaik/ajapaik/static/js/ajp-common.js:525
@@ -617,6 +618,10 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
 msgstr "Tillämpa albumfiltrering"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
+msgstr "Alla bilder visas i sidospalten"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format

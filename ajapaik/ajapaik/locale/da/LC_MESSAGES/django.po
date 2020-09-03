@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:46+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:06+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -2072,7 +2072,7 @@ msgstr "yndlings billeder"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is connected to:"
-msgstr ""
+msgstr "Denne konto er forbundet til:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"

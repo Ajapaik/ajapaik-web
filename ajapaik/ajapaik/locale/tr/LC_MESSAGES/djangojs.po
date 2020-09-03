@@ -5,6 +5,7 @@
 # Author: Grkn gll
 # Author: Hedda
 # Author: Mirzali
+# Author: MuratTheTurkish
 # Author: Suvarioglu
 # --
 # This file is part of the Ajapaik Project
@@ -15,11 +16,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-08-31 00:31:38+0000\n"
+"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -373,11 +374,11 @@ msgstr "Bilinmeyen yazar"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr ""
+msgstr "Haritayı albüm filtresi açıkken açtınız, kapatmak için lütfen albüm adının yanındaki kutunun işaretini kaldırın"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "Haritayı albüm filtresi kapalı olarak açtınız, açmak için lütfen albüm adının yanındaki kutuyu işaretleyin"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "Earliest"
@@ -615,6 +616,10 @@ msgstr "Yalnızca albümdeki resimler: %(albumName)s kenar çubuğunda gösteril
 #: ajapaik/ajapaik/static/js/ajp-map.js:741
 msgid "Apply album filter"
 msgstr "Albüm filtresini uygula"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:743
+msgid "All images are shown in the sidebar"
+msgstr "Tüm resimler kenar çubuğunda gösterilir"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format

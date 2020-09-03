@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2020-08-31 14:03:47+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -35,7 +35,7 @@ msgstr "Käännä värit"
 
 #: ajapaik/ajapaik/api.py:964
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "Jälleenvalokuvan latausasetukset on tallennettu"
 
 #: ajapaik/ajapaik/api.py:966 ajapaik/ajapaik/api.py:1620
 #: ajapaik/ajapaik/api.py:1637 ajapaik/ajapaik/api.py:1651
@@ -73,14 +73,13 @@ msgstr "Käyttäjäasetukset on tallennettu"
 
 #: ajapaik/ajapaik/api.py:1664
 msgid "User display name has been saved"
-msgstr ""
+msgstr "Käyttäjänimi on tallennettu"
 
 #: ajapaik/ajapaik/api.py:1676
 msgid "Required parameter, token is missing"
 msgstr "Pakollinen parametri, token puuttuu."
 
 #: ajapaik/ajapaik/api.py:1679
-#, fuzzy
 msgid "Invalid token"
 msgstr "Vanhentunut kirjautuminen"
 
@@ -120,7 +119,7 @@ msgstr "Rajausalueen arvojen täytyy olla numeroita"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Sähköpostiosoite"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -137,7 +136,7 @@ msgstr "Salasana"
 
 #: ajapaik/ajapaik/forms.py:23
 msgid "Password confirmation"
-msgstr ""
+msgstr "Salasanan vahvistus"
 
 #: ajapaik/ajapaik/forms.py:104 ajapaik/ajapaik/forms.py:172
 #: ajapaik/ajapaik/forms.py:193
@@ -243,15 +242,15 @@ msgstr "Haluatko vastaanottaa uutiskirjeen"
 
 #: ajapaik/ajapaik/forms.py:467
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Haluan ladata uudet valokuvani Wikimedia Commonsiin"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "Määritä, haluatko ladata uudet valokuvasi myös Wikimedia Commonsiin"
 
 #: ajapaik/ajapaik/forms.py:484
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Määritä muille käyttäjille näkyvä käyttäjänimesi"
 
 #: ajapaik/ajapaik/forms.py:502
 msgid "Email address"
@@ -604,15 +603,15 @@ msgstr "Seuraavat sähköpostiosoitteet on liitetty tunnukseesi"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "varmistettu"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "varmistamaton"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "ensisijainen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
@@ -815,7 +814,7 @@ msgstr "Kirjautumalla sisään voit tallentaa valikoiman"
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "Yhdistä %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 msgid "E-mail address"
@@ -1318,11 +1317,11 @@ msgstr "Lähetä valitut Ajapaikiin"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
-msgstr ""
+msgstr "Sinun kommenttiisi on vastattu"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "Ystävällisin terveisin"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1456,7 +1455,7 @@ msgstr "Uusi salasana (uudelleen)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Aseta salasana"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1464,7 +1463,7 @@ msgstr "Vaihda salasana"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "Vaihda käyttäjänimi"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
@@ -1472,7 +1471,7 @@ msgstr "Uutiskirje ja kieliasetukset"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Valokuvien latausasetukset"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
@@ -1910,16 +1909,16 @@ msgstr "Tervetuloa takaisin"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr ""
+msgstr "Määritä, haluatko ladata uudet valokuvasi myös Wikimedia Commonsiin"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "Sosiaalisen verkoston sisäänkirjautumisvirhe"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "Virhe yritettäessä kirjautua sisään sosiaalisen verkoston tililläsi."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2072,7 +2071,6 @@ msgid "favorite pictures"
 msgstr "suosikkikuvat"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
-#, fuzzy
 msgid "This account is connected to:"
 msgstr "Tämä tili on yhdistetty:"
 

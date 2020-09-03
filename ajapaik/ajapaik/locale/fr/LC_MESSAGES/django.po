@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:47+0000\n"
+"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,7 +38,7 @@ msgstr "Inverser les couleurs"
 
 #: ajapaik/ajapaik/api.py:964
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "Les paramètres de téléchargement de rephoto ont été enregistrés."
 
 #: ajapaik/ajapaik/api.py:966 ajapaik/ajapaik/api.py:1620
 #: ajapaik/ajapaik/api.py:1637 ajapaik/ajapaik/api.py:1651
@@ -76,16 +76,15 @@ msgstr "Les paramètres utilisateur ont été enregistrés"
 
 #: ajapaik/ajapaik/api.py:1664
 msgid "User display name has been saved"
-msgstr ""
+msgstr "Le nom d’affichage de l’utilisateur a été enregistré"
 
 #: ajapaik/ajapaik/api.py:1676
 msgid "Required parameter, token is missing"
 msgstr "Paramètre obligatoire, le jeton est absent"
 
 #: ajapaik/ajapaik/api.py:1679
-#, fuzzy
 msgid "Invalid token"
-msgstr "Jeton incompatible"
+msgstr "Jeton non valide"
 
 #: ajapaik/ajapaik/api.py:1681
 msgid "Expired token"
@@ -123,7 +122,7 @@ msgstr "Les valeurs du cadre doivent être des nombres"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -140,7 +139,7 @@ msgstr "Mot de passe"
 
 #: ajapaik/ajapaik/forms.py:23
 msgid "Password confirmation"
-msgstr ""
+msgstr "Confirmation du mot de passe"
 
 #: ajapaik/ajapaik/forms.py:104 ajapaik/ajapaik/forms.py:172
 #: ajapaik/ajapaik/forms.py:193
@@ -246,15 +245,15 @@ msgstr "Veuillez spécifier si vous voudriez recevoir notre bulletin d’informa
 
 #: ajapaik/ajapaik/forms.py:467
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Je veux téléchargeer mes rephotos sur Wikimédia Communs"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "Veuillez spécifier si vous aimeriez que vos rephotos soient aussi téléchargées sur Wikimédia Communs"
 
 #: ajapaik/ajapaik/forms.py:484
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Veuillez spécifier comment vous aimeriez que votre nom soit affiché"
 
 #: ajapaik/ajapaik/forms.py:502
 msgid "Email address"
@@ -607,15 +606,15 @@ msgstr "Les adresses courriel suivantes sont associées à votre compte."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "vérifié"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "non vérifié"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "primaire"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
@@ -818,7 +817,7 @@ msgstr "Connectez-vous pour enregistrer la sélection"
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "Connecter avec %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 msgid "E-mail address"
@@ -1321,11 +1320,11 @@ msgstr "Soumettre la sélection à Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
-msgstr ""
+msgstr "Il y a un nouveau commentaire qui suit le vôtre."
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "Cordialement"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1459,7 +1458,7 @@ msgstr "Nouveau mot de passe (de nouveau)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Définir le mot de passe"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1467,7 +1466,7 @@ msgstr "Changer de mot de passe"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "Modifier le nom affiché"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
@@ -1475,7 +1474,7 @@ msgstr "Bulletin d’information et paramètres de langue"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Paramètres de téléchargement de rephoto"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
@@ -1913,16 +1912,16 @@ msgstr "Heureux de vous revoir !"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr ""
+msgstr "Veuillez spécifier si vous aimeriez aussi télécharger vos rephotos vers WIkimédia Communs"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "La connexion au réseau social a échoué"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "Une erreur s’est produite en essayant de se connecter via votre compte de réseau social."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2075,9 +2074,8 @@ msgid "favorite pictures"
 msgstr "images favorites"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
-#, fuzzy
 msgid "This account is connected to:"
-msgstr "Socialaccount connections <!-- à faire -->"
+msgstr "Ce compte est connecté à :"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"
