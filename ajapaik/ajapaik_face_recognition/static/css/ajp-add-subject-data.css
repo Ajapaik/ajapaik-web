@@ -33,6 +33,7 @@
 
 .human-elderly {
     background-size: 54px;
+    background-position-x: 30px;
     background-image: url(../images/material-design-icons/ic_human_elderly.svg);
 }
 
