@@ -389,6 +389,9 @@ class VideoStillCaptureForm(forms.Form):
 
 
 class UserPhotoUploadForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPhotoUploadForm,self ).__init__(*args,**kwargs)
+        self.fields['licence'].queryset = Licence.objects.filter(is_public=True) 
 
     class Meta:
         model = Photo
