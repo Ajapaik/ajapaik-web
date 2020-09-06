@@ -487,7 +487,7 @@ class CuratorWholeSetAlbumsSelectionForm(forms.Form):
     albums = forms.ModelChoiceField(
         queryset=Album.objects.all(),
         required=True,
-        widget=autocomplete.ModelSelect2(url='public-album-autocomplete')
+        widget=autocomplete.ModelSelect2(url='open-album-autocomplete')
     )
 
     def __init__(self, *args, **kwargs):

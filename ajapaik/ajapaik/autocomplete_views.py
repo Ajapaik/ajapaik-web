@@ -255,7 +255,7 @@ class ProfileAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
-class PublicAlbumAutocomplete(APIView):
+class OpenAlbumAutocomplete(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format=None):
@@ -268,7 +268,7 @@ class PublicAlbumAutocomplete(APIView):
         qs = Album.objects.all().exclude(id__in=exclude)
 
         if q:
-            qs = qs.filter(Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(name_de__icontains=q) | Q(name_no__icontains=q), is_public=True)
+            qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(name_de__icontains=q) | Q(name_no__icontains=q))
 
         result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
         if len(qs) > 0:

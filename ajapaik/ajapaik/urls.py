@@ -21,7 +21,7 @@ from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAuto
     FaceRecognitionRectangleSubjectDataGuessAutocomplete, GeoTagAutocomplete, \
     ImageSimilarityAutocomplete, ImageSimilarityGuessAutocomplete, LicenceAutocomplete, \
     ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
-    PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, PublicAlbumAutocomplete, SkipAutocomplete, \
+    OpenAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, SkipAutocomplete, \
     SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
 
 from allauth import urls as allauth_urls
@@ -241,7 +241,7 @@ urlpatterns += [
     url(r'^autocomplete/photo-autocomplete/$', PhotoAutocomplete.as_view(), name='photo-autocomplete'),
     url(r'^autocomplete/points-autocomplete/$', PointsAutocomplete.as_view(), name='points-autocomplete'),
     url(r'^autocomplete/profile-autocomplete/$', ProfileAutocomplete.as_view(), name='profile-autocomplete'),
-    url(r'^autocomplete/public-album-autocomplete/$', PublicAlbumAutocomplete.as_view(), name='public-album-autocomplete'),
+    url(r'^autocomplete/open-album-autocomplete/$', OpenAlbumAutocomplete.as_view(), name='open-album-autocomplete'),
     url(r'^autocomplete/skip-autocomplete/$', SkipAutocomplete.as_view(), name='skip-autocomplete'),
     url(r'^autocomplete/source-autocomplete/$', SourceAutocomplete.as_view(), name='source-autocomplete'),
     url(r'^autocomplete/subject-album-autocomplete/$', SubjectAlbumAutocomplete.as_view(), name='subject-album-autocomplete'),
