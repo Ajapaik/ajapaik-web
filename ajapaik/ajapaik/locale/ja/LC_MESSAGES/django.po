@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Japanese (日本語)
 # Exported from translatewiki.net
 #
+# Author: 129femtoseconds
 # Author: Abijeet Patro
 # Author: Aefgh39622
 # Author: H2kks
@@ -16,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-08-31 14:03:47+0000\n"
+"PO-Revision-Date: 2020-09-07 14:37:22+0000\n"
 "X-POT-Import-Date: 2020-08-31 06:37:39+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -75,9 +76,8 @@ msgid "Required parameter, token is missing"
 msgstr "必要なパラメーター、トークンが欠けています"
 
 #: ajapaik/ajapaik/api.py:1679
-#, fuzzy
 msgid "Invalid token"
-msgstr "トークンが不正です"
+msgstr "トークンが無効です"
 
 #: ajapaik/ajapaik/api.py:1681
 msgid "Expired token"

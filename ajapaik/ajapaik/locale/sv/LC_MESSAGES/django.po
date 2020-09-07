@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:09+0000\n"
+"PO-Revision-Date: 2020-09-07 14:37:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -49,23 +49,23 @@ msgstr "Denna transkription finns redan, tidigare transkriptioner röstades upp,
 
 #: ajapaik/ajapaik/api.py:1613
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "Du har redan skickad in den här transkriberingen, tack!"
 
 #: ajapaik/ajapaik/api.py:1616
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "Din transkribering uppdaterades, tack!"
 
 #: ajapaik/ajapaik/api.py:1618
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Transkribering lades till, tack!"
 
 #: ajapaik/ajapaik/api.py:1629
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "Du har redan gett återkoppling för den här transkriberingen"
 
 #: ajapaik/ajapaik/api.py:1635
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Återkoppling på transkribering tillagd, tack!"
 
 #: ajapaik/ajapaik/api.py:1649
 msgid "User settings have been saved"
@@ -357,7 +357,7 @@ msgstr "Gissa ämnets ålder"
 
 #: ajapaik/ajapaik/models.py:1039
 msgid "Transcribe"
-msgstr ""
+msgstr "Transkribera"
 
 #: ajapaik/ajapaik/models.py:1081
 msgid "Map"
@@ -536,7 +536,7 @@ msgstr "Glömt lösenordet?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Användarinställningar"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -562,7 +562,7 @@ msgstr "Logga in"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Registrera"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -576,12 +576,12 @@ msgstr "Meny"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/templates/dummy_translations.html:12
 msgid "E-mail addresses"
-msgstr ""
+msgstr "E-postadresser"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Bekräfta e-postadress"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -603,15 +603,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "verifierad"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "overifierad"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "primär"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
@@ -629,7 +629,7 @@ msgstr "Ta bort"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Varning:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
@@ -637,7 +637,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Lägg till e-post"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
@@ -655,7 +655,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Är du säker på att du vill logga ut?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -677,7 +677,7 @@ msgstr "Återställning av lösenord"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:14
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr ""
+msgstr "Har du glömt ditt lösenord? Skriv in den e-postadress nedan så skickar vi ett meddelande till dig så du kan återställa det."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:19
 msgid "Reset My Password"
@@ -685,11 +685,11 @@ msgstr "Återställ mitt lösenord"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:22
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "Kontakta oss om du har problem med att återställa ditt lösenord."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr ""
+msgstr "Vi har skickat dig ett meddelande. Kontakta oss om den inte kommit fram inom några minuter."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -698,7 +698,7 @@ msgstr "Dålig nyckel"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr ""
+msgstr "Länken för att återställa lösenordet var ogiltig då den redan använts. Var vänlig begär en <a href=\"%(passwd_reset_url)s\">ny återställning</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
@@ -709,30 +709,30 @@ msgstr "Ditt lösenord har ändrats."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Nytt lösenord"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "Har du redan ett konto? Då kan du <a href=\"%(login_url)s\">logga in</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Registrering är avaktiverad"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Vi är väldigt ledsna, men du kan inte registrera dig just nu."
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Not"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "du är redan inloggad som %(user_name)s"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
@@ -1045,7 +1045,7 @@ msgstr "Topplista"
 #: ajapaik/ajapaik/templates/core/_header.html:120
 #: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Du är inloggad som"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"

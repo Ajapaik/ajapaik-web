@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-08-31 14:03:47+0000\n"
+"PO-Revision-Date: 2020-09-07 14:37:21+0000\n"
 "X-POT-Import-Date: 2020-08-31 06:37:39+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,7 +130,7 @@ msgstr "Contraseña"
 
 #: ajapaik/ajapaik/forms.py:23
 msgid "Password confirmation"
-msgstr ""
+msgstr "Confirmación de contraseña"
 
 #: ajapaik/ajapaik/forms.py:104 ajapaik/ajapaik/forms.py:172
 #: ajapaik/ajapaik/forms.py:193
@@ -809,7 +809,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "Conectar con %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 msgid "E-mail address"
@@ -1909,7 +1909,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "Falló el acceso a través de red social"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
