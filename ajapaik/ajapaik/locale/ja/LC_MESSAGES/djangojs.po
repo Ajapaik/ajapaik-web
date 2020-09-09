@@ -558,10 +558,6 @@ msgstr "マーカが表示している画像の上に来るように地図をド
 msgid "Points awarded"
 msgstr "獲得ポイント数"
 
-#: ajapaik/ajapaik/static/js/ajapaik-helsinki-gmaps.js:35
-msgid "Old Helsinki"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
 msgid "Historic maps"
 msgstr ""

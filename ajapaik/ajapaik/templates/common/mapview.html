@@ -53,6 +53,9 @@
             leaderboardFullURL = "{% url "top50" %}",
             difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
             mapDataURL = "{% url "map_objects_by_bounding_box" %}";
+            {% if query_string %}
+                window.photoQuery = "{{ query_string | safe }}";
+            {% endif %}
             {% if album %}
                 var albumId = "{{ album.0 | safe }}";
                 {% if album.1 and album.2 %}
@@ -80,6 +83,16 @@
                 : "You have opened the map with the album filter off, to turn it on, please tick the box next to album name";
             $.notify(gettext(filteringMessage), {type: "info", placement: { from: "top", align: "left" }})
         {% endif %}
+
+        var mapSearchFilterTimeOut;
+        $('#ajp-photo-filter-box').on("input", function() {
+            window.photoQuery = $('#ajp-photo-filter-box').val()
+            window.syncMapStateToURL();
+            clearTimeout(mapSearchFilterTimeOut);
+            mapSearchFilterTimeOut = setTimeout(function() {
+                window.toggleVisiblePaneElements();
+            }, 500);
+        });
     </script>
     {% compress js %}
         <script src="{% static "js/ajp-map.js" %}"></script>

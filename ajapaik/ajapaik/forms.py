@@ -178,6 +178,7 @@ class MapDataRequestForm(forms.Form):
     starting = forms.DateField(required=False)
     ending = forms.DateField(required=False)
     count_limit = forms.IntegerField(min_value=1, required=False)
+    query_string = forms.CharField(max_length=255, required=False)
 
 
 class GameAlbumSelectionForm(forms.Form):
