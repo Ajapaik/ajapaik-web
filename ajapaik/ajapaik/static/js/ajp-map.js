@@ -217,9 +217,6 @@
                 historyReplacementString += '&maps-city=' + commonVgmapi.vars.site;
                 historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
             }
-            if (typeId === 'old-helsinki') {
-                historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
-            }
         }
         if (photoDrawerOpen || window.guessLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
@@ -231,6 +228,10 @@
         }
         if (window.guessLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
+        }
+        if (window.photoQuery){
+            historyReplacementString += '&q=' + window.photoQuery;
+            $('#ajp-photo-filter-box').val(window.photoQuery);
         }
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
@@ -352,6 +353,7 @@
                 sw_lon: sw.lng(),
                 ne_lat: ne.lat(),
                 ne_lon: ne.lng(),
+                query_string: window.photoQuery,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken')
             };
             if (window.map.zoom <= markerClustererSettings.maxZoom) {

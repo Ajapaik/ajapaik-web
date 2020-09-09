@@ -955,8 +955,5 @@ msgstr "Unknown"
 #~ msgid "Are you sure you wish to have this annotation removed?"
 #~ msgstr "Are you sure you wish to have this annotation removed?"
 
-#~ msgid "Old Helsinki"
-#~ msgstr "Old Helsinki"
-
 #~ msgid "All photos"
 #~ msgstr "All photos"

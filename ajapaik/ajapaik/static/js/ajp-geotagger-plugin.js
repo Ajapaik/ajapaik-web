@@ -52,7 +52,7 @@
             mapTypeControl: true,
             mapTypeId: this.OSM_MAPTYPE_ID,
             mapTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID, 'old-maps', 'old-helsinki'],
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE, this.OSM_MAPTYPE_ID, 'old-maps'],
                 position: google.maps.ControlPosition.TOP_RIGHT,
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
@@ -1026,8 +1026,6 @@
                 data.map_type = 1;
             } else if (mapTypeId === 'old-maps') {
                 data.map_type = 3;
-            } else if (mapTypeId === 'old-helsinki') {
-                data.map_type = 4;
             } else {
                 data.map_type = 2;
             }
