@@ -421,7 +421,7 @@ class Photo(Model):
     video_timestamp = IntegerField(null=True, blank=True)
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
     perceptual_hash = BigIntegerField(null=True, blank=True)
-    hasSimilar = BooleanField(default=False)
+    has_similar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
     postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back', on_delete=CASCADE)
     postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front', on_delete=CASCADE)
@@ -908,16 +908,16 @@ class ImageSimilarity(Model):
                 guess.guesser = self.user_last_modified
                 imageSimilarity.similarity_type = self.similarity_type
                 if self.similarity_type == 0:
-                    hasSimilar = ImageSimilarity.objects.filter(\
+                    has_similar = ImageSimilarity.objects.filter(\
                         Q(from_photo_id=imageSimilarity.from_photo.id) &\
                         Q(to_photo_id=imageSimilarity.to_photo.id) &\
                         Q(similarity_type__gt=0)).first() is not None
-                    imageSimilarity.from_photo.hasSimilar = hasSimilar
-                    imageSimilarity.to_photo.hasSimilar = hasSimilar
+                    imageSimilarity.from_photo.has_similar = has_similar
+                    imageSimilarity.to_photo.has_similar = has_similar
         imageSimilarity.save()
-        imageSimilarity.to_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
+        imageSimilarity.to_photo.has_similar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
             .exclude(similarity_type=0).first() is not None
-        imageSimilarity.from_photo.hasSimilar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
+        imageSimilarity.from_photo.has_similar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
             .exclude(similarity_type=0).first() is not None
         imageSimilarity.from_photo.save()
         imageSimilarity.to_photo.save()

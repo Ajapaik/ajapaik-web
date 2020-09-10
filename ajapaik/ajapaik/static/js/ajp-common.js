@@ -267,7 +267,7 @@ $('.ajp-navbar').autoHidingNavbar();
         mapTypeChangedListener = google.maps.event.addListener(map, 'maptypeid_changed', function () {
             // Works only in map view
             _gaq.push(['_trackEvent', 'Map', 'Map type changed']);
-            if (window.map.getMapTypeId() === 'old-maps' || window.map.getMapTypeId() === 'old-helsinki') {
+            if (window.map.getMapTypeId() === 'old-maps') {
                 commonVgmapi.showControls();
             } else {
                 commonVgmapi.hideControls();

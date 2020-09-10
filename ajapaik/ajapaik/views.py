@@ -985,17 +985,17 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 
-										'flip','hasSimilar')[start:end]
+										'flip','has_similar')[start:end]
 		elif order1 == 'closest' and lat and lon:
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'distance', 'geotag_count',
-										'flip','hasSimilar')[start:end]
+										'flip','has_similar')[start:end]
 		else:
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count',
-										'flip','hasSimilar')[start:end]
+										'flip','has_similar')[start:end]
 		photos = [list(i) for i in photos]
 		if default_ordering and album and album.ordered:
 			album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
@@ -1479,7 +1479,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		   'geotagged_photo_count': geotagged_photo_count, 'albums': albums, 'hostname': 'https://%s' % (site.domain,),
 		   'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
 		   'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK, 'album': None, 'user_has_likes': user_has_likes,
-		   'user_has_rephotos': user_has_rephotos}
+		   'user_has_rephotos': user_has_rephotos, 'query_string': request.GET.get('q')}
 
 	if album is not None:
 		context['album'] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
@@ -1493,6 +1493,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 		context['title'] = area.name + ' - ' + _('Browse photos on map')
 	else:
 		context['title'] = _('Browse photos on map')
+	context['show_photos'] = True
 	return render(request, 'common/mapview.html', context)
 
 
@@ -1507,9 +1508,9 @@ def map_objects_by_bounding_box(request):
 		sw_lon = form.cleaned_data['sw_lon']
 		ne_lat = form.cleaned_data['ne_lat']
 		ne_lon = form.cleaned_data['ne_lon']
-		# dating_start = form.cleaned_data['starting']
-		# dating_end = form.cleaned_data['ending']
 		count_limit = form.cleaned_data['count_limit']
+		query_string = form.cleaned_data['query_string']
+
 
 		qs = Photo.objects.filter(
 			lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True
@@ -1525,11 +1526,8 @@ def map_objects_by_bounding_box(request):
 		if sw_lat and sw_lon and ne_lat and ne_lon:
 			qs = qs.filter(lat__gte=sw_lat, lon__gte=sw_lon, lat__lte=ne_lat, lon__lte=ne_lon)
 
-			# if dating_start:
-			# qs = qs.annotate(min_start=Max('datings__start')).filter(min_start__gte=dating_start)
-
-			# if dating_end:
-			# qs = qs.annotate(max_end=Min('datings__end')).filter(max_end__lte=dating_end)
+		if query_string:
+			qs = qs.filter(Q(description_et__icontains=query_string) | Q(description_fi__icontains=query_string) | Q(description_sv__icontains=query_string) | Q(description_nl__icontains=query_string) | Q(description_de__icontains=query_string) | Q(description_ru__icontains=query_string) | Q(author__icontains=query_string) | Q(types__icontains=query_string) | Q(keywords__icontains=query_string) | Q(source_key__icontains=query_string) | Q(source__name__icontains=query_string) | Q(address__icontains=query_string))
 
 		if count_limit:
 			qs = qs.order_by('?')[:count_limit]
@@ -1547,7 +1545,6 @@ def map_objects_by_bounding_box(request):
 		}
 
 	return JsonResponse(data)
-
 
 def geotag_add(request):
 	submit_geotag_form = SubmitGeotagForm(request.POST)
