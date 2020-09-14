@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:49+0000\n"
+"PO-Revision-Date: 2020-09-14 14:58:56+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,7 +31,7 @@ msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/api.py:964
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "翻拍照片上傳設定已儲存"
 
 #: ajapaik/ajapaik/api.py:966 ajapaik/ajapaik/api.py:1620
 #: ajapaik/ajapaik/api.py:1637 ajapaik/ajapaik/api.py:1651
@@ -69,16 +69,15 @@ msgstr "使用者設定已儲存。"
 
 #: ajapaik/ajapaik/api.py:1664
 msgid "User display name has been saved"
-msgstr ""
+msgstr "使用者顯示名稱已儲存"
 
 #: ajapaik/ajapaik/api.py:1676
 msgid "Required parameter, token is missing"
 msgstr "缺少需要的權杖參數。"
 
 #: ajapaik/ajapaik/api.py:1679
-#, fuzzy
 msgid "Invalid token"
-msgstr "錯誤權杖"
+msgstr "無效權杖"
 
 #: ajapaik/ajapaik/api.py:1681
 msgid "Expired token"
@@ -116,7 +115,7 @@ msgstr "定界框必須是數字"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "電子郵件"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -133,7 +132,7 @@ msgstr "密碼"
 
 #: ajapaik/ajapaik/forms.py:23
 msgid "Password confirmation"
-msgstr ""
+msgstr "密碼確認"
 
 #: ajapaik/ajapaik/forms.py:104 ajapaik/ajapaik/forms.py:172
 #: ajapaik/ajapaik/forms.py:193
@@ -218,9 +217,8 @@ msgid "My preferred language is"
 msgstr "我偏好的語言是"
 
 #: ajapaik/ajapaik/forms.py:447
-#, fuzzy
 msgid "I wish to receive the newsletter"
-msgstr "我偏好的語言是"
+msgstr "我希望收到時事通訊"
 
 #: ajapaik/ajapaik/forms.py:451 ajapaik/ajapaik/forms.py:470
 msgid "Yes"
@@ -240,15 +238,15 @@ msgstr "請指定您是否要接收時事通訊"
 
 #: ajapaik/ajapaik/forms.py:467
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "我想要上傳我的翻拍照片到維基共享資源"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "請指定您是否要讓您的翻拍照片上傳到維基共享資源。"
 
 #: ajapaik/ajapaik/forms.py:484
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "請指定您想要的顯示名稱"
 
 #: ajapaik/ajapaik/forms.py:502
 msgid "Email address"
@@ -601,15 +599,15 @@ msgstr "以下是與您的帳號關聯的電子郵件地址："
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "已驗證"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "未驗證"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "首選"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
@@ -812,7 +810,7 @@ msgstr "登入來儲存所選"
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:22
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "與%(provider)s連接"
 
 #: ajapaik/ajapaik/templates/authentication/_log_in.html:29
 msgid "E-mail address"
@@ -1008,7 +1006,7 @@ msgstr "分類面孔"
 
 #: ajapaik/ajapaik/templates/core/_header.html:62
 msgid "Newsletters"
-msgstr "簡報"
+msgstr "時事通訊"
 
 #: ajapaik/ajapaik/templates/core/_header.html:66
 msgid "Add photos"
@@ -1312,11 +1310,11 @@ msgstr "提交所選至 Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
-msgstr ""
+msgstr "在您的後續有新評論。"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "謹致問候"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1450,7 +1448,7 @@ msgstr "新密碼（再次輸入）"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "設定密碼"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1458,7 +1456,7 @@ msgstr "修改密碼"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "更改顯示名稱"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
@@ -1466,7 +1464,7 @@ msgstr "時事通訊與語言設定"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "翻拍照片上傳設定"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
@@ -1894,16 +1892,16 @@ msgstr "歡迎回來"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr ""
+msgstr "請指定您是否也將您的翻拍照片上傳到維基共享資源。"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "社交網路登入失敗"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "在嘗試透過您的社交網路帳號登入時發生錯誤。"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2041,9 +2039,8 @@ msgid "favorite pictures"
 msgstr "個人最愛圖片"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
-#, fuzzy
 msgid "This account is connected to:"
-msgstr "社交帳號連接"
+msgstr "此帳號連接到："
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"

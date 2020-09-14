@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
+"PO-Revision-Date: 2020-09-14 14:58:54+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -373,11 +373,11 @@ msgstr "未知作者"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr ""
+msgstr "您以開啟相簿篩選的方式打開了地圖，若要將其關閉，請取消勾選在相簿名稱旁邊的方框"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "您以關閉相簿篩選的方式打開了地圖，若要將其開啟，請勾選在相簿名稱旁邊的方框"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "Earliest"
@@ -618,7 +618,7 @@ msgstr "套用相簿篩選"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:743
 msgid "All images are shown in the sidebar"
-msgstr ""
+msgstr "所有圖片顯示在側邊欄"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format

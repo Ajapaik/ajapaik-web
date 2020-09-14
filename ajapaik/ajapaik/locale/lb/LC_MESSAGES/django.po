@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
+"PO-Revision-Date: 2020-09-14 14:58:54+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -1450,7 +1450,7 @@ msgstr "Neit Passwuert (widderhuelen)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Passwuert festleeën"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
