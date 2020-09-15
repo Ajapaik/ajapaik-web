@@ -177,12 +177,11 @@ $('.ajp-navbar').autoHidingNavbar();
         var oldMapsCity = getQueryParameterByName('maps-city'),
         oldMapsIdx = getQueryParameterByName('maps-index');
         if(oldMapsCity){
-            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false)
+            commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false, map)
         }
         else{
-            commonVgmapi = new VanalinnadGooglemApi(null, false);
+            commonVgmapi = new VanalinnadGooglemApi(null, false, map);
         }
-        commonVgmapi.map = map;
         var cityDataDoneCallback = function () {
             commonVgmapi.buildVanalinnadMapCityControl();
             commonVgmapi.buildMapYearControl();

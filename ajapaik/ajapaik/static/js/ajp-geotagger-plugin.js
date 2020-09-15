@@ -445,9 +445,8 @@
                 name: 'OSM',
                 maxZoom: 18
             }));
-            this.vgmapi = new VanalinnadGooglemApi(null, true);
+            this.vgmapi = new VanalinnadGooglemApi(null, true, this.map);
             this.map.mapTypes.set('old-maps', this.vgmapi.juksMapType);
-            this.vgmapi.map = this.map;
             var cityDataDoneCallback = function () {
                 that.vgmapi.buildVanalinnadMapCityControl();
                 that.vgmapi.buildMapYearControl();

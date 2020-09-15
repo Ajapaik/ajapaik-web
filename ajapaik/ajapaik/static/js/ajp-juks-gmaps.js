@@ -1,4 +1,4 @@
-function VanalinnadGooglemApi(city, isGeotagger) {
+function VanalinnadGooglemApi(city, isGeotagger, map) {
     'use strict';
     /*global google*/
     /*global gettext*/
@@ -14,6 +14,7 @@ function VanalinnadGooglemApi(city, isGeotagger) {
     if (city) {
         this.vars.site = city;
     }
+    this.map = map;
     this.isGeotagger = isGeotagger;
     this.vanalinnadCitiesMap = {
         'Haapsalu': 'Haapsalu',
