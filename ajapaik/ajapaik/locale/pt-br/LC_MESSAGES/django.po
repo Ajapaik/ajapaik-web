@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
+"PO-Revision-Date: 2020-09-21 13:59:31+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,15 +60,15 @@ msgstr "Comentários sobre a transcrição adicionados, obrigado!"
 
 #: ajapaik/ajapaik/api.py:1649
 msgid "User settings have been saved"
-msgstr ""
+msgstr "As configurações do usuário foram salvas"
 
 #: ajapaik/ajapaik/api.py:1664
 msgid "User display name has been saved"
-msgstr ""
+msgstr "O nome de exibição do usuário foi salvo"
 
 #: ajapaik/ajapaik/api.py:1676
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Parâmetro obrigatório, token ausente"
 
 #: ajapaik/ajapaik/api.py:1679
 msgid "Invalid token"
@@ -76,15 +76,15 @@ msgstr "Token inválido"
 
 #: ajapaik/ajapaik/api.py:1681
 msgid "Expired token"
-msgstr ""
+msgstr "Token expirado"
 
 #: ajapaik/ajapaik/api.py:1695
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "Contribuições e configurações da outra conta foram adicionadas ao atual"
 
 #: ajapaik/ajapaik/api.py:1697
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Entre com uma conta diferente; no momento, você está conectado com a mesma conta da qual está mesclando"
 
 #: ajapaik/ajapaik/api.py:1699
 msgid "Please login"
@@ -225,23 +225,23 @@ msgstr "Não"
 
 #: ajapaik/ajapaik/forms.py:457
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Por favor, especifique seu idioma preferido"
 
 #: ajapaik/ajapaik/forms.py:459
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Especifique se deseja receber o boletim informativo"
 
 #: ajapaik/ajapaik/forms.py:467
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Desejo enviar minhas fotos para o Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "Por favor, especifique se deseja que suas fotos também sejam enviadas para o Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:484
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Especifique como você gostaria que seu nome de exibição fosse"
 
 #: ajapaik/ajapaik/forms.py:502
 msgid "Email address"
@@ -572,7 +572,7 @@ msgstr "Endereço de e-mail"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Confirmar endereço de e-mail"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -590,27 +590,27 @@ msgstr "Este link de confirmação por e-mail expirou ou é inválido. Por favor
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Os seguintes endereços de e-mail estão associados à sua conta:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "verificado"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "não verificado"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "primário"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
-msgstr ""
+msgstr "Tornar primário"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Reenviar verificação"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:26
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -620,19 +620,19 @@ msgstr "Remover"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Aviso:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "No momento, você não possui nenhum endereço de e-mail configurado. Você realmente deve adicionar um endereço de e-mail para que possa receber notificações, redefinir sua senha, etc."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Adicionar e-mail"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Tem certeza de que deseja remover o endereço de e-mail selecionado?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
@@ -700,7 +700,7 @@ msgstr "Sua senha agora está alterada."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Definir senha"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1442,11 +1442,11 @@ msgstr "Nova senha"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Nova senha (novamente)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Definir senha"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Change password"
@@ -1454,15 +1454,15 @@ msgstr "Alterar senha"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:9
 msgid "Change display name"
-msgstr ""
+msgstr "Alterar nome de exibição"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:10
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Boletim informativo e configurações de idioma"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Configurações de carregamento de foto"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:13
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
@@ -1472,7 +1472,7 @@ msgstr "Conexões da conta"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:14
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Unir outra conta do Ajapaik com a atual"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1508,11 +1508,11 @@ msgstr "Ordenar por tempo de refotografias adicionado ou quantidade"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Sort by annotations' time added or amount"
-msgstr ""
+msgstr "Classificar por tempo adicionado ou quantidade das anotações"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:91
 msgid "Sort by transcriptions' time added or amount"
-msgstr ""
+msgstr "Classificar por tempo de transcrição adicionado ou quantidade"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:100
 msgid "Sort by datings' time added or amount"
@@ -1572,7 +1572,7 @@ msgstr "inverter a classificação"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Este usuário sugeriu um local para esta imagem"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
@@ -1799,9 +1799,8 @@ msgstr "Adicionar repotografia"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:249
 #: ajapaik/ajapaik/templates/photo/photoview.html:192
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Marcar um novo rosto - clicar neste botão permite desenhar um retângulo de rosto na imagem principal"
+msgstr "Marque um novo rosto/objeto - clicar neste botão permitirá que você desenhe um retângulo de objeto/rosto na imagem principal"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:260
 msgid "Discuss"
@@ -1897,20 +1896,20 @@ msgstr "Carregar você mesmo"
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Bem vindo de volta"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr ""
+msgstr "Por favor, especifique se você gostaria de enviar suas fotos também para o Wikimedia Commons."
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "Falha de entrada na rede social"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "Ocorreu um erro ao tentar entrar por meio de sua conta de rede social."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -1933,7 +1932,7 @@ msgstr "Adicionar uma conta de terceiros"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Você tem"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/user/_user_info.html:5
@@ -2052,24 +2051,23 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 msgid "View your"
-msgstr ""
+msgstr "Veja o seu"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "rephotos"
-msgstr ""
+msgstr "refotografia"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "favorite pictures"
-msgstr ""
+msgstr "fotos favoritas"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
-#, fuzzy
 msgid "This account is connected to:"
-msgstr "Conexões de conta social"
+msgstr "Esta conta está conectada com:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Esta conta não está conectada a nenhuma outra"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:31
 #, python-format
@@ -2123,27 +2121,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "Selecione qual conta você gostaria de continuar usando depois"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Unificar as contas"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Token inválido, tente novamente ou entre em contato com o suporte ao cliente"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr ""
+msgstr "Entre para transferir contribuições e configurações de uma conta para outra"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr ""
+msgstr "Para transferir configurações e contribuições de uma conta para outra, entre com sua outra conta"
 
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
-msgstr ""
+msgstr "Especifique se deseja receber o boletim informativo e qual é o seu idioma de comunicação preferido."
 
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
 #, python-format
@@ -2157,23 +2155,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:32
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "Você é bem-vindo para navegar e contribuir anonimamente, mas nós o encorajamos a criar uma conta no Ajapaik e ingressar na comunidade de colaboradores."
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "To create an account, click"
-msgstr ""
+msgstr "Para criar uma conta, clique em"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "here"
-msgstr ""
+msgstr "aqui"
 
 #: ajapaik/ajapaik/templates/user/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Bem-vindo ao Ajapaik - plataforma de crowdsourcing para fotografias históricas. Você é bem-vindo para geomarcar e comentar as fotos, marcar rostos, etc."
 
 #: ajapaik/ajapaik/templates/user/user.html:58
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Este usuário não tem contribuições."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:25
 #, python-format
@@ -2311,7 +2309,6 @@ msgstr "Desconhecido"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "Não aplicável"
 

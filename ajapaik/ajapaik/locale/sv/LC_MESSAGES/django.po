@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-09-07 14:37:23+0000\n"
+"PO-Revision-Date: 2020-09-21 13:59:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -1489,7 +1489,7 @@ msgstr "Filtrering"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:12
 msgid "Sort by distance from you"
-msgstr "Sortera på distans från dig"
+msgstr "Sortera efter distans från dig"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "Sort by time and ..."
@@ -1497,7 +1497,7 @@ msgstr "Sortera efter tid och ..."
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:32
 msgid "Sort by photos' time added"
-msgstr "Sortera på när ett foto blev tillagt"
+msgstr "Sortera efter när ett foto blev tillagt"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "Sort by stills' timestamp"
@@ -2309,7 +2309,7 @@ msgstr "Vuxen"
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
 msgid "Elderly"
-msgstr "gamling"
+msgstr "Gamling"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24

@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:06+0000\n"
+"PO-Revision-Date: 2020-09-21 13:59:28+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -898,7 +898,7 @@ msgstr "أدخل اسم الشخص"
 #: ajapaik/ajapaik/static/js/constants.js:141
 #: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
-msgstr "أضف شخصًا جديدًا"
+msgstr "أضف شخصا جديدا"
 
 #: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"

@@ -11,7 +11,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
+"PO-Revision-Date: 2020-09-21 13:59:30+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -148,9 +148,8 @@ msgid "Confirm dating"
 msgstr "Confirmar namoro"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
-#, fuzzy
 msgid "Confirming a dating earned you %(points)s points."
-msgstr "Confirmando um namoro você ganhou %(pontos)s pontos."
+msgstr "Confirmando um namoro você ganhou %(points)s pontos."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
 msgid "Submitting a dating earned you %(points)s points."
@@ -370,11 +369,11 @@ msgstr "Autor desconhecido"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr ""
+msgstr "Você abriu o mapa com o filtro do álbum ativado, para desativá-lo, desmarque a caixa ao lado do nome do álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "Você abriu o mapa com o filtro do álbum desativado, para ativá-lo, marque a caixa ao lado do nome do álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "Earliest"
@@ -426,11 +425,11 @@ msgstr "datado"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:146
 msgid "transcribed"
-msgstr ""
+msgstr "transcrito"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
 msgid "annotated"
-msgstr ""
+msgstr "anotado"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:152
 msgid "viewed"
@@ -459,11 +458,11 @@ msgstr "Nenhum resultado encontrado para: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:240
 msgid "Did you mean to search from: "
-msgstr ""
+msgstr "Você quis dizer pesquisar em: "
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
 msgid "all pictures"
-msgstr ""
+msgstr "todas as fotos"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:269
 msgid "Albums"
@@ -491,11 +490,11 @@ msgstr "Conjunto de imagens não tem "
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:374
 msgid "No tagged persons in album"
-msgstr ""
+msgstr "Nenhuma pessoa marcada no álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:381
 msgid "No postcards in album"
-msgstr ""
+msgstr "Nenhum cartão postal no álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -615,7 +614,7 @@ msgstr "Aplicar filtro de álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:743
 msgid "All images are shown in the sidebar"
-msgstr ""
+msgstr "All images are shown in the sidebar"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format
@@ -658,11 +657,11 @@ msgstr "Entrar"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr ""
+msgstr "Clique (não arraste) para começar a desenhar a anotação. Clique novamente para terminar o desenho."
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Object is required"
-msgstr ""
+msgstr "Objeto é obrigatório"
 
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "optional"
@@ -678,7 +677,7 @@ msgstr "Masculino"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Feminino"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
@@ -710,7 +709,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
-msgstr ""
+msgstr "Editar anotação de rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
@@ -718,7 +717,7 @@ msgstr "Adicionar nome"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
-msgstr ""
+msgstr "Editar anotação de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
@@ -730,7 +729,7 @@ msgstr "Adicionar comentário"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
-msgstr ""
+msgstr "Suas informações de anotação"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
@@ -738,7 +737,7 @@ msgstr "Alterar nome da pessoa"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Adicionar nome de pessoa"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
@@ -746,7 +745,7 @@ msgstr "Alterar classe de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
@@ -764,7 +763,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
-msgstr ""
+msgstr "Tipo de anotação"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
@@ -772,11 +771,11 @@ msgstr "Nome"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Tipo de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Gênero"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
@@ -784,43 +783,43 @@ msgstr "Idade"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "Falha ao carregar classes de anotação de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "Failed to load annotations"
-msgstr ""
+msgstr "Falha ao carregar anotações"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 msgid "Successfully added object annotation"
-msgstr ""
+msgstr "Anotação de objeto adicionada com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "Incapaz de salvar a anotação do objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "Anotação de objeto atualizada com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"
-msgstr ""
+msgstr "Incapaz de atualizar a anotação do objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Comentário de anotação de objeto adicionado com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
-msgstr ""
+msgstr "Falha ao adicionar comentário de anotação de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:116
 msgid "Successfully removed object annotation"
-msgstr ""
+msgstr "Anotação de objeto removida com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:117
 msgid "Unable to remove object annotation"
-msgstr ""
+msgstr "Incapaz de remover a anotação do objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation"
@@ -832,31 +831,31 @@ msgstr "Não foi possível salvar a anotação de face"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Comentário de anotação de rosto adicionado com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to add face annotation feedback"
-msgstr ""
+msgstr "Falha ao adicionar comentário de anotação de rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:122
 msgid "Successfully edited face annotation"
-msgstr ""
+msgstr "Anotação de rosto editada com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:123
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "Falha ao salvar edição de anotação de rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:124
 msgid "Successfully removed face annotation"
-msgstr ""
+msgstr "Nota de rosto removida com sucesso"
 
 #: ajapaik/ajapaik/static/js/constants.js:125
 msgid "Failed to remove face annotation"
-msgstr ""
+msgstr "Falha ao remover anotação de rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Find object"
-msgstr ""
+msgstr "Encontrar objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
@@ -865,12 +864,12 @@ msgstr "Pesquisando"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 msgid "Search for object"
-msgstr ""
+msgstr "Pesquisar por objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:132
 #: ajapaik/ajapaik/static/js/constants.js:139
 msgid "Need 2 characters"
-msgstr ""
+msgstr "Precisa de 2 caracteres"
 
 #: ajapaik/ajapaik/static/js/constants.js:133
 #: ajapaik/ajapaik/static/js/constants.js:140
@@ -879,20 +878,20 @@ msgstr "Nenhum resultado encontrado"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
-msgstr ""
+msgstr "Encontre uma pessoa existente"
 
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
-msgstr ""
+msgstr "Digite o nome da pessoa"
 
 #: ajapaik/ajapaik/static/js/constants.js:141
 #: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
-msgstr ""
+msgstr "Adicionar nova pessoa"
 
 #: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
-msgstr ""
+msgstr "Especifique o nome da pessoa"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
@@ -900,11 +899,11 @@ msgstr "Selecionar idade do grupo"
 
 #: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
-msgstr ""
+msgstr "Alterar faixa etária"
 
 #: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
-msgstr ""
+msgstr "Especifique a faixa etária alternativa"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
@@ -916,7 +915,7 @@ msgstr "Alterar gênero"
 
 #: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
-msgstr ""
+msgstr "Especifique o gênero alternativo"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"

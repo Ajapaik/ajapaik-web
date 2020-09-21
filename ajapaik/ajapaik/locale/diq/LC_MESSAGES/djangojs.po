@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Zazaki (Zazaki)
 # Exported from translatewiki.net
 #
+# Author: 1917 Ekim Devrimi
 # Author: Mirzali
 # Author: Orbot707
 # --
@@ -12,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:06+0000\n"
+"PO-Revision-Date: 2020-09-21 13:59:29+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -234,7 +235,7 @@ msgstr "Mışewreyi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Comments in album"
-msgstr ""
+msgstr "Vatışê albumi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Date"
@@ -430,7 +431,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
 msgid "annotated"
-msgstr ""
+msgstr "izahatın"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:152
 msgid "viewed"
@@ -463,7 +464,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
 msgid "all pictures"
-msgstr ""
+msgstr "resımi pêro"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:269
 msgid "Albums"
@@ -483,7 +484,7 @@ msgstr "Terefê %(user)s ra reyna fotoğraf bıyayeyi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
 msgid "All pictures"
-msgstr ""
+msgstr "Resımi pêro"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:359
 msgid "Picture set has no "
@@ -856,67 +857,67 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Find object"
-msgstr ""
+msgstr "Obce bıvênê"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Searching"
-msgstr ""
+msgstr "Cıgeyrayış"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 msgid "Search for object"
-msgstr ""
+msgstr "Obce bıvênên"
 
 #: ajapaik/ajapaik/static/js/constants.js:132
 #: ajapaik/ajapaik/static/js/constants.js:139
 msgid "Need 2 characters"
-msgstr ""
+msgstr "2 karakteri ganiyê"
 
 #: ajapaik/ajapaik/static/js/constants.js:133
 #: ajapaik/ajapaik/static/js/constants.js:140
 msgid "No results found"
-msgstr ""
+msgstr "Neticeyi nêvêniyayi"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
-msgstr ""
+msgstr "Mewcud kesi bıvinê"
 
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
-msgstr ""
+msgstr "Namey kesi cıke"
 
 #: ajapaik/ajapaik/static/js/constants.js:141
 #: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
-msgstr ""
+msgstr "Keso newe cıke"
 
 #: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
-msgstr ""
+msgstr "Namey kesi bıdê"
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
-msgstr ""
+msgstr "Grubê serran weçinê"
 
 #: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
-msgstr ""
+msgstr "Serra grube bıvurne"
 
 #: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
-msgstr ""
+msgstr "Alternatif serra grube weçinê"
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
-msgstr ""
+msgstr "Cınsiyeti weçinê"
 
 #: ajapaik/ajapaik/static/js/constants.js:158
 msgid "Change gender"
-msgstr ""
+msgstr "Cınsiyeti bıvurne"
 
 #: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
-msgstr ""
+msgstr "Alternatif cınsiyeti bıdê"
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
