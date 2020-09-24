@@ -7,6 +7,7 @@
 # Author: Diman Russkov
 # Author: Eleferen
 # Author: H2kks
+# Author: Kareyac
 # Author: Katunchik
 # Author: Meerrahtar
 # Author: Movses
@@ -25,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:48+0000\n"
+"PO-Revision-Date: 2020-09-24 13:52:10+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -233,11 +234,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:451 ajapaik/ajapaik/forms.py:470
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: ajapaik/ajapaik/forms.py:451 ajapaik/ajapaik/forms.py:470
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: ajapaik/ajapaik/forms.py:457
 msgid "Please specify your prefered language"
@@ -636,7 +637,7 @@ msgstr "Удалить"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Предупреждение:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
