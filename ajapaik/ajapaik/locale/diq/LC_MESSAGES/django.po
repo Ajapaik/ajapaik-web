@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Zazaki (Zazaki)
 # Exported from translatewiki.net
 #
+# Author: 1917 Ekim Devrimi
 # Author: Abijeet Patro
 # Author: Mirzali
 # Author: Orbot707
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-08-31 14:03:46+0000\n"
+"PO-Revision-Date: 2020-09-28 15:12:20+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,11 +90,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1699
 msgid "Please login"
-msgstr ""
+msgstr "Kerem ke cıkewe"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "Album nêvineya"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -111,7 +112,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Eposta"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -128,7 +129,7 @@ msgstr "Parola"
 
 #: ajapaik/ajapaik/forms.py:23
 msgid "Password confirmation"
-msgstr ""
+msgstr "Tesdiqê parola"
 
 #: ajapaik/ajapaik/forms.py:104 ajapaik/ajapaik/forms.py:172
 #: ajapaik/ajapaik/forms.py:193
@@ -218,11 +219,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:451 ajapaik/ajapaik/forms.py:470
 msgid "Yes"
-msgstr ""
+msgstr "Eya"
 
 #: ajapaik/ajapaik/forms.py:451 ajapaik/ajapaik/forms.py:470
 msgid "No"
-msgstr ""
+msgstr "Nê"
 
 #: ajapaik/ajapaik/forms.py:457
 msgid "Please specify your prefered language"
@@ -528,7 +529,7 @@ msgstr "Parola xo vira kerde?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Eyarê karberi"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -554,7 +555,7 @@ msgstr "Cı kewe"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Qeyd be"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -568,12 +569,12 @@ msgstr "Menu"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/templates/dummy_translations.html:12
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Adresa e-posteyi:"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Adresa e-posteyi tesdiq ke"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -595,23 +596,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "Tesdiqyaye"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "Tesdiq nêbiyo"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "Yewên"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
-msgstr ""
+msgstr "Yewên kerê"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Tesdiqi reyna bırışê"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:26
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -621,7 +622,7 @@ msgstr "Wedare"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Tembe:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
@@ -629,7 +630,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Eposta cı kerê"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
