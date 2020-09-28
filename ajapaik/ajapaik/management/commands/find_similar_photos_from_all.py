@@ -5,7 +5,7 @@ class Command(BaseCommand):
     help = 'Calculate perceptual hash for images and then find similar images from all added images'
 
     def handle(self, *args, **options):
-        photos =  Photo.objects.all()
+        photos =  Photo.objects.filter(rephoto_of__isnull=True, postcard_back_of__isnull=True)
         for photo in photos:
             try:
                 photo.find_similar_for_existing_photo()
