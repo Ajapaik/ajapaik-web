@@ -215,6 +215,8 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+HAYSTACK_ITERATOR_LOAD_PER_QUERY = 1000
+
 AUTHENTICATION_BACKENDS = (
     'ajapaik.ajapaik.user_middleware.AuthBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
