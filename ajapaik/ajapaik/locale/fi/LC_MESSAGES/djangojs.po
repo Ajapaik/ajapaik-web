@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Nike
 # Author: Pyscowicz
 # Author: Zache
 # --
@@ -14,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
+"PO-Revision-Date: 2020-10-02 07:02:25+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -621,7 +622,7 @@ msgstr "Suodata albumi"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:743
 msgid "All images are shown in the sidebar"
-msgstr ""
+msgstr "Kaikki kuvat näkyvät sivupalkissa"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format
