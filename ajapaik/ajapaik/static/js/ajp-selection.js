@@ -40,7 +40,7 @@
                 }
             });
         };
-        window.selectionAddSimilarity = function(type) {
+        window.selectionAddSimilarity = function (type) {
             $('#ajp-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
                 var photos = []
@@ -116,7 +116,7 @@
         window.closePhotoDrawer = function () {
             $('#ajp-photo-modal').modal('hide');
         };
-        window.startGuessLocation = function () {
+        window.startSuggestionLocation = function () {
             if (window.albumId) {
                 window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
@@ -127,7 +127,7 @@
         if (input) {
             var options = {};
             var autocomplete = new window.google.maps.places.Autocomplete(input, options);
-            window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 $('#ajp-curator-add-area-name-hidden').val(place.name);
                 areaLat = place.geometry.location.lat();

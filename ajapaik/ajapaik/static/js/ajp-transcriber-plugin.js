@@ -73,7 +73,7 @@
             });
         };
         this.confirmCurrentTranscription = function () {
-            if(window.currentPhotoTranscriptions) {
+            if (window.currentPhotoTranscriptions) {
                 var payload = {
                         id: window.currentPhotoTranscriptions[0].id,
                         csrfmiddlewaretoken: docCookies.getItem('csrftoken')
@@ -100,13 +100,13 @@
             that.$UI.find('#ajp-transcriber-username').html(gettext('Transcribed by: ') + window.currentPhotoTranscriptions[id].user_name);
         };
         this.checkTranscriptionButtons = function () {
-            if(window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0) {
-                if(this.transcriptionIndex == 0) {
+            if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0) {
+                if (this.transcriptionIndex == 0) {
                     $('#ajp-transcriber-previous-button').prop('disabled', true);
                 } else {
                     $('#ajp-transcriber-previous-button').prop('disabled', false);
                 }
-                if(window.currentPhotoTranscriptions.length == this.transcriptionIndex + 1) {
+                if (window.currentPhotoTranscriptions.length == this.transcriptionIndex + 1) {
                     $('#ajp-transcriber-next-button').prop('disabled', true);
                 } else {
                     $('#ajp-transcriber-next-button').prop('disabled', false);
@@ -117,14 +117,14 @@
             }
         };
         this.nextTranscription = function () {
-            if(window.currentPhotoTranscriptions.length > this.transcriptionIndex + 1) {
+            if (window.currentPhotoTranscriptions.length > this.transcriptionIndex + 1) {
                 this.transcriptionIndex += 1;
                 that.checkTranscriptionButtons()
                 this.setTranscriptionData(this.transcriptionIndex);
             }
         };
         this.previousTranscription = function () {
-            if(this.transcriptionIndex > 0) {
+            if (this.transcriptionIndex > 0) {
                 this.transcriptionIndex -= 1;
                 that.checkTranscriptionButtons();
             }
@@ -164,11 +164,11 @@
                 e.preventDefault();
                 that.submit();
             });
-            $('#ajp-transcriber-text').on('input', function() {
-                if(window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0 && $('#ajp-transcriber-text').val() === window.currentPhotoTranscriptions[that.transcriptionIndex].text) {
+            $('#ajp-transcriber-text').on('input', function () {
+                if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0 && $('#ajp-transcriber-text').val() === window.currentPhotoTranscriptions[that.transcriptionIndex].text) {
                     $('#ajp-transcriber-submit-button').prop('disabled', true);
                 }
-                else if(!window.currentPhotoTranscriptions || window.currentPhotoTranscriptions.length > 0 && $('#ajp-transcriber-text').val() !== window.currentPhotoTranscriptions[that.transcriptionIndex].text) {
+                else if (!window.currentPhotoTranscriptions || window.currentPhotoTranscriptions.length > 0 && $('#ajp-transcriber-text').val() !== window.currentPhotoTranscriptions[that.transcriptionIndex].text) {
                     $('#ajp-transcriber-submit-button').prop('disabled', false);
                 }
             });
@@ -177,7 +177,7 @@
             that.$UI.find('#ajp-transcriber-login').text(gettext('Login')).attr('title', gettext('Login')).click(function () {
                 window.openPhotoUploadModal();
             });
-            if(window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0 && !$('#ajp-transcriber-confirm-button').is(':visible')) {
+            if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0 && !$('#ajp-transcriber-confirm-button').is(':visible')) {
                 $('#ajp-transcriber-confirm-button').removeClass('d-none');
             };
         },
@@ -189,12 +189,12 @@
             if (userIsSocialConnected) {
                 $('#ajp-transcriber-container-actions').removeClass('d-none');
             } else {
-                if(window.currentPhotoTranscriptions.length < 1) {
+                if (window.currentPhotoTranscriptions.length < 1) {
                     $('#ajp-transcriber-text').addClass('d-none');
                 }
                 loginDiv.removeClass('d-none');
             }
-            if(window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0) {
+            if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0) {
                 that.setTranscriptionData(that.transcriptionIndex);
                 $('#ajp-transcriber-submit-button').prop('disabled', true);
             } else {

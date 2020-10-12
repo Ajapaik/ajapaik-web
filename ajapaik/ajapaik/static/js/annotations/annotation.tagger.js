@@ -8,13 +8,13 @@ var ObjectTagger = {
     setDetectionRectangleContainer: function(container) {
         this.detectionRectangleContainer = container;
     },
-    getDetectionRectangleContainer: function() {
+    getDetectionRectangleContainer: function () {
         return this.detectionRectangleContainer;
     },
     setPhotoId: function(photoId) {
         this.photoId = photoId;
     },
-    getPhotoId: function() {
+    getPhotoId: function () {
         return this.photoId;
     },
     stopCropping: function () {
@@ -27,7 +27,7 @@ var ObjectTagger = {
     },
     handleSavedRectanglesDrawn: function(detections) {
         if (detections) {
-            setTimeout(function() {
+            setTimeout(function () {
                 drawDetectionRectangles(detections, ImageAreaSelector.getImageAreaDimensions());
             }, 200);
         }
@@ -72,7 +72,7 @@ var ObjectTagger = {
         }
 
         var handleNewRectangleDrawn = this.handleNewRectangleDrawn.bind(this);
-        var onSelectionEnd = function(selection) {
+        var onSelectionEnd = function (selection) {
             handleNewRectangleDrawn(selection, isNotOpeningPopoverOnDrawEnd);
         };
 

@@ -222,7 +222,7 @@ function handleFullScreenClose(additionalFunction) {
 }
 
 function addFullScreenExitListener(additionalFunction) {
-     window.BigScreen.onexit = function() {
+     window.BigScreen.onexit = function () {
          handleFullScreenClose(additionalFunction);
      };
 }

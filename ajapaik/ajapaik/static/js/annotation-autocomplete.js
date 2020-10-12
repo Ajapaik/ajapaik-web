@@ -115,7 +115,7 @@ function initializePersonAutocomplete(autocompleteId, genderSelect) {
 
           var uri = '/autocomplete/subject-album-autocomplete/?get-json=true&q=' + encodeURI(search);
 
-          var onSuccess = function(response) {
+          var onSuccess = function (response) {
               var data = [];
 
               var currentSelectedValue = $('#' + autocompleteId).val();
@@ -198,7 +198,7 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
               return;
           }
 
-          var onSuccess = function(response) {
+          var onSuccess = function (response) {
               var data = [];
               var currentSelectedValue = $('#' + autocompleteId).val();
 
@@ -216,7 +216,7 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
 
               callback(data);
 
-              $('[data-type="wiki-link"]').each(function() {
+              $('[data-type="wiki-link"]').each(function () {
                   var el = $(this);
 
                   el.click(function(event) {

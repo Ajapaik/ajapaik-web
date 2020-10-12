@@ -77,14 +77,14 @@
 {% block specific_js %}
     <script>
         $('#ajp-loading-overlay').show();
-        if(!docCookies.getItem("similarityModalShown")) {
+        if (!docCookies.getItem("similarityModalShown")) {
             var d = new Date();
             d.setTime(d.getTime() + 86400000);
             document.cookie = 'similarityModalShown=true;expires=' + d + ';path=/'; 
             $('#ajp-similar-images-tutorial-modal').modal();
         }
 
-        $('#close-similar-modal').on('click', function() {
+        $('#close-similar-modal').on('click', function () {
             $('#ajp-similar-images-tutorial-modal').modal('toggle');
         });
 
@@ -93,19 +93,19 @@
         var width1 = "{{ photo.width }}"
         var width2 = "{{ photo2.width }}"
 
-        resizeDescription = function() {
+        resizeDescription = function () {
             var mainPhoto = $("#ajp-compareview-main-photo");
             var secondaryPhoto = $("#ajp-compareview-secondary-photo");
             mainPhoto.siblings().width(mainPhoto.width() || 320);
             secondaryPhoto.siblings().width(secondaryPhoto.width() || 320);
         }
 
-        resizePhotos = function() {
+        resizePhotos = function () {
             var mainPhoto = $("#ajp-compareview-main-photo");
             var secondaryPhoto = $("#ajp-compareview-secondary-photo");
             var mainPhotoRatio =  width1 / height1;
             var secondaryPhotoRatio = width2 / height2;
-            if(mainPhotoRatio > secondaryPhotoRatio) {
+            if (mainPhotoRatio > secondaryPhotoRatio) {
                 secondaryPhoto.height(mainPhoto.height());
             } else {
                 mainPhoto.height(secondaryPhoto.height());
@@ -113,13 +113,13 @@
             resizeDescription();
         }
 
-        $(window).on('load', function() {
+        $(window).on('load', function () {
             resizePhotos();
             $('#ajp-loading-overlay').hide();
             $('#compare-photos-container').css('opacity','1.0');
         });
 
-        $(window).resize(function() {
+        $(window).resize(function () {
             resizePhotos();
         });
 
@@ -128,7 +128,7 @@
         photo1 = "{{ photo.id }}";
         photo2 = "{{ photo2.id }}";
 
-        ConfirmImageSimilarity = function(confirmed,similarity_type){
+        ConfirmImageSimilarity = function (confirmed,similarity_type) {
             $('#ajp-loading-overlay').show();
             $.ajax({
                 type: "POST",
@@ -149,9 +149,9 @@
                         ),
                         [points]
                         )
-                        : gettext('Your guess has been changed');
+                        : gettext('Your suggestion has been changed');
                     $.notify(message, {type: "success"});
-                    setTimeout(function(){
+                    setTimeout(function () {
                         window.location.href = "{{next_action}}";
                     }, 1000);
                 },
@@ -163,13 +163,13 @@
                 }
             });
         }
-        $('#not_similar').click(function(){
+        $('#not_similar').click(function () {
             ConfirmImageSimilarity(true,0)
         });
-        $('#similar').click(function(){
+        $('#similar').click(function () {
             ConfirmImageSimilarity(true,1)
         });
-        $('#duplicate').click(function(){
+        $('#duplicate').click(function () {
             ConfirmImageSimilarity(true,2)
         });
     </script>

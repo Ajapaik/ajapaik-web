@@ -27,7 +27,7 @@ function getOnAnnotationCheckboxClick(annotationIdentifier, checkboxId) {
 }
 
 function getDisplayCorrespondingFilter(annotationIdentifier) {
-    return function() {
+    return function () {
         hideDetectionRectanglesWithoutOpenPopover();
         var correspondingAnnotations = getCorrespondingAnnotations(annotationIdentifier);
         correspondingAnnotations.css({visibility: ''});
@@ -35,7 +35,7 @@ function getDisplayCorrespondingFilter(annotationIdentifier) {
 }
 
 function getHideCorrespondingFilter(annotationIdentifier) {
-    return function() {
+    return function () {
         var correspondingAnnotations = getCorrespondingAnnotations(annotationIdentifier);
         correspondingAnnotations.css({visibility: 'hidden'});
     };

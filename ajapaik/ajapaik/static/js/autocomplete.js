@@ -108,7 +108,7 @@ if (window.yourlabs === undefined) window.yourlabs = {};
 if (window.yourlabs.Autocomplete !== undefined)
     console.log('WARNING ! You are loading autocomplete.js **again**.');
 
-yourlabs.getInternetExplorerVersion = function()
+yourlabs.getInternetExplorerVersion = function ()
 // Returns the version of Internet Explorer or a -1
 // (indicating the use of another browser).
 {
@@ -136,7 +136,7 @@ $.fn.yourlabsRegistry = function(key, value) {
     }
 
     if ($.fn.yourlabsRegistry.guid === undefined) {
-        $.fn.yourlabsRegistry.guid = function() {
+        $.fn.yourlabsRegistry.guid = function () {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
                 /[xy]/g,
                 function(c) {
@@ -279,7 +279,7 @@ yourlabs.Autocomplete = function (input) {
     should only fetch city choices that are in the selected country. To
     achieve this, update the data with the value of the country select:
 
-        $('select[name=country]').change(function() {
+        $('select[name=country]').change(function () {
             $('city[name=country]').yourlabsAutocomplete().data = {
                 country: $(this).val(),
             }
@@ -313,7 +313,7 @@ yourlabs.Autocomplete = function (input) {
     we can't find a parent that would be correct to append to, default to
     <body>.
     */
-    this.container = this.input.parents().filter(function() {
+    this.container = this.input.parents().filter(function () {
         var position = $(this).css('position');
         return position === 'absolute' || position === 'fixed';
     }).first();
@@ -328,7 +328,7 @@ the constructor, setup is done in this method. This allows to:
 - override attribute/methods of the instance,
 - and *then* setup the instance.
  */
-yourlabs.Autocomplete.prototype.initialize = function() {
+yourlabs.Autocomplete.prototype.initialize = function () {
     var ie = yourlabs.getInternetExplorerVersion();
 
     this.input
@@ -336,7 +336,7 @@ yourlabs.Autocomplete.prototype.initialize = function() {
         .on('focus.autocomplete', $.proxy(this.inputClick, this))
         .on('keydown.autocomplete', $.proxy(this.inputKeyup, this));
 
-    $(window).on('resize', $.proxy(function() {
+    $(window).on('resize', $.proxy(function () {
         if (this.box.is(':visible')) this.fixPosition();
     }, this));
 
@@ -433,7 +433,7 @@ yourlabs.Autocomplete.prototype.boxClick = function(e) {
 };
 
 // Return the value to pass to this.queryVariable.
-yourlabs.Autocomplete.prototype.getQuery = function() {
+yourlabs.Autocomplete.prototype.getQuery = function () {
     // Return the input's value by default.
     return this.input.val();
 };
@@ -527,7 +527,7 @@ yourlabs.Autocomplete.prototype.show = function(html) {
 };
 
 // This function is in charge of the opposite.
-yourlabs.Autocomplete.prototype.hide = function() {
+yourlabs.Autocomplete.prototype.hide = function () {
     this.box.hide();
 };
 
@@ -608,14 +608,14 @@ the system from Django admin's JS widgets like the date calendar, which means:
 - the autocomplete box is an element appended to this.co,
 - 
 */
-yourlabs.Autocomplete.prototype.fixPosition = function() {
+yourlabs.Autocomplete.prototype.fixPosition = function () {
     var el = this.input.get(0);
 
-    var zIndex = this.input.parents().filter(function() {
+    var zIndex = this.input.parents().filter(function () {
         return $(this).css('z-index') !== 'auto' && $(this).css('z-index') !== '0';
     }).first().css('z-index');
 
-    var absolute_parent = this.input.parents().filter(function(){
+    var absolute_parent = this.input.parents().filter(function (){
       return $(this).css('position') === 'absolute';
     }).get(0);
 
@@ -645,7 +645,7 @@ yourlabs.Autocomplete.prototype.fixPosition = function() {
 };
 
 // Proxy fetch(), with some sanity checks.
-yourlabs.Autocomplete.prototype.refresh = function() {
+yourlabs.Autocomplete.prototype.refresh = function () {
     // Set the new current value.
     this.value = this.getQuery();
 
@@ -657,7 +657,7 @@ yourlabs.Autocomplete.prototype.refresh = function() {
 };
 
 // Return true if the data for this query has changed from last query.
-yourlabs.Autocomplete.prototype.hasChanged = function() {
+yourlabs.Autocomplete.prototype.hasChanged = function () {
     for(var key in this.data) {
         if (!(key in this.lastData) || this.data[key] !== this.lastData[key]) {
             return true;
@@ -667,7 +667,7 @@ yourlabs.Autocomplete.prototype.hasChanged = function() {
 };
 
 // Manage requests to this.url.
-yourlabs.Autocomplete.prototype.fetch = function() {
+yourlabs.Autocomplete.prototype.fetch = function () {
     // Add the current value to the data dict.
     this.data[this.queryVariable] = this.value;
 
@@ -694,7 +694,7 @@ yourlabs.Autocomplete.prototype.fetch = function() {
 };
 
 // Wrapped ajax call to use with setTimeout in fetch().
-yourlabs.Autocomplete.prototype.makeXhr = function() {
+yourlabs.Autocomplete.prototype.makeXhr = function () {
     this.input.addClass('xhr-pending');
 
     this.xhr = $.ajax(this.url, {
@@ -732,7 +732,7 @@ function that should override the Autocomplete builtin. For example:
 
   $('input#your-autocomplete').yourlabsAutocomplete({
       url: '/some/url/',
-      hide: function() {
+      hide: function () {
           this.outerContainer
       },
   })
@@ -805,7 +805,7 @@ $.fn.yourlabsAutocomplete = function(overrides) {
 };
 
 // Binding some default behaviors.
-$(document).ready(function() {
+$(document).ready(function () {
     function removeHilightClass(e, choice, autocomplete) {
         choice.removeClass(autocomplete.hilightClass);
     }

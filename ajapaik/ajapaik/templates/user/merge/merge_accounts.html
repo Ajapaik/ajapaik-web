@@ -46,11 +46,11 @@
         var currentProfileUrl = "{% url 'me' %}";
         var mergeUrl = "{% url 'api_merge_users' %}";
         var reverse = undefined;
-        $('#merge-accounts-button').on('click', function() {
+        $('#merge-accounts-button').on('click', function () {
             SubmitMergeRequest();
         });
 
-        $("input[name='user-1']").click(function() {
+        $("input[name='user-1']").click(function () {
             var paramChangeBoxes = $("input[name='user-2']");
             if ($(this).is(':checked')) {
                 paramChangeBoxes.prop('checked', false);
@@ -70,7 +70,7 @@
         });
 
         
-        $("input[name='user-2']").click(function() {
+        $("input[name='user-2']").click(function () {
             var paramChangeBoxes = $("input[name='user-1']");
             if ($(this).is(':checked')) {
                 paramChangeBoxes.prop('checked', false);
@@ -89,7 +89,7 @@
             }
         });
 
-        SubmitMergeRequest = function(subject, profile){
+        SubmitMergeRequest = function (subject, profile) {
             $('#ajp-loading-overlay').show();
             $.ajax({
                 type: "POST",
@@ -100,7 +100,7 @@
                 },
                 success: function (response) {
                     $.notify(gettext(response.message), {type: 'success'});
-                    setTimeout(function() {
+                    setTimeout(function () {
                         window.location.href = currentProfileUrl;
                     }, 3000);
                 },

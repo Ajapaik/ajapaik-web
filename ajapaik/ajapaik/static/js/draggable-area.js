@@ -568,7 +568,7 @@ var DraggableArea = (function () {
         element.on('touchend', function () {
             if (!hasDragged) {
                 if (window.fullscreenEnabled) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#annotation-container').click();
                         annotationRectangle.click();
                     });

@@ -157,16 +157,16 @@
             age: undefined
         };
         var subjectDataContainer = $('.subject-data-container');
-        if(hasConsensus) {
+        if (hasConsensus) {
             $('#first-block').removeClass('d-block').addClass('d-none');
             $('#second-block').removeClass('d-none').addClass('d-block');
             annotation.gender = 'SKIP';
         }
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
-        resizePhoto = function() {
+        resizePhoto = function () {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-            if($(window).width() / ($(window).height() - 275) > imageRatio) {
+            if ($(window).width() / ($(window).height() - 275) > imageRatio) {
                 $('img.main-image').css('height', ($(window).height() - 275) + 'px');
                 $('img.main-image').css('width', 'auto');
             }
@@ -176,7 +176,7 @@
             }
         }
 
-        drawRectangle = function() {
+        drawRectangle = function () {
             window.currentPhotoActualHeight = $('img.main-image')[0].height;
             window.currentPhotoActualWidth = $('img.main-image')[0].width;
             $('#ajp-loading-overlay').hide();
@@ -186,11 +186,11 @@
             width = (coordinates[1] - coordinates[3]) * widthScale,
             height = (coordinates[2] - coordinates[0]) * heightScale,
             leftTop = [coordinates[3] * widthScale, coordinates[0] * heightScale];
-            if(width < 30) {
+            if (width < 30) {
                 leftTop[0] = leftTop[0] - width * 0.5;
                 width = width * 2;
             }
-            if(height < 30 ) {
+            if (height < 30 ) {
                 leftTop[1] = leftTop[1] - height * 0.5;
                 height = height * 2;
             }
@@ -209,12 +209,12 @@
                 // TODO: If we know already, display peoples' names
             });
             var imageWrapper = $('.image-wrapper');
-            if(!!imageWrapper){
+            if (!!imageWrapper) {
                 imageWrapper.append($faceRectangle);
             }
         }
 
-        removeRectangle = function() {
+        removeRectangle = function () {
             $('.ajp-face-rectangle').remove();
         }
 
@@ -243,18 +243,18 @@
         var coordinates = {{ coordinates }};
         $('#ajp-loading-overlay').show();
 
-        $(window).on('load', function() {
+        $(window).on('load', function () {
             resizePhoto();
             drawRectangle();
         });
 
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
             resizePhoto();
             removeRectangle();
             drawRectangle();
         });
 
-        AddSubjectData = function(annotation, profile){
+        AddSubjectData = function (annotation, profile) {
             $('#ajp-loading-overlay').show();
             $.ajax({
                 type: 'POST',
@@ -284,7 +284,7 @@
 
         $('#first-block > div > button').on('click', function(e) {
             annotation.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            if(annotation.gender === 'INFO') {
+            if (annotation.gender === 'INFO') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
@@ -303,7 +303,7 @@
             }
             else {
                 $('#first-block').removeClass('d-block').addClass('d-none');
-                if(annotation.gender !== 'NOT_A_FACE') {
+                if (annotation.gender !== 'NOT_A_FACE') {
                     $('#second-block').removeClass('d-none').addClass('d-block');
                     addSubjectDataViewPage = 1;
                 }
@@ -314,7 +314,7 @@
         });
         $('#second-block > div > button').on('click', function(e) {
             annotation.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
-            if(annotation.age === 'INFO') {
+            if (annotation.age === 'INFO') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
@@ -333,10 +333,9 @@
             }
             else {
                 $('#second-block').removeClass('d-flex').addClass('d-none');
-                if(annotation.age !== 'NOT_A_FACE'){
+                if (annotation.age !== 'NOT_A_FACE') {
                     window.AddSubjectData(annotation)
-                }
-                else{
+                } else {
                     ReportBadRectangle(currentRectangleId)
                 }
             }

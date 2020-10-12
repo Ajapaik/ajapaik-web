@@ -137,20 +137,20 @@
 {% block specific_js %}
 <script>
         let albumDataUrl = "{% if album %}{% url 'face_recognition_api_album_data' album.0 %}{% else %} {% endif%}";
-        function handleFaceCategorizationClick(){
+        function handleFaceCategorizationClick() {
             let album = "{{ album.0 }}";
-            if(album !== ''){
+            if (album !== '') {
                 $.ajax({
                     type: "GET",
                     url: albumDataUrl,
                     success: function (response) {
-                        if(response.hasAnnotations === true) {
+                        if (response.hasAnnotations === true) {
                             window.location.href = "{% url 'face_recognition_subject_data' %}" + '?album=' + "{{ album.0 }}";
                         } else {
                             $.notify(gettext('There are no marked faces for categorization. Annotate some for categorization'), {type: "danger"});
                         }
                     },
-                    error: function() {
+                    error: function () {
                         $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
                     }
                 });

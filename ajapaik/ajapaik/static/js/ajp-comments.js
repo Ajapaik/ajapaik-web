@@ -3,31 +3,31 @@ $(document).ready(function () {
 
 
     // Set focus for comment form when comment icon pressed.
-    $('#ajp-photo-modal-discuss').click(function(event){
+    $('#ajp-photo-modal-discuss').click(function(event) {
         event.preventDefault();
         $('#id_comment').focus();
     });
 
     // Disable hotkeys when typing message.
-    $('#ajp-comments-container').on('focus', 'textarea', function() {
+    $('#ajp-comments-container').on('focus', 'textarea', function () {
         window.hotkeysActive = false;
     });
-    $('#ajp-comments-container').on('blur', 'textarea', function() {
+    $('#ajp-comments-container').on('blur', 'textarea', function () {
         window.hotkeysActive = true;
     });
 
 
     // Fetching comment list when page is loaded and when new comment posted.
-    var fetchComments = function() {
-        var _setup_links_in_comments = function() {
+    var fetchComments = function () {
+        var _setup_links_in_comments = function () {
             $('#ajp-comment-list .comment-text a').attr('target', '_blank');
         };
 
-        var _setup_comment_count = function(count) {
+        var _setup_comment_count = function (count) {
             comments_count = $('#ajp-photo-modal-discuss span[class~="badge"]');
-            if(comments_count) {
+            if (comments_count) {
                 comments_count.html(count);
-                if(count === 0) {
+                if (count === 0) {
                     comments_count.addClass('d-none');
                 }
                 else {
@@ -52,7 +52,7 @@ $(document).ready(function () {
     fetchComments();
 
 
-    var post_comment = function(form) {
+    var post_comment = function (form) {
         $.ajax({
             type: 'POST',
             url: '/comments/post-one/' + photo_id + '/',
@@ -87,7 +87,7 @@ $(document).ready(function () {
     $('#ajp-comment-list').on('click', 'h6[class="media-heading"]', function(event) {
         var action = $(event.target).data('action');
         var comment_id = $(event.target).data('comment-id');
-        if(action === 'delete' && comment_id) {
+        if (action === 'delete' && comment_id) {
             $.ajax({
                 type: 'POST',
                 url: '/comments/delete-one/',

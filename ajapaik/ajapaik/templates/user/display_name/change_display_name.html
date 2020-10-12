@@ -6,11 +6,11 @@
     <script>
         var changeDisplayNameUrl = "{% url 'api_change_profile_display_name' %}";
 
-        $('#change-display-name-submit-button').on('click', function() {
+        $('#change-display-name-submit-button').on('click', function () {
             ChangeDisplayName();
         });
 
-        ChangeDisplayName = function(subject, profile){
+        ChangeDisplayName = function (subject, profile) {
             let displayName = document.getElementById("id_display_name").value;
             $('#ajp-loading-overlay').show();
             $.ajax({

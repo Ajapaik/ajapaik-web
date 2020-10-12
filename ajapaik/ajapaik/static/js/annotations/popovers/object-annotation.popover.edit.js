@@ -15,11 +15,11 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialV
             .find('#' + constants.elements.OBJECT_CLASS_SELECT_ID)
             .val();
 
-        var closePopover = function() {
+        var closePopover = function () {
             togglePopover(popoverId);
         };
 
-        var onSuccess = function() {
+        var onSuccess = function () {
             refreshAnnotations();
             closePopover();
         };
@@ -45,12 +45,12 @@ function getObjectRectangleUpdateSubmitFunction(rectangleId, popoverId, initialV
 }
 
 function getDeleteObjectAnnotationFunction(popoverId, annotationId) {
-    var onSuccess = function() {
+    var onSuccess = function () {
         togglePopover(popoverId);
         refreshAnnotations();
     };
 
-    return function() {
+    return function () {
         deleteSavedObjectAnnotation(annotationId, onSuccess);
     };
 }
@@ -94,9 +94,9 @@ function validateRequiredEditObjectField(selectedOption) {
 function createSavedObjectModifyDetectionRectangle(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
-    var onAnnotationRectangleShow = function() {
+    var onAnnotationRectangleShow = function () {
         if (!hasInitializedSelects) {
-            setTimeout(function() {
+            setTimeout(function () {
                 initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID, false, validateRequiredEditObjectField);
                 hasInitializedSelects = true;
             }, 100);

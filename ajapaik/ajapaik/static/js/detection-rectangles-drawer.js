@@ -59,7 +59,7 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
 }
 
 function removeExistingDetectionRectangles() {
-    $('[data-is-detection-rectangle]').each(function() {
+    $('[data-is-detection-rectangle]').each(function () {
         var rectangle = $(this);
 
         var popoverSelector = '.popover';
@@ -96,7 +96,7 @@ function drawDetectionRectangles(detections, imageAreaDimensions) {
 
     createAnnotationFilters(detections);
 
-    setTimeout(function() {
+    setTimeout(function () {
         removeExistingDetectionRectangles();
 
         var scalesInRelationToTheOriginalPhoto = getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions);
@@ -175,7 +175,7 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
     if (!isRedraw) {
         window.addEventListener('resize', onWindowResize);
 
-        addFullScreenExitListener(function() {
+        addFullScreenExitListener(function () {
             window.removeEventListener('resize', onWindowResize);
             moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
         });

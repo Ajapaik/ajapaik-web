@@ -7,7 +7,7 @@ function getObjectAnnotationClasses() {
         return;
     }
 
-    var onSuccess = function(response) {
+    var onSuccess = function (response) {
         storeData(cacheKeys.objectClasses, response.data);
     };
 
@@ -23,7 +23,7 @@ function getObjectAnnotationClasses() {
 function getAllAnnotations(customOnSuccess) {
     var photoId = ObjectTagger.getPhotoId();
 
-    var onSuccess = function(response) {
+    var onSuccess = function (response) {
         var result = response.data.map(function(rectangle) {
             return JSON.parse(rectangle);
         });
@@ -50,7 +50,7 @@ function addNewDetectionAnnotation(payload, onSuccess) {
     var successMessage = constants.translations.queries.ADD_FACE_ANNOTATION_SUCCESS;
     var failMessage = constants.translations.queries.ADD_FACE_ANNOTATION_FAILED;
 
-    if(payload.isSavingObject) {
+    if (payload.isSavingObject) {
         successMessage = constants.translations.queries.ADD_OBJECT_ANNOTATION_SUCCESS;
         failMessage = constants.translations.queries.ADD_OBJECT_ANNOTATION_FAILED;
     }

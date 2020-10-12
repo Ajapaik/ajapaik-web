@@ -9,9 +9,9 @@
         <button class="btn ajp-invert-similar-photo-overlay-button"
              {% if (!isMobile) { %}
             style="display: none;"{% } %}><i class="material-icons notranslate">invert_colors</i></button>
-        {% if (o[0] && o[0].length > 1){ %}
+        {% if (o[0] && o[0].length > 1) { %}
             <div id="ajp-similar-photo-selection" style="display:none;">
-                {% for(similar of o[0]){ %}
+                {% for(similar of o[0]) { %}
                     <div class="ajp-photo-modal-similar-photo-thumb" id="ajp-similar-photo-thumb-{%=similar.id%}" data-id="{%=similar.id%}">
                         <img class="img-fluid"
                                 src="{%=similar.url%}"

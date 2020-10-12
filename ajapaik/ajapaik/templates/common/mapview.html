@@ -85,11 +85,11 @@
         {% endif %}
 
         var mapSearchFilterTimeOut;
-        $('#ajp-photo-filter-box').on("input", function() {
+        $('#ajp-photo-filter-box').on("input", function () {
             window.photoQuery = $('#ajp-photo-filter-box').val()
             window.syncMapStateToURL();
             clearTimeout(mapSearchFilterTimeOut);
-            mapSearchFilterTimeOut = setTimeout(function() {
+            mapSearchFilterTimeOut = setTimeout(function () {
                 window.toggleVisiblePaneElements();
             }, 500);
         });
