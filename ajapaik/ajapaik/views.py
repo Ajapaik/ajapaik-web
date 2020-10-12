@@ -1404,6 +1404,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		'confirmed_similar_photo_count': similar_photos.filter(confirmed=True).count(),
 		'compare_photos_url' : compare_photos_url,
 		'reverse_side' : reverse_side,
+		'is_photo_modal': request.is_ajax(),
 		# TODO: Needs more data than just the names
 		'people': people,
 		'whole_set_albums_selection_form': whole_set_albums_selection_form

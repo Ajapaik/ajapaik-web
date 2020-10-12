@@ -1299,11 +1299,6 @@ a.fullscreen {
   bottom: 32px;
 }
 
-#ajp-photo-modal-dropdown {
-  float: right;
-  top: 5px;
-}
-
 #ajp-photo-modal-geotag-count {
   float: left;
   font-size: 24px;
@@ -1394,23 +1389,15 @@ a.fullscreen {
   bottom: auto;
 }
 
-#ajp-photo-modal-start-dating-button,
-#ajp-photoview-start-dating-button {
+#ajp-start-dating-button {
   width: 48px;
 }
 
-#ajp-photoview-start-dating-button > span {
+#ajp-start-dating-button > span {
   position: absolute;
   right: 2px;
   left: initial;
   bottom: 8px;
-}
-
-#ajp-photo-modal-start-dating-button > span {
-  position: relative;
-  right: -30px;
-  left: initial;
-  bottom: 24px;
 }
 
 #ajp-geolocation-error,
@@ -2315,4 +2302,15 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 
 .ajp-accordion-button[aria-expanded="true"] > i {
   transform: rotate(180deg);
+}
+
+#ajp-categorize-scene-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#ajp-categorize-scene-button:focus {
+  outline: none;
 }

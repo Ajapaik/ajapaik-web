@@ -362,7 +362,7 @@ class Photo(Model):
     user = ForeignKey('Profile', related_name='photos', blank=True, null=True, on_delete=CASCADE)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
-    guess_level = FloatField(default=3)
+    suggestion_level = FloatField(default=3)
     lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)],
                      db_index=True)
     lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)],
@@ -444,12 +444,12 @@ class Photo(Model):
         people_albums = []
         rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects \
             .filter(photo=self, deleted__isnull=True) \
-            .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False)).all()
+            .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_suggestion__isnull=False)).all()
         for rectangle in rectangles:
             if rectangle.subject_consensus:
                 people_albums.append(rectangle.subject_consensus)
-            elif rectangle.subject_ai_guess:
-                people_albums.append(rectangle.subject_ai_guess)
+            elif rectangle.subject_ai_suggestion:
+                people_albums.append(rectangle.subject_ai_suggestion)
 
         return set(people_albums)
 
@@ -512,7 +512,7 @@ class Photo(Model):
 
         if trustworthiness < 0.25:
             # Novice users should only receive the easiest images to prove themselves
-            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('guess_level', '-confidence')
+            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('suggestion_level', '-confidence')
             if ret_qs.count() == 0:
                 # If the user has seen all the photos, offer at random
                 user_seen_all = True
@@ -794,7 +794,7 @@ class Photo(Model):
             weighed_level_sum += float(each.level) * each.trustworthiness
             total_weight += each.trustworthiness
         if total_weight != 0:
-            self.guess_level = round((weighed_level_sum / total_weight), 2)
+            self.suggestion_level = round((weighed_level_sum / total_weight), 2)
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
@@ -851,7 +851,7 @@ class Photo(Model):
                 geotags.update(is_correct=False, azimuth_correct=False)
                 if selected_geotags:
                     GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
-                    # TODO: Solution for few very different guesses e.g. (0, 90, 180) => 90
+                    # TODO: Solution for few very different suggestions e.g. (0, 90, 180) => 90
                     filter_indices = []
                     contains_outliers = True
                     arr = [x.azimuth for x in selected_geotags if x.azimuth]
@@ -1027,7 +1027,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, GUESS_SUBJECT_AGE, GUESS_SUBJECT_GENDER, TRANSCRIBE  = range(14)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE  = range(14)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1040,8 +1040,8 @@ class Points(Model):
         (ANNOTATION, _('Annotation')),
         (CONFIRM_SUBJECT, _('Confirm subject')),
         (CONFIRM_IMAGE_SIMILARITY, _('Confirm Image similarity')),
-        (GUESS_SUBJECT_AGE, _('Guess subject age')),
-        (GUESS_SUBJECT_GENDER, _('Guess subject age')),
+        (SUGGESTION_SUBJECT_AGE, _('Suggestion subject age')),
+        (SUGGESTION_SUBJECT_GENDER, _('Suggestion subject age')),
         (TRANSCRIBE, _('Transcribe')),
     )
 
@@ -1053,9 +1053,9 @@ class Points(Model):
     dating = ForeignKey('Dating', null=True, blank=True, on_delete=CASCADE)
     dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True, on_delete=CASCADE)
     annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True, on_delete=CASCADE)
-    face_recognition_rectangle_subject_data_guess = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess', null=True, blank=True, on_delete=CASCADE)
-    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True, on_delete=CASCADE)
-    image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True, on_delete=CASCADE)
+    face_recognition_rectangle_subject_data_suggestion = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataSuggestion', null=True, blank=True, on_delete=CASCADE)
+    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserSuggestion', null=True, blank=True, on_delete=CASCADE)
+    image_similarity_confirmation = ForeignKey('ImageSimilaritySuggestion', null=True, blank=True, on_delete=CASCADE)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
     transcription = ForeignKey('Transcription', null=True, blank=True, on_delete=CASCADE)
@@ -1564,9 +1564,20 @@ class MyXtdComment(XtdComment):
     def dislike_count(self):
         return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
     
-    class WikimediaCommonsUpload(Model):
-        response_code= IntegerField(null=True, editable=False)
-        response_data = TextField(null=True, editable=False)
-        created = DateTimeField(auto_now_add=True, db_index=True)
-        photo = ForeignKey('Photo', on_delete=CASCADE)
-        url = URLField(null=True, blank=True, max_length=1023)
+class WikimediaCommonsUpload(Model):
+    response_code= IntegerField(null=True, editable=False)
+    response_data = TextField(null=True, editable=False)
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    url = URLField(null=True, blank=True, max_length=1023)
+
+class PhotoSceneSuggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)

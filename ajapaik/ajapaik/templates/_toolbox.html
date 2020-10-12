@@ -1,0 +1,249 @@
+{% load i18n %}
+<div class="{% if is_photo_modal %}ajp-mt-1{% else %}row ajp-height-48 mt-2{% endif %}">
+    <a data-id="{{ photo.id }}" class="float-left"
+        title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
+        rel="nofollow">
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
+    </a>
+    <a id="ajp-start-dating-button" data-id="{{ photo.id }}" class="float-left"
+        title="{% trans "Date this image" %}" href="#">
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
+        <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
+    </a>
+    <a title="{% trans "Add rephoto" %}" id="ajp-photoview-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
+    </a>
+    <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+        id="mark-object-button"
+        href="#" class="float-left"
+    >
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
+    </a>
+    <div class="dropdown float-left">
+        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
+            <li role="presentation" class="disabled-link">
+                <div role="menuitem" tabindex="-1" id="ajp-grab-link">
+                    <a href="{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                        {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <button id="ajp-categorize-scene-button" type="button" data-toggle="popover">
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
+    </button>
+    <a id="ajp-transcribe-button" data-id="{{ photo.id }}" class="float-left"
+        title="{% trans "Transcribe this image" %}" href="#">
+        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
+        <span id="ajp-photoview-transcriptions-count" class="badge"></span>
+    </a>
+</div>
+{% block specific_js %}
+    <script>
+        var photoSceneUrl = "{% url 'api_photo_scene' %}";
+        var photoSceneChoice = undefined;
+
+        function submitCategorySuggestion() {
+            return fetch(photoSceneUrl, {
+                method: 'POST',
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+
+                },
+                body: JSON.stringify({
+                    photoId: '{{ photo.id }}',
+                    scene: photoSceneChoice
+                })
+            }).then(function(response) {
+                return response.json();
+            }).then(function(json) {
+                $.notify(gettext(json.message), {type: 'success'});
+                fetchPhotoSceneSuggestion();
+                return json.data;
+            })
+            .catch((error) => {
+                $.notify(gettext(json.error), {type: 'danger'});
+            });
+        };
+
+        function clickCategoryButton(buttonId) {
+            photoSceneChoice = buttonId === 'interior-button'
+                ? 'Interior'
+                : 'Exterior';
+            let otherButtonId = photoSceneChoice === 'Interior'
+                ? '#exterior-button'
+                : '#interior-button';
+            if ($(otherButtonId).hasClass('btn-outline-primary')) {
+                $(otherButtonId).addClass('btn-light');
+                $(otherButtonId).removeClass('btn-outline-primary');
+            }
+            $('#' + buttonId).addClass('btn-outline-primary');
+            $('#' + buttonId).removeClass('btn-light');
+        };
+
+        function fetchPhotoSceneSuggestion() {
+            return fetch(photoSceneUrl + '{{ photo.id }}' + '/').then(function(response) {
+                return response.json();
+            }).then(function(json) {
+                return json.data;
+            });
+        }
+
+        fetchPhotoSceneSuggestion().then(function(data) {
+                let leftButtonClass = 'btn-light';
+                let rightButtonClass = 'btn-light';
+                let buttonTranslation = gettext('Confirm')
+
+                if (data === 'interior') {
+                    leftButtonClass = 'btn-outline-primary';
+                } else if (data === 'exterior') {
+                    rightButtonClass = 'btn-outline-primary';
+                } else {
+                    buttonTranslation = gettext('Submit')
+                }
+
+                let htmlTemplate = `<div class='d-flex'><button onclick='clickCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + leftButtonClass +`'><i class='material-icons notranslate ajp-icon-48'>night_shelter</i></button><button onclick='clickCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + rightButtonClass +`'><i class='material-icons ajp-icon-48 notranslate'>nature_people</i></div>`;
+                let actionButtonTemplate = `<button id='send-scene-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-2 w-100'>` + gettext(buttonTranslation) + `</button>`;
+                htmlTemplate += actionButtonTemplate;
+
+                $('#ajp-categorize-scene-button').popover({
+                    html: true,
+                    content: htmlTemplate,
+                    title: gettext('Categorize scene'),
+                    sanitize: false
+                });
+        });
+
+        $('#ajp-start-dating-button').click(function (e) {
+            e.preventDefault();
+            if (window.isFrontpage) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal dater photo click']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Map', 'Photo modal dater photo click']);
+            } else if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Photo modal dater photo click']);
+            } else {
+                _gaq.push(['_trackEvent', 'Game', 'Photo view dater photo click']);
+            }
+            if ($('#ajp-dater-container').is(':visible')) {
+                window.stopDater();
+                window.reportCloseDater();
+            } else {
+                window.startDater($(this).data('id'));
+                window.reportDaterOpen();
+            }
+        });
+
+        window.updateDatings = function () {
+            $.ajax({
+                url: "{% url 'get_datings' photo.id %}",
+                success: function (result) {
+                    $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
+                    $('#ajp-modal-start-dating-button').find('.badge').html(result.datings.length);
+                    $('#ajp-photoview-start-dating-button').find('.badge').html(result.datings.length);
+                    window.updateLeaderboard();
+                    $('#ajp-dater-input').val(null);
+                    $('#ajp-dater-comment').val(null);
+                }
+            });
+        };
+
+        $(document).on('click', '#ajp-transcribe-button', function (e) {
+            e.preventDefault();
+            if (window.isFrontpage) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
+            } else if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
+            }
+            if ($('#ajp-transcriber-container').is(':visible')) {
+                window.stopTranscriber();
+            } else {
+                window.startTranscriber($(this).data('id'));
+            }
+        });
+
+        $('#mark-object-button').click(function (e) {
+            e.preventDefault();
+            ObjectTagger.toggleCropping();
+        });
+
+        
+        window.startDater = function (photoId) {
+            $('.ajp-dater-hide-when-dater-visible').hide();
+            $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
+                photoId: photoId,
+                previousDatings: window.previousDatings
+            });
+            $('.ajp-close-rephoto-overlay-button').click();
+        };
+
+        window.stopDater = function () {
+            $('.ajp-dater-hide-when-dater-visible').show();
+            $('#ajp-dater-input').val(null);
+            $('#ajp-dater-comment').val(null);
+            $('#ajp-dater-feedback').empty();
+            $('#ajp-dater-container').hide();
+            $('#ajp-dater-feedback-card').hide();
+        };
+
+        window.updateTranscriptions = function () {
+            $.ajax({
+                url: "{% url 'api_transcriptions' photo.id %}",
+                success: function (result) {
+                    window.currentPhotoTranscriptions = result.transcriptions;
+                    if (window.currentPhotoTranscriptions.length > 0) {
+                        $('#ajp-transcribe-button').find('.badge').html(window.currentPhotoTranscriptions.length);
+                        $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
+                        if (!$('#ajp-transcriber-confirm-button').is(':visible')) {
+                            $('#ajp-transcriber-confirm-button').removeClass('d-none');
+                        }
+                    }
+                },
+                error: function () {
+                    $.notify("Failed to get transcriptions", {type: "danger"});
+                }
+            });
+        };
+
+        window.updateTranscriptions();
+
+        window.startTranscriber = function (photoId) {
+            $('.ajp-transcriber-hide-when-transcriber-visible').hide();
+            $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
+                photoId: photoId,
+                previousDatings: window.previousDatings
+            });
+            $('.ajp-close-rephoto-overlay-button').click();
+        };
+
+        window.stopTranscriber = function () {
+            $('.ajp-transcriber-hide-when-dater-visible').show();
+            $('#ajp-transcriber-comment').val(null);
+            $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
+        };
+
+        window.openPhotoUploadModal = function () {
+            if (window.currentlyOpenPhotoId) {
+                $.ajax({
+                    cache: false,
+                    url: window.photoUploadModalURL + window.currentlyOpenPhotoId + '/',
+                    success: function (result) {
+                        var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
+                        rephotoUploadModal.data('bs.modal', null);
+                        rephotoUploadModal.html(result).modal();
+                    }
+                });
+            }
+        };
+    </script>
+{% endblock %}

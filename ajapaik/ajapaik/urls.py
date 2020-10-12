@@ -138,6 +138,8 @@ urlpatterns += [
     url(r'^api/v1/wikidocumentaries/$', api.WikidocsAlbumsSearch.as_view()),
     url(r'^api/v1/wikidocumentaries/photos/$', api.WikidocsAlbumSearch.as_view()),
     url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
+    url(r'^api/v1/photo/scene/$', api.PhotoCategory.as_view(), name='api_photo_scene'),
+    url(r'^api/v1/photo/scene/(?P<photo_id>\d+)/$', api.PhotoCategory.as_view(), name='api_photo_scene'),
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
     url(r'^api/v1/photo/upload/settings$', api.RephotoUploadSettings.as_view(), name='api_submit_rephoto_upload_settings'),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),

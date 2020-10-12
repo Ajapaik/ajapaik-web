@@ -56,7 +56,7 @@ from google.oauth2 import id_token
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
 from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from ajapaik.ajapaik.utils import merge_profiles
 
@@ -1697,3 +1697,46 @@ class MergeProfiles(AjapaikAPIView):
                 return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
         else:
             return JsonResponse({'error': _('Please login')}, status=401)
+
+class PhotoCategory(AjapaikAPIView):
+    '''
+    API endpoints for getting photo scene category and updating it
+    '''
+    def get(self, request, photo_id, format=None):
+        try:
+            photo = get_object_or_404(Photo, id=photo_id)
+            scene = 'undefined'
+            suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, profile=request.user.profile).order_by('-created').first()
+            if suggestion and suggestion.scene == 1:
+                scene = 'exterior'
+            if suggestion and suggestion.scene == 0:
+                scene = 'interior'
+            return JsonResponse({'data': scene})
+        except:
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
+    
+    def post(self, request, format=None):
+        data = json.loads(request.body.decode("utf-8"))
+        photo_id = data['photoId']
+        scene = data['scene']
+        photo = get_object_or_404(Photo, id=photo_id)
+        if request.user and request.user.profile and request.user.profile.is_legit():
+            return JsonResponse({'error': _('Please login')}, status=401)
+        if not scene:
+            return JsonResponse({'error': _("Missing parameter: 'scene'")}, status=401)
+        for choice in PhotoSceneSuggestion.SCENE_CHOICES:
+            if choice[1] == scene:
+                previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                new_suggestion = PhotoSceneSuggestion(proposer=request.user.profile, photo=photo, scene=choice[0])
+                new_suggestion.save()
+
+                all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).exclude(proposer=request.user.profile).order_by('-created').first()
+                for suggestion in all_suggestions:
+                    print(suggestion)
+                
+                photo.scene = choice[0]
+                photo.save()
+
+                if previous_suggestion:
+                    return JsonResponse({'message': _('Your suggestion has been saved')})
+                return JsonResponse({'message': _('Your suggestion has been changed')})
