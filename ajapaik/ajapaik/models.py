@@ -425,6 +425,12 @@ class Photo(Model):
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
     postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back', on_delete=CASCADE)
     postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front', on_delete=CASCADE)
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
     original_lat = None
     original_lon = None
