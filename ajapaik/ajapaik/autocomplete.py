@@ -1,8 +1,8 @@
 from django.forms import ModelForm
 from dal import autocomplete
 
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, ImageSimilarityGuess, Licence, Photo, Points, Profile, Skip, Source, User, Video
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, User, Video
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, ObjectAnnotationFeedback
 
 def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
@@ -63,10 +63,10 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'to_photo': 'photo',
             'user_last_modified': 'profile'
         }
-    elif ac_model == ImageSimilarityGuess:
+    elif ac_model == ImageSimilaritySuggestion:
         field_url_dict = {
             'image_similarity': 'image-similarity',
-            'guesser': 'profile'
+            'proposer': 'profile'
         }
     elif ac_model == ObjectDetectionAnnotation:
         field_url_dict = {
@@ -129,7 +129,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     for field, url in field_url_dict.items():
         is_m2m = field in m2m
         text = 'Type to return a list of %s...' if is_m2m else 'Type to return a %s list...'
-        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess, GeoTag, ImageSimilarity, ImageSimilarityGuess, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points,  Skip]:
+        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points,  Skip]:
             minimum_input_length = 1
         else:
             minimum_input_length = 3

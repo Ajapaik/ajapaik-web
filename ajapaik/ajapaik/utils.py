@@ -18,8 +18,8 @@ def merge_profiles(target_profile, source_profile):
     from allauth.socialaccount.models import SocialAccount
     from django.apps import apps
 
-    from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, DifficultyFeedback, GeoTag, ImageSimilarity, ImageSimilarityGuess, MyXtdComment, Photo, PhotoLike, Points, Skip, Transcription, TranscriptionFeedback
-    from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataGuess, FaceRecognitionUserGuess
+    from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, DifficultyFeedback, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, MyXtdComment, Photo, PhotoLike, Points, Skip, Transcription, TranscriptionFeedback
+    from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataSuggestion, FaceRecognitionUserSuggestion
     from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationFeedback, ObjectDetectionAnnotation
     profile_querysets = [
         ('ajapaik', Album.objects.filter(profile=source_profile)),
@@ -51,9 +51,7 @@ def merge_profiles(target_profile, source_profile):
         ('ajapaik', ImageSimilarity.objects.filter(user_last_modified=source_profile))
     ]
 
-    guesser_querysets = [
-        ('ajapaik_face_recognition', FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser=source_profile)),
-        ('ajapaik', ImageSimilarityGuess.objects.filter(guesser=source_profile))
+        ('ajapaik', ImageSimilaritySuggestion.objects.filter(proposer=source_profile))
     ]
 
     queryset_dictionary = {'profile': profile_querysets, 'user': user_querysets, 'user_profile': user_profile_querysets, 'user_last_modified': user_last_modified_querysets, 'guesser': guesser_querysets}

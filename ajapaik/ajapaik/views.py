@@ -77,7 +77,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
-	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilarityGuess, ProfileMergeToken
+	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
@@ -2816,11 +2816,11 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
 	if (photo_id is None or photo_id_2 is None):
 		firstSimilar = ImageSimilarity.objects.filter(confirmed=False).first()
 		if firstSimilar is None:
-			guesses = ImageSimilarityGuess.objects.filter(guesser_id = profile.id).order_by('guesser_id', '-created').all().values_list('image_similarity_id', flat=True)
-			if guesses is None:
+			suggestions = ImageSimilaritySuggestion.objects.filter(proposer_id = profile.id).order_by('proposer_id', '-created').all().values_list('image_similarity_id', flat=True)
+			if suggestions is None:
 				similar_photos = ImageSimilarity.objects.all()
 			else:
-				similar_photos = ImageSimilarity.objects.exclude(id__in=guesses)
+				similar_photos = ImageSimilarity.objects.exclude(id__in=suggestions)
 			if similar_photos is None or len(similar_photos) < 1:
 				return render(request,'compare_photos/compare_photos_no_results.html')
 			firstSimilar = similar_photos.first()
@@ -3073,7 +3073,7 @@ def user(request, user_id):
 	object_annotations_pictures_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
 	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
 	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
-	similar_pictures_qs = ImageSimilarityGuess.objects.filter(guesser=profile).distinct('image_similarity')
+	similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
 	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
 	action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
 				   object_annotations_qs.count() + face_annotations_qs.count() + \
