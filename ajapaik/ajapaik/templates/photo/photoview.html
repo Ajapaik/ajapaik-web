@@ -255,28 +255,28 @@
 
 {% block specific_js %}
 <script>
-    resizeDescription = function() {
+    resizeDescription = function () {
         var similarPhotosContainer = $('#ajp-photoview-similar-photo-selection');
         var rephotosContainer = $('#ajp-photoview-rephoto-selection');
         var mainPhoto = $("#ajp-photoview-main-photo-container");
         var rephoto = $("#ajp-photoview-rephoto-container");
         rephotosContainer.height(mainPhoto.height() || 500);
         similarPhotosContainer.height(mainPhoto.height() || 500);
-        if(!rephotosContainer.hasClass('d-none')){
+        if (!rephotosContainer.hasClass('d-none')) {
             rephotosContainer.show();
         }
-        if(!similarPhotosContainer.hasClass('d-none')){
+        if (!similarPhotosContainer.hasClass('d-none')) {
             similarPhotosContainer.show();
         }
         mainPhoto.siblings().width(mainPhoto.width() || 320);
         rephoto.siblings().width(rephoto.width() || 320);
     }
 
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         resizeDescription();
     });
 
-    $(window).resize(function() {
+    $(window).resize(function () {
         resizeDescription();
     });
 

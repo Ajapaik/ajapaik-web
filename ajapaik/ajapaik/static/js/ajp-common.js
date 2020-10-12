@@ -176,10 +176,9 @@ $('.ajp-navbar').autoHidingNavbar();
 
         var oldMapsCity = getQueryParameterByName('maps-city'),
         oldMapsIdx = getQueryParameterByName('maps-index');
-        if(oldMapsCity){
+        if (oldMapsCity) {
             commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false, map)
-        }
-        else{
+        } else {
             commonVgmapi = new VanalinnadGooglemApi(null, false, map);
         }
         var cityDataDoneCallback = function () {
@@ -240,19 +239,19 @@ $('.ajp-navbar').autoHidingNavbar();
             let openButton = $('#open-btn');
             if (streetPanorama.getVisible()) {
                 _gaq.push(['_trackEvent', 'Map', 'Opened Street View']);
-                if(!!window.toggleSidePanel && !!window.isSidePanelOpen){
+                if (!!window.toggleSidePanel && !!window.isSidePanelOpen) {
                     window.toggleSidePanel();
                     window.photoPanelClosedByStreetView = true;
                 }
-                if(openButton){
+                if (openButton) {
                     openButton.addClass('d-none');
                 }
             } else {
-                if (!guessLocationStarted && photoPanelClosedByStreetView) {
+                if (!suggestionLocationStarted && photoPanelClosedByStreetView) {
                     window.toggleSidePanel();
                     window.photoPanelClosedByStreetView = false;
                 }
-                if(openButton){
+                if (openButton) {
                     openButton.removeClass('d-none');
                 }
             }
@@ -574,7 +573,7 @@ $('.ajp-navbar').autoHidingNavbar();
 
     updateStatDiv = function (count) {
         var statDiv = $('.ajp-minimap-geotagging-user-number');
-        if(statDiv.length === 0) {
+        if (statDiv.length === 0) {
             statDiv = $('#ajp-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > div > span > span');
             statDiv.empty().text(count);
             statDiv.removeClass('ajp-minimap-geotagging-user-multiple-people');
@@ -864,18 +863,18 @@ $('.ajp-navbar').autoHidingNavbar();
     };
 
     $(window).resize(function () {
-        if(!$('#ajp-modal-rephoto-container').is(':visible') && !$('#ajp-modal-similar-photo-container').is(':visible') && !window.isMobile){
+        if (!$('#ajp-modal-rephoto-container').is(':visible') && !$('#ajp-modal-similar-photo-container').is(':visible') && !window.isMobile) {
             window.resizeMinimap();
         }
-        if(isMapview){
-            if(window.outerWidth < 769){
-                if(mapOpts.mapTypeControlOptions.style !== 2) {
+        if (isMapview) {
+            if (window.outerWidth < 769) {
+                if (mapOpts.mapTypeControlOptions.style !== 2) {
                     mapOpts.mapTypeControlOptions.position = 9;
                     mapOpts.mapTypeControlOptions.style = 2;
                     map.setOptions(mapOpts);
                 }
             } else {
-                if(mapOpts.mapTypeControlOptions.style !== 0){
+                if (mapOpts.mapTypeControlOptions.style !== 0) {
                     mapOpts.mapTypeControlOptions.style = 0;
                     mapOpts.mapTypeControlOptions.position = 11;
                     map.setOptions(mapOpts);
@@ -1473,7 +1472,7 @@ $('.ajp-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajp-reverse-side-button', function (e) {
-        if(!window.isPhotoview) {
+        if (!window.isPhotoview) {
             e.preventDefault();
             if (window.currentPhotoReverseId) {
                 window.loadPhoto(window.currentPhotoReverseId);
@@ -1484,7 +1483,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on('click', '#ajp-rotate-photo-button', function () {
         var photoContainer = $('#ajp-modal-photo');
         var photoFullScreenContainer = $('#ajp-full-screen-image-wrapper');
-        if(isPhotoview) {
+        if (isPhotoview) {
             photoContainer = $('#ajp-photoview-main-photo');
         }
 
@@ -1496,9 +1495,9 @@ $('.ajp-navbar').autoHidingNavbar();
             photoContainer.css({'padding-right': '', 'padding-left': ''});
             photoFullScreenContainer.removeClass('rotate90').addClass('rotate180');
         }
-        else if(photoContainer.hasClass('rotate180')) {
+        else if (photoContainer.hasClass('rotate180')) {
             var photoContainerPadding = (1 - photoContainer.height() / photoContainer.width()) * 50;
-            if(photoContainerPadding > 0) {
+            if (photoContainerPadding > 0) {
                 photoContainer.attr('style', 'padding-bottom: calc(5px + ' + photoContainerPadding + '%) !important;padding-top: calc(5px + ' + photoContainerPadding + '%) !important');
             } else {
                 var photoContainerPadding = (1 - photoContainer.width() / photoContainer.height()) * 50;
@@ -1507,7 +1506,7 @@ $('.ajp-navbar').autoHidingNavbar();
             photoContainer.removeClass('rotate180').addClass('rotate270');
             photoFullScreenContainer.removeClass('rotate180').addClass('rotate270');
         }
-        else if(photoContainer.hasClass('rotate270')) {
+        else if (photoContainer.hasClass('rotate270')) {
             photoContainer.removeClass('rotate270');
             photoContainer.css({'padding-bottom': '', 'padding-top': ''});
             photoContainer.css({'padding-right': '', 'padding-left': ''});
@@ -1517,7 +1516,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
         else {
             var photoContainerPadding = (1 - photoContainer.height() / photoContainer.width()) * 50;
-            if(photoContainerPadding > 0) {
+            if (photoContainerPadding > 0) {
                 photoContainer.attr('style', 'padding-bottom: calc(5px + ' + photoContainerPadding + '%) !important;padding-top: calc(5px + ' + photoContainerPadding + '%) !important');
             } else {
                 var photoContainerPadding = (1 - photoContainer.width() / photoContainer.height()) * 50;
@@ -1731,7 +1730,7 @@ $('.ajp-navbar').autoHidingNavbar();
         e.preventDefault();
         $('#ajp-language').val($(this).attr('data-lang-code'));
         $('input[name=csrfmiddlewaretoken]').val(docCookies.getItem('csrftoken'));
-        if( window.location !== undefined && window.location.search !== undefined ) {
+        if ( window.location !== undefined && window.location.search !== undefined ) {
             $('input[name=next]').val(window.location.pathname + window.location.search)
         }
         $('#ajp-change-language-form').submit();
@@ -1815,7 +1814,7 @@ $('.ajp-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon', function () {
-        if(!window.currentProfileEmail){
+        if (!window.currentProfileEmail) {
             window.openPhotoUploadModal();
             return;
         }
@@ -1825,14 +1824,14 @@ $('.ajp-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
-        if(window.location.pathname.indexOf('curator') > -1) {
+        if (window.location.pathname.indexOf('curator') > -1) {
             return;
         }
         var albums =  $('#id-albums').val(),
             allIds = [],
             i,
             l;
-        if(window.isSelection && !$('#ajp-photo-modal').is(':visible')){
+        if (window.isSelection && !$('#ajp-photo-modal').is(':visible')) {
             var allElements = $('.ajp-photo-selection-thumbnail-link');
             for (i = 0, l = allElements.length; i < l; i += 1) {
                 allIds.push($(allElements[i]).data('id'));
@@ -1928,17 +1927,17 @@ $('.ajp-navbar').autoHidingNavbar();
         $(el.target).addClass('d-none');
     });
 
-    $(document).on('mouseleave', '.ajp-modal-photo-container, .ajp-photo', function() {
+    $(document).on('mouseleave', '.ajp-modal-photo-container, .ajp-photo', function () {
         $('.annotation-label').removeClass('d-none');
     });
 
     $(document).on('mouseenter', '.ajp-face-rectangle', function(el) {
-        if($(el.target).children()) {
+        if ($(el.target).children()) {
             $($(el.target).children()[0]).removeClass('d-none');
         }
     });
 
-    window.backClick = function() {
+    window.backClick = function () {
         if (document.referrer.indexOf(window.location.origin) == 0) {
             history.go(-1); return false;
         }

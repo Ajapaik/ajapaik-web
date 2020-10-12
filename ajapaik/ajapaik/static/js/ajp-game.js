@@ -202,7 +202,7 @@
                 window.currentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
-                if(!window.isMobile){
+                if (!window.isMobile) {
                     modalPhoto.on('load', photoLoadModalResizeFunction);
                 }
                 if (window.fullscreenEnabled) {

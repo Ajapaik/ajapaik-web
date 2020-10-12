@@ -4,7 +4,7 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         $(document).on('keydown', function (e) {
-            if($('input,textarea').is(':focus')) {
+            if ($('input,textarea').is(':focus')) {
                 return;
             }
             if (areHotkeysEnabled()) {

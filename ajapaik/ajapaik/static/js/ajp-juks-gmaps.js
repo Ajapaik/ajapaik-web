@@ -51,7 +51,7 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
         maxZoom: 18
     });
 
-    this.setLayer = function() {
+    this.setLayer = function () {
         let historicalMapsOverlay = new google.maps.ImageMapType({
             getTileUrl: function (coord, zoom) {
                 let tilesPerGlobe = 1 << zoom,
@@ -82,12 +82,12 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
     };
 
     this.changeIndex = function (index) {
-        if(index === this.vars.layerIndex || index < 0){
+        if (index === this.vars.layerIndex || index < 0) {
             return;
         }
         this.vars.layerIndex = index;
         map.overlayMapTypes.clear();
-        if(window.map.getMapTypeId() && window.map.getMapTypeId() === 'old-maps'){
+        if (window.map.getMapTypeId() && window.map.getMapTypeId() === 'old-maps') {
             this.setLayer();
         }
         this.refreshMap();
@@ -209,7 +209,7 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
             vanalinnadCitySelection.css('margin-top', '10px');
             that.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(that.citySelection);
         } else {
-            if(window.innerWidth > 768) {
+            if (window.innerWidth > 768) {
                 that.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(that.citySelection);
             }
             else {

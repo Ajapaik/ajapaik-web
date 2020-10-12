@@ -107,12 +107,12 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        $('#close-add-subject-data-modal').on('click', function() {
+        $('#close-add-subject-data-modal').on('click', function () {
             $('#ajp-add-subject-data-tutorial-modal').modal('toggle');
         });
 
-        showModal = function() {
-            if(!$('#ajp-add-subject-data-tutorial-modal').is(':visible')){
+        showModal = function () {
+            if (!$('#ajp-add-subject-data-tutorial-modal').is(':visible')) {
                 $('#ajp-add-subject-data-tutorial-modal').modal();
             }
         }
@@ -131,10 +131,10 @@
                 idleTime = 0;
             });
             //Zero the idle timer on touch events.
-            $(this).bind('touchstart', function(){
+            $(this).bind('touchstart', function () {
                 idleTime = 0;
             });
-            $(this).bind('touchmove', function(){
+            $(this).bind('touchmove', function () {
                 idleTime = 0;
             });
         });

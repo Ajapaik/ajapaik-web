@@ -225,7 +225,7 @@
                         var targetDiv = $('#ajp-album-selection');
                         targetDiv.empty();
                         targetDiv.removeClass('w-100');
-                        if(response.albums.length > 0) {
+                        if (response.albums.length > 0) {
                             for (var i = 0, l = response.albums.length; i < l; i += 1) {
                                 targetDiv.append(tmpl('ajp-frontpage-album-template', response.albums[i]));
                             }
@@ -347,7 +347,7 @@
                     window.showPhotos = response.show_photos;
                     var collection;
                     var attribute = window.order2;
-                    switch(window.order2){
+                    switch (window.order2) {
                         case 'rephotos':
                             collection = response.photos_with_rephotos;
                             break;
@@ -366,15 +366,15 @@
                     syncPagingButtons();
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
-                    if((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
-                        if(window.location.search.indexOf('&people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
+                    if ((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
+                        if (window.location.search.indexOf('&people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
                             targetDiv.append(
                                 tmpl(
                                     'ajp-frontpage-photo-search-empty-category-template',
                                     gettext('No tagged persons in album')
                                 ));
                         }
-                        else if(window.location.search.indexOf('&postcards=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                        else if (window.location.search.indexOf('&postcards=1') > 0 && window.location.search.indexOf('&q=') < 0) {
                             targetDiv.append(
                                 tmpl(
                                     'ajp-frontpage-photo-search-empty-category-template',

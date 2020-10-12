@@ -561,7 +561,7 @@
                     }
                 }
             });
-            this.streetPanorama.addListener('position_changed', function() {
+            this.streetPanorama.addListener('position_changed', function () {
                 that.map.setCenter(that.streetPanorama.getPosition());
             });
             this.streetPanorama.addListener('pov_changed', function () {

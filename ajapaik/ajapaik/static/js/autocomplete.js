@@ -443,7 +443,7 @@ yourlabs.Autocomplete.prototype.inputKeyup = function(e) {
         // Don't handle keypresses on hidden inputs (ie. with limited choices)
         return;
 
-    switch(e.keyCode) {
+    switch (e.keyCode) {
         case 40: // down arrow
         case 38: // up arrow
         case 16: // shift
