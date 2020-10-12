@@ -981,12 +981,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		max_page = ceil(float(total) / float(page_size))
 		qs_for_fb = photos[:5]
 		# FIXME: Stupid
-		if order1 == 'amount' and order2 == 'geotags':
-			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
-										'rephoto_count',
-										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 
-										'flip','has_similar')[start:end]
-		elif order1 == 'closest' and lat and lon:
+		if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
 										'comment_count', 'geotag_count', 'distance', 'geotag_count',
@@ -994,8 +989,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 		else:
 			photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
 										'rephoto_count',
-										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count',
+										'comment_count', 'geotag_count', 'geotag_count', 'geotag_count', 
 										'flip','has_similar')[start:end]
+
 		photos = [list(i) for i in photos]
 		if default_ordering and album and album.ordered:
 			album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
