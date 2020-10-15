@@ -66,7 +66,7 @@
                             ),
                             [points]
                             )
-                            : gettext('Your guess has been changed')
+                            : gettext('Your suggestion has been changed')
                         $.notify(message, {type: 'success'});
                     },
                     // Move the messages to API, 

@@ -6,7 +6,7 @@ from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import 
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback
 from ajapaik.ajapaik_face_recognition.service.face_annotation_edit_service import \
-    get_existing_user_additional_data_guess
+    get_existing_user_additional_data_suggestion
 
 
 def add_feedback(request: FaceAnnotationFeedbackRequest, http_request: HttpRequest):
@@ -72,12 +72,12 @@ def add_gender_and_age_feedback(
         request: FaceAnnotationFeedbackRequest,
         http_request: HttpRequest
 ):
-    existing_additional_data_guess = get_existing_user_additional_data_guess(user, face_annotation.id)
+    existing_additional_data_suggestion = get_existing_user_additional_data_suggestion(user, face_annotation.id)
 
     age = None if request.is_correct_age else request.alternative_age
     gender = None if request.is_correct_gender else request.alternative_gender
 
-    if existing_additional_data_guess is None:
+    if existing_additional_data_suggestion is None:
         add_additional_subject_data = AddAdditionalSubjectData(
             subject_rectangle_id=face_annotation.id,
             age=age,
@@ -85,6 +85,6 @@ def add_gender_and_age_feedback(
         )
         AddSubjectData.add_subject_data(add_additional_subject_data, http_request)
     else:
-        existing_additional_data_guess.age = age
-        existing_additional_data_guess.gender = gender
-        existing_additional_data_guess.save()
+        existing_additional_data_suggestion.age = age
+        existing_additional_data_suggestion.gender = gender
+        existing_additional_data_suggestion.save()

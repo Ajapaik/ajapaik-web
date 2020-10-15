@@ -277,7 +277,7 @@
     margin-top: 50px;
 }
 
-#ajp-geotagger-guess-marker {
+#ajp-geotagger-suggestion-marker {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -285,7 +285,7 @@
     cursor: pointer;
 }
 
-#ajp-geotagger-guess-marker.vantage {
+#ajp-geotagger-suggestion-marker.vantage {
     background: url('../images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg') no-repeat;
     margin-left: -12px;
     margin-top: -33px;
@@ -293,7 +293,7 @@
     width: 24px;
 }
 
-#ajp-geotagger-guess-marker.object {
+#ajp-geotagger-suggestion-marker.object {
     background: url('../images/material-design-icons/ic_place_24px_black.svg') no-repeat;
     margin-left: -12px;
     margin-top: -24px;
@@ -301,7 +301,7 @@
     width: 24px;
 }
 
-#ajp-geotagger-guess-marker.approximate {
+#ajp-geotagger-suggestion-marker.approximate {
     border-radius: 50%;
     margin-left: -12.5vw;
     margin-top: -12.5vw;

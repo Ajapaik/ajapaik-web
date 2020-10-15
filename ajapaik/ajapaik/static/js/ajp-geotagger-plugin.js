@@ -10,7 +10,7 @@
     /*global difficultyFeedbackURL*/
     /*global docCookies*/
     /*global updateLeaderboard*/
-    /*global stopGuessLocation*/
+    /*global stopSuggestionLocation*/
     /*global userIsSocialConnected*/
     /*global VanalinnadGooglemApi*/
     var AjapaikGeotagger = function (node, options) {
@@ -380,11 +380,11 @@
             $('#ajp-header-profile').click();
         });
         $(window).resize(function () {
-            if (that.guessingStarted) {
+            if (that.suggestionStarted) {
                 if (that.resizeTimer) {
                     clearTimeout(that.resizeTimer);
                 }
-                that.resizeTimer = setTimeout(that.fitGuessPhotosToContainers(), 500);
+                that.resizeTimer = setTimeout(that.fitSuggestionPhotosToContainers(), 500);
             }
         });
         this.initializeMap();
@@ -579,7 +579,7 @@
                 }
                 that.map.setCenter(places[0].geometry.location);
             });
-            $('<div/>').attr('id', 'ajp-geotagger-guess-marker').addClass('vantage').appendTo(this.map.getDiv());
+            $('<div/>').attr('id', 'ajp-geotagger-suggestion-marker').addClass('vantage').appendTo(this.map.getDiv());
             this.descriptionButton = $('#ajp-geotagger-description-button');
             this.description = $('#ajp-geotagger-description');
             this.source = $('#ajp-geotagger-source');
@@ -599,8 +599,8 @@
             });
             $('#ajp-geotagger-skip-button').click(function () {
                 that.saveSkip();
-                if (typeof(stopGuessLocation) === 'function') {
-                    stopGuessLocation();
+                if (typeof(stopSuggestionLocation) === 'function') {
+                    stopSuggestionLocation();
                 }
                 if (typeof window.reportGeotaggerSkip === 'function') {
                     window.reportGeotaggerSkip(that.options.currentPhotoId);
@@ -636,10 +636,10 @@
                         csrfmiddlewaretoken: docCookies.getItem('csrftoken')
                     },
                     success: function () {
-                        if (typeof(stopGuessLocation) === 'function') {
-                            stopGuessLocation();
+                        if (typeof(stopSuggestionLocation) === 'function') {
+                            stopSuggestionLocation();
                         }
-                        that.guessingStarted = true;
+                        that.suggestionStarted = true;
                     }
                 });
                 if (typeof window.reportGeotaggerSendFeedback === 'function' && feedbackVal) {
@@ -667,7 +667,7 @@
             });
             this.feedbackEstimatedLocationMarker = new google.maps.Marker({
                 map: this.map,
-                title: gettext('Median guess'),
+                title: gettext('Median suggestion'),
                 draggable: false,
                 icon: '/static/images/ajapaik_marker_35px_transparent.png'
             });
@@ -677,9 +677,9 @@
                 scaledSize: new google.maps.Size(24, 33),
                 anchor: new google.maps.Point(12, 33)
             };
-            this.playerGuessMarker = new google.maps.Marker({
+            this.playerSuggestionMarker = new google.maps.Marker({
                 map: this.map,
-                title: gettext('Your guess'),
+                title: gettext('Your suggestion'),
                 draggable: false,
                 icon: playerMarkerImage
             });
@@ -712,7 +712,7 @@
         },
         // FIXME: Getting less and less DRY
         switchToApproximateMode: function () {
-            $('#ajp-geotagger-guess-marker').removeClass('vantage object').addClass('approximate');
+            $('#ajp-geotagger-suggestion-marker').removeClass('vantage object').addClass('approximate');
             this.lockButton.hide();
             this.lockMapToCenter();
             this.setCursorToAuto();
@@ -722,7 +722,7 @@
             this.setCorrectInstructionString();
         },
         switchToVantagePointMode: function () {
-            $('#ajp-geotagger-guess-marker').removeClass('approximate object').addClass('vantage');
+            $('#ajp-geotagger-suggestion-marker').removeClass('approximate object').addClass('vantage');
             if (this.firstMoveDone) {
                 this.lockButton.show();
             }
@@ -735,7 +735,7 @@
             this.setCorrectInstructionString();
         },
         switchToObjectMode: function () {
-            $('#ajp-geotagger-guess-marker').removeClass('vantage approximate').addClass('object');
+            $('#ajp-geotagger-suggestion-marker').removeClass('vantage approximate').addClass('object');
             this.lockButton.hide();
             this.lockMapToCenter();
             this.panoramaMarker.setVisible(false);
@@ -792,20 +792,20 @@
             if (this.heatmap) {
                 this.heatmap.setMap(null);
             }
-            if (this.playerGuessMarker) {
-                this.playerGuessMarker.setVisible(false);
+            if (this.playerSuggestionMarker) {
+                this.playerSuggestionMarker.setVisible(false);
             }
             if (this.feedbackEstimatedLocationMarker) {
                 this.feedbackEstimatedLocationMarker.setVisible(false);
             }
-            $('#ajp-geotagger-guess-marker').show();
+            $('#ajp-geotagger-suggestion-marker').show();
             if (isMobile) {
                 $('#ajp-geotagger-search-box').addClass('d-none');
             } else {
                 $('#ajp-geotagger-show-search-button').hide();
             }
             this.feedbackMode = false;
-            this.guessingStarted = true;
+            this.suggestionStarted = true;
             google.maps.event.trigger(this.map, 'resize');
             this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.map.setZoom(16);
@@ -855,7 +855,7 @@
             });
         },
         lockMapToCenter: function () {
-            $('#ajp-geotagger-guess-marker').show();
+            $('#ajp-geotagger-suggestion-marker').show();
             this.firstMoveDone = false;
             this.lockButton.removeClass('active');
             this.realMarker.setVisible(false);
@@ -874,7 +874,7 @@
             this.setCorrectInstructionString();
         },
         unlockMapFromCenter: function () {
-            $('#ajp-geotagger-guess-marker').hide();
+            $('#ajp-geotagger-suggestion-marker').hide();
             this.firstMoveDone = false;
             this.lockButton.addClass('active');
             this.realMarker.setVisible(true);
@@ -926,7 +926,7 @@
             $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
             this.photoFlipped = !this.photoFlipped;
         },
-        fitGuessPhotosToContainers: function () {
+        fitSuggestionPhotosToContainers: function () {
             var newMargin,
                 targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),
@@ -967,7 +967,7 @@
             this.description.removeClass('d-none');
             this.source.removeClass('d-none');
             this.hintUsed = true;
-            this.fitGuessPhotosToContainers();
+            this.fitSuggestionPhotosToContainers();
         },
         setSaveButtonToInitial: function () {
             $('#ajp-geotagger-save-button').removeClass('btn-warning btn-success').addClass('btn-disabled');
@@ -1056,7 +1056,7 @@
                 url: saveLocationURL,
                 data: data,
                 success: function (response) {
-                    var playerGuessLatlng = that.realMarker.getPosition();
+                    var playerSuggestionLatlng = that.realMarker.getPosition();
                     updateLeaderboard();
                     $('input[name="difficulty"]').prop('checked', false);
                     that.lockButton.hide();
@@ -1067,13 +1067,13 @@
                     $('#ajp-geotagger-feedback').show();
                     $('#ajp-geotagger-current-stats').hide();
                     $('#ajp-geotagger-search-box').val(null);
-                    that.fitGuessPhotosToContainers();
+                    that.fitSuggestionPhotosToContainers();
                     if (response.heatmap_points) {
                         that.displayFeedbackHeatmap(response);
                         that.realMarker.setVisible(false);
-                        $('#ajp-geotagger-guess-marker').hide();
-                        that.playerGuessMarker.setPosition(playerGuessLatlng);
-                        that.playerGuessMarker.setVisible(true);
+                        $('#ajp-geotagger-suggestion-marker').hide();
+                        that.playerSuggestionMarker.setPosition(playerSuggestionLatlng);
+                        that.playerSuggestionMarker.setVisible(true);
                     }
                     // TODO: Let's try not to couple geotagger with everything else like last time
                     window.photoModalGeotaggingUserCount = response.new_geotag_count;

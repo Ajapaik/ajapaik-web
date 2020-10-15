@@ -270,8 +270,7 @@
     };
     window.updateLeaderboard();
     $(document).ready(function () {
-        var rephotoUploadModal = $('#ajp-rephoto-upload-modal'),
-            mainPhoto = $('#ajp-photoview-main-photo'),
+        var mainPhoto = $('#ajp-photoview-main-photo'),
             originalFullscreen = $('#ajp-full-screen-image');
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
@@ -352,16 +351,6 @@
             $('.ajp-invert-rephoto-overlay-button').hide("fade", 250);
         }
     });
-    $(document).on('click', '#ajp-photoview-add-rephoto-button', function () {
-        $.ajax({
-            cache: false,
-            url: window.photoUploadModalURL + {{ photo.id }} + '/',
-            success: function (result) {
-                rephotoUploadModal.data('bs.modal', null);
-                rephotoUploadModal.html(result).modal();
-            }
-        });
-    });
     $(document).on('click', '#ajp-photoview-map-button', function () {
     {% if album.0 %}
         window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.0 }};
@@ -423,16 +412,16 @@
         $.noop();
     };
     $('#ajp-photoview-start-geotagging-button').click(function () {
-        window.startGuessLocation();
+        window.startSuggestionLocation();
     });
-    window.startGuessLocation = function () {
+    window.startSuggestionLocation = function () {
         if (window.albumId) {
             window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
         } else {
             window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
         }
     };
-    window.stopGuessLocation = function () {
+    window.stopSuggestionLocation = function () {
         $('#ajp-photoview-container').show();
         $('html').removeClass('ajp-html-game-map');
         $('body').removeClass('ajp-body-game-map');
@@ -446,7 +435,7 @@
     if (typeof get_photoviewModalOptions === 'function') {
         var options = get_photoviewModalOptions();
         $('#ajp-photo-modal-map-container').AjapaikMinimap(options);
-        $('.ajp-minimap-start-guess-CTA-button').remove();
+        $('.ajp-minimap-start-suggestion-CTA-button').remove();
             var minimapConfirmGeotagButton = document.createElement('button');
             $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
                 .addClass('ajp-minimap-confirm-geotag-button')
@@ -458,14 +447,14 @@
                 $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
             }
             $('#ajp-photo-modal-map-container').append(minimapConfirmGeotagButton);
-            var minimapStartGuessButton = document.createElement('button');
-            $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
-                .addClass('ajp-minimap-start-guess-button')
+            var minimapStartSuggestionButton = document.createElement('button');
+            $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
+                .addClass('ajp-minimap-start-suggestion-button')
                 .data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Submit your own location'))
                 .html('<i class="material-icons notranslate">edit_location</i>').popover();
-            $('#ajp-photo-modal-map-container').append(minimapStartGuessButton);
+            $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
     }
 });
 </script>

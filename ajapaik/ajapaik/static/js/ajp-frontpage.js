@@ -428,14 +428,14 @@
         window.handleAlbumChange = function () {
             window.location.href = '/?album=' + window.albumId;
         };
-        window.startGuessLocation = function (photoId) {
+        window.startSuggestionLocation = function (photoId) {
             if (window.albumId) {
                 window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
                 window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
             }
         };
-        window.stopGuessLocation = function () {
+        window.stopSuggestionLocation = function () {
             $('#ajp-geotagging-container').hide();
             $('#ajp-frontpage-container').show();
             $('#ajp-photo-modal').show();
@@ -452,10 +452,10 @@
             window.locationToolsOpen = false;
             window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
-            if (window.startGuessScrollTop) {
+            if (window.startSuggestionScrollTop) {
                 setTimeout(function () {
-                    $(window).scrollTop(window.startGuessScrollTop);
-                    window.startGuessScrollTop = null;
+                    $(window).scrollTop(window.startSuggestionScrollTop);
+                    window.startSuggestionScrollTop = null;
                 }, 1000);
             }
         };

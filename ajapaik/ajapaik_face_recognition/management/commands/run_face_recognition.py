@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 from dlib import face_recognition_model_v1
 
 from ajapaik.ajapaik.models import Album
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserSuggestion
 
 all_the_people_we_have_faces_for = Album.objects.filter(face_encodings__isnull=False).all()
 for each in all_the_people_we_have_faces_for:
@@ -19,17 +19,17 @@ def recognize_single_rectangle(unrecognized_rectangle: FaceRecognitionRectangle)
         assert isinstance(person, Album)
         comparison_results = face_recognition.compare_faces(person.loaded_faces, np.array(loads(unrecognized_rectangle.face_encoding)))
         if comparison_results[0]:
-            unrecognized_rectangle.subject_ai_guess = person
+            unrecognized_rectangle.subject_ai_suggestion = person
             unrecognized_rectangle.save()
 
 class Command(BaseCommand):
     help = 'Will run face recognition on all rectangles in our database'
 
     def handle(self, *args, **options):
-        # TODO: What if people guess wrong and the computer knows better?
+        # TODO: What if people propose wrong and the computer knows better?
         rectangles_without_known_subjects = FaceRecognitionRectangle.objects.filter(deleted__isnull=True,
                                                                                     subject_consensus__isnull=True,
-                                                                                    subject_ai_guess__isnull=True)
+                                                                                    subject_ai_suggestion__isnull=True)
         # TODO: This double loop is going to mean a world of pain
         for rectangle in rectangles_without_known_subjects:
             recognize_single_rectangle(rectangle)
@@ -48,11 +48,11 @@ class Command(BaseCommand):
         #                                                                 my_encoding)
         #             if comparison_results[0]:
         #                 # Found our person
-        #                 FaceRecognitionUserGuess(
+        #                 FaceRecognitionUserSuggestion(
         #                     rectangle=rectangle,
         #                     subject=person
         #                 ).save()
-        #                 rectangle.subject_ai_guess = person
+        #                 rectangle.subject_ai_suggestion = person
         #                 rectangle.save()
         #                 rectangle.photo.people.add(person)
         #                 break

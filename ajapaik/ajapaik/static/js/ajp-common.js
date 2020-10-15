@@ -45,7 +45,7 @@ var map,
     isPhotoview,
     photoPanelClosedByStreetView = false,
     mapTypeChangedListener,
-    guessLocationStarted = false,
+    suggestionLocationStarted = false,
     streetviewVisibleChangedListener,
     streetviewPanoChangedListener,
     currentlyOpenPhotoId,
@@ -60,7 +60,7 @@ var map,
     userClosedSimilarPhotoTools = true,
     fullscreenEnabled = false,
     currentPhotoDescription = false,
-    comingBackFromGuessLocation = false,
+    comingBackFromSuggestionLocation = false,
     getGeolocation,
     handleGeolocation,
     geolocationError,
@@ -613,7 +613,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '.ajp-minimap-start-guess-CTA-button', function () {
+    $(document).on('click', '.ajp-minimap-start-suggestion-CTA-button', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal CTA specify location click']);
         } else if (window.isMapview) {
@@ -624,7 +624,7 @@ $('.ajp-navbar').autoHidingNavbar();
         if (window.isGame) {
             $('.ajp-game-specify-location-button')[0].click();
         } else {
-            window.startGuessLocation($(this).data('id'));
+            window.startSuggestionLocation($(this).data('id'));
         }
     });
 
@@ -637,7 +637,7 @@ $('.ajp-navbar').autoHidingNavbar();
 
     window.positionMinimapCTAButton = function () {
         var mapCanvas = $('#ajp-photo-modal-map-canvas');
-        $('.ajp-minimap-start-guess-CTA-button').css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
+        $('.ajp-minimap-start-suggestion-CTA-button').css('margin-left', ((mapCanvas.width() / 2) - 35) + 'px')
             .css('margin-top', ((mapCanvas.height() / 2) - 35) + 'px');
     };
 
@@ -685,9 +685,9 @@ $('.ajp-navbar').autoHidingNavbar();
                 minimapLargeCTAButton = document.createElement('button');
                 minimapLargeCTAButtonIcon = document.createElement('i');
                 $(minimapLargeCTAButtonIcon).addClass('material-icons notranslate').html('add_location');
-                $(minimapLargeCTAButton).addClass('ajp-minimap-start-guess-CTA-button')
+                $(minimapLargeCTAButton).addClass('ajp-minimap-start-suggestion-CTA-button')
                     .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
-                $('.ajp-minimap-start-guess-CTA-button').remove();
+                $('.ajp-minimap-start-suggestion-CTA-button').remove();
                 var mapCanvas = $('#ajp-photo-modal-map-canvas');
                 $(minimapLargeCTAButton).attr('data-id', window.currentlyOpenPhotoId);
                 mapContainer.append(minimapLargeCTAButton);
@@ -724,7 +724,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     mapTypeId: 'OSM'
                 });
                 minimapLargeCTAButton = null;
-                $('.ajp-minimap-start-guess-CTA-button').remove();
+                $('.ajp-minimap-start-suggestion-CTA-button').remove();
                 var minimapConfirmGeotagButton = document.createElement('button');
                 $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
                     .addClass('ajp-minimap-confirm-geotag-button')
@@ -736,14 +736,14 @@ $('.ajp-navbar').autoHidingNavbar();
                     $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
                 }
                 window.miniMap.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(minimapConfirmGeotagButton);
-                var minimapStartGuessButton = document.createElement('button');
-                $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
-                    .addClass('ajp-minimap-start-guess-button')
+                var minimapStartSuggestionButton = document.createElement('button');
+                $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
+                    .addClass('ajp-minimap-start-suggestion-button')
                     .data('trigger', 'hover')
                     .data('placement', 'top').data('toggle', 'popover')
                     .data('content', gettext('Submit your own location'))
                     .html('<i class="material-icons notranslate">edit_location</i>').popover();
-                window.miniMap.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(minimapStartGuessButton);
+                window.miniMap.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(minimapStartSuggestionButton);
                 $('.ajp-minimap-geotagging-user-number').remove();
                 var minimapGeotaggingUserNumber = document.createElement('div');
                 var minimapGeotaggingUserNumberSpan = document.createElement('span');
@@ -1123,19 +1123,6 @@ $('.ajp-navbar').autoHidingNavbar();
             target.find('span').html(len);
         });
     });
-    window.openPhotoUploadModal = function () {
-        if (window.currentlyOpenPhotoId) {
-            $.ajax({
-                cache: false,
-                url: window.photoUploadModalURL + window.currentlyOpenPhotoId + '/',
-                success: function (result) {
-                    var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
-                    rephotoUploadModal.data('bs.modal', null);
-                    rephotoUploadModal.html(result).modal();
-                }
-            });
-        }
-    };
     // Hover on dynamic elements doesn't work...
     $(document).on('mouseenter', '.ajp-frontpage-image-container', function () {
         $(this).find('.ajp-thumbnail-selection-icon').show('fade', 250);
@@ -1262,8 +1249,10 @@ $('.ajp-navbar').autoHidingNavbar();
             }
         });
     };
-    $(document).on('click', '#ajp-photo-modal-share', function () {
-        if (window.isFrontpage) {
+    $(document).on('click', '#ajp-sharing-dropdown-button', function () {
+        if (window.isPhotoview) {
+            _gaq.push(['_trackEvent', 'Photoview', 'Photo share click']);
+        } else if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal share click']);
         } else if (window.isMapview) {
             _gaq.push(['_trackEvent', 'Map', 'Photo modal share click']);
@@ -1535,7 +1524,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajp-photo-modal-specify-location, .ajp-minimap-start-guess-button', function (e) {
+    $(document).on('click', '#ajp-photo-modal-specify-location, .ajp-minimap-start-suggestion-button', function (e) {
         e.preventDefault();
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Photo modal specify location click']);
@@ -1544,31 +1533,7 @@ $('.ajp-navbar').autoHidingNavbar();
         } else if (window.isGame) {
             _gaq.push(['_trackEvent', 'Game', 'Photo modal specify location click']);
         }
-        window.startGuessLocation($(this).data('id'));
-    });
-
-    $(document).on('click', '#ajp-photo-modal-start-dating-button', function (e) {
-        e.preventDefault();
-        if (window.isFrontpage) {
-            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
-        } else if (window.isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
-        } else if (window.isGame) {
-            _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
-        }
-        window.startDater($(this).data('id'));
-    });
-    
-    $(document).on('click', '#ajp-photoview-transcribe-button', function (e) {
-        e.preventDefault();
-        if (window.isFrontpage) {
-            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
-        } else if (window.isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
-        } else if (window.isGame) {
-            _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
-        }
-        window.startTranscriber($(this).data('id'));
+        window.startSuggestionLocation($(this).data('id'));
     });
 
     $(document).on('click', '#ajp-photo-modal-close-button', function (e) {

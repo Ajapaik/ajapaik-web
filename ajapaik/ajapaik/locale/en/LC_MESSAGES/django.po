@@ -2233,8 +2233,8 @@ msgid "The photo has been mapped to a new location thanks to you."
 msgstr "The photo has been mapped to a new location thanks to you."
 
 #: ajapaik/ajapaik/views.py:1630
-msgid "Your guess was first."
-msgstr "Your guess was first."
+msgid "Your suggestion was first."
+msgstr "Your suggestion was first."
 
 #: ajapaik/ajapaik/views.py:1903
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
@@ -2402,8 +2402,8 @@ msgstr "Russian"
 msgid "French"
 msgstr "French"
 
-#~ msgid "Submit guess"
-#~ msgstr "Submit guess"
+#~ msgid "Submit suggestion"
+#~ msgstr "Submit suggestion"
 
 #~ msgid "This rectangle is bad, I think it should be removed."
 #~ msgstr "This rectangle is bad, I think it should be removed."

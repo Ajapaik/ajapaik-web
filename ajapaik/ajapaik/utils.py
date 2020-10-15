@@ -32,7 +32,7 @@ def merge_profiles(target_profile, source_profile):
     user_querysets = [
         ('ajapaik_face_recognition', FaceRecognitionRectangle.objects.filter(user=source_profile)),
         ('ajapaik_face_recognition', FaceRecognitionRectangleFeedback.objects.filter(user=source_profile)),
-        ('ajapaik_face_recognition', FaceRecognitionUserGuess.objects.filter(user=source_profile)),
+        ('ajapaik_face_recognition', FaceRecognitionUserSuggestion.objects.filter(user=source_profile)),
         ('ajapaik', GeoTag.objects.filter(user=source_profile)),
         ('ajapaik_object_recognition', ObjectAnnotationFeedback.objects.filter(user=source_profile)),
         ('ajapaik_object_recognition', ObjectDetectionAnnotation.objects.filter(user=source_profile)),
@@ -51,10 +51,12 @@ def merge_profiles(target_profile, source_profile):
         ('ajapaik', ImageSimilarity.objects.filter(user_last_modified=source_profile))
     ]
 
+    proposer_querysets = [
+        ('ajapaik_face_recognition', FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer=source_profile)),
         ('ajapaik', ImageSimilaritySuggestion.objects.filter(proposer=source_profile))
     ]
 
-    queryset_dictionary = {'profile': profile_querysets, 'user': user_querysets, 'user_profile': user_profile_querysets, 'user_last_modified': user_last_modified_querysets, 'guesser': guesser_querysets}
+    queryset_dictionary = {'profile': profile_querysets, 'user': user_querysets, 'user_profile': user_profile_querysets, 'user_last_modified': user_last_modified_querysets, 'proposer': proposer_querysets}
 
     for key, value in queryset_dictionary.items():
         for app_queryset_tuple in value:

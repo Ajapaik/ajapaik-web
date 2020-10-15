@@ -1569,7 +1569,7 @@ def geotag_add(request):
 		new_geotag.save()
 		initial_lat = tagged_photo.lat
 		initial_lon = tagged_photo.lon
-		# Calculate new lat, lon, confidence, guess_level, azimuth, azimuth_confidence, geotag_count for photo
+		# Calculate new lat, lon, confidence, suggestion_level, azimuth, azimuth_confidence, geotag_count for photo
 		tagged_photo.set_calculated_fields()
 		tagged_photo.latest_geotag = timezone.now()
 		tagged_photo.save()
@@ -1621,7 +1621,7 @@ def geotag_add(request):
 			else:
 				context['feedback_message'] = _('The photo has been mapped to a new location thanks to you.')
 			if len(geotags_for_this_photo) == 1:
-				context['feedback_message'] = _('Your guess was first.')
+				context['feedback_message'] = _('Your suggestion was first.')
 		for a in processed_photo.albums.all():
 			qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
 			a.geotagged_photo_count_with_subalbums = qs.count()

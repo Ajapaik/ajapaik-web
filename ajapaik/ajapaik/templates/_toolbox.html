@@ -10,7 +10,7 @@
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
         <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
     </a>
-    <a title="{% trans "Add rephoto" %}" id="ajp-photoview-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
+    <a title="{% trans "Add rephoto" %}" id="ajp-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
     </a>
     <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
@@ -34,7 +34,7 @@
             </li>
         </ul>
     </div>
-    <button id="ajp-categorize-scene-button" type="button" data-toggle="popover">
+    <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
     </button>
     <a id="ajp-transcribe-button" data-id="{{ photo.id }}" class="float-left"
@@ -45,8 +45,17 @@
 </div>
 {% block specific_js %}
     <script>
+        var isAuthenticated = '{{ user.profile.is_legit }}' == 'True';
         var photoSceneUrl = "{% url 'api_photo_scene' %}";
         var photoSceneChoice = undefined;
+
+        async function handleErrors(response) {
+            const data = await response.json();
+            if (data.error) {
+                throw data.error;
+            }
+            return data.message;
+        }
 
         function submitCategorySuggestion() {
             return fetch(photoSceneUrl, {
@@ -62,15 +71,14 @@
                     photoId: '{{ photo.id }}',
                     scene: photoSceneChoice
                 })
-            }).then(function(response) {
-                return response.json();
-            }).then(function(json) {
-                $.notify(gettext(json.message), {type: 'success'});
-                fetchPhotoSceneSuggestion();
-                return json.data;
+            
             })
-            .catch((error) => {
-                $.notify(gettext(json.error), {type: 'danger'});
+            .then(handleErrors)
+            .then(function(message) {
+                fetchPhotoSceneSuggestion();
+                $.notify(gettext(message), {type: 'success'});
+            }).catch((error) => {
+                $.notify(gettext(error), {type: 'danger'});
             });
         };
 
@@ -98,27 +106,42 @@
         }
 
         fetchPhotoSceneSuggestion().then(function(data) {
+                photoSceneChoice = data;
                 let leftButtonClass = 'btn-light';
                 let rightButtonClass = 'btn-light';
                 let buttonTranslation = gettext('Confirm')
+                let title = gettext('Categorize scene');
 
-                if (data === 'interior') {
+                if (photoSceneChoice === 'Interior') {
                     leftButtonClass = 'btn-outline-primary';
-                } else if (data === 'exterior') {
+                } else if (photoSceneChoice === 'Exterior') {
                     rightButtonClass = 'btn-outline-primary';
                 } else {
                     buttonTranslation = gettext('Submit')
                 }
 
-                let htmlTemplate = `<div class='d-flex'><button onclick='clickCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + leftButtonClass +`'><i class='material-icons notranslate ajp-icon-48'>night_shelter</i></button><button onclick='clickCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + rightButtonClass +`'><i class='material-icons ajp-icon-48 notranslate'>nature_people</i></div>`;
+                let content = `<div class='d-flex'><button onclick='clickCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + leftButtonClass +`'><i class='material-icons notranslate ajp-icon-48'>night_shelter</i></button><button onclick='clickCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + rightButtonClass +`'><i class='material-icons ajp-icon-48 notranslate'>nature_people</i></div>`;
                 let actionButtonTemplate = `<button id='send-scene-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-2 w-100'>` + gettext(buttonTranslation) + `</button>`;
-                htmlTemplate += actionButtonTemplate;
+                content += actionButtonTemplate;
+                
+                if (!isAuthenticated) {
+                    title = gettext('Log in');
+                    content = `<div class="pb-5"><form method="post" action="/accounts/login/" class="form">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="` + window.docCookies.getItem('csrftoken') + `">
+                    <input class="form-control" id="id-login" maxlength="254" name="login" placeholder="E-posti aadress" required="required" title="" type="text" autocomplete="username">
+                    <input class="form-control" id="id-password" name="password" placeholder="Password" required="required" title="" type="password" autocomplete="current-password">              
+                    <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button mt-2">
+                        ` + gettext('Log in') + `
+                    </button>
+                    </form></div>`;
+                }
 
                 $('#ajp-categorize-scene-button').popover({
+                    container: '#ajp-modal-body',
                     html: true,
-                    content: htmlTemplate,
-                    title: gettext('Categorize scene'),
-                    sanitize: false
+                    sanitize: false,
+                    content,
+                    title
                 });
         });
 
@@ -245,5 +268,19 @@
                 });
             }
         };
+
+        $(document).ready(function () {
+            var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
+            $(document).on('click', '#ajp-add-rephoto-button', function () {
+                $.ajax({
+                    cache: false,
+                    url: window.photoUploadModalURL + {{ photo.id }} + '/',
+                    success: function (result) {
+                        rephotoUploadModal.data('bs.modal', null);
+                        rephotoUploadModal.html(result).modal();
+                    }
+                });
+            });
+        });
     </script>
 {% endblock %}

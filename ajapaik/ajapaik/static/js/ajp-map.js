@@ -218,7 +218,7 @@
                 historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
             }
         }
-        if (photoDrawerOpen || window.guessLocationStarted) {
+        if (photoDrawerOpen || window.suggestionLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
         if (limitByAlbum) {
@@ -226,7 +226,7 @@
         } else {
             historyReplacementString += '&limitToAlbum=0';
         }
-        if (window.guessLocationStarted) {
+        if (window.suggestionLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
         if (window.photoQuery) {
@@ -243,8 +243,8 @@
     };
 
 
-    window.startGuessLocation = function () {
-        if (!window.guessLocationStarted) {
+    window.startSuggestionLocation = function () {
+        if (!window.suggestionLocationStarted) {
             var startLat = window.map.getCenter().lat(),
                 startLon = window.map.getCenter().lng();
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
@@ -282,13 +282,13 @@
                 hintUsed: true
             });
             $('body').css('overflow', 'auto');
-            window.guessLocationStarted = true;
+            window.suggestionLocationStarted = true;
             window.syncMapStateToURL();
         }
     };
 
 
-    window.stopGuessLocation = function () {
+    window.stopSuggestionLocation = function () {
         $('#ajp-map-container').show();
         $('#map-side-panel').show();
         $('#close-btn').show();
@@ -305,7 +305,7 @@
         $('.modal-backdrop').show();
         $('#ajp-geotagging-container').hide();
         $('body').css('overflow', 'hidden');
-        window.guessLocationStarted = false;
+        window.suggestionLocationStarted = false;
         window.syncMapStateToURL();
     };
 
@@ -328,12 +328,12 @@
 
 
     window.toggleVisiblePaneElements = function () {
-        if (window.map && !window.guessLocationStarted) {
+        if (window.map && !window.suggestionLocationStarted) {
             window.morePhotosCanBeLoaded = false;
-            if (!window.comingBackFromGuessLocation) {
+            if (!window.comingBackFromSuggestionLocation) {
                 window.deselectMarker();
             } else {
-                window.comingBackFromGuessLocation = false;
+                window.comingBackFromSuggestionLocation = false;
             }
             if (window.urlParamsInitialized) {
                 currentlySelectedMarker = null;
@@ -567,7 +567,7 @@
         if (targetPaneElement.length) {
             var scrollElement = $('#img-wrapper');
 
-            if(window.innerWidth > 768) {
+            if (window.innerWidth > 768) {
                 var currentScrollValue = scrollElement.scrollTop();
                 // Calculating scroll value to place photo in middle of screen.
                 var scrollValue = currentScrollValue + (
@@ -722,7 +722,7 @@
         $('#ajp-header-album-filter-button-off').hide();
         $('#ajp-header-album-filter-button-on').show();
         $('#ajp-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
-        if(showMessage) {
+        if (showMessage) {
             var albumFilterMessage = interpolate(
                 gettext('Pictures only in album: %(albumName)s are shown in the sidebar'), 
                 {

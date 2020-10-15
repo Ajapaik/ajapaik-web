@@ -544,12 +544,12 @@ msgid "Thank you!"
 msgstr "Thank you!"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:671
-msgid "Median guess"
-msgstr "Median guess"
+msgid "Median suggestion"
+msgstr "Median suggestion"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:683
-msgid "Your guess"
-msgstr "Your guess"
+msgid "Your suggestion"
+msgstr "Your suggestion"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:698
 msgid "How much has the depicted location changed?"
@@ -624,8 +624,8 @@ msgstr[0] "You have gained %s points"
 msgstr[1] "You have gained %s points"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:69
-msgid "Your guess has been changed"
-msgstr "Your guess has been changed"
+msgid "Your suggestion has been changed"
+msgstr "Your suggestion has been changed"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:74
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"

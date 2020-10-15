@@ -53,6 +53,8 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from google.auth.transport import requests as google_auth_requests
 from google.oauth2 import id_token
 
+from ajapaik.utils import most_frequent
+
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
@@ -1706,11 +1708,11 @@ class PhotoCategory(AjapaikAPIView):
         try:
             photo = get_object_or_404(Photo, id=photo_id)
             scene = 'undefined'
-            suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, profile=request.user.profile).order_by('-created').first()
+            suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
             if suggestion and suggestion.scene == 1:
-                scene = 'exterior'
+                scene = 'Exterior'
             if suggestion and suggestion.scene == 0:
-                scene = 'interior'
+                scene = 'Interior'
             return JsonResponse({'data': scene})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
@@ -1720,23 +1722,34 @@ class PhotoCategory(AjapaikAPIView):
         photo_id = data['photoId']
         scene = data['scene']
         photo = get_object_or_404(Photo, id=photo_id)
-        if request.user and request.user.profile and request.user.profile.is_legit():
+        if not (request.user and request.user.profile and request.user.profile.is_legit()):
             return JsonResponse({'error': _('Please login')}, status=401)
         if not scene:
             return JsonResponse({'error': _("Missing parameter: 'scene'")}, status=401)
         for choice in PhotoSceneSuggestion.SCENE_CHOICES:
             if choice[1] == scene:
                 previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                if previous_suggestion is not None and previous_suggestion.scene == choice[0]:
+                    return JsonResponse({'message': _('You have already made this guess')})
+
                 new_suggestion = PhotoSceneSuggestion(proposer=request.user.profile, photo=photo, scene=choice[0])
                 new_suggestion.save()
 
-                all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).exclude(proposer=request.user.profile).order_by('-created').first()
-                for suggestion in all_suggestions:
-                    print(suggestion)
-                
-                photo.scene = choice[0]
-                photo.save()
+                all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).order_by('-created')
+                if all_suggestions is None:
+                    photo.scene = choice[0]
+                    photo.save()
+                else:
+                    suggestion_scenes = []
+                    
+                    for suggestion in all_suggestions:
+                        suggestion_scenes.append(suggestion.scene)
+
+                    most_common_choice = most_frequent(suggestion_scenes)
+
+                    photo.scene = most_common_choice
+                    photo.save()
 
                 if previous_suggestion:
-                    return JsonResponse({'message': _('Your suggestion has been saved')})
-                return JsonResponse({'message': _('Your suggestion has been changed')})
+                    return JsonResponse({'message': _('Your suggestion has been changed')})
+                return JsonResponse({'message': _('Your suggestion has been saved')})

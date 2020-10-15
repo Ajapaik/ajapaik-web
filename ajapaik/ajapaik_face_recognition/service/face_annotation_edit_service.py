@@ -4,8 +4,8 @@ from ajapaik.ajapaik.models import Album, Profile
 from ajapaik.ajapaik_face_recognition.api import AddSubjectData
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserGuess, \
-    FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserSuggestion, \
+    FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from ajapaik.ajapaik_object_recognition.object_annotation_utils import AGE_NOT_SURE, GENDER_NOT_SURE
 
@@ -25,14 +25,14 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
             new_subject = Album.objects.get(pk=request.new_subject_id)
             annotation.subject_consensus = new_subject
 
-            user_guess = get_existing_user_guess(annotation, request)
+            user_suggestion = get_existing_user_suggestion(annotation, request)
 
-            if user_guess is not None:
-                user_guess.subject_album = new_subject
-                user_guess.save()
+            if user_suggestion is not None:
+                user_suggestion.subject_album = new_subject
+                user_suggestion.save()
 
         if request.user_id == annotation.user_id:
-            update_user_guesses(http_request, annotation.id, request)
+            update_user_suggestions(http_request, annotation.id, request)
 
         annotation.save()
 
@@ -44,60 +44,60 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
         return True
 
 
-def get_existing_user_guess(annotation: FaceRecognitionRectangle, request: FaceAnnotationUpdateRequest):
+def get_existing_user_suggestion(annotation: FaceRecognitionRectangle, request: FaceAnnotationUpdateRequest):
     try:
-        return FaceRecognitionUserGuess.objects.get(
+        return FaceRecognitionUserSuggestion.objects.get(
             rectangle=annotation,
             user_id=request.user_id
         )
-    except FaceRecognitionUserGuess.DoesNotExist:
+    except FaceRecognitionUserSuggestion.DoesNotExist:
         return None
 
 
-def update_user_guesses(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
-    user_guess = get_existing_user_additional_data_guess(
-        guesser=AddSubjectData.get_profile(http_request),
+def update_user_suggestions(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
+    user_suggestion = get_existing_user_additional_data_suggestion(
+        proposer=AddSubjectData.get_profile(http_request),
         annotation_id=annotation_id
     )
 
-    has_age_guess = update_request.new_age_guess is not None and update_request.new_age_guess != AGE_NOT_SURE
-    has_gender_guess = \
-        update_request.new_gender_guess is not None and update_request.new_gender_guess != GENDER_NOT_SURE
+    has_age_suggestion = update_request.new_age_suggestion is not None and update_request.new_age_suggestion != AGE_NOT_SURE
+    has_gender_suggestion = \
+        update_request.new_gender_suggestion is not None and update_request.new_gender_suggestion != GENDER_NOT_SURE
 
-    if user_guess is None and (has_age_guess or has_gender_guess):
+    if user_suggestion is None and (has_age_suggestion or has_gender_suggestion):
         add_additional_subject_data = AddAdditionalSubjectData(
             subject_rectangle_id=annotation_id,
-            age=update_request.new_age_guess,
-            gender=update_request.new_gender_guess
+            age=update_request.new_age_suggestion,
+            gender=update_request.new_gender_suggestion
         )
         AddSubjectData.add_subject_data(add_additional_subject_data, http_request)
-    elif user_guess.gender != update_request.new_gender_guess or user_guess.age != update_request.new_age_guess:
-        user_guess.age = update_request.new_age_guess
-        user_guess.gender = update_request.new_gender_guess
-        user_guess.save()
+    elif user_suggestion.gender != update_request.new_gender_suggestion or user_suggestion.age != update_request.new_age_suggestion:
+        user_suggestion.age = update_request.new_age_suggestion
+        user_suggestion.gender = update_request.new_gender_suggestion
+        user_suggestion.save()
 
 
 def create_user_feeback(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
     rectangle = FaceRecognitionRectangle.objects.filter(id=update_request.annotation_id).first()
-    guesser = Profile.objects.filter(user_id=update_request.user_id).first()
-    newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = rectangle, guesser = guesser, gender = update_request.new_gender_guess, age = update_request.new_age_guess)
-    newGuess.save()
+    proposer = Profile.objects.filter(user_id=update_request.user_id).first()
+    new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle = rectangle, proposer = proposer, gender = update_request.new_gender_suggestion, age = update_request.new_age_suggestion)
+    new_suggestion.save()
     return True
     
 
-def get_existing_user_additional_data_guess(guesser, annotation_id):
+def get_existing_user_additional_data_suggestion(proposer, annotation_id):
     try:
-        return FaceRecognitionRectangleSubjectDataGuess.objects.get(
-            guesser=guesser,
+        return FaceRecognitionRectangleSubjectDataSuggestion.objects.get(
+            proposer=proposer,
             face_recognition_rectangle_id=annotation_id
         )
-    except FaceRecognitionRectangleSubjectDataGuess.DoesNotExist:
+    except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
         return None
 
-def get_existing_data_guess(annotation_id):
+def get_existing_data_suggestion(annotation_id):
     try:
-        return FaceRecognitionRectangleSubjectDataGuess.objects.get(
+        return FaceRecognitionRectangleSubjectDataSuggestion.objects.get(
             face_recognition_rectangle_id=annotation_id
         ).first()
-    except FaceRecognitionRectangleSubjectDataGuess.DoesNotExist:
+    except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
         return None

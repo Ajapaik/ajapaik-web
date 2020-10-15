@@ -37,7 +37,7 @@ class FaceRecognitionRectangle(models.Model):
     subjectPhoto = ImageField(_('SubjectPhoto'), upload_to='uploads', blank=True, null=True, max_length=255)
     subject_consensus = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
                                           related_name='face_recognition_crowdsourced_rectangles')
-    subject_ai_guess = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
+    subject_ai_suggestion = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
                                          related_name='face_recognition_ai_detected_rectangles')
     # If no user is attached, means OpenCV detected it
     user = models.ForeignKey(Profile, blank=True, null=True, on_delete=CASCADE, related_name='face_recognition_rectangles')
@@ -69,15 +69,15 @@ class FaceRecognitionRectangle(models.Model):
         # Prefer what people think
         if self.subject_consensus:
             subject_album: Album = self.subject_consensus
-        elif self.subject_ai_guess:
-            subject_album: Album = self.subject_ai_guess
+        elif self.subject_ai_suggestion:
+            subject_album: Album = self.subject_ai_suggestion
 
         return subject_album
 
     def add_subject_data(self, profile, age, gender):
-        lastGuesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(face_recognition_rectangle = self).order_by('guesser_id', '-created').all().distinct('guesser_id')
-        lastGuessByCurrentUser = lastGuesses.filter(guesser_id=profile.id).first()
-        lastGuessesByOtherUsers = lastGuesses.exclude(guesser_id=profile.id)
+        last_suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(face_recognition_rectangle = self).order_by('proposer_id', '-created').all().distinct('proposer_id')
+        last_suggestion_by_current_user = last_suggestions.filter(proposer_id=profile.id).first()
+        last_suggestions_by_other_users = last_suggestions.exclude(proposer_id=profile.id)
         if gender == 'SKIP':
             gender = self.subject_consensus.gender
         if gender == 'FEMALE':
@@ -98,25 +98,25 @@ class FaceRecognitionRectangle(models.Model):
             age = 3
         if age == 'NOT_APPLICABLE':
             age = 4
-        newGuess = FaceRecognitionRectangleSubjectDataGuess(face_recognition_rectangle = self, guesser = profile, gender = gender, age = age)
-        newGuess.save()
-        self.photo.latest_annotation = newGuess.created
+        new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle = self, proposer = profile, gender = gender, age = age)
+        new_suggestion.save()
+        self.photo.latest_annotation = new_suggestion.created
         self.photo.light_save()
 
-        if lastGuessesByOtherUsers.count() > 0:
-            ageGuesses = []
-            genderGuesses = []
-            for guess in lastGuessesByOtherUsers:
-                if(guess.age != None and guess.age != 4):
-                    ageGuesses.append(guess.age)
-                if(guess.gender != None and guess.gender != 3):
-                    genderGuesses.append(guess.age)
-            if len(ageGuesses) > 0:
-                self.age = most_frequent(ageGuesses)
+        if last_suggestions_by_other_users.count() > 0:
+            age_suggestions = []
+            gender_suggestions = []
+            for suggestion in last_suggestions_by_other_users:
+                if(suggestion.age != None and suggestion.age != 4):
+                    age_suggestions.append(suggestion.age)
+                if(suggestion.gender != None and suggestion.gender != 3):
+                    gender_suggestions.append(suggestion.age)
+            if len(age_suggestions) > 0:
+                self.age = most_frequent(age_suggestions)
             else:
                 self.age = age
-            if len(genderGuesses) > 0:
-                self.gender = most_frequent(genderGuesses)
+            if len(gender_suggestions) > 0:
+                self.gender = most_frequent(gender_suggestions)
             else:
                 self.gender = gender
         else:
@@ -124,33 +124,33 @@ class FaceRecognitionRectangle(models.Model):
             self.gender = gender
         self.save()
         points = 0
-        if(lastGuessByCurrentUser is None and int(age) < 3):
-            ageGuessPoints = 20
+        if(last_suggestion_by_current_user is None and int(age) < 3):
+            age_suggestion_points = 20
             Points(
-                action=Points.GUESS_SUBJECT_AGE,
+                action=Points.suggestion_SUBJECT_AGE,
                 annotation = self,
                 created=timezone.now(),
-                face_recognition_rectangle_subject_data_guess = newGuess,
-                points=ageGuessPoints,
+                face_recognition_rectangle_subject_data_suggestion = new_suggestion,
+                points=age_suggestion_points,
                 user=profile
             ).save()
-            points += ageGuessPoints
-        if(lastGuessByCurrentUser is None and gender is not None and int(gender) < 2):
-            genderGuessPoints = 20
+            points += age_suggestion_points
+        if(last_suggestion_by_current_user is None and gender is not None and int(gender) < 2):
+            gender_suggestion_points = 20
             Points(
-                action=Points.GUESS_SUBJECT_GENDER,
+                action=Points.suggestion_SUBJECT_GENDER,
                 annotation = self,
                 created=timezone.now(),
-                face_recognition_rectangle_subject_data_guess = newGuess,
-                points=genderGuessPoints,
+                face_recognition_rectangle_subject_data_suggestion = new_suggestion,
+                points=gender_suggestion_points,
                 user=profile
             ).save()
-            points += genderGuessPoints
+            points += gender_suggestion_points
         return points
 
-class FaceRecognitionRectangleSubjectDataGuess(models.Model):
+class FaceRecognitionRectangleSubjectDataSuggestion(models.Model):
     face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_rectangle')
-    guesser = models.ForeignKey(Profile, on_delete=CASCADE, related_name='subject_data_guesser')
+    proposer = models.ForeignKey(Profile, on_delete=CASCADE, related_name='subject_data_proposer')
     gender = models.PositiveSmallIntegerField(choices=GENDER, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
@@ -182,7 +182,7 @@ class FaceRecognitionRectangleFeedback(models.Model):
         return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.is_correct)
 
 
-class FaceRecognitionUserGuess(models.Model):
+class FaceRecognitionUserSuggestion(models.Model):
     USER, ALGORITHM, PICASA = range(3)
     ORIGIN_CHOICES = (
         (USER, _('User')),
@@ -190,10 +190,10 @@ class FaceRecognitionUserGuess(models.Model):
         (PICASA, _('Picasa')),
     )
 
-    subject_album = models.ForeignKey(Album, on_delete=CASCADE, related_name='face_recognition_guesses')
-    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_guesses')
+    subject_album = models.ForeignKey(Album, on_delete=CASCADE, related_name='face_recognition_suggestions')
+    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_suggestions')
     # Empty user means OpenCV recognized the face automatically
-    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_guesses', blank=True, null=True)
+    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_suggestions', blank=True, null=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
