@@ -45,7 +45,7 @@ var map,
     myLocationButton,
     closeStreetviewButton,
     albumSelectionDiv,
-    handleAlbumChange,
+    handleAlbumFilterChange,
     updateStatDiv,
     streetViewOptions;
 
@@ -275,55 +275,25 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         }
     });
 
-    $(document).on('click', '#ajp-header-people', function (e) {
-        e.preventDefault();
-        var uri = URI(window.location);
-        if (uri.query().indexOf('postcards') > -1) {
-            uri.removeQuery('postcards');
-        }
-        if (uri.query().indexOf('collections') > -1) {
-            uri.removeQuery('collections');
-        }
-        if (uri.query().indexOf('people') == -1) {
-            uri.addQuery('people', 1)
-        } else {
-            uri.removeQuery('people');
-        }
-        window.location.href = uri;
-    });
+    handleAlbumFilterChange = function (albumFilter) {
+        let uri = URI(window.location);
+        let albumFilters = ['postcards', 'collections', 'people'];
 
-    $(document).on('click', '#ajp-header-postcard', function (e) {
-        e.preventDefault();
-        var uri = URI(window.location);
-        if (uri.query().indexOf('people') > -1) {
-            uri.removeQuery('people');
+        if (uri.query().indexOf(albumFilter) == -1) {
+            uri.addQuery(albumFilter, 1);
+            albumFilters.pop(albumFilter);
         }
-        if (uri.query().indexOf('collections') > -1) {
-            uri.removeQuery('collections');
-        }
-        if (uri.query().indexOf('postcards') == -1) {
-            uri.addQuery('postcards', 1)
-        } else {
-            uri.removeQuery('postcards');
-        }
-        window.location.href = uri;
-    });
 
-    $(document).on('click', '#ajp-header-collections', function (e) {
-        e.preventDefault();
-        var uri = URI(window.location);
-        if (uri.query().indexOf('people') > -1) {
-            uri.removeQuery('people');
-        }
-        if (uri.query().indexOf('postcards') > -1) {
-            uri.removeQuery('postcards');
-        }
-        if (uri.query().indexOf('collections') == -1) {
-            uri.addQuery('collections', 1)
-        } else {
-            uri.removeQuery('collections');
-        }
+        albumFilters.find(filter => uri.query().indexOf(filter) > -1).forEach(
+            filter => uri.removeQuery(filter)
+        );
         window.location.href = uri;
+    }
+    
+    $(document).on('click', '#ajp-header-people, #ajp-header-postcard, #ajp-header-collections', function (e) {
+        e.preventDefault();
+        let idComponents = e.target.id.split('-');
+        window.handleAlbumFilterChange(idComponents[idComponents.length - 1]);
     });
 
     handleGeolocation = function (position) {
