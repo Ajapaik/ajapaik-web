@@ -174,7 +174,6 @@ $(document).ready(function () {
             url: '/comments/edit-one/',
             data: form.serialize(),
             success: function (response) {
-                console.log(response);
                 fetchComments();
             }
         });

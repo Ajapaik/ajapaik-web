@@ -126,14 +126,22 @@
                 
                 if (!isAuthenticated) {
                     title = gettext('Log in');
-                    content = `<div class="pb-5"><form method="post" action="/accounts/login/" class="form">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="` + window.docCookies.getItem('csrftoken') + `">
-                    <input class="form-control" id="id-login" maxlength="254" name="login" placeholder="E-posti aadress" required="required" title="" type="text" autocomplete="username">
-                    <input class="form-control" id="id-password" name="password" placeholder="Password" required="required" title="" type="password" autocomplete="current-password">              
-                    <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button mt-2">
-                        ` + gettext('Log in') + `
-                    </button>
-                    </form></div>`;
+                    content =   `<div class="pb-5"><div class="facebook-connect my-1"><a href="/accounts/facebook/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with facebook</a></div>
+                                    <div class="google-connect my-1">
+                                        <a href="/accounts/google/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with google</a>
+                                    </div> 
+                                    <div class="wikimedia-commons-connect mt-1 mb-3">
+                                        <a href="/accounts/wikimedia-commons/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with wikimedia-commons</a>
+                                    </div>
+                                    <form method="post" action="/accounts/login/" class="form">
+                                        <input type="hidden" name="csrfmiddlewaretoken" value="` + window.docCookies.getItem('csrftoken') + `">
+                                        <input class="form-control" id="id-login" maxlength="254" name="login" placeholder="E-posti aadress" required="required" title="" type="text" autocomplete="username">
+                                        <input class="form-control" id="id-password" name="password" placeholder="Password" required="required" title="" type="password" autocomplete="current-password">            
+                                        <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button mt-2">
+                                            `+ gettext('Log in') +`
+                                        </button>
+                                    </form>
+                                </div>`;
                 }
 
                 $('#ajp-categorize-scene-button').popover({
