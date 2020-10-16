@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ajapaik.ajapaik.models import AlbumPhoto, PhotoSceneSuggestion
+from ajapaik.ajapaik.models import AlbumPhoto, Points, PhotoSceneSuggestion
 
 
 class Command(BaseCommand):
@@ -13,3 +13,4 @@ class Command(BaseCommand):
                 new_suggestion.save()
                 album_photo.scene = 0
                 album_photo.save()
+                Points(user=album_photo.profile, action=Points.CATEGORIZE_SCENE, photo=album_photo.photo, points=20,created=album_photo.created).save()

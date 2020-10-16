@@ -58,7 +58,7 @@ from ajapaik.utils import most_frequent
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
 from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from ajapaik.ajapaik.utils import merge_profiles
 
@@ -1751,4 +1751,6 @@ class PhotoCategory(AjapaikAPIView):
 
                 if previous_suggestion:
                     return JsonResponse({'message': _('Your suggestion has been changed')})
+
+                Points(user=profile, action=Points.CATEGORIZE_SCENE, photo=photo, points=20,created=timezone.now()).save()
                 return JsonResponse({'message': _('Your suggestion has been saved')})
