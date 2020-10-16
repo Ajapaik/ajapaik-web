@@ -9,7 +9,7 @@
         {% if is_frontpage %}
             <span id="ajp-organiser-dropdown-filter-name">{% if request.GET.collections == '1' %}{% trans 'Collections' %}{% elif request.GET.people == '1' %}{% trans 'People' %}{% elif request.GET.postcards == '1' %}{% trans 'Back sides of images' %}{% elif request.GET.exteriors == '1' %}{% trans 'Exteriors' %}{% elif request.GET.interiors == '1' %}{% trans 'Interiors' %}{% else %}{% trans 'All photos' %}{% endif %}</span>
             <div>
-                <a role="button" class="ajp-header-button" {% if is_frontpage and not album %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
+                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
                 href="#"
                 id="ajp-header-people">
                     <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</i>
@@ -17,12 +17,12 @@
                 <a id="ajp-header-collections" class="{% if album or show_photos %}d-none{% endif %}" role="button" title="{% trans 'Pictures by collections' %}">
                     <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">account_balance</i>
                 </a>
-                <a role="button" class="ajp-header-button" {% if is_frontpage and not album %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
+                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
                     href="#"
                     id="ajp-header-postcards">
                         <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.postcards == '1' %} ajp-text-white{% endif %}">picture_in_picture</i>
                 </a>
-                {% if album %}
+                {% if album or show_photos %}
                     <a role="button" class="ajp-header-button" title="{% trans 'List interior photos' %}"
                         href="#"
                         id="ajp-header-interiors">
