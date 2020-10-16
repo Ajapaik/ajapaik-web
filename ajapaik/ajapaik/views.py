@@ -77,7 +77,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
 	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
-	Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken
+	PhotoSceneSuggestion, Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
@@ -3069,6 +3069,7 @@ def user(request, user_id):
 	object_annotations_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id')
 	object_annotations_pictures_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id').distinct('photo')
 	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
+	photo_scene_suggestions_qs = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo')
 	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
 	similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
 	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
@@ -3077,7 +3078,7 @@ def user(request, user_id):
 				   curated_pictures_qs.count() + geotags_qs.count() + \
 				   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
 				   similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
-				   photolikes_qs.count()
+				   photolikes_qs.count() + photo_scene_suggestions_qs.count()
 	
 	user_points = 0
 	for point in profile.points.all():
@@ -3097,6 +3098,7 @@ def user(request, user_id):
 		'object_annotations': object_annotations_qs.count(),
 		'object_annotations_pictures': object_annotations_pictures_qs.count(),
 		'photolikes': photolikes_qs.count(),
+		'photo_scene_suggestions': photo_scene_suggestions_qs.count(),
 		'profile': profile,
 		'rephotographed_pictures': rephoto_qs.count(),
 		'rephotos_link': '/photos/?rephotosBy=' + str(profile.user.id) + '&order1=time&order2=rephotos',

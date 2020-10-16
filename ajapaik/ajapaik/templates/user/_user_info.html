@@ -33,7 +33,7 @@
     {% endif %}
     {% if face_annotations > 0 %}
         <li>
-            {% blocktrans count counter=face_annotations %}has annotated <b>{{ face_annotations }}</b> face on{% plural %}has annotated <b>{{ face_annotations }}</b> faces on{% endblocktrans %}
+            {% blocktrans count counter=face_annotations %}annotated <b>{{ face_annotations }}</b> face on{% plural %}annotated <b>{{ face_annotations }}</b> faces on{% endblocktrans %}
             {% blocktrans count counter=face_annotations_pictures %}<b>{{ face_annotations_pictures }}</b> picture{% plural %}<b>{{ face_annotations_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
@@ -58,9 +58,14 @@
             {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> picture{% plural %}favorited <b>{{ photolikes }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
+    {% if photo_scene_suggestions > 0 %}
+    <li>
+        {% blocktrans count counter=photo_scene_suggestions %}categorized <b>{{ photo_scene_suggestions }}</b> picture{% plural %}categorized <b>{{ photo_scene_suggestions }}</b> pictures{% endblocktrans %}
+    </li>
+    {% endif %}
     {% if user_points > 0 %}
         <li>
             {% blocktrans count counter=user_points %}<b>{{ user_points }} point in total</b>{% plural %}<b>{{ user_points }}</b> points in total{% endblocktrans %}
         </li>
-{% endif %}
+    {% endif %}
 </ul>
