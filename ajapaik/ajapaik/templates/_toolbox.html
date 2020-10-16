@@ -126,10 +126,12 @@
                     let actionButtonTemplate = `<button id='send-scene-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-2 w-100'>` + gettext(buttonTranslation) + `</button>`;
                     content += actionButtonTemplate;
 
+                    let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
+
                     $('#ajp-categorize-scene-button').popover({
-                        container: '#ajp-modal-body',
                         html: true,
                         sanitize: false,
+                        container,
                         content,
                         title
                     });
