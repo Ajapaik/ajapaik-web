@@ -11,6 +11,6 @@ class Command(BaseCommand):
             if album_photo.profile:
                 new_suggestion = PhotoSceneSuggestion(proposer=album_photo.profile, photo=album_photo.photo, scene=0, created=album_photo.created)
                 new_suggestion.save()
-                album_photo.scene = 0
-                album_photo.save()
+                album_photo.photo.scene = 0
+                album_photo.photo.save()
                 Points(user=album_photo.profile, action=Points.CATEGORIZE_SCENE, photo=album_photo.photo, points=20,created=album_photo.created).save()
