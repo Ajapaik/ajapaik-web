@@ -1718,21 +1718,20 @@ class PhotoCategory(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
     
     def post(self, request, format=None):
+        profile = request.user.profile
         data = json.loads(request.body.decode("utf-8"))
         photo_id = data['photoId']
         scene = data['scene']
         photo = get_object_or_404(Photo, id=photo_id)
-        if not (request.user and request.user.profile and request.user.profile.is_legit()):
-            return JsonResponse({'error': _('Please login')}, status=401)
         if not scene:
             return JsonResponse({'error': _("Missing parameter: 'scene'")}, status=401)
         for choice in PhotoSceneSuggestion.SCENE_CHOICES:
             if choice[1] == scene:
-                previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
                 if previous_suggestion is not None and previous_suggestion.scene == choice[0]:
                     return JsonResponse({'message': _('You have already made this guess')})
 
-                new_suggestion = PhotoSceneSuggestion(proposer=request.user.profile, photo=photo, scene=choice[0])
+                new_suggestion = PhotoSceneSuggestion(proposer=profile, photo=photo, scene=choice[0])
                 new_suggestion.save()
 
                 all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).order_by('-created')

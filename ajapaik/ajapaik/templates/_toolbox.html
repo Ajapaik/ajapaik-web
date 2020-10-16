@@ -45,7 +45,6 @@
 </div>
 {% block specific_js %}
     <script>
-        var isAuthenticated = '{{ user.profile.is_legit }}' == 'True';
         var photoSceneUrl = "{% url 'api_photo_scene' %}";
         var photoSceneChoice = undefined;
 
@@ -75,7 +74,9 @@
             })
             .then(handleErrors)
             .then(function(message) {
-                fetchPhotoSceneSuggestion();
+                updatePhotoScene();
+                $('#ajp-categorize-scene-button').not(this).popover('hide');
+                $('#ajp-categorize-scene-button').popover('dispose');
                 $.notify(gettext(message), {type: 'success'});
             }).catch((error) => {
                 $.notify(gettext(error), {type: 'danger'});
@@ -105,53 +106,35 @@
             });
         }
 
-        fetchPhotoSceneSuggestion().then(function(data) {
-                photoSceneChoice = data;
-                let leftButtonClass = 'btn-light';
-                let rightButtonClass = 'btn-light';
-                let buttonTranslation = gettext('Confirm')
-                let title = gettext('Categorize scene');
+        function updatePhotoScene() {
+            fetchPhotoSceneSuggestion().then(function(data) {
+                    photoSceneChoice = data;
+                    let leftButtonClass = 'btn-light';
+                    let rightButtonClass = 'btn-light';
+                    let buttonTranslation = gettext('Confirm')
+                    let title = gettext('Categorize scene');
 
-                if (photoSceneChoice === 'Interior') {
-                    leftButtonClass = 'btn-outline-primary';
-                } else if (photoSceneChoice === 'Exterior') {
-                    rightButtonClass = 'btn-outline-primary';
-                } else {
-                    buttonTranslation = gettext('Submit')
-                }
+                    if (photoSceneChoice === 'Interior') {
+                        leftButtonClass = 'btn-outline-primary';
+                    } else if (photoSceneChoice === 'Exterior') {
+                        rightButtonClass = 'btn-outline-primary';
+                    } else {
+                        buttonTranslation = gettext('Submit')
+                    }
 
-                let content = `<div class='d-flex'><button onclick='clickCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + leftButtonClass +`'><i class='material-icons notranslate ajp-icon-48'>night_shelter</i></button><button onclick='clickCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + rightButtonClass +`'><i class='material-icons ajp-icon-48 notranslate'>nature_people</i></div>`;
-                let actionButtonTemplate = `<button id='send-scene-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-2 w-100'>` + gettext(buttonTranslation) + `</button>`;
-                content += actionButtonTemplate;
-                
-                if (!isAuthenticated) {
-                    title = gettext('Log in');
-                    content =   `<div class="pb-5"><div class="facebook-connect my-1"><a href="/accounts/facebook/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with facebook</a></div>
-                                    <div class="google-connect my-1">
-                                        <a href="/accounts/google/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with google</a>
-                                    </div> 
-                                    <div class="wikimedia-commons-connect mt-1 mb-3">
-                                        <a href="/accounts/wikimedia-commons/login/?next=` + location.pathname + location.search.split('&')[0]  + `" class="ir">Connect with wikimedia-commons</a>
-                                    </div>
-                                    <form method="post" action="/accounts/login/" class="form">
-                                        <input type="hidden" name="csrfmiddlewaretoken" value="` + window.docCookies.getItem('csrftoken') + `">
-                                        <input class="form-control" id="id-login" maxlength="254" name="login" placeholder="E-posti aadress" required="required" title="" type="text" autocomplete="username">
-                                        <input class="form-control" id="id-password" name="password" placeholder="Password" required="required" title="" type="password" autocomplete="current-password">            
-                                        <button type="submit" class="btn btn-primary float-right ajapaik w-50 ajp-email-login-button mt-2">
-                                            `+ gettext('Log in') +`
-                                        </button>
-                                    </form>
-                                </div>`;
-                }
+                    let content = `<div class='d-flex'><div class="d-flex" style="flex-direction:column;align-items:center;"><button onclick='clickCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + leftButtonClass +`'><i class='material-icons notranslate ajp-icon-48'>night_shelter</i></button><span>` + gettext('Interior') + `</span></div><div class="d-flex" style="flex-direction:column;align-items:center;"><button onclick='clickCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + rightButtonClass +`'><i class='material-icons ajp-icon-48 notranslate'>nature_people</i></button><span>` + gettext('Exterior') + `</span></div></div>`;
+                    let actionButtonTemplate = `<button id='send-scene-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-2 w-100'>` + gettext(buttonTranslation) + `</button>`;
+                    content += actionButtonTemplate;
 
-                $('#ajp-categorize-scene-button').popover({
-                    container: '#ajp-modal-body',
-                    html: true,
-                    sanitize: false,
-                    content,
-                    title
-                });
-        });
+                    $('#ajp-categorize-scene-button').popover({
+                        container: '#ajp-modal-body',
+                        html: true,
+                        sanitize: false,
+                        content,
+                        title
+                    });
+            });
+        };
 
         $('#ajp-start-dating-button').click(function (e) {
             e.preventDefault();
@@ -278,6 +261,7 @@
         };
 
         $(document).ready(function () {
+            updatePhotoScene();
             var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
             $(document).on('click', '#ajp-add-rephoto-button', function () {
                 $.ajax({
