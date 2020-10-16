@@ -41,19 +41,6 @@
                     </a>
                 {% endif %}
                 {% if is_frontpage %}
-                    <a role="button" class="ajp-header-button" {% if is_frontpage and not album %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
-                        href="#"
-                        id="ajp-header-people">
-                            <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</i>
-                    </a>
-                    <a id="ajp-header-collections" class="{% if album or show_photos %}d-none{% endif %}" role="button" title="{% trans 'Pictures by collections' %}">
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">account_balance</i>
-                    </a>
-                    <a role="button" class="ajp-header-button" {% if is_frontpage and not album %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
-                        href="#"
-                        id="ajp-header-postcard">
-                            <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.postcards == '1' %} ajp-text-white{% endif %}">picture_in_picture</i>
-                    </a>
                     <a id="ajp-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
                         <i aria-hidden class="material-icons notranslate ajp-gray-button">face</i>
                     </a>

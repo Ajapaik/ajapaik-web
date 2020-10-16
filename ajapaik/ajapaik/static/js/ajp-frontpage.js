@@ -138,6 +138,12 @@
                 } else if (window.order2 === 'likes') {
                     $('#ajp-likes-filter-icon').attr('class', 'ajp-white');
                     orderingString += ' ' + gettext('liked');
+                } else if (window.order2 === 'interior-categorization') {
+                    $('#ajp-interior-categorization-filter-icon').attr('class', 'ajp-white');
+                    orderingString += ' ' + gettext('categorized');
+                } else if (window.order2 === 'exterior-categorization') {
+                    $('#ajp-exterior-categorization-filter-icon').attr('class', 'ajp-white');
+                    orderingString += ' ' + gettext('categorized');
                 } else if (window.order2 === 'datings') {
                     $('#ajp-datings-filter-icon').attr('class', 'ajp-white');
                     orderingString += ' ' + gettext('dated');
@@ -172,7 +178,7 @@
                         orderingStringTarget.html(orderingString + ' <i id="ajp-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</i>');
                     }
                 }
-                var dropdownOrderingString = $('#ajp-filter-dropdown-filter-name');
+                var dropdownOrderingString = $('#ajp-organiser-dropdown-sort-order-name');
                 if (dropdownOrderingString) {
                     dropdownOrderingString.html(orderingString);
                 }
@@ -205,7 +211,6 @@
             },
             updateFrontpageAlbumsAsync = function () {
                 $('#ajp-loading-overlay').show();
-                $('#ajp-filtering-dropdown').addClass('d-none');
                 $('#ajp-album-filter-box').removeClass('d-none');
                 $('#ajp-photo-filter-box').addClass('d-none');
                 $('#ajp-frontpage-historic-photos').addClass('d-none');
@@ -331,7 +336,6 @@
             var targetDiv = $('#ajp-frontpage-historic-photos');
             targetDiv.removeClass('hidden ajp-invisible');
             $('#ajp-loading-overlay').show();
-            $('#ajp-filtering-dropdown').removeClass('d-none');
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();

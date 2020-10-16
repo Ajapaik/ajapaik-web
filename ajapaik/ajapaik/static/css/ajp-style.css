@@ -460,7 +460,8 @@ path:hover {
   background: url(../images/material-design-icons/ic_comment_gray_24px.svg) no-repeat;
 }
 
-#ajp-filter-dropdown-filter-name {
+#ajp-organiser-dropdown-sort-order-name,
+#ajp-organiser-dropdown-filter-name {
   color: #fff;
   font-size: 20px;
   margin-top: 5px;

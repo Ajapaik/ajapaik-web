@@ -277,22 +277,25 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
 
     handleAlbumFilterChange = function (albumFilter) {
         let uri = URI(window.location);
-        let albumFilters = ['postcards', 'collections', 'people'];
+        let albumFilters = ['postcards', 'collections', 'people', 'exteriors', 'interiors'];
 
         if (uri.query().indexOf(albumFilter) == -1) {
             uri.addQuery(albumFilter, 1);
-            albumFilters.pop(albumFilter);
+            albumFilters = albumFilters.filter(filter => filter !== albumFilter);
         }
 
-        albumFilters.find(filter => uri.query().indexOf(filter) > -1).forEach(
-            filter => uri.removeQuery(filter)
-        );
+        let filtersToRemove = albumFilters.filter(filter => uri.query().indexOf(filter) > -1)
+        if (filtersToRemove) {
+            filtersToRemove.forEach(
+                filter => uri.removeQuery(filter)
+            );
+        }
         window.location.href = uri;
     }
     
-    $(document).on('click', '#ajp-header-people, #ajp-header-postcard, #ajp-header-collections', function (e) {
+    $(document).on('click', '#ajp-header-people, #ajp-header-postcards, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors', function (e) {
         e.preventDefault();
-        let idComponents = e.target.id.split('-');
+        let idComponents = e.currentTarget.id.split('-');
         window.handleAlbumFilterChange(idComponents[idComponents.length - 1]);
     });
 

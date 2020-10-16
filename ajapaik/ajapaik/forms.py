@@ -119,7 +119,6 @@ class AlbumSelectionFilteringForm(forms.Form):
     postcards = forms.BooleanField(initial=False, required=False)
     collections = forms.BooleanField(initial=False, required=False)
 
-
 class GalleryFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
@@ -141,6 +140,9 @@ class GalleryFilteringForm(forms.Form):
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
     postcards = forms.BooleanField(initial=False, required=False)
+    interiors = forms.BooleanField(initial=False, required=False)
+    exteriors = forms.BooleanField(initial=False, required=False)
+
 
     def clean_page(self):
         page = self.cleaned_data['page']

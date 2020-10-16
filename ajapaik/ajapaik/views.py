@@ -806,6 +806,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 								   face_recognition_rectangles__deleted__isnull=True)
 		if filter_form.cleaned_data['postcards']:
 			photos = photos.filter(postcard_front_of__isnull=False)
+		if filter_form.cleaned_data['interiors']:
+			photos = photos.filter(scene=0)
+		if filter_form.cleaned_data['exteriors']:
+			photos = photos.exclude(scene=0)
 		if requested_photos:
 			requested_photos = requested_photos.split(',')
 			context['is_photoset'] = True
