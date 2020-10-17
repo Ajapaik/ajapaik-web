@@ -7,7 +7,7 @@
     </svg>
     <div class="dropdown dropdown-menu ajp-black-dropdown-menu" role="menu">
         {% if is_frontpage %}
-            <span id="ajp-organiser-dropdown-filter-name">{% if request.GET.collections == '1' %}{% trans 'Collections' %}{% elif request.GET.people == '1' %}{% trans 'People' %}{% elif request.GET.postcards == '1' %}{% trans 'Back sides of images' %}{% elif request.GET.exteriors == '1' %}{% trans 'Exteriors' %}{% elif request.GET.interiors == '1' %}{% trans 'Interiors' %}{% else %}{% trans 'All photos' %}{% endif %}</span>
+            <span id="ajp-organiser-dropdown-filter-name">{% if request.GET.collections == '1' %}{% trans 'Collections' %}{% elif request.GET.people == '1' %}{% trans 'People' %}{% elif request.GET.postcards == '1' %}{% trans 'Back sides of images' %}{% elif request.GET.exteriors == '1' %}{% trans 'Exteriors' %}{% elif request.GET.interiors == '1' %}{% trans 'Interiors' %}{% else %}{% trans 'No filters are applied' %}{% endif %}</span>
             <div>
                 <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
                 href="#"
@@ -22,7 +22,7 @@
                     id="ajp-header-postcards">
                         <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.postcards == '1' %} ajp-text-white{% endif %}">picture_in_picture</i>
                 </a>
-                {% if album or show_photos %}
+                {% if show_photos %}
                     <a role="button" class="ajp-header-button" title="{% trans 'List interior photos' %}"
                         href="#"
                         id="ajp-header-interiors">
@@ -36,7 +36,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        {% if album %}
+        {% if show_photos %}
             <ul>
                 <li id="ajp-organiser-dropdown-sort-order-name"></li>
                 <li data-order1="closest" data-order2="none">
