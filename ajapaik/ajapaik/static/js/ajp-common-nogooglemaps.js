@@ -282,8 +282,10 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         if (uri.query().indexOf(photoFilter) == -1) {
             uri.addQuery(photoFilter, 1);
 
-            if(photoFilter == 'interiors') {
+            if (photoFilter == 'interiors') {
                 photoFilters = ['exteriors'];
+            } else if (photoFilter == 'exteriors') {
+                photoFilters = ['interiors'];
             } else if (photoFilter == 'ground_viewpoint_elevation') {
                 photoFilters = photoFilters.concat('raised_viewpoint_elevation', 'aerial_viewpoint_elevation');
             } else if (photoFilter == 'raised_viewpoint_elevation') {
