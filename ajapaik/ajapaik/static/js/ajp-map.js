@@ -741,7 +741,7 @@
         $('#ajp-header-album-filter-button-on').hide();
         $('#ajp-header-album-filter-button').prop('title', window.gettext('Apply album filter'));
         if (showMessage) {
-            $.notify(gettext('All images are shown in the sidebar'), {type: 'info', placement: { from: 'top', align: 'left' }});
+            $.notify(gettext('All pictures are shown in the sidebar'), {type: 'info', placement: { from: 'top', align: 'left' }});
         }
     };
 

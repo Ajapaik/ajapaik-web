@@ -116,7 +116,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     q = forms.CharField(required=False)
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     people = forms.BooleanField(initial=False, required=False)
-    postcards = forms.BooleanField(initial=False, required=False)
+    backsides = forms.BooleanField(initial=False, required=False)
     collections = forms.BooleanField(initial=False, required=False)
 
 class GalleryFilteringForm(forms.Form):
@@ -139,9 +139,12 @@ class GalleryFilteringForm(forms.Form):
     collections = forms.IntegerField(required=False)
     rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
     people = forms.BooleanField(initial=False, required=False)
-    postcards = forms.BooleanField(initial=False, required=False)
+    backsides = forms.BooleanField(initial=False, required=False)
     interiors = forms.BooleanField(initial=False, required=False)
     exteriors = forms.BooleanField(initial=False, required=False)
+    ground_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
+    raised_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
+    aerial_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
 
 
     def clean_page(self):

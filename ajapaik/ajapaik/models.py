@@ -423,14 +423,21 @@ class Photo(Model):
     perceptual_hash = BigIntegerField(null=True, blank=True)
     has_similar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
-    postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back', on_delete=CASCADE)
-    postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front', on_delete=CASCADE)
+    back_of = ForeignKey('self', blank=True, null=True, related_name='back', on_delete=CASCADE)
+    front_of = ForeignKey('self', blank=True, null=True, related_name='front', on_delete=CASCADE)
     INTERIOR, EXTERIOR = range(2)
     SCENE_CHOICES = (
         (INTERIOR, _('Interior')),
         (EXTERIOR, _('Exterior'))
     )
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground level')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
 
     original_lat = None
     original_lon = None
@@ -710,10 +717,10 @@ class Photo(Model):
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
     
-    def set_postcard(self, opposite):
-        self.postcard_front_of = opposite
+    def set_backside(self, opposite):
+        self.front_of = opposite
         self.save()
-        opposite.postcard_back_of = self
+        opposite.back_of = self
         opposite.save()
 
     def save(self, *args, **kwargs):
@@ -1027,7 +1034,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE  = range(15)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION  = range(16)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1043,7 +1050,8 @@ class Points(Model):
         (SUGGESTION_SUBJECT_AGE, _('Suggestion subject age')),
         (SUGGESTION_SUBJECT_GENDER, _('Suggestion subject age')),
         (TRANSCRIBE, _('Transcribe')),
-        (CATEGORIZE_SCENE, _('Categorize scene'))
+        (CATEGORIZE_SCENE, _('Categorize scene')),
+        (ADD_VIEWPOINT_ELEVATION, _('Add viewpoint elevation'))
     )
 
     user = ForeignKey('Profile', related_name='points', on_delete=CASCADE)
@@ -1582,3 +1590,15 @@ class PhotoSceneSuggestion(Model):
     )
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
+
+class PhotoViewpointElevationSuggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground level')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions', on_delete=CASCADE)

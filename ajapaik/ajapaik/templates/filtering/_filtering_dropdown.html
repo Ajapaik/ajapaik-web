@@ -7,31 +7,113 @@
     </svg>
     <div class="dropdown dropdown-menu ajp-black-dropdown-menu" role="menu">
         {% if is_frontpage %}
-            <span id="ajp-organiser-dropdown-filter-name">{% if request.GET.collections == '1' %}{% trans 'Collections' %}{% elif request.GET.people == '1' %}{% trans 'People' %}{% elif request.GET.postcards == '1' %}{% trans 'Back sides of images' %}{% elif request.GET.exteriors == '1' %}{% trans 'Exteriors' %}{% elif request.GET.interiors == '1' %}{% trans 'Interiors' %}{% else %}{% trans 'No filters are applied' %}{% endif %}</span>
+            <span id="ajp-organiser-dropdown-filter-name">
+                {% trans 'Filters' %}: 
+                {% if request.GET.collections == '1' %}
+                    {% trans 'collections' %}, 
+                {% endif %}
+                {% if request.GET.people == '1' %}
+                    {% trans 'people' %}, 
+                {% endif %}
+                {% if request.GET.backsides == '1' %}
+                    {% trans 'back sides of pictures' %}, 
+                {% endif %}
+                {% if request.GET.exteriors == '1' %}
+                    {% trans 'exteriors' %}, 
+                {% endif %}
+                {% if request.GET.interiors == '1' %}
+                    {% trans 'interiors' %}, 
+                {% endif %}
+                {% if request.GET.ground_viewpoint_elevation == '1' %}
+                    {% trans 'pictures from the ground' %}, 
+                {% endif %}
+                {% if request.GET.raised_viewpoint_elevation == '1' %}
+                    {% trans 'pictures from a raised viewpoint' %}, 
+                {% endif %}
+                {% if request.GET.aerial_viewpoint_elevation == '1' %}
+                    {% trans 'pictures from the air' %}, 
+                {% endif %}
+                {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation %}
+                    {% trans 'no filter' %}
+                {% endif %}</span>
             <div>
-                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'List face recognition albums' %}"{% else %}title="{% trans 'List photos with faces' %}"{% endif %}
+                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
                 href="#"
                 id="ajp-header-people">
                     <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</i>
                 </a>
-                <a id="ajp-header-collections" class="{% if album or show_photos %}d-none{% endif %}" role="button" title="{% trans 'Pictures by collections' %}">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">account_balance</i>
+                <a id="ajp-header-collections"
+                    class="{% if album or show_photos %}d-none{% endif %}"
+                    role="button" 
+                    title="{% trans 'Pictures by collections' %}">
+                    <i aria-hidden 
+                        class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">
+                        account_balance
+                    </i>
                 </a>
-                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'List albums with postcards' %}"{% else %}title="{% trans 'List postcards' %}"{% endif %}
+                <a role="button"
+                    class="ajp-header-button ml-4"
+                    {% if is_frontpage and not album and not show_photos %}
+                        title="{% trans 'Show albums with pictures with back sides' %}"
+                    {% else %}
+                        title="{% trans 'Show pictures with back sides' %}"
+                    {% endif %}
                     href="#"
-                    id="ajp-header-postcards">
-                        <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.postcards == '1' %} ajp-text-white{% endif %}">picture_in_picture</i>
+                    id="ajp-header-backsides">
+                        <i aria-hidden
+                            class="notranslate material-icons ajp-gray-button{% if request.GET.backsides == '1' %} ajp-text-white{% endif %}">
+                            picture_in_picture
+                        </i>
                 </a>
                 {% if show_photos %}
-                    <a role="button" class="ajp-header-button" title="{% trans 'List interior photos' %}"
+                <a role="button"
+                    class="ajp-header-button ml-4"
+                    title="{% trans 'Show pictures made from the ground level' %}"
+                    href="#"
+                    id="ajp-header-ground_viewpoint_elevation">
+                        <i aria-hidden
+                            class="notranslate material-icons ajp-gray-button{% if request.GET.ground_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            nature_people
+                        </i>
+                </a>
+                <a role="button"
+                    class="ajp-header-button"
+                    title="{% trans 'Show pictures made from a raised viewpoint' %}"
+                    href="#"
+                    id="ajp-header-raised_viewpoint_elevation">
+                        <i aria-hidden
+                            class="notranslate material-icons ajp-gray-button{% if request.GET.raised_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            location_city
+                        </i>
+                </a>
+                <a role="button"
+                    class="ajp-header-button"
+                    title="{% trans 'Show aerial pictures' %}"
+                    href="#"
+                    id="ajp-header-aerial_viewpoint_elevation">
+                        <i aria-hidden
+                            class="notranslate material-icons ajp-gray-button{% if request.GET.aerial_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            flight
+                        </i>
+                </a>
+                    <a role="button"
+                        class="ajp-header-button ml-4"
+                        title="{% trans 'Show interior pictures' %}"
                         href="#"
                         id="ajp-header-interiors">
-                            <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.interiors == '1' %} ajp-text-white{% endif %}">night_shelter</i>
+                            <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.interiors == '1' %} ajp-text-white{% endif %}">
+                                hotel
+                            </i>
                     </a>
-                    <a role="button" class="ajp-header-button" title="{% trans 'List exterior photos' %}"
+                    <a role="button"
+                        class="ajp-header-button"
+                        title="{% trans 'Show exterior pictures' %}"
                         href="#"
                         id="ajp-header-exteriors">
-                            <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.exteriors == '1' %} ajp-text-white{% endif %}">nature_people</i>
+                            <i aria-hidden
+                                class="notranslate material-icons ajp-gray-button{% if request.GET.exteriors == '1' %} ajp-text-white{% endif %}">
+                                home
+                            </i>
                     </a>
                 {% endif %}
             </div>
@@ -190,3 +272,15 @@
         {% endif %}
     </div>
 </a>
+{% block specific_js %}
+    <script>
+        $(document).ready(function () {
+            let text = $('#ajp-organiser-dropdown-filter-name').text();
+            text = text.trim();
+                if(text.endsWith(',')) {
+                    $('#ajp-organiser-dropdown-filter-name').text(text.substring(0,text.length-1));
+                }
+            }
+        )
+    </script>
+{% endblock %}

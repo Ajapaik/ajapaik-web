@@ -94,8 +94,8 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'area': 'area',
             'rephoto_of': 'photo',
             'video': 'video',
-            'postcard_back_of': 'photo',
-            'postcard_front_of': 'photo'
+            'back_of': 'photo',
+            'front_of': 'photo'
         }
     elif ac_model == Points:
         field_url_dict = {

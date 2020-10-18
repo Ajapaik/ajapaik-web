@@ -490,8 +490,8 @@ $('.ajp-navbar').autoHidingNavbar();
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }
-            if (uri.query().indexOf('postcards') !== -1) {
-                window.location.href = uri.removeQuery('postcards');
+            if (uri.query().indexOf('backsides') !== -1) {
+                window.location.href = uri.removeQuery('backsides');
             }
             if (!window.isFrontpage) {
                 if (window.isSelection) {

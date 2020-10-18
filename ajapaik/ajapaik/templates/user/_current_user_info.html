@@ -61,9 +61,9 @@
             {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> picture{% plural %}favorited <b>{{ photolikes }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
-    {% if photo_scene_suggestions > 0 %}
+    {% if photo_suggestions > 0 %}
         <li>
-            {% blocktrans count counter=photo_scene_suggestions %}categorized <b>{{ photo_scene_suggestions }}</b> picture{% plural %}categorized <b>{{ photo_scene_suggestions }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=photo_suggestions %}categorized <b>{{ photo_suggestions }}</b> picture{% plural %}categorized <b>{{ photo_suggestions }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
 </ul>

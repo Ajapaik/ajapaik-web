@@ -45,7 +45,7 @@ var map,
     myLocationButton,
     closeStreetviewButton,
     albumSelectionDiv,
-    handleAlbumFilterChange,
+    handlePhotoFilterChange,
     updateStatDiv,
     streetViewOptions;
 
@@ -254,8 +254,8 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }
-            if (uri.query().indexOf('postcards') !== -1) {
-                window.location.href = uri.removeQuery('postcards');
+            if (uri.query().indexOf('backsides') !== -1) {
+                window.location.href = uri.removeQuery('backsides');
             }
             if (!window.isFrontpage) {
                 if (window.isSelection) {
@@ -275,16 +275,27 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         }
     });
 
-    handleAlbumFilterChange = function (albumFilter) {
+    handlePhotoFilterChange = function (photoFilter) {
         let uri = URI(window.location);
-        let albumFilters = ['postcards', 'collections', 'people', 'exteriors', 'interiors'];
+        let photoFilters = [];
 
-        if (uri.query().indexOf(albumFilter) == -1) {
-            uri.addQuery(albumFilter, 1);
-            albumFilters = albumFilters.filter(filter => filter !== albumFilter);
+        if (uri.query().indexOf(photoFilter) == -1) {
+            uri.addQuery(photoFilter, 1);
+
+            if(photoFilter == 'interiors') {
+                photoFilters = ['exteriors'];
+            } else if (photoFilter == 'ground_viewpoint_elevation') {
+                photoFilters = photoFilters.concat('raised_viewpoint_elevation', 'aerial_viewpoint_elevation');
+            } else if (photoFilter == 'raised_viewpoint_elevation') {
+                photoFilters = photoFilters.concat('ground_viewpoint_elevation', 'aerial_viewpoint_elevation');
+            } else if (photoFilter == 'aerial_viewpoint_elevation') {
+                photoFilters = photoFilters.concat('raised_viewpoint_elevation', 'raised_viewpoint_elevation');
+            }
+        } else {
+            uri.removeQuery(photoFilter);
         }
 
-        let filtersToRemove = albumFilters.filter(filter => uri.query().indexOf(filter) > -1)
+        let filtersToRemove = photoFilters.filter(filter => uri.query().indexOf(filter) > -1)
         if (filtersToRemove) {
             filtersToRemove.forEach(
                 filter => uri.removeQuery(filter)
@@ -293,10 +304,10 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         window.location.href = uri;
     }
     
-    $(document).on('click', '#ajp-header-people, #ajp-header-postcards, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors', function (e) {
+    $(document).on('click', '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation', function (e) {
         e.preventDefault();
         let idComponents = e.currentTarget.id.split('-');
-        window.handleAlbumFilterChange(idComponents[idComponents.length - 1]);
+        window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);
     });
 
     handleGeolocation = function (position) {

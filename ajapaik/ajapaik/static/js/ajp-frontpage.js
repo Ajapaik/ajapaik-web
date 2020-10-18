@@ -99,21 +99,21 @@
             timeout,
             albumSearchTimeout,
             syncFilteringHighlights = function () {
-                var orderingString = '';
+                var orderingString = gettext('Ordering') + ': ';
                 $('.ajp-white').attr('class', 'ajp-gray');
                 if (window.order1 === 'time') {
                     $('#ajp-time-filter-icon').attr('class', 'ajp-white');
                     if (window.order3 === 'reverse') {
-                        orderingString += gettext('Earliest');
+                        orderingString += gettext('earliest');
                     } else {
-                        orderingString += gettext('Latest');
+                        orderingString += gettext('latest');
                     }
                 } else if (window.order1 === 'amount') {
                     $('#ajp-amount-filter-icon').attr('class', 'ajp-white');
                     if (window.order3 === 'reverse') {
-                        orderingString += gettext('Least');
+                        orderingString += gettext('least');
                     } else {
-                        orderingString += gettext('Most');
+                        orderingString += gettext('most');
                     }
                 } else if (window.order1 === 'closest') {
                     $('#ajp-closest-filter-icon').attr('class', 'ajp-white');
@@ -371,28 +371,59 @@
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
                     if ((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
-                        if (window.location.search.indexOf('&people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-category-template',
-                                    gettext('No tagged persons in album')
-                                ));
-                        }
-                        else if (window.location.search.indexOf('&postcards=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-category-template',
-                                    gettext('No postcards in album')
-                                ));
-                        } else {
+                        let filterCount = 0;
+                        let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation']
+                        photoFilters.forEach(function(filter) {
+                            if(window.location.search.indexOf('&' + filter + '=1') > 0) {
+                                filterCount++;
+                            }
+                        })
+
+                        let message;
+                        if (filterCount == 0) {
                             var array = window.location.search.split('&q=');
-                            var queryStr = interpolate(gettext('No results found for: %(query)s'), {query: decodeURI(array[array.length - 1])}, true);
+                            message = 'No results found for: %(query)s';
+                            if (!!window.albumId) {
+                                message += ' in this album';
+                            }
+                            if (filterCount>0) {
+                                message += '\n' + 'You could also try to edit filters applied to your search';
+                            }
                             targetDiv.append(
                                 tmpl(
                                     'ajp-frontpage-photo-search-empty-template',
-                                    queryStr
+                                    interpolate(gettext(message), {query: decodeURI(array[array.length - 1])}, true)
+                                ));
+                        } else {
+                            if (filterCount > 1  && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures were found with the selected filters';
+                            } else if (window.location.search.indexOf('people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures with marked faces were found';
+                            } else if (window.location.search.indexOf('backsides=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures with back sides were found';
+                            } else if (window.location.search.indexOf('interiors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No interior views were found';
+                            } else if (window.location.search.indexOf('exteriors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No exterior views were found';
+                            } else if (window.location.search.indexOf('ground_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures from the ground level were found';
+                            }  else if (window.location.search.indexOf('raised_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No raised viewpoint pictures were found';
+                            }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No aerial pictures were found';
+                            }
+
+                            if (!!window.albumId) {
+                                message += ' ' + gettext('in this album');
+                            }
+
+                            targetDiv.append(
+                                tmpl(
+                                    'ajp-frontpage-photo-search-empty-category-template',
+                                    gettext(message)
                                 ));
                         }
+
                         targetDiv.addClass('w-100');
                         targetDiv.height(window.innerHeight);
                         historicPhotoGalleryDiv.removeClass('d-none').removeClass('justified-gallery');
