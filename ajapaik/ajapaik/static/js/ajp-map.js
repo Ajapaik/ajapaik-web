@@ -185,7 +185,7 @@
         var scale = Math.pow(2, window.map.getZoom()),
             projection = window.map.getProjection(),
             edgePixelCoordinates = projection.fromLatLngToPoint(edge);
-        if(window.innerWidth > 768){
+        if (window.innerWidth > 768) {
             edgePixelCoordinates.x = (edgePixelCoordinates.x * scale + $('#map-side-panel').width() + 50) / scale;
             return projection.fromPointToLatLng(edgePixelCoordinates);
         } else {
@@ -218,7 +218,7 @@
                 historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
             }
         }
-        if (photoDrawerOpen || window.guessLocationStarted) {
+        if (photoDrawerOpen || window.suggestionLocationStarted) {
             historyReplacementString += '&photoModalOpen=1';
         }
         if (limitByAlbum) {
@@ -226,10 +226,10 @@
         } else {
             historyReplacementString += '&limitToAlbum=0';
         }
-        if (window.guessLocationStarted) {
+        if (window.suggestionLocationStarted) {
             historyReplacementString += '&straightToSpecify=1';
         }
-        if (window.photoQuery){
+        if (window.photoQuery) {
             historyReplacementString += '&q=' + window.photoQuery;
             $('#ajp-photo-filter-box').val(window.photoQuery);
         }
@@ -243,8 +243,8 @@
     };
 
 
-    window.startGuessLocation = function () {
-        if (!window.guessLocationStarted) {
+    window.startSuggestionLocation = function () {
+        if (!window.suggestionLocationStarted) {
             var startLat = window.map.getCenter().lat(),
                 startLon = window.map.getCenter().lng();
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
@@ -282,22 +282,22 @@
                 hintUsed: true
             });
             $('body').css('overflow', 'auto');
-            window.guessLocationStarted = true;
+            window.suggestionLocationStarted = true;
             window.syncMapStateToURL();
         }
     };
 
 
-    window.stopGuessLocation = function () {
+    window.stopSuggestionLocation = function () {
         $('#ajp-map-container').show();
         $('#map-side-panel').show();
         $('#close-btn').show();
         $('#open-btn').show();
-        $('#ajp-photo-modal').show(0, function()
+        $('#ajp-photo-modal').show(0, function ()
         {
-          if($('#ajp-photo-modal-original-photo-column').height()){
+          if ($('#ajp-photo-modal-original-photo-column').height()) {
               let b = $('#ajp-photo-modal-original-photo-column').height();
-              if (document.getElementById('ajp-photo-modal-map-container')){
+              if (document.getElementById('ajp-photo-modal-map-container')) {
                 document.getElementById('ajp-photo-modal-map-container').style.height= b + 'px';
               }
           }
@@ -305,7 +305,7 @@
         $('.modal-backdrop').show();
         $('#ajp-geotagging-container').hide();
         $('body').css('overflow', 'hidden');
-        window.guessLocationStarted = false;
+        window.suggestionLocationStarted = false;
         window.syncMapStateToURL();
     };
 
@@ -328,12 +328,12 @@
 
 
     window.toggleVisiblePaneElements = function () {
-        if (window.map && !window.guessLocationStarted) {
+        if (window.map && !window.suggestionLocationStarted) {
             window.morePhotosCanBeLoaded = false;
-            if (!window.comingBackFromGuessLocation) {
+            if (!window.comingBackFromSuggestionLocation) {
                 window.deselectMarker();
             } else {
-                window.comingBackFromGuessLocation = false;
+                window.comingBackFromSuggestionLocation = false;
             }
             if (window.urlParamsInitialized) {
                 currentlySelectedMarker = null;
@@ -458,7 +458,7 @@
                     var imgWrapper = document.getElementById('img-wrapper');
                     var fc = imgWrapper.firstChild;
 
-                    while( fc ) {
+                    while (fc) {
                         imgWrapper.removeChild( fc );
                         fc = imgWrapper.firstChild;
                     }
@@ -567,7 +567,7 @@
         if (targetPaneElement.length) {
             var scrollElement = $('#img-wrapper');
 
-            if(window.innerWidth > 768) {
+            if (window.innerWidth > 768) {
                 var currentScrollValue = scrollElement.scrollTop();
                 // Calculating scroll value to place photo in middle of screen.
                 var scrollValue = currentScrollValue + (
@@ -576,8 +576,7 @@
                     )
                 );
                 scrollElement.animate({scrollTop: scrollValue}, 800);
-            }
-            else{
+            } else {
                 var currentScrollValue = scrollElement.scrollLeft();
                 var scrollValue = currentScrollValue + (
                     targetPaneElement.position().left - (
@@ -723,7 +722,7 @@
         $('#ajp-header-album-filter-button-off').hide();
         $('#ajp-header-album-filter-button-on').show();
         $('#ajp-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
-        if(showMessage) {
+        if (showMessage) {
             var albumFilterMessage = interpolate(
                 gettext('Pictures only in album: %(albumName)s are shown in the sidebar'), 
                 {
@@ -741,8 +740,8 @@
         $('#ajp-header-album-filter-button-off').show();
         $('#ajp-header-album-filter-button-on').hide();
         $('#ajp-header-album-filter-button').prop('title', window.gettext('Apply album filter'));
-        if(showMessage) {
-            $.notify(gettext('All images are shown in the sidebar'), {type: 'info', placement: { from: 'top', align: 'left' }});
+        if (showMessage) {
+            $.notify(gettext('All pictures are shown in the sidebar'), {type: 'info', placement: { from: 'top', align: 'left' }});
         }
     };
 
@@ -796,12 +795,12 @@
             e.stopPropagation();
         });
 
-    window.toggleSidePanel = function() {
-        if(window.innerWidth > 768) {
+    window.toggleSidePanel = function () {
+        if (window.innerWidth > 768) {
             let sidePanelWidth = 0
-            if(!window.isSidePanelOpen){
+            if (!window.isSidePanelOpen) {
                 sidePanelWidth = window.innerWidth / 4;
-                if(sidePanelWidth < 200) {
+                if (sidePanelWidth < 200) {
                     sidePanelWidth = 200
                 }
             }
@@ -813,9 +812,9 @@
             document.getElementById('close-btn').style.bottom = '';
         } else {
             let sidePanelHeight = 0
-            if(!window.isSidePanelOpen){
+            if (!window.isSidePanelOpen) {
                 sidePanelHeight = window.innerHeight / 4;
-                if(sidePanelHeight < 200) {
+                if (sidePanelHeight < 200) {
                     sidePanelHeight = 200
                 }
             }
@@ -836,17 +835,17 @@
         toggleSidePanel();
     }
 
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
         let resizeTimer;
         document.body.classList.add('resize-animation-stopper');
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
             document.body.classList.remove('resize-animation-stopper');
         }, 400);
-        if(window.innerWidth > 768) {
+        if (window.innerWidth > 768) {
             document.getElementById('close-btn').style.bottom = '';
             let sidePanelWidth = window.isSidePanelOpen ? window.innerWidth / 4 : 0;
-            if(window.isSidePanelOpen && sidePanelWidth < 200) {
+            if (window.isSidePanelOpen && sidePanelWidth < 200) {
                 sidePanelWidth = 200
             }
             document.getElementById('map-side-panel').style.width = sidePanelWidth + 'px';
@@ -859,7 +858,7 @@
         else  {
             document.getElementById('close-btn').style.left = '';
             let sidePanelHeight = window.isSidePanelOpen ? window.innerHeight / 4 : 0;
-            if(window.isSidePanelOpen && sidePanelHeight < 200) {
+            if (window.isSidePanelOpen && sidePanelHeight < 200) {
                 sidePanelHeight = 200
             }
             document.getElementById('close-btn').style.bottom = sidePanelHeight + 'px';
@@ -875,14 +874,14 @@
             highlightSelected(findMarkerByPhotoId(photoId));
         });
 
-        $('#img-wrapper').on('scroll', function() { 
-            if(window.innerWidth < 769 && ($('#img-wrapper')[0].scrollWidth - $('#img-wrapper')[0].scrollLeft - 20) < $('#img-wrapper')[0].clientWidth) {
-                if(!!window.morePhotosCanBeLoaded){
+        $('#img-wrapper').on('scroll', function () { 
+            if (window.innerWidth < 769 && ($('#img-wrapper')[0].scrollWidth - $('#img-wrapper')[0].scrollLeft - 20) < $('#img-wrapper')[0].clientWidth) {
+                if (!!window.morePhotosCanBeLoaded) {
                     loadMoreImages();
                 }
             }
-            else if(window.innerWidth > 768 && ($('#img-wrapper')[0].scrollHeight - $('#img-wrapper')[0].scrollTop - 20) < $('#img-wrapper')[0].clientHeight){
-                if(!!window.morePhotosCanBeLoaded){
+            else if (window.innerWidth > 768 && ($('#img-wrapper')[0].scrollHeight - $('#img-wrapper')[0].scrollTop - 20) < $('#img-wrapper')[0].clientHeight) {
+                if (!!window.morePhotosCanBeLoaded) {
                     loadMoreImages();
                 }
             }

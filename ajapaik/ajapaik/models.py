@@ -362,7 +362,7 @@ class Photo(Model):
     user = ForeignKey('Profile', related_name='photos', blank=True, null=True, on_delete=CASCADE)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
-    guess_level = FloatField(default=3)
+    suggestion_level = FloatField(default=3)
     lat = FloatField(null=True, blank=True, validators=[MinValueValidator(-85.05115), MaxValueValidator(85)],
                      db_index=True)
     lon = FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)],
@@ -423,8 +423,21 @@ class Photo(Model):
     perceptual_hash = BigIntegerField(null=True, blank=True)
     has_similar = BooleanField(default=False)
     similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
-    postcard_back_of = ForeignKey('self', blank=True, null=True, related_name='postcard_back', on_delete=CASCADE)
-    postcard_front_of = ForeignKey('self', blank=True, null=True, related_name='postcard_front', on_delete=CASCADE)
+    back_of = ForeignKey('self', blank=True, null=True, related_name='back', on_delete=CASCADE)
+    front_of = ForeignKey('self', blank=True, null=True, related_name='front', on_delete=CASCADE)
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground level')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
 
     original_lat = None
     original_lon = None
@@ -438,12 +451,12 @@ class Photo(Model):
         people_albums = []
         rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects \
             .filter(photo=self, deleted__isnull=True) \
-            .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False)).all()
+            .filter(Q(subject_consensus__isnull=False) | Q(subject_ai_suggestion__isnull=False)).all()
         for rectangle in rectangles:
             if rectangle.subject_consensus:
                 people_albums.append(rectangle.subject_consensus)
-            elif rectangle.subject_ai_guess:
-                people_albums.append(rectangle.subject_ai_guess)
+            elif rectangle.subject_ai_suggestion:
+                people_albums.append(rectangle.subject_ai_suggestion)
 
         return set(people_albums)
 
@@ -506,7 +519,7 @@ class Photo(Model):
 
         if trustworthiness < 0.25:
             # Novice users should only receive the easiest images to prove themselves
-            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('guess_level', '-confidence')
+            ret_qs = all_photos_set.exclude(id__in=user_has_seen_photo_ids).order_by('suggestion_level', '-confidence')
             if ret_qs.count() == 0:
                 # If the user has seen all the photos, offer at random
                 user_seen_all = True
@@ -704,10 +717,10 @@ class Photo(Model):
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
     
-    def set_postcard(self, opposite):
-        self.postcard_front_of = opposite
+    def set_backside(self, opposite):
+        self.front_of = opposite
         self.save()
-        opposite.postcard_back_of = self
+        opposite.back_of = self
         opposite.save()
 
     def save(self, *args, **kwargs):
@@ -788,7 +801,7 @@ class Photo(Model):
             weighed_level_sum += float(each.level) * each.trustworthiness
             total_weight += each.trustworthiness
         if total_weight != 0:
-            self.guess_level = round((weighed_level_sum / total_weight), 2)
+            self.suggestion_level = round((weighed_level_sum / total_weight), 2)
 
         if not self.bounding_circle_radius:
             geotags = GeoTag.objects.filter(photo_id=self.id)
@@ -845,7 +858,7 @@ class Photo(Model):
                 geotags.update(is_correct=False, azimuth_correct=False)
                 if selected_geotags:
                     GeoTag.objects.filter(pk__in=[x.id for x in selected_geotags]).update(is_correct=True)
-                    # TODO: Solution for few very different guesses e.g. (0, 90, 180) => 90
+                    # TODO: Solution for few very different suggestions e.g. (0, 90, 180) => 90
                     filter_indices = []
                     contains_outliers = True
                     arr = [x.azimuth for x in selected_geotags if x.azimuth]
@@ -889,23 +902,23 @@ class ImageSimilarity(Model):
     def __add__(self):
         self.save()
         if self.user_last_modified is not None:
-            guess = ImageSimilarityGuess(image_similarity=self, guesser = self.user_last_modified, similarity_type=self.similarity_type)
-            guess.save()
-            return 10, guess
+            suggestion = ImageSimilaritySuggestion(image_similarity=self, proposer = self.user_last_modified, similarity_type=self.similarity_type)
+            suggestion.save()
+            return 10, suggestion
 
     def __update__(self, qs):
         imageSimilarity = qs.first()
         imageSimilarity.confirmed = self.confirmed
         imageSimilarity.user_last_modified = self.user_last_modified
         qs.exclude(id=imageSimilarity.id).delete()
-        guess = ImageSimilarityGuess(image_similarity=imageSimilarity, guesser=self.user_last_modified, similarity_type=self.similarity_type)
-        guesses = ImageSimilarityGuess.objects.filter(image_similarity_id=imageSimilarity.id).order_by('guesser_id', '-created').all().distinct('guesser_id')
+        suggestion = ImageSimilaritySuggestion(image_similarity=imageSimilarity, proposer=self.user_last_modified, similarity_type=self.similarity_type)
+        suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by('proposer_id', '-created').all().distinct('proposer_id')
         if self.similarity_type:
-            firstGuess = 0 if self.similarity_type == 1 else 1
-            secondGuess = 0 if self.similarity_type == 2 else 2
-            if guesses.filter(similarity_type=self.similarity_type).count() >= (guesses.filter(similarity_type=secondGuess).count() -1) \
-                and len (guesses.filter(similarity_type=self.similarity_type)) >= (guesses.filter(similarity_type=firstGuess).count() - 1):
-                guess.guesser = self.user_last_modified
+            first_suggestion = 0 if self.similarity_type == 1 else 1
+            second_suggestion = 0 if self.similarity_type == 2 else 2
+            if suggestions.filter(similarity_type=self.similarity_type).count() >= (suggestions.filter(similarity_type=second_suggestion).count() -1) \
+                and len (suggestions.filter(similarity_type=self.similarity_type)) >= (suggestions.filter(similarity_type=first_suggestion).count() - 1):
+                suggestion.proposer = self.user_last_modified
                 imageSimilarity.similarity_type = self.similarity_type
                 if self.similarity_type == 0:
                     has_similar = ImageSimilarity.objects.filter(\
@@ -921,44 +934,44 @@ class ImageSimilarity(Model):
             .exclude(similarity_type=0).first() is not None
         imageSimilarity.from_photo.save()
         imageSimilarity.to_photo.save()
-        guess.save()
+        suggestion.save()
 
-        if guesses.filter(guesser = self.user_last_modified.id).count() < 1:
-            return 10, guess
+        if suggestions.filter(proposer = self.user_last_modified.id).count() < 1:
+            return 10, suggestion
         else:
-            return 0, guess
+            return 0, suggestion
 
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
         points = 0
         if qs.count() == 0:
-            points, guess = self.__add__()
+            points, suggestion = self.__add__()
         else:
-            points, guess = self.__update__(qs)
+            points, suggestion = self.__update__(qs)
         if points > 0:
             Points(
                 user=self.user_last_modified,
                 action=Points.CONFIRM_IMAGE_SIMILARITY,
                 points=points,
-                image_similarity_confirmation = guess,
+                image_similarity_confirmation = suggestion,
                 created=timezone.now()
             ).save()
         return points
 
 
     def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None, profile=None):
-        guesser = Profile.objects.filter(user_id=profile).first()
+        proposer = Profile.objects.filter(user_id=profile).first()
         if confirmed is None:
             confirmed = False
-        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
-        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=guesser)
+        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=proposer)
+        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=proposer)
         points = imageSimilarity.__add_or_update__()
         points += imageSimilarity2.__add_or_update__()
         return points
 
-class ImageSimilarityGuess(Model):
+class ImageSimilaritySuggestion(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
-    guesser = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_guesser')
+    proposer = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_proposer')
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1021,7 +1034,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, GUESS_SUBJECT_AGE, GUESS_SUBJECT_GENDER, TRANSCRIBE  = range(14)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION  = range(16)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1034,9 +1047,11 @@ class Points(Model):
         (ANNOTATION, _('Annotation')),
         (CONFIRM_SUBJECT, _('Confirm subject')),
         (CONFIRM_IMAGE_SIMILARITY, _('Confirm Image similarity')),
-        (GUESS_SUBJECT_AGE, _('Guess subject age')),
-        (GUESS_SUBJECT_GENDER, _('Guess subject age')),
+        (SUGGESTION_SUBJECT_AGE, _('Suggestion subject age')),
+        (SUGGESTION_SUBJECT_GENDER, _('Suggestion subject age')),
         (TRANSCRIBE, _('Transcribe')),
+        (CATEGORIZE_SCENE, _('Categorize scene')),
+        (ADD_VIEWPOINT_ELEVATION, _('Add viewpoint elevation'))
     )
 
     user = ForeignKey('Profile', related_name='points', on_delete=CASCADE)
@@ -1047,9 +1062,9 @@ class Points(Model):
     dating = ForeignKey('Dating', null=True, blank=True, on_delete=CASCADE)
     dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True, on_delete=CASCADE)
     annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True, on_delete=CASCADE)
-    face_recognition_rectangle_subject_data_guess = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess', null=True, blank=True, on_delete=CASCADE)
-    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserGuess', null=True, blank=True, on_delete=CASCADE)
-    image_similarity_confirmation = ForeignKey('ImageSimilarityGuess', null=True, blank=True, on_delete=CASCADE)
+    face_recognition_rectangle_subject_data_suggestion = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataSuggestion', null=True, blank=True, on_delete=CASCADE)
+    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserSuggestion', null=True, blank=True, on_delete=CASCADE)
+    image_similarity_confirmation = ForeignKey('ImageSimilaritySuggestion', null=True, blank=True, on_delete=CASCADE)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
     transcription = ForeignKey('Transcription', null=True, blank=True, on_delete=CASCADE)
@@ -1558,9 +1573,32 @@ class MyXtdComment(XtdComment):
     def dislike_count(self):
         return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
     
-    class WikimediaCommonsUpload(Model):
-        response_code= IntegerField(null=True, editable=False)
-        response_data = TextField(null=True, editable=False)
-        created = DateTimeField(auto_now_add=True, db_index=True)
-        photo = ForeignKey('Photo', on_delete=CASCADE)
-        url = URLField(null=True, blank=True, max_length=1023)
+class WikimediaCommonsUpload(Model):
+    response_code= IntegerField(null=True, editable=False)
+    response_data = TextField(null=True, editable=False)
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    url = URLField(null=True, blank=True, max_length=1023)
+
+class PhotoSceneSuggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
+
+class PhotoViewpointElevationSuggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground level')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions', on_delete=CASCADE)

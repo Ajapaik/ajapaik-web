@@ -1,7 +1,7 @@
 'use strict';
 
 function getSubmitObjectAnnotationFeedbackFunction(popoverId, annotationId) {
-    var onSuccess = function() {
+    var onSuccess = function () {
         togglePopover(popoverId);
         refreshAnnotations();
     };
@@ -113,9 +113,9 @@ function getObjectFeedbackPopoverTitle(annotation) {
 function createSavedObjectDetectionRectangle(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
-    var onAnnotationRectangleShow = function() {
+    var onAnnotationRectangleShow = function () {
         if (!hasInitializedSelects) {
-            setTimeout(function() {
+            setTimeout(function () {
                 initializeObjectAutocomplete(constants.elements.OBJECT_CLASS_SELECT_ID);
                 hasInitializedSelects = true;
             }, 150);

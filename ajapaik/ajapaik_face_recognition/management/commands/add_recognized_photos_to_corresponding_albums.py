@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         rectangles = FaceRecognitionRectangle.objects.filter(
-            Q(subject_consensus__isnull=False) | Q(subject_ai_guess__isnull=False))
+            Q(subject_consensus__isnull=False) | Q(subject_ai_suggestion__isnull=False))
         for rectangle in rectangles:
             if rectangle.subject_consensus:
                 existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=rectangle.subject_consensus,
@@ -23,13 +23,13 @@ class Command(BaseCommand):
                     )
                     new_relation.save()
                     print('New relation between %s and %s' % (new_relation.photo.pk, new_relation.album.pk))
-            elif rectangle.subject_ai_guess:
-                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=rectangle.subject_ai_guess,
+            elif rectangle.subject_ai_suggestion:
+                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=rectangle.subject_ai_suggestion,
                                                               type=AlbumPhoto.FACE_TAGGED).first()
                 if not existing_relation:
                     new_relation = AlbumPhoto(
                         photo=rectangle.photo,
-                        album=rectangle.subject_ai_guess,
+                        album=rectangle.subject_ai_suggestion,
                         type=AlbumPhoto.FACE_TAGGED
                     )
                     new_relation.save()

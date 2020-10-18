@@ -1,18 +1,18 @@
 'use strict';
 
 function getRemoveAnnotationFunction(annotationId, popoverId) {
-    var onSuccess = function() {
+    var onSuccess = function () {
         togglePopover(popoverId);
         refreshAnnotations();
     };
 
-    return function() {
+    return function () {
         removeFaceAnnotation(annotationId, onSuccess);
     };
 }
 
 function getModifySubmitFunction(annotationId, popoverId) {
-    var onSuccess = function() {
+    var onSuccess = function () {
         togglePopover(popoverId);
         refreshAnnotations();
     };
@@ -78,11 +78,11 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
 function createFaceAnnotationEditRectangle(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
-    var onAnnotationRectangleShow = function() {
+    var onAnnotationRectangleShow = function () {
         if (!hasInitializedSelects) {
-            setTimeout(function() {
+            setTimeout(function () {
                 var genderSelect = initializeGenderGroupSelect(annotation.gender);
-                if(annotation && annotation.subjectId) {
+                if (annotation && annotation.subjectId) {
                     genderSelect.disable();
                 }
                 initializeAgeGroupSelect(annotation.age);

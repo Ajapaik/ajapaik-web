@@ -228,61 +228,7 @@
 
                         <!-- start of toolbox block -->
                         <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
-                            <div class="ajp-mt-1">
-                                {% if is_frontpage and is_photoview or is_game or is_mapview %}
-                                    <a id="ajp-photo-modal-specify-location_game" style="width:42px;" class="no-text-decoration float-left"
-                                       data-id="{{ photo.id }}" title="{% trans "Pick the shooting location!" %}"
-                                       href="/geotag/?photo={{ photo.id }}" target="_blank" rel="nofollow">
-                                        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
-                                    </a>
-                                {% endif %}
-                                <a id="ajp-photo-modal-start-dating-button" class="no-text-decoration float-left"
-                                   data-id="{{ photo.id }}" title="{% trans "Date this image" %}" href="#">
-                                    <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
-                                    <span class="badge">{{ datings_count }}</span>
-                                </a>
-                                <a id="ajp-photo-modal-add-rephoto" class="no-text-decoration float-left" href="#"
-                                   title="{% trans "Add rephoto" %}">
-                                    <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
-                                </a>
-                                <a
-                                    title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
-                                    id="mark-object-button"
-                                    class="no-text-decoration float-left"
-                                    style="cursor: pointer;"
-                                >
-                                    <i class="material-icons notranslate ajp-text-gray ajp-icon-48">
-                                        format_shapes
-                                    </i>
-                                </a>
-                                {% if request.user.profile.is_legit %}
-                                    <a id="ajp-photo-modal-discuss" class="no-text-decoration float-left"
-                                       title="{% trans "Discuss" %}" href="#">
-                                       <i class="material-icons notranslate ajp-text-gray ajp-icon-48">comment</i>
-                                       <span class="badge hidden">0</span>
-                                    </a>
-                                {% endif %}
-                                <div class="dropdown float-left" id="ajp-photo-modal-dropdown">
-                                    <a id="ajp-photo-modal-share" role="button" title="{% trans "Share" %}"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
-                                        aria-labelledby="ajp-sharing-dropdown-button">
-                                        <li role="presentation" class="disabled-link">
-                                            <div role="menuitem" tabindex="-1" id="ajp-grab-link">
-                                                <a class="no-text-decoration" href="{{ hostname }}{{ photo.get_detail_url }}">
-                                                    {{ hostname }}{{ photo.get_detail_url }}</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <a id="ajp-photoview-transcribe-button" data-id="{{ photo.id }}" class="float-left"
-                                    title="{% trans "Transcribe this image" %}" href="#">
-                                    <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
-                                    <span id="ajp-photoview-transcriptions-count" class="badge"></span>
-                                </a>
-                            </div>
+                            {% include '_toolbox.html' with photo=photo %}
                         </div>
                         <!-- end of toolbox block -->
                         <!-- start of dater block -->
@@ -496,75 +442,10 @@
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
 
-        $('#mark-object-button').click(function (e) {
-            e.preventDefault();
-            ObjectTagger.toggleCropping();
-        });
-
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
         $(document).on('mouseenter.ajp-namespace', '#ajp-modal-photo-container', showDetectionRectangles);
         $(document).on('mouseleave.ajp-namespace', '#ajp-modal-photo-container', hideDetectionRectanglesWithoutOpenPopover);
 
-        window.startDater = function (photoId) {
-            $('.ajp-dater-hide-when-dater-visible').hide();
-            $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
-                photoId: photoId,
-                previousDatings: window.previousDatings
-            });
-            $('.ajp-close-rephoto-overlay-button').click();
-        };
-        window.stopDater = function () {
-            $('.ajp-dater-hide-when-dater-visible').show();
-            $('#ajp-dater-input').val(null);
-            $('#ajp-dater-comment').val(null);
-            $('#ajp-dater-feedback').empty();
-            $('#ajp-dater-container').hide();
-        };
-        window.updateDatings = function () {
-            $.ajax({
-                url: "{% url 'get_datings' photo.id %}",
-                success: function (result) {
-                    $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
-                    $('#ajp-photo-modal-start-dating-button').find('.badge').html(result.datings.length);
-                    $('#ajp-photoview-start-dating-button').find('.badge').html(result.datings.length);
-                    window.updateLeaderboard();
-                    $('#ajp-dater-input').val(null);
-                    $('#ajp-dater-comment').val(null);
-                }
-            });
-        };
-        window.startTranscriber = function (photoId) {
-            $('.ajp-transcriber-hide-when-transcriber-visible').hide();
-            $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
-                photoId: photoId,
-                previousDatings: window.previousDatings
-            });
-            $('.ajp-close-rephoto-overlay-button').click();
-        };
-        window.stopTranscriber = function () {
-            $('.ajp-transcriber-hide-when-dater-visible').show();
-            $('#ajp-transcriber-comment').val(null);
-            $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
-        };
-        window.updateTranscriptions = function () {
-            $.ajax({
-                url: "{% url 'api_transcriptions' photo.id %}",
-                success: function (result) {
-                    window.currentPhotoTranscriptions = result.transcriptions;
-                    if(window.currentPhotoTranscriptions.length > 0) {
-                        $('#ajp-photoview-transcribe-button').find('.badge').html(window.currentPhotoTranscriptions.length);
-                        $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
-                        if(!$('#ajp-transcriber-confirm-button').is(':visible')) {
-                            $('#ajp-transcriber-confirm-button').removeClass('d-none');
-                        }
-                    }
-                },
-                error: function() {
-                    $.notify("Failed to get transcriptions", {type: "danger"});
-                }
-            });
-        };
-        window.updateTranscriptions();
         var rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image');
         rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
@@ -580,7 +461,7 @@
         if (typeof get_photoviewModalOptions === "function") {
             var options = get_photoviewModalOptions();
             $('#ajp-photo-modal-map-container').AjapaikMinimap(options);
-            $('.ajp-minimap-start-guess-CTA-button').remove();
+            $('.ajp-minimap-start-suggestion-CTA-button').remove();
             var minimapConfirmGeotagButton = document.createElement('button');
             $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
                 .addClass('ajp-minimap-confirm-geotag-button')
@@ -592,20 +473,20 @@
                 $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
             }
             $('#ajp-photo-modal-map-container').append(minimapConfirmGeotagButton);
-            var minimapStartGuessButton = document.createElement('button');
-            $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
-                .addClass('ajp-minimap-start-guess-button')
+            var minimapStartSuggestionButton = document.createElement('button');
+            $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
+                .addClass('ajp-minimap-start-suggestion-button')
                 .data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Submit your own location'))
                 .html('<i class="material-icons notranslate">edit_location</i>').popover();
-            $('#ajp-photo-modal-map-container').append(minimapStartGuessButton);
+            $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
         }
     
         var currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
 
-        if(window.userClosedRephotoTools && window.userClosedSimilarPhotoTools){
-            if(currentPhotoHasLocation) {
+        if (window.userClosedRephotoTools && window.userClosedSimilarPhotoTools) {
+            if (currentPhotoHasLocation) {
                 $('#ajp-photo-modal-original-photo-column').removeClass("col-lg-12").addClass("col-lg-6");
                 $('#ajp-photo-modal-original-photo-info-column').removeClass("col-lg-12").addClass("col-lg-6");
             }
@@ -616,7 +497,7 @@
         }
         window.flipPhoto = function () {
             var fullScreenPhoto = $('#ajp-full-screen-image');
-            if(fullScreenPhoto !== undefined) {
+            if (fullScreenPhoto !== undefined) {
                 if (fullScreenPhoto.hasClass('ajp-photo-flipped')) {
                     fullScreenPhoto.removeClass('ajp-photo-flipped');
                 } else {
@@ -626,7 +507,7 @@
 
             mirrorDetectionAnnotations();
 
-            if(fullScreenPhoto !== undefined) {
+            if (fullScreenPhoto !== undefined) {
                 window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
             }
         };
@@ -703,7 +584,7 @@
             });            
     });
 
-    resizeSimilarImage = function() {
+    resizeSimilarImage = function () {
         window.currentPhotoOriginalWidth
         window.currentPhotoOriginalHeight
         var height = 320;
@@ -716,8 +597,7 @@
             imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
             if (columnWidth < window.currentPhotoOriginalWidth) {
                 height = window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth * columnWidth;
-            }
-            else{
+            } else {
                 height = imgContainerHeight;
             }
         }
@@ -725,14 +605,14 @@
     $('#ajp-modal-similar-photo').height(height);
     }
 
-    $('#ajp-modal-similar-photo').on('load', function() {
-        if(window.visualViewport !== undefined) {
+    $('#ajp-modal-similar-photo').on('load', function () {
+        if (window.visualViewport !== undefined) {
             resizeSimilarImage();
         }
     });
 
-    $(window).on('resize', function() {
-        if(window.visualViewport !== undefined) {
+    $(window).on('resize', function () {
+        if (window.visualViewport !== undefined) {
             resizeSimilarImage();
         }
     })
@@ -740,8 +620,8 @@
     $('#ajp-modal-rephoto').removeClass('ajp-photo-bw');
     $('#ajp-rephoto-full-screen-image').removeClass('ajp-photo-bw');
 
-    $(document).on('click', '#modal-compare-similar', function() {
-        if(window.currentlyOpenPhotoId !== undefined && window.currentlySelectedSimilarPhotoId !== undefined){
+    $(document).on('click', '#modal-compare-similar', function () {
+        if (window.currentlyOpenPhotoId !== undefined && window.currentlySelectedSimilarPhotoId !== undefined) {
             window.location.href = window.location.origin + '/compare-photos/' + window.currentlyOpenPhotoId + '/' + window.currentlySelectedSimilarPhotoId;
         }
     })

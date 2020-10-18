@@ -2,7 +2,7 @@ from django.contrib import admin
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
-    FaceRecognitionUserGuess
+    FaceRecognitionUserSuggestion
 
 
 class FaceRecognitionRectangleAdmin(admin.ModelAdmin):
@@ -13,10 +13,10 @@ class FaceRecognitionRectangleFeedbackAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(FaceRecognitionRectangleFeedback)
 
 
-class FaceRecognitionUserGuessAdmin(admin.ModelAdmin):
-    form = autocomplete_form_factory(FaceRecognitionUserGuess)
+class FaceRecognitionUserSuggestionAdmin(admin.ModelAdmin):
+    form = autocomplete_form_factory(FaceRecognitionUserSuggestion)
 
 
 admin.site.register(FaceRecognitionRectangle, FaceRecognitionRectangleAdmin)
 admin.site.register(FaceRecognitionRectangleFeedback, FaceRecognitionRectangleFeedbackAdmin)
-admin.site.register(FaceRecognitionUserGuess, FaceRecognitionUserGuessAdmin)
+admin.site.register(FaceRecognitionUserSuggestion, FaceRecognitionUserSuggestionAdmin)

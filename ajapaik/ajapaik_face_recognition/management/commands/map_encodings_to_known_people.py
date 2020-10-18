@@ -12,7 +12,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 def map_single_person(person_album: Album) -> None:
     print('Collecting rectangles for person %s' % person_album.pk)
     rectangles_with_this_person = FaceRecognitionRectangle.objects.filter(face_encoding__isnull=False).filter(
-        Q(subject_consensus_id=person_album.pk) | Q(subject_ai_guess_id=person_album.pk)).distinct('pk').all()
+        Q(subject_consensus_id=person_album.pk) | Q(subject_ai_suggestion_id=person_album.pk)).distinct('pk').all()
     print('%s rectangles found' % rectangles_with_this_person.count())
     encodings_for_this_person = []
     for rectangle in rectangles_with_this_person:

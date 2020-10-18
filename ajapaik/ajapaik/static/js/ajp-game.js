@@ -23,7 +23,7 @@
     window.photoHistory = [];
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
-    window.startGuessLocation = function () {
+    window.startSuggestionLocation = function () {
         var startLat,
             startLon;
         $('#ajp-map-container').hide();
@@ -64,7 +64,7 @@
         window.locationToolsOpen = true;
         window.syncStateToUrl();
     };
-    window.stopGuessLocation = function () {
+    window.stopSuggestionLocation = function () {
         $('#ajp-map-container').show();
         $('#ajp-game-photo-modal').show();
         $('.modal-backdrop').show();
@@ -202,7 +202,7 @@
                 window.currentlyOpenPhotoId = currentPhoto.id;
                 window.photoModalUserHasConfirmedThisLocation = !!currentPhoto.userAlreadyConfirmed;
                 window.photoModalUserHasGeotaggedThisPhoto = !!currentPhoto.userAlreadyGeotagged;
-                if(!window.isMobile){
+                if (!window.isMobile) {
                     modalPhoto.on('load', photoLoadModalResizeFunction);
                 }
                 if (window.fullscreenEnabled) {

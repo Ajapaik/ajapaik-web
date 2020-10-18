@@ -1,8 +1,8 @@
 from django.forms import ModelForm
 from dal import autocomplete
 
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, ImageSimilarityGuess, Licence, Photo, Points, Profile, Skip, Source, User, Video
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, User, Video
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, ObjectAnnotationFeedback
 
 def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
@@ -32,7 +32,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
         field_url_dict = {
             'photo': 'photo',
             'subject_consensus': 'album',
-            'subject_ai_guess': 'album',
+            'subject_ai_suggestion': 'album',
             'user': 'profile'
         }
     elif ac_model == FaceRecognitionRectangleFeedback:
@@ -41,16 +41,16 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'user': 'profile',
             'alternative_subject': 'album'
         }
-    elif ac_model == FaceRecognitionUserGuess:
+    elif ac_model == FaceRecognitionUserSuggestion:
         field_url_dict = {
             'subject_album': 'album',
             'rectangle': 'face-recognition-rectangle',
             'user': 'user'
         }
-    elif ac_model == FaceRecognitionRectangleSubjectDataGuess:
+    elif ac_model == FaceRecognitionRectangleSubjectDataSuggestion:
         field_url_dict = {
             'face_recognition_rectangle': 'face-recognition-rectangle',
-            'guesser': 'profile'
+            'proposer': 'profile'
         }
     elif ac_model == GeoTag:
         field_url_dict = {
@@ -63,10 +63,10 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'to_photo': 'photo',
             'user_last_modified': 'profile'
         }
-    elif ac_model == ImageSimilarityGuess:
+    elif ac_model == ImageSimilaritySuggestion:
         field_url_dict = {
             'image_similarity': 'image-similarity',
-            'guesser': 'profile'
+            'proposer': 'profile'
         }
     elif ac_model == ObjectDetectionAnnotation:
         field_url_dict = {
@@ -94,8 +94,8 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'area': 'area',
             'rephoto_of': 'photo',
             'video': 'video',
-            'postcard_back_of': 'photo',
-            'postcard_front_of': 'photo'
+            'back_of': 'photo',
+            'front_of': 'photo'
         }
     elif ac_model == Points:
         field_url_dict = {
@@ -106,9 +106,9 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'dating': 'dating',
             'dating_confirmation': 'dating-confirmation',
             'annotation': 'face-recognition-rectangle',
-            'face_recognition_rectangle_subject_data_guess': 'face-recognition-rectangle-subject-data-guess',
-            'subject_confirmation': 'face-recognition-user-guess',
-            'image_similarity_confirmation': 'image-similarity-guess',
+            'face_recognition_rectangle_subject_data_suggestion': 'face-recognition-rectangle-subject-data-suggestion',
+            'subject_confirmation': 'face-recognition-user-suggestion',
+            'image_similarity_confirmation': 'image-similarity-suggestion',
             'transcription': 'transcription'
         }    
     elif ac_model == Skip:
@@ -129,7 +129,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     for field, url in field_url_dict.items():
         is_m2m = field in m2m
         text = 'Type to return a list of %s...' if is_m2m else 'Type to return a %s list...'
-        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess, GeoTag, ImageSimilarity, ImageSimilarityGuess, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points,  Skip]:
+        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points,  Skip]:
             minimum_input_length = 1
         else:
             minimum_input_length = 3

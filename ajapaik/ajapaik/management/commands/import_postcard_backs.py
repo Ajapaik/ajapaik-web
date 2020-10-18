@@ -42,6 +42,6 @@ class Command(BaseCommand):
                     new_photo.date = first.date
                 try:
                     new_photo.save()
-                    first.set_postcard(new_photo)
+                    first.set_backside(new_photo)
                 except Exception as e:
                     print(e)    

@@ -61,6 +61,11 @@
             {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> picture{% plural %}favorited <b>{{ photolikes }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
+    {% if photo_suggestions > 0 %}
+        <li>
+            {% blocktrans count counter=photo_suggestions %}categorized <b>{{ photo_suggestions }}</b> picture{% plural %}categorized <b>{{ photo_suggestions }}</b> pictures{% endblocktrans %}
+        </li>
+    {% endif %}
 </ul>
 {% if user_points > 0 %}
     <div class="w-100">

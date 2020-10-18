@@ -1,6 +1,6 @@
 'use strict';
 
-var WikiData = (function() {
+var WikiData = (function () {
     var WIKIDATA_URL = 'https://www.wikidata.org/w/api.php';
 
     var WIKI_DATA_ACTION_SEARCH_USING_LABELS_AND_ALIASES = 'wbsearchentities';
@@ -30,7 +30,7 @@ var WikiData = (function() {
         };
     }
 
-    var findByLabel = function(label, onSuccess) {
+    var findByLabel = function (label, onSuccess) {
         var onQuerySuccess = getFindByLabelOnQuerySuccessFunction(onSuccess);
 
         var params = {

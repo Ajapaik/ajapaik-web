@@ -7,11 +7,11 @@
         var rephotoUploadSettingsUrl = "{% url 'api_submit_rephoto_upload_settings' %}";
         var isRephotoUploadSettingsModal = "{{ isModal }}" == "True";
 
-        $('#rephoto-upload-settings-submit-button').on('click', function() {
+        $('#rephoto-upload-settings-submit-button').on('click', function () {
             SaveRephotoUploadSettings();
         });
 
-        SaveRephotoUploadSettings = function(subject, profile){
+        SaveRephotoUploadSettings = function (subject, profile) {
             let wikimedia_commons_rephoto_upload_consentE = document.getElementById("id_wikimedia_commons_rephoto_upload_consent");
             let wikimedia_commons_rephoto_upload_consent= wikimedia_commons_rephoto_upload_consentE.options[wikimedia_commons_rephoto_upload_consentE.selectedIndex].value;
             $('#ajp-loading-overlay').show();
@@ -30,7 +30,7 @@
                 },
                 complete: function () {
                     $('#ajp-loading-overlay').hide();
-                    if(isRephotoUploadSettingsModal) {
+                    if (isRephotoUploadSettingsModal) {
                         $('#ajp-rephoto-upload-settings-modal').modal('hide');
                     }
                 }

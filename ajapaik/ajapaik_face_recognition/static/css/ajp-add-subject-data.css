@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-.guess-button {
+.suggestion-button {
     border: none;
     max-lines: 135px;
     min-width: 100px;
@@ -16,12 +16,12 @@
     background-color: transparent;
 }
 
-.guess-button:hover {
+.suggestion-button:hover {
     background-color: #d5d5d5;
 }
 
-.guess-button:focus,
-.guess-button:active {
+.suggestion-button:focus,
+.suggestion-button:active {
     outline: none;
 }
 

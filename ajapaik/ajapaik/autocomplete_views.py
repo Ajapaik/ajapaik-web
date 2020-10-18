@@ -5,9 +5,9 @@ from django.db.models import Q
 from django.http.response import HttpResponse
 from django.utils.translation import ugettext as _
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, \
-     ImageSimilarityGuess, Licence, Photo, Points, Profile, Skip, Source, Transcription, User, Video
+     ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, Transcription, User, Video
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
-     FaceRecognitionUserGuess, FaceRecognitionRectangleSubjectDataGuess
+     FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, ObjectAnnotationFeedback
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
@@ -110,24 +110,24 @@ class FaceRecognitionRectangleFeedbackAutocomplete(autocomplete.Select2QuerySetV
 
         return qs
 
-class FaceRecognitionUserGuessAutocomplete(autocomplete.Select2QuerySetView):
+class FaceRecognitionUserSuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return FaceRecognitionUserGuess.objects.none()
+            return FaceRecognitionUserSuggestion.objects.none()
 
-        qs = FaceRecognitionUserGuess.objects.all()
+        qs = FaceRecognitionUserSuggestion.objects.all()
 
         if self.q:
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
 
-class FaceRecognitionRectangleSubjectDataGuessAutocomplete(autocomplete.Select2QuerySetView):
+class FaceRecognitionRectangleSubjectDataSuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return FaceRecognitionRectangleSubjectDataGuess.objects.none()
+            return FaceRecognitionRectangleSubjectDataSuggestion.objects.none()
 
-        qs = FaceRecognitionRectangleSubjectDataGuess.objects.all()
+        qs = FaceRecognitionRectangleSubjectDataSuggestion.objects.all()
 
         if self.q:
             qs = qs.filter(id__istartswith=self.q)
@@ -158,12 +158,12 @@ class ImageSimilarityAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
-class ImageSimilarityGuessAutocomplete(autocomplete.Select2QuerySetView):
+class ImageSimilaritySuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return ImageSimilarityGuess.objects.none()
+            return ImageSimilaritySuggestion.objects.none()
 
-        qs = ImageSimilarityGuess.objects.all()
+        qs = ImageSimilaritySuggestion.objects.all()
 
         if self.q:
             qs = qs.filter(id__istartswith=self.q)

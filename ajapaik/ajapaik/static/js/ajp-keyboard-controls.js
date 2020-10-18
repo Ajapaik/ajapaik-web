@@ -4,7 +4,7 @@
     /*jslint browser: true*/
     $(document).ready(function () {
         $(document).on('keydown', function (e) {
-            if($('input,textarea').is(':focus')) {
+            if ($('input,textarea').is(':focus')) {
                 return;
             }
             if (areHotkeysEnabled()) {
@@ -26,7 +26,7 @@
                         }
                     } else if (e.keyCode === constants.keyCodes.D) {
                         // d
-                        $('#ajp-photo-modal-start-dating-button').click();
+                        $('#ajp-start-dating-button').click();
                     }
                     if (e.keyCode === 32 && window.currentlySelectedPhotoId) {
                         // space
@@ -52,7 +52,7 @@
                     } else if (e.keyCode === 13) {
                         // enter
                         var geotagger = $('#ajp-geotagging-container').data('AjapaikGeotagger');
-                        if (geotagger.guessingStarted) {
+                        if (geotagger.suggestionStarted) {
                             if (geotagger.feedbackMode) {
                                 $('#ajp-geotagger-feedback-next-button').click();
                             } else {
@@ -68,12 +68,12 @@
                             // Skipping photo on close Street View would be confusing
                             var sp = $('#ajp-geotagging-container').data('AjapaikGeotagger').streetPanorama;
                             if (!sp.getVisible()) {
-                                window.stopGuessLocation();
+                                window.stopSuggestionLocation();
                             } else {
                                 sp.setVisible(false);
                             }
                         } else {
-                            window.stopGuessLocation();
+                            window.stopSuggestionLocation();
                         }
                     } else if (e.keyCode === 38) {
                         // up arrow
@@ -108,7 +108,7 @@
                     } else if (e.keyCode === 68) {
                         // FIXME: Re-enable?
                         // d
-                        // $('#ajp-photoview-start-dating-button').click();
+                        // $('#ajp-start-dating-button').click();
                     }
                 }
 

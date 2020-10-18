@@ -6,7 +6,7 @@ from dal import autocomplete
 from ajapaik.ajapaik.models import Photo, Album
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
-    FaceRecognitionUserGuess, FaceRecognitionRectangleFeedback
+    FaceRecognitionUserSuggestion, FaceRecognitionRectangleFeedback
 
 
 class FaceRecognitionAddPersonForm(forms.ModelForm):
@@ -21,7 +21,7 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
         fields = ('name', 'gender', 'is_public_figure')
 
 
-class FaceRecognitionGuessForm(forms.ModelForm):
+class FaceRecognitionSuggestionForm(forms.ModelForm):
     subject_album = forms.ModelChoiceField(
         queryset=Album.objects.all(),
         required=True,
@@ -30,7 +30,7 @@ class FaceRecognitionGuessForm(forms.ModelForm):
     rectangle = forms.ModelChoiceField(queryset=FaceRecognitionRectangle.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
-        model = FaceRecognitionUserGuess
+        model = FaceRecognitionUserSuggestion
         fields = ('subject_album', 'rectangle')
 
 

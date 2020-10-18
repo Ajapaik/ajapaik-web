@@ -11,7 +11,7 @@ function isCorrectPersonName(form) {
 }
 
 function getSubmitDetectedFaceFeedbackFunction(annotationId, popoverId) {
-    var onSuccess = function() {
+    var onSuccess = function () {
         togglePopover(popoverId);
         refreshAnnotations();
     };
@@ -311,9 +311,9 @@ function getFeedbackPopoverTitle(annotation) {
 function createSavedFaceDetectionRectangle(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
-    var onAnnotationRectangleShow = function() {
+    var onAnnotationRectangleShow = function () {
         if (!hasInitializedSelects) {
-            setTimeout(function() {
+            setTimeout(function () {
                 if (!annotation.isAddedByCurrentUser) {
                     initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
                     initializeAgeGroupSelect(annotation.previousFeedback.age);

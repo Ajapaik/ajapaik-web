@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     /* Credit: django.contrib.admin (BSD) */
 
     var showAddAnotherPopup = function(triggeringLink) {
@@ -27,7 +27,7 @@ $(document).ready(function() {
         }
 
         $('body').append('<div id="yourlabs_overlay"></div');
-        $('#yourlabs_overlay').click(function() { 
+        $('#yourlabs_overlay').click(function () { 
             win.close(); 
             $(this).remove();
         });

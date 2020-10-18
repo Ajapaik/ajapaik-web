@@ -7,11 +7,11 @@
         var settingsUrl = "{% url 'api_submit_user_settings' %}";
         var isModal = "{{ isModal }}" == "True";
 
-        $('#user-settings-upload-submit-button').on('click', function() {
+        $('#user-settings-upload-submit-button').on('click', function () {
             SaveSettings();
         });
 
-        SaveSettings = function(subject, profile){
+        SaveSettings = function (subject, profile) {
             let preferredLanguageE = document.getElementById("id_preferred_language");
             let preferredLanguage= preferredLanguageE.options[preferredLanguageE.selectedIndex].value;
             let newsletterConsentE = document.getElementById("id_newsletter_consent");
@@ -33,7 +33,7 @@
                 },
                 complete: function () {
                     $('#ajp-loading-overlay').hide();
-                    if(isModal) {
+                    if (isModal) {
                         $('#ajp-user-settings-modal').modal('hide');
                     }
                 }

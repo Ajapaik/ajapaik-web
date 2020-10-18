@@ -99,21 +99,21 @@
             timeout,
             albumSearchTimeout,
             syncFilteringHighlights = function () {
-                var orderingString = '';
+                var orderingString = gettext('Ordering') + ': ';
                 $('.ajp-white').attr('class', 'ajp-gray');
                 if (window.order1 === 'time') {
                     $('#ajp-time-filter-icon').attr('class', 'ajp-white');
                     if (window.order3 === 'reverse') {
-                        orderingString += gettext('Earliest');
+                        orderingString += gettext('earliest');
                     } else {
-                        orderingString += gettext('Latest');
+                        orderingString += gettext('latest');
                     }
                 } else if (window.order1 === 'amount') {
                     $('#ajp-amount-filter-icon').attr('class', 'ajp-white');
                     if (window.order3 === 'reverse') {
-                        orderingString += gettext('Least');
+                        orderingString += gettext('least');
                     } else {
-                        orderingString += gettext('Most');
+                        orderingString += gettext('most');
                     }
                 } else if (window.order1 === 'closest') {
                     $('#ajp-closest-filter-icon').attr('class', 'ajp-white');
@@ -138,6 +138,12 @@
                 } else if (window.order2 === 'likes') {
                     $('#ajp-likes-filter-icon').attr('class', 'ajp-white');
                     orderingString += ' ' + gettext('liked');
+                } else if (window.order2 === 'interior-categorization') {
+                    $('#ajp-interior-categorization-filter-icon').attr('class', 'ajp-white');
+                    orderingString += ' ' + gettext('categorized');
+                } else if (window.order2 === 'exterior-categorization') {
+                    $('#ajp-exterior-categorization-filter-icon').attr('class', 'ajp-white');
+                    orderingString += ' ' + gettext('categorized');
                 } else if (window.order2 === 'datings') {
                     $('#ajp-datings-filter-icon').attr('class', 'ajp-white');
                     orderingString += ' ' + gettext('dated');
@@ -172,7 +178,7 @@
                         orderingStringTarget.html(orderingString + ' <i id="ajp-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</i>');
                     }
                 }
-                var dropdownOrderingString = $('#ajp-filter-dropdown-filter-name');
+                var dropdownOrderingString = $('#ajp-organiser-dropdown-sort-order-name');
                 if (dropdownOrderingString) {
                     dropdownOrderingString.html(orderingString);
                 }
@@ -205,7 +211,6 @@
             },
             updateFrontpageAlbumsAsync = function () {
                 $('#ajp-loading-overlay').show();
-                $('#ajp-filtering-dropdown').addClass('d-none');
                 $('#ajp-album-filter-box').removeClass('d-none');
                 $('#ajp-photo-filter-box').addClass('d-none');
                 $('#ajp-frontpage-historic-photos').addClass('d-none');
@@ -225,7 +230,7 @@
                         var targetDiv = $('#ajp-album-selection');
                         targetDiv.empty();
                         targetDiv.removeClass('w-100');
-                        if(response.albums.length > 0) {
+                        if (response.albums.length > 0) {
                             for (var i = 0, l = response.albums.length; i < l; i += 1) {
                                 targetDiv.append(tmpl('ajp-frontpage-album-template', response.albums[i]));
                             }
@@ -331,7 +336,6 @@
             var targetDiv = $('#ajp-frontpage-historic-photos');
             targetDiv.removeClass('hidden ajp-invisible');
             $('#ajp-loading-overlay').show();
-            $('#ajp-filtering-dropdown').removeClass('d-none');
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();
@@ -347,7 +351,7 @@
                     window.showPhotos = response.show_photos;
                     var collection;
                     var attribute = window.order2;
-                    switch(window.order2){
+                    switch (window.order2) {
                         case 'rephotos':
                             collection = response.photos_with_rephotos;
                             break;
@@ -366,29 +370,60 @@
                     syncPagingButtons();
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
-                    if((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
-                        if(window.location.search.indexOf('&people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-category-template',
-                                    gettext('No tagged persons in album')
-                                ));
-                        }
-                        else if(window.location.search.indexOf('&postcards=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-category-template',
-                                    gettext('No postcards in album')
-                                ));
-                        } else {
+                    if ((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
+                        let filterCount = 0;
+                        let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation']
+                        photoFilters.forEach(function(filter) {
+                            if(window.location.search.indexOf('&' + filter + '=1') > 0) {
+                                filterCount++;
+                            }
+                        })
+
+                        let message;
+                        if (filterCount == 0) {
                             var array = window.location.search.split('&q=');
-                            var queryStr = interpolate(gettext('No results found for: %(query)s'), {query: decodeURI(array[array.length - 1])}, true);
+                            message = 'No results found for: %(query)s';
+                            if (!!window.albumId) {
+                                message += ' in this album';
+                            }
+                            if (filterCount>0) {
+                                message += '\n' + 'You could also try to edit filters applied to your search';
+                            }
                             targetDiv.append(
                                 tmpl(
                                     'ajp-frontpage-photo-search-empty-template',
-                                    queryStr
+                                    interpolate(gettext(message), {query: decodeURI(array[array.length - 1])}, true)
+                                ));
+                        } else {
+                            if (filterCount > 1  && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures were found with the selected filters';
+                            } else if (window.location.search.indexOf('people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures with marked faces were found';
+                            } else if (window.location.search.indexOf('backsides=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures with back sides were found';
+                            } else if (window.location.search.indexOf('interiors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No interior views were found';
+                            } else if (window.location.search.indexOf('exteriors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No exterior views were found';
+                            } else if (window.location.search.indexOf('ground_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures from the ground level were found';
+                            }  else if (window.location.search.indexOf('raised_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No raised viewpoint pictures were found';
+                            }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No aerial pictures were found';
+                            }
+
+                            if (!!window.albumId) {
+                                message += ' ' + gettext('in this album');
+                            }
+
+                            targetDiv.append(
+                                tmpl(
+                                    'ajp-frontpage-photo-search-empty-category-template',
+                                    gettext(message)
                                 ));
                         }
+
                         targetDiv.addClass('w-100');
                         targetDiv.height(window.innerHeight);
                         historicPhotoGalleryDiv.removeClass('d-none').removeClass('justified-gallery');
@@ -428,14 +463,14 @@
         window.handleAlbumChange = function () {
             window.location.href = '/?album=' + window.albumId;
         };
-        window.startGuessLocation = function (photoId) {
+        window.startSuggestionLocation = function (photoId) {
             if (window.albumId) {
                 window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
                 window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
             }
         };
-        window.stopGuessLocation = function () {
+        window.stopSuggestionLocation = function () {
             $('#ajp-geotagging-container').hide();
             $('#ajp-frontpage-container').show();
             $('#ajp-photo-modal').show();
@@ -452,10 +487,10 @@
             window.locationToolsOpen = false;
             window.currentlySelectedPhotoId = selectedPhoto;
             syncStateToUrl();
-            if (window.startGuessScrollTop) {
+            if (window.startSuggestionScrollTop) {
                 setTimeout(function () {
-                    $(window).scrollTop(window.startGuessScrollTop);
-                    window.startGuessScrollTop = null;
+                    $(window).scrollTop(window.startSuggestionScrollTop);
+                    window.startSuggestionScrollTop = null;
                 }, 1000);
             }
         };

@@ -1,7 +1,7 @@
 from datetime import date
 from ajapaik.ajapaik.models import AlbumPhoto, Photo
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 
 
@@ -33,6 +33,6 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
     return True
 
 
-def get_annotation_subject_data_guesses(face_recognition_rectangle_id):
-    return FaceRecognitionRectangleSubjectDataGuess.objects\
+def get_annotation_subject_data_suggestions(face_recognition_rectangle_id):
+    return FaceRecognitionRectangleSubjectDataSuggestion.objects\
         .filter(face_recognition_rectangle_id=face_recognition_rectangle_id)

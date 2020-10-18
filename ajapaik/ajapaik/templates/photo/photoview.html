@@ -173,50 +173,7 @@
         </div>
     </div>
 
-    <div class="row ajp-height-48 mt-2">
-        {% if not is_frontpage and is_photoview or is_game or is_mapview %}
-            <a id="ajp-photoview-start-geotagging-button_game" data-id="{{ photo.id }}" class="float-left"
-                title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
-                rel="nofollow">
-                <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
-            </a>
-        {% endif %}
-        <a id="ajp-photoview-start-dating-button" data-id="{{ photo.id }}" class="float-left"
-            title="{% trans "Date this image" %}" href="#">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
-            <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
-        </a>
-        <a title="{% trans "Add rephoto" %}" id="ajp-photoview-add-rephoto-button" href="#" class="float-left ml-2">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
-        </a>
-        <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
-            id="mark-object-button"
-            href="#" class="float-left"
-        >
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
-        </a>
-        <div class="dropdown float-left">
-            <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
-            </a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
-                <li role="presentation" class="disabled-link">
-                    <div role="menuitem" tabindex="-1" id="ajp-grab-link">
-                        <a href="{{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
-                            {{ hostname }}{% if rephoto %}{{ rephoto.get_absolute_url }}{% else %}
-                            {{ photo.get_absolute_url }}{% endif %}
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <a id="ajp-photoview-transcribe-button" data-id="{{ photo.id }}" class="float-left"
-            title="{% trans "Transcribe this image" %}" href="#">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
-            <span id="ajp-photoview-transcriptions-count" class="badge"></span>
-        </a>
-    </div>
+    {% include '_toolbox.html' with photo=photo %}
     <div class="row mb-3" id="ajp-dater-container"></div>
     {% if albums.all|length > 0 %}
         <div class="row pl-2 pt-3">
@@ -255,28 +212,28 @@
 
 {% block specific_js %}
 <script>
-    resizeDescription = function() {
+    resizeDescription = function () {
         var similarPhotosContainer = $('#ajp-photoview-similar-photo-selection');
         var rephotosContainer = $('#ajp-photoview-rephoto-selection');
         var mainPhoto = $("#ajp-photoview-main-photo-container");
         var rephoto = $("#ajp-photoview-rephoto-container");
         rephotosContainer.height(mainPhoto.height() || 500);
         similarPhotosContainer.height(mainPhoto.height() || 500);
-        if(!rephotosContainer.hasClass('d-none')){
+        if (!rephotosContainer.hasClass('d-none')) {
             rephotosContainer.show();
         }
-        if(!similarPhotosContainer.hasClass('d-none')){
+        if (!similarPhotosContainer.hasClass('d-none')) {
             similarPhotosContainer.show();
         }
         mainPhoto.siblings().width(mainPhoto.width() || 320);
         rephoto.siblings().width(rephoto.width() || 320);
     }
 
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         resizeDescription();
     });
 
-    $(window).resize(function() {
+    $(window).resize(function () {
         resizeDescription();
     });
 
@@ -313,8 +270,7 @@
     };
     window.updateLeaderboard();
     $(document).ready(function () {
-        var rephotoUploadModal = $('#ajp-rephoto-upload-modal'),
-            mainPhoto = $('#ajp-photoview-main-photo'),
+        var mainPhoto = $('#ajp-photoview-main-photo'),
             originalFullscreen = $('#ajp-full-screen-image');
         $('#ajp-dater-container').AjapaikDater();
         $('#ajp-transcriber-container').AjapaikTranscriber();
@@ -395,16 +351,6 @@
             $('.ajp-invert-rephoto-overlay-button').hide("fade", 250);
         }
     });
-    $(document).on('click', '#ajp-photoview-add-rephoto-button', function () {
-        $.ajax({
-            cache: false,
-            url: window.photoUploadModalURL + {{ photo.id }} + '/',
-        success: function (result) {
-            rephotoUploadModal.data('bs.modal', null);
-            rephotoUploadModal.html(result).modal();
-        }
-                });
-            });
     $(document).on('click', '#ajp-photoview-map-button', function () {
     {% if album.0 %}
         window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.0 }};
@@ -466,16 +412,16 @@
         $.noop();
     };
     $('#ajp-photoview-start-geotagging-button').click(function () {
-        window.startGuessLocation();
+        window.startSuggestionLocation();
     });
-    window.startGuessLocation = function () {
+    window.startSuggestionLocation = function () {
         if (window.albumId) {
             window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
         } else {
             window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
         }
     };
-    window.stopGuessLocation = function () {
+    window.stopSuggestionLocation = function () {
         $('#ajp-photoview-container').show();
         $('html').removeClass('ajp-html-game-map');
         $('body').removeClass('ajp-body-game-map');
@@ -483,89 +429,13 @@
         window.locationToolsOpen = false;
         $('.footer').show();
     };
-    $('#ajp-photoview-start-dating-button').click(function (e) {
-        e.preventDefault();
-        if ($('#ajp-dater-container').is(':visible')) {
-            window.stopDater();
-            window.reportCloseDater();
-        } else {
-            window.startDater($(this).data('id'));
-            window.reportDaterOpen();
-        }
-    });
-    $('#mark-object-button').click(function (e) {
-        e.preventDefault();
-        ObjectTagger.toggleCropping();
-    });
-    window.startDater = function (photoId) {
-        $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
-            photoId: photoId,
-            previousDatings: window.previousDatings
-        });
-    };
-    window.stopDater = function () {
-        $('#ajp-dater-input').val(null);
-        $('#ajp-dater-comment').val(null);
-        $('#ajp-dater-feedback').empty();
-        $('#ajp-dater-container').hide();
-        $('#ajp-dater-feedback-card').hide();
-    };
-    window.updateDatings = function () {
-        $.ajax({
-            url: "{% url 'get_datings' photo.id %}",
-            success: function (result) {
-                $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
-                $('#ajp-photo-modal-start-dating-button').find('.badge').html(result.datings.length);
-                $('#ajp-photoview-start-dating-button').find('.badge').html(result.datings.length);
-                window.updateLeaderboard();
-                $('#ajp-dater-input').val(null);
-                $('#ajp-dater-comment').val(null);
-            }
-        });
-    };
-    window.updateTranscriptions = function () {
-        $.ajax({
-            url: "{% url 'api_transcriptions' photo.id %}",
-            success: function (result) {
-                $('#ajp-photoview-transcribe-button').find('.badge').html(result.transcriptions.length);
-                window.currentPhotoTranscriptions = result.transcriptions;
-                if(window.currentPhotoTranscriptions.length > 0) {
-                    $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
-                    if(!$('#ajp-transcriber-confirm-button').is(':visible')) {
-                        $('#ajp-transcriber-confirm-button').removeClass('d-none');
-                    }
-                }
-            },
-            error: function() {
-                $.notify("Failed to get transcriptions", {type: "danger"});
-            }
-        });
-    };
-    window.updateTranscriptions();
-    $('#ajp-photoview-transcribe-button').click(function (e) {
-        e.preventDefault();
-        if ($('#ajp-transcriber-container').is(':visible')) {
-            window.stopTranscriber();
-        } else {
-            window.startTranscriber($(this).data('id'));
-        }
-    });
-    window.startTranscriber = function (photoId) {
-        $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
-            photoId: photoId,
-            previousDatings: window.previousDatings
-        });
-    };
-    window.stopTranscriber = function () {
-        $('#ajp-transcriber-comment').val(null);
-        $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
-    };
+
     window._gaq.push(['_trackPageview', "{{ photo.get_absolute_url }}"]);
     // Leaflet map
     if (typeof get_photoviewModalOptions === 'function') {
         var options = get_photoviewModalOptions();
         $('#ajp-photo-modal-map-container').AjapaikMinimap(options);
-        $('.ajp-minimap-start-guess-CTA-button').remove();
+        $('.ajp-minimap-start-suggestion-CTA-button').remove();
             var minimapConfirmGeotagButton = document.createElement('button');
             $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
                 .addClass('ajp-minimap-confirm-geotag-button')
@@ -577,14 +447,14 @@
                 $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
             }
             $('#ajp-photo-modal-map-container').append(minimapConfirmGeotagButton);
-            var minimapStartGuessButton = document.createElement('button');
-            $(minimapStartGuessButton).addClass('btn').addClass('btn-light')
-                .addClass('ajp-minimap-start-guess-button')
+            var minimapStartSuggestionButton = document.createElement('button');
+            $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
+                .addClass('ajp-minimap-start-suggestion-button')
                 .data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Submit your own location'))
                 .html('<i class="material-icons notranslate">edit_location</i>').popover();
-            $('#ajp-photo-modal-map-container').append(minimapStartGuessButton);
+            $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
     }
 });
 </script>

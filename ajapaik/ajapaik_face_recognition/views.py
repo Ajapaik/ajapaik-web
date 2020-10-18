@@ -19,10 +19,10 @@ from ajapaik import settings
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
-from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionGuessForm, \
+from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionSuggestionForm, \
     FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserGuess, FaceRecognitionRectangle, \
-    FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserSuggestion, FaceRecognitionRectangle, \
+    FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
 from ajapaik.ajapaik_face_recognition.service import face_annotation_feedback_service, face_annotation_edit_service, \
     face_annotation_delete_service
@@ -59,9 +59,9 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
     class OrderedCounter(Counter, OrderedDict):
         pass
 
-    guesses_so_far_for_this_rectangle = FaceRecognitionUserGuess.objects.filter(rectangle=rectangle) \
+    suggestions_so_far_for_this_rectangle = FaceRecognitionUserSuggestion.objects.filter(rectangle=rectangle) \
         .distinct('user').order_by('user', '-created').all()
-    subject_counts = OrderedCounter(g.subject_album.id for g in guesses_so_far_for_this_rectangle)
+    subject_counts = OrderedCounter(g.subject_album.id for g in suggestions_so_far_for_this_rectangle)
     dict_keys = list(subject_counts)
     if len(dict_keys) == 0:
         return None
@@ -72,13 +72,13 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
 def save_subject_object(subject_album, rectangle, user_id, user_profile):
     status = 200
 
-    new_guess = FaceRecognitionUserGuess(
+    new_suggestion = FaceRecognitionUserSuggestion(
         subject_album=subject_album,
         rectangle=rectangle,
         user_id=user_id,
-        origin=FaceRecognitionUserGuess.USER
+        origin=FaceRecognitionUserSuggestion.USER
     )
-    new_guess.save()
+    new_suggestion.save()
 
     consensus_subject: Optional[int] = _get_consensus_subject(rectangle)
     current_consensus_album = Album.objects.filter(pk=rectangle.subject_consensus_id).first()
@@ -101,7 +101,7 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
         action=Points.CONFIRM_SUBJECT,
         points=points,
         photo=rectangle.photo,
-        subject_confirmation=new_guess,
+        subject_confirmation=new_suggestion,
         annotation = rectangle,
         created=timezone.now()
     ).save()
@@ -110,12 +110,12 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
 
     return {
         'status': status,
-        'new_guess_id': new_guess.id,
+        'new_suggestion_id': new_suggestion.id,
         'points': points
     }
 
 
-def save_subject(form: FaceRecognitionGuessForm, user_id, user_profile):
+def save_subject(form: FaceRecognitionSuggestionForm, user_id, user_profile):
     subject_album: Album = form.cleaned_data['subject_album']
     rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
 
@@ -265,7 +265,6 @@ def get_subject_data(request, rectangle_id = None):
     profile = request.get_user().profile
     rectangle = None
     next_rectangle = None
-    has_unverified = False
     album_id = request.GET.get('album')
     if album_id is not None and album_id.isdigit():
         album_id = int(album_id, 10)
@@ -273,44 +272,44 @@ def get_subject_data(request, rectangle_id = None):
         album_id = None
     unverified_rectangles = FaceRecognitionRectangle.objects.filter(gender=None, deleted=None)
     if album_id is not None:
-        albumPhotoIds = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
-        unverified_rectangles = unverified_rectangles.filter(photo_id__in=albumPhotoIds)
+        albumphoto_ids = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
+        unverified_rectangles = unverified_rectangles.filter(photo_id__in=albumphoto_ids)
     if unverified_rectangles.count() > 1:
         rectangles = unverified_rectangles
     else:
         # TODO: If album_id and rectangle_id were specified,
         #       but rectangle_id is not of a photo belonging to album,
-        #       then the images will be shown from all guesses of the user.
-        #       It should only show from previous guesses of the user, which
+        #       then the images will be shown from all suggestions of the user.
+        #       It should only show from previous suggestions of the user, which
         #       are of rectangles belonging to photos which are in album with album_id
 
-        guesses = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
-        if guesses is None:
+        suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
+        if suggestions is None:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
             if album_id is not None:
-                rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
+                rectangles = rectangles.filter(photo_id__in=albumphoto_ids)
         else:
-            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).exclude(id__in=guesses)
+            rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).exclude(id__in=suggestions)
             if album_id is not None:
-                rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
+                rectangles = rectangles.filter(photo_id__in=albumphoto_ids)
             if rectangles.count() == 0:
-                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_guesses=Count('face_recognition_guesses')).order_by('-number_of_guesses')
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_suggestions=Count('face_recognition_suggestions')).order_by('-number_of_suggestions')
                 if album_id is not None:
-                    rectangles = rectangles.filter(photo_id__in=albumPhotoIds)
-                guessIds = []
-                for guess in guesses:
-                    if rectangle_id != str(guess):
-                        guessIds.append(guess)
-                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(guessIds)).order_by('?')
+                    rectangles = rectangles.filter(photo_id__in=albumphoto_ids)
+                suggestion_ids = []
+                for suggestion in suggestions:
+                    if rectangle_id != str(suggestion):
+                        suggestion_ids.append(suggestion)
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(suggestion_ids)).order_by('?')
                 if rectangles is not None:
                     next_rectangle = rectangles.first()
                 else:
-                    allRectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
-                    if allRectangles is not None:
+                    all_rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
+                    if all_rectangles is not None:
                         if album_id is not None:
-                            next_rectangle = allRectangles.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+                            next_rectangle = all_rectangles.filter(photo_id__in=albumphoto_ids).order_by('?').first()
                         else:
-                            next_rectangle = allRectangles.order_by('?').first()
+                            next_rectangle = all_rectangles.order_by('?').first()
     if rectangle_id is None:
         if rectangle is None:
             rectangle = rectangles.order_by('?').first()
@@ -321,7 +320,7 @@ def get_subject_data(request, rectangle_id = None):
         if album_id is None:
             rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
         else:
-            rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+            rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumphoto_ids).order_by('?').first()
     if rectangle is None:
         return render(request, 'add_subject_data_empty.html')
     else:
@@ -331,7 +330,7 @@ def get_subject_data(request, rectangle_id = None):
             if album_id is None:
                 next_rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
             else:
-                next_rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumPhotoIds).order_by('?').first()
+                next_rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumphoto_ids).order_by('?').first()
         if next_rectangle is None:
             next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
         else:
@@ -343,9 +342,9 @@ def get_subject_data(request, rectangle_id = None):
     if rectangle != None and rectangle.subject_consensus != None:
         has_consensus = True
         subject_id = rectangle.subject_consensus.id
-    elif rectangle != None and rectangle.subject_ai_guess != None:
+    elif rectangle != None and rectangle.subject_ai_suggestion != None:
         has_consensus = True
-        subject_id = rectangle.subject_ai_guess.id
+        subject_id = rectangle.subject_ai_suggestion.id
 
     context = {
         'rectangle': rectangle,

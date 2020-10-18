@@ -76,7 +76,6 @@
             previewMaxHeight: 100,
             maxNumberOfFiles: 1
         }).on('fileuploadadd', function (e, data) {
-            console.error("test");
             data.context = $('#files');
             $('.ajp-fileupload-datepicker-container').show();
             $('.fileinput-button').find('span').html('{% trans "Select new file..." %}');

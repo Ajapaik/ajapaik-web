@@ -443,7 +443,7 @@
 
 		if(selector === 'success' || selector === 'info' || selector === 'warning' || selector === 'danger'){
 			$('[data-notify]').not('.alert-' + selector).find('[data-notify="dismiss"]').trigger('click');
-		} else{
+		} else {
 			$('[data-notify]').not(selector).find('[data-notify="dismiss"]').trigger('click');
 		}
 	};

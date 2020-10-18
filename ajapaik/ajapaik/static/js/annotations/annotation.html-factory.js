@@ -274,7 +274,7 @@ function slidePopoverToRight(annotationRightPosition, popoverLeftPosition, popov
 }
 
 function slidePopoverToAvoidOverlapWithAnnotation(popover, annotation) {
-    setTimeout(function() {
+    setTimeout(function () {
         var popoverLeftPosition = popover.offset().left;
         var popoverRightPosition = popoverLeftPosition + popover.width();
 
@@ -343,7 +343,7 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         },
         title: popoverTitle,
         trigger: 'click',
-        content: function() {
+        content: function () {
             return popoverContent;
         }
     });

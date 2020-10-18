@@ -17,9 +17,9 @@ from ajapaik.ajapaik_object_recognition import urls as or_urls
 
 from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAutocomplete, AreaAutocomplete, \
     DatingAutocomplete, DatingConfirmationAutocomplete, DeviceAutocomplete, FaceRecognitionRectangleAutocomplete, \
-    FaceRecognitionRectangleFeedbackAutocomplete, FaceRecognitionUserGuessAutocomplete, \
-    FaceRecognitionRectangleSubjectDataGuessAutocomplete, GeoTagAutocomplete, \
-    ImageSimilarityAutocomplete, ImageSimilarityGuessAutocomplete, LicenceAutocomplete, \
+    FaceRecognitionRectangleFeedbackAutocomplete, FaceRecognitionUserSuggestionAutocomplete, \
+    FaceRecognitionRectangleSubjectDataSuggestionAutocomplete, GeoTagAutocomplete, \
+    ImageSimilarityAutocomplete, ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, \
     ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
     OpenAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, SkipAutocomplete, \
     SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
@@ -137,8 +137,10 @@ urlpatterns += [
     url(r'^api/v1/albums/search/$', api.AlbumsSearch.as_view()),
     url(r'^api/v1/wikidocumentaries/$', api.WikidocsAlbumsSearch.as_view()),
     url(r'^api/v1/wikidocumentaries/photos/$', api.WikidocsAlbumSearch.as_view()),
-    url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
+    url(r'^api/v1/photo/suggestion/$', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
+    url(r'^api/v1/photo/suggestion/(?P<photo_id>\d+)/$', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),
+    url(r'^api/v1/photo/upload/$', api.RephotoUpload.as_view(), name='api_photo_upload'),
     url(r'^api/v1/photo/upload/settings$', api.RephotoUploadSettings.as_view(), name='api_submit_rephoto_upload_settings'),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
     url(r'^api/v1/photo/fetch-hkm-finna/$', api.FetchFinnaPhoto.as_view()),
@@ -229,11 +231,11 @@ urlpatterns += [
     url(r'^autocomplete/device-autocomplete/$', DeviceAutocomplete.as_view(), name='device-autocomplete'),
     url(r'^autocomplete/face-recognition-rectangle-autocomplete/$', FaceRecognitionRectangleAutocomplete.as_view(), name='face-recognition-rectangle-autocomplete'),
     url(r'^autocomplete/face-recognition-rectangle-feedback-autocomplete/$', FaceRecognitionRectangleFeedbackAutocomplete.as_view(), name='face-recognition-rectangle-feedback-autocomplete'),
-    url(r'^autocomplete/face-recognition-user-guess-autocomplete/$', FaceRecognitionUserGuessAutocomplete.as_view(), name='face-recognition-user-guess-autocomplete'),
-    url(r'^autocomplete/face-recognition-rectangle-subject-data-guess-autocomplete/$', FaceRecognitionRectangleSubjectDataGuessAutocomplete.as_view(), name='face-recognition-rectangle-subject-data-guess-autocomplete'),
+    url(r'^autocomplete/face-recognition-user-suggestion-autocomplete/$', FaceRecognitionUserSuggestionAutocomplete.as_view(), name='face-recognition-user-suggestion-autocomplete'),
+    url(r'^autocomplete/face-recognition-rectangle-subject-data-suggestion-autocomplete/$', FaceRecognitionRectangleSubjectDataSuggestionAutocomplete.as_view(), name='face-recognition-rectangle-subject-data-suggestion-autocomplete'),
     url(r'^autocomplete/geotag-autocomplete/$', GeoTagAutocomplete.as_view(), name='geotag-autocomplete'),
     url(r'^autocomplete/image-similarity-autocomplete/$', ImageSimilarityAutocomplete.as_view(), name='image-similarity-autocomplete'),
-    url(r'^autocomplete/image-similarity-guess-autocomplete/$', ImageSimilarityGuessAutocomplete.as_view(), name='image-similarity-guess-autocomplete'),
+    url(r'^autocomplete/image-similarity-suggestion-autocomplete/$', ImageSimilaritySuggestionAutocomplete.as_view(), name='image-similarity-suggestion-autocomplete'),
     url(r'^autocomplete/licence-autocomplete/$', LicenceAutocomplete.as_view(), name='licence-autocomplete'),
     url(r'^autocomplete/object-detection-annotation-autocomplete/$', ObjectDetectionAnnotationAutocomplete.as_view(), name='object-detection-annotation-autocomplete'),
     url(r'^autocomplete/object-annotation-class-autocomplete/$', ObjectAnnotationClassAutocomplete.as_view(), name='object-annotation-class-autocomplete'),

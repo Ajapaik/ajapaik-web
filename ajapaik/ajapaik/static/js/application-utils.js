@@ -3,12 +3,12 @@
 function debounce(func, delay) {
   var inDebounce;
 
-  return function() {
+  return function () {
     var context = this;
     var args = arguments;
     clearTimeout(inDebounce);
 
-    inDebounce = setTimeout(function() {
+    inDebounce = setTimeout(function () {
         func.apply(context, args);
         }, delay);
   };

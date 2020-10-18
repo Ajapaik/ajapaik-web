@@ -8,7 +8,7 @@ import face_recognition
 from django.core.management.base import BaseCommand
 
 from ajapaik.ajapaik.models import Album, Photo
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionUserSuggestion
 
 
 def intersects(self, other):
@@ -62,13 +62,13 @@ class Command(BaseCommand):
                         origin=FaceRecognitionRectangle.PICASA
                     )
                     imported_rectangle.save()
-                    imported_guess = FaceRecognitionUserGuess(
+                    imported_suggestion = FaceRecognitionUserSuggestion(
                         subject_album=existing_albums.first(),
                         rectangle=imported_rectangle,
                         user_id=38,
-                        origin=FaceRecognitionUserGuess.PICASA
+                        origin=FaceRecognitionUserSuggestion.PICASA
                     )
-                    imported_guess.save()
+                    imported_suggestion.save()
                     detected_faces = None
                     image = face_recognition.load_image_file(photo.image)
                     try:

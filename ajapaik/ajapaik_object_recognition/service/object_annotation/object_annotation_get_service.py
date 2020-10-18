@@ -1,5 +1,5 @@
 from ajapaik.ajapaik.models import Photo
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataGuess
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from ajapaik.ajapaik_object_recognition.domain.detection_rectangle import DetectionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass
@@ -73,13 +73,13 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
     coordinates = face_annotation.decode_coordinates()
     subject_id = subject.id if subject is not None else None
 
-    additional_data = FaceRecognitionRectangleSubjectDataGuess.objects.filter(guesser_id=user_id, face_recognition_rectangle_id=face_annotation.id).all().order_by('-created').first()
+    additional_data = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer_id=user_id, face_recognition_rectangle_id=face_annotation.id).all().order_by('-created').first()
     if additional_data is None:
         additional_data = FaceRecognitionRectangle.objects.filter(id=face_annotation.id).all().first()
     original_user_set_gender = additional_data.gender if additional_data is not None else None
     original_user_set_age = additional_data.age if additional_data is not None else None
     gender_and_age = face_annotation.face_recognition_rectangle\
-        .filter(guesser_id=user_id)\
+        .filter(proposer_id=user_id)\
         .first()
     previous_user_feedback = face_annotation.feedback.filter(user_id=user_id).first()
 

@@ -124,9 +124,9 @@ function validateRequiredNewObjectFieldOrFocusSubmit(selectedOption) {
 function createNewDetectionRectangle(popoverId, configuration) {
     var hasInitializedSelects = false;
 
-    var onAnnotationRectangleShow = function() {
+    var onAnnotationRectangleShow = function () {
         if (!hasInitializedSelects) {
-            setTimeout(function() {
+            setTimeout(function () {
                 initializeAgeGroupSelect();
                 var genderSelect = initializeGenderGroupSelect();
 

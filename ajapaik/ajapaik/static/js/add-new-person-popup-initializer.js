@@ -35,7 +35,7 @@ function showAddAnotherPopup(triggeringLink) {
                 document.querySelector('#autocomplete-subject').slim.search(subjectName);
               }, 100);
         } else {
-            if(win.window && win.window.$) {
+            if (win.window && win.window.$) {
                 subjectName = win.window.$('.form-group input#id_name').val();
             }
             setTimeout(removeOverlay, 500);
@@ -66,6 +66,6 @@ function initializeAddNewPersonOpeningAPopup() {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     initializeAddNewPersonOpeningAPopup();
 });
