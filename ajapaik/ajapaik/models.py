@@ -433,7 +433,7 @@ class Photo(Model):
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
     GROUND_LEVEL, RAISED, AERIAL = range(3)
     VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground level')),
+        (GROUND_LEVEL, _('Ground')),
         (RAISED, _('Raised')),
         (AERIAL, _('Aerial'))
     )
@@ -1596,7 +1596,7 @@ class PhotoViewpointElevationSuggestion(Model):
     photo = ForeignKey('Photo', on_delete=CASCADE)
     GROUND_LEVEL, RAISED, AERIAL = range(3)
     VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground level')),
+        (GROUND_LEVEL, _('Ground')),
         (RAISED, _('Raised')),
         (AERIAL, _('Aerial'))
     )
