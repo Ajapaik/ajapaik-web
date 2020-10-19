@@ -24,6 +24,7 @@
     gettext('Licence');
     gettext('Mark stereophoto');
     gettext('No results found for: %(query)s');
+    gettext('No results found for: %(query)s in this album');
     gettext('No results found for: %(query)s\nYou could also try to edit filters applied to your search');
     gettext('No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search');
     gettext('No pictures were found with the selected filters');

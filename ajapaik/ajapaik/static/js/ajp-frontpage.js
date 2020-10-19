@@ -388,9 +388,6 @@
                             if (!!window.albumId) {
                                 message += ' in this album';
                             }
-                            if (filterCount>0) {
-                                message += '\n' + 'You could also try to edit filters applied to your search';
-                            }
                             targetDiv.append(
                                 tmpl(
                                     'ajp-frontpage-photo-search-empty-template',
@@ -424,7 +421,11 @@
                                 message += ' ' + 'in this album';
                             }
 
+
                             if (window.location.search.indexOf('&q=') > 0) {
+                                if (filterCount>0) {
+                                    message += '\n' + 'You could also try to edit filters applied to your search';
+                                }
                                 targetDiv.append(
                                     tmpl(
                                         'ajp-frontpage-photo-search-empty-template',

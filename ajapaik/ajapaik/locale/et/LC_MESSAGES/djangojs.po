@@ -302,6 +302,10 @@ msgstr "Märgista stereofoto"
 msgid "No results found for: %(query)s"
 msgstr "Otsing \"%(query)s\" ei andnud tulemusi"
 
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+msgid "No results found for: %(query)s in this album"
+msgstr "Otsing \"%(query)s\" ei andnud selles albumis tulemusi"
+
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
 msgstr "Otsing %(query)s ei andnud tulemusi\nVõite proovida muuta oma otsingule lisatud filtreid"
