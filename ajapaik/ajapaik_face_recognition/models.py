@@ -127,7 +127,7 @@ class FaceRecognitionRectangle(models.Model):
         if(last_suggestion_by_current_user is None and int(age) < 3):
             age_suggestion_points = 20
             Points(
-                action=Points.suggestion_SUBJECT_AGE,
+                action=Points.SUGGESTION_SUBJECT_AGE,
                 annotation = self,
                 created=timezone.now(),
                 face_recognition_rectangle_subject_data_suggestion = new_suggestion,
@@ -138,7 +138,7 @@ class FaceRecognitionRectangle(models.Model):
         if(last_suggestion_by_current_user is None and gender is not None and int(gender) < 2):
             gender_suggestion_points = 20
             Points(
-                action=Points.suggestion_SUBJECT_GENDER,
+                action=Points.SUGGESTION_SUBJECT_GENDER,
                 annotation = self,
                 created=timezone.now(),
                 face_recognition_rectangle_subject_data_suggestion = new_suggestion,
