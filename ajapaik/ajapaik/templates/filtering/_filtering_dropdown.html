@@ -31,7 +31,7 @@
                     {% trans 'pictures from a raised viewpoint' %}, 
                 {% endif %}
                 {% if request.GET.aerial_viewpoint_elevation == '1' %}
-                    {% trans 'pictures from the air' %}, 
+                    {% trans 'aerial pictures' %}, 
                 {% endif %}
                 {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation %}
                     {% trans 'no filter' %}

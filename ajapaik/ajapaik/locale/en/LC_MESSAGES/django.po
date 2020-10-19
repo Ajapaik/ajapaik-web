@@ -1574,8 +1574,8 @@ msgid "pictures from a raised viewpoint"
 msgstr "pictures from a raised viewpoint"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
-msgid "pictures from the air"
-msgstr "all the pictures from this album."
+msgid "aerial pictures"
+msgstr "aerial pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "no filter"
@@ -2603,27 +2603,4 @@ msgstr "French"
 
 #~ msgid "Details"
 #~ msgstr "Details"
-
-#~ msgid "Add date"
-#~ msgstr "Add date"
-
-#~ msgid "Annotate"
-#~ msgstr "Annotate"
-
-#~ msgid "Change e-mail"
-#~ msgstr "Change e-mail"
-
-#~ msgid "Licence"
-#~ msgstr "Licence"
-
-#~ msgid "I am the author"
-#~ msgstr "I am the author"
-
-#~ msgid "Subject"
-#~ msgstr "Subject"
-
-#~ msgid "Non-binary"
-#~ msgstr "Non-binary"
-
-#~ msgid "Unknown author"
-#~ msgstr "Unknown author"
+~ msgstr "Add location"
