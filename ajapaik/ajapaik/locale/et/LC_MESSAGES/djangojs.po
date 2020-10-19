@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:07+0000\n"
+"PO-Revision-Date: 2020-10-19 12:49:40+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
+"X-POT-Import-Date: 2020-10-19 10:25:23+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:322
 #: ajapaik/ajapaik/static/js/ajp-common.js:523
@@ -468,19 +468,19 @@ msgstr "Järjestus"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "earliest"
-msgstr "esimesena"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:109
 msgid "latest"
-msgstr "viimasena"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "least"
-msgstr "vähim"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:116
 msgid "most"
-msgstr "enim"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures furthest from you"
@@ -1008,5 +1008,3 @@ msgstr "Sisesta teine sugu"
 msgid "Unknown"
 msgstr "Teadmata"
 
-#~ msgid "Most"
-#~ msgstr "Enim"

@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-09-03 14:36:08+0000\n"
+"PO-Revision-Date: 2020-10-19 12:49:41+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -27,84 +27,84 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-09-01 00:31:45+0000\n"
+"X-POT-Import-Date: 2020-10-19 10:25:23+0000\n"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:338
-#: ajapaik/ajapaik/static/js/ajp-common.js:525
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:322
+#: ajapaik/ajapaik/static/js/ajp-common.js:523
 msgid "User denied the request for Geolocation."
 msgstr "Пользователь отклонил запрос на геолокацию."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:344
-#: ajapaik/ajapaik/static/js/ajp-common.js:531
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:328
+#: ajapaik/ajapaik/static/js/ajp-common.js:529
 msgid "Location information is unavailable."
 msgstr "Информация о местоположении недоступна."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:347
-#: ajapaik/ajapaik/static/js/ajp-common.js:534
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:331
+#: ajapaik/ajapaik/static/js/ajp-common.js:532
 msgid "The request to get user location timed out."
 msgstr "Тайм-аут запроса на получение местоположения пользователя."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:350
-#: ajapaik/ajapaik/static/js/ajp-common.js:537
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:334
+#: ajapaik/ajapaik/static/js/ajp-common.js:535
 msgid "An unknown error occurred."
 msgstr "Произошла неизвестная ошибка."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:768
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:813
-#: ajapaik/ajapaik/static/js/ajp-common.js:1193
-#: ajapaik/ajapaik/static/js/ajp-common.js:1238
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:739
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:784
+#: ajapaik/ajapaik/static/js/ajp-common.js:1178
+#: ajapaik/ajapaik/static/js/ajp-common.js:1223
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "Not selected"
 msgstr "Ничего не выбрано"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1442
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1458
-#: ajapaik/ajapaik/static/js/ajp-common.js:1867
-#: ajapaik/ajapaik/static/js/ajp-common.js:1883
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1391
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1407
+#: ajapaik/ajapaik/static/js/ajp-common.js:1830
+#: ajapaik/ajapaik/static/js/ajp-common.js:1846
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "System error"
 msgstr "Системная ошибка"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:207
+#: ajapaik/ajapaik/static/js/ajp-common.js:205
 msgid "Go to my location"
 msgstr "Перейти к моему местоположению"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:219
+#: ajapaik/ajapaik/static/js/ajp-common.js:217
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:435
 msgid "Close"
 msgstr "Закрыть"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:691
+#: ajapaik/ajapaik/static/js/ajp-common.js:689
 msgid "Pick the shooting location!"
 msgstr "Выбрать место съемки!"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:702
-#: ajapaik/ajapaik/static/js/ajp-common.js:754
+#: ajapaik/ajapaik/static/js/ajp-common.js:700
+#: ajapaik/ajapaik/static/js/ajp-common.js:752
 msgid "Geotagged by this many users"
 msgstr "Местоположение определено столькими пользователями"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:735
+#: ajapaik/ajapaik/static/js/ajp-common.js:733
 msgid "Confirm correct location"
 msgstr "Подтвердить правильное местоположение"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:746
+#: ajapaik/ajapaik/static/js/ajp-common.js:744
 msgid "Submit your own location"
 msgstr "Загрузить своё местоположение"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:773
+#: ajapaik/ajapaik/static/js/ajp-common.js:771
 msgid "You"
 msgstr "Вы"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:777
+#: ajapaik/ajapaik/static/js/ajp-common.js:775
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Анонимный пользователь"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:779
+#: ajapaik/ajapaik/static/js/ajp-common.js:777
 msgid "Anonymous users"
 msgstr "Анонимные пользователи"
 
-#: ajapaik/ajapaik/static/js/ajp-common.js:843
+#: ajapaik/ajapaik/static/js/ajp-common.js:841
 msgid "Current location"
 msgstr "Текущее местоположение"
 
@@ -311,105 +311,190 @@ msgstr "Лицензия"
 msgid "Mark stereophoto"
 msgstr "Отметить стереофото"
 
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:240
+msgid "No results found for: %(query)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+msgid "No results found for: %(query)s in this album"
+msgstr ""
+
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
+msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+msgid "No pictures were found with the selected filters"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+msgid "No pictures were found with the selected filters in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+msgid "No pictures with marked faces were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+msgid "No pictures with marked faces were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+msgid "No pictures with back sides were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+msgid "No pictures with back sides were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+msgid "No interior views were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+msgid "No interior views were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+msgid "No exterior views were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+msgid "No exterior views were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+msgid "No pictures from the ground level were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+msgid "No pictures from the ground level were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+msgid "No raised viewpoint pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+msgid "No raised viewpoint pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+msgid "No aerial pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+msgid "No aerial pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "Number"
 msgstr "Число"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "photos"
 msgstr "фото"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "Picture already in album(s)"
 msgstr "Изображение уже в альбоме(ах)"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "Picture has location data attached"
 msgstr "К снимку прикреплены данные о местоположении"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
 msgstr "Картинка уже в Ajapaik. Вы все ещё можете добавить его в свой альбом, очки курации не начисляются."
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "Pictures geotagged"
 msgstr "Фото с геотегами"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "Pictures in album"
 msgstr "Фото в данном альбоме"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "Points"
 msgstr "Баллов"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "Remove from selection"
 msgstr "Удалить из выбора"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "Rephotos in album"
 msgstr "Рефото в альбоме"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "Rotate"
 msgstr "Повернуть"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "Show pictures on map"
 msgstr "Показать изображения на карте"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "Size"
 msgstr "Размер"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "Source ID"
 msgstr "ID источника"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "Source"
 msgstr "Источник"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "This album contains a film"
 msgstr "Данный альбом содержит фильм"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "Title"
 msgstr "Заголовок"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "URL"
 msgstr "URL"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "Unknown author"
 msgstr "Неизвестный автор"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
 msgstr ""
 
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:102
+msgid "Ordering"
+msgstr ""
+
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
-msgid "Earliest"
-msgstr "Самый ранний"
+msgid "earliest"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:109
-msgid "Latest"
-msgstr "Самый последний"
+msgid "latest"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
-msgid "Least"
-msgstr "Наименьший"
+msgid "least"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:116
-msgid "Most"
-msgstr "Наибольший"
+msgid "most"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures furthest from you"
@@ -440,81 +525,77 @@ msgid "liked"
 msgstr "понравилось"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:143
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:146
+msgid "categorized"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
 msgid "dated"
 msgstr "датировано"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:146
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:152
 msgid "transcribed"
 msgstr "транскрибировано"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:155
 msgid "annotated"
 msgstr "аннотировано"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:152
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:158
 msgid "viewed"
 msgstr "просмотрено"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:159
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:165
 msgid "pictures"
 msgstr "изображения"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
 msgid "By reverse timestamp"
 msgstr "Обратной меткой времени"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:165
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:171
 msgid "By timestamp"
 msgstr "По метке времени"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:175
 msgid "Pictures from the map"
 msgstr "Фотографии с карты"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:235
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:385
-msgid "No results found for: %(query)s"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:240
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
 msgid "Did you mean to search from: "
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
 msgstr "все фотографии"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:269
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:274
 msgid "Albums"
 msgstr "Альбомы"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:280
 msgid "My favorites"
 msgstr "Мои избранные"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:280
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:285
 msgid "My rephotos"
 msgstr "Мои переснимки"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:282
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:287
 #, fuzzy
 msgid "Rephotos by %(user)s"
 msgstr "Фотографии от %(user)"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
 msgid "All pictures"
 msgstr "Все фотографии"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:359
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
 msgid "Picture set has no "
 msgstr "Набор картинок не имеет "
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:374
-msgid "No tagged persons in album"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:381
-msgid "No postcards in album"
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
+msgid "in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:187
@@ -533,108 +614,108 @@ msgstr "Вы анонимны."
 msgid " You can now log in with your e-mail."
 msgstr "Теперь Вы можете войти со своим e-mail."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:465
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:464
 msgid "Toggle map center lock"
 msgstr "Переключить центр блокировки карты"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:493
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:492
 msgid "Approximate"
 msgstr "Приблизительно"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:500
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:499
 msgid "Vantage point"
 msgstr "Точка обзора"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:507
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:506
 #: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Object"
 msgstr "Объект"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:514
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:759
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:905
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:513
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:758
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:904
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
 msgstr "Возьмите и перетащите КАРТУ так, чтобы маркер находился там, где стоял фотограф."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:515
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:514
 msgid "Search box"
 msgstr "Поиск"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:522
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:521
 msgid "Thank you!"
 msgstr "Спасибо!"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:671
-msgid "Median guess"
-msgstr "Среднее предположение"
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:670
+msgid "Median suggestion"
+msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:683
-msgid "Your guess"
-msgstr "Ваше предположение"
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:682
+msgid "Your suggestion"
+msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:698
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:697
 msgid "How much has the depicted location changed?"
 msgstr "Насколько изменилось изображенное место?"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:699
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:698
 msgid "Continue"
 msgstr "Продолжить"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "a little"
 msgstr "немного"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:702
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "a lot"
 msgstr "сильно"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:900
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:899
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
 msgstr "Нажмите зеленую кнопку, чтобы сохранить местоположение и направление просмотра. Нажмите на карту, чтобы разблокировать направление. Перетащите карту, чтобы исправить местоположение."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:912
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:902
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:911
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
 msgstr "Нажмите на карту, чтобы зафиксировать направление просмотра, или нажмите желтую кнопку, чтобы сохранить только местоположение."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:910
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:909
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
 msgstr "Нажмите зеленую кнопку, чтобы сохранить местоположение и направление просмотра. Нажмите на карту, чтобы разблокировать направление, перетащите МАРКЕР, чтобы исправить местоположение."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:914
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
 msgstr "Теперь вы можете перетащить МАРКЕР, где стоял фотограф, и КАРТУ отдельно."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:918
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
 msgstr "Перетащите карту так, чтобы круг закрыл приблизительное местоположение, нажмите «Сохранить», когда будете готовы."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:920
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:919
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
 msgstr "Перетащите карту так, чтобы маркер находился поверх объекта, который вы видите на картинке, нажмите «Сохранить», когда будете готовы."
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1068
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1065
 msgid "Points awarded"
 msgstr "Баллов начислено"
 
-#: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:49
+#: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-map.js:723
+#: ajapaik/ajapaik/static/js/ajp-map.js:724
 msgid "Remove album filter"
 msgstr "Удалить фильтр с альбома"
 
-#: ajapaik/ajapaik/static/js/ajp-map.js:726
+#: ajapaik/ajapaik/static/js/ajp-map.js:727
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-map.js:741
+#: ajapaik/ajapaik/static/js/ajp-map.js:742
 msgid "Apply album filter"
 msgstr "Применить фильтр альбомов"
 
-#: ajapaik/ajapaik/static/js/ajp-map.js:743
-msgid "All images are shown in the sidebar"
+#: ajapaik/ajapaik/static/js/ajp-map.js:744
+msgid "All pictures are shown in the sidebar"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
@@ -646,8 +727,8 @@ msgstr[1] "Вы набрали %s баллов"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:69
-msgid "Your guess has been changed"
-msgstr "Ваше предположение было изменено"
+msgid "Your suggestion has been changed"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:74
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
