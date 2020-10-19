@@ -291,7 +291,7 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
             } else if (photoFilter == 'raised_viewpoint_elevation') {
                 photoFilters = photoFilters.concat('ground_viewpoint_elevation', 'aerial_viewpoint_elevation');
             } else if (photoFilter == 'aerial_viewpoint_elevation') {
-                photoFilters = photoFilters.concat('raised_viewpoint_elevation', 'raised_viewpoint_elevation');
+                photoFilters = photoFilters.concat('ground_viewpoint_elevation', 'raised_viewpoint_elevation');
             }
         } else {
             uri.removeQuery(photoFilter);
