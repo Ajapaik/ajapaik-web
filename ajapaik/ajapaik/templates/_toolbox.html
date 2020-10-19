@@ -309,7 +309,8 @@
         $(document).ready(function () {
             updatePhotoScene();
             var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
-            $(document).on('click', '#ajp-add-rephoto-button', function () {
+            $(document).on('click', '#ajp-add-rephoto-button', function (e) {
+                e.preventDefault();
                 $.ajax({
                     cache: false,
                     url: window.photoUploadModalURL + {{ photo.id }} + '/',
