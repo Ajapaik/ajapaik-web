@@ -2319,3 +2319,7 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 #mark-object-button:focus {
   outline: none;
 }
+
+.popover{
+  max-width: 100%;
+}
