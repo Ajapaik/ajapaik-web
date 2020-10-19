@@ -37,13 +37,15 @@
                     {% trans 'no filter' %}
                 {% endif %}</span>
             <div>
-                <a role="button" class="ajp-header-button" {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
-                href="#"
-                id="ajp-header-people">
+                <a role="button"
+                    class="ajp-header-button"
+                    {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
+                    href="#"
+                    id="ajp-header-people">
                     <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</i>
                 </a>
                 <a id="ajp-header-collections"
-                    class="{% if album or show_photos %}d-none{% endif %}"
+                    class="{% if album or show_photos %}d-none{% endif %} ml-4"
                     role="button" 
                     title="{% trans 'Pictures by collections' %}">
                     <i aria-hidden 
