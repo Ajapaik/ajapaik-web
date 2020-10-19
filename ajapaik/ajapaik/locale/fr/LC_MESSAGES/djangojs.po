@@ -548,8 +548,8 @@ msgid "Pictures from the map"
 msgstr "Images de la carte"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "Voulez-vous dire une recherche depuis : "
+msgid "Did you mean to search from:"
+msgstr "Voulez-vous dire une recherche depuis :"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -576,8 +576,8 @@ msgid "All pictures"
 msgstr "Toutes les images"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "L’ensemble d'images n'a pas "
+msgid "Picture set has no"
+msgstr "L’ensemble d'images n'a pas"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

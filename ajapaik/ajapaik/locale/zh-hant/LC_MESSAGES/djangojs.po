@@ -546,8 +546,8 @@ msgid "Pictures from the map"
 msgstr "來自地圖的圖片"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "您是否指要搜尋：\\"
+msgid "Did you mean to search from:"
+msgstr "您是否指要搜尋:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -574,8 +574,8 @@ msgid "All pictures"
 msgstr "全部圖片"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "圖片集裡沒有 "
+msgid "Picture set has no"
+msgstr "圖片集裡沒有"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

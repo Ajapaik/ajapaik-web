@@ -242,7 +242,7 @@
                                 'ajp-frontpage-album-search-empty-template',
                                 [
                                     queryStr,
-                                    gettext('Did you mean to search from: '),
+                                    gettext('Did you mean to search from:') + ' ',
                                     gettext('all pictures'),
                                     window.location.origin + '/?order1=time&order2=added&page=1&q=' + array[array.length-1]
                                 ]
@@ -360,7 +360,7 @@
                             break;
                     }
                     if (collection !== undefined && collection === 0) {
-                        $('#ajp-sorting-error-message').text(gettext('Picture set has no ' + attribute));
+                        $('#ajp-sorting-error-message').text(gettext('Picture set has no' + ' ' + attribute));
                         $('#ajp-sorting-error').show();
                         window.setTimeout(function () {
                             $('#ajp-sorting-error').hide();

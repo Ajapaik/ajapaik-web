@@ -549,7 +549,7 @@ msgid "Pictures from the map"
 msgstr "صور من الخريطة"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
+msgid "Did you mean to search from:"
 msgstr ":تقصد البحث عن"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
@@ -577,8 +577,8 @@ msgid "All pictures"
 msgstr "كل الصور"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "مجموعة صور ليس لديها/"
+msgid "Picture set has no"
+msgstr "مجموعة صور ليس لديها"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

@@ -453,7 +453,7 @@ msgid "All photos"
 msgstr "ꯃꯤꯔꯦꯜ ꯂꯣꯏꯅꯥ"
 
 #: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
-msgid "Picture set has no "
+msgid "Picture set has no"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-game.js:187

@@ -542,8 +542,8 @@ msgid "Pictures from the map"
 msgstr "Fotos do mapa"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "Você quis dizer pesquisar em: "
+msgid "Did you mean to search from:"
+msgstr "Você quis dizer pesquisar em:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -570,8 +570,8 @@ msgid "All pictures"
 msgstr "Todas as fotos"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "Conjunto de imagens não tem "
+msgid "Picture set has no"
+msgstr "Conjunto de imagens não tem"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

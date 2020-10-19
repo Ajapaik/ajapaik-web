@@ -4,20 +4,8 @@
 #
 # Translators:
 # Translators:
-#: ajapaik/ajapaik/views.py:670
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-31 01:35+0300\n"
-"PO-Revision-Date: 2019-02-16 22:56+0000\n"
-"Last-Translator: Lauri Elias\n"
-"Language-Team: English (http://www.transifex.com/estonian-photographic-"
-"heritage-society/ajapaik/language/en/)\n"
-"Language: en\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2020-10-20 00:06+0300\nPO-Revision-Date: 2019-02-16 22:56+0000\nLast-Translator: Lauri Elias\nLanguage-Team: English (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/en/)\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -99,8 +87,8 @@ msgid "Parameter photo_id must be an positive integer"
 msgstr "Parameter photo_id must be an positive integer"
 
 #: ajapaik/ajapaik/api.py:1745
-msgid "No photo with id: "
-msgstr "No photo with id: "
+msgid "No photo with id:"
+msgstr "No photo with id:"
 
 #: ajapaik/ajapaik/api.py:1751
 msgid "You have already submitted this suggestion"
@@ -326,8 +314,8 @@ msgid "Scene"
 msgstr "Scene"
 
 #: ajapaik/ajapaik/models.py:436 ajapaik/ajapaik/models.py:1599
-msgid "Ground level"
-msgstr "Ground level"
+msgid "Ground"
+msgstr "Ground"
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1600
 msgid "Raised"
@@ -656,7 +644,7 @@ msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/templates/dummy_translations.html:12
+#: ajapaik/ajapaik/views.py:3198
 msgid "E-mail addresses"
 msgstr "E-mail addresses"
 
@@ -1224,15 +1212,15 @@ msgstr "Geolocation error"
 msgid "Sorting"
 msgstr "Sorting"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:473
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "This website uses cookies to ensure you get the best experience on our website"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
 msgid "Got it!"
 msgstr "Got it!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:476
 msgid "More info"
 msgstr "More info"
 
@@ -1508,34 +1496,13 @@ msgid "New Password (again)"
 msgstr "New Password (again)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
+#: ajapaik/ajapaik/views.py:3189
 msgid "Set password"
 msgstr "Set password"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
-msgid "Change password"
-msgstr "Change password"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:9
-msgid "Change display name"
-msgstr "Change display name"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:10
-msgid "Newsletter and language settings"
-msgstr "Newsletter and language settings"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
 msgstr "Rephoto upload settings"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:13
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-msgid "Account Connections"
-msgstr "Account Connections"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:14
-msgid "Merge another Ajapaik account with current one"
-msgstr "Merge another Ajapaik account with current one"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1559,7 +1526,7 @@ msgstr "back sides of pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "exteriors"
-msgstr "exteriors "
+msgstr "exteriors"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "interiors"
@@ -1581,103 +1548,103 @@ msgstr "aerial pictures"
 msgid "no filter"
 msgstr "no filter"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show person albums"
 msgstr "Show person albums"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show pictures with faces"
 msgstr "Show pictures with faces"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:50
 msgid "Pictures by collections"
 msgstr "Pictures by collections"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
 msgid "Show albums with pictures with back sides"
 msgstr "Show albums with pictures with back sides"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "Show pictures with back sides"
 msgstr "Show pictures with back sides"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:73
 msgid "Show pictures made from the ground level"
 msgstr "Show pictures made from the ground level"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:83
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Show pictures made from a raised viewpoint"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:64
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:93
 msgid "Show aerial pictures"
 msgstr "Show aerial pictures"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:103
 msgid "Show interior pictures"
 msgstr "Show interior pictures"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:112
 msgid "Show exterior pictures"
 msgstr "Show exterior pictures"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:87
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Sort by distance from you"
 msgstr "Sort by distance from you"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:97
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Sort by time and ..."
 msgstr "Sort by time and ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:107
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Sort by photos' time added"
 msgstr "Sort by photos' time added"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:159
 msgid "Sort by stills' timestamp"
 msgstr "Sort by stills' timestamp"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:169
 msgid "Sort by views' time added or amount"
 msgstr "Sort by views' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:137
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Sort by geotags' time added or amount"
 msgstr "Sort by geotags' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:147
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Sort by rephotos' time added or amount"
 msgstr "Sort by rephotos' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:157
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Sort by annotations' time added or amount"
 msgstr "Sort by annotations' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:166
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:207
 msgid "Sort by transcriptions' time added or amount"
 msgstr "Sort by transcriptions' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:175
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:216
 msgid "Sort by datings' time added or amount"
 msgstr "Sort by datings' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:185
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:226
 msgid "Sort by comments' time added or amount"
 msgstr "Sort by comments' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:195
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:236
 msgid "Sort by likes' time added or amount"
 msgstr "Sort by likes' time added or amount"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:205
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:246
 msgid "Sort by amount and ..."
 msgstr "Sort by amount and ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:215
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
 msgid "Change sorting order"
 msgstr "Change sorting order"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:224
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:265
 msgid "Help"
 msgstr "Help"
 
@@ -2023,6 +1990,12 @@ msgstr "Social Network Login Failure"
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
 msgstr "An error occurred while attempting to login via your social network account."
+
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+#: ajapaik/ajapaik/views.py:3200
+msgid "Account Connections"
+msgstr "Account Connections"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2393,6 +2366,22 @@ msgstr "Album created"
 #: ajapaik/ajapaik/views.py:2999
 msgid "Sorry but we fail to post your comment."
 msgstr "Sorry but we fail to post your comment."
+
+#: ajapaik/ajapaik/views.py:3191
+msgid "Change password"
+msgstr "Change password"
+
+#: ajapaik/ajapaik/views.py:3196
+msgid "Change display name"
+msgstr "Change display name"
+
+#: ajapaik/ajapaik/views.py:3197
+msgid "Newsletter and language settings"
+msgstr "Newsletter and language settings"
+
+#: ajapaik/ajapaik/views.py:3201
+msgid "Merge another Ajapaik account with current one"
+msgstr "Merge another Ajapaik account with current one"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Subject name"

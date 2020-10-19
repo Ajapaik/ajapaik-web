@@ -460,7 +460,7 @@ msgid "No results found for: %(query)s"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:240
-msgid "Did you mean to search from: "
+msgid "Did you mean to search from:"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
@@ -488,7 +488,7 @@ msgid "All pictures"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:359
-msgid "Picture set has no "
+msgid "Picture set has no"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:374

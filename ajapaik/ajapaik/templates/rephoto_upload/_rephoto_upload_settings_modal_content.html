@@ -23,7 +23,7 @@
                     wikimedia_commons_rephoto_upload_consent: wikimedia_commons_rephoto_upload_consent
                 },
                 success: function (response) {
-                    $.notify(gettext(response.message), {type: 'success'});
+                    $.notify(response.message, {type: 'success'});
                 },
                 error: function (response) {
                     $.notify(response.message, {type: "danger"});

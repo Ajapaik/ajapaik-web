@@ -1742,7 +1742,7 @@ class PhotoSuggestion(AjapaikAPIView):
 
         photo = Photo.objects.filter(id=photo_id).first()
         if photo is None:
-            return JsonResponse({'error': _('No photo with id: ' + photo_id)}, status=404)
+            return JsonResponse({'error': _('No photo with id:') + ' ' + photo_id}, status=404)
 
         photo = get_object_or_404(Photo, id=photo_id)
         response = ''

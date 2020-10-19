@@ -26,7 +26,7 @@
                     newsletterConsent: newsletterConsent
                 },
                 success: function (response) {
-                    $.notify(gettext(response.message), {type: 'success'});
+                    $.notify(response.message, {type: 'success'});
                 },
                 error: function (response) {
                     $.notify(response.message, {type: "danger"});

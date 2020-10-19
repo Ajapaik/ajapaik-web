@@ -550,8 +550,8 @@ msgid "Pictures from the map"
 msgstr "Kuvia kartalta"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "Yrititkö hakea: "
+msgid "Did you mean to search from:"
+msgstr "Yrititkö hakea:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -578,8 +578,8 @@ msgid "All pictures"
 msgstr "Kaikki kuvat"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "Kuvasarjassa ei ole "
+msgid "Picture set has no"
+msgstr "Kuvasarjassa ei ole"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

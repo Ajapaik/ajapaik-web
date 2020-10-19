@@ -546,8 +546,8 @@ msgid "Pictures from the map"
 msgstr "Fòto da la carta"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "Vorij-lo sërché da: "
+msgid "Did you mean to search from:"
+msgstr "Vorij-lo sërché da:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -574,8 +574,8 @@ msgid "All pictures"
 msgstr "Tute le fòto"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "L'ansem ëd fòto a l'ha gnun "
+msgid "Picture set has no"
+msgstr "L'ansem ëd fòto a l'ha gnun"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

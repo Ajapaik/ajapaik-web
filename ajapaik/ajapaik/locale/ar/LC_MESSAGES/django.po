@@ -106,7 +106,7 @@ msgid "Parameter photo_id must be an positive integer"
 msgstr ""
 
 #: ajapaik/ajapaik/api.py:1745
-msgid "No photo with id: "
+msgid "No photo with id:"
 msgstr ""
 
 #: ajapaik/ajapaik/api.py:1751
@@ -1577,7 +1577,7 @@ msgid "back sides of pictures"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
-msgid "exteriors "
+msgid "exteriors"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25

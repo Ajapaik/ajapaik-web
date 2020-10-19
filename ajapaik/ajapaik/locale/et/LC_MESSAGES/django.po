@@ -10,7 +10,6 @@
 #
 msgid ""
 msgstr ""
-""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-17 18:44+0300\n"
@@ -105,8 +104,8 @@ msgid "Parameter photo_id must be an positive integer"
 msgstr "Parameeter photo_id peab olema positiivne täisarv"
 
 #: ajapaik/ajapaik/api.py:1745
-msgid "No photo with id: "
-msgstr "Puudub pilt id-ga: "
+msgid "No photo with id:"
+msgstr "Puudub pilt id-ga:"
 
 #: ajapaik/ajapaik/api.py:1751
 msgid "You have already submitted this suggestion"
@@ -332,8 +331,8 @@ msgid "Scene"
 msgstr "Stseen"
 
 #: ajapaik/ajapaik/models.py:436 ajapaik/ajapaik/models.py:1599
-msgid "Ground level"
-msgstr "Maapind"
+msgid "Ground"
+msgstr "Maapinnalt"
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1600
 msgid "Raised"
@@ -662,7 +661,7 @@ msgstr "Menüü"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/templates/dummy_translations.html:12
+#: ajapaik/ajapaik/views.py:3198
 msgid "E-mail addresses"
 msgstr "Meiliaadressid"
 
@@ -1230,15 +1229,15 @@ msgstr "Viga asukoha määramisel"
 msgid "Sorting"
 msgstr "Sorteerimine"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:473
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
 msgid "Got it!"
 msgstr "Mis siis ikka!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:476
 msgid "More info"
 msgstr "Rohkem infot"
 
@@ -1514,34 +1513,13 @@ msgid "New Password (again)"
 msgstr "Uus parool (uuesti)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
+#: ajapaik/ajapaik/views.py:3189
 msgid "Set password"
 msgstr "Seadista salasõna"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
-msgid "Change password"
-msgstr "Muuda salasõna"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:9
-msgid "Change display name"
-msgstr "Muuda kasutajanime"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:10
-msgid "Newsletter and language settings"
-msgstr "Uudiskirja ja keele-eelistuse seaded"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
 msgstr "Refotode üleslaadimisseaded"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:13
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-msgid "Account Connections"
-msgstr "Ühendatud kontod"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:14
-msgid "Merge another Ajapaik account with current one"
-msgstr "Kanna ühe Ajapaiga konto kaastöö ja seaded üle teisele kontole"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1564,7 +1542,7 @@ msgid "back sides of pictures"
 msgstr "piltide tagaküljed"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
-msgid "exteriors "
+msgid "exteriors"
 msgstr "välisvaated"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
@@ -1587,103 +1565,103 @@ msgstr "õhuvaated"
 msgid "no filter"
 msgstr "filtreid pole"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show person albums"
 msgstr "Kuva isikualbumite loend"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show pictures with faces"
 msgstr "Kuva pildid, kus on on nägusid"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:50
 msgid "Pictures by collections"
 msgstr "Pildid kogude kaupa"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
 msgid "Show albums with pictures with back sides"
 msgstr "Kuva albumid, kus on pilte koos tagumiste külgede kujutistega"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "Show pictures with back sides"
 msgstr "Kuva pildid, millel on ka tagumise külje kujutis"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:73
 msgid "Show pictures made from the ground level"
 msgstr "Kuva pildid maapinnalt"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:83
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Kuva pildid kõrgemast vaatepunktist"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:64
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:93
 msgid "Show aerial pictures"
 msgstr "Kuva õhuvaated"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:103
 msgid "Show interior pictures"
 msgstr "Kuva sisevaated"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:112
 msgid "Show exterior pictures"
 msgstr "Kuva välisvaated"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:87
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Sort by distance from you"
 msgstr "Sorteeri kauguse järgi sinust"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:97
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Sort by time and ..."
 msgstr "Sorteeri aja ja ... järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:107
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Sort by photos' time added"
 msgstr "Sorteeri pilte lisamise aja järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:159
 msgid "Sort by stills' timestamp"
 msgstr "Sorteeri kaadrid ajakoodi järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:169
 msgid "Sort by views' time added or amount"
 msgstr "Sorteeri vaatamise aja ja hulga järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:137
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Sort by geotags' time added or amount"
 msgstr "Sorteeri asukohamärgenduste lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:147
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Sort by rephotos' time added or amount"
 msgstr "Sorteeri ülepildistuste lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:157
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Sort by annotations' time added or amount"
 msgstr "Sorteeri annotatsioonide lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:166
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:207
 msgid "Sort by transcriptions' time added or amount"
 msgstr "Sorteeri transkribeerimiste lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:175
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:216
 msgid "Sort by datings' time added or amount"
 msgstr "Sorteeri dateeringute lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:185
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:226
 msgid "Sort by comments' time added or amount"
 msgstr "Sorteeri kommentaaride lisamise aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:195
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:236
 msgid "Sort by likes' time added or amount"
 msgstr "Sorteeri lemmikuks märkimiste aja või koguse järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:205
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:246
 msgid "Sort by amount and ..."
 msgstr "Sorteeri koguse ja ... järgi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:215
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
 msgid "Change sorting order"
 msgstr "Muuda sorteerimise järjestus vastupidiseks"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:224
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:265
 msgid "Help"
 msgstr "Abi"
 
@@ -2029,6 +2007,16 @@ msgstr "Sotsiaalmeedia kaudu sisselogimine ei õnnestunud"
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
 msgstr "Sotsiaalmeedia konto kaudu sisse logimisel tekkis viga."
+
+#: ajapaik/ajapaik/views.py:3191
+msgid "Change password"
+msgstr "Muuda salasõna"
+
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+#: ajapaik/ajapaik/views.py:3200
+msgid "Account Connections"
+msgstr "Ühendatud kontod"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2400,6 +2388,18 @@ msgstr "Album on loodud"
 msgid "Sorry but we fail to post your comment."
 msgstr "Kommentaari postitamine ei õnnestunud."
 
+#: ajapaik/ajapaik/views.py:3196
+msgid "Change display name"
+msgstr "Muuda kasutajanime"
+
+#: ajapaik/ajapaik/views.py:3197
+msgid "Newsletter and language settings"
+msgstr "Uudiskirja ja keele-eelistuse seaded"
+
+#: ajapaik/ajapaik/views.py:3201
+msgid "Merge another Ajapaik account with current one"
+msgstr "Kanna ühe Ajapaiga konto kaastöö ja seaded üle teisele kontole"
+
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Subject name"
 msgstr "Isiku nimi"
@@ -2523,4 +2523,3 @@ msgstr "Vene"
 #: ajapaik/settings/default.py:79
 msgid "French"
 msgstr "Prantsuse keel"
-

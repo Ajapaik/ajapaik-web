@@ -544,7 +544,7 @@ msgid "Pictures from the map"
 msgstr "Xerita ra resımi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
+msgid "Did you mean to search from:"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
@@ -572,8 +572,8 @@ msgid "All pictures"
 msgstr "Resımi pêro"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "Setê resıma çıniyo "
+msgid "Picture set has no"
+msgstr "Setê resıma çıniyo"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

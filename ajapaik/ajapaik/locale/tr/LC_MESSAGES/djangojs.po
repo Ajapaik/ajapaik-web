@@ -548,8 +548,8 @@ msgid "Pictures from the map"
 msgstr "Haritadan resimler"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
-msgid "Did you mean to search from: "
-msgstr "Şunu mu demek istediniz: "
+msgid "Did you mean to search from:"
+msgstr "Şunu mu demek istediniz:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
@@ -576,8 +576,8 @@ msgid "All pictures"
 msgstr "Tüm resimler"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
-msgid "Picture set has no "
-msgstr "Resim seti yok "
+msgid "Picture set has no"
+msgstr "Resim seti yok"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
 msgid "in this album"

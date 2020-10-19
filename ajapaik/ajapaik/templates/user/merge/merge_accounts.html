@@ -99,7 +99,7 @@
                     reverse: reverse
                 },
                 success: function (response) {
-                    $.notify(gettext(response.message), {type: 'success'});
+                    $.notify(response.message, {type: 'success'});
                     setTimeout(function () {
                         window.location.href = currentProfileUrl;
                     }, 3000);
