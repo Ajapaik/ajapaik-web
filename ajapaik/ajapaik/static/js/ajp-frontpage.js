@@ -380,9 +380,11 @@
                         })
 
                         let message;
-                        if (filterCount == 0) {
-                            var array = window.location.search.split('&q=');
+                        if (window.location.search.indexOf('&q=') > 0) {
                             message = 'No results found for: %(query)s';
+                            var array = window.location.search.split('&q=');
+                        }
+                        if (filterCount == 0) {
                             if (!!window.albumId) {
                                 message += ' in this album';
                             }
@@ -413,15 +415,28 @@
                                 message = 'No aerial pictures were found';
                             }
 
-                            if (!!window.albumId) {
-                                message += ' ' + gettext('in this album');
+
+                            if (window.location.search.indexOf('&q=') > 0) {
+                                message = 'No results found for: %(query)s';
                             }
 
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-category-template',
-                                    gettext(message)
-                                ));
+                            if (!!window.albumId) {
+                                message += ' ' + 'in this album';
+                            }
+
+                            if (window.location.search.indexOf('&q=') > 0) {
+                                targetDiv.append(
+                                    tmpl(
+                                        'ajp-frontpage-photo-search-empty-template',
+                                        interpolate(gettext(message), {query: decodeURI(array[array.length - 1])}, true)
+                                    ));
+                            } else {
+                                targetDiv.append(
+                                    tmpl(
+                                        'ajp-frontpage-photo-search-empty-category-template',
+                                        gettext(message)
+                                    ));
+                            }
                         }
 
                         targetDiv.addClass('w-100');
