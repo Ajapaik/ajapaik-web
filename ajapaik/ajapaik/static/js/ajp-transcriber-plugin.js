@@ -100,7 +100,7 @@
             that.$UI.find('#ajp-transcriber-text').val(transcription.text);
             that.$UI.find('#ajp-transcriber-count').html((id + 1) + ' / ' + transcriptions.length);
             let url = window.userUrl.replace('0', transcription.user_id);
-            that.$UI.find('#ajp-transcriber-username').html(gettext('Transcribed by:') + '<a href="' + url +'">' + transcription.user_name + '</a>');
+            that.$UI.find('#ajp-transcriber-username').html(gettext('Transcribed by:') + ' <a href="' + url +'">' + transcription.user_name + '</a>');
         };
         this.checkTranscriptionButtons = function () {
             if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0) {
