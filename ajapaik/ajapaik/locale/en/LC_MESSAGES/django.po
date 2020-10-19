@@ -2603,4 +2603,6 @@ msgstr "French"
 
 #~ msgid "Details"
 #~ msgstr "Details"
-~ msgstr "Add location"
+
+#~ msgid "Add location"
+#~ msgstr "Add location"
