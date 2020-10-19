@@ -13,10 +13,10 @@
     <a title="{% trans "Add rephoto" %}" id="ajp-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
     </a>
-    <a title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+    <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
         id="mark-object-button"
-        href="#" class="float-left"
-    >
+        class="float-left"
+    ></button>
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
     </a>
     <div class="dropdown float-left">
@@ -217,7 +217,6 @@
         };
 
         $('#mark-object-button').click(function (e) {
-            e.preventDefault();
             ObjectTagger.toggleCropping();
         });
 
