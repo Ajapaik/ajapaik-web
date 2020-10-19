@@ -1752,7 +1752,7 @@ class PhotoSuggestion(AjapaikAPIView):
         suggestion_saved = _('Your suggestion has been saved')
         suggestion_changed = _('Your suggestion has been changed')
 
-        if scene is None or scene == '' and viewpoint_elevation is None or viewpoint_elevation == '':
+        if scene is None or scene == 'undefined' and viewpoint_elevation is None or viewpoint_elevation == 'undefined':
             return JsonResponse({'error': _('Add at least scene or viewpoint_elevation parameter to the request')}, status=400)
 
         try:
