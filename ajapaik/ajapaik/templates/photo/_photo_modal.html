@@ -163,7 +163,7 @@
                         <div class="row">
                             <div id="ajp-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
                                 <!-- start of transcriber block -->
-                                <div class="row my-3 d-none" id="ajp-transcriber-container"></div>
+                                {% include "transcriber/_transcriber.html" with is_modal=False %}
                                 <!-- end of transcriber block -->
                                 {% with photo=photo %}
                                 {% include "photo/_photo_description_container.html" %}
@@ -440,7 +440,6 @@
         $('#ajp-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
         $('#ajp-dater-container').AjapaikDater();
-        $('#ajp-transcriber-container').AjapaikTranscriber();
 
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
         $(document).on('mouseenter.ajp-namespace', '#ajp-modal-photo-container', showDetectionRectangles);

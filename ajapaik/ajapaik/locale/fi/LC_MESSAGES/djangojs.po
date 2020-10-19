@@ -721,8 +721,8 @@ msgid "Something went wrong, please check your connection. If the issue persists
 msgstr "Jotain meni vikaan, tarkista verkkoyhteytesi. Mikäli ongelma jatkuu, niin pyydämme ottamaan yhteyttä meihin Tawk.to:lla."
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:100
-msgid "Transcribed by: "
-msgstr "Littoeroinut: "
+msgid "Transcribed by:"
+msgstr "Littoeroinut:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149
 msgid "This transcription is correct"

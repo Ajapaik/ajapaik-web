@@ -718,8 +718,8 @@ msgid "Something went wrong, please check your connection. If the issue persists
 msgstr "Bir şeyler ters gitti, lütfen bağlantınızı kontrol edin. Sorun devam ederse, lütfen bizimle Tawk.to adresinden iletişime geçin."
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:100
-msgid "Transcribed by: "
-msgstr "Yazan: "
+msgid "Transcribed by:"
+msgstr "Yazan:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149
 msgid "This transcription is correct"

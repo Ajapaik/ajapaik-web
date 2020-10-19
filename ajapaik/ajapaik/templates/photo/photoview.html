@@ -95,7 +95,7 @@
                 {% endif %}
             </div>
             <!-- start of transcriber block -->
-            <div class="row my-3 d-none" id="ajp-transcriber-container"></div>
+            {% include "transcriber/_transcriber.html" with is_modal=False %}
             <!-- end of transcriber block -->
             {% with photo=photo|default:photo %}
                 {% include "photo/_photo_description_container.html" %}
@@ -273,7 +273,6 @@
         var mainPhoto = $('#ajp-photoview-main-photo'),
             originalFullscreen = $('#ajp-full-screen-image');
         $('#ajp-dater-container').AjapaikDater();
-        $('#ajp-transcriber-container').AjapaikTranscriber();
 
         ObjectTagger.setPhotoId(window.photoId);
         ImageAreaSelector.setImageArea('ajp-photoview-main-photo-container');
@@ -372,22 +371,7 @@
         e.stopPropagation();
         window.location.href = "/photo/" + "{{ photo.id }}" + "/{{ photo.get_pseudo_slug }}";
     });
-    $(document).on('click', '.ajp-invert-rephoto-overlay-button', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var targetDiv = $('#ajp-modal-rephoto');
-        var fullSCreen = $('#ajp-rephoto-full-screen-image');
-        if (targetDiv.hasClass('ajp-photo-bw')) {
-            targetDiv.removeClass('ajp-photo-bw');
-        } else {
-            targetDiv.addClass('ajp-photo-bw');
-        }
-        if (fullSCreen.hasClass('ajp-photo-bw')) {
-            fullSCreen.removeClass('ajp-photo-bw');
-        } else {
-            fullSCreen.addClass('ajp-photo-bw');
-        }
-    });
+
     $(document).on('click', '#ajp-show-similar-photoview-overlay-button', function () {
         $('#ajp-photoview-similar-photo-selection').removeClass('d-none').addClass('d-block');
         $('#ajp-photoview-rephoto-selection').addClass('d-none');

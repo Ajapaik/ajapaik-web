@@ -719,7 +719,7 @@ msgid "Something went wrong, please check your connection. If the issue persists
 msgstr "Midagi läks valesti, kontrollige netiühendust. Kui probleem püsib, võtke meiega Tawk.to chati kaudu ühendust, palun."
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:100
-msgid "Transcribed by: "
+msgid "Transcribed by:"
 msgstr "Transkribeerinud:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149

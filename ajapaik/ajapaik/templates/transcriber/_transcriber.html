@@ -1,0 +1,60 @@
+<div class="row my-3 d-none" id="ajp-transcriber-container">
+</div>
+
+{% block specific_js %}
+    <script>
+        window.updateTranscriptions = function () {
+            $.ajax({
+                url: "{% url 'api_transcriptions' photo.id %}",
+                success: function (result) {
+                    window.currentPhotoTranscriptions = result.transcriptions;
+                    if (window.currentPhotoTranscriptions.length > 0) {
+                        $('#ajp-transcribe-button').find('.badge').html(window.currentPhotoTranscriptions.length);
+                        $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
+                        if (!$('#ajp-transcriber-confirm-button').is(':visible')) {
+                            $('#ajp-transcriber-confirm-button').removeClass('d-none');
+                        }
+                    }
+                },
+                error: function () {
+                    $.notify('Failed to get transcriptions', {type: 'danger'});
+                }
+            });
+        };
+
+        window.startTranscriber = function (photoId) {
+            $('.ajp-transcriber-hide-when-transcriber-visible').hide();
+            $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
+                photoId: photoId,
+                previousDatings: window.previousDatings
+            });
+            $('.ajp-close-rephoto-overlay-button').click();
+        };
+
+        window.stopTranscriber = function () {
+            $('.ajp-transcriber-hide-when-dater-visible').show();
+            $('#ajp-transcriber-comment').val(null);
+            $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
+        };
+
+        transcriberButtonClick = function (button) {
+            if (window.isFrontpage) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
+            } else if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
+            }
+            if ($('#ajp-transcriber-container').is(':visible')) {
+                window.stopTranscriber();
+            } else {
+                window.startTranscriber($(button).data('id'));
+            }
+        }
+
+        $('document').ready(function(){
+            $('#ajp-transcriber-container').AjapaikTranscriber();
+            window.updateTranscriptions();
+        });
+    </script>
+{% endblock %}

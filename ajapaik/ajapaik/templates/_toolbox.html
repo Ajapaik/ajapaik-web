@@ -37,7 +37,7 @@
     <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
     </button>
-    <a id="ajp-transcribe-button" data-id="{{ photo.id }}" class="float-left"
+    <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);" class="float-left"
         title="{% trans "Transcribe this image" %}" href="#">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
         <span id="ajp-photoview-transcriptions-count" class="badge"></span>
@@ -216,22 +216,6 @@
             });
         };
 
-        $(document).on('click', '#ajp-transcribe-button', function (e) {
-            e.preventDefault();
-            if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
-            } else if (window.isMapview) {
-                _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
-            } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
-            }
-            if ($('#ajp-transcriber-container').is(':visible')) {
-                window.stopTranscriber();
-            } else {
-                window.startTranscriber($(this).data('id'));
-            }
-        });
-
         $('#mark-object-button').click(function (e) {
             e.preventDefault();
             ObjectTagger.toggleCropping();
@@ -256,41 +240,6 @@
             $('#ajp-dater-feedback-card').hide();
         };
 
-        window.updateTranscriptions = function () {
-            $.ajax({
-                url: "{% url 'api_transcriptions' photo.id %}",
-                success: function (result) {
-                    window.currentPhotoTranscriptions = result.transcriptions;
-                    if (window.currentPhotoTranscriptions.length > 0) {
-                        $('#ajp-transcribe-button').find('.badge').html(window.currentPhotoTranscriptions.length);
-                        $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');
-                        if (!$('#ajp-transcriber-confirm-button').is(':visible')) {
-                            $('#ajp-transcriber-confirm-button').removeClass('d-none');
-                        }
-                    }
-                },
-                error: function () {
-                    $.notify('Failed to get transcriptions', {type: 'danger'});
-                }
-            });
-        };
-
-        window.updateTranscriptions();
-
-        window.startTranscriber = function (photoId) {
-            $('.ajp-transcriber-hide-when-transcriber-visible').hide();
-            $('#ajp-transcriber-container').removeClass('d-none').addClass('d-block').data('AjapaikTranscriber').initializeTranscriberState({
-                photoId: photoId,
-                previousDatings: window.previousDatings
-            });
-            $('.ajp-close-rephoto-overlay-button').click();
-        };
-
-        window.stopTranscriber = function () {
-            $('.ajp-transcriber-hide-when-dater-visible').show();
-            $('#ajp-transcriber-comment').val(null);
-            $('#ajp-transcriber-container').removeClass('d-block').addClass('d-none');
-        };
 
         window.openPhotoUploadModal = function () {
             if (window.currentlyOpenPhotoId) {

@@ -2305,13 +2305,15 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   transform: rotate(180deg);
 }
 
-#ajp-categorize-scene-button {
+#ajp-categorize-scene-button,
+#ajp-transcribe-button {
   background: none;
   border: none;
   padding: 0;
   margin: 0;
 }
 
-#ajp-categorize-scene-button:focus {
+#ajp-categorize-scene-button:focus,
+#ajp-transcribe-button:focus {
   outline: none;
 }

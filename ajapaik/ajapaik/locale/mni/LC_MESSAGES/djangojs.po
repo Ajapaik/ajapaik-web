@@ -584,7 +584,7 @@ msgid "Something went wrong, please check your connection. If the issue persists
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:100
-msgid "Transcribed by: "
+msgid "Transcribed by:"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149

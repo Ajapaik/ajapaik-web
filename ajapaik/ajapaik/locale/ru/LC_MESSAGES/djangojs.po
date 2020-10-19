@@ -735,8 +735,8 @@ msgid "Something went wrong, please check your connection. If the issue persists
 msgstr "Что-то пошло не так, пожалуйста, проверьте ваше соединение. Если проблема не устранена, пожалуйста, свяжитесь с нами на Tawk.to"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:100
-msgid "Transcribed by: "
-msgstr "Переписано: "
+msgid "Transcribed by:"
+msgstr "Переписано:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149
 msgid "This transcription is correct"
