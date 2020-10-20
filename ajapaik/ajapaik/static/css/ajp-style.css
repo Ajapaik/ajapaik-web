@@ -1391,14 +1391,15 @@ a.fullscreen {
 }
 
 #ajp-start-dating-button {
+  height: 48px;
   width: 48px;
 }
 
 #ajp-start-dating-button > span {
-  position: absolute;
-  right: 2px;
-  left: initial;
-  bottom: 8px;
+  position: relative;
+  left: 30px;
+  top: -23px;
+  margin-bottom: -30px;
 }
 
 #ajp-geolocation-error,
