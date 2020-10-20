@@ -51,14 +51,10 @@
                     </a>
                 </div>
                 <div class="row d-block" style="font-size:0">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <a class="d-inline-block w-25" target="_blank" href="{% if LANGUAGE_CODE == "et" %}
-                        https://ev100.ee/et/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                    {% elif LANGUAGE_CODE == "ru" %}
-                        https://ev100.ee/ru/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                    {% else %}
-                        https://ev100.ee/en/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud
-                    {% endif %}" rel="noopener">
+                    <a class="d-inline-block w-25"
+                        target="_blank"
+                        href="https://ev100.ee/et/ajp-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud"
+                        rel="noopener">
                         <img class="w-100 media-object lazyload" data-src="{{ STATIC_URL }}images/ev100.png"
                             alt="{% trans "EV100 logo" %}">
                     </a>
