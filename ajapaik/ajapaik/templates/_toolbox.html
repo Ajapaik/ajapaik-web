@@ -87,7 +87,7 @@
         };
 
         function clickViewpointElevationCategoryButton(buttonId) {
-            $('send-suggestion-button').attr("disabled", false);
+            $('#send-suggestion-button').prop("disabled", false);
 
             let otherButtonIds = [];
 
@@ -119,7 +119,7 @@
         };
 
         function clickSceneCategoryButton(buttonId) {
-            $('send-suggestion-button').attr("disabled", false);
+            $('#send-suggestion-button').prop("disabled", false);
 
             scene = buttonId === 'interior-button'
                 ? 'Interior'
@@ -169,11 +169,10 @@
 
                     if (viewpointElevation === 'undefined' && scene === 'undefined') {
                         buttonTranslation = 'Submit';
-                        $('send-suggestion-button').attr("disabled", true);
                     }
 
                     let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
-                    let actionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-3 w-100'>` + gettext(buttonTranslation) + `</button>`;
+                    let actionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
                     content += actionButtonTemplate;
 
                     let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
