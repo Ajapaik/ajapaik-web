@@ -2324,3 +2324,8 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 .popover{
   max-width: 100%;
 }
+
+.ajp-bank-link-one-time:hover,
+.ajp-bank-link-standing:hover {
+  text-decoration: none;
+}
