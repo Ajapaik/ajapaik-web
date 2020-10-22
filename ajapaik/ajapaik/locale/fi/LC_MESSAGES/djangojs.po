@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2020-10-19 12:49:40+0000\n"
+"PO-Revision-Date: 2020-10-22 10:55:47+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -25,41 +25,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-10-19 10:25:23+0000\n"
+"X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:322
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:324
 #: ajapaik/ajapaik/static/js/ajp-common.js:523
 msgid "User denied the request for Geolocation."
 msgstr "Käyttäjä kielsi sijaintitiedon käyttämisen"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:328
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:330
 #: ajapaik/ajapaik/static/js/ajp-common.js:529
 msgid "Location information is unavailable."
 msgstr "Sijaintitietoa ei ole käytettävissä"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:331
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:333
 #: ajapaik/ajapaik/static/js/ajp-common.js:532
 msgid "The request to get user location timed out."
 msgstr "Pyyntö käyttäjän sijaintitiedon saamiseksi aikakatkaistiin."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:334
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:336
 #: ajapaik/ajapaik/static/js/ajp-common.js:535
 msgid "An unknown error occurred."
 msgstr "Tuntematon virhe."
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:739
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:784
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:741
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:786
 #: ajapaik/ajapaik/static/js/ajp-common.js:1178
 #: ajapaik/ajapaik/static/js/ajp-common.js:1223
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "Not selected"
 msgstr "Ei valittu"
 
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1391
-#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1407
-#: ajapaik/ajapaik/static/js/ajp-common.js:1830
-#: ajapaik/ajapaik/static/js/ajp-common.js:1846
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1398
+#: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:1414
+#: ajapaik/ajapaik/static/js/ajp-common.js:1840
+#: ajapaik/ajapaik/static/js/ajp-common.js:1856
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "System error"
 msgstr "Järjestelmävirhe"
 
@@ -172,13 +172,14 @@ msgid "YYYY.MM.DD"
 msgstr "VVVV.KK.PP"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:436
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Peruuta"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:445
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:163
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
 msgstr "Lähetä"
@@ -304,164 +305,225 @@ msgstr "Merkitse stereokuva"
 msgid "No results found for: %(query)s"
 msgstr "Ei tuloksia haulle: %(query)s"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "No results found for: %(query)s in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "No pictures were found with the selected filters"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "No pictures were found with the selected filters in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "No pictures with marked faces were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "No pictures with marked faces were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "No pictures with back sides were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "No pictures with back sides were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "No interior views were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "No interior views were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No exterior views were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No exterior views were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No pictures from the ground level were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No pictures from the ground level were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No raised viewpoint pictures were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No raised viewpoint pictures were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No aerial pictures were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No aerial pictures were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "Number"
 msgstr "Numero"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "photos"
 msgstr "valokuvaa"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "Picture already in album(s)"
 msgstr "Kuva on jo album(e)issa"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "Picture has location data attached"
 msgstr "Kuvassa on sijaintitiedot liitettynä"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
 msgstr "Kuva on jo Ajapaikissa. Voit silti lisätä sen albumiisi, mutta et saa siitä kuratointipisteitä"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "Pictures geotagged"
 msgstr "Paikannettua kuvaa"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "Pictures in album"
 msgstr "Kuvaa albumissa"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "Points"
 msgstr "Pisteitä"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "Remove from selection"
 msgstr "Poista valinta"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "Rephotos in album"
 msgstr "Uusintakuvaa albumissa"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "Rotate"
 msgstr "Pyöritä"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "Show pictures on map"
 msgstr "Näytä kuvat kartalla"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "Size"
 msgstr "Koko"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "Source ID"
 msgstr "Lähteen tunnus"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "Source"
 msgstr "Lähde"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "This album contains a film"
 msgstr "Tämä albumi sisältää elokuvan"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "Title"
 msgstr "Otsikko"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "URL"
 msgstr "URL"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "Unknown author"
 msgstr "Tuntematon tekijä"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
+msgid "Categorize scene"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
+msgid "Interior"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
+msgid "Ground"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
+msgid "Raised"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
+msgid "Aerial"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+msgid "Confirm"
+msgstr "Vahvista"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
+msgid "Exterior"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
+msgid "Picture set has no views"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
+msgid "Picture set has no geotags"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
+msgid "Picture set has no rephotos"
+msgstr "Kuvasarjassa ei ole uusintakuvia"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
+msgid "Picture set has no annotations"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
+msgid "Picture set has no transcriptions"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+msgid "Picture set has no datings"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+msgid "Picture set has no comments"
+msgstr "Kuvasarjassa ei ole kommentteja"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+msgid "Picture set has no likes"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:102
@@ -580,10 +642,6 @@ msgstr "Kaikki kuvat"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:363
 msgid "Picture set has no"
 msgstr "Kuvasarjassa ei ole"
-
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:417
-msgid "in this album"
-msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:187
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -720,27 +778,23 @@ msgstr ""
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Jotain meni vikaan, tarkista verkkoyhteytesi. Mikäli ongelma jatkuu, niin pyydämme ottamaan yhteyttä meihin Tawk.to:lla."
 
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:100
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
 msgstr "Littoeroinut:"
 
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
 msgstr "Tämä litterointi on oikein"
 
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:149
-msgid "Confirm"
-msgstr "Vahvista"
-
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:162
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the image?"
 msgstr "Mitä kuvaan on kirjoitettu?"
 
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:175
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
 msgstr "Olet anonyymi, kirjaudu sisälle lisätäksesi litterointeja"
 
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:177
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
 msgstr "Kirjaudu sisään"
 

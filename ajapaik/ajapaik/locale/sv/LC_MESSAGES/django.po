@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-19 12:49:44+0000\n"
+"PO-Revision-Date: 2020-10-22 10:55:49+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-10-19 10:25:23+0000\n"
+"X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 
 #: ajapaik/ajapaik/admin.py:105
@@ -333,10 +333,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:433 ajapaik/ajapaik/models.py:1591
 msgid "Scene"
-msgstr ""
+msgstr "Scen"
 
 #: ajapaik/ajapaik/models.py:436 ajapaik/ajapaik/models.py:1599
-msgid "Ground level"
+msgid "Ground"
 msgstr ""
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1600
@@ -666,7 +666,7 @@ msgstr "Meny"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/templates/dummy_translations.html:12
+#: ajapaik/ajapaik/views.py:3198
 msgid "E-mail addresses"
 msgstr "E-postadresser"
 
@@ -1234,15 +1234,15 @@ msgstr ""
 msgid "Sorting"
 msgstr "Sortering"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:473
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Den här webbplatsen använder cookies för att ge dig den bästa upplevelsen"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
 msgid "Got it!"
 msgstr "Jag fattar!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:476
 msgid "More info"
 msgstr "Mer info"
 
@@ -1518,33 +1518,12 @@ msgid "New Password (again)"
 msgstr "Nytt lösenord (igen)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
+#: ajapaik/ajapaik/views.py:3189
 msgid "Set password"
 msgstr "Nytt lösenord"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
-msgid "Change password"
-msgstr "Ändra lösenord"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:9
-msgid "Change display name"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:10
-msgid "Newsletter and language settings"
-msgstr "Nyhetsbrev och språkinställningar"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:13
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-msgid "Account Connections"
-msgstr ""
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:14
-msgid "Merge another Ajapaik account with current one"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
@@ -1553,15 +1532,15 @@ msgstr "Filtrering"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:11
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:13
 msgid "collections"
-msgstr ""
+msgstr "samlingar"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "people"
-msgstr ""
+msgstr "personer"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "back sides of pictures"
@@ -1589,105 +1568,105 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "no filter"
-msgstr ""
+msgstr "inget filter"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show person albums"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show pictures with faces"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:50
 msgid "Pictures by collections"
 msgstr "Bilder efter samlingar"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
 msgid "Show albums with pictures with back sides"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "Show pictures with back sides"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:73
 msgid "Show pictures made from the ground level"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:83
 msgid "Show pictures made from a raised viewpoint"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:64
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:93
 msgid "Show aerial pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:103
 msgid "Show interior pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:112
 msgid "Show exterior pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:87
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Sort by distance from you"
 msgstr "Sortera efter distans från dig"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:97
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Sort by time and ..."
 msgstr "Sortera efter tid och ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:107
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Sort by photos' time added"
 msgstr "Sortera efter när ett foto blev tillagt"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:159
 msgid "Sort by stills' timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:169
 msgid "Sort by views' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:137
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Sort by geotags' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:147
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Sort by rephotos' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:157
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Sort by annotations' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:166
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:207
 msgid "Sort by transcriptions' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:175
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:216
 msgid "Sort by datings' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:185
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:226
 msgid "Sort by comments' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:195
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:236
 msgid "Sort by likes' time added or amount"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:205
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:246
 msgid "Sort by amount and ..."
 msgstr "Sortera efter mängd och ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:215
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
 msgid "Change sorting order"
 msgstr "Ändra sorteringsordning"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:224
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:265
 msgid "Help"
 msgstr "Hjälp"
 
@@ -2034,6 +2013,12 @@ msgstr ""
 msgid "An error occurred while attempting to login via your social network account."
 msgstr ""
 
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+#: ajapaik/ajapaik/views.py:3200
+msgid "Account Connections"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
 msgstr ""
@@ -2360,7 +2345,7 @@ msgstr "Fotot har blivit lokaliserat till en ny plats tack vare dig."
 
 #: ajapaik/ajapaik/views.py:1633
 msgid "Your suggestion was first."
-msgstr ""
+msgstr "Ditt förslag var först."
 
 #: ajapaik/ajapaik/views.py:1906
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
@@ -2403,6 +2388,22 @@ msgstr "Album har skapats"
 #: ajapaik/ajapaik/views.py:2999
 msgid "Sorry but we fail to post your comment."
 msgstr "Ledsen, men vi misslyckades att lägga upp din kommentar."
+
+#: ajapaik/ajapaik/views.py:3191
+msgid "Change password"
+msgstr "Ändra lösenord"
+
+#: ajapaik/ajapaik/views.py:3196
+msgid "Change display name"
+msgstr ""
+
+#: ajapaik/ajapaik/views.py:3197
+msgid "Newsletter and language settings"
+msgstr "Nyhetsbrev och språkinställningar"
+
+#: ajapaik/ajapaik/views.py:3201
+msgid "Merge another Ajapaik account with current one"
+msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Subject name"

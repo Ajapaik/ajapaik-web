@@ -18,11 +18,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-19 12:49:45+0000\n"
+"PO-Revision-Date: 2020-10-22 10:55:49+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-10-19 10:25:23+0000\n"
+"X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -107,7 +107,7 @@ msgstr "photo_id parametresi, pozitif bir tam sayı olmalıdır"
 
 #: ajapaik/ajapaik/api.py:1745
 msgid "No photo with id:"
-msgstr ""
+msgstr "Şu kimliğe sahip fotoğraf yok:"
 
 #: ajapaik/ajapaik/api.py:1751
 msgid "You have already submitted this suggestion"
@@ -333,12 +333,12 @@ msgid "Scene"
 msgstr "Sahne"
 
 #: ajapaik/ajapaik/models.py:436 ajapaik/ajapaik/models.py:1599
-msgid "Ground level"
-msgstr ""
+msgid "Ground"
+msgstr "Yer"
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1600
 msgid "Raised"
-msgstr ""
+msgstr "Yüksektildi"
 
 #: ajapaik/ajapaik/models.py:438 ajapaik/ajapaik/models.py:1601
 msgid "Aerial"
@@ -346,7 +346,7 @@ msgstr "Hava"
 
 #: ajapaik/ajapaik/models.py:440 ajapaik/ajapaik/models.py:1603
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Bakış açısı yüksekliği"
 
 #: ajapaik/ajapaik/models.py:893 ajapaik/ajapaik/models.py:977
 msgid "Different"
@@ -663,7 +663,7 @@ msgstr "Menü"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/templates/dummy_translations.html:12
+#: ajapaik/ajapaik/views.py:3198
 msgid "E-mail addresses"
 msgstr "E-posta adresleri"
 
@@ -1228,15 +1228,15 @@ msgstr "Coğrafi konum hatası"
 msgid "Sorting"
 msgstr "Sıralama"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:473
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Bu web sitesi, web sitemizde en iyi deneyimi yaşamanızı sağlamak için çerezleri kullanır"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:474
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
 msgid "Got it!"
 msgstr "Anladım!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:475
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:476
 msgid "More info"
 msgstr "Daha fazla bilgi"
 
@@ -1512,34 +1512,13 @@ msgid "New Password (again)"
 msgstr "Yeni parola (tekrar)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
+#: ajapaik/ajapaik/views.py:3189
 msgid "Set password"
 msgstr "Parolayı ayarla"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
-msgid "Change password"
-msgstr "Parolayı değiştir"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:9
-msgid "Change display name"
-msgstr "Görünen adı değiştir"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:10
-msgid "Newsletter and language settings"
-msgstr "Bülten ve dil ayarları"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:11
 msgid "Rephoto upload settings"
 msgstr "Yeniden fotoğraflama yükleme ayarları"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:13
-#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
-#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-msgid "Account Connections"
-msgstr "Hesap Bağlantıları"
-
-#: ajapaik/ajapaik/templates/dummy_translations.html:14
-msgid "Merge another Ajapaik account with current one"
-msgstr "Mevcut bir hesapla başka bir Ajapaik hesabını birleştir"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1559,19 +1538,19 @@ msgstr "insanlar"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "back sides of pictures"
-msgstr ""
+msgstr "resimlerin arka yüzleri"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "exteriors"
-msgstr "dışlar "
+msgstr "dışlar"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "interiors"
-msgstr ""
+msgstr "içler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures from the ground"
-msgstr ""
+msgstr "yerden resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures from a raised viewpoint"
@@ -1579,109 +1558,109 @@ msgstr "yükseltilmiş bir bakış açısından resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "aerial pictures"
-msgstr ""
+msgstr "havadan resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "no filter"
 msgstr "filtre yok"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show person albums"
 msgstr "Kişi albümlerini göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "Show pictures with faces"
 msgstr "Yüzleri olan resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:50
 msgid "Pictures by collections"
 msgstr "Koleksiyonlara göre resimler"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
 msgid "Show albums with pictures with back sides"
-msgstr ""
+msgstr "Arka tarafları olan resimli albümleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "Show pictures with back sides"
-msgstr ""
+msgstr "Arka yüzleri olan resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:73
 msgid "Show pictures made from the ground level"
 msgstr "Zemin seviyesinden yapılmış resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:59
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:83
 msgid "Show pictures made from a raised viewpoint"
-msgstr ""
+msgstr "Yükseltilmiş bir bakış açısından yapılmış resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:64
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:93
 msgid "Show aerial pictures"
-msgstr ""
+msgstr "Havadan resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:103
 msgid "Show interior pictures"
 msgstr "İç mekan resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:112
 msgid "Show exterior pictures"
-msgstr ""
+msgstr "Dış resimleri göster"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:87
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Sort by distance from you"
 msgstr "Size olan uzaklığa göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:97
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Sort by time and ..."
 msgstr "Tarihe göre sırala ve ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:107
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Sort by photos' time added"
 msgstr "Fotoğraflara eklenen zamana göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:159
 msgid "Sort by stills' timestamp"
 msgstr "Fotoğrafın zaman damgasına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:169
 msgid "Sort by views' time added or amount"
 msgstr "Görüntülenme zamanına eklenen veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:137
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Sort by geotags' time added or amount"
 msgstr "Coğrafi etiketlerin eklenme zamanına veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:147
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Sort by rephotos' time added or amount"
 msgstr "Yeniden fotoğraflanmaları eklenme zamanına veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:157
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Sort by annotations' time added or amount"
 msgstr "Ek açıklamaların eklenme süresine veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:166
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:207
 msgid "Sort by transcriptions' time added or amount"
 msgstr "Transkripsiyonların eklenme süresine veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:175
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:216
 msgid "Sort by datings' time added or amount"
 msgstr "Tarih ekleme zamanı veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:185
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:226
 msgid "Sort by comments' time added or amount"
 msgstr "Yorumların eklenme zamanına veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:195
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:236
 msgid "Sort by likes' time added or amount"
 msgstr "Beğenilerin zamanı veya miktarına göre sırala"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:205
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:246
 msgid "Sort by amount and ..."
 msgstr "Miktarına göre sırala ve ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:215
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
 msgid "Change sorting order"
 msgstr "Sıralama düzenini değiştir"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:224
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:265
 msgid "Help"
 msgstr "Yardım"
 
@@ -2018,6 +1997,12 @@ msgstr "Sosyal Ağ Oturum Açma Hatası"
 msgid "An error occurred while attempting to login via your social network account."
 msgstr "Sosyal ağ hesabınız üzerinden oturum açmaya çalışırken bir hata oluştu."
 
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+#: ajapaik/ajapaik/views.py:3200
+msgid "Account Connections"
+msgstr "Hesap Bağlantıları"
+
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
 msgstr "Aşağıdaki üçüncü taraf hesaplarından herhangi birini kullanarak hesabınıza giriş yapabilirsiniz:"
@@ -2141,7 +2126,7 @@ msgstr[0] "beğenen <b>%(photolikes)s</b> resim"
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "kategorize edilmiş <b>%(photo_suggestions)s</b> resim"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
@@ -2367,6 +2352,22 @@ msgstr "Albüm oluşturuldu"
 #: ajapaik/ajapaik/views.py:2999
 msgid "Sorry but we fail to post your comment."
 msgstr "Üzgünüz, yorumunuzu gönderemedik."
+
+#: ajapaik/ajapaik/views.py:3191
+msgid "Change password"
+msgstr "Parolayı değiştir"
+
+#: ajapaik/ajapaik/views.py:3196
+msgid "Change display name"
+msgstr "Görünen adı değiştir"
+
+#: ajapaik/ajapaik/views.py:3197
+msgid "Newsletter and language settings"
+msgstr "Bülten ve dil ayarları"
+
+#: ajapaik/ajapaik/views.py:3201
+msgid "Merge another Ajapaik account with current one"
+msgstr "Mevcut bir hesapla başka bir Ajapaik hesabını birleştir"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:15
 msgid "Subject name"
