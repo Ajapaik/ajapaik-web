@@ -3270,6 +3270,32 @@ def geotaggers_modal(request, photo_id):
 	}
 	return render(request, 'geotaggers/_geotaggers_modal_content.html', context)
 
+
+def redirect_view(request, photo_id=-1, thumb_size=-1, pseudo_slug=""):
+	path = request.path
+
+	if path.find('/ajapaikaja/') == 0: 
+		request.path = request.path.replace('/ajapaikaja/', '/game/')
+	elif path.find('/kaart/') == 0: 
+		request.path = request.path.replace('/kaart/', '/map/')
+	elif path.find('/foto_thumb/') == 0: 
+		request.path = request.path.replace('/foto_thumb/', '/photo-thumb/')
+	elif path.find('/foto_url/') == 0: 
+		request.path = request.path.replace('/foto_url/', '/photo-thumb/')
+	elif path.find('/foto_large/') == 0: 
+		request.path = request.path.replace('/foto_large/', '/photo-full/')
+	elif path.find('/photo-large/') == 0: 
+		request.path = request.path.replace('/photo-large/', '/photo-full/')
+	elif path.find('/photo-url/') == 0: 
+		request.path = request.path.replace('/photo-url/', '/photo-thumb/')
+	elif path.find('/foto/') == 0: 
+		request.path = request.path.replace('/foto/', "/photo/")
+	else:
+		request.path = "/"
+
+	response = redirect(request.get_full_path(), permanent=True)
+	return response
+
 class MyPasswordSetView(LoginRequiredMixin, PasswordSetView):
 	success_url = reverse_lazy('user_settings')
 
