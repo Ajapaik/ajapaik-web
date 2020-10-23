@@ -3082,7 +3082,8 @@ def user(request, user_id):
 	photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
 	photo_viewpoint_elevation_suggestions_qs = PhotoViewpointElevationSuggestion.objects.filter(proposer_id=profile.id).distinct('photo')
 	photo_scene_suggestions_qs = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(photo_id__in=photo_viewpoint_elevation_suggestions_qs.values_list('photo_id', flat=True))
-	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
+	rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False)
+	rephotographed_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id')
 	similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
 	transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
 	action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
@@ -3112,7 +3113,7 @@ def user(request, user_id):
 		'photolikes': photolikes_qs.count(),
 		'photo_suggestions': photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count(),
 		'profile': profile,
-		'rephotographed_pictures': rephoto_qs.count(),
+		'rephotographed_pictures': rephotographed_pictures_qs.count(),
 		'rephotos_link': '/photos/?rephotosBy=' + str(profile.user.id) + '&order1=time&order2=rephotos',
 		'rephotos': rephoto_qs.count(),
 		'similar_pictures': similar_pictures_qs.count(),
