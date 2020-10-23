@@ -1748,24 +1748,10 @@ class PhotoSuggestion(AjapaikAPIView):
     def post(self, request, format=None):
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
-        photo_id = data['photoId']
         scene = data['scene']
         viewpoint_elevation = data['viewpointElevation']
         
-        if photo_id is None:
-            return JsonResponse({'error': _('Missing parameter photo_id')}, status=400)
-
-        if not photo_id.isdigit():
-            return JsonResponse({'error': _('Parameter photo_id must be an positive integer')}, status=400)
-
-        photo = Photo.objects.filter(id=photo_id).first()
-        if photo is None:
-            return JsonResponse({'error': _('No photo with id:') + ' ' + photo_id}, status=404)
-
-        photo = get_object_or_404(Photo, id=photo_id)
-        response = ''
-        response2 = ''
-
+        photo_ids = data['photoIds']
         suggestion_already_exists = _('You have already submitted this suggestion')
         suggestion_saved = _('Your suggestion has been saved')
         suggestion_changed = _('Your suggestion has been changed')
@@ -1773,75 +1759,82 @@ class PhotoSuggestion(AjapaikAPIView):
         if (scene is None or scene == 'undefined') and (viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
             return JsonResponse({'error': _('Add at least scene or viewpoint_elevation parameter to the request')}, status=400)
 
-        try:
-            if scene:
-                for choice in PhotoSceneSuggestion.SCENE_CHOICES:
-                    if choice[1] == scene:
-                        previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
-                        if previous_suggestion is not None and previous_suggestion.scene == choice[0]:
-                            response = suggestion_already_exists
-                        else:
-                            new_suggestion = PhotoSceneSuggestion(proposer=profile, photo=photo, scene=choice[0])
-                            new_suggestion.save()
+        for photo_id in photo_ids:
 
-                            all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).order_by('-created')
-                            if all_suggestions is None:
-                                photo.scene = choice[0]
-                                photo.save()
+            if photo_id is None:
+                return JsonResponse({'error': _('Missing parameter photo_id')}, status=400)
+
+            if not photo_id.isdigit():
+                return JsonResponse({'error': _('Parameter photo_id must be an positive integer')}, status=400)
+
+            photo = Photo.objects.filter(id=photo_id).first()
+            if photo is None:
+                return JsonResponse({'error': _('No photo with id:') + ' ' + photo_id}, status=404)
+
+            response = ''
+
+            try:
+                if scene:
+                    for choice in PhotoSceneSuggestion.SCENE_CHOICES:
+                        if choice[1] == scene:
+                            previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
+                            if previous_suggestion is not None and previous_suggestion.scene == choice[0] and response != suggestion_changed and response != suggestion_saved:
+                                response = suggestion_already_exists
                             else:
-                                suggestion_scenes = []
-                                
-                                for suggestion in all_suggestions:
-                                    suggestion_scenes.append(suggestion.scene)
+                                new_suggestion = PhotoSceneSuggestion(proposer=profile, photo=photo, scene=choice[0])
+                                new_suggestion.save()
 
-                                most_common_choice = most_frequent(suggestion_scenes)
+                                all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).order_by('-created')
+                                if all_suggestions is None:
+                                    photo.scene = choice[0]
+                                    photo.save()
+                                else:
+                                    suggestion_scenes = []
+                                    
+                                    for suggestion in all_suggestions:
+                                        suggestion_scenes.append(suggestion.scene)
 
-                                photo.scene = most_common_choice
-                                photo.save()
+                                    most_common_choice = most_frequent(suggestion_scenes)
 
-                            if previous_suggestion:
-                                response = suggestion_changed
+                                    photo.scene = most_common_choice
+                                    photo.save()
+
+                                if previous_suggestion:
+                                    response = suggestion_changed
+                                elif response != suggestion_changed:
+                                    Points(user=profile, action=Points.CATEGORIZE_SCENE, photo=photo, points=20,created=timezone.now()).save()
+                                    response = suggestion_saved
+                
+                if viewpoint_elevation:
+                    for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
+                        if choice[1] == viewpoint_elevation:
+                            previous_suggestion = PhotoViewpointElevationSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
+                            if previous_suggestion is not None and previous_suggestion.viewpoint_elevation == choice[0] and response != suggestion_changed and response != suggestion_saved:
+                                response = suggestion_already_exists
                             else:
-                                Points(user=profile, action=Points.CATEGORIZE_SCENE, photo=photo, points=20,created=timezone.now()).save()
-                                response = suggestion_saved
-            
-            if viewpoint_elevation:
-                for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
-                    if choice[1] == viewpoint_elevation:
-                        previous_suggestion = PhotoViewpointElevationSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
-                        if previous_suggestion is not None and previous_suggestion.viewpoint_elevation == choice[0]:
-                            response2 = suggestion_already_exists
-                        else:
-                            new_suggestion = PhotoViewpointElevationSuggestion(proposer=profile, photo=photo, viewpoint_elevation=choice[0])
-                            new_suggestion.save()
+                                new_suggestion = PhotoViewpointElevationSuggestion(proposer=profile, photo=photo, viewpoint_elevation=choice[0])
+                                new_suggestion.save()
 
-                            all_suggestions = PhotoViewpointElevationSuggestion.objects.filter(photo=photo).order_by('-created')
-                            if all_suggestions is None:
-                                photo.viewpoint_elevation = choice[0]
-                                photo.save()
-                            else:
-                                suggestion_viewpoint_elevations = []
-                                
-                                for suggestion in all_suggestions:
-                                    suggestion_viewpoint_elevations.append(suggestion.viewpoint_elevation)
+                                all_suggestions = PhotoViewpointElevationSuggestion.objects.filter(photo=photo).order_by('-created')
+                                if all_suggestions is None:
+                                    photo.viewpoint_elevation = choice[0]
+                                    photo.save()
+                                else:
+                                    suggestion_viewpoint_elevations = []
+                                    
+                                    for suggestion in all_suggestions:
+                                        suggestion_viewpoint_elevations.append(suggestion.viewpoint_elevation)
 
-                                most_common_choice = most_frequent(suggestion_viewpoint_elevations)
+                                    most_common_choice = most_frequent(suggestion_viewpoint_elevations)
 
-                                photo.viewpoint_elevation = most_common_choice
-                                photo.save()
+                                    photo.viewpoint_elevation = most_common_choice
+                                    photo.save()
 
-                            if previous_suggestion:
-                                response2 = suggestion_changed
-                            else:
-                                Points(user=profile, action=Points.ADD_VIEWPOINT_ELEVATION, photo=photo, points=20,created=timezone.now()).save()
-                                response2 = suggestion_saved
-
-            if response == response2:
-                return JsonResponse({'message': response}, status=400)
-            elif (response == suggestion_changed and response2 == suggestion_already_exists or response2 == '') or (response2 == suggestion_changed and response == suggestion_already_exists or response == ''):
-                return JsonResponse({'message': suggestion_changed})
-            else:
-                return JsonResponse({'message': suggestion_saved})
-
-        except:
-            return JsonResponse({'error': _('Something went wrong')}, status=500)
+                                if previous_suggestion:
+                                    response = suggestion_changed
+                                elif response != suggestion_changed:
+                                    Points(user=profile, action=Points.ADD_VIEWPOINT_ELEVATION, photo=photo, points=20,created=timezone.now()).save()
+                                    response = suggestion_saved
+            except:
+                return JsonResponse({'error': _('Something went wrong')}, status=500)
+        return JsonResponse({'message': response})
