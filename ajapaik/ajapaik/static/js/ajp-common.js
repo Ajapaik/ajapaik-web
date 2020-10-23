@@ -1144,15 +1144,7 @@ $('.ajp-navbar').autoHidingNavbar();
             $(this).find('.ajp-thumbnail-selection-icon').hide('fade', 250);
         }
     });
-    $(document).on('click', '#ajp-photo-modal-add-rephoto', function (e) {
-        e.preventDefault();
-        if (window.isFrontpage) {
-            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal add rephoto click']);
-        } else if (window.isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'Photo modal add rephoto click']);
-        }
-        window.openPhotoUploadModal();
-    });
+
     window.loadPossibleParentAlbums = function (parentAlbum, currentAlbumId, customSelector) {
         var url = window.curatorSelectableParentAlbumsURL;
         if (currentAlbumId) {

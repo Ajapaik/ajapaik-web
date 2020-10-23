@@ -10,7 +10,7 @@
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
         <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
     </a>
-    <a title="{% trans "Add rephoto" %}" id="ajp-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
+    <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
     </a>
     <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
@@ -266,7 +266,7 @@
                 e.preventDefault();
                 $.ajax({
                     cache: false,
-                    url: window.photoUploadModalURL + {{ photo.id }} + '/',
+                    url: window.photoUploadModalURL + ($(this).data('id')) + '/',
                     success: function (result) {
                         rephotoUploadModal.data('bs.modal', null);
                         rephotoUploadModal.html(result).modal();
