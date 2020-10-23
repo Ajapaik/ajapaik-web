@@ -48,7 +48,9 @@
     <script>
         var photoSceneUrl = "{% url 'api_photo_suggestion' %}";
         var scene = undefined;
+        var scene_consensus = undefined;
         var viewpointElevation = undefined;
+        var viewpointElevation_consensus = undefined;
 
         async function handleErrors(response) {
             const data = await response.json();
@@ -108,13 +110,19 @@
             }
 
             otherButtonIds.forEach(function(id) {
-                if($(id).hasClass('btn-outline-primary')) {
+                if(!$(id).hasClass('btn-outline-primary')) {
                     $(id).addClass('btn-light');
+                }
+                if($(id).hasClass('btn-outline-primary')) {
                     $(id).removeClass('btn-outline-primary');
+                }
+                if($(id).hasClass('btn-outline-dark')) {
+                    $(id).removeClass('btn-outline-dark');
                 }
             });
 
             $('#' + buttonId).addClass('btn-outline-primary');
+            $('#' + buttonId).removeClass('btn-outline-dark');
             $('#' + buttonId).removeClass('btn-light');
         };
 
@@ -127,11 +135,21 @@
             let otherButtonId = scene === 'Interior'
                 ? '#exterior-button'
                 : '#interior-button';
-            if ($(otherButtonId).hasClass('btn-outline-primary')) {
+
+            if(!$(otherButtonId).hasClass('btn-light')) {
                 $(otherButtonId).addClass('btn-light');
+            }
+    
+            if ($(otherButtonId).hasClass('btn-outline-primary')) {
                 $(otherButtonId).removeClass('btn-outline-primary');
             }
+
+            if ($(otherButtonId).hasClass('btn-outline-dark')) {
+                $(otherButtonId).removeClass('btn-outline-dark');
+            }
+
             $('#' + buttonId).addClass('btn-outline-primary');
+            $('#' + buttonId).removeClass('btn-outline-dark');
             $('#' + buttonId).removeClass('btn-light');
         };
 
@@ -146,7 +164,9 @@
         function updatePhotoScene() {
             fetchPhotoSuggestion().then(function(json) {
                     scene = json.scene;
+                    scene_consensus = json.scene_consensus;
                     viewpointElevation = json.viewpoint_elevation;
+                    viewpointElevation_consensus = json.viewpoint_elevation_consensus;
                     let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
                     topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
 
@@ -159,6 +179,12 @@
                         topRightButtonClass = 'btn-outline-primary';
                     }
 
+                    if (scene !== 'Interior' && scene_consensus === 'Interior') {
+                        topLeftButtonClass = 'btn-outline-dark';
+                    } else if (scene !== 'Exterior' && scene_consensus === 'Exterior') {
+                        topRightButtonClass = 'btn-outline-dark';
+                    }
+
                     if (viewpointElevation === 'Ground') {
                         bottomLeftButtonClass = 'btn-outline-primary';
                     } else if (viewpointElevation === 'Raised') {
@@ -166,6 +192,15 @@
                     } else if (viewpointElevation === 'Aerial') {
                         bottomRightButtonClass = 'btn-outline-primary';
                     }
+
+                    if (viewpointElevation !== 'Ground' && viewpointElevation_consensus === 'Ground') {
+                        bottomLeftButtonClass = 'btn-outline-dark';
+                    } else if (viewpointElevation !== 'Raised' && viewpointElevation_consensus === 'Raised') {
+                        bottomMiddleButtonClass = 'btn-outline-dark';
+                    } else if (viewpointElevation !== 'Aerial'  && viewpointElevation_consensus === 'Aerial') {
+                        bottomRightButtonClass = 'btn-outline-dark';
+                    }
+
 
                     if (viewpointElevation === 'undefined' && scene === 'undefined') {
                         buttonTranslation = 'Submit';
