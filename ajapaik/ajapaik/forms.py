@@ -145,7 +145,7 @@ class GalleryFilteringForm(forms.Form):
     ground_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
     raised_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
     aerial_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
-
+    no_geotags = forms.BooleanField(initial=False, required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']

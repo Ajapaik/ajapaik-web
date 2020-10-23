@@ -33,7 +33,10 @@
                 {% if request.GET.aerial_viewpoint_elevation == '1' %}
                     {% trans 'aerial pictures' %}, 
                 {% endif %}
-                {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation %}
+                {% if request.GET.no_geotags == '1' %}
+                    {% trans 'pictures which are not geotagged' %}, 
+                {% endif %}
+                {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation and not request.GET.no_geotags%}
                     {% trans 'no filter' %}
                 {% endif %}</span>
             <div>
@@ -115,6 +118,16 @@
                             <i aria-hidden
                                 class="notranslate material-icons ajp-gray-button{% if request.GET.exteriors == '1' %} ajp-text-white{% endif %}">
                                 home
+                            </i>
+                    </a>
+                    <a role="button"
+                        class="ajp-header-button ml-4"
+                        title="{% trans 'Show pictures which are not geotagged' %}"
+                        href="#"
+                        id="ajp-header-no_geotags">
+                            <i aria-hidden
+                                class="notranslate material-icons ajp-gray-button{% if request.GET.no_geotags == '1' %} ajp-text-white{% endif %}">
+                                not_listed_location
                             </i>
                     </a>
                 {% endif %}

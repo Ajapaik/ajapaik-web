@@ -306,7 +306,7 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         window.location.href = uri;
     }
     
-    $(document).on('click', '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation', function (e) {
+    $(document).on('click', '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags', function (e) {
         e.preventDefault();
         let idComponents = e.currentTarget.id.split('-');
         window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);

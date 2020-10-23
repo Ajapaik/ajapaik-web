@@ -372,7 +372,7 @@
                     targetDiv.removeClass('w-100');
                     if ((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
                         let filterCount = 0;
-                        let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation']
+                        let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags']
                         photoFilters.forEach(function(filter) {
                             if(window.location.search.indexOf('&' + filter + '=1') > 0) {
                                 filterCount++;
@@ -410,6 +410,8 @@
                                 message = 'No raised viewpoint pictures were found';
                             }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
                                 message = 'No aerial pictures were found';
+                            }  else if (window.location.search.indexOf('&no_geotags=1') > 0 && window.location.search.indexOf('&q=') < 0) {
+                                message = 'No pictures which have 0 geotags were found';
                             }
 
 

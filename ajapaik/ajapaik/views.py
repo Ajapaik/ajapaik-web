@@ -815,6 +815,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			photos = photos.filter(viewpoint_elevation=1)
 		if filter_form.cleaned_data['aerial_viewpoint_elevation']:
 			photos = photos.filter(viewpoint_elevation=2)
+		if filter_form.cleaned_data['no_geotags']:
+			photos = photos.filter(geotag_count=0)
 		if requested_photos:
 			requested_photos = requested_photos.split(',')
 			context['is_photoset'] = True
