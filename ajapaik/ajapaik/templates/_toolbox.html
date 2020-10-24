@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 <div class="{% if is_photo_modal %}ajp-mt-1{% else %}row ajp-height-48 mt-2{% endif %}">
     <a data-id="{{ photo.id }}" class="float-left"
         title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
@@ -44,114 +44,13 @@
         <span id="ajp-photoview-transcriptions-count" class="badge"></span>
     </a>
 </div>
+<script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
     <script>
-        var photoSceneUrl = "{% url 'api_photo_suggestion' %}";
         var scene = undefined;
         var scene_consensus = undefined;
         var viewpointElevation = undefined;
         var viewpointElevation_consensus = undefined;
-
-        async function handleErrors(response) {
-            const data = await response.json();
-            if (data.error) {
-                throw data.error;
-            }
-            return data.message;
-        }
-
-        function submitCategorySuggestion() {
-            return fetch(photoSceneUrl, {
-                method: 'POST',
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
-                },
-                headers: {
-                    'Content-Type': 'application/json',
-
-                },
-                body: JSON.stringify({
-                    photoIds: ['{{ photo.id }}'],
-                    scene,
-                    viewpointElevation
-                })
-            
-            })
-            .then(handleErrors)
-            .then(function(message) {
-                updatePhotoScene();
-                $('#ajp-categorize-scene-button').not(this).popover('hide');
-                $('#ajp-categorize-scene-button').popover('dispose');
-                $.notify(message, {type: 'success'});
-            }).catch((error) => {
-                $.notify(error, {type: 'danger'});
-            });
-        };
-
-        function clickViewpointElevationCategoryButton(buttonId) {
-            $('#send-suggestion-button').prop("disabled", false);
-
-            let otherButtonIds = [];
-
-            if (buttonId === 'aerial-button') {
-                viewpointElevation = 'Aerial';
-            } else if (buttonId === 'raised-button') {
-                viewpointElevation = 'Raised'
-            } else if (buttonId === 'ground-button') {
-                viewpointElevation = 'Ground';
-            }
-            
-            if (viewpointElevation === 'Aerial') {
-                otherButtonIds = ['#ground-button', '#raised-button'];
-            } else if (viewpointElevation === 'Raised') {
-                otherButtonIds = ['#ground-button', '#aerial-button'];
-            } else if (viewpointElevation === 'Ground') {
-                otherButtonIds = ['#raised-button', '#aerial-button'];
-            }
-
-            otherButtonIds.forEach(function(id) {
-                if(!$(id).hasClass('btn-outline-primary')) {
-                    $(id).addClass('btn-light');
-                }
-                if($(id).hasClass('btn-outline-primary')) {
-                    $(id).removeClass('btn-outline-primary');
-                }
-                if($(id).hasClass('btn-outline-dark')) {
-                    $(id).removeClass('btn-outline-dark');
-                }
-            });
-
-            $('#' + buttonId).addClass('btn-outline-primary');
-            $('#' + buttonId).removeClass('btn-outline-dark');
-            $('#' + buttonId).removeClass('btn-light');
-        };
-
-        function clickSceneCategoryButton(buttonId) {
-            $('#send-suggestion-button').prop("disabled", false);
-
-            scene = buttonId === 'interior-button'
-                ? 'Interior'
-                : 'Exterior';
-            let otherButtonId = scene === 'Interior'
-                ? '#exterior-button'
-                : '#interior-button';
-
-            if(!$(otherButtonId).hasClass('btn-light')) {
-                $(otherButtonId).addClass('btn-light');
-            }
-    
-            if ($(otherButtonId).hasClass('btn-outline-primary')) {
-                $(otherButtonId).removeClass('btn-outline-primary');
-            }
-
-            if ($(otherButtonId).hasClass('btn-outline-dark')) {
-                $(otherButtonId).removeClass('btn-outline-dark');
-            }
-
-            $('#' + buttonId).addClass('btn-outline-primary');
-            $('#' + buttonId).removeClass('btn-outline-dark');
-            $('#' + buttonId).removeClass('btn-light');
-        };
 
         function fetchPhotoSuggestion() {
             return fetch(photoSceneUrl + '{{ photo.id }}' + '/').then(function(response) {
@@ -207,7 +106,7 @@
                     }
 
                     let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
-                    let actionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategorySuggestion();' class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
+                    let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], true);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
                     content += actionButtonTemplate;
 
                     let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';

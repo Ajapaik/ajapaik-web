@@ -40,42 +40,54 @@
                 }
             });
         };
-        window.selectionAddSimilarity = function (type) {
+
+        async function handleErrorsSimilar(response) {
+            const data = await response.json();
+            if (data.error) {
+                throw data;
+            }
+            return data;
+        }
+
+        window.selectionAddSimilarity = function (similarityType) {
             $('#ajp-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
                 var photos = []
                 for (var key in response) {
                     photos.push(key)
                 }
-                $.ajax({
-                    type: 'POST',
-                    url: window.location.origin + '/api/v1/photos/similar/',
-                    data: {
-                        csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+                fetch(similarPhotosUrl, {
+                    method: 'POST',
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
                         confirmed: true,
-                        similarity_type: type,
-                        photos: photos.join(',')
-                    },
-                    success: function (response) {
-                        var points = response.points
-                        var message = response && points > 0
-                            ?  interpolate(ngettext(
-                                'You have gained %s points',
-                                'You have gained %s points',
-                                points
-                            ),
-                            [points]
-                            )
-                            : gettext('Your suggestion has been changed')
-                        $.notify(message, {type: 'success'});
-                    },
-                    // Move the messages to API, 
-                    error: function () {
-                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
-                    },
-                    complete: function () {
-                        $('#ajp-loading-overlay').hide();
-                    }
+                        similarityType,
+                        photos
+                    })
+                
+                })
+                .then(handleErrorsSimilar)
+                .then(function(response) {
+                    let points = response.points;
+                    let message = response && points > 0
+                        ?  interpolate(ngettext(
+                            'You have gained %s point',
+                            'You have gained %s points',
+                            points
+                        ),
+                        [points]
+                        )
+                        : gettext('Your suggestion has been changed');
+                    $.notify(message, {type: "success"});
+                    $('#ajp-loading-overlay').hide();
+                }).catch((error) => {
+                    $('#ajp-loading-overlay').hide();
+                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
                 });
             });
         };
@@ -150,6 +162,11 @@
                     $('#ajp-photo-selection-add-similarity').addClass('d-none');
                     $('#ajp-photo-selection-add-duplicate').addClass('d-none');
                 }
+                if (len < 1) {
+                    $('#ajp-photo-selection-create-album-button').addClass('d-none');
+                    $('#ajp-photo-selection-clear-selection-button').addClass('d-none');
+                    $('#ajp-photo-selection-categorize-scenes-button').addClass('d-none');
+                }
                 if (len > 0) {
                     target.removeClass('d-none');
                 } else {
@@ -158,6 +175,31 @@
                 target.find('span').html(len);
             });
             $this.parent().parent().remove();
+        });
+
+        let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 btn-light' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid btn-light' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
+        let actionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategories();' class='btn btn-success mt-3 w-100' disabled>` + gettext('Submit') + `</button>`;
+        content += actionButtonTemplate;
+    
+        let container = 'body';
+        let title = gettext('Categorize scene');
+    
+        window.submitCategories = function () {
+            $.get('/photo-selection/', function (response) {
+                var photos = []
+                for (var key in response) {
+                    photos.push(key)
+                }
+                submitCategorySuggestion(photos, false);
+            });
+        }
+    
+        $('#ajp-photo-selection-categorize-scenes-button').popover({
+            html: true,
+            sanitize: false,
+            container,
+            content,
+            title
         });
     });
 }(jQuery));

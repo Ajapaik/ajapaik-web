@@ -1520,10 +1520,11 @@ class SubmitSimilarPhotos(AjapaikAPIView):
     def post(self, request, format=None):
         points = 0
         profile = request.user.profile
-        photos = request.POST['photos'].split(',')
-        photos2 = request.POST['photos'].split(',')
-        confirmed = request.POST['confirmed']
-        similarity_type = request.POST['similarity_type']
+        data = json.loads(request.body.decode('utf-8'))
+        photos = data['photos']
+        photos2 = data['photos']
+        confirmed = data['confirmed']
+        similarity_type = data['similarityType']
         if photos is not None:
             for photo in photos:
                 if len(photos2) < 2:
@@ -1752,6 +1753,10 @@ class PhotoSuggestion(AjapaikAPIView):
         viewpoint_elevation = data['viewpointElevation']
         
         photo_ids = data['photoIds']
+
+        if photo_ids is None:
+            return JsonResponse({'error': _('Missing parameter photo_ids')}, status=400)
+
         suggestion_already_exists = _('You have already submitted this suggestion')
         suggestion_saved = _('Your suggestion has been saved')
         suggestion_changed = _('Your suggestion has been changed')
@@ -1759,19 +1764,14 @@ class PhotoSuggestion(AjapaikAPIView):
         if (scene is None or scene == 'undefined') and (viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
             return JsonResponse({'error': _('Add at least scene or viewpoint_elevation parameter to the request')}, status=400)
 
+        response = ''
         for photo_id in photo_ids:
-
-            if photo_id is None:
-                return JsonResponse({'error': _('Missing parameter photo_id')}, status=400)
-
             if not photo_id.isdigit():
                 return JsonResponse({'error': _('Parameter photo_id must be an positive integer')}, status=400)
 
             photo = Photo.objects.filter(id=photo_id).first()
             if photo is None:
                 return JsonResponse({'error': _('No photo with id:') + ' ' + photo_id}, status=404)
-
-            response = ''
 
             try:
                 if scene:

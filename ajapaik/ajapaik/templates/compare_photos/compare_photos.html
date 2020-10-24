@@ -128,41 +128,54 @@
         photo1 = "{{ photo.id }}";
         photo2 = "{{ photo2.id }}";
 
-        ConfirmImageSimilarity = function (confirmed,similarity_type) {
-            $('#ajp-loading-overlay').show();
-            $.ajax({
-                type: "POST",
-                url: window.location.origin + "/api/v1/photos/similar/",
-                data: {
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    confirmed: confirmed,
-                    similarity_type: similarity_type,
-                    photos: photo1 + "," + photo2
-                },
-                success: function (response) {
-                    var points = response.points;
-                    var message = response && points > 0
-                        ?  interpolate(ngettext(
-                            'You have gained %s point',
-                            'You have gained %s points',
-                            points
-                        ),
-                        [points]
-                        )
-                        : gettext('Your suggestion has been changed');
-                    $.notify(message, {type: "success"});
-                    setTimeout(function () {
-                        window.location.href = "{{next_action}}";
-                    }, 1000);
-                },
-                error: function () {
-                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
-                },
-                complete: function () {
-                    $('#ajp-loading-overlay').hide();
-                }
-            });
+        async function handleErrors(response) {
+            const data = await response.json();
+            if (data.error) {
+                throw data;
+            }
+            return data;
         }
+
+        ConfirmImageSimilarity = function (confirmed, similarityType) {
+            let photos = [photo1, photo2];
+            fetch(similarPhotosUrl, {
+                method: 'POST',
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    confirmed: confirmed,
+                    similarityType,
+                    photos
+                })
+            
+            })
+            .then(handleErrors)
+            .then(function(response) {
+                let points = response.points;
+                let message = response && points > 0
+                    ?  interpolate(ngettext(
+                        'You have gained %s point',
+                        'You have gained %s points',
+                        points
+                    ),
+                    [points]
+                    )
+                    : gettext('Your suggestion has been changed');
+                $.notify(message, {type: "success"});
+                setTimeout(function () {
+                    window.location.href = "{{next_action}}";
+                }, 1000);
+                $('#ajp-loading-overlay').hide();
+            }).catch((error) => {
+                $('#ajp-loading-overlay').hide();
+                $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
+            });
+        };
+
         $('#not_similar').click(function () {
             ConfirmImageSimilarity(true,0)
         });
