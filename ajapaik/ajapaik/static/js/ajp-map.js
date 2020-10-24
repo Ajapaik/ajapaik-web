@@ -827,6 +827,7 @@
         }
         document.getElementById('map-side-panel').style.opacity = window.isSidePanelOpen ? 0 : 1;
         document.getElementById('close-btn').style.opacity = window.isSidePanelOpen ? 0 : 0.5;
+        document.getElementById('open-btn').style.display = window.isSidePanelOpen ? '' : 'none';
         document.getElementById('open-btn').style.opacity = window.isSidePanelOpen ? 0.5 : 0;
         window.isSidePanelOpen = !window.isSidePanelOpen;
     };
