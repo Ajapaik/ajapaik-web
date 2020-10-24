@@ -99,7 +99,7 @@ msgid "Please login"
 msgstr ""
 
 #: ajapaik/ajapaik/api.py:1738
-msgid "Missing parameter photo_id"
+msgid "Missing parameter photo_ids"
 msgstr ""
 
 #: ajapaik/ajapaik/api.py:1741
@@ -157,7 +157,7 @@ msgid "Last name"
 msgstr "Last name"
 
 #: ajapaik/ajapaik/forms.py:22
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:31
+#: ajapaik/ajapaik/templates/authentication/_login.html:31
 msgid "Password"
 msgstr "Password"
 
@@ -635,7 +635,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/logout.html:17
 #: ajapaik/ajapaik/templates/core/_header.html:110
 #: ajapaik/ajapaik/templates/leaderboard/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:12
 #: ajapaik/ajapaik/templates/user/user.html:50
 msgid "Sign out"
 msgstr "Logg ut"
@@ -881,40 +881,40 @@ msgstr ""
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:7
+#: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
 msgstr "Logg inn for å lagre din poengsum"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:9
+#: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to upload rephoto"
 msgstr "Logg inn for å laste opp refoto"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:11
+#: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to curate content"
 msgstr "Logg inn for å lage egne utvalg"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:13
+#: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to create still frames"
 msgstr "Logg inn for å lage stillbilder"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:15
+#: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to save selection"
 msgstr "Logg inn for å lagre utvalg"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:22
+#: ajapaik/ajapaik/templates/authentication/_login.html:22
 #, python-format
 msgid "Connect with %(provider)s"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:29
+#: ajapaik/ajapaik/templates/authentication/_login.html:29
 msgid "E-mail address"
 msgstr "Epostadresse"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:36
+#: ajapaik/ajapaik/templates/authentication/_login.html:36
 msgid "Register with e-mail"
 msgstr "Registrer med epostadresse"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:40
+#: ajapaik/ajapaik/templates/authentication/_login.html:40
 msgid "Log in"
 msgstr "Logg inn"
 
@@ -1105,7 +1105,7 @@ msgid "Leaderboard"
 msgstr "Toppliste"
 
 #: ajapaik/ajapaik/templates/core/_header.html:107
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
 msgstr ""
 
@@ -1266,7 +1266,7 @@ msgstr "Tips dine venner på Facebook"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 #: ajapaik/ajapaik/templates/curator/curator.html:129
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:44
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:44
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
@@ -1951,37 +1951,37 @@ msgstr ""
 msgid "You can re-order photos by dragging and dropping"
 msgstr "Du kan endre rekkefølge på bilder ved å dra og slippe"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:21
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
 msgstr "Tatt"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:23
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:103
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:103
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:44
 msgid "Upload"
 msgstr "Last opp"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:28
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
 msgstr "Velg en fil..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:38
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
 msgstr "Ta ett samtidig foto fra samme sted som det historiskebildet ble tatt og last det opp. Det opplastede refotografiet vil bli kreditert deg under"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:39
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:39
 msgid "licence"
 msgstr "lisens"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:59
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:59
 msgid "Abort"
 msgstr "Avbryt"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:81
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:81
 msgid "Select new file..."
 msgstr "Velg ny fil..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:111
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:111
 msgid "File upload failed."
 msgstr "Filopplasting feilet"
 

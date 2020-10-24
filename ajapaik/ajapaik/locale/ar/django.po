@@ -674,7 +674,7 @@ msgid "Leaderboard"
 msgstr "المتصدرون"
 
 #: ajapaik/ajapaik/templates/core/_header.html:105
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:9
 #: ajapaik/ajapaik_face_recognition/models.py:12
 #: ajapaik/ajapaik_face_recognition/models.py:65
 msgid "User"
@@ -807,53 +807,53 @@ msgstr "صورة فيسبوك المستخدم"
 msgid "User Google photo"
 msgstr "صورة جوجل المستخدم"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:7
+#: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
 msgstr "تسجيل الدخول لحفظ درجاتك"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:9
+#: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to upload rephoto"
 msgstr "تسجيل الدخول لرفع إعادة صورة"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:11
+#: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to curate content"
 msgstr "تسجيل الدخول لرعاية المحتوى"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:13
+#: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to create still frames"
 msgstr "تسجيل الدخول لإنشاء إطارات ثابتة"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:15
+#: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to save selection"
 msgstr "تسجيل الدخول لحفظ الاختيار"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:19
+#: ajapaik/ajapaik/templates/authentication/_login.html:19
 #: ajapaik/ajapaik/templates/registration/login.html:38
 #: ajapaik/ajapaik/templates/registration/registration_form.html:21
 msgid "Connect with Facebook"
 msgstr "تواصل مع فيسبوك"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:22
+#: ajapaik/ajapaik/templates/authentication/_login.html:22
 #: ajapaik/ajapaik/templates/registration/login.html:43
 #: ajapaik/ajapaik/templates/registration/registration_form.html:25
 msgid "Connect with Google"
 msgstr "تواصل مع جوجل"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:27
+#: ajapaik/ajapaik/templates/authentication/_login.html:27
 msgid "E-mail address"
 msgstr "عنوان البريد الإلكتروني"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:29
+#: ajapaik/ajapaik/templates/authentication/_login.html:29
 #: ajapaik/ajapaik/templates/registration/login.html:18
 #: ajapaik/ajapaik/templates/registration/login.html:19
 msgid "Password"
 msgstr "كلمة السر"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:33
+#: ajapaik/ajapaik/templates/authentication/_login.html:33
 msgid "Register with e-mail"
 msgstr "سجل بالبريد الإلكتروني"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:36
+#: ajapaik/ajapaik/templates/authentication/_login.html:36
 #: ajapaik/ajapaik/templates/registration/login.html:9
 #: ajapaik/ajapaik/templates/registration/login.html:24
 msgid "Log in"
@@ -959,29 +959,29 @@ msgstr[1] "الصورة تنتمي إلى ألبومات:"
 msgid "Curator"
 msgstr "الأمين"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:21
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
 msgstr "اُلتقِطت في"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:23
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:103
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:103
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:23
 msgid "Upload"
 msgstr "رفع"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:28
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
 msgstr "اختر ملفا..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:38
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
 msgstr "قم بعمل تصوير معاصر من نفس المكان الذي اُلتقِطت فيه الصورة التاريخية وارفعها، سوف يُنسَب إعادة التصوير تم الرفع لك تحت"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:39
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:39
 msgid "licence"
 msgstr "الرخصة"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:44
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:44
 #: ajapaik/ajapaik/templates/curator/curator.html:38
 #: ajapaik/ajapaik/templates/curator/curator.html:130
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
@@ -989,15 +989,15 @@ msgstr "الرخصة"
 msgid "Close"
 msgstr "إغلاق"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:59
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:59
 msgid "Abort"
 msgstr "إجهاض"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:81
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:81
 msgid "Select new file..."
 msgstr "تحديد ملف جديد..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:111
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:111
 msgid "File upload failed."
 msgstr "فشل رفع الملف."
 

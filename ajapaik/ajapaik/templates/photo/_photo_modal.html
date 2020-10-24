@@ -451,9 +451,9 @@
         var similarFullScreenImage = $('#ajp-similar-photo-full-screen-image');
         similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
-        $('#ajp-comment-form-register-link').click(function (event) {
-            event.preventDefault();
-            window.openPhotoUploadModal();
+        $('#ajp-comment-form-register-link').click(function (e) {
+            e.preventDefault();
+            window.openLoginModal('comment');
         });
 
         // Leaflet-map

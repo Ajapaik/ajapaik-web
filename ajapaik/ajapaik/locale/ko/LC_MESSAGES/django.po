@@ -97,7 +97,7 @@ msgid "Please login"
 msgstr "로그인해 주십시오"
 
 #: ajapaik/ajapaik/api.py:1738
-msgid "Missing parameter photo_id"
+msgid "Missing parameter photo_ids"
 msgstr ""
 
 #: ajapaik/ajapaik/api.py:1741
@@ -155,7 +155,7 @@ msgid "Last name"
 msgstr "성"
 
 #: ajapaik/ajapaik/forms.py:22
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:31
+#: ajapaik/ajapaik/templates/authentication/_login.html:31
 msgid "Password"
 msgstr "비밀번호"
 
@@ -633,7 +633,7 @@ msgstr "사용자 설정"
 #: ajapaik/ajapaik/templates/account/logout.html:17
 #: ajapaik/ajapaik/templates/core/_header.html:110
 #: ajapaik/ajapaik/templates/leaderboard/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:12
 #: ajapaik/ajapaik/templates/user/user.html:50
 msgid "Sign out"
 msgstr "로그아웃"
@@ -879,40 +879,40 @@ msgstr "기존 앨범 검색"
 msgid "Cancel"
 msgstr "취소"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:7
+#: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
 msgstr "점수 저장을 위해 로그인"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:9
+#: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to upload rephoto"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:11
+#: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to curate content"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:13
+#: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to create still frames"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:15
+#: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to save selection"
 msgstr "선택 항목을 저장하기 위해 로그인"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:22
+#: ajapaik/ajapaik/templates/authentication/_login.html:22
 #, python-format
 msgid "Connect with %(provider)s"
 msgstr "%(provider)s와 연결"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:29
+#: ajapaik/ajapaik/templates/authentication/_login.html:29
 msgid "E-mail address"
 msgstr "이메일 주소"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:36
+#: ajapaik/ajapaik/templates/authentication/_login.html:36
 msgid "Register with e-mail"
 msgstr "이메일로 등록"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:40
+#: ajapaik/ajapaik/templates/authentication/_login.html:40
 msgid "Log in"
 msgstr "로그인"
 
@@ -1103,7 +1103,7 @@ msgid "Leaderboard"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:107
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
 msgstr "로그인된 사용자:"
 
@@ -1261,7 +1261,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 #: ajapaik/ajapaik/templates/curator/curator.html:129
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:44
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:44
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
@@ -1936,37 +1936,37 @@ msgstr ""
 msgid "You can re-order photos by dragging and dropping"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:21
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:23
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:103
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:103
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:44
 msgid "Upload"
 msgstr "올리기"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:28
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
 msgstr "파일 선택..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:38
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:39
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:39
 msgid "licence"
 msgstr "라이선스"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:59
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:59
 msgid "Abort"
 msgstr "중단"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:81
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:81
 msgid "Select new file..."
 msgstr "새 파일 선택..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:111
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:111
 msgid "File upload failed."
 msgstr "파일 올리기에 실패했습니다."
 

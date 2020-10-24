@@ -468,7 +468,7 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
 
     $('#ajp-comment-form-register-link').click(function (e) {
         e.preventDefault();
-        window.openPhotoUploadModal();
+        window.openLoginModal('comment');
     });
 
     $(document).on('click', '.ajp-photo-modal-rephoto-thumb', function () {
@@ -1338,9 +1338,9 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         }
     });
 
-    $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon', function () {
+    $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon', function (event) {
         if (!window.currentProfileEmail) {
-            window.openPhotoUploadModal();
+            window.openLoginModal('add-photos');
             return;
         }
         $('#ajp-choose-albums-modal').modal();

@@ -5,6 +5,14 @@
 <div><b>
     {% if type == "leaderboard" %}
         {% trans "Log in to save your score" %}
+    {% elif type == "comment" %}
+        {% trans "Log in to add a comment" %}
+    {% elif type == "add-photos" %}
+        {% trans "Log in to add photos to album" %}
+    {% elif type == "add-dating" %}
+        {% trans "Log in to add a dating to a photo" %}
+    {% elif type == "transcribe" %}
+        {% trans "Log in to transcribe the text on the photo" %}
     {% elif type == "rephoto_upload" %}
         {% trans "Log in to upload rephoto" %}
     {% elif type == "curator" %}

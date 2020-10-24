@@ -1420,7 +1420,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	return render(request, template, context)
 
 
-def mapview_photo_upload_modal(request, photo_id):
+def photo_upload_modal(request, photo_id):
 	photo = get_object_or_404(Photo, pk=photo_id)
 	licence = Licence.objects.get(id=17)  # CC BY 4.0
 	context = {
@@ -1428,8 +1428,15 @@ def mapview_photo_upload_modal(request, photo_id):
 		'licence': licence,
 		'next': request.META['HTTP_REFERER']
 	}
-	return render(request, 'photo/upload/_photo_upload_modal.html', context)
+	return render(request, 'rephoto_upload/_rephoto_upload_modal_content.html', context)
 
+
+def login_modal(request):
+	context = {
+		'next': request.META['HTTP_REFERER'],
+		'type': request.GET.get('type')
+	}
+	return render(request, 'authentication/_login_modal_content.html', context)
 
 @ensure_csrf_cookie
 def mapview(request, photo_id=None, rephoto_id=None):

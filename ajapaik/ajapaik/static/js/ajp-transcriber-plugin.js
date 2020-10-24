@@ -178,7 +178,7 @@
             that.$UI.find('#ajp-transcriber-anonymous-user-disclaimer').html(gettext('You\'re anonymous, please login to add transcriptions'));
             
             that.$UI.find('#ajp-transcriber-login').text(gettext('Login')).attr('title', gettext('Login')).click(function () {
-                window.openPhotoUploadModal();
+                window.openLoginModal('transcribe');
             });
             if (window.currentPhotoTranscriptions && window.currentPhotoTranscriptions.length > 0 && !$('#ajp-transcriber-confirm-button').is(':visible')) {
                 $('#ajp-transcriber-confirm-button').removeClass('d-none');

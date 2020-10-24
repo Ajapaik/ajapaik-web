@@ -33,7 +33,7 @@
                     {% if photos|length > 0 %}
                         <div class="col-auto mb-3 pr-0">
                             <button id="ajp-photo-selection-categorize-scenes-button" type="button"
-                                class="btn btn-success">{% trans "Add categories to photos(s)" %}</button>
+                                class="btn btn-success">{% trans "Add categories to picture(s)" %}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -78,6 +78,7 @@
                 </div>
             </div>
             <div class="modal fade" id="ajp-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+            {% include "authentication/_login_modal.html" %}
             {% include "info/_info_modal.html" %}
             {% include "rephoto_upload/_rephoto_upload_modal.html" %}
             {% include "geotaggers/_geotaggers_modal.html" %}
@@ -85,7 +86,7 @@
             {% include "js_templates/curator_album_selection_option.html" %}
             {% include "js_templates/curator_album_selection_separator.html" %}
         {% else %}
-            {% include "authentication/_log_in.html" with type="photo_selection" %}
+            {% include "authentication/_login.html" with type="photo_selection" %}
         {% endif %}
     </div>
 {% endblock %}

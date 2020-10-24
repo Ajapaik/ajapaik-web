@@ -93,7 +93,7 @@ msgid "Please login"
 msgstr "Për piasì, ch'a rintra ant ël sistema"
 
 #: ajapaik/ajapaik/api.py:1738
-msgid "Missing parameter photo_id"
+msgid "Missing parameter photo_ids"
 msgstr "Paràmeter photo_id mancant"
 
 #: ajapaik/ajapaik/api.py:1741
@@ -151,7 +151,7 @@ msgid "Last name"
 msgstr "Cognòm"
 
 #: ajapaik/ajapaik/forms.py:22
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:31
+#: ajapaik/ajapaik/templates/authentication/_login.html:31
 msgid "Password"
 msgstr "Ciav"
 
@@ -629,7 +629,7 @@ msgstr "Paràmeter d'utent"
 #: ajapaik/ajapaik/templates/account/logout.html:17
 #: ajapaik/ajapaik/templates/core/_header.html:110
 #: ajapaik/ajapaik/templates/leaderboard/_full_leaderboard_modal.html:20
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:12
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:12
 #: ajapaik/ajapaik/templates/user/user.html:50
 msgid "Sign out"
 msgstr "Seurte dal sistema"
@@ -875,40 +875,40 @@ msgstr "Sërché n'àlbom esistent"
 msgid "Cancel"
 msgstr "Anulé"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:7
+#: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
 msgstr "Ch'a rintra ant ël sistema për argistré so pontegg."
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:9
+#: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to upload rephoto"
 msgstr "Ch'a rintra ant ël sistema për carié dj'arprodussion fotogràfiche"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:11
+#: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to curate content"
 msgstr "Ch'a rintra ant ël sistema për soagné ël contnù"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:13
+#: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to create still frames"
 msgstr "Ch'a rintra ant ël sistema për creé dle curnis"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:15
+#: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to save selection"
 msgstr "Ch'a rintra ant ël sistema për argistré la selession"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:22
+#: ajapaik/ajapaik/templates/authentication/_login.html:22
 #, python-format
 msgid "Connect with %(provider)s"
 msgstr "Coleghé con %(provider)s"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:29
+#: ajapaik/ajapaik/templates/authentication/_login.html:29
 msgid "E-mail address"
 msgstr "Adrëssa ëd pòsta eletrònica"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:36
+#: ajapaik/ajapaik/templates/authentication/_login.html:36
 msgid "Register with e-mail"
 msgstr "Anscriv-se për pòsta eletrònica"
 
-#: ajapaik/ajapaik/templates/authentication/_log_in.html:40
+#: ajapaik/ajapaik/templates/authentication/_login.html:40
 msgid "Log in"
 msgstr "Rintré ant ël sistema"
 
@@ -1099,7 +1099,7 @@ msgid "Leaderboard"
 msgstr "Classìfica"
 
 #: ajapaik/ajapaik/templates/core/_header.html:107
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:9
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
 msgstr "A l'é intrà ant ël sistema coma"
 
@@ -1260,7 +1260,7 @@ msgstr "Ch'a lo disa ai sò amis su Facebook"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 #: ajapaik/ajapaik/templates/curator/curator.html:129
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:44
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:44
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:20
 msgid "Close"
@@ -1945,37 +1945,37 @@ msgstr "Tute le plance a son ëd la midema vista"
 msgid "You can re-order photos by dragging and dropping"
 msgstr "A peul modifiché l'órdin ëd le fòto fasendje sghijé e lassandje andé"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:21
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
 msgstr "Pijà"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:23
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:103
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:23
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:103
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:44
 msgid "Upload"
 msgstr "Carié"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:28
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
 msgstr "Selessioné n'archivi..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:38
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
 msgstr "Ch'a fasa n'arprodussion fotogràfica atual da l'istess pòst dal qual la plancia stòrica a l'é stàita fàita e ch'a la caria. L'arprodussion fotogràfica carià a sarà atribuìa a chiel sota la"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:39
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:39
 msgid "licence"
 msgstr "licence"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:59
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:59
 msgid "Abort"
 msgstr "Bandoné"
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:81
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:81
 msgid "Select new file..."
 msgstr "Selessioné un neuv archivi..."
 
-#: ajapaik/ajapaik/templates/photo/upload/_photo_upload_modal.html:111
+#: ajapaik/ajapaik/templates/photo/upload/_rephoto_upload_modal_content.html:111
 msgid "File upload failed."
 msgstr "Faliment dël cariament ëd l'archivi."
 

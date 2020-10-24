@@ -179,18 +179,19 @@
         };
 
 
-        window.openPhotoUploadModal = function () {
-            if (window.currentlyOpenPhotoId) {
-                $.ajax({
-                    cache: false,
-                    url: window.photoUploadModalURL + window.currentlyOpenPhotoId + '/',
-                    success: function (result) {
-                        var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
-                        rephotoUploadModal.data('bs.modal', null);
-                        rephotoUploadModal.html(result).modal();
-                    }
-                });
-            }
+        window.openLoginModal = function (type) {
+            $.ajax({
+                cache: false,
+                url: window.loginModalUrl,
+                data: {
+                    type
+                },
+                success: function (result) {
+                    let loginModal = $('#ajp-login-modal');
+                    loginModal.data('bs.modal', null);
+                    loginModal.html(result).modal();
+                }
+            });
         };
 
         $(document).ready(function () {

@@ -471,7 +471,7 @@
             });
             that.$UI.find('#ajp-dater-anonymous-user-card').find('span').html(gettext('You\'re anonymous'));
             that.$UI.find('#ajp-dater-anonymous-user-card').find('i').click(function () {
-                window.openPhotoUploadModal();
+                window.openLoginModal('add-dating');
             });
             that.$UI.find('#ajp-dater-open-tutorial-button').click(function () {
                 that.$UI.find('#ajp-dater-tutorial-card').show();

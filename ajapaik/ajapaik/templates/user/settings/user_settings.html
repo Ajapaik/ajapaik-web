@@ -13,7 +13,7 @@
                 {% include "_accordion.html" with id=accordion.id heading=accordion.heading form=accordion.form template=accordion.template show_merge_section=accordion.show_merge_section %}
             {% endfor %}
         {% else %}
-            {% include "authentication/_log_in.html" %}
+            {% include "authentication/_login.html" %}
         {% endif %}
         <a class="btn btn-primary mt-3" href="{% url 'me' %}">{% trans "Back" %}</a>
     </div>
