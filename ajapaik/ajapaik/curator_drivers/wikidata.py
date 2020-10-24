@@ -29,8 +29,15 @@ def get_label_translation(label_id):
 
     def get_translation(language):
         has_language_translation = language in translations
-        fallback_translation = translations[FALLBACK_TRANSLATION]['value']
-        return translations[language]['value'] if has_language_translation else fallback_translation
+
+        if has_language_translation:
+            return translations[language]['value']
+        elif FALLBACK_TRANSLATION in translations:
+            return translations[FALLBACK_TRANSLATION]['value']
+        elif 'et' in translations:
+            return translations['et']['value']
+        elif 'ru' in translations:
+            return translations['ru']['value']
 
     return json.dumps({
         'en': get_translation('en'),
