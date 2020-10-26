@@ -85,7 +85,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
 	distance_in_meters, angle_diff
-from .utils import get_comment_replies
+from .utils import get_comment_replies, get_pagination_parameters
 
 log = logging.getLogger(__name__)
 
@@ -729,7 +729,7 @@ def frontpage_async_albums(request):
 		q = form.cleaned_data['q']
 		if q:
 			# TODO: Haystack 2.8.x upgrade requires Django 1.11.x, after that we could move to Python 3.7
-			sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(form.cleaned_data['q']))
+			sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(q))
 			albums = albums.filter(pk__in=[r.pk for r in sqs])
 		total = albums.count()
 		if start < 0:
@@ -978,18 +978,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 			if requested_photo.id in ids:
 				photo_count_before_requested = ids.index(requested_photo.id)
 				page = ceil(float(photo_count_before_requested) / float(page_size))
-		start = (page - 1) * page_size
-		total = photos.count()
-		if start < 0:
-			start = 0
-		if start > total:
-			start = total
-		if int(start + page_size) > total:
-			end = total
-		else:
-			end = start + page_size
-		end = int(end)
-		max_page = ceil(float(total) / float(page_size))
+
+		start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
 		qs_for_fb = photos[:5]
 		# FIXME: Stupid
 		if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):

@@ -1,6 +1,8 @@
 from django.db.models import F
 from django_comments import get_model
 
+from math import ceil
+
 comment_model = get_model()
 
 
@@ -102,3 +104,22 @@ def merge_profiles(target_profile, source_profile):
     if not target_profile.user.is_active and source_profile.user.is_active:
         target_profile.user.is_active = source_profile.user.is_active
     target_profile.user.save()
+
+def get_pagination_parameters(page, page_size, photo_count):
+    start = (page - 1) * page_size
+    total = photo_count
+    if start < 0:
+        start = 0
+    if start > total:
+        start = total
+    if int(start + page_size) > total:
+        end = total
+    else:
+        end = start + page_size
+    end = int(end)
+    max_page = ceil(float(total) / float(page_size))
+
+    if page > max_page:
+        start, end, total, max_page, page = get_pagination_parameters(max_page, page_size, photo_count)
+
+    return start, end, total, max_page, page
