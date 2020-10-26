@@ -1166,7 +1166,8 @@ def upload_photo_selection(request):
 			Points.objects.bulk_create(points)
 
 			for a in albums:
-				a.save()
+				a.set_calculated_fields()
+				a.light_save()
 
 			profile.set_calculated_fields()
 			profile.save()
