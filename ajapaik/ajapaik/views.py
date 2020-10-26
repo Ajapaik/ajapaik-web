@@ -1143,24 +1143,31 @@ def upload_photo_selection(request):
 		else:
 			context['error'] = _('Cannot upload to these albums')
 		if len(albums) > 0:
+			album_photos = []
+			points = []
 			for a in albums:
 				for pid in photo_ids:
 					try:
 						p=Photo.objects.get(pk=pid)
 						existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
 						if not existing_link:
-							new_album_photo_link = AlbumPhoto(
-								photo=p,
-								album=a,
-								profile=profile,
-								type=AlbumPhoto.RECURATED
+							album_photos.append(
+								AlbumPhoto(photo=p,
+									album=a,
+									profile=profile,
+									type=AlbumPhoto.RECURATED
+								)
 							)
-							Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-								   created=timezone.now()).save()
-							new_album_photo_link.save()
+							points.append(Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a, created=timezone.now()))
 					except:
 						pass
+
+			AlbumPhoto.objects.bulk_create(album_photos)
+			Points.objects.bulk_create(points)
+
+			for a in albums:
 				a.save()
+
 			profile.set_calculated_fields()
 			profile.save()
 			context['message'] = _('Recuration successful')
