@@ -349,8 +349,13 @@
                     window.maxPage = response.max_page;
                     window.currentPage = response.page;
                     window.showPhotos = response.show_photos;
-                    var collection;
-                    var attribute = window.order2;
+                    let collection;
+                    let attribute = window.order2;
+                    let message = '';
+                    let filterCount = 0;
+                    let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'];
+                    let query = window.location.search.indexOf('&q=') > -1 && window.location.search.split('&q=')[1];
+
                     switch (window.order2) {
                         case 'rephotos':
                             collection = response.photos_with_rephotos;
@@ -359,6 +364,13 @@
                             collection = response.photos_with_comments;
                             break;
                     }
+
+                    photoFilters.forEach(function(filter) {
+                        if(window.location.search.indexOf('&' + filter + '=1') > 0) {
+                            filterCount++;
+                        }
+                    })
+
                     if (collection !== undefined && collection === 0) {
                         $('#ajp-sorting-error-message').text(gettext('Picture set has no' + ' ' + attribute));
                         $('#ajp-sorting-error').show();
@@ -366,81 +378,54 @@
                             $('#ajp-sorting-error').hide();
                         }, 2000);
                     }
+
                     syncStateToUrl();
                     syncPagingButtons();
                     targetDiv.empty();
                     targetDiv.removeClass('w-100');
                     if ((!response.videos || response.videos.length < 1 ) && response.photos.length < 1) {
-                        let filterCount = 0;
-                        let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags']
-                        photoFilters.forEach(function(filter) {
-                            if(window.location.search.indexOf('&' + filter + '=1') > 0) {
-                                filterCount++;
-                            }
-                        })
-
-                        let message;
-                        if (window.location.search.indexOf('&q=') > 0) {
-                            message = 'No results found for: %(query)s';
-                            var array = window.location.search.split('&q=');
+                        if (!!window.albumId) {
+                            message += ' ' + 'in this album';
                         }
-                        if (filterCount == 0) {
-                            if (!!window.albumId) {
-                                message += ' in this album';
+                        if (query) {
+                            message = 'No results found for: %(query)s' + message;
+                            if (filterCount > 0) {
+                                message += '\nYou could also try to edit filters applied to your search';
                             }
-                            targetDiv.append(
-                                tmpl(
-                                    'ajp-frontpage-photo-search-empty-template',
-                                    interpolate(gettext(message), {query: decodeURI(array[array.length - 1])}, true)
-                                ));
                         } else {
-                            if (filterCount > 1  && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No pictures were found with the selected filters';
-                            } else if (window.location.search.indexOf('people=1') > 0  && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No pictures with marked faces were found';
-                            } else if (window.location.search.indexOf('backsides=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No pictures with back sides were found';
-                            } else if (window.location.search.indexOf('interiors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No interior views were found';
-                            } else if (window.location.search.indexOf('exteriors=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No exterior views were found';
-                            } else if (window.location.search.indexOf('ground_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No pictures from the ground level were found';
-                            }  else if (window.location.search.indexOf('raised_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No raised viewpoint pictures were found';
-                            }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No aerial pictures were found';
-                            }  else if (window.location.search.indexOf('&no_geotags=1') > 0 && window.location.search.indexOf('&q=') < 0) {
-                                message = 'No pictures which have 0 geotags were found';
+                            let categoryMessage = '';
+                            if (filterCount > 1 ) {
+                                categoryMessage = 'No pictures were found with the selected filters';
+                            } else if (window.location.search.indexOf('people=1') > 0 ) {
+                                categoryMessage = 'No pictures with marked faces were found';
+                            } else if (window.location.search.indexOf('backsides=1') > 0) {
+                                categoryMessage = 'No pictures with back sides were found';
+                            } else if (window.location.search.indexOf('interiors=1') > 0) {
+                                categoryMessage = 'No interior views were found';
+                            } else if (window.location.search.indexOf('exteriors=1') > 0) {
+                                categoryMessage = 'No exterior views were found';
+                            } else if (window.location.search.indexOf('ground_viewpoint_elevation=1') > 0) {
+                                categoryMessage = 'No pictures from the ground level were found';
+                            }  else if (window.location.search.indexOf('raised_viewpoint_elevation=1') > 0) {
+                                categoryMessage = 'No raised viewpoint pictures were found';
+                            }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0) {
+                                categoryMessage = 'No aerial pictures were found';
+                            }  else if (window.location.search.indexOf('&no_geotags=1') > 0) {
+                                categoryMessage = 'No pictures which have 0 geotags were found';
                             }
-
-
-                            if (window.location.search.indexOf('&q=') > 0) {
-                                message = 'No results found for: %(query)s';
-                            }
-
-                            if (!!window.albumId) {
-                                message += ' ' + 'in this album';
-                            }
-
-
-                            if (window.location.search.indexOf('&q=') > 0) {
-                                if (filterCount>0) {
-                                    message += '\n' + 'You could also try to edit filters applied to your search';
-                                }
-                                targetDiv.append(
-                                    tmpl(
-                                        'ajp-frontpage-photo-search-empty-template',
-                                        interpolate(gettext(message), {query: decodeURI(array[array.length - 1])}, true)
-                                    ));
-                            } else {
-                                targetDiv.append(
-                                    tmpl(
-                                        'ajp-frontpage-photo-search-empty-category-template',
-                                        gettext(message)
-                                    ));
-                            }
+                            message = categoryMessage + message;
                         }
+                        message = gettext(message);
+                        if (query) {
+                            message = interpolate(message, {query: decodeURI(query)}, true);
+
+                        }
+                        message = message.split('\n');
+                        targetDiv.append(
+                            tmpl(
+                                'ajp-frontpage-photo-search-empty-template',
+                                message
+                        ));
 
                         targetDiv.addClass('w-100');
                         targetDiv.height(window.innerHeight);
