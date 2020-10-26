@@ -354,7 +354,7 @@
                     let message = '';
                     let filterCount = 0;
                     let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'];
-                    let query = window.location.search.indexOf('&q=') > -1 && window.location.search.split('&q=')[1];
+                    let query = window.location.search.indexOf('&q=') > -1 && window.location.search.split('?q=')[1];
 
                     switch (window.order2) {
                         case 'rephotos':
@@ -366,7 +366,7 @@
                     }
 
                     photoFilters.forEach(function(filter) {
-                        if(window.location.search.indexOf('&' + filter + '=1') > 0) {
+                        if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                             filterCount++;
                         }
                     })
@@ -408,10 +408,12 @@
                                 categoryMessage = 'No pictures from the ground level were found';
                             }  else if (window.location.search.indexOf('raised_viewpoint_elevation=1') > 0) {
                                 categoryMessage = 'No raised viewpoint pictures were found';
-                            }  else if (window.location.search.indexOf('&aerial_viewpoint_elevation=1') > 0) {
+                            }  else if (window.location.search.indexOf('aerial_viewpoint_elevation=1') > 0) {
                                 categoryMessage = 'No aerial pictures were found';
-                            }  else if (window.location.search.indexOf('&no_geotags=1') > 0) {
+                            }  else if (window.location.search.indexOf('no_geotags=1') > 0) {
                                 categoryMessage = 'No pictures which have 0 geotags were found';
+                            } else {
+                                categoryMessage = 'No pictures were found';
                             }
                             message = categoryMessage + message;
                         }
