@@ -93,6 +93,8 @@
 {% block specific_js %}
     <script>
         window.isSelection = true;
+        var scene = undefined;
+        var viewpointElevation = undefined;
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajp-selection.js"></script>
