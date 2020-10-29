@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-10-22 10:55:47+0000\n"
+"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:324
@@ -303,79 +303,79 @@ msgstr "Gnun arzultà trovà për: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "Gnun arzultà trovà an cost àlbom për: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Gnun arzultà trovà për: %(query)s\nA peul ëdcò prové a modifiché ij filtr aplicà a soa arserca"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Gnun arzultà trovà an cost àlbom për: %(query)s\nA peul ëdcò prové a modifiché ij filtr aplicà a soa arserca"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "Gnun-é fòto a son ëstàite trovà con ij filtr selessionà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "Gnun-é fòto a son ëstàite trovà con ij filtr selessionà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "Gnun-e fòto con dle face marcà a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "Gnun-e fòto con dle face marcà a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "Gnun-e fòto con dle face darera a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "Gnun-e fòto con dle face darera a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "No interior views were found"
-msgstr ""
+msgstr "Gnun-e viste a l'anterior a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "Gnun-e viste a l'anterior a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No exterior views were found"
-msgstr ""
+msgstr "Gnun-e viste a l'esterior a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "Gnun-e viste a l'esterior a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "Gnun-e fòto pijà al livel dël teren a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "Gnun-e fòto pijà al livel dël teren a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "Gnun-e fòto da 'n pont ëd vista riaussà a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgstr "Gnun-e fòto da 'n pont ëd vista riaussà a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "Gnun-e fòto aéree a son ëstàite trovà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "Gnun-e fòto aéree a son ëstàite trovà an cost àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "Number"
@@ -463,23 +463,23 @@ msgstr "A l'ha duvertà la carta con ël filtr ëd n'àlbom dëstiss, për anvis
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 msgid "Categorize scene"
-msgstr ""
+msgstr "Categorisé la sena"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "Interior"
-msgstr ""
+msgstr "Anterior"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "Ground"
-msgstr ""
+msgstr "Teren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "Raised"
-msgstr ""
+msgstr "Riaussà"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "Aerial"
-msgstr ""
+msgstr "Aéreo"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
@@ -488,59 +488,59 @@ msgstr "Confirmé"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "Exterior"
-msgstr ""
+msgstr "Esterior"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Picture set has no views"
-msgstr ""
+msgstr "L'ansem ëd fòto a l'ha gnun-e viste"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Picture set has no geotags"
-msgstr ""
+msgstr "L'ansem ëd fòto a l'ha gnun-e geolocalisassion"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun-e arprodussion fotogràfiche"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture set has no annotations"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun-e anotassion"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture set has no transcriptions"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun-e transcrission"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Picture set has no datings"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun-a daitassion"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun coment"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no likes"
-msgstr ""
+msgstr "L'ansem ëd plance a l'ha gnun-e aprovassion"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:102
 msgid "Ordering"
-msgstr ""
+msgstr "Órdin"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "earliest"
-msgstr ""
+msgstr "ël pi vej"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:109
 msgid "latest"
-msgstr ""
+msgstr "ël pi recent"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "least"
-msgstr ""
+msgstr "ël men"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:116
 msgid "most"
-msgstr ""
+msgstr "ël pi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures furthest from you"
@@ -573,7 +573,7 @@ msgstr "a l'ha marcà ch'a-j pias"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:143
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:146
 msgid "categorized"
-msgstr ""
+msgstr "categorisà"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
 msgid "dated"
@@ -688,11 +688,11 @@ msgstr "Mersì!"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:670
 msgid "Median suggestion"
-msgstr ""
+msgstr "Sugeriment median"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:682
 msgid "Your suggestion"
-msgstr ""
+msgstr "Sò sugeriment"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:697
 msgid "How much has the depicted location changed?"
@@ -757,7 +757,7 @@ msgstr "Apliché ël fìlter ëd j'àlbom"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:744
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "Tute le plance a son ësmonùe ant la bara lateral"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:63
 #, javascript-format
@@ -768,7 +768,7 @@ msgstr[1] "A l'ha vagnà %s pont"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:69
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Sò sugeriment a l'é stàit modificà"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:74
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"

@@ -16,12 +16,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-10-22 10:55:47+0000\n"
+"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-07-20\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/static/js/ajp-common-nogooglemaps.js:324
@@ -468,7 +468,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "Interior"
-msgstr ""
+msgstr "내부"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "Ground"
@@ -489,7 +489,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "Exterior"
-msgstr ""
+msgstr "외부"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Picture set has no views"
@@ -610,7 +610,7 @@ msgstr "지도의 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:245
 msgid "Did you mean to search from:"
-msgstr ""
+msgstr "이것을 찾으셨습니까:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
 msgid "all pictures"
