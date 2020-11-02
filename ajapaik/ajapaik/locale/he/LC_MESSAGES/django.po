@@ -9,6 +9,7 @@
 # Author: YaronSh
 # Author: יאיר מן
 # Author: ישראל קלר
+# Author: מגזין יהלום
 # Author: שמזן
 # --
 # This file is part of the Ajapaik Project
@@ -20,7 +21,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
+"PO-Revision-Date: 2020-11-02 11:36:53+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -1544,7 +1545,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "people"
-msgstr "אֲנָשִׁים"
+msgstr "אנשים"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "back sides of pictures"

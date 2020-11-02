@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
+"PO-Revision-Date: 2020-11-02 11:36:54+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -102,11 +102,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:1760
 msgid "You have already submitted this suggestion"
-msgstr ""
+msgstr "이 제안을 이미 제출하였습니다"
 
 #: ajapaik/ajapaik/api.py:1761
 msgid "Your suggestion has been saved"
-msgstr ""
+msgstr "내 제안이 저장되었습니다"
 
 #: ajapaik/ajapaik/api.py:1762
 msgid "Your suggestion has been changed"

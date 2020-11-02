@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: BaRaN6161 TURK
+# Author: MuratTheTurkish
 # Author: Puik
 # Author: Robby
 # Author: Zache
@@ -14,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:40+0000\n"
+"PO-Revision-Date: 2020-11-02 11:36:56+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -758,7 +759,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "{{Identical|Passwuert}}"
+msgstr "{{Identical|Password}}"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:14
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
