@@ -7,6 +7,7 @@
 # Author: Diman Russkov
 # Author: Eleferen
 # Author: H2kks
+# Author: Helpau
 # Author: Kareyac
 # Author: Katunchik
 # Author: Meerrahtar
@@ -27,7 +28,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:39+0000\n"
+"PO-Revision-Date: 2020-11-05 12:16:42+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -891,7 +892,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:64
 #: ajapaik/ajapaik/templates/comments/list.html:90
 msgid "Cancel"
-msgstr "Прервать"
+msgstr "Отмена"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
