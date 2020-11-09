@@ -13,6 +13,7 @@
 # Author: Meerrahtar
 # Author: Megakott
 # Author: Movses
+# Author: MuratTheTurkish
 # Author: Okras
 # Author: Pacha Tchernof
 # Author: Puik
@@ -28,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-05 12:16:42+0000\n"
+"PO-Revision-Date: 2020-11-09 11:33:10+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -616,9 +617,8 @@ msgid "Add rephoto"
 msgstr "Добавить переснимок"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
-#, fuzzy
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr "Пометьте новое лицо - нажав эту кнопку, вы сможете нарисовать прямоугольник лица на основном изображении"
+msgstr "Отметить новое лицо/объект - нажатие этой кнопки позволит вам нарисовать прямоугольник объекта/лица на основном изображении."
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
@@ -687,9 +687,9 @@ msgid "Confirm e-mail address"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
-#, fuzzy, python-format
+#, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "Подтвердите, что <a href=\"mailto:%(email)\">%(email)</a> является адресом e-mail для пользователя%(user_display)."
+msgstr "Подтвердите, что <a href=\"mailto:%(email)s\">%(email)s</a> является адресом e-mail для пользователя %(user_display)s."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -799,9 +799,9 @@ msgid "Bad Token"
 msgstr "Плохой токен"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
-#, fuzzy, python-format
+#, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr "Ссылка для сброса пароля была недействительной, возможно, потому что она уже использовалась. Пожалуйста, запросите <a href=\"%(passwd_reset_url)\"> сброс нового пароля </a>."
+msgstr "Ссылка для сброса пароля была недействительной, возможно, потому что она уже использовалась. Пожалуйста, запросите <a href=\"%(passwd_reset_url)s\">сброс нового пароля</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
@@ -1208,34 +1208,34 @@ msgid "search,museum,old,photos,pictures,historic"
 msgstr "поиск, музей, старые, фотографии, изображения, исторический"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
-#, fuzzy, python-format
+#, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr "Галлерея рефотографий %(rephotos_by_name)"
+msgstr "Галлерея рефотографий %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:95
-#, fuzzy, python-format
+#, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
-msgstr "Альбом содержит %(album_photo_count) исторических изображений. Давайте разместим фотографии на карте!"
+msgstr "Альбом содержит %(album_photo_count)s исторических изображений. Давайте разместим фотографии на карте!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:97
 msgid "Let's put pictures on the map"
 msgstr "Давайте разместим фотографии на карте"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:100
-#, fuzzy, python-format
+#, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "В альбоме %(counter) фотография,"
+msgstr[0] "В альбоме %(counter)s фотография,"
 msgstr[1] "В альбоме %(counter) фотографий,"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] "%(counter) пользователь указал"
-msgstr[1] "%(counter) пользователей указали"
+msgstr[0] "%(counter)s пользователь указал"
+msgstr[1] "%(counter)s пользователей указали"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
@@ -1245,11 +1245,11 @@ msgstr "все фото на карте."
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] "%(counter)фото на карте."
-msgstr[1] "%(counter) фото на карте."
+msgstr[0] "%(counter)s фото на карте."
+msgstr[1] "%(counter)s фото на карте."
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:198
@@ -1760,11 +1760,11 @@ msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which 
 msgstr "Ajapaik имеет <b>%(total_photo_count)s</b> исторических изображений, из которых <b>%(total_photos_tagged)s</b> изображений было добавлено на карту <b>%(contributing_users)s</b> пользователями и <b>%(rephoto_count)s</b> рефотографий для <b>%(rephotographed_photo_count)s</b> фото, сделанных <b>%(rephotographing_users)s</b> пользователями."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:32
-#, fuzzy, python-format
+#, python-format
 msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
 msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] "Вы предложили местоположение для изображения <b>%(user_geotagged_photos)</b>"
-msgstr[1] "Вы предложили места для <b>%(user_geotagged_photos)</b> фотографий."
+msgstr[0] "Вы предложили местоположение для изображения <b>%(user_geotagged_photos)s</b>"
+msgstr[1] "Вы предложили места для <b>%(user_geotagged_photos)s</b> фотографий."
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:37
@@ -1817,11 +1817,11 @@ msgid "Contributors' leaderboard"
 msgstr "Список лидеров по вкладам"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:27
-#, fuzzy, python-format
+#, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] "Альбом содержит %(counter) исторической фотографии,"
-msgstr[1] "Альбом содержит %(counter) исторических фотографий,"
+msgstr[0] "Альбом содержит %(counter)s исторической фотографии,"
+msgstr[1] "Альбом содержит %(counter)s исторических фотографий,"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
@@ -1837,44 +1837,44 @@ msgid "all the pictures from this album."
 msgstr "все изображения из этого альбома."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:43
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] "Изображение%(counter)в этом альбоме."
-msgstr[1] "Фото%(counter)в этом альбоме."
+msgstr[0] "Изображение%(counter)sв этом альбоме."
+msgstr[1] "Фото%(counter)sв этом альбоме."
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] "Пользователь%(counter) сделал"
-msgstr[1] "Пользователи%(counter)  сделали}"
+msgstr[0] "Пользователь %(counter)s сделал"
+msgstr[1] "Пользователи %(counter)s сделали"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
-#, fuzzy, python-format
+#, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "%(counter) рефотограф"
-msgstr[1] "%(counter) рефотографов"
+msgstr[0] "%(counter)s рефотограф"
+msgstr[1] "%(counter)s рефотографов"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
-#, fuzzy, python-format
+#, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
-msgstr[0] "для %(counter) изображения в альбоме."
-msgstr[1] "для %(counter) изображений в альбоме."
+msgstr[0] "для %(counter)s изображения в альбоме."
+msgstr[1] "для %(counter)s изображений в альбоме."
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:58
-#, fuzzy, python-format
+#, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] "Вы сделали %(counter)рефото"
-msgstr[1] "Вы сделали %(counter) рефото"
+msgstr[0] "Вы сделали %(counter)s рефото"
+msgstr[1] "Вы сделали %(counter)s рефото"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
@@ -1890,9 +1890,9 @@ msgid "Recent activity leaderboard"
 msgstr "Таблица лидеров недавней активности"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
-#, fuzzy, python-format
+#, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Таблица лидеров альбома%(название альбома)"
+msgstr "Таблица лидеров альбома %(album_name)s"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:18
 msgid "All time leaderboard"
@@ -1948,7 +1948,6 @@ msgstr "дубликат фото"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:243
 #: ajapaik/ajapaik/templates/photo/photoview.html:182
-#, fuzzy
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Изображение принадлежит к альбому"
@@ -2343,9 +2342,9 @@ msgid "This user does not have any contributions."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:25
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Я,%(user), владелец авторских прав на это произведение, безоговорочно предоставляю любому право использовать это произведение под <a href = \"https://creativecommons.org/licenses/by-sa/4.0/\" target = \"_blank\"> лицензией Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA) </a>."
+msgstr "Я, %(user)s, владелец авторских прав на это произведение, безоговорочно предоставляю любому право использовать это произведение под <a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.ru\" target=\"_blank\">лицензией Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:47
 msgid "Upload and mark on map"
@@ -2369,9 +2368,9 @@ msgid "Geotagging game"
 msgstr "Игра в определение местоположения"
 
 #: ajapaik/ajapaik/views.py:666
-#, fuzzy, python-format
+#, python-format
 msgid "%(name)s - rephotos"
-msgstr "%(name)-рефото"
+msgstr "%(name)s - рефото"
 
 #: ajapaik/ajapaik/views.py:1154
 msgid "Cannot upload to these albums"
@@ -2432,9 +2431,9 @@ msgid "Not enough data submitted"
 msgstr "Не достаточно данных отправлено"
 
 #: ajapaik/ajapaik/views.py:2695
-#, fuzzy, python-format
+#, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr "Кадр из \"%(film) расположен на %(time)"
+msgstr "Кадр из \"%(film)s расположен на %(time)s"
 
 #: ajapaik/ajapaik/views.py:2908
 msgid "Photo uploaded"
@@ -2494,9 +2493,8 @@ msgstr "Неизвестно"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
-msgstr "Непригодно"
+msgstr "Непригодный"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:189

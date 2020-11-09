@@ -4,6 +4,7 @@
 # Author: Alexander Yukal
 # Author: Katunchik
 # Author: Meerrahtar
+# Author: MuratTheTurkish
 # Author: Okras
 # Author: Pacha Tchernof
 # Author: Roman
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
+"PO-Revision-Date: 2020-11-09 11:33:09+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -113,44 +114,36 @@ msgid "Between approximately %(from)s and approximately %(to)s"
 msgstr "Приблизительно от %(from)s и приблизительно до %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
-#, fuzzy
 msgid "Between approximately %(from)s and %(to)s"
-msgstr "Приблизительно от %(from) и до %(to)"
+msgstr "Приблизительно от %(from)s и до %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
-#, fuzzy
 msgid "Between %(from)s and approximately %(to)s"
-msgstr "От %(from) и приблизительно до %(to)"
+msgstr "От %(from)s и приблизительно до %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
-#, fuzzy
 msgid "Between %(from)s and %(to)s"
-msgstr "От %(from) до %(to)"
+msgstr "От %(from)s до %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
-#, fuzzy
 msgid "After approximately %(from)s"
-msgstr "После приблизительно %(from)"
+msgstr "После приблизительно %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
-#, fuzzy
 msgid "After %(from)s"
-msgstr "После %(from)"
+msgstr "После %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
-#, fuzzy
 msgid "Before approximately %(to)s"
-msgstr "До приблизительно %(to)"
+msgstr "До приблизительно %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
-#, fuzzy
 msgid "Before %(to)s"
-msgstr "До %(to)"
+msgstr "До %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
-#, fuzzy
 msgid "Approximately %(date)s"
-msgstr "Приблизительно %(date)"
+msgstr "Приблизительно %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
@@ -166,14 +159,12 @@ msgid "Confirm dating"
 msgstr "Подтвердить датирование"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
-#, fuzzy
 msgid "Confirming a dating earned you %(points)s points."
-msgstr "Подтверждение датирования дало Вам %(points)очков."
+msgstr "Подтверждение датирования дало вам %(points)s очков."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
-#, fuzzy
 msgid "Submitting a dating earned you %(points)s points."
-msgstr "Загрузка датирования дала Вам %(points)очков."
+msgstr "Загрузка датирования дала вам %(points)s очков."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:416
 msgid "Thanks!"
@@ -644,9 +635,8 @@ msgid "My rephotos"
 msgstr "Мои переснимки"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:287
-#, fuzzy
 msgid "Rephotos by %(user)s"
-msgstr "Фотографии от %(user)"
+msgstr "Фотографии от %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
 msgid "All pictures"
