@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:39+0000\n"
+"PO-Revision-Date: 2020-11-16 14:12:11+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1407,7 +1407,7 @@ msgstr "Ajapaik, gelir vergisi teşviklerinden yararlanan kâr amacı gütmeyen 
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Details for one-time donations"
-msgstr "Bir kerelik bağış için detaylar"
+msgstr "Tek seferlik bağışlarla ilgili ayrıntılar"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:6
 msgid "Beneficiary's name"

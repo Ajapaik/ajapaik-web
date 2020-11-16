@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-10-29 12:13:37+0000\n"
+"PO-Revision-Date: 2020-11-16 14:12:08+0000\n"
 "X-POT-Import-Date: 2020-10-20 10:33:21+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-common.js:744
 msgid "Submit your own location"
-msgstr ""
+msgstr "Übermittle deinen Standort"
 
 #: ajapaik/ajapaik/static/js/ajp-common.js:771
 msgid "You"
@@ -368,7 +368,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "Es wurden keine Bilder mit erhöhtem Standpunkt gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No raised viewpoint pictures were found in this album"
@@ -509,7 +509,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture set has no annotations"
-msgstr ""
+msgstr "Der Bildersatz hat keine Markierungen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture set has no transcriptions"
@@ -746,7 +746,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
-msgstr ""
+msgstr "Historische Karten"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:724
 msgid "Remove album filter"
@@ -853,7 +853,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
-msgstr "Gesichtsanmerkung bearbeiten"
+msgstr "Gesichtsmarkierung bearbeiten"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
@@ -861,7 +861,7 @@ msgstr "Name hinzufügen"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
-msgstr "Objektanmerkung bearbeiten"
+msgstr "Objektmarkierung bearbeiten"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
@@ -873,7 +873,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Your annotation info"
-msgstr ""
+msgstr "Deine Markierungsinfo"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
@@ -907,7 +907,7 @@ msgstr "Ist das ein"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
-msgstr "Anmerkungstyp"
+msgstr "Markierungstyp"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
@@ -927,7 +927,7 @@ msgstr "Alter"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "Fehler beim Laden der Markierungsklassen"
 
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "Failed to load annotations"
@@ -935,7 +935,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 msgid "Successfully added object annotation"
-msgstr "Objektanmerkung erfolgreich hinzugefügt"
+msgstr "Objektmarkierung erfolgreich hinzugefügt"
 
 #: ajapaik/ajapaik/static/js/constants.js:111
 msgid "Unable to save object annotation"
@@ -943,7 +943,7 @@ msgstr "Speichern der Objektanmerkung nicht möglich"
 
 #: ajapaik/ajapaik/static/js/constants.js:112
 msgid "Successfully updated object annotation"
-msgstr "Objektanmerkung erfolgreich aktualisiert"
+msgstr "Objektmarkierung erfolgreich aktualisiert"
 
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Unable to update object annotation"
@@ -951,7 +951,7 @@ msgstr "Aktualisieren der Objektanmerkun nicht möglich"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "Rückmeldung zur Objektmarkierung erfolgreich hinzugefügt"
 
 #: ajapaik/ajapaik/static/js/constants.js:115
 msgid "Failed to add object annotation feedback"
@@ -959,7 +959,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:116
 msgid "Successfully removed object annotation"
-msgstr "Objektanmerkung erfolgreich entfernt"
+msgstr "Objektmarkierung erfolgreich entfernt"
 
 #: ajapaik/ajapaik/static/js/constants.js:117
 msgid "Unable to remove object annotation"
@@ -967,7 +967,7 @@ msgstr "Entfernen der Objektanmerkung nicht möglich"
 
 #: ajapaik/ajapaik/static/js/constants.js:118
 msgid "Successfully added face annotation"
-msgstr ""
+msgstr "Gesichtsmarkierung erfolgreich hinzugefügt"
 
 #: ajapaik/ajapaik/static/js/constants.js:119
 msgid "Unable to save face annotation"
@@ -975,7 +975,7 @@ msgstr "Entfernen der Gesichtsmarkierung fehlgeschlagen"
 
 #: ajapaik/ajapaik/static/js/constants.js:120
 msgid "Successfully added face annotation feedback"
-msgstr ""
+msgstr "Rückmeldung zur Gesichtsmarkierung erfolgreich hinzugefügt"
 
 #: ajapaik/ajapaik/static/js/constants.js:121
 msgid "Failed to add face annotation feedback"
@@ -991,7 +991,7 @@ msgstr "Speichern der Bearbeitung der Gesichtsanmerung fehlgeschlagen"
 
 #: ajapaik/ajapaik/static/js/constants.js:124
 msgid "Successfully removed face annotation"
-msgstr "Gesichtsanmerkkung erfolgreich entfernt"
+msgstr "Gesichtsmarkierung erfolgreich entfernt"
 
 #: ajapaik/ajapaik/static/js/constants.js:125
 msgid "Failed to remove face annotation"

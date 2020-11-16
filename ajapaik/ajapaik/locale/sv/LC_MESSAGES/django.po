@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:39+0000\n"
+"PO-Revision-Date: 2020-11-16 14:12:10+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -1252,7 +1252,7 @@ msgstr "Sortering"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:477
 msgid "This website uses cookies to ensure you get the best experience on our website"
-msgstr "Den här webbplatsen använder cookies för att ge dig den bästa upplevelsen"
+msgstr "Den här webbplatsen använder kakor för att ge dig den bästa upplevelsen"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:478
 msgid "Got it!"
