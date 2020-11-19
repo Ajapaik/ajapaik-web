@@ -2877,11 +2877,13 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
 def user_upload(request):
 	context = {
 		'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-		'is_user_upload': True
+		'is_user_upload': True,
+		'show_albums_error': False
 	}
 	if request.method == 'POST':
 		form = UserPhotoUploadForm(request.POST, request.FILES)
-		if form.is_valid():
+		albums=request.POST.getlist('albums')
+		if form.is_valid() and albums is not None and len(albums) > 0:
 			photo = form.save(commit=False)
 			photo.user = request.user.profile
 			if photo.uploader_is_author:
@@ -2904,6 +2906,8 @@ def user_upload(request):
 				return redirect(reverse('frontpage_photos') + '?photo=' + str(photo.id) + '&locationToolsOpen=1')
 			else:
 				context['message'] = _('Photo uploaded')
+		if albums is  None or len(albums) < 1:
+			context['show_albums_error'] = True
 	else:
 		form = UserPhotoUploadForm()
 	context['form'] = form

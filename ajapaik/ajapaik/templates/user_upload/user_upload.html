@@ -14,6 +14,7 @@
 {% block layout %}
 <div class="container pb-3 w-50{% if not request.user.profile.is_legit %}" id="ajp-curator-container"{% else %} pt-5"{% endif %}>
     {% if request.user.profile.is_legit %}
+        <h3 class="pt-3">{% trans 'Here you can upload historic pictures to Ajapaik (currently one picture at a time)' %}</h3>
         <img class="img-fluid lazyload" id="upload-preview" src="">
         {% if message %}
             <div class="alert-success p-3">{{ message }}</div>
@@ -24,10 +25,15 @@
             <p id="ajp-user-upload-waive-rights-text" class="d-none">
                 {% blocktrans with user=user.profile %}I, {{ user }}, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener nofollow">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>.{% endblocktrans %}
             </p>
-            <div class="form-group"><label for="id-albums">Albumid</label>
-                <span id="id-albums-wrapper" class="modern-style autocomplete-light-widget albums multiple" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
+            <div class="form-group">
+                <label for="id-albums">{% trans 'Add picture to some album(s)' %}</label>
+                <br>
+                <span id="id-albums-wrapper" class="modern-style autocomplete-light-widget albums multiple w-100" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
                     <span id="id-albums-deck" class="deck"></span>
-                    <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/open-album-autocomplete/" placeholder="{% trans "Search for an existing album" %}" title="" autocomplete="off">
+                    <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value="" class="form-control autocomplete vTextField{% if show_albums_error %} is-invalid{% endif %}" {% if show_albums_error %}style="border: 1px solid #dc3545;"{% endif %} data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/open-album-autocomplete/" placeholder="{% trans "Search for an existing album" %}" title="" autocomplete="off">
+                    {% if show_albums_error %}
+                        <div class="invalid-feedback">{% trans 'You need to add the picture to atleast one album' %}</div>
+                    {% endif %}
                     <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add-id-albums" style="">
                         <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
                     </a>
@@ -35,11 +41,12 @@
                     <span style="display:none" class="remove">ˣ</span>
                     <span style="display:none" class="choice-template">
                         <span class="choice prepend-remove append-option-html"></span>
-                    </span>                
+                    </span>
                 </span>
+                <small class="form-text text-muted">{% trans 'Please add the picture to some existing album(s) or create first a new album and then add the picture to it' %}</small>
             </div>
             {% buttons %}
-                <div class="btn-group float-right" role="group" aria-label="ajp-add-album-button-group">
+                <div class="btn-group float-right" role="group" aria-label="ajp-add-picture-button-group">
                     <button type="submit" name="geotag" value="false" class="btn btn-primary">
                         {% trans "Upload" %}
                     </button>
@@ -64,7 +71,7 @@
     <script>
         function previewImage() {
             var fr = new FileReader();
-            fr.readAsDataURL(document.getElementById('id-image').files[0]);
+            fr.readAsDataURL(document.getElementById('id_image').files[0]);
             $('#upload-preview').show();
             fr.onload = function (oFREvent) {
                 document.getElementById('upload-preview').src = oFREvent.target.result;
@@ -72,14 +79,14 @@
         }
         $(document).ready(function () {
             $('#id-albums-autocomplete').attr('required', false);
-            $('#id-image').on('change', (function () {
+            $('#id_image').on('change', (function () {
                 previewImage();
             }));
-            $('#id-uploader-is-author').on('change', (function () {
+            $('#id_uploader_is_author').on('change', (function () {
                 var state = $(this).is(':checked'),
                     licenceText = $('#ajp-user-upload-waive-rights-text'),
-                    licenceSelection = $('#id-licence').parent(),
-                    authorInput = $('#id-author').parent();
+                    licenceSelection = $('#id_licence').parent(),
+                    authorInput = $('#id_author').parent();
                 if (state) {
                     licenceText.removeClass('d-none').addClass('d-block');
                     licenceSelection.hide();

@@ -12,14 +12,26 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
 class FaceRecognitionAddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
-        self.fields['name'].label = _('Subject name')
-        self.fields['gender'].widget = forms.RadioSelect(choices=Album.GENDER_CHOICES)
-        self.fields['is_public_figure'].label = _('Is public figure')
+        self.fields['gender'].widget = forms.RadioSelect(choices=[(1, _('Male')),(0, _('Female'))])
 
     class Meta:
         model = Album
-        fields = ('name', 'gender', 'is_public_figure')
-
+        fields = ('name', 'date_of_birth', 'gender', 'is_public_figure', 'description')
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+        }
+        labels = {
+            'name': _('Person name'),
+            'date_of_birth': _('Date of birth'),
+            'gender': _('Gender'),
+            'is_public_figure': _('Is public figure'),
+            'description': _('Description')
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': _('Firstname Lastname')}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40, 'placeholder': _('Additional remarks about the person (other names etc)')}),
+        }
 
 class FaceRecognitionSuggestionForm(forms.ModelForm):
     subject_album = forms.ModelChoiceField(

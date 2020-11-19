@@ -401,9 +401,23 @@ class UserPhotoUploadForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ('image', 'description', 'author', 'uploader_is_author', 'licence')
+        fields = ('image', 'description', 'uploader_is_author', 'author', 'licence')
+        labels = {
+            'image': _('Picture file'),
+            'description': _('Description'),
+            'uploader_is_author': _('I am the author'),
+            'author': _('Author'),
+            'licence': _('Licence or status of copyright')
+        }
+        help_texts = {
+            'image': _('Accepted formats are .png or .jpg files'),
+            'description': _('Add a short description of the picture'),
+            'author': _('Author of the picture (photographer, painter)'),
+            'licence': _('Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then.')
+        }
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40}),
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40, 'placeholder': _('Description of the picture')}),
+            'author': forms.TextInput(attrs={'placeholder': _('Author name')}),
         }
 
     def clean(self):

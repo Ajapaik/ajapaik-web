@@ -2262,7 +2262,7 @@ msgstr "此使用者沒有任何貢獻。"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:25
 #, python-format
-msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不撤銷授予任何人使用此作品的權限。"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:47

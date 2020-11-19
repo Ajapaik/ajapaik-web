@@ -2290,8 +2290,8 @@ msgstr "Este usuário não tem contribuições."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:25
 #, python-format
-msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Eu, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Eu, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogavelmente concede a qualquer um o direito de usar este trabalho sob a <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">licença Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:47
 msgid "Upload and mark on map"

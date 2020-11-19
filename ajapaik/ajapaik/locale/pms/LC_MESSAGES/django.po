@@ -2291,8 +2291,8 @@ msgstr "S'utent-sì a l'ha gnun-e contibussion."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:25
 #, python-format
-msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Mi, %(user)s, detentor dij drit d'autor d'ës travaj, i garantisso ëd fasson irevocàbil a mincadun ël drit ëd dovré 's travaj sota la <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">licensa Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Mi, %(user)s, detentor dij drit d'autor d'ës travaj, i garantisso ëd fasson irevocàbil a mincadun ël drit ëd dovré 's travaj sota la <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">licensa Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:47
 msgid "Upload and mark on map"
