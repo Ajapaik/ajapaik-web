@@ -1,38 +1,56 @@
 {% load i18n static %}
-<div class="{% if is_photo_modal %}ajp-mt-1{% else %}row ajp-height-48 mt-2{% endif %}">
-    <a data-id="{{ photo.id }}" class="float-left"
-        title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
-        rel="nofollow">
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
-    </a>
-    <a id="ajp-start-dating-button" data-id="{{ photo.id }}" class="float-left"
-        title="{% trans "Date this image" %}" href="#">
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
-        <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
-    </a>
-    <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#" class="float-left{% if not is_photo_modal %} ml-2{% endif %}">
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
-    </a>
-    <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
-        id="mark-object-button"
-        class="float-left pl-2"
-    >
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
-    </button>
-    </a>
-    <div class="dropdown float-left">
-        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans 'Share' %}">
+<!--TODO: Redo this part, use classes instead of copy-pasted style-->
+<div class="d-flex w-100 {% if is_photo_modal %}ajp-mt-1{% else %}row ajp-height-48 mt-2{% endif %}" style="flex-wrap:wrap;">
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <a data-id="{{ photo.id }}" style="height: 54px;"
+            title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
+            rel="nofollow">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
+        </a>
+        {% trans 'Add a geotag' %}
+    </div>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <a id="ajp-start-dating-button" data-id="{{ photo.id }}" style="height: 54px;"
+            title="{% trans "Date this image" %}" href="#">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
+            <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
+        </a>
+        {% trans 'Date' %}
+    </div>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#" style="height: 54px;">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
+        </a>
+        {% trans 'Add a rephoto' %}
+    </div>
+
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}" style="height: 54px;"
+            id="mark-object-button">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
+        </button>
+        {% trans 'Annotate' %}
+    </div>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans 'Share' %}" style="height: 54px;">
             <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
         </a>
+        {% trans 'Share' %}
     </div>
-    <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false">
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
-    </button>
-    <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);"
-        title="{% trans "Transcribe this image" %}" href="#">
-        <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
-        <span id="ajp-photoview-transcriptions-count" class="badge"></span>
-    </a>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false" style="height: 54px;" title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
+        </button>
+        {% trans 'Categorize' %}
+    </div>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);" style="height: 54px;"
+            title="{% trans "Transcribe this image" %}" href="#">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
+            <span id="ajp-photoview-transcriptions-count" class="badge"></span>
+        </button>
+        {% trans 'Transcribe' %}
+    </div>
 </div>
 <script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
@@ -187,7 +205,7 @@
 
         $(document).ready(function () {
             updatePhotoScene();
-            var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
+            var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
             $(document).on('click', '#ajp-add-rephoto-button', function (e) {
                 e.preventDefault();
                 $.ajax({

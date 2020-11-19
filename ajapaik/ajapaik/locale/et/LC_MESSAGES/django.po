@@ -432,7 +432,7 @@ msgstr "Kinnita piltide sarnasus"
 msgid "Suggestion subject age"
 msgstr "Hinda isiku vanust"
 
-#: ajapaik/ajapaik/models.py:1052
+#: ajapaik/ajapaik/models.py:1052 ajapaik/ajapaik/templates/_toolbox.html:52
 msgid "Transcribe"
 msgstr "Transkribeeri"
 
@@ -611,30 +611,55 @@ msgstr "Määrake sisulise kattuvuse esinemine või puudumine. Kattuva sisu puhu
 msgid "The decision can also be made on keyboard (1, 2, 3)."
 msgstr "Lisaks nuppudele on sarnasusseost võimalik märkida ka klaviatuurilt (numbriklahvid 1, 2, 3)."
 
-#: ajapaik/ajapaik/templates/_toolbox.html:4
+#: ajapaik/ajapaik/templates/_toolbox.html:6
 #: ajapaik/ajapaik/templates/common/game.html:54
 #: ajapaik/ajapaik/templates/photo/photoview.html:55
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:9
+#: ajapaik/ajapaik/templates/_toolbox.html:10
+msgid "Add a geotag"
+msgstr "Märgi kaardile"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
 msgstr "Dateeri see pilt"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:13
+#: ajapaik/ajapaik/templates/_toolbox.html:18
+msgid "Date"
+msgstr "Dateeri"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
 msgstr "Lisa ülepildistus"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:16
+#: ajapaik/ajapaik/templates/_toolbox.html:24
+msgid "Add a rephoto"
+msgstr "Lisa ülepildistus"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
 msgstr "Märgi pildil nägu/objekt – nuppu vajutades saab pildile tõmmata inimese näole või objektile annotatsioonikasti"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:24
+#: ajapaik/ajapaik/templates/_toolbox.html:32
+msgid "Annotate"
+msgstr "Annoteeri"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:35
+#: ajapaik/ajapaik/templates/_toolbox.html:38
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
 msgid "Share"
 msgstr "Jaga"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:42
+#: ajapaik/ajapaik/templates/_toolbox.html:41
+msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
+msgstr "Lisa kategooria - nuppu vajutades saab pilti määrata eri kategooriatesse, näiteks on võimalik märkida, kas pildil on interiöör või välisvaade"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:44
+msgid "Categorize"
+msgstr "Lisa kategooriaid"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:48
 msgid "Transcribe this image"
 msgstr "Transkribeeri pilt"
 
