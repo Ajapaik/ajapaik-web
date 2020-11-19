@@ -15,25 +15,15 @@
     </a>
     <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
         id="mark-object-button"
-        class="float-left"
+        class="float-left pl-2"
     >
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
     </button>
     </a>
     <div class="dropdown float-left">
-        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans 'Share' %}">
             <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
         </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
-            <li role="presentation" class="disabled-link">
-                <div role="menuitem" tabindex="-1" id="ajp-grab-link">
-                    <a href="{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
-                        {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
-                    </a>
-                </div>
-            </li>
-        </ul>
     </div>
     <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false">
         <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
@@ -51,6 +41,7 @@
         var scene_consensus = undefined;
         var viewpointElevation = 'undefined';
         var viewpointElevation_consensus = undefined;
+        var shareUrl = '{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}';
 
         function fetchPhotoSuggestion() {
             return fetch(photoSceneUrl + '{{ photo.id }}' + '/').then(function(response) {
@@ -206,6 +197,15 @@
                         rephotoUploadModal.data('bs.modal', null);
                         rephotoUploadModal.html(result).modal();
                     }
+                });
+            });
+
+            $('#ajp-sharing-dropdown-button').on('click', function(e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(shareUrl).then(function() {
+                    $.notify(gettext('Link copied to clipboard'), {type: 'success'});
+                }, function(err) {
+                    $.notify(gettext('Could not copy link to clipboard'), {type: 'danger'});
                 });
             });
         });
