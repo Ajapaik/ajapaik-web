@@ -30,6 +30,7 @@
         },
         onStill = function () {
             if (!$(this).hasClass('disabled')) {
+                $('#ajp-loading-overlay').show();
                 $.ajax({
                     url: '/video-still/',
                     method: 'POST',
@@ -42,6 +43,9 @@
                     success: function (response) {
                         loadPhoto(response.stillId);
                         window.updateFrontpagePhotosAsync();
+                    },
+                    complete: function() {
+                        $('#ajp-loading-overlay').hide();
                     }
                 });
                 if (typeof window.reportModalVideoStillClick === 'function') {

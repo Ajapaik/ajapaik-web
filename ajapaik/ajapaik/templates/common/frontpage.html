@@ -112,17 +112,16 @@
         window.linkToGallery = true;
         window.fbShareGallery = true;
         $(document).on('click', '#ajp-frontpage-show-pictures-link', function () {
-            $('#ajp-album-filter-box').val("");
-            $('#ajp-photo-filter-box').val("");
-            var split = window.location.search.split('&q=');
-            if (("&q=" + split[0]) !== window.location.search) {
-                window.location.search = split[0]
-            }
+            $('#ajp-photo-filter-box').val($('#ajp-album-filter-box').val());
+            $('#ajp-album-filter-box').val('');
         });
         $(document).on('click', '#ajp-frontpage-show-albums-link', function () {
-            $('#ajp-album-filter-box').val("");
-            $('#ajp-photo-filter-box').val("");
-            var split = window.location.search.split('&');
+            $('#ajp-album-filter-box').val($('#ajp-photo-filter-box').val());
+            $('#ajp-photo-filter-box').val('')
+            var split = window.location.search.split('&q=');
+            if (split === undefined) {
+                split = window.location.search.split('?q=');
+            }
             if (split[0].indexOf('album=') > 0) {
                 var newQuery = '';
                 split.shift();

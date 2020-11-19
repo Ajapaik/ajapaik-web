@@ -190,7 +190,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   border-radius: 0;
 }
 
-.ajp-frontpage-image-container {
+.ajp-frontpage-image-container,
+.ajp-frontpage-video-container {
   display: none;
   opacity: 1 !important;
 }

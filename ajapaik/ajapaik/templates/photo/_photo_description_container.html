@@ -11,10 +11,14 @@
             <b id="ajp-photo-author">{{ photo.author }}</b>
         </div>
     {% endif %}
-    {% if photo.description %}
-        <div id="ajp-photo-description" class="w-100">
-                {{ photo.description }}
-        </div>
+    {% if photo.video %}
+        <a href="{% url 'frontpage' %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ seconds }}">{{ photo.description }}</a>
+    {% else %}
+        {% if photo.description %}
+            <div id="ajp-photo-description" class="w-100">
+                    {{ photo.description }}
+            </div>
+        {% endif %}
     {% endif %}
     {% if photo.date %}
         <div class="w-100">

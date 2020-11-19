@@ -1372,6 +1372,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 	elif photo_obj.front_of is not None:
 		reverse_side = photo_obj.front_of
 
+	seconds = None
+	if photo_obj.video_timestamp:
+		seconds = photo_obj.video_timestamp / 1000
+
 	context = {
 		'photo': photo_obj,
 		'similar_photos': similar_photos,
@@ -1412,7 +1416,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
 		'is_photo_modal': request.is_ajax(),
 		# TODO: Needs more data than just the names
 		'people': people,
-		'whole_set_albums_selection_form': whole_set_albums_selection_form
+		'whole_set_albums_selection_form': whole_set_albums_selection_form,
+		'seconds': seconds
 	}
 
 	return render(request, template, context)

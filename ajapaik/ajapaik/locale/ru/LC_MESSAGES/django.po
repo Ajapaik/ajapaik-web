@@ -1289,7 +1289,7 @@ msgstr "Давайте разместим фотографии на карте"
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] "В альбоме %(counter)s фотография,"
-msgstr[1] "В альбоме %(counter) фотографий,"
+msgstr[1] "В альбоме %(counter)s фотографий,"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
