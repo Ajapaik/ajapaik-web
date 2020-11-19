@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Eduardo Addad de Oliveira
+# Author: Yeltsinxyz
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -11,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-10-29 12:13:38+0000\n"
+"PO-Revision-Date: 2020-11-19 14:44:10+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -520,23 +521,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:102
 msgid "Ordering"
-msgstr ""
+msgstr "Ordenação"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "earliest"
-msgstr ""
+msgstr "Mais antigos"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:109
 msgid "latest"
-msgstr ""
+msgstr "Mais recentes"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "least"
-msgstr ""
+msgstr "último"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:116
 msgid "most"
-msgstr ""
+msgstr "mais"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures furthest from you"
@@ -569,7 +570,7 @@ msgstr "gostou"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:143
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:146
 msgid "categorized"
-msgstr ""
+msgstr "categorizado"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:149
 msgid "dated"
@@ -684,11 +685,11 @@ msgstr "Obrigado!"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:670
 msgid "Median suggestion"
-msgstr ""
+msgstr "Sugestão média"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:682
 msgid "Your suggestion"
-msgstr ""
+msgstr "Sua sugestão"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:697
 msgid "How much has the depicted location changed?"
@@ -840,7 +841,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "What is displayed"
-msgstr ""
+msgstr "O que é exibido"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Edit face annotation"
@@ -856,7 +857,7 @@ msgstr "Editar anotação de objeto"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Edit feedback"
-msgstr ""
+msgstr "Editar sugestão"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Add feedback"
@@ -884,17 +885,17 @@ msgstr "Rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Isto é um rosto"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "Isto é"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "isto é um"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
