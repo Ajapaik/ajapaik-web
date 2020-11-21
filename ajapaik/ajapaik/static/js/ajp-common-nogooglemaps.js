@@ -1313,31 +1313,6 @@ if (typeof (google) !== 'undefined' && typeof (google.maps) !== 'undefined') {
         };
     }
 
-    $('#ajp-mode-select').find('a').click(function (e) {
-        if (!window.isFrontpage && !window.isSelection) {
-            e.preventDefault();
-            var $this = $(this),
-                selectedMode = $this.data('mode');
-            if ($this.hasClass('disabled')) {
-                return false;
-            }
-            switch (selectedMode) {
-                case 'pictures':
-                    window.location.href = '/?order1=time&order2=added&page=1';
-                    break;
-                case 'albums':
-                    window.location.href = '/';
-                    break;
-                case 'likes':
-                    window.location.href = '/?order1=time&order2=added&page=1&myLikes=1';
-                    break;
-                case 'rephotos':
-                    window.location.href = '/?order1=time&order2=added&page=1&rephotosBy=' + window.currentProfileId;
-                    break;
-            }
-        }
-    });
-
     $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon', function (event) {
         if (!window.currentProfileEmail) {
             window.openLoginModal('add-photos');

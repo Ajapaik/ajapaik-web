@@ -1763,18 +1763,30 @@ $('.ajp-navbar').autoHidingNavbar();
             if ($this.hasClass('disabled')) {
                 return false;
             }
+            let searchString = '';
+            let split = window.location.search.split('&q=');
+            if (!split || split.length < 2) {	
+                split = window.location.search.split('?q=');
+            }
+            if (split && split.length > 1) {
+                if (selectedMode === 'albums') {
+                    searchString = '?q=' + split[1];
+                } else {
+                    searchString = '&q=' + split[1];
+                }
+            }
             switch (selectedMode) {
                 case 'pictures':
-                    window.location.href = '/?order1=time&order2=added&page=1';
+                    window.location.href = '/?order1=time&order2=added&page=1' + searchString;
                     break;
                 case 'albums':
-                    window.location.href = '/';
+                    window.location.href = '/' + searchString;
                     break;
                 case 'likes':
-                    window.location.href = '/?order1=time&order2=added&page=1&myLikes=1';
+                    window.location.href = '/?order1=time&order2=added&page=1&myLikes=1' + searchString;
                     break;
                 case 'rephotos':
-                    window.location.href = '/?order1=time&order2=added&page=1&rephotosBy=' + window.currentProfileId;
+                    window.location.href = '/?order1=time&order2=added&page=1&rephotosBy=' + window.currentProfileId + searchString;
                     break;
             }
         }

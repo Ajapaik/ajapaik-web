@@ -112,26 +112,62 @@
         window.linkToGallery = true;
         window.fbShareGallery = true;
         $(document).on('click', '#ajp-frontpage-show-pictures-link', function () {
-            $('#ajp-photo-filter-box').val($('#ajp-album-filter-box').val());
-            $('#ajp-album-filter-box').val('');
-        });
-        $(document).on('click', '#ajp-frontpage-show-albums-link', function () {
-            $('#ajp-album-filter-box').val($('#ajp-photo-filter-box').val());
-            $('#ajp-photo-filter-box').val('')
-            var split = window.location.search.split('&q=');
+            $('#ajp-album-filter-box').val("");
+            $('#ajp-photo-filter-box').val("");
+            let split = window.location.search.split('&q=');
             if (split === undefined) {
                 split = window.location.search.split('?q=');
             }
-            if (split[0].indexOf('album=') > 0) {
-                var newQuery = '';
-                split.shift();
-                if (split.length > 0) {
-                    newQuery = '?' + split[0];
-                    split.shift();
-                    split.forEach(element => newQuery += '&' + element); 
+            if (split && split.length > 1) {
+                let additionalParameters = '';
+                if (window.location.search.indexOf('backsides=1') > -1) {
+                    additionalParameters = '&backsides=1';
                 }
-                window.location.search = newQuery;
+                if (window.location.search.indexOf('people=1') > -1) {
+                    additionalParameters += '&people=1';
+                }
+                if (additionalParameters === '') {
+                    window.location.search = '?order1=time&order2=added&q=' + split[1];	
+                } else {
+                    window.location.search = '?order1=time&order2=added' + additionalParameters + '&q=' + split[1];	
+                }
+            } else {
+                window.location.reload();
             }
+        });
+        $(document).on('click', '#ajp-frontpage-show-albums-link', function () {
+            $('#ajp-album-filter-box').val("");
+            $('#ajp-photo-filter-box').val("");
+            let split = window.location.search.split('&q=');
+            if (split === undefined) {
+                split = window.location.search.split('?q=');
+            }
+            if (split && split.length > 1) {
+                let additionalParameters = '';
+                if (window.location.search.indexOf('backsides=1') > -1) {
+                    additionalParameters = '?backsides=1';
+                }
+                if (window.location.search.indexOf('people=1') > -1) {
+                    if (additionalParameters === '') {
+                        additionalParameters += '&people=1';
+                    } else {
+                        additionalParameters += '?backsides=1';
+                    }
+                }
+                if (additionalParameters === '') {
+                    window.location.search = '?q=' + split[1];	
+                } else {
+                    window.location.search = additionalParameters + '&q=' + split[1];	
+                }
+            } else {
+                window.location.reload();
+            }
+        });
+        $(document).on('click', '#ajp-frontpage-show-liked-link', function () {
+            window.location.reload();
+        });
+        $(document).on('click', '#ajp-frontpage-show-rephotographed-link', function () {
+            window.location.reload();
         });
     </script>
     {% include "js_templates/frontpage_album_template.html" %}
