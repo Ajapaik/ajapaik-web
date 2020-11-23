@@ -19,6 +19,7 @@
 # Author: Puik
 # Author: Radmir Far
 # Author: Roman
+# Author: Rubin16
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -29,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-19 14:44:11+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:25+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -198,7 +199,7 @@ msgstr "Выбрать родительский альбом"
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "Файл изображения"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:183 ajapaik/ajapaik/models.py:354
@@ -217,31 +218,31 @@ msgstr "Автор"
 
 #: ajapaik/ajapaik/forms.py:410
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Лицензия или статус авторских прав"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Допустимые форматы - .png и .jpg."
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Добавьте короткое описание изображения"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Автор изображения (фотограф, художник)"
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Выберите, пожалуйста, лицензию, чтобы другие люди знали, могут ли повторно использовать загруженный вами материал и на каких условиях.\n\nЕсли вы являетесь автором, вы можете выбрать лицензию (мы рекомендуем использовать открытые лицензии Creative Commons). Если произведение было создано кем-то другим, вам необходимо использовать ту же лицензию и правообладателя, что он определил.\n\nВ настоящее время мы также принимаем материалы с неясным статусом авторских прав. Тогда выберите «Авторские права не определены»."
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "Описание изображения"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "Имя автора"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -648,7 +649,7 @@ msgstr "Выбрать место съемки!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 msgid "Add a geotag"
-msgstr ""
+msgstr "Добавить геотэг"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
@@ -656,7 +657,7 @@ msgstr "Дата этого снимка"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -664,7 +665,7 @@ msgstr "Добавить переснимок"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Добавить переснимок"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -682,11 +683,11 @@ msgstr "Поделиться"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:41
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Добавить категорию - нажав на эту кнопку, вы сможете добавить это изображение в различные категории, например, изображен ли объект внутри помещения или на улице."
 
 #: ajapaik/ajapaik/templates/_toolbox.html:44
 msgid "Categorize"
-msgstr ""
+msgstr "Категоризировать"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:48
 msgid "Transcribe this image"
@@ -2406,24 +2407,24 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Здесь вы можете загрузить исторические фотографии в Ajapaik (сейчас по одной фотографии)."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Я, %(user)s, владелец авторских прав на это произведение, безоговорочно предоставляю любому право использовать это произведение под <a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.ru\" target=\"_blank\">лицензией Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+msgstr "Я, %(user)s, владелец авторских прав на это произведение, безоговорочно предоставляю любому право использовать это произведение под <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">лицензией Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "Добавить изображение в альбом(ы)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Вам нужно добавить изображение хотя бы в один альбом"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
-msgstr ""
+msgstr "Пожалуйста, добавьте изображение в какой-либо существующий альбом или создайте сначала новый альбом, а затем добавьте в него изображение"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
 msgid "Upload and mark on map"
@@ -2544,11 +2545,11 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
-msgstr ""
+msgstr "Имя человека"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Date of birth"
-msgstr ""
+msgstr "Дата рождения"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
@@ -2556,11 +2557,11 @@ msgstr "Публичный деятель"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:31
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Имя Фамилия"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:33
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "Дополнительные замечания о человеке (другие имена и т.д.)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
@@ -2635,7 +2636,7 @@ msgstr "Информация"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "Создать новую запись о человеке"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83

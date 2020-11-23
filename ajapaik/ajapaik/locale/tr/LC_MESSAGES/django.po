@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-19 14:44:11+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:25+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -184,7 +184,7 @@ msgstr "Üst albüm seç"
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "Resim dosyası"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:183 ajapaik/ajapaik/models.py:354
@@ -203,31 +203,31 @@ msgstr "Yazar"
 
 #: ajapaik/ajapaik/forms.py:410
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Telif hakkı lisansı veya durumu"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Kabul edilen biçimler .png veya .jpg dosyalarıdır"
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Resmin kısa bir açıklamasını ekleyin"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Resmin yazarı (fotoğrafçı, ressam)"
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Lütfen başkalarına yüklediğiniz materyali yeniden kullanıp kullanamayacaklarını ve nasıl kullanabileceklerini bildirmek için bir lisans seçin.\n\nYazar sizseniz, lisansı seçebilirsiniz (açık Creative Commons lisanslarını kullanmanızı öneririz). Çalışmayı başka biri oluşturduysa, şu anda sahip olduğu aynı lisansı ve hak sahibini kullanmanız gerekir.\n\nŞu anda net olmayan telif hakkı durumuna sahip içeriği de kabul ediyoruz, lütfen ardından \"Telif hakkı değerlendirilmedi\" seçeneğine seçin."
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "Resmin açıklaması"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "Yazar adı"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -634,7 +634,7 @@ msgstr "Çekim yerini seç!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 msgid "Add a geotag"
-msgstr ""
+msgstr "Coğrafi etiket ekle"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
@@ -642,7 +642,7 @@ msgstr "Bu resmi tarihlendir"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -650,7 +650,7 @@ msgstr "Yeniden fotoğraflama ekle"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Yeniden fotoğraflama ekle"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -668,11 +668,11 @@ msgstr "Paylaş"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:41
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Bir kategori ekle. Bu düğmeye tıklamak, bu resmi çeşitli kategorilere ayırmanıza olanak sağlar, örneğin bu resmin iç mekan mı yoksa dış mekan mı tasvir ettiği gibi."
 
 #: ajapaik/ajapaik/templates/_toolbox.html:44
 msgid "Categorize"
-msgstr ""
+msgstr "Kategorize et"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:48
 msgid "Transcribe this image"
@@ -2326,24 +2326,24 @@ msgstr "Bu kullanıcının hiçbir katkısı yok."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Burada Ajapaik'e tarihi resimler yükleyebilirsiniz (şu anda tek seferde bir resim)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "Ben, bu çalışmanın telif hakkı sahibi %(user)s, geri dönüşü olmayan bir şekilde bu çalışmayı <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 lisansı (CC-BY-SA)</a> altında."
+msgstr "Ben, bu çalışmanın telif hakkı sahibi %(user)s, geri dönüşü olmayan bir şekilde bu çalışmayı <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Atıf BenzerPaylaşım 4.0 lisansı (CC-BY-SA)</a> altında adaylıyorum."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "Bazı albümlere resim ekle"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Resmi en az bir albüme eklemeniz gerekiyor"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
-msgstr ""
+msgstr "Lütfen resmi mevcut albümlerden bazılarına ekleyin veya önce yeni bir albüm oluşturun ve ardından resmi ekleyin"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
 msgid "Upload and mark on map"
@@ -2464,11 +2464,11 @@ msgstr "Mevcut bir hesapla başka bir Ajapaik hesabını birleştir"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
-msgstr ""
+msgstr "Kişi adı"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Date of birth"
-msgstr ""
+msgstr "Doğum tarihi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
@@ -2476,11 +2476,11 @@ msgstr "Herkese açık çözümü"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:31
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Ad Soyad"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:33
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "Kişi hakkında ek açıklamalar (diğer adlar vb.)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
@@ -2555,7 +2555,7 @@ msgstr "Bilgi"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "Yeni bir kişi kaydı oluşturun"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
