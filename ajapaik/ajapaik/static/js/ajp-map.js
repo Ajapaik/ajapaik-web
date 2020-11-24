@@ -231,7 +231,7 @@
         }
         if (window.photoQuery) {
             historyReplacementString += '&q=' + window.photoQuery;
-            $('#ajp-photo-filter-box').val(window.photoQuery);
+            $('#ajp-photo-filter-box').val(decodeURIComponent(window.photoQuery).replace('%2C', ',').replace('%3A',':').replace('%2F','/').replace('+',' '));
         }
         if (historyReplacementString.startsWith('/map/&')) {
             historyReplacementString = historyReplacementString.replace('&', '?');
