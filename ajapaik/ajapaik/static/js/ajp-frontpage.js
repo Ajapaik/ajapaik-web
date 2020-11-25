@@ -26,16 +26,16 @@
                 }
             },
             photoModal = $('#ajp-photo-modal'),
-            fullScreenImage = $('#ajp-full-screen-image'),
+            fullScreenImage = $('#ajp-fullscreen-image'),
             rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image'),
             similarFullScreenImage = $('#ajp-similar-photo-full-screen-image'),
             openPhotoDrawer = function (content) {
                 photoModal.html(content);
                 photoModal.modal().find('#ajp-modal-photo').on('load', function () {
-                    fullScreenImage.removeClass('ajp-photo-flipped');
-                    $('#ajp-full-screen-image-wrapper').removeClass('rotate90');
-                    $('#ajp-full-screen-image-wrapper').removeClass('rotate180');
-                    $('#ajp-full-screen-image-wrapper').removeClass('rotate270');
+                    $('#ajp-fullscreen-image-wrapper').removeClass('ajp-photo-flipped');
+                    $('#ajp-fullscreen-image-wrapper').removeClass('rotate90');
+                    $('#ajp-fullscreen-image-wrapper').removeClass('rotate180');
+                    $('#ajp-fullscreen-image-wrapper').removeClass('rotate270');
                     rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
                     if (window.fullscreenEnabled) {
@@ -519,11 +519,10 @@
                         originalPhotoColumn = $('#ajp-photo-modal-original-photo-column'),
                         originalPhotoInfoColumn = $('#ajp-photo-modal-original-photo-info-column'),
                         rephotoColumn = $('#ajp-photo-modal-rephoto-column'),
-                        similarPhotoColumn = $('#ajp-photo-modal-similar-photo-column'),
-                        mainPhotoContainer = $('#ajp-modal-photo-container');
+                        similarPhotoColumn = $('#ajp-photo-modal-similar-photo-column');
 
                    window.currentPhotoReverseId = $('#ajp-reverse-side-button').data('id');
-                   fullScreenImage = $('#ajp-full-screen-image');
+                   fullScreenImage = $('#ajp-fullscreen-image');
                    if (fullScreenImage) {
                        fullScreenImage.attr('src', window.photoModalFullscreenImageUrl)
                            .attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
@@ -569,9 +568,9 @@
                     window.nextPhotoLoading = false;
                 }
             });
-            $('#ajp-full-screen-image-wrapper').removeClass('rotate90');
-            $('#ajp-full-screen-image-wrapper').removeClass('rotate180');
-            $('#ajp-full-screen-image-wrapper').removeClass('rotate270');
+            $('#ajp-fullscreen-image-wrapper').removeClass('rotate90');
+            $('#ajp-fullscreen-image-wrapper').removeClass('rotate180');
+            $('#ajp-fullscreen-image-wrapper').removeClass('rotate270');
         };
         window.handleGeolocation = function (location) {
             if (window.clickedMapButton) {
@@ -640,7 +639,7 @@
             if (window.currentVideoId) {
                 $('#ajp-video-modal').show();
             }
-            $('#ajp-full-screen-image').removeClass('ajp-photo-flipped');
+            $('#ajp-fullscreen-image-wrapper').removeClass('ajp-photo-flipped');
         });
         $(document).on('click', '.ajp-frontpage-image-container', function (e) {
             e.preventDefault();

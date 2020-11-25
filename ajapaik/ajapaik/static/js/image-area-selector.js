@@ -215,8 +215,12 @@ var ImageAreaSelector = (function () {
                 return $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
             }
 
-            var dimensions = imageArea[0].getBoundingClientRect();
-            var imageAreaId = imageArea.attr('id');
+            if (!imageArea && !imageArea[0]) {
+                return undefined;
+            }
+
+            let dimensions = imageArea[0].getBoundingClientRect();
+            let imageAreaId = imageArea.attr('id');
 
             if (!dimensions.width && !dimensions.height) {
                 this.setImageArea(imageAreaId);

@@ -17,7 +17,7 @@
                                 <i class="material-icons ajp-icon-48 notranslate">navigate_before</i>
                             </div>
                             {% endif %}
-                            <a class="fullscreen" id="ajp-full-screen-link" rel=""
+                            <a class="fullscreen" id="ajp-fullscreen-link" rel=""
                                 href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
                                         alt="{{ photo.description }}" title="{{ photo.description }}"
@@ -42,16 +42,6 @@
                                     <i class="material-icons notranslate">360</i>
                                 </a>
                             {% endif %}
-                            <button id="ajp-rotate-photo-button"
-                                {% if request.user_agent.is_pc %}style="display: none;"{% endif %}
-                                title="{% trans "Rotate photo" %}">
-                                <i class="material-icons notranslate">rotate_left</i>
-                            </button>
-                            <button class="ajp-flip-photo-overlay-button"
-                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}
-                                    title="{% trans "Flip photo" %}">
-                                <i class="material-icons notranslate">flip</i>
-                            </button>
                             <button class="ajp-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
                                 {% if photo.user_likes or photo.user_loves %}
                                     <i class="material-icons notranslate">favorite</i>
@@ -307,6 +297,7 @@
     window.currentPhotoLat = "{{ photo.lat }}";
     window.currentPhotoLon = "{{ photo.lon }}";
     window.photoModalCurrentPhotoFlipped = false;
+    window.photoModalCurrentPhotoInverted = false;
     window.photoModalRephotoArray = [];
     window.photoModalSimilarPhotoArray = [];
     window.currentlyOpenPhotoId = {{ photo.id }};
@@ -428,6 +419,7 @@
         });
     {% endfor %}
     $(document).ready(function () {
+        window.lastRotateWas90 = false;
         ImageAreaSelector.setImageArea('ajp-modal-photo-container');
         ObjectTagger.setPhotoId(window.currentlyOpenPhotoId);
         ObjectTagger.setDetectionRectangleContainer('#ajp-modal-body');
@@ -494,22 +486,6 @@
                 $('#ajp-photo-modal-original-photo-info-column').removeClass("col-lg-6").addClass("col-lg-12");
             }
         }
-        window.flipPhoto = function () {
-            var fullScreenPhoto = $('#ajp-full-screen-image');
-            if (fullScreenPhoto !== undefined) {
-                if (fullScreenPhoto.hasClass('ajp-photo-flipped')) {
-                    fullScreenPhoto.removeClass('ajp-photo-flipped');
-                } else {
-                    fullScreenPhoto.addClass('ajp-photo-flipped');
-                }
-            }
-
-            mirrorDetectionAnnotations();
-
-            if (fullScreenPhoto !== undefined) {
-                window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
-            }
-        };
 
         mainPhotoContainer = $('#ajp-modal-photo-container'),
         rephotoContainer = $('#ajp-modal-rephoto-container'),
@@ -519,11 +495,9 @@
                     var $this = $(this);
                     $this.find('.ajp-thumbnail-selection-icon').show("fade", 250);
                     $this.find('#ajp-reverse-side-button').show("fade", 250);
-                    $this.find('#ajp-rotate-photo-button').show("fade", 250);
                     $this.find('.ajp-photo-modal-previous-button').show("fade", 250);
                     $this.find('.ajp-photo-modal-next-button').show("fade", 250);
                     $this.find('.ajp-like-photo-overlay-button').show("fade", 250);
-                    $this.find('.ajp-flip-photo-overlay-button').show("fade", 250);
                     if (window.userClosedSimilarPhotoTools) {
                         $this.find('.ajp-show-similar-photo-selection-overlay-button').show("fade", 250);
                     }
@@ -541,8 +515,7 @@
                         $this.find('.ajp-like-photo-overlay-button').hide("fade", 250);
                     }
                     $this.find('#ajp-reverse-side-button').hide("fade", 250);
-                    $this.find('#ajp-rotate-photo-button').hide("fade", 250);
-                    $this.find('.ajp-flip-photo-overlay-button').hide("fade", 250);
+                    $this.find('#flip-button').hide("fade", 250);
                     $this.find('.ajp-show-rephoto-selection-overlay-button').hide("fade", 250);
                     $this.find('.ajp-show-similar-photo-selection-overlay-button').hide("fade", 250);
                 }
@@ -584,15 +557,13 @@
     });
 
     resizeSimilarImage = function () {
-        window.currentPhotoOriginalWidth
-        window.currentPhotoOriginalHeight
-        var height = 320;
+        let height = 320;
         if (window.visualViewport.width < 978) {
             height = 'auto';
         }
         else {
-            var columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
-            var imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
+            let columnWidth = (0.65 * window.visualViewport.width + 150) /2  - 32;
+            let imgContainerHeight = window.currentPhotoOriginalHeight > window.visualViewport.height * 0.7 ? window.visualViewport.height * 0.7 : window.currentPhotoOriginalHeight;
             imgContainerHeight = imgContainerHeight < window.visualViewport.height * 0.3 ? window.visualViewport * 0.3 : imgContainerHeight;
             if (columnWidth < window.currentPhotoOriginalWidth) {
                 height = window.currentPhotoOriginalHeight / window.currentPhotoOriginalWidth * columnWidth;

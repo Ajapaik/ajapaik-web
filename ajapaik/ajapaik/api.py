@@ -30,6 +30,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import activate
 from django.utils.translation import ugettext as _
+from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
@@ -53,12 +54,12 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from google.auth.transport import requests as google_auth_requests
 from google.oauth2 import id_token
 
-from ajapaik.utils import most_frequent
+from ajapaik.utils import can_action_be_done, most_frequent, suggest_photo_edit
 
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike, PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback
+from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike, PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, PhotoRotationSuggestion
 from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from ajapaik.ajapaik.utils import merge_profiles
 
@@ -80,6 +81,28 @@ RESPONSE_STATUSES = {
     'MISSING_USER': 10,  # user does not exist
     'INVALID_PASSWORD': 11,  # wrong password for existing user
 }
+
+# Translations
+MISSING_PARAMETER_FLIP_INVERT_ROTATE = _('Add at least flip, invert or rotate parameter to the request')
+MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION = _('Add at least scene or viewpoint_elevation parameter to the request')
+PROFILE_MERGE_SUCCESS = _('Contributions and settings from the other account were added to current')
+EXPIRED_TOKEN = _('Expired token')
+INVALID_TOKEN = _('Invalid token')
+MISSING_PARAMETER_PHOTO_IDS = _('Missing parameter photo_ids')
+NO_PHOTO_WITH_ID = _('No photo with id:')
+INVALID_PHOTO_ID = _('Parameter photo_id must be an positive integer')
+PROFILE_MERGE_LOGIN_PROMPT = _('Please login with a different account, you are currently logged in with the same account that you are merging from')
+PLEASE_LOGIN = _('Please login')
+REPHOTO_UPLOAD_SETTINGS_SUCCESS = _('Rephoto upload settings have been saved')
+MISSING_PARAMETER_TOKEN = _('Required parameter, token is missing')
+TRANSCRIPTION_ALREADY_EXISTS = _('This transcription already exists, previous transcription was upvoted, thank you!')
+TRANSCRIPTION_ADDED = _('Transcription added, thank you!')
+TRANSCRIPTION_FEEDBACK_ADDED = _('Transcription feedback added, thank you!')
+USER_DISPLAY_NAME_SAVED = _('User display name has been saved')
+USER_SETTINGS_SAVED = _('User settings have been saved')
+TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN = _('You have already given feedback for this transcription')
+TRANSCRIPTION_ALREADY_SUBMITTED = _('You have already submitted this transcription, thank you!')
+TRANSCRIPTION_UPDATED = _('Your transcription has been updated, thank you!')
 
 def custom_exception_handler(exc, context):
     response = exception_handler(exc, context)
@@ -963,7 +986,7 @@ class RephotoUploadSettings(AjapaikAPIView):
             profile = request.user.profile
             profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
             profile.save()
-            return JsonResponse({'message': _('Rephoto upload settings have been saved')})
+            return JsonResponse({'message': REPHOTO_UPLOAD_SETTINGS_SUCCESS})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
@@ -1611,14 +1634,14 @@ class Transcriptions(AjapaikAPIView):
             
             if count > 0:
                 if upvoted:
-                    return JsonResponse({'message': _('This transcription already exists, previous transcription was upvoted, thank you!')})
+                    return JsonResponse({'message': TRANSCRIPTION_ALREADY_EXISTS})
                 else:
-                    return JsonResponse({'message': _('You have already submitted this transcription, thank you!')})
+                    return JsonResponse({'message': TRANSCRIPTION_ALREADY_SUBMITTED})
             else:
                 if previous_transcription_by_current_user:
-                    return JsonResponse({'message': _('Your transcription has been updated, thank you!')})
+                    return JsonResponse({'message': TRANSCRIPTION_UPDATED})
                 else:
-                    return JsonResponse({'message': _('Transcription added, thank you!')})
+                    return JsonResponse({'message': TRANSCRIPTION_ADDED})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
@@ -1629,13 +1652,13 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
     def post(self, request, format=None):
         try:
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'], user_id = request.user.profile.id).count() > 0:
-                return JsonResponse({'message': _('You have already given feedback for this transcription')})
+                return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN})
             else:
                 TranscriptionFeedback(
                     user=get_object_or_404(Profile, pk=request.user.profile.id),
                     transcription=get_object_or_404(Transcription, id=request.POST['id'])
                 ).save()
-                return JsonResponse({'message': _('Transcription feedback added, thank you!')})
+                return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ADDED})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
@@ -1649,7 +1672,7 @@ class UserSettings(AjapaikAPIView):
             profile.preferred_language = request.POST['preferredLanguage']
             profile.newsletter_consent = request.POST['newsletterConsent']
             profile.save()
-            return JsonResponse({'message': _('User settings have been saved')})
+            return JsonResponse({'message': USER_SETTINGS_SAVED})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
@@ -1664,7 +1687,7 @@ class ChangeProfileDisplayName(AjapaikAPIView):
             profile.save()
             profile_display_name_change = ProfileDisplayNameChange(display_name=request.POST['display_name'], profile=profile)
             profile_display_name_change.save()
-            return JsonResponse({'message': _('User display name has been saved')})
+            return JsonResponse({'message': USER_DISPLAY_NAME_SAVED})
         except:
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
@@ -1676,12 +1699,12 @@ class MergeProfiles(AjapaikAPIView):
         reverse = request.POST['reverse']
         token = request.POST['token']
         if token is None:
-            return JsonResponse({'error': _('Required parameter, token is missing')}, status=400)
+            return JsonResponse({'error': MISSING_PARAMETER_TOKEN}, status=400)
         profile_merge_token = ProfileMergeToken.objects.filter(token=token).first()
         if profile_merge_token is None:
-            return JsonResponse({'error': _('Invalid token')}, status=401)
+            return JsonResponse({'error': INVALID_TOKEN}, status=401)
         if profile_merge_token.used is not None or (profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
-            return JsonResponse({'error': _('Expired token')}, status=401)
+            return JsonResponse({'error': EXPIRED_TOKEN}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
             if request.user.profile.id is not profile_merge_token.profile.id:
                 if reverse == 'true':
@@ -1695,11 +1718,11 @@ class MergeProfiles(AjapaikAPIView):
                     login(request, profile_merge_token.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
                 profile_merge_token.used = datetime.datetime.now()
                 profile_merge_token.save()
-                return JsonResponse({'message': _('Contributions and settings from the other account were added to current')})
+                return JsonResponse({'message': PROFILE_MERGE_SUCCESS})
             else:
-                return JsonResponse({'message': _('Please login with a different account, you are currently logged in with the same account that you are merging from')})
+                return JsonResponse({'message': PROFILE_MERGE_LOGIN_PROMPT})
         else:
-            return JsonResponse({'error': _('Please login')}, status=401)
+            return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
 class PhotoSuggestion(AjapaikAPIView):
     '''
@@ -1751,20 +1774,14 @@ class PhotoSuggestion(AjapaikAPIView):
         data = json.loads(request.body.decode('utf-8'))
         scene = data['scene']
         viewpoint_elevation = data['viewpointElevation']
-        
         photo_ids = data['photoIds']
+        response = ''
 
         if photo_ids is None:
-            return JsonResponse({'error': _('Missing parameter photo_ids')}, status=400)
-
-        suggestion_already_exists = _('You have already submitted this suggestion')
-        suggestion_saved = _('Your suggestion has been saved')
-        suggestion_changed = _('Your suggestion has been changed')
+            return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
 
         if (scene is None or scene == 'undefined') and (viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
-            return JsonResponse({'error': _('Add at least scene or viewpoint_elevation parameter to the request')}, status=400)
-
-        response = ''
+            return JsonResponse({'error': MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION}, status=400)
 
         scene_suggestion_choice = None
         for choice in PhotoSceneSuggestion.SCENE_CHOICES:
@@ -1776,78 +1793,121 @@ class PhotoSuggestion(AjapaikAPIView):
             if choice[1] == viewpoint_elevation:
                 photo_viewpoint_elevation_suggestion_choice = choice[0]
 
-        photo_list_scene_suggestion = []
-        photo_list_viewpoint_elevation_suggestion = []
         photo_scene_suggestions = []
         photo_viewpoint_elevation_suggestions = []
 
         for photo_id in photo_ids:
             if not photo_id.isdigit():
-                return JsonResponse({'error': _('Parameter photo_id must be an positive integer')}, status=400)
+                return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
 
             photo = Photo.objects.filter(id=photo_id).first()
             if photo is None:
-                return JsonResponse({'error': _('No photo with id:') + ' ' + photo_id}, status=404)
-
+                return JsonResponse({'error': NO_PHOTO_WITH_ID + ' ' + photo_id}, status=404)
+            
             if scene_suggestion_choice is not None:
-                previous_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
-                if previous_suggestion is not None and previous_suggestion.scene == scene_suggestion_choice and response != suggestion_changed and response != suggestion_saved:
-                    response = suggestion_already_exists
-                else:
-                    new_suggestion = PhotoSceneSuggestion(proposer=profile, photo=photo, scene=scene_suggestion_choice)
-                    photo_scene_suggestions.append(new_suggestion)
-
-                    all_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).order_by('-created')
-                    if all_suggestions is None:
-                        photo.scene = scene_suggestion_choice
-                    else:
-                        suggestion_scenes = [scene_suggestion_choice]
-                        
-                        for suggestion in all_suggestions:
-                            suggestion_scenes.append(suggestion.scene)
-
-                        most_common_choice = most_frequent(suggestion_scenes)
-
-                        photo.scene = most_common_choice
-                    photo_list_scene_suggestion.append(photo)
-
-                    if previous_suggestion:
-                        response = suggestion_changed
-                    elif response != suggestion_changed:
-                        Points(user=profile, action=Points.CATEGORIZE_SCENE, photo=photo, points=20,created=timezone.now()).save()
-                        response = suggestion_saved
+                response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene', scene_suggestion_choice, Points, 20, Points.CATEGORIZE_SCENE, PhotoSceneSuggestion, photo, profile, response, None)
             
             if photo_viewpoint_elevation_suggestion_choice is not None:
-                previous_suggestion = PhotoViewpointElevationSuggestion.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
-                if previous_suggestion is not None and previous_suggestion.viewpoint_elevation == photo_viewpoint_elevation_suggestion_choice and response != suggestion_changed and response != suggestion_saved:
-                    response = suggestion_already_exists
-                else:
-                    new_suggestion = PhotoViewpointElevationSuggestion(proposer=profile, photo=photo, viewpoint_elevation=photo_viewpoint_elevation_suggestion_choice)
-                    photo_viewpoint_elevation_suggestions.append(new_suggestion)
-
-                    all_suggestions = PhotoViewpointElevationSuggestion.objects.filter(photo=photo).order_by('-created')
-                    if all_suggestions is None:
-                        photo.viewpoint_elevation = photo_viewpoint_elevation_suggestion_choice
-                    else:
-                        suggestion_viewpoint_elevations = [photo_viewpoint_elevation_suggestion_choice]
-                        
-                        for suggestion in all_suggestions:
-                            suggestion_viewpoint_elevations.append(suggestion.viewpoint_elevation)
-
-                        most_common_choice = most_frequent(suggestion_viewpoint_elevations)
-
-                        photo.viewpoint_elevation = most_common_choice
-                    photo_list_viewpoint_elevation_suggestion.append(photo)
-
-                    if previous_suggestion:
-                        response = suggestion_changed
-                    elif response != suggestion_changed:
-                        Points(user=profile, action=Points.ADD_VIEWPOINT_ELEVATION, photo=photo, points=20,created=timezone.now()).save()
-                        response = suggestion_saved
+                response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(photo_viewpoint_elevation_suggestions, 'viewpoint_elevation', photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION, PhotoViewpointElevationSuggestion, photo, profile, response, None)
 
         PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
         PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
-        Photo.objects.bulk_update(photo_list_scene_suggestion, ['scene'])
-        Photo.objects.bulk_update(photo_list_viewpoint_elevation_suggestion, ['viewpoint_elevation'])
 
         return JsonResponse({'message': response})
+
+class PhotoAppliedOperations(AjapaikAPIView):
+    '''
+    API endpoints for getting photo scene category and updating it
+    '''
+    def get(self, request, photo_id, format=None):
+        photo = get_object_or_404(Photo, id=photo_id)
+        flip = 'undefined'
+        flip_consensus = 'undefined'
+        invert = 'undefined'
+        invert_consensus = 'undefined'
+        rotated = 'undefined'
+        rotated_consensus = 'undefined'
+        
+        flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+        invert_suggestion = PhotoInvertSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+        rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+
+        if flip_suggestion and flip_suggestion.flip:
+            flip = flip_suggestion.flip
+        if invert_suggestion and invert_suggestion.invert:
+            invert = invert_suggestion.invert
+        if rotated_suggestion and rotated_suggestion.rotated:
+            rotated = rotated_suggestion.rotated
+
+        if photo.flip is not None:
+            flip_consensus = photo.flip
+
+        if photo.invert is not None:
+            invert_consensus = photo.invert
+
+        if photo.rotated is not None:
+            rotated_consensus = photo.rotated
+
+        return JsonResponse({'flip': flip, 'flip_consensus': flip_consensus, 'invert': invert, 'invert_consensus': invert_consensus, 'rotated': rotated, 'rotated_consensus': rotated_consensus})
+
+    def post(self, request, format=None):
+        profile = request.user.profile
+        data = json.loads(request.body.decode('utf-8'))
+        flip = data['flip']
+        invert = data['invert']
+        rotated = data['rotated']        
+        photo_ids = data['photoIds']
+        was_rotate_successful = False
+        response = ''
+
+        if flip == 'undefined':
+            flip = None
+        
+        if invert == 'undefined':
+            invert = None
+
+        if rotated == 'undefined':
+            rotated = None
+
+        if photo_ids is None:
+            return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
+
+        if flip is None and invert is None and rotated is None:
+            return JsonResponse({'error': MISSING_PARAMETER_FLIP_INVERT_ROTATE}, status=400)
+
+        photo_flip_suggestions = []
+        photo_rotated_suggestions = []
+        photo_invert_suggestions = []
+
+        for photo_id in photo_ids:
+            if not photo_id.isdigit():
+                return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
+
+            photo = Photo.objects.filter(id=photo_id).first()
+            if photo is None:
+                return JsonResponse({'error': NO_PHOTO_WITH_ID + ' ' + photo_id}, status=404)
+
+            original_rotation = photo.rotated
+            original_flip = photo.flip
+            if original_rotation is None:
+                original_rotation = 0
+            if original_flip is None:
+                original_flip = False
+            if rotated is not None and flip is not None and original_flip != flip and abs(rotated - original_rotation) % 180 == 90:
+                if not can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', rotated) and can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', flip):
+                    flip = None
+                    rotated = None
+                    response = _('Your suggestion has been saved, but previous consensus remains')
+
+            if rotated is not None:
+                response, photo_rotated_suggestions, was_rotate_successful, bar = suggest_photo_edit(photo_rotated_suggestions, 'rotated', rotated, Points, 20, Points.ROTATE_PHOTO, PhotoRotationSuggestion, photo, profile, response, 'do_rotate')
+            if flip is not None:
+                response, photo_flip_suggestions, foo, bar = suggest_photo_edit(photo_flip_suggestions, 'flip', flip, Points, 40, Points.FLIP_PHOTO, PhotoFlipSuggestion, photo, profile, response, 'do_flip')                
+
+            if not(invert is None):
+                response, photo_invert_suggestions, foo, bar = suggest_photo_edit(photo_invert_suggestions, 'invert', invert, Points, 20, Points.INVERT_PHOTO, PhotoInvertSuggestion, photo, profile, response, 'do_invert')
+
+        PhotoFlipSuggestion.objects.bulk_create(photo_flip_suggestions)
+        PhotoInvertSuggestion.objects.bulk_create(photo_invert_suggestions)
+        PhotoRotationSuggestion.objects.bulk_create(photo_rotated_suggestions)
+        return JsonResponse({'message': response, 'rotated_by_90': (was_rotate_successful and abs(rotated - original_rotation) % 180 == 90)})

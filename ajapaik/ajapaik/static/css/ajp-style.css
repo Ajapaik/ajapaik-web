@@ -80,7 +80,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   margin-top: 12px;
 }
 
-#ajp-filtering-help {
+#ajp-ordering-help {
   background: none;
 }
 
@@ -925,23 +925,13 @@ a.fullscreen {
   background-image: url(../images/material-design-icons/ic_burst_mode_24px.svg);
 }
 
-#ajp-reverse-side-button,
-#ajp-rotate-photo-button {
+#ajp-reverse-side-button {
   top: 0px;
-  height: 48px;
-  width: 48px;
   text-align: center;
   border-radius: 0;
   border: none;
-}
-
-#ajp-reverse-side-button {
-  right: 96px;
+  right: 0px;
   display: flex;
-}
-
-#ajp-rotate-photo-button {
-  right: 48px;
 }
 
 #ajp-reverse-side-button > i {
@@ -984,11 +974,9 @@ a.fullscreen {
 .ajp-show-similar-photo-selection-overlay-button,
 .ajp-show-similar-photoview-overlay-button,
 .ajp-show-rephotos-photoview-overlay-button,
-.ajp-flip-photo-overlay-button,
 .ajp-invert-rephoto-overlay-button,
 .ajp-invert-similar-photo-overlay-button,
-#ajp-reverse-side-button,
-#ajp-rotate-photo-button {
+#ajp-reverse-side-button {
   color: rgb(0,0,0);
   background-color: rgba(255, 255, 255, 0.3);
   width: 48px;
@@ -1007,18 +995,9 @@ a.fullscreen {
 .ajp-compare-similar-overlay-button,
 .ajp-close-rephoto-overlay-button,
 .ajp-close-similar-photo-overlay-button,
-.ajp-flip-photo-overlay-button,
 .ajp-like-photo-overlay-button,
-#ajp-reverse-side-button,
-#ajp-rotate-photo-button {
+#ajp-reverse-side-button {
   position: absolute;
-}
-
-.ajp-flip-photo-overlay-button {
-  border-radius: 0;
-  border: none;
-  top: 0;
-  right: 0;
 }
 
 .ajp-compare-similar-overlay-button,
@@ -1049,9 +1028,7 @@ a.fullscreen {
 
 .ajp-compare-similar-overlay-button:hover,
 .ajp-compare-similar-overlay-button:active,
-.ajp-flip-photo-overlay-button:hover ,
 .ajp-like-photo-overlay-button:hover ,
-.ajp-flip-photo-overlay-button.active,
 .ajp-close-similar-photo-overlay-button:hover,
 .ajp-close-rephoto-overlay-button:hover ,
 .ajp-invert-rephoto-overlay-button:hover,
@@ -1067,9 +1044,7 @@ a.fullscreen {
 .ajp-show-rephoto-selection-overlay-button:hover ,
 .ajp-show-rephoto-selection-overlay-button:active,
 #ajp-reverse-side-button:hover ,
-#ajp-reverse-side-button:active
-#ajp-rotate-photo-button:hover,
-#ajp-rotate-photo-button:active {
+#ajp-reverse-side-button:active {
   color: #007fff;
   cursor: pointer;
 }
@@ -1436,16 +1411,16 @@ a.fullscreen {
   left: 2%;
 }
 
-#ajp-full-screen-link {
+#ajp-fullscreen-link {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
 
 #ajp-rephoto-full-screen-image,
 #ajp-similar-photo-full-screen-image,
-#ajp-full-screen-image,
+#ajp-fullscreen-image,
 #ajp-geotagger-full-screen-image,
-#ajp-full-screen-image-wrapper {
+#ajp-fullscreen-image-wrapper {
   position: inherit;
   top: 0;
   bottom: 0;
@@ -1776,7 +1751,7 @@ a[href^="http: //maps.google.com/maps"] {
 }
 
 .ajp-curator-selection-image.rotate90-flipped,
-.ajp-photo-flipped.rotate270 {
+.ajp-photo-flipped.rotate90 {
   transform: scaleX(-1) rotate(-90deg);
   -webkit-transform: scaleX(-1) rotate(-90deg);
   -ms-transform: scaleX(-1) rotate(-90deg);
@@ -1790,7 +1765,7 @@ a[href^="http: //maps.google.com/maps"] {
 }
 
 .ajp-curator-selection-image.rotate270-flipped,
-.ajp-photo-flipped.rotate90 {
+.ajp-photo-flipped.rotate270 {
   transform: scaleX(-1) rotate(-270deg);
   -webkit-transform: scaleX(-1) rotate(-270deg);
   -ms-transform: scaleX(-1) rotate(-270deg);
@@ -2307,18 +2282,14 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   transform: rotate(180deg);
 }
 
-#ajp-categorize-scene-button,
-#ajp-transcribe-button,
-#mark-object-button {
+.ajp-button {
   background: none;
   border: none;
   padding: 0;
   margin: 0;
 }
 
-#ajp-categorize-scene-button:focus,
-#ajp-transcribe-button:focus,
-#mark-object-button:focus {
+.ajp-button:focus {
   outline: none;
 }
 
@@ -2329,4 +2300,21 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 .ajp-bank-link-one-time:hover,
 .ajp-bank-link-standing:hover {
   text-decoration: none;
+}
+
+#ajp-game-flip-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: rgb(0,0,0);
+    border: none;
+    box-shadow: none;
+}
+
+#ajp-game-flip-button:hover,
+#ajp-game-flip-button.active {
+    color: #007fff;
 }

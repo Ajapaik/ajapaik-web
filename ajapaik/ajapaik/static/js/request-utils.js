@@ -64,6 +64,7 @@ function getRequest(uri, data, successText, failureText, onSuccess, onFailure, a
 }
 
 function basicPostRequest(uri, payload, successText, failureText) {
+    $('#ajp-loading-overlay').show();
     $.ajax({
         type: 'POST',
         beforeSend : function(xhr) {
@@ -72,11 +73,15 @@ function basicPostRequest(uri, payload, successText, failureText) {
         url: uri,
         data: payload,
         success: getSuccessHandler(successText),
-        error: getBasicFailureHandler(failureText)
+        error: getBasicFailureHandler(failureText),
+        complete: function() {
+            $('#ajp-loading-overlay').hide();
+        }
     });
 }
 
 function postRequest(uri, payload, successText, failureText, onSuccess, onFailure) {
+    $('#ajp-loading-overlay').show();
     $.ajax({
         type: 'POST',
         beforeSend : function(xhr) {
@@ -85,11 +90,15 @@ function postRequest(uri, payload, successText, failureText, onSuccess, onFailur
         url: uri,
         data: payload,
         success: getSuccessHandler(successText, onSuccess),
-        error: getFailureHandler(failureText, onFailure)
+        error: getFailureHandler(failureText, onFailure),
+        complete: function() {
+            $('#ajp-loading-overlay').hide();
+        }
     });
 }
 
 function putRequest(uri, payload, successText, failureText, onSuccess, onFailure) {
+    $('#ajp-loading-overlay').show();
     $.ajax({
         type: 'PUT',
         beforeSend : function(xhr) {
@@ -98,11 +107,15 @@ function putRequest(uri, payload, successText, failureText, onSuccess, onFailure
         url: uri,
         data: payload,
         success: getSuccessHandler(successText, onSuccess),
-        error: getFailureHandler(failureText, onFailure)
+        error: getFailureHandler(failureText, onFailure),
+        complete: function() {
+            $('#ajp-loading-overlay').hide();
+        }
     });
 }
 
 function deleteRequest(uri, successText, failureText, onSuccess, onFailure) {
+    $('#ajp-loading-overlay').show();
     $.ajax({
         type: 'DELETE',
         beforeSend : function(xhr) {
@@ -110,6 +123,9 @@ function deleteRequest(uri, successText, failureText, onSuccess, onFailure) {
         },
         url: uri,
         success: getSuccessHandler(successText, onSuccess),
-        error: getFailureHandler(failureText, onFailure)
+        error: getFailureHandler(failureText, onFailure),
+        complete: function() {
+            $('#ajp-loading-overlay').hide();
+        }
     });
 }

@@ -98,7 +98,6 @@
                 mainPhotoContainer.hover(function () {
                     if (!window.isMobile) {
                         $('.ajp-thumbnail-selection-icon').show('fade', 250);
-                        $('.ajp-flip-photo-overlay-button').show('fade', 250);
                         if (window.userClosedSimilarPhotoTools) {
                             $('.ajp-show-similar-photo-selection-overlay-button').show('fade', 250);
                         }
@@ -109,7 +108,6 @@
                 }, function () {
                     if (!window.isMobile) {
                         $('.ajp-thumbnail-selection-icon').hide('fade', 250);
-                        $('.ajp-flip-photo-overlay-button').hide('fade', 250);
                         $('.ajp-show-similar-photo-selection-overlay-button').hide('fade', 250);
                         $('.ajp-show-rephoto-selection-overlay-button').hide('fade', 250);
                     }
@@ -158,7 +156,7 @@
         var target = $('#ajp-photo-modal');
         photoDrawerOpen = true;
         window.syncMapStateToURL();
-        var fullScreenImage = $('#ajp-full-screen-image'),
+        var fullScreenImage = $('#ajp-fullscreen-image'),
             rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image'),
             similarFullScreenImage = $('#ajp-similar-photo-full-screen-image');
         target.html(content).modal().find('#ajp-modal-photo').on('load', function () {
@@ -263,6 +261,7 @@
             $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
                 thumbSrc: '/photo-thumb/' + photoId + '/400/',
                 photoFlipped: window.photoModalCurrentPhotoFlipped,
+                photoInverted: window.photoModalCurrentPhotoInverted,
                 fullScreenSrc: window.photoModalFullscreenImageUrl,
                 description: window.currentPhotoDescription,
                 sourceKey: window.currentPhotoSourceKey,
@@ -596,18 +595,6 @@
             window.location.href = '/map?album=' + window.albumId;
         }
     };
-
-
-    window.flipPhoto = function () {
-        var fullScreenPhoto = $('#ajp-full-screen-image');
-        if (fullScreenPhoto.hasClass('ajp-photo-flipped')) {
-            fullScreenPhoto.removeClass('ajp-photo-flipped');
-        } else {
-            fullScreenPhoto.addClass('ajp-photo-flipped');
-        }
-        window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
-    };
-
 
     var setCorrectMarkerIcon = function (marker) {
         if (marker) {

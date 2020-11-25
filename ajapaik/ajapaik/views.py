@@ -41,6 +41,7 @@ from django.urls import reverse, reverse_lazy
 from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse, JsonResponse
 from django.http.multipartparser import MultiPartParser
+from django.views.decorators.http import condition
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -48,6 +49,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_control, cache_page
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.decorators.http import etag
 from django.views.generic.base import View
 from django_comments.models import CommentFlag
 from django_comments.signals import comment_was_flagged
@@ -76,23 +78,22 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 	UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, UserSettingsForm, \
 	EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
-	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike,\
+	Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, PhotoLike, PhotoFlipSuggestion,\
 	PhotoViewpointElevationSuggestion, PhotoSceneSuggestion, Dating, DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
 	CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
 	VideoSerializer, PhotoMapMarkerSerializer
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
-from ajapaik.utils import calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
-	distance_in_meters, angle_diff
+from ajapaik.utils import get_etag, calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
+	distance_in_meters, angle_diff, last_modified, suggest_photo_edit
+
 from .utils import get_comment_replies, get_pagination_parameters
 
 log = logging.getLogger(__name__)
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-
-@cache_control(max_age=604800)
 def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
 	thumb_size = int(thumb_size)
 	if 0 < thumb_size <= 400:
@@ -115,8 +116,12 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
 		im = get_thumbnail(p.image, thumb_str, upscale=False)
 		content = im.read()
 
-	return HttpResponse(content, content_type='image/jpg')
+	return get_image_thumb(request, settings.MEDIA_ROOT + '/' + im.name, content)
 
+@condition(etag_func=get_etag, last_modified_func=last_modified)
+@cache_control(must_revalidate=True)
+def get_image_thumb(request, image, content):
+	return HttpResponse(content, content_type='image/jpg')
 
 @cache_control(max_age=604800)
 def image_full(request, photo_id=None, pseudo_slug=None):
@@ -1567,6 +1572,9 @@ def map_objects_by_bounding_box(request):
 def geotag_add(request):
 	submit_geotag_form = SubmitGeotagForm(request.POST)
 	profile = request.get_user().profile
+	flip_points = 0
+	flip_response = ''
+	was_flip_successful = None
 	context = {}
 	if submit_geotag_form.is_valid():
 		azimuth_score = 0
@@ -1575,18 +1583,14 @@ def geotag_add(request):
 		trust = _calc_trustworthiness(profile.id)
 		new_geotag.trustworthiness = trust
 		tagged_photo = submit_geotag_form.cleaned_data['photo']
-		if tagged_photo.flip is None:
-			tagged_photo.flip = False
 		# user flips, photo is flipped -> flip back
 		# user flips, photo isn't flipped -> flip
 		# user doesn't flip, photo is flipped -> leave flipped
 		# user doesn't flip, photo isn't flipped -> leave as is
 		if new_geotag.photo_flipped:
-			most_trustworthy_geotag = tagged_photo.geotags.order_by('-trustworthiness').first()
-			if not most_trustworthy_geotag or (
-					most_trustworthy_geotag
-					and most_trustworthy_geotag.trustworthiness < new_geotag.trustworthiness):
-				tagged_photo.do_flip()
+			original_photo = Photo.objects.filter(id=tagged_photo.id).first()
+			flip_response, flip_suggestions, was_flip_successful, flip_points = suggest_photo_edit([], 'flip', not original_photo.flip, Points, 40, Points.FLIP_PHOTO, PhotoFlipSuggestion, tagged_photo, profile, flip_response, 'do_flip')
+			PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
 		new_geotag.save()
 		initial_lat = tagged_photo.lat
 		initial_lon = tagged_photo.lon
@@ -1622,15 +1626,12 @@ def geotag_add(request):
 		processed_geotag.azimuth_score = azimuth_score
 		processed_geotag.score = score + azimuth_score
 		processed_geotag.save()
-		# context['is_correct'] = processed_geotag.is_correct
-		context['current_score'] = processed_geotag.score
+		context['current_score'] = processed_geotag.score + flip_points
 		Points(user=profile, action=Points.GEOTAG, geotag=processed_geotag, points=processed_geotag.score,
 			   created=timezone.now(), photo=processed_geotag.photo).save()
 		geotags_for_this_photo = GeoTag.objects.filter(photo=tagged_photo)
 		context['new_geotag_count'] = geotags_for_this_photo.distinct('user').count()
 		context['heatmap_points'] = [[x.lat, x.lon] for x in geotags_for_this_photo]
-		# context['azimuth_tags'] = geotags_for_this_photo.filter(azimuth__isnull=False).count()
-		# context['confidence'] = processed_tagged_photo.confidence
 		profile.set_calculated_fields()
 		profile.save()
 		context['feedback_message'] = ''
@@ -1655,6 +1656,9 @@ def geotag_add(request):
 				request.session['user_skip_array'] = []
 			request.session['user_skip_array'].append(submit_geotag_form.data['photo_id'])
 			request.session.modified = True
+
+	context['was_flip_successful'] = was_flip_successful
+	context['flip_response'] = flip_response
 
 	return HttpResponse(json.dumps(context), content_type='application/json')
 
@@ -2898,13 +2902,20 @@ def user_upload(request):
 			photo.set_aspect_ratio()
 			photo.find_similar()
 			albums=request.POST.getlist('albums')
+			album_photos = []
 			for each in albums:
-				AlbumPhoto(
-					photo=photo,
-					album=Album.objects.filter(id=each).first(),
-					type=AlbumPhoto.UPLOADED,
-					profile=request.user.profile
-				).save()
+				album_photos.append(
+					AlbumPhoto(photo=photo,
+						album=Album.objects.filter(id=each).first(),
+						type=AlbumPhoto.UPLOADED,
+						profile=request.user.profile
+				))
+			AlbumPhoto.objects.bulk_create(album_photos)
+			for a in albums:
+				album = Album.objects.filter(id=a).first()
+				if album is not None:
+					album.set_calculated_fields()
+					album.light_save()
 			form = UserPhotoUploadForm()
 			photo.add_to_source_album()
 			if request.POST.get('geotag') == 'true':

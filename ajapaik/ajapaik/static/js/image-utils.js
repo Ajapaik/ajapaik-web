@@ -4,7 +4,6 @@
 
 function hideControlsOnImage() {
     if (!window.isMobile) {
-        $('.ajp-flip-photo-overlay-button').hide('fade', 250);
         $('.ajp-show-similar-photoview-overlay-button').hide('fade', 250);
         $('.ajp-show-rephotos-photoview-overlay-button').hide('fade', 250);
     }
@@ -17,7 +16,6 @@ function hideControlsOnImage() {
 
 function showControlsOnImage() {
     if (!window.isMobile) {
-        $('.ajp-flip-photo-overlay-button').show('fade', 250);
         $('.ajp-show-similar-photoview-overlay-button').show('fade', 250);
         $('.ajp-show-rephotos-photoview-overlay-button').show('fade', 250);
     }
@@ -141,10 +139,10 @@ function showDetectionRectangles() {
 
 function mirrorDetectionAnnotations() {
     $('[data-is-detection-rectangle]').each(function() {
-        var el = $(this);
+        let el = $(this);
 
-        var leftPosition = el[0].style.left;
-        var rightPosition = el[0].style.right;
+        let leftPosition = el[0].style.left;
+        let rightPosition = el[0].style.right;
 
         el.css('right', leftPosition);
         el.css('left', rightPosition);
@@ -175,8 +173,11 @@ function getDetectionRectangleScaledForOriginalImageSize(popoverRectangleId, ima
         height: parseInt(imageAreaCurrentDimensions.height)
     };
 
-    var widthScale = window.currentPhotoOriginalWidth / photoDimensions.width;
-    var heightScale = window.currentPhotoOriginalHeight / photoDimensions.height;
+    let height = window.currentPhotoOriginalHeight;
+    let width = window.currentPhotoOriginalWidth;
+
+    var heightScale = height / photoDimensions.height;
+    var widthScale = width / photoDimensions.width;
 
     return {
         photoId: ObjectTagger.getPhotoId(),

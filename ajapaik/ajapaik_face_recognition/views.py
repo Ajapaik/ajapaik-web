@@ -121,46 +121,6 @@ def save_subject(form: FaceRecognitionSuggestionForm, user_id, user_profile):
 
     return save_subject_object(subject_album, rectangle, user_id, user_profile)
 
-
-def add_rectangle(request: HttpRequest) -> HttpResponse:
-    form = FaceRecognitionRectangleSubmitForm(request.POST.copy())
-    if form.is_valid():
-        photo: Photo = form.cleaned_data['photo']
-        width_scale: float = float(form.cleaned_data['seen_width']) / float(photo.width)
-        height_scale: float = float(form.cleaned_data['seen_height']) / float(photo.height)
-        # jQuery plugin gives x1, y1 topLeft, x2, y2 bottomRight
-        # DB stores (top, right, bottom, left)
-        coordinates: Iterable[int] = [
-            int(float(form.cleaned_data['y1']) / height_scale),
-            int(float(form.cleaned_data['x2']) / width_scale),
-            int(float(form.cleaned_data['y2']) / height_scale),
-            int(float(form.cleaned_data['x1']) / width_scale)
-        ]
-        new_rectangle = FaceRecognitionRectangle(
-            photo=form.cleaned_data['photo'],
-            coordinates=json.dumps(coordinates),
-            user_id=request.user.id,
-            origin=FaceRecognitionRectangle.USER
-        )
-        new_rectangle.save()
-        points = 25
-        Points(
-            user=request.user.profile,
-            action=Points.ANNOTATION,
-            points=points,
-            photo=form.cleaned_data['photo'],
-            annotation = new_rectangle,
-            created=timezone.now()
-        ).save()
-        response_content = JSONRenderer().render({'id': new_rectangle.id, 'points': points})
-        status = 201
-    else:
-        response_content = 'Invalid data'
-        status = 400
-
-    return HttpResponse(response_content, content_type='application/json', status=status)
-
-
 def add_person_rectangle(values, photo, user_id):
     x1 = values['x1']
     x2 = values['x2']
@@ -190,15 +150,6 @@ def add_person_rectangle(values, photo, user_id):
     photo.light_save()
 
     return new_rectangle.id
-
-
-def get_rectangles(request, photo_id=None):
-    rectangles = []
-    if photo_id:
-        rectangles = FaceRecognitionRectangleSerializer(
-            FaceRecognitionRectangle.objects.filter(photo_id=photo_id, deleted__isnull=True).all(), many=True).data
-
-    return HttpResponse(JSONRenderer().render(rectangles), content_type='application/json')
 
 
 def add_rectangle_feedback(request, annotation_id):

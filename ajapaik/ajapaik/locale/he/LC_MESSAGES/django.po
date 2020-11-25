@@ -1746,35 +1746,35 @@ msgstr "לשנות את סדר המיון"
 msgid "Help"
 msgstr "עזרה"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "איך למיין"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "מהקבוצה הזאת"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "יש לבחור 2 פרמטרים"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
 msgstr "או"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
 msgstr "וגם"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
 msgstr "אחד מתוך"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr "ממיין תמונות לפי המרחק ממך"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr "היפוך מיון"
 

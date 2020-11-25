@@ -289,6 +289,7 @@
 {% endif %}
 {% block global_js %}
     <script>
+        window.previouslyEditedPhotoIds = JSON.parse(localStorage.getItem("previouslyEditedPhotoIds"));
         window.addEventListener("beforeunload", function (event) {
             $('#ajp-loading-overlay').show();
         });
@@ -357,6 +358,7 @@
             photoSelectionURL = "{% url 'photo_selection' %}",
             photoLikeURL = "{% url 'update_like_state' %}",
             rephotoUploadSettingsModalContentURL = "{% url 'rephoto_upload_settings_modal' %}",
+            photoAppliedOperationsUrl = "{% url 'api_photo_applied_operations' %}",
             photoSceneUrl = "{% url 'api_photo_suggestion' %}",
             similarPhotosUrl = "{% url 'api_submit_similarity' %}"
             generalInfoModalURL = "{% url 'general_info_modal_content' %}",
@@ -417,6 +419,7 @@
         <script src="{% static "libs/bootstrap-datetimepicker-4.17.47/js/bootstrap-datetimepicker.js" %}"></script>
         <script src="{% static "js/bootstrap-notify-4.0.0.js" %}"></script>
         <script src="{% static "js/tmpl.js" %}"></script>
+        <script src="{% static "js/ajp-refresh-image.js" %}"></script>
         <script src="{% static "js/ajp-cookie.js" %}"></script>
         <script src="{% static "js/bigscreen-2.0.5.min.js" %}"></script>
         <script src="{% static "js/jquery.bootstrap-autohidingnavbar-4.0.0.min.js" %}"></script>
@@ -446,11 +449,10 @@
         <script src="{% static "js/ajp-keyboard-controls.js" %}"></script>
         <script src="{% static "js/ajp-juks-gmaps.js" %}"></script>
         <script src="{% static "js/ajp-ga.js" %}"></script>
+        <script src="{% static "js/ajp-core.js" %}"></script>
 {% if not is_frontpage and not is_photoview or is_game or is_mapview  %}
-        <script src="{% static "js/ajp-common.js" %}"></script>
         <script src="{% static "js/ajp-geotagger-plugin.js" %}"></script>
 {% else %}
-        <script src="{% static "js/ajp-common-nogooglemaps.js" %}"></script>
         <script src="{% static "js/ajp-minimap-leaflet-plugin.js" %}"></script>
 {% endif %}
         <script src="{% static "js/wikidata.js" %}"></script>

@@ -1,5 +1,27 @@
-from math import cos, sin, radians, atan2, sqrt
+import os
+import hashlib
 
+from math import cos, sin, radians, atan2, sqrt
+from PIL import Image
+
+from django.utils import timezone
+from django.utils.translation import ugettext as _
+
+from ajapaik import settings
+
+def get_etag(_request, image, _content):
+    if os.path.isfile(image):
+        m = hashlib.md5()
+        with open(image, 'rb') as f:
+            m.update(f.read())
+        return m.hexdigest()
+    return None
+
+def last_modified(_request, image, _content):
+    from datetime import datetime
+    if os.path.isfile(image):
+       return datetime.fromtimestamp(os.path.getmtime(image))
+    return None
 
 # FIXME: Ugly functions, make better or import from whatever library we have anyway
 def calculate_thumbnail_size(p_width, p_height, desired_longest_side):
@@ -90,4 +112,75 @@ def least_frequent(List):
         if(counter == None or current_frequency < counter): 
             counter = current_frequency 
             num = i
-    return num 
+    return num
+
+def can_action_be_done(model, photo, profile, key, new_value):
+    new_suggestion = model(proposer=profile, photo=photo)
+    setattr(new_suggestion, key, new_value)
+
+    all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile).order_by('proposer_id', '-created').all().distinct('proposer_id')
+    if all_suggestions is not None:
+        suggestions = [new_value]
+        
+        for suggestion in all_suggestions:
+            suggestions.append(getattr(suggestion,key))
+
+        most_common_choice = most_frequent(suggestions)
+        return new_value == most_common_choice
+    else:
+        return True
+
+
+def suggest_photo_edit(photo_suggestions, key, new_value, points_model, score, action_type, model, photo, profile, response, function_name):
+    was_action_successful = True
+    points = 0
+    SUGGESTION_ALREADY_SUGGESTED = _('You have already submitted this suggestion')
+    SUGGESTION_CHANGED = _('Your suggestion has been changed')
+    SUGGESTION_SAVED = _('Your suggestion has been saved')
+    SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED = _('Your suggestion has been saved, but previous consensus remains')
+    if new_value is not None:
+        previous_suggestion = model.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
+        if (previous_suggestion is not None and getattr(previous_suggestion, key) == new_value):
+            if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+                response = SUGGESTION_ALREADY_SUGGESTED
+                was_action_successful = False
+        else:
+            new_suggestion = model(proposer=profile, photo=photo)
+            setattr(new_suggestion, key, new_value)
+            photo_suggestions.append(new_suggestion)
+
+            all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile).order_by('proposer_id', '-created').all().distinct('proposer_id')
+            if all_suggestions is not None:
+                suggestions = [new_value]
+                
+                for suggestion in all_suggestions:
+                    suggestions.append(getattr(suggestion,key))
+
+                most_common_choice = most_frequent(suggestions)
+                if new_value != most_common_choice:
+                    response = SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
+                    was_action_successful = False
+                new_value = most_common_choice
+
+            if function_name is not None:
+                old_value = getattr(photo, key)
+                if function_name == 'do_rotate' and (old_value is None or ( new_value != old_value)):
+                    getattr(photo, function_name)(new_value)
+                elif (function_name != 'do_rotate') and ((old_value is not None or new_value == True) and old_value != new_value):
+                    getattr(photo, function_name)()
+            else:
+                setattr(photo, key, new_value)
+                photo.save()
+
+            if previous_suggestion:
+                if response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+                    response = SUGGESTION_CHANGED
+                    was_action_successful = True
+            else:
+                points_model(user=profile, action=action_type, photo=photo, points=score,created=timezone.now()).save()
+                if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+                    response = SUGGESTION_SAVED
+                    was_action_successful = True
+                    points = score
+
+    return response, photo_suggestions, was_action_successful, points

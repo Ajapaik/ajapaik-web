@@ -1735,35 +1735,35 @@ msgstr "Keisti rūšiavimo tvarką"
 msgid "Help"
 msgstr "Pagalba"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "Kaip rūšiuoti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "Iš šios grupės"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "Pasirinkite 2 parametrus"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
 msgstr "arba"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
 msgstr "ir"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
 msgstr "1 iš"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr "išrūšiuoja nuotraukas pagal atstumą nuo jūsų"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr "apkeičia rūšiavimą"
 

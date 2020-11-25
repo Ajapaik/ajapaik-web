@@ -318,6 +318,10 @@
     transform: scaleX(-1);
 }
 
+.ajp-photo-inverted {
+    filter: invert(1);
+}
+
 #ajp-geotagger-map-instruction-text {
     font-size: 16px;
     margin-bottom: 50px;

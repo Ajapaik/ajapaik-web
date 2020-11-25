@@ -15,8 +15,8 @@
 {% include "js_templates/curator_album_selection_option.html" %}
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajp-fullscreen-image-container">
-        <div id="ajp-full-screen-image-wrapper">
-            <img id="ajp-full-screen-image" style="display: none;" src="{{ fullscreen.url }}"
+        <div id="ajp-fullscreen-image-wrapper">
+            <img id="ajp-fullscreen-image" style="display: none;" src="{{ fullscreen.url }}"
                 alt="{{ photo.description }}" title="{{ photo.description }}"/>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="ajp-photoview-main-photo-wrapper" class="ajp-photo col-auto h-100 p-0 mr-3 mw-50">
             <div class="ajp-photo" id="ajp-photoview-main-photo-container">
-                <a class="fullscreen" id="ajp-full-screen-link">
+                <a class="fullscreen" id="ajp-fullscreen-link">
                     <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.description }}"
                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
                 </a>
@@ -63,12 +63,6 @@
                         <i class="material-icons notranslate">360</i>
                     </a>
                 {% endif %}
-                <button id="ajp-rotate-photo-button" style="display: none;" title="{% trans "Rotate photo" %}">
-                    <i class="material-icons notranslate">rotate_left</i>
-                </button>
-                <button class="ajp-flip-photo-overlay-button" style="display: none;">
-                    <i class="material-icons notranslate">flip</i>
-                </button>
                 <button
                     class="ajp-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
                     {% if photo.user_likes or photo.user_loves %}
@@ -266,13 +260,11 @@
     window.photoModalGeotaggingUserCount = {{ geotag_count }};
     window.photoModalFirstGeotaggers = {{ first_geotaggers | safe }};
     window.isPhotoview = true;
-    window.flipPhoto = function () {
-        window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
-    };
     window.updateLeaderboard();
     $(document).ready(function () {
+        window.lastRotateWas90 = false;
         var mainPhoto = $('#ajp-photoview-main-photo'),
-            originalFullscreen = $('#ajp-full-screen-image');
+            originalFullscreen = $('#ajp-fullscreen-image');
         $('#ajp-dater-container').AjapaikDater();
 
         ObjectTagger.setPhotoId(window.photoId);
@@ -286,15 +278,7 @@
             event.preventDefault();
             event.stopPropagation();
         });
-    $(document).on('click', '.ajp-flip-photo-overlay-button', function () {
-        if (mainPhoto.hasClass('ajp-photo-flipped')) {
-            mainPhoto.removeClass('ajp-photo-flipped');
-        } else {
-            mainPhoto.addClass('ajp-photo-flipped');
-        }
 
-        mirrorDetectionAnnotations();
-    });
     $('.full-box div').on('click', function (e) {
         if (BigScreen.enabled) {
             e.preventDefault();
@@ -305,9 +289,7 @@
         }
     });
     if (window.isMobile) {
-        $('.ajp-flip-photo-overlay-button').show();
         $('#ajp-reverse-side-button').show();
-        $('#ajp-rotate-photo-button').show();
         $('.ajp-show-similar-photoview-overlay-button').show();
         $('.ajp-show-rephotos-photoview-overlay-button').show();
     }
@@ -315,9 +297,7 @@
     $(document).on('mouseenter', '#ajp-photoview-main-photo-container', function () {
         if (!window.isMobile) {
             if (!window.isAnnotating) {
-                $('.ajp-flip-photo-overlay-button').show("fade", 250);
                 $('#ajp-reverse-side-button').show("fade", 250);
-                $('#ajp-rotate-photo-button').show("fade", 250);
                 $('.ajp-show-similar-photoview-overlay-button').show("fade", 250);
                 $('.ajp-show-rephotos-photoview-overlay-button').show("fade", 250);
             }
@@ -329,9 +309,7 @@
     });
     $(document).on('mouseleave', '#ajp-photoview-main-photo-container', function () {
         if (!window.isMobile) {
-            $('.ajp-flip-photo-overlay-button').hide("fade", 250);
             $('#ajp-reverse-side-button').hide("fade", 250);
-            $('#ajp-rotate-photo-button').hide("fade", 250);
             $('.ajp-show-similar-photoview-overlay-button').hide("fade", 250);
             $('.ajp-show-rephotos-photoview-overlay-button').hide("fade", 250);
 

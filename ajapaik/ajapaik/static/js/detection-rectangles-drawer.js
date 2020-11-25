@@ -25,11 +25,11 @@ function getDetectedFaceModifyRectangle(rectangleId, savedRectangle, configurati
 }
 
 function getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions) {
-    var leftEdgeDistance = scaledRectangle.x1;
-    var topEdgeDistance = scaledRectangle.y1;
+    let leftEdgeDistance = scaledRectangle.x1;
+    let topEdgeDistance = scaledRectangle.y1;
 
-    var width = (scaledRectangle.x2 - scaledRectangle.x1);
-    var height = (scaledRectangle.y2 - scaledRectangle.y1);
+    let width = (scaledRectangle.x2 - scaledRectangle.x1);
+    let height = (scaledRectangle.y2 - scaledRectangle.y1);
 
     return {
         leftEdgeDistancePercentage: (leftEdgeDistance / imageAreaDimensions.width) * 100,
@@ -41,7 +41,7 @@ function getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaD
 }
 
 function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimensions) {
-    var configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
+    let configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
 
     if (annotation.wikiDataId) {
         return getDetectedObjectModifyRectangle(
@@ -60,18 +60,21 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
 
 function removeExistingDetectionRectangles() {
     $('[data-is-detection-rectangle]').each(function () {
-        var rectangle = $(this);
+        let rectangle = $(this);
 
-        var popoverSelector = '.popover';
-
-        $(popoverSelector).remove();
+        $('.popover:has(#add-object-class)').remove();
+        $('.popover:has(#modify-detected-object)').remove();
+        $('.popover:has(#modify-detected-object-annotation)').remove();
         rectangle.remove();
     });
 }
 
 function getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions) {
-    var widthScale = window.currentPhotoOriginalWidth / imageAreaDimensions.width;
-    var heightScale = window.currentPhotoOriginalHeight / imageAreaDimensions.height;
+    let height = window.currentPhotoOriginalHeight;
+    let width = window.currentPhotoOriginalWidth;
+
+    let heightScale = height / imageAreaDimensions.height;
+    let widthScale = width / imageAreaDimensions.width;
 
     return {
         widthScale: widthScale,
@@ -80,8 +83,8 @@ function getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDim
 }
 
 function scaleRectangleForCurrentImageSize(scalingParametersForCurrentImageSize, savedRectangle) {
-    var widthScale = scalingParametersForCurrentImageSize.widthScale;
-    var heightScale = scalingParametersForCurrentImageSize.heightScale;
+    let widthScale = scalingParametersForCurrentImageSize.widthScale;
+    let heightScale = scalingParametersForCurrentImageSize.heightScale;
 
     return {
         x1: savedRectangle.x1 / widthScale,
@@ -92,19 +95,20 @@ function scaleRectangleForCurrentImageSize(scalingParametersForCurrentImageSize,
 }
 
 function drawDetectionRectangles(detections, imageAreaDimensions) {
-    $('.popover').remove();
+    $('.popover:has(#add-object-class)').remove();
+    $('.popover:has(#modify-detected-object)').remove();
+    $('.popover:has(#modify-detected-object-annotation)').remove();
 
     createAnnotationFilters(detections);
 
     setTimeout(function () {
         removeExistingDetectionRectangles();
 
-        var scalesInRelationToTheOriginalPhoto = getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions);
+        let scalesInRelationToTheOriginalPhoto = getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions);
 
         detections.forEach(function(savedRectangle) {
-            var scaledRectangle = scaleRectangleForCurrentImageSize(scalesInRelationToTheOriginalPhoto, savedRectangle);
-
-            var detectionRectangle = getSavedDetectionRectangle(scaledRectangle, savedRectangle, imageAreaDimensions);
+            let scaledRectangle = scaleRectangleForCurrentImageSize(scalesInRelationToTheOriginalPhoto, savedRectangle);
+            let detectionRectangle = getSavedDetectionRectangle(scaledRectangle, savedRectangle, imageAreaDimensions);
             detectionRectangle.appendTo(ImageAreaSelector.getImageArea());
         });
 
@@ -122,21 +126,18 @@ function getScreenWidthToHeightRelation() {
     return screen.width / screen.height;
 }
 
-function isPlacingBlackBordersOnSides() {
-    var screenWidthToHeightRelation = getScreenWidthToHeightRelation();
-
-    var imageWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-
+function isPlacingBlackBordersOnSides(imageWidthToHeightRelation) {
+    let screenWidthToHeightRelation = getScreenWidthToHeightRelation();
     return imageWidthToHeightRelation - screenWidthToHeightRelation < 0;
 }
 
 function centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer) {
-    var imageWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
-    var isHeightInFullLength = isPlacingBlackBordersOnSides();
+    let imageWidthToHeightRelation = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
+    let isHeightInFullLength = isPlacingBlackBordersOnSides(imageWidthToHeightRelation);
 
     if (isHeightInFullLength) {
-        var scaledWidth = imageContainer.height() * imageWidthToHeightRelation;
-        var blackBorderSize = (imageContainer.width() - scaledWidth) / 2;
+        let scaledWidth = imageContainer.height() * imageWidthToHeightRelation;
+        let blackBorderSize = (imageContainer.width() - scaledWidth) / 2;
 
         annotationContainer.css({
             position: 'absolute',
@@ -145,8 +146,8 @@ function centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, i
             width: scaledWidth + 'px'
         });
     } else {
-        var scaledHeight = imageContainer.width() / imageWidthToHeightRelation;
-        var blackBorderSize = (imageContainer.height() - scaledHeight) / 2;
+        let scaledHeight = imageContainer.width() / imageWidthToHeightRelation;
+        let blackBorderSize = (imageContainer.height() - scaledHeight) / 2;
 
         annotationContainer.css({
             position: 'absolute',
@@ -158,7 +159,7 @@ function centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, i
 }
 
 function drawAnnotationContainer(imageContainer, isRedraw) {
-    var annotationContainer = $('<div>');
+    let annotationContainer = $('<div>');
 
     centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer);
 
@@ -183,9 +184,9 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
 }
 
 function drawNewAnnotationRectangle(areaSelection) {
-    var imgRealSize = ImageAreaSelector.getImageAreaDimensions();
+    let imgRealSize = ImageAreaSelector.getImageAreaDimensions();
 
-    var rectangle = {
+    let rectangle = {
         x1: areaSelection.x1,
         y1: areaSelection.y1,
         x2: areaSelection.x2,

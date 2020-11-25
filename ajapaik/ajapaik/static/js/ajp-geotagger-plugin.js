@@ -95,6 +95,7 @@
         this.mapMarkerDragendListenerActive = false;
         this.options.mode = 'vantage';
         this.options.markerLocked = true;
+        this.photoFlipped = false;
         // Listeners
         this.windowResizeListenerFunction = function () {
             if (that.options.markerLocked && !that.fullScreenActive && !that.feedbackMode && !that.drawAzimuthLineOnMouseMove) {
@@ -313,6 +314,8 @@
             "                    <p id='ajp-geotagger-feedback-thanks'></p>",
             "                    <p id='ajp-geotagger-feedback-message'></p>",
             "                    <p id='ajp-geotagger-feedback-points'></p>",
+            "                    <div id='ajp-geotagger-flip-feedback-title'></div>",
+            "                    <p id='ajp-geotagger-flip-feedback-text'></p>",
             "                    <p id='ajp-geotagger-feedback-difficulty-prompt'></p>",
             "                    <form id='ajp-geotagger-feedback-difficulty-form'>",
             "                        <span></span>",
@@ -745,7 +748,11 @@
             this.setCorrectInstructionString();
         },
         initializeGeotaggerState: function (options) {
-            this.geotaggerImageThumb.attr('src', options.thumbSrc).removeClass('ajp-photo-flipped');
+            let imageSrc = options.thumbSrc;
+            if (window.previouslyEditedPhotoIds && options.currentPhotoId && window.previouslyEditedPhotoIds.includes(options.currentPhotoId)) {
+                imageSrc += '?timestamp=' + Date.now();
+            }
+            this.geotaggerImageThumb.attr('src', imageSrc).removeClass('ajp-photo-flipped');
             $('#ajp-geotagger-full-screen-image').removeClass('ajp-photo-flipped');
             this.description.html(options.description).addClass('d-none');
             this.source.addClass('d-none').find('a').attr('title', options.sourceName + ' ' + options.sourceKey)
@@ -809,9 +816,6 @@
             google.maps.event.trigger(this.map, 'resize');
             this.map.setCenter(new google.maps.LatLng(options.startLat, options.startLng));
             this.map.setZoom(16);
-            // if (options.photoFlipped) {
-            //     this.flipImages();
-            // }
         },
         radiansToDegrees: function (rad) {
             var ret = rad * (180 / Math.PI);
@@ -1051,6 +1055,7 @@
                 }
                 that.azimuthLine.setVisible(false);
             }
+            $('#ajp-loading-overlay').show();
             $.ajax({
                 type: 'POST',
                 url: saveLocationURL,
@@ -1063,7 +1068,16 @@
                     $('#ajp-geotagger-button-controls').hide();
                     $('#ajp-geotagger-confirm-controls').hide();
                     $('#ajp-geotagger-feedback-points').html(gettext('Points awarded') + ': ' + response.current_score);
-                    $('#ajp-geotagger-feedback-message').html(response.feedback_message);
+                    if (response.was_flip_successful === false) {
+                        $('#ajp-geotagger-flip-feedback-title').html(gettext('Picture flip feedback') + ':');
+                        $('#ajp-geotagger-flip-feedback-text').html(response.flip_response);
+                    }
+                    if (response.was_flip_successful !== null) {
+                        let photoUrl = $('#ajp-geotagger-image-thumb').attr('src') + '?timestamp=' + Date.now();
+                        $('#ajp-geotagger-image-thumb').attr('src', photoUrl).removeClass('ajp-photo-flipped');
+                        that.options.fullScreenSrc += '?timestamp=' + Date.now();
+                        $('#ajp-geotagger-full-screen-image').removeClass('ajp-photo-flipped');
+                    }
                     $('#ajp-geotagger-feedback').show();
                     $('#ajp-geotagger-current-stats').hide();
                     $('#ajp-geotagger-search-box').val(null);
@@ -1092,9 +1106,18 @@
                         response.estimated_location[0] && response.estimated_location[1]) {
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
+                    if (that.photoFlipped) {
+                        if(window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
+                            window.previouslyEditedPhotoIds.push(that.options.currentPhotoId);
+                        }
+                    }
+                    localStorage.setItem("previouslyEditedPhotoIds", JSON.stringify(window.previouslyEditedPhotoIds));
                 },
                 error: function () {
                     $('#ajp-geotagger-game-buttons').show();
+                },
+                complete: function() {
+                    $('#ajp-loading-overlay').hide();
                 },
                 dataType: 'json'
             });

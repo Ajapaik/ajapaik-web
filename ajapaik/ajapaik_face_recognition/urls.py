@@ -5,8 +5,6 @@ from ajapaik.ajapaik_face_recognition import api
 
 urlpatterns = [
     url(r'^add-subject/$', views.add_subject, name='face_recognition_add_subject'),
-    url(r'^add-rectangle/$', views.add_rectangle, name='face_recognition_add_rectangle'),
-    url(r'^get-rectangles/(?P<photo_id>\d+)/$', views.get_rectangles, name='face_recognition_get_rectangles'),
     url(r'^annotation/(?P<annotation_id>\d+)/feedback/$', views.add_rectangle_feedback, name='face_annotation_add_feedback'),
     url(r'^update-annotation/(?P<annotation_id>\d+)/$', views.update_annotation, name='face_annotation_update'),
     url(r'^remove-annotation/(?P<annotation_id>\d+)/$', views.remove_annotation, name='face_annotation_remove'),
