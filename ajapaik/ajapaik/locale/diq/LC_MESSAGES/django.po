@@ -1736,35 +1736,35 @@ msgstr "Eza nizami bıvurnê"
 msgid "Help"
 msgstr "Peşti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "Seni beno rêze"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "Na grube ra"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "2 parametrey weçinıtış"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
 msgstr "ya zi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
 msgstr "û"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
 msgstr "1 ê"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr ""
 

@@ -9,7 +9,7 @@ from time import sleep
 from urllib.request import urlopen
 
 import numpy
-from PIL import Image
+from PIL import Image, ImageOps
 from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
 from django.conf import settings
@@ -23,8 +23,7 @@ from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
-from django.core.validators import MaxValueValidator
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
@@ -41,9 +40,7 @@ from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.phash import phash
-from ajapaik.utils import angle_diff
-from ajapaik.utils import average_angle
-
+from ajapaik.utils import angle_diff, average_angle
 
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
@@ -578,22 +575,160 @@ class Photo(Model):
         self.original_lat = self.lat
         self.original_lon = self.lon
         self.original_flip = self.flip
+        self.original_invert = self.invert
+        self.original_rotated = self.rotated
+        self.original_height = self.height
 
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('photo', args=(self.pk,))
 
     def do_flip(self):
-        # FIXME: Somehow fails silently?
         photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
+        img.close()
+        flipped_image.close()
         self.flip = not self.flip
-        # This delete applies to sorl thumbnail
-        delete(self.image, delete_file=False)
-        self.light_save()
+        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        img_small_thumb = Image.open(small_thumb_path)
+        img_small_thumb = img_small_thumb.transpose(Image.FLIP_LEFT_RIGHT)
+        img_small_thumb.save(small_thumb_path)
+        img_small_thumb.close()
+        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        img_bigger_thumb = Image.open(bigger_thumb_path)
+        img_bigger_thumb = img_bigger_thumb.transpose(Image.FLIP_LEFT_RIGHT)
+        img_bigger_thumb.save(bigger_thumb_path)
+        img_bigger_thumb.close()
+        if self.image_unscaled != '':
+            delete(self.image_unscaled, delete_file=False)
+        if self.image_no_watermark != '':
+            delete(self.image_no_watermark, delete_file=False)
         self.original_flip = self.flip
+
+        face_recognition_rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
+        if face_recognition_rectangles is not None:
+            for face_recognition_rectangle in face_recognition_rectangles:
+                top, right, bottom, left = face_recognition_rectangle.coordinates.strip('[').strip(']').split(', ')
+                face_recognition_rectangle.coordinates = '[' + top + ', ' + str(self.width - int(left)) + ', ' + bottom + ', ' + str(self.width - int(right)) + ']'
+                face_recognition_rectangle.save()
+            
+        object_recognition_rectangles = apps.get_model('ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
+        if object_recognition_rectangles is not None:
+            for object_recognition_rectangle in object_recognition_rectangles:
+                top, right, bottom, left = object_recognition_rectangle.y1, object_recognition_rectangle.x2, object_recognition_rectangle.y2, object_recognition_rectangle.x1
+                object_recognition_rectangle.x2 = self.width - left
+                object_recognition_rectangle.x1 = self.width - right
+                object_recognition_rectangle.save()
+
+        self.light_save()
+
+    def do_invert(self):
+        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
+        img = Image.open(photo_path)
+        inverted_image = ImageOps.invert(img)
+        inverted_image.save(photo_path)
+        img.close()
+        self.perceptual_hash = phash(inverted_image)
+        inverted_image.close()
+        self.invert = not self.invert
+        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        img_small_thumb = Image.open(small_thumb_path)
+        img_small_thumb = ImageOps.invert(img_small_thumb)
+        img_small_thumb.save(small_thumb_path)
+        img_small_thumb.close()
+        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        img_bigger_thumb = Image.open(bigger_thumb_path)
+        img_bigger_thumb = ImageOps.invert(img_bigger_thumb)
+        img_bigger_thumb.save(bigger_thumb_path)
+        img_bigger_thumb.close()
+        if self.image_unscaled != '':
+            delete(self.image_unscaled, delete_file=False)
+        if self.image_no_watermark != '':
+            delete(self.image_no_watermark, delete_file=False)
+        self.original_invert = self.invert
+        self.light_save()
+
+    def do_rotate(self, degrees):
+        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
+        img = Image.open(photo_path)
+        original_degrees = 0
+        if self.original_rotated is not None:
+            original_degrees = self.original_rotated
+        rotation_degrees = degrees - original_degrees
+        rotated_image = img.rotate(rotation_degrees, expand=True)
+        rotated_image.save(photo_path)
+        img.close()
+        self.perceptual_hash = phash(rotated_image)
+        rotated_image.close()
+        self.rotated = degrees
+        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        img_small_thumb = Image.open(small_thumb_path)
+        img_small_thumb = img_small_thumb.rotate(rotation_degrees, expand=True)
+        img_small_thumb.save(small_thumb_path)
+        img_small_thumb.close()
+        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        img_bigger_thumb = Image.open(bigger_thumb_path)
+        img_bigger_thumb = img_bigger_thumb.rotate(rotation_degrees, expand=True)
+        img_bigger_thumb.save(bigger_thumb_path)
+        img_bigger_thumb.close()
+        if self.image_unscaled != '':
+            delete(self.image_unscaled, delete_file=False)
+        if self.image_no_watermark != '':
+            delete(self.image_no_watermark, delete_file=False)
+        self.original_rotated = self.rotated
+
+        if rotation_degrees % 360 == 90 or rotation_degrees % 360 == 270:
+            self.height = self.width
+            self.width = self.original_height
+            self.original_height = self.height
+            if self.aspect_ratio is not None:
+                self.aspect_ratio = 1 / self.aspect_ratio
+            else:
+                self.set_aspect_ratio()
+        
+        # TODO: align facerecognitionrectangle and objectannotation, so that this code could be reused for both
+        face_recognition_rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
+        if face_recognition_rectangles is None:
+            return
+        for face_recognition_rectangle in face_recognition_rectangles:
+            top, right, bottom, left = face_recognition_rectangle.coordinates.strip('[').strip(']').split(', ')
+            if rotation_degrees == 0:
+                return
+            elif rotation_degrees == 90 or rotation_degrees == -270:
+                face_recognition_rectangle.coordinates = '[' + str(self.height - int(right)) + ', ' + str(bottom) + ', ' + str(self.height - int(left)) + ', ' + str(top) + ']'
+            elif rotation_degrees == 180 or rotation_degrees == -180:
+                face_recognition_rectangle.coordinates = '[' + str(self.height - int(bottom)) + ', ' + str(self.width - int(left)) + ', ' + str(self.height - int(top)) + ', ' + str(self.width - int(right)) + ']'
+            elif rotation_degrees == 270 or rotation_degrees == -90:
+                face_recognition_rectangle.coordinates = '[' + str(left) + ', ' + str(self.width - int(top)) + ', ' + str(right) + ', ' + str(self.width - int(bottom)) + ']'
+            face_recognition_rectangle.save()
+        
+        object_recognition_rectangles = apps.get_model('ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
+        if object_recognition_rectangles is None:
+            return
+        for object_recognition_rectangle in object_recognition_rectangles:
+            top, right, bottom, left = object_recognition_rectangle.y1, object_recognition_rectangle.x2, object_recognition_rectangle.y2, object_recognition_rectangle.x1
+            if rotation_degrees == 0:
+                return
+            elif rotation_degrees == 90 or rotation_degrees == -270:
+                object_recognition_rectangle.y1 = self.height - right
+                object_recognition_rectangle.x2 = bottom
+                object_recognition_rectangle.y2 = self.height - left
+                object_recognition_rectangle.x1 = top
+            elif rotation_degrees == 180 or rotation_degrees == -180:
+                object_recognition_rectangle.y1 = self.height - bottom
+                object_recognition_rectangle.x2 = self.width - left
+                object_recognition_rectangle.y2 = self.height - top
+                object_recognition_rectangle.x1 = self.width - right
+            elif rotation_degrees == 270 or rotation_degrees == -90:
+                object_recognition_rectangle.y1 = left
+                object_recognition_rectangle.x2 = self.width - top
+                object_recognition_rectangle.y2 = right
+                object_recognition_rectangle.x1 = self.width - bottom
+            object_recognition_rectangle.save()
+        
+        self.light_save()
 
     def set_aspect_ratio(self):
         if self.height is not None and self.width is not None:
@@ -1034,7 +1169,7 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION  = range(16)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO  = range(19)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1051,7 +1186,10 @@ class Points(Model):
         (SUGGESTION_SUBJECT_GENDER, _('Suggestion subject age')),
         (TRANSCRIBE, _('Transcribe')),
         (CATEGORIZE_SCENE, _('Categorize scene')),
-        (ADD_VIEWPOINT_ELEVATION, _('Add viewpoint elevation'))
+        (ADD_VIEWPOINT_ELEVATION, _('Add viewpoint elevation')),
+        (FLIP_PHOTO, _('Flip photo')),
+        (INVERT_PHOTO, _('Invert photo')),
+        (ROTATE_PHOTO, _('Rotate photo')),
     )
 
     user = ForeignKey('Profile', related_name='points', on_delete=CASCADE)
@@ -1580,9 +1718,14 @@ class WikimediaCommonsUpload(Model):
     photo = ForeignKey('Photo', on_delete=CASCADE)
     url = URLField(null=True, blank=True, max_length=1023)
 
-class PhotoSceneSuggestion(Model):
+class Suggestion(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     photo = ForeignKey('Photo', on_delete=CASCADE)
+
+    class Meta:
+        abstract = True
+
+class PhotoSceneSuggestion(Suggestion):
     INTERIOR, EXTERIOR = range(2)
     SCENE_CHOICES = (
         (INTERIOR, _('Interior')),
@@ -1591,9 +1734,7 @@ class PhotoSceneSuggestion(Model):
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
 
-class PhotoViewpointElevationSuggestion(Model):
-    created = DateTimeField(auto_now_add=True, db_index=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
+class PhotoViewpointElevationSuggestion(Suggestion):
     GROUND_LEVEL, RAISED, AERIAL = range(3)
     VIEWPOINT_ELEVATION_CHOICES = (
         (GROUND_LEVEL, _('Ground')),
@@ -1602,3 +1743,15 @@ class PhotoViewpointElevationSuggestion(Model):
     )
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions', on_delete=CASCADE)
+
+class PhotoFlipSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
+    flip = NullBooleanField()
+
+class PhotoInvertSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
+    invert = NullBooleanField()
+
+class PhotoRotationSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_rotate_suggestions', on_delete=CASCADE)
+    rotated = IntegerField(null=True, blank=True)

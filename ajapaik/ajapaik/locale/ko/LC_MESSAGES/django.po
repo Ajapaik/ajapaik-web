@@ -1736,35 +1736,35 @@ msgstr "정렬 순서 변경"
 msgid "Help"
 msgstr "도움말"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "정렬 방법"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "이 그룹에서"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "변수 2개를 선택하십시오"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr ""
 

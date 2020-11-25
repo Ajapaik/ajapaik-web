@@ -63,7 +63,7 @@
                 var geotaggingUserCount = this.getGeotaggingUserCountButton(that.options);
                 geotaggingUserCount.addTo(map);
             }
-            // global reference to map for ajp-common-nogooglemaps.js
+            // global reference to map for ajp-core.js
             window.ajapaikminimap = map;
 
             // add helper text

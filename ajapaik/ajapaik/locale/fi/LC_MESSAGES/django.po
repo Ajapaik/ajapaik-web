@@ -1743,35 +1743,35 @@ msgstr "Muuta järjestystä"
 msgid "Help"
 msgstr "Ohjeet"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:8
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
 msgstr "Järjestämisohjeet"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:14
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
 msgstr "Tästä ryhmästä"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:50
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
 msgstr "Valitse 2 muuttujaa"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:58
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
 msgstr "tai"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:64
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
 msgstr "ja"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:65
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
 msgstr "1 /"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:98
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
 msgstr "järjestää kuvat etäisyyden perusteella"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_tutorial_modal.html:105
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
 msgstr "kääntää järjestyksen"
 

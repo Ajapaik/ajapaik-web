@@ -26,7 +26,7 @@
 
     <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
         <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}" style="height: 54px;"
-            id="mark-object-button">
+            id="mark-object-button" class="ajp-button">
             <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
         </button>
         {% trans 'Annotate' %}
@@ -50,97 +50,238 @@
         {% trans 'Share' %}
     </div>
     <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;" title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
-        <button id="ajp-categorize-scene-button" type="button" data-toggle="popover" data-modal="false" style="height: 54px;">
+        <button id="ajp-categorize-scene" type="button" data-toggle="popover" style="height: 54px;" class="ajp-button" tabindex="0" data-is-categorization-button="true">
             <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
         </button>
         {% trans 'Categorize' %}
     </div>
     <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
         <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);" style="height: 54px;"
-            title="{% trans "Transcribe this image" %}" href="#">
+            title="{% trans "Transcribe this image" %}" href="#" class="ajp-button">
             <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
             <span id="ajp-photoview-transcriptions-count" class="badge"></span>
         </button>
         {% trans 'Transcribe' %}
     </div>
+    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
+        <button id="ajp-edit-picture" class="ajp-button" type="button" data-toggle="popover" tabindex="0" data-is-edit-button="true">
+            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">edit</i>
+        </button>
+        {% trans 'Edit picture' %}
+    </div>
 </div>
+<script src="{% static "js/ajp-picture-edit-suggestion.js" %}"></script>
 <script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
     <script>
         var scene = 'undefined';
-        var scene_consensus = undefined;
+        var sceneConsensus = undefined;
         var viewpointElevation = 'undefined';
+        var viewpointElevationConsensus = undefined;
+        
+        var isPhotoFlipped = 'undefined';
+        var isPhotoFlippedConsensus = undefined;
+        var newIsPhotoFlipped = 'undefined';
+        var isPhotoInverted = 'undefined';
+        var isPhotoInvertedConsensus = undefined;
+        var newIsPhotoInverted = 'undefined';
+        var photoRotationDegrees = 'undefined';
+        var photoRotationDegreesConsensus = undefined;
+        var newPhotoRotationDegrees = 'undefined';
         var viewpointElevation_consensus = undefined;
         var shareUrl = '{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}';
 
-        function fetchPhotoSuggestion() {
-            return fetch(photoSceneUrl + '{{ photo.id }}' + '/').then(function(response) {
+        function fetchPhotoInfo(url) {
+            return fetch(url + '{{ photo.id }}' + '/').then(function(response) {
                 return response.json();
             }).then(function(json) {
                 return json;
             });
         }
 
-        function updatePhotoScene() {
-            fetchPhotoSuggestion().then(function(json) {
-                    scene = json.scene;
-                    scene_consensus = json.scene_consensus;
-                    viewpointElevation = json.viewpoint_elevation;
-                    viewpointElevation_consensus = json.viewpoint_elevation_consensus;
-                    let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
-                    topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
+        function fetchPhotoSuggestions() {
+            return fetchPhotoInfo(photoSceneUrl);
+        }
 
-                    let buttonTranslation = 'Confirm';
-                    let title = gettext('Categorize scene');
+        function fetchPhotoAppliedOperations() {
+            return fetchPhotoInfo(photoAppliedOperationsUrl);
+        }
 
-                    if (scene === 'Interior') {
-                        topLeftButtonClass = 'btn-outline-primary';
-                    } else if (scene === 'Exterior') {
-                        topRightButtonClass = 'btn-outline-primary';
-                    }
+        function updatePhotoSuggestions() {
+            fetchPhotoSuggestions().then(function(json) {
+                scene = json.scene;
+                sceneConsensus = json.scene_consensus;
+                viewpointElevation = json.viewpoint_elevation;
+                viewpointElevationConsensus = json.viewpoint_elevation_consensus;
+                let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
+                topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
 
-                    if (scene !== 'Interior' && scene_consensus === 'Interior') {
-                        topLeftButtonClass = 'btn-outline-dark';
-                    } else if (scene !== 'Exterior' && scene_consensus === 'Exterior') {
-                        topRightButtonClass = 'btn-outline-dark';
-                    }
+                let buttonTranslation = 'Confirm';
+                let title = gettext('Categorize scene');
 
-                    if (viewpointElevation === 'Ground') {
-                        bottomLeftButtonClass = 'btn-outline-primary';
-                    } else if (viewpointElevation === 'Raised') {
-                        bottomMiddleButtonClass = 'btn-outline-primary';
-                    } else if (viewpointElevation === 'Aerial') {
-                        bottomRightButtonClass = 'btn-outline-primary';
-                    }
+                if (scene === 'Interior') {
+                    topLeftButtonClass = 'btn-outline-primary';
+                } else if (scene === 'Exterior') {
+                    topRightButtonClass = 'btn-outline-primary';
+                }
 
-                    if (viewpointElevation !== 'Ground' && viewpointElevation_consensus === 'Ground') {
-                        bottomLeftButtonClass = 'btn-outline-dark';
-                    } else if (viewpointElevation !== 'Raised' && viewpointElevation_consensus === 'Raised') {
-                        bottomMiddleButtonClass = 'btn-outline-dark';
-                    } else if (viewpointElevation !== 'Aerial'  && viewpointElevation_consensus === 'Aerial') {
-                        bottomRightButtonClass = 'btn-outline-dark';
-                    }
+                if (scene !== 'Interior' && sceneConsensus === 'Interior') {
+                    topLeftButtonClass = 'btn-outline-dark';
+                } else if (scene !== 'Exterior' && sceneConsensus === 'Exterior') {
+                    topRightButtonClass = 'btn-outline-dark';
+                }
+
+                if (viewpointElevation === 'Ground') {
+                    bottomLeftButtonClass = 'btn-outline-primary';
+                } else if (viewpointElevation === 'Raised') {
+                    bottomMiddleButtonClass = 'btn-outline-primary';
+                } else if (viewpointElevation === 'Aerial') {
+                    bottomRightButtonClass = 'btn-outline-primary';
+                }
+
+                if (viewpointElevation !== 'Ground' && viewpointElevationConsensus === 'Ground') {
+                    bottomLeftButtonClass = 'btn-outline-dark';
+                } else if (viewpointElevation !== 'Raised' && viewpointElevationConsensus === 'Raised') {
+                    bottomMiddleButtonClass = 'btn-outline-dark';
+                } else if (viewpointElevation !== 'Aerial' && viewpointElevationConsensus === 'Aerial') {
+                    bottomRightButtonClass = 'btn-outline-dark';
+                }
 
 
-                    if (viewpointElevation === 'undefined' && scene === 'undefined') {
-                        buttonTranslation = 'Submit';
-                    }
+                if (viewpointElevation === 'undefined' && scene === 'undefined') {
+                    buttonTranslation = 'Submit';
+                }
 
-                    let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
-                    let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], true);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
-                    content += actionButtonTemplate;
+                let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
+                let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
+                content += actionButtonTemplate;
 
-                    let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
+                let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
 
-                    $('#ajp-categorize-scene-button').popover({
-                        html: true,
-                        sanitize: false,
-                        container,
-                        content,
-                        title
-                    });
+                $('#ajp-categorize-scene').popover({
+                    html: true,
+                    sanitize: false,
+                    trigger: 'manual',
+                    container,
+                    content,
+                    title
+                });
             });
         };
+
+        function updatePhotoAppliedOperations() {
+            fetchPhotoAppliedOperations().then(function(json) {
+                isPhotoFlipped = json.flip;
+                newIsPhotoFlipped = isPhotoFlipped;
+                isPhotoFlippedConsensus = json.flip_consensus;
+                isPhotoInverted = json.invert;
+                newIsPhotoInverted = isPhotoInverted;
+                isPhotoInvertedConsensus = json.invert_consensus;
+
+                if (!isNaN(json.rotated) && json.rotated !== undefined && json.rotated !== 'undefined') {
+                    photoRotationDegrees = json.rotated;
+                }
+                if (!isNaN(json.rotated_consensus) && json.rotated_consensus !== undefined && json.rotated_consensus !== 'undefined') {
+                    photoRotationDegreesConsensus = json.rotated_consensus;
+                }
+
+
+                if (newIsPhotoFlipped === 'undefined') {
+                    newIsPhotoFlipped = isPhotoFlippedConsensus;
+                }
+
+                if (isPhotoInverted === 'undefined') {
+                    newIsPhotoInverted = isPhotoInvertedConsensus;
+                }
+
+                if (photoRotationDegrees === 'undefined') {
+                    newPhotoRotationDegrees = photoRotationDegreesConsensus;
+                }
+
+                let rotatedIconClass = '';
+                let flipButtonClass, invertButtonClass, rotatedButtonClass;
+                flipButtonClass = invertButtonClass = rotatedButtonClass = 'btn-light';
+
+                let buttonTranslation = 'Submit';
+                let title = gettext('Edit');
+
+                if (isPhotoFlipped !== 'undefined') {
+                    flipButtonClass = 'btn-outline-primary';
+                }
+                if (isPhotoInverted !== 'undefined') {
+                    invertButtonClass = 'btn-outline-primary';
+                }
+
+                if (!isNaN(photoRotationDegrees)) {
+                    rotatedButtonClass = 'btn-outline-primary';
+                }
+
+                if (isPhotoFlipped === 'undefined' && isPhotoFlippedConsensus !== 'undefined' && isPhotoFlippedConsensus) {
+                    flipButtonClass = 'btn-outline-dark';
+                }
+                if (isPhotoInverted === 'undefined' && isPhotoInvertedConsensus !== 'undefined' && isPhotoInvertedConsensus) {
+                    invertButtonClass = 'btn-outline-dark';
+                }
+
+                if (isPhotoInvertedConsensus !== undefined  && isPhotoFlippedConsensus === newIsPhotoFlipped && isPhotoInvertedConsensus === newIsPhotoInverted && photoRotationDegreesConsensus === newPhotoRotationDegrees) {
+                    buttonTranslation = 'Confirm';
+                }
+
+                let content = `<div class='d-flex' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='flip-button' class='btn mr-2 ` + flipButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>flip</i><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='invert-button' class='btn ml-2 ` + invertButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>invert_colors</i><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='rotate-button' class='btn ml-2 ` + rotatedButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>rotate_left</i><span>` + gettext('Rotate') + `</span></button></div></div>`;
+                let actionButtonTemplate = `<button id='send-edit-button' onclick="submitPictureEditSuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100'>` + gettext(buttonTranslation) + `</button>`;
+                content += actionButtonTemplate;
+
+                let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
+
+                $('#ajp-edit-picture').popover({
+                    html: true,
+                    sanitize: false,
+                    trigger: 'manual',
+                    container,
+                    content,
+                    title
+                });
+            });
+        };
+
+        $('#ajp-categorize-scene').on('click', function() {
+            let id = $('#ajp-categorize-scene').attr('aria-describedby');
+            if (id && $('#' + id).length > 0) {
+                fetchPhotoSuggestions().then(function(json) {
+                    scene = json.scene;
+                    sceneConsensus = json.scene_consensus;
+                    viewpointElevation = json.viewpoint_elevation;
+                    viewpointElevationConsensus = json.viewpoint_elevation_consensus;
+                });
+                $('#ajp-categorize-scene').popover('hide');
+            } else {
+                $('#ajp-categorize-scene').popover('show');
+            }
+        });
+
+
+        $('#ajp-edit-picture').on('click', function() {
+            let id = $('#ajp-edit-picture').attr('aria-describedby');
+            if (id && $('#' + id).length > 0) {
+                $('#ajp-modal-photo').removeClass();
+                $('#ajp-photoview-main-photo').removeClass();
+                $('#ajp-photoview-main-photo').removeClass();
+                $('#ajp-fullscreen-image').removeClass();
+                $('#ajp-fullscreen-image').addClass('lasyloaded');
+                $('#ajp-fullscreen-image-wrapper').removeClass();
+                window.photoModalCurrentPhotoInverted = false;
+                window.photoModalCurrentPhotoFlipped = false;
+                refreshAnnotations();
+                enableAnnotations();
+                window.newIsPhotoFlipped = window.isPhotoFlipped !== undefined && window.isPhotoFlipped !== 'undefined' ? window.isPhotoFlipped : window.isPhotoFlippedConsensus;
+                window.newIsPhotoInverted = window.isPhotoInverted !== undefined && window.isPhotoInverted !== 'undefined' ? window.isPhotoInverted : window.isPhotoInvertedConsensus;
+                window.newPhotoRotationDegrees = 'undefined';
+                $('#ajp-edit-picture').popover('hide');
+            } else {
+                $('#ajp-edit-picture').popover('show');
+            }
+        });
+
 
         $('#ajp-start-dating-button').click(function (e) {
             e.preventDefault();
@@ -216,8 +357,12 @@
         };
 
         $(document).ready(function () {
-            updatePhotoScene();
-            var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
+            updatePhotoSuggestions();
+            updatePhotoAppliedOperations();
+            var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
+            if (window.previouslyEditedPhotoIds && currentlyOpenPhotoId && window.previouslyEditedPhotoIds.includes(currentlyOpenPhotoId.toString())) {
+                window.refreshUpdatedImage('#ajp-modal-photo');
+            }
             $(document).on('click', '#ajp-add-rephoto-button', function (e) {
                 e.preventDefault();
                 $.ajax({

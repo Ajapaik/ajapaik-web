@@ -15,9 +15,8 @@
         lastStatusMessage,
         photoLoadModalResizeFunction,
         modalPhoto = $('#ajp-game-modal-photo'),
-        flipOverlayButtons = $('.ajp-flip-photo-overlay-button'),
         previousButtons = $('.ajp-game-previous-photo-button'),
-        fullScreenImage = $('#ajp-full-screen-image'),
+        fullScreenImage = $('#ajp-fullscreen-image'),
         nextPhotoLoading = false;
     window.locationToolsOpen = false;
     window.photoHistory = [];
@@ -193,7 +192,13 @@
                     textTarget.show();
                 }
                 lastStatusMessage = message;
-                modalPhoto.attr('src', currentPhoto.big.url).attr('alt', currentPhoto.description);
+                let photoUrl = currentPhoto.big.url;
+                
+                if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.includes(currentPhoto.id.toString())) {
+                    photoUrl += '?timestamp=' + Date.now();
+                }
+                modalPhoto.attr('src', photoUrl).attr('alt', currentPhoto.description);
+
                 // For mini-map
                 window.photoModalGeotaggingUserCount = currentPhoto.totalGeotags;
                 window.photoModalPhotoLat = currentPhoto.lat;
@@ -216,14 +221,8 @@
                         fullScreenImage.unbind('load');
                     });
                 }
-                fullScreenImage.removeClass('ajp-photo-flipped');
+                fullScreenImage.parent().removeClass('ajp-photo-flipped');
                 modalPhoto.removeClass('ajp-photo-flipped');
-                flipOverlayButtons.removeClass('active');
-                if (currentPhoto.flip) {
-                    fullScreenImage.addClass('ajp-photo-flipped');
-                    modalPhoto.addClass('ajp-photo-flipped');
-                    flipOverlayButtons.addClass('active');
-                }
                 var azimuthIndicator = $('#ajp-photo-modal-location-with-azimuth'),
                     locationIndicator = $('#ajp-photo-modal-location-without-azimuth'),
                     noLocationIndicator = $('#ajp-photo-modal-no-location');
@@ -250,10 +249,7 @@
             nextPhotoLoading = false;
         }
     };
-    window.flipPhoto = function () {
-        currentPhoto.flip = !currentPhoto.flip;
-        $('#ajp-game-modal-photo').toggleClass('ajp-photo-flipped');
-    };
+
     window.showDescriptions = function () {
         window.gameHintUsed = true;
         window.descriptionViewHistory[currentPhoto.id] = true;
@@ -286,7 +282,6 @@
             window.showPhotoMapIfApplicable();
         });
         if (!isMobile) {
-            $('.ajp-flip-photo-overlay-button').hide('fade',250);
             $('.ajp-show-similar-photo-selection-overlay-button').hide('fade',250);
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
@@ -324,12 +319,16 @@
                 });
                 _gaq.push(['_trackEvent', 'Game', 'Next photo']);
             }
+            window.photoModalCurrentPhotoFlipped = false;
+            $('#ajp-game-flip-button').removeClass('active');
         });
         $(document).on('click', '.ajp-game-previous-photo-button', function () {
             if (!nextPhotoLoading && !$(this).hasClass('ajp-game-previous-photo-button-disabled')) {
                 window.nextPhoto(true);
                 _gaq.push(['_trackEvent', 'Game', 'Previous photo']);
             }
+            window.photoModalCurrentPhotoFlipped = false;
+            $('#ajp-game-flip-button').removeClass('active');
         });
         $(document).on('click', '#ajp-game-close-game-modal', function () {
             window.location.href = mapURL + '?album=' + window.albumId;
@@ -339,12 +338,12 @@
             if (window.BigScreen.enabled) {
                 var div = $('#ajp-fullscreen-image-container'),
                     img = div.find('img');
-                img.attr('src', img.attr('data-src'));
-                if (currentPhoto.flip) {
-                     img.addClass('ajp-photo-flipped');
-                } else {
-                     img.removeClass('ajp-photo-flipped');
+                let previousUrl = img.attr('data-src');
+                previousUrl = previousUrl.split('?timestamp')[0]
+                if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.includes(currentPhoto.id.toString())) {
+                    img.attr('src', previousUrl + '?timestamp=' + Date.now());
                 }
+                img.attr('src', img.attr('data-src'));
                 window.BigScreen.request(div[0]);
                 $('#ajp-game-full-screen-flip-button').show();
                 window.fullscreenEnabled = true;
@@ -357,17 +356,17 @@
         });
         $('#ajp-game-modal-body').hover(function () {
             if (!isMobile) {
-                $('.ajp-flip-photo-overlay-button').show('fade',250);
                 $('.ajp-show-similar-photo-selection-overlay-button').show('fade',250);
                 $('.ajp-photo-modal-next-button').show();
                 $('.ajp-photo-modal-previous-button').show();
+                $('#ajp-game-flip-button').show();
             }
         }, function () {
             if (!isMobile && !window.fullscreenEnabled) {
-                $('.ajp-flip-photo-overlay-button').hide('fade',250);
                 $('.ajp-show-similar-photo-selection-overlay-button').hide('fade',250);
                 $('.ajp-photo-modal-next-button').hide();
                 $('.ajp-photo-modal-previous-button').hide();
+                $('#ajp-game-flip-button').hide();
             }
         });
         if (parseInt(window.getQueryParameterByName('locationToolsOpen'), 10) === 1) {

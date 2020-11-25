@@ -36,6 +36,12 @@
                                 class="btn btn-success">{% trans "Add categories to picture(s)" %}</button>
                         </div>
                     {% endif %}
+                    {% if photos|length > 0 %}
+                        <div class="col-auto mb-3 pr-0">
+                            <button id="ajp-photo-selection-edit-pictures-button" type="button"
+                                class="btn btn-success">{% trans "Flip, rotate and invert picture(s)" %}</button>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="alert-success d-none"></div>
@@ -64,7 +70,7 @@
             </div>
             <div class="full-box original-full-box">
                 <div class="full-pic" id="ajp-fullscreen-image-container">
-                    <img id="ajp-full-screen-image" alt=""/>
+                    <img id="ajp-fullscreen-image" alt=""/>
                 </div>
             </div>
             <div class="full-box rephoto-full-box">
@@ -98,6 +104,7 @@
     </script>
     {% compress js %}
         <script src="{{ STATIC_URL }}js/ajp-selection.js"></script>
+        <script src="{{ STATIC_URL }}js/ajp-picture-edit-suggestion.js"></script>
         <script src="{{ STATIC_URL }}js/ajp-category-suggestion.js"></script>
     {% endcompress %}
 {% endblock %}

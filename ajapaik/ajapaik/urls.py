@@ -138,6 +138,8 @@ urlpatterns += [
     url(r'^api/v1/albums/search/$', api.AlbumsSearch.as_view()),
     url(r'^api/v1/wikidocumentaries/$', api.WikidocsAlbumsSearch.as_view()),
     url(r'^api/v1/wikidocumentaries/photos/$', api.WikidocsAlbumSearch.as_view()),
+    url(r'^api/v1/photo/applied-operations/$', api.PhotoAppliedOperations.as_view(), name='api_photo_applied_operations'),
+    url(r'^api/v1/photo/applied-operations/(?P<photo_id>\d+)/$', api.PhotoAppliedOperations.as_view(), name='api_photo_applied_operations'),
     url(r'^api/v1/photo/suggestion/$', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
     url(r'^api/v1/photo/suggestion/(?P<photo_id>\d+)/$', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
     url(r'^api/v1/photo/state/$', api.PhotoDetails.as_view()),

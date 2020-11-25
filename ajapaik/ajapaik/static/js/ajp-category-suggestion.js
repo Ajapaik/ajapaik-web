@@ -1,12 +1,4 @@
-async function handleErrors(response) {
-    const data = await response.json();
-    if (data.error) {
-        throw data.error;
-    }
-    return data.message;
-}
-
-function submitCategorySuggestion(photoIds, isModal) {
+function submitCategorySuggestion(photoIds, isMultiSelect) {
     $('#ajp-loading-overlay').show();
     return fetch(photoSceneUrl, {
         method: 'POST',
@@ -24,16 +16,16 @@ function submitCategorySuggestion(photoIds, isModal) {
         })
     
     })
-    .then(handleErrors)
-    .then(function(message) {
-        if (isModal) {
-            updatePhotoScene();
-            $('#ajp-categorize-scene-button').not(this).popover('hide');
-            $('#ajp-categorize-scene-button').popover('dispose');
+    .then(window.handleErrors)
+    .then(function(data) {
+        if (!isMultiSelect) {
+            $('#ajp-categorize-scene').not(this).popover('hide');
+            $('#ajp-categorize-scene').popover('dispose');
+            updatePhotoSuggestions();
         } else {
             $('#ajp-photo-selection-categorize-scenes-button').not(this).popover('hide');
         }
-        $.notify(message, {type: 'success'});
+        $.notify(data.message, {type: 'success'});
         $('#ajp-loading-overlay').hide();
     }).catch((error) => {
         $('#ajp-loading-overlay').hide();

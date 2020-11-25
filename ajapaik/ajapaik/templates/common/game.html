@@ -21,7 +21,7 @@
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                 <i class="material-icons ajp-icon-48 notranslate">navigate_before</i>
                             </button>
-                            <a class="fullscreen" id="ajp-full-screen-link" rel="" href="">
+                            <a class="fullscreen" id="ajp-fullscreen-link" rel="" href="">
                                 <img class="img-fluid col-xs-12" id="ajp-game-modal-photo"
                                         alt="{% trans "Game modal photo" %}"/>
                             </a>
@@ -29,7 +29,7 @@
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                 <i class="material-icons ajp-icon-48 notranslate">navigate_next</i>
                             </button>
-                            <button class="ajp-flip-photo-overlay-button">
+                            <button id="ajp-game-flip-button" style="display: none;">
                                 <i class="material-icons notranslate">flip</i>
                             </button>
                             <button class="ajp-like-photo-overlay-button">
@@ -89,7 +89,7 @@
     {% include "geotaggers/_geotaggers_modal.html" %}
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajp-fullscreen-image-container">
-            <img id="ajp-full-screen-image" alt=""/>
+            <img id="ajp-fullscreen-image" alt=""/>
         </div>
     </div>
     <div class="full-box similar-full-box">
@@ -122,6 +122,17 @@
         {% else %}
             window.startLocation = [26, 59];
         {% endif %}
+
+        flipImages = function () {
+            $('#ajp-game-flip-button').toggleClass('active');
+            $('#ajp-game-modal-photo').toggleClass('ajp-photo-flipped');
+            $('#ajp-geotagger-full-screen-image').toggleClass('ajp-photo-flipped');
+            window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
+        },
+
+        $('#ajp-game-flip-button').click(function (e) {
+            flipImages();
+        });
     </script>
     {% compress js %}
         <script src="{% static 'js/ajp-game.js' %}"></script>
