@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-19 03:40+0200\n"
-"PO-Revision-Date: 2020-11-19 14:44:10+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -2361,7 +2361,7 @@ msgid "Here you can upload historic pictures to Ajapaik (currently one picture a
 msgstr "Siit saate ajaloolisi pilte Ajapaika laadida (hetkel ühe pildi haaval)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Mina, %(user)s, annan käesolevaga pöördumatult kõigile õiguse kasutada seda enda loodud teost <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commonsi rahvusvahelise litsentsi \"Autorile viitamine + jagamine samadel tingimustel 4.0\" (CC-BY-SA)</a> alusel."
 
@@ -2504,7 +2504,7 @@ msgstr "Sünniaeg"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
-msgstr "Tegemist on avaliku tegelasega"
+msgstr "Tegemist on avaliku elu tegelasega"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:31
 msgid "Firstname Lastname"

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Abijeet Patro
+# Author: Adriana Lioni
 # Author: Eduardo Addad de Oliveira
 # Author: Yeltsinxyz
 # --
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-19 14:44:11+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:25+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -179,7 +180,7 @@ msgstr "Escolher o álbum principal"
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "Arquivo de imagem"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:183 ajapaik/ajapaik/models.py:354
@@ -198,7 +199,7 @@ msgstr "Autor"
 
 #: ajapaik/ajapaik/forms.py:410
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Licença ou status de direitos autorais"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
@@ -206,7 +207,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Adicione uma breve descrição da imagem"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Author of the picture (photographer, painter)"
@@ -218,11 +219,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "Descrição da foto"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "Nome do autor"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -637,7 +638,7 @@ msgstr "Datar esta imagem"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -645,7 +646,7 @@ msgstr "Adicionar repotografia"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Adicionar uma rephoto"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -663,11 +664,11 @@ msgstr "Compartilhar"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:41
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Adicionar uma categoria - clicar neste botão permitirá que você categorize esta imagem em várias categorias, por exemplo, se esta imagem retrata em ambientes internos ou externos"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:44
 msgid "Categorize"
-msgstr ""
+msgstr "Categorizar"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:48
 msgid "Transcribe this image"
@@ -2354,7 +2355,7 @@ msgstr "Este usuário não tem contribuições."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Aqui você pode enviar fotos históricas para Ajapaik (atualmente, uma foto de cada vez)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, python-format
@@ -2363,15 +2364,15 @@ msgstr "Eu, %(user)s, o detentor dos direitos autorais deste trabalho, irrevogav
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "Adicionar foto a algum (s) álbum (s)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Você precisa adicionar a foto a pelo menos um álbum"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
-msgstr ""
+msgstr "Adicione a imagem a algum álbum existente ou crie primeiro um novo álbum e, em seguida, adicione a imagem a ele"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
 msgid "Upload and mark on map"
@@ -2492,7 +2493,7 @@ msgstr "Unir outra conta do Ajapaik com a atual"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
-msgstr ""
+msgstr "Nome da pessoa"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Date of birth"
@@ -2508,7 +2509,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:33
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "Observações adicionais sobre a pessoa (outros nomes, etc.)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72

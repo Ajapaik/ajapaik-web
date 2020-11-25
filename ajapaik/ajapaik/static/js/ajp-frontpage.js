@@ -230,7 +230,7 @@
                         targetDiv.removeClass('w-100');
                         let array = window.location.search.split('&q=');
                         if (array && array.length > 1) {
-                            $('#ajp-album-filter-box').val(array[array.length - 1]);
+                            $('#ajp-album-filter-box').val(decodeURIComponent(array[array.length - 1]).replace('%2C', ',').replace('%3A',':').replace('%2F','/').replace('+',' '));
                         }
                         if (response.albums.length > 0) {
                             for (var i = 0, l = response.albums.length; i < l; i += 1) {
@@ -456,8 +456,8 @@
         };
         if (getQueryParameterByName('q')) {
             var query = getQueryParameterByName('q');
-            $('#ajp-album-filter-box').val(query).trigger('change');
-            $('#ajp-photo-filter-box').val(query);
+            $('#ajp-album-filter-box').val(decodeURIComponent(query).replace('%2C', ',').replace('%3A',':').replace('%2F','/').replace('+',' ')).trigger('change');
+            $('#ajp-photo-filter-box').val(decodeURIComponent(query).replace('%2C', ',').replace('%3A',':').replace('%2F','/').replace('+',' '));
             window.photoQuery = query;
             window.albumQuery = query;
         }

@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-11-19 14:44:09+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:23+0000\n"
 "X-POT-Import-Date: 2020-11-19 14:39:08+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2092,7 +2092,7 @@ msgstr "Ein Fehler ist aufgetreten, bei dem Versuch durch ihr Konto im sozialen 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
 #: ajapaik/ajapaik/views.py:3212
 msgid "Account Connections"
-msgstr ""
+msgstr "Benutzerkonto-Verknüpfungen"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
@@ -2177,69 +2177,69 @@ msgstr[1] "<b>%(datings)s</b> Bilder das Datum spezifiziert"
 #, python-format
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(face_annotations)s</b> Gesicht gekennzeichnet auf"
+msgstr[1] "<b>%(face_annotations)s</b> Gesichter gekennzeichnet auf"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/user/_user_info.html:37
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(face_annotations_pictures)s</b> Bild"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> Bilder"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations)s</b> Objekt gekennzeichnet auf"
+msgstr[1] "<b>%(object_annotations)s</b> Objekte gekennzeichnet auf"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations_pictures)s</b> Bild"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> Bilder"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
 msgid "transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Text auf <b>%(transcriptions)s</b> Bild transkribiert"
+msgstr[1] "Texte auf <b>%(transcriptions)s</b> Bildern transkribiert"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/user/_user_info.html:53
 #, python-format
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(similar_pictures)s</b> ähnliches Bild verknüpft"
+msgstr[1] "<b>%(similar_pictures)s</b> ähnliche Bilder verknüpft"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/user/_user_info.html:58
 #, python-format
 msgid "favorited <b>%(photolikes)s</b> picture"
 msgid_plural "favorited <b>%(photolikes)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(photolikes)s</b> Bild favorisiert"
+msgstr[1] "<b>%(photolikes)s</b> Bilder favorisiert"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:66
 #: ajapaik/ajapaik/templates/user/_user_info.html:63
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(photo_suggestions)s</b> Bild kategorisiert"
+msgstr[1] "<b>%(photo_suggestions)s</b> Bilder kategorisiert"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du hast insgesamt <b>%(user_points)s Punkt</b>"
+msgstr[1] "Du hast insgesamt <b>%(user_points)s</b> Punkte"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
@@ -2259,35 +2259,35 @@ msgstr "Dieser Account ist verbunden mit:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Dieses Benutzerkonto ist mit keinem anderen verknüpft"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:31
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "für <b>%(datings)s</b> Bild das Datum spezifiziert"
+msgstr[1] "für <b>%(datings)s</b> Bilder das Datum spezifiziert"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations)s</b> Bild"
+msgstr[1] "<b>%(object_annotations)s</b> Bilder"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Text auf <b>%(transcriptions)s</b> Bild transkribiert"
+msgstr[1] "Texte auf <b>%(transcriptions)s</b> Bildern transkribiert"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(user_points)s Punkt insgesamt</b>"
+msgstr[1] "<b>%(user_points)s</b> Punkte insgesamt"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
@@ -2363,7 +2363,7 @@ msgid "Here you can upload historic pictures to Ajapaik (currently one picture a
 msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "Ich, %(user)s, der Urheberrechtsinhaber dieses Werkes, garantiere hiermit unwiderruflich jedem das Recht, dieses Werk unter der Lizenz <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a> zu verwenden."
 
@@ -2394,7 +2394,7 @@ msgstr "Du bist anonym. Du kannst dich jetzt mit deiner E-Mail anmelden."
 
 #: ajapaik/ajapaik/views.py:459
 msgid "Non-authenticated user"
-msgstr ""
+msgstr "Unbestätigter Benutzer"
 
 #: ajapaik/ajapaik/views.py:598
 msgid "Geotagging game"
@@ -2407,15 +2407,15 @@ msgstr "%(name)s - Refotos"
 
 #: ajapaik/ajapaik/views.py:1144
 msgid "Cannot upload to these albums"
-msgstr ""
+msgstr "In diese Alben kann nicht hochgeladen werden"
 
 #: ajapaik/ajapaik/views.py:1174
 msgid "Recuration successful"
-msgstr ""
+msgstr "Rekuratierung erfolgreich"
 
 #: ajapaik/ajapaik/views.py:1176
 msgid "Problem with album selection"
-msgstr ""
+msgstr "Problem bei der Albenauswahl"
 
 #: ajapaik/ajapaik/views.py:1178
 msgid "Faulty data submitted"
@@ -2428,7 +2428,7 @@ msgstr "Fotos auf der Karte durchsuchen"
 
 #: ajapaik/ajapaik/views.py:1636
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
-msgstr ""
+msgstr "Dein Beitrag hat den voraussichtlichen Standpunkt für das Fotos, zumindest noch, nicht verändert."
 
 #: ajapaik/ajapaik/views.py:1638
 msgid "The photo has been mapped to a new location thanks to you."
@@ -2436,11 +2436,11 @@ msgstr "Das Foto wurde dank dir auf einem neuen Standort auf der Karte eingetrag
 
 #: ajapaik/ajapaik/views.py:1640
 msgid "Your suggestion was first."
-msgstr ""
+msgstr "Dein Vorschlag war der erste."
 
 #: ajapaik/ajapaik/views.py:1913
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr ""
+msgstr "Suche nach alten Fotos, ergänze sie auf Ajapaik, bestimme ihren Standort und teile das entstandene Album!"
 
 #: ajapaik/ajapaik/views.py:2276
 msgid "OK"
@@ -2449,7 +2449,7 @@ msgstr "Okay"
 #: ajapaik/ajapaik/views.py:2335 ajapaik/ajapaik/views.py:2356
 #, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr ""
+msgstr "Fehler beim Hochladen der Datei: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2352
 msgid "Photo already exists in Ajapaik"
@@ -2466,7 +2466,7 @@ msgstr "Nicht genug Daten übermittelt"
 #: ajapaik/ajapaik/views.py:2693
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr ""
+msgstr "Filmfoto aus \"%(film)s\", %(time)s"
 
 #: ajapaik/ajapaik/views.py:2908
 msgid "Photo uploaded"
@@ -2506,7 +2506,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
-msgstr ""
+msgstr "Ist eine Person des öffentlichen Lebens"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:31
 msgid "Firstname Lastname"
@@ -2539,7 +2539,7 @@ msgstr "Unbekannt"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Nicht zutreffend"
 
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:189

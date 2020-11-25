@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-19 14:44:10+0000\n"
+"PO-Revision-Date: 2020-11-23 14:17:24+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -183,7 +183,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "사진 파일"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:183 ajapaik/ajapaik/models.py:354
@@ -202,7 +202,7 @@ msgstr "저자"
 
 #: ajapaik/ajapaik/forms.py:410
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "라이선스 또는 저작권 상태"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
@@ -222,11 +222,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "사진 설명"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "저자 이름"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -641,7 +641,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "날짜"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -671,7 +671,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:44
 msgid "Categorize"
-msgstr ""
+msgstr "분류"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:48
 msgid "Transcribe this image"
@@ -2463,11 +2463,11 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
-msgstr ""
+msgstr "인명"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Date of birth"
-msgstr ""
+msgstr "생년월일"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
