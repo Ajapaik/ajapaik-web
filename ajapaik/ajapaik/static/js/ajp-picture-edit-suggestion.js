@@ -46,7 +46,9 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
         $.notify(data.message, {type: 'success'});
         if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.length > 0) {
             photoIds.forEach(id => {
-                window.previouslyEditedPhotoIds.push(id);
+                if(window.previouslyEditedPhotoIds.indexOf(id) === -1) {
+                    window.previouslyEditedPhotoIds.push(id);
+                }
             });
         } else {
             window.previouslyEditedPhotoIds = photoIds;
@@ -69,7 +71,7 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
         window.refreshUpdatedImage('#ajp-fullscreen-image');
         photoIds.forEach(id => {
             window.refreshUpdatedImageLight('img[data-id=' + id + ']');
-            window.refreshUpdatedImageLight('a[data-id=' + id + '] > .ajp-photo-selection-thumbnail');
+            window.refreshUpdatedImageLight('a[data-id=' + id + '].ajp-photo-selection-thumbnail-link > img');
         });
         $('#ajp-fullscreen-image-wrapper').removeClass();
         $('#ajp-fullscreen-image').addClass('lasyloaded');

@@ -168,6 +168,9 @@ def suggest_photo_edit(photo_suggestions, key, new_value, points_model, score, a
                     getattr(photo, function_name)(new_value)
                 elif (function_name != 'do_rotate') and ((old_value is not None or new_value == True) and old_value != new_value):
                     getattr(photo, function_name)()
+            else:
+                setattr(photo, key, new_value)
+                photo.save()
 
             if previous_suggestion:
                 if response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:

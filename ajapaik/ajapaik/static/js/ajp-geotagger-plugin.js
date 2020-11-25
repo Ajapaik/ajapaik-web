@@ -1055,6 +1055,7 @@
                 }
                 that.azimuthLine.setVisible(false);
             }
+            $('#ajp-loading-overlay').show();
             $.ajax({
                 type: 'POST',
                 url: saveLocationURL,
@@ -1106,12 +1107,17 @@
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
                     if (that.photoFlipped) {
-                        window.previouslyEditedPhotoIds.push(this.options.currentPhotoId);
+                        if(window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
+                            window.previouslyEditedPhotoIds.push(that.options.currentPhotoId);
+                        }
                     }
                     localStorage.setItem("previouslyEditedPhotoIds", JSON.stringify(window.previouslyEditedPhotoIds));
                 },
                 error: function () {
                     $('#ajp-geotagger-game-buttons').show();
+                },
+                complete: function() {
+                    $('#ajp-loading-overlay').hide();
                 },
                 dataType: 'json'
             });
