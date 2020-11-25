@@ -1105,9 +1105,10 @@
                         response.estimated_location[0] && response.estimated_location[1]) {
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
-                    if (this.photoFlipped) {
+                    if (that.photoFlipped) {
                         window.previouslyEditedPhotoIds.push(this.options.currentPhotoId);
                     }
+                    localStorage.setItem("previouslyEditedPhotoIds", JSON.stringify(window.previouslyEditedPhotoIds));
                 },
                 error: function () {
                     $('#ajp-geotagger-game-buttons').show();

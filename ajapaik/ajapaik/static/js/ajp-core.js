@@ -191,9 +191,9 @@ $('.ajp-navbar').autoHidingNavbar();
             }
             img.show();
             if (window.photoModalCurrentPhotoFlipped) {
-                img.parent().addClass('ajp-photo-flipped');
+                img.addClass('ajp-photo-flipped');
             } else {
-                img.parent().removeClass('ajp-photo-flipped');
+                img.removeClass('ajp-photo-flipped');
             }
             if (window.photoModalCurrentPhotoInverted) {
                 img.addClass('ajp-photo-inverted');

@@ -45,7 +45,9 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
     .then(function(data) {
         $.notify(data.message, {type: 'success'});
         if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.length > 0) {
-            window.previouslyEditedPhotoIds.concat(photoIds)
+            photoIds.forEach(id => {
+                window.previouslyEditedPhotoIds.push(id);
+            });
         } else {
             window.previouslyEditedPhotoIds = photoIds;
         }
