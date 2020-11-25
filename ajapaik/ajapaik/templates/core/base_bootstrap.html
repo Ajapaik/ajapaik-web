@@ -290,6 +290,9 @@
 {% block global_js %}
     <script>
         window.previouslyEditedPhotoIds = JSON.parse(localStorage.getItem("previouslyEditedPhotoIds"));
+        if (window.previouslyEditedPhotoIds === null) {
+            window.previouslyEditedPhotoIds = [];
+        }
         window.addEventListener("beforeunload", function (event) {
             $('#ajp-loading-overlay').show();
         });
