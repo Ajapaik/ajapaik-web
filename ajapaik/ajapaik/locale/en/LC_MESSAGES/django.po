@@ -13,7 +13,7 @@ msgstr "Invert colors"
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "Add at least flip, invert or rotate parameter to the"
+msgstr "Add at least flip, invert or rotate parameter to the request"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
