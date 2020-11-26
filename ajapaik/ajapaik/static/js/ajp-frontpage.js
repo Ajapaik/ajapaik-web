@@ -371,7 +371,8 @@
                     })
 
                     if (collection !== undefined && collection === 0) {
-                        $('#ajp-sorting-error-message').text(gettext('Picture set has no' + ' ' + attribute));
+                        let translationString = 'Picture set has no ' + attribute; 
+                        $('#ajp-sorting-error-message').text(gettext(translationString));
                         $('#ajp-sorting-error').show();
                         window.setTimeout(function () {
                             $('#ajp-sorting-error').hide();
