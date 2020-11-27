@@ -186,9 +186,10 @@ $('.ajp-navbar').autoHidingNavbar();
             }
             previousUrl = previousUrl.split('?timestamp')[0]
             if (window.previouslyEditedPhotoIds && window.currentlyOpenPhotoId && window.previouslyEditedPhotoIds.includes(window.currentlyOpenPhotoId.toString())) {
-                img.attr('data-src', previousUrl + '?timestamp=' + Date.now());
-                img.attr('src', previousUrl + '?timestamp=' + Date.now());
+                previousUrl += '?timestamp=' + Date.now();
             }
+            img.attr('data-src', previousUrl);
+            img.attr('src', previousUrl);
             img.show();
             if (window.photoModalCurrentPhotoFlipped) {
                 img.addClass('ajp-photo-flipped');
