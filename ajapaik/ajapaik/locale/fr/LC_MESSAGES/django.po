@@ -13,6 +13,7 @@
 # Author: Thibaut120094
 # Author: Urhixidur
 # Author: VIGNERON
+# Author: Vega
 # Author: Verdy p
 # Author: Wladek92
 # --
@@ -24,7 +25,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:32+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:51+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,9 +38,8 @@ msgid "Invert colors"
 msgstr "Inverser les couleurs"
 
 #: ajapaik/ajapaik/api.py:86
-#, fuzzy
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "Ajouter au moins un paramètre de retournement, inversion ou rotation au"
+msgstr "Ajouter au moins le paramètre de retournement, d'inversion ou de rotation à la requête"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
@@ -125,7 +125,7 @@ msgstr "Quelque chose s’est mal passé"
 
 #: ajapaik/ajapaik/api.py:1900 ajapaik/utils.py:140
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr "Votre suggestion a été enregistrée, mais le consensus précédent demeure"
+msgstr "Votre suggestion a été enregistrée, mais le consensus antérieur demeure"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"

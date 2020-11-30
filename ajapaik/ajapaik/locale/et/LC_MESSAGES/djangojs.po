@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-20 00:06+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:31+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:50+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -282,7 +282,7 @@ msgstr "Institutsioon"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Invert colors"
-msgstr "Keera negatiivi"
+msgstr "Keera värvid ümber"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Licence"

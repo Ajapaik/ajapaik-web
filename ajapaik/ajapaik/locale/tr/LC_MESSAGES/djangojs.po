@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:32+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:51+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -736,7 +736,7 @@ msgstr "Verilen puan"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1072
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "Resim çevirme geri bildirimi"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
@@ -759,7 +759,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr "Tüm resimler kenar çubuğunda gösterilir"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "%s puan kazandınız"

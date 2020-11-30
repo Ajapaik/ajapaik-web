@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:32+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
@@ -734,7 +734,7 @@ msgstr "Pont assignà"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1072
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "Sugeriment su coma volté le plance"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
@@ -757,7 +757,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr "Tute le plance a son ësmonùe ant la bara lateral"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "A l'ha vagnà %s pont"

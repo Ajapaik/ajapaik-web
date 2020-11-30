@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:32+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:52+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -678,7 +678,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:56
 msgid "Categorize"
-msgstr ""
+msgstr "Kategoriséieren"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:60
 msgid "Transcribe this image"
@@ -686,7 +686,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "Bild änneren"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29

@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-26 16:47:33+0000\n"
+"PO-Revision-Date: 2020-11-30 15:59:53+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,9 +31,8 @@ msgid "Invert colors"
 msgstr "Renkleri ters çevir"
 
 #: ajapaik/ajapaik/api.py:86
-#, fuzzy
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "En azından çevirme, ters çevirme veya döndürme parametresini ekleyin."
+msgstr "İsteğe en azı flip, invert veya rotate parametresi ekleyin"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
