@@ -14,7 +14,7 @@ def safe_list_get(l, idx, default):
 
 class FotisDriver(object):
     def __init__(self):
-        self.search_url = 'http://www.ra.ee/apps/fotis/api/index.php/v1/photo' \
+        self.search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
                           '?filter[or][][reference_code][like]=%s' \
                           '&filter[or][][content][like]=%s' \
                           '&filter[or][][author][like]=%s' \

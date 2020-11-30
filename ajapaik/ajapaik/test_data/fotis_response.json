@@ -5,13 +5,13 @@
     "content": null,
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127222"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127222"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127222"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127222"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127222"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127222"
       }
     },
     "location": {
@@ -35,13 +35,13 @@
     "content": "Petseri klooster.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127223"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127223"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127223"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127223"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127223"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127223"
       }
     },
     "location": {
@@ -65,13 +65,13 @@
     "content": null,
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127227"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127227"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127227"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127227"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127227"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127227"
       }
     },
     "location": {
@@ -95,13 +95,13 @@
     "content": "Setu naised.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127228"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127228"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127228"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127228"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127228"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127228"
       }
     },
     "location": {
@@ -125,13 +125,13 @@
     "content": "Venelased tantsimas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127229"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127229"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127229"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127229"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127229"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127229"
       }
     },
     "location": {
@@ -155,13 +155,13 @@
     "content": "Setud tantsimas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127230"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127230"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127230"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127230"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127230"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127230"
       }
     },
     "location": {
@@ -185,13 +185,13 @@
     "content": "Setu naised surnuaial.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127231"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127231"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127231"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127231"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127231"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127231"
       }
     },
     "location": {
@@ -215,13 +215,13 @@
     "content": "Osa majapidamishoonest setu talu \u00f5uel.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127232"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127232"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127232"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127232"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127232"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127232"
       }
     },
     "location": {
@@ -245,13 +245,13 @@
     "content": "Setu naised p\u00f5llul t\u00f6\u00f6tamas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127233"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127233"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127233"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127233"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127233"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127233"
       }
     },
     "location": {
@@ -275,13 +275,13 @@
     "content": "Setu mehed uhmris teri purustamas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127234"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127234"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127234"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127234"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127234"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127234"
       }
     },
     "location": {
@@ -305,13 +305,13 @@
     "content": "Turg Setumaal.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127235"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127235"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127235"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127235"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127235"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127235"
       }
     },
     "location": {
@@ -335,13 +335,13 @@
     "content": "Laat V\u00e4rskas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127236"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127236"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127236"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127236"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127236"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127236"
       }
     },
     "location": {
@@ -365,13 +365,13 @@
     "content": "Setud surnuaial.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127237"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127237"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127237"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127237"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127237"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127237"
       }
     },
     "location": {
@@ -395,13 +395,13 @@
     "content": "Setud tiigil.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127238"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127238"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127238"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127238"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127238"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127238"
       }
     },
     "location": {
@@ -425,13 +425,13 @@
     "content": "Ristik\u00e4ik Setumaal.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127239"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127239"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127239"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127239"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127239"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127239"
       }
     },
     "location": {
@@ -455,13 +455,13 @@
     "content": "Ristik\u00e4ik Setumaal.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127240"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127240"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127240"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127240"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127240"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127240"
       }
     },
     "location": {
@@ -485,13 +485,13 @@
     "content": "Setud ikooniga.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127241"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127241"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127241"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127241"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127241"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127241"
       }
     },
     "location": {
@@ -515,13 +515,13 @@
     "content": "Setud tantsimas.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127242"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127242"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127242"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127242"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127242"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127242"
       }
     },
     "location": {
@@ -545,13 +545,13 @@
     "content": "Setu naised ja mehed.",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=127243"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=127243"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=127243"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=127243"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=127243"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=127243"
       }
     },
     "location": {
@@ -575,13 +575,13 @@
     "content": "Vabaduss\u00f5da. S\u00f5jakooli suurt\u00fckiklass ballistika tunnis. Seisavad (vasakult): S\u00f5jakooli \u00fclem alampolkovnik Aleksander Simon, vanem portupee kadett Aleksander P\u00e4\u00e4suke, kooli suurt\u00fckipatarei \u00fclem kapten Karl Kohl (Kool), [klasside inspektor alamkapten Heinrich Pavian (Hendrik Pallandi], kooli adjutant alamleitnant Magnus Siiak (istub, m\u00f5\u00f5gaga).",
     "_links": {
       "self": {
-        "href": "http://www.ra.ee/apps/fotis/api/index.php/v1/photo/view?id=131089"
+        "href": "https://www.ra.ee/fotis/api/index.php/v1/photo/view?id=131089"
       },
       "image": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/file/image?id=131089"
+        "href": "https://www.ra.ee/fotis/index.php/et/file/image?id=131089"
       },
       "view": {
-        "href": "http://www.ra.ee/apps/fotis/index.php/et/photo/view?id=131089"
+        "href": "https://www.ra.ee/fotis/index.php/et/photo/view?id=131089"
       }
     },
     "location": {
