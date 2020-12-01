@@ -6,10 +6,19 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container pt-5 h-100" style="display: inline-block; max-width: 900px; padding-left: 40px;">
-        {% include "donate/_donate_details.html" %}
-        <br>
-        <h3 class="pb-5"><a href="{% url 'supporters' %}">{% trans 'Supporters of Ajapaik' %}</a></h3>
+    <div class="container pt-5 h-100" style="display: inline-block; padding-left: 40px;">
+        <div class="row">
+            <div class="col-xl-8 col-lg-9 col-md-10 col-sm-12">
+                {% include "donate/_donate_details.html" %}
+                <br>
+                <h3 class="pb-5"><a href="{% url 'supporters' %}">{% trans 'Supporters of Ajapaik' %}</a></h3>
+            </div>
+            <div class="col-xl-4 col-lg-3 col-md-0 col-sm-0">
+                <a href="{{ picture.resource_url }}">
+                    <img src="{{ picture.image_url}}" style="max-width: 100%; cursor: pointer;"></img>
+                </a>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

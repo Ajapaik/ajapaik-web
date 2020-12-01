@@ -11,6 +11,7 @@ import ssl
 from copy import deepcopy
 from io import StringIO
 from math import ceil
+from random import choice
 from time import strftime, strptime
 from urllib.request import build_opener
 
@@ -2742,7 +2743,26 @@ def generate_still_from_video(request):
 
 
 def donate(request):
-	return render(request, 'donate/donate.html', {'is_donate': True})
+	pictures = [
+		{
+			'image_url': 'https://ajapaik.ee//media/uploads/muis_eU4vJ5H.jpg',
+			'resource_url': 'https://ajapaik.ee/photo/82938/'
+		},
+		{
+			'image_url': 'https://ajapaik.ee//media/uploads/muis_5dtkncr.jpg',
+			'resource_url': 'https://ajapaik.ee/photo/111092'
+		},
+		{
+			'image_url': 'https://ajapaik.ee/media/uploads/muis_YHWUAey.jpg',
+			'resource_url': 'https://ajapaik.ee/photo/89376'
+		}
+	]
+	context = {
+		'is_donate': True,
+		'picture': choice(pictures)
+	}
+
+	return render(request, 'donate/donate.html', context)
 
 
 def photo_upload_choice(request):
