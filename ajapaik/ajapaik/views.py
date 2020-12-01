@@ -2750,15 +2750,11 @@ def donate(request):
 		},
 		{
 			'image_url': 'https://ajapaik.ee//media/uploads/muis_5dtkncr.jpg',
-			'resource_url': 'https://ajapaik.ee/photo/89376/'
+			'resource_url': 'https://ajapaik.ee/photo/111092'
 		},
 		{
 			'image_url': 'https://ajapaik.ee/media/uploads/muis_YHWUAey.jpg',
-			'resource_url': 'https://ajapaik.ee/photo/111092/'
-		},
-		{
-			'image_url': 'https://ajapaik.ee//media/uploads/muis_D3RgAmj.jpg',
-			'resource_url': 'https://ajapaik.ee/photo/198669/tallinna-vaade/'
+			'resource_url': 'https://ajapaik.ee/photo/89376'
 		}
 	]
 	context = {
