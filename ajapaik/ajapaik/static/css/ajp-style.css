@@ -2334,11 +2334,11 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   width: 100%;
   min-height: 50px;
   background-color: yellow;
-  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px 110px;
+  z-index: 1061;
 }
 
 #ajp-donation-banner > span {
