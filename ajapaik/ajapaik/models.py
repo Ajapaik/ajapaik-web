@@ -34,6 +34,7 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
+from nltk import sent_tokenize
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
@@ -927,6 +928,36 @@ class Photo(Model):
                 closest_dist = dist
 
         return closest_point
+
+    def fill_untranslated_fields(self):
+        # Find filled field to base translation off
+        translation_source = None
+        source_lang = None
+        source_lang_map = {
+            'et': 'estonian',
+            'lv': 'latvian',
+            'lt': 'lithuanian',
+            'fi': 'finnish',
+            'en': 'english',
+            'ru': 'russian',
+            'de': 'german'
+        }
+        for each in settings.ESTNLTK_LANGUAGES:
+            key = f'description_{each}'
+            if getattr(self, key):
+                translation_source = key
+                source_lang = each
+                break
+        tokenized_source = sent_tokenize(getattr(self, translation_source), source_lang_map[source_lang])
+        for each in settings.ESTNLTK_LANGUAGES:
+            key = f'description_{each}'
+            current_value = getattr(self, key)
+            if not current_value:
+                # TODO: translate this somehow: https://github.com/TartuNLP/nazgul/blob/master/translator.py
+                translation = tokenized_source
+                setattr(self, key, translation)
+
+        self.light_save()
 
     # TODO: Cut down on the science library use
     def set_calculated_fields(self):

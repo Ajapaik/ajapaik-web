@@ -40,6 +40,17 @@ scikit-learn==0.22.2.post1
 sorl-thumbnail==12.6.3
 typing==3.7.4.1
 user-agents==2.1
+# mxnet
+# sentencepiece
+# sockeye==1.18.106
+estnltk
+pytest
+pytest-cov
+pytest-django
+django-stubs
+djangorestframework-stubs
+pytest-mypy
+pytest-mypy-plugins
 
 # legacy packages
 oauth2client==2.2.0

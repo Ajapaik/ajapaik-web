@@ -72,6 +72,8 @@ LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('et', gettext('Estonian')),
+    ('lv', gettext('Latvian')),
+    ('lt', gettext('Lithuanian')),
     ('en', gettext('English')),
     ('fi', gettext('Finnish')),
     ('sv', gettext('Swedish')),
@@ -79,9 +81,11 @@ LANGUAGES = (
     ('fr', gettext('French'))
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
+MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+
+ESTNLTK_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
 
 SITE_ID = 2
 
@@ -90,7 +94,6 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
-
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -382,7 +385,8 @@ ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
-ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (user.profile and user.profile.display_name) else user.get_full_name()
+ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (
+            user.profile and user.profile.display_name) else user.get_full_name()
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
