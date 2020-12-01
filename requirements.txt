@@ -52,6 +52,7 @@ djangorestframework-stubs
 pytest-mypy
 pytest-mypy-plugins
 flake8
+dlib-compiled
 
 # legacy packages
 oauth2client==2.2.0
