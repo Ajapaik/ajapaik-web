@@ -12,6 +12,13 @@ import nltk
 nltk.download('punkt')
 ```
 
+## TartuNLP
+These files are too large to keep in version control, get them: https://195.80.123.212/tartunlp/translate
+```bash
+mv params.best ajapaik/ajapaik/tartunlp/models/translation/
+mv truecasing.model ajapaik/ajapaik/tartunlp/models/preprocessing
+```
+
 ## Running locally
 ```bash
 docker pull laurielias/ajapaik-web:python-3.6-latest
@@ -123,3 +130,5 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: automate regular DB, media/uploads, media/videos backups
 - TODO: squash migrations (there are too many)
 - TODO: fix # noqa as much as possible (some Django quirks will always annoy flake8 though)
+- TODO: replace face_recognition with something else since it requires the horrendous dlib
+- TODO: upgrade from Python 3.6 before EoL 2021-12-23

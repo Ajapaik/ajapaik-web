@@ -41,6 +41,8 @@ from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.phash import phash
+from ajapaik.ajapaik.tartunlp_translate.constraints import getPolitenessConstraints
+from ajapaik.ajapaik.tartunlp_translate.translator import translate, loadModels
 from ajapaik.utils import angle_diff, average_angle
 
 
@@ -969,13 +971,20 @@ class Photo(Model):
                 translation_source = key
                 source_lang = each
                 break
-        tokenized_source = sent_tokenize(getattr(self, translation_source), source_lang_map[source_lang])
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        # translation_models = loadModels(
+        #     f'{dir_path}/tartunlp_translate/models/translation',
+        #     f'{dir_path}/tartunlp_translate/models/preprocessing/truecasing.model',
+        #     f'{dir_path}/tartunlp_translate/models/preprocessing/sentencepiece.model'
+        # )
         for each in settings.ESTNLTK_LANGUAGES:
             key = f'description_{each}'
             current_value = getattr(self, key)
             if not current_value:
-                # TODO: translate this somehow: https://github.com/TartuNLP/nazgul/blob/master/translator.py
-                translation = tokenized_source
+                translation = translation_source
+                # TODO: This integration will not work, make TartuNLP work as a standalone server and talk via socket
+                # translation = translate(translation_models, [translation_source], source_lang_map[each],
+                #                         getPolitenessConstraints(), 'nc')
                 setattr(self, key, translation)
 
         self.light_save()

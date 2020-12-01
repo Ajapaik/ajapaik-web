@@ -1,4 +1,4 @@
-from ajapaik.settings.local import * # noqa
+from ajapaik.settings.default import * # noqa
 
 assert DATABASES  # noqa
 
