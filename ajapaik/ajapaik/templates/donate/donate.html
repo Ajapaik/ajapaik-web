@@ -1,11 +1,22 @@
 {% extends "core/base_bootstrap.html" %}
+{% load i18n %}
 
 {% block header %}
     {% include "core/_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class="container pt-5">
+    <div class="container pt-5 h-100" style="display: inline-block; max-width: 900px; padding-left: 40px;">
         {% include "donate/_donate_details.html" %}
+        <br>
+        <h3 class="pb-5"><a href="{% url 'supporters' %}">{% trans 'Supporters of Ajapaik' %}</a></h3>
     </div>
+{% endblock %}
+
+{% block specific_js %}
+    <script>
+        $(document).ready(function () {
+            window.closeDonationBanner();
+        });
+    </script>
 {% endblock %}

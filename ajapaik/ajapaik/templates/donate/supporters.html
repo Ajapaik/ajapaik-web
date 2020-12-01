@@ -1,0 +1,14 @@
+{% extends "core/base_bootstrap.html" %}
+{% load i18n %}
+
+{% block header %}
+    {% include "core/_header.html" %}
+{% endblock %}
+
+{% block layout %}
+    <div class="container pt-5 h-100" style="display: inline-block; max-width: 900px; padding-left: 40px;">
+        {% include "donate/_supporters.html" %}
+        <br>
+        <h3 class="pb-5"><a href="{% url 'donate' %}">{% trans 'Support us' %}</a></h3>
+    </div>
+{% endblock %}

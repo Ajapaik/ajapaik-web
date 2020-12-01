@@ -39,7 +39,7 @@
         {% elif is_curator%}
             {% trans 'Curate historic photos from museums into Ajapaik for geotagging and rephotographing' %}
         {% else %}
-            {% trans 'Ajapaik shows how places have changed over time' %}
+            {% trans 'Everyone can help to enrich the data of historic pictures on Ajapaik!' %}
         {% endif %}
         ">
     <meta name="keywords" content="
@@ -273,6 +273,7 @@
 <div class="alert alert-info" id="ajp-sorting-error">
   <strong>{% trans "Sorting" %}:</strong> <span id="ajp-sorting-error-message"></span>
 </div>
+{% include "donate/_donation_banner.html" %}	
 {% include "info/_general_info_modal.html" %}
 {% include "leaderboard/_full_leaderboard_modal.html" %}
 {% include "user/settings/_user_settings_modal.html" %}

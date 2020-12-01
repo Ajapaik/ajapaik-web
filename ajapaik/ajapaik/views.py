@@ -138,6 +138,10 @@ def get_general_info_modal_content(request):
 	user_rephoto_qs = rephoto_qs.filter(user=profile)
 	geotags_qs = GeoTag.objects.filter()
 	cached_data = cache.get('general_info_modal_cache', None)
+	person_annotation_qs = FaceRecognitionRectangle.objects.filter(deleted=None)
+	person_annotation_with_person_album_qs = person_annotation_qs.exclude(subject_consensus=None)
+	person_annotation_with_subject_data_qs = person_annotation_qs.exclude(Q(gender=None) & Q(age=None))
+
 	if cached_data is None:
 		cached_data = {
 			'photos_count': photo_qs.count(),
@@ -146,7 +150,10 @@ def get_general_info_modal_content(request):
 			'rephotos_count': rephoto_qs.count(),
 			'rephotographing_users_count': rephoto_qs.order_by('user').distinct('user').count(),
 			'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
-			'photos_with_similar_photo_count': photo_qs.exclude(Q(similar_photos=None) & Q(similar_photos=None)).count()
+			'photos_with_similar_photo_count': photo_qs.exclude(Q(similar_photos=None) & Q(similar_photos=None)).count(),
+			'person_annotation_count': person_annotation_qs.count(),
+			'person_annotation_count_with_person_album': person_annotation_with_person_album_qs.count(),
+			'person_annotation_count_with_subject_data': person_annotation_with_subject_data_qs.count()
 		}
 		cache.set('general_info_modal_cache', cached_data, settings.GENERAL_INFO_MODAL_CACHE_TTL)
 	context = {
@@ -158,6 +165,9 @@ def get_general_info_modal_content(request):
 		'photos_with_similar_photo_count': cached_data['photos_with_similar_photo_count'],
 		'rephotographing_users': cached_data['rephotographing_users_count'],
 		'rephotographed_photo_count': cached_data['photos_with_rephotos_count'],
+		'person_annotation_count': cached_data['person_annotation_count'],
+		'person_annotation_count_with_person_album': cached_data['person_annotation_count_with_person_album'],
+		'person_annotation_count_with_subject_data': cached_data['person_annotation_count_with_subject_data'],
 		'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
 		'user_rephotos': user_rephoto_qs.count(),
 		'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
@@ -3298,6 +3308,76 @@ def geotaggers_modal(request, photo_id):
 	}
 	return render(request, 'geotaggers/_geotaggers_modal_content.html', context)
 
+def supporters(request, year=None):
+	request.LANGUAGE_CODE == 'et'
+	context = {}
+	supporters = {
+		'Kulka': {
+			'alternate_text': _('KulKa logo'),
+			'url': 'https://www.kulka.ee/et' if request.LANGUAGE_CODE == 'et' else 'https://www.kulka.ee/en',
+			'img': 'images/logo-kulka_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-kulka.png',
+		},
+		'Ministry of Education': {
+			'alternate_text': _('Ministry of Education logo'),
+			'url': 'https://www.hm.ee/et' if request.LANGUAGE_CODE == 'et' else 'https://www.hm.ee/en',
+			'img': 'images/logo-ministry-of-education-and-research_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-ministry-of-education-and-research.png',
+		},
+		'EV100': {
+			'alternate_text': _('EV100 logo'),
+			'url': 'https://www.ev100.ee/et/ajapaik-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud' if request.LANGUAGE_CODE == 'et' else 'https://www.ev100.ee/en/ajapaik-selgitame-koos-valja-kuidas-eesti-kohad-aegade-jooksul-muutunud',
+			'img': 'images/ev100.png' 
+		},
+		'National Foundation of Civil Society': {
+			'alternate_text': _('KYSK logo'),
+			'url': 'https://www.kysk.ee/est' if request.LANGUAGE_CODE == 'et' else 'https://www.kysk.ee/nfcs',
+			'img': 'images/logo-kysk_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-kysk.png'
+		},
+		'Ministry of Culture': {
+			'alternate_text': _('Ministry of Culture'),
+			'url': 'https://www.kul.ee/et' if request.LANGUAGE_CODE == 'et' else 'https://www.kul.ee/en',
+			'img': 'images/logo-ministry-of-culture_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-ministry-of-culture.png' 
+		},
+		'Republic of Estonia National Heritage Board': {
+			'alternate_text': _('Republic of Estonia National Heritage Board'),
+			'url': 'https://www.muinsuskaitseamet.ee/et' if request.LANGUAGE_CODE == 'et' else 'https://www.muinsuskaitseamet.ee/en',
+			'img': 'images/logo-estonian-national-heritage-board_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-estonian-national-heritage-board.png'
+		},
+		'Year of Digital Culture 2020': {
+			'alternate_text': _('Year of Digital Culture 2020'),
+			'url': 'https://www.nlib.ee/et/digikultuur2020' if request.LANGUAGE_CODE == 'et' else 'https://www.nlib.ee/en/digikultuur2020',
+			'img': 'images/logo-year-of-digital-culture-2020_et.png' if request.LANGUAGE_CODE == 'et' else 'images/logo-year-of-digital-culture-2020.png'
+		},
+		'Wikimedia Finland': {
+			'alternate_text': _('Wikimedia Finland'),
+			'url': 'https://wikimedia.fi/',
+			'img': 'images/logo-wikimedia-finland.png'
+		}
+
+	}
+	current_supporters = [
+		supporters['Wikimedia Finland'],
+		supporters['Republic of Estonia National Heritage Board'],
+		supporters['Kulka'],
+		supporters['Year of Digital Culture 2020']
+	]
+
+	previous_supporters = [
+		supporters['Kulka'],
+		supporters['Ministry of Culture'],
+		supporters['EV100'],
+		supporters['Ministry of Education'],
+		supporters['National Foundation of Civil Society']
+	]
+
+	donators = [
+		'Aare Olander', 'Ahti Heinla', 'Aldo Mett', 'Alla Talu', 'Annes Vainamäe', 'Annika Loor', 'Ene Kühn', 'Eve Harju', 'Galina Kanemägi', 'Gustav Laanemets', 'Gustav Nõmm', 'Helena Järviste', 'Helga Lipping', 'Jaago Hannes', 'Jaana Jakovlev', 'Kadri Jaanits', 'Kadri Soome', 'Karmen Laus', 'Kersti Luik', 'Liubov Menshova', 'Margus Lamberg', 'Marko Ala', 'Mart Koppel', 'Martin Tajur', 'Merje Meerits', 'Olympic Casino Eesti AS', 'OÜ AB Kontekst', 'Paavo Prii', 'Peeter Arro', 'Peeter Kõiva', 'Peeter Lutsoja', 'Riho Vahtre', 'Siim Ainsaar', 'Sulev Järve', 'Tiina Männe', 'Tiiu Puik', 'Tõnu Abel', 'Tõnu Talvi', 'Toomas Palmiste', 'Triin Talk', 'Tuuli Sooäär-Säde', 'Ülle Rosin', 'Ulrike Rohn', 'Urve Arukaevu', 'Veera Murumaa'
+	]
+
+	context['current_supporters'] = current_supporters
+	context['previous_supporters'] = previous_supporters
+	context['donators'] = donators
+
+	return render(request, 'donate/supporters.html', context)
 
 def redirect_view(request, photo_id=-1, thumb_size=-1, pseudo_slug=""):
 	path = request.path

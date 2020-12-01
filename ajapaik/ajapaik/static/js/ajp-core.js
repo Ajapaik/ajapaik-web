@@ -58,6 +58,22 @@ var map,
 $('.ajp-navbar').autoHidingNavbar();
 (function ($) {
     'use strict';
+
+    if(docCookies.getItem("hasSeenDonationModal") !== "True"){	
+        $('#ajp-donation-banner').show();	
+    }
+
+    window.closeDonationBanner = function() {
+        var d = new Date();	
+        d.setTime(d.getTime() + 86400000);	
+        document.cookie = "hasSeenDonationModal=True; path=/; expires="+d;
+        $('#ajp-donation-banner').hide();
+    };
+
+    $('#ajp-donation-banner-close').on('click', function() {
+        window.closeDonationBanner();
+    });
+
     window.handleErrors = async function (response) {
         const data = await response.json();
         if (data.error) {

@@ -9,21 +9,7 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr ""
-""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-19 03:40+0200\n"
-"PO-Revision-Date: 2020-11-26 16:47:31+0000\n"
-"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
-"Language: et\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2020-11-26 16:42:41+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2020-12-01 06:13+0200\nPO-Revision-Date: 2020-11-26 16:47:31+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-POT-Import-Date: 2020-11-26 16:42:41+0000\nX-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -31,7 +17,7 @@ msgstr "Keera värvid ümber"
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "Lisage päringule vähemalt flip, invert või rotate parameeter"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
@@ -737,7 +723,7 @@ msgstr "Menüü"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3226
+#: ajapaik/ajapaik/views.py:3236
 msgid "E-mail addresses"
 msgstr "Meiliaadressid"
 
@@ -1118,6 +1104,7 @@ msgstr "MTÜ Eesti Fotopärand"
 msgid "Support Ajapaik"
 msgstr "Toeta Ajapaika"
 
+#: ajapaik/ajapaik/templates/donate/supporters.html:12
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support us"
@@ -1188,8 +1175,8 @@ msgstr "Ajapaik Facebookis"
 msgid "Profile and leaderboard"
 msgstr "Profiil ja edetabel"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1786
-#: ajapaik/ajapaik/views.py:1803 ajapaik/ajapaik/views.py:1839
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1796
+#: ajapaik/ajapaik/views.py:1813 ajapaik/ajapaik/views.py:1849
 msgid "Leaderboard"
 msgstr "Edetabel"
 
@@ -1236,8 +1223,8 @@ msgstr "Kureeri ajaloolised fotod muuseumitest Ajapaika nende kaardile märkimis
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
-msgid "Ajapaik shows how places have changed over time"
-msgstr "Ajapaik näitab, kuidas kohad on aja jooksul muutunud"
+msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
+msgstr "Ajapaigas saab igaüks aidata ajalooliste piltide andmeid täiendada!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1321,15 +1308,15 @@ msgstr "Viga asukoha määramisel"
 msgid "Sorting"
 msgstr "Sorteerimine"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:479
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Teie parema kogemuse huvides kasutab see lehekülg küpsiseid"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:480
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:484
 msgid "Got it!"
 msgstr "Mis siis ikka!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:481
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:485
 msgid "More info"
 msgstr "Rohkem infot"
 
@@ -1478,15 +1465,15 @@ msgstr "Parimaga"
 msgid "Reply to"
 msgstr "Vasta"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
-msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr "Ajapaika arendab <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>MTÜ Eesti Fotopärand</a>, mis kuulub tulumaksusoodustusega mittetulundusühingute, sihtasutuste ja usuliste ühenduste nimekirja. Teie annetused deklareeritakse ning Te saate nende pealt tulumaksutagastust."
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:3
+msgid "Your donation confirms the importance of Ajapaik"
+msgstr "Annetusega kinnitad, et Ajapaik on vajalik"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
 msgstr "Ühekordse ülekande jaoks vajalik info"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:6
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Beneficiary's name"
 msgstr "Saaja nimi"
 
@@ -1494,86 +1481,126 @@ msgstr "Saaja nimi"
 msgid "Beneficiary's account no"
 msgstr "Saaja pangakonto"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:8
-msgid "LHV single payment link"
-msgstr "LHV ühekordse ülekande link"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:10
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:33
-msgid "LHV bank"
-msgstr "LHV pank"
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:11
+msgid "Prefilled forms for one-time payments"
+msgstr "Ühekordse makse eeltäidetud vormid saaja andmetega"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:12
-msgid "Coop pank single payment link"
-msgstr "Coop pank ühekordse ülekande link"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:14
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:38
-msgid "Coop pank"
-msgstr "Coop pank"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:16
-msgid "SEB single payment link"
-msgstr "SEB single payment link"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:18
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:42
-msgid "SEB bank"
-msgstr "SEB pank"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:20
 msgid "Swedbank single payment link"
 msgstr "Swedbanki ühekordse ülekande link"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:23
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:46
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:15
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:37
 msgid "Swedbank"
 msgstr "Swedbank"
 
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:17
+msgid "SEB single payment link"
+msgstr "SEB single payment link"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:19
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:41
+msgid "SEB bank"
+msgstr "SEB pank"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:21
+msgid "LHV single payment link"
+msgstr "LHV ühekordse ülekande link"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:23
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:45
+msgid "LHV bank"
+msgstr "LHV pank"
+
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:25
-msgid "Luminor single payment link"
-msgstr "Luminori ühekordse ülekande link"
+msgid "Coop pank single payment link"
+msgstr "Coop pank ühekordse ülekande link"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:27
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:50
+msgid "Coop pank"
+msgstr "Coop pank"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:29
+msgid "Luminor single payment link"
+msgstr "Luminori ühekordse ülekande link"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:31
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:54
 msgid "Luminor bank"
 msgstr "Luminor pank"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:30
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
 msgstr "Lingid saaja andmetega eeltäidetud püsimaksekorralduste vormistamisele"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:31
-msgid "LHV payment order link"
-msgstr "LHV panga püsimakselink"
-
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:35
-msgid "Coop pank payment order link"
-msgstr "Coop pank ühekordse ülekande link"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:40
-msgid "SEB payment order link"
-msgstr "SEB panga püsimakse link"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:44
 msgid "Swedbank payment order link"
 msgstr "Swedbanki püsimakse link"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:48
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:39
+msgid "SEB payment order link"
+msgstr "SEB panga püsimakse link"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:43
+msgid "LHV payment order link"
+msgstr "LHV panga püsimakselink"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:47
+msgid "Coop pank payment order link"
+msgstr "Coop pank ühekordse ülekande link"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:52
 msgid "Luminor payment order link"
 msgstr "Luminori maksekorralduse link"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:52
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:56
+msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
+msgstr "Ajapaik on avavaraline mittetulunduslik ühisloomeplatvorm, mille sisu maht ja tehniline keerukus on üha kasvanud. Ajapaiga külastatavus on võrreldav või ületab riiklikult rahastatud kultuuripärandiportaale nagu Muis, Fotis jt."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:57
+msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
+msgstr "Aastate jooksul on Ajapaik saanud toetust erinevatest avalikest rahastusvoorudest, aga meil ei ole püsirahastust, mis võimaldaks meil tehnilist lahendust ajakohasena hoida või veelgi enam – parandada Ajapaiga kasutusmugavust, lisada uusi funktsionaalsusi."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:58
+msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
+msgstr "Sinu annetus Ajapaiga toetuseks on meile suureks abiks ning kinnituseks, et Ajapaik on vajalik. Võimalusel kaalu püsiannetuse sisseseadmist."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:59
+msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
+msgstr "Ajapaika arendab <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>MTÜ Eesti Fotopärand</a>, mis kuulub tulumaksusoodustusega mittetulundusühingute, sihtasutuste ja usuliste ühenduste nimekirja. Oma annetuse pealt saad tulumaksutagastust."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:60
 msgid "Other ways of supporting us"
 msgstr "Teised viisid Ajapaiga toetamiseks"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:53
-msgid "Ajapaik Brave referral"
-msgstr "Ajapaiga Brave'i viide"
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:61
+msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
+msgstr "Lisaks rahalisele abile saad aidata <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">Ajapaiga kasutajaliidest tõlkida</a>"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:54
-msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "Proovige Brave veebilehitsejat, mis on loodud Chromiumi baasil ning mille abil saate oma lemmiksaite krüptovaluutaga toetada."
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:62
+msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
+msgstr "Oodatud on ka igasugune muu abi! Näiteks Ajapaiga turunduse arendamiseks, partnerlussuhete edendamiseks jm."
+
+#: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
+msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
+msgstr "Kui Ajapaik aitab Sul leida huvipakkuvaid ajaloolisi pilte, siis ehk saad Ajapaika <a href=\"/donate/\">toetada</a>, et saaksime Ajapaiga veel paremaks muuta. Suur tänu!"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:4
+msgid "Ajapaik is currently using funding received from:"
+msgstr "Ajapaik kasutab hetkel toetusi, mille on eraldanud:"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:14
+msgid "Ajapaik has received donations from:"
+msgstr "Ajapaika on annetustega toetanud:"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:19
+msgid "Earlier funders:"
+msgstr "Varasemad toetajad:"
+
+#: ajapaik/ajapaik/templates/donate/donate.html:12
+msgid "Supporters of Ajapaik"
+msgstr "Ajapaiga toetajad"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1796,70 +1823,55 @@ msgid "Modified"
 msgstr "Muudetud"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
-msgid "Discover how places looked like years ago by"
-msgstr "Selleks, et avastada, kuidas kohad nägid välja aastate eest,"
+msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
+msgstr "Ajapaik kogub ühisloome ehk talgutöö korras täiendavat infot pildilise pärandi kohta. Enim on Ajapaigas ajaloolisi fotosid, aga leidub ka maale, graafikat ja filmikaadreid."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
-msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-msgstr "* otsi vanu pilte Eesti muuseumide kogudest ja kureeri valitud pildid Ajapaika,"
+msgid "As an Ajapaik user you can"
+msgstr "Ajapaiga kasutajana saad "
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
+msgid "geotag pictures in order to improve the location based search,"
+msgstr "pilte maakaardile märkida, et pilte oleks parem asukoha järgi otsida,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
-msgid "* geotagging pictures from places you are familiar with and"
-msgstr "* märgi endale tuttavate kohtade pildid kaardile ja"
+msgid "rephotograph historic pictures to create then-and-now picture pairs,"
+msgstr "vanu pilte refotografeerida ehk üle pildistada, nii et tekiks enne-ja-nüüd võrdluspaarid,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
+msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
+msgstr "tähistada pildil olevaid isikuid, pilte albumitesse lisada, kategoriseerida, kommenteerida,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
+msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
+msgstr "transkribeerida käsikirjalisi sõnumeid piltidel või postkaartide tagakülgedel,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
-msgid "* rephotographing the historic views from places you visit."
-msgstr "* mine pildista ajaloolised vaated üle."
+msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
+msgstr "Ajapaika pildimaterjali juurde lisada – otsida neid avalikest kogudest või ise üles laadida."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
+msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
+msgstr "Ajapaik on MTÜ Eesti Fotopärand mittetulunduslik ettevõtmine, mis sündis Garage48 häkatonil veebruaris 2011. Aastate jooksul on Ajapaik saanud erinevaid toetusi, aga Ajapaigal pole püsirahastust ja seepärast oleme väga tänulikud, kui saate meid <a href='/donate'>toetada</a>!"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "Ajapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest <b>%(total_photos_tagged)s</b> pilti on ära kaardistatud <b>%(contributing_users)s</b> kasutaja abiga, ning <b>%(rephoto_count)s</b> ülepildistust <b>%(rephotographed_photo_count)s</b> pildile, mille on teinud <b>%(rephotographing_users)s</b> kasutajat."
 
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:32
-#, python-format
-msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
-msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
-msgstr[1] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
-
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:37
 #, python-format
-msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
-msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
-msgstr[1] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
-#, python-format
-msgid "<b>%(user_rephotographed_photos)s</b> picture."
-msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] "<b>%(user_rephotographed_photos)s</b> pildile."
-msgstr[1] "<b>%(user_rephotographed_photos)s</b> pildile."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
+msgstr "Ajapaigas olevatel piltidel on tuvastatud <b>%(person_annotation_count)s</b> nägu, isik on tuvastatud <b>%(person_annotation_count_with_person_album)s</b> puhul, vanuseklass või sugu on märgitud <b>%(person_annotation_count_with_subject_data)s</b> näole."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
-msgid "General statistics refresh every 10 minutes."
-msgstr "Üldine statistika värskendub 10 minuti tagant."
+msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
+msgstr "Enda kaastöö ülevaadet näed oma <a href='/me'>kasutajaprofiili</a> lehelt."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:44
-msgid "Supporters of Ajapaik"
-msgstr "Ajapaiga toetajad"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:47
-msgid "KulKa logo"
-msgstr "Kultuutkapitali logo"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:50
-msgid "Ministry of Education logo"
-msgstr "Haridusministeeriumi logo"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:59
-msgid "EV100 logo"
-msgstr "EV100 logo"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:62
-msgid "KYSK logo"
-msgstr "KÜSKi logo"
+msgid "General statistics refresh every 10 minutes."
+msgstr "Üldine statistika värskendub 10 minuti tagant."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
@@ -2095,7 +2107,7 @@ msgstr "Sotsiaalmeedia konto kaudu sisse logimisel tekkis viga."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3228
+#: ajapaik/ajapaik/views.py:3238
 msgid "Account Connections"
 msgstr "Ühendatud kontod"
 
@@ -2397,109 +2409,141 @@ msgstr "Lisa"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "Oled anonüümne kasutaja. Nüüd saad konto luua ka meiliaadressiga."
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:474
 msgid "Non-authenticated user"
 msgstr "Tuvastamata kasutaja"
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:613
 msgid "Geotagging game"
 msgstr "Asukohapakkumiste mäng"
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:681
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - refotod"
 
-#: ajapaik/ajapaik/views.py:1149
+#: ajapaik/ajapaik/views.py:1159
 msgid "Cannot upload to these albums"
 msgstr "Nendesse albumitesse ei saa laadida"
 
-#: ajapaik/ajapaik/views.py:1179
+#: ajapaik/ajapaik/views.py:1189
 msgid "Recuration successful"
 msgstr "Pildid rekurereeritud"
 
-#: ajapaik/ajapaik/views.py:1181
+#: ajapaik/ajapaik/views.py:1191
 msgid "Problem with album selection"
 msgstr "Probleem albumivalikul"
 
-#: ajapaik/ajapaik/views.py:1183
+#: ajapaik/ajapaik/views.py:1193
 msgid "Faulty data submitted"
 msgstr "Vigased andmed"
 
-#: ajapaik/ajapaik/views.py:1509 ajapaik/ajapaik/views.py:1516
-#: ajapaik/ajapaik/views.py:1518
+#: ajapaik/ajapaik/views.py:1519 ajapaik/ajapaik/views.py:1526
+#: ajapaik/ajapaik/views.py:1528
 msgid "Browse photos on map"
 msgstr "Vaata fotosid kaardil"
 
-#: ajapaik/ajapaik/views.py:1642
+#: ajapaik/ajapaik/views.py:1652
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Teie pakkumine ei muutnud hetkel foto asukohta, kuid võib seda teha tulevikus."
 
-#: ajapaik/ajapaik/views.py:1644
+#: ajapaik/ajapaik/views.py:1654
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotol on tänu Teile uus asukoht."
 
-#: ajapaik/ajapaik/views.py:1646
+#: ajapaik/ajapaik/views.py:1656
 msgid "Your suggestion was first."
 msgstr "Sinu pakkumine oli esimene."
 
-#: ajapaik/ajapaik/views.py:1922
+#: ajapaik/ajapaik/views.py:1932
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Otsi vanu fotosid, lisa Ajapaika, määra neile asukohad ja jaga albumit teistega!"
 
-#: ajapaik/ajapaik/views.py:2285
+#: ajapaik/ajapaik/views.py:2295
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2344 ajapaik/ajapaik/views.py:2365
+#: ajapaik/ajapaik/views.py:2354 ajapaik/ajapaik/views.py:2375
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Faili üleslaadimise viga: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2361
+#: ajapaik/ajapaik/views.py:2371
 msgid "Photo already exists in Ajapaik"
 msgstr "pilt on juba Ajapaigas"
 
-#: ajapaik/ajapaik/views.py:2384
+#: ajapaik/ajapaik/views.py:2394
 msgid "Please add photos to your album"
 msgstr "Palun lisa oma albumisse fotosid"
 
-#: ajapaik/ajapaik/views.py:2386
+#: ajapaik/ajapaik/views.py:2396
 msgid "Not enough data submitted"
 msgstr "Osa vajalikke välju täitmata"
 
-#: ajapaik/ajapaik/views.py:2702
+#: ajapaik/ajapaik/views.py:2712
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Kaader filmist \"%(film)s\" %(time)s"
 
-#: ajapaik/ajapaik/views.py:2924
+#: ajapaik/ajapaik/views.py:2934
 msgid "Photo uploaded"
 msgstr "Pilt on üles laetud"
 
-#: ajapaik/ajapaik/views.py:2944
+#: ajapaik/ajapaik/views.py:2954
 msgid "Album created"
 msgstr "Album on loodud"
 
-#: ajapaik/ajapaik/views.py:3026
+#: ajapaik/ajapaik/views.py:3036
 msgid "Sorry but we fail to post your comment."
 msgstr "Kommentaari postitamine ei õnnestunud."
 
-#: ajapaik/ajapaik/views.py:3219
+#: ajapaik/ajapaik/views.py:3229
 msgid "Change password"
 msgstr "Muuda salasõna"
 
-#: ajapaik/ajapaik/views.py:3224
+#: ajapaik/ajapaik/views.py:3234
 msgid "Change display name"
 msgstr "Muuda kasutajanime"
 
-#: ajapaik/ajapaik/views.py:3225
+#: ajapaik/ajapaik/views.py:3235
 msgid "Newsletter and language settings"
 msgstr "Uudiskirja ja keele-eelistuse seaded"
 
-#: ajapaik/ajapaik/views.py:3229
+#: ajapaik/ajapaik/views.py:3239
 msgid "Merge another Ajapaik account with current one"
 msgstr "Kanna ühe Ajapaiga konto kaastöö ja seaded üle teisele kontole"
+
+#: ajapaik/ajapaik/views.py:3316
+msgid "KulKa logo"
+msgstr "Kultuutkapitali logo"
+
+#: ajapaik/ajapaik/views.py:3321
+msgid "Ministry of Education logo"
+msgstr "Haridusministeeriumi logo"
+
+#: ajapaik/ajapaik/views.py:3326
+msgid "EV100 logo"
+msgstr "EV100 logo"
+
+#: ajapaik/ajapaik/views.py:3331
+msgid "KYSK logo"
+msgstr "KÜSKi logo"
+
+#: ajapaik/ajapaik/views.py:3336
+msgid "Ministry of Culture"
+msgstr "Kultuuriministeeriumi logo"
+
+#: ajapaik/ajapaik/views.py:3341
+msgid "Republic of Estonia National Heritage Board"
+msgstr "Muinsuskaitseamet"
+
+#: ajapaik/ajapaik/views.py:3346
+msgid "Year of Digital Culture 2020"
+msgstr "Digikultuuri aasta 2020"
+
+#: ajapaik/ajapaik/views.py:3351
+msgid "Wikimedia Finland"
+msgstr "Wikimedia Soome"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
@@ -2653,3 +2697,38 @@ msgstr "Su pakkumine on muudetud"
 msgid "Your suggestion has been saved"
 msgstr "Su pakkumine on salvestatud"
 
+#~ msgid "Ajapaik shows how places have changed over time"
+#~ msgstr "Ajapaik näitab, kuidas kohad on aja jooksul muutunud"
+
+#~ msgid "Ajapaik Brave referral"
+#~ msgstr "Ajapaiga Brave'i viide"
+
+#~ msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
+#~ msgstr "Proovige Brave veebilehitsejat, mis on loodud Chromiumi baasil ning mille abil saate oma lemmiksaite krüptovaluutaga toetada."
+
+#~ msgid "Discover how places looked like years ago by"
+#~ msgstr "Selleks, et avastada, kuidas kohad nägid välja aastate eest,"
+
+#~ msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
+#~ msgstr "* otsi vanu pilte Eesti muuseumide kogudest ja kureeri valitud pildid Ajapaika,"
+
+#~ msgid "* geotagging pictures from places you are familiar with and"
+#~ msgstr "* märgi endale tuttavate kohtade pildid kaardile ja"
+
+#~ msgid "* rephotographing the historic views from places you visit."
+#~ msgstr "* mine pildista ajaloolised vaated üle."
+
+#~ msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
+#~ msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
+#~ msgstr[0] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+#~ msgstr[1] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
+
+#~ msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
+#~ msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
+#~ msgstr[0] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
+#~ msgstr[1] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
+
+#~ msgid "<b>%(user_rephotographed_photos)s</b> picture."
+#~ msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
+#~ msgstr[0] "<b>%(user_rephotographed_photos)s</b> pildile."
+#~ msgstr[1] "<b>%(user_rephotographed_photos)s</b> pildile."

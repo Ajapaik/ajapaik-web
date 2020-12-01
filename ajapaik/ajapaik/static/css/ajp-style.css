@@ -2200,6 +2200,10 @@ input[type=search]::-webkit-search-cancel-button {
   padding-right: 4px;
 }
 
+#ajp-general-info-modal-content a {
+  display: contents;
+}
+
 .ajp-user-icon {
   line-height: 0.75;
   margin-left: -28px;
@@ -2317,4 +2321,47 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 #ajp-game-flip-button:hover,
 #ajp-game-flip-button.active {
     color: #007fff;
+}
+
+#supporters img {
+  max-height: 120px;
+  width: auto;
+}
+
+#ajp-donation-banner {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  min-height: 50px;
+  background-color: yellow;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 110px;
+}
+
+#ajp-donation-banner > span {
+  font-size: 20px;
+}
+
+@media (max-width: 713px) {
+  #ajp-donation-banner {
+    padding-left: 10px;
+    padding-right: 77px;
+  }
+
+  #ajp-donation-banner > span {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #ajp-donation-banner > span {
+    font-size: 18px;
+  }
+}
+
+#ajp-donation-banner-close {
+  cursor: pointer;
 }

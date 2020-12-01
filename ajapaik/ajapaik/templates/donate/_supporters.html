@@ -1,0 +1,27 @@
+{% load i18n static %}
+
+<div id="supporters" class="pt-5">
+    <h3>{% trans 'Ajapaik is currently using funding received from:' %}</h3>
+    <div class="row d-block" style="font-size:0">
+        {% for supporter in current_supporters %}
+            <a href="{{ supporter.url }}">{{ supporter.name }}
+                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+            </a>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <h5>{% trans 'Ajapaik has received donations from:' %}</h5>
+    {% for donator in donators %}
+        {{ donator }}
+        <br>
+    {% endfor %}
+    <h3>{% trans 'Earlier funders:' %}</h3>
+    <div class="row d-block" style="font-size:0">
+        {% for supporter in previous_supporters %}
+            <a href="{{ supporter.url }}">{{ supporter.name }}
+                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+            </a>
+        {% endfor %}
+    </div>
+</div>
