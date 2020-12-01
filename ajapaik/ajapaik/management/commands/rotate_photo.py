@@ -1,5 +1,6 @@
 from PIL import Image
 from django.core.management.base import BaseCommand
+
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo
 

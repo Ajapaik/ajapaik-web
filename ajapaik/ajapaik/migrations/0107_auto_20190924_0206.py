@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0097_facerecognitionrectanglesubjectdataguess'),
         ('ajapaik', '0106_auto_20190924_0044'),
@@ -17,11 +15,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='face_recognition_rectangle_subject_data_guess',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE,
+                                    to='ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataGuess'),
         ),
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'), (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity'), (11, 'Guess subject age'), (12, 'Guess subject age')], db_index=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'),
+                         (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'),
+                         (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity'),
+                         (11, 'Guess subject age'), (12, 'Guess subject age')], db_index=True),
         ),
     ]

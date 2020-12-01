@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0090_facerecognitionrectangle_face_encoding'),
     ]
@@ -14,11 +13,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionrectangle',
             name='origin',
-            field=models.PositiveSmallIntegerField(default=1, choices=[(0, 'Kasutaja'), (1, 'Algorithm'), (2, 'Picasa')]),
+            field=models.PositiveSmallIntegerField(default=1,
+                                                   choices=[(0, 'Kasutaja'), (1, 'Algorithm'), (2, 'Picasa')]),
         ),
         migrations.AddField(
             model_name='facerecognitionuserguess',
             name='origin',
-            field=models.PositiveSmallIntegerField(default=1, choices=[(0, 'Kasutaja'), (1, 'Algorithm'), (2, 'Picasa')]),
+            field=models.PositiveSmallIntegerField(default=1,
+                                                   choices=[(0, 'Kasutaja'), (1, 'Algorithm'), (2, 'Picasa')]),
         ),
     ]

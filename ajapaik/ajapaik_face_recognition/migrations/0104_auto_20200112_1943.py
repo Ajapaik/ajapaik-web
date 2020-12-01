@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0116_transcription_modified'),
         ('ajapaik_face_recognition', '0103_auto_20191001_1753'),
@@ -27,21 +25,25 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='facerecognitionrectangle',
             name='age',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Laps'), (1, 'Täiskasvanu'), (2, 'Eakas'), (3, 'Tundmatu'), (4, 'Ei kehti')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Laps'), (1, 'Täiskasvanu'), (2, 'Eakas'),
+                                                                        (3, 'Tundmatu'), (4, 'Ei kehti')], null=True),
         ),
         migrations.AlterField(
             model_name='facerecognitionrectangle',
             name='gender',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Naine'), (1, 'Mees'), (2, 'Tundmatu'), (3, 'Ei kehti')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Naine'), (1, 'Mees'), (2, 'Tundmatu'),
+                                                                        (3, 'Ei kehti')], null=True),
         ),
         migrations.AlterField(
             model_name='facerecognitionrectanglesubjectdataguess',
             name='age',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Laps'), (1, 'Täiskasvanu'), (2, 'Eakas'), (3, 'Tundmatu'), (4, 'Ei kehti')], null=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Laps'), (1, 'Täiskasvanu'), (2, 'Eakas'), (3, 'Tundmatu'), (4, 'Ei kehti')], null=True),
         ),
         migrations.AlterField(
             model_name='facerecognitionrectanglesubjectdataguess',
             name='gender',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Naine'), (1, 'Mees'), (2, 'Tundmatu'), (3, 'Ei kehti')], null=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Naine'), (1, 'Mees'), (2, 'Tundmatu'), (3, 'Ei kehti')], null=True),
         ),
     ]

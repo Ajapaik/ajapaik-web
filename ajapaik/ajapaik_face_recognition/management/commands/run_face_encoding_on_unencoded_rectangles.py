@@ -1,7 +1,6 @@
 import multiprocessing
-from copyreg import pickle
 from json import loads, dumps
-import pickle
+
 import face_recognition
 from django.core.management.base import BaseCommand
 
@@ -12,18 +11,18 @@ def encode_single_rectangle(rectangle: FaceRecognitionRectangle) -> None:
     print('Processing rectangle %s' % rectangle.pk)
     try:
         image = face_recognition.load_image_file(rectangle.photo.image)
-    except:
+    except:  # noqa
         return
     try:
         encodings = face_recognition.face_encodings(image, known_face_locations=[loads(rectangle.coordinates)])
-    except:
+    except:  # noqa
         return
     if len(encodings) == 1:
         my_encoding = encodings[0]
         try:
             rectangle.face_encoding = dumps(my_encoding.tolist())
             rectangle.save()
-        except:
+        except:  # noqa
             return
     else:
         print('Found % face encodings for rectangle %s, should find only 1' % (len(encodings), rectangle.id))

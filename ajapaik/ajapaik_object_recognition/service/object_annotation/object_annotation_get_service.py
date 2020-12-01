@@ -1,5 +1,6 @@
 from ajapaik.ajapaik.models import Photo
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleSubjectDataSuggestion
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
+    FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from ajapaik.ajapaik_object_recognition.domain.detection_rectangle import DetectionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass
@@ -13,12 +14,12 @@ def get_object_annotation_classes():
 def get_all_annotations(user_id, photo_id=None):
     photo = Photo.objects.get(pk=int(photo_id))
 
-    object_rectangles = ObjectDetectionAnnotation.objects\
-        .prefetch_related('feedback')\
+    object_rectangles = ObjectDetectionAnnotation.objects \
+        .prefetch_related('feedback') \
         .filter(photo=photo, deleted_on__isnull=True)
 
-    face_rectangles = FaceRecognitionRectangle.objects\
-        .prefetch_related('feedback', 'face_recognition_rectangle')\
+    face_rectangles = FaceRecognitionRectangle.objects \
+        .prefetch_related('feedback', 'face_recognition_rectangle') \
         .filter(photo=photo, deleted__isnull=True)
 
     objects = object_annotation_utils.transform_annotation_queryset(
@@ -73,21 +74,22 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
     coordinates = face_annotation.decode_coordinates()
     subject_id = subject.id if subject is not None else None
 
-    additional_data = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer_id=user_id, face_recognition_rectangle_id=face_annotation.id).all().order_by('-created').first()
+    additional_data = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(
+        proposer_id=user_id,
+        face_recognition_rectangle_id=face_annotation.id).all().order_by('-created').first()
     if additional_data is None:
         additional_data = FaceRecognitionRectangle.objects.filter(id=face_annotation.id).all().first()
     original_user_set_gender = additional_data.gender if additional_data is not None else None
     original_user_set_age = additional_data.age if additional_data is not None else None
-    gender_and_age = face_annotation.face_recognition_rectangle\
-        .filter(proposer_id=user_id)\
+    gender_and_age = face_annotation.face_recognition_rectangle \
+        .filter(proposer_id=user_id) \
         .first()
     previous_user_feedback = face_annotation.feedback.filter(user_id=user_id).first()
 
     alternative_subject = previous_user_feedback.alternative_subject if previous_user_feedback is not None else None
 
     is_agreeing_on_age = gender_and_age is None or gender_and_age.age is None and original_user_set_age is not None
-    is_agreeing_on_gender = gender_and_age is None or gender_and_age.gender is None \
-        and original_user_set_gender is not None
+    is_agreeing_on_gender = not gender_and_age or not gender_and_age.gender and original_user_set_gender
 
     return DetectionRectangle({
         'x1': coordinates[3],

@@ -1,4 +1,3 @@
-import multiprocessing
 from json import dumps, loads
 
 from django.core.management.base import BaseCommand
@@ -21,7 +20,7 @@ def map_single_person(person_album: Album) -> None:
         if encodings_for_this_person:
             person_album.face_encodings = dumps(encodings_for_this_person)
             person_album.light_save()
-    except:
+    except:  # noqa
         return
 
 

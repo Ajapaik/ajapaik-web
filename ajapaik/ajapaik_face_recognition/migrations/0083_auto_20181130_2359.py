@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0082_auto_20181121_2300'),
     ]
@@ -18,6 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='facerecognitionuserguess',
             name='user',
-            field=models.ForeignKey(related_name='face_recognition_guesses', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='face_recognition_guesses', blank=True, to='ajapaik.Profile',
+                                    null=True, on_delete=models.deletion.CASCADE),
         ),
     ]

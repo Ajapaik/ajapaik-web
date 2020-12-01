@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from ajapaik.ajapaik.models import DatingConfirmation, Points, GeoTag
+
+from ajapaik.ajapaik.models import Points
 
 
 class Command(BaseCommand):
@@ -8,7 +9,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # dc_count = DatingConfirmation.objects.count()
         # print 'Confirmations in database: %d' % dc_count
-        # dc_points = Points.objects.filter(action=Points.DATING_CONFIRMATION).prefetch_related('dating_confirmation__confirmation_of__photo')
+        # dc_points = Points.objects.filter(action=Points.DATING_CONFIRMATION)
+        # .prefetch_related('dating_confirmation__confirmation_of__photo')
         # print 'Confirmation points in database: %d' % dc_points.count()
         # for each in dc_points:
         #     each.photo_id = each.dating_confirmation.confirmation_of.photo_id
@@ -19,7 +21,8 @@ class Command(BaseCommand):
         # print 'Geotag points in database: %d' % geotag_points.count()
         # i = 0
         # while True:
-        #     qs = Points.objects.filter(action=Points.GEOTAG).prefetch_related('geotag__photo')[i * 10000:(i + 1) * 10000]
+        #     qs = Points.objects.filter(action=Points.GEOTAG).prefetch_related('geotag__photo')
+        #     [i * 10000:(i + 1) * 10000]
         #     for each in qs:
         #         each.photo = each.geotag.photo
         #     Points.bulk.bulk_update(qs, update_fields=['photo_id'])

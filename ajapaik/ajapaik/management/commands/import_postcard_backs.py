@@ -1,21 +1,24 @@
-
-from django.core.management.base import BaseCommand                                                                                                                                                                                                                       
-from django.shortcuts import get_object_or_404
-from ajapaik import settings
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo
 import os
+
+from django.core.management.base import BaseCommand
+
+from ajapaik import settings
+from ajapaik.ajapaik.models import Photo
+
 
 class Command(BaseCommand):
     help = 'Add photo objects for postcard backs in DIGAR'
+
     def handle(self, *args, **options):
         photos = os.listdir(settings.MEDIA_ROOT + "/uploads/Digar_postkaartide_tagakyljed/")
         for p in photos:
             first = Photo.objects.filter(external_id=p.split("_")[1]).first()
-            if first is None or (first.source_url and not 'digar' in first.source_url):
+            if first is None or (first.source_url and 'digar' not in first.source_url):
                 print(p.split("_")[1])
             else:
                 new_photo = Photo(
-                    image=settings.MEDIA_ROOT + "/uploads/Digar_postkaartide_tagakyljed/DIGAR_" + p.split("_")[1] + "_2.jpg",
+                    image=settings.MEDIA_ROOT + "/uploads/Digar_postkaartide_tagakyljed/DIGAR_" + p.split("_")[
+                        1] + "_2.jpg",
                     source=first.source,
                     source_url=first.source_url,
                     source_key=first.source_key,
@@ -44,4 +47,4 @@ class Command(BaseCommand):
                     new_photo.save()
                     first.set_backside(new_photo)
                 except Exception as e:
-                    print(e)    
+                    print(e)

@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -29,7 +27,8 @@ class Migration(migrations.Migration):
                 ('confirmation', models.BooleanField(default=True)),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('modified_on', models.DateTimeField(auto_now=True)),
-                ('alternative_object', models.ForeignKey(null=True, on_delete=models.deletion.CASCADE, to='ajapaik_object_recognition.ObjectAnnotationClass')),
+                ('alternative_object', models.ForeignKey(null=True, on_delete=models.deletion.CASCADE,
+                                                         to='ajapaik_object_recognition.ObjectAnnotationClass')),
             ],
         ),
         migrations.CreateModel(
@@ -44,7 +43,8 @@ class Migration(migrations.Migration):
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('modified_on', models.DateTimeField(auto_now=True)),
                 ('deleted_on', models.DateTimeField(null=True)),
-                ('detected_object', models.ForeignKey(on_delete=models.deletion.CASCADE, to='ajapaik_object_recognition.ObjectAnnotationClass')),
+                ('detected_object', models.ForeignKey(on_delete=models.deletion.CASCADE,
+                                                      to='ajapaik_object_recognition.ObjectAnnotationClass')),
                 ('photo', models.ForeignKey(on_delete=models.deletion.CASCADE, to='ajapaik.Photo')),
                 ('user', models.ForeignKey(on_delete=models.deletion.CASCADE, to='ajapaik.Profile')),
             ],
@@ -59,7 +59,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='objectannotationfeedback',
             name='object_detection_annotation',
-            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='feedback', to='ajapaik_object_recognition.ObjectDetectionAnnotation'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='feedback',
+                                    to='ajapaik_object_recognition.ObjectDetectionAnnotation'),
         ),
         migrations.AddField(
             model_name='objectannotationfeedback',
@@ -69,6 +70,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='objectannotationclass',
             name='detection_model',
-            field=models.ForeignKey(on_delete=models.deletion.CASCADE, to='ajapaik_object_recognition.ObjectDetectionModel'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE,
+                                    to='ajapaik_object_recognition.ObjectDetectionModel'),
         ),
     ]

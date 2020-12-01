@@ -1,10 +1,10 @@
 import json
 
 import requests
+from ajapaik.ajapaik.facebook import APP_ID
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from ajapaik.ajapaik.facebook import APP_ID
 from ajapaik.ajapaik.models import Photo, PhotoComment
 
 
@@ -77,7 +77,7 @@ class Command(BaseCommand):
                                 )
                                 new_photo_comment.save()
                         photo = Photo.objects.filter(fb_object_id=k).first()
-                        #photo.fb_comments_count = len(v['data'])
+                        # photo.fb_comments_count = len(v['data'])
                         first_comment = photo.comments.order_by('created').first()
                         if first_comment:
                             photo.first_comment = first_comment.created

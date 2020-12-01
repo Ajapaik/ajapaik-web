@@ -1,6 +1,6 @@
-from ajapaik.settings.local import *
+from ajapaik.settings.local import * # noqa
 
-assert DATABASES
+assert DATABASES  # noqa
 
 DATABASES = {
     'default': {

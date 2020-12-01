@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0110_auto_20191223_1818'),
     ]
@@ -16,18 +14,24 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transcription',
             name='photo',
-            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Photo'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions',
+                                    to='ajapaik.Photo'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='transcription',
             name='profile',
-            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions', to='ajapaik.Profile'),
+            field=models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='transcriptions',
+                                    to='ajapaik.Profile'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'), (8, 'Annotatsioon'), (9, 'Kinnita subjekt'), (10, 'Kinnita piltide sarnasus'), (11, 'Hinda isiku vanust'), (12, 'Hinda isiku vanust'), (13, 'Transcribe')], db_index=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'),
+                         (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'),
+                         (8, 'Annotatsioon'), (9, 'Kinnita subjekt'), (10, 'Kinnita piltide sarnasus'),
+                         (11, 'Hinda isiku vanust'), (12, 'Hinda isiku vanust'), (13, 'Transcribe')], db_index=True),
         ),
     ]

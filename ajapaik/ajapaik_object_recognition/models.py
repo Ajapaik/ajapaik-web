@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import CASCADE
+
 from ajapaik.ajapaik.models import Photo, Profile
 
 
@@ -40,11 +41,12 @@ class ObjectDetectionAnnotation(models.Model):
 
     def __str__(self):
         return f'Detected {self.detected_object.__str__()} on photo {self.photo.id} at ' \
-            f'x1: {self.x1}, y1: {self.y1}, x2: {self.x2}, y2: {self.y2}'
+               f'x1: {self.x1}, y1: {self.y1}, x2: {self.x2}, y2: {self.y2}'
 
 
 class ObjectAnnotationFeedback(models.Model):
-    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name='feedback', on_delete=CASCADE)
+    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name='feedback',
+                                                    on_delete=CASCADE)
 
     confirmation = models.BooleanField(default=True)
     alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True, on_delete=CASCADE)

@@ -22,7 +22,8 @@ class Command(BaseCommand):
                      encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
-                source_path = f'/home/ajapaik/ajapaik-web/ajapaik/ajapaik/management/commands/ajapaik_RR2/{row["filename"]}'
+                source_path = f'/home/ajapaik/ajapaik-web/ajapaik/ajapaik/management/commands/' \
+                              f'ajapaik_RR2/{row["filename"]}'
                 destination_path = f'/home/ajapaik/ajapaik-web/media/uploads/rr2_{row["filename"]}'
                 shutil.move(source_path, destination_path)
                 new_photo = Photo(

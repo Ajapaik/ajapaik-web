@@ -1,9 +1,13 @@
-from django.forms import ModelForm
 from dal import autocomplete
+from django.forms import ModelForm
 
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, User, Video
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
-from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, ObjectAnnotationFeedback
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, GeoTag, ImageSimilarity, \
+    ImageSimilaritySuggestion, Photo, Points, Skip, Video
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
+    FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
+    ObjectAnnotationFeedback
+
 
 def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     field_url_dict = {}
@@ -110,26 +114,29 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
             'subject_confirmation': 'face-recognition-user-suggestion',
             'image_similarity_confirmation': 'image-similarity-suggestion',
             'transcription': 'transcription'
-        }    
+        }
     elif ac_model == Skip:
         field_url_dict = {
-            'user':'profile',
-            'photo':'photo'
-        }    
+            'user': 'profile',
+            'photo': 'photo'
+        }
     elif ac_model == Video:
         field_url_dict = {
             'source': 'source'
         }
     else:
-        field_url_dict = {}  
+        field_url_dict = {}
 
-    # Assign the appropriate widgets based on this model's autocomplete dictionary
+        # Assign the appropriate widgets based on this model's autocomplete dictionary
     ac_widgets = {}
     ac_fields = kwargs.get('fields', ('__all__'))
     for field, url in field_url_dict.items():
         is_m2m = field in m2m
         text = 'Type to return a list of %s...' if is_m2m else 'Type to return a %s list...'
-        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points,  Skip]:
+        if ac_model in [AlbumPhoto, Dating, DatingConfirmation, FaceRecognitionRectangle,
+                        FaceRecognitionRectangleFeedback, FaceRecognitionUserSuggestion,
+                        FaceRecognitionRectangleSubjectDataSuggestion, GeoTag, ImageSimilarity,
+                        ImageSimilaritySuggestion, ObjectDetectionAnnotation, ObjectAnnotationFeedback, Points, Skip]:
             minimum_input_length = 1
         else:
             minimum_input_length = 3
@@ -142,7 +149,8 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
                 'data-minimum-input-length': minimum_input_length,
             }
         }
-        ac_widgets[field] = autocomplete.ModelSelect2Multiple(**kwargs) if is_m2m else autocomplete.ModelSelect2(**kwargs)
+        ac_widgets[field] = autocomplete.ModelSelect2Multiple(**kwargs) if is_m2m else autocomplete.ModelSelect2(
+            **kwargs)
 
     # Create the form
     class DynamicAutocompleteForm(ModelForm):

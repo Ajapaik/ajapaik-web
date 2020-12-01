@@ -12,12 +12,13 @@ class Command(BaseCommand):
         profiles_with_data = Profile.objects.filter(
             Q(fb_name__isnull=False) |
             Q(google_plus_name__isnull=False) |
-            Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='', user__first_name__ne='')
+            Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='',
+              user__first_name__ne='')
         )
-        #print profiles_with_data.count()
+        # print profiles_with_data.count()
         i = 1
         for each in profiles_with_data:
-            #print i
+            # print i
             if each.fb_name:
                 parts = each.fb_name.split(' ')
                 each.first_name = parts[0]

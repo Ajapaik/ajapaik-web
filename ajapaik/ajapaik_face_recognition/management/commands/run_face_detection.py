@@ -15,11 +15,11 @@ def analyse_single_photo(photo: Photo) -> None:
         return
     try:
         image = face_recognition.load_image_file(photo.image)
-    except:
+    except:  # noqa
         return
     try:
         detected_faces = face_recognition.face_locations(image)
-    except:
+    except:  # noqa
         return
     for detected_face in detected_faces:
         new_rectangle = FaceRecognitionRectangle(
@@ -35,7 +35,8 @@ class Command(BaseCommand):
     help = 'Will run face detection on all photos in our database that haven\'t had it run yet'
 
     def handle(self, *args, **options):
-        photos = Photo.objects.filter(rephoto_of__isnull=True, back_of__isnull=True, face_detection_attempted_at__isnull=True).all()
+        photos = Photo.objects.filter(rephoto_of__isnull=True, back_of__isnull=True,
+                                      face_detection_attempted_at__isnull=True).all()
         print('Found %s photos to run on' % photos.count())
         for photo in photos:
             analyse_single_photo(photo)

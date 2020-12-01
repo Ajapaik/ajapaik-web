@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('django_comments_xtd', '0002_blacklisteddomain'),
         ('ajapaik', '0073_geotag_photo_flipped'),
@@ -15,7 +14,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MyXtdComment',
             fields=[
-                ('xtdcomment_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='django_comments_xtd.XtdComment', on_delete=models.deletion.CASCADE)),
+                ('xtdcomment_ptr',
+                 models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False,
+                                      to='django_comments_xtd.XtdComment', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ('submit_date',),

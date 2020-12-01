@@ -1,10 +1,9 @@
-# coding=utf-8
 import os
 import sys
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-gettext = lambda s: s
+gettext = lambda s: s  # noqa
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
@@ -26,7 +25,7 @@ AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
 
-if not ABSOLUTE_PROJECT_ROOT in sys.path:
+if ABSOLUTE_PROJECT_ROOT not in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
 STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
@@ -376,17 +375,15 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 
-################################################################################
-### Django-allauth configuration
-################################################################################
+# allauth configuration
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
-ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (
-            user.profile and user.profile.display_name) else user.get_full_name()
+ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (  # noqa
+        user.profile and user.profile.display_name) else user.get_full_name()
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -432,3 +429,5 @@ SOCIALACCOUNT_PROVIDERS = {
         ]
     },
 }
+
+UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36'

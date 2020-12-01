@@ -1,10 +1,8 @@
+from dal import autocomplete
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from dal import autocomplete
-
 from ajapaik.ajapaik.models import Photo, Album
-from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
     FaceRecognitionUserSuggestion, FaceRecognitionRectangleFeedback
 
@@ -12,7 +10,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
 class FaceRecognitionAddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FaceRecognitionAddPersonForm, self).__init__(*args, **kwargs)
-        self.fields['gender'].widget = forms.RadioSelect(choices=[(1, _('Male')),(0, _('Female'))])
+        self.fields['gender'].widget = forms.RadioSelect(choices=[(1, _('Male')), (0, _('Female'))])
 
     class Meta:
         model = Album
@@ -30,8 +28,10 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Firstname Lastname')}),
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40, 'placeholder': _('Additional remarks about the person (other names etc)')}),
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40, 'placeholder': _(
+                'Additional remarks about the person (other names etc)')}),
         }
+
 
 class FaceRecognitionSuggestionForm(forms.ModelForm):
     subject_album = forms.ModelChoiceField(

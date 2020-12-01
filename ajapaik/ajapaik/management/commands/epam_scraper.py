@@ -3,13 +3,14 @@ import csv
 import io
 import json
 import os
-import requests
 import shutil
+
+import requests
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 # This script was made for a single use, review before running
 from ajapaik.ajapaik.models import Source, Album, Photo, Licence, AlbumPhoto
-from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -55,7 +56,8 @@ class Command(BaseCommand):
             new_photo.save()
             if object_data['title_analytic']:
                 google_geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?' \
-                                     f'address={object_data["title_analytic"]}&language=en&region=EE&components=country:EE' \
+                                     f'address={object_data["title_analytic"]}&language=en&region=EE' \
+                                     f'&components=country:EE' \
                                      f'&key={settings.GOOGLE_MAPS_API_KEY}'
                 google_response_json = requests.get(google_geocode_url).text
                 google_response_parsed = json.loads(google_response_json)
@@ -77,33 +79,34 @@ class Command(BaseCommand):
             album_photo_relation.save()
             # print(new_photo.__dict__)
 
-        # Code used to retrieve initial photos selection was made of
-        # with io.open(os.path.dirname(os.path.abspath(__file__)) + '/epam_objects.csv', encoding='utf-8') as csv_file:
-        #     csv_reader = csv.DictReader(csv_file)
-        #     line_count = 0
-        #     for row in csv_reader:
-        #         if line_count == 0:
-        #             print(f"Column names are {', '.join(row)}")
-        #         else:
-        #             if row['type'] == 'photo':
-        #                 if 'koolimajad' in row['keywords']:
-        #                     schoolhouses_dict[row['id']] = row
-        #         line_count += 1
-        #
-        #     print(f'Processed {line_count} lines.')
-        # with io.open(os.path.dirname(os.path.abspath(__file__)) + '/epam_files.csv', encoding='utf-8') as csv_file:
-        #     csv_reader = csv.DictReader(csv_file)
-        #     line_count = 0
-        #     for row in csv_reader:
-        #         if line_count == 0:
-        #             print(f"Column names are {', '.join(row)}")
-        #         else:
-        #             if row['type'] == 'photo' and 'smallf' not in row['fpath'] and row['object_id'] in schoolhouses_dict:
-        #                 url = f'https://arhmus.tlu.ee/tlibrary/f/{row["fpath"]}'
-        #                 response = requests.get(url, stream=True)
-        #                 with open(f'{os.path.dirname(os.path.abspath(__file__))}/epam_photos/{row["id"]}.png', 'wb') as out_file:
-        #                     shutil.copyfileobj(response.raw, out_file)
-        #                 del response
-        #         line_count += 1
-        #
-        #     print(f'Processed {line_count} lines.')
+# Code used to retrieve initial photos selection was made of
+# with io.open(os.path.dirname(os.path.abspath(__file__)) + '/epam_objects.csv', encoding='utf-8') as csv_file:
+#     csv_reader = csv.DictReader(csv_file)
+#     line_count = 0
+#     for row in csv_reader:
+#         if line_count == 0:
+#             print(f"Column names are {', '.join(row)}")
+#         else:
+#             if row['type'] == 'photo':
+#                 if 'koolimajad' in row['keywords']:
+#                     schoolhouses_dict[row['id']] = row
+#         line_count += 1
+#
+#     print(f'Processed {line_count} lines.')
+# with io.open(os.path.dirname(os.path.abspath(__file__)) + '/epam_files.csv', encoding='utf-8') as csv_file:
+#     csv_reader = csv.DictReader(csv_file)
+#     line_count = 0
+#     for row in csv_reader:
+#         if line_count == 0:
+#             print(f"Column names are {', '.join(row)}")
+#         else:
+#             if row['type'] == 'photo' and 'smallf' not in row['fpath'] and row['object_id'] in schoolhouses_dict:
+#                 url = f'https://arhmus.tlu.ee/tlibrary/f/{row["fpath"]}'
+#                 response = requests.get(url, stream=True)
+#                 with open(f'{os.path.dirname(os.path.abspath(__file__))}/epam_photos/{row["id"]}.png', 'wb')
+#                 as out_file:
+#                     shutil.copyfileobj(response.raw, out_file)
+#                 del response
+#         line_count += 1
+#
+#     print(f'Processed {line_count} lines.')

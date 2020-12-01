@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0063_tour_description'),
     ]
@@ -20,7 +19,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tour',
             name='photo_set_type',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(1, 'Avatud tuur'), (0, 'Valitud fotode tuur'), (2, 'Tuur juhuslikult valitud piltidega Sinu l\xe4hikonnast')]),
+            field=models.PositiveSmallIntegerField(default=0, choices=[(1, 'Avatud tuur'), (0, 'Valitud fotode tuur'), (
+                2, 'Tuur juhuslikult valitud piltidega Sinu l\xe4hikonnast')]),
             preserve_default=True,
         ),
     ]

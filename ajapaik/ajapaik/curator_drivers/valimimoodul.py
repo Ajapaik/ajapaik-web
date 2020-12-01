@@ -95,7 +95,7 @@ class ValimimoodulDriver(object):
                     try:
                         each['latitude'] = float(each['latitude'])
                         each['longitude'] = float(each['longitude'])
-                    except:
+                    except:  # noqa
                         each['latitude'] = None
                         each['longitude'] = None
                 if existing_photo:
@@ -103,9 +103,8 @@ class ValimimoodulDriver(object):
                     check_dict[each['id']] = False
                     if not remove_existing:
                         album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                        each['albums'] = [[x[0], x[1]] for x in
-                                          Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
-                                              .values_list('id', 'name')]
+                        qs = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id', 'name')
+                        each['albums'] = [[x[0], x[1]] for x in qs]
                         for e in each['albums']:
                             e[0] = reverse('frontpage') + '?album=' + str(e[0])
                 else:

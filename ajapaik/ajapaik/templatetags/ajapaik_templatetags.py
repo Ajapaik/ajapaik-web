@@ -1,5 +1,4 @@
 from allauth.socialaccount.models import SocialAccount
-
 from django.template import Library, Node, Variable
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
@@ -42,14 +41,18 @@ def div(value, arg):
     try:
         value = int(value)
         arg = int(arg)
-        if arg: return value / arg
-    except:
+        if arg:
+            return value / arg
+    except:  # noqa
         pass
+
     return ''
+
 
 @register.filter()
 def user_is_connected_to_wiki_account(user):
     return SocialAccount.objects.filter(provider='wikimedia-commons', user=user).first() is not None
+
 
 @register.filter(is_safe=True)
 @stringfilter

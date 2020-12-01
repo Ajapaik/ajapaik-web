@@ -1,1 +1,0 @@
-# TODO: Create a command that sorts photos into a more maintainable folder structure and possibly puts descriptions into filenames for SEO

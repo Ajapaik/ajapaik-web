@@ -51,6 +51,7 @@ django-stubs
 djangorestframework-stubs
 pytest-mypy
 pytest-mypy-plugins
+flake8
 
 # legacy packages
 oauth2client==2.2.0

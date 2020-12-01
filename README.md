@@ -122,3 +122,4 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: implement this answer for keeps https://stackoverflow.com/questions/18643998/geodjango-geosexception-error
 - TODO: automate regular DB, media/uploads, media/videos backups
 - TODO: squash migrations (there are too many)
+- TODO: fix # noqa as much as possible (some Django quirks will always annoy flake8 though)

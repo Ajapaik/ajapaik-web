@@ -7,9 +7,8 @@ from django.utils.translation import ugettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
 
-from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
-
 from ajapaik import settings
+from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, NorwegianCSVPhoto, MyXtdComment
@@ -168,6 +167,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 class MyUserAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(User)
+
 
 try:
     admin.site.unregister(User)

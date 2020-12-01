@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0092_auto_20190511_0044'),
     ]
@@ -15,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionrectangle',
             name='facePhoto',
-            field=models.ImageField(blank=True, height_field='height', max_length=255, null=True, upload_to='uploads', verbose_name='FacePhoto', width_field='width'),
+            field=models.ImageField(blank=True, height_field='height', max_length=255, null=True, upload_to='uploads',
+                                    verbose_name='FacePhoto', width_field='width'),
         ),
     ]

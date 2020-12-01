@@ -1,17 +1,11 @@
 from allauth.socialaccount import providers
-from allauth.account.models import EmailAddress
-from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.oauth2.client import (
-    OAuth2Client,
-    OAuth2Error,
-)
 
 
 class Scope(object):
     BASIC = 'basic'
-    EDITPAGE  = 'editpage'
+    EDITPAGE = 'editpage'
     UPLOADFILE = 'uploadfile'
 
 
@@ -39,5 +33,6 @@ class WikimediaCommonsProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         return dict(username=data.get('username'))
+
 
 providers.registry.register(WikimediaCommonsProvider)

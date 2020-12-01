@@ -16,15 +16,18 @@ class RephotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = '__all__'
 
+
 class SimilarPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = '__all__'
 
+
 class ConfirmedSimilarPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = '__all__'
+
 
 class PhotoSerializer(serializers.ModelSerializer):
     rephotos = RephotoSerializer(many=True, read_only=True)

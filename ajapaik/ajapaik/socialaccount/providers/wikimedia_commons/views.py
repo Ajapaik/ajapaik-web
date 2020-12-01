@@ -1,20 +1,20 @@
 import requests
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import WikimediaCommonsProvider
 from .client import WikimediaCommonsOAuth2Client
+from .provider import WikimediaCommonsProvider
+
 
 class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
     provider_id = WikimediaCommonsProvider.id
     wiki_oauth_url = 'https://commons.wikimedia.org/w/rest.php/oauth2'
     access_token_url = wiki_oauth_url + '/access_token'
     access_token_method = 'POST'
-    authorize_url = wiki_oauth_url + '/authorize' 
+    authorize_url = wiki_oauth_url + '/authorize'
     authorize_url_method = 'GET'
     profile_url = wiki_oauth_url + '/resource/profile'
 
@@ -25,8 +25,9 @@ class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
         extra_data = resp.json()
         login = self.get_provider() \
             .sociallogin_from_response(request,
-                                       extra_data) 
+                                       extra_data)
         return login
+
 
 class WikimediaCommonsOAuth2CallbackView(OAuth2CallbackView):
     """ Custom OAuth2CallbackView to return WikimediaCommonsOAuth2Client """

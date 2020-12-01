@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0084_auto_20190124_0015'),
     ]
@@ -69,27 +68,36 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dating',
             name='end_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Päev'), (1, 'Kuu'), (2, 'Aasta')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Päev'), (1, 'Kuu'), (2, 'Aasta')]),
         ),
         migrations.AlterField(
             model_name='dating',
             name='start_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Päev'), (1, 'Kuu'), (2, 'Aasta')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Päev'), (1, 'Kuu'), (2, 'Aasta')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='map_type',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Google kaart'), (1, 'Google satelliit'), (2, 'OpenStreetMap'), (3, 'Juks'), (4, 'Pole kaardilt')]),
+            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Google kaart'), (1, 'Google satelliit'),
+                                                                       (2, 'OpenStreetMap'), (3, 'Juks'),
+                                                                       (4, 'Pole kaardilt')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='origin',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Mäng'), (1, 'Kaardivaade'), (2, 'Galerii'), (3, 'Püsiviide'), (4, 'Allikas'), (5, 'Ülepildistus')]),
+            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Mäng'), (1, 'Kaardivaade'), (2, 'Galerii'),
+                                                                       (3, 'Püsiviide'), (4, 'Allikas'),
+                                                                       (5, 'Ülepildistus')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='type',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'), (3, 'Kinnitus'), (4, 'StreetView'), (5, 'Allika geotääg'), (6, 'Android app')]),
+            field=models.PositiveSmallIntegerField(default=0,
+                                                   choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'), (3, 'Kinnitus'),
+                                                            (4, 'StreetView'), (5, 'Allika geotääg'),
+                                                            (6, 'Android app')]),
         ),
         migrations.AlterField(
             model_name='photo',
@@ -99,6 +107,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(db_index=True, choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader')]),
+            field=models.PositiveSmallIntegerField(db_index=True, choices=[(0, 'Geotääg'), (1, 'Ülepildistus'),
+                                                                           (2, 'Foto üleslaadimine'),
+                                                                           (3, 'Foto kureerimine'),
+                                                                           (4, 'Foto rekureerimine'), (5, 'Dateering'),
+                                                                           (6, 'Dateeringu kinnitus'),
+                                                                           (7, 'Filmikaader')]),
         ),
     ]

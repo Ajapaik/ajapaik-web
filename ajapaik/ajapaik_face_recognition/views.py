@@ -3,30 +3,27 @@ import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
-from django.urls import reverse
+from PIL import Image
 from django.db.models import Count
 from django.http import HttpResponse, HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404, render
-from django.template import RequestContext
+from django.urls import reverse
 from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
-from PIL import Image
 
 from ajapaik import settings
-from ajapaik.utils import least_frequent
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Points
-from ajapaik import settings
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
 from ajapaik.ajapaik_face_recognition.forms import FaceRecognitionSuggestionForm, \
-    FaceRecognitionRectangleSubmitForm, FaceRecognitionRectangleFeedbackForm, FaceRecognitionAddPersonForm
+    FaceRecognitionAddPersonForm
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionUserSuggestion, FaceRecognitionRectangle, \
-    FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataSuggestion
-from ajapaik.ajapaik_face_recognition.serializers import FaceRecognitionRectangleSerializer
+    FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_face_recognition.service import face_annotation_feedback_service, face_annotation_edit_service, \
     face_annotation_delete_service
 from ajapaik.ajapaik_object_recognition import response
+from ajapaik.utils import least_frequent
 
 log = logging.getLogger(__name__)
 
@@ -102,7 +99,7 @@ def save_subject_object(subject_album, rectangle, user_id, user_profile):
         points=points,
         photo=rectangle.photo,
         subject_confirmation=new_suggestion,
-        annotation = rectangle,
+        annotation=rectangle,
         created=timezone.now()
     ).save()
 
@@ -120,6 +117,7 @@ def save_subject(form: FaceRecognitionSuggestionForm, user_id, user_profile):
     rectangle: FaceRecognitionRectangle = form.cleaned_data['rectangle']
 
     return save_subject_object(subject_album, rectangle, user_id, user_profile)
+
 
 def add_person_rectangle(values, photo, user_id):
     x1 = values['x1']
@@ -142,7 +140,6 @@ def add_person_rectangle(values, photo, user_id):
     )
     new_rectangle.save()
 
-    
     if photo.first_annotation is None:
         photo.first_annotation = new_rectangle.created
     photo.latest_annotation = new_rectangle.created
@@ -196,23 +193,24 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
 
 def get_subject_image(request: HttpRequest):
     try:
-        if(request.rectangle_id):
+        if (request.rectangle_id):
             rectangle = FaceRecognitionRectangle.objects.filter(pk=request.id).first()
         if (rectangle is None or request.rectangle_id is None):
             rectangle = FaceRecognitionRectangle.objects.first()
-        photo = rectangle.subjectPhoto
         with open(settings.MEDIA_ROOT + '/portraits/' + str(rectangle.id), 'rb') as f:
             return HttpResponse(f.read(), content_type='image/jpeg')
-    except:
-        white = Image.new('RGBA', (32, 32), (255,255,255,0))
+    except:  # noqa
+        white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
         response = HttpResponse(content_type='image/jpeg')
         white.save(response, 'JPEG')
         return response
 
+
 def get_subject_data_empty(request):
     return render(request, 'add_subject_data_empty.html')
 
-def get_subject_data(request, rectangle_id = None):
+
+def get_subject_data(request, rectangle_id=None):
     profile = request.get_user().profile
     rectangle = None
     next_rectangle = None
@@ -234,7 +232,8 @@ def get_subject_data(request, rectangle_id = None):
         #       It should only show from previous suggestions of the user, which
         #       are of rectangles belonging to photos which are in album with album_id
 
-        suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
+        suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(
+            proposer_id=profile.id).all().values_list('face_recognition_rectangle_id', flat=True)
         if suggestions is None:
             rectangles = FaceRecognitionRectangle.objects.filter(deleted=None)
             if album_id is not None:
@@ -244,14 +243,16 @@ def get_subject_data(request, rectangle_id = None):
             if album_id is not None:
                 rectangles = rectangles.filter(photo_id__in=albumphoto_ids)
             if rectangles.count() == 0:
-                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(number_of_suggestions=Count('face_recognition_suggestions')).order_by('-number_of_suggestions')
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None).annotate(
+                    number_of_suggestions=Count('face_recognition_suggestions')).order_by('-number_of_suggestions')
                 if album_id is not None:
                     rectangles = rectangles.filter(photo_id__in=albumphoto_ids)
                 suggestion_ids = []
                 for suggestion in suggestions:
                     if rectangle_id != str(suggestion):
                         suggestion_ids.append(suggestion)
-                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None, id=least_frequent(suggestion_ids)).order_by('?')
+                rectangles = FaceRecognitionRectangle.objects.filter(deleted=None,
+                                                                     id=least_frequent(suggestion_ids)).order_by('?')
                 if rectangles is not None:
                     next_rectangle = rectangles.first()
                 else:
@@ -281,19 +282,22 @@ def get_subject_data(request, rectangle_id = None):
             if album_id is None:
                 next_rectangle = FaceRecognitionRectangle.objects.order_by('?').first()
             else:
-                next_rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumphoto_ids).order_by('?').first()
+                next_rectangle = FaceRecognitionRectangle.objects.filter(photo_id__in=albumphoto_ids).order_by(
+                    '?').first()
         if next_rectangle is None:
-            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
+            next_action = request.build_absolute_uri(
+                reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
         else:
-            next_action = request.build_absolute_uri(reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
+            next_action = request.build_absolute_uri(
+                reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
             if album_id is not None:
                 next_action += '?album=' + str(album_id)
     has_consensus = False
     subject_id = None
-    if rectangle != None and rectangle.subject_consensus != None:
+    if rectangle and rectangle.subject_consensus:
         has_consensus = True
         subject_id = rectangle.subject_consensus.id
-    elif rectangle != None and rectangle.subject_ai_suggestion != None:
+    elif rectangle and rectangle.subject_ai_suggestion:
         has_consensus = True
         subject_id = rectangle.subject_ai_suggestion.id
 
@@ -305,4 +309,5 @@ def get_subject_data(request, rectangle_id = None):
         'has_consensus': has_consensus,
         'subject_id': subject_id
     }
+
     return render(request, 'add_subject_data.html', context)

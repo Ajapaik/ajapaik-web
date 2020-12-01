@@ -1,5 +1,3 @@
-import os
-
 from django.core.management.base import BaseCommand, CommandError
 from django.db.utils import ConnectionDoesNotExist
 
@@ -58,7 +56,7 @@ class Command(BaseCommand):
 
                 try:
                     production_user = Profile.objects.using('production') \
-                        .get(user__username=rephoto.user.user.get_username ).id
+                        .get(user__username=rephoto.user.user.get_username).id
                 except Profile.DoesNotExist:
                     production_user = None
                 rephoto_data['user_id'] = production_user
@@ -78,12 +76,12 @@ class Command(BaseCommand):
                     try:
                         production_device = Device.objects.using('production') \
                             .get(
-                                camera_make=rephoto.device.camera_make,
-                                camera_model=rephoto.device.camera_model,
-                                lens_make=rephoto.device.lens_make,
-                                lens_model=rephoto.device.lens_model,
-                                software=rephoto.device.software
-                            ).id
+                            camera_make=rephoto.device.camera_make,
+                            camera_model=rephoto.device.camera_model,
+                            lens_make=rephoto.device.lens_make,
+                            lens_model=rephoto.device.lens_model,
+                            software=rephoto.device.software
+                        ).id
                     except Device.DoesNotExist:
                         pass
                 rephoto_data['device_id'] = production_device

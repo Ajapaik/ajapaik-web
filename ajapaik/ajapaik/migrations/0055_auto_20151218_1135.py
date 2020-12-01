@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0054_auto_20151217_1204'),
     ]
@@ -18,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tour',
             name='photos',
-            field=models.ManyToManyField(related_name='tours', null=True, through='ajapaik.TourPhoto', to='ajapaik.Photo', blank=True),
+            field=models.ManyToManyField(related_name='tours', null=True, through='ajapaik.TourPhoto',
+                                         to='ajapaik.Photo', blank=True),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

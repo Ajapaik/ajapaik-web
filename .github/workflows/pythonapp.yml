@@ -5,7 +5,7 @@ on: [ push ]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: laurielias/python-3.6-dlib
 
     steps:
       - uses: actions/checkout@v2

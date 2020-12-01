@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0035_auto_20151125_1557'),
     ]
@@ -32,7 +31,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='video',
-            field=models.ForeignKey(related_name='stills', blank=True, to='ajapaik.Video', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='stills', blank=True, to='ajapaik.Video', null=True,
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(

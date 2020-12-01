@@ -12,7 +12,6 @@ from ajapaik.ajapaik_object_recognition.service.object_annotation import object_
     object_annotation_add_service, object_annotation_get_service, object_annotation_delete_service
 from ajapaik.ajapaik_object_recognition.service.object_feedback import object_annotation_feedback_service
 
-
 log = logging.getLogger(__name__)
 
 
@@ -88,4 +87,3 @@ def add_feedback(request, annotation_id):
         return response.success()
 
     return response.not_supported()
-

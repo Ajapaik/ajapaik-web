@@ -6,6 +6,7 @@ def google_maps_api_key(self):
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
     }
 
+
 def is_user_upload(request):
     ret = False
     if ('HTTP_REFERER' in request.META and 'user-upload' in request.META['HTTP_REFERER']) \

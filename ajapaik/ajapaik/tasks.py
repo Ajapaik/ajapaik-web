@@ -1,6 +1,7 @@
 import celery
 from django.core import management
 
+
 # TODO: Maybe use django-background-tasks?
 @celery.task
 def refresh_albums():

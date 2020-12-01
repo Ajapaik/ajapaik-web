@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0033_auto_20151119_1620'),
     ]
@@ -32,7 +31,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geot\xe4\xe4g'), (1, '\xdclepildistus'), (2, 'Foto \xfcleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus')]),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geot\xe4\xe4g'), (1, '\xdclepildistus'), (2, 'Foto \xfcleslaadimine'),
+                         (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'),
+                         (6, 'Dateeringu kinnitus')]),
             preserve_default=True,
         ),
     ]
