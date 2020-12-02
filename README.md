@@ -4,21 +4,6 @@
 ## [Join Ajapaik Slack](http://bit.ly/join-Ajapaik-Slack)!
 This is the open-sourced Django project code for https://ajapaik.ee/
 
-## NLTK models
-```bash
-source venv/bin/activate
-python
-import nltk
-nltk.download('punkt')
-```
-
-## TartuNLP
-These files are too large to keep in version control, get them: https://195.80.123.212/tartunlp/translate
-```bash
-mv params.best ajapaik/ajapaik/tartunlp/models/translation/
-mv truecasing.model ajapaik/ajapaik/tartunlp/models/preprocessing
-```
-
 ## Running locally
 ```bash
 docker pull laurielias/ajapaik-web:python-3.6-latest

@@ -1,7 +1,5 @@
 /ajapaik/settings/local.py
 /ajapaik/settings/test.py
-/ajapaik/ajapaik/tartunlp_translate/models/preprocessing/truecasing.model
-/ajapaik/ajapaik/tartunlp_translate/models/translation/params.best
 
 /media/
 /postgresql/
