@@ -25,11 +25,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-11-30 15:59:51+0000\n"
+"PO-Revision-Date: 2020-12-03 14:40:24+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-11-26 16:42:41+0000\n"
+"X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -745,7 +745,7 @@ msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3226
+#: ajapaik/ajapaik/views.py:3236
 msgid "E-mail addresses"
 msgstr "Adresses courriel"
 
@@ -1126,6 +1126,7 @@ msgstr "Société estonienne d’héritage photographique"
 msgid "Support Ajapaik"
 msgstr "Soutenir Ajapaik"
 
+#: ajapaik/ajapaik/templates/donate/supporters.html:12
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support us"
@@ -1196,8 +1197,8 @@ msgstr "Ajapaik sur Facebook"
 msgid "Profile and leaderboard"
 msgstr "Profil et tableau de classement"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1786
-#: ajapaik/ajapaik/views.py:1803 ajapaik/ajapaik/views.py:1839
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1796
+#: ajapaik/ajapaik/views.py:1813 ajapaik/ajapaik/views.py:1849
 msgid "Leaderboard"
 msgstr "Tableau de classement"
 
@@ -1244,8 +1245,8 @@ msgstr "Superviser les photos historiques des musées dans Ajapaik pour les géo
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
-msgid "Ajapaik shows how places have changed over time"
-msgstr "Ajapaik montre comment les lieux ont changé au travers du temps"
+msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
+msgstr "Tout le monde peut aider à enrichir les données des images historiques sur Ajapaik !"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1329,15 +1330,15 @@ msgstr "Erreur de géolocalisation"
 msgid "Sorting"
 msgstr "Tri"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:479
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "Ce site web utilise des cookies pour vous assurer la meilleure expérience sur notre site web"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:480
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:484
 msgid "Got it!"
 msgstr "L’obtenir !"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:481
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:485
 msgid "More info"
 msgstr "Plus d’informations"
 
@@ -1486,15 +1487,15 @@ msgstr "Cordialement"
 msgid "Reply to"
 msgstr "Répondre à"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
-msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
-msgstr "Ajapaik est développé par la <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Société estonienne d’héritage photographique (MTÜ Eesti Fotopärand)</a> listée dans les associations sans but commercial, fondations et associations religieuses qui bénéficient d’avantages fiscaux sur les bénéfices. Nous déclarons vos donations et vous percevrez un crédit d’impôt pour cela."
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:3
+msgid "Your donation confirms the importance of Ajapaik"
+msgstr "Votre donation confirme l'importance de Ajapaik"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
 msgstr "Détails pour les donations uniques"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:6
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Beneficiary's name"
 msgstr "Nom du bénéficiaire"
 
@@ -1502,86 +1503,126 @@ msgstr "Nom du bénéficiaire"
 msgid "Beneficiary's account no"
 msgstr "Numéro de compte du bénéficiaire"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:8
-msgid "LHV single payment link"
-msgstr "Lien de paiement unique LHV"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:10
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:33
-msgid "LHV bank"
-msgstr "Banque LHV"
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:11
+msgid "Prefilled forms for one-time payments"
+msgstr "Formulaires préremplis pour les paiements ponctuels"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:12
-msgid "Coop pank single payment link"
-msgstr "Lien de paiement unique Cook pank"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:14
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:38
-msgid "Coop pank"
-msgstr "Coop pank"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:16
-msgid "SEB single payment link"
-msgstr "Lien unique de paiement SEB"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:18
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:42
-msgid "SEB bank"
-msgstr "Banque SEB"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:20
 msgid "Swedbank single payment link"
 msgstr "Lien de paiement unique Swedbank"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:23
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:46
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:15
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:37
 msgid "Swedbank"
 msgstr "Swedbank"
 
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:17
+msgid "SEB single payment link"
+msgstr "Lien unique de paiement SEB"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:19
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:41
+msgid "SEB bank"
+msgstr "Banque SEB"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:21
+msgid "LHV single payment link"
+msgstr "Lien de paiement unique LHV"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:23
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:45
+msgid "LHV bank"
+msgstr "Banque LHV"
+
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:25
-msgid "Luminor single payment link"
-msgstr "Lien de paiement unique Luminor Bank"
+msgid "Coop pank single payment link"
+msgstr "Lien de paiement unique Cook pank"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:27
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:50
+msgid "Coop pank"
+msgstr "Coop pank"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:29
+msgid "Luminor single payment link"
+msgstr "Lien de paiement unique Luminor Bank"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:31
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:54
 msgid "Luminor bank"
 msgstr "Luminor Bank"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:30
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:34
 msgid "Prefilled forms for standing payments"
 msgstr "Formulaires préremplis pour les paiements récurrents"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:31
-msgid "LHV payment order link"
-msgstr "Lien unique de paiement LHV"
-
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:35
-msgid "Coop pank payment order link"
-msgstr "Lien d’ordre de paiement Coop pank"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:40
-msgid "SEB payment order link"
-msgstr "Lien d’ordre de paiement SEB"
-
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:44
 msgid "Swedbank payment order link"
 msgstr "Lien d’ordre de paiement Swedbank"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:48
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:39
+msgid "SEB payment order link"
+msgstr "Lien d’ordre de paiement SEB"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:43
+msgid "LHV payment order link"
+msgstr "Lien unique de paiement LHV"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:47
+msgid "Coop pank payment order link"
+msgstr "Lien d’ordre de paiement Coop pank"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:52
 msgid "Luminor payment order link"
 msgstr "Lien d’ordre de paiement Luminor"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:52
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:56
+msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
+msgstr "Ajapaik est une plateforme ouverte de production participative à but non lucratif ; son volume de contenu et de complexité technique a considérablement augmenté. L’audience du site est similaire ou supérieure à celle de dépôts d’héritage culturel officiels comme Muis, Fotis, etc."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:57
+msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
+msgstr "Au fil du temps, Ajapaik a reçu des dons accordés par le public, mais n’a pas de source de fonds permanente qui nous permettrait de conserver la plateforme techniquement à jour ou même mieux — améliorer son ergonomie, ajouter de nouvelles fonctionnalités."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:58
+msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
+msgstr "Votre don est d’une grande aide et confirme qu’Ajapaik est nécessaire. Si possible, envisager de mettre en place un paiement régulier."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:59
+msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
+msgstr "Ajapaik est développé par la <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Société estonienne d’héritage photographique (MTÜ Eesti Fotopärand)</a> listée dans les associations sans but commercial, fondations et associations religieuses qui bénéficient d’avantages fiscaux sur les bénéfices. Nous déclarons vos donations et vous percevrez un crédit d’impôt pour cela."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:60
 msgid "Other ways of supporting us"
 msgstr "Autres moyens pour nous soutenir"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:53
-msgid "Ajapaik Brave referral"
-msgstr "Spécialiste d’Ajapaik Brave"
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:61
+msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
+msgstr "Vous pouvez également aider à <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">traduire l'interface utilisateur de Ajapaik</a>"
 
-#: ajapaik/ajapaik/templates/donate/_donate_details.html:54
-msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-msgstr "Essayez le navigateur Brave – il est basé sur Chromium et vous pouvez récompenser vos sites favoris avec de la cryptomonnaie."
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:62
+msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
+msgstr "N’importe quelle forme d’aide est aussi appréciée ! Par exemple promouvoir Ajapaik, créer des partenariats, etc."
+
+#: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
+msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
+msgstr "Si Ajapaik aide à trouver des photos historiques qui vous intéressent, alors envisagez de <a href=\"/donate/\">soutenir</a> Ajapaik afin que nous puissions le rendre encore meilleur. Merci !"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:4
+msgid "Ajapaik is currently using funding received from:"
+msgstr "Ajapaik utilise actuellement des fonds reçus de :"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:14
+msgid "Ajapaik has received donations from:"
+msgstr "Ajapaik a reçu des donations de :"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:19
+msgid "Earlier funders:"
+msgstr "Donateurs précédents :"
+
+#: ajapaik/ajapaik/templates/donate/donate.html:12
+msgid "Supporters of Ajapaik"
+msgstr "Soutiens de Ajapaik"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1804,70 +1845,55 @@ msgid "Modified"
 msgstr "Modifié"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
-msgid "Discover how places looked like years ago by"
-msgstr "Découvrez à quoi ressemblaient les lieux il y a des années"
+msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
-msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-msgstr "* en recherchant des images de vues historiques dans les collections des musées estoniens et en supervisant des images sélectionnées vers Ajapaik,"
+msgid "As an Ajapaik user you can"
+msgstr "En tant qu'utilisateur Ajapaik vous pouvez"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
+msgid "geotag pictures in order to improve the location based search,"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
-msgid "* geotagging pictures from places you are familiar with and"
-msgstr "* en géolocalisant les images pour les lieux avec lesquels vous êtes familiers et"
+msgid "rephotograph historic pictures to create then-and-now picture pairs,"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
+msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
+msgstr "marquez les personnnes sur les images, placez les images dans les albums, catégorisez et commentez les images."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
+msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
+msgstr "transcrivez les messages écrits à la main sur les images ou au dos des cartes postales,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
-msgid "* rephotographing the historic views from places you visit."
-msgstr "* en rephotographiant les vues historiques des lieux que vous visitez."
+msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
+msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
+msgstr ""
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "Ajapaik a <b>%(total_photo_count)s</b> images historiques, dont <b>%(total_photos_tagged)s</b> images ont été placées sur la carte par <b>%(contributing_users)s</b> utilisateurs et <b>%(rephoto_count)s</b> rephotographies en <b>%(rephotographed_photo_count)s</b> images réalisées par <b>%(rephotographing_users)s</b> utilisateurs."
 
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:32
-#, python-format
-msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
-msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-msgstr[0] "Vous avez suggéré un emplacement pour le cliché <b>%(user_geotagged_photos)s</b>."
-msgstr[1] "Vous avez suggéré des emplacements pour les clichés <b>%(user_geotagged_photos)s</b>."
-
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:37
 #, python-format
-msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
-msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-msgstr[0] "Vous avez réalisé <b>%(user_rephotos)s</b> rephoto pour"
-msgstr[1] "Vous avez réalisé <b>%(user_rephotos)s</b> rephotos pour"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
-#, python-format
-msgid "<b>%(user_rephotographed_photos)s</b> picture."
-msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-msgstr[0] "<b>%(user_rephotographed_photos)s</b> cliché."
-msgstr[1] "<b>%(user_rephotographed_photos)s</b> clichés."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
-msgid "General statistics refresh every 10 minutes."
-msgstr "Les statistiques générales sont rafraîchies toutes les 10 minutes."
+msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
+msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:44
-msgid "Supporters of Ajapaik"
-msgstr "Soutiens de Ajapaik"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:47
-msgid "KulKa logo"
-msgstr "Logo de KulKa"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:50
-msgid "Ministry of Education logo"
-msgstr "Logo du Ministère de l’Éducation"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:59
-msgid "EV100 logo"
-msgstr "Logo d’EV100"
-
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:62
-msgid "KYSK logo"
-msgstr "Logo de KYSK"
+msgid "General statistics refresh every 10 minutes."
+msgstr "Les statistiques générales sont rafraîchies toutes les 10 minutes."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
@@ -2103,7 +2129,7 @@ msgstr "Une erreur s’est produite en essayant de se connecter via votre compte
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3228
+#: ajapaik/ajapaik/views.py:3238
 msgid "Account Connections"
 msgstr "Connexions au compte"
 
@@ -2405,109 +2431,141 @@ msgstr "Ajouter"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "Vous êtes anonyme. Vous pouvez maintenant vous connecter avec votre courriel."
 
-#: ajapaik/ajapaik/views.py:464
+#: ajapaik/ajapaik/views.py:474
 msgid "Non-authenticated user"
 msgstr "Utilisateur non authentifié"
 
-#: ajapaik/ajapaik/views.py:603
+#: ajapaik/ajapaik/views.py:613
 msgid "Geotagging game"
 msgstr "Jeu de géobalisage"
 
-#: ajapaik/ajapaik/views.py:671
+#: ajapaik/ajapaik/views.py:681
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s – rephotos"
 
-#: ajapaik/ajapaik/views.py:1149
+#: ajapaik/ajapaik/views.py:1159
 msgid "Cannot upload to these albums"
 msgstr "Impossible de téléverser ces albums"
 
-#: ajapaik/ajapaik/views.py:1179
+#: ajapaik/ajapaik/views.py:1189
 msgid "Recuration successful"
 msgstr "Nouvelle supervision réussie"
 
-#: ajapaik/ajapaik/views.py:1181
+#: ajapaik/ajapaik/views.py:1191
 msgid "Problem with album selection"
 msgstr "Problème avec la sélection de l’album"
 
-#: ajapaik/ajapaik/views.py:1183
+#: ajapaik/ajapaik/views.py:1193
 msgid "Faulty data submitted"
 msgstr "Données erronées soumises"
 
-#: ajapaik/ajapaik/views.py:1509 ajapaik/ajapaik/views.py:1516
-#: ajapaik/ajapaik/views.py:1518
+#: ajapaik/ajapaik/views.py:1519 ajapaik/ajapaik/views.py:1526
+#: ajapaik/ajapaik/views.py:1528
 msgid "Browse photos on map"
 msgstr "Explorer les photos sur la carte"
 
-#: ajapaik/ajapaik/views.py:1642
+#: ajapaik/ajapaik/views.py:1652
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Votre contribution n’a pas modifié l’emplacement estimé pour la photo, en tout cas pas encore."
 
-#: ajapaik/ajapaik/views.py:1644
+#: ajapaik/ajapaik/views.py:1654
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "La photo a été associée à un nouvel emplacement grâce à vous."
 
-#: ajapaik/ajapaik/views.py:1646
+#: ajapaik/ajapaik/views.py:1656
 msgid "Your suggestion was first."
 msgstr "Votre suggestion était la première."
 
-#: ajapaik/ajapaik/views.py:1922
+#: ajapaik/ajapaik/views.py:1932
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Rechercher d’anciennes photos, les ajouter à Ajapaik, déterminer leur emplacement et partager l’album résultant !"
 
-#: ajapaik/ajapaik/views.py:2285
+#: ajapaik/ajapaik/views.py:2295
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2344 ajapaik/ajapaik/views.py:2365
+#: ajapaik/ajapaik/views.py:2354 ajapaik/ajapaik/views.py:2375
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Erreur pendant le téléversement du fichier : %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2361
+#: ajapaik/ajapaik/views.py:2371
 msgid "Photo already exists in Ajapaik"
 msgstr "La photo existe déjà dans Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2384
+#: ajapaik/ajapaik/views.py:2394
 msgid "Please add photos to your album"
 msgstr "Veuillez ajouter des photos à votre album"
 
-#: ajapaik/ajapaik/views.py:2386
+#: ajapaik/ajapaik/views.py:2396
 msgid "Not enough data submitted"
 msgstr "Pas suffisamment de données soumises"
 
-#: ajapaik/ajapaik/views.py:2702
+#: ajapaik/ajapaik/views.py:2712
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Extrait de « %(film)s » à %(time)s"
 
-#: ajapaik/ajapaik/views.py:2924
+#: ajapaik/ajapaik/views.py:2934
 msgid "Photo uploaded"
 msgstr "Photo téléversée"
 
-#: ajapaik/ajapaik/views.py:2944
+#: ajapaik/ajapaik/views.py:2954
 msgid "Album created"
 msgstr "Album créé"
 
-#: ajapaik/ajapaik/views.py:3026
+#: ajapaik/ajapaik/views.py:3036
 msgid "Sorry but we fail to post your comment."
 msgstr "Désolé, mais nous n’avons pas réussi à publier votre commentaire."
 
-#: ajapaik/ajapaik/views.py:3219
+#: ajapaik/ajapaik/views.py:3229
 msgid "Change password"
 msgstr "Changer de mot de passe"
 
-#: ajapaik/ajapaik/views.py:3224
+#: ajapaik/ajapaik/views.py:3234
 msgid "Change display name"
 msgstr "Modifier le nom affiché"
 
-#: ajapaik/ajapaik/views.py:3225
+#: ajapaik/ajapaik/views.py:3235
 msgid "Newsletter and language settings"
 msgstr "Bulletin d’information et paramètres de langue"
 
-#: ajapaik/ajapaik/views.py:3229
+#: ajapaik/ajapaik/views.py:3239
 msgid "Merge another Ajapaik account with current one"
 msgstr "Fusionner un autre compte Ajapaik avec l’actuel"
+
+#: ajapaik/ajapaik/views.py:3316
+msgid "KulKa logo"
+msgstr "Logo de KulKa"
+
+#: ajapaik/ajapaik/views.py:3321
+msgid "Ministry of Education logo"
+msgstr "Logo du Ministère de l’Éducation"
+
+#: ajapaik/ajapaik/views.py:3326
+msgid "EV100 logo"
+msgstr "Logo d’EV100"
+
+#: ajapaik/ajapaik/views.py:3331
+msgid "KYSK logo"
+msgstr "Logo de KYSK"
+
+#: ajapaik/ajapaik/views.py:3336
+msgid "Ministry of Culture"
+msgstr "Ministère de la culture"
+
+#: ajapaik/ajapaik/views.py:3341
+msgid "Republic of Estonia National Heritage Board"
+msgstr ""
+
+#: ajapaik/ajapaik/views.py:3346
+msgid "Year of Digital Culture 2020"
+msgstr "Année de la Culture digitale 2020"
+
+#: ajapaik/ajapaik/views.py:3351
+msgid "Wikimedia Finland"
+msgstr "Wikimedia Finlande"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
