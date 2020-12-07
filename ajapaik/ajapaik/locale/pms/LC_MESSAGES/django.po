@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:25+0000\n"
+"PO-Revision-Date: 2020-12-07 14:37:50+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1854,15 +1854,15 @@ msgstr "marché le përson-e an sle plance, gionté dle plance ant j'àlbom, cat
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
-msgstr ""
+msgstr "trascrive ij mëssagi scrit a man an sle plance o an l'arvers dle cartolin-e,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
-msgstr ""
+msgstr "gionté dle sorgiss visive stòriche a Ajapaik - sërcandje e amportandje da dle colession pùbliche o cariand-le chiel."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
-msgstr ""
+msgstr "Ajapaik a l'é un proget nen a but ëd profit ëd la Socetà d'ardità fotogràfica éstona (MTÜ Eesti Fotopärand) ch'a l'é stàit creà durant na heckaton-a Garage 48 an fërvé 2011. Con j'agn, Ajapaik a l'ha arseivù dle sovension ma a-i é gnun finansiament përmanent e i soma donca motobin arconossent si chiel a peul fé na donassion për <a href='/donate'>sosten-ne</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
@@ -1873,11 +1873,11 @@ msgstr "Ajapaik a l'ha <b>%(total_photo_count)s</b> fòto stòriche, dont <b>%(t
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:37
 #, python-format
 msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
-msgstr ""
+msgstr "A-i é <b>%(person_annotation_count)s</b> moro trovà ant le plance, na përson-a a l'é stàita identificà an <b>%(person_annotation_count_with_person_album)s</b> cas, l'età o ël sess a l'é marcà për <b>%(person_annotation_count_with_subject_data)s</b> moro."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "Na vista d'ansem ëd soe pròpie contribussion a peul esse trovà su soa <a href='/me'>pàgina ëd profil d'utent</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:44
 msgid "General statistics refresh every 10 minutes."
@@ -2541,19 +2541,19 @@ msgstr "Marca ëd KYSK"
 
 #: ajapaik/ajapaik/views.py:3336
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Ministé dla Coltura"
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "Ufissi dël patrimòni nassional ëd la Repùblica d'Estònia"
 
 #: ajapaik/ajapaik/views.py:3346
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "Ann dla coltura numérica 2020"
 
 #: ajapaik/ajapaik/views.py:3351
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Finlandia"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"

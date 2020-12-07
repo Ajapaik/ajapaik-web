@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:24+0000\n"
+"PO-Revision-Date: 2020-12-07 14:37:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -694,7 +694,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "עריכת תמונה"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -1504,7 +1504,7 @@ msgstr "מספר החשבון של המוטב"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:11
 msgid "Prefilled forms for one-time payments"
-msgstr ""
+msgstr "טפסים ממולאים מראש לתשלומים חד פעמיים"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:12
 msgid "Swedbank single payment link"
@@ -1617,7 +1617,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:19
 msgid "Earlier funders:"
-msgstr ""
+msgstr "מימון מוקדם יותר:"
 
 #: ajapaik/ajapaik/templates/donate/donate.html:12
 msgid "Supporters of Ajapaik"
@@ -1857,7 +1857,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr ""
+msgstr "צלם תמונות היסטוריות מחדש כדי ליצור זוגות תמונות של אז ועכשיו,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
@@ -2552,19 +2552,19 @@ msgstr "סמל KYSK"
 
 #: ajapaik/ajapaik/views.py:3336
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "משרד התרבות"
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "הרשות הלאומית למורשת הרפובליקה של אסטוניה"
 
 #: ajapaik/ajapaik/views.py:3346
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "שנת התרבות הדיגיטלית 2020"
 
 #: ajapaik/ajapaik/views.py:3351
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "ויקימדיה פינלנד"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"

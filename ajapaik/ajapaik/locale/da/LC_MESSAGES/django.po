@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2020-12-07 14:37:48+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -2549,7 +2549,7 @@ msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/views.py:3336
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Kulturministeriet"
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"

@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:25+0000\n"
+"PO-Revision-Date: 2020-12-07 14:37:51+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -2603,7 +2603,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3351
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Викимедиа Финляндия"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"

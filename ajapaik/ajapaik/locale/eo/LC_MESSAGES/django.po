@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2020-12-07 14:37:49+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1237,7 +1237,7 @@ msgstr "Kuratori antikvajn fotojn el muzeoj al Ajapaik por markado per geografia
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr ""
+msgstr "Ĉiuj povas helpi riĉigi la datumojn de historiaj bildoj en Ajapaik!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1480,7 +1480,7 @@ msgstr "Respondi al"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "Via donaco konfirmas la gravecon de Ajapaik"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
@@ -1577,7 +1577,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:58
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
-msgstr ""
+msgstr "Via donaco tre helpas kaj konfirmas, ke necesas Ajapaik. Se eble pripensu starigi konstantan pagon."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:59
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
@@ -1589,7 +1589,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:61
 msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
-msgstr ""
+msgstr "Vi ankaŭ povas helpi <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">traduki la uzantinterfacon de Ajapaik</a>"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:62
 msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
@@ -1601,11 +1601,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
-msgstr ""
+msgstr "Ajapaik nuntempe uzas financadon ricevitan de:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:14
 msgid "Ajapaik has received donations from:"
-msgstr ""
+msgstr "Ajapaik ricevis donacojn de:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:19
 msgid "Earlier funders:"
@@ -1841,7 +1841,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Kiel Ajapaik uzanto vi povas"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
@@ -1853,11 +1853,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr ""
+msgstr "Etikedi homojn sur la bildoj, aldoni bildojn al albumoj, klasifiki kaj komenti bildojn,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
-msgstr ""
+msgstr "Transskribi manskribitajn mesaĝojn sur bildoj aŭ sur la reversoj de poŝtkartoj,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
@@ -1880,7 +1880,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "Superrigardo de viaj propraj kontribuoj troveblas ĉe via <a href='/me'>Paĝo de uzantprofilo</a>"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:44
 #, fuzzy
@@ -2545,19 +2545,19 @@ msgstr "emblemo de KYSK"
 
 #: ajapaik/ajapaik/views.py:3336
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Ministerio de Kulturo"
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "Respubliko de Estonio Nacia Heredaĵa Tabulo"
 
 #: ajapaik/ajapaik/views.py:3346
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "Jaro de Cifereca Kulturo 2020"
 
 #: ajapaik/ajapaik/views.py:3351
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedio Finnlando"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"
