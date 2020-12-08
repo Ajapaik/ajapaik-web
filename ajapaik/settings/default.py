@@ -84,7 +84,10 @@ MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'd
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
 
-ESTNLTK_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
+TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
+TARTUNLP_SOCKET_HOST = 'localhost'
+TARTUNLP_SOCKET_PORT = 12346
+
 
 SITE_ID = 2
 
@@ -193,7 +196,6 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap4',
     'leaflet',
-    'django_celery_beat',
     'ajapaik.ajapaik_face_recognition',
     'ajapaik.ajapaik_object_recognition',
     'django_user_agents',
@@ -357,10 +359,6 @@ BOT_USER_AGENTS = {
     'Wget'
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
-
-# Since Celery makes us use Redis anyway, use it some more
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'redis_cache.RedisCache',

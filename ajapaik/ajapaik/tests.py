@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 from django.conf import settings
 
@@ -10,10 +12,14 @@ from ajapaik.ajapaik.models import Photo
     ('description_fi', 'Rauman kanaalin meren puoleiselta osalta'),
 ])
 def test_nltk_translation(existing_key, existing_text):
-    test_instance = Photo()
-    setattr(test_instance, existing_key, existing_text)
-    test_instance.fill_untranslated_fields()
+    with mock.patch('socket.socket') as mock_socket:
+        mock_socket.return_value.recv.return_value = b'{"raw_trans": ["-"], "raw_input": ["-"], "final_trans": ' \
+                                                     b'"Rauma kanali mere poolel"}'
+        test_instance = Photo()
+        setattr(test_instance, existing_key, existing_text)
+        test_instance.fill_untranslated_fields()
 
-    for each in settings.ESTNLTK_LANGUAGES:
-        print(test_instance, f'description_{each}')
-        assert getattr(test_instance, f'description_{each}') is not None
+        for each in settings.TARTUNLP_LANGUAGES:
+            if f'description_{each}' == existing_key:
+                continue
+            assert getattr(test_instance, f'description_{each}') == 'Rauma kanali mere poolel'

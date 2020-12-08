@@ -1,4 +1,5 @@
 import os
+import socket
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
@@ -34,15 +35,12 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
-from nltk import sent_tokenize
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.phash import phash
-from ajapaik.ajapaik.tartunlp_translate.constraints import getPolitenessConstraints
-from ajapaik.ajapaik.tartunlp_translate.translator import translate, loadModels
 from ajapaik.utils import angle_diff, average_angle
 
 
@@ -955,37 +953,23 @@ class Photo(Model):
     def fill_untranslated_fields(self):
         # Find filled field to base translation off
         translation_source = None
-        source_lang = None
-        source_lang_map = {
-            'et': 'estonian',
-            'lv': 'latvian',
-            'lt': 'lithuanian',
-            'fi': 'finnish',
-            'en': 'english',
-            'ru': 'russian',
-            'de': 'german'
-        }
-        for each in settings.ESTNLTK_LANGUAGES:
+        for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'
             if getattr(self, key):
                 translation_source = key
-                source_lang = each
                 break
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        # translation_models = loadModels(
-        #     f'{dir_path}/tartunlp_translate/models/translation',
-        #     f'{dir_path}/tartunlp_translate/models/preprocessing/truecasing.model',
-        #     f'{dir_path}/tartunlp_translate/models/preprocessing/sentencepiece.model'
-        # )
-        for each in settings.ESTNLTK_LANGUAGES:
+        nlp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        nlp_socket.connect((settings.TARTUNLP_SOCKET_HOST, settings.TARTUNLP_SOCKET_PORT))
+        for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'
             current_value = getattr(self, key)
             if not current_value:
-                translation = translation_source
-                # TODO: This integration will not work, make TartuNLP work as a standalone server and talk via socket
-                # translation = translate(translation_models, [translation_source], source_lang_map[each],
-                #                         getPolitenessConstraints(), 'nc')
-                setattr(self, key, translation)
+                nlp_socket.send(json.dumps({
+                    'src': getattr(self, translation_source),
+                    'conf': f'{each},'
+                }).encode())
+                socket_response = nlp_socket.recv(1024)
+                setattr(self, key, json.loads(socket_response.decode())['final_trans'])
 
         self.light_save()
 

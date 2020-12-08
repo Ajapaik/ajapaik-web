@@ -61,9 +61,6 @@ EMAIL_HOST_USER = '590e8a199b417a'
 EMAIL_HOST_PASSWORD = 'YOUR_PASSWORD'
 EMAIL_USE_TLS = False
 
-CELERY_BROKER_URL = None
-CELERY_RESULT_BACKEND = None
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
