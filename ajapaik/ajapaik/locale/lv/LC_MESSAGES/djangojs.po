@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-11-26 16:47:32+0000\n"
+"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
 "X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,74 +18,74 @@ msgstr ""
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n != 0) ? 1 : 2 );\n"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:357
+#: ajapaik/ajapaik/static/js/ajp-core.js:374
 msgid "User denied the request for Geolocation."
 msgstr "Lietotājs noraidīja ģeolokācijas pieprasījumu."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:363
+#: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "Location information is unavailable."
 msgstr "Atrašanās vietas informācija nav pieejama."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:366
+#: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "The request to get user location timed out."
 msgstr "Pieprasījumam uzzināt lietotāja atrašanās vietu beidzies laiks."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:369
+#: ajapaik/ajapaik/static/js/ajp-core.js:386
 msgid "An unknown error occurred."
 msgstr "Notikusi nezināma kļūda."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:860
-#: ajapaik/ajapaik/static/js/ajp-core.js:876
+#: ajapaik/ajapaik/static/js/ajp-core.js:877
+#: ajapaik/ajapaik/static/js/ajp-core.js:893
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "System error"
 msgstr "Sistēmas kļūda"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1006
-#: ajapaik/ajapaik/static/js/ajp-core.js:1051
+#: ajapaik/ajapaik/static/js/ajp-core.js:1023
+#: ajapaik/ajapaik/static/js/ajp-core.js:1068
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "Not selected"
 msgstr "Nav atlasīts"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1591
+#: ajapaik/ajapaik/static/js/ajp-core.js:1608
 msgid "Go to my location"
 msgstr "Doties uz manu atrašanās vietu"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1603
+#: ajapaik/ajapaik/static/js/ajp-core.js:1620
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Aizvērt"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1755
+#: ajapaik/ajapaik/static/js/ajp-core.js:1772
 msgid "Pick the shooting location!"
 msgstr "Izvēlies fotografēšanas vietu!"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1766
-#: ajapaik/ajapaik/static/js/ajp-core.js:1818
+#: ajapaik/ajapaik/static/js/ajp-core.js:1783
+#: ajapaik/ajapaik/static/js/ajp-core.js:1835
 msgid "Geotagged by this many users"
 msgstr "Ģeoreferencējuši, lūk, cik daudz lietotāji"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1799
+#: ajapaik/ajapaik/static/js/ajp-core.js:1816
 msgid "Confirm correct location"
 msgstr "Apstiprini pareizo atrašanās vietu"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1810
+#: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Submit your own location"
 msgstr "Norādi savu iepriekšējo atrašanās vietu"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1837
+#: ajapaik/ajapaik/static/js/ajp-core.js:1854
 msgid "You"
 msgstr "Tu"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1841
+#: ajapaik/ajapaik/static/js/ajp-core.js:1858
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonīms lietotājs"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1843
+#: ajapaik/ajapaik/static/js/ajp-core.js:1860
 msgid "Anonymous users"
 msgstr "Anonīmi lietotāji"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1907
+#: ajapaik/ajapaik/static/js/ajp-core.js:1924
 msgid "Current location"
 msgstr "Tagadējā atrašanās vieta"
 

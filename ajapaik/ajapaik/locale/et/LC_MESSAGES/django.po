@@ -9,7 +9,21 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2020-12-01 06:13+0200\nPO-Revision-Date: 2020-11-26 16:47:31+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-POT-Import-Date: 2020-11-26 16:42:41+0000\nX-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
+msgstr ""
+""
+"Project-Id-Version: Ajapaik\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-01 06:13+0200\n"
+"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 
 #: ajapaik/ajapaik/admin.py:105
 msgid "Invert colors"
@@ -2697,38 +2711,3 @@ msgstr "Su pakkumine on muudetud"
 msgid "Your suggestion has been saved"
 msgstr "Su pakkumine on salvestatud"
 
-#~ msgid "Ajapaik shows how places have changed over time"
-#~ msgstr "Ajapaik näitab, kuidas kohad on aja jooksul muutunud"
-
-#~ msgid "Ajapaik Brave referral"
-#~ msgstr "Ajapaiga Brave'i viide"
-
-#~ msgid "Try the Brave browser - it's based on Chromium and you can award your favourite sites with cryptocurrency."
-#~ msgstr "Proovige Brave veebilehitsejat, mis on loodud Chromiumi baasil ning mille abil saate oma lemmiksaite krüptovaluutaga toetada."
-
-#~ msgid "Discover how places looked like years ago by"
-#~ msgstr "Selleks, et avastada, kuidas kohad nägid välja aastate eest,"
-
-#~ msgid "* searching historic view pictures from Estonian museums' collections and curating selected images to Ajapaik,"
-#~ msgstr "* otsi vanu pilte Eesti muuseumide kogudest ja kureeri valitud pildid Ajapaika,"
-
-#~ msgid "* geotagging pictures from places you are familiar with and"
-#~ msgstr "* märgi endale tuttavate kohtade pildid kaardile ja"
-
-#~ msgid "* rephotographing the historic views from places you visit."
-#~ msgstr "* mine pildista ajaloolised vaated üle."
-
-#~ msgid "You have suggested location for <b>%(user_geotagged_photos)s</b> picture."
-#~ msgid_plural "You have suggested locations for <b>%(user_geotagged_photos)s</b> pictures."
-#~ msgstr[0] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
-#~ msgstr[1] "Oled pakkunud asukohti <b>%(user_geotagged_photos)s</b> pildile."
-
-#~ msgid "You have made <b>%(user_rephotos)s</b> rephoto for"
-#~ msgid_plural "You have made <b>%(user_rephotos)s</b> rephotos for"
-#~ msgstr[0] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
-#~ msgstr[1] "Oled teinud <b>%(user_rephotos)s</b> ülepildistust"
-
-#~ msgid "<b>%(user_rephotographed_photos)s</b> picture."
-#~ msgid_plural "<b>%(user_rephotographed_photos)s</b> pictures."
-#~ msgstr[0] "<b>%(user_rephotographed_photos)s</b> pildile."
-#~ msgstr[1] "<b>%(user_rephotographed_photos)s</b> pildile."

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-20 00:06+0300\n"
-"PO-Revision-Date: 2020-11-30 15:59:50+0000\n"
+"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -25,74 +25,74 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.4\n"
 "X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:357
+#: ajapaik/ajapaik/static/js/ajp-core.js:374
 msgid "User denied the request for Geolocation."
 msgstr "Kasutaja keeldus oma asukohta jagamast."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:363
+#: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "Location information is unavailable."
 msgstr "Asukohainfo ei ole kättesaadav."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:366
+#: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "The request to get user location timed out."
 msgstr "Asukohainfo päring aegus."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:369
+#: ajapaik/ajapaik/static/js/ajp-core.js:386
 msgid "An unknown error occurred."
 msgstr "Tekkis teadmata viga."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:860
-#: ajapaik/ajapaik/static/js/ajp-core.js:876
+#: ajapaik/ajapaik/static/js/ajp-core.js:877
+#: ajapaik/ajapaik/static/js/ajp-core.js:893
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "System error"
 msgstr "Süsteemiviga"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1006
-#: ajapaik/ajapaik/static/js/ajp-core.js:1051
+#: ajapaik/ajapaik/static/js/ajp-core.js:1023
+#: ajapaik/ajapaik/static/js/ajp-core.js:1068
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "Not selected"
 msgstr "Pole valitud"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1591
+#: ajapaik/ajapaik/static/js/ajp-core.js:1608
 msgid "Go to my location"
 msgstr "Mine minu asukohta"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1603
+#: ajapaik/ajapaik/static/js/ajp-core.js:1620
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Sulge"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1755
+#: ajapaik/ajapaik/static/js/ajp-core.js:1772
 msgid "Pick the shooting location!"
 msgstr "Tean pildistamise kohta!"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1766
-#: ajapaik/ajapaik/static/js/ajp-core.js:1818
+#: ajapaik/ajapaik/static/js/ajp-core.js:1783
+#: ajapaik/ajapaik/static/js/ajp-core.js:1835
 msgid "Geotagged by this many users"
 msgstr "Märgitud nii mitme kasutaja poolt"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1799
+#: ajapaik/ajapaik/static/js/ajp-core.js:1816
 msgid "Confirm correct location"
 msgstr "Kinnita asukoht"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1810
+#: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Submit your own location"
 msgstr "Paranda asukohta"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1837
+#: ajapaik/ajapaik/static/js/ajp-core.js:1854
 msgid "You"
 msgstr "Sina"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1841
+#: ajapaik/ajapaik/static/js/ajp-core.js:1858
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonüümne kasutaja"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1843
+#: ajapaik/ajapaik/static/js/ajp-core.js:1860
 msgid "Anonymous users"
 msgstr "Anonüümsed kasutajad"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1907
+#: ajapaik/ajapaik/static/js/ajp-core.js:1924
 msgid "Current location"
 msgstr "Pakutud asukoht"
 

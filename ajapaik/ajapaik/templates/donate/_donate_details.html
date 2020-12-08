@@ -5,54 +5,11 @@
 <p class="mb-0">{% trans "Beneficiary's name" %}:</p>
 <b>{% settings_value 'AJAPAIK_BENEFICIARY_NAME' %}</b>
 <p class="mb-0">{% trans "Beneficiary's account no" %}:</p>
-<b>{% settings_value 'AJAPAIK_BENEFICIARY_ACCT' %}</b>
+<b>SWEDBANK: {% settings_value 'AJAPAIK_BENEFICIARY_ACCT_SWEDBANK' %}</b>
+<br>
+<b>LHV: {% settings_value 'AJAPAIK_BENEFICIARY_ACCT_LHV' %}</b>
 <br>
 <br>
-<p>{% trans "Prefilled forms for one-time payments" %}:</p>
-<a target="_blank" title="{% trans "Swedbank single payment link" %}" class="ajp-bank-link-one-time mr-2"
-   data-bank="swedbank"
-   href="https://www.swedbank.ee/private/d2d/payments/domestic/new/" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-swedbank.png" %}" alt="{% trans "Swedbank" %}">
-</a>
-<a target="_blank" title="{% trans "SEB single payment link" %}" class="ajp-bank-link-one-time m-2" data-bank="seb"
-   href="https://www.seb.ee/cgi-bin/ipank/ipank.p?act=SMARTPAYM" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-seb.png" %}" alt="{% trans "SEB bank" %}">
-</a>
-<a target="_blank" title="{% trans "LHV single payment link" %}" class="ajp-bank-link-one-time m-2 mt-4" data-bank="lhv"
-   href="https://www.lhv.ee/portfolio/payment_out.cfm?i_receiver_name=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&i_receiver_account_no=EE072200221048847282&i_amount=10" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-lhv.png" %}" alt="{% trans "LHV bank" %}">
-</a>
-<a target="_blank" title="{% trans "Coop pank single payment link" %}" class="ajp-bank-link-one-time m-2"
-   data-bank="cooppank" href="https://i-pank.krediidipank.ee" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo_coop_pank.png" %}" alt="{% trans "Coop pank" %}">
-</a>
-<a target="_blank" title="{% trans "Luminor single payment link" %}" class="ajp-bank-link-one-time m-2" data-bank="luminor"
-   href="https://netbank.nordea.com/pnb/login.do?ts=EE" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-luminor.png" %}" alt="{% trans "Luminor bank" %}">
-</a>
-</br>
-<p class="mt-4">{% trans "Prefilled forms for standing payments" %}:</p>
-<a target="_blank" title="{% trans "Swedbank payment order link" %}" class="ajp-bank-link-standing mr-2" data-bank="swedbank"
-   href="https://www.swedbank.ee/private/d2d/payments/standingorder/new?standingOrder.beneficiaryName=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&standingOrder.beneficiaryAccountNumber=EE072200221048847282&standingOrder.currency=EUR&standingOrder.amount=10&frequency=K" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-swedbank.png" %}" alt="{% trans "Swedbank" %}">
-</a>
-<a target="_blank" title="{% trans "SEB payment order link" %}" class="ajp-bank-link-standing m-2" data-bank="seb"
-   href="https://www.seb.ee/cgi-bin/ipank/ipank.p?act=LISAPYSI&saajanimi=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&saajakonto=EE072200221048847282&summa=10" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-seb.png" %}" alt="{% trans "SEB bank" %}">
-</a>
-<a target="_blank" title="{% trans "LHV payment order link" %}" class="ajp-bank-link-standing m-2" data-bank="lhv"
-   href="https://www.lhv.ee/portfolio/payment_standing_add.cfm?i_receiver_name=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&i_receiver_account_no=EE072200221048847282&i_amount=10" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-lhv.png" %}" alt="{% trans "LHV bank" %}">
-</a>
-<a target="_blank" title="{% trans "Coop pank payment order link" %}" class="ajp-bank-link-standing m-2"
-   data-bank="cooppank"
-   href="https://i-pank.krediidipank.ee/permpmtnew?SaajaNimi=MT%C3%9C%20EESTI%20FOTOP%C3%84RAND&SaajaKonto=EE072200221048847282&MakseSumma=10&MakseSagedus=3" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo_coop_pank.png" %}" alt="{% trans "Coop pank" %}">
-</a>
-<a target="_blank" title="{% trans "Luminor payment order link" %}" class="ajp-bank-link-standing m-2" data-bank="luminor"
-   href="https://netbank.nordea.com/pnb/login.do?ts=EE" rel="noopener nofollow">
-    <img class="lazyload" data-src="{% static "images/logo-luminor.png" %}" alt="{% trans "Luminor bank" %}">
-</a>
 <p class="pt-3">{% trans 'Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al.' %}</p>
 <p>{% trans 'Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features.' %}</p>
 <p><b>{% trans 'Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment.' %}</b></p>
