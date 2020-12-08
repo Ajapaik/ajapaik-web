@@ -85,7 +85,7 @@ MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
 
 TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
-TARTUNLP_SOCKET_HOST = 'localhost'
+TARTUNLP_SOCKET_HOST = '95.216.222.78'
 TARTUNLP_SOCKET_PORT = 12346
 
 

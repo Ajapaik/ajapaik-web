@@ -17,7 +17,7 @@ class Command(BaseCommand):
             | Q(description_de__isnull=False)
             | Q(description_en__isnull=False)
         )
-        for each in photos:
+        for each in photos[:100]:
             print(f'Processing Photo {each.pk}')
             each: Photo
             each.fill_untranslated_fields()
