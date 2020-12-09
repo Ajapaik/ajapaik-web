@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+      - name: Install apt dependencies
+        run: sudo apt-get install python3.6-gdal
       - uses: actions/checkout@v2
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
