@@ -5,6 +5,8 @@ MAILTO="lauri@ajapaik.ee"
 45 04 * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py update_index
 05 * * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py run_face_detection
 
+*/5 * * * * cd /home/ajapaik/ajapaik-web && venv/bin/python manage.py tartunlp_on_all_photos 1000
+
 45 5 * * * cd /home/ajapaik/sift-pics-web && venv/bin/python project/manage.py update_index
 0 * * * * cd /home/ajapaik/sift-pics-web && venv/bin/python project/manage.py set_applied_tags_for_cat_photos
 

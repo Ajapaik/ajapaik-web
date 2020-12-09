@@ -21,7 +21,8 @@ class Command(BaseCommand):
     # done, _ = event_loop.run_until_complete(asyncio.wait(tasks))
     # event_loop.close()
     def handle(self, *args, **options):
-        if options['number_of_photos']:
+        batch_size = options['number_of_photos'][0]
+        if batch_size:
             photos = Photo.objects.filter(
                 Q(description_et__isnull=False)
                 | Q(description_lv__isnull=False)
@@ -31,7 +32,7 @@ class Command(BaseCommand):
                 | Q(description_de__isnull=False)
                 | Q(description_en__isnull=False)
             )
-            for each in photos[:options['number_of_photos']]:
+            for each in photos[:batch_size]:
                 print(f'Processing Photo {each.pk}')
                 each: Photo
                 each.fill_untranslated_fields()
