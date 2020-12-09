@@ -4,7 +4,7 @@ from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
 from io import StringIO
-from json import loads
+from json import loads, dumps
 from math import degrees
 from time import sleep
 from urllib.request import urlopen
@@ -958,18 +958,19 @@ class Photo(Model):
             if getattr(self, key):
                 translation_source = key
                 break
-        nlp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        nlp_socket.connect((settings.TARTUNLP_SOCKET_HOST, settings.TARTUNLP_SOCKET_PORT))
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'
             current_value = getattr(self, key)
             if not current_value:
-                nlp_socket.send(json.dumps({
+                nlp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                nlp_socket.connect((settings.TARTUNLP_SOCKET_HOST, settings.TARTUNLP_SOCKET_PORT))
+                nlp_socket.send(dumps({
                     'src': getattr(self, translation_source),
                     'conf': f'{each},'
                 }).encode())
                 socket_response = nlp_socket.recv(1024)
-                setattr(self, key, json.loads(socket_response.decode())['final_trans'])
+                setattr(self, key, loads(socket_response.decode())['final_trans'])
+                nlp_socket.close()
 
         self.light_save()
 
