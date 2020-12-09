@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Install apt dependencies
-        run: sudo apt-get install python3.6-gdal libgdal-dev proj-bin libproj-dev gdal-bin
+        run: sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools
       - uses: actions/checkout@v2
       - name: Install dependencies
         env:
