@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Install apt dependencies
-        run: sudo apt-get install python3.6-gdal libgdal-dev
+        run: sudo apt-get install python3.6-gdal python-gdal libgdal-dev
       - uses: actions/checkout@v2
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
