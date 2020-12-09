@@ -20,10 +20,11 @@ django-redis-cache==2.1.0
 django-user-agents==0.4.0
 djangorestframework==3.9.4
 django-hosts==3.0
-face-recognition==1.3.0
+face-recognition==1.3.0nano
 feedparser==5.2.1
 flickrapi==2.4.0
 geopy==1.21.0
+gdal==2.2.2
 google-auth==1.13.1
 hiredis==1.0.1
 numpy==1.18.2

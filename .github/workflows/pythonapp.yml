@@ -9,8 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install GDAL
-        run: sudo apt-get install gdal-bin
+      - name: Install apt dependencies
+        run: sudo apt-get install gdal-bin gcc cmake build-essential libgdal-dev python3.6-dev python3.6-gdal
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
         with:
