@@ -10,6 +10,7 @@ from time import sleep
 from urllib.request import urlopen
 
 import numpy
+import requests
 from PIL import Image, ImageOps
 from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
@@ -962,15 +963,12 @@ class Photo(Model):
             key = f'description_{each}'
             current_value = getattr(self, key)
             if not current_value:
-                nlp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                nlp_socket.connect((settings.TARTUNLP_SOCKET_HOST, settings.TARTUNLP_SOCKET_PORT))
-                nlp_socket.send(dumps({
+                response = requests.get(settings.TARTUNLP_API_URL, params={
                     'src': getattr(self, translation_source),
-                    'conf': f'{each},'
-                }).encode())
-                socket_response = nlp_socket.recv(1024)
-                setattr(self, key, loads(socket_response.decode())['final_trans'])
-                nlp_socket.close()
+                    'auth': 'public',
+                    'conf': f'{each},auto'
+                }).json()
+                setattr(self, key, response['tgt'])
 
         self.light_save()
 
