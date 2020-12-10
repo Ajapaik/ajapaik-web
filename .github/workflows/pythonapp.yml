@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Install apt dependencies
-        run: sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools libsqlite3-mod-spatialite --fix-missing
+        run: sudo apt-get update && sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools libsqlite3-mod-spatialite
       - uses: actions/checkout@v2
       - name: Install dependencies
         env:
