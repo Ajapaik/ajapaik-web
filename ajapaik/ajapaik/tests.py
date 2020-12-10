@@ -48,7 +48,7 @@ def test_albums_tartunlp_translation(existing_key, existing_text):
         'Stereofotot Pariisista (Ranska)'
     ]:
         responses.add(responses.GET, 'https://api.neurotolge.ee/v1.1/translate', json={'tgt': each})
-    test_instance = Album()
+    test_instance = Album(atype=Album.CURATED)
     setattr(test_instance, existing_key, existing_text)
     test_instance.fill_untranslated_fields()
 
