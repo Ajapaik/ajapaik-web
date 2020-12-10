@@ -24,7 +24,8 @@ class AlbumAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(
                 name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(
-                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
+                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q) | Q(
+                name_lv__icontains=self.q) | Q(name_lt__icontains=self.q))
 
         return qs
 
@@ -294,7 +295,7 @@ class OpenAlbumAutocomplete(APIView):
             qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(
                 Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(
                     name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(
-                    name_de__icontains=q) | Q(name_no__icontains=q))
+                    name_de__icontains=q) | Q(name_no__icontains=q) | Q(name_lv__icontains=q) | Q(name_lt__icontains=q))
 
         result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
         if len(qs) > 0:
@@ -340,12 +341,14 @@ class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(
                 name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(
-                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
+                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q) | Q(
+                name_lv__icontains=self.q) | Q(name_lt__icontains=self.q))
         for q in qs:
             if q.gender is not None and q.gender > -1:
                 q.name = q.name + ';' + str(q.gender)
             else:
                 q.name = q.name + ';-1'
+
         return qs
 
 

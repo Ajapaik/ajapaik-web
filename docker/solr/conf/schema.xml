@@ -85,6 +85,10 @@
 
     <field name="name_et" type="text_en" indexed="true" stored="true" multiValued="false" />
 
+    <field name="name_lv" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="name_lt" type="text_en" indexed="true" stored="true" multiValued="false" />
+
     <field name="name_fi" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="name_sv" type="text_en" indexed="true" stored="true" multiValued="false" />
@@ -106,6 +110,10 @@
 {#    <field name="cover_photo_height" type="int" indexed="false" stored="true" multiValued="false" />#}
 
     <field name="description_et" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="description_lv" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="description_lt" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="description_fi" type="text_en" indexed="true" stored="true" multiValued="false" />
 

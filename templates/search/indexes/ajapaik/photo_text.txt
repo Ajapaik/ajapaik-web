@@ -1,4 +1,6 @@
 {{ object.description_et }}
+{{ object.description_lv }}
+{{ object.description_lt }}
 {{ object.description_sv }}
 {{ object.description_de }}
 {{ object.description_fi }}

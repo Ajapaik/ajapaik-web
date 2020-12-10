@@ -3,7 +3,7 @@ version: '3'
 # Meant for local development
 services:
   db:
-    image: 'mdillon/postgis:11-alpine'
+    image: 'postgis/postgis:9.6-3.0-alpine'
     container_name: 'postgres'
     restart: always
     ports:

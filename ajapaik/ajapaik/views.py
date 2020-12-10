@@ -1578,6 +1578,7 @@ def map_objects_by_bounding_box(request):
         if query_string:
             qs = qs.filter(Q(description_et__icontains=query_string) | Q(description_fi__icontains=query_string) | Q(
                 description_sv__icontains=query_string) | Q(description_nl__icontains=query_string) | Q(
+                description_lv__icontains=query_string) | Q(description_lt__icontains=query_string) | Q(
                 description_de__icontains=query_string) | Q(description_ru__icontains=query_string) | Q(
                 author__icontains=query_string) | Q(types__icontains=query_string) | Q(
                 keywords__icontains=query_string) | Q(source_key__icontains=query_string) | Q(

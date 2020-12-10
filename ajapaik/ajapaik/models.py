@@ -331,6 +331,27 @@ class Album(Model):
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
 
+    def fill_untranslated_fields(self):
+        # Find filled field to base translation off
+        translation_source = None
+        for each in settings.TARTUNLP_LANGUAGES:
+            key = f'name_{each}'
+            if getattr(self, key):
+                translation_source = key
+                break
+        for each in settings.TARTUNLP_LANGUAGES:
+            key = f'name_{each}'
+            current_value = getattr(self, key)
+            if not current_value:
+                response = requests.get(settings.TARTUNLP_API_URL, params={
+                    'src': getattr(self, translation_source),
+                    'auth': 'public',
+                    'conf': f'{each},auto'
+                }).json()
+                setattr(self, key, response['tgt'])
+
+        self.light_save()
+
 
 class Photo(Model):
     objects = Manager()
