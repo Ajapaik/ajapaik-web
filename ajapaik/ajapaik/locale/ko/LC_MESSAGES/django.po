@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:24+0000\n"
+"PO-Revision-Date: 2020-12-10 12:38:02+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -202,7 +202,7 @@ msgstr "라이선스 또는 저작권 상태"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "허용되는 포맷은 .png 또는 .jpg 파일입니다"
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
@@ -2527,7 +2527,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3351
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "위키미디어 핀란드"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Person name"

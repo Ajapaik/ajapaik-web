@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-20 00:06+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2020-12-10 12:37:58+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -759,7 +759,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr "Kõik pildid on kuvatud külgribal"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "Oled saanud %s punkti"

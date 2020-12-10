@@ -7,6 +7,7 @@
 # Author: DannyS712
 # Author: Fitoschido
 # Author: Geryescalier
+# Author: Jesusmc
 # Author: Joanmp17
 # Author: MarcoAurelio
 # Author: Ncr
@@ -18,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-12-07 14:37:49+0000\n"
+"PO-Revision-Date: 2020-12-10 12:37:59+0000\n"
 "X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,51 +33,51 @@ msgstr "Invertir colores"
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "Agregue al menos un parámetro de voltear, invertir o rotar a la solicitud"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "Agregue al menos el parámetro escena o elevación_punto de vista a la petición"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "Las contribuciones y configuraciones de la otra cuenta se agregaron a la reciente"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Expired token"
-msgstr ""
+msgstr "Contador terminado"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Invalid token"
-msgstr ""
+msgstr "Contador inválido"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Falta el parámetro foto_ids"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "No photo with id:"
-msgstr ""
+msgstr "No identificación con foto"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "Parámetro foto_id debe ser un número entero positivo"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Inicia sesión con una cuenta diferente, actualmente estás conectado con la misma cuenta desde la que se está haciendo el agrupamiento"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "Please login"
-msgstr ""
+msgstr "Por favor Iniciar sesión"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "Se ha guardado la configuración de carga de fotos"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Parámetro requerido, falta el token"
 
 #: ajapaik/ajapaik/api.py:98
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -92,11 +93,11 @@ msgstr "Se ha agregado comentario de transcripción, gracias!"
 
 #: ajapaik/ajapaik/api.py:101
 msgid "User display name has been saved"
-msgstr ""
+msgstr "El nombre de muestra del usuario se ha guardado"
 
 #: ajapaik/ajapaik/api.py:102
 msgid "User settings have been saved"
-msgstr ""
+msgstr "Se han guardado las configuraciones del usuario"
 
 #: ajapaik/ajapaik/api.py:103
 msgid "You have already given feedback for this transcription"
@@ -118,11 +119,11 @@ msgstr "Se produjo un error"
 
 #: ajapaik/ajapaik/api.py:1900 ajapaik/utils.py:140
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "Tu sugerencia se ha guardado, pero el consenso anterior permanece"
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr ""
+msgstr "No se encontró ningún álbum"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -140,7 +141,7 @@ msgstr "Los valores del cuadro delimitador deben ser números"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -180,7 +181,7 @@ msgstr "Escoge el álbum de origen"
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "Archivo de imagen"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/models.py:351
@@ -199,31 +200,31 @@ msgstr "Autor"
 
 #: ajapaik/ajapaik/forms.py:410
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Licencia o estado de derechos de autor"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Se aceptan los formatos de archivo .png y .jpg"
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Agrega una breve descripción de la imagen"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Autor de la imagen (fotógrafo, pintor)"
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Seleccione una licencia para que otras personas sepan si pueden reutilizar el material que cargo y cómo pueden hacerlo.\n\nSi tu eres el autor, puedes elegir la licencia (recomendamos usar licencias Creative Commons abiertas). Si otra persona creó la obra, debe usar la misma licencia y titular de derechos que tiene actualmente.\n\nActualmente también aceptamos contenido con un estado de derechos de autor poco claro, elija ‘Derechos de autor no evaluados’."
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "Descripción de la imagen"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "Nombre del autor"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -280,12 +281,11 @@ msgstr "Está abierto"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "My preferred language is"
-msgstr ""
+msgstr "Mi idioma preferido es"
 
 #: ajapaik/ajapaik/forms.py:470
-#, fuzzy
 msgid "I wish to receive the newsletter"
-msgstr "Mi idioma preferido es"
+msgstr "Deseo recibir el boletín"
 
 #: ajapaik/ajapaik/forms.py:474 ajapaik/ajapaik/forms.py:493
 msgid "Yes"
@@ -297,23 +297,23 @@ msgstr "No"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Por favor, especifique su idioma preferido"
 
 #: ajapaik/ajapaik/forms.py:482
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Por favor, especifique si le gustaría recibir el boletín nuevo"
 
 #: ajapaik/ajapaik/forms.py:490
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Deseo subir mis fotos resientes a Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "Especifique si desea que sus fotos resientes se carguen también en Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Especifica cuál te gustaría que fuera tu nombre visual"
 
 #: ajapaik/ajapaik/forms.py:525
 msgid "Email address"
@@ -357,31 +357,31 @@ msgstr "Imagen"
 
 #: ajapaik/ajapaik/models.py:427 ajapaik/ajapaik/models.py:1731
 msgid "Interior"
-msgstr ""
+msgstr "Interior"
 
 #: ajapaik/ajapaik/models.py:428 ajapaik/ajapaik/models.py:1732
 msgid "Exterior"
-msgstr ""
+msgstr "Exterior"
 
 #: ajapaik/ajapaik/models.py:430 ajapaik/ajapaik/models.py:1734
 msgid "Scene"
-msgstr ""
+msgstr "Escena"
 
 #: ajapaik/ajapaik/models.py:433 ajapaik/ajapaik/models.py:1740
 msgid "Ground"
-msgstr ""
+msgstr "Suelo"
 
 #: ajapaik/ajapaik/models.py:434 ajapaik/ajapaik/models.py:1741
 msgid "Raised"
-msgstr ""
+msgstr "Elevado"
 
 #: ajapaik/ajapaik/models.py:435 ajapaik/ajapaik/models.py:1742
 msgid "Aerial"
-msgstr ""
+msgstr "Aéreo"
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1744
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Elevación del punto de vista"
 
 #: ajapaik/ajapaik/models.py:1028 ajapaik/ajapaik/models.py:1112
 msgid "Different"
@@ -442,7 +442,7 @@ msgstr "Confirma el parecido entre imágenes"
 
 #: ajapaik/ajapaik/models.py:1185 ajapaik/ajapaik/models.py:1186
 msgid "Suggestion subject age"
-msgstr ""
+msgstr "Sugerencia edad del sujeto"
 
 #: ajapaik/ajapaik/models.py:1187 ajapaik/ajapaik/templates/_toolbox.html:64
 msgid "Transcribe"
@@ -450,11 +450,11 @@ msgstr "Transcribir"
 
 #: ajapaik/ajapaik/models.py:1188
 msgid "Categorize scene"
-msgstr ""
+msgstr "Categorizar Escena"
 
 #: ajapaik/ajapaik/models.py:1189
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "Añadir elevación del punto de vista"
 
 #: ajapaik/ajapaik/models.py:1190
 msgid "Flip photo"
@@ -462,7 +462,7 @@ msgstr "Voltear foto"
 
 #: ajapaik/ajapaik/models.py:1191
 msgid "Invert photo"
-msgstr ""
+msgstr "Invertir foto"
 
 #: ajapaik/ajapaik/models.py:1192
 msgid "Rotate photo"
@@ -571,7 +571,7 @@ msgstr "Foto original"
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
 msgid "Click to choose"
-msgstr ""
+msgstr "Clic para escoger"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:248
@@ -625,29 +625,29 @@ msgstr "Quitar filtro de álbum"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Compara imágenes"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "Indique si el contenido de las imágenes se superpone o no. En el caso de contenido superpuesto, el lugar u objeto es el mismo, en el caso de una misma toma, una de las imágenes también puede ser recortada."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
+msgstr "La decisión también puede ser hecha desde tu teclado (1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_toolbox.html:6
 #: ajapaik/ajapaik/templates/common/game.html:54
 #: ajapaik/ajapaik/templates/photo/photoview.html:55
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "¡Elija el lugar para tirotear!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 msgid "Add a geotag"
-msgstr ""
+msgstr "Añadir geoetiqueta"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
-msgstr ""
+msgstr "Poner fecha a esta imagen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
@@ -655,15 +655,15 @@ msgstr "Fecha"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
-msgstr ""
+msgstr "Agregar foto"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Agregar otra foto"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr ""
+msgstr "Etiquetar una nueva cara/objetivo - hacer clic en este botón le permitirá dibujar un objetivo/rectángulo de cara en la imagen principal"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:32
 msgid "Annotate"
@@ -677,7 +677,7 @@ msgstr "Compartir"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:52
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Agregar una categoría: al hacer clic en este botón, podrá clasificar esta imagen en varias categorías, por ejemplo, si esta imagen representa interiores o exteriores"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:56
 msgid "Categorize"
@@ -695,7 +695,7 @@ msgstr "Editar imagen"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
 #: ajapaik/ajapaik/templates/account/login.html:37
 msgid "Forgot password?"
-msgstr ""
+msgstr "¿Olvidaste tu contraseña?"
 
 #: ajapaik/ajapaik/templates/account/base.html:36
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
@@ -720,14 +720,14 @@ msgstr "Salir"
 #: ajapaik/ajapaik/templates/account/login.html:8
 #: ajapaik/ajapaik/templates/account/login.html:38
 msgid "Sign in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Regístrate"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -746,12 +746,12 @@ msgstr "Direcciones de correo electrónico"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Confirma tu dirección de correo electrónico"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr ""
+msgstr "Por favor confirme que <a href=\"mailto:%(email)s\">%(email)s</a> la dirección de coreó eléctrico pertenece al usuario %(user_display)s."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -2567,7 +2567,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Date of birth"
-msgstr ""
+msgstr "Fecha de nacimiento"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:27
 msgid "Is public figure"
@@ -2575,7 +2575,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:31
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Nombre(s) Apellido(s)"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:33
 msgid "Additional remarks about the person (other names etc)"

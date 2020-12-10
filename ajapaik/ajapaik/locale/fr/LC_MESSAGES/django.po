@@ -25,7 +25,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-07 14:37:49+0000\n"
+"PO-Revision-Date: 2020-12-10 12:38:02+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -291,7 +291,7 @@ msgstr "Ma langue préférée est :"
 
 #: ajapaik/ajapaik/forms.py:470
 msgid "I wish to receive the newsletter"
-msgstr "Je souhaite recevoir le bulletin d’actualité."
+msgstr "Je souhaite recevoir le bulletin d’actualité"
 
 #: ajapaik/ajapaik/forms.py:474 ajapaik/ajapaik/forms.py:493
 msgid "Yes"
@@ -303,11 +303,11 @@ msgstr "Non"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Please specify your prefered language"
-msgstr "Veuillez spécifier votre langue préférée."
+msgstr "Veuillez spécifier votre langue préférée"
 
 #: ajapaik/ajapaik/forms.py:482
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr "Veuillez spécifier si vous voudriez recevoir notre bulletin d’actualité."
+msgstr "Veuillez spécifier si vous souhaitez recevoir notre bulletin d’actualité."
 
 #: ajapaik/ajapaik/forms.py:490
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
@@ -315,7 +315,7 @@ msgstr "Je veux téléverser mes rephotos sur Wikimedia Commons."
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr "Veuillez spécifier si vous aimeriez que vos rephotos soient également téléversées sur Wikimedia Commons."
+msgstr "Veuillez spécifier si vous souhaitez que vos rephotos soient également téléversées sur Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "Please specify what would you like your display name to be"
@@ -2298,7 +2298,7 @@ msgstr "Ce compte est connecté à :"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr "Ce compte n’est pas connecté avec un autre."
+msgstr "Ce compte est connecté à aucun autre"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:31
 #, python-format
