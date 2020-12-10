@@ -11,6 +11,7 @@
 # Author: Killarnee
 # Author: Mirzali
 # Author: MuratTheTurkish
+# Author: Pittigrilli
 # Author: Tiin
 # --
 # This file is part of the Ajapaik Project
@@ -19,7 +20,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2020-12-10 12:37:58+0000\n"
 "X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1240,7 +1241,7 @@ msgstr "Kuratiere historische Fotos aus Museen zum Geotaggen und Refotografieren
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr ""
+msgstr "Jeder kann beitragen, die Informationen zu historischen Bildern auf Ajapaik zu verbessern!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1499,7 +1500,7 @@ msgstr "Kontonummer des Empfängers"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:11
 msgid "Prefilled forms for one-time payments"
-msgstr ""
+msgstr "Vorausgefülltes Formular für Einmalzahlungen"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:12
 msgid "Swedbank single payment link"
@@ -1844,11 +1845,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Als Ajapaik-Benutzer kannst Du"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
-msgstr ""
+msgstr "Ergänze Geotags in Bildern, um die ortsbasierte Suche zu verbessern,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
@@ -2551,7 +2552,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "Zentralamt für Denkmalpflege der Republik Estland"
 
 #: ajapaik/ajapaik/views.py:3346
 msgid "Year of Digital Culture 2020"
