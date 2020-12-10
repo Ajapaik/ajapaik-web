@@ -26,7 +26,6 @@ class Command(BaseCommand):
             line_count = 0
             for row in csv_reader:
                 if line_count == 0:
-                    print(f'Column names are {', '.join(row)}')
                     line_count += 1
                 else:
                     name = row[1].strip()
@@ -73,7 +72,7 @@ class Command(BaseCommand):
                     image = face_recognition.load_image_file(photo.image)
                     try:
                         detected_faces = face_recognition.face_locations(image)
-                    except:
+                    except:  # noqa
                         pass
                     if detected_faces:
                         for detected_face in detected_faces:

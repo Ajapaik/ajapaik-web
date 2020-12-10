@@ -18,7 +18,10 @@ class Command(BaseCommand):
             settings.ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/results/results.txt', 'w',
             'utf-8')
         results.write(
-            'id\temail\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\tlatest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\tlatest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\tfb_comment_count\tfavorite_count\n')
+            'id\temail\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\t'
+            'latest_geotag\tgeotag_count\tfirst_rephoto\tlatest_rephoto\trephoto_count\tfirst_curation\t'
+            'latest_curation\tcuration_count\tfirst_recuration\tlatest_recuration\trecuration_count\t'
+            'fb_comment_count\tfavorite_count\n')
         for p in profiles:
             first_geotag = p.geotags.order_by('created').first()
             if first_geotag:

@@ -1,3 +1,6 @@
+![Python application](https://github.com/Ajapaik/ajapaik-web/workflows/Python%20application/badge.svg)
+[![codecov](https://codecov.io/gh/Ajapaik/ajapaik-web/branch/master/graph/badge.svg)](https://codecov.io/gh/Ajapaik/ajapaik-web)
+
 ## [Join Ajapaik Slack](http://bit.ly/join-Ajapaik-Slack)!
 This is the open-sourced Django project code for https://ajapaik.ee/
 
@@ -100,10 +103,8 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 
 ## To-do list
 
-- TODO: upgrade to Postgres 11
+- TODO: upgrade Postgres 9->13
 - TODO: upgrade to Django 3
-- TODO: py.test
-- TODO: Spatialite for sqlite? Can use in automated tests?
 - TODO: command for regular stats exports
 - TODO: clean up stale Docker stuff once in a while
 - TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
@@ -111,5 +112,8 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: try if integrating Solr tighter will help search (the current solution where everything that matches 'Tartu' is retrieved into an array of IDs no longer performs)
 - TODO: decide between Celery beat & just running cron jobs on the host machine
 - TODO: implement this answer for keeps https://stackoverflow.com/questions/18643998/geodjango-geosexception-error
-- TODO: upgrade our host system to Ubuntu 18.04 (10 years of LTS)
-- TODO: automate regular DB and media/uploads, media/videos backups
+- TODO: automate regular DB, media/uploads, media/videos backups
+- TODO: squash migrations (there are too many)
+- TODO: fix # noqa as much as possible (some Django quirks will always annoy flake8 though)
+- TODO: replace face_recognition with something else since it requires the horrendous dlib
+- TODO: upgrade from Python 3.6 before EoL 2021-12-23

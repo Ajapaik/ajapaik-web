@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-import django.core.validators
 import django.contrib.gis.db.models.fields
-from django.conf import settings
-import oauth2client.contrib.django_orm
+import django.core.validators
 import django_extensions.db.fields.json
+import oauth2client.contrib.django_orm
+from django.conf import settings
+from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('auth', '0001_initial'),
         ('contenttypes', '0001_initial'),
@@ -24,7 +23,8 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(max_length=255)),
                 ('related_id', models.PositiveIntegerField(null=True, blank=True)),
                 ('params', django_extensions.db.fields.json.JSONField(null=True, blank=True)),
-                ('related_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True, on_delete=models.deletion.CASCADE)),
+                ('related_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True,
+                                                   on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_action',
@@ -51,7 +51,8 @@ class Migration(migrations.Migration):
                 ('ordered', models.BooleanField(default=False)),
                 ('lat', models.FloatField(null=True, blank=True)),
                 ('lon', models.FloatField(null=True, blank=True)),
-                ('geography', django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
+                ('geography',
+                 django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
                 ('cover_photo_flipped', models.BooleanField(default=False)),
                 ('photo_count_with_subalbums', models.IntegerField(default=0)),
                 ('rephoto_count_with_subalbums', models.IntegerField(default=0)),
@@ -100,7 +101,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CredentialsModel',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
+                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL,
+                                         on_delete=models.deletion.CASCADE)),
                 ('credential', oauth2client.contrib.django_orm.CredentialsField(null=True)),
             ],
             options={
@@ -151,7 +153,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FlowModel',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
+                ('id', models.ForeignKey(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL,
+                                         on_delete=models.deletion.CASCADE)),
                 ('flow', oauth2client.contrib.django_orm.FlowField(null=True)),
             ],
             options={
@@ -163,16 +166,23 @@ class Migration(migrations.Migration):
             name='GeoTag',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('lat', models.FloatField(validators=[django.core.validators.MinValueValidator(-85.05115), django.core.validators.MaxValueValidator(85)])),
-                ('lon', models.FloatField(validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180)])),
-                ('geography', django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
+                ('lat', models.FloatField(validators=[django.core.validators.MinValueValidator(-85.05115),
+                                                      django.core.validators.MaxValueValidator(85)])),
+                ('lon', models.FloatField(validators=[django.core.validators.MinValueValidator(-180),
+                                                      django.core.validators.MaxValueValidator(180)])),
+                ('geography',
+                 django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
                 ('azimuth', models.FloatField(null=True, blank=True)),
                 ('azimuth_line_end_lat', models.FloatField(null=True, blank=True)),
                 ('azimuth_line_end_lon', models.FloatField(null=True, blank=True)),
                 ('zoom_level', models.IntegerField(null=True, blank=True)),
-                ('origin', models.PositiveSmallIntegerField(default=0, choices=[(0, 'M\xe4ng'), (1, 'Kaardivaade'), (2, 'Galerii')])),
-                ('type', models.PositiveSmallIntegerField(default=0, choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'), (3, 'Kinnitus')])),
-                ('map_type', models.PositiveSmallIntegerField(default=0, choices=[(0, 'Google kaart'), (1, 'Google satelliit'), (2, 'OpenStreetMap')])),
+                ('origin', models.PositiveSmallIntegerField(default=0, choices=[(0, 'M\xe4ng'), (1, 'Kaardivaade'),
+                                                                                (2, 'Galerii')])),
+                ('type', models.PositiveSmallIntegerField(default=0, choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'),
+                                                                              (3, 'Kinnitus')])),
+                ('map_type', models.PositiveSmallIntegerField(default=0,
+                                                              choices=[(0, 'Google kaart'), (1, 'Google satelliit'),
+                                                                       (2, 'OpenStreetMap')])),
                 ('hint_used', models.BooleanField(default=False)),
                 ('is_correct', models.BooleanField(default=False)),
                 ('azimuth_correct', models.BooleanField(default=False)),
@@ -191,8 +201,11 @@ class Migration(migrations.Migration):
             name='GoogleMapsReverseGeocode',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('lat', models.FloatField(db_index=True, validators=[django.core.validators.MinValueValidator(-85.05115), django.core.validators.MaxValueValidator(85)])),
-                ('lon', models.FloatField(db_index=True, validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180)])),
+                ('lat', models.FloatField(db_index=True,
+                                          validators=[django.core.validators.MinValueValidator(-85.05115),
+                                                      django.core.validators.MaxValueValidator(85)])),
+                ('lon', models.FloatField(db_index=True, validators=[django.core.validators.MinValueValidator(-180),
+                                                                     django.core.validators.MaxValueValidator(180)])),
                 ('response', django_extensions.db.fields.json.JSONField()),
             ],
             options={
@@ -217,7 +230,9 @@ class Migration(migrations.Migration):
             name='Photo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=b'uploads', width_field=b'width', height_field=b'height', max_length=255, blank=True, null=True)),
+                ('image',
+                 models.ImageField(upload_to=b'uploads', width_field=b'width', height_field=b'height', max_length=255,
+                                   blank=True, null=True)),
                 ('image_unscaled', models.ImageField(max_length=255, null=True, upload_to=b'uploads', blank=True)),
                 ('height', models.IntegerField(null=True, blank=True)),
                 ('width', models.IntegerField(null=True, blank=True)),
@@ -247,9 +262,14 @@ class Migration(migrations.Migration):
                 ('types', models.CharField(max_length=255, null=True, blank=True)),
                 ('level', models.PositiveSmallIntegerField(default=0)),
                 ('guess_level', models.FloatField(default=3)),
-                ('lat', models.FloatField(blank=True, null=True, db_index=True, validators=[django.core.validators.MinValueValidator(-85.05115), django.core.validators.MaxValueValidator(85)])),
-                ('lon', models.FloatField(blank=True, null=True, db_index=True, validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180)])),
-                ('geography', django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
+                ('lat', models.FloatField(blank=True, null=True, db_index=True,
+                                          validators=[django.core.validators.MinValueValidator(-85.05115),
+                                                      django.core.validators.MaxValueValidator(85)])),
+                ('lon', models.FloatField(blank=True, null=True, db_index=True,
+                                          validators=[django.core.validators.MinValueValidator(-180),
+                                                      django.core.validators.MaxValueValidator(180)])),
+                ('geography',
+                 django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, geography=True, blank=True)),
                 ('bounding_circle_radius', models.FloatField(null=True, blank=True)),
                 ('address', models.CharField(max_length=255, null=True, blank=True)),
                 ('azimuth', models.FloatField(null=True, blank=True)),
@@ -272,14 +292,20 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('gps_accuracy', models.FloatField(null=True, blank=True)),
                 ('gps_fix_age', models.FloatField(null=True, blank=True)),
-                ('cam_scale_factor', models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(0.5), django.core.validators.MaxValueValidator(4.0)])),
+                ('cam_scale_factor', models.FloatField(blank=True, null=True,
+                                                       validators=[django.core.validators.MinValueValidator(0.5),
+                                                                   django.core.validators.MaxValueValidator(4.0)])),
                 ('cam_yaw', models.FloatField(null=True, blank=True)),
                 ('cam_pitch', models.FloatField(null=True, blank=True)),
                 ('cam_roll', models.FloatField(null=True, blank=True)),
-                ('area', models.ForeignKey(related_name='areas', blank=True, to='ajapaik.Area', null=True, on_delete=models.deletion.CASCADE)),
-                ('device', models.ForeignKey(blank=True, to='ajapaik.Device', null=True, on_delete=models.deletion.CASCADE)),
-                ('licence', models.ForeignKey(blank=True, to='ajapaik.Licence', null=True, on_delete=models.deletion.CASCADE)),
-                ('rephoto_of', models.ForeignKey(related_name='rephotos', blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE)),
+                ('area', models.ForeignKey(related_name='areas', blank=True, to='ajapaik.Area', null=True,
+                                           on_delete=models.deletion.CASCADE)),
+                ('device',
+                 models.ForeignKey(blank=True, to='ajapaik.Device', null=True, on_delete=models.deletion.CASCADE)),
+                ('licence',
+                 models.ForeignKey(blank=True, to='ajapaik.Licence', null=True, on_delete=models.deletion.CASCADE)),
+                ('rephoto_of', models.ForeignKey(related_name='rephotos', blank=True, to='ajapaik.Photo', null=True,
+                                                 on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['-id'],
@@ -297,7 +323,8 @@ class Migration(migrations.Migration):
                 ('fb_user_id', models.CharField(max_length=255)),
                 ('text', models.TextField()),
                 ('created', models.DateTimeField()),
-                ('photo', models.ForeignKey(related_name='comments', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('photo',
+                 models.ForeignKey(related_name='comments', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_photocomment',
@@ -315,7 +342,8 @@ class Migration(migrations.Migration):
                 ('old_author', models.CharField(max_length=255, null=True, blank=True)),
                 ('new_author', models.CharField(max_length=255, null=True, blank=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('photo', models.ForeignKey(related_name='metadata_updates', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('photo', models.ForeignKey(related_name='metadata_updates', to='ajapaik.Photo',
+                                            on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_photometadataupdate',
@@ -326,11 +354,14 @@ class Migration(migrations.Migration):
             name='Points',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('action', models.PositiveSmallIntegerField(choices=[(0, b'Geotag'), (1, b'Rephoto'), (2, b'Photo upload'), (3, b'Photo curation')])),
+                ('action', models.PositiveSmallIntegerField(
+                    choices=[(0, b'Geotag'), (1, b'Rephoto'), (2, b'Photo upload'), (3, b'Photo curation')])),
                 ('points', models.IntegerField(default=0)),
                 ('created', models.DateTimeField(db_index=True)),
-                ('geotag', models.ForeignKey(blank=True, to='ajapaik.GeoTag', null=True, on_delete=models.deletion.CASCADE)),
-                ('photo', models.ForeignKey(blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE)),
+                ('geotag',
+                 models.ForeignKey(blank=True, to='ajapaik.GeoTag', null=True, on_delete=models.deletion.CASCADE)),
+                ('photo',
+                 models.ForeignKey(blank=True, to='ajapaik.Photo', null=True, on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_points',
@@ -341,7 +372,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE)),
+                ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL,
+                                              on_delete=models.deletion.CASCADE)),
                 ('fb_name', models.CharField(max_length=255, null=True, blank=True)),
                 ('fb_link', models.CharField(max_length=255, null=True, blank=True)),
                 ('fb_id', models.CharField(max_length=100, null=True, blank=True)),
@@ -373,7 +405,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('photo', models.ForeignKey(to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
-                ('user', models.ForeignKey(related_name='skips', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
+                ('user',
+                 models.ForeignKey(related_name='skips', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_skip',
@@ -414,7 +447,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='user',
-            field=models.ForeignKey(related_name='photos', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='photos', blank=True, to='ajapaik.Profile', null=True,
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -480,13 +514,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='album',
             name='profile',
-            field=models.ForeignKey(related_name='albums', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='albums', blank=True, to='ajapaik.Profile', null=True,
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='album',
             name='subalbum_of',
-            field=models.ForeignKey(related_name='subalbums', blank=True, to='ajapaik.Album', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='subalbums', blank=True, to='ajapaik.Album', null=True,
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.CreateModel(

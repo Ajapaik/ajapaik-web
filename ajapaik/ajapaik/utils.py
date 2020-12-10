@@ -1,7 +1,7 @@
+from math import ceil
+
 from django.db.models import F
 from django_comments import get_model
-
-from math import ceil
 
 comment_model = get_model()
 
@@ -20,8 +20,11 @@ def merge_profiles(target_profile, source_profile):
     from allauth.socialaccount.models import SocialAccount
     from django.apps import apps
 
-    from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, DifficultyFeedback, GeoTag, ImageSimilarity, ImageSimilaritySuggestion, MyXtdComment, Photo, PhotoLike, Points, Skip, Transcription, TranscriptionFeedback
-    from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, FaceRecognitionRectangleSubjectDataSuggestion, FaceRecognitionUserSuggestion
+    from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, DifficultyFeedback, GeoTag, \
+        ImageSimilarity, ImageSimilaritySuggestion, MyXtdComment, Photo, PhotoLike, Points, Skip, Transcription, \
+        TranscriptionFeedback
+    from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
+        FaceRecognitionRectangleSubjectDataSuggestion, FaceRecognitionUserSuggestion
     from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationFeedback, ObjectDetectionAnnotation
     profile_querysets = [
         ('ajapaik', Album.objects.filter(profile=source_profile)),
@@ -54,11 +57,13 @@ def merge_profiles(target_profile, source_profile):
     ]
 
     proposer_querysets = [
-        ('ajapaik_face_recognition', FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer=source_profile)),
+        ('ajapaik_face_recognition',
+         FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(proposer=source_profile)),
         ('ajapaik', ImageSimilaritySuggestion.objects.filter(proposer=source_profile))
     ]
 
-    queryset_dictionary = {'profile': profile_querysets, 'user': user_querysets, 'user_profile': user_profile_querysets, 'user_last_modified': user_last_modified_querysets, 'proposer': proposer_querysets}
+    queryset_dictionary = {'profile': profile_querysets, 'user': user_querysets, 'user_profile': user_profile_querysets,
+                           'user_last_modified': user_last_modified_querysets, 'proposer': proposer_querysets}
 
     for key, value in queryset_dictionary.items():
         for app_queryset_tuple in value:
@@ -69,7 +74,7 @@ def merge_profiles(target_profile, source_profile):
 
     comments = MyXtdComment.objects.filter(user_id=source_profile.id)
     for comment in comments:
-        comment.user=target_profile.user
+        comment.user = target_profile.user
     MyXtdComment.objects.bulk_update(comments, ['user'])
 
     attributes = dir(source_profile)
@@ -78,8 +83,8 @@ def merge_profiles(target_profile, source_profile):
     attributes.remove('__weakref__')
     attributes.remove('deletion_attempted')
     for attribute in attributes:
-        attr = getattr(target_profile,attribute)
-        attr2 = getattr(source_profile,attribute)
+        attr = getattr(target_profile, attribute)
+        attr2 = getattr(source_profile, attribute)
         if attr is None and attr2 is not None:
             setattr(target_profile, attribute, attr2)
     target_profile.save()
@@ -88,7 +93,7 @@ def merge_profiles(target_profile, source_profile):
     for social_account in social_accounts:
         social_account.user = target_profile.user
         social_account.save()
-    
+
     emails = EmailAddress.objects.filter(user_id=source_profile.user.id)
     for email in emails:
         current_user_emails = EmailAddress.objects.filter(user_id=target_profile.user.id, primary=True)
@@ -104,6 +109,7 @@ def merge_profiles(target_profile, source_profile):
     if not target_profile.user.is_active and source_profile.user.is_active:
         target_profile.user.is_active = source_profile.user.is_active
     target_profile.user.save()
+
 
 def get_pagination_parameters(page, page_size, photo_count):
     start = (page - 1) * page_size

@@ -1,13 +1,15 @@
+from math import ceil
+from urllib import urlencode
 from urllib.request import build_opener, Request, urlopen
 
-from lxml import etree
-from urllib import urlencode
-from urlparse import urlsplit, parse_qs, urlunsplit
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from math import ceil
 from django.utils import translation
+from lxml import etree
+from urlparse import urlsplit, parse_qs, urlunsplit
+
 from ajapaik.ajapaik.models import Source, Photo, Album, AlbumPhoto, Licence
 
 
@@ -31,14 +33,15 @@ class Command(BaseCommand):
             try:
                 source = Source.objects.get(description=xml_element.find('institution').text)
             except ObjectDoesNotExist:
-                source = Source(name=xml_element.find('institution').text, description=xml_element.find('institution').text)
+                source = Source(name=xml_element.find('institution').text,
+                                description=xml_element.find('institution').text)
                 source.save()
                 return False
         else:
             source = Source.objects.get(name='AJP')
         if xml_element.find('identifier') is not None:
             try:
-                existing_resource = Photo.objects.get(source=source, source_key=xml_element.find('identifier').text)
+                Photo.objects.get(source=source, source_key=xml_element.find('identifier').text)
                 return True
             except ObjectDoesNotExist:
                 return False
@@ -47,7 +50,7 @@ class Command(BaseCommand):
     def _create_photos_from_xml_response(self, xml_response):
         for elem in xml_response:
             if elem.tag == 'docs':
-                if  not self._resource_already_exists(elem):
+                if not self._resource_already_exists(elem):
                     new_photo = Photo(
                         title=elem.find('title').text,
                         description=elem.find('title_sort').text,
@@ -60,7 +63,7 @@ class Command(BaseCommand):
                         licence=Licence.objects.filter(url='https://creativecommons.org/about/pdm').first()
                     )
                     opener = build_opener()
-                    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+                    opener.addheaders = [('User-Agent', settings.UA)]
                     img_response = opener.open(elem.find('image_links').text)
                     new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
                     new_photo.save()
@@ -84,8 +87,8 @@ class Command(BaseCommand):
         response = urlopen(request)
         data = etree.fromstring(response.read(), parser=parser)
         # For testing
-        #f = open(ABSOLUTE_PROJECT_ROOT + '/ajapaik/home/management/commands/finna_import_test_xml.xml', 'r')
-        #data = etree.fromstring(f.read(), parser=parser)
+        # f = open(ABSOLUTE_PROJECT_ROOT + '/ajapaik/home/management/commands/finna_import_test_xml.xml', 'r')
+        # data = etree.fromstring(f.read(), parser=parser)
         xml_response = data.find('response')
         number_of_items = int(xml_response.find('numFound').text)
         pages_to_get = int(ceil(number_of_items / items_per_page))

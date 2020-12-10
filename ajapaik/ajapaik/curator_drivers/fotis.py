@@ -5,9 +5,9 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
-def safe_list_get(l, idx, default):
+def safe_list_get(my_list, idx, default):
     try:
-        return l[idx]
+        return my_list[idx]
     except IndexError:
         return default
 
@@ -68,8 +68,8 @@ class FotisDriver(object):
                 if existing_photo:
                     transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
-                        .values_list('id', 'name').distinct())
+                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
+                                                      .values_list('id', 'name').distinct())
                 transformed['result']['firstRecordViews'].append(transformed_item)
         transformed = dumps(transformed)
 

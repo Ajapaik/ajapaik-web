@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Count
+
 from ajapaik.ajapaik.models import Photo
 
 
@@ -7,7 +8,8 @@ class Command(BaseCommand):
     help = "Set latest and earliest rephoto for all photos"
 
     def handle(self, *args, **options):
-        photos = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('rephotos').annotate(rp_count=Count('rephotos')).filter(rp_count__gt=0)
+        photos = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('rephotos').annotate(
+            rp_count=Count('rephotos')).filter(rp_count__gt=0)
         for p in photos:
             earliest = None
             latest = None

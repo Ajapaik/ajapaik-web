@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0095_auto_20190809_2204'),
         ('ajapaik', '0104_auto_20190626_1021'),
@@ -17,17 +15,20 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='points',
             name='annotation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionRectangle'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE,
+                                    to='ajapaik_face_recognition.FaceRecognitionRectangle'),
         ),
         migrations.AddField(
             model_name='points',
             name='image_similarity_confirmation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik.ImageSimilarityGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE,
+                                    to='ajapaik.ImageSimilarityGuess'),
         ),
         migrations.AddField(
             model_name='points',
             name='subject_confirmation',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik_face_recognition.FaceRecognitionUserGuess'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE,
+                                    to='ajapaik_face_recognition.FaceRecognitionUserGuess'),
         ),
         migrations.AlterField(
             model_name='album',
@@ -77,20 +78,29 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='imagesimilarity',
             name='similarity_type',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Erinev'), (1, 'sarnane'), (2, 'Duplikaat')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True,
+                                                   choices=[(0, 'Erinev'), (1, 'sarnane'), (2, 'Duplikaat')],
+                                                   null=True),
         ),
         migrations.AlterField(
             model_name='imagesimilarityguess',
             name='similarity_type',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Erinev'), (1, 'sarnane'), (2, 'Duplikaat')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True,
+                                                   choices=[(0, 'Erinev'), (1, 'sarnane'), (2, 'Duplikaat')],
+                                                   null=True),
         ),
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'), (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity')], db_index=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geotääg'), (1, 'Ülepildistus'), (2, 'Foto üleslaadimine'), (3, 'Foto kureerimine'),
+                         (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader'),
+                         (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity')], db_index=True),
         ),
         migrations.AlterUniqueTogether(
             name='points',
-            unique_together=set([('user', 'geotag'), ('user', 'image_similarity_confirmation'), ('user', 'dating_confirmation'), ('user', 'dating'), ('user', 'subject_confirmation')]),
+            unique_together=set(
+                [('user', 'geotag'), ('user', 'image_similarity_confirmation'), ('user', 'dating_confirmation'),
+                 ('user', 'dating'), ('user', 'subject_confirmation')]),
         ),
     ]

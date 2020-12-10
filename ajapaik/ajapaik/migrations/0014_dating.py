@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0013_auto_20151102_1708'),
     ]
@@ -21,8 +20,10 @@ class Migration(migrations.Migration):
                 ('end_approximate', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('photo', models.ForeignKey(related_name='datings', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
-                ('profile', models.ForeignKey(related_name='datings', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
+                ('photo',
+                 models.ForeignKey(related_name='datings', to='ajapaik.Photo', on_delete=models.deletion.CASCADE)),
+                ('profile',
+                 models.ForeignKey(related_name='datings', to='ajapaik.Profile', on_delete=models.deletion.CASCADE)),
             ],
             options={
                 'db_table': 'project_dating',

@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0017_auto_20151105_1603'),
     ]
@@ -20,13 +19,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dating',
             name='end_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='dating',
             name='start_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
             preserve_default=True,
         ),
     ]

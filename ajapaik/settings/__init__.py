@@ -1,4 +1,4 @@
 try:
-    from ajapaik.settings.local import *
+    from ajapaik.settings.local import *  # noqa
 except ImportError:
-    from ajapaik.settings.default import *
+    from ajapaik.settings.default import *  # noqa

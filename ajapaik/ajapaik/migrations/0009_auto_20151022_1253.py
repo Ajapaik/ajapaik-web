@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0008_auto_20150930_1512'),
     ]
@@ -24,7 +23,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='geotag',
             name='origin',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'M\xe4ng'), (1, 'Kaardivaade'), (2, 'Gallery'), (3, 'Permalink')]),
+            field=models.PositiveSmallIntegerField(default=0,
+                                                   choices=[(0, 'M\xe4ng'), (1, 'Kaardivaade'), (2, 'Gallery'),
+                                                            (3, 'Permalink')]),
             preserve_default=True,
         ),
         migrations.AlterField(

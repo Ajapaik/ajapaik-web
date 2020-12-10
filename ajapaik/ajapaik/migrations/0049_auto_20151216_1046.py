@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0048_tour_ordered'),
     ]
@@ -22,7 +21,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tourrephoto',
             name='original',
-            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Photo', on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='tour_rephotos', to='ajapaik.Photo',
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]

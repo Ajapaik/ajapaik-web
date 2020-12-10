@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0070_photo_uploader_is_author'),
     ]
@@ -86,13 +85,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='albumphoto',
             name='profile',
-            field=models.ForeignKey(related_name='album_photo_links', blank=True, to='ajapaik.Profile', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='album_photo_links', blank=True, to='ajapaik.Profile', null=True,
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='difficultyfeedback',
             name='user_profile',
-            field=models.ForeignKey(related_name='difficulty_feedbacks', to='ajapaik.Profile', on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='difficulty_feedbacks', to='ajapaik.Profile',
+                                    on_delete=models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -158,7 +159,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='photo',
             name='image',
-            field=models.ImageField(height_field=b'height', width_field=b'width', upload_to=b'uploads', max_length=255, blank=True, null=True, verbose_name='Pilt'),
+            field=models.ImageField(height_field=b'height', width_field=b'width', upload_to=b'uploads', max_length=255,
+                                    blank=True, null=True, verbose_name='Pilt'),
             preserve_default=True,
         ),
     ]

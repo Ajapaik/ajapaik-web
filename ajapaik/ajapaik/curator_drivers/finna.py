@@ -1,23 +1,25 @@
 import re
-import sys
 from json import dumps, loads
 from math import ceil
 from urllib.request import build_opener
 
+from django.conf import settings
 from django.contrib.gis.geos import Point
 from django.core.files.base import ContentFile
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 
+
 def finna_cut_title(title, shortTitle):
     if title is None:
         return None
 
-    title=title.rstrip()
-    if shortTitle and len(title)>255:
-       title=shortTitle.rstrip()
+    title = title.rstrip()
+    if shortTitle and len(title) > 255:
+        title = shortTitle.rstrip()
     return title[:255]
+
 
 def finna_add_to_album(photo, target_album):
     if target_album and target_album != '':
@@ -39,7 +41,7 @@ def finna_add_to_album(photo, target_album):
 def finna_find_photo_by_url(record_url, profile):
     photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
-        m = re.search('https:\/\/(hkm\.|www\.)?finna.fi\/Record\/(.*?)( |\?|#|$)', record_url)
+        m = re.search('https://(hkm\.|www\.)?finna.fi/Record/(.*?)( |\?|#|$)', record_url)
         if m:
             # Already in database?
             external_id = m.group(2)
@@ -48,7 +50,8 @@ def finna_find_photo_by_url(record_url, profile):
             external_id_urlencoded_2 = external_id.replace('+', '%2B')
             external_id_urlencoded_3 = external_id_urlencoded_1.replace('+', '%2B')
             photo = Photo.objects.filter(
-                external_id__in=[external_id, external_id_urlencoded_1, external_id_urlencoded_2, external_id_urlencoded_3],
+                external_id__in=[external_id, external_id_urlencoded_1, external_id_urlencoded_2,
+                                 external_id_urlencoded_3],
             ).first()
 
             # Import if not found
@@ -69,13 +72,14 @@ def finna_import_photo(id, profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {
         'id': id,
-        'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage', 'year',
+        'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
+                    'recordPage', 'year',
                     'summary', 'rawData'],
     })
     results = finna_result.json()
     p = results.get('records', None)
 
-    #print >> sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id)
+    # print >> sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id)
 
     if p and p[0]:
         p = p[0]
@@ -83,7 +87,6 @@ def finna_import_photo(id, profile):
 
         if not len(p['images']):
             return None
-
 
         institution = None
         if p['source']:
@@ -104,28 +107,28 @@ def finna_import_photo(id, profile):
                     geography = Point(x=float(lon), y=float(lat), srid=4326)
                     break
 
+        title = p.get('title').rstrip()
 
-        title=p.get('title').rstrip()
-
-        summary=''
+        summary = ''
         if 'summary' in p:
-           for each in p['summary']: 
-              if len(each.rstrip())>len(summary):
-                 summary=re.sub('--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$', '', each).rstrip()
+            for each in p['summary']:
+                if len(each.rstrip()) > len(summary):
+                    summary = re.sub(
+                        '--[^-]*?(filmi|paperi|negatiivi|digitaalinen|dng|dia|lasi|väri|tif|jpg|, mv)[^-]*?$', '',
+                        each).rstrip()
 
         if title in summary:
-           description=summary
+            description = summary
         elif len(title) < 20:
-           description=title + '; ' + summary
+            description = title + '; ' + summary
         else:
-           description=title
+            description = title
 
-        address=''
+        address = ''
         if 'rawData' in p and 'geographic' in p['rawData']:
-           for each in p['rawData']['geographic']: 
-              if len(each.rstrip())>len(address):
-                 address=each.rstrip()
-
+            for each in p['rawData']['geographic']:
+                if len(each.rstrip()) > len(address):
+                    address = each.rstrip()
 
         licence = Licence.objects.get(pk=15)  # 15 = unknown licence
         if 'imageRights' in p and 'copyright' in p['imageRights']:
@@ -146,7 +149,7 @@ def finna_import_photo(id, profile):
 
         source = Source.objects.filter(description=institution).first()
         if not source:
-            #print >> sys.stderr, ('Saving missing source '%s'' % institution)
+            # print >> sys.stderr, ('Saving missing source '%s'' % institution)
             source = Source(
                 name=institution,
                 description=institution
@@ -180,17 +183,16 @@ def finna_import_photo(id, profile):
         )
 
         opener = build_opener()
-        opener.addheaders = [('User-Agent',
-                              'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+        opener.addheaders = [('User-Agent', settings.UA)]
         img_url = 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master')
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
-        #print >> sys.stderr, ('import_finna_photo saving file')
+        # print >> sys.stderr, ('import_finna_photo saving file')
         new_photo.save()
 
-        if p.get('latitude') and p.get('longitude') and not GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
-                                                                                  photo__source_key=new_photo.source_key).exists():
+        if p.get('latitude') and p.get('longitude') and not \
+                GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG, photo__source_key=new_photo.source_key).exists():
             source_geotag = GeoTag(
                 lat=p.get('latitude'),
                 lon=p.get('longitude'),
@@ -213,13 +215,13 @@ def finna_import_photo(id, profile):
             pk=id
         ).first()
 
-        #print >> sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id)
+        # print >> sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id)
         return photo
 
 
-def safe_list_get(l, idx, default):
+def safe_list_get(my_list, idx, default):
     try:
-        return l[idx]
+        return my_list[idx]
     except IndexError:
         return default
 
@@ -236,13 +238,11 @@ class FinnaDriver(object):
             'page': cleaned_data['flickrPage'],
             'limit': self.page_size,
             'lng': 'en-gb',
-            'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations', 'recordPage',
+            'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
+                        'recordPage',
                         'year', 'summary', 'rawData'],
             'filter[]': [
-                'free_online_boolean:"1"',
-                #		'~format:'0/Place/'',
-                #		'~format:'0/Image/'',
-                #		'~usage_rights_str_mv:'usage_B'',
+                'free_online_boolean:"1"'
             ],
 
         }).text)
@@ -286,24 +286,17 @@ class FinnaDriver(object):
                             p['latitude'] = lat
                             break
 
-                summary=''
+                summary = ''
                 if 'summary' in p:
-                   for each in p['summary']: 
-                      if len(each.rstrip())>len(summary):
-                         summary=each.rstrip()
+                    for each in p['summary']:
+                        if len(each.rstrip()) > len(summary):
+                            summary = each.rstrip()
 
-                address=''
+                address = ''
                 if 'rawData' in p and 'geographic' in p['rawData']:
-                   for each in p['rawData']['geographic']: 
-                      if len(each.rstrip())>len(address):
-                         address=each.rstrip()
-
-                #                if ('latitude' not in p or 'longitude' not in p) and 'rawData' in p and 'center_coords' in p['rawData']:
-                #                    point_parts = p['rawData']['center_coords'].split(' ')
-                #                    lon = point_parts[0]
-                #                    lat = point_parts[1]
-                #                    p['longitude'] = lon
-                #                    p['latitude'] = lat
+                    for each in p['rawData']['geographic']:
+                        if len(each.rstrip()) > len(address):
+                            address = each.rstrip()
 
                 licence = None
                 if 'imageRights' in p and 'copyright' in p['imageRights']:
@@ -322,13 +315,13 @@ class FinnaDriver(object):
                     'id': p['id'],
                     'mediaId': p['id'],
                     'identifyingNumber': p['id'],
-                    'title':finna_cut_title(p.get('title', None), p.get('shortTitle', None)),
-                    'description': summary,
+                    'title': finna_cut_title(p.get('title', None), p.get('shortTitle', None)),
                     'address': address,
                     'institution': institution,
                     'date': p.get('year', None),
                     'cachedThumbnailUrl': 'https://www.finna.fi' + p['images'][0] if len(p['images']) else None,
-                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master') if len(p['images']) else None,
+                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master') if len(
+                        p['images']) else None,
                     'urlToRecord': 'https://www.finna.fi' + p['recordPage'],
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),
@@ -339,8 +332,8 @@ class FinnaDriver(object):
                 if existing_photo:
                     transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED) \
-                        .values_list('id', 'name').distinct())
+                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
+                                                      .values_list('id', 'name').distinct())
                 transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)

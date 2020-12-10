@@ -1,17 +1,17 @@
 from dal import autocomplete
-from django.conf.urls import url
-from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http.response import HttpResponse
 from django.utils.translation import ugettext as _
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, ImageSimilarity, \
-     ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, Transcription, User, Video
-from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
-     FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
-from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, ObjectAnnotationFeedback
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, \
+    ImageSimilarity, ImageSimilaritySuggestion, Licence, Photo, Points, Profile, Skip, Source, Transcription, \
+    User, Video
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
+    FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
+    ObjectAnnotationFeedback
 
 
 class AlbumAutocomplete(autocomplete.Select2QuerySetView):
@@ -22,9 +22,12 @@ class AlbumAutocomplete(autocomplete.Select2QuerySetView):
         qs = Album.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
+            qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(
+                name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(
+                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
 
         return qs
+
 
 class AlbumPhotoAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -38,6 +41,7 @@ class AlbumPhotoAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class AreaAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -49,6 +53,7 @@ class AreaAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__icontains=self.q)
 
         return qs
+
 
 class DatingAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -62,6 +67,7 @@ class DatingAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class DatingConfirmationAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -73,6 +79,7 @@ class DatingConfirmationAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class DeviceAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -86,6 +93,7 @@ class DeviceAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class FaceRecognitionRectangleAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -97,6 +105,7 @@ class FaceRecognitionRectangleAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class FaceRecognitionRectangleFeedbackAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -110,6 +119,7 @@ class FaceRecognitionRectangleFeedbackAutocomplete(autocomplete.Select2QuerySetV
 
         return qs
 
+
 class FaceRecognitionUserSuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -121,6 +131,7 @@ class FaceRecognitionUserSuggestionAutocomplete(autocomplete.Select2QuerySetView
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class FaceRecognitionRectangleSubjectDataSuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -134,6 +145,7 @@ class FaceRecognitionRectangleSubjectDataSuggestionAutocomplete(autocomplete.Sel
 
         return qs
 
+
 class GeoTagAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -145,6 +157,7 @@ class GeoTagAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class ImageSimilarityAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -158,6 +171,7 @@ class ImageSimilarityAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ImageSimilaritySuggestionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -169,6 +183,7 @@ class ImageSimilaritySuggestionAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class LicenceAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -182,6 +197,7 @@ class LicenceAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ObjectDetectionAnnotationAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -193,6 +209,7 @@ class ObjectDetectionAnnotationAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class ObjectAnnotationClassAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -206,6 +223,7 @@ class ObjectAnnotationClassAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ObjectAnnotationFeedbackAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -217,6 +235,7 @@ class ObjectAnnotationFeedbackAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(id__istartswith=self.q)
 
         return qs
+
 
 class PhotoAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -243,6 +262,7 @@ class PointsAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class ProfileAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -251,9 +271,12 @@ class ProfileAutocomplete(autocomplete.Select2QuerySetView):
         qs = Profile.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(last_name__icontains=self.q) | Q(first_name__icontains=self.q) | Q(fb_name__icontains=self.q) | Q(google_plus_name__icontains=self.q))
+            qs = qs.filter(
+                Q(last_name__icontains=self.q) | Q(first_name__icontains=self.q) | Q(fb_name__icontains=self.q) | Q(
+                    google_plus_name__icontains=self.q))
 
         return qs
+
 
 class OpenAlbumAutocomplete(APIView):
     permission_classes = (AllowAny,)
@@ -261,21 +284,25 @@ class OpenAlbumAutocomplete(APIView):
     def get(self, request, format=None):
         if not self.request.user.is_authenticated:
             return Album.objects.none()
-        
+
         q = request.GET.get('q')
         exclude = request.GET.getlist('exclude')
 
         qs = Album.objects.all().exclude(id__in=exclude)
 
         if q:
-            qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(name_de__icontains=q) | Q(name_no__icontains=q))
+            qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(
+                Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(
+                    name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(
+                    name_de__icontains=q) | Q(name_no__icontains=q))
 
         result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
         if len(qs) > 0:
             result = ''
             for q in qs:
-                result+= '<span data-value=' + str(q.id) + '>' + q.name + '</span>'
+                result += '<span data-value=' + str(q.id) + '>' + q.name + '</span>'
         return HttpResponse(result, status=200)
+
 
 class SkipAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -289,6 +316,7 @@ class SkipAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class SourceAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -301,6 +329,7 @@ class SourceAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -309,13 +338,16 @@ class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
         qs = Album.objects.filter(atype=Album.PERSON)
 
         if self.q:
-            qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
+            qs = qs.filter(Q(name__icontains=self.q) | Q(name_et__icontains=self.q) | Q(name_en__icontains=self.q) | Q(
+                name_ru__icontains=self.q) | Q(name_fi__icontains=self.q) | Q(name_sv__icontains=self.q) | Q(
+                name_nl__icontains=self.q) | Q(name_de__icontains=self.q) | Q(name_no__icontains=self.q))
         for q in qs:
             if q.gender is not None and q.gender > -1:
                 q.name = q.name + ';' + str(q.gender)
             else:
                 q.name = q.name + ';-1'
         return qs
+
 
 class TranscriptionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -329,6 +361,7 @@ class TranscriptionAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class UserAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -340,6 +373,7 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(username__icontains=self.q)
 
         return qs
+
 
 class VideoAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

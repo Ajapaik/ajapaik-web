@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0082_auto_20190120_1451'),
     ]
@@ -137,27 +136,36 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dating',
             name='end_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
         ),
         migrations.AlterField(
             model_name='dating',
             name='start_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
+            field=models.PositiveSmallIntegerField(blank=True, null=True,
+                                                   choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='map_type',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Google map'), (1, 'Google satellite'), (2, 'OpenStreetMap'), (3, 'Juks'), (4, 'No map')]),
+            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Google map'), (1, 'Google satellite'),
+                                                                       (2, 'OpenStreetMap'), (3, 'Juks'),
+                                                                       (4, 'No map')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='origin',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Game'), (1, 'Map view'), (2, 'Gallery'), (3, 'Permalink'), (4, 'Source'), (5, 'Rephoto')]),
+            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Game'), (1, 'Map view'), (2, 'Gallery'),
+                                                                       (3, 'Permalink'), (4, 'Source'),
+                                                                       (5, 'Rephoto')]),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='type',
-            field=models.PositiveSmallIntegerField(default=0, choices=[(0, 'Map'), (1, 'EXIF'), (2, 'GPS'), (3, 'Confirmation'), (4, 'StreetView'), (5, 'Source geotag'), (6, 'Android app')]),
+            field=models.PositiveSmallIntegerField(default=0,
+                                                   choices=[(0, 'Map'), (1, 'EXIF'), (2, 'GPS'), (3, 'Confirmation'),
+                                                            (4, 'StreetView'), (5, 'Source geotag'),
+                                                            (6, 'Android app')]),
         ),
         migrations.AlterField(
             model_name='photo',
@@ -167,7 +175,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(db_index=True, choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'), (3, 'Photo curation'), (4, 'Photo re-curation'), (5, 'Dating'), (6, 'Dating confirmation'), (7, 'Film still')]),
+            field=models.PositiveSmallIntegerField(db_index=True,
+                                                   choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'),
+                                                            (3, 'Photo curation'), (4, 'Photo re-curation'),
+                                                            (5, 'Dating'), (6, 'Dating confirmation'),
+                                                            (7, 'Film still')]),
         ),
         migrations.DeleteModel(
             name='Tour',

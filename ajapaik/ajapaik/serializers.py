@@ -1,20 +1,22 @@
 import logging
 
-from django.urls import reverse
 from django.db.models import Count, Q, Case, When, Value, BooleanField, \
     IntegerField
+from django.urls import reverse
+from django.utils import timezone
 from rest_framework import serializers
 
-from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 from ajapaik.utils import calculate_thumbnail_size
-from django.utils import timezone
+from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 
 log = logging.getLogger(__name__)
+
 
 class DateTimeTzAwareField(serializers.DateTimeField):
     def to_representation(self, value):
         value = timezone.localtime(value)
         return super(DateTimeTzAwareField, self).to_representation(value)
+
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
     class Meta:
@@ -143,7 +145,7 @@ class RephotoSerializer(serializers.ModelSerializer):
             }
 
     def get_is_uploaded_by_current_user(self, instance):
-        user=self.context['request'].user
+        user = self.context['request'].user
         if user.is_authenticated:
             return instance.user == self.context['request'].user.profile
         else:
@@ -184,21 +186,16 @@ class PhotoSerializer(serializers.ModelSerializer):
             .prefetch_related('source') \
             .prefetch_related('rephotos') \
             .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(uploads_count=Count(
-                Case(
-                    When(rephotos__user=user_profile, then=1),
-                    output_field=IntegerField()
-                )
-            )) \
+            .annotate(uploads_count=Count(Case(When(rephotos__user=user_profile, then=1),
+                                               output_field=IntegerField()))) \
             .annotate(likes_count=Count('likes')) \
-            .annotate(favorited=Case(
-                When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False), then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()))
+            .annotate(favorited=Case(When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False),
+                                          then=Value(True)), default=Value(False), output_field=BooleanField()))
 
     def get_image(self, instance):
         request = self.context['request']
         relative_url = reverse('image_thumb', args=(instance.id,))
+
         return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
 
     def get_date(self, instance):
@@ -252,7 +249,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     def get_photos(self, instance):
         request = self.context['request']
-        user_profile=request.user.profile if request.user.is_authenticated else None
+        user_profile = request.user.profile if request.user.is_authenticated else None
 
         photos = PhotoSerializer.annotate_photos(
             self.context['photos'],

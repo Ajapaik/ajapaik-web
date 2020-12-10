@@ -37,7 +37,7 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
         annotation.save()
 
         if annotation.photo.first_annotation is None:
-            annotation.photo.first_annotation = annotation.modified   
+            annotation.photo.first_annotation = annotation.modified
         annotation.photo.latest_annotation = annotation.modified
         annotation.photo.light_save()
 
@@ -60,7 +60,7 @@ def update_user_suggestions(http_request: HttpRequest, annotation_id: int, updat
         annotation_id=annotation_id
     )
 
-    has_age_suggestion = update_request.new_age_suggestion is not None and update_request.new_age_suggestion != AGE_NOT_SURE
+    has_age_suggestion = update_request.new_age_suggestion and update_request.new_age_suggestion != AGE_NOT_SURE
     has_gender_suggestion = \
         update_request.new_gender_suggestion is not None and update_request.new_gender_suggestion != GENDER_NOT_SURE
 
@@ -71,7 +71,8 @@ def update_user_suggestions(http_request: HttpRequest, annotation_id: int, updat
             gender=update_request.new_gender_suggestion
         )
         AddSubjectData.add_subject_data(add_additional_subject_data, http_request)
-    elif user_suggestion.gender != update_request.new_gender_suggestion or user_suggestion.age != update_request.new_age_suggestion:
+    elif user_suggestion.gender != update_request.new_gender_suggestion \
+            or user_suggestion.age != update_request.new_age_suggestion:
         user_suggestion.age = update_request.new_age_suggestion
         user_suggestion.gender = update_request.new_gender_suggestion
         user_suggestion.save()
@@ -80,10 +81,13 @@ def update_user_suggestions(http_request: HttpRequest, annotation_id: int, updat
 def create_user_feeback(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
     rectangle = FaceRecognitionRectangle.objects.filter(id=update_request.annotation_id).first()
     proposer = Profile.objects.filter(user_id=update_request.user_id).first()
-    new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle = rectangle, proposer = proposer, gender = update_request.new_gender_suggestion, age = update_request.new_age_suggestion)
+    new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=rectangle,
+                                                                   proposer=proposer,
+                                                                   gender=update_request.new_gender_suggestion,
+                                                                   age=update_request.new_age_suggestion)
     new_suggestion.save()
     return True
-    
+
 
 def get_existing_user_additional_data_suggestion(proposer, annotation_id):
     try:
@@ -93,6 +97,7 @@ def get_existing_user_additional_data_suggestion(proposer, annotation_id):
         )
     except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
         return None
+
 
 def get_existing_data_suggestion(annotation_id):
     try:

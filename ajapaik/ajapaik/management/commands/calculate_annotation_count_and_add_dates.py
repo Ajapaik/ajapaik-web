@@ -1,13 +1,15 @@
 from django.core.management.base import BaseCommand
-from ajapaik.ajapaik.models import Photo, Transcription
+
+from ajapaik.ajapaik.models import Photo
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
+
 
 class Command(BaseCommand):
     help = 'Calculate transcription counts and add dates'
 
     def handle(self, *args, **options):
-        photos =  Photo.objects.all()
+        photos = Photo.objects.all()
         for photo in photos:
             try:
                 faceRecognitionRectangles = FaceRecognitionRectangle.objects.all().filter(photo__id=photo.id)

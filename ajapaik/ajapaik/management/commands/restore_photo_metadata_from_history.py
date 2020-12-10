@@ -1,6 +1,7 @@
 # encoding: utf-8
 from django.core.management.base import BaseCommand
 from django.utils.translation import activate
+
 from ajapaik.ajapaik.models import Photo
 
 

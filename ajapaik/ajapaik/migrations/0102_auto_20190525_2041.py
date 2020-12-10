@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0101_auto_20190525_1619'),
     ]
@@ -15,11 +14,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='imagesimilarity',
             name='similarity_type',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Different'), (1, 'Sarnane'), (2, 'Duplikaat')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True,
+                                                   choices=[(0, 'Different'), (1, 'Sarnane'), (2, 'Duplikaat')],
+                                                   null=True),
         ),
         migrations.AlterField(
             model_name='imagesimilarityguess',
             name='similarity_type',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Different'), (1, 'Sarnane'), (2, 'Duplikaat')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True,
+                                                   choices=[(0, 'Different'), (1, 'Sarnane'), (2, 'Duplikaat')],
+                                                   null=True),
         ),
     ]

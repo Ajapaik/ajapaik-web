@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
 from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0076_auto_20170214_1741'),
     ]
@@ -35,17 +34,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='albumphoto',
             name='type',
-            field=models.PositiveSmallIntegerField(default=2, db_index=True, choices=[(0, b'Curated'), (1, b'Re-curated'), (2, b'Manual'), (3, b'Still'), (4, b'Uploaded')]),
+            field=models.PositiveSmallIntegerField(default=2, db_index=True,
+                                                   choices=[(0, b'Curated'), (1, b'Re-curated'), (2, b'Manual'),
+                                                            (3, b'Still'), (4, b'Uploaded')]),
         ),
         migrations.AlterField(
             model_name='credentialsmodel',
             name='id',
-            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE),
+            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL,
+                                       on_delete=models.deletion.CASCADE),
         ),
         migrations.AlterField(
             model_name='flowmodel',
             name='id',
-            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.deletion.CASCADE),
+            field=models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL,
+                                       on_delete=models.deletion.CASCADE),
         ),
         migrations.AlterField(
             model_name='geotag',
@@ -55,7 +58,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(db_index=True, choices=[(0, 'Geot\xe4\xe4g'), (1, '\xdclepildistus'), (2, 'Foto \xfcleslaadimine'), (3, 'Foto kureerimine'), (4, 'Foto rekureerimine'), (5, 'Dateering'), (6, 'Dateeringu kinnitus'), (7, 'Filmikaader')]),
+            field=models.PositiveSmallIntegerField(db_index=True, choices=[(0, 'Geot\xe4\xe4g'), (1, '\xdclepildistus'),
+                                                                           (2, 'Foto \xfcleslaadimine'),
+                                                                           (3, 'Foto kureerimine'),
+                                                                           (4, 'Foto rekureerimine'), (5, 'Dateering'),
+                                                                           (6, 'Dateeringu kinnitus'),
+                                                                           (7, 'Filmikaader')]),
         ),
         migrations.AlterField(
             model_name='profile',

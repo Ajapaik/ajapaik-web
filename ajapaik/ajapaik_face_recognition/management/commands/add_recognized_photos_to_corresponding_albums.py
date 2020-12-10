@@ -24,7 +24,8 @@ class Command(BaseCommand):
                     new_relation.save()
                     print('New relation between %s and %s' % (new_relation.photo.pk, new_relation.album.pk))
             elif rectangle.subject_ai_suggestion:
-                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=rectangle.subject_ai_suggestion,
+                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo,
+                                                              album=rectangle.subject_ai_suggestion,
                                                               type=AlbumPhoto.FACE_TAGGED).first()
                 if not existing_relation:
                     new_relation = AlbumPhoto(

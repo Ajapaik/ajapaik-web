@@ -23,7 +23,7 @@ class Command(BaseCommand):
             else:
                 count_dict[parts[1]] += 1
         f = codecs.open(
-            settings.ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/results/photo_geotagged_week_parsed.txt',
-            'w', 'utf-8')
+            settings.ABSOLUTE_PROJECT_ROOT +
+            '/ajapaik/ajapaik/management/commands/results/photo_geotagged_week_parsed.txt', 'w', 'utf-8')
         for each in sorted(count_dict.items(), key=lambda key_value: key_value[0]):
             f.write(each[0] + '\t' + str(each[1]) + '\n')

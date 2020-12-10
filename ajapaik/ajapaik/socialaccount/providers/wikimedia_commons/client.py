@@ -1,12 +1,11 @@
-import requests
 from collections import OrderedDict
 
-from django.utils.http import urlencode
-
+import requests
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
 )
+from django.utils.http import urlencode
 
 
 class WikimediaCommonsOAuth2Client(OAuth2Client):

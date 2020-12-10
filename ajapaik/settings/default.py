@@ -1,10 +1,9 @@
-# coding=utf-8
 import os
 import sys
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-gettext = lambda s: s
+gettext = lambda s: s  # noqa
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
@@ -26,7 +25,7 @@ AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
 
-if not ABSOLUTE_PROJECT_ROOT in sys.path:
+if ABSOLUTE_PROJECT_ROOT not in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
 STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
@@ -72,6 +71,8 @@ LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('et', gettext('Estonian')),
+    ('lv', gettext('Latvian')),
+    ('lt', gettext('Lithuanian')),
     ('en', gettext('English')),
     ('fi', gettext('Finnish')),
     ('sv', gettext('Swedish')),
@@ -79,9 +80,12 @@ LANGUAGES = (
     ('fr', gettext('French'))
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
+MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+
+TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
+TARTUNLP_API_URL = 'https://api.neurotolge.ee/v1.1/translate'
 
 SITE_ID = 2
 
@@ -90,7 +94,6 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
-
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -191,7 +194,6 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap4',
     'leaflet',
-    'django_celery_beat',
     'ajapaik.ajapaik_face_recognition',
     'ajapaik.ajapaik_object_recognition',
     'django_user_agents',
@@ -355,10 +357,6 @@ BOT_USER_AGENTS = {
     'Wget'
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
-
-# Since Celery makes us use Redis anyway, use it some more
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'redis_cache.RedisCache',
@@ -374,16 +372,15 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 
-################################################################################
-### Django-allauth configuration
-################################################################################
+# allauth configuration
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
-ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (user.profile and user.profile.display_name) else user.get_full_name()
+ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (  # noqa
+        user.profile and user.profile.display_name) else user.get_full_name()
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

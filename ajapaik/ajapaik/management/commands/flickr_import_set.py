@@ -25,8 +25,10 @@ class Command(BaseCommand):
         translation.activate('en')
         set_id = '72157652352869904'
         page = 1
-        set_url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' + settings.FLICKR_API_KEY + '&photoset_id=' + set_id + '&extras=license,owner_name,geo,tags&format=json&nojsoncallback=1&page=' + str(
-            page)
+        set_url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' \
+                  + settings.FLICKR_API_KEY + '&photoset_id=' + set_id + '&extras=license,owner_name,geo,tags' \
+                                                                         '&format=json&nojsoncallback=1&page=' \
+                  + str(page)
         # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
         image_url_template = 'https://farm%s.staticflickr.com/%s/%s_%s_b.jpg'
         # https://www.flickr.com/photos/{user-id}/{photo-id}
@@ -58,8 +60,7 @@ class Command(BaseCommand):
                 try:
                     image_url = image_url_template % (photo['farm'], photo['server'], photo['id'], photo['secret'])
                     opener = build_opener()
-                    opener.addheaders = [('User-Agent',
-                                          'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+                    opener.addheaders = [('User-Agent', settings.UA)]
                     img_response = opener.open(image_url)
                     new_photo.image.save('ceric.jpg', ContentFile(img_response.read()))
                     new_photo.save()
@@ -83,7 +84,7 @@ class Command(BaseCommand):
                     if not album.cover_photo:
                         album.cover_photo = new_photo
                         album.light_save()
-                except:
+                except:  # noqa
                     # print 'Problem loading image %s' % photo['id']
                     continue
         album.save()

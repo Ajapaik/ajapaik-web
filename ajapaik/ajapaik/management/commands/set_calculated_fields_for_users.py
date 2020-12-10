@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+
 from ajapaik.ajapaik.models import Profile
 
 
@@ -18,6 +19,6 @@ class Command(BaseCommand):
             profile.save()
         else:
             for profile in Profile.objects.all():
-                #print profile.id
+                # print profile.id
                 profile.set_calculated_fields()
                 profile.save()

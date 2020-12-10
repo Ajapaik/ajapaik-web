@@ -36,8 +36,9 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
 def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
     new_rectangle = FaceRecognitionRectangle.objects.get(pk=new_rectangle_id)
     person_album = Album.objects.get(pk=person_id)
-    if(person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo,album=person_album)) < 1):
-        albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED, profile=user_profile)
+    if (person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo, album=person_album)) < 1):
+        albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED,
+                                profile=user_profile)
         albumPhoto.save()
         person_album.set_calculated_fields()
         person_album.save()

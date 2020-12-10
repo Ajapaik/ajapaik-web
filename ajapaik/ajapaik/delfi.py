@@ -24,7 +24,7 @@ class DelfiBboxRequestForm(forms.Form):
         else:
             try:
                 bbox_parts = [float(x) for x in bbox_parts]
-            except:
+            except:  # noqa
                 raise forms.ValidationError(_('Bounding box values must be numbers'))
             our_ref = SpatialReference(4326)
             delfi_ref = SpatialReference(3301)

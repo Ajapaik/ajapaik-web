@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik_face_recognition', '0085_facerecognitionsubject_face_encoding'),
     ]
@@ -14,11 +13,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facerecognitionrectangle',
             name='subject_ai_guess',
-            field=models.ForeignKey(related_name='ai_detected_rectangles', blank=True, to='ajapaik_face_recognition.FaceRecognitionSubject', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='ai_detected_rectangles', blank=True,
+                                    to='ajapaik_face_recognition.FaceRecognitionSubject', null=True,
+                                    on_delete=models.deletion.CASCADE),
         ),
         migrations.AlterField(
             model_name='facerecognitionrectangle',
             name='subject_consensus',
-            field=models.ForeignKey(related_name='crowdsourced_rectangles', blank=True, to='ajapaik_face_recognition.FaceRecognitionSubject', null=True, on_delete=models.deletion.CASCADE),
+            field=models.ForeignKey(related_name='crowdsourced_rectangles', blank=True,
+                                    to='ajapaik_face_recognition.FaceRecognitionSubject', null=True,
+                                    on_delete=models.deletion.CASCADE),
         ),
     ]

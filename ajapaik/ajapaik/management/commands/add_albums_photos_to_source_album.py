@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from ajapaik.ajapaik.models import AlbumPhoto, Photo
+
+from ajapaik.ajapaik.models import AlbumPhoto
 
 
 class Command(BaseCommand):
@@ -7,7 +8,8 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'album_ids', nargs='+', type=int, help='Imported album ids, where there are photos which are not in source album'
+            'album_ids', nargs='+', type=int,
+            help='Imported album ids, where there are photos which are not in source album'
         )
 
     def handle(self, *args, **options):

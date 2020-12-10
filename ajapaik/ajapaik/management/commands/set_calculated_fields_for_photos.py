@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+
 from ajapaik.ajapaik.models import Photo
 
 
@@ -17,6 +18,6 @@ class Command(BaseCommand):
             photo.save()
         else:
             for photo in Photo.objects.filter(rephoto_of__isnull=True):
-                #print photo
+                # print photo
                 photo.set_calculated_fields()
                 photo.save()

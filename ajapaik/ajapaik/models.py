@@ -1,14 +1,16 @@
 import os
+import socket
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
 from io import StringIO
-from json import loads
+from json import loads, dumps
 from math import degrees
 from time import sleep
 from urllib.request import urlopen
 
 import numpy
+import requests
 from PIL import Image, ImageOps
 from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
@@ -22,12 +24,12 @@ from django.contrib.gis.db.models import Model, TextField, FloatField, CharField
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
@@ -41,6 +43,7 @@ from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
+
 
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
@@ -90,6 +93,7 @@ def _get_pseudo_slug_for_photo(description, source_key, id):
         slug = slugify(id)
 
     return slug
+
 
 # TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
 def _user_post_save(sender, instance, **kwargs):
@@ -312,8 +316,8 @@ class Album(Model):
         for each in qs:
             for similarity in each.similar_photos.all():
                 temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                for _ in temp:
-                    count += 1
+                count += len(temp)
+
         return count
 
     def set_calculated_fields(self):
@@ -419,7 +423,7 @@ class Photo(Model):
     face_detection_attempted_at = DateTimeField(null=True, blank=True, db_index=True)
     perceptual_hash = BigIntegerField(null=True, blank=True)
     has_similar = BooleanField(default=False)
-    similar_photos = ManyToManyField('self', through='ImageSimilarity',symmetrical=False)
+    similar_photos = ManyToManyField('self', through='ImageSimilarity', symmetrical=False)
     back_of = ForeignKey('self', blank=True, null=True, related_name='back', on_delete=CASCADE)
     front_of = ForeignKey('self', blank=True, null=True, related_name='front', on_delete=CASCADE)
     INTERIOR, EXTERIOR = range(2)
@@ -434,7 +438,8 @@ class Photo(Model):
         (RAISED, _('Raised')),
         (AERIAL, _('Aerial'))
     )
-    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
 
     original_lat = None
     original_lon = None
@@ -607,14 +612,17 @@ class Photo(Model):
             delete(self.image_no_watermark, delete_file=False)
         self.original_flip = self.flip
 
-        face_recognition_rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
+        face_recognition_rectangles = apps.get_model(
+            'ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
         if face_recognition_rectangles is not None:
             for face_recognition_rectangle in face_recognition_rectangles:
                 top, right, bottom, left = face_recognition_rectangle.coordinates.strip('[').strip(']').split(', ')
-                face_recognition_rectangle.coordinates = '[' + top + ', ' + str(self.width - int(left)) + ', ' + bottom + ', ' + str(self.width - int(right)) + ']'
+                face_recognition_rectangle.coordinates = '[' + top + ', ' + str(
+                    self.width - int(left)) + ', ' + bottom + ', ' + str(self.width - int(right)) + ']'
                 face_recognition_rectangle.save()
-            
-        object_recognition_rectangles = apps.get_model('ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
+
+        object_recognition_rectangles = apps.get_model(
+            'ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
         if object_recognition_rectangles is not None:
             for object_recognition_rectangle in object_recognition_rectangles:
                 top, right, bottom, left = object_recognition_rectangle.y1, object_recognition_rectangle.x2, object_recognition_rectangle.y2, object_recognition_rectangle.x1
@@ -687,9 +695,10 @@ class Photo(Model):
                 self.aspect_ratio = 1 / self.aspect_ratio
             else:
                 self.set_aspect_ratio()
-        
+
         # TODO: align facerecognitionrectangle and objectannotation, so that this code could be reused for both
-        face_recognition_rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
+        face_recognition_rectangles = apps.get_model(
+            'ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
         if face_recognition_rectangles is None:
             return
         for face_recognition_rectangle in face_recognition_rectangles:
@@ -697,14 +706,19 @@ class Photo(Model):
             if rotation_degrees == 0:
                 return
             elif rotation_degrees == 90 or rotation_degrees == -270:
-                face_recognition_rectangle.coordinates = '[' + str(self.height - int(right)) + ', ' + str(bottom) + ', ' + str(self.height - int(left)) + ', ' + str(top) + ']'
+                face_recognition_rectangle.coordinates = '[' + str(self.height - int(right)) + ', ' + str(
+                    bottom) + ', ' + str(self.height - int(left)) + ', ' + str(top) + ']'
             elif rotation_degrees == 180 or rotation_degrees == -180:
-                face_recognition_rectangle.coordinates = '[' + str(self.height - int(bottom)) + ', ' + str(self.width - int(left)) + ', ' + str(self.height - int(top)) + ', ' + str(self.width - int(right)) + ']'
+                face_recognition_rectangle.coordinates = '[' + str(self.height - int(bottom)) + ', ' + str(
+                    self.width - int(left)) + ', ' + str(self.height - int(top)) + ', ' + str(
+                    self.width - int(right)) + ']'
             elif rotation_degrees == 270 or rotation_degrees == -90:
-                face_recognition_rectangle.coordinates = '[' + str(left) + ', ' + str(self.width - int(top)) + ', ' + str(right) + ', ' + str(self.width - int(bottom)) + ']'
+                face_recognition_rectangle.coordinates = '[' + str(left) + ', ' + str(
+                    self.width - int(top)) + ', ' + str(right) + ', ' + str(self.width - int(bottom)) + ']'
             face_recognition_rectangle.save()
-        
-        object_recognition_rectangles = apps.get_model('ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
+
+        object_recognition_rectangles = apps.get_model(
+            'ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
         if object_recognition_rectangles is None:
             return
         for object_recognition_rectangle in object_recognition_rectangles:
@@ -727,7 +741,7 @@ class Photo(Model):
                 object_recognition_rectangle.y2 = right
                 object_recognition_rectangle.x1 = self.width - bottom
             object_recognition_rectangle.save()
-        
+
         self.light_save()
 
     def set_aspect_ratio(self):
@@ -744,12 +758,14 @@ class Photo(Model):
         if not settings.DEBUG:
             img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
             self.perceptual_hash = phash(img)
-            query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
+            query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) ' \
+                    'AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
             if self.aspect_ratio is None:
                 self.aspect_ratio = self.width / self.height
-            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
+            photos = Photo.objects.raw(query, [str(self.perceptual_hash), self.id, self.aspect_ratio * 0.8,
+                                               self.aspect_ratio * 1.25])
             for similar in photos:
-                ImageSimilarity.add_or_update(self,similar)
+                ImageSimilarity.add_or_update(self, similar)
                 similar.light_save()
             self.light_save()
 
@@ -759,16 +775,23 @@ class Photo(Model):
         if self.aspect_ratio is None:
             self.aspect_ratio = self.width / self.height
         if not (self.lat is None and self.lon is None):
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s AND aspect_ratio > %s AND aspect_ratio < %s'
-            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id,(self.lat + 0.0001),(self.lon + 0.0001),(self.lat - 0.0001),(self.lon - 0.0001), self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL ' \
+                    'AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s AND aspect_ratio > %s ' \
+                    'AND aspect_ratio < %s'
+            photos = Photo.objects.raw(query,
+                                       [str(self.perceptual_hash), self.id, (self.lat + 0.0001), (self.lon + 0.0001),
+                                        (self.lat - 0.0001), (self.lon - 0.0001), self.aspect_ratio * 0.8,
+                                        self.aspect_ratio * 1.25])
         else:
-            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id IS NULL AND aspect_ratio > %s AND aspect_ratio < %s'
-            photos = Photo.objects.raw(query,[str(self.perceptual_hash),self.id, self.aspect_ratio * 0.8, self.aspect_ratio * 1.25])
+            query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND NOT id=%s AND rephoto_of_id ' \
+                    'IS NULL AND aspect_ratio > %s AND aspect_ratio < %s'
+            photos = Photo.objects.raw(query, [str(self.perceptual_hash), self.id, self.aspect_ratio * 0.8,
+                                               self.aspect_ratio * 1.25])
         for similar in photos:
             list1 = ImageSimilarity.objects.filter(Q(from_photo=self) & Q(to_photo=similar))
             list2 = ImageSimilarity.objects.filter(Q(from_photo=similar) & Q(to_photo=self))
             if list1.count() < 1 or list2.count() < 1:
-                ImageSimilarity.add_or_update(self,similar)
+                ImageSimilarity.add_or_update(self, similar)
             similar.light_save()
         self.light_save()
 
@@ -851,7 +874,7 @@ class Photo(Model):
                 self.address = most_accurate_result['formatted_address']
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
-    
+
     def set_backside(self, opposite):
         self.front_of = opposite
         self.save()
@@ -881,17 +904,17 @@ class Photo(Model):
         super(Photo, self).save(*args, **kwargs)
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
-    
+
     def add_to_source_album(self, *args, **kwargs):
         if self.source_id is not None and self.source_id > 0:
             sourceAlbum = Album.objects.filter(source_id=self.source_id).first()
             if sourceAlbum is None:
                 sourceAlbum = Album(
-                    name = self.source.name,
-                    slug = self.source.name,
-                    atype = Album.COLLECTION,
-                    cover_photo = self,
-                    source = self.source
+                    name=self.source.name,
+                    slug=self.source.name,
+                    atype=Album.COLLECTION,
+                    cover_photo=self,
+                    source=self.source
                 )
                 sourceAlbum.save()
 
@@ -927,6 +950,27 @@ class Photo(Model):
                 closest_dist = dist
 
         return closest_point
+
+    def fill_untranslated_fields(self):
+        # Find filled field to base translation off
+        translation_source = None
+        for each in settings.TARTUNLP_LANGUAGES:
+            key = f'description_{each}'
+            if getattr(self, key):
+                translation_source = key
+                break
+        for each in settings.TARTUNLP_LANGUAGES:
+            key = f'description_{each}'
+            current_value = getattr(self, key)
+            if not current_value:
+                response = requests.get(settings.TARTUNLP_API_URL, params={
+                    'src': getattr(self, translation_source),
+                    'auth': 'public',
+                    'conf': f'{each},auto'
+                }).json()
+                setattr(self, key, response['tgt'])
+
+        self.light_save()
 
     # TODO: Cut down on the science library use
     def set_calculated_fields(self):
@@ -1019,6 +1063,7 @@ class Photo(Model):
                         self.azimuth = None
                         self.azimuth_confidence = None
 
+
 class ImageSimilarity(Model):
     from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='from_photo')
     to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='to_photo')
@@ -1033,11 +1078,12 @@ class ImageSimilarity(Model):
     user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True, on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
-    
+
     def __add__(self):
         self.save()
         if self.user_last_modified is not None:
-            suggestion = ImageSimilaritySuggestion(image_similarity=self, proposer = self.user_last_modified, similarity_type=self.similarity_type)
+            suggestion = ImageSimilaritySuggestion(image_similarity=self, proposer=self.user_last_modified,
+                                                   similarity_type=self.similarity_type)
             suggestion.save()
             return 10, suggestion
 
@@ -1046,32 +1092,36 @@ class ImageSimilarity(Model):
         imageSimilarity.confirmed = self.confirmed
         imageSimilarity.user_last_modified = self.user_last_modified
         qs.exclude(id=imageSimilarity.id).delete()
-        suggestion = ImageSimilaritySuggestion(image_similarity=imageSimilarity, proposer=self.user_last_modified, similarity_type=self.similarity_type)
-        suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by('proposer_id', '-created').all().distinct('proposer_id')
+        suggestion = ImageSimilaritySuggestion(image_similarity=imageSimilarity, proposer=self.user_last_modified,
+                                               similarity_type=self.similarity_type)
+        suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by(
+            'proposer_id', '-created').all().distinct('proposer_id')
         if self.similarity_type:
             first_suggestion = 0 if self.similarity_type == 1 else 1
             second_suggestion = 0 if self.similarity_type == 2 else 2
-            if suggestions.filter(similarity_type=self.similarity_type).count() >= (suggestions.filter(similarity_type=second_suggestion).count() -1) \
-                and len (suggestions.filter(similarity_type=self.similarity_type)) >= (suggestions.filter(similarity_type=first_suggestion).count() - 1):
+            if suggestions.filter(similarity_type=self.similarity_type).count() >= (
+                    suggestions.filter(similarity_type=second_suggestion).count() - 1) \
+                    and len(suggestions.filter(similarity_type=self.similarity_type)) >= (
+                    suggestions.filter(similarity_type=first_suggestion).count() - 1):
                 suggestion.proposer = self.user_last_modified
                 imageSimilarity.similarity_type = self.similarity_type
                 if self.similarity_type == 0:
-                    has_similar = ImageSimilarity.objects.filter(\
-                        Q(from_photo_id=imageSimilarity.from_photo.id) &\
-                        Q(to_photo_id=imageSimilarity.to_photo.id) &\
+                    has_similar = ImageSimilarity.objects.filter(
+                        Q(from_photo_id=imageSimilarity.from_photo.id) &
+                        Q(to_photo_id=imageSimilarity.to_photo.id) &
                         Q(similarity_type__gt=0)).first() is not None
                     imageSimilarity.from_photo.has_similar = has_similar
                     imageSimilarity.to_photo.has_similar = has_similar
         imageSimilarity.save()
-        imageSimilarity.to_photo.has_similar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.from_photo.id)\
-            .exclude(similarity_type=0).first() is not None
-        imageSimilarity.from_photo.has_similar = ImageSimilarity.objects.filter(from_photo_id=imageSimilarity.to_photo.id)\
-            .exclude(similarity_type=0).first() is not None
+        imageSimilarity.to_photo.has_similar = ImageSimilarity.objects.filter(
+            from_photo_id=imageSimilarity.from_photo.id).exclude(similarity_type=0).first() is not None
+        imageSimilarity.from_photo.has_similar = ImageSimilarity.objects.filter(
+            from_photo_id=imageSimilarity.to_photo.id).exclude(similarity_type=0).first() is not None
         imageSimilarity.from_photo.save()
         imageSimilarity.to_photo.save()
         suggestion.save()
 
-        if suggestions.filter(proposer = self.user_last_modified.id).count() < 1:
+        if suggestions.filter(proposer=self.user_last_modified.id).count() < 1:
             return 10, suggestion
         else:
             return 0, suggestion
@@ -1088,21 +1138,23 @@ class ImageSimilarity(Model):
                 user=self.user_last_modified,
                 action=Points.CONFIRM_IMAGE_SIMILARITY,
                 points=points,
-                image_similarity_confirmation = suggestion,
+                image_similarity_confirmation=suggestion,
                 created=timezone.now()
             ).save()
         return points
 
-
-    def add_or_update(photo_obj,photo_obj2,confirmed=None,similarity_type=None, profile=None):
+    def add_or_update(photo_obj, photo_obj2, confirmed=None, similarity_type=None, profile=None):
         proposer = Profile.objects.filter(user_id=profile).first()
         if confirmed is None:
             confirmed = False
-        imageSimilarity = ImageSimilarity(None, from_photo = photo_obj, to_photo=photo_obj2, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=proposer)
-        imageSimilarity2 = ImageSimilarity(None, from_photo = photo_obj2, to_photo=photo_obj, confirmed=confirmed, similarity_type=similarity_type, user_last_modified=proposer)
+        imageSimilarity = ImageSimilarity(None, from_photo=photo_obj, to_photo=photo_obj2, confirmed=confirmed,
+                                          similarity_type=similarity_type, user_last_modified=proposer)
+        imageSimilarity2 = ImageSimilarity(None, from_photo=photo_obj2, to_photo=photo_obj, confirmed=confirmed,
+                                           similarity_type=similarity_type, user_last_modified=proposer)
         points = imageSimilarity.__add_or_update__()
         points += imageSimilarity2.__add_or_update__()
         return points
+
 
 class ImageSimilaritySuggestion(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
@@ -1115,6 +1167,7 @@ class ImageSimilaritySuggestion(Model):
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
+
 
 class PhotoMetadataUpdate(Model):
     photo = ForeignKey('Photo', related_name='metadata_updates', on_delete=CASCADE)
@@ -1169,7 +1222,9 @@ class Points(Model):
     objects = Manager()
     bulk = BulkUpdateManager()
 
-    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO  = range(19)
+    GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, \
+    ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
+    TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1199,9 +1254,13 @@ class Points(Model):
     geotag = ForeignKey('GeoTag', null=True, blank=True, on_delete=CASCADE)
     dating = ForeignKey('Dating', null=True, blank=True, on_delete=CASCADE)
     dating_confirmation = ForeignKey('DatingConfirmation', null=True, blank=True, on_delete=CASCADE)
-    annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True, on_delete=CASCADE)
-    face_recognition_rectangle_subject_data_suggestion = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataSuggestion', null=True, blank=True, on_delete=CASCADE)
-    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserSuggestion', null=True, blank=True, on_delete=CASCADE)
+    annotation = ForeignKey('ajapaik_face_recognition.FaceRecognitionRectangle', null=True, blank=True,
+                            on_delete=CASCADE)
+    face_recognition_rectangle_subject_data_suggestion = ForeignKey(
+        'ajapaik_face_recognition.FaceRecognitionRectangleSubjectDataSuggestion', null=True, blank=True,
+        on_delete=CASCADE)
+    subject_confirmation = ForeignKey('ajapaik_face_recognition.FaceRecognitionUserSuggestion', null=True, blank=True,
+                                      on_delete=CASCADE)
     image_similarity_confirmation = ForeignKey('ImageSimilaritySuggestion', null=True, blank=True, on_delete=CASCADE)
     points = IntegerField(default=0)
     created = DateTimeField(db_index=True)
@@ -1210,10 +1269,13 @@ class Points(Model):
     class Meta:
         db_table = 'project_points'
         verbose_name_plural = 'Points'
-        unique_together = (('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'),('user', 'subject_confirmation'),('user', 'image_similarity_confirmation'))
+        unique_together = (
+            ('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'), ('user', 'subject_confirmation'),
+            ('user', 'image_similarity_confirmation'))
 
     def __unicode__(self):
         return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
+
 
 class Transcription(Model):
     text = CharField(max_length=5000, null=True, blank=True)
@@ -1222,10 +1284,12 @@ class Transcription(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
+
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
     user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
     transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name='transcription')
+
 
 class GeoTag(Model):
     MAP, EXIF, GPS, CONFIRMATION, STREETVIEW, SOURCE_GEOTAG, ANDROIDAPP = range(7)
@@ -1364,7 +1428,7 @@ class Profile(Model):
         return self.user_id
 
     def is_legit(self):
-        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all() ):
+        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all()):
             return True
 
         return False
@@ -1382,7 +1446,7 @@ class Profile(Model):
         elif self.google_plus_email:
             try:
                 return self.google_plus_email.split('@')[0]
-            except:
+            except:  # noqa
                 return _('Anonymous user')
         else:
             return _('Anonymous user')
@@ -1417,7 +1481,8 @@ class Profile(Model):
                     rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user and self.user and oldest_rephoto.user.id == self.user.id
+            oldest_rephoto_is_from_this_user = oldest_rephoto.user and self.user \
+                                               and oldest_rephoto.user.id == self.user.id
             user_first_bonus_earned = False
             if oldest_rephoto_is_from_this_user:
                 user_first_bonus_earned = True
@@ -1464,12 +1529,13 @@ class Profile(Model):
             if p.points:
                 all_time_score += p.points
         self.score = all_time_score
-    
+
     def get_preferred_language(self):
         if not self.preferred_language:
             return settings.LANGUAGES[0][0]
         else:
             return self.preferred_language
+
 
 class Source(Model):
     name = CharField(max_length=255)
@@ -1483,6 +1549,7 @@ class Source(Model):
     class Meta:
         db_table = 'project_source'
 
+
 class ProfileMergeToken(Model):
     token = CharField(max_length=36)
     created = DateTimeField(auto_now_add=True)
@@ -1490,6 +1557,7 @@ class ProfileMergeToken(Model):
     profile = ForeignKey('Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
     source_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_from_profile', on_delete=CASCADE)
     target_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_into_profile', on_delete=CASCADE)
+
 
 class Device(Model):
     camera_make = CharField(null=True, blank=True, max_length=255)
@@ -1659,10 +1727,12 @@ class Video(Model):
     def get_absolute_url(self):
         return reverse('videoslug', args=(self.id, self.slug))
 
+
 class ProfileDisplayNameChange(Model):
     profile = ForeignKey('Profile', related_name='display_name_changes', on_delete=CASCADE)
     display_name = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
+
 
 class MyXtdComment(XtdComment):
     facebook_comment_id = CharField(max_length=255, blank=True, null=True)
@@ -1710,13 +1780,15 @@ class MyXtdComment(XtdComment):
 
     def dislike_count(self):
         return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
-    
+
+
 class WikimediaCommonsUpload(Model):
-    response_code= IntegerField(null=True, editable=False)
+    response_code = IntegerField(null=True, editable=False)
     response_data = TextField(null=True, editable=False)
     created = DateTimeField(auto_now_add=True, db_index=True)
     photo = ForeignKey('Photo', on_delete=CASCADE)
     url = URLField(null=True, blank=True, max_length=1023)
+
 
 class Suggestion(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
@@ -1724,6 +1796,7 @@ class Suggestion(Model):
 
     class Meta:
         abstract = True
+
 
 class PhotoSceneSuggestion(Suggestion):
     INTERIOR, EXTERIOR = range(2)
@@ -1734,6 +1807,7 @@ class PhotoSceneSuggestion(Suggestion):
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
 
+
 class PhotoViewpointElevationSuggestion(Suggestion):
     GROUND_LEVEL, RAISED, AERIAL = range(3)
     VIEWPOINT_ELEVATION_CHOICES = (
@@ -1741,16 +1815,21 @@ class PhotoViewpointElevationSuggestion(Suggestion):
         (RAISED, _('Raised')),
         (AERIAL, _('Aerial'))
     )
-    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions', on_delete=CASCADE)
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions',
+                          on_delete=CASCADE)
+
 
 class PhotoFlipSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
     flip = NullBooleanField()
 
+
 class PhotoInvertSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
     invert = NullBooleanField()
+
 
 class PhotoRotationSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_rotate_suggestions', on_delete=CASCADE)

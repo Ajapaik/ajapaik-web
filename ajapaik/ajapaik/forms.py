@@ -1,15 +1,14 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
+from captcha.fields import ReCaptchaField
+from dal import autocomplete
 from django import forms
 from django.conf import settings
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.utils.translation import get_language_info, ugettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
-from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.utils.translation import activate, get_language_info, ugettext_lazy as _
-from captcha.fields import ReCaptchaField
-
-from dal import autocomplete
 
 from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
                      Profile, Video)
@@ -31,6 +30,7 @@ class SignupForm(AllauthSignupForm):
         user.save()
         return user
 
+
 class APIAuthForm(forms.Form):
     _s = forms.CharField(max_length=255)
     _u = forms.IntegerField()
@@ -46,8 +46,8 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_WIKIMEDIA_COMMONS = 'wikimedia-commons'
     LOGIN_TYPES = [
         (LOGIN_TYPE_AUTO, 'Auto'),  # Create and login new user if not found.
-                                    # This deprecated behaviour before
-                                    # django-allauth integration.
+        # This deprecated behaviour before
+        # django-allauth integration.
         (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
         (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
@@ -69,6 +69,7 @@ class APILoginForm(forms.Form):
         required=False,
         initial=OS_TYPE_ANDROID
     )
+
 
 class APIRegisterForm(forms.Form):
     REGISTRATION_TYPE_AJAPAIK = 'ajapaik'
@@ -99,6 +100,7 @@ class APIRegisterForm(forms.Form):
         initial=OS_TYPE_ANDROID
     )
 
+
 # TODO: Make forms for everything, there's too much individual POST variable checking
 class AreaSelectionForm(forms.Form):
     area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), )
@@ -119,6 +121,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     backsides = forms.BooleanField(initial=False, required=False)
     collections = forms.BooleanField(initial=False, required=False)
 
+
 class GalleryFilteringForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
@@ -128,7 +131,9 @@ class GalleryFilteringForm(forms.Form):
                                required=False)
     order2 = forms.ChoiceField(
         choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills'),('transcriptions','transcriptions'),('annotations','annotations'),('similar_photos','similar_photos')],
+                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills'),
+                 ('transcriptions', 'transcriptions'), ('annotations', 'annotations'),
+                 ('similar_photos', 'similar_photos')],
         initial='added',
         required=False)
     order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
@@ -396,8 +401,8 @@ class VideoStillCaptureForm(forms.Form):
 
 class UserPhotoUploadForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(UserPhotoUploadForm,self ).__init__(*args,**kwargs)
-        self.fields['licence'].queryset = Licence.objects.filter(is_public=True) 
+        super(UserPhotoUploadForm, self).__init__(*args, **kwargs)
+        self.fields['licence'].queryset = Licence.objects.filter(is_public=True)
 
     class Meta:
         model = Photo
@@ -413,10 +418,12 @@ class UserPhotoUploadForm(forms.ModelForm):
             'image': _('Accepted formats are .png or .jpg files'),
             'description': _('Add a short description of the picture'),
             'author': _('Author of the picture (photographer, painter)'),
-            'licence': _('Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then.')
+            'licence': _(
+                'Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then.')
         }
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 1, 'cols': 40, 'placeholder': _('Description of the picture')}),
+            'description': forms.Textarea(
+                attrs={'rows': 1, 'cols': 40, 'placeholder': _('Description of the picture')}),
             'author': forms.TextInput(attrs={'placeholder': _('Author name')}),
         }
 
@@ -455,8 +462,8 @@ class UserPhotoUploadAddAlbumForm(forms.ModelForm):
         self.fields['is_public'].label = _('Is public')
         self.fields['open'].label = _('Is open')
 
-class UserSettingsForm(forms.ModelForm):
 
+class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('preferred_language', 'newsletter_consent')
@@ -471,7 +478,7 @@ class UserSettingsForm(forms.ModelForm):
         }
         widgets = {
             'preferred_language': forms.Select(choices=translated_languages),
-            'newsletter_consent': forms.Select(choices=[(True, _('Yes')),(False, _('No'))]),
+            'newsletter_consent': forms.Select(choices=[(True, _('Yes')), (False, _('No'))]),
         }
 
     def clean(self):
@@ -481,22 +488,24 @@ class UserSettingsForm(forms.ModelForm):
         if self.cleaned_data.get('newsletter_consent') is None:
             self.errors['newsletter_consent'] = [_('Please specify whether you would like to receive the newsletter')]
 
-class RephotoUploadSettingsForm(forms.ModelForm):
 
+class RephotoUploadSettingsForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('wikimedia_commons_rephoto_upload_consent', )
+        fields = ('wikimedia_commons_rephoto_upload_consent',)
         labels = {
             'wikimedia_commons_rephoto_upload_consent': _('I wish to to upload my rephotos to Wikimedia Commons')
         }
         widgets = {
-            'wikimedia_commons_rephoto_upload_consent': forms.Select(choices=[(True, _('Yes')),(False, _('No'))])
+            'wikimedia_commons_rephoto_upload_consent': forms.Select(choices=[(True, _('Yes')), (False, _('No'))])
         }
 
     def clean(self):
         super(RephotoUploadSettingsForm, self).clean()
         if self.cleaned_data.get('wikimedia_commons_rephoto_upload_consent') is None:
-            self.errors['wikimedia_commons_rephoto_upload_consent'] = [_('Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well')]
+            self.errors['wikimedia_commons_rephoto_upload_consent'] = [
+                _('Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well')]
+
 
 class ChangeDisplayNameForm(forms.Form):
     display_name = forms.CharField()
@@ -505,6 +514,7 @@ class ChangeDisplayNameForm(forms.Form):
         super(ChangeDisplayNameForm, self).clean()
         if self.cleaned_data.get('display_name') is None:
             self.errors['display_name'] = [_('Please specify what would you like your display name to be')]
+
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
     albums = forms.ModelChoiceField(
@@ -568,6 +578,7 @@ class EditCommentForm(forms.Form):
 class ApiFetchFinnaPhoto(forms.Form):
     id = forms.CharField(max_length=255)
 
+
 class ApiToggleFavoritePhotoForm(forms.Form):
     id = forms.CharField(max_length=255)
     favorited = forms.BooleanField(required=False)
@@ -586,6 +597,7 @@ class ApiPhotoSearchForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
+
 class ApiPhotoInAlbumSearchForm(forms.Form):
     query = forms.CharField(required=False)
     albumId = forms.ModelChoiceField(queryset=Album.objects.all())
@@ -593,10 +605,12 @@ class ApiPhotoInAlbumSearchForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
+
 class ApiUserRephotoSearchForm(forms.Form):
     query = forms.CharField(required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
+
 
 class ApiUserRephotosForm(forms.Form):
     start = forms.IntegerField(required=False)
@@ -604,8 +618,10 @@ class ApiUserRephotosForm(forms.Form):
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
 
+
 class ApiAlbumSearchForm(forms.Form):
     query = forms.CharField(required=False)
+
 
 class ApiWikidocsAlbumsSearchForm(forms.Form):
     query = forms.CharField(required=False)
@@ -614,6 +630,7 @@ class ApiWikidocsAlbumsSearchForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
+
 
 class ApiWikidocsAlbumSearchForm(forms.Form):
     query = forms.CharField(required=False)

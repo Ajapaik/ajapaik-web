@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
+
 from ajapaik.ajapaik.models import ImageSimilarity, Photo
+
 
 class Command(BaseCommand):
     help = "Set has similar flag for all photos"
@@ -19,4 +21,4 @@ class Command(BaseCommand):
                         photo.has_similar = False
                 photo.save()
             except IndexError:
-                photo_id = None
+                pass

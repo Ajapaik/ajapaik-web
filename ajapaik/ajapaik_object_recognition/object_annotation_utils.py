@@ -1,4 +1,5 @@
 import json
+
 from django.http import QueryDict
 from django.utils import timezone
 
@@ -66,9 +67,8 @@ def is_face_annotation_editable(user_id: int, annotation: FaceRecognitionRectang
     is_without_name = annotation.get_subject_name() is None
     is_created_by_system = created_by is None
 
-    return is_without_name or \
-           is_created_by_system and is_annotation_editable_time_wise(created_on) or \
-           is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
+    return is_without_name or is_created_by_system and is_annotation_editable_time_wise(
+        created_on) or is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
 
 
 def is_annotation_editable_for_user(user_id: int, created_on, created_by_id):

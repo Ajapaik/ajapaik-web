@@ -1,5 +1,6 @@
 from typing import Optional
 
+
 class AddAdditionalSubjectData:
     gender = None
     age = None

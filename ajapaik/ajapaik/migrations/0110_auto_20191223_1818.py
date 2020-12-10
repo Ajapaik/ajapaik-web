@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0109_auto_20191218_2247'),
     ]
@@ -23,11 +21,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'), (3, 'Photo curation'), (4, 'Photo re-curation'), (5, 'Dating'), (6, 'Dating confirmation'), (7, 'Film still'), (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity'), (11, 'Guess subject age'), (12, 'Guess subject age'), (13, 'Transcribe')], db_index=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'), (3, 'Photo curation'),
+                         (4, 'Photo re-curation'), (5, 'Dating'), (6, 'Dating confirmation'), (7, 'Film still'),
+                         (8, 'Annotation'), (9, 'Confirm subject'), (10, 'Confirm Image similarity'),
+                         (11, 'Guess subject age'), (12, 'Guess subject age'), (13, 'Transcribe')], db_index=True),
         ),
         migrations.AddField(
             model_name='points',
             name='transcription',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, to='ajapaik.Transcription'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE,
+                                    to='ajapaik.Transcription'),
         ),
     ]

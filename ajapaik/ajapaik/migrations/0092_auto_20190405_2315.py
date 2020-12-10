@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0091_migrate_old_users_to_allauth'),
     ]
@@ -33,7 +32,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='confirmed_similar_photos',
-            field=models.ManyToManyField(blank=True, related_name='_photo_confirmed_similar_photos_+', to='ajapaik.Photo'),
+            field=models.ManyToManyField(blank=True, related_name='_photo_confirmed_similar_photos_+',
+                                         to='ajapaik.Photo'),
         ),
         migrations.AddField(
             model_name='photo',

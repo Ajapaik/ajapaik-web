@@ -6,7 +6,8 @@ from ajapaik.ajapaik.models import Profile
 
 
 class Command(BaseCommand):
-    help = 'Find and delete profiles/users that have no data attached (just people who have arrived at the page and never done anything)'
+    help = 'Find and delete profiles/users that have no data attached (just people who have arrived ' \
+           'at the page and never done anything)'
 
     def handle(self, *args, **options):
         profiles = Profile.objects.filter(
@@ -53,7 +54,7 @@ class Command(BaseCommand):
             for each in profiles_slice:
                 try:
                     each.user.delete()
-                except:
+                except:  # noqa
                     each.deletion_attempted = datetime.datetime.now()
                     each.save()
             start += 10000

@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0095_auto_20190425_1742'),
     ]
@@ -18,9 +16,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('confirmed', models.BooleanField()),
-                ('from_photo', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='from_photo', to='ajapaik.Photo')),
-                ('to_photo', models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='to_photo', to='ajapaik.Photo')),
-                ('similarity_type', models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Duplicate'), (1, 'Similar')], null=True)),
+                ('from_photo',
+                 models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='from_photo', to='ajapaik.Photo')),
+                ('to_photo',
+                 models.ForeignKey(on_delete=models.deletion.CASCADE, related_name='to_photo', to='ajapaik.Photo')),
+                ('similarity_type',
+                 models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Duplicate'), (1, 'Similar')], null=True)),
             ],
         ),
     ]

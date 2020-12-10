@@ -6,6 +6,8 @@ from ajapaik.ajapaik.models import Photo, Album
 class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(document=True, use_template=True)
     description_et = indexes.CharField(model_attr='description_et', null=True)
+    description_lv = indexes.CharField(model_attr='description_lv', null=True)
+    description_lt = indexes.CharField(model_attr='description_lt', null=True)
     description_fi = indexes.CharField(model_attr='description_fi', null=True)
     description_sv = indexes.CharField(model_attr='description_sv', null=True)
     description_nl = indexes.CharField(model_attr='description_nl', null=True)
@@ -25,9 +27,12 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         return self.get_model().objects.all()
 
+
 class AlbumIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(document=True, use_template=True)
     name_et = indexes.CharField(model_attr='name_et', null=True)
+    name_lv = indexes.CharField(model_attr='name_lv', null=True)
+    name_lt = indexes.CharField(model_attr='name_lt', null=True)
     name_fi = indexes.CharField(model_attr='name_fi', null=True)
     name_sv = indexes.CharField(model_attr='name_sv', null=True)
     name_nl = indexes.CharField(model_attr='name_nl', null=True)

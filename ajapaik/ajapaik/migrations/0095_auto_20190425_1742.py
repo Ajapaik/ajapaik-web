@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0094_merge_20190424_0635'),
     ]
@@ -20,6 +19,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='geotag',
             name='type',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'), (3, 'Kinnitus'), (4, 'StreetView'), (5, 'Allika geotääg'), (6, 'Android rakendus')], default=0),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Kaart'), (1, 'EXIF'), (2, 'GPS'), (3, 'Kinnitus'), (4, 'StreetView'),
+                         (5, 'Allika geotääg'), (6, 'Android rakendus')], default=0),
         ),
     ]

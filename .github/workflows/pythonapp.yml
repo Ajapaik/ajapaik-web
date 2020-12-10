@@ -1,0 +1,39 @@
+name: Python application
+
+on: [ push ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Install apt dependencies
+        run: sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools libsqlite3-mod-spatialite
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        env:
+          CPLUS_INCLUDE_PATH: /usr/include/gdal/
+          C_INCLUDE_PATH: /usr/include/gdal/
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements-test.txt
+      - name: Lint with flake8
+        run: |
+          pip3 install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          python3 -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          python3 -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Generate coverage report
+        run: |
+          pip3 install pytest-cov
+          python3 -m pytest --cov=./ --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true

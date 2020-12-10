@@ -1,13 +1,13 @@
 import json
 
+from django.contrib.gis.db.models import DateTimeField, ImageField
 from django.db import models
 from django.db.models import CASCADE
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.contrib.gis.db.models import DateTimeField, ImageField
-from ajapaik.utils import most_frequent
 
 from ajapaik.ajapaik.models import Album, Photo, Points, Profile
+from ajapaik.utils import most_frequent
 
 CHILD, ADULT, ELDERLY, UNKNOWN, NOT_APPLICABLE = range(5)
 AGE = (
@@ -25,6 +25,7 @@ GENDER = (
     (NOT_APPLICABLE, _('Not Applicable'))
 )
 
+
 class FaceRecognitionRectangle(models.Model):
     USER, ALGORITHM, PICASA = range(3)
     ORIGIN_CHOICES = (
@@ -38,9 +39,10 @@ class FaceRecognitionRectangle(models.Model):
     subject_consensus = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
                                           related_name='face_recognition_crowdsourced_rectangles')
     subject_ai_suggestion = models.ForeignKey(Album, null=True, blank=True, on_delete=CASCADE,
-                                         related_name='face_recognition_ai_detected_rectangles')
+                                              related_name='face_recognition_ai_detected_rectangles')
     # If no user is attached, means OpenCV detected it
-    user = models.ForeignKey(Profile, blank=True, null=True, on_delete=CASCADE, related_name='face_recognition_rectangles')
+    user = models.ForeignKey(Profile, blank=True, null=True, on_delete=CASCADE,
+                             related_name='face_recognition_rectangles')
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
     gender = models.PositiveSmallIntegerField(choices=GENDER, blank=True, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, blank=True, null=True)
@@ -75,7 +77,8 @@ class FaceRecognitionRectangle(models.Model):
         return subject_album
 
     def add_subject_data(self, profile, age, gender):
-        last_suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(face_recognition_rectangle = self).order_by('proposer_id', '-created').all().distinct('proposer_id')
+        last_suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(
+            face_recognition_rectangle=self).order_by('proposer_id', '-created').all().distinct('proposer_id')
         last_suggestion_by_current_user = last_suggestions.filter(proposer_id=profile.id).first()
         last_suggestions_by_other_users = last_suggestions.exclude(proposer_id=profile.id)
         if gender == 'SKIP':
@@ -98,7 +101,8 @@ class FaceRecognitionRectangle(models.Model):
             age = 3
         if age == 'NOT_APPLICABLE':
             age = 4
-        new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle = self, proposer = profile, gender = gender, age = age)
+        new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=self,
+                                                                       proposer=profile, gender=gender, age=age)
         new_suggestion.save()
         self.photo.latest_annotation = new_suggestion.created
         self.photo.light_save()
@@ -107,9 +111,9 @@ class FaceRecognitionRectangle(models.Model):
             age_suggestions = []
             gender_suggestions = []
             for suggestion in last_suggestions_by_other_users:
-                if(suggestion.age != None and suggestion.age != 4):
+                if suggestion.age and suggestion.age != 4:
                     age_suggestions.append(suggestion.age)
-                if(suggestion.gender != None and suggestion.gender != 3):
+                if suggestion.gender and suggestion.gender != 3:
                     gender_suggestions.append(suggestion.age)
             if len(age_suggestions) > 0:
                 self.age = most_frequent(age_suggestions)
@@ -124,36 +128,39 @@ class FaceRecognitionRectangle(models.Model):
             self.gender = gender
         self.save()
         points = 0
-        if(last_suggestion_by_current_user is None and int(age) < 3):
+        if (last_suggestion_by_current_user is None and int(age) < 3):
             age_suggestion_points = 20
             Points(
                 action=Points.SUGGESTION_SUBJECT_AGE,
-                annotation = self,
+                annotation=self,
                 created=timezone.now(),
-                face_recognition_rectangle_subject_data_suggestion = new_suggestion,
+                face_recognition_rectangle_subject_data_suggestion=new_suggestion,
                 points=age_suggestion_points,
                 user=profile
             ).save()
             points += age_suggestion_points
-        if(last_suggestion_by_current_user is None and gender is not None and int(gender) < 2):
+        if (last_suggestion_by_current_user is None and gender is not None and int(gender) < 2):
             gender_suggestion_points = 20
             Points(
                 action=Points.SUGGESTION_SUBJECT_GENDER,
-                annotation = self,
+                annotation=self,
                 created=timezone.now(),
-                face_recognition_rectangle_subject_data_suggestion = new_suggestion,
+                face_recognition_rectangle_subject_data_suggestion=new_suggestion,
                 points=gender_suggestion_points,
                 user=profile
             ).save()
             points += gender_suggestion_points
         return points
 
+
 class FaceRecognitionRectangleSubjectDataSuggestion(models.Model):
-    face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_rectangle')
+    face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE,
+                                                   related_name='face_recognition_rectangle')
     proposer = models.ForeignKey(Profile, on_delete=CASCADE, related_name='subject_data_proposer')
     gender = models.PositiveSmallIntegerField(choices=GENDER, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
+
 
 class FaceRecognitionRectangleFeedback(models.Model):
     rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='feedback')
@@ -191,9 +198,11 @@ class FaceRecognitionUserSuggestion(models.Model):
     )
 
     subject_album = models.ForeignKey(Album, on_delete=CASCADE, related_name='face_recognition_suggestions')
-    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='face_recognition_suggestions')
+    rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE,
+                                  related_name='face_recognition_suggestions')
     # Empty user means OpenCV recognized the face automatically
-    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_suggestions', blank=True, null=True)
+    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_suggestions', blank=True,
+                             null=True)
     origin = models.PositiveSmallIntegerField(choices=ORIGIN_CHOICES, default=ALGORITHM)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

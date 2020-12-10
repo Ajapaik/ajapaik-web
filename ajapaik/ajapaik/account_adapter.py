@@ -1,6 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from django.utils.http import is_safe_url
 from django.conf import settings
+from django.utils.http import is_safe_url
+
 
 class safeUrlAdapter(DefaultAccountAdapter):
     def is_safe_url(self, url):

@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0098_auto_20190511_0044'),
     ]
@@ -85,27 +84,35 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dating',
             name='end_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')],
+                                                   null=True),
         ),
         migrations.AlterField(
             model_name='dating',
             name='start_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')], null=True),
+            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year')],
+                                                   null=True),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='map_type',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Google map'), (1, 'Google satellite'), (2, 'OpenStreetMap'), (3, 'Juks'), (4, 'No map')], default=0),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Google map'), (1, 'Google satellite'), (2, 'OpenStreetMap'), (3, 'Juks'), (4, 'No map')],
+                default=0),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='origin',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Game'), (1, 'Map view'), (2, 'Gallery'), (3, 'Permalink'), (4, 'Source'), (5, 'Rephoto')], default=0),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Game'), (1, 'Map view'), (2, 'Gallery'), (3, 'Permalink'), (4, 'Source'), (5, 'Rephoto')],
+                default=0),
         ),
         migrations.AlterField(
             model_name='geotag',
             name='type',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Map'), (1, 'EXIF'), (2, 'GPS'), (3, 'Confirmation'), (4, 'StreetView'), (5, 'Source geotag'), (6, 'Android app')], default=0),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Map'), (1, 'EXIF'), (2, 'GPS'), (3, 'Confirmation'), (4, 'StreetView'),
+                         (5, 'Source geotag'), (6, 'Android app')], default=0),
         ),
         migrations.AlterField(
             model_name='photo',
@@ -160,11 +167,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='photo',
             name='image',
-            field=models.ImageField(blank=True, height_field='height', max_length=255, null=True, upload_to='uploads', verbose_name='Image', width_field='width'),
+            field=models.ImageField(blank=True, height_field='height', max_length=255, null=True, upload_to='uploads',
+                                    verbose_name='Image', width_field='width'),
         ),
         migrations.AlterField(
             model_name='points',
             name='action',
-            field=models.PositiveSmallIntegerField(choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'), (3, 'Photo curation'), (4, 'Photo re-curation'), (5, 'Dating'), (6, 'Dating confirmation'), (7, 'Film still')], db_index=True),
+            field=models.PositiveSmallIntegerField(
+                choices=[(0, 'Geotag'), (1, 'Rephoto'), (2, 'Photo upload'), (3, 'Photo curation'),
+                         (4, 'Photo re-curation'), (5, 'Dating'), (6, 'Dating confirmation'), (7, 'Film still')],
+                db_index=True),
         ),
     ]

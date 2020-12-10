@@ -18,23 +18,19 @@ def migrate_users(apps, schema_editor):
 
     print('')
 
-    ############################################################################
-    ### Moving contribution data from duplicating social users to email
-    ### registered user.
-    ############################################################################
+    # Moving contribution data from duplicating social users to email
+    # registered user.
+
     # Users registered with email. Users which have email but haven't google or
     # Facebook id.
-    email_users = User.objects \
-        .filter(
-            Q(email__ne='')
-            & (Q(profile__google_plus_id__isnull=True) 
-               | Q(profile__google_plus_id=None)
-               | Q(profile__google_plus_id=''))
-            & (Q(profile__fb_id__isnull=True)
-               | Q(profile__fb_id='')
-               | Q(profile__fb_email=None))
-        ) \
-        .select_related('registrationprofile')
+    email_users = User.objects.filter(Q(email__ne='')
+                                      & (Q(profile__google_plus_id__isnull=True)
+                                         | Q(profile__google_plus_id=None)
+                                         | Q(profile__google_plus_id=''))
+                                      & (Q(profile__fb_id__isnull=True)
+                                         | Q(profile__fb_id='')
+                                         | Q(profile__fb_email=None))
+                                      ).select_related('registrationprofile')
 
     for email_user in email_users:
         verified = True
@@ -54,10 +50,7 @@ def migrate_users(apps, schema_editor):
             # We have already such email. Skipping ...
             print('We have already {} email. Skipping ...'.format(email_user.email))
 
-
-    ############################################################################
-    ### Creating Facebook social acconts.
-    ############################################################################
+    # Creating Facebook social acconts.
     facebook_profiles = Profile.objects \
         .filter(fb_id__isnull=False, fb_id__ne='') \
         .prefetch_related('user')
@@ -83,10 +76,7 @@ def migrate_users(apps, schema_editor):
         if not profile.user.last_name and profile.last_name:
             profile.user.last_name = profile.last_name
 
-
-    ############################################################################
-    ### Creating Google social acconts.
-    ############################################################################
+    # Creating Google social accounts
     google_profiles = Profile.objects \
         .filter(google_plus_id__isnull=False, google_plus_id__ne='') \
         .prefetch_related('user')
@@ -114,7 +104,6 @@ def migrate_users(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ajapaik', '0090_auto_20190306_1556'),
         ('registration', '0004_supervisedregistrationprofile'),
@@ -125,4 +114,4 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(migrate_users),
-]
+    ]
