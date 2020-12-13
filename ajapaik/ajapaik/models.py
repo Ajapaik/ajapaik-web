@@ -342,18 +342,19 @@ class Album(Model):
                 translation_source = key
                 original_languages.append(each)
         self.name_original_language = ','.join(original_languages)
-        for each in settings.TARTUNLP_LANGUAGES:
-            key = f'name_{each}'
-            current_value = getattr(self, key)
-            if not current_value:
-                response = requests.get(settings.TARTUNLP_API_URL, params={
-                    'src': getattr(self, translation_source),
-                    'auth': 'public',
-                    'conf': f'{each},auto'
-                }).json()
-                setattr(self, key, response['tgt'])
+        if translation_source:
+            for each in settings.TARTUNLP_LANGUAGES:
+                key = f'name_{each}'
+                current_value = getattr(self, key)
+                if not current_value:
+                    response = requests.get(settings.TARTUNLP_API_URL, params={
+                        'src': getattr(self, translation_source),
+                        'auth': 'public',
+                        'conf': f'{each},auto'
+                    }).json()
+                    setattr(self, key, response['tgt'])
 
-        self.light_save()
+            self.light_save()
 
 
 class Photo(Model):
@@ -986,18 +987,19 @@ class Photo(Model):
                 translation_source = key
                 original_languages.append(each)
         self.description_original_language = ','.join(original_languages)
-        for each in settings.TARTUNLP_LANGUAGES:
-            key = f'description_{each}'
-            current_value = getattr(self, key)
-            if not current_value:
-                response = requests.get(settings.TARTUNLP_API_URL, params={
-                    'src': getattr(self, translation_source),
-                    'auth': 'public',
-                    'conf': f'{each},auto'
-                }).json()
-                setattr(self, key, response['tgt'])
+        if translation_source:
+            for each in settings.TARTUNLP_LANGUAGES:
+                key = f'description_{each}'
+                current_value = getattr(self, key)
+                if not current_value:
+                    response = requests.get(settings.TARTUNLP_API_URL, params={
+                        'src': getattr(self, translation_source),
+                        'auth': 'public',
+                        'conf': f'{each},auto'
+                    }).json()
+                    setattr(self, key, response['tgt'])
 
-        self.light_save()
+            self.light_save()
 
     # TODO: Cut down on the science library use
     def set_calculated_fields(self):
