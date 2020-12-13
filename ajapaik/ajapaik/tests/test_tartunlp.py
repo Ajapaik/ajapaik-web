@@ -27,7 +27,7 @@ def test_photos_tartunlp_translation():
     assert 'театрический' in getattr(test_instance, 'description_ru')
     assert 'Theaterhaus' in getattr(test_instance, 'description_de')
     assert 'Viro' in getattr(test_instance, 'description_fi')
-    assert 'et' == getattr(test_instance, 'description_original_language')
+    assert 'et,fi' == getattr(test_instance, 'description_original_language')
 
 
 @pytest.mark.django_db
@@ -52,4 +52,4 @@ def test_albums_tartunlp_translation():
     assert 'Парижа' in getattr(test_instance, 'name_ru')
     assert 'Frankreich' in getattr(test_instance, 'name_de')
     assert 'Pariisista' in getattr(test_instance, 'name_fi')
-    assert 'et' == getattr(test_instance, 'name_original_language')
+    assert 'et,de' == getattr(test_instance, 'name_original_language')

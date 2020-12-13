@@ -335,12 +335,13 @@ class Album(Model):
     def fill_untranslated_fields(self):
         # Find filled field to base translation off
         translation_source = None
+        original_languages = []
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'name_{each}'
             if getattr(self, key):
                 translation_source = key
-                self.name_original_language = each
-                break
+                original_languages.append(each)
+        self.name_original_language = ','.join(original_languages)
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'name_{each}'
             current_value = getattr(self, key)
@@ -978,12 +979,13 @@ class Photo(Model):
     def fill_untranslated_fields(self):
         # Find filled field to base translation off
         translation_source = None
+        original_languages = []
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'
             if getattr(self, key):
                 translation_source = key
-                self.description_original_language = each
-                break
+                original_languages.append(each)
+        self.description_original_language = ','.join(original_languages)
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'
             current_value = getattr(self, key)
