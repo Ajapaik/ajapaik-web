@@ -5,17 +5,18 @@ ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
 RUN apt-get update && \
-    apt-get install -y --fix-missing cmake build-essential gfortran git wget curl graphicsmagick \
-    libgraphicsmagick1-dev libatlas-dev libavcodec-dev libavformat-dev libgtk2.0-dev libjpeg-dev liblapack-dev \
-    libswscale-dev pkg-config python3-dev python3-numpy software-properties-common zip libsqlite3-mod-spatialite
+    apt-get install -y libsqlite3-mod-spatialite gdal-bin libgdal-dev python3-gdal proj-bin libproj-dev
+
+ENV CPLUS_INCLUDE_PATH /usr/include/gdal/
+ENV C_INCLUDE_PATH /usr/include/gdal/
 
 WORKDIR /home/docker/ajapaik
 
 COPY requirements.txt .
 
-RUN pip wheel --wheel-dir=./wheels/ uwsgi
-
-RUN pip wheel --wheel-dir=./wheels/ -r requirements.txt
+RUN pip3 install --upgrade pip && \
+    pip3 wheel --wheel-dir=./wheels/ uwsgi && \
+    pip3 wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
 FROM python:3.6-slim AS deployer
@@ -24,8 +25,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends uwsgi nano telnet python-opencv binutils libproj-dev \
-    gdal-bin libglib2.0-0 libsm6 libxrender-dev gettext procps && \
+    apt-get install -y --no-install-recommends uwsgi python-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
+    libxrender-dev gettext procps libgdal-dev && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/docker/ajapaik
@@ -34,7 +35,7 @@ COPY --from=builder /home/docker/ajapaik/wheels ./wheels
 
 COPY requirements.txt wsgi.py manage.py ./
 
-RUN pip install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels
+RUN pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels
 
 COPY ajapaik ./ajapaik
 

@@ -211,6 +211,7 @@ class Album(Model):
     similar_photo_count_with_subalbums = IntegerField(default=0)
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
     source = ForeignKey('Source', null=True, blank=True, on_delete=CASCADE)
+    name_original_language = CharField(_('Name original language'), max_length=2, blank=True, null=True)
 
     original_lat = None
     original_lon = None
@@ -338,6 +339,7 @@ class Album(Model):
             key = f'name_{each}'
             if getattr(self, key):
                 translation_source = key
+                self.name_original_language = each
                 break
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'name_{each}'
@@ -461,6 +463,7 @@ class Photo(Model):
     )
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
                                                     blank=True, null=True)
+    description_original_language = CharField(_('Description original language'), max_length=2, blank=True, null=True)
 
     original_lat = None
     original_lon = None
@@ -979,6 +982,7 @@ class Photo(Model):
             key = f'description_{each}'
             if getattr(self, key):
                 translation_source = key
+                self.description_original_language = each
                 break
         for each in settings.TARTUNLP_LANGUAGES:
             key = f'description_{each}'

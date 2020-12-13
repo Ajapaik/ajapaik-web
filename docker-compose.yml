@@ -43,5 +43,3 @@ services:
       - ./:/home/docker/ajapaik
       # TODO: figure out how to mount local.py and client_secrets.json, maybe have env variables in local.py and
       # do a sed replace on client_secrets?
-
-# TODO: pod that runs periodic tasks? (Celery)
