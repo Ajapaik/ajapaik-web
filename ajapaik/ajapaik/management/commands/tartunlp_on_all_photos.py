@@ -23,10 +23,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         batch_size = options['number_of_photos'][0]
         if batch_size:
-            photos = Photo.objects.exclude(description_et__isnull=False, description_lv__isnull=False,
-                                           description_lt__isnull=False, description_fi__isnull=False,
-                                           description_ru__isnull=False, description_de__isnull=False,
-                                           description_en__isnull=False).filter(
+            photos = Photo.objects.exclude(description_et__isnull=True, description_lv__isnull=True,
+                                           description_lt__isnull=True, description_fi__isnull=True,
+                                           description_ru__isnull=True, description_de__isnull=True,
+                                           description_en__isnull=True).exclude(description_et__isnull=False,
+                                                                                description_lv__isnull=False,
+                                                                                description_lt__isnull=False,
+                                                                                description_fi__isnull=False,
+                                                                                description_ru__isnull=False,
+                                                                                description_de__isnull=False,
+                                                                                description_en__isnull=False).filter(
                 Q(description_et__isnull=False)
                 | Q(description_lv__isnull=False)
                 | Q(description_lt__isnull=False)
