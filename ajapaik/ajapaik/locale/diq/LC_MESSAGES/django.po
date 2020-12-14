@@ -14,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2020-12-14 14:01:27+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,11 +40,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Expired token"
-msgstr ""
+msgstr "Jetono qediyaye"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Invalid token"
-msgstr ""
+msgstr "Jetono nêvêrde"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Missing parameter photo_ids"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:92
 msgid "No photo with id:"
-msgstr ""
+msgstr "Be na kamiye ra fotraf çıniyo:"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "Parameter photo_id must be an positive integer"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:99
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Transkripsiyon bi cı, sıpas!"
 
 #: ajapaik/ajapaik/api.py:100
 msgid "Transcription feedback added, thank you!"
@@ -176,7 +176,7 @@ msgstr "Seralbum weçinê"
 
 #: ajapaik/ajapaik/forms.py:406
 msgid "Picture file"
-msgstr ""
+msgstr "Dosyaya resımi"
 
 #: ajapaik/ajapaik/forms.py:407 ajapaik/ajapaik/forms.py:454
 #: ajapaik/ajapaik/models.py:180 ajapaik/ajapaik/models.py:351
@@ -215,11 +215,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
-msgstr ""
+msgstr "Şınasiya resımi"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author name"
-msgstr ""
+msgstr "Nameyê nuştekari"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Missing image"
@@ -276,7 +276,7 @@ msgstr "Akerdeyo"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "My preferred language is"
-msgstr ""
+msgstr "Zıwano ke ez tercih kenan"
 
 #: ajapaik/ajapaik/forms.py:470
 msgid "I wish to receive the newsletter"
@@ -352,31 +352,31 @@ msgstr "Resım"
 
 #: ajapaik/ajapaik/models.py:427 ajapaik/ajapaik/models.py:1731
 msgid "Interior"
-msgstr ""
+msgstr "Miyan"
 
 #: ajapaik/ajapaik/models.py:428 ajapaik/ajapaik/models.py:1732
 msgid "Exterior"
-msgstr ""
+msgstr "Teber"
 
 #: ajapaik/ajapaik/models.py:430 ajapaik/ajapaik/models.py:1734
 msgid "Scene"
-msgstr ""
+msgstr "Sehne"
 
 #: ajapaik/ajapaik/models.py:433 ajapaik/ajapaik/models.py:1740
 msgid "Ground"
-msgstr ""
+msgstr "Zemin"
 
 #: ajapaik/ajapaik/models.py:434 ajapaik/ajapaik/models.py:1741
 msgid "Raised"
-msgstr ""
+msgstr "Kerd berz"
 
 #: ajapaik/ajapaik/models.py:435 ajapaik/ajapaik/models.py:1742
 msgid "Aerial"
-msgstr ""
+msgstr "Hewa"
 
 #: ajapaik/ajapaik/models.py:437 ajapaik/ajapaik/models.py:1744
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Berziya vênıtışi"
 
 #: ajapaik/ajapaik/models.py:1028 ajapaik/ajapaik/models.py:1112
 msgid "Different"
@@ -445,11 +445,11 @@ msgstr "Kopyakerdış"
 
 #: ajapaik/ajapaik/models.py:1188
 msgid "Categorize scene"
-msgstr ""
+msgstr "Sehne kategorize ke"
 
 #: ajapaik/ajapaik/models.py:1189
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "Berziya vênıtışi cı ke"
 
 #: ajapaik/ajapaik/models.py:1190
 msgid "Flip photo"
@@ -457,7 +457,7 @@ msgstr "Fotografi loğ kerê"
 
 #: ajapaik/ajapaik/models.py:1191
 msgid "Invert photo"
-msgstr ""
+msgstr "Fotrafi bıçarne"
 
 #: ajapaik/ajapaik/models.py:1192
 msgid "Rotate photo"
@@ -566,7 +566,7 @@ msgstr "Fotrafo oricinal"
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
 msgid "Click to choose"
-msgstr ""
+msgstr "Weçinıtışi rê bıtıkne"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:248
@@ -638,15 +638,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 msgid "Add a geotag"
-msgstr ""
+msgstr "Etiketo coğrafi cı ke"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
-msgstr ""
+msgstr "Nê resımi tarix ke"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "Tarix"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -662,7 +662,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:32
 msgid "Annotate"
-msgstr ""
+msgstr "Şınasiye cı ke"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:35
 #: ajapaik/ajapaik/templates/_toolbox.html:50
@@ -676,15 +676,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:56
 msgid "Categorize"
-msgstr ""
+msgstr "Kategorize ke"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:60
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Nê resımi kopya ke"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "Resımi vıraze"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -853,7 +853,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Jetono xırabe"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -869,7 +869,7 @@ msgstr "Parolaya şıma nıka vuriye."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Parola eyar ke"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -879,7 +879,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Qeyd gırewteyo"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1087,7 +1087,7 @@ msgstr "Resıman bımocne"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
-msgstr ""
+msgstr "Qutiya cıgeyrayışi"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:58
 msgid "No content overlap"
@@ -1136,7 +1136,7 @@ msgstr "Album cı geyre"
 
 #: ajapaik/ajapaik/templates/core/_header.html:16
 msgid "Search photos"
-msgstr ""
+msgstr "Fotraf cı geyre"
 
 #: ajapaik/ajapaik/templates/core/_header.html:19
 msgid "Show in grid"
@@ -1146,7 +1146,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:118
 msgid "Geotag pictures"
-msgstr ""
+msgstr "Resımê etikanê coğrafiyan"
 
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
@@ -1156,11 +1156,11 @@ msgstr "Xerita de bımocne"
 #: ajapaik/ajapaik/templates/core/_header.html:44
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
-msgstr ""
+msgstr "Riyan kategorize ke"
 
 #: ajapaik/ajapaik/templates/core/_header.html:49
 msgid "Newsletters"
-msgstr ""
+msgstr "Raporê xeberan"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
 msgid "Add photos"
@@ -1168,7 +1168,7 @@ msgstr "Fotraf cı ke"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
-msgstr ""
+msgstr "Weçinıtışo nıkayên"
 
 #: ajapaik/ajapaik/templates/core/_header.html:67
 msgid "Choose language"
@@ -1176,15 +1176,15 @@ msgstr "Zıwan weçine"
 
 #: ajapaik/ajapaik/templates/core/_header.html:79
 msgid "About Ajapaik"
-msgstr ""
+msgstr "Heqa Ajapaiki de"
 
 #: ajapaik/ajapaik/templates/core/_header.html:82
 msgid "Ajapaik on Facebook"
-msgstr ""
+msgstr "Facebook de Ajapaik"
 
 #: ajapaik/ajapaik/templates/core/_header.html:88
 msgid "Profile and leaderboard"
-msgstr ""
+msgstr "Profil û rêza lideran"
 
 #: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1796
 #: ajapaik/ajapaik/views.py:1813 ajapaik/ajapaik/views.py:1849
@@ -1194,7 +1194,7 @@ msgstr "Lista lideran"
 #: ajapaik/ajapaik/templates/core/_header.html:107
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Şıma be nê nameyi ra kewtê cı"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
@@ -1202,7 +1202,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:19
 msgid "Historic photo gallery"
-msgstr ""
+msgstr "Galeriya fotrafanê tarixiyan"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
 msgid "Mapped old historic photos from the album"

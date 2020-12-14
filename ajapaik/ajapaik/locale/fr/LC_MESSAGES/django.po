@@ -25,7 +25,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-10 12:38:02+0000\n"
+"PO-Revision-Date: 2020-12-14 14:01:28+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -129,19 +129,19 @@ msgstr "Votre suggestion a été enregistrée, mais le consensus antérieur deme
 
 #: ajapaik/ajapaik/autocomplete_views.py:273
 msgid "No album found"
-msgstr "Aucun album trouvé."
+msgstr "Aucun album trouvé"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "Le cadre de délimitation doit être défini."
+msgstr "Le cadre de délimitation doit être défini"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "Le cadre de délimitation doit avoir quatre membres séparés par des virgules."
+msgstr "Le cadre de délimitation doit avoir quatre membres séparés par des virgules"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr "Les valeurs du cadre de délimitation doivent être des nombres."
+msgstr "Les valeurs du cadre de délimitation doivent être des nombres"
 
 #: ajapaik/ajapaik/forms.py:19
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -210,7 +210,7 @@ msgstr "Licence ou état du droit d’auteur"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "Accepted formats are .png or .jpg files"
-msgstr "Les formats acceptés sont les fichiers .png ou .jpg."
+msgstr "Les formats acceptés sont les fichiers .png ou .jpg"
 
 #: ajapaik/ajapaik/forms.py:414
 msgid "Add a short description of the picture"
