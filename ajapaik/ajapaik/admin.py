@@ -103,6 +103,7 @@ class PhotoAdmin(ModelAdmin):
     inlines = (AlbumPhotoInline,)
 
     form = autocomplete_form_factory(Photo)
+    search_fields = ('id','description_et','description_lv','description_lt','description_fi','description_sv','description_nl','description_de','description_ru','description_en','author','types','keywords','source__name','source_key','address')
 
 
 class SkipAdmin(ModelAdmin):
@@ -123,10 +124,12 @@ class PointsAdmin(ModelAdmin):
 
 class AlbumAdmin(ModelAdmin):
     form = autocomplete_form_factory(Album)
+    search_fields = ('id','name_et','name_lv','name_lt','name_fi','name_sv','name_nl','name_de','name_ru','name_en','description','slug')
 
 
 class SourceAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(Source)
+    search_fields = ('id','name','description')
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
@@ -139,6 +142,7 @@ class AreaAdmin(admin.ModelAdmin):
 
 class LicenceAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(Licence)
+    search_fields = ('id','name')
 
 
 class DeviceAdmin(admin.ModelAdmin):
