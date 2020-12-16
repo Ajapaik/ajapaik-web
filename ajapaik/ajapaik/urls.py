@@ -101,8 +101,6 @@ urlpatterns = [
     url(r'^curator-upload/$', views.curator_photo_upload_handler, name='curator_photo_upload_handler'),
     url(r'^public-album-create-handler/$', views.public_add_album, name='public_add_album'),
     url(r'^public-area-create-handler/$', views.public_add_area),
-    url(r'^csv-upload/$', views.csv_upload),
-    url(r'^norwegian-csv-upload/$', views.norwegian_csv_upload),
     url(r'^submit-dating/$', views.submit_dating, name='submit_dating'),
     url(r'^datings/(?P<photo_id>\d+)/$', views.get_datings, name='get_datings'),
     url(r'^donate/$', views.donate, name='donate'),

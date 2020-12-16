@@ -14,22 +14,6 @@ from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action,
     DatingConfirmation, Video, NorwegianCSVPhoto, MyXtdComment
 
 
-class CSVUploadAdmin(admin.ModelAdmin):
-    def has_change_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-    def has_add_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-
-class NorwegianCSVUploadAdmin(admin.ModelAdmin):
-    def has_change_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-    def has_add_permission(self, request, obj=None):
-        return request.user.groups.filter(name='csv_uploaders').exists()
-
-
 class AlbumPhotoInline(admin.TabularInline):
     model = AlbumPhoto
     fields = 'album',
@@ -188,8 +172,6 @@ admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
 admin.site.register(Area, AreaAdmin)
 admin.site.register(Licence, LicenceAdmin)
-admin.site.register(CSVPhoto, CSVUploadAdmin)
-admin.site.register(NorwegianCSVPhoto, NorwegianCSVUploadAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Dating, DatingAdmin)
 admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
