@@ -1,13 +1,17 @@
 # encoding: utf-8
+import csv
 import datetime
+import hashlib
 import json
 import logging
 import operator
+import os
 import re
 import shutil
 import ssl
 import sys
 import unicodedata
+
 from copy import deepcopy
 from html import unescape
 from io import StringIO
@@ -16,6 +20,7 @@ from random import choice
 from time import strftime, strptime
 from urllib.request import build_opener
 from uuid import uuid4
+from zipfile import ZipFile
 
 import cv2
 import django_comments
@@ -38,6 +43,7 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models import Sum, Q, Count, F
 from django.http import HttpResponse, JsonResponse
@@ -68,9 +74,9 @@ from ajapaik.ajapaik.curator_drivers.fotis import FotisDriver
 from ajapaik.ajapaik.curator_drivers.valimimoodul import ValimimoodulDriver
 from ajapaik.ajapaik.curator_drivers.wikimediacommons import CommonsDriver
 from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectionForm, AddAreaForm, \
-    CuratorPhotoUploadForm, GameAlbumSelectionForm, CuratorAlbumEditForm, ChangeDisplayNameForm, SubmitGeotagForm, \
-    GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, PhotoSelectionForm, \
-    SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
+    CuratorPhotoUploadForm, CsvImportForm, GameAlbumSelectionForm, CuratorAlbumEditForm, ChangeDisplayNameForm, \
+    SubmitGeotagForm, GameNextPhotoForm, GamePhotoSelectionForm, MapDataRequestForm, GalleryFilteringForm, \
+    PhotoSelectionForm, SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, UserSettingsForm, \
     EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
@@ -1622,15 +1628,19 @@ def geotag_add(request):
         # user doesn't flip, photo isn't flipped -> leave as is
         if new_geotag.photo_flipped:
             original_photo = Photo.objects.filter(id=tagged_photo.id).first()
-            flip_response, flip_suggestions, was_flip_successful, flip_points = suggest_photo_edit([], 'flip',
-                                                                                                   not original_photo.flip,
-                                                                                                   Points, 40,
-                                                                                                   Points.FLIP_PHOTO,
-                                                                                                   PhotoFlipSuggestion,
-                                                                                                   tagged_photo,
-                                                                                                   profile,
-                                                                                                   flip_response,
-                                                                                                   'do_flip')
+            flip_response, flip_suggestions, was_flip_successful, flip_points = suggest_photo_edit(
+                [],
+                'flip',
+                not original_photo.flip,
+                Points,
+                40,
+                Points.FLIP_PHOTO,
+                PhotoFlipSuggestion,
+                tagged_photo,
+                profile,
+                flip_response,
+                'do_flip'
+            )
             PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
         new_geotag.save()
         initial_lat = tagged_photo.lat
@@ -2485,6 +2495,234 @@ def update_like_state(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
+@user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
+def csv_import(request):
+    if request.method == 'GET':
+        form = CsvImportForm
+        return render(request, 'csv/csv-import.html', {'form': form})
+
+    if request.method == 'POST':
+        csv_file = request.FILES['csv_file']
+        decoded_file = csv_file.read().decode('utf-8').splitlines()
+        existing_file_list = []
+        errors = []
+        file_list = []
+        missing_album_list = []
+        missing_licence_list = []
+        not_found_list = []
+        profile = request.get_user().profile
+        skipped_list = []
+        success = None
+        unique_album_list = []
+        upload_folder = settings.MEDIA_ROOT + '/uploads/'
+        final_image_folder = 'uploads/'
+
+        if 'zip_file' in request.FILES:
+            file_obj = request.FILES['zip_file']
+            import_folder = settings.MEDIA_ROOT + '/import'
+            zip_filename = settings.MEDIA_ROOT + '/import' + str(uuid4()) + '.zip'
+
+            with default_storage.open(zip_filename, 'wb+') as destination:
+                for chunk in file_obj.chunks():
+                    destination.write(chunk)
+
+            with ZipFile(zip_filename, 'r') as zip_ref:
+                zip_ref.extractall(import_folder)
+
+            file_names = os.listdir(import_folder)
+            for name in file_names:
+                os.chmod(import_folder + '/' + name, 0o0774)
+                if not os.path.exists(upload_folder + '/' + name):
+                    shutil.move(os.path.join(import_folder, name), upload_folder)
+                else:
+                    existing_file_list.append(upload_folder + name)
+                    os.remove(import_folder + '/' + name)
+            os.remove(zip_filename)
+            os.rmdir(import_folder)
+
+        for row in csv.DictReader(decoded_file, delimiter=',', quotechar='"'):
+            file_list.append(final_image_folder + row['file'])
+
+        existing_photos = list(Photo.objects.filter(image__in=file_list).values_list('image', flat=True))
+
+        # TODO: map over row fields instead to directly set attributes of photo with setattr
+        # before doing so remove any exceptions like album, source, licence or start using only ids
+        for row in csv.DictReader(decoded_file, delimiter=',', quotechar='"'):
+            if len(existing_photos) > 0 and upload_folder + row['file'] in existing_photos:
+                skipped_list.append(row['file'])
+                continue
+            album_ids = row['album'].replace(' ', '').split(',')
+            author = None
+            keywords = None
+            geography = None
+            lat = None
+            lon = None
+            licence = None
+            source = None
+            source_url = None
+            source_key = None
+            date_text = None
+            description = None
+            description_et = None
+            description_en = None
+            description_fi = None
+            description_ru = None
+            title = None
+            types = None
+            if 'author' in row.keys():
+                author = row['author']
+            if 'keywords' in row.keys():
+                keywords = row['keywords']
+            if 'lat' in row.keys():
+                lat = row['lat']
+            if 'lon' in row.keys():
+                lon = row['lon']
+            if lat and lon:
+                geography = Point(x=lon, y=lat, srid=4326)
+            if 'licence' in row.keys():
+                licence = Licence.objects.filter(id=row['licence']).first()
+                if licence is None and not row['licence'] in missing_licence_list:
+                    missing_licence_list.append(row['licence'])
+            if 'source' in row.keys():
+                source = Source.objects.filter(id=row['source']).first()
+            if 'source_key' in row.keys():
+                source_key = source_key
+            if 'source_url' in row.keys():
+                source_url = row['source_url']
+            if 'date_text' in row.keys():
+                date_text = row['date_text']
+            if 'description' in row.keys():
+                description = row['description']
+            if 'description_et' in row.keys():
+                description_et = row['description_et']
+            if 'description_en' in row.keys():
+                description_en = row['description_en']
+            if 'description_fi' in row.keys():
+                description_fi = row['description_fi']
+            if 'description_ru' in row.keys():
+                description_ru = row['description_ru']
+            if 'title' in row.keys():
+                title = row['title']
+            if 'types' in row.keys():
+                types = row['types']
+
+            try:
+                photo = Photo(
+                    image=settings.MEDIA_ROOT + '/uploads/' + row['file'],
+                    author=author,
+                    keywords=keywords,
+                    lat=lat,
+                    lon=lon,
+                    geography=geography,
+                    source=source,
+                    source_key=source_key,
+                    source_url=source_url,
+                    date_text=date_text,
+                    licence=licence,
+                    user=profile,
+                    description=description,
+                    title=title,
+                    types=types
+                )
+                photo.save()
+                photo = Photo.objects.get(id=photo.id)
+                photo.image.name = final_image_folder + row['file']
+                if description_et:
+                    photo.description_et = description_et
+                if description_en:
+                    photo.description_en = description_en
+                if description_fi:
+                    photo.description_fi = description_fi
+                if description_ru:
+                    photo.description_ru = description_ru
+                photo.light_save()
+
+                if geography:
+                    geotag = GeoTag(
+                        lat=lat,
+                        lon=lon,
+                        origin=GeoTag.SOURCE,
+                        type=GeoTag.SOURCE_GEOTAG,
+                        map_type=GeoTag.NO_MAP,
+                        photo=photo,
+                        is_correct=True,
+                        trustworthiness=0.07,
+                        geography=geography
+                    )
+                    Points(
+                        user=profile,
+                        action=Points.GEOTAG,
+                        geotag=geotag,
+                        points=geotag.score,
+                        created=timezone.now(),
+                        photo=photo
+                    ).save()
+            except FileNotFoundError as not_found:
+                not_found_list.append(not_found.filename.replace(upload_folder, ''))
+                continue
+
+            recuration = None
+            for album_id in album_ids:
+                try:
+                    album_id = int(album_id)
+                except Exception as e:
+                    print(e)
+                    continue
+                album = Album.objects.filter(id=album_id).first()
+                if album is None:
+                    missing_album_list.append(album_id)
+                else:
+                    if album_id not in unique_album_list:
+                        unique_album_list.append(album_id)
+                    ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.CURATED)
+                    ap.save()
+
+                    action = Points.PHOTO_CURATION
+                    points = 50
+                    if recuration:
+                        action = Points.PHOTO_RECURATION
+                        points = 30
+                    points_for_curating = Points(
+                        action=action,
+                        photo=photo,
+                        points=points,
+                        user=profile,
+                        created=photo.created,
+                        album=album
+                    )
+                    points_for_curating.save()
+
+                    if not album.cover_photo:
+                        album.cover_photo = photo
+                        album.light_save()
+
+        all_albums = Album.objects.filter(id__in=unique_album_list)
+        if len(all_albums) > 0:
+            for album in all_albums:
+                album.set_calculated_fields()
+                album.save()
+        if len(existing_file_list) > 0:
+            existing_file_error = 'The following images already existed on the server, they were not replaced:'
+            errors.append({'message': existing_file_error, 'list': list(set(existing_file_list))})
+        if len(missing_licence_list) > 0:
+            missing_licence_error = 'The following licences do not exist:'
+            errors.append({'message': missing_licence_error, 'list': list(set(missing_licence_list))})
+        if len(missing_album_list) > 0:
+            missing_albums_error = "The albums with following IDs do not exist:"
+            errors.append({'message': missing_albums_error, 'list': list(set(missing_album_list))})
+        if len(not_found_list) > 0:
+            missing_files_error = "Some files are missing from disk, thus they were not added:"
+            errors.append({'message': missing_files_error, 'list': list(set(not_found_list))})
+        if len(skipped_list) > 0:
+            already_exists_error = "Some imports were skipped since they already exist on Ajapaik:"
+            errors.append({'message': already_exists_error, 'list': list(set(skipped_list))})
+        if len(errors) < 1:
+            success = 'OK'
+
+        form = CsvImportForm
+        return render(request, 'csv/csv-import.html', {'form': form, 'errors': errors, 'success': success})
+
+
 def submit_dating(request):
     profile = request.get_user().profile
     form = DatingSubmitForm(request.POST.copy())
@@ -3026,11 +3264,11 @@ def user(request, user_id):
     similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
     transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
     action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
-                   object_annotations_qs.count() + face_annotations_qs.count() + \
-                   curated_pictures_qs.count() + geotags_qs.count() + \
-                   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
-                   similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
-                   photolikes_qs.count() + photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count()
+        object_annotations_qs.count() + face_annotations_qs.count() + \
+        curated_pictures_qs.count() + geotags_qs.count() + \
+        rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
+        similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
+        photolikes_qs.count() + photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count()
 
     user_points = 0
     for point in profile.points.all():

@@ -1,0 +1,36 @@
+{% extends "core/base_bootstrap.html" %}
+{% load i18n bootstrap4 static compress %}
+
+{% block header %}
+    {% include "core/_header.html" %}
+{% endblock %}
+
+{% block layout %}
+<div class="container pb-3 w-50{% if not request.user.profile.is_legit %}" id="ajp-curator-container"{% else %} pt-5"{% endif %}>
+    {% if request.user.profile.is_legit %}
+        {% if success %}
+            <h3 class="text-success pt-3">{{ success }}</h1>
+        {% endif %}
+        {% for error in errors %}
+            <h3 class="text-danger pt-3">{{ error.message }}</h3>
+                {% for item in error.list %}
+                    <b>{{ item }},</b> 
+                {% endfor %}
+        {% endfor %}
+        <h3 class="pt-3">{% trans 'Here you can upload csv to import photos to Ajapaik' %}</h3>
+        <form action="" method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <div class="btn-group float-right" role="group" aria-label="ajp-submit-csv-file-group">
+                    <button type="submit" value="false" class="btn btn-primary">
+                        {% trans "Import photos" %}
+                    </button>
+                </div>
+            {% endbuttons %}
+        </form>
+    {% else %}
+        {% include "authentication/_login.html" with type="csv-import" %}
+    {% endif %}
+    </div>
+{% endblock %}
