@@ -9,9 +9,9 @@ from sorl.thumbnail import delete as sorl_delete
 
 from ajapaik import settings
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
-from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, CSVPhoto, Points, Area, \
+from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
-    DatingConfirmation, Video, NorwegianCSVPhoto, MyXtdComment
+    DatingConfirmation, Video, MyXtdComment
 
 
 class AlbumPhotoInline(admin.TabularInline):

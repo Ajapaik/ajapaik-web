@@ -1635,25 +1635,6 @@ class Action(Model):
         db_table = 'project_action'
 
 
-class CSVPhoto(Photo):
-    # This is a fake class for adding an admin page
-    class Meta:
-        proxy = True
-
-        # Possible fix for proxy models not getting their auto-generated permissions and stuff
-        # class Migration(SchemaMigration):
-        # 	def forwards(self, orm):
-        # 		orm.send_create_signal('ajapaik', ['CSVPhoto'])
-        #
-        # 	def backwards(self, orm):
-        # 		pass
-
-
-class NorwegianCSVPhoto(Photo):
-    class Meta:
-        proxy = True
-
-
 class Licence(Model):
     name = CharField(max_length=255)
     url = URLField(blank=True, null=True)
