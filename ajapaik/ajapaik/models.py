@@ -1,10 +1,9 @@
 import os
-import socket
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
 from io import StringIO
-from json import loads, dumps
+from json import loads
 from math import degrees
 from time import sleep
 from urllib.request import urlopen
@@ -577,13 +576,15 @@ class Photo(Model):
                         ret_qs = all_photos_set.order_by('?')
                         nothing_more_to_show = True
         ret = ret_qs.first()
-        last_confirm_geotag_by_this_user_for_ret = None
+        ret_last_confirm_geotag_by_this_user = None
         if ret:
-            last_confirm_geotag_by_this_user_for_ret = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
+            ret_last_confirm_geotag_by_this_user = ret.geotags.filter(user_id=profile.id, type=GeoTag.CONFIRMATION) \
                 .order_by('-created').first()
             ret.user_already_confirmed = False
-        if last_confirm_geotag_by_this_user_for_ret and (ret.lat == last_confirm_geotag_by_this_user_for_ret.lat
-                                                         and ret.lon == last_confirm_geotag_by_this_user_for_ret.lon):
+        if ret_last_confirm_geotag_by_this_user and (
+                ret.lat == ret_last_confirm_geotag_by_this_user.lat and
+                ret.lon == ret_last_confirm_geotag_by_this_user.lon
+                ):
             ret.user_already_confirmed = True
         if ret:
             ret.user_already_geotagged = ret.geotags.filter(user_id=profile.id).exists()
@@ -651,7 +652,11 @@ class Photo(Model):
             'ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
         if object_recognition_rectangles is not None:
             for object_recognition_rectangle in object_recognition_rectangles:
-                top, right, bottom, left = object_recognition_rectangle.y1, object_recognition_rectangle.x2, object_recognition_rectangle.y2, object_recognition_rectangle.x1
+                top, right, bottom, left = \
+                    object_recognition_rectangle.y1, \
+                    object_recognition_rectangle.x2, \
+                    object_recognition_rectangle.y2, \
+                    object_recognition_rectangle.x1
                 object_recognition_rectangle.x2 = self.width - left
                 object_recognition_rectangle.x1 = self.width - right
                 object_recognition_rectangle.save()
@@ -748,7 +753,10 @@ class Photo(Model):
         if object_recognition_rectangles is None:
             return
         for object_recognition_rectangle in object_recognition_rectangles:
-            top, right, bottom, left = object_recognition_rectangle.y1, object_recognition_rectangle.x2, object_recognition_rectangle.y2, object_recognition_rectangle.x1
+            top = object_recognition_rectangle.y1
+            right = object_recognition_rectangle.x2
+            bottom = object_recognition_rectangle.y2
+            left = object_recognition_rectangle.x1
             if rotation_degrees == 0:
                 return
             elif rotation_degrees == 90 or rotation_degrees == -270:
@@ -867,7 +875,7 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url_template = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + settings.GOOGLE_API_KEY
+        url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + settings.GOOGLE_API_KEY
         lat = None
         lon = None
         if self.lat and self.lon:
@@ -886,7 +894,7 @@ class Photo(Model):
                 response = cached_response.response
             else:
                 sleep(0.2)
-                response = get(url_template % (lat, lon))
+                response = get(url % (lat, lon))
                 decoded_response = loads(response.text)
                 if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
                     GoogleMapsReverseGeocode(
@@ -1252,8 +1260,8 @@ class Points(Model):
     bulk = BulkUpdateManager()
 
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, \
-    ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
-    TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
+        ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
+        TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1510,8 +1518,9 @@ class Profile(Model):
                     rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user and self.user \
-                                               and oldest_rephoto.user.id == self.user.id
+            oldest_rephoto_is_from_this_user = oldest_rephoto.user \
+                and self.user \
+                and oldest_rephoto.user.id == self.user.id
             user_first_bonus_earned = False
             if oldest_rephoto_is_from_this_user:
                 user_first_bonus_earned = True

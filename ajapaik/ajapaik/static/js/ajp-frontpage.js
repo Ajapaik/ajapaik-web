@@ -182,9 +182,23 @@
                 }
                 var filterButton = $('#ajp-header-filter-icon');
                 filterButton.attr('class', '');
-                if (window.order2 !== 'added') {
-                    filterButton.attr('class', 'ajp-white');
-                }
+
+                let filterCount = 0;
+                let photoFilters = window.location.search.indexOf('order1=') > -1 ?
+                    ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'] :
+                    ['collections', 'people', 'backsides'];
+                photoFilters.forEach(function(filter) {
+                    if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
+                        filterCount++;
+                    }
+                })
+
+                if (window.order2 !== 'added' ||
+                        window.order3 === 'reverse' ||
+                        filterCount > 0
+                    ) {
+                        filterButton.attr('class', 'ajp-white');
+                    }
                 if (window.order3 === 'reverse') {
                     $('#ajp-reverse-filter-icon').attr('class', 'ajp-white');
                 }

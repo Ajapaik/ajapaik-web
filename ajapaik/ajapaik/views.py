@@ -1,7 +1,6 @@
 # encoding: utf-8
 import csv
 import datetime
-import hashlib
 import json
 import logging
 import operator
@@ -61,7 +60,6 @@ from django_comments.signals import comment_was_flagged
 from django_comments.views.comments import post_comment
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
-from pytz import unicode
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
@@ -694,7 +692,16 @@ def frontpage(request, album_id=None, page=None):
         title = ''
 
     last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
-
+    highlight_filter_icon = (data['order2'] != 'added' or data['order3'] == 'reverse') \
+        or request.GET.get('collections') \
+        or request.GET.get('people') \
+        or request.GET.get('backsides') \
+        or request.GET.get('exteriors') \
+        or request.GET.get('interiors') \
+        or request.GET.get('ground_viewpoint_elevation') \
+        or request.GET.get('raised_viewpoint_elevation') \
+        or request.GET.get('aerial_viewpoint_elevation') \
+        or request.GET.get('no_geotags')
     context = {
         'is_frontpage': True,
         'title': title,
@@ -717,7 +724,8 @@ def frontpage(request, album_id=None, page=None):
         'photos_with_similar_photos': data['photos_with_similar_photos'],
         'show_photos': data['show_photos'],
         'is_photoset': data['is_photoset'],
-        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None
+        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None,
+        'highlight_filter_icon': highlight_filter_icon
     }
 
     return render(request, 'common/frontpage.html', context)
