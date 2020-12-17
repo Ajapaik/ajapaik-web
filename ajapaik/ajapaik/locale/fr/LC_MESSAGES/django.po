@@ -25,7 +25,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-14 14:01:28+0000\n"
+"PO-Revision-Date: 2020-12-17 14:09:39+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1578,7 +1578,7 @@ msgstr "Lien d’ordre de paiement Luminor"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:56
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr "Ajapaik est une plateforme ouverte de production participative à but non lucratif ; son volume de contenu et de complexité technique a considérablement augmenté. L’audience du site est similaire ou supérieure à celle de dépôts d’héritage culturel officiels comme Muis, Fotis, etc."
+msgstr "Ajapaik est une plateforme ouverte de production participative à but non lucratif ; son volume de contenu et de complexité technique a considérablement augmenté. L’audience du site est similaire ou supérieure à celle des dépôts d’héritage culturel officiels comme Muis, Fotis, etc."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:57
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
@@ -1846,11 +1846,11 @@ msgstr "Modifié"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
-msgstr "Ajapaik fait appel à la source communautaire pour des métadonnées supplémentaires concernant le patrimoine en images. Ajapaik héberge principalement des anciennes photos, mais il s’y trouve également des peintures, de l’art graphique et des films historiques."
+msgstr "Ajapaik fait appel à la source communautaire pour des métadonnées supplémentaires concernant le patrimoine d'images. Ajapaik héberge principalement des anciennes photos, mais on y trouve également des peintures, de l’art graphique et des films historiques."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr "En tant qu’utilisat{{GENDER|eur|rice}} d’Ajapaik, vous pouvez"
+msgstr "En tant qu’utilisat{{GENDER:$1|eur|rice}} d’Ajapaik, vous pouvez"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
@@ -1858,7 +1858,7 @@ msgstr "marquer géographiquement des images afin d’améliorer les recherches 
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr "rephotographier les images historiques pour créer des paires d’images d’alors et maintenant,"
+msgstr "rephotographier les images historiques pour créer des paires d’images avant et maintenant,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"

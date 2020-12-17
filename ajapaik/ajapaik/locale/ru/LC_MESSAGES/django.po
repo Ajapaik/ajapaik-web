@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-07 14:37:51+0000\n"
+"PO-Revision-Date: 2020-12-17 14:09:41+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -155,7 +155,7 @@ msgstr "Значения ограничительной рамки должны 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Эл. почта"
 
 #: ajapaik/ajapaik/forms.py:20
 msgid "First name"
@@ -1665,7 +1665,7 @@ msgstr "Фильтрация"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:11
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:13
 msgid "collections"
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "no filter"
-msgstr ""
+msgstr "без фильтра"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
 msgid "Show person albums"
