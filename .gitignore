@@ -12,3 +12,4 @@
 *.pyc
 *.mo
 *.log
+.vscode/settings.json

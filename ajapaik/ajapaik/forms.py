@@ -640,3 +640,8 @@ class ApiWikidocsAlbumSearchForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
+
+
+class CsvImportForm(forms.Form):
+    zip_file = forms.FileField(required=False)
+    csv_file = forms.FileField()
