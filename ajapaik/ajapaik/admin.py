@@ -103,7 +103,24 @@ class PhotoAdmin(ModelAdmin):
     inlines = (AlbumPhotoInline,)
 
     form = autocomplete_form_factory(Photo)
-    search_fields = ('id','description_et','description_lv','description_lt','description_fi','description_sv','description_nl','description_de','description_ru','description_en','author','types','keywords','source__name','source_key','address')
+    search_fields = (
+        'id',
+        'description_et',
+        'description_lv',
+        'description_lt',
+        'description_fi',
+        'description_sv',
+        'description_nl',
+        'description_de',
+        'description_ru',
+        'description_en',
+        'author',
+        'types',
+        'keywords',
+        'source__name',
+        'source_key',
+        'address'
+    )
 
 
 class SkipAdmin(ModelAdmin):
@@ -116,6 +133,14 @@ class GeoTagAdmin(ModelAdmin):
 
 class ProfileAdmin(ModelAdmin):
     form = autocomplete_form_factory(Profile)
+    search_fields = (
+        'id',
+        'display_name',
+        'first_name',
+        'last_name',
+        'fb_name',
+        'google_plus_name'
+    )
 
 
 class PointsAdmin(ModelAdmin):
@@ -124,12 +149,29 @@ class PointsAdmin(ModelAdmin):
 
 class AlbumAdmin(ModelAdmin):
     form = autocomplete_form_factory(Album)
-    search_fields = ('id','name_et','name_lv','name_lt','name_fi','name_sv','name_nl','name_de','name_ru','name_en','description','slug')
+    search_fields = (
+        'id',
+        'name_et',
+        'name_lv',
+        'name_lt',
+        'name_fi',
+        'name_sv',
+        'name_nl',
+        'name_de',
+        'name_ru',
+        'name_en',
+        'description',
+        'slug'
+    )
 
 
 class SourceAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(Source)
-    search_fields = ('id','name','description')
+    search_fields = (
+        'id',
+        'name',
+        'description'
+    )
 
 
 class AlbumPhotoAdmin(admin.ModelAdmin):
@@ -142,7 +184,7 @@ class AreaAdmin(admin.ModelAdmin):
 
 class LicenceAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(Licence)
-    search_fields = ('id','name')
+    search_fields = ('id', 'name')
 
 
 class DeviceAdmin(admin.ModelAdmin):
@@ -155,6 +197,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 class MyUserAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(User)
+    search_fields = ('id', 'username', 'emailaddress__email', 'profile__display_name')
 
 
 try:
