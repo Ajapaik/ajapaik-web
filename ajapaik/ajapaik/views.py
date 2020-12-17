@@ -2586,7 +2586,7 @@ def csv_import(request):
             if 'source' in row.keys():
                 source = Source.objects.filter(id=row['source']).first()
             if 'source_key' in row.keys():
-                source_key = source_key
+                source_key = row['source_key']
             if 'source_url' in row.keys():
                 source_url = row['source_url']
             if 'date_text' in row.keys():
