@@ -342,6 +342,7 @@ class Album(Model):
                 original_languages.append(each)
         self.name_original_language = ','.join(original_languages)
         if translation_source:
+            translation_done = False
             for each in settings.TARTUNLP_LANGUAGES:
                 key = f'name_{each}'
                 current_value = getattr(self, key)
@@ -352,8 +353,10 @@ class Album(Model):
                         'conf': f'{each},auto'
                     }).json()
                     setattr(self, key, response['tgt'])
+                    translation_done = True
 
-            self.light_save()
+            if translation_done:
+                self.light_save()
 
 
 class Photo(Model):
@@ -996,6 +999,7 @@ class Photo(Model):
                 original_languages.append(each)
         self.description_original_language = ','.join(original_languages)
         if translation_source:
+            translation_done = False
             for each in settings.TARTUNLP_LANGUAGES:
                 key = f'description_{each}'
                 current_value = getattr(self, key)
@@ -1006,8 +1010,9 @@ class Photo(Model):
                         'conf': f'{each},auto'
                     }).json()
                     setattr(self, key, response['tgt'])
-
-            self.light_save()
+                    translation_done = True
+            if translation_done:
+                self.light_save()
 
     # TODO: Cut down on the science library use
     def set_calculated_fields(self):

@@ -1302,7 +1302,12 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if not photo_obj.description:
         title = 'Unknown photo'
     else:
-        title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
+        if photo_obj.description_original_language:
+            first_original_language = photo_obj.description_original_language.split(',')[0]
+            original_desc = getattr(photo_obj, f'description_{first_original_language}')
+            title = ' '.join(original_desc.split(' ')[:5])[:50]
+        else:
+            title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
         if photo_obj.author:
             title += u' – ' + photo_obj.author
 
