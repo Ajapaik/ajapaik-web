@@ -277,7 +277,7 @@
                         targetDiv.empty();
                         $('#ajp-curator-my-albums-size').html(responseLength);
                         for (var i = 0; i < responseLength; i += 1) {
-                            response[i].gameLink = gameUrl + '?album=' + response[i].id;
+                            response[i].link = '/?album=' + response[i].id;
                             targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
                         }
                         window._gaq.push(['_trackEvent', 'Curator', 'My albums success']);
