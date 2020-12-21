@@ -3,7 +3,6 @@ import logging
 from collections import Counter, OrderedDict
 from typing import Optional, Iterable
 
-from PIL import Image
 from django.db.models import Count
 from django.http import HttpResponse, HttpRequest, QueryDict
 from django.shortcuts import get_object_or_404, render
@@ -11,7 +10,6 @@ from django.urls import reverse
 from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 
-from ajapaik import settings
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
@@ -189,21 +187,6 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
         return response.success()
 
     return response.action_failed()
-
-
-def get_subject_image(request: HttpRequest):
-    try:
-        if (request.rectangle_id):
-            rectangle = FaceRecognitionRectangle.objects.filter(pk=request.id).first()
-        if (rectangle is None or request.rectangle_id is None):
-            rectangle = FaceRecognitionRectangle.objects.first()
-        with open(settings.MEDIA_ROOT + '/portraits/' + str(rectangle.id), 'rb') as f:
-            return HttpResponse(f.read(), content_type='image/jpeg')
-    except:  # noqa
-        white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
-        response = HttpResponse(content_type='image/jpeg')
-        white.save(response, 'JPEG')
-        return response
 
 
 def get_subject_data_empty(request):
