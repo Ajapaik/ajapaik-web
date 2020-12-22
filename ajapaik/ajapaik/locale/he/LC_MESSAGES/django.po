@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-07 14:37:50+0000\n"
+"PO-Revision-Date: 2020-12-22 12:51:37+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -1488,7 +1488,7 @@ msgstr "להשיב ל־"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "התרומה שלך מאששת את החשיבות של Ajapaik"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
@@ -1585,7 +1585,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:58
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
-msgstr ""
+msgstr "התרומה שלך מסייעת רבות ומאששת את העובדה ש־Ajapaik מביא תועלת. אם אפשר, נא לשקול להסדיר הוראת קבע."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:59
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
@@ -1605,15 +1605,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
 msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
-msgstr ""
+msgstr "אם Ajapaik מסייע לך למצוא תמונות היסטוריות שמעניינות אותך נא לשקול <a href=\"/donate/\">לתמוך</a> ב־Ajapaik כדי שנוכל לשפר את הכלי. תודה רבה!"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
-msgstr ""
+msgstr "Ajapaik משתמש בתרומות שהתקבלו מאת:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:14
 msgid "Ajapaik has received donations from:"
-msgstr ""
+msgstr "ל־Ajapaik הגיעו תרומות של:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:19
 msgid "Earlier funders:"
@@ -1849,7 +1849,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "כמשתמש ב־Ajapaik מתאפשר לך"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"

@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-12-14 14:01:27+0000\n"
+"PO-Revision-Date: 2020-12-22 12:51:37+0000\n"
 "X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2547,7 +2547,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3336
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Ministerio de Cultura"
 
 #: ajapaik/ajapaik/views.py:3341
 msgid "Republic of Estonia National Heritage Board"
