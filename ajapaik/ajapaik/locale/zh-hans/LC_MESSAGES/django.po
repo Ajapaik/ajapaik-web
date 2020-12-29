@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 #
+# Author: )8
 # Author: A Chinese Wikipedian
 # Author: A Retired User
 # Author: Abijeet Patro
@@ -22,7 +23,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-12-03 14:40:25+0000\n"
+"PO-Revision-Date: 2020-12-29 07:44:14+0000\n"
 "X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -654,7 +655,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -724,7 +725,7 @@ msgstr "注销"
 #: ajapaik/ajapaik/templates/account/login.html:8
 #: ajapaik/ajapaik/templates/account/login.html:38
 msgid "Sign in"
-msgstr ""
+msgstr "登录"
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/signup.html:5
@@ -835,7 +836,7 @@ msgstr "您确定您要退出吗？"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "更改密码"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:5
 #: ajapaik/ajapaik/templates/account/password_reset.html:9
@@ -896,7 +897,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "注释"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
@@ -906,7 +907,7 @@ msgstr "您已经作为%(user_name)s登录"
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:6
 #: ajapaik/ajapaik/templates/admin/ajapaik/norwegiancsvphoto/change_list.html:6
 msgid "Home"
-msgstr ""
+msgstr "首页"
 
 #: ajapaik/ajapaik/templates/admin/ajapaik/csvphoto/change_list.html:7
 msgid "Upload photos via CSV file"
@@ -1027,15 +1028,15 @@ msgstr "您的评论"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: ajapaik/ajapaik/templates/comments/list.html:21
 msgid "Like"
-msgstr ""
+msgstr "喜欢"
 
 #: ajapaik/ajapaik/templates/comments/list.html:25
 msgid "Dislike"
-msgstr ""
+msgstr "不喜欢"
 
 #: ajapaik/ajapaik/templates/comments/list.html:29
 #: ajapaik/ajapaik/templates/comments/list.html:89
@@ -1064,7 +1065,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/list.html:63
 #: ajapaik/ajapaik/templates/curator/curator.html:133
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: ajapaik/ajapaik/templates/common/frontpage.html:30
 msgid "Authentication"
@@ -1363,7 +1364,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:21
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:50
 msgid "Edit your album"
@@ -2071,7 +2072,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:103
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:51
 msgid "Upload"
-msgstr ""
+msgstr "上传"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
@@ -2625,7 +2626,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:89
 msgid "Info"
-msgstr ""
+msgstr "信息"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
@@ -2638,7 +2639,7 @@ msgstr "不确定"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
@@ -2654,27 +2655,27 @@ msgstr ""
 
 #: ajapaik/settings/default.py:74
 msgid "Estonian"
-msgstr ""
+msgstr "爱沙尼亚语"
 
 #: ajapaik/settings/default.py:75
 msgid "English"
-msgstr ""
+msgstr "英语"
 
 #: ajapaik/settings/default.py:76
 msgid "Finnish"
-msgstr ""
+msgstr "芬兰语"
 
 #: ajapaik/settings/default.py:77
 msgid "Swedish"
-msgstr ""
+msgstr "瑞典语"
 
 #: ajapaik/settings/default.py:78
 msgid "Russian"
-msgstr ""
+msgstr "俄语"
 
 #: ajapaik/settings/default.py:79
 msgid "French"
-msgstr ""
+msgstr "法语"
 
 #: ajapaik/utils.py:137
 msgid "You have already submitted this suggestion"
