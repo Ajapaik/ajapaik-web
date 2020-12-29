@@ -3545,14 +3545,8 @@ def supporters(request, year=None):
     ]
 
     donators = [
-        'Aare Olander', 'Ahti Heinla', 'Aldo Mett', 'Alla Talu', 'Annes Vainamäe', 'Annika Loor', 'Ene Kühn',
-        'Eve Harju', 'Galina Kanemägi', 'Gustav Laanemets', 'Gustav Nõmm', 'Helena Järviste', 'Helga Lipping',
-        'Jaago Hannes', 'Jaana Jakovlev', 'Kadri Jaanits', 'Kadri Soome', 'Karmen Laus', 'Kersti Luik',
-        'Liubov Menshova', 'Margus Lamberg', 'Marko Ala', 'Mart Koppel', 'Martin Tajur', 'Merje Meerits',
-        'Olympic Casino Eesti AS', 'OÜ AB Kontekst', 'Paavo Prii', 'Peeter Arro', 'Peeter Kõiva', 'Peeter Lutsoja',
-        'Riho Vahtre', 'Siim Ainsaar', 'Sulev Järve', 'Tiina Männe', 'Tiiu Puik', 'Tõnu Abel', 'Tõnu Talvi',
-        'Toomas Palmiste', 'Triin Talk', 'Tuuli Sooäär-Säde', 'Ülle Rosin', 'Ulrike Rohn', 'Urve Arukaevu',
-        'Veera Murumaa'
+        'Aare Olander', 'Ahti Heinla', 'Alar Teras', 'Aldo Mett', 'Alla Talu', 'Annes Vainamäe', 'Annika Ein', 'Annika Loor', 'Ene Kühn', 'Eve Harju', 'Eve Kiiler', 'Galina Kanemägi', 'Gustav Laanemets', 'Gustav Nõmm', 'Hannes Jaago', 'Helena Järviste', 'Helga Lipping', 'Hulda Kosk', 'Jaana Jakovlev', 'Jan-Erik Moon', 'Janno Toots', 'Kadri Jaanits', 'Kadri Soome', 'Karli Luik', 'Karmen Laus', 'Käty Tarkpea', 'Kersti Luik', 'Kristo-Martin Aav', 'Liisi Raidna', 'Liubov Menshova', 'Margus Lamberg', 'Marko Ala', 'Mart Koppel', 'Martin Tajur', 'Merje Meerits', 'Olympic Casino Eesti AS', 'OÜ Ab Kontekst', 'Paavo Prii', 'Peeter Arro', 'Peeter Kõiva', 'Peeter Lutsoja', 'Riho Vahtre', 'Siim Ainsaar', 'Sulev Järve', 'Tiina Kruup', 'Tiina Männe', 'Tiiu Puik', 'Toivo Tjulkin', 'Tõnu Abel', 'Tõnu Talvi', 'Toomas Palmiste', 'Triin Talk', 'Tuuli Sooäär-Säde', 'Ülle Rosin', 'Ulrike Rohn', 'Urve Arukaevu', 'Veera Murumaa'
+
     ]
 
     context['current_supporters'] = current_supporters
