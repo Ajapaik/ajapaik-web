@@ -21,6 +21,7 @@ from django.contrib.gis.db.models import Model, TextField, FloatField, CharField
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
     PositiveSmallIntegerField, PointField, Manager, NullBooleanField, PositiveIntegerField
 from django.contrib.gis.geos import Point
+from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -211,6 +212,7 @@ class Album(Model):
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
     source = ForeignKey('Source', null=True, blank=True, on_delete=CASCADE)
     name_original_language = CharField(_('Name original language'), max_length=255, blank=True, null=True)
+    muis_person_ids = ArrayField(IntegerField(blank=True), default=list, null=True, blank=True)
 
     original_lat = None
     original_lon = None
@@ -1858,3 +1860,8 @@ class PhotoInvertSuggestion(Suggestion):
 class PhotoRotationSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_rotate_suggestions', on_delete=CASCADE)
     rotated = IntegerField(null=True, blank=True)
+
+
+class Supporter(Model):
+    name = CharField(max_length=255, null=True, blank=True)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter', on_delete=CASCADE)
