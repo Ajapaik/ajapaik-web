@@ -1,9 +1,15 @@
 import os
 import hashlib
+import pytest
 from datetime import datetime
+from django.contrib.auth.models import User
 from PIL import Image
-from ajapaik.utils import average_angle, angle_diff, convert_to_degrees, get_etag, calculate_thumbnail_size, \
-    calculate_thumbnail_size_max_height, distance_in_meters, last_modified, least_frequent, most_frequent
+from ajapaik import settings
+from ajapaik.utils import average_angle, angle_diff, convert_to_degrees, get_etag, can_action_be_done, \
+    calculate_thumbnail_size, calculate_thumbnail_size_max_height, distance_in_meters, last_modified, \
+    least_frequent, most_frequent, suggest_photo_edit
+
+from ajapaik.ajapaik.models import Photo, PhotoFlipSuggestion, PhotoRotationSuggestion, Points, Profile
 
 
 def test_get_etag():
@@ -78,3 +84,35 @@ def test_distance_in_meters():
     assert distance_in_meters(58.3749359, 26.7294631, 58.3724787, 26.7317836) == 353.96440996564905
     assert distance_in_meters(48.980555, 153.4701513, -54.6574534, -64.1463372) == 25463443.24517036
     assert distance_in_meters(59.4366888, 24.7530732, 58.37782, 26.7288786) == 243147.66265268778
+
+
+@pytest.mark.django_db
+def test_can_action_be_done():
+    source = settings.MEDIA_ROOT + '/uploads/test_image.png'
+    white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
+    white.save(source, "PNG")
+    photo = Photo(image=source, title='Title', description='Description')
+    photo.save()
+    photo = Photo.objects.get(id=photo.id)
+    photo.image.name = 'uploads/test_image.png'
+    photo.light_save()
+
+    user = User.objects.create_user('user', 'user@user.com', 'user')
+    profile = Profile(user=user)
+    profile.save()
+
+    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', True) is True
+    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 90) is True
+
+    user_2 = User.objects.create_user('user2', 'user2@user2.com', 'user2')
+    profile_2 = Profile(user=user_2)
+    profile_2.save()
+    suggest_photo_edit([], 'rotated', 180, Points, 20, Points.ROTATE_PHOTO, PhotoRotationSuggestion, photo, profile, '',
+                       'do_rotate')
+    suggest_photo_edit([], 'flip', False, Points, 40, Points.FLIP_PHOTO, PhotoFlipSuggestion, photo, profile, '',
+                       'do_flip')
+
+    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', False) is False
+    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 90) is False
+
+    os.remove(source)
