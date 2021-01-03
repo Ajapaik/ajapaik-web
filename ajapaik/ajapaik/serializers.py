@@ -51,8 +51,8 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
 
 
 class DatingSerializer(serializers.ModelSerializer):
-    profile_id = serializers.IntegerField(source='profile.id')
-    full_name = serializers.CharField(source='profile.get_display_name')
+    profile_id = serializers.IntegerField(source='profile.id', required=False)
+    full_name = serializers.CharField(source='profile.get_display_name', required=False)
     confirmation_count = serializers.IntegerField(source='confirmations.count')
     this_user_has_confirmed = serializers.BooleanField()
 

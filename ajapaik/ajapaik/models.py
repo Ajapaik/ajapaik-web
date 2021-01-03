@@ -1686,7 +1686,7 @@ class Dating(Model):
     )
 
     photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
-    profile = ForeignKey('Profile', related_name='datings', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='datings', on_delete=CASCADE)
     raw = CharField(max_length=25, null=True, blank=True)
     comment = TextField(blank=True, null=True)
     start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())

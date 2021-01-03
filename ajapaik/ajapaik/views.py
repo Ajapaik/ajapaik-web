@@ -2621,7 +2621,7 @@ def csv_import(request):
 
             try:
                 photo = Photo(
-                    image=settings.MEDIA_ROOT + '/uploads/' + row['file'],
+                    image=upload_folder + row['file'],
                     author=author,
                     keywords=keywords,
                     lat=lat,

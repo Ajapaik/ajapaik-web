@@ -395,7 +395,8 @@
                     userStr = gettext('Anonymous user');
                 }
                 reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
-                previousDatings.append('<div><a href="/user/' + v.profile_id + '">' + userStr + '</a>: ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge" style="left:0px;">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
+                let userLink = v.profile_id ? '<a href="/user/' + v.profile_id + '">' + userStr + '</a>:' : '<b>' + gettext('MUIS') + '</b>';
+                previousDatings.append(userLink + ' ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge" style="left:0px;">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
             });
         };
         this.giveDatingSubmittedFeedback = function (confirmation) {
