@@ -1,3 +1,5 @@
 [flake8]
 exclude = .git,.mypy_cache,.pytest_cache,media,venv
 max-line-length = 120
+per-file-ignores =
+    ajapaik/settings/*.py:F401,F403,F405
