@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
 RUN apt-get update && \
-    apt-get install -y libsqlite3-mod-spatialite gdal-bin libgdal-dev python3-gdal proj-bin libproj-dev
+    apt-get install -y gdal-bin libgdal-dev python3-gdal proj-bin libproj-dev
 
 ENV CPLUS_INCLUDE_PATH /usr/include/gdal/
 ENV C_INCLUDE_PATH /usr/include/gdal/
