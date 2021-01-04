@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2020-12-29 07:44:14+0000\n"
+"PO-Revision-Date: 2021-01-04 13:39:46+0000\n"
 "X-POT-Import-Date: 2020-12-02 07:16:38+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1097,7 +1097,7 @@ msgstr "显示图像"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
-msgstr ""
+msgstr "搜索栏"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:58
 msgid "No content overlap"
@@ -1481,7 +1481,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "回复"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
@@ -1658,7 +1658,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "people"
-msgstr ""
+msgstr "人物"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "back sides of pictures"
@@ -2076,7 +2076,7 @@ msgstr "上传"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:28
 msgid "Select file..."
-msgstr ""
+msgstr "选择文件……"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:38
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
@@ -2092,11 +2092,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:81
 msgid "Select new file..."
-msgstr ""
+msgstr "选择新文件……"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:111
 msgid "File upload failed."
-msgstr ""
+msgstr "文件上传失败。"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
@@ -2578,7 +2578,6 @@ msgstr "未知"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "不可用"
 

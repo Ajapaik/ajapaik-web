@@ -25,7 +25,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2020-12-29 07:44:11+0000\n"
+"PO-Revision-Date: 2021-01-04 13:39:44+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -222,7 +222,7 @@ msgstr "Auteur de l’image (photographe, peintre)."
 
 #: ajapaik/ajapaik/forms.py:416
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr "Veuillez sélectionner une licence pour faire savoir aux autres si et comment ils peuvent utiliser les matériaux que vous avez téléchargé.\n\nSi vous êtes l’auteur, vous pouvez choisir la licence (nous recommandons d’utiliser des licences Creative Commons). Si quelqu’un d’autre a créé le travail, vous devez utiliser la même licence et le détenteur des droits qui la détient actuellement.\n\nActuellement, nous acceptons aussi du contenu avec des droits d’auteur non clairs ; veuillez alors choisir « Droit d’auteur non évalué »."
+msgstr "Veuillez sélectionner une licence pour faire savoir aux autres si et comment ils peuvent utiliser les contenus que vous avez téléversés.\n\nSi vous en êtes l’auteur, vous pouvez choisir la licence (nous recommandons d’utiliser des licences Creative Commons). Si quelqu’un d’autre a créé le travail, vous devez utiliser la même licence et les mêmes détenteurs de droits que ceux actuellement utilisés par le travail d’origine.\n\nActuellement, nous acceptons aussi du contenu avec des droits d’auteur non clairs ; veuillez alors choisir « Droit d’auteur non évalué »."
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Description of the picture"
