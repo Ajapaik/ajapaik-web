@@ -100,19 +100,85 @@ def test_can_action_be_done():
     user = User.objects.create_user('user', 'user@user.com', 'user')
     profile = Profile(user=user)
     profile.save()
+    profile = Profile.objects.filter(pk=profile.id).first()
 
     assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', True) is True
     assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 90) is True
 
+    _, flip_suggestions, _, _ = suggest_photo_edit(
+        [],
+        'flip',
+        True,
+        Points,
+        40,
+        Points.FLIP_PHOTO,
+        PhotoFlipSuggestion,
+        photo,
+        profile,
+        '',
+        'do_flip'
+    )
+    PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
+
+    _, rotation_suggestions, _, _ = suggest_photo_edit(
+        [],
+        'rotated',
+        90,
+        Points,
+        20,
+        Points.ROTATE_PHOTO,
+        PhotoRotationSuggestion,
+        photo,
+        profile,
+        '',
+        'do_rotate'
+    )
+    photo = Photo.objects.filter(id=photo.id).first()
+    PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
+
+    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', False) is True
+    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 180) is True
+
     user_2 = User.objects.create_user('user2', 'user2@user2.com', 'user2')
     profile_2 = Profile(user=user_2)
     profile_2.save()
-    suggest_photo_edit([], 'rotated', 180, Points, 20, Points.ROTATE_PHOTO, PhotoRotationSuggestion, photo, profile, '',
-                       'do_rotate')
-    suggest_photo_edit([], 'flip', False, Points, 40, Points.FLIP_PHOTO, PhotoFlipSuggestion, photo, profile, '',
-                       'do_flip')
+    profile_2 = Profile.objects.filter(pk=profile_2.id).first()
 
-    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', False) is False
-    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 90) is False
+    _, flip_suggestions, _, _ = suggest_photo_edit(
+            [],
+            'flip',
+            True,
+            Points,
+            40,
+            Points.FLIP_PHOTO,
+            PhotoFlipSuggestion,
+            photo,
+            profile_2,
+            '',
+            'do_flip'
+        )
+    PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
+    _, rotation_suggestions, _, _ = suggest_photo_edit(
+            [],
+            'rotated',
+            90,
+            Points,
+            20,
+            Points.ROTATE_PHOTO,
+            PhotoRotationSuggestion,
+            photo,
+            profile_2,
+            '',
+            'do_rotate'
+        )
+    PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
+
+    user_3 = User.objects.create_user('user3', 'user3@user3.com', 'user3')
+    profile_3 = Profile(user=user_3)
+    profile_3.save()
+    profile_3 = Profile.objects.filter(pk=profile_3.id).first()
+
+    assert can_action_be_done(PhotoFlipSuggestion, photo, profile_3, 'flip', False) is False
+    assert can_action_be_done(PhotoRotationSuggestion, photo, profile_3, 'rotated', 180) is False
 
     os.remove(source)
