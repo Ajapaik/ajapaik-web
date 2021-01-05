@@ -11,9 +11,15 @@
     </div>
     <br>
     <br>
-    <h5>{% trans 'Ajapaik has received donations from:' %}</h5>
-    {% for donator in donators %}
-        {{ donator }}
+    {% if supporters %}
+        <h5>{% trans 'Ajapaik has received donations from:' %}</h5>
+    {% endif %}
+    {% for supporter in supporters %}
+        {% if supporter.supporter %}
+            {{ supporter.supporter.get_display_name }}
+        {% else %}
+            {{ supporter.name }}
+        {% endif %}
         <br>
     {% endfor %}
     <h3>{% trans 'Earlier funders:' %}</h3>

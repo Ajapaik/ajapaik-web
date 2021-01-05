@@ -81,7 +81,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, \
     PhotoLike, PhotoFlipSuggestion, PhotoViewpointElevationSuggestion, PhotoSceneSuggestion, Dating, \
-    DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken
+    DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken, Supporter
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
@@ -2621,7 +2621,7 @@ def csv_import(request):
 
             try:
                 photo = Photo(
-                    image=settings.MEDIA_ROOT + '/uploads/' + row['file'],
+                    image=upload_folder + row['file'],
                     author=author,
                     keywords=keywords,
                     lat=lat,
@@ -3544,14 +3544,11 @@ def supporters(request, year=None):
         supporters['National Foundation of Civil Society']
     ]
 
-    donators = [
-        'Aare Olander', 'Ahti Heinla', 'Alar Teras', 'Aldo Mett', 'Alla Talu', 'Annes Vainamäe', 'Annika Ein', 'Annika Loor', 'Ene Kühn', 'Eve Harju', 'Eve Kiiler', 'Galina Kanemägi', 'Gustav Laanemets', 'Gustav Nõmm', 'Hannes Jaago', 'Helena Järviste', 'Helga Lipping', 'Hulda Kosk', 'Jaana Jakovlev', 'Jan-Erik Moon', 'Janno Toots', 'Kadri Jaanits', 'Kadri Soome', 'Karli Luik', 'Karmen Laus', 'Käty Tarkpea', 'Kersti Luik', 'Kristo-Martin Aav', 'Liisi Raidna', 'Liubov Menshova', 'Margus Lamberg', 'Marko Ala', 'Mart Koppel', 'Martin Tajur', 'Merje Meerits', 'Olympic Casino Eesti AS', 'OÜ Ab Kontekst', 'Paavo Prii', 'Peeter Arro', 'Peeter Kõiva', 'Peeter Lutsoja', 'Riho Vahtre', 'Siim Ainsaar', 'Sulev Järve', 'Tiina Kruup', 'Tiina Männe', 'Tiiu Puik', 'Toivo Tjulkin', 'Tõnu Abel', 'Tõnu Talvi', 'Toomas Palmiste', 'Triin Talk', 'Tuuli Sooäär-Säde', 'Ülle Rosin', 'Ulrike Rohn', 'Urve Arukaevu', 'Veera Murumaa'
-
-    ]
+    supporters = Supporter.objects.all()
 
     context['current_supporters'] = current_supporters
     context['previous_supporters'] = previous_supporters
-    context['donators'] = donators
+    context['supporters'] = supporters
 
     return render(request, 'donate/supporters.html', context)
 

@@ -123,9 +123,17 @@ def can_action_be_done(model, photo, profile, key, new_value):
     new_suggestion = model(proposer=profile, photo=photo)
     setattr(new_suggestion, key, new_value)
 
-    all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile).order_by('proposer_id',
-                                                                                           '-created').all().distinct(
-        'proposer_id')
+    all_suggestions = model.objects.filter(
+            photo=photo
+        ).exclude(
+            proposer=profile
+        ).order_by(
+            'proposer_id',
+            '-created'
+        ).all().distinct(
+            'proposer_id'
+        )
+
     if all_suggestions is not None:
         suggestions = [new_value]
 
@@ -157,9 +165,9 @@ def suggest_photo_edit(photo_suggestions, key, new_value, points_model, score, a
             new_suggestion = model(proposer=profile, photo=photo)
             setattr(new_suggestion, key, new_value)
             photo_suggestions.append(new_suggestion)
-
             all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
                 .order_by('proposer_id', '-created').all().distinct('proposer_id')
+
             if all_suggestions is not None:
                 suggestions = [new_value]
 

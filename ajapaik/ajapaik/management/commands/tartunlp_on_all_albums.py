@@ -8,7 +8,11 @@ class Command(BaseCommand):
     help = 'Connects to TartuNLP API and retrieves neuro machine translations for empty name fields'
 
     def handle(self, *args, **options):
-        albums = Album.objects.exclude(Q(atype=Album.AUTO) | Q(name_original_language__isnull=False)).filter(
+        albums = Album.objects.exclude(
+                Q(atype=Album.AUTO) |
+                Q(name_original_language__isnull=False) |
+                Q(atype=Album.PERSON)
+            ).filter(
             Q(name_et__isnull=False)
             | Q(name_lv__isnull=False)
             | Q(name_lt__isnull=False)
