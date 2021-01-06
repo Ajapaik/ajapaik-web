@@ -240,7 +240,7 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = 'errors@ajapaik.ee'
 # TODO: Use django-mailgun
 
 AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
