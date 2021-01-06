@@ -13,15 +13,16 @@
     <br>
     {% if supporters %}
         <h5>{% trans 'Ajapaik has received donations from:' %}</h5>
+        {% for supporter in supporters %}
+            {% if supporter.profile %}
+                <a href="{% url 'user' supporter.profile.id %}">{{ supporter.profile.get_display_name }}</a>
+            {% else %}
+                {{ supporter.name }}
+            {% endif %}
+            <br>
+        {% endfor %}
+    <br>
     {% endif %}
-    {% for supporter in supporters %}
-        {% if supporter.supporter %}
-            {{ supporter.supporter.get_display_name }}
-        {% else %}
-            {{ supporter.name }}
-        {% endif %}
-        <br>
-    {% endfor %}
     <h3>{% trans 'Earlier funders:' %}</h3>
     <div class="row d-block" style="font-size:0">
         {% for supporter in previous_supporters %}
