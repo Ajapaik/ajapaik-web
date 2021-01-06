@@ -18,6 +18,8 @@ class Command(BaseCommand):
                               .filter(name_count__gt=1)
 
             for duplicate in duplicates:
+                if duplicate[attribute] is None or duplicate[attribute] == '' or duplicate[attribute].isspace():
+                    continue
                 filter_dict = {attribute: duplicate[attribute]}
                 all_albums = Album.objects.filter(**filter_dict).order_by('created')
                 first_instance = all_albums.first()
