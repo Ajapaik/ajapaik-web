@@ -952,8 +952,8 @@ msgid "Log in to save selection"
 msgstr "Log in to save selection"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
-msgid "Log in import photos from csv file"
-msgstr "Log in import photos from csv file"
+msgid "Log in to import photos from csv file"
+msgstr "Log in to import photos from csv file"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
