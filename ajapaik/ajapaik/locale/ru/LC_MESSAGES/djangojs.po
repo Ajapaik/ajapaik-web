@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:24+0000\n"
+"PO-Revision-Date: 2021-01-07 14:15:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
+"X-POT-Import-Date: 2021-01-06 21:32:01+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:374
 msgid "User denied the request for Geolocation."
@@ -147,32 +147,36 @@ msgid "Server received invalid data."
 msgstr "Сервер получил неверные данные."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr "Подтвердить датирование"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "Подтверждение датирования дало вам %(points)s очков."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "Загрузка датирования дала вам %(points)s очков."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:416
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
 msgstr "Спасибо!"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:426
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr "ГГГГ.ММ.ДД"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:436
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Отменить"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:445
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
@@ -180,35 +184,35 @@ msgstr "Отменить"
 msgid "Submit"
 msgstr "Отправить"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:453
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr "Прокомментируйте Ваше датирование"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "Используйте формат YYYY.MM.DD (MM.DD не обязательно)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "Отметьте диапазоны дат до/после с помощью «-» или «..»"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr "Примерная дата в скобках"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:472
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr "Вы аноним"
 
@@ -298,7 +302,7 @@ msgid "Mark stereophoto"
 msgstr "Отметить стереофото"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "No results found for: %(query)s"
 msgstr ""
 
@@ -611,31 +615,31 @@ msgstr "По метке времени"
 msgid "Pictures from the map"
 msgstr "Фотографии с карты"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
 msgid "Did you mean to search from:"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:247
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
 msgstr "все фотографии"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
 msgstr "Альбомы"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:282
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
 msgstr "Мои избранные"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:286
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
 msgstr "Мои переснимки"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
 msgstr "Фотографии от %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
 msgstr "Все фотографии"
 

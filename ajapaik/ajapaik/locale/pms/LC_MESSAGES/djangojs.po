@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:24+0000\n"
+"PO-Revision-Date: 2021-01-07 14:15:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
+"X-POT-Import-Date: 2021-01-06 21:32:01+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -140,32 +140,36 @@ msgid "Server received invalid data."
 msgstr "Ël servent a l'ha arseivù dij dàit nen bon."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr "Confirmé la dàita"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "La confirmassion ëd na dàita a l'ha faje vagné %(points)s pont."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "An mandand na datassion, a l'ha vagnà %(points)s pont."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:416
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
 msgstr "Mersì!"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:426
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr "AAAA.MM.DD"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:436
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Anulé"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:445
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
@@ -173,35 +177,35 @@ msgstr "Anulé"
 msgid "Submit"
 msgstr "Mandé"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:453
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr "Comenté soa datassion"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "Dovré ël formà AAAA.MM.DD (MM.DD opsionaj)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "Marché j'antërvaj ëd dàita o anans/apress con «-» o «..»"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr "Dàita aprossimativa antra parèntes"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:472
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr "A l'é anònim"
 
@@ -291,7 +295,7 @@ msgid "Mark stereophoto"
 msgstr "Marché coma stereofòto"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "No results found for: %(query)s"
 msgstr "Gnun arzultà trovà për: %(query)s"
 
@@ -604,31 +608,31 @@ msgstr "Da na mira cronològica"
 msgid "Pictures from the map"
 msgstr "Fòto da la carta"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
 msgid "Did you mean to search from:"
 msgstr "Vorij-lo sërché da:"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:247
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
 msgstr "tute le fòto"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
 msgstr "Àlbom"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:282
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
 msgstr "Ij mè preferì"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:286
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
 msgstr "Mie arprodussion fotogràfiche"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
 msgstr "Arprodussion fotogràfiche ëd %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
 msgstr "Tute le fòto"
 

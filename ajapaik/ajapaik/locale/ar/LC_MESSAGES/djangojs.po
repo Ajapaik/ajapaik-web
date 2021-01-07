@@ -17,11 +17,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-12-03 14:40:22+0000\n"
+"PO-Revision-Date: 2021-01-07 14:15:31+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
+"X-POT-Import-Date: 2021-01-06 21:32:01+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
@@ -142,32 +142,36 @@ msgid "Server received invalid data."
 msgstr "تلقى الخادم بيانات غير صالحة."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr "تأكيد التاريخ"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "تأكيد تاريخ حصلت عليه %(points)s نقطة."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "تقديم تاريخ حصلت عليه %(points)s نقطة."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:416
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
 msgstr "شكرا!"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:426
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr "سسسس.شش.يي"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:436
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:445
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
@@ -175,35 +179,35 @@ msgstr "إلغاء"
 msgid "Submit"
 msgstr "إرسال"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:453
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr "التعليق على تأريخك"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "استخدم تنسيق  سسسس.شش.يي (شش.يي غير إلزامي)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "تعليم نطاقات التاريخ أو قبله/بعده بـ\"-\" أو \"..\""
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr "التاريخ التقريبي بين قوسين"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:472
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr "أنت مجهول"
 
@@ -293,7 +297,7 @@ msgid "Mark stereophoto"
 msgstr "تعليم stereophoto"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 #, fuzzy
 msgid "No results found for: %(query)s"
 msgstr ":لم يتم العثور على نتائج ل"
@@ -607,31 +611,31 @@ msgstr "بواسطة الطابع الزمني"
 msgid "Pictures from the map"
 msgstr "صور من الخريطة"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
 msgid "Did you mean to search from:"
 msgstr ":تقصد البحث عن"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:247
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
 msgstr "الألبومات"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:282
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
 msgstr "مفضلتي"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:286
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
 msgstr "إعادات تصويري"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
 msgstr "إعادات صور بواسطة %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
 msgstr "كل الصور"
 

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2020-12-03 14:40:23+0000\n"
+"PO-Revision-Date: 2021-01-07 14:15:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2020-11-26 16:27:34+0000\n"
+"X-POT-Import-Date: 2021-01-06 21:32:01+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:374
 msgid "User denied the request for Geolocation."
@@ -144,32 +144,36 @@ msgid "Server received invalid data."
 msgstr "Palvelimelle saapunut data ei kelpaa."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr "Vahvista ajoitus"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:405
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr "Ajoituksen vahvistamisesta sait %(points)s pistettä."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:410
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr "Lähettämisestä ja ajoittamisesta sait %(points)s pistettä."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:416
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
 msgstr "Kiitos!"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:426
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr "VVVV.KK.PP"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:436
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:445
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
@@ -177,35 +181,35 @@ msgstr "Peruuta"
 msgid "Submit"
 msgstr "Lähetä"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:453
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr "Kommentoi ajoitustasi"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr "Anna aika muodossa VVVV.KK.PP (KK.PP eivät ole pakollisia)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr "1878 | 1902.02"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr "Merkitse aikahaarukka tai ennen/jälkeen joko \"-\" tai \"..\" -merkinnällä"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr "Arvioitu aika suluissa"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr "(1944) | (1940.05)..1941.08.21)"
 
-#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:472
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr "Olet nimetön"
 
@@ -295,7 +299,7 @@ msgid "Mark stereophoto"
 msgstr "Merkitse stereokuva"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:241
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "No results found for: %(query)s"
 msgstr "Ei tuloksia haulle: %(query)s"
 
@@ -608,31 +612,31 @@ msgstr "Aikaleiman mukaan"
 msgid "Pictures from the map"
 msgstr "Kuvia kartalta"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
 msgid "Did you mean to search from:"
 msgstr "Yrititkö hakea:"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:247
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
 msgstr "kaikki kuvat"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:275
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
 msgstr "Albumit"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:282
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
 msgstr "Suosikkini"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:286
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
 msgstr "Uusintakuvani"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:288
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
 msgstr "Uusintakuvaa käyttäjältä %(user)s"
 
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:293
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
 msgstr "Kaikki kuvat"
 
