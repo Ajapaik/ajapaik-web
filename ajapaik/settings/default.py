@@ -240,7 +240,8 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
-SERVER_EMAIL = 'errors@ajapaik.ee'
+# This will actually forward to errors@ajapaik.ee as per sendmail config in etc/mail/aliases
+SERVER_EMAIL = 'err@ajapaik.ee'
 # TODO: Use django-mailgun
 
 AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
