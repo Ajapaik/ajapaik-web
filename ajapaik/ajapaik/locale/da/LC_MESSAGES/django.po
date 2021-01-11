@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-07 14:15:31+0000\n"
+"PO-Revision-Date: 2021-01-11 16:34:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-01-07 07:23:33+0000\n"
+"X-POT-Import-Date: 2021-01-07 16:38:00+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 
 #: ajapaik/ajapaik/admin.py:88
@@ -973,7 +973,7 @@ msgid "Log in to save selection"
 msgstr "Log in to save selection"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
-msgid "Log in import photos from csv file"
+msgid "Log in to import photos from csv file"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32

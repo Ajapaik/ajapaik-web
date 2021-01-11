@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-01 06:13+0200\n"
-"PO-Revision-Date: 2021-01-07 14:15:32+0000\n"
+"PO-Revision-Date: 2021-01-11 16:34:03+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-01-07 07:23:33+0000\n"
+"X-POT-Import-Date: 2021-01-07 16:38:00+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 
 #: ajapaik/ajapaik/admin.py:88
@@ -347,7 +347,7 @@ msgstr "Wikidata identifikaator"
 
 #: ajapaik/ajapaik/models.py:214
 msgid "Name original language"
-msgstr ""
+msgstr "Nimi algkeeles"
 
 #: ajapaik/ajapaik/models.py:233
 msgid "b."
@@ -387,7 +387,7 @@ msgstr "Kaamera kõrgus"
 
 #: ajapaik/ajapaik/models.py:472
 msgid "Description original language"
-msgstr ""
+msgstr "Kirjeldus algkeeles"
 
 #: ajapaik/ajapaik/models.py:1117 ajapaik/ajapaik/models.py:1208
 msgid "Different"
@@ -970,8 +970,8 @@ msgid "Log in to save selection"
 msgstr "Piltide rekureerimiseks logi sisse"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
-msgid "Log in import photos from csv file"
-msgstr ""
+msgid "Log in to import photos from csv file"
+msgstr "Logi sisse, et CSV faili abil pilte importida"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1319,11 +1319,11 @@ msgstr "Rohkem infot"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
-msgstr ""
+msgstr "Siit saad üles laadida CSV faili, et pilte Ajapaika importida"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Impordi pilt"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -2598,11 +2598,11 @@ msgstr "Eesti"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Läti"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Leedu"
 
 #: ajapaik/settings/default.py:76
 msgid "English"

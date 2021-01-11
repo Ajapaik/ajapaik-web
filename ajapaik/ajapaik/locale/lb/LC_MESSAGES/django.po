@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-07 14:15:33+0000\n"
+"PO-Revision-Date: 2021-01-11 16:34:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-01-07 07:23:33+0000\n"
+"X-POT-Import-Date: 2021-01-07 16:38:00+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 
 #: ajapaik/ajapaik/admin.py:88
@@ -346,7 +346,7 @@ msgstr "Wikidata identifier"
 
 #: ajapaik/ajapaik/models.py:214
 msgid "Name original language"
-msgstr ""
+msgstr "Numm an der Original-Sprooch"
 
 #: ajapaik/ajapaik/models.py:233
 msgid "b."
@@ -386,7 +386,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:472
 msgid "Description original language"
-msgstr ""
+msgstr "Beschreiwung an der Original-Sprooch"
 
 #: ajapaik/ajapaik/models.py:1117 ajapaik/ajapaik/models.py:1208
 msgid "Different"
@@ -969,7 +969,7 @@ msgid "Log in to save selection"
 msgstr "Log in to save selection"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
-msgid "Log in import photos from csv file"
+msgid "Log in to import photos from csv file"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
@@ -1322,7 +1322,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Foto importéieren"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -2597,11 +2597,11 @@ msgstr "Estonian"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Lettesch"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litauesch"
 
 #: ajapaik/settings/default.py:76
 msgid "English"

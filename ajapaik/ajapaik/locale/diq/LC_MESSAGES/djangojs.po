@@ -13,11 +13,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-01-07 14:15:31+0000\n"
+"PO-Revision-Date: 2021-01-11 16:34:02+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-01-06 21:32:01+0000\n"
+"X-POT-Import-Date: 2021-01-07 15:32:44+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -39,13 +39,13 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:877
 #: ajapaik/ajapaik/static/js/ajp-core.js:893
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "System error"
 msgstr "Xetaya sistemi"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1023
 #: ajapaik/ajapaik/static/js/ajp-core.js:1068
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "Not selected"
 msgstr "Nêweçiniya"
 
@@ -68,10 +68,12 @@ msgid "Geotagged by this many users"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1816
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Confirm correct location"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Submit your own location"
 msgstr ""
 
@@ -168,7 +170,7 @@ msgid "Cancel"
 msgstr "Bıtexelne"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:71
@@ -212,137 +214,135 @@ msgid "Add this picture to album (not the whole set)"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Aerial"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
 msgstr "Detayê albumi"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Approximate address"
 msgstr "Texmini adres"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Author"
 msgstr "Nuştekar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
-msgid "Comments"
-msgstr "Mışewreyi"
-
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
+msgid "Categorize scene"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Comments in album"
 msgstr "Vatışê albumi"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+msgid "Comments"
+msgstr "Mışewreyi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+msgid "Confirm"
+msgstr "Tesdiq kerê"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
+msgid "Could not copy link to clipboard"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Date"
 msgstr "Tarix"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Description"
 msgstr "Şınasnayış"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
 msgstr "Bıvurne"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
-msgid "Flip"
-msgstr "Bıçarne"
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
-msgid "Geotag pictures in album"
-msgstr "Albumê resımê Geotagi"
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
-msgid "Image has location and view direction info"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
-msgid "Image has no location info"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
-msgid "Image has only location, no view direction"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
-msgid "Image has rephotos"
+msgid "Exterior"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
-msgid "Image has similar photos"
+msgid "Failed to send your feedback, sorry."
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
-msgid "Institution"
-msgstr "Daire"
+msgid "Flip"
+msgstr "Bıçarne"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
-msgid "Invert colors"
-msgstr "Rengan ters bıçarne"
+msgid "Geotag pictures in album"
+msgstr "Albumê resımê Geotagi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
-msgid "Licence"
-msgstr "Lisans"
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Ground"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
-msgid "Mark stereophoto"
-msgstr "Mark stereophoto"
+msgid "Image has location and view direction info"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
-#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
-msgid "No results found for: %(query)s"
+msgid "Image has no location info"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-msgid "No results found for: %(query)s in this album"
+msgid "Image has only location, no view direction"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
+msgid "Image has rephotos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgid "Image has similar photos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-msgid "No pictures were found with the selected filters"
-msgstr ""
+msgid "Institution"
+msgstr "Daire"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-msgid "No pictures were found with the selected filters in this album"
+msgid "Interior"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
-msgid "No pictures with marked faces were found"
-msgstr ""
+msgid "Invert colors"
+msgstr "Rengan ters bıçarne"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
-msgid "No pictures with marked faces were found in this album"
+msgid "Invert"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
-msgid "No pictures with back sides were found"
-msgstr ""
+msgid "Licence"
+msgstr "Lisans"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
-msgid "No pictures with back sides were found in this album"
+msgid "Link copied to clipboard"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
-msgid "No interior views were found"
-msgstr ""
+msgid "Mark stereophoto"
+msgstr "Mark stereophoto"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
-msgid "No interior views were found in this album"
+msgid "No aerial pictures were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
-msgid "No exterior views were found"
+msgid "No aerial pictures were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
@@ -350,176 +350,228 @@ msgid "No exterior views were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
-msgid "No pictures from the ground level were found"
+msgid "No exterior views were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
-msgid "No pictures from the ground level were found in this album"
+msgid "No interior views were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
-msgid "No raised viewpoint pictures were found"
+msgid "No interior views were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
-msgid "No raised viewpoint pictures were found in this album"
+msgid "No pictures from the ground level were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
-msgid "No aerial pictures were found"
+msgid "No pictures from the ground level were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
-msgid "No aerial pictures were found in this album"
+msgid "No pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+msgid "No pictures were found with the selected filters in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
-msgid "Number"
-msgstr "Numre"
+msgid "No pictures were found with the selected filters"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
-msgid "photos"
-msgstr "fotrafi"
+msgid "No pictures were found"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
-msgid "Picture already in album(s)"
-msgstr "Resımo hora albumi miyan"
+msgid "No pictures which have 0 geotags were found in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
-msgid "Picture has location data attached"
-msgstr "Resim de datay cay neyayê pa"
+msgid "No pictures which have 0 geotags were found"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgid "No pictures with back sides were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
-msgid "Pictures geotagged"
+msgid "No pictures with back sides were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
-msgid "Pictures in album"
-msgstr "Resimê albumi"
+msgid "No pictures with marked faces were found in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
-msgid "Points"
-msgstr "Nuqteyi"
+msgid "No pictures with marked faces were found"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
-msgid "Remove from selection"
-msgstr "Weçineyan ra wedarne"
+msgid "No raised viewpoint pictures were found in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
-msgid "Rephotos in album"
+msgid "No raised viewpoint pictures were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
-msgid "Rotate"
-msgstr "Bıçerexne"
+msgid "No results found for: %(query)s in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
-msgid "Show pictures on map"
-msgstr "Resımi xerita de bımocne"
+msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
-msgid "Size"
-msgstr "Gırdiye"
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
+msgid "No results found for: %(query)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
-msgid "Source ID"
-msgstr "Kamiya çımeyi"
+msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
+msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
-msgid "Source"
-msgstr "Çıme"
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+msgid "Number"
+msgstr "Numre"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
-msgid "This album contains a film"
-msgstr "Enê albumi de yew film esto"
+msgid "Picture already in album(s)"
+msgstr "Resımo hora albumi miyan"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
-msgid "Title"
-msgstr "Sername"
+msgid "Picture has location data attached"
+msgstr "Resim de datay cay neyayê pa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
-msgid "URL"
-msgstr "URL"
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
-msgid "Unknown author"
-msgstr "Nuştekaro nêzanaye"
+msgid "Picture set has no annotations"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
-msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+msgid "Picture set has no comments"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
-msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
+msgid "Picture set has no datings"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
-msgid "Categorize scene"
+msgid "Picture set has no geotags"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
-msgid "Interior"
+msgid "Picture set has no likes"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
-#: ajapaik/ajapaik/static/js/ajp-selection.js:185
-msgid "Ground"
+msgid "Picture set has no rephotos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
+msgid "Picture set has no transcriptions"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
+msgid "Picture set has no views"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
+msgid "Pictures geotagged"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
+msgid "Pictures in album"
+msgstr "Resimê albumi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
+msgid "Points"
+msgstr "Nuqteyi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
-#: ajapaik/ajapaik/static/js/ajp-selection.js:185
-msgid "Aerial"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
-#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
-msgid "Confirm"
-msgstr "Tesdiq kerê"
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
-msgid "Exterior"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
-msgid "Picture set has no views"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
-msgid "Picture set has no geotags"
-msgstr ""
+msgid "Remove from selection"
+msgstr "Weçineyan ra wedarne"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
-msgid "Picture set has no rephotos"
+msgid "Rephotos in album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
-msgid "Picture set has no annotations"
-msgstr ""
+msgid "Rotate"
+msgstr "Bıçerexne"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
-msgid "Picture set has no transcriptions"
-msgstr ""
+msgid "Show pictures on map"
+msgstr "Resımi xerita de bımocne"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
-msgid "Picture set has no datings"
+msgid "Similar photos in album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
-msgid "Picture set has no comments"
-msgstr ""
+msgid "Size"
+msgstr "Gırdiye"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
-msgid "Picture set has no likes"
+#: ajapaik/ajapaik/static/js/ajp-selection.js:93
+msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
+msgid "Source ID"
+msgstr "Kamiya çımeyi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
+msgid "Source"
+msgstr "Çıme"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
+msgid "Thank you! Bad rectangle deleted."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
+msgid "Thank you!"
+msgstr "Teşekur kenan!"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
+msgid "This album contains a film"
+msgstr "Enê albumi de yew film esto"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
+msgid "Title"
+msgstr "Sername"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
+msgid "URL"
+msgstr "URL"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
+msgid "Unknown author"
+msgstr "Nuştekaro nêzanaye"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
+msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
+msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
+msgid "photos"
+msgstr "fotrafi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
@@ -677,10 +729,6 @@ msgstr ""
 msgid "Search box"
 msgstr "Qutiya cıgeyrayışi"
 
-#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
-msgid "Thank you!"
-msgstr "Teşekur kenan!"
-
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
 msgstr ""
@@ -767,10 +815,6 @@ msgstr[1] "%s puani kerdê qezenc "
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-selection.js:93
-msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103

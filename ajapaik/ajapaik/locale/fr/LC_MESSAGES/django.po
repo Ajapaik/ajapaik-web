@@ -25,11 +25,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-07 14:15:32+0000\n"
+"PO-Revision-Date: 2021-01-11 16:34:04+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-01-07 07:23:33+0000\n"
+"X-POT-Import-Date: 2021-01-07 16:38:00+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2020-10-28\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -978,8 +978,8 @@ msgid "Log in to save selection"
 msgstr "Connectez-vous pour enregistrer la sélection"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
-msgid "Log in import photos from csv file"
-msgstr "Se connecter pour importer des photos d’un fichier csv"
+msgid "Log in to import photos from csv file"
+msgstr "Se connecter pour importer des photos depuis un fichier csv"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1327,7 +1327,7 @@ msgstr "Plus d’informations"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
-msgstr "Ici, vous pouvez télécharger un csv pour importer des photos vers Ajapaik"
+msgstr "Ici, vous pouvez téléverser un csv pour importer des photos vers Ajapaik"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
