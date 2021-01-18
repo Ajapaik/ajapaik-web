@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-11 16:34:04+0000\n"
+"PO-Revision-Date: 2021-01-18 15:42:16+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -971,7 +971,7 @@ msgstr "선택 항목을 저장하기 위해 로그인"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "CSV 파일로부터 사진을 가져오려면 로그인하십시오"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1316,11 +1316,11 @@ msgstr "자세한 정보"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
-msgstr ""
+msgstr "사진을 Ajapaik로 가져오기 위해 여기서 CSV를 업로드할 수 있습니다"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "사진 가져오기"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -2572,7 +2572,7 @@ msgstr ""
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "리투아니아어"
 
 #: ajapaik/settings/default.py:76
 msgid "English"

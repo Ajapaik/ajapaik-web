@@ -20,6 +20,7 @@
 # Author: Radmir Far
 # Author: Roman
 # Author: Rubin16
+# Author: Wileyfoxyx
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -30,7 +31,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-11 16:34:05+0000\n"
+"PO-Revision-Date: 2021-01-18 15:42:17+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -2648,7 +2649,7 @@ msgstr ""
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Литовский"
 
 #: ajapaik/settings/default.py:76
 msgid "English"

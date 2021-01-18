@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-01-11 16:34:03+0000\n"
+"PO-Revision-Date: 2021-01-18 15:42:15+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -144,7 +144,7 @@ msgstr "서버가 유효하지 않은 데이터를 수신했습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
@@ -256,7 +256,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 msgid "Could not copy link to clipboard"
-msgstr ""
+msgstr "링크를 클립보드에 복사하지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Date"
@@ -326,7 +326,7 @@ msgstr "색상 반전"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert"
-msgstr ""
+msgstr "반전"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Licence"
@@ -334,7 +334,7 @@ msgstr "라이선스"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "링크가 클립보드에 복사되었습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Mark stereophoto"
@@ -374,7 +374,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "이 앨범에 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No pictures were found with the selected filters in this album"
@@ -386,15 +386,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures were found"
-msgstr ""
+msgstr "사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr ""
+msgstr "지리 태그가 없는 사진이 이 앨범에 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "지리 태그가 없는 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures with back sides were found in this album"
@@ -520,7 +520,7 @@ msgstr "지도에 사진 표시"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Similar photos in album"
-msgstr ""
+msgstr "앨범 내 비슷한 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Size"
