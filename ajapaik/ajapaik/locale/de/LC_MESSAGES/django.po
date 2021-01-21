@@ -9,6 +9,7 @@
 # Author: H2kks
 # Author: ImaCow
 # Author: Killarnee
+# Author: ManuelFranz
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: Pittigrilli
@@ -20,8 +21,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-01-11 16:34:03+0000\n"
-"X-POT-Import-Date: 2021-01-07 16:38:00+0000\n"
+"PO-Revision-Date: 2021-01-21 14:05:41+0000\n"
+"X-POT-Import-Date: 2021-01-20 15:21:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
@@ -370,7 +371,7 @@ msgstr "Außenaufnahme"
 
 #: ajapaik/ajapaik/models.py:463 ajapaik/ajapaik/models.py:1833
 msgid "Scene"
-msgstr ""
+msgstr "Szene"
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1840
 msgid "Ground"
@@ -1326,7 +1327,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Foto importieren"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
