@@ -487,8 +487,8 @@ class FinnaNearestPhotos(AjapaikAPIView):
             '-topic_facet:"arkeologia"',
             '-topic_facet:"lentokoneet"',
             '-topic_facet:"ilmakulkuneuvot lentokoneet"',
-            '-author_facet:"Koivisto Andreas"',  # Raumalla tulee liikaa kuvia maasta 
-            '-author_facet:"Kauppinen Anne"',  # Vantaan ruokakuvat 
+            '-author_facet:"Koivisto Andreas"',  # Raumalla tulee liikaa kuvia maasta
+            '-author_facet:"Kauppinen Anne"',  # Vantaan ruokakuvat
             '{!geofilt sfield=location_geo pt=%f,%f d=%f}' % (lat, lon, distance)
         ]
 
@@ -899,7 +899,7 @@ class RephotoUpload(APIView):
                     user=user_profile
                 )
                 rephoto_geotag.save()
-                # Investigate why this will always set geotag.is_correct=True 
+                # Investigate why this will always set geotag.is_correct=True
                 original_photo.set_calculated_fields()
                 original_photo.latest_geotag = new_rephoto.created
                 for a in original_photo.albums.all():
@@ -1020,7 +1020,7 @@ class FetchFinnaPhoto(AjapaikAPIView):
             id = form.cleaned_data['id']
 
             # Limit only to Helsinki city museum photos for now
-            m = re.search('https://(hkm\.|www\.)?finna.fi/Record/(hkm\..*?)( |\?|#|$)', id)
+            m = re.search("https://(hkm\.|www\.)?finna.fi/Record/(hkm\..*?)( |\?|#|$)", id)
             if m:
                 photo = finna_find_photo_by_url(id, user_profile)
                 if photo:
@@ -1109,7 +1109,7 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 ref_location = Point(x=longitude, y=latitude, srid=4326)
                 photos = Photo.objects.filter(likes__profile=user_profile).annotate(
                     distance=Distance(('geography'), ref_location)) \
-                             .order_by('distance')[start:end]
+                    .order_by('distance')[start:end]
                 photos = serializers.PhotoWithDistanceSerializer.annotate_photos(photos, user.profile)
 
                 return Response({
@@ -1472,7 +1472,7 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 if lat and lon:
                     ref_location = Point(x=lon, y=lat, srid=4326)
                     photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
-                                 .order_by('distance')[start:end]
+                        .order_by('distance')[start:end]
                 else:
                     photos = photos.order_by('rephotos__created')[start:end]
 
