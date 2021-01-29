@@ -48,7 +48,8 @@ from ajapaik.ajapaik import serializers
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
 from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike, \
     PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, \
-    Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, PhotoRotationSuggestion
+    Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, PhotoRotationSuggestion, \
+    MuisCollection
 from ajapaik.ajapaik.utils import merge_profiles
 from ajapaik.utils import can_action_be_done, suggest_photo_edit
 
@@ -1807,6 +1808,21 @@ class PhotoSuggestion(AjapaikAPIView):
         PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
 
         return JsonResponse({'message': response})
+
+
+class MuisCollectionOperations(AjapaikAPIView):
+    '''
+    API Endpoint to import and blacklist Muis Collections
+    '''
+    def post(self, request, collection_id):
+        print('Done')
+        return JsonResponse({'message': 'Done'})
+
+    def delete(self, request, collection_id):
+        collection = MuisCollection.filter(id=collection_id)
+        collection.blacklisted = True
+        collection.save()
+        return JsonResponse({'message': 'Done'})
 
 
 class PhotoAppliedOperations(AjapaikAPIView):
