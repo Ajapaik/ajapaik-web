@@ -10,6 +10,7 @@ import shutil
 import ssl
 import sys
 import unicodedata
+import urllib
 
 from copy import deepcopy
 from html import unescape
@@ -63,6 +64,7 @@ from haystack.query import SearchQuerySet
 from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
+from xml.etree import ElementTree as ET
 
 from ajapaik.ajapaik.curator_drivers.common import CuratorSearchForm
 from ajapaik.ajapaik.curator_drivers.europeana import EuropeanaDriver
@@ -80,7 +82,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, \
-    PhotoLike, PhotoFlipSuggestion, PhotoViewpointElevationSuggestion, PhotoSceneSuggestion, Dating, \
+    MuisCollection, PhotoLike, PhotoFlipSuggestion, PhotoViewpointElevationSuggestion, PhotoSceneSuggestion, Dating, \
     DatingConfirmation, Video, ImageSimilarity, ImageSimilaritySuggestion, ProfileMergeToken, Supporter
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
@@ -2508,6 +2510,32 @@ def update_like_state(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
+def muis_import(request):
+    user = request.user
+    user_can_import = user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
+    if request.method == 'GET':
+        url = 'https://www.muis.ee/OAIService/OAIService?verb=ListSets'
+        url_response = urllib.request.urlopen(url)
+        parser = ET.XMLParser(encoding="utf-8")
+        tree = ET.fromstring(url_response.read(), parser=parser)
+        ns = {'d': 'http://www.openarchives.org/OAI/2.0/'}
+        sets = tree.findall('d:ListSets/d:set', ns)
+        for s in sets:
+            name = s.find('d:setName', ns).text
+            spec = s.find('d:setSpec', ns).text
+            existing = MuisCollection.objects.filter(spec=spec).first()
+            if existing is None:
+                MuisCollection(name=name, spec=spec).save()
+            elif existing.name != name:
+                existing.name = name
+                existing.save()
+        collections = MuisCollection.objects.filter(blacklisted=False)
+        return render(request, 'muis-import.html', {
+            'user_can_import': user_can_import,
+            'collections': collections
+            }
+        )
+
 @user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
 def csv_import(request):
     if request.method == 'GET':
@@ -2894,9 +2922,12 @@ def donate(request):
 
 
 def photo_upload_choice(request):
+    user = request.user
     context = {
         'is_upload_choice': True,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'user_can_import_from_csv': user.is_superuser and user.groups.filter(name='csv_uploaders').count() == 1,
+        'user_can_import_from_muis': user.is_superuser and user.groups.filter(name='csv_uploaders').count() == 1
     }
 
     return render(request, 'photo/upload/photo_upload_choice.html', context)

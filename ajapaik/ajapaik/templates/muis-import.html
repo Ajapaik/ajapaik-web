@@ -1,0 +1,18 @@
+{% extends "core/base_bootstrap.html" %}
+{% load i18n bootstrap4 static compress %}
+
+{% block header %}
+    {% include "core/_header.html" %}
+{% endblock %}
+
+{% block layout %}
+<div class="container pb-3 w-50{% if user_can_import %}" id="ajp-curator-container"{% else %} pt-5"{% endif %}>
+    {% if user_can_import %}
+        {% for collection in collections %}
+            <div class="row pb-3"><div class="col-6">{{ collection.name }}</div><div class="col-6 float-right"><button class="btn btn-success mr-2">{% trans 'Import' %}</button><button class="btn btn-danger">{% trans 'Blacklist' %}</button></div></div>
+        {% endfor %}
+    {% else %}
+        {% include "authentication/_login.html" with type="csv-import" %}
+    {% endif %}
+    </div>
+{% endblock %}

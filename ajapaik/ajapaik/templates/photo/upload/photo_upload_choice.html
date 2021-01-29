@@ -21,5 +21,23 @@
                 </h3>
             </a>
         </div>
+        {% if user_can_import_from_muis %}
+            <div class="text-center d-block">
+                <a href="{% url "muis_import" %}" class="btn btn-primary mt-3 d-inline-block">
+                    <h3 class="ajp-text-white">
+                        {% trans "Muis Import" %}
+                    </h3>
+                </a>
+            </div>
+        {% endif %}
+        {% if user_can_import_from_csv %}
+            <div class="text-center d-block">
+                <a href="{% url "csv_import" %}" class="btn btn-primary mt-3 d-inline-block">
+                    <h3 class="ajp-text-white">
+                        {% trans "CSV Import" %}
+                    </h3>
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
