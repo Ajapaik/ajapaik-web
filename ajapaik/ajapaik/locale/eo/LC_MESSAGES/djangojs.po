@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Jakub Fabijan
 # Author: Mirin
 # Author: Robin van der Vliet
 # --
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:33+0000\n"
+"PO-Revision-Date: 2021-02-01 14:18:11+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -269,7 +270,7 @@ msgstr "Priskribo"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
-msgstr ""
+msgstr "Redakti"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 msgid "Exterior"
@@ -668,7 +669,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
-msgstr ""
+msgstr "ĉiuj bildoj"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
@@ -688,7 +689,7 @@ msgstr "Refotoj de %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
-msgstr ""
+msgstr "Ĉiuj bildoj"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:186
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -792,7 +793,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
-msgstr ""
+msgstr "Historiaj mapoj"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Remove album filter"
@@ -827,11 +828,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
-msgstr ""
+msgstr "Ĉi tiu transskribo estas ĝusta"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the image?"
-msgstr ""
+msgstr "Kio estas skribita sur la bildo?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
@@ -859,31 +860,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"
-msgstr ""
+msgstr "Iĉo"
 
 #: ajapaik/ajapaik/static/js/constants.js:63
 msgid "Female"
-msgstr ""
+msgstr "Ino"
 
 #: ajapaik/ajapaik/static/js/constants.js:64
 msgid "Child"
-msgstr ""
+msgstr "Infano"
 
 #: ajapaik/ajapaik/static/js/constants.js:65
 msgid "Elderly"
-msgstr ""
+msgstr "Maljunulo"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "Adult"
-msgstr ""
+msgstr "Plenkreskulo"
 
 #: ajapaik/ajapaik/static/js/constants.js:70
 msgid "Delete"
-msgstr ""
+msgstr "Forigi"
 
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: ajapaik/ajapaik/static/js/constants.js:76
 msgid "Photo with selected rephoto"
@@ -899,7 +900,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Add name"
-msgstr ""
+msgstr "Aldoni nomon"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Edit object annotation"
@@ -919,11 +920,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Change person name"
-msgstr ""
+msgstr "Ŝanĝi personan nomon"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Add person name"
-msgstr ""
+msgstr "Aldoni personan nomon"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Change object class"
@@ -931,21 +932,21 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Face"
-msgstr ""
+msgstr "Vizaĝo"
 
 #: ajapaik/ajapaik/static/js/constants.js:95
 msgid "Is this a face"
-msgstr ""
+msgstr "Ĉu estas tio ĉi vizaĝo"
 
 #: ajapaik/ajapaik/static/js/constants.js:96
 msgid "Is this"
-msgstr ""
+msgstr "Ĉu estas tio ĉi"
 
 #: ajapaik/ajapaik/static/js/constants.js:97
 #: ajapaik/ajapaik/static/js/constants.js:98
 #: ajapaik/ajapaik/static/js/constants.js:99
 msgid "Is this a"
-msgstr ""
+msgstr "Ĉu estas tio ĉi"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Annotation type"
@@ -953,19 +954,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 msgid "Object type"
-msgstr ""
+msgstr "Objekta tipo"
 
 #: ajapaik/ajapaik/static/js/constants.js:103
 msgid "Gender"
-msgstr ""
+msgstr "Genro"
 
 #: ajapaik/ajapaik/static/js/constants.js:104
 msgid "Age"
-msgstr ""
+msgstr "Aĝo"
 
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Failed to load object annotation classes"
@@ -1041,16 +1042,16 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:129
 msgid "Find object"
-msgstr ""
+msgstr "Trovi objekton"
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
 msgid "Searching"
-msgstr ""
+msgstr "Serĉado"
 
 #: ajapaik/ajapaik/static/js/constants.js:131
 msgid "Search for object"
-msgstr ""
+msgstr "Serĉi objekton"
 
 #: ajapaik/ajapaik/static/js/constants.js:132
 #: ajapaik/ajapaik/static/js/constants.js:139
@@ -1060,20 +1061,20 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:133
 #: ajapaik/ajapaik/static/js/constants.js:140
 msgid "No results found"
-msgstr ""
+msgstr "Neniu rezulto trovita"
 
 #: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
-msgstr ""
+msgstr "Trovi ekzistantan personon"
 
 #: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
-msgstr ""
+msgstr "Tajpu personan nomon"
 
 #: ajapaik/ajapaik/static/js/constants.js:141
 #: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
-msgstr ""
+msgstr "Aldoni novan personon"
 
 #: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
@@ -1081,11 +1082,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
-msgstr ""
+msgstr "Elekti aĝan grupon"
 
 #: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
-msgstr ""
+msgstr "Ŝanĝi aĝan grupon"
 
 #: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
@@ -1093,11 +1094,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
-msgstr ""
+msgstr "Elekti genron"
 
 #: ajapaik/ajapaik/static/js/constants.js:158
 msgid "Change gender"
-msgstr ""
+msgstr "Ŝanĝi genron"
 
 #: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
@@ -1105,5 +1106,5 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
-msgstr ""
+msgstr "Nekonata"
 

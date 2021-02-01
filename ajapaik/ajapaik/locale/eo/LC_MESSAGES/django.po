@@ -3,6 +3,7 @@
 #
 # Author: Abijeet Patro
 # Author: H2kks
+# Author: Jakub Fabijan
 # Author: Javiero
 # Author: Mirin
 # Author: Robin van der Vliet
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:34+0000\n"
+"PO-Revision-Date: 2021-02-01 14:18:12+0000\n"
 "Language: eo\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -65,7 +66,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login"
-msgstr ""
+msgstr "Bonvolu ensaluti"
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Rephoto upload settings have been saved"
@@ -137,7 +138,7 @@ msgstr "Valoroj de ĉirkaŭanta ortangulo devas esti nombroj"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "Retpoŝto"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -154,7 +155,7 @@ msgstr "Pasvorto"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "Pasvorta konfirmo"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:182
 #: ajapaik/ajapaik/forms.py:204
@@ -177,7 +178,7 @@ msgstr "Elekti patran albumon"
 
 #: ajapaik/ajapaik/forms.py:411
 msgid "Picture file"
-msgstr "Bilda dosiero"
+msgstr "Fota dosiero"
 
 #: ajapaik/ajapaik/forms.py:412 ajapaik/ajapaik/forms.py:461
 #: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:384
@@ -204,7 +205,7 @@ msgstr "Akceptitaj formatoj estas .png aŭ .jpg dosieroj"
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Add a short description of the picture"
-msgstr "Aldonu mallongan priskribon de la bildo"
+msgstr "Aldonu mallongan priskribon de la foto"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author of the picture (photographer, painter)"
@@ -216,7 +217,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Description of the picture"
-msgstr "Priskribo de la bildo"
+msgstr "Priskribo de la foto"
 
 #: ajapaik/ajapaik/forms.py:427
 msgid "Author name"
@@ -285,11 +286,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/forms.py:500
 msgid "Yes"
-msgstr ""
+msgstr "Jes"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/forms.py:500
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "Please specify your prefered language"
@@ -345,7 +346,7 @@ msgstr "Numero ĉe Vikidatumoj"
 
 #: ajapaik/ajapaik/models.py:214
 msgid "Name original language"
-msgstr ""
+msgstr "Nomiĝi originalan lingvon"
 
 #: ajapaik/ajapaik/models.py:233
 msgid "b."
@@ -434,7 +435,7 @@ msgstr "Filmero"
 
 #: ajapaik/ajapaik/models.py:1281
 msgid "Annotation"
-msgstr ""
+msgstr "Prinoto"
 
 #: ajapaik/ajapaik/models.py:1282
 msgid "Confirm subject"
@@ -450,7 +451,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1286 ajapaik/ajapaik/templates/_toolbox.html:64
 msgid "Transcribe"
-msgstr ""
+msgstr "Transskribi"
 
 #: ajapaik/ajapaik/models.py:1287
 msgid "Categorize scene"
@@ -596,7 +597,7 @@ msgstr "Albumoj"
 #: ajapaik/ajapaik/templates/_mode_select.html:27
 #: ajapaik/ajapaik/templates/_mode_select.html:75
 msgid "Show pictures"
-msgstr "Montri bildojn"
+msgstr "Montri fotojn"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:29
 #: ajapaik/ajapaik/templates/_mode_select.html:77
@@ -672,7 +673,7 @@ msgstr "Marki novan vizaĝon - alklakado de ĉi tiu butono permesas desegnadon d
 
 #: ajapaik/ajapaik/templates/_toolbox.html:32
 msgid "Annotate"
-msgstr ""
+msgstr "Prinoti"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:35
 #: ajapaik/ajapaik/templates/_toolbox.html:50
@@ -694,7 +695,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "Redakti foton"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -706,7 +707,7 @@ msgstr "Ĉu vi forgesis pasvorton?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Uzanta agordoj"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -732,7 +733,7 @@ msgstr "Ensaluti"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Registriĝi"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -746,12 +747,12 @@ msgstr "Menuo"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3394
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Retpoŝtaj adresoj:"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Konfirmi retpoŝtan adreson"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -773,11 +774,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "konfirmita"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "nekonfirmita"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
@@ -799,7 +800,7 @@ msgstr "Forigi"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Averto:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
@@ -807,7 +808,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Aldoni retpoŝton"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
@@ -879,12 +880,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Agordi Pasvorton"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "Jam havas konton? Tiam bonvolu <a href=\"%(login_url)s\">ensaluti</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
@@ -897,12 +898,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Noto"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "vi estas jam ensalutita kiel %(user_name)s"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
@@ -1056,11 +1057,11 @@ msgstr "Montri priskribon"
 
 #: ajapaik/ajapaik/templates/common/game.html:66
 msgid "The picture has not yet been pinned on the map. Be the first!"
-msgstr "La bildo ne jam alpingliĝis sur la mapon. Fariĝu la unua alpinglinto!"
+msgstr "La foto ne jam alpingliĝis sur la mapon. Fariĝu la unua alpinglinto!"
 
 #: ajapaik/ajapaik/templates/common/game.html:69
 msgid "1 suggestion has been submitted for this picture. Add yours!"
-msgstr "1 sugesto submetiĝis pri ĉi tiu bildo. Aldonu vian!"
+msgstr "1 sugesto submetiĝis pri ĉi tiu foto. Aldonu vian!"
 
 #: ajapaik/ajapaik/templates/common/game.html:73
 msgid "suggestions have been submitted for this picture. Add yours!"
@@ -1068,7 +1069,7 @@ msgstr "sugestoj submetiĝis pri ĉi tiu bildo. Aldonu vian!"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
-msgstr ""
+msgstr "Montri bildojn"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
@@ -1131,7 +1132,7 @@ msgstr "Montri en krado"
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:118
 msgid "Geotag pictures"
-msgstr "Aldoni geografiajn etikedojn al bildoj"
+msgstr "Aldoni geografiajn etikedojn al fotoj"
 
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
@@ -1220,7 +1221,7 @@ msgstr "Kuratori antikvajn fotojn el muzeoj al Ajapaik por markado per geografia
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr "Ĉiuj povas helpi riĉigi la datumojn de historiaj bildoj en Ajapaik!"
+msgstr "Ĉiuj povas helpi riĉigi la datumojn de historiaj fotoj en Ajapaik!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1543,15 +1544,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Nova Pasvorto"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Nova Pasvorto (ree)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Agordi pasvorton"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
@@ -1571,7 +1572,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "people"
-msgstr ""
+msgstr "homoj"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "back sides of pictures"
@@ -1751,7 +1752,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "Modifita"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
@@ -2021,7 +2022,7 @@ msgstr "Malsukcesis alŝutado de dosiero."
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Bonvenon denove"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
@@ -2063,7 +2064,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Vi havas"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/user/_user_info.html:5
@@ -2191,7 +2192,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
-msgstr ""
+msgstr "Vidi vian"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
@@ -2199,7 +2200,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:87
 msgid "favorite pictures"
-msgstr ""
+msgstr "plej ŝatataj bildoj"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is connected to:"
@@ -2279,12 +2280,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "agordoj de %(username)s"
 
 #: ajapaik/ajapaik/templates/user/user.html:25
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> havas"
 
 #: ajapaik/ajapaik/templates/user/user.html:32
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
@@ -2292,11 +2293,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "To create an account, click"
-msgstr ""
+msgstr "Por krei konton, alklaku"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "here"
-msgstr ""
+msgstr "ĉi tie"
 
 #: ajapaik/ajapaik/templates/user/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2499,17 +2500,17 @@ msgstr "Suplementaj rimarkoj pri la persono (aliaj nomoj,ktp.)"
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
 msgid "Child"
-msgstr ""
+msgstr "Infano"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
 msgid "Adult"
-msgstr ""
+msgstr "Plenkreskulo"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
 msgid "Elderly"
-msgstr ""
+msgstr "Maljunulo"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
@@ -2545,7 +2546,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Ne Certe"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -2555,7 +2556,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:62
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:86
 msgid "Not a Face"
-msgstr ""
+msgstr "Ne Vizaĝo"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
@@ -2565,7 +2566,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:89
 msgid "Info"
-msgstr ""
+msgstr "Informo"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
@@ -2574,11 +2575,11 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
 msgid "Not sure"
-msgstr ""
+msgstr "Ne Certe"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
 msgid "Skip"
-msgstr ""
+msgstr "Preterpasi"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
@@ -2598,11 +2599,11 @@ msgstr "Estona"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Latva"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litova"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
@@ -2614,15 +2615,15 @@ msgstr "Finna"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr ""
+msgstr "Sveda"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr ""
+msgstr "Rusa"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr ""
+msgstr "Franca"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
