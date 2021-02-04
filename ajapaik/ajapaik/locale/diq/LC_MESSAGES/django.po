@@ -14,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:34+0000\n"
+"PO-Revision-Date: 2021-02-04 07:34:38+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,7 +84,7 @@ msgstr "Transkripsiyon bi cı, sıpas!"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Transkripsiyon bi cı, sıpas!"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "User display name has been saved"
@@ -344,7 +344,7 @@ msgstr "Şınastoğê Wikidata"
 
 #: ajapaik/ajapaik/models.py:214
 msgid "Name original language"
-msgstr ""
+msgstr "Zıwanê oricinali name kerên"
 
 #: ajapaik/ajapaik/models.py:233
 msgid "b."
@@ -384,7 +384,7 @@ msgstr "Berziya vênıtışi"
 
 #: ajapaik/ajapaik/models.py:472
 msgid "Description original language"
-msgstr ""
+msgstr "Şınasiya zıwanê oricinali"
 
 #: ajapaik/ajapaik/models.py:1117 ajapaik/ajapaik/models.py:1208
 msgid "Different"

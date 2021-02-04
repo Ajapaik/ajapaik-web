@@ -11,603 +11,827 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2020-03-31 13:49:18+0000\n"
+"PO-Revision-Date: 2021-02-04 07:34:38+0000\n"
 "Language: da\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2020-03-09 15:27:40+0000\n"
-"X-Generator: MediaWiki 1.35.0-alpha; Translate 2019-04-24\n"
+"X-POT-Import-Date: 2021-01-07 15:32:44+0000\n"
+"X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:344
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:556
+#: ajapaik/ajapaik/static/js/ajp-core.js:374
 msgid "User denied the request for Geolocation."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:350
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:562
+#: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "Location information is unavailable."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:353
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:565
+#: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "The request to get user location timed out."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:356
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:568
+#: ajapaik/ajapaik/static/js/ajp-core.js:386
 msgid "An unknown error occurred."
 msgstr "Der opstod en ukendt fejl."
 
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:776
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:821
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1229
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1274
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:26
-msgid "Not selected"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1448
-#: ajapaik/ajapaik/static/js/ajapaik-common-nogooglemaps.js:1464
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1901
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:1917
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:42
+#: ajapaik/ajapaik/static/js/ajp-core.js:877
+#: ajapaik/ajapaik/static/js/ajp-core.js:893
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "System error"
 msgstr "Systemfejl"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:237
+#: ajapaik/ajapaik/static/js/ajp-core.js:1023
+#: ajapaik/ajapaik/static/js/ajp-core.js:1068
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+msgid "Not selected"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1608
 msgid "Go to my location"
 msgstr "Gå til min placering"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:250
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:435
+#: ajapaik/ajapaik/static/js/ajp-core.js:1620
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Luk"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:716
+#: ajapaik/ajapaik/static/js/ajp-core.js:1772
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:727
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:779
+#: ajapaik/ajapaik/static/js/ajp-core.js:1783
+#: ajapaik/ajapaik/static/js/ajp-core.js:1835
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:760
+#: ajapaik/ajapaik/static/js/ajp-core.js:1816
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Confirm correct location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:771
+#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Submit your own location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:798
+#: ajapaik/ajapaik/static/js/ajp-core.js:1854
 msgid "You"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:802
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:395
+#: ajapaik/ajapaik/static/js/ajp-core.js:1858
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonym bruger"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:804
+#: ajapaik/ajapaik/static/js/ajp-core.js:1860
 msgid "Anonymous users"
 msgstr "Anonyme brugere"
 
-#: ajapaik/ajapaik/static/js/ajapaik-common.js:862
+#: ajapaik/ajapaik/static/js/ajp-core.js:1924
 msgid "Current location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:193
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:199
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:205
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:211
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:219
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
 msgid "After approximately %(from)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:224
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
 msgid "After %(from)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:231
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
 msgid "Before approximately %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:236
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
 msgid "Before %(to)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:245
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
 msgid "Approximately %(date)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:269
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:314
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:364
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:314
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:364
 msgid "Server received invalid data."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:398
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:405
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:410
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:416
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
 msgstr "Tak!"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:426
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:436
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:152
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Cancel"
 msgstr "Fortryd"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:445
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:163
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
+#: ajapaik/ajapaik/static/js/ajp-selection.js:186
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:71
 msgid "Submit"
 msgstr "Indsend"
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:453
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:462
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-dater-plugin.js:472
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
 msgstr "Du er anonym"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:5
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:6
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Aerial"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:7
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Approximate address"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:8
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:9
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Author"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:10
-msgid "Comments"
-msgstr "Kommentarer"
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
+msgid "Categorize scene"
+msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:11
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Comments in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+msgid "Confirm"
+msgstr "Bekræft"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
+msgid "Could not copy link to clipboard"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Date"
 msgstr "Dato"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:13
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:14
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
+#: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
 msgstr "Rediger"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:15
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
+msgid "Exterior"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
+msgid "Failed to send your feedback, sorry."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Flip"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:16
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Geotag pictures in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Ground"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 msgid "Image has location and view direction info"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:18
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Image has no location info"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:19
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Image has only location, no view direction"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:20
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Image has rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Image has similar photos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Institution"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+msgid "Interior"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Invert colors"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:24
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+msgid "Invert"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Licence"
 msgstr "Licens"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:25
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+msgid "Link copied to clipboard"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Mark stereophoto"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:27
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+msgid "No aerial pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+msgid "No aerial pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+msgid "No exterior views were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+msgid "No exterior views were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+msgid "No interior views were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+msgid "No interior views were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+msgid "No pictures from the ground level were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+msgid "No pictures from the ground level were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+msgid "No pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+msgid "No pictures were found with the selected filters in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+msgid "No pictures were found with the selected filters"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+msgid "No pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
+msgid "No pictures which have 0 geotags were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
+msgid "No pictures which have 0 geotags were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
+msgid "No pictures with back sides were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
+msgid "No pictures with back sides were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
+msgid "No pictures with marked faces were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
+msgid "No pictures with marked faces were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
+msgid "No raised viewpoint pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
+msgid "No raised viewpoint pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
+msgid "No results found for: %(query)s in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
+msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
+msgid "No results found for: %(query)s"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "Number"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:28
-msgid "photos"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:29
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "Picture already in album(s)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:30
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "Picture has location data attached"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:31
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:32
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
+msgid "Picture set has no annotations"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
+msgid "Picture set has no comments"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
+msgid "Picture set has no datings"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
+msgid "Picture set has no geotags"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
+msgid "Picture set has no likes"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
+msgid "Picture set has no rephotos"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
+msgid "Picture set has no transcriptions"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
+msgid "Picture set has no views"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "Pictures geotagged"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:33
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "Pictures in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:34
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "Points"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:35
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Raised"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Remove from selection"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:36
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Rephotos in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:37
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Rotate"
 msgstr "Roter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:38
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Show pictures on map"
 msgstr "Vis billeder på kort"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:39
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+msgid "Similar photos in album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Size"
 msgstr "Størrelse"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
+#: ajapaik/ajapaik/static/js/ajp-selection.js:93
+msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Source ID"
 msgstr "Kilde-ID"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:41
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Source"
 msgstr "Kilde"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:43
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
+msgid "Thank you! Bad rectangle deleted."
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
+msgid "Thank you!"
+msgstr "Mange tak!"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "This album contains a film"
 msgstr "Dette album indeholder en film"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:44
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 msgid "Title"
 msgstr "Titel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:45
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 msgid "URL"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-extra-js-translations.js:46
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Unknown author"
 msgstr "Ukendt forfatter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:108
-msgid "Earliest"
-msgstr "Tidligst"
-
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:110
-msgid "Latest"
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
+msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:115
-msgid "Least"
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
+msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:117
-msgid "Most"
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
+msgid "photos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:122
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
+msgid "Ordering"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
+msgid "earliest"
+msgstr "tidligst"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
+msgid "latest"
+msgstr "seneste"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
+msgid "least"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
+msgid "most"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:124
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures closest to you"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:129
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:126
 msgid "commented"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:132
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:135
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:138
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
 msgid "geotagged"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:138
 msgid "liked"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:144
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
+msgid "categorized"
+msgstr "kategoriseret"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:147
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
+msgid "transcribed"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:153
+msgid "annotated"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:154
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
 msgstr "billeder"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:158
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:167
 msgid "By reverse timestamp"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:160
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
 msgid "By timestamp"
 msgstr "Efter tidsstempel"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:164
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:173
 msgid "Pictures from the map"
 msgstr "Billeder fra kortet"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:246
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
+msgid "Did you mean to search from:"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
+msgid "all pictures"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
 msgstr "Albummer"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:252
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
 msgstr "Mine favoritter"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:257
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:259
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:265
-msgid "All photos"
-msgstr "Alle fotos"
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
+msgid "All pictures"
+msgstr "Alle billeder"
 
-#: ajapaik/ajapaik/static/js/ajapaik-frontpage.js:336
-msgid "Picture set has no"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:187
+#: ajapaik/ajapaik/static/js/ajp-game.js:186
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-game.js:189
+#: ajapaik/ajapaik/static/js/ajp-game.js:188
 msgid "You have seen all the pictures from this album."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:376
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
 msgid "You're anonymous."
 msgstr "Du er anonym."
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:377
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:380
 msgid " You can now log in with your e-mail."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:465
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
 msgid "Toggle map center lock"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:493
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
 msgid "Approximate"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:500
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:507
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Object"
 msgstr "Objekt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:514
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:759
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:905
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:516
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:515
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:522
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:94
-msgid "Thank you!"
-msgstr "Mange tak!"
-
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:671
-msgid "Median guess"
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
+msgid "Median suggestion"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:683
-msgid "Your guess"
-msgstr "Dit gæt"
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
+msgid "Your suggestion"
+msgstr "Dit forslag"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:698
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:699
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
 msgstr "Fortsæt"
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:701
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:703
 msgid "a little"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:702
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:704
 msgid "a lot"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:900
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:903
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:912
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:910
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:914
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:918
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:920
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-geotagger-plugin.js:1068
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1070
 msgid "Points awarded"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-juks-gmaps.js:57
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1072
+msgid "Picture flip feedback"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:742
+#: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Remove album filter"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-map.js:750
+#: ajapaik/ajapaik/static/js/ajp-map.js:714
+msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:729
 msgid "Apply album filter"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:63
+#: ajapaik/ajapaik/static/js/ajp-map.js:731
+msgid "All pictures are shown in the sidebar"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
-msgid "You have gained %s points"
+msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:69
-msgid "Your guess has been changed"
+#: ajapaik/ajapaik/static/js/ajp-selection.js:88
+msgid "Your suggestion has been changed"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-selection.js:74
-msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:100
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:149
-msgid "Confirm"
-msgstr "Bekræft"
-
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:162
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the image?"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:175
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajapaik-transcriber-plugin.js:177
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
 msgstr ""
 
@@ -778,140 +1002,102 @@ msgid "Unable to remove object annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:118
-msgid "Successfully added face annotation feedback"
+msgid "Successfully added face annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:119
-msgid "Failed to add face annotation feedback"
+msgid "Unable to save face annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:120
-msgid "Successfully edited face annotation"
+msgid "Successfully added face annotation feedback"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:121
-msgid "Failed to save face annotation edit"
+msgid "Failed to add face annotation feedback"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:122
-msgid "Successfully removed face annotation"
+msgid "Successfully edited face annotation"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:123
+msgid "Failed to save face annotation edit"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:124
+msgid "Successfully removed face annotation"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:125
 msgid "Failed to remove face annotation"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:127
-msgid "Find object"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/constants.js:128
-#: ajapaik/ajapaik/static/js/constants.js:135
-msgid "Searching"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/constants.js:129
-msgid "Search for object"
+msgid "Find object"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:130
 #: ajapaik/ajapaik/static/js/constants.js:137
-msgid "Need 2 characters"
+msgid "Searching"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:131
-#: ajapaik/ajapaik/static/js/constants.js:138
+msgid "Search for object"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:132
+#: ajapaik/ajapaik/static/js/constants.js:139
+msgid "Need 2 characters"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/constants.js:133
+#: ajapaik/ajapaik/static/js/constants.js:140
 msgid "No results found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:134
+#: ajapaik/ajapaik/static/js/constants.js:136
 msgid "Find existing person"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:136
+#: ajapaik/ajapaik/static/js/constants.js:138
 msgid "Enter person name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:139
-#: ajapaik/ajapaik/static/js/constants.js:142
+#: ajapaik/ajapaik/static/js/constants.js:141
+#: ajapaik/ajapaik/static/js/constants.js:144
 msgid "Add new person"
 msgstr "Tilføj en ny person"
 
-#: ajapaik/ajapaik/static/js/constants.js:143
+#: ajapaik/ajapaik/static/js/constants.js:145
 msgid "Specify person name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:148
+#: ajapaik/ajapaik/static/js/constants.js:150
 msgid "Select age group"
 msgstr "Vælg aldersgruppe"
 
-#: ajapaik/ajapaik/static/js/constants.js:149
+#: ajapaik/ajapaik/static/js/constants.js:151
 msgid "Change age group"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:150
+#: ajapaik/ajapaik/static/js/constants.js:152
 msgid "Specify alternative age group"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/constants.js:155
+#: ajapaik/ajapaik/static/js/constants.js:157
 msgid "Select gender"
 msgstr "Vælg køn"
 
-#: ajapaik/ajapaik/static/js/constants.js:156
+#: ajapaik/ajapaik/static/js/constants.js:158
 msgid "Change gender"
 msgstr "Ændre køn"
 
-#: ajapaik/ajapaik/static/js/constants.js:157
+#: ajapaik/ajapaik/static/js/constants.js:159
 msgid "Specify alternative gender"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotation-filters.js:45
 msgid "Unknown"
 msgstr "Ukendt"
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:43
-msgid "Failed to load faces, sorry."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:66
-#, javascript-format
-msgid "Annotation added, thanks!<br />You have gained %s point"
-msgid_plural "Annotation added, thanks!<br />You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:79
-msgid "Failed to record your rectangle, sorry."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:92
-msgid "Thank you! Bad rectangle deleted."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:100
-msgid "Failed to send your feedback, sorry."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:116
-#, javascript-format
-msgid "Thank you!</br>You have gained %s point"
-msgid_plural "Thank you!</br>You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:126
-msgid "Failed to send your submission, sorry."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:155
-msgid "Failed retrieving person tagging form, sorry."
-msgstr ""
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:193
-msgid "Who is this?"
-msgstr "Hvem er dette?"
-
-#: ajapaik/ajapaik_face_recognition/static/js/ajapaik-face-tagger-plugin.js:316
-msgid "Are you sure you wish to have this annotation removed?"
-msgstr ""
 
