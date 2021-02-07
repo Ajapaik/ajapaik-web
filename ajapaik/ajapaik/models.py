@@ -294,7 +294,7 @@ class Album(Model):
         return qs.distinct('pk')
 
     def get_comment_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().filter(comment_count__gt=0)
+        qs = self.get_all_photos_queryset_with_subalbums().filter(comment_count__gt=0).order_by()
         count = 0
         for each in qs:
             count += each.comment_count
@@ -302,30 +302,21 @@ class Album(Model):
         return count
 
     def get_confirmed_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
-        count = 0
-        for each in qs:
-            for similarity in each.similar_photos.all():
-                temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                for item in temp:
-                    if item is not None and item.confirmed is True:
-                        count += 1
+        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        photo_ids = qs.values_list('pk', flat=True)
+        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
     def get_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().exclude(similar_photos__isnull=True)
-        count = 0
-        for each in qs:
-            for similarity in each.similar_photos.all():
-                temp = ImageSimilarity.objects.filter(Q(from_photo=each.id) & Q(to_photo=similarity.id))
-                count += len(temp)
-
+        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        photo_ids = qs.values_list('pk', flat=True)
+        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
         return count
 
     def set_calculated_fields(self):
-        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().count()
-        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().count()
-        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().count()
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only('pk').order_by().count()
+        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().only('pk').order_by().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().only('pk').order_by().count()
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
         self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
         self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
