@@ -4,7 +4,6 @@
 # Author: )8
 # Author: A Chinese Wikipedian
 # Author: A Retired User
-# Author: Abijeet Patro
 # Author: Aefgh39622
 # Author: Josephine W.
 # Author: Looong
@@ -24,7 +23,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-01-28 17:44:36+0000\n"
+"PO-Revision-Date: 2021-02-08 15:55:39+0000\n"
 "X-POT-Import-Date: 2021-01-20 15:21:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

@@ -1,7 +1,6 @@
 # Translation of Ajapaik Web app to Arabic (العربية)
 # Exported from translatewiki.net
 #
-# Author: Abijeet Patro
 # Author: BaRaN6161 TURK
 # Author: H2kks
 # Author: Meno25
@@ -19,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:33+0000\n"
+"PO-Revision-Date: 2021-02-08 15:55:34+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

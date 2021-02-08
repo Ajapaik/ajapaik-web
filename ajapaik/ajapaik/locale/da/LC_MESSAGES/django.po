@@ -1,7 +1,6 @@
 # Translation of Ajapaik Web app to Danish (dansk)
 # Exported from translatewiki.net
 #
-# Author: Abijeet Patro
 # Author: Fnielsen
 # Author: Saederup92
 # --
@@ -14,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:33+0000\n"
+"PO-Revision-Date: 2021-02-08 15:55:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
