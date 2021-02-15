@@ -1856,3 +1856,10 @@ class PhotoRotationSuggestion(Suggestion):
 class Supporter(Model):
     name = CharField(max_length=255, null=True, blank=True)
     profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter', on_delete=CASCADE)
+
+
+class MuisCollection(Model):
+    spec = CharField(max_length=255, null=True, blank=True)
+    name = CharField(max_length=255, null=True, blank=True)
+    imported = BooleanField(default=False)
+    blacklisted = BooleanField(default=False)
