@@ -1,8 +1,9 @@
-from rest_framework import viewsets, serializers
+from rest_framework import filters, viewsets, serializers
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from ajapaik.ajapaik.models import Photo, GeoTag
+from ajapaik.ajapaik.search_indexes import PhotoIndex
 
 
 class GeoTagSerializer(serializers.ModelSerializer):
@@ -48,6 +49,9 @@ class PhotoSerializer(serializers.ModelSerializer):
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.filter(rephoto_of__isnull=True)
     serializer_class = PhotoSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = list(PhotoIndex.fields)
+    search_fields.remove('text')
 
 
 class PhotoGeoTagViewSet(viewsets.ViewSet):
