@@ -1526,13 +1526,13 @@ class SubmitSimilarPhotos(AjapaikAPIView):
                         return JsonResponse({'status': 400})
                     inputs = [photo_obj, photo_obj2]
                     if confirmed is not None:
-                        inputs.append('1')
+                        inputs.append(True)
                     else:
-                        inputs.append('0')
+                        inputs.append(False)
                     if similarity_type is not None:
                         inputs.append(similarity_type)
                     if profile is not None:
-                        inputs.append(profile.id)
+                        inputs.append(profile)
                     points += ImageSimilarity.add_or_update(*inputs)
         return JsonResponse({'points': points})
 

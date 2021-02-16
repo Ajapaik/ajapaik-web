@@ -17,7 +17,7 @@
     <div class="full-pic" id="ajp-fullscreen-image-container">
         <div id="ajp-fullscreen-image-wrapper">
             <img id="ajp-fullscreen-image" style="display: none;" src="{{ fullscreen.url }}"
-                alt="{{ photo.description }}" title="{{ photo.description }}"/>
+                alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}"/>
         </div>
     </div>
 </div>
@@ -25,9 +25,9 @@
     <div class="full-box rephoto-full-box">
         <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
             <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
-                alt="{{ photo.description }} {% trans "rephoto" %}"
+                alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
                 data-src="{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}"
-                title="{{ photo.description }} {% trans "rephoto" %}" />
+                title="{{ photo.get_display_text }} {% trans "rephoto" %}" />
         </div>
     </div>
 {% endif %}
@@ -36,7 +36,7 @@
         <div class="ajp-photoview-main-photo-wrapper" class="ajp-photo col-auto h-100 p-0 mr-3 mw-50">
             <div class="ajp-photo" id="ajp-photoview-main-photo-container">
                 <a class="fullscreen" id="ajp-fullscreen-link">
-                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.description }}"
+                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.get_display_text }}"
                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
                 </a>
                 {% if previous_photo %}
@@ -102,7 +102,7 @@
                 <div id="ajp-photoview-rephoto-wrapper">
                     <div id="ajp-photoview-rephoto-container">
                         <a class="fullscreen" id="ajp-rephoto-full-screen-link">
-                            <img id="ajp-photoview-rephoto" class="ajp-max-48vw" alt="{{ photo.description }} {% trans "rephoto" %}"
+                            <img id="ajp-photoview-rephoto" class="ajp-max-48vw" alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
                                 src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
                         </a>
                         <button class="btn ajp-close-rephoto-overlay-button"
@@ -127,11 +127,11 @@
                                 <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
                                     class="img-fluid ajp-photoview-thumbnail"
                                     {% if similarity.similarity_type == 1 %}
-                                    alt="{{ similarity.to_photo.description }}  {% trans "similar photo" %}"
-                                    title="{{ similarity.to_photo.description }} {% trans "similar photo" %}"
+                                    alt="{{ similarity.to_photo.get_display_text }}  {% trans "similar photo" %}"
+                                    title="{{ similarity.to_photo.get_display_text }} {% trans "similar photo" %}"
                                     {% else %}
-                                    alt="{{ similarity.to_photo.description }}  {% trans "duplicate photo" %}"
-                                    title="{{ similarity.to_photo.description }} {% trans "duplicate photo" %}"
+                                    alt="{{ similarity.to_photo.get_display_text }}  {% trans "duplicate photo" %}"
+                                    title="{{ similarity.to_photo.get_display_text }} {% trans "duplicate photo" %}"
                                     {% endif %}/>
                             </a>
                             {% if similarity.confirmed == False %}
@@ -155,8 +155,8 @@
                         <a class="w-100" href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
                             <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
                                 class="img-responsive col-xs-12 ajp-photoview-thumbnail"
-                                alt="{{ photo.description }} {% trans "rephoto" %}"
-                                title="{{ photo.description }} {% trans "rephoto" %}"/>
+                                alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
+                                title="{{ photo.get_display_text }} {% trans "rephoto" %}"/>
                         </a>
                     </div>
                 {% endfor %}

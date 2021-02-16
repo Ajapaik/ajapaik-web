@@ -11,15 +11,15 @@
         <div class="full-pic" id="ajp-fullscreen-image-container">
             <img id="ajp-fullscreen-image" class="lazyload" style="display: none;"
                 data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
-                alt="{{ photo.description }}" title="{{ photo.description }}" />
+                alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}" />
         </div>
     </div>
 <div class="full-box rephoto-full-box">
     <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
         <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
-            alt="{{ photo2.description }}"
+            alt="{{ photo2.get_display_text }}"
             data-src="{% url "image_full" photo2.pk photo2.get_pseudo_slug %}"
-            title="{{ photo2.description }}/">
+            title="{{ photo2.get_display_text }}/">
     </div>
 </div>
 <div id="compare-photos-container" class="container pt-5" style="min-height:87vh;opacity:0;">
@@ -29,7 +29,7 @@
                 <a class="fullscreen" id="ajp-fullscreen-link"
                     href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
                     <img class="mw-100 align-bottom" id="ajp-compareview-main-photo" style="background-color:#eee;"
-                                            alt="{{ photo.description }}"
+                                            alt="{{ photo.get_display_text }}"
                                             src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
                 </a>
                 <div class="compare-photo-description">
@@ -43,7 +43,7 @@
             <a class="fullscreen" id="ajp-rephoto-full-screen-link" rel=""
                 href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}">
                 <img class="mw-100 align-bottom" id="ajp-compareview-secondary-photo" style="background-color:#eee;"
-                    alt="{{ photo2.description }}"
+                    alt="{{ photo2.get_display_text }}"
                     href="{% url 'photo' photo2.id photo2.get_pseudo_slug %}"
                     src="{% url 'image_thumb' photo2.id 800 photo2.get_pseudo_slug %}"/>
             </a>

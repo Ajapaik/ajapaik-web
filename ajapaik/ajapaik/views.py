@@ -490,7 +490,7 @@ def rephoto_upload(request, photo_id):
                     rephoto_of=photo,
                     area=photo.area,
                     licence=Licence.objects.get(id=17),  # CC BY 4.0
-                    description=data.get('description', photo.description),
+                    description=data.get('description', photo.get_display_text),
                     lat=data.get('lat', None),
                     lon=data.get('lon', None),
                     date_text=data.get('date_text', None),
@@ -1024,14 +1024,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
-                                        'rephoto_count',
-                                        'comment_count', 'geotag_count', 'distance', 'geotag_count',
-                                        'flip', 'has_similar')[start:end]
+                                        'rephoto_count', 'comment_count', 'geotag_count', 'distance',
+                                        'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
+                                        'muis_comment', 'muis_event_description_set_note')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
-                                        'rephoto_count',
-                                        'comment_count', 'geotag_count', 'geotag_count', 'geotag_count',
-                                        'flip', 'has_similar')[start:end]
+                                        'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
+                                        'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
+                                        'muis_comment', 'muis_event_description_set_note')[start:end]
 
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
@@ -1041,6 +1041,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photos = sorted(photos, key=lambda x: x[0] == each)
         # FIXME: Replacing objects with arrays is not a good idea, the small speed boost isn't worth it
         for p in photos:
+            if p[3] == '' or p[3] is None:
+                p[3] = p[14]
+            if p[3] == '' or p[3] is None:
+                p[3] = p[15]
+            if p[3] == '' or p[3] is None:
+                p[3] = p[16]
+            if p[3] == '' or p[3] is None:
+                p[3] = p[17]
             if hasattr(p[10], 'm'):
                 p[10] = p[10].m
             p[1], p[2] = calculate_thumbnail_size(p[1], p[2], 400)
@@ -1094,7 +1102,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         qs_for_fb = photos[:5]
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                     'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
-                                    'geotag_count')[0:page_size]
+                                    'geotag_count', 'title', 'muis_title', 'muis_comment',
+                                    'muis_event_description_set_note')[0:page_size]
         context['order1'] = 'time'
         context['order2'] = 'added'
         context['order3'] = None
@@ -1203,6 +1212,8 @@ def upload_photo_selection(request):
                                        created=timezone.now()))
                     except:  # noqa
                         pass
+                    if a.cover_photo is None and p is not None:
+                        a.cover_photo = p
 
             AlbumPhoto.objects.bulk_create(album_photos)
             Points.objects.bulk_create(points)
@@ -1302,7 +1313,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     else:
         template = 'photo/photoview.html'
     if not photo_obj.description:
-        title = 'Unknown photo'
+        if not photo_obj.get_display_text:
+            title = 'Unknown photo'
+        else:
+            title = photo_obj.get_display_text
     else:
         if photo_obj.description_original_language:
             first_original_language = photo_obj.description_original_language.split(',')[0]
@@ -1354,9 +1368,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if first_rephoto is not None:
         rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
-    photo_obj.tags = ','.join(photo_obj.description.split(' '))
-    if rephoto and rephoto.description:
-        rephoto.tags = ','.join(rephoto.description.split(' '))
+    if photo_obj and photo_obj.get_display_text:
+        photo_obj.tags = ','.join(photo_obj.get_display_text.split(' '))
+    if rephoto and rephoto.get_display_text:
+        rephoto.tags = ','.join(rephoto.get_display_text.split(' '))
 
     if 'photo_selection' in request.session:
         if str(photo_obj.id) in request.session['photo_selection']:
@@ -2535,6 +2550,7 @@ def muis_import(request):
             'collections': collections
             }
         )
+
 
 @user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
 def csv_import(request):

@@ -20,7 +20,7 @@
                             <a class="fullscreen" id="ajp-fullscreen-link" rel=""
                                 href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"
-                                        alt="{{ photo.description }}" title="{{ photo.description }}"
+                                        alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}"
                                         id="ajp-modal-photo"/>
                             </a>
                             {% if not is_mapview %}
@@ -78,11 +78,11 @@
                                     <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
                                         class="img-fluid ajp-photoview-thumbnail" id="ajp-modal-similar-photo"
                                         {% if similar_photos.all.0.similarity_type == 1 %}
-                                        alt="{{similar_photos.all.0.to_photo.description }}  {% trans "similar photo" %}"
-                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "similar photo" %}"
+                                        alt="{{similar_photos.all.0.to_photo.get_display_text }}  {% trans "similar photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.get_display_text }} {% trans "similar photo" %}"
                                         {% else %}
-                                        alt="{{ similar_photos.all.0.to_photo.description }}  {% trans "duplicate photo" %}"
-                                        title="{{ similar_photos.all.0.to_photo.description }} {% trans "duplicate photo" %}"
+                                        alt="{{ similar_photos.all.0.to_photo.get_display_text }}  {% trans "duplicate photo" %}"
+                                        title="{{ similar_photos.all.0.to_photo.get_display_text }} {% trans "duplicate photo" %}"
                                         {% endif %}/>
                                     <button id="modal-compare-similar" class="btn ajp-compare-similar-overlay-button"
                                     {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
@@ -115,7 +115,7 @@
                                 href="{% url 'photo' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
                                     id="ajp-modal-rephoto"
-                                        alt="{{ photo.description }}" title="{{ photo.description }}"/>
+                                        alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}"/>
                                 <button class="ajp-close-rephoto-overlay-button"
                                         {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                     <i class="material-icons notranslate">close</i>
@@ -174,13 +174,13 @@
                                             <b id="ajp-photo-author">{{ similar_photos.all.0.to_photo.author }}</b>
                                         </div>
                                     {% endif %}
-                                    {% if similar_photos.all.0.to_photo.description %}
-                                        <div id="ajp-photo-description" title="{{ similar_photos.all.0.to_photo.description }}">
+                                    {% if similar_photos.all.0.to_photo.get_display_text %}
+                                        <div id="ajp-photo-description" title="{{ similar_photos.all.0.to_photo.get_display_text }}">
                                             {% if similar_photos.all.0.to_photo.video %}
                                                 <a href="{% url "frontpage" %}?album={{ similar_photos.all.0.to_photo.albums.all.0.id }}&video={{ similar_photos.all.0.to_photo.video.id }}&t=
-                                                        {{ similar_photos.all.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.all.0.to_photo.description }}</a>
+                                                        {{ similar_photos.all.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.all.0.to_photo.get_display_text }}</a>
                                             {% else %}
-                                                {{ similar_photos.all.0.to_photo.description }}
+                                                {{ similar_photos.all.0.to_photo.get_display_text }}
                                             {% endif %}
                                         </div>
                                     {% endif %}
@@ -332,11 +332,11 @@
         window.photoModalPhotoLng = null;
     {% endif %}
     {% if description %}
-        window.currentPhotoDescription = "{{ photo.description|remove_newlines|escapejs }}";
+        window.currentPhotoDescription = "{{ photo.get_display_text|remove_newlines|escapejs }}";
     {% else %}
         window.currentPhotoDescription = false;
     {% endif %}
-    window.currentPhotoSourceName = "{{ photo.source.description }}";
+    window.currentPhotoSourceName = "{{ photo.source.get_display_text }}";
     window.currentPhotoSourceKey = "{{ photo.source_key }}";
     window.currentPhotoSourceURL = "{{ photo.source_url }}";
     window.previousDatings = {{ previous_datings | safe }};
@@ -366,7 +366,7 @@
                 licence: true,
             {% endif %}
             {% if rephoto.source %}
-                source: "{{ rephoto.source.description }}",
+                source: "{{ rephoto.source.get_display_text }}",
                 sourceKey: "{{ rephoto.source_key }}",
                 sourceURL: "{{ rephoto.source_url }}"
             {% endif %}
@@ -381,8 +381,8 @@
             {% if similar.to_photo.author %}
                 author: "{{ similar.to_photo.author }}",
             {% endif %}
-            {% if similar.to_photo.description %}
-                description: "{{ similar.to_photo.description|remove_newlines|escapejs }}",
+            {% if similar.to_photo.get_display_text %}
+                description: "{{ similar.to_photo.get_display_text|remove_newlines|escapejs }}",
             {% endif %}
             {% if similar.to_photo.date_text %}
                 date_text: "{{ similar.to_photo.date_text }}",

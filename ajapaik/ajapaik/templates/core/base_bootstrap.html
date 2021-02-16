@@ -32,9 +32,9 @@
             {% endif %}
         {% elif is_photoview %}
             {% if rephoto %}
-                {% trans 'Before and after view of' %} {{ rephoto.description }}
+                {% trans 'Before and after view of' %} {{ rephoto.get_display_text }}
             {% elif photo %}
-                {% trans 'Historic photo of' %} {{ photo.description }}
+                {% trans 'Historic photo of' %} {{ photo.get_display_text }}
             {% endif %}
         {% elif is_curator%}
             {% trans 'Curate historic photos from museums into Ajapaik for geotagging and rephotographing' %}

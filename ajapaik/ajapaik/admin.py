@@ -11,7 +11,8 @@ from ajapaik import settings
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
-    DatingConfirmation, Video, MyXtdComment, Supporter
+    DatingConfirmation, Video, MyXtdComment, Supporter, \
+    Location, LocationPhoto
 
 
 class AlbumPhotoInline(admin.TabularInline):
@@ -204,6 +205,14 @@ class MyUserAdmin(admin.ModelAdmin):
     search_fields = ('id', 'username', 'emailaddress__email', 'profile__display_name')
 
 
+class LocationPhotoAdmin(admin.ModelAdmin):
+    form = autocomplete_form_factory(LocationPhoto)
+
+
+class LocationAdmin(admin.ModelAdmin):
+    form = autocomplete_form_factory(Location)
+
+
 try:
     admin.site.unregister(User)
 except NotRegistered:
@@ -229,3 +238,5 @@ admin.site.register(DatingConfirmation, DatingConfirmationAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(MyXtdComment, XtdCommentsAdmin)
 admin.site.register(Supporter, SupporterAdmin)
+admin.site.register(LocationPhoto, LocationPhotoAdmin)
+admin.site.register(Location, LocationAdmin)

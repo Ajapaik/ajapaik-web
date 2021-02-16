@@ -91,7 +91,7 @@ def photo_info(request):
         return Response({
             'id': photo.id,
             'author': photo.author,
-            'description': photo.description,
+            'description': photo.get_display_text,
             'latitude': location.y,
             'longitude': location.x,
             'source': source_str,

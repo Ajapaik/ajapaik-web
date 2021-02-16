@@ -304,7 +304,8 @@ class Album(Model):
     def get_confirmed_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
+        count = ImageSimilarity.objects.filter(
+            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
     def get_similar_photo_count_with_subalbums(self):
@@ -314,9 +315,11 @@ class Album(Model):
         return count
 
     def set_calculated_fields(self):
-        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only('pk').order_by().count()
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only(
+            'pk').order_by().count()
         self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().only('pk').order_by().count()
-        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().only('pk').order_by().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().only(
+            'pk').order_by().count()
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
         self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
         self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
@@ -371,8 +374,14 @@ class Photo(Model):
     rotated = IntegerField(null=True, blank=True)
     date = DateTimeField(null=True, blank=True)
     date_text = CharField(max_length=255, blank=True, null=True)
-    title = CharField(max_length=255, blank=True, null=True)
+    title = TextField(_('Title'), null=True, blank=True)
     description = TextField(_('Description'), null=True, blank=True)
+    muis_title = TextField(_('MUIS title'), null=True, blank=True)
+    muis_comment = TextField(_('MUIS comment'), null=True, blank=True)
+    muis_event_description_set_note = TextField(_('MUIS event description set note'), null=True, blank=True)
+    muis_text_on_object = TextField(_('MUIS text on object'), null=True, blank=True)
+    muis_legends_and_descriptions = TextField(_('MUIS legends and descriptions'), null=True, blank=True)
+    muis_update_time = DateTimeField(null=True, blank=True)
     author = CharField(_('Author'), null=True, blank=True, max_length=255)
     uploader_is_author = BooleanField(default=False)
     licence = ForeignKey('Licence', null=True, blank=True, on_delete=CASCADE)
@@ -470,6 +479,21 @@ class Photo(Model):
         db_table = 'project_photo'
 
     @property
+    def get_display_text(self):
+        if self.description:
+            return self.description
+        elif self.title:
+            return self.title
+        elif self.muis_title:
+            return self.muis_title
+        elif self.muis_comment:
+            return self.muis_comment
+        elif self.muis_event_description_set_note:
+            return self.muis_event_description_set_note
+        else:
+            return None
+
+    @property
     def people(self):
         people_albums = []
         rectangles = apps.get_model('ajapaik_face_recognition.FaceRecognitionRectangle').objects \
@@ -494,7 +518,7 @@ class Photo(Model):
             source_str = photo.source.description
         ret = {
             'id': photo.id,
-            'description': photo.description,
+            'description': photo.get_display_text,
             'sourceKey': photo.source_key,
             'sourceURL': photo.source_url,
             'sourceName': source_str,
@@ -593,7 +617,7 @@ class Photo(Model):
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __unicode__(self):
-        return u'%s - %s (%s) (%s)' % (self.id, self.description, self.date_text, self.source_key)
+        return u'%s - %s (%s) (%s)' % (self.id, self.get_display_text, self.date_text, self.source_key)
 
     def __str__(self):
         return self.__unicode__()
@@ -850,8 +874,8 @@ class Photo(Model):
         return reverse('photo', args=(self.id, self.get_pseudo_slug()))
 
     def get_pseudo_slug(self):
-        if self.description is not None and self.description != '':
-            slug = '-'.join(slugify(self.description).split('-')[:6])[:60]
+        if self.get_display_text is not None and self.get_display_text != '':
+            slug = '-'.join(slugify(self.get_display_text).split('-')[:6])[:60]
         elif self.source_key is not None and self.source_key != '':
             slug = slugify(self.source_key)
         else:
@@ -1179,13 +1203,10 @@ class ImageSimilarity(Model):
         return points
 
     def add_or_update(photo_obj, photo_obj2, confirmed=None, similarity_type=None, profile=None):
-        proposer = Profile.objects.filter(user_id=profile).first()
-        if confirmed is None:
-            confirmed = False
         imageSimilarity = ImageSimilarity(None, from_photo=photo_obj, to_photo=photo_obj2, confirmed=confirmed,
-                                          similarity_type=similarity_type, user_last_modified=proposer)
+                                          similarity_type=similarity_type, user_last_modified=profile)
         imageSimilarity2 = ImageSimilarity(None, from_photo=photo_obj2, to_photo=photo_obj, confirmed=confirmed,
-                                           similarity_type=similarity_type, user_last_modified=proposer)
+                                           similarity_type=similarity_type, user_last_modified=profile)
         points = imageSimilarity.__add_or_update__()
         points += imageSimilarity2.__add_or_update__()
         return points
@@ -1392,12 +1413,24 @@ class GeoTag(Model):
         desc = None
         if self.photo.title:
             title = self.photo.title[:50]
-        elif self.photo.description:
-            desc = self.photo.description[:50]
+        elif self.photo.get_display_text:
+            desc = self.photo.get_display_text[:50]
         if self.user:
             return u'%s - %s - %d' % (title, desc, self.user.id)
         else:
             return u'%s - %s' % (title, desc)
+
+
+class LocationPhoto(Model):
+    location = ForeignKey('Location', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+
+
+class Location(Model):
+    name = CharField(max_length=255, null=True, blank=True)
+    location_type = CharField(max_length=255, null=True, blank=True)
+    photos = ManyToManyField('Photo', through='LocationPhoto', related_name='locations')
+    sublocation_of = ForeignKey('self', blank=True, null=True, related_name='sublocations', on_delete=CASCADE)
 
 
 class FacebookManager(Manager):

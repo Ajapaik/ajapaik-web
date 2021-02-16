@@ -12,11 +12,11 @@
         </div>
     {% endif %}
     {% if photo.video %}
-        <a href="{% url 'frontpage' %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ seconds }}">{{ photo.description }}</a>
+        <a href="{% url 'frontpage' %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ seconds }}">{{ photo.get_display_text }}</a>
     {% else %}
-        {% if photo.description %}
+        {% if photo.get_display_text %}
             <div id="ajp-photo-description" class="w-100">
-                    {{ photo.description }}
+                    {{ photo.get_display_text }}
             </div>
         {% endif %}
     {% endif %}
