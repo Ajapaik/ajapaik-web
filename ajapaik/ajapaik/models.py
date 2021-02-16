@@ -1896,3 +1896,9 @@ class MuisCollection(Model):
     name = CharField(max_length=255, null=True, blank=True)
     imported = BooleanField(default=False)
     blacklisted = BooleanField(default=False)
+
+
+class ApplicationException(Model):
+    exception = TextField(_('Title'), null=True, blank=True)
+    external_id = CharField(max_length=100, null=True, blank=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)

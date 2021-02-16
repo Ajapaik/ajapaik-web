@@ -6,7 +6,8 @@ from django.core.management.base import BaseCommand
 
 from ajapaik.utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, GeoTag, Photo, Source,  Location, LocationPhoto
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, GeoTag, Photo, Source,  Location, LocationPhoto, \
+    ApplicationException
 import xml.etree.ElementTree as ET
 
 import requests
@@ -70,140 +71,143 @@ class Command(BaseCommand):
         actor_wrap = event_wrap + 'lido:eventSet/lido:event/lido:eventActor/'
 
         for rec in records:
-            locations = []
-            person_album_ids = []
-            creation_date_earliest = None
-            creation_date_latest = None
-            external_id = rec.find(header + 'd:identifier', ns).text \
-                if rec.find(header + 'd:identifier', ns) is not None \
-                else None
-            existing_photo = Photo.objects.filter(source=source, external_id=external_id).first()
-            if existing_photo is not None:
-                continue
+            try:
+                locations = []
+                person_album_ids = []
+                creation_date_earliest = None
+                creation_date_latest = None
+                external_id = rec.find(header + 'd:identifier', ns).text \
+                    if rec.find(header + 'd:identifier', ns) is not None \
+                    else None
+                existing_photo = Photo.objects.filter(source=source, external_id=external_id).first()
+                if existing_photo is not None:
+                    continue
 
-            image_url = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                 + 'resourceRepresentation/lido:linkResource', ns).text \
-                if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                            + 'resourceRepresentation/lido:linkResource', ns) is not None\
-                else None
+                image_url = rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                     + 'resourceRepresentation/lido:linkResource', ns).text \
+                    if rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                    else None
 
-            image_extension = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                       + 'resourceRepresentation/lido:linkResource',
-                                       ns).attrib['{' + ns['lido'] + '}formatResource'] \
-                if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                            + 'resourceRepresentation/lido:linkResource', ns) is not None\
-                else None
+                image_extension = rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                           + 'resourceRepresentation/lido:linkResource',
+                                           ns).attrib['{' + ns['lido'] + '}formatResource'] \
+                    if rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                    else None
 
-            source_url_find = rec.find(record_wrap + 'lido:recordInfoSet/lido:recordInfoLink', ns)
-            source_url = source_url_find.text \
-                if source_url_find is not None \
-                else None
+                source_url_find = rec.find(record_wrap + 'lido:recordInfoSet/lido:recordInfoLink', ns)
+                source_url = source_url_find.text \
+                    if source_url_find is not None \
+                    else None
 
-            identifier_find = rec.find(repository_wrap
-                                       + 'lido:repositorySet/lido:workID', ns
-                                       )
-            identifier = identifier_find.text \
-                if identifier_find is not None \
-                else None
+                identifier_find = rec.find(repository_wrap + 'lido:repositorySet/lido:workID', ns)
+                identifier = identifier_find.text \
+                    if identifier_find is not None \
+                    else None
 
-            if image_url is None:
-                continue
+                if image_url is None:
+                    continue
 
-            img_data = requests.get(image_url).content
-            image_id = external_id.split(':')[-1]
-            file_name = set_name + '_' + image_id + '.' + image_extension
-            file_name = file_name.replace(':', '_')
-            path = settings.MEDIA_ROOT + '/uploads/' + file_name
-            with open(path, 'wb') as handler:
-                handler.write(img_data)
-            photo = Photo(
-                image=path,
-                source_key=identifier,
-                source_url=source_url,
-                external_id=external_id,
-                source=source
-            )
-            dt = datetime.utcnow()
-            dt.replace(tzinfo=timezone.utc)
-            photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
-            photo.light_save()
+                img_data = requests.get(image_url).content
+                image_id = external_id.split(':')[-1]
+                file_name = set_name + '_' + image_id + '.' + image_extension
+                file_name = file_name.replace(':', '_')
+                path = settings.MEDIA_ROOT + '/uploads/' + file_name
+                with open(path, 'wb') as handler:
+                    handler.write(img_data)
+                photo = Photo(
+                    image=path,
+                    source_key=identifier,
+                    source_url=source_url,
+                    external_id=external_id,
+                    source=source
+                )
+                dt = datetime.utcnow()
+                dt.replace(tzinfo=timezone.utc)
+                photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
+                photo.light_save()
 
-            photo = Photo.objects.get(id=photo.id)
-            photo.image.name = 'uploads/' + file_name
+                photo = Photo.objects.get(id=photo.id)
+                photo.image.name = 'uploads/' + file_name
 
-            title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
-            title = title_find.text \
-                if title_find is not None \
-                else None
-            if title:
-                photo = reset_modeltranslated_field(photo, title, 'title')
+                title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
+                title = title_find.text \
+                    if title_find is not None \
+                    else None
+                if title:
+                    photo = reset_modeltranslated_field(photo, title, 'title')
 
-            dating = None
-            photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
-            photo.light_save()
-            earliest_had_decade_suffix = False
-            creation_date_earliest = None
-            creation_date_latest = None
-            date_prefix_earliest = None
-            date_prefix_latest = None
-            events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
-            if events is not None and len(events) > 0:
-                locations, \
-                    creation_date_earliest, \
-                    creation_date_latest, \
-                    date_prefix_earliest, \
-                    date_prefix_latest, \
-                    date_earliest_has_suffix, \
-                    date_latest_has_suffix, \
-                    earliest_had_beginning_of_century_suffix, \
-                    latest_had_beginning_of_century_suffix = extract_dating_from_event(
-                        events,
-                        locations,
-                        creation_date_earliest,
-                        creation_date_latest,
-                        photo.latest_dating is not None or dating is not None,
-                        ns
-                    )
-            if dating is not None:
-                creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix = get_muis_date_and_prefix(
-                    dating)
-                creation_date_latest = creation_date_earliest
+                dating = None
+                photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
+                photo.light_save()
+                earliest_had_decade_suffix = False
+                creation_date_earliest = None
+                creation_date_latest = None
+                date_prefix_earliest = None
+                date_prefix_latest = None
+                events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
+                if events is not None and len(events) > 0:
+                    locations, \
+                        creation_date_earliest, \
+                        creation_date_latest, \
+                        date_prefix_earliest, \
+                        date_prefix_latest, \
+                        date_earliest_has_suffix, \
+                        date_latest_has_suffix, \
+                        earliest_had_beginning_of_century_suffix, \
+                        latest_had_beginning_of_century_suffix = extract_dating_from_event(
+                            events,
+                            locations,
+                            creation_date_earliest,
+                            creation_date_latest,
+                            photo.latest_dating is not None or dating is not None,
+                            ns
+                        )
+                if dating is not None:
+                    creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix = get_muis_date_and_prefix(
+                        dating)
+                    creation_date_latest = creation_date_earliest
 
-            actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
-            person_album_ids = add_person_albums(actors, person_album_ids, Album, ns)
+                actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
+                person_album_ids = add_person_albums(actors, person_album_ids, Album, ns)
 
-            photo.add_to_source_album()
-            if locations != []:
-                photo = add_geotag_from_address_to_photo(photo, locations, GeoTag, Location, LocationPhoto)
+                photo.add_to_source_album()
+                if locations != []:
+                    photo = add_geotag_from_address_to_photo(photo, locations, GeoTag, Location, LocationPhoto)
 
-            photo = add_dating_to_photo(
-                photo,
-                creation_date_earliest,
-                creation_date_latest,
-                date_prefix_earliest,
-                date_prefix_latest,
-                Dating,
-                date_earliest_has_suffix,
-                date_latest_has_suffix,
-                earliest_had_beginning_of_century_suffix,
-                latest_had_beginning_of_century_suffix
-            )
-            photo.light_save()
-            for album in albums:
-                if not album.cover_photo:
-                    album.cover_photo = photo
-                ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.CURATED)
-                ap.save()
-
-            person_albums = Album.objects.filter(id__in=person_album_ids)
-            if person_albums is not None:
-                for album in person_albums:
+                photo = add_dating_to_photo(
+                    photo,
+                    creation_date_earliest,
+                    creation_date_latest,
+                    date_prefix_earliest,
+                    date_prefix_latest,
+                    Dating,
+                    date_earliest_has_suffix,
+                    date_latest_has_suffix,
+                    earliest_had_beginning_of_century_suffix,
+                    latest_had_beginning_of_century_suffix
+                )
+                photo.light_save()
+                for album in albums:
                     if not album.cover_photo:
                         album.cover_photo = photo
-                    ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                    ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.CURATED)
                     ap.save()
 
-                    all_person_album_ids_set.add(album.id)
+                person_albums = Album.objects.filter(id__in=person_album_ids)
+                if person_albums is not None:
+                    for album in person_albums:
+                        if not album.cover_photo:
+                            album.cover_photo = photo
+                        ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                        ap.save()
+
+                        all_person_album_ids_set.add(album.id)
+
+            except Exception as e:
+                exception = ApplicationException(exception=e, photo=photo)
+                exception.save()
 
         for album in albums:
             album.set_calculated_fields()

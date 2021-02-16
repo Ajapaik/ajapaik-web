@@ -12,7 +12,7 @@ from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, MyXtdComment, Supporter, \
-    Location, LocationPhoto
+    Location, LocationPhoto, ApplicationException
 
 
 class AlbumPhotoInline(admin.TabularInline):
@@ -211,6 +211,10 @@ class LocationPhotoAdmin(admin.ModelAdmin):
 
 class LocationAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(Location)
+
+
+class ApplicationExceptionAdmin(admin.ModelAdmin):
+    form = autocomplete_form_factory(ApplicationException)
 
 
 try:

@@ -40,6 +40,7 @@ responses==0.12.1
 scikit-learn==0.22.2.post1
 sorl-thumbnail==12.6.3
 user-agents==2.1
+pygoogletranslation
 
 # Code quality, tests
 typing==3.7.4.3

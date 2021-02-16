@@ -1,16 +1,19 @@
 import hashlib
 import itertools
+import logging
 import os
 import requests
 import json
 
 from math import cos, sin, radians, atan2, sqrt
 
-from googletrans import Translator
+from pygoogletranslation import Translator
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.conf import settings
 import datetime
+
+logger = logging.getLogger(__name__)
 
 
 def get_etag(_request, image, _content):
@@ -496,15 +499,13 @@ def reset_modeltranslated_field(photo, attribute_value, attribute_name):
     translator = Translator()
     detection_lang = None
     if attribute_value is not None:
-        attribute_value = "Test"
-        if 2 == 3:
-            detection = translator.detect(attribute_value)
-            try:
-                setattr(photo, attribute_name + '_' + detection.lang, attribute_value)
-            except Exception as e:
-                print(e)
-            detection_lang = detection.lang
         detection_lang = 'et'
+        detection = translator.detect(attribute_value)
+        try:
+            setattr(photo, attribute_name + '_' + detection.lang, attribute_value)
+            detection_lang = detection.lang
+        except Exception as e:
+            logger.error('During importing/updating from MUIS, an error occured for photo: ' + photo.id + '. ' + e)
     for language in settings.MODELTRANSLATION_LANGUAGES:
         if language == detection_lang:
             continue
