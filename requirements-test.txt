@@ -22,6 +22,7 @@ django-user-agents==0.4.0
 django-allauth==0.41.0
 geopy==1.21.0
 pandas==1.0.3
+roman
 sklearn
 oauth2client==2.2.0
 gdal==2.1.3

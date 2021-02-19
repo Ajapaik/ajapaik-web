@@ -41,6 +41,7 @@ scikit-learn==0.22.2.post1
 sorl-thumbnail==12.6.3
 user-agents==2.1
 pygoogletranslation
+roman
 
 # Code quality, tests
 typing==3.7.4.3
