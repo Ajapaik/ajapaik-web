@@ -1,10 +1,12 @@
-from datetime import datetime
-from datetime import timezone
+from datetime import datetime, timezone
+
+import logging
 import urllib
+import traceback
 
 from django.core.management.base import BaseCommand
 
-from ajapaik.utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
+from ajapaik.ajapaik.muis_utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, GeoTag, Photo, Source,  Location, LocationPhoto, \
     ApplicationException
@@ -28,6 +30,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        logger = logging.getLogger(__name__)
+
         # Import sets
         muis_url = 'https://www.muis.ee/OAIService/OAIService'
         set_name = (options['set_name'])[0]
@@ -44,8 +48,8 @@ class Command(BaseCommand):
             for s in sets:
                 if s.find('d:setSpec', ns).text == museum_name:
                     source_description = s.find('d:setName', ns).text
-            source = Source(name=museum_name, description=source_description)
-            source.save()
+                    source = Source(name=museum_name, description=source_description)
+                    source.save()
         source = Source.objects.filter(name=museum_name).first()
 
         album_ids = (options['album_ids'])
@@ -135,13 +139,13 @@ class Command(BaseCommand):
                 title = title_find.text \
                     if title_find is not None \
                     else None
+
                 if title:
                     photo = reset_modeltranslated_field(photo, title, 'title')
 
                 dating = None
                 photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
                 photo.light_save()
-                earliest_had_decade_suffix = False
                 creation_date_earliest = None
                 creation_date_latest = None
                 date_prefix_earliest = None
@@ -155,8 +159,7 @@ class Command(BaseCommand):
                         date_prefix_latest, \
                         date_earliest_has_suffix, \
                         date_latest_has_suffix, \
-                        earliest_had_beginning_of_century_suffix, \
-                        latest_had_beginning_of_century_suffix = extract_dating_from_event(
+                        = extract_dating_from_event(
                             events,
                             locations,
                             creation_date_earliest,
@@ -165,9 +168,10 @@ class Command(BaseCommand):
                             ns
                         )
                 if dating is not None:
-                    creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix = get_muis_date_and_prefix(
-                        dating)
-                    creation_date_latest = creation_date_earliest
+                    creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
+                        get_muis_date_and_prefix(dating, False)
+                    creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
+                        get_muis_date_and_prefix(dating, True)
 
                 actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
                 person_album_ids = add_person_albums(actors, person_album_ids, Album, ns)
@@ -185,8 +189,6 @@ class Command(BaseCommand):
                     Dating,
                     date_earliest_has_suffix,
                     date_latest_has_suffix,
-                    earliest_had_beginning_of_century_suffix,
-                    latest_had_beginning_of_century_suffix
                 )
                 photo.light_save()
                 for album in albums:
@@ -206,17 +208,18 @@ class Command(BaseCommand):
                         all_person_album_ids_set.add(album.id)
 
             except Exception as e:
-                exception = ApplicationException(exception=e, photo=photo)
+                logger.exception(e)
+                exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
                 exception.save()
 
-        for album in albums:
-            album.set_calculated_fields()
-            album.save()
+            for album in albums:
+                album.set_calculated_fields()
+                album.save()
 
-        all_person_album_ids = list(all_person_album_ids_set)
-        all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
+            all_person_album_ids = list(all_person_album_ids_set)
+            all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
 
-        if all_person_albums is not None:
-            for person_album in all_person_albums:
-                person_album.set_calculated_fields()
-                person_album.save()
+            if all_person_albums is not None:
+                for person_album in all_person_albums:
+                    person_album.set_calculated_fields()
+                    person_album.save()

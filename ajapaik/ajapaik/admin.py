@@ -225,6 +225,7 @@ try:
     admin.site.register(User, MyUserAdmin)
 except AlreadyRegistered:
     pass
+admin.site.register(ApplicationException, ApplicationExceptionAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(GeoTag, GeoTagAdmin)
 admin.site.register(Points, PointsAdmin)
