@@ -1834,41 +1834,49 @@ class PhotoAppliedOperations(AjapaikAPIView):
     '''
 
     def get(self, request, photo_id, format=None):
-        photo = get_object_or_404(Photo, id=photo_id)
-        flip = 'undefined'
-        flip_consensus = 'undefined'
-        invert = 'undefined'
-        invert_consensus = 'undefined'
-        rotated = 'undefined'
-        rotated_consensus = 'undefined'
+        try:
+            if request.user.is_anonymous:
+                return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
-        flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
-            '-created').first()
-        invert_suggestion = PhotoInvertSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
-            '-created').first()
-        rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo,
-                                                                    proposer=request.user.profile).order_by(
-            '-created').first()
+            photo = get_object_or_404(Photo, id=photo_id)
+            flip = 'undefined'
+            flip_consensus = 'undefined'
+            invert = 'undefined'
+            invert_consensus = 'undefined'
+            rotated = 'undefined'
+            rotated_consensus = 'undefined'
 
-        if flip_suggestion and flip_suggestion.flip:
-            flip = flip_suggestion.flip
-        if invert_suggestion and invert_suggestion.invert:
-            invert = invert_suggestion.invert
-        if rotated_suggestion and rotated_suggestion.rotated:
-            rotated = rotated_suggestion.rotated
+            flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
+                '-created').first()
+            invert_suggestion = PhotoInvertSuggestion.objects.filter(
+                    photo=photo, proposer=request.user.profile
+                ).order_by(
+                '-created').first()
+            rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo,
+                                                                        proposer=request.user.profile).order_by(
+                '-created').first()
 
-        if photo.flip is not None:
-            flip_consensus = photo.flip
+            if flip_suggestion and flip_suggestion.flip:
+                flip = flip_suggestion.flip
+            if invert_suggestion and invert_suggestion.invert:
+                invert = invert_suggestion.invert
+            if rotated_suggestion and rotated_suggestion.rotated:
+                rotated = rotated_suggestion.rotated
 
-        if photo.invert is not None:
-            invert_consensus = photo.invert
+            if photo.flip is not None:
+                flip_consensus = photo.flip
 
-        if photo.rotated is not None:
-            rotated_consensus = photo.rotated
+            if photo.invert is not None:
+                invert_consensus = photo.invert
 
-        return JsonResponse(
-            {'flip': flip, 'flip_consensus': flip_consensus, 'invert': invert, 'invert_consensus': invert_consensus,
-             'rotated': rotated, 'rotated_consensus': rotated_consensus})
+            if photo.rotated is not None:
+                rotated_consensus = photo.rotated
+
+            return JsonResponse(
+                {'flip': flip, 'flip_consensus': flip_consensus, 'invert': invert, 'invert_consensus': invert_consensus,
+                    'rotated': rotated, 'rotated_consensus': rotated_consensus})
+        except:  # noqa
+            return JsonResponse({'error': _('Something went wrong')}, status=500)
 
     def post(self, request, format=None):
         profile = request.user.profile
