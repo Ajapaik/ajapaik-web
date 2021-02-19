@@ -6,7 +6,7 @@ import roman
 from django.conf import settings
 import datetime
 
-from ajapaik.ajapaik.models import Album, GeoTag, Location, LocationPhoto
+from ajapaik.ajapaik.models import Album, GeoTag, Location, Photo, LocationPhoto
 
 century_suffixes = [
         'saj x',
@@ -224,10 +224,14 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
         'tekst objektil': 'muis_text_on_object',
         'dateering': None
     }
+    for field in muis_description_field_pairs:
+        if muis_description_field_pairs[field] is not None:
+            photo = reset_modeltranslated_field(photo, muis_description_field_pairs[field], None)
+    photo.save()
+    photo = Photo.objects.get(id=photo.id)
 
     description_finds = rec.findall(object_description_wraps, ns)
     for description_element in description_finds:
-        photo = reset_modeltranslated_field(photo, None, 'description')
         description_text_element = description_element.find('lido:descriptiveNoteValue', ns)
         description_type_element = description_element.find('lido:sourceDescriptiveNote', ns)
         description_text = description_text_element.text
@@ -238,8 +242,8 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
             if description_type == 'sisu kirjeldus':
                 photo = reset_modeltranslated_field(
                         photo,
-                        description_text,
-                        muis_description_field_pairs[description_type]
+                        muis_description_field_pairs[description_type],
+                        description_text
                     )
                 photo.description_original_language = None
             elif description_type == 'dateering':
@@ -249,13 +253,17 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
     return photo, dating
 
 
-def reset_modeltranslated_field(photo, attribute_value, attribute_name):
+def reset_modeltranslated_field(photo, attribute_name, attribute_value):
+    setattr(photo, attribute_name, attribute_value)
+    photo.light_save()
+    photo = Photo.objects.get(id=photo.id)
     detection_lang = 'et'
     for language in settings.MODELTRANSLATION_LANGUAGES:
         if language == detection_lang:
             setattr(photo, attribute_name + '_' + language, attribute_value)
         else:
             setattr(photo, attribute_name + '_' + language, None)
+    photo.light_save()
     return photo
 
 

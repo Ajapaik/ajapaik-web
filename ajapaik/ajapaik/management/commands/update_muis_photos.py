@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 title = title_find.text \
                     if title_find is not None \
                     else None
-                photo = reset_modeltranslated_field(photo, title, 'title')
+                photo = reset_modeltranslated_field(photo, 'title', title)
                 photo.light_save()
                 dating = None
                 photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)

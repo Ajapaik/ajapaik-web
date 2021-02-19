@@ -140,7 +140,7 @@ class Command(BaseCommand):
                     else None
 
                 if title:
-                    photo = reset_modeltranslated_field(photo, title, 'title')
+                    photo = reset_modeltranslated_field(photo, 'title', title)
 
                 dating = None
                 photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
