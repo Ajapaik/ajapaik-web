@@ -1713,6 +1713,9 @@ class PhotoSuggestion(AjapaikAPIView):
 
     def get(self, request, photo_id, format=None):
         try:
+            if request.user.is_anonymous:
+                return JsonResponse({'error': PLEASE_LOGIN}, status=401)
+
             photo = get_object_or_404(Photo, id=photo_id)
             scene = 'undefined'
             scene_consensus = 'undefined'
