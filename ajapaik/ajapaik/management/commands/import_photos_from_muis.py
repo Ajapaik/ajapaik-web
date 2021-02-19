@@ -8,8 +8,7 @@ from django.core.management.base import BaseCommand
 
 from ajapaik.ajapaik.muis_utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, GeoTag, Photo, Source,  Location, LocationPhoto, \
-    ApplicationException
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, ApplicationException
 import xml.etree.ElementTree as ET
 
 import requests
@@ -174,11 +173,11 @@ class Command(BaseCommand):
                         get_muis_date_and_prefix(dating, True)
 
                 actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
-                person_album_ids = add_person_albums(actors, person_album_ids, Album, ns)
+                person_album_ids = add_person_albums(actors, person_album_ids, ns)
 
                 photo.add_to_source_album()
                 if locations != []:
-                    photo = add_geotag_from_address_to_photo(photo, locations, GeoTag, Location, LocationPhoto)
+                    photo = add_geotag_from_address_to_photo(photo, locations)
 
                 photo = add_dating_to_photo(
                     photo,

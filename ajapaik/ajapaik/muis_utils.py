@@ -6,6 +6,8 @@ import roman
 from django.conf import settings
 import datetime
 
+from ajapaik.ajapaik.models import Album, GeoTag, Location, LocationPhoto
+
 century_suffixes = [
         'saj x',
         ' saj x',
@@ -225,7 +227,7 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
 
     description_finds = rec.findall(object_description_wraps, ns)
     for description_element in description_finds:
-        reset_modeltranslated_field(photo, None, 'description')
+        photo = reset_modeltranslated_field(photo, None, 'description')
         description_text_element = description_element.find('lido:descriptiveNoteValue', ns)
         description_type_element = description_element.find('lido:sourceDescriptiveNote', ns)
         description_text = description_text_element.text
@@ -234,7 +236,11 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
         description_type = description_type_element.text
         if description_type in muis_description_field_pairs:
             if description_type == 'sisu kirjeldus':
-                reset_modeltranslated_field(photo, description_text, 'description')
+                photo = reset_modeltranslated_field(
+                        photo,
+                        description_text,
+                        muis_description_field_pairs[description_type]
+                    )
                 photo.description_original_language = None
             elif description_type == 'dateering':
                 dating = description_text
@@ -244,9 +250,7 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
 
 
 def reset_modeltranslated_field(photo, attribute_value, attribute_name):
-    detection_lang = None
-    if attribute_value is not None:
-        detection_lang = 'et'
+    detection_lang = 'et'
     for language in settings.MODELTRANSLATION_LANGUAGES:
         if language == detection_lang:
             setattr(photo, attribute_name + '_' + language, attribute_value)
@@ -321,7 +325,7 @@ def extract_dating_from_event(
         earliest_had_decade_suffix, latest_had_decade_suffix
 
 
-def add_person_albums(actors, person_album_ids, Album, ns):
+def add_person_albums(actors, person_album_ids, ns):
     for actor in actors:
         term = actor.find('lido:roleActor/lido:term', ns)
         if term is not None and term.text == 'kujutatu':
@@ -392,7 +396,7 @@ def get_muis_date_and_prefix(date, is_later_date):
     return date, date_prefix, had_decade_suffix
 
 
-def add_geotag_from_address_to_photo(photo, locations, GeoTag, Location, LocationPhoto):
+def add_geotag_from_address_to_photo(photo, locations):
     locations.sort()
     locations = list(locations for locations, _ in itertools.groupby(locations))
     for location in locations:
