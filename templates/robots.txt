@@ -6,5 +6,6 @@ Disallow: /geotag/
 Disallow: /comments/
 Disallow: /leaderboard/
 Disallow: /frontpage-async/
+Disallow: /api/
 
 Sitemap: https://ajapaik.ee/sitemap.xml
