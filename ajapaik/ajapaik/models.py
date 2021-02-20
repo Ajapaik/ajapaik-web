@@ -480,10 +480,10 @@ class Photo(Model):
 
     @property
     def get_display_text(self):
-        if self.description:
-            return self.description
-        elif self.title:
+        if self.title:
             return self.title
+        elif self.description:
+            return self.description
         elif self.muis_title:
             return self.muis_title
         elif self.muis_comment:
