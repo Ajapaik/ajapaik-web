@@ -445,9 +445,12 @@ def add_geotag_from_address_to_photo(photo, locations):
             address = google_response_parsed.get('results')[0].get('formatted_address')
             lat_lng = google_response_parsed.get('results')[0].get('geometry').get('location')
         if lat_lng is not None:
-            photo.lat = lat_lng['lat']
-            photo.lon = lat_lng['lng']
-            photo.address = address
+            if photo.lat is None:
+                photo.lat = lat_lng['lat']
+            if photo.lon is None:
+                photo.lon = lat_lng['lng']
+            if photo.address is None:
+                photo.address = address
 
             source_geotag = GeoTag(
                 lat=lat_lng['lat'],

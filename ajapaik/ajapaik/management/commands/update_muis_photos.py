@@ -106,6 +106,7 @@ class Command(BaseCommand):
                         ap.save()
 
                         all_person_album_ids_set.add(album.id)
+                photo.set_calculated_fields()
             except Exception as e:
                 exception = ApplicationException(exception=e, photo=photo)
                 exception.save()
