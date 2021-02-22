@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: BaRaN6161 TURK
+# Author: Dvhassel
 # Author: Elroy
 # Author: Mainframe98
 # Author: PonkoSasuke
@@ -14,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-02-04 07:34:40+0000\n"
+"PO-Revision-Date: 2021-02-22 15:32:56+0000\n"
 "X-POT-Import-Date: 2021-01-20 15:21:07+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,19 +41,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Expired token"
-msgstr ""
+msgstr "Vervallen token"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Invalid token"
-msgstr ""
+msgstr "Ongeldig token"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Ontbrekende paramater photo_ids"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "No photo with id:"
-msgstr ""
+msgstr "Geen foto met id:"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Parameter photo_id must be an positive integer"
@@ -64,7 +65,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login"
-msgstr ""
+msgstr "Gelieve in te loggen"
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Rephoto upload settings have been saved"
@@ -136,7 +137,7 @@ msgstr "Bounding box waarden moeten cijfers zijn"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -149,11 +150,11 @@ msgstr "Achternaam"
 #: ajapaik/ajapaik/forms.py:21
 #: ajapaik/ajapaik/templates/authentication/_login.html:41
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "Bevestiging wachtwoord"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:182
 #: ajapaik/ajapaik/forms.py:204
@@ -195,7 +196,7 @@ msgstr "Auteur"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Licentie of copyright status"
 
 #: ajapaik/ajapaik/forms.py:418
 msgid "Accepted formats are .png or .jpg files"
@@ -203,11 +204,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Voeg een korte beschrijving van de afbeelding toe"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Auteur van de afbeelding (fotograaf, schilder)"
 
 #: ajapaik/ajapaik/forms.py:422
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -215,11 +216,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Description of the picture"
-msgstr ""
+msgstr "Beschrijving van de afbeelding"
 
 #: ajapaik/ajapaik/forms.py:427
 msgid "Author name"
-msgstr ""
+msgstr "Naam van de auteur"
 
 #: ajapaik/ajapaik/forms.py:433
 msgid "Missing image"
@@ -276,27 +277,27 @@ msgstr "Is open"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "My preferred language is"
-msgstr ""
+msgstr "Mijn voorkeurstaal is"
 
 #: ajapaik/ajapaik/forms.py:477
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Ik wil de nieuwsbrief ontvangen"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/forms.py:500
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/forms.py:500
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Gelieve uw voorkeurstaal te specifiëren"
 
 #: ajapaik/ajapaik/forms.py:489
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Gelieve te specifiëren of je de nieuwsbrief wil ontvangen"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
@@ -356,27 +357,27 @@ msgstr "Afbeelding"
 
 #: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1830
 msgid "Interior"
-msgstr ""
+msgstr "Interieur"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1831
 msgid "Exterior"
-msgstr ""
+msgstr "Exterieur"
 
 #: ajapaik/ajapaik/models.py:463 ajapaik/ajapaik/models.py:1833
 msgid "Scene"
-msgstr ""
+msgstr "Scene"
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1840
 msgid "Ground"
-msgstr ""
+msgstr "Grond"
 
 #: ajapaik/ajapaik/models.py:467 ajapaik/ajapaik/models.py:1841
 msgid "Raised"
-msgstr ""
+msgstr "Verhoogd"
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1842
 msgid "Aerial"
-msgstr ""
+msgstr "Lucht"
 
 #: ajapaik/ajapaik/models.py:470 ajapaik/ajapaik/models.py:1844
 msgid "Viewpoint elevation"
@@ -469,7 +470,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1291
 msgid "Rotate photo"
-msgstr ""
+msgstr "Roteer foto"
 
 #: ajapaik/ajapaik/models.py:1342
 msgid "Map"
@@ -574,18 +575,18 @@ msgstr "Originele foto"
 #: ajapaik/ajapaik/templates/_mode_select.html:15
 #: ajapaik/ajapaik/templates/_mode_select.html:67
 msgid "Click to choose"
-msgstr ""
+msgstr "Klik om te kiezen"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:248
 #: ajapaik/ajapaik/templates/photo/photoview.html:184
 msgid "Album details"
-msgstr ""
+msgstr "Details album"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:22
 #: ajapaik/ajapaik/templates/_mode_select.html:71
 msgid "Show albums"
-msgstr ""
+msgstr "Toon albums"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:24
 #: ajapaik/ajapaik/templates/_mode_select.html:73
@@ -595,22 +596,22 @@ msgstr "Albums"
 #: ajapaik/ajapaik/templates/_mode_select.html:27
 #: ajapaik/ajapaik/templates/_mode_select.html:75
 msgid "Show pictures"
-msgstr ""
+msgstr "Toon afbeeldingen"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:29
 #: ajapaik/ajapaik/templates/_mode_select.html:77
 msgid "All pictures"
-msgstr ""
+msgstr "Alle afbeeldingen"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:32
 #: ajapaik/ajapaik/templates/_mode_select.html:79
 msgid "Show my favorites"
-msgstr ""
+msgstr "Toon mijn favorieten"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:34
 #: ajapaik/ajapaik/templates/_mode_select.html:81
 msgid "My favorites"
-msgstr ""
+msgstr "Mijn favorieten"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:37
 #: ajapaik/ajapaik/templates/_mode_select.html:83
@@ -624,7 +625,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_mode_select.html:46
 msgid "Remove album filter"
-msgstr ""
+msgstr "Verwijder album filter"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
@@ -650,11 +651,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Date this image"
-msgstr ""
+msgstr "Dateer deze afbeelding"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
@@ -676,7 +677,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_toolbox.html:50
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
 msgid "Share"
-msgstr ""
+msgstr "Delen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:52
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
@@ -684,27 +685,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:56
 msgid "Categorize"
-msgstr ""
+msgstr "Voeg toe aan een categorie"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:60
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Transcribeer deze afbeelding"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "Bewerk afbeelding"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
 #: ajapaik/ajapaik/templates/account/login.html:37
 msgid "Forgot password?"
-msgstr ""
+msgstr "Wachtwoord vergeten?"
 
 #: ajapaik/ajapaik/templates/account/base.html:36
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:47
 msgid "User settings"
-msgstr ""
+msgstr "Gebruikersinstellingen"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -723,18 +724,18 @@ msgstr "Afmelden"
 #: ajapaik/ajapaik/templates/account/login.html:8
 #: ajapaik/ajapaik/templates/account/login.html:38
 msgid "Sign in"
-msgstr ""
+msgstr "Aanmelden"
 
 #: ajapaik/ajapaik/templates/account/base.html:40
 #: ajapaik/ajapaik/templates/account/signup.html:5
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Registreren"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
-msgstr ""
+msgstr "Berichten"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:28
 msgid "Menu"
@@ -749,7 +750,7 @@ msgstr "E-mailadressen"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "E-mailadres bevestigen"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -758,7 +759,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Bevestigen"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format

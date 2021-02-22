@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-02-08 15:55:36+0000\n"
+"PO-Revision-Date: 2021-02-22 15:32:55+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Description of the picture"
-msgstr ""
+msgstr "Kuvan kuvaus"
 
 #: ajapaik/ajapaik/forms.py:427
 msgid "Author name"
