@@ -2635,7 +2635,7 @@ def csv_import(request):
             if 'lon' in row.keys():
                 lon = row['lon']
             if lat and lon:
-                geography = Point(x=lon, y=lat, srid=4326)
+                geography = Point(x=float(lon), y=float(lat), srid=4326)
             if 'licence' in row.keys():
                 licence = Licence.objects.filter(id=row['licence']).first()
                 if licence is None and not row['licence'] in missing_licence_list:
@@ -2704,16 +2704,9 @@ def csv_import(request):
                         photo=photo,
                         is_correct=True,
                         trustworthiness=0.07,
-                        geography=geography
+                        geography=geography,
                     )
-                    Points(
-                        user=profile,
-                        action=Points.GEOTAG,
-                        geotag=geotag,
-                        points=geotag.score,
-                        created=timezone.now(),
-                        photo=photo
-                    ).save()
+                    geotag.save()
             except FileNotFoundError as not_found:
                 not_found_list.append(not_found.filename.replace(upload_folder, ''))
                 continue
