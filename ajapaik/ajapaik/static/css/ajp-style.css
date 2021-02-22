@@ -1357,6 +1357,10 @@ a.fullscreen {
   text-decoration: none;
 }
 
+.ajp-licence > img {
+  max-height: 24px;
+}
+
 #ajp-photoview-start-dating-button > #ajp-photoview-datings-count {
   position: relative;
   margin: 0;
