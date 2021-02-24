@@ -2588,12 +2588,13 @@ def csv_import(request):
 
             file_names = os.listdir(import_folder)
             for name in file_names:
-                os.chmod(import_folder + '/' + name, 0o0774)
-                if not os.path.exists(upload_folder + '/' + name):
-                    shutil.move(os.path.join(import_folder, name), upload_folder)
-                else:
-                    existing_file_list.append(upload_folder + name)
-                    os.remove(import_folder + '/' + name)
+                if '.' in name:
+                    os.chmod(import_folder + '/' + name, 0o0774)
+                    if not os.path.exists(upload_folder + '/' + name):
+                        shutil.move(os.path.join(import_folder, name), upload_folder)
+                    else:
+                        existing_file_list.append(upload_folder + name)
+                        os.remove(import_folder + '/' + name)
             os.remove(zip_filename)
             os.rmdir(import_folder)
 
