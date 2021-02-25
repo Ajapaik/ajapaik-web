@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-02-11 17:44:28+0000\n"
+"PO-Revision-Date: 2021-02-25 15:14:38+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1081,7 +1081,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:68
 msgid "Same shot"
-msgstr ""
+msgstr "Antışo yewane"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
@@ -1351,7 +1351,7 @@ msgstr "Kip ke"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:50
 msgid "Edit your album"
-msgstr ""
+msgstr "Albumê xo bıvurne"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:61
 msgid "Error"
@@ -1379,7 +1379,7 @@ msgstr "Cı geyre"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:16
 msgid "Selection"
-msgstr ""
+msgstr "Weçinıtış"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:23
 msgid "My albums"
@@ -1540,15 +1540,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Parolaya Newiye"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Parolay neweyên (reyna)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Parola eyar ke"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
@@ -1560,7 +1560,7 @@ msgstr "Parzûnkerdış"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:14
 msgid "Filters"
-msgstr ""
+msgstr "Parzûni"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "collections"
@@ -2292,7 +2292,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "here"
-msgstr ""
+msgstr "tiya"
 
 #: ajapaik/ajapaik/templates/user/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2478,7 +2478,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Date of birth"
-msgstr ""
+msgstr "Tarixê biyayışi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:25
 msgid "Is public figure"
@@ -2594,11 +2594,11 @@ msgstr "Estonyayıc"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Letonki"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litwanki"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
