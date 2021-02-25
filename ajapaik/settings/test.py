@@ -8,6 +8,6 @@ DATABASES = {
        'NAME': 'postgres_test',
        'USER': 'postgres',
        'PASSWORD': 'postgres',
-       'HOST': 'db'
+       'HOST': 'postgres'
    }
 }

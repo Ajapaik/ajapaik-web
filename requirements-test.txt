@@ -23,6 +23,7 @@ django-allauth==0.41.0
 geopy==1.21.0
 pandas==1.0.3
 psycopg2-binary==2.8.4
+requests==2.23.0
 roman
 sklearn
 oauth2client==2.2.0

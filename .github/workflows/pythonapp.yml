@@ -7,6 +7,19 @@ jobs:
 
     runs-on: ubuntu-18.04
 
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres_test
+        ports:
+          # will assign a random free host port
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Install apt dependencies
         run: sudo apt-get update && sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools
@@ -25,6 +38,11 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           python3 -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Generate coverage report
+        env:
+          POSTGRES_DATABASE_HOST: localhost
+          POSTGRES_DATABASE_DATABASE: postgres_test
+          POSTGRES_DATABASE_USER: postgres
+          POSTGRES_DATABASE_PASSWORD: postgres
         run: |
           python3 -m pytest --cov=./ --cov-report=xml
       - name: Upload coverage to Codecov
