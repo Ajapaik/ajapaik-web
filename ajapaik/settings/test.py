@@ -8,6 +8,9 @@ DATABASES = {
        'NAME': 'postgres_test',
        'USER': 'postgres',
        'PASSWORD': 'postgres',
-       'HOST': 'postgres'
+       'HOST': '127.0.0.1',
+       'PORT': '5432'
    }
 }
+
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
