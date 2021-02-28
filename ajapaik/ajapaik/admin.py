@@ -135,7 +135,7 @@ class GeoTagAdmin(ModelAdmin):
 class ProfileAdmin(ModelAdmin):
     form = autocomplete_form_factory(Profile)
     search_fields = (
-        'id',
+        'user__id',
         'display_name',
         'first_name',
         'last_name',
