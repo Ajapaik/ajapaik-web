@@ -8,6 +8,7 @@ import os
 import re
 import shutil
 import ssl
+import stat
 import sys
 import unicodedata
 import urllib
@@ -2595,6 +2596,11 @@ def csv_import(request):
                     else:
                         existing_file_list.append(upload_folder + name)
                         os.remove(import_folder + '/' + name)
+                else:
+                    def del_evenReadonly(action, name, exc):
+                        os.chmod(name, stat.S_IWRITE)
+                        os.remove(name)
+                    shutil.rmtree(import_folder + '/' + name, onerror=del_evenReadonly)
             os.remove(zip_filename)
             os.rmdir(import_folder)
 
@@ -2631,9 +2637,9 @@ def csv_import(request):
                 author = row['author']
             if 'keywords' in row.keys():
                 keywords = row['keywords']
-            if 'lat' in row.keys():
+            if 'lat' in row.keys() and row['lat'] != '':
                 lat = row['lat']
-            if 'lon' in row.keys():
+            if 'lon' in row.keys() and row['lon'] != '':
                 lon = row['lon']
             if lat and lon:
                 geography = Point(x=float(lon), y=float(lat), srid=4326)
