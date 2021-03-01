@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-02-08 15:55:36+0000\n"
+"PO-Revision-Date: 2021-03-01 13:41:13+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,15 +78,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:88
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "해당 설명이 이미 존재하여 이전 설명에 찬성 투표를 하는 것으로 처리되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "설명이 추가되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "설명 피드백이 추가되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "User display name has been saved"
@@ -250,11 +250,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:458
 msgid "Album type"
-msgstr ""
+msgstr "앨범 유형"
 
 #: ajapaik/ajapaik/forms.py:459
 msgid "Anything else"
-msgstr ""
+msgstr "기타"
 
 #: ajapaik/ajapaik/forms.py:459
 msgid "Person"
@@ -398,7 +398,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1119 ajapaik/ajapaik/models.py:1210
 msgid "Duplicate"
-msgstr ""
+msgstr "복제"
 
 #: ajapaik/ajapaik/models.py:1273
 msgid "Geotag"
@@ -463,15 +463,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1289
 msgid "Flip photo"
-msgstr ""
+msgstr "사진 뒤집기"
 
 #: ajapaik/ajapaik/models.py:1290
 msgid "Invert photo"
-msgstr ""
+msgstr "사진 반전"
 
 #: ajapaik/ajapaik/models.py:1291
 msgid "Rotate photo"
-msgstr ""
+msgstr "사진 회전"
 
 #: ajapaik/ajapaik/models.py:1342
 msgid "Map"
@@ -491,7 +491,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1346
 msgid "StreetView"
-msgstr ""
+msgstr "스트리트 뷰"
 
 #: ajapaik/ajapaik/models.py:1347
 msgid "Source geotag"
@@ -660,11 +660,11 @@ msgstr "날짜"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:21
 msgid "Add rephoto"
-msgstr ""
+msgstr "재촬영 사진 추가"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:24
 msgid "Add a rephoto"
-msgstr ""
+msgstr "재촬영 사진 추가"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -694,7 +694,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "사진 편집"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -773,11 +773,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "확인됨"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "미확인"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
@@ -938,19 +938,19 @@ msgstr "점수 저장을 위해 로그인"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "댓글을 달려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add photos to album"
-msgstr ""
+msgstr "앨범에 사진을 추가하려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr ""
+msgstr "사진에 날짜를 추가하려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr ""
+msgstr "사진의 텍스트를 설명하려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
@@ -1035,7 +1035,7 @@ msgstr "편집"
 #: ajapaik/ajapaik/templates/comments/list.html:60
 #: ajapaik/ajapaik/templates/comments/list.html:86
 msgid "supports Markdown"
-msgstr ""
+msgstr "마크다운 지원"
 
 #: ajapaik/ajapaik/templates/comments/list.html:63
 #: ajapaik/ajapaik/templates/curator/curator.html:133
