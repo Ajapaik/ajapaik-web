@@ -459,8 +459,8 @@ def add_geotag_from_address_to_photo(photo, locations):
                 type=GeoTag.SOURCE_GEOTAG,
                 map_type=GeoTag.NO_MAP,
                 photo=photo,
-                is_correct=True,
-                trustworthiness=0.07
+                is_correct=False,
+                trustworthiness=0
             )
 
             source_geotag.save()
