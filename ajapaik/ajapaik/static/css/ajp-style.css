@@ -1930,15 +1930,15 @@ footer a {
 
 .ajp-photo-modal-album-more-button {
   background-image: url(../images/material-design-icons/ic_more_gray_24px.svg);
-  width: 24px;
-  height: 24px;
-  background-size: 24px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
   margin-left: 5px;
   cursor: pointer;
 }
 
 .ajp-photo-album-link {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .ajp-photo-modal-album-icon {
@@ -2368,4 +2368,12 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 
 #ajp-donation-banner-close {
   cursor: pointer;
+}
+
+#ajp-add-to-album-button:hover {
+  text-decoration: none;
+}
+
+#ajp-add-to-album-button:hover > div {
+  text-decoration: underline;
 }

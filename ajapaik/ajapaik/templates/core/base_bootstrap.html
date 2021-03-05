@@ -527,8 +527,11 @@
                 $('body').addClass('modal-open');
             }
         });
-        $('#ajp-photo-modal').on('hidden.bs.modal', function (e) { 
-            $('#ajp-photo-modal').html('');
+        $('#ajp-photo-modal').on('hidden.bs.modal', function (e) {
+            console.error(e);
+            if(e.target.id == 'ajp-photo-modal') {
+                $('#ajp-photo-modal').html('');
+            }
         });
     </script>
 {% endblock %}

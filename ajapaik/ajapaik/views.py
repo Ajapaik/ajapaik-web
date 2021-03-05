@@ -2471,7 +2471,7 @@ def curator_photo_upload_handler(request):
                     album.subalbum_of.save()
     else:
         if not selection or len(selection) == 0:
-            error = _('Please add photos to your album')
+            error = _('Please add pictures to your album')
         else:
             error = _('Not enough data submitted')
         context = {

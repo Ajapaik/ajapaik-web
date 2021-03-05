@@ -225,39 +225,40 @@
                         <div class="row" id="ajp-dater-container"></div>
                         <!-- end of dater block -->
                         <!-- start of albums block -->
-                        {% if albums|length > 0 %}
-                            <div class="row ajp-dater-hide-when-dater-visible pl-0">
-                                <br>
-                                <div class="col-auto">
-                                    <i class="material-icons notranslate ajp-photo-modal-album-icon float-left"
-                                       title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                        {% if a.is_film_still_album %}movie{% else %}photo_album{% endif %}
-                                    </i>
-                                </div>
-                                <div class="col-auto">
-                                    {% for a in albums %}
-                                        <div class="ajp-no-left-margin-row d-flex" style="min-height: 36px;">
+                        <div class="row ajp-dater-hide-when-dater-visible pl-3 d-flex" style="flex-direction:row;flex-wrap:unset;">
+                            <i class="material-icons notranslate ajp-photo-modal-album-icon float-left pr-3"
+                                title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+                                {% if a.is_film_still_album %}movie{% else %}collections_bookmark{% endif %}
+                            </i>
+                            <div class="d-inline-flex" style="flex-direction:row;flex-wrap: wrap;justify-content: start;">
+                                {% for a in albums %}
+                                    <div class="d-flex pt-1 pr-2">
+                                        <div>
                                             <a class="ajp-photo-album-link float-left"
-                                               href="{% if is_mapview %}
-                                                          {% url 'map' %}?album={{ a.id }}
-                                                      {% elif is_frontpage or is_selection %}
-                                                          {% url 'frontpage' %}?album={{ a.id }}
-                                                      {% endif %}">{{ a.name }}</a>
-                                            <div class="ajp-photo-modal-album-more-button float-left"
-                                                 role="button"
-                                                 title="{% trans 'Album details' %}"
-                                                 data-id="{{ a.id }}">
-                                            </div>
-                                            <div class="ajp-photo-modal-photo-curator">
-                                                &nbsp;<i title="{% trans "Curator" %}"
-                                                         class="material-icons notranslate ajp-text-gray">account_circle</i>
-                                                <p class="d-none">{{ a.this_photo_curator.get_display_name }}</p>
-                                            </div>
+                                                href="{% if is_mapview %}
+                                                            {% url 'map' %}?album={{ a.id }}
+                                                        {% elif is_frontpage or is_selection %}
+                                                            {% url 'frontpage' %}?album={{ a.id }}
+                                                        {% endif %}">{{ a.name }}</a>
                                         </div>
-                                    {% endfor %}
-                                </div>
+                                        <div class="ajp-photo-modal-album-more-button float-left"
+                                                role="button"
+                                                title="{% trans 'Album details' %}"
+                                                data-id="{{ a.id }}">
+                                        </div>
+                                        <div class="ajp-photo-modal-photo-curator">
+                                            &nbsp;<i title="{% trans "Curator" %}"
+                                                        class="material-icons notranslate ajp-text-gray" style="font-size: 20px;">account_circle</i>
+                                            <p class="d-none" style="font-size: 12px;">{{ a.this_photo_curator.get_display_name }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <a id="ajp-add-to-album-button" title="{% trans "Add to album" %}" href="#">
+                                    <div style="display: inline-block;position: relative;top: -5px;font-size: 14px;">{% trans 'Add to album' %}</div>
+                                    <i class="material-icons notranslate ajp-text-gray" style="top: 3px;position: relative;">add_box</i>
+                                </a>
                             </div>
-                        {% endif %}
+                        </div>
                         <!-- end of albums block -->
                         {% include '_annotation-filter.html' with numberOfColumns=2 %}
                         <!-- start of comment block -->

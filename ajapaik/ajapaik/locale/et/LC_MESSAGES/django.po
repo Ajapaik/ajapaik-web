@@ -1951,6 +1951,9 @@ msgstr "Kuupäev:"
 msgid "rephoto"
 msgstr "ülepildistus"
 
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:258
+#: ajapaik/ajapaik/templates/photo/photoview.html:192
+#: ajapaik/ajapaik/templates/photo/photoview.html:195
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
 msgstr "Lisa albumisse"

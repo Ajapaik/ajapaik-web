@@ -825,7 +825,10 @@ $('.ajp-navbar').autoHidingNavbar();
             }
         });
     }
-    $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon', function (event) {
+    $(document).on('click', '#ajp-add-to-album-button', function (event) {
+        event.preventDefault();
+    });
+    $(document).on('click', '#ajp-photo-selection-create-album-button,.ajp-photo-modal-album-icon,#ajp-add-to-album-button', function (event) {
         if (!window.currentProfileEmail) {
             window.openLoginModal('add-photos');
             return;
