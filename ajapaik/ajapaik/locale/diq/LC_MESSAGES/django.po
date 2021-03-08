@@ -13,105 +13,106 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-02-25 15:14:38+0000\n"
+"PO-Revision-Date: 2021-03-08 14:47:22+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-01-20 15:21:07+0000\n"
+"X-POT-Import-Date: 2021-03-08 06:03:30+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajapaik/ajapaik/admin.py:88
+#: ajapaik/ajapaik/admin.py:89
 msgid "Invert colors"
 msgstr "Rengan ters bıçarne"
 
-#: ajapaik/ajapaik/api.py:74
+#: ajapaik/ajapaik/api.py:75
 msgid "Add at least flip, invert or rotate parameter to the request"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:75
+#: ajapaik/ajapaik/api.py:76
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:76
+#: ajapaik/ajapaik/api.py:77
 msgid "Contributions and settings from the other account were added to current"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:77
+#: ajapaik/ajapaik/api.py:78
 msgid "Expired token"
 msgstr "Jetono qediyaye"
 
-#: ajapaik/ajapaik/api.py:78
+#: ajapaik/ajapaik/api.py:79
 msgid "Invalid token"
 msgstr "Jetono nêvêrde"
 
-#: ajapaik/ajapaik/api.py:79
+#: ajapaik/ajapaik/api.py:80
 msgid "Missing parameter photo_ids"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:80
+#: ajapaik/ajapaik/api.py:81
 msgid "No photo with id:"
 msgstr "Be na kamiye ra fotraf çıniyo:"
 
-#: ajapaik/ajapaik/api.py:81
+#: ajapaik/ajapaik/api.py:82
 msgid "Parameter photo_id must be an positive integer"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:83
+#: ajapaik/ajapaik/api.py:84
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:85
+#: ajapaik/ajapaik/api.py:86
 msgid "Please login"
 msgstr "Kerem ke cıkewe"
 
-#: ajapaik/ajapaik/api.py:86
+#: ajapaik/ajapaik/api.py:87
 msgid "Rephoto upload settings have been saved"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:87
+#: ajapaik/ajapaik/api.py:88
 msgid "Required parameter, token is missing"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:88
+#: ajapaik/ajapaik/api.py:89
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:89
+#: ajapaik/ajapaik/api.py:90
 msgid "Transcription added, thank you!"
 msgstr "Transkripsiyon bi cı, sıpas!"
 
-#: ajapaik/ajapaik/api.py:90
+#: ajapaik/ajapaik/api.py:91
 msgid "Transcription feedback added, thank you!"
 msgstr "Transkripsiyon bi cı, sıpas!"
 
-#: ajapaik/ajapaik/api.py:91
+#: ajapaik/ajapaik/api.py:92
 msgid "User display name has been saved"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:92
+#: ajapaik/ajapaik/api.py:93
 msgid "User settings have been saved"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:93
+#: ajapaik/ajapaik/api.py:94
 msgid "You have already given feedback for this transcription"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:94
+#: ajapaik/ajapaik/api.py:95
 msgid "You have already submitted this transcription, thank you!"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:95
+#: ajapaik/ajapaik/api.py:96
 msgid "Your transcription has been updated, thank you!"
 msgstr ""
 
-#: ajapaik/ajapaik/api.py:948 ajapaik/ajapaik/api.py:1615
-#: ajapaik/ajapaik/api.py:1635 ajapaik/ajapaik/api.py:1651
-#: ajapaik/ajapaik/api.py:1669 ajapaik/ajapaik/api.py:1755
+#: ajapaik/ajapaik/api.py:949 ajapaik/ajapaik/api.py:1616
+#: ajapaik/ajapaik/api.py:1636 ajapaik/ajapaik/api.py:1652
+#: ajapaik/ajapaik/api.py:1670 ajapaik/ajapaik/api.py:1759
+#: ajapaik/ajapaik/api.py:1879
 msgid "Something went wrong"
 msgstr "Tayê çi ğelet şi"
 
-#: ajapaik/ajapaik/api.py:1904 ajapaik/utils.py:156
+#: ajapaik/ajapaik/api.py:1931 ajapaik/utils.py:157
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr ""
 
@@ -135,7 +136,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:18
 msgid "Email"
-msgstr "Eposta"
+msgstr "E-poste"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -178,7 +179,7 @@ msgid "Picture file"
 msgstr "Dosyaya resımi"
 
 #: ajapaik/ajapaik/forms.py:412 ajapaik/ajapaik/forms.py:461
-#: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:384
+#: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:378
 #: ajapaik/ajapaik/templates/curator/curator.html:77
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Description"
@@ -331,7 +332,7 @@ msgstr "Camêrd"
 #: ajapaik/ajapaik_face_recognition/models.py:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:54
 msgid "Female"
-msgstr "Cıniye"
+msgstr "Ceniye"
 
 #: ajapaik/ajapaik/models.py:205 ajapaik/ajapaik_face_recognition/forms.py:24
 msgid "Gender"
@@ -349,35 +350,59 @@ msgstr "Zıwanê oricinali name kerên"
 msgid "b."
 msgstr "b."
 
-#: ajapaik/ajapaik/models.py:369
+#: ajapaik/ajapaik/models.py:363
 msgid "Image"
 msgstr "Resım"
 
-#: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1830
+#: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
+msgid "Title"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:379
+msgid "MUIS title"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:380
+msgid "MUIS comment"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:381
+msgid "MUIS event description set note"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:382
+msgid "MUIS text on object"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:383
+msgid "MUIS legends and descriptions"
+msgstr ""
+
+#: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
 msgid "Interior"
 msgstr "Miyan"
 
-#: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1831
+#: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1855
 msgid "Exterior"
 msgstr "Teber"
 
-#: ajapaik/ajapaik/models.py:463 ajapaik/ajapaik/models.py:1833
+#: ajapaik/ajapaik/models.py:463 ajapaik/ajapaik/models.py:1857
 msgid "Scene"
 msgstr "Sehne"
 
-#: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1840
+#: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1864
 msgid "Ground"
 msgstr "Zemin"
 
-#: ajapaik/ajapaik/models.py:467 ajapaik/ajapaik/models.py:1841
+#: ajapaik/ajapaik/models.py:467 ajapaik/ajapaik/models.py:1865
 msgid "Raised"
 msgstr "Kerd berz"
 
-#: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1842
+#: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1866
 msgid "Aerial"
 msgstr "Hewa"
 
-#: ajapaik/ajapaik/models.py:470 ajapaik/ajapaik/models.py:1844
+#: ajapaik/ajapaik/models.py:470 ajapaik/ajapaik/models.py:1868
 msgid "Viewpoint elevation"
 msgstr "Berziya vênıtışi"
 
@@ -385,172 +410,172 @@ msgstr "Berziya vênıtışi"
 msgid "Description original language"
 msgstr "Şınasiya zıwanê oricinali"
 
-#: ajapaik/ajapaik/models.py:1117 ajapaik/ajapaik/models.py:1208
+#: ajapaik/ajapaik/models.py:1132 ajapaik/ajapaik/models.py:1220
 msgid "Different"
 msgstr "Ferq"
 
-#: ajapaik/ajapaik/models.py:1118 ajapaik/ajapaik/models.py:1209
+#: ajapaik/ajapaik/models.py:1133 ajapaik/ajapaik/models.py:1221
 msgid "Similar"
-msgstr "Manen"
+msgstr "Zey"
 
-#: ajapaik/ajapaik/models.py:1119 ajapaik/ajapaik/models.py:1210
+#: ajapaik/ajapaik/models.py:1134 ajapaik/ajapaik/models.py:1222
 msgid "Duplicate"
 msgstr "Kopya"
 
-#: ajapaik/ajapaik/models.py:1273
+#: ajapaik/ajapaik/models.py:1285
 msgid "Geotag"
 msgstr "Geotag"
 
-#: ajapaik/ajapaik/models.py:1274 ajapaik/ajapaik/models.py:1357
+#: ajapaik/ajapaik/models.py:1286 ajapaik/ajapaik/models.py:1369
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Rephoto"
 
-#: ajapaik/ajapaik/models.py:1275
+#: ajapaik/ajapaik/models.py:1287
 msgid "Photo upload"
 msgstr "Fotografê bar kerê"
 
-#: ajapaik/ajapaik/models.py:1276
+#: ajapaik/ajapaik/models.py:1288
 msgid "Photo curation"
 msgstr "Fotografi weş kerdış"
 
-#: ajapaik/ajapaik/models.py:1277
+#: ajapaik/ajapaik/models.py:1289
 msgid "Photo re-curation"
 msgstr "Fotografi reyna weş kerdış"
 
-#: ajapaik/ajapaik/models.py:1278
+#: ajapaik/ajapaik/models.py:1290
 msgid "Dating"
 msgstr "Rendewu dayış"
 
-#: ajapaik/ajapaik/models.py:1279
+#: ajapaik/ajapaik/models.py:1291
 msgid "Dating confirmation"
 msgstr "Rendewuy tesdiq kerê"
 
-#: ajapaik/ajapaik/models.py:1280
+#: ajapaik/ajapaik/models.py:1292
 msgid "Film still"
 msgstr "Film eştış"
 
-#: ajapaik/ajapaik/models.py:1281
+#: ajapaik/ajapaik/models.py:1293
 msgid "Annotation"
 msgstr "Bınnote"
 
-#: ajapaik/ajapaik/models.py:1282
+#: ajapaik/ajapaik/models.py:1294
 msgid "Confirm subject"
 msgstr "Mewzuy tesdiq kerê"
 
-#: ajapaik/ajapaik/models.py:1283
+#: ajapaik/ajapaik/models.py:1295
 msgid "Confirm Image similarity"
 msgstr "Manayışê resiman tesdiq kerê"
 
-#: ajapaik/ajapaik/models.py:1284 ajapaik/ajapaik/models.py:1285
+#: ajapaik/ajapaik/models.py:1296 ajapaik/ajapaik/models.py:1297
 msgid "Suggestion subject age"
 msgstr ""
 
-#: ajapaik/ajapaik/models.py:1286 ajapaik/ajapaik/templates/_toolbox.html:64
+#: ajapaik/ajapaik/models.py:1298 ajapaik/ajapaik/templates/_toolbox.html:64
 msgid "Transcribe"
 msgstr "Kopyakerdış"
 
-#: ajapaik/ajapaik/models.py:1287
+#: ajapaik/ajapaik/models.py:1299
 msgid "Categorize scene"
 msgstr "Sehne kategorize ke"
 
-#: ajapaik/ajapaik/models.py:1288
+#: ajapaik/ajapaik/models.py:1300
 msgid "Add viewpoint elevation"
 msgstr "Berziya vênıtışi cı ke"
 
-#: ajapaik/ajapaik/models.py:1289
+#: ajapaik/ajapaik/models.py:1301
 msgid "Flip photo"
 msgstr "Fotografi loğ kerê"
 
-#: ajapaik/ajapaik/models.py:1290
+#: ajapaik/ajapaik/models.py:1302
 msgid "Invert photo"
 msgstr "Fotrafi bıçarne"
 
-#: ajapaik/ajapaik/models.py:1291
+#: ajapaik/ajapaik/models.py:1303
 msgid "Rotate photo"
 msgstr "Fotografi tadê"
 
-#: ajapaik/ajapaik/models.py:1342
+#: ajapaik/ajapaik/models.py:1354
 msgid "Map"
 msgstr "Xerita"
 
-#: ajapaik/ajapaik/models.py:1343
+#: ajapaik/ajapaik/models.py:1355
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1344
+#: ajapaik/ajapaik/models.py:1356
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1345
+#: ajapaik/ajapaik/models.py:1357
 msgid "Confirmation"
 msgstr "Tesdiq"
 
-#: ajapaik/ajapaik/models.py:1346
+#: ajapaik/ajapaik/models.py:1358
 msgid "StreetView"
 msgstr "StreetView"
 
-#: ajapaik/ajapaik/models.py:1347
+#: ajapaik/ajapaik/models.py:1359
 msgid "Source geotag"
 msgstr "Çımey geotagi"
 
-#: ajapaik/ajapaik/models.py:1348
+#: ajapaik/ajapaik/models.py:1360
 msgid "Android app"
 msgstr "Android app"
 
-#: ajapaik/ajapaik/models.py:1352
+#: ajapaik/ajapaik/models.py:1364
 msgid "Game"
 msgstr "Kay"
 
-#: ajapaik/ajapaik/models.py:1353
+#: ajapaik/ajapaik/models.py:1365
 msgid "Map view"
 msgstr "Asayışê xerita"
 
-#: ajapaik/ajapaik/models.py:1354
+#: ajapaik/ajapaik/models.py:1366
 msgid "Gallery"
 msgstr "Galeriye"
 
-#: ajapaik/ajapaik/models.py:1355
+#: ajapaik/ajapaik/models.py:1367
 msgid "Permalink"
 msgstr "Gıreyo daimi"
 
-#: ajapaik/ajapaik/models.py:1356
+#: ajapaik/ajapaik/models.py:1368
 msgid "Source"
 msgstr "Çıme"
 
-#: ajapaik/ajapaik/models.py:1361
+#: ajapaik/ajapaik/models.py:1373
 msgid "Google map"
 msgstr "xeritaya Googleyi"
 
-#: ajapaik/ajapaik/models.py:1362
+#: ajapaik/ajapaik/models.py:1374
 msgid "Google satellite"
 msgstr "geyrenıkê Googleyi"
 
-#: ajapaik/ajapaik/models.py:1363
+#: ajapaik/ajapaik/models.py:1375
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1364
+#: ajapaik/ajapaik/models.py:1376
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1365
+#: ajapaik/ajapaik/models.py:1377
 msgid "No map"
 msgstr "Xerita çıniya"
 
-#: ajapaik/ajapaik/models.py:1494 ajapaik/ajapaik/models.py:1496
+#: ajapaik/ajapaik/models.py:1518 ajapaik/ajapaik/models.py:1520
 msgid "Anonymous user"
 msgstr "Karbero anonim"
 
-#: ajapaik/ajapaik/models.py:1685
+#: ajapaik/ajapaik/models.py:1709
 msgid "Day"
 msgstr "Roce"
 
-#: ajapaik/ajapaik/models.py:1686
+#: ajapaik/ajapaik/models.py:1710
 msgid "Month"
 msgstr "Aşme"
 
-#: ajapaik/ajapaik/models.py:1687
+#: ajapaik/ajapaik/models.py:1711
 msgid "Year"
 msgstr "Serre"
 
@@ -576,8 +601,8 @@ msgid "Click to choose"
 msgstr "Weçinıtışi rê bıtıkne"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
-#: ajapaik/ajapaik/templates/photo/_photo_modal.html:248
-#: ajapaik/ajapaik/templates/photo/photoview.html:184
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:246
+#: ajapaik/ajapaik/templates/photo/photoview.html:183
 msgid "Album details"
 msgstr "Detayê albumi"
 
@@ -741,7 +766,7 @@ msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3394
+#: ajapaik/ajapaik/views.py:3441
 msgid "E-mail addresses"
 msgstr "Adresa e-posteyi:"
 
@@ -938,7 +963,7 @@ msgid "Log in to add a comment"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-msgid "Log in to add photos to album"
+msgid "Log in to add pictures to an album"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
@@ -1004,11 +1029,11 @@ msgstr "Bırışe"
 
 #: ajapaik/ajapaik/templates/comments/list.html:21
 msgid "Like"
-msgstr "Bırıdiyê"
+msgstr "Bısine"
 
 #: ajapaik/ajapaik/templates/comments/list.html:25
 msgid "Dislike"
-msgstr "Mêrıdiyê"
+msgstr "Mesine"
 
 #: ajapaik/ajapaik/templates/comments/list.html:29
 #: ajapaik/ajapaik/templates/comments/list.html:89
@@ -1145,7 +1170,8 @@ msgid "Newsletters"
 msgstr "Raporê xeberan"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-msgid "Add photos"
+#, fuzzy
+msgid "Add pictures"
 msgstr "Fotraf cı ke"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
@@ -1168,8 +1194,8 @@ msgstr "Facebook de Ajapaik"
 msgid "Profile and leaderboard"
 msgstr "Profil û rêza lideran"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1851
-#: ajapaik/ajapaik/views.py:1868 ajapaik/ajapaik/views.py:1904
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1869
+#: ajapaik/ajapaik/views.py:1886 ajapaik/ajapaik/views.py:1922
 msgid "Leaderboard"
 msgstr "Lista lideran"
 
@@ -1358,7 +1384,7 @@ msgid "Error"
 msgstr "Xeta"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-msgid "Open album (anyone can add photos)"
+msgid "Open album (anyone can add pictures)"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
@@ -1522,7 +1548,7 @@ msgstr ""
 msgid "Ajapaik has received donations from:"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/donate/_supporters.html:25
+#: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
 msgstr ""
 
@@ -1536,7 +1562,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Parolaya nıkayêne"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
@@ -1544,7 +1570,7 @@ msgstr "Parolaya Newiye"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr "Parolay neweyên (reyna)"
+msgstr "Parolaya newiye (reyna)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
@@ -1568,7 +1594,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "people"
-msgstr ""
+msgstr "merdumi"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "back sides of pictures"
@@ -1576,11 +1602,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "exteriors"
-msgstr ""
+msgstr "teber"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "interiors"
-msgstr ""
+msgstr "miyan"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures from the ground"
@@ -1600,7 +1626,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "no filter"
-msgstr ""
+msgstr "parzûn çıniyo"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "Show person albums"
@@ -1901,6 +1927,14 @@ msgstr ""
 msgid "Back home"
 msgstr "Şo pela keyi"
 
+#: ajapaik/ajapaik/templates/muis-import.html:12
+msgid "Import"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/muis-import.html:12
+msgid "Blacklist"
+msgstr ""
+
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
 msgstr "Adres texmini"
@@ -1924,17 +1958,24 @@ msgstr "Fotografê manenê pê"
 msgid "duplicate photo"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/photo/_photo_modal.html:233
-#: ajapaik/ajapaik/templates/photo/photoview.html:176
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:230
+#: ajapaik/ajapaik/templates/photo/photoview.html:175
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ajapaik/ajapaik/templates/photo/_photo_modal.html:252
-#: ajapaik/ajapaik/templates/photo/photoview.html:188
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:250
+#: ajapaik/ajapaik/templates/photo/photoview.html:187
 msgid "Curator"
 msgstr "Kurator"
+
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:258
+#: ajapaik/ajapaik/templates/photo/photoview.html:192
+#: ajapaik/ajapaik/templates/photo/photoview.html:195
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
+msgid "Add to album"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:37
 msgid "Date taken"
@@ -1947,10 +1988,6 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photo/photoview.html:159
 msgid "rephoto"
 msgstr "rephoto"
-
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
-msgid "Add to album"
-msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:26
 msgid "Images have overlapping content"
@@ -1979,6 +2016,14 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
 msgstr "Xo bar kerê"
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
+msgid "Muis Import"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
+msgid "CSV Import"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
@@ -2034,7 +2079,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3397
+#: ajapaik/ajapaik/views.py:3444
 msgid "Account Connections"
 msgstr ""
 
@@ -2336,145 +2381,145 @@ msgstr "Cı ke"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:481
+#: ajapaik/ajapaik/views.py:484
 msgid "Non-authenticated user"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:620
+#: ajapaik/ajapaik/views.py:623
 msgid "Geotagging game"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:688
+#: ajapaik/ajapaik/views.py:691
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1182
+#: ajapaik/ajapaik/views.py:1194
 msgid "Cannot upload to these albums"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1214
+#: ajapaik/ajapaik/views.py:1228
 msgid "Recuration successful"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1216
+#: ajapaik/ajapaik/views.py:1230
 msgid "Problem with album selection"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1218
+#: ajapaik/ajapaik/views.py:1232
 msgid "Faulty data submitted"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1555 ajapaik/ajapaik/views.py:1562
-#: ajapaik/ajapaik/views.py:1564
+#: ajapaik/ajapaik/views.py:1573 ajapaik/ajapaik/views.py:1580
+#: ajapaik/ajapaik/views.py:1582
 msgid "Browse photos on map"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1706
+#: ajapaik/ajapaik/views.py:1724
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1708
+#: ajapaik/ajapaik/views.py:1726
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1710
+#: ajapaik/ajapaik/views.py:1728
 msgid "Your suggestion was first."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:1987
+#: ajapaik/ajapaik/views.py:2005
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2354
+#: ajapaik/ajapaik/views.py:2372
 msgid "OK"
 msgstr "TEMAM"
 
-#: ajapaik/ajapaik/views.py:2414 ajapaik/ajapaik/views.py:2436
+#: ajapaik/ajapaik/views.py:2432 ajapaik/ajapaik/views.py:2454
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2432
+#: ajapaik/ajapaik/views.py:2450
 msgid "Photo already exists in Ajapaik"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2456
-msgid "Please add photos to your album"
+#: ajapaik/ajapaik/views.py:2474
+msgid "Please add pictures to your album"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2458
+#: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2839
+#: ajapaik/ajapaik/views.py:2883
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3090
+#: ajapaik/ajapaik/views.py:3137
 msgid "Photo uploaded"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3110
+#: ajapaik/ajapaik/views.py:3157
 msgid "Album created"
-msgstr ""
+msgstr "Album vıraziya"
 
-#: ajapaik/ajapaik/views.py:3184
+#: ajapaik/ajapaik/views.py:3231
 msgid "Sorry but we fail to post your comment."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3385
+#: ajapaik/ajapaik/views.py:3432
 msgid "Change password"
 msgstr "Parola bıvurne"
 
-#: ajapaik/ajapaik/views.py:3389
+#: ajapaik/ajapaik/views.py:3436
 msgid "Change display name"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3391
+#: ajapaik/ajapaik/views.py:3438
 msgid "Newsletter and language settings"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3399
+#: ajapaik/ajapaik/views.py:3446
 msgid "Merge another Ajapaik account with current one"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3483
+#: ajapaik/ajapaik/views.py:3530
 msgid "KulKa logo"
 msgstr "logoyê KulKa"
 
-#: ajapaik/ajapaik/views.py:3488
+#: ajapaik/ajapaik/views.py:3535
 msgid "Ministry of Education logo"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3494
+#: ajapaik/ajapaik/views.py:3541
 msgid "EV100 logo"
 msgstr "EV100 logo"
 
-#: ajapaik/ajapaik/views.py:3501
+#: ajapaik/ajapaik/views.py:3548
 msgid "KYSK logo"
 msgstr "logoyê KYSKyi"
 
-#: ajapaik/ajapaik/views.py:3506
+#: ajapaik/ajapaik/views.py:3553
 msgid "Ministry of Culture"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3512
+#: ajapaik/ajapaik/views.py:3559
 msgid "Republic of Estonia National Heritage Board"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3519
+#: ajapaik/ajapaik/views.py:3566
 msgid "Year of Digital Culture 2020"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3526
+#: ajapaik/ajapaik/views.py:3573
 msgid "Wikimedia Finland"
 msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Person name"
-msgstr ""
+msgstr "Nameyê kesi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Date of birth"
@@ -2620,15 +2665,15 @@ msgstr "Ruski"
 msgid "French"
 msgstr "Fransızki"
 
-#: ajapaik/utils.py:153
+#: ajapaik/utils.py:154
 msgid "You have already submitted this suggestion"
 msgstr ""
 
-#: ajapaik/utils.py:154
+#: ajapaik/utils.py:155
 msgid "Your suggestion has been changed"
 msgstr ""
 
-#: ajapaik/utils.py:155
+#: ajapaik/utils.py:156
 msgid "Your suggestion has been saved"
 msgstr ""
 
