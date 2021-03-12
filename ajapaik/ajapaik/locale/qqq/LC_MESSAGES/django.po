@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:26+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:29+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -358,7 +358,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "{{identical|Title}}"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -1921,7 +1921,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "{{identical|Import}}"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"

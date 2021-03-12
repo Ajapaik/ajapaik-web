@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:23+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1174,7 +1174,6 @@ msgid "Newsletters"
 msgstr "뉴스레터"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "사진 추가하기"
 
@@ -1924,11 +1923,11 @@ msgstr "홈으로 돌아가기"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "가져오기"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "블랙리스트"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2017,7 +2016,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV 가져오기"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
@@ -2419,7 +2418,6 @@ msgid "Photo already exists in Ajapaik"
 msgstr "사진이 이미 Ajapaik에 존재합니다"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
 msgstr "앨번에 사진을 추가해 주십시오"
 

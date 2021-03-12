@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:23+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -366,15 +366,15 @@ msgstr "תמונה"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
-msgstr ""
+msgstr "כותרת MUIS"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS comment"
-msgstr ""
+msgstr "הערת MUIS"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
@@ -382,7 +382,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr ""
+msgstr "טקסט MUIS על פריט"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
@@ -974,7 +974,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "יש להיכנס כדי להוסיף תמונות לאלבום"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1938,11 +1938,11 @@ msgstr "חזרה לדף הבית"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "ייבוא"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "רשימת חסימה"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2028,11 +2028,11 @@ msgstr "להעלות בעצמך"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "ייבוא Muis"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "ייבוא CSV"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"

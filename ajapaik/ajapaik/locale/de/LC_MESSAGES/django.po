@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1233qwer1234qwer4
+# Author: Anna7321
 # Author: DraconicDark
 # Author: Elliot
 # Author: FF11
@@ -20,7 +21,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-03-08 14:47:22+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:24+0000\n"
 "X-POT-Import-Date: 2021-03-08 06:03:30+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -363,7 +364,7 @@ msgstr "Bild"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -1938,7 +1939,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"

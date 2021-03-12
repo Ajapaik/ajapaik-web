@@ -5,6 +5,8 @@
 # Author: Grkn gll
 # Author: H2kks
 # Author: Hedda
+# Author: Joseph
+# Author: Mim.saitkilic
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: SaldırganSincap
@@ -18,7 +20,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:25+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:28+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -361,7 +363,7 @@ msgstr "Resim"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -369,7 +371,7 @@ msgstr "MUIS başlığı"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS yorumu"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
@@ -377,11 +379,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Nesnenin MUIS metni"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "MUIS açıklamalar ve efsaneler"
 
 #: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
 msgid "Interior"
@@ -1924,11 +1926,11 @@ msgstr "Anasayfaya dön"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "İçe aktar"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Kara liste"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2013,7 +2015,7 @@ msgstr "Kendin yükle"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Muis İçe Aktarım"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"

@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:25+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:28+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -363,15 +363,15 @@ msgstr "Bild"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS-titel"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS-kommentar"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
@@ -379,7 +379,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr ""
+msgstr "MUIS-text på objekt"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
@@ -971,7 +971,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "Logga in för att lägga till bilder i album"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1177,9 +1177,8 @@ msgid "Newsletters"
 msgstr "Nyhetsbrev"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Lägg till foton"
+msgstr "Lägg till bilder"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
@@ -1391,9 +1390,8 @@ msgid "Error"
 msgstr "Fel"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
-msgstr "Öppet album (alla kan lägga till foton)"
+msgstr "Öppet album (vemsomhelst kan lägga till bilder)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
 msgid "Visible (shown in selection)"
@@ -1937,11 +1935,11 @@ msgstr "Tillbaka hem"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Importera"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Svartlista"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2027,11 +2025,11 @@ msgstr "Ladda upp själv"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Muis-import"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV-import"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"

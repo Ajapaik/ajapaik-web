@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:24+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:27+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -355,27 +355,27 @@ msgstr "plancia"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Tìtol"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
-msgstr ""
+msgstr "Tìtol MUIS"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS comment"
-msgstr ""
+msgstr "Coment MUIS"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "Nòta d'ansem ëd descrission d'eveniment MUIS"
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Test MUIS an sl'oget"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "Legende e descrission MUIS"
 
 #: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
 msgid "Interior"
@@ -962,9 +962,8 @@ msgid "Log in to add a comment"
 msgstr "Rintré ant ël sistema për gionté un coment"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-#, fuzzy
 msgid "Log in to add pictures to an album"
-msgstr "Rintré ant ël sistema për gionté dle fòto a l'àlbom"
+msgstr "Rintré ant ël sistema për gionté dle plance a n'àlbom"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1170,9 +1169,8 @@ msgid "Newsletters"
 msgstr "Litre d'anformassion"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Gionté dle fòto"
+msgstr "Gionté dle plance"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
@@ -1384,9 +1382,8 @@ msgid "Error"
 msgstr "Eror"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
-msgstr "Duverté l'àlbom (tuti a peulo gionté dle fòto)"
+msgstr "Duverté l'àlbom (tuti a peulo gionté dle plance)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
 msgid "Visible (shown in selection)"
@@ -1930,11 +1927,11 @@ msgstr "Artorn a l'intrada"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Amporté"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Lista nèira"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2020,11 +2017,11 @@ msgstr "Ch'a caria daspërchiel"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Amportassion Muis"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "Amportassion CSV"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
@@ -2446,9 +2443,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "La fòto a esist già an Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Ch'a gionta dle fòto a sò àlbom"
+msgstr "Ch'a gionta dle plance a sò àlbom"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"

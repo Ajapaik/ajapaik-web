@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:23+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:25+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -379,15 +379,15 @@ msgstr "Commentaire MUIS"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
-msgstr "note d’ensemble de description d’événement MUIS"
+msgstr "Note d’ensemble de description d’événement MUIS"
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr "texte MUIS sur l’objet"
+msgstr "Texte MUIS sur l’objet"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
-msgstr "légendes et descriptions MUIS"
+msgstr "Légendes et descriptions MUIS"
 
 #: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
 msgid "Interior"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:24+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -358,7 +358,7 @@ msgstr "Bild"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -1172,9 +1172,8 @@ msgid "Newsletters"
 msgstr "Newsletteren"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Add photos"
+msgstr "Biller derbäisetzen"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
@@ -1386,9 +1385,8 @@ msgid "Error"
 msgstr "Feeler"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
-msgstr "Open album (anyone can add photos)"
+msgstr "Open Album (jiddereen ka Biller derbäisetzen)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
 msgid "Visible (shown in selection)"
@@ -1932,11 +1930,11 @@ msgstr "Back home"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Importéieren"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Schwaarz Lëscht"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2026,7 +2024,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV-Import"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"

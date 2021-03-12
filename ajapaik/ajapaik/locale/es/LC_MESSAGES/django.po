@@ -11,6 +11,7 @@
 # Author: MarcoAurelio
 # Author: Ncr
 # Author: Rodney Araujo
+# Author: ZealousBlaze
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -18,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-03-08 14:47:22+0000\n"
+"PO-Revision-Date: 2021-03-12 05:53:25+0000\n"
 "X-POT-Import-Date: 2021-03-08 06:03:30+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1176,9 +1177,8 @@ msgid "Newsletters"
 msgstr "Boletines"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Añadir fotos"
+msgstr "Agregar imágenes"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
