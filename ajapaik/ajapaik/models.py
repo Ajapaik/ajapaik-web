@@ -343,12 +343,10 @@ class Album(Model):
                 key = f'name_{each}'
                 current_value = getattr(self, key)
                 if not current_value:
-                    response = requests.get(settings.TARTUNLP_API_URL, params={
-                        'src': getattr(self, translation_source),
-                        'auth': 'public',
-                        'conf': f'{each},auto'
-                    }).json()
-                    setattr(self, key, response['tgt'])
+                    headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
+                    json = {'text': getattr(self, translation_source), 'tgt': each}
+                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
+                    setattr(self, key, response['result'])
                     translation_done = True
 
             if translation_done:
@@ -1021,12 +1019,10 @@ class Photo(Model):
                 key = f'description_{each}'
                 current_value = getattr(self, key)
                 if not current_value:
-                    response = requests.get(settings.TARTUNLP_API_URL, params={
-                        'src': getattr(self, translation_source),
-                        'auth': 'public',
-                        'conf': f'{each},auto'
-                    }).json()
-                    setattr(self, key, response['tgt'])
+                    headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
+                    json = {'text': getattr(self, translation_source), 'tgt': each}
+                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
+                    setattr(self, key, response['result'])
                     translation_done = True
             if translation_done:
                 self.light_save()

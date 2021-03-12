@@ -85,7 +85,7 @@ MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
 
 TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
-TARTUNLP_API_URL = 'https://api.neurotolge.ee/v1.1/translate'
+TARTUNLP_API_URL = 'https://api.tartunlp.ai/translation/v2'
 
 SITE_ID = 2
 
