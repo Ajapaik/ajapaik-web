@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
+"PO-Revision-Date: 2021-03-15 18:01:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -2446,9 +2446,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "Photo already exists in Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Please add photos to your album"
+msgstr "Setzt wgl. Biller an Ären Album derbäi"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"
