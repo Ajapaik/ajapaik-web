@@ -20,6 +20,11 @@ class PhotoIndex(indexes.SearchIndex, indexes.Indexable):
     source__description = indexes.CharField(model_attr='source__description', null=True)
     source_key = indexes.CharField(model_attr='source_key', null=True)
     address = indexes.CharField(model_attr='address', null=True)
+    muis_title = indexes.CharField(model_attr='muis_title', null=True)
+    muis_comment = indexes.CharField(model_attr='muis_comment', null=True)
+    muis_event_description_set_note = indexes.CharField(model_attr='muis_event_description_set_note', null=True)
+    muis_text_on_object = indexes.CharField(model_attr='muis_text_on_object', null=True)
+    muis_legends_and_descriptions = indexes.CharField(model_attr='muis_legends_and_descriptions', null=True)
 
     def get_model(self):
         return Photo
