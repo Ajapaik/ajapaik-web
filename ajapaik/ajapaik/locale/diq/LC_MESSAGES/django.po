@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:22+0000\n"
+"PO-Revision-Date: 2021-03-18 12:41:09+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -356,7 +356,7 @@ msgstr "Resım"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Sername"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -1170,9 +1170,8 @@ msgid "Newsletters"
 msgstr "Raporê xeberan"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Fotraf cı ke"
+msgstr "Fotrafan cı ke"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
