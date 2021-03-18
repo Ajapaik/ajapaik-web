@@ -173,8 +173,9 @@ class Command(BaseCommand):
                         get_muis_date_and_prefix(dating, True)
 
                 actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
-                person_album_ids = add_person_albums(actors, person_album_ids, ns)
-
+                person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
+                if author is not None:
+                    photo.author = author
                 photo.add_to_source_album()
                 if locations != []:
                     photo = add_geotag_from_address_to_photo(photo, locations)

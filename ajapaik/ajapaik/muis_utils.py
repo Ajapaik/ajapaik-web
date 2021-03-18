@@ -334,9 +334,12 @@ def extract_dating_from_event(
 
 
 def add_person_albums(actors, person_album_ids, ns):
+    author = None
     for actor in actors:
         term = actor.find('lido:roleActor/lido:term', ns)
-        if term is not None and term.text == 'kujutatu':
+        if term is None:
+            continue
+        if term.text == 'kujutatu' or term.text == 'autor':
             muis_actor_id = int(actor.find("lido:actor/lido:actorID", ns).text)
             names = actor.findall("lido:actor/lido:nameActorSet/lido:appellationValue", ns)
             all_names = ''
@@ -349,20 +352,22 @@ def add_person_albums(actors, person_album_ids, ns):
                         for part in main_name_parts[0:len(main_name_parts) - 1]:
                             main_name += ' ' + part
                 all_names += (name.attrib['{' + ns['lido'] + '}label'] + ': ' + name.text + '. ').capitalize()
-
-            existing_album = Album.objects.filter(name=main_name, atype=Album.PERSON).first()
-            if existing_album is None:
-                person_album = Album(
-                    name=main_name,
-                    description=all_names,
-                    muis_person_ids=[muis_actor_id],
-                    atype=Album.PERSON
-                )
-                person_album.save()
-                person_album_ids.append(person_album.id)
+            if term.text == 'autor':
+                author = main_name
             else:
-                person_album_ids.append(existing_album.id)
-    return person_album_ids
+                existing_album = Album.objects.filter(name=main_name, atype=Album.PERSON).first()
+                if existing_album is None:
+                    person_album = Album(
+                        name=main_name,
+                        description=all_names,
+                        muis_person_ids=[muis_actor_id],
+                        atype=Album.PERSON
+                    )
+                    person_album.save()
+                    person_album_ids.append(person_album.id)
+                else:
+                    person_album_ids.append(existing_album.id)
+    return person_album_ids, author
 
 
 def get_muis_date_and_prefix(date, is_later_date):
