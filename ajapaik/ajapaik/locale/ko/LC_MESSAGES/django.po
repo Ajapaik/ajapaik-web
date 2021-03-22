@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
+"PO-Revision-Date: 2021-03-22 14:35:48+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -966,7 +966,6 @@ msgid "Log in to add a comment"
 msgstr "댓글을 달려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-#, fuzzy
 msgid "Log in to add pictures to an album"
 msgstr "앨범에 사진을 추가하려면 로그인하세요"
 
