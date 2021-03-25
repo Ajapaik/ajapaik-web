@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import logging
 import urllib
@@ -51,175 +51,192 @@ class Command(BaseCommand):
                     source.save()
         source = Source.objects.filter(name=museum_name).first()
 
-        album_ids = (options['album_ids'])
-        albums = Album.objects.filter(id__in=album_ids)
-        all_person_album_ids_set = set()
-        list_identifiers_url = muis_url + '?verb=ListRecords&set=' + set_name \
-            + '&metadataPrefix=lido'
-        url_response = urllib.request.urlopen(list_identifiers_url)
-        parser = ET.XMLParser(encoding="utf-8")
-        tree = ET.fromstring(url_response.read(), parser=parser)
-        ns = {'d': 'http://www.openarchives.org/OAI/2.0/', 'lido': 'http://www.lido-schema.org'}
-        header = 'd:header/'
-        records = tree.findall('d:ListRecords/d:record', ns)
-        record = 'd:metadata/lido:lidoWrap/lido:lido/'
-        object_identification_wrap = record + 'lido:descriptiveMetadata/lido:objectIdentificationWrap/'
-        object_description_wraps = \
-            object_identification_wrap + 'lido:objectDescriptionWrap/lido:objectDescriptionSet'
-        title_wrap = object_identification_wrap + 'lido:titleWrap/'
-        repository_wrap = object_identification_wrap + 'lido:repositoryWrap/'
-        event_wrap = record + 'lido:descriptiveMetadata/lido:eventWrap/'
-        record_wrap = record + 'lido:administrativeMetadata/lido:recordWrap/'
-        resource_wrap = record + 'lido:administrativeMetadata/lido:resourceWrap/'
-        actor_wrap = event_wrap + 'lido:eventSet/lido:event/lido:eventActor/'
+        dates = []
+        start = datetime(2008, 3, 1)
+        present = datetime.today() + timedelta(days=1)
+        while start < present:
+            dates.append(start.strftime('%Y-%m-%d'))
+            start += timedelta(days=30)
+        dates.append(present)
 
-        for rec in records:
-            try:
-                locations = []
-                person_album_ids = []
-                creation_date_earliest = None
-                creation_date_latest = None
-                external_id = rec.find(header + 'd:identifier', ns).text \
-                    if rec.find(header + 'd:identifier', ns) is not None \
-                    else None
-                existing_photo = Photo.objects.filter(source=source, external_id=external_id).first()
-                if existing_photo is not None:
-                    continue
+        from_date = None
+        for until_date in dates:
+            if from_date is None:
+                from_date = until_date
+                continue
 
-                image_url = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                     + 'resourceRepresentation/lido:linkResource', ns).text \
-                    if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                + 'resourceRepresentation/lido:linkResource', ns) is not None\
-                    else None
+            album_ids = (options['album_ids'])
+            albums = Album.objects.filter(id__in=album_ids)
+            all_person_album_ids_set = set()
+            list_identifiers_url = muis_url + '?verb=ListRecords&set=' + set_name \
+                + '&from=' + from_date + '&until=' + until_date + '&metadataPrefix=lido'
+            url_response = urllib.request.urlopen(list_identifiers_url)
+            parser = ET.XMLParser(encoding="utf-8")
+            tree = ET.fromstring(url_response.read(), parser=parser)
+            ns = {'d': 'http://www.openarchives.org/OAI/2.0/', 'lido': 'http://www.lido-schema.org'}
+            header = 'd:header/'
+            records = tree.findall('d:ListRecords/d:record', ns)
+            record = 'd:metadata/lido:lidoWrap/lido:lido/'
+            object_identification_wrap = record + 'lido:descriptiveMetadata/lido:objectIdentificationWrap/'
+            object_description_wraps = \
+                object_identification_wrap + 'lido:objectDescriptionWrap/lido:objectDescriptionSet'
+            title_wrap = object_identification_wrap + 'lido:titleWrap/'
+            repository_wrap = object_identification_wrap + 'lido:repositoryWrap/'
+            event_wrap = record + 'lido:descriptiveMetadata/lido:eventWrap/'
+            record_wrap = record + 'lido:administrativeMetadata/lido:recordWrap/'
+            resource_wrap = record + 'lido:administrativeMetadata/lido:resourceWrap/'
+            actor_wrap = event_wrap + 'lido:eventSet/lido:event/lido:eventActor/'
 
-                image_extension = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                           + 'resourceRepresentation/lido:linkResource',
-                                           ns).attrib['{' + ns['lido'] + '}formatResource'] \
-                    if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                + 'resourceRepresentation/lido:linkResource', ns) is not None\
-                    else None
+            for rec in records:
+                try:
+                    locations = []
+                    person_album_ids = []
+                    creation_date_earliest = None
+                    creation_date_latest = None
+                    external_id = rec.find(header + 'd:identifier', ns).text \
+                        if rec.find(header + 'd:identifier', ns) is not None \
+                        else None
+                    existing_photo = Photo.objects.filter(source=source, external_id=external_id).first()
+                    if existing_photo is not None:
+                        continue
 
-                source_url_find = rec.find(record_wrap + 'lido:recordInfoSet/lido:recordInfoLink', ns)
-                source_url = source_url_find.text \
-                    if source_url_find is not None \
-                    else None
+                    image_url = rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                         + 'resourceRepresentation/lido:linkResource', ns).text \
+                        if rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                    + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                        else None
 
-                identifier_find = rec.find(repository_wrap + 'lido:repositorySet/lido:workID', ns)
-                identifier = identifier_find.text \
-                    if identifier_find is not None \
-                    else None
+                    image_extension = rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                               + 'resourceRepresentation/lido:linkResource',
+                                               ns).attrib['{' + ns['lido'] + '}formatResource'] \
+                        if rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                    + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                        else None
 
-                if image_url is None:
-                    continue
+                    source_url_find = rec.find(record_wrap + 'lido:recordInfoSet/lido:recordInfoLink', ns)
+                    source_url = source_url_find.text \
+                        if source_url_find is not None \
+                        else None
 
-                img_data = requests.get(image_url).content
-                image_id = external_id.split(':')[-1]
-                file_name = set_name + '_' + image_id + '.' + image_extension
-                file_name = file_name.replace(':', '_')
-                path = settings.MEDIA_ROOT + '/uploads/' + file_name
-                with open(path, 'wb') as handler:
-                    handler.write(img_data)
-                photo = Photo(
-                    image=path,
-                    source_key=identifier,
-                    source_url=source_url,
-                    external_id=external_id,
-                    source=source
-                )
-                dt = datetime.utcnow()
-                dt.replace(tzinfo=timezone.utc)
-                photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
-                photo.light_save()
+                    identifier_find = rec.find(repository_wrap + 'lido:repositorySet/lido:workID', ns)
+                    identifier = identifier_find.text \
+                        if identifier_find is not None \
+                        else None
 
-                photo = Photo.objects.get(id=photo.id)
-                photo.image.name = 'uploads/' + file_name
+                    if image_url is None:
+                        continue
 
-                title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
-                title = title_find.text \
-                    if title_find is not None \
-                    else None
+                    img_data = requests.get(image_url).content
+                    image_id = external_id.split(':')[-1]
+                    file_name = set_name + '_' + image_id + '.' + image_extension
+                    file_name = file_name.replace(':', '_')
+                    path = settings.MEDIA_ROOT + '/uploads/' + file_name
+                    with open(path, 'wb') as handler:
+                        handler.write(img_data)
+                    photo = Photo(
+                        image=path,
+                        source_key=identifier,
+                        source_url=source_url,
+                        external_id=external_id,
+                        source=source
+                    )
+                    dt = datetime.utcnow()
+                    dt.replace(tzinfo=timezone.utc)
+                    photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
+                    photo.light_save()
 
-                if title:
-                    photo = reset_modeltranslated_field(photo, 'title', title)
+                    photo = Photo.objects.get(id=photo.id)
+                    photo.image.name = 'uploads/' + file_name
 
-                dating = None
-                photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
-                photo.light_save()
-                creation_date_earliest = None
-                creation_date_latest = None
-                date_prefix_earliest = None
-                date_prefix_latest = None
-                events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
-                if events is not None and len(events) > 0:
-                    locations, \
-                        creation_date_earliest, \
-                        creation_date_latest, \
-                        date_prefix_earliest, \
-                        date_prefix_latest, \
-                        date_earliest_has_suffix, \
-                        date_latest_has_suffix, \
-                        = extract_dating_from_event(
-                            events,
-                            locations,
-                            creation_date_earliest,
-                            creation_date_latest,
-                            photo.latest_dating is not None or dating is not None,
-                            ns
-                        )
-                if dating is not None:
-                    creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
-                        get_muis_date_and_prefix(dating, False)
-                    creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
-                        get_muis_date_and_prefix(dating, True)
+                    title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
+                    title = title_find.text \
+                        if title_find is not None \
+                        else None
 
-                actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
-                person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
-                if author is not None:
-                    photo.author = author
-                photo.add_to_source_album()
-                if locations != []:
-                    photo = add_geotag_from_address_to_photo(photo, locations)
+                    if title:
+                        photo = reset_modeltranslated_field(photo, 'title', title)
 
-                photo = add_dating_to_photo(
-                    photo,
-                    creation_date_earliest,
-                    creation_date_latest,
-                    date_prefix_earliest,
-                    date_prefix_latest,
-                    Dating,
-                    date_earliest_has_suffix,
-                    date_latest_has_suffix,
-                )
-                photo.light_save()
-                for album in albums:
-                    if not album.cover_photo:
-                        album.cover_photo = photo
-                    ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.CURATED)
-                    ap.save()
+                    dating = None
+                    photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
+                    photo.light_save()
+                    creation_date_earliest = None
+                    creation_date_latest = None
+                    date_prefix_earliest = None
+                    date_prefix_latest = None
+                    date_earliest_has_suffix = False
+                    date_latest_has_suffix = False
+                    events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
+                    if events is not None and len(events) > 0:
+                        locations, \
+                            creation_date_earliest, \
+                            creation_date_latest, \
+                            date_prefix_earliest, \
+                            date_prefix_latest, \
+                            date_earliest_has_suffix, \
+                            date_latest_has_suffix, \
+                            = extract_dating_from_event(
+                                events,
+                                locations,
+                                creation_date_earliest,
+                                creation_date_latest,
+                                photo.latest_dating is not None or dating is not None,
+                                ns
+                            )
+                    if dating is not None:
+                        creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
+                            get_muis_date_and_prefix(dating, False)
+                        creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
+                            get_muis_date_and_prefix(dating, True)
 
-                person_albums = Album.objects.filter(id__in=person_album_ids)
-                if person_albums is not None:
-                    for album in person_albums:
+                    actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
+                    person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
+                    if author is not None:
+                        photo.author = author
+                    photo.add_to_source_album()
+                    if locations != []:
+                        photo = add_geotag_from_address_to_photo(photo, locations)
+
+                    photo = add_dating_to_photo(
+                        photo,
+                        creation_date_earliest,
+                        creation_date_latest,
+                        date_prefix_earliest,
+                        date_prefix_latest,
+                        Dating,
+                        date_earliest_has_suffix,
+                        date_latest_has_suffix,
+                    )
+                    photo.light_save()
+                    for album in albums:
                         if not album.cover_photo:
                             album.cover_photo = photo
-                        ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                        ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.CURATED)
                         ap.save()
 
-                        all_person_album_ids_set.add(album.id)
-                photo.set_calculated_fields()
-            except Exception as e:
-                logger.exception(e)
-                exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
-                exception.save()
+                    person_albums = Album.objects.filter(id__in=person_album_ids)
+                    if person_albums is not None:
+                        for album in person_albums:
+                            if not album.cover_photo:
+                                album.cover_photo = photo
+                            ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                            ap.save()
 
-            for album in albums:
-                album.set_calculated_fields()
-                album.save()
+                            all_person_album_ids_set.add(album.id)
+                    photo.set_calculated_fields()
+                except Exception as e:
+                    logger.exception(e)
+                    exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
+                    exception.save()
 
-            all_person_album_ids = list(all_person_album_ids_set)
-            all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
+                for album in albums:
+                    album.set_calculated_fields()
+                    album.save()
 
-            if all_person_albums is not None:
-                for person_album in all_person_albums:
-                    person_album.set_calculated_fields()
-                    person_album.save()
+                all_person_album_ids = list(all_person_album_ids_set)
+                all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
+
+                if all_person_albums is not None:
+                    for person_album in all_person_albums:
+                        person_album.set_calculated_fields()
+                        person_album.save()
+            from_date = until_date
