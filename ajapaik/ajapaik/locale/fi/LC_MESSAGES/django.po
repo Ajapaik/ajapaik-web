@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Joquliina
 # Author: KK
 # Author: Muovipullo
 # Author: Nike
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-03-08 14:47:23+0000\n"
+"PO-Revision-Date: 2021-03-29 15:52:25+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -363,7 +364,7 @@ msgstr "Kuva"
 
 #: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
@@ -971,7 +972,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "Kirjaudu sisään lisätäksesi kuvia albumiin"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1177,7 +1178,6 @@ msgid "Newsletters"
 msgstr "Uutiskirjeet"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "Lisää kuvia"
 

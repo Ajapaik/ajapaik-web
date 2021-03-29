@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-12 05:53:26+0000\n"
+"PO-Revision-Date: 2021-03-29 15:52:25+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -174,7 +174,7 @@ msgstr "נא לבחור אזור"
 #: ajapaik/ajapaik/forms.py:195 ajapaik/ajapaik/forms.py:203
 #: ajapaik/ajapaik/forms.py:212
 msgid "Choose album"
-msgstr "נא לבחרו אלבום"
+msgstr "נא לבחור אלבום"
 
 #: ajapaik/ajapaik/forms.py:199 ajapaik/ajapaik/forms.py:206
 msgid "Choose photo"
@@ -2020,7 +2020,7 @@ msgstr "באפשרותך לסדר מחדש את הצילומים באמצעות 
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
 msgid "Import from public collections"
-msgstr "Import from public collectionsייבור מאוספים ציבוריים"
+msgstr "לייבא מאוספים ציבוריים"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"

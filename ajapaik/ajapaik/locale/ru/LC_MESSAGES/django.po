@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-08 14:47:25+0000\n"
+"PO-Revision-Date: 2021-03-29 15:52:26+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -1190,7 +1190,6 @@ msgid "Newsletters"
 msgstr "Рассылка"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "Добавить фотографии"
 
@@ -1407,7 +1406,6 @@ msgid "Error"
 msgstr "Ошибка"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
 msgstr "Открытый альбом (любой сможет добавить в него снимки)"
 
@@ -2496,9 +2494,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "Эта фотография уже есть в Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Добавьте фотографии в свой альбом"
+msgstr "Пожалуйста, добавьте фотографии в свой альбом"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"

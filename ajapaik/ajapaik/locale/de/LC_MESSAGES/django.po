@@ -5,6 +5,7 @@
 # Author: Anna7321
 # Author: DraconicDark
 # Author: Elliot
+# Author: FF-11
 # Author: FF11
 # Author: H2kks
 # Author: ImaCow
@@ -21,7 +22,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-03-12 05:53:24+0000\n"
+"PO-Revision-Date: 2021-03-29 15:52:24+0000\n"
 "X-POT-Import-Date: 2021-03-08 06:03:30+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -971,9 +972,8 @@ msgid "Log in to add a comment"
 msgstr "Melde dich an, um einen Kommentar zu hinterlassen"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-#, fuzzy
 msgid "Log in to add pictures to an album"
-msgstr "Melde dich an, um dem Album Fotos hinzuzufügen"
+msgstr "Melde dich an, um Bilder zu einem Album hinzuzufügen"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1179,7 +1179,6 @@ msgid "Newsletters"
 msgstr "Newsletter"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "Fotos hinzufügen"
 
@@ -1393,9 +1392,8 @@ msgid "Error"
 msgstr "Fehler"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
-msgstr "Öffne ein Album (jeder kann Fotos hinzufügen)"
+msgstr "Öffne ein Album (jeder kann Bilder hinzufügen)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
 msgid "Visible (shown in selection)"
@@ -1943,7 +1941,7 @@ msgstr "Import"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Schwarze Liste"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2033,7 +2031,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV-Import"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 msgid "Taken"
@@ -2455,9 +2453,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "Das Foto existiert auf Ajapaik bereits"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Bitte Füge Fotos zu deinem Album hinzu"
+msgstr "Bitte Füge Bilder zu deinem Album hinzu"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"

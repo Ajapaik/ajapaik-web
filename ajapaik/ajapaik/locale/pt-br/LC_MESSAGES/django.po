@@ -15,7 +15,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-15 18:01:29+0000\n"
+"PO-Revision-Date: 2021-03-29 15:52:26+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -362,11 +362,11 @@ msgstr "Título"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS title"
-msgstr ""
+msgstr "título MUIS"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS comment"
-msgstr ""
+msgstr "Comentário MUIS"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS event description set note"
@@ -374,11 +374,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:382
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Texto MUIS no objeto"
 
 #: ajapaik/ajapaik/models.py:383
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "Legendas e descrições MUIS"
 
 #: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
 msgid "Interior"
@@ -966,7 +966,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "Faça login para adicionar imagens a um álbum"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1934,7 +1934,7 @@ msgstr "Importar"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Lista negra"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2020,7 +2020,7 @@ msgstr "Carregar você mesmo"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Importação MUIS"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
@@ -2446,9 +2446,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "Foto já existe em Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2474
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Por favor, adicione fotos ao seu álbum"
+msgstr "Por favor adicione fotos ao seu álbum"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"
