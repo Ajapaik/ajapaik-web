@@ -15,19 +15,12 @@
                             <button id="ajp-photo-selection-create-album-button" type="button"
                                 class="btn btn-success">{% trans "Add to album" %}</button>
                         </div>
-                        <div class="col-auto mb-3 pr-0">
-                            <button id="ajp-photo-selection-clear-selection-button" type="button"
-                                class="btn btn-primary">{% trans "Clear selection" %}</button>
-                        </div>
                     {% endif %}
                     {% if photos|length > 1 %}
-                        <div class="col-auto mb-3 pr-0">
-                            <button id="ajp-photo-selection-add-similarity" type="button"
-                                class="btn btn-primary">{% trans "Images have overlapping content" %}</button>
-                        </div>
-                        <div class="col-auto mb-3 pr-0">
-                            <button id="ajp-photo-selection-add-duplicate" type="button"
-                                class="btn btn-success">{% trans "All images are of the same shot" %}</button>
+                        <div id="ajp-similarity-popover-toggle" class="col-auto mb-3 pr-0">
+                            <button data-toggle="popover" class="btn btn-primary">
+                                {% trans "Mark as similar/duplicates" %}
+                            </button>
                         </div>
                     {% endif %}
                     {% if photos|length > 0 %}
@@ -35,11 +28,13 @@
                             <button id="ajp-photo-selection-categorize-scenes-button" type="button"
                                 class="btn btn-success">{% trans "Add categories to picture(s)" %}</button>
                         </div>
-                    {% endif %}
-                    {% if photos|length > 0 %}
                         <div class="col-auto mb-3 pr-0">
                             <button id="ajp-photo-selection-edit-pictures-button" type="button"
                                 class="btn btn-success">{% trans "Flip, rotate and invert picture(s)" %}</button>
+                        </div>
+                        <div class="col-auto mb-3 pr-0">
+                            <button id="ajp-photo-selection-clear-selection-button" type="button"
+                                class="btn btn-danger">{% trans "Clear selection" %}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -106,6 +101,15 @@
             window.previouslyEditedPhotoIds.forEach(id => {
                 window.refreshUpdatedImageLight('a[data-id=' + id + '].ajp-photo-selection-thumbnail-link > img');
             });
+            $(function () {
+                $('#ajp-similarity-popover-toggle').popover({
+                    html: true,
+                    sanitize: false,
+                    content: '<div class="col-auto mb-3 pr-0"><button id="ajp-photo-selection-add-similarity" type="button" class="btn btn-primary">{% trans "Images have overlapping content" %}</button></div><div class="col-auto mb-3 pr-0"><button id="ajp-photo-selection-add-duplicate" type="button" class="btn btn-success">{% trans "All images are of the same shot" %}</button></div>',
+                    title: gettext('Mark as similar/duplicates'),
+                    container: '#ajp-similarity-popover-toggle'
+                })
+            })
         });
     </script>
     {% compress js %}
