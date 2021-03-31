@@ -55,9 +55,9 @@ class Command(BaseCommand):
         start = datetime(2008, 3, 1)
         present = datetime.today() + timedelta(days=1)
         while start < present:
-            dates.append(start.strftime('%Y-%m-%d'))
+            dates.append(str(start.strftime('%Y-%m-%d')))
             start += timedelta(days=30)
-        dates.append(present)
+        dates.append(str(present))
 
         from_date = None
         for until_date in dates:
