@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2021-01-28 17:44:33+0000\n"
+"PO-Revision-Date: 2021-04-01 11:36:06+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -43,60 +43,60 @@ msgstr "Pyyntö käyttäjän sijaintitiedon saamiseksi aikakatkaistiin."
 msgid "An unknown error occurred."
 msgstr "Tuntematon virhe."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:877
-#: ajapaik/ajapaik/static/js/ajp-core.js:893
+#: ajapaik/ajapaik/static/js/ajp-core.js:880
+#: ajapaik/ajapaik/static/js/ajp-core.js:896
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "System error"
 msgstr "Järjestelmävirhe"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1023
-#: ajapaik/ajapaik/static/js/ajp-core.js:1068
+#: ajapaik/ajapaik/static/js/ajp-core.js:1026
+#: ajapaik/ajapaik/static/js/ajp-core.js:1071
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "Not selected"
 msgstr "Ei valittu"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1608
+#: ajapaik/ajapaik/static/js/ajp-core.js:1611
 msgid "Go to my location"
 msgstr "Siirry sijaintiini"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1620
+#: ajapaik/ajapaik/static/js/ajp-core.js:1623
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Sulje"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1772
+#: ajapaik/ajapaik/static/js/ajp-core.js:1775
 msgid "Pick the shooting location!"
 msgstr "Valitse kuvauspaikan sijainti!"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1783
-#: ajapaik/ajapaik/static/js/ajp-core.js:1835
+#: ajapaik/ajapaik/static/js/ajp-core.js:1786
+#: ajapaik/ajapaik/static/js/ajp-core.js:1838
 msgid "Geotagged by this many users"
 msgstr "Tämän kuvan on paikantanut"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1816
+#: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Confirm correct location"
 msgstr "Vahvista nykyinen sijainti"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-core.js:1830
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Submit your own location"
 msgstr "Lähetä oma sijaintisi"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1854
+#: ajapaik/ajapaik/static/js/ajp-core.js:1857
 msgid "You"
 msgstr "Sinä"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1858
+#: ajapaik/ajapaik/static/js/ajp-core.js:1861
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Nimetön käyttäjä"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1860
+#: ajapaik/ajapaik/static/js/ajp-core.js:1863
 msgid "Anonymous users"
 msgstr "Nimetöntä käyttäjää"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1924
+#: ajapaik/ajapaik/static/js/ajp-core.js:1927
 msgid "Current location"
 msgstr "Nykyinen sijainti"
 

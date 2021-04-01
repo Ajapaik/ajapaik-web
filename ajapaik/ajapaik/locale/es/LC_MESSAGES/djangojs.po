@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-01-28 17:44:33+0000\n"
+"PO-Revision-Date: 2021-04-01 11:36:06+0000\n"
 "X-POT-Import-Date: 2021-01-07 15:32:44+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,60 +36,60 @@ msgstr "Se agotó el tiempo de espera de la solicitud de ubicación del usuario.
 msgid "An unknown error occurred."
 msgstr "Se produjo un error desconocido."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:877
-#: ajapaik/ajapaik/static/js/ajp-core.js:893
+#: ajapaik/ajapaik/static/js/ajp-core.js:880
+#: ajapaik/ajapaik/static/js/ajp-core.js:896
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "System error"
 msgstr "Error del sistema"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1023
-#: ajapaik/ajapaik/static/js/ajp-core.js:1068
+#: ajapaik/ajapaik/static/js/ajp-core.js:1026
+#: ajapaik/ajapaik/static/js/ajp-core.js:1071
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "Not selected"
 msgstr "No seleccionado"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1608
+#: ajapaik/ajapaik/static/js/ajp-core.js:1611
 msgid "Go to my location"
 msgstr "Ir a mi ubicación"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1620
+#: ajapaik/ajapaik/static/js/ajp-core.js:1623
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Cerrar"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1772
+#: ajapaik/ajapaik/static/js/ajp-core.js:1775
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1783
-#: ajapaik/ajapaik/static/js/ajp-core.js:1835
+#: ajapaik/ajapaik/static/js/ajp-core.js:1786
+#: ajapaik/ajapaik/static/js/ajp-core.js:1838
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1816
+#: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Confirm correct location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-core.js:1830
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Submit your own location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1854
+#: ajapaik/ajapaik/static/js/ajp-core.js:1857
 msgid "You"
 msgstr "Tú"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1858
+#: ajapaik/ajapaik/static/js/ajp-core.js:1861
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Usuario anónimo"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1860
+#: ajapaik/ajapaik/static/js/ajp-core.js:1863
 msgid "Anonymous users"
 msgstr "Usuarios anónimos"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1924
+#: ajapaik/ajapaik/static/js/ajp-core.js:1927
 msgid "Current location"
 msgstr "Ubicación actual"
 

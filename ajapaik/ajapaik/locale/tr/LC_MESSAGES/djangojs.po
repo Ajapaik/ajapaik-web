@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-01-28 17:44:35+0000\n"
+"PO-Revision-Date: 2021-04-01 11:36:08+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,60 +41,60 @@ msgstr "Kullanıcı konumunu alma isteği zaman aşımına uğradı."
 msgid "An unknown error occurred."
 msgstr "Bilinmeyen bir hata oluştu."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:877
-#: ajapaik/ajapaik/static/js/ajp-core.js:893
+#: ajapaik/ajapaik/static/js/ajp-core.js:880
+#: ajapaik/ajapaik/static/js/ajp-core.js:896
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "System error"
 msgstr "Sistem hatası"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1023
-#: ajapaik/ajapaik/static/js/ajp-core.js:1068
+#: ajapaik/ajapaik/static/js/ajp-core.js:1026
+#: ajapaik/ajapaik/static/js/ajp-core.js:1071
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "Not selected"
 msgstr "Seçili değil"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1608
+#: ajapaik/ajapaik/static/js/ajp-core.js:1611
 msgid "Go to my location"
 msgstr "Konumuma git"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1620
+#: ajapaik/ajapaik/static/js/ajp-core.js:1623
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Kapat"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1772
+#: ajapaik/ajapaik/static/js/ajp-core.js:1775
 msgid "Pick the shooting location!"
 msgstr "Çekim yerini seç!"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1783
-#: ajapaik/ajapaik/static/js/ajp-core.js:1835
+#: ajapaik/ajapaik/static/js/ajp-core.js:1786
+#: ajapaik/ajapaik/static/js/ajp-core.js:1838
 msgid "Geotagged by this many users"
 msgstr "Bu birçok kullanıcı tarafından coğrafi etiketleme yapıldı"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1816
+#: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Confirm correct location"
 msgstr "Doğru konumu onayla"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-core.js:1830
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Submit your own location"
 msgstr "Kendi konumunu gönder"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1854
+#: ajapaik/ajapaik/static/js/ajp-core.js:1857
 msgid "You"
 msgstr "Siz"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1858
+#: ajapaik/ajapaik/static/js/ajp-core.js:1861
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonim kullanıcı"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1860
+#: ajapaik/ajapaik/static/js/ajp-core.js:1863
 msgid "Anonymous users"
 msgstr "Anonim kullanıcılar"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1924
+#: ajapaik/ajapaik/static/js/ajp-core.js:1927
 msgid "Current location"
 msgstr "Mevcut konum"
 

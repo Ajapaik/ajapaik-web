@@ -12,11 +12,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-03-12 05:53:27+0000\n"
+"PO-Revision-Date: 2021-04-01 11:36:09+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-03-08 06:03:30+0000\n"
+"X-POT-Import-Date: 2021-03-31 18:32:02+0000\n"
 "X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -178,7 +178,7 @@ msgid "Picture file"
 msgstr "Archivi ëd fòto"
 
 #: ajapaik/ajapaik/forms.py:412 ajapaik/ajapaik/forms.py:461
-#: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:378
+#: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:376
 #: ajapaik/ajapaik/templates/curator/curator.html:77
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Description"
@@ -188,7 +188,7 @@ msgstr "Descrission"
 msgid "I am the author"
 msgstr "I son l'autor"
 
-#: ajapaik/ajapaik/forms.py:414 ajapaik/ajapaik/models.py:385
+#: ajapaik/ajapaik/forms.py:414 ajapaik/ajapaik/models.py:383
 msgid "Author"
 msgstr "Autor"
 
@@ -349,232 +349,232 @@ msgstr "Nòm ant lenga d'orìgin"
 msgid "b."
 msgstr "b."
 
-#: ajapaik/ajapaik/models.py:363
+#: ajapaik/ajapaik/models.py:361
 msgid "Image"
 msgstr "plancia"
 
-#: ajapaik/ajapaik/models.py:377 ajapaik/ajapaik/models.py:1902
+#: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1898
 msgid "Title"
 msgstr "Tìtol"
 
-#: ajapaik/ajapaik/models.py:379
+#: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
 msgstr "Tìtol MUIS"
 
-#: ajapaik/ajapaik/models.py:380
+#: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
 msgstr "Coment MUIS"
 
-#: ajapaik/ajapaik/models.py:381
+#: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
 msgstr "Nòta d'ansem ëd descrission d'eveniment MUIS"
 
-#: ajapaik/ajapaik/models.py:382
+#: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
 msgstr "Test MUIS an sl'oget"
 
-#: ajapaik/ajapaik/models.py:383
+#: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
 msgstr "Legende e descrission MUIS"
 
-#: ajapaik/ajapaik/models.py:460 ajapaik/ajapaik/models.py:1854
+#: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1850
 msgid "Interior"
 msgstr "A l'andrinta"
 
-#: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1855
+#: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1851
 msgid "Exterior"
 msgstr "Estern"
 
-#: ajapaik/ajapaik/models.py:463 ajapaik/ajapaik/models.py:1857
+#: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1853
 msgid "Scene"
 msgstr "Sena"
 
-#: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1864
+#: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1860
 msgid "Ground"
 msgstr "Teren"
 
-#: ajapaik/ajapaik/models.py:467 ajapaik/ajapaik/models.py:1865
+#: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1861
 msgid "Raised"
 msgstr "Riaussà"
 
-#: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1866
+#: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1862
 msgid "Aerial"
 msgstr "Aéreo"
 
-#: ajapaik/ajapaik/models.py:470 ajapaik/ajapaik/models.py:1868
+#: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1864
 msgid "Viewpoint elevation"
 msgstr "Autëssa dël pont ëd vista"
 
-#: ajapaik/ajapaik/models.py:472
+#: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
 msgstr "Descrission ant la lenga d'orìgin"
 
-#: ajapaik/ajapaik/models.py:1132 ajapaik/ajapaik/models.py:1220
+#: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1216
 msgid "Different"
 msgstr "Diferent"
 
-#: ajapaik/ajapaik/models.py:1133 ajapaik/ajapaik/models.py:1221
+#: ajapaik/ajapaik/models.py:1129 ajapaik/ajapaik/models.py:1217
 msgid "Similar"
 msgstr "Smijant"
 
-#: ajapaik/ajapaik/models.py:1134 ajapaik/ajapaik/models.py:1222
+#: ajapaik/ajapaik/models.py:1130 ajapaik/ajapaik/models.py:1218
 msgid "Duplicate"
 msgstr "Dupliché"
 
-#: ajapaik/ajapaik/models.py:1285
+#: ajapaik/ajapaik/models.py:1281
 msgid "Geotag"
 msgstr "Tichëtta geogràfica"
 
-#: ajapaik/ajapaik/models.py:1286 ajapaik/ajapaik/models.py:1369
+#: ajapaik/ajapaik/models.py:1282 ajapaik/ajapaik/models.py:1365
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Arprodussion fotogràfica"
 
-#: ajapaik/ajapaik/models.py:1287
+#: ajapaik/ajapaik/models.py:1283
 msgid "Photo upload"
 msgstr "Carié dle fòto"
 
-#: ajapaik/ajapaik/models.py:1288
+#: ajapaik/ajapaik/models.py:1284
 msgid "Photo curation"
 msgstr "Conservassion dle fòto"
 
-#: ajapaik/ajapaik/models.py:1289
+#: ajapaik/ajapaik/models.py:1285
 msgid "Photo re-curation"
 msgstr "Revision dle fòto"
 
-#: ajapaik/ajapaik/models.py:1290
+#: ajapaik/ajapaik/models.py:1286
 msgid "Dating"
 msgstr "Daté"
 
-#: ajapaik/ajapaik/models.py:1291
+#: ajapaik/ajapaik/models.py:1287
 msgid "Dating confirmation"
 msgstr "Confirmassion ëd la dàita"
 
-#: ajapaik/ajapaik/models.py:1292
+#: ajapaik/ajapaik/models.py:1288
 msgid "Film still"
 msgstr "Filmé tranquil"
 
-#: ajapaik/ajapaik/models.py:1293
+#: ajapaik/ajapaik/models.py:1289
 msgid "Annotation"
 msgstr "Anotassion"
 
-#: ajapaik/ajapaik/models.py:1294
+#: ajapaik/ajapaik/models.py:1290
 msgid "Confirm subject"
 msgstr "Confirmé ël soget"
 
-#: ajapaik/ajapaik/models.py:1295
+#: ajapaik/ajapaik/models.py:1291
 msgid "Confirm Image similarity"
 msgstr "Confirmé la smijansa dla plancia"
 
-#: ajapaik/ajapaik/models.py:1296 ajapaik/ajapaik/models.py:1297
+#: ajapaik/ajapaik/models.py:1292 ajapaik/ajapaik/models.py:1293
 msgid "Suggestion subject age"
 msgstr "Età dël soget ëd sugeriment"
 
-#: ajapaik/ajapaik/models.py:1298 ajapaik/ajapaik/templates/_toolbox.html:64
+#: ajapaik/ajapaik/models.py:1294 ajapaik/ajapaik/templates/_toolbox.html:64
 msgid "Transcribe"
 msgstr "Trascrive"
 
-#: ajapaik/ajapaik/models.py:1299
+#: ajapaik/ajapaik/models.py:1295
 msgid "Categorize scene"
 msgstr "Categorisé la sena"
 
-#: ajapaik/ajapaik/models.py:1300
+#: ajapaik/ajapaik/models.py:1296
 msgid "Add viewpoint elevation"
 msgstr "Gionté l'autëssa dël pont ëd vista"
 
-#: ajapaik/ajapaik/models.py:1301
+#: ajapaik/ajapaik/models.py:1297
 msgid "Flip photo"
 msgstr "Volté la fòto"
 
-#: ajapaik/ajapaik/models.py:1302
+#: ajapaik/ajapaik/models.py:1298
 msgid "Invert photo"
 msgstr "Anvertì la fòto"
 
-#: ajapaik/ajapaik/models.py:1303
+#: ajapaik/ajapaik/models.py:1299
 msgid "Rotate photo"
 msgstr "Fé viré la fòto"
 
-#: ajapaik/ajapaik/models.py:1354
+#: ajapaik/ajapaik/models.py:1350
 msgid "Map"
 msgstr "Carta"
 
-#: ajapaik/ajapaik/models.py:1355
+#: ajapaik/ajapaik/models.py:1351
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1356
+#: ajapaik/ajapaik/models.py:1352
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1357
+#: ajapaik/ajapaik/models.py:1353
 msgid "Confirmation"
 msgstr "Confirmassion"
 
-#: ajapaik/ajapaik/models.py:1358
+#: ajapaik/ajapaik/models.py:1354
 msgid "StreetView"
 msgstr "StreetView"
 
-#: ajapaik/ajapaik/models.py:1359
+#: ajapaik/ajapaik/models.py:1355
 msgid "Source geotag"
 msgstr "Tichëttadura geogràfica sorgiss"
 
-#: ajapaik/ajapaik/models.py:1360
+#: ajapaik/ajapaik/models.py:1356
 msgid "Android app"
 msgstr "Aplicassion Android"
 
-#: ajapaik/ajapaik/models.py:1364
+#: ajapaik/ajapaik/models.py:1360
 msgid "Game"
 msgstr "Gieugh"
 
-#: ajapaik/ajapaik/models.py:1365
+#: ajapaik/ajapaik/models.py:1361
 msgid "Map view"
 msgstr "Vista dla carta"
 
-#: ajapaik/ajapaik/models.py:1366
+#: ajapaik/ajapaik/models.py:1362
 msgid "Gallery"
 msgstr "Galarìa"
 
-#: ajapaik/ajapaik/models.py:1367
+#: ajapaik/ajapaik/models.py:1363
 msgid "Permalink"
 msgstr "Liura permanenta"
 
-#: ajapaik/ajapaik/models.py:1368
+#: ajapaik/ajapaik/models.py:1364
 msgid "Source"
 msgstr "Sorgiss"
 
-#: ajapaik/ajapaik/models.py:1373
+#: ajapaik/ajapaik/models.py:1369
 msgid "Google map"
 msgstr "Carta Google"
 
-#: ajapaik/ajapaik/models.py:1374
+#: ajapaik/ajapaik/models.py:1370
 msgid "Google satellite"
 msgstr "Satélit ëd Google"
 
-#: ajapaik/ajapaik/models.py:1375
+#: ajapaik/ajapaik/models.py:1371
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1376
+#: ajapaik/ajapaik/models.py:1372
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1377
+#: ajapaik/ajapaik/models.py:1373
 msgid "No map"
 msgstr "Gnun-a carta"
 
-#: ajapaik/ajapaik/models.py:1518 ajapaik/ajapaik/models.py:1520
+#: ajapaik/ajapaik/models.py:1514 ajapaik/ajapaik/models.py:1516
 msgid "Anonymous user"
 msgstr "Utent anònim"
 
-#: ajapaik/ajapaik/models.py:1709
+#: ajapaik/ajapaik/models.py:1705
 msgid "Day"
 msgstr "Di"
 
-#: ajapaik/ajapaik/models.py:1710
+#: ajapaik/ajapaik/models.py:1706
 msgid "Month"
 msgstr "Mèis"
 
-#: ajapaik/ajapaik/models.py:1711
+#: ajapaik/ajapaik/models.py:1707
 msgid "Year"
 msgstr "Ann"
 
@@ -1470,7 +1470,7 @@ msgid "Flickr Commons"
 msgstr "Flickr Commons"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:20
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
 msgid "Clear selection"
 msgstr "Anulé la selession"
 
@@ -1968,9 +1968,10 @@ msgstr[1] "La plancia a aparten a j'àlbom:"
 msgid "Curator"
 msgstr "Conservator"
 
-#: ajapaik/ajapaik/templates/photo/_photo_modal.html:258
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:256
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:257
 #: ajapaik/ajapaik/templates/photo/photoview.html:192
-#: ajapaik/ajapaik/templates/photo/photoview.html:195
+#: ajapaik/ajapaik/templates/photo/photoview.html:193
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
 msgstr "Gionté a l'àlbom"
@@ -1987,25 +1988,29 @@ msgstr "Dàita ant la qual a l'é stàita fàita"
 msgid "rephoto"
 msgstr "arprodussion fotogràfica"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:26
-msgid "Images have overlapping content"
-msgstr "Le plance a l'han un contnù ch'a së dzorpon"
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
+msgid "Mark as similar/duplicates"
+msgstr "Marché coma smijant/dobion"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:30
-msgid "All images are of the same shot"
-msgstr "Tute le plance a son ëd la midema vista"
-
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:36
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
 msgstr "Gionté dle categorìe a le plance"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:42
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
 msgstr "Volté, fé rolé e anvertì le plance"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:51
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
 msgstr "A peul modifiché l'órdin ëd le fòto fasendje sghijé e lassandje andé"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
+msgid "Images have overlapping content"
+msgstr "Le plance a l'han un contnù ch'a së dzorpon"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
+msgid "All images are of the same shot"
+msgstr "Tute le plance a son ëd la midema vista"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
 msgid "Import from public collections"
