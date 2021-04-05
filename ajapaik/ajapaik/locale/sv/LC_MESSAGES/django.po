@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-01 11:36:10+0000\n"
+"PO-Revision-Date: 2021-04-05 13:23:32+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -1998,7 +1998,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 msgid "Mark as similar/duplicates"
-msgstr ""
+msgstr "Markera som liknande/dubbletter"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"

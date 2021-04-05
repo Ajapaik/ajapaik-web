@@ -20,7 +20,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-01 11:36:10+0000\n"
+"PO-Revision-Date: 2021-04-05 13:23:32+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1988,7 +1988,7 @@ msgstr "yeniden fotoğraflama"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 msgid "Mark as similar/duplicates"
-msgstr ""
+msgstr "Benzer/çift olarak işaretle"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
