@@ -1976,8 +1976,9 @@ msgid "rephoto"
 msgstr "rephoto"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
-msgid "Mark as similar/duplicates"
-msgstr "Mark as similar/duplicates"
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+msgid "Mark as similar or duplicates"
+msgstr "Mark as similar or duplicates"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
