@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-01 11:36:08+0000\n"
+"PO-Revision-Date: 2021-04-08 12:52:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-03-31 18:32:02+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
+"X-POT-Import-Date: 2021-04-08 07:41:39+0000\n"
+"X-Generator: MediaWiki 1.37.0-alpha; Translate 2021-01-21\n"
 
 #: ajapaik/ajapaik/admin.py:89
 msgid "Invert colors"
@@ -1992,7 +1992,8 @@ msgid "rephoto"
 msgstr "rephoto"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
-msgid "Mark as similar/duplicates"
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+msgid "Mark as similar or duplicates"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29

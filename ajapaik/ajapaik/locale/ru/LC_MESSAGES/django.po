@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-01 11:36:10+0000\n"
+"PO-Revision-Date: 2021-04-08 12:52:10+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -38,8 +38,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2021-03-31 18:32:02+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
+"X-POT-Import-Date: 2021-04-08 07:41:39+0000\n"
+"X-Generator: MediaWiki 1.37.0-alpha; Translate 2021-01-21\n"
 
 #: ajapaik/ajapaik/admin.py:89
 msgid "Invert colors"
@@ -2020,7 +2020,8 @@ msgid "rephoto"
 msgstr "рефото"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
-msgid "Mark as similar/duplicates"
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+msgid "Mark as similar or duplicates"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29

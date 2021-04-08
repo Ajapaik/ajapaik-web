@@ -16,12 +16,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-05 13:23:31+0000\n"
+"PO-Revision-Date: 2021-04-08 12:52:08+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-03-31 18:32:02+0000\n"
-"X-Generator: MediaWiki 1.36.0-alpha; Translate 2021-01-21\n"
+"X-POT-Import-Date: 2021-04-08 07:41:39+0000\n"
+"X-Generator: MediaWiki 1.37.0-alpha; Translate 2021-01-21\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:89
@@ -1983,7 +1983,9 @@ msgid "rephoto"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
-msgid "Mark as similar/duplicates"
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+#, fuzzy
+msgid "Mark as similar or duplicates"
 msgstr "유사/중복으로 표시"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
