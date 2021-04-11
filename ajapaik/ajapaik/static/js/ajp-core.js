@@ -80,7 +80,7 @@ $('.ajp-navbar').autoHidingNavbar();
             throw data.error;
         }
         return data;
-    }
+    };
 
     albumSelectionDiv = $('#ajp-album-selection-menu');
     if (albumSelectionDiv.length > 0) {
@@ -200,7 +200,7 @@ $('.ajp-navbar').autoHidingNavbar();
             if (previousUrl === undefined) {
                 previousUrl = img.attr('src');
             }
-            previousUrl = previousUrl.split('?timestamp')[0]
+            previousUrl = previousUrl.split('?timestamp')[0];
             if (window.previouslyEditedPhotoIds && window.currentlyOpenPhotoId && window.previouslyEditedPhotoIds.includes(window.currentlyOpenPhotoId.toString())) {
                 previousUrl += '?timestamp=' + Date.now();
             }
@@ -346,14 +346,14 @@ $('.ajp-navbar').autoHidingNavbar();
             uri.removeQuery(photoFilter);
         }
 
-        let filtersToRemove = photoFilters.filter(filter => uri.query().indexOf(filter) > -1)
+        let filtersToRemove = photoFilters.filter(filter => uri.query().indexOf(filter) > -1);
         if (filtersToRemove) {
             filtersToRemove.forEach(
                 filter => uri.removeQuery(filter)
             );
         }
         window.location.href = uri;
-    }
+    };
 
     $(document).on('click', '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags', function (e) {
         e.preventDefault();
@@ -460,10 +460,10 @@ $('.ajp-navbar').autoHidingNavbar();
             originalPhotoColumn = $('#ajp-photo-modal-original-photo-column'),
             originalPhotoInfoColumn = $('#ajp-photo-modal-original-photo-info-column');
             
-        if (window.photoModalRephotoArray !== undefind && window.photoModalRephotoArray.length > 1) {
+        if (window.photoModalRephotoArray !== undefined&& window.photoModalRephotoArray.length > 1) {
             $('#ajp-rephoto-selection').show();
         }
-        else if (window.photoModalSimilarPhotoArray !== undefind && window.photoModalSimilarPhotoArray.length > 1) {
+        else if (window.photoModalSimilarPhotoArray !== undefined&& window.photoModalSimilarPhotoArray.length > 1) {
             $('#ajp-similar-photo-selection').show();
         }
 
@@ -485,23 +485,6 @@ $('.ajp-navbar').autoHidingNavbar();
         var $this = $(this);
         window.albumId = $this.data('id');
         handleAlbumChange();
-    });
-
-    $(document).on('click', '#ajp-photo-modal-discuss', function (e) {
-        e.preventDefault();
-        if (window.isFrontpage) {
-            _gaq.push(['_trackEvent', 'Gallery', 'Photo modal discuss click']);
-        } else if (window.isMapview) {
-            _gaq.push(['_trackEvent', 'Map', 'Photo modal discuss click']);
-        }
-        var commentsSection = $('#ajp-comments-section');
-        if (commentsSection.hasClass('d-none')) {
-            commentsSection.removeClass('d-none');
-            window.FB.XFBML.parse($('#ajp-rephoto-comments').get(0));
-            window.FB.XFBML.parse($('#ajp-original-photo-comments').get(0));
-        } else {
-            commentsSection.addClass('d-none');
-        }
     });
 
     $('#ajp-comment-form-register-link').click(function (e) {
@@ -1583,7 +1566,7 @@ $('.ajp-navbar').autoHidingNavbar();
             var oldMapsCity = getQueryParameterByName('maps-city'),
             oldMapsIdx = getQueryParameterByName('maps-index');
             if (oldMapsCity) {
-                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false, map)
+                commonVgmapi = new VanalinnadGooglemApi(oldMapsCity, false, map);
             } else {
                 commonVgmapi = new VanalinnadGooglemApi(null, false, map);
             }
@@ -1774,7 +1757,6 @@ $('.ajp-navbar').autoHidingNavbar();
                     $(minimapLargeCTAButton).addClass('ajp-minimap-start-suggestion-CTA-button')
                         .attr('title', gettext('Pick the shooting location!')).append(minimapLargeCTAButtonIcon);
                     $('.ajp-minimap-start-suggestion-CTA-button').remove();
-                    var mapCanvas = $('#ajp-photo-modal-map-canvas');
                     $(minimapLargeCTAButton).attr('data-id', window.currentlyOpenPhotoId);
                     mapContainer.append(minimapLargeCTAButton);
                     window.positionMinimapCTAButton();

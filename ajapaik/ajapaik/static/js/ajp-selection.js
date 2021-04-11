@@ -50,7 +50,7 @@
                 throw data;
             }
             return data;
-        }
+        };
 
         window.selectionAddSimilarity = function (similarityType) {
             $('#ajp-loading-overlay').show();
@@ -195,7 +195,7 @@
                 }
                 submitCategorySuggestion(photos, true);
             });
-        }
+        };
     
         $('#ajp-photo-selection-categorize-scenes-button').popover({
             html: true,
@@ -219,7 +219,7 @@
                 }
                 submitPictureEditSuggestion(photos, true);
             });
-        }
+        };
     
         $('#ajp-photo-selection-edit-pictures-button').popover({
             html: true,

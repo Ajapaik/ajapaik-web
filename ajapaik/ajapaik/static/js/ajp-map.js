@@ -243,14 +243,11 @@
 
     window.startSuggestionLocation = function () {
         if (!window.suggestionLocationStarted) {
-            var startLat = window.map.getCenter().lat(),
-                startLon = window.map.getCenter().lng();
+            let startLon = 59;
+            let startLon = 26;
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 startLat = window.photoModalPhotoLat;
                 startLon = window.photoModalPhotoLng;
-            } else {
-                startLat = 59;
-                startLon = 26;
             }
             $('#ajp-map-container').hide();
             $('#map-side-panel').hide();
@@ -392,7 +389,7 @@
                                 {
                                     rotation: photo.azimuth + angleFix
                                 }
-                            )
+                            );
                         } else {
                             currentIcon = $.extend(true, {}, locationIcon);
                         }
@@ -656,7 +653,7 @@
         if (window.preselectPhotoId) {
             // There's a selected photo specified in the URL, select when ready
             currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
-            if (window.preselectPhotoLat && window.preselectPhotoLat) {
+            if (window.preselectPhotoLat && window.preselectPhotoLng) {
                 currentlySelectedMarker = findMarkerByPhotoId(window.preselectPhotoId);
             }
         }
@@ -802,7 +799,7 @@
             if (!window.isSidePanelOpen) {
                 sidePanelHeight = window.innerHeight / 4;
                 if (sidePanelHeight < 200) {
-                    sidePanelHeight = 200
+                    sidePanelHeight = 200;
                 }
             }
             document.getElementById('map-side-panel').style.height = sidePanelHeight + 'px';
@@ -847,7 +844,7 @@
             document.getElementById('close-btn').style.left = '';
             let sidePanelHeight = window.isSidePanelOpen ? window.innerHeight / 4 : 0;
             if (window.isSidePanelOpen && sidePanelHeight < 200) {
-                sidePanelHeight = 200
+                sidePanelHeight = 200;
             }
             document.getElementById('close-btn').style.bottom = sidePanelHeight + 'px';
             document.getElementById('map-side-panel').style.height = sidePanelHeight + 'px';

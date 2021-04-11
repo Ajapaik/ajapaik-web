@@ -305,7 +305,7 @@ $.fn.yourlabsWidget = function(overrides) {
             widget.destroy(this);
             this.removeData('widget');
         }
-        return
+        return;
     }
 
     if (widget === undefined) {
@@ -409,7 +409,7 @@ $(document).ready(function() {
                 widget.selectChoice(deckChoice);
             }
         } else { // added a widget ?
-            var notReady = '.autocomplete-light-widget:not([data-widget-ready])'
+            var notReady = '.autocomplete-light-widget:not([data-widget-ready])';
             widget = $(e.target).find(notReady);
 
             if (!widget.length) {
@@ -433,7 +433,7 @@ $(document).ready(function() {
 
     var ie = yourlabs.getInternetExplorerVersion();
     if (ie !== -1 && ie < 9) {
-        observe = [
+        let observe = [
             '.autocomplete-light-widget:not([data-yourlabs-skip])',
             '.autocomplete-light-widget option:not([data-yourlabs-skip])'
         ].join();
@@ -447,7 +447,7 @@ $(document).ready(function() {
             });
 
             setTimeout(ieDOMNodeInserted, 500);
-        }
+        };
         setTimeout(ieDOMNodeInserted, 500);
     }
 

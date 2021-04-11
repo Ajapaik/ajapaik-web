@@ -2052,10 +2052,8 @@ def _join_2_json_objects(obj1, obj2):
                     result['ids'] = dict_b['result']['ids']
         except TypeError:
             print('TypeError1', file=sys.stderr)
-            pass
     except TypeError:
         print('TypeError2', file=sys.stderr)
-        pass
 
     return json.dumps({'result': result})
 
@@ -2718,7 +2716,6 @@ def csv_import(request):
                 not_found_list.append(not_found.filename.replace(upload_folder, ''))
                 continue
 
-            recuration = None
             for album_id in album_ids:
                 try:
                     album_id = int(album_id)
@@ -2736,9 +2733,6 @@ def csv_import(request):
 
                     action = Points.PHOTO_CURATION
                     points = 50
-                    if recuration:
-                        action = Points.PHOTO_RECURATION
-                        points = 30
                     points_for_curating = Points(
                         action=action,
                         photo=photo,

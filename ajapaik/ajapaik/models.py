@@ -1198,6 +1198,7 @@ class ImageSimilarity(Model):
             ).save()
         return points
 
+    @staticmethod
     def add_or_update(photo_obj, photo_obj2, confirmed=None, similarity_type=None, profile=None):
         imageSimilarity = ImageSimilarity(None, from_photo=photo_obj, to_photo=photo_obj2, confirmed=confirmed,
                                           similarity_type=similarity_type, user_last_modified=profile)

@@ -191,7 +191,7 @@
                     if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                         filterCount++;
                     }
-                })
+                });
 
                 if (window.order2 !== 'added' ||
                         window.order3 === 'reverse' ||
@@ -382,7 +382,7 @@
                         if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                             filterCount++;
                         }
-                    })
+                    });
 
                     if (collection !== undefined && collection === 0) {
                         let translationString = 'Picture set has no ' + attribute; 

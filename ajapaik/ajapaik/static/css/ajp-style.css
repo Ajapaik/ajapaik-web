@@ -1265,17 +1265,6 @@ a.fullscreen {
   font-size: 36px;
 }
 
-#ajp-photo-modal-discuss {
-  position: relative;
-  top: 3px;
-}
-
-#ajp-photo-modal-discuss > .badge {
-  position: absolute;
-  left: 0;
-  bottom: 32px;
-}
-
 #ajp-photo-modal-geotag-count {
   float: left;
   font-size: 24px;

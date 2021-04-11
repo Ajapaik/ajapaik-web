@@ -115,155 +115,154 @@ class CommonsDriver(object):
 
         nn = 0
         if response['titles']:
-            if 1:
-                url = 'https://commons.wikimedia.org/w/api.php'
-                imageinfo = get(url, {
-                    'action': 'query',
-                    'format': 'json',
-                    'titles': titles,
-                    'prop': 'imageinfo|coordinates',
-                    'iiprop': 'extmetadata|url|parsedcomment|mime|dimensions',
-                    'iiurlwidth': 500,
-                    'iiurlheight': 500,
-                    'iiextmetadatamultilang': 1
-                })
-                #                print(imageinfo.text)
-                imageinfo = imageinfo.json()
+            url = 'https://commons.wikimedia.org/w/api.php'
+            imageinfo = get(url, {
+                'action': 'query',
+                'format': 'json',
+                'titles': titles,
+                'prop': 'imageinfo|coordinates',
+                'iiprop': 'extmetadata|url|parsedcomment|mime|dimensions',
+                'iiurlwidth': 500,
+                'iiurlheight': 500,
+                'iiextmetadatamultilang': 1
+            })
+            #                print(imageinfo.text)
+            imageinfo = imageinfo.json()
 
-                targetlangs = ['et', 'fi', 'en', 'sv', 'no']
-                if 'query' in imageinfo and 'pages' in imageinfo['query']:
-                    for pageid in imageinfo['query']['pages']:
-                        existing_photo = Photo.objects.filter(external_id=pageid,
-                                                              source__description='Wikimedia Commons').first()
-                        if remove_existing and existing_photo:
-                            print('continue', file=sys.stderr)
-                            continue
+            targetlangs = ['et', 'fi', 'en', 'sv', 'no']
+            if 'query' in imageinfo and 'pages' in imageinfo['query']:
+                for pageid in imageinfo['query']['pages']:
+                    existing_photo = Photo.objects.filter(external_id=pageid,
+                                                            source__description='Wikimedia Commons').first()
+                    if remove_existing and existing_photo:
+                        print('continue', file=sys.stderr)
+                        continue
 
-                        nn = nn + 1
-                        title = ''
-                        author = ''
-                        description = None
-                        date = ''
-                        latitude = None
-                        longitude = None
-                        licence = ''
-                        licence_desc = ''
-                        licenceUrl = ''
-                        record_url = ''
-                        thumbnail_url = None
-                        credit = ''
+                    nn = nn + 1
+                    title = ''
+                    author = ''
+                    description = None
+                    date = ''
+                    latitude = None
+                    longitude = None
+                    licence = ''
+                    licence_desc = ''
+                    licenceUrl = ''
+                    record_url = ''
+                    thumbnail_url = None
+                    credit = ''
 
-                        pp = imageinfo['query']['pages'][pageid]
-                        if 'title' in pp:
-                            title = pp['title']
+                    pp = imageinfo['query']['pages'][pageid]
+                    if 'title' in pp:
+                        title = pp['title']
 
-                        if 'imageinfo' in pp:
-                            im = pp['imageinfo'][0]
+                    if 'imageinfo' in pp:
+                        im = pp['imageinfo'][0]
 
-                            if 'thumburl' in im:
-                                thumbnail_url = im['thumburl']
+                        if 'thumburl' in im:
+                            thumbnail_url = im['thumburl']
 
-                            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif']
-                            if 'mime' in im and im['mime'] in allowed_mime_types:
-                                if 'url' in im:
-                                    imageUrl = im['url']
-                            else:
-                                imageUrl = thumbnail_url.replace('-500px-', '-' + str(im['width']) + 'px-')
+                        allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif']
+                        if 'mime' in im and im['mime'] in allowed_mime_types:
+                            if 'url' in im:
+                                imageUrl = im['url']
+                        else:
+                            imageUrl = thumbnail_url.replace('-500px-', '-' + str(im['width']) + 'px-')
 
-                            if 'descriptionurl' in im:
-                                record_url = im['descriptionurl']
+                        if 'descriptionurl' in im:
+                            record_url = im['descriptionurl']
 
-                            if 'extmetadata' in im:
-                                em = im['extmetadata']
+                        if 'extmetadata' in im:
+                            em = im['extmetadata']
 
-                                if 'ObjectName' in em:
-                                    title = strip_tags(em['ObjectName']['value']).strip()
-                                if 'Artist' in em:
-                                    authors = em['Artist']['value']
-                                    if isinstance(authors, dict) or isinstance(authors, list):
-                                        for lang in authors:
-                                            author = strip_tags(authors[lang]).strip()
-                                            if lang in targetlangs:
-                                                break
-                                    else:
-                                        author = strip_tags(authors).strip()
-                                if 'LicenseShortName' in em:
-                                    licence = strip_tags(em['LicenseShortName']['value']).strip()
-                                if 'LicenseUrl' in em:
-                                    licenceUrl = strip_tags(em['LicenseUrl']['value']).strip()
-                                if 'UsageTerms' in em:
-                                    licence_desc = strip_tags(em['UsageTerms']['value']).strip()
-                                if 'Credit' in em:
-                                    credit = strip_tags(em['Credit']['value']).strip()
-                                if 'DateTimeOriginal' in em:
-                                    date = str(em['DateTimeOriginal']['value'])
-                                    date = re.sub('<div.*?</div>', '', date)
-                                    date = strip_tags(date).strip()
+                            if 'ObjectName' in em:
+                                title = strip_tags(em['ObjectName']['value']).strip()
+                            if 'Artist' in em:
+                                authors = em['Artist']['value']
+                                if isinstance(authors, dict) or isinstance(authors, list):
+                                    for lang in authors:
+                                        author = strip_tags(authors[lang]).strip()
+                                        if lang in targetlangs:
+                                            break
+                                else:
+                                    author = strip_tags(authors).strip()
+                            if 'LicenseShortName' in em:
+                                licence = strip_tags(em['LicenseShortName']['value']).strip()
+                            if 'LicenseUrl' in em:
+                                licenceUrl = strip_tags(em['LicenseUrl']['value']).strip()
+                            if 'UsageTerms' in em:
+                                licence_desc = strip_tags(em['UsageTerms']['value']).strip()
+                            if 'Credit' in em:
+                                credit = strip_tags(em['Credit']['value']).strip()
+                            if 'DateTimeOriginal' in em:
+                                date = str(em['DateTimeOriginal']['value'])
+                                date = re.sub('<div.*?</div>', '', date)
+                                date = strip_tags(date).strip()
 
-                                if 'ImageDescription' in em and em['ImageDescription']['value']:
-                                    desclangs = em['ImageDescription']['value']
-                                    if isinstance(desclangs, dict) or isinstance(desclangs, list):
-                                        for lang in desclangs:
-                                            description = strip_tags(desclangs[lang]).strip()
-                                            if lang in targetlangs:
-                                                break
-                                    else:
-                                        description = strip_tags(desclangs).strip()
+                            if 'ImageDescription' in em and em['ImageDescription']['value']:
+                                desclangs = em['ImageDescription']['value']
+                                if isinstance(desclangs, dict) or isinstance(desclangs, list):
+                                    for lang in desclangs:
+                                        description = strip_tags(desclangs[lang]).strip()
+                                        if lang in targetlangs:
+                                            break
+                                else:
+                                    description = strip_tags(desclangs).strip()
 
-                                if 'GPSLatitude' in em and 'GPSLongitude' in em:
-                                    latitude = em['GPSLatitude']['value']
-                                    longitude = em['GPSLongitude']['value']
+                            if 'GPSLatitude' in em and 'GPSLongitude' in em:
+                                latitude = em['GPSLatitude']['value']
+                                longitude = em['GPSLongitude']['value']
 
-                                if description and description != title and title not in description:
-                                    title = title + ' - ' + description
+                            if description and description != title and title not in description:
+                                title = title + ' - ' + description
 
-                        if not author or author == '':
-                            continue
+                    if not author or author == '':
+                        continue
 
-                        if not credit or credit == '':
-                            continue
+                    if not credit or credit == '':
+                        continue
 
-                        if not licence or licence == '':
-                            continue
+                    if not licence or licence == '':
+                        continue
 
-                        if not licence_desc or licence_desc == '':
-                            continue
+                    if not licence_desc or licence_desc == '':
+                        continue
 
-                        if not title or title == '':
-                            continue
+                    if not title or title == '':
+                        continue
 
-                        try:
-                            transformed_item = {
-                                'isCommonsResult': True,
-                                'cachedThumbnailUrl': thumbnail_url or None,
-                                'title': title,
-                                'institution': 'Wikimedia Commons',
-                                'imageUrl': imageUrl,
-                                'id': pageid,
-                                'mediaId': pageid,
-                                'identifyingNumber': pageid,
-                                'urlToRecord': record_url,
-                                'latitude': latitude,
-                                'longitude': longitude,
-                                'creators': author,
-                                'description': description,
-                                'licence': licence_desc,
-                                'licenceUrl': licenceUrl,
-                                'date': date
-                            }
-                        except:  # noqa
-                            continue
+                    try:
+                        transformed_item = {
+                            'isCommonsResult': True,
+                            'cachedThumbnailUrl': thumbnail_url or None,
+                            'title': title,
+                            'institution': 'Wikimedia Commons',
+                            'imageUrl': imageUrl,
+                            'id': pageid,
+                            'mediaId': pageid,
+                            'identifyingNumber': pageid,
+                            'urlToRecord': record_url,
+                            'latitude': latitude,
+                            'longitude': longitude,
+                            'creators': author,
+                            'description': description,
+                            'licence': licence_desc,
+                            'licenceUrl': licenceUrl,
+                            'date': date
+                        }
+                    except:  # noqa
+                        continue
 
-                        if existing_photo:
-                            transformed_item['ajapaikId'] = existing_photo.id
-                            album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id',
-                                                                                                    flat=True)
-                            transformed_item['albums'] = list(
-                                Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
-                                                                                                        'name').distinct())
+                    if existing_photo:
+                        transformed_item['ajapaikId'] = existing_photo.id
+                        album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id',
+                                                                                                flat=True)
+                        transformed_item['albums'] = list(
+                            Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
+                                                                                                    'name').distinct())
 
-                        #                        print(transformed_item, file=sys.stderr)
-                        transformed['result']['firstRecordViews'].append(transformed_item)
+                    #                        print(transformed_item, file=sys.stderr)
+                    transformed['result']['firstRecordViews'].append(transformed_item)
 
         print(nn, ' photos found')
         transformed = dumps(transformed)

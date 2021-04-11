@@ -4,7 +4,6 @@
     /*global google*/
     // TODO: Pack mini-map shit into this, just like geotagger
     var AjapaikMinimap = function (node, options) {
-        var that = this;
         this.node = node;
         this.options = $.extend({}, options);
         // Inner workings
@@ -33,12 +32,6 @@
             '<div id="ajp-minimap-disabled-overlay"></div>',
             '<div id="ajp-photo-modal-map-canvas"></div>'
         ].join('\n'));
-        this.buildStartGeotaggingButton = function (photoHasLocation) {
-            var button = $([
-                '<button id="ajp-minimap-disabled-overlay"></div>',
-                '<div id="ajp-photo-modal-map-canvas"></div>'
-            ].join('\n'));
-        };
         $(this.node).html(this.UI);
     };
     AjapaikMinimap.prototype = {

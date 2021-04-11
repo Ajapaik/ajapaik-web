@@ -229,7 +229,7 @@ function getDefaultFeedbackPersonAutoCompleteValue(annotation) {
 }
 
 function createDetectedFacePopoverContent(popoverId, annotation) {
-    var controlButtons = getSubmitAndCancelButtons(popoverId, false, annotation.isAddedByCurrentUser);
+    var controlButtons = getSubmitAndCancelButtons(popoverId, false);
 
     if (annotation.isAddedByCurrentUser) {
         return createUserOwnAnnotationPopoverContent(annotation, controlButtons);

@@ -339,7 +339,7 @@
                 var div = $('#ajp-fullscreen-image-container'),
                     img = div.find('img');
                 let previousUrl = img.attr('data-src');
-                previousUrl = previousUrl.split('?timestamp')[0]
+                previousUrl = previousUrl.split('?timestamp')[0];
                 if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.includes(currentPhoto.id.toString())) {
                     img.attr('src', previousUrl + '?timestamp=' + Date.now());
                 }

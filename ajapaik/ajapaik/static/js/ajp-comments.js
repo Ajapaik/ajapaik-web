@@ -1,13 +1,6 @@
 $(document).ready(function () {
     var photo_id = window.currentlyOpenPhotoId; //  Just to make name shorter.
 
-
-    // Set focus for comment form when comment icon pressed.
-    $('#ajp-photo-modal-discuss').click(function(event) {
-        event.preventDefault();
-        $('#id_comment').focus();
-    });
-
     // Disable hotkeys when typing message.
     $('#ajp-comments-container').on('focus', 'textarea', function () {
         window.hotkeysActive = false;
@@ -23,19 +16,6 @@ $(document).ready(function () {
             $('#ajp-comment-list .comment-text a').attr('target', '_blank');
         };
 
-        var _setup_comment_count = function (count) {
-            comments_count = $('#ajp-photo-modal-discuss span[class~="badge"]');
-            if (comments_count) {
-                comments_count.html(count);
-                if (count === 0) {
-                    comments_count.addClass('d-none');
-                }
-                else {
-                    comments_count.removeClass('d-none');
-                }
-            }
-        };
-
         $.ajax({
             type: 'GET',
             url: '/comments/for/' + photo_id + '/',
@@ -44,7 +24,6 @@ $(document).ready(function () {
                 $('[data-toggle=confirmation]').confirmation({
                     rootSelector: '[data-toggle=confirmation]',
                 });
-                _setup_comment_count(response.comments_count);
                 _setup_links_in_comments();
             }
         });

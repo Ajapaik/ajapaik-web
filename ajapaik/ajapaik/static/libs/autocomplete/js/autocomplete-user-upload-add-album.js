@@ -4,7 +4,7 @@ $(document).ready(function () {
     var showAddAnotherPopup = function(triggeringLink) {
         var name = triggeringLink.attr( 'id' ).replace(/^add_/, '');
         name = id_to_windowname(name);
-        href = triggeringLink.attr( 'href' );
+        let href = triggeringLink.attr( 'href' );
 
         if (href.indexOf('?') === -1) {
             href += '?';
@@ -16,7 +16,7 @@ $(document).ready(function () {
         var width = 800;
         var left = (screen.width/2)-(width/2);
         var top = (screen.height/2)-(height/2);
-        var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left)
+        var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
 
         function removeOverlay() {
             if (win.closed) {
@@ -63,11 +63,7 @@ $(document).ready(function () {
 
     var html_unescape = function(text) {
     // Unescape a string that was escaped using django.utils.html.escape.
-        text = text.replace(/</g, '');
-        text = text.replace(/"/g, '"');
-        text = text.replace(/'/g, '\'');
-        text = text.replace(/&/g, '&');
-        return text;
+        return text.replace(/</g, '').replace(/"/g, '"').replace(/'/g, '\'').replace(/&/g, '&');
     }
 
     // IE doesn't accept periods or dashes in the window name, but the element IDs

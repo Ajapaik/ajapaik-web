@@ -484,7 +484,7 @@ var DraggableArea = (function () {
 
             if (isDetectionControls) {
                 e.preventDefault(); // Needed to avoid dragging the page instead of dragging the element on touch
-                dragEndFunction(e);
+                dragEndFunction();
             }
         };
     }

@@ -4,7 +4,6 @@
     /*global L*/
 
     var AjapaikMinimap = function (node, options) {
-        var that = this;
         this.node = node;
 
         this.options = $.extend({}, options);
@@ -186,7 +185,7 @@
 
             if (options.geotaggingUserCount == 1) e.addClass('ajp-minimap-geotagging-user-single-person');
             else if (options.geotaggingUserCount > 1) e.addClass('ajp-minimap-geotagging-user-multiple-people');
-            if (options.userHasGeotaggedThisPhoto == 1) e.addClass('ajp-minimap-geotagging-user-active')
+            if (options.userHasGeotaggedThisPhoto == 1) e.addClass('ajp-minimap-geotagging-user-active');
 
             // create temporary div to get the outerhtml
             var html_value = $('<div>').append(e).html();

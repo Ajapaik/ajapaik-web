@@ -931,8 +931,7 @@
             this.photoFlipped = !this.photoFlipped;
         },
         fitSuggestionPhotosToContainers: function () {
-            var newMargin,
-                targetParent = this.geotaggerImageThumb.parent().parent(),
+            var targetParent = this.geotaggerImageThumb.parent().parent(),
                 confirmControls = $('#ajp-geotagger-confirm-controls'),
                 buttonControls = $('#ajp-geotagger-button-controls'),
                 geotaggerPanel = $('#ajp-geotagger-panel'),
@@ -1102,8 +1101,7 @@
                     if (parseInt(response.current_score === 0 && typeof window.reportGeotaggerIncorrect === 'function')) {
                         window.reportGeotaggerIncorrect();
                     }
-                    if (typeof window.reportGeotaggerNewlyMappedPhoto && response.new_geotag_count === 1 &&
-                        response.estimated_location[0] && response.estimated_location[1]) {
+                    if (response.new_geotag_count === 1 && response.estimated_location[0] && response.estimated_location[1]) {
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
                     if (that.photoFlipped) {

@@ -79,7 +79,7 @@ if (window.findPosX === undefined) {
             curleft += obj.x;
         }
         return curleft;
-    }
+    };
 }
 
 if (window.findPosY === undefined) {
@@ -98,7 +98,7 @@ if (window.findPosY === undefined) {
             curtop += obj.y;
         }
         return curtop;
-    }
+    };
 }
 
 // Our class will live in the yourlabs global namespace.

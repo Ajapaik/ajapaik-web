@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 )
                 if feedbacks is not None:
                     for feedback in feedbacks:
-                        rectangle.alternative_subject = first_instance
+                        feedback.alternative_subject = first_instance
                     FaceRecognitionRectangleFeedback.objects.bulk_update(feedbacks, ['alternative_subject'])
 
                 suggestions = FaceRecognitionUserSuggestion.objects.filter(

@@ -41,7 +41,7 @@ function clickViewpointElevationCategoryButton(buttonId) {
     if (buttonId === 'aerial-button') {
         viewpointElevation = 'Aerial';
     } else if (buttonId === 'raised-button') {
-        viewpointElevation = 'Raised'
+        viewpointElevation = 'Raised';
     } else if (buttonId === 'ground-button') {
         viewpointElevation = 'Ground';
     }
@@ -74,7 +74,7 @@ function clickViewpointElevationCategoryButton(buttonId) {
 function clickSceneCategoryButton(buttonId) {
     $('#send-suggestion-button').prop("disabled", false);
 
-    scene = buttonId === 'interior-button'
+    let scene = buttonId === 'interior-button'
         ? 'Interior'
         : 'Exterior';
     let otherButtonId = scene === 'Interior'

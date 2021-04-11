@@ -1047,8 +1047,6 @@ class ToggleUserFavoritePhoto(AjapaikAPIView):
 
             user_profile = user.profile
             id = form.cleaned_data['id']
-
-            id = form.cleaned_data['id']
             if id.isdigit():
                 id = int(id)
                 photo = Photo.objects.filter(
