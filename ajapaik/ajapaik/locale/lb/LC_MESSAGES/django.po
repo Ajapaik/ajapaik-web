@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Robby
+# Author: Soued031
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-08 12:52:09+0000\n"
+"PO-Revision-Date: 2021-04-12 13:39:08+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -2411,7 +2412,7 @@ msgstr "Recuration successful"
 
 #: ajapaik/ajapaik/views.py:1230
 msgid "Problem with album selection"
-msgstr "Problem with album selection"
+msgstr "Probleem bei der Albumauswiel"
 
 #: ajapaik/ajapaik/views.py:1232
 msgid "Faulty data submitted"

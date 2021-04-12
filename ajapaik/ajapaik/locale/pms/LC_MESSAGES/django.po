@@ -12,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-04-08 12:52:09+0000\n"
+"PO-Revision-Date: 2021-04-12 13:39:09+0000\n"
 "Language: pms\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1990,9 +1990,8 @@ msgstr "arprodussion fotogràfica"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
-#, fuzzy
 msgid "Mark as similar or duplicates"
-msgstr "Marché coma smijant/dobion"
+msgstr "Marché coma smijant o dobion"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
