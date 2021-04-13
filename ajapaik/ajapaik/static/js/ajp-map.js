@@ -243,7 +243,7 @@
 
     window.startSuggestionLocation = function () {
         if (!window.suggestionLocationStarted) {
-            let startLon = 59;
+            let startLat = 59;
             let startLon = 26;
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 startLat = window.photoModalPhotoLat;
@@ -785,7 +785,7 @@
             if (!window.isSidePanelOpen) {
                 sidePanelWidth = window.innerWidth / 4;
                 if (sidePanelWidth < 200) {
-                    sidePanelWidth = 200
+                    sidePanelWidth = 200;
                 }
             }
             document.getElementById('map-side-panel').style.width = sidePanelWidth + 'px';
@@ -824,14 +824,14 @@
         let resizeTimer;
         document.body.classList.add('resize-animation-stopper');
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
+        setTimeout(() => {
             document.body.classList.remove('resize-animation-stopper');
         }, 400);
         if (window.innerWidth > 768) {
             document.getElementById('close-btn').style.bottom = '';
             let sidePanelWidth = window.isSidePanelOpen ? window.innerWidth / 4 : 0;
             if (window.isSidePanelOpen && sidePanelWidth < 200) {
-                sidePanelWidth = 200
+                sidePanelWidth = 200;
             }
             document.getElementById('map-side-panel').style.width = sidePanelWidth + 'px';
             document.getElementById('map-side-panel').style.height = 'calc(100vh - 60px)';

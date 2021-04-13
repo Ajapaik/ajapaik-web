@@ -565,7 +565,7 @@ $.imgAreaSelect = function (img, options) {
                 zIndex: zIndex + 1 || 1
             });
 
-            if (!parseInt($handles.css('width')) >= 0)
+            if (!(parseInt($handles.css('width')) >= 0))
                 $handles.width(5).height(5);
 
             if (o = options.borderWidth)

@@ -460,10 +460,10 @@ $('.ajp-navbar').autoHidingNavbar();
             originalPhotoColumn = $('#ajp-photo-modal-original-photo-column'),
             originalPhotoInfoColumn = $('#ajp-photo-modal-original-photo-info-column');
             
-        if (window.photoModalRephotoArray !== undefined&& window.photoModalRephotoArray.length > 1) {
+        if (window.photoModalRephotoArray !== undefined && window.photoModalRephotoArray.length > 1) {
             $('#ajp-rephoto-selection').show();
         }
-        else if (window.photoModalSimilarPhotoArray !== undefined&& window.photoModalSimilarPhotoArray.length > 1) {
+        else if (window.photoModalSimilarPhotoArray !== undefined && window.photoModalSimilarPhotoArray.length > 1) {
             $('#ajp-similar-photo-selection').show();
         }
 
@@ -1160,7 +1160,7 @@ $('.ajp-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '.ajp-photo-modal-similar-photo-thumb', function () {
-        $('#ajp-similar-photo-full-screen-image').removeClass('ajp-photo-bw')
+        $('#ajp-similar-photo-full-screen-image').removeClass('ajp-photo-bw');
         var targetId = $(this).data('id'),
             infoDiv = $('#ajp-photo-modal-similar-photo-info-column'),
             photoDiv = $('#ajp-modal-similar-photo-container'),

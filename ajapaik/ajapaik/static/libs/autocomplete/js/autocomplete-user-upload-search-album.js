@@ -104,7 +104,7 @@ yourlabs.Widget.prototype.selectChoice = function(choice) {
 
     this.freeDeck();
     this.addToDeck(choice, value);
-    this.addToSelect(choice, value);
+    this.addToSelect(value);
 
     var index = $(':input:visible').index(this.input);
     this.resetDisplay();
@@ -208,7 +208,7 @@ yourlabs.Widget.prototype.addToDeck = function(choice, value) {
 }
 
 // Add a selected choice of a given value to the deck.
-yourlabs.Widget.prototype.addToSelect = function(choice, value) {
+yourlabs.Widget.prototype.addToSelect = function(value) {
     var option = this.select.find('option[value="'+value+'"]');
 
     if (! option.length) {

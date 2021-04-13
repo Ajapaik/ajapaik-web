@@ -23,8 +23,8 @@
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
     window.startSuggestionLocation = function () {
-        var startLat,
-            startLon;
+        let startLat = 59;
+        let startLon = 26;
         $('#ajp-map-container').hide();
         $('#ajp-game-photo-modal').hide();
         $('.modal-backdrop').hide();
@@ -34,9 +34,6 @@
         } else if (window.startLocation[0] && window.startLocation[1]) {
             startLat = window.startLocation[1];
             startLon = window.startLocation[0];
-        } else {
-                startLat = 59;
-                startLon = 26;
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
             thumbSrc: '/photo-thumb/' + currentPhoto.id + '/400/',
@@ -286,9 +283,9 @@
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
         // FIXME: Only place coordinates are in reverse order
-        location = new google.maps.LatLng(window.startLocation[1], window.startLocation[0]);
-        if (location) {
-            window.getMap(location, 15, true);
+        let mapLocation = new google.maps.LatLng(window.startLocation[1], window.startLocation[0]);
+        if (mapLocation) {
+            window.getMap(mapLocation, 15, true);
         } else {
             window.getMap(undefined, undefined, true);
         }

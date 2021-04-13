@@ -15,9 +15,6 @@ class FaceRecognitionAddPersonForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = ('name', 'date_of_birth', 'gender', 'is_public_figure', 'description')
-        widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-        }
         labels = {
             'name': _('Person name'),
             'date_of_birth': _('Date of birth'),

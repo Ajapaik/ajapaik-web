@@ -258,12 +258,10 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
                 if (path[lastIndex] >= pointer[i][0] && path[lastIndex] <= pointer[i][1]) {
                     return true;
                 }
-                lastValue = pointer[i][1];
             } else {
                 if (pointer[i] == path[lastIndex]) {
                     return true;
                 }
-                lastValue = pointer[i];
             }
         }
 
