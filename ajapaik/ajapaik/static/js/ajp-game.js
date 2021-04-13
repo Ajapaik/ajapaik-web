@@ -23,8 +23,8 @@
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
     window.startSuggestionLocation = function () {
-        var startLat,
-            startLon;
+        let startLat = 59;
+        let startLon = 26;
         $('#ajp-map-container').hide();
         $('#ajp-game-photo-modal').hide();
         $('.modal-backdrop').hide();
@@ -34,9 +34,6 @@
         } else if (window.startLocation[0] && window.startLocation[1]) {
             startLat = window.startLocation[1];
             startLon = window.startLocation[0];
-        } else {
-                startLat = 59;
-                startLon = 26;
         }
         $('#ajp-geotagging-container').show().data('AjapaikGeotagger').initializeGeotaggerState({
             thumbSrc: '/photo-thumb/' + currentPhoto.id + '/400/',
