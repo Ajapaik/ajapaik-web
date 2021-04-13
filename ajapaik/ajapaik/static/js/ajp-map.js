@@ -243,7 +243,7 @@
 
     window.startSuggestionLocation = function () {
         if (!window.suggestionLocationStarted) {
-            let startLon = 59;
+            let startLat = 59;
             let startLon = 26;
             if (window.photoModalPhotoLat && window.photoModalPhotoLng) {
                 startLat = window.photoModalPhotoLat;
