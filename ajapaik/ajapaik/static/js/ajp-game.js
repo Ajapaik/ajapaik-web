@@ -285,7 +285,7 @@
         // FIXME: Only place coordinates are in reverse order
         let mapLocation = new google.maps.LatLng(window.startLocation[1], window.startLocation[0]);
         if (mapLocation) {
-            window.getMap(location, 15, true);
+            window.getMap(mapLocation, 15, true);
         } else {
             window.getMap(undefined, undefined, true);
         }

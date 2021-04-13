@@ -460,10 +460,10 @@ $('.ajp-navbar').autoHidingNavbar();
             originalPhotoColumn = $('#ajp-photo-modal-original-photo-column'),
             originalPhotoInfoColumn = $('#ajp-photo-modal-original-photo-info-column');
             
-        if (window.photoModalRephotoArray !== undefined&& window.photoModalRephotoArray.length > 1) {
+        if (window.photoModalRephotoArray !== undefined && window.photoModalRephotoArray.length > 1) {
             $('#ajp-rephoto-selection').show();
         }
-        else if (window.photoModalSimilarPhotoArray !== undefined&& window.photoModalSimilarPhotoArray.length > 1) {
+        else if (window.photoModalSimilarPhotoArray !== undefined && window.photoModalSimilarPhotoArray.length > 1) {
             $('#ajp-similar-photo-selection').show();
         }
 
