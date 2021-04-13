@@ -1042,7 +1042,7 @@ class Photo(Model):
             unique_user_geotag_ids = geotags.distinct('user_id').order_by('user_id', '-created') \
                 .values_list('id', flat=True)
             self.geotag_count = unique_user_geotag_ids.count()
-            unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids)
+            unique_user_geotags = geotags.filter(pk__in=unique_user_geotag_ids, user_id__isnull=False)
             geotag_coord_map = {}
             for g in unique_user_geotags:
                 key = str(g.lat)[:5] + str(g.lon)[:5]
