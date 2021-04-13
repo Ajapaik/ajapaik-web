@@ -1160,7 +1160,7 @@ $('.ajp-navbar').autoHidingNavbar();
     });
 
     $(document).on('click', '.ajp-photo-modal-similar-photo-thumb', function () {
-        $('#ajp-similar-photo-full-screen-image').removeClass('ajp-photo-bw')
+        $('#ajp-similar-photo-full-screen-image').removeClass('ajp-photo-bw');
         var targetId = $(this).data('id'),
             infoDiv = $('#ajp-photo-modal-similar-photo-info-column'),
             photoDiv = $('#ajp-modal-similar-photo-container'),

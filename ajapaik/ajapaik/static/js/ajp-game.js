@@ -286,8 +286,8 @@
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
         // FIXME: Only place coordinates are in reverse order
-        location = new google.maps.LatLng(window.startLocation[1], window.startLocation[0]);
-        if (location) {
+        let mapLocation = new google.maps.LatLng(window.startLocation[1], window.startLocation[0]);
+        if (mapLocation) {
             window.getMap(location, 15, true);
         } else {
             window.getMap(undefined, undefined, true);
