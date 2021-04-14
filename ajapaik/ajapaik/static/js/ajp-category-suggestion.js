@@ -74,7 +74,7 @@ function clickViewpointElevationCategoryButton(buttonId) {
 function clickSceneCategoryButton(buttonId) {
     $('#send-suggestion-button').prop("disabled", false);
 
-    let scene = buttonId === 'interior-button'
+    scene = buttonId === 'interior-button'
         ? 'Interior'
         : 'Exterior';
     let otherButtonId = scene === 'Interior'
