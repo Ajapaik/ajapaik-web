@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-01 06:13+0200\n"
-"PO-Revision-Date: 2021-04-08 12:52:08+0000\n"
+"PO-Revision-Date: 2021-04-26 13:18:00+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -359,7 +359,7 @@ msgstr "Pilt"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1898
 msgid "Title"
-msgstr ""
+msgstr "Pealkiri"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
@@ -1998,7 +1998,7 @@ msgstr "ülepildistus"
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Märgi sarnasteks või duplikaatideks"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
