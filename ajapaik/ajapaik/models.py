@@ -852,7 +852,7 @@ class Photo(Model):
         padding = 20
         img = Image.open(self.image_no_watermark)
         img = img.convert('RGBA')
-        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/TLUAR_watermark.png'))
+        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/tluar-watermark.png'))
         longest_side = max(img.size[0], img.size[1])
         coeff = float(longest_side) / 1600.00
         w = int(mark.size[0] * coeff)
