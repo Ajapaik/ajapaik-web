@@ -9,6 +9,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.filter(source_url__contains='www.muis.ee/museaal').filter(id=1723)
         for photo in photos:
-            print(photo.id)
             photo.set_calculated_fields()
             photo.save()
