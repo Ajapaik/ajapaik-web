@@ -835,8 +835,8 @@ msgid "optional"
 msgstr "optional"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
-msgid "Unsure"
-msgstr "Unsure"
+msgid "Unidentified"
+msgstr "Unidentified"
 
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Male"

@@ -72,7 +72,7 @@
                         similarityType,
                         photos
                     })
-                
+
                 })
                 .then(handleErrorsSimilar)
                 .then(function(response) {
@@ -186,7 +186,7 @@
         let submitCategoryActionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategories();' class='btn btn-success mt-3 w-100' disabled>` + gettext('Submit') + `</button>`;
         submitCategoryContent += submitCategoryActionButtonTemplate;
         let submitCategoryTitle = gettext('Categorize scene');
-    
+
         window.submitCategories = function () {
             $.get('/photo-selection/', function (response) {
                 let photos = []
@@ -196,7 +196,7 @@
                 submitCategorySuggestion(photos, true);
             });
         };
-    
+
         $('#ajp-photo-selection-categorize-scenes-button').popover({
             html: true,
             sanitize: false,
@@ -210,7 +210,7 @@
         pictureEditContent += pictureEditActionButtonTemplate;
 
         let pictureEditTitle = gettext('Edit');
-    
+
         window.submitPictureEdits = function () {
             $.get('/photo-selection/', function (response) {
                 let photos = []
@@ -220,7 +220,7 @@
                 submitPictureEditSuggestion(photos, true);
             });
         };
-    
+
         $('#ajp-photo-selection-edit-pictures-button').popover({
             html: true,
             sanitize: false,

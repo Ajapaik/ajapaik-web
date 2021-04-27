@@ -44,7 +44,7 @@
             {% endif %}
             {% if request.user.profile.is_legit %}
                 <div>
-                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>                    
+                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>
                 </div>
                 <div class="mt-2">
                     <a class="btn btn-secondary" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>

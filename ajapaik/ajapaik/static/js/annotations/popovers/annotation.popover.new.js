@@ -27,7 +27,7 @@ function getRectangleSubmitFunction(popoverId) {
             }
         }
 
-        var scaledRectangle = getDetectionRectangleScaledForOriginalImageSize(
+        var scaledRectangle = getAnnotationScaledForOriginalImageSize(
             popoverId,
             ImageAreaSelector.getImageAreaDimensions()
         );
@@ -121,7 +121,7 @@ function validateRequiredNewObjectFieldOrFocusSubmit(selectedOption) {
     }
 }
 
-function createNewDetectionRectangle(popoverId, configuration) {
+function createNewAnnotation(popoverId, configuration) {
     var hasInitializedSelects = false;
 
     var onAnnotationRectangleShow = function () {

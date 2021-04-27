@@ -183,7 +183,7 @@ function createTextRow(label, value) {
 }
 
 function isAdditionalPropertyPresent(propertyValue) {
-    return propertyValue && propertyValue.toUpperCase() !== constants.fieldValues.UNSURE;
+    return propertyValue && propertyValue.toUpperCase() !== constants.fieldValues.UNIDENTIFIED;
 }
 
 function createUserOwnAnnotationPopoverContent(annotation, controlButtons) {
@@ -308,7 +308,7 @@ function getFeedbackPopoverTitle(annotation) {
     return constants.translations.popover.titles.ADD_FEEDBACK;
 }
 
-function createSavedFaceDetectionRectangle(popoverId, annotation, configuration) {
+function createSavedFaceAnnotation(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
     var onAnnotationRectangleShow = function () {

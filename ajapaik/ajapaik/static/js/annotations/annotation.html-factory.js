@@ -304,6 +304,10 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         'data-is-detection-rectangle': true,
         'data-annotation-identifier': getAnnotationIdentifier(configuration.annotation),
         class: 'ajp-face-rectangle',
+        click: function(event) {
+            closePopoversOnAnnotationClick(event);
+            setPopoverToOpenOnFullscreenExit(event);
+        },
         css: {
             position: 'absolute',
             left: configuration.leftEdgeDistancePercentage + '%',
@@ -322,13 +326,8 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         DraggableArea.addResizeAndMoveControls(annotationRectangle, configuration);
     }
 
-    annotationRectangle.on('click', function (event) {
-        closePopoversOnRectangleClick(event);
-        setPopoverToOpenOnFullscreenExit(event);
-    });
-
     annotationRectangle.popover({
-        container: ObjectTagger.getDetectionRectangleContainer(),
+        container: ObjectTagger.getAnnotationContainer(),
         html: true,
         placement: function (popoverElement, annotationElement) {
             var popover = $(popoverElement);
@@ -356,9 +355,23 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         }
     });
 
+    annotationRectangle.on('shown.bs.popover', function () {
+        if (window.lastEnteredName) {
+            let selector = '#autocomplete-subject';
+            if (document.querySelector(selector)) {
+                document.querySelector(selector).slim.open();
+                setTimeout(() => {
+                    document.querySelector(selector).slim.search(window.lastEnteredName);
+                    window.lastEnteredName = undefined;
+                }, 100);
+            }
+        }
+    });
+
     annotationRectangle.on('hide.bs.popover', function () {
         enableHotkeys();
     });
+
 
     return annotationRectangle;
 }

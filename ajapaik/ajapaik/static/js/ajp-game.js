@@ -11,7 +11,6 @@
     /*global google*/
     /*global docCookies*/
     var currentPhoto,
-        location,
         lastStatusMessage,
         photoLoadModalResizeFunction,
         modalPhoto = $('#ajp-game-modal-photo'),
@@ -190,7 +189,7 @@
                 }
                 lastStatusMessage = message;
                 let photoUrl = currentPhoto.big.url;
-                
+
                 if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.includes(currentPhoto.id.toString())) {
                     photoUrl += '?timestamp=' + Date.now();
                 }

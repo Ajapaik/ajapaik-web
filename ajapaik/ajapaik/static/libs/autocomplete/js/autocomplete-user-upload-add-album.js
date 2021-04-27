@@ -27,13 +27,13 @@ $(document).ready(function () {
         }
 
         $('body').append('<div id="yourlabs_overlay"></div');
-        $('#yourlabs_overlay').click(function () { 
-            win.close(); 
+        $('#yourlabs_overlay').click(function () {
+            win.close();
             $(this).remove();
         });
 
         setTimeout(removeOverlay, 1500);
-        
+
         win.focus();
 
         return false;
@@ -76,7 +76,7 @@ $(document).ready(function () {
         text = text.replace(/\[/g, '__braceleft__');
         text = text.replace(/\]/g, '__braceright__');
         return text;
-    } 
+    }
 
     var windowname_to_id = function(text) {
         text = text.replace(/__dot__/g, '.');

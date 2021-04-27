@@ -1,7 +1,9 @@
 {% load i18n bootstrap4 %}
 {% csrf_token %}
-{% bootstrap_form form %}
-<button id="rephoto-upload-settings-submit-button" class="primaryAction btn btn-primary" type="submit">{% trans "Submit" %}</button>
+{% if form %}
+    {% bootstrap_form form %}
+{% endif %}
+<button id="rephoto-upload-settings-submit-button" class="ajp-cursor-pointer btn btn-primary" type="submit">{% trans "Submit" %}</button>
 {% block specific_js %}
     <script>
         var rephotoUploadSettingsUrl = "{% url 'api_submit_rephoto_upload_settings' %}";

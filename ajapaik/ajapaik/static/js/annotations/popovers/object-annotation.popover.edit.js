@@ -91,7 +91,7 @@ function validateRequiredEditObjectField(selectedOption) {
     toggleEditObjectFieldError(!selectedOption.value);
 }
 
-function createSavedObjectModifyDetectionRectangle(popoverId, annotation, configuration) {
+function createSavedObjectModifyAnnotation(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
     var onAnnotationRectangleShow = function () {
@@ -106,6 +106,5 @@ function createSavedObjectModifyDetectionRectangle(popoverId, annotation, config
     var popoverTitle = constants.translations.popover.titles.EDIT_OBJECT_ANNOTATION;
 
     var popoverContent = createSavedObjectAnnotationModifyPopoverContent(annotation, popoverId);
-
     return createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow);
 }

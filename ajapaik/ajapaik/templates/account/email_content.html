@@ -14,7 +14,7 @@
 
   <input id="email-radio-{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
 
-  {{ emailaddress.email }} - 
+  {{ emailaddress.email }} -
   {% if emailaddress.verified %}{% trans "verified" %}{% else %}{% trans "unverified" %}{% endif %}{% if emailaddress.primary %}, <span class="primary">{% trans "primary" %}</span>{% endif %}
 </label>
 </div>
@@ -23,7 +23,7 @@
 <div class="buttonHolder">
       <button class="btn btn-secondary secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
       <button class="btn btn-secondary secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="btn btn-primary primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+      <button class="btn btn-primary ajp-cursor-pointer" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
 </div>
 <br>
 

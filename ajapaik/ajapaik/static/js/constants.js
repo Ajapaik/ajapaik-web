@@ -8,7 +8,7 @@ var constants = {
         ARROW_LEFT: 37
     },
     fieldValues: {
-        UNSURE: 'UNSURE',
+        UNIDENTIFIED: 'UNIDENTIFIED',
         MALE: 'MALE',
         FEMALE: 'FEMALE',
         CHILD: 'CHILD',
@@ -45,8 +45,8 @@ var constants = {
         RE_PHOTO_SHARE_LINK_ID: 'rephoto-share-link',
         IMAGE_SELECTION_AREA_ID: 'image-selection',
         IMAGE_SELECTION_OVERLAY_ID: 'image-selection-overlay',
-        FACE_ANNOTATION_FILTERS_ID: 'person-annotation-filters',
-        OBJECT_ANNOTATION_FILTERS_ID: 'object-annotation-filters',
+        FACE_ANNOTATIONS_ID: 'person-annotations',
+        OBJECT_ANNOTATIONS_ID: 'object-annotations',
         ANNOTATION_CONTAINER_ID_ON_IMAGE: 'annotation-container'
     },
     translations: {
@@ -58,7 +58,7 @@ var constants = {
         },
         common: {
             OPTIONAL: gettext('optional'),
-            UNSURE: gettext('Unsure'),
+            UNIDENTIFIED: gettext('Unidentified'),
             MALE: gettext('Male'),
             FEMALE: gettext('Female'),
             CHILD: gettext('Child'),

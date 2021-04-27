@@ -11,33 +11,33 @@
     <div class="dropdown dropdown-menu ajp-black-dropdown-menu" role="menu">
         {% if is_frontpage %}
             <span id="ajp-organiser-dropdown-filter-name">
-                {% trans 'Filters' %}: 
+                {% trans 'Filters' %}:
                 {% if request.GET.collections == '1' %}
-                    {% trans 'collections' %}, 
+                    {% trans 'collections' %},
                 {% endif %}
                 {% if request.GET.people == '1' %}
-                    {% trans 'people' %}, 
+                    {% trans 'people' %},
                 {% endif %}
                 {% if request.GET.backsides == '1' %}
-                    {% trans 'back sides of pictures' %}, 
+                    {% trans 'back sides of pictures' %},
                 {% endif %}
                 {% if request.GET.exteriors == '1' %}
-                    {% trans 'exteriors' %}, 
+                    {% trans 'exteriors' %},
                 {% endif %}
                 {% if request.GET.interiors == '1' %}
-                    {% trans 'interiors' %}, 
+                    {% trans 'interiors' %},
                 {% endif %}
                 {% if request.GET.ground_viewpoint_elevation == '1' %}
-                    {% trans 'pictures from the ground' %}, 
+                    {% trans 'pictures from the ground' %},
                 {% endif %}
                 {% if request.GET.raised_viewpoint_elevation == '1' %}
-                    {% trans 'pictures from a raised viewpoint' %}, 
+                    {% trans 'pictures from a raised viewpoint' %},
                 {% endif %}
                 {% if request.GET.aerial_viewpoint_elevation == '1' %}
-                    {% trans 'aerial pictures' %}, 
+                    {% trans 'aerial pictures' %},
                 {% endif %}
                 {% if request.GET.no_geotags == '1' %}
-                    {% trans 'pictures which are not geotagged' %}, 
+                    {% trans 'pictures which are not geotagged' %},
                 {% endif %}
                 {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation and not request.GET.no_geotags%}
                     {% trans 'no filter' %}
@@ -51,10 +51,10 @@
                     <i aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</i>
                 </a>
                 <a id="ajp-header-collections"
-                    class="{% if album or show_photos %}d-none{% endif %} ml-4"
-                    role="button" 
+                    class="{% if album or show_photos %}d-none{% endif %} ml-4 ajp-cursor-pointer"
+                    role="button"
                     title="{% trans 'Pictures by collections' %}">
-                    <i aria-hidden 
+                    <i aria-hidden
                         class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">
                         account_balance
                     </i>
@@ -295,7 +295,7 @@
         $(document).ready(function () {
             let text = $('#ajp-organiser-dropdown-filter-name').text();
             text = text.trim();
-                if(text.endsWith(',')) {
+                if (text.endsWith(',')) {
                     $('#ajp-organiser-dropdown-filter-name').text(text.substring(0,text.length-1));
                 }
             }

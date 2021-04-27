@@ -39,11 +39,11 @@ function getModifySubmitFunction(annotationId, popoverId) {
     };
 }
 
-function getDefaultValue(detectionRectangle) {
-    if (detectionRectangle.subjectId) {
+function getDefaultValue(annotation) {
+    if (annotation.subjectId) {
         return {
-            label: detectionRectangle.subjectName,
-            id: detectionRectangle.subjectId
+            label: annotation.subjectName,
+            id: annotation.subjectId
         };
     }
 }

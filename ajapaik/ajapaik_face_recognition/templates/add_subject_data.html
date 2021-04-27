@@ -121,7 +121,7 @@
         var idleTime = 0;
         $(document).ready(function () {
             //Increment the idle time counter every second.
-            var idleInterval = setInterval(timerIncrement, 1000); 
+            var idleInterval = setInterval(timerIncrement, 1000);
 
             //Zero the idle timer on mouse movement.
             $(this).mousemove(function (e) {
@@ -141,7 +141,7 @@
 
         function timerIncrement() {
             idleTime = idleTime + 1;
-            if (idleTime > 179) { 
+            if (idleTime > 179) {
                 showModal();
             }
         }
@@ -219,26 +219,20 @@
         }
 
         ReportBadRectangle = function (id) {
-			$.ajax({
-				type: 'DELETE',
-				url: '/face-recognition/remove-annotation/' + id  + '/',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRFToken', window.docCookies.getItem('csrftoken'));
-                },
-				success: function (response) {
-					if (response.deleted) {
-						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
-					} else {
-						$.notify(gettext('Thank you!'), {type: 'success'});
-					}
+            deleteRequest(
+                '/face-recognition/remove-annotation/' + id  + '/',
+                undefined,
+                undefined,
+                function(response) {
+                    $.notify(gettext('Thank you!'), {type: 'success'});
                     window.location.href = '{{next_action}}';
-				},
-				error: function () {
+                },
+                function() {
                     $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
                     $('#third-block').removeClass('d-none').addClass('d-flex');
                 }
-			});
-		};
+            )
+        };
 
         var coordinates = {{ coordinates }};
         $('#ajp-loading-overlay').show();
@@ -254,33 +248,22 @@
             drawRectangle();
         });
 
-        AddSubjectData = function (annotation, profile) {
+        AddSubjectData = function (id) {
             $('#ajp-loading-overlay').show();
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'face_recognition_api_subject_data' %}",
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader('X-CSRFTOKEN', window.docCookies.getItem('csrftoken'));
-                },
-                data: {
-                    annotationId: annotation.annotationId,
-                    newSubjectId: {% if subject_id %}{{ subject_id }}{% else %}null{% endif %},
-                    gender: annotation.gender,
-                    ageGroup: annotation.age,
-                    profile: profile
-                },
-                success: function () {
+            postRequest(
+                "{% url 'face_recognition_api_subject_data' %}",
+                undefined,
+                undefined,
+                function(response) {
                     window.location.href = '{{next_action}}';
                 },
-                error: function () {
+                function() {
                     $('#third-block').removeClass('d-none').addClass('d-flex');
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
-                },
-                complete: function () {
                     $('#ajp-loading-overlay').hide();
                 }
-            });
-        }
+            )
+        };
 
         $('#first-block > div > button').on('click', function(e) {
             annotation.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;

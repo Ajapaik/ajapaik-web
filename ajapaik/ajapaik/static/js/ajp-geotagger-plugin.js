@@ -291,7 +291,7 @@
             "               <img id='ajp-geotagger-image-thumb' class='ajp-image-responsive'>",
             "               <button type='button' id='ajp-geotagger-flip-button' class='btn btn-secondary ajp-no-border-radius'>",
             "                   <i class='material-icons notranslate'>flip</i>",
-            "               </button>", 
+            "               </button>",
             "           </a>",
             "        </div>",
             "        <div id='ajp-geotagger-button-controls'>",

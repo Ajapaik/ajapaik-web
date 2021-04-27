@@ -2,14 +2,16 @@
 
 function initializeClosingPopoverWhenClickingOutsideOfPopover() {
     $('html').on('click', function(e) {
-        var hasNotClickedDetectionRectangle = typeof $(e.target).data('is-detection-rectangle') === 'undefined' ;
-        var hasNotClickedDetectionRectangleControls = typeof $(e.target).data('is-detection-controls') === 'undefined' ;
+        var hasNotClickedAnnotation = typeof $(e.target).data('is-detection-rectangle') === 'undefined' ;
+        var hasNotClickedAnnotationControls = typeof $(e.target).data('is-detection-controls') === 'undefined' ;
         var hasNotClickedSharePopoverEnablingElement = typeof $(e.target).data('is-popover-target') === 'undefined';
         var hasNotClickedCategorizationPopoverEnablingElement = typeof $(e.target).data('is-categorization-button') === 'undefined' && typeof $(e.target).parent().data('is-categorization-button') === 'undefined';
         var hasNotClickedEditPopoverEnablingElement = typeof $(e.target).data('is-edit-button') === 'undefined' && typeof $(e.target).parent().data('is-edit-button') === 'undefined';
+        var hasNotClickedAlbumPopoverEnablingElement = !e.target.matches('.ajp-photo-album-link');
+        var hasNotClickedPersonAlbumPopoverEnablingElement = !e.target.matches('#' + constants.elements.FACE_ANNOTATIONS_ID + ', #' + constants.elements.FACE_ANNOTATIONS_ID + ' [data-toggle="popover"], #' + constants.elements.FACE_ANNOTATIONS_ID + ' [data-toggle="popover"] *');
 
         if (!$(e.target).parents().is('.popover')) {
-            if (hasNotClickedDetectionRectangle && hasNotClickedDetectionRectangleControls) {
+            if (hasNotClickedAnnotation && hasNotClickedAnnotationControls) {
                 $('[data-is-detection-rectangle]').popover('hide');
             }
 
@@ -21,7 +23,7 @@ function initializeClosingPopoverWhenClickingOutsideOfPopover() {
                 let id = $('#ajp-categorize-scene').attr('aria-describedby');
                 if (id && $('#' + id).length > 0) {
                     $('#' + id).popover('hide');
-                    if(typeof updatePhotoSuggestions === 'function') {
+                    if (typeof updatePhotoSuggestions === 'function') {
                         updatePhotoSuggestions();
                     }
                 }
@@ -32,7 +34,6 @@ function initializeClosingPopoverWhenClickingOutsideOfPopover() {
                 if (id && $('#' + id).length > 0) {
                     $('#' + id).popover('hide');
                     $('#ajp-modal-photo').removeClass();
-                    $('#ajp-photoview-main-photo').removeClass();
                     $('#ajp-photoview-main-photo').removeClass();
                     $('#ajp-fullscreen-image').removeClass();
                     $('#ajp-fullscreen-image').addClass('lasyloaded');
@@ -46,7 +47,18 @@ function initializeClosingPopoverWhenClickingOutsideOfPopover() {
                     window.newPhotoRotationDegrees = 'undefined';
                 }
             }
+
+            if (hasNotClickedAlbumPopoverEnablingElement) {
+                $('.ajp-photo-album-link').popover('hide');
+            }
+
+            if (hasNotClickedPersonAlbumPopoverEnablingElement) {
+                $('#' + constants.elements.FACE_ANNOTATIONS_ID + ' *').popover('hide');
+                window.openPersonPopoverLabelIds = [];
+                hideAnnotationsWithoutOpenPopover();
+            }
         }
+
     });
 }
 

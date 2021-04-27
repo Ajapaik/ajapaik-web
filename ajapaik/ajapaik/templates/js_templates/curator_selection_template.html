@@ -1,7 +1,7 @@
 {% verbatim %}
     <script id="ajp-curator-selection-template" type="text/x-tmpl">
         <div class="row ajp-curator-selection-item w-100 pl-3" id="ajp-curator-selection-item-{%=formatId(o.id)%}">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="text-align:center">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-center">
                 <img class="img-fluid lazyload ajp-curator-selection-image{% if (o.invert) { %} ajp-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajp-curator-ETERA-result{% } %}{% if (o.flip) { %} ajp-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onerror="imageFailedToLoad('{%=o.id%}')" onload="imageLoaded('{%=o.id%}')">
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ajp-curator-selection-controls">

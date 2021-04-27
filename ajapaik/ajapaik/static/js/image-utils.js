@@ -42,7 +42,7 @@ function disableImageSubmitControls() {
     $(document).off('click', '.ajp-face-recognition-form-cancel-button');
 }
 
-function getDetectionRectangle(rectangle, imageAreaDimensions) {
+function getAnnotation(rectangle, imageAreaDimensions) {
     var leftEdgeDistance = rectangle.x1;
     var topEdgeDistance = rectangle.y1;
 
@@ -59,7 +59,7 @@ function getDetectionRectangle(rectangle, imageAreaDimensions) {
 
     return {
         id: rectangleId,
-        rectangle: createNewDetectionRectangle(rectangleId, configuration)
+        rectangle: createNewAnnotation(rectangleId, configuration)
     };
 }
 
@@ -69,25 +69,28 @@ function togglePopover(popoverId) {
     });
 }
 
-function hideDetectionRectanglesWithoutOpenPopover() {
+function hideAnnotationsWithoutOpenPopover() {
     if (window.isMobile) {
         return;
     }
 
     $('[data-is-detection-rectangle]').each(function() {
-        var rectangle = $(this);
+        let rectangle = $(this);
+        if (!window.openPersonPopoverLabelIds ||
+                !window.openPersonPopoverLabelIds.includes(rectangle.attr('data-annotation-identifier'))) {
 
-        var popoverSelector = '[data-popover-id="' + rectangle.attr('id') + '"]';
-        var isPopoverOpen = $(popoverSelector).length > 0;
+            let popoverSelector = '[data-popover-id="' + rectangle.attr('id') + '"]';
+            let isPopoverOpen = $(popoverSelector).length > 0;
 
-        if (!isPopoverOpen) {
-            rectangle.css('visibility', 'hidden');
+            if (!isPopoverOpen) {
+                rectangle.css('visibility', 'hidden');
+            }
         }
     });
 }
 
-function closePopoversOnRectangleClick(event) {
-    var popoverId = $(event.target).attr('id');
+function closePopoversOnAnnotationClick(event) {
+    let popoverId = $(event.target).attr('id');
     closePopovers(popoverId);
 }
 
@@ -102,8 +105,8 @@ function closePopovers(currentlyOpeningId) {
     });
 }
 
-function moveAnnotationRectanglesElement(element, isDisablingPopover) {
-    if (isAnnotatingDisabled()) {
+function moveAnnotations(element, isDisablingPopover) {
+    if (window.isAnnotatingDisabled) {
         return;
     }
 
@@ -127,13 +130,15 @@ function moveAnnotationRectanglesElement(element, isDisablingPopover) {
     });
 }
 
-function showDetectionRectangles() {
-    if (isAnnotatingDisabled()) {
+function displayAnnotations(onlyPersons=false) {
+    if (window.isAnnotatingDisabled) {
         return;
     }
-
     $('[data-is-detection-rectangle]').each(function() {
-        $(this).css('visibility', 'visible');
+        if (!(onlyPersons && $(this).attr('data-annotation-identifier').includes('object'))) {
+            $(this).css('visibility', 'visible');
+
+        }
     });
 }
 
@@ -149,7 +154,7 @@ function mirrorDetectionAnnotations() {
     });
 }
 
-function getDetectionRectangleScaledForOriginalImageSize(popoverRectangleId, imageAreaCurrentDimensions) {
+function getAnnotationScaledForOriginalImageSize(popoverRectangleId, imageAreaCurrentDimensions) {
     var popoverElement = $('#' + popoverRectangleId);
 
     var topPosition = parseFloat(popoverElement.css('top'));
@@ -229,9 +234,12 @@ function addFullScreenExitListener(additionalFunction) {
 }
 
 function disableAnnotations() {
-    window.isPhotoRotated = true;
+    window.isAnnotatingDisabled = true;
 
-    $('#mark-object-button > i').addClass('annotation-button-disabled');
+    $('#person-annotations').addClass('ajp-button-disabled');
+    $('#person-annotations > .ajp-pebble > a').addClass('ajp-button-disabled');
+    $('#add-new-subject-button').addClass('ajp-button-disabled');
+    $('#mark-object-button > i').addClass('ajp-button-disabled');
 
     $('[data-is-detection-rectangle]').each(function() {
         $(this).css('visibility', 'hidden');
@@ -239,15 +247,15 @@ function disableAnnotations() {
 }
 
 function enableAnnotations() {
-    window.isPhotoRotated = false;
+    window.isAnnotatingDisabled = false;
 
-    $('#mark-object-button > i').removeClass('annotation-button-disabled');
+    $('#person-annotations').removeClass('ajp-button-disabled');
+    $('#person-annotations > .ajp-pebble > a').removeClass('ajp-button-disabled');
+    $('#add-new-subject-button').removeClass('ajp-button-disabled');
+    $('#mark-object-button > i').removeClass('ajp-button-disabled');
 
     $('[data-is-detection-rectangle]').each(function() {
         $(this).css('visibility', '');
     });
 }
 
-function isAnnotatingDisabled() {
-    return window.isPhotoRotated;
-}

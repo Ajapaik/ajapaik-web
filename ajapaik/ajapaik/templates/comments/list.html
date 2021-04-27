@@ -6,17 +6,21 @@
             style="margin-left:{{ comment.level }}00px">
             <div class="media-left">
                 <a href="{{ comment.url }}">
-                    {% if comment.user.profile.fb_id or comment.user.profile.google_plus_picture %}
-                        <img width="48" height="48"
-                             src="{% if comment.user.profile.fb_id %}https://graph.facebook.com/v7.0/{{ comment.user.profile.fb_id }}/picture?type=square{% elif comment.user.profile.google_plus_picture %}{{ comment.user.profile.google_plus_picture }}{% endif %}"/>
+                    {% if comment.user %}
+                        {% if comment.user.profile.fb_id or comment.user.profile.google_plus_picture %}
+                            <img width="48" height="48"
+                                src="{% if comment.user.profile.fb_id %}https://graph.facebook.com/v7.0/{{ comment.user.profile.fb_id }}/picture?type=square{% elif comment.user.profile.google_plus_picture %}{{ comment.user.profile.google_plus_picture }}{% endif %}"/>
+                        {% else %}
+                            {{ comment.user_email|xtd_comment_gravatar }}
+                        {% endif %}
                     {% else %}
-                        {{ comment.user_email|xtd_comment_gravatar }}
+                        {% trans "Anonymous user" %}
                     {% endif %}
                 </a>
             </div>
             <div class="media-body pl-2">
                 <h6 class="media-heading">
-                    <a href="{% url 'user' comment.user.profile.id %}">{{ comment.user.profile.get_display_name }}</a>&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
+                    {% if comment.user %}<a href="{% url 'user' comment.user.profile.id %}">{{ comment.user.profile.get_display_name }}</a>{% else %}comment.user_name{% endif %}&nbsp;-&nbsp;{{ comment.submit_date|date:"d.m.Y H:i" }}
                     <a href="{% url 'comments-xtd-like' comment.pk %}" data-action="dislike" data-comment-id="{{ comment.pk }}">
                         {% trans "Like" %}
                         <span class="{% if comment.like_count <= 0 %}d-none{% endif %}" id="ajp-comments-like-count-{{ comment.pk }}">({{ comment.like_count }})</span>

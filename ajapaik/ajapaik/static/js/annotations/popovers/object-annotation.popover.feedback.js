@@ -110,7 +110,7 @@ function getObjectFeedbackPopoverTitle(annotation) {
     return constants.translations.popover.titles.ADD_FEEDBACK;
 }
 
-function createSavedObjectDetectionRectangle(popoverId, annotation, configuration) {
+function createSavedObjectAnnotation(popoverId, annotation, configuration) {
     var hasInitializedSelects = false;
 
     var onAnnotationRectangleShow = function () {

@@ -196,7 +196,7 @@
         }
     };
 
-    // FIXME: Supports only one minimap. 
+    // FIXME: Supports only one minimap.
     $.fn.AjapaikMinimap = function (options) {
         return this.each(function () {
             $(this).data('AjapaikMinimap', new AjapaikMinimap(this, options));

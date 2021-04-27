@@ -3,13 +3,13 @@
 var ObjectTagger = {
     isInCropMode: false,
     photoId: null,
-    detectionRectangleContainer: 'body',
+    annotationContainer: 'body',
 
-    setDetectionRectangleContainer: function(container) {
-        this.detectionRectangleContainer = container;
+    setAnnotationContainer: function(container) {
+        this.annotationContainer = container;
     },
-    getDetectionRectangleContainer: function () {
-        return this.detectionRectangleContainer;
+    getAnnotationContainer: function () {
+        return this.annotationContainer;
     },
     setPhotoId: function(photoId) {
         this.photoId = photoId;
@@ -28,18 +28,18 @@ var ObjectTagger = {
     handleSavedRectanglesDrawn: function(detections) {
         if (detections) {
             setTimeout(function () {
-                drawDetectionRectangles(detections, ImageAreaSelector.getImageAreaDimensions());
+                drawAnnotations(detections, ImageAreaSelector.getImageAreaDimensions());
             }, 200);
         }
     },
     handleNewRectangleDrawn: function (selection, isNotOpeningPopoverOnDrawEnd) {
         this.stopCropping();
 
-        var detectionRectangle = drawNewAnnotationRectangle(selection);
-        detectionRectangle.rectangle.appendTo(ImageAreaSelector.getImageArea());
+        var annotation = drawNewAnnotationRectangle(selection);
+        annotation.rectangle.appendTo(ImageAreaSelector.getImageArea());
 
         if (!window.isMobile && !isNotOpeningPopoverOnDrawEnd) {
-            togglePopover(detectionRectangle.id);
+            togglePopover(annotation.id);
         }
     },
     drawBoxForMobileSelection: function(onSelectionEnd) {
@@ -67,7 +67,7 @@ var ObjectTagger = {
         );
     },
     startCropping: function (isNotOpeningPopoverOnDrawEnd) {
-        if (isAnnotatingDisabled()) {
+        if (window.isAnnotatingDisabled) {
             return;
         }
 

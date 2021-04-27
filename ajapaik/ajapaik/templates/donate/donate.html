@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block layout %}
-    <div class="container pt-5 h-100" style="display: inline-block; padding-left: 40px;">
+    <div class="container pt-5 h-100 d-inline-block pl-5">
         <div class="row">
             <div class="col-xl-8 col-lg-9 col-md-10 col-sm-12">
                 {% include "donate/_donate_details.html" %}
@@ -15,7 +15,7 @@
             </div>
             <div class="col-xl-4 col-lg-3 col-md-0 col-sm-0">
                 <a href="{{ picture.resource_url }}">
-                    <img src="{{ picture.image_url}}" style="max-width: 100%; cursor: pointer;"></img>
+                    <img src="{{ picture.image_url}}" class="mw-100 ajp-cursor-pointer"></img>
                 </a>
             </div>
         </div>

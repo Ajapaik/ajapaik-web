@@ -60,20 +60,6 @@
                             <a target="_blank" id="ajp-game-source-link" href="" rel="noopener nofollow"></a>
                         </li>
                     </ul>
-                    <div class="row d-none text-left">
-                        <div class="col-12">
-                            <b id="ajp-game-no-geotags-yet-message mt-2">
-                                {% trans "The picture has not yet been pinned on the map. Be the first!" %}
-                            </b>
-                            <b id="ajp-game-one-geotag-message mt-2">
-                                {% trans "1 suggestion has been submitted for this picture. Add yours!" %}
-                            </b>
-                            <b id="ajp-game-number-of-geotags-message mt-2">
-                                <span id="ajp-game-number-of-geotags"></span>
-                                {% trans "suggestions have been submitted for this picture. Add yours!" %}
-                            </b>
-                        </div>
-                    </div>
                     <p class="d-none d-block-xs" id="ajp-game-status-message"></p>
                 </div>
             </div>
@@ -100,8 +86,7 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        var permalinkURL = "{% url 'photo' %}",
-            streamURL = "{% url 'fetch_stream' %}",
+        var streamURL = "{% url 'fetch_stream' %}",
             difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
             gameURL = "{% url 'game' %}",
             mapURL = "{% url 'map' %}",

@@ -5,7 +5,6 @@
 
 .suggestion-button {
     border: none;
-    max-lines: 135px;
     min-width: 100px;
     height: 90px;
     font-size: 16px;
@@ -23,30 +22,6 @@
 .suggestion-button:focus,
 .suggestion-button:active {
     outline: none;
-}
-
-.human-child {
-    background-position-y: 20px;
-    background-position-x: center;
-    background-image: url(../images/material-design-icons/ic_human_child.svg);
-}
-
-.human-elderly {
-    background-size: 54px;
-    background-position-x: 30px;
-    background-image: url(../images/material-design-icons/ic_human_elderly.svg);
-}
-
-.human-female {
-    background-image: url(../images/material-design-icons/ic_human_female.svg);
-}
-
-.human-male {
-    background-image: url(../images/material-design-icons/ic_human_male.svg);
-}
-
-.human-adult {
-    background-image: url(../images/material-design-icons/ic_human_adult.svg);
 }
 
 .skip-next {

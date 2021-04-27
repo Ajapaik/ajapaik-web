@@ -1,8 +1,5 @@
 #ajp-dater-container {
-    height: 100%;
-    width: 100%;
     display: none;
-    margin-top: 10px;
 }
 
 #ajp-dater-panel > .card-body > .card {

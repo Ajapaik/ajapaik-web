@@ -499,7 +499,8 @@
             window.replaceAll = function (string, find, replace) {
                 return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
-            window.photoPermalink = "{% url 'photo' %}";
+            window.photoPermalink = "{% url 'photo' 0 %}";
+            window.photoPermalink = window.photoPermalink.replace('0/', '');
             window.formatId = function (id) {
                 id = '' + id;
                 id = window.replaceAll(id, ':', '');

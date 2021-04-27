@@ -69,7 +69,7 @@ def _calc_trustworthiness(user_id):
     correct_tries = user_unique_latest_geotags.filter(is_correct=True).count()
 
     if not correct_tries:
-        return 0.00
+        return 0.001
 
     trust = float(1 - 0.9 ** float(correct_tries)) * float(correct_tries) / float(total_tries)
     trust = max(trust, 0.01)

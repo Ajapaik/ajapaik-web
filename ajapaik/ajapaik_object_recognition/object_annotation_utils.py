@@ -14,7 +14,7 @@ GENDER_NOT_SURE = 2
 
 GENDER_STRING_FEMALE = 'FEMALE'
 GENDER_STRING_MALE = 'MALE'
-GENDER_STRING_UNSURE = 'UNSURE'
+GENDER_STRING_UNIDENTIFIED = 'UNIDENTIFIED'
 
 AGE_CHILD = 0
 AGE_ADULT = 1
@@ -24,7 +24,7 @@ AGE_NOT_SURE = 3
 AGE_STRING_CHILD = 'CHILD'
 AGE_STRING_ADULT = 'ADULT'
 AGE_STRING_ELDERLY = 'ELDERLY'
-AGE_STRING_UNSURE = 'UNSURE'
+AGE_STRING_UNIDENTIFIED = 'UNIDENTIFIED'
 
 
 def is_value_present(val):
@@ -44,12 +44,14 @@ def convert_to_query_dictionary(dictionary):
     return query_dictionary
 
 
-def transform_annotation_queryset(user_id, query_set, transform_function):
+def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):
     transformed_collection = []
 
     for entry in query_set:
-        transformed_collection.append(json.dumps(transform_function(entry, user_id).__dict__))
-
+        if photo_id is None:
+            transformed_collection.append(json.dumps(transform_function(entry, user_id).__dict__))
+        else:
+            transformed_collection.append(json.dumps(transform_function(entry, user_id, photo_id).__dict__))
     return transformed_collection
 
 
@@ -146,7 +148,7 @@ def parse_age_to_constant(age):
     global AGE_STRING_ADULT
     global AGE_STRING_CHILD
     global AGE_STRING_ELDERLY
-    global AGE_STRING_UNSURE
+    global AGE_STRING_UNIDENTIFIED
 
     if age is None:
         return age
@@ -160,7 +162,7 @@ def parse_age_to_constant(age):
     if age == AGE_ELDERLY:
         return AGE_STRING_ELDERLY
 
-    return AGE_STRING_UNSURE
+    return AGE_STRING_UNIDENTIFIED
 
 
 def parse_gender_to_constant(gender):
@@ -170,7 +172,7 @@ def parse_gender_to_constant(gender):
 
     global GENDER_STRING_MALE
     global GENDER_STRING_FEMALE
-    global GENDER_STRING_UNSURE
+    global GENDER_STRING_UNIDENTIFIED
 
     if gender is None:
         return gender
@@ -181,4 +183,4 @@ def parse_gender_to_constant(gender):
     if gender == GENDER_FEMALE:
         return GENDER_STRING_FEMALE
 
-    return GENDER_STRING_UNSURE
+    return GENDER_STRING_UNIDENTIFIED

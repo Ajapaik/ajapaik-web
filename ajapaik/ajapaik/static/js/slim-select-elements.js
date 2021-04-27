@@ -41,8 +41,8 @@ function initializeAgeGroupSelect(defaultValue) {
     var options = [
         {
             placeholder: true,
-            text: constants.translations.common.UNSURE,
-            value: constants.fieldValues.UNSURE
+            text: constants.translations.common.UNIDENTIFIED,
+            value: constants.fieldValues.UNIDENTIFIED
         },
         {
             text: constants.translations.common.CHILD,
@@ -98,8 +98,8 @@ function initializeGenderGroupSelect(defaultValue) {
     var options = [
         {
             placeholder: true,
-            text: constants.translations.common.UNSURE,
-            value: constants.fieldValues.UNSURE
+            text: constants.translations.common.UNIDENTIFIED,
+            value: constants.fieldValues.UNIDENTIFIED
         },
         {
             text: constants.translations.common.MALE,
@@ -110,8 +110,8 @@ function initializeGenderGroupSelect(defaultValue) {
             value: constants.fieldValues.FEMALE
         },
         {
-            text: constants.translations.common.UNSURE,
-            value: constants.fieldValues.UNSURE
+            text: constants.translations.common.UNIDENTIFIED,
+            value: constants.fieldValues.UNIDENTIFIED
         },
     ];
 

@@ -606,7 +606,7 @@ Calculate and set the outer container's absolute positionning. We're copying
 the system from Django admin's JS widgets like the date calendar, which means:
 
 - the autocomplete box is an element appended to this.co,
-- 
+-
 */
 yourlabs.Autocomplete.prototype.fixPosition = function () {
     var el = this.input.get(0);

@@ -11,7 +11,7 @@
         {% if (o[0] && o[0].length > 1) { %}
             <div id="ajp-rephoto-selection" style="display:none;">
                 {% for (rephoto of o[0]) { %}
-                    <div class="ajp-photo-modal-rephoto-thumb" id="ajp-rephoto-thumb-{%=rephoto.id%}" data-id="{%=rephoto.id%}">
+                    <div class="ajp-photo-modal-rephoto-thumb ajp-cursor-pointer" id="ajp-rephoto-thumb-{%=rephoto.id%}" data-id="{%=rephoto.id%}">
                         <img class="img-fluid"
                                 src="{%=rephoto.url%}"
                                 data-id="{%=rephoto.id%}"/>
