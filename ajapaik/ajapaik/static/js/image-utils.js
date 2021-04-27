@@ -238,6 +238,7 @@ function disableAnnotations() {
 
     $('#person-annotations').addClass('ajp-button-disabled');
     $('#person-annotations > .ajp-pebble > a').addClass('ajp-button-disabled');
+    $('#person-annotations > .ajp-pebble > i').addClass('ajp-button-disabled');
     $('#add-new-subject-button').addClass('ajp-button-disabled');
     $('#mark-object-button > i').addClass('ajp-button-disabled');
 
@@ -251,6 +252,7 @@ function enableAnnotations() {
 
     $('#person-annotations').removeClass('ajp-button-disabled');
     $('#person-annotations > .ajp-pebble > a').removeClass('ajp-button-disabled');
+    $('#person-annotations > .ajp-pebble > i').removeClass('ajp-button-disabled');
     $('#add-new-subject-button').removeClass('ajp-button-disabled');
     $('#mark-object-button > i').removeClass('ajp-button-disabled');
 
