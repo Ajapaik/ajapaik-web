@@ -59,7 +59,7 @@ $('.ajp-navbar').autoHidingNavbar();
 (function ($) {
     'use strict';
 
-    if(docCookies.getItem("hasSeenDonationModal") !== "True"){	
+    if (docCookies.getItem("hasSeenDonationModal") !== "True"){	
         $('#ajp-donation-banner').show();	
     }
 
@@ -1448,7 +1448,7 @@ $('.ajp-navbar').autoHidingNavbar();
         } else if (window.isGame) {
             _gaq.push(['_trackEvent', 'Game', 'Photo modal specify location click']);
         }
-        if($(this).data('id')) {
+        if ($(this).data('id')) {
             window.startSuggestionLocation($(this).data('id'));
         } else {
             window.startSuggestionLocation();

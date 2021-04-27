@@ -81,7 +81,7 @@ function clickSceneCategoryButton(buttonId) {
         ? '#exterior-button'
         : '#interior-button';
 
-    if(!$(otherButtonId).hasClass('btn-light')) {
+    if (!$(otherButtonId).hasClass('btn-light')) {
         $(otherButtonId).addClass('btn-light');
     }
 

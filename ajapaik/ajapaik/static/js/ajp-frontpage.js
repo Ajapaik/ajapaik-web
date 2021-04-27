@@ -188,7 +188,7 @@
                     ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'] :
                     ['collections', 'people', 'backsides'];
                 photoFilters.forEach(function(filter) {
-                    if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
+                    if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                         filterCount++;
                     }
                 });
@@ -379,7 +379,7 @@
                     }
 
                     photoFilters.forEach(function(filter) {
-                        if(window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
+                        if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                             filterCount++;
                         }
                     });

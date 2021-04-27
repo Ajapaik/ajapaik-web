@@ -1105,7 +1105,7 @@
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
                     if (that.photoFlipped) {
-                        if(window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
+                        if (window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
                             window.previouslyEditedPhotoIds.push(that.options.currentPhotoId);
                         }
                     }
