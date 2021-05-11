@@ -7,6 +7,7 @@
 # Author: Elliot
 # Author: FF-11
 # Author: FF11
+# Author: Falwye
 # Author: H2kks
 # Author: ImaCow
 # Author: Killarnee
@@ -22,12 +23,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-04-08 12:52:07+0000\n"
+"PO-Revision-Date: 2021-05-07 08:45:47+0000\n"
 "X-POT-Import-Date: 2021-04-08 07:41:39+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
-"X-Generator: MediaWiki 1.37.0-alpha; Translate 2021-01-21\n"
+"X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:89
@@ -725,7 +726,7 @@ msgstr "Abschrift dieses Bildes anfertigen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:70
 msgid "Edit picture"
-msgstr ""
+msgstr "Bild bearbeiten"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
