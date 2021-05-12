@@ -238,11 +238,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   border: none;
 }
 
-.ajp-minimap-start-suggestion-button > span,
-.ajp-minimap-confirm-geotag-button > span {
-  font-size: 36px;
-}
-
 .ajp-minimap-start-suggestion-button {
   margin-right: 10px;
 }
@@ -378,10 +373,6 @@ path:hover {
   max-width: calc(30vw - 250px);
 }
 
-#ajp-header-about-button > span {
-  font-size: 36px;
-}
-
 #ajp-header-album-icon {
   float: left;
 }
@@ -453,10 +444,6 @@ path:hover {
   margin-top: 5px;
   margin-bottom: -5px;
   display: block;
-}
-
-#ajp-header-profile > span {
-  font-size: 36px;
 }
 
 #ajp-header-album-filter-button {
@@ -747,6 +734,10 @@ a.fullscreen {
 
 #ajp-game-modal-photo {
   width: auto;
+}
+
+.ajp-icon-36 {
+  font-size: 36px;
 }
 
 .ajp-icon-48 {
@@ -1214,23 +1205,9 @@ a.fullscreen {
   max-width: 99vw !important;
 }
 
-#ajp-game-show-description {
-  background-size: 36px;
-  display: inline-block;
-  cursor: pointer;
-}
-
-#ajp-game-show-description > span {
-  font-size: 36px;
-}
-
 #ajp-photo-modal-specify-location {
   margin-right: 2%;
   float: right !important;
-}
-
-.ajp-game-specify-location-button > span {
-  font-size: 36px;
 }
 
 #ajp-photo-modal-geotag-count {
@@ -1862,7 +1839,6 @@ footer a {
 .ajp-album-selection-game-button > span,
 .ajp-album-selection-album-more-button > span,
 .ajp-album-selection-map-button > span {
-  font-size: 36px;
   color: #888;
 }
 
@@ -1904,7 +1880,6 @@ footer a {
 .ajp-photo-modal-album-icon,
 .ajp-photo-modal-collection-icon {
   color: #888;
-  font-size: 36px;
 }
 
 #ajp-pager-stats,
@@ -1931,7 +1906,6 @@ footer a {
 
 .ajp-gray-button {
   color: #888;
-  font-size: 36px;
 }
 
 .ajp-gray-button:hover {

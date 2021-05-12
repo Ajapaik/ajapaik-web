@@ -804,6 +804,7 @@ $('.ajp-navbar').autoHidingNavbar();
         $('#ajp-choose-albums-modal').modal();
         window.loadSelectableAlbums();
         window.loadPossibleParentAlbums();
+        setTimeout(() => { $('#id-albums-autocomplete').focus(); }, 500);
     });
 
     $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
@@ -1776,7 +1777,7 @@ $('.ajp-navbar').autoHidingNavbar();
                         .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
                         .data('placement', 'top').data('toggle', 'popover')
                         .data('content', gettext('Confirm correct location'))
-                        .html('<span class="material-icons notranslate">beenhere</span>').popover();
+                        .html('<span class="material-icons notranslate ajp-icon-36">beenhere</span>').popover();
                     if (window.photoModalUserHasConfirmedThisLocation) {
                         $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
                     }
@@ -1787,7 +1788,7 @@ $('.ajp-navbar').autoHidingNavbar();
                         .data('trigger', 'hover')
                         .data('placement', 'top').data('toggle', 'popover')
                         .data('content', gettext('Submit your own location'))
-                        .html('<span class="material-icons notranslate">edit_location</span>').popover();
+                        .html('<span class="material-icons notranslate ajp-icon-36">edit_location</span>').popover();
                     window.miniMap.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(minimapStartSuggestionButton);
                     $('.ajp-minimap-geotagging-user-number').remove();
                     var minimapGeotaggingUserNumber = document.createElement('div');

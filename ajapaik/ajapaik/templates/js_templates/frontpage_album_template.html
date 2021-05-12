@@ -40,11 +40,11 @@
                     <div class="ajp-album-selection-album-more-button" role="button" title="{%=gettext('Album details')%}" data-id="{%=o.id%}"></div>
                     {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
                         <div class="ajp-album-selection-map-button" role="button" title="{%=gettext('Show pictures on map')%}" data-href="{%=mapviewURL%}?album={%=o.id%}">
-                            <span class="material-icons notranslate">map</span>
+                            <span class="material-icons notranslate ajp-icon-36">map</span>
                         </div>
                     {% } %}
                     <div class="ajp-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}">
-                        <span class="material-icons notranslate">add_location</span>
+                        <span class="material-icons notranslate ajp-icon-36">add_location</span>
                     </div>
                 </div>
             </div>

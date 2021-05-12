@@ -48,14 +48,14 @@
                     {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
                     href="#"
                     id="ajp-header-people">
-                    <span aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</span>
+                    <span aria-hidden class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</span>
                 </a>
                 <a id="ajp-header-collections"
                     class="{% if album or show_photos %}d-none{% endif %} ml-4 ajp-cursor-pointer"
                     role="button"
                     title="{% trans 'Pictures by collections' %}">
                     <span aria-hidden
-                        class="material-icons notranslate ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">
+                        class="material-icons notranslate ajp-icon-36 ajp-gray-button{% if request.GET.collections == '1' %} ajp-text-white{% endif %}">
                         account_balance
                     </span>
                 </a>
@@ -69,7 +69,7 @@
                     href="#"
                     id="ajp-header-backsides">
                         <span aria-hidden
-                            class="notranslate material-icons ajp-gray-button{% if request.GET.backsides == '1' %} ajp-text-white{% endif %}">
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.backsides == '1' %} ajp-text-white{% endif %}">
                             picture_in_picture
                         </span>
                 </a>
@@ -80,7 +80,7 @@
                     href="#"
                     id="ajp-header-ground_viewpoint_elevation">
                         <span aria-hidden
-                            class="notranslate material-icons ajp-gray-button{% if request.GET.ground_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.ground_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
                             nature_people
                         </span>
                 </a>
@@ -90,7 +90,7 @@
                     href="#"
                     id="ajp-header-raised_viewpoint_elevation">
                         <span aria-hidden
-                            class="notranslate material-icons ajp-gray-button{% if request.GET.raised_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.raised_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
                             location_city
                         </span>
                 </a>
@@ -100,7 +100,7 @@
                     href="#"
                     id="ajp-header-aerial_viewpoint_elevation">
                         <span aria-hidden
-                            class="notranslate material-icons ajp-gray-button{% if request.GET.aerial_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.aerial_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
                             flight
                         </span>
                 </a>
@@ -109,7 +109,7 @@
                         title="{% trans 'Show interior pictures' %}"
                         href="#"
                         id="ajp-header-interiors">
-                            <span aria-hidden class="notranslate material-icons ajp-gray-button{% if request.GET.interiors == '1' %} ajp-text-white{% endif %}">
+                            <span aria-hidden class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.interiors == '1' %} ajp-text-white{% endif %}">
                                 hotel
                             </span>
                     </a>
@@ -119,7 +119,7 @@
                         href="#"
                         id="ajp-header-exteriors">
                             <span aria-hidden
-                                class="notranslate material-icons ajp-gray-button{% if request.GET.exteriors == '1' %} ajp-text-white{% endif %}">
+                                class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.exteriors == '1' %} ajp-text-white{% endif %}">
                                 home
                             </span>
                     </a>
@@ -129,7 +129,7 @@
                         href="#"
                         id="ajp-header-no_geotags">
                             <span aria-hidden
-                                class="notranslate material-icons ajp-gray-button{% if request.GET.no_geotags == '1' %} ajp-text-white{% endif %}">
+                                class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.no_geotags == '1' %} ajp-text-white{% endif %}">
                                 not_listed_location
                             </span>
                     </a>

@@ -82,7 +82,7 @@ function createIconButton(title, iconText, spanText, action) {
         click: action
     });
     let icon = $('<i>', {
-        class: 'material-icons notranslate ajp-text-gray ajp-icon-48',
+        class: 'material-icons notranslate ajp-text-gray ajp-icon-36',
         text: iconText
     });
 

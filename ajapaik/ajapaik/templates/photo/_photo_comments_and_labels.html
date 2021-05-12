@@ -5,7 +5,7 @@
     <!-- end of dater block -->
     <!-- start of albums block -->
     <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
-        <span class="material-icons notranslate ajp-photo-modal-album-icon ajp-cursor-default float-left mt-2 pr-3"
+        <span class="material-icons notranslate ajp-photo-modal-album-icon ajp-cursor-default float-left mt-2 pr-3 ajp-icon-36"
             title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
             {% if a.is_film_still_album %}movie{% else %}collections_bookmark{% endif %}
         </span>
@@ -24,7 +24,7 @@
     {% include '_annotations.html' with numberOfColumns=2 %}
     {% if collection_albums.all|length > 0 %}
     <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
-        <span class="material-icons notranslate ajp-photo-modal-collection-icon ajp-cursor-default float-left mr-3 mt-2"
+        <span class="material-icons notranslate ajp-photo-modal-collection-icon ajp-cursor-default float-left mr-3 mt-2 ajp-icon-36"
             title="{% blocktrans count counter=collection_albums|length %}Picture belongs to collection{% plural %}Picture belongs to collections:{% endblocktrans %}">
             account_balance
         </span>
@@ -97,7 +97,7 @@
                         'photo_album',
                         gettext('Open album'),
                         function() {
-                            window.open('?album=' + annotation.subjectId, '_blank');
+                            window.open('?album=' + anchorLink.attr('data-id'), '_blank');
                         }
                     )
                     popoverContent.append(viewAlbumButton);

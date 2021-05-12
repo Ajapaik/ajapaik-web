@@ -388,7 +388,7 @@
                     .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
                     .data('placement', 'top').data('toggle', 'popover')
                     .data('content', gettext('Confirm correct location'))
-                    .html('<span class="material-icons notranslate">beenhere</span>').popover();
+                    .html('<span class="material-icons notranslate ajp-icon-36">beenhere</span>').popover();
                 if (window.photoModalUserHasConfirmedThisLocation) {
                     $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
                 }
@@ -399,7 +399,7 @@
                     .data('trigger', 'hover')
                     .data('placement', 'top').data('toggle', 'popover')
                     .data('content', gettext('Submit your own location'))
-                    .html('<span class="material-icons notranslate">edit_location</span>').popover();
+                    .html('<span class="material-icons notranslate ajp-icon-36">edit_location</span>').popover();
                 $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
         };
     });
