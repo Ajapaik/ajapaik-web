@@ -429,9 +429,9 @@
 
 		if (typeof selector === "undefined" || selector === "all") {
 			$('[data-notify]').find('[data-notify="dismiss"]').trigger('click');
-		}else if(selector === 'success' || selector === 'info' || selector === 'warning' || selector === 'danger'){
+		} else if (selector === 'success' || selector === 'info' || selector === 'warning' || selector === 'danger'){
 			$('.alert-' + selector + '[data-notify]').find('[data-notify="dismiss"]').trigger('click');
-		} else if(selector){
+		} else if (selector){
 			$(selector + '[data-notify]').find('[data-notify="dismiss"]').trigger('click');
 		}
 		else {
@@ -441,7 +441,7 @@
 
 	$.notifyCloseExcept = function (selector) {
 
-		if(selector === 'success' || selector === 'info' || selector === 'warning' || selector === 'danger'){
+		if (selector === 'success' || selector === 'info' || selector === 'warning' || selector === 'danger'){
 			$('[data-notify]').not('.alert-' + selector).find('[data-notify="dismiss"]').trigger('click');
 		} else {
 			$('[data-notify]').not(selector).find('[data-notify="dismiss"]').trigger('click');

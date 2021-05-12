@@ -21,11 +21,11 @@
             "               <p id='ajp-transcriber-username'></p>",
             "               <div class='d-flex' style='align-items: flex-end; justify-content: space-evenly; width:200px;'>",
             "                   <button id='ajp-transcriber-previous-button' class='btn btn-outline-primary'>",
-            "                       <i class='material-icons notranslate mt-1'>arrow_back</i>",
+            "                       <span class='material-icons notranslate mt-1'>arrow_back</span>",
             "                   </button>",
             "                   <p id='ajp-transcriber-count'></p>",
             "                   <button id='ajp-transcriber-next-button' class='btn btn-outline-primary'>",
-            "                       <i class='material-icons notranslate mt-1'>arrow_forward</i>",
+            "                       <span class='material-icons notranslate mt-1'>arrow_forward</span>",
             "                   </button>",
             "               </div>",
             "           </div>",
@@ -64,7 +64,7 @@
                         if (typeof window.stopTranscriber === 'function') {
                             window.stopTranscriber();
                         }
-                    }                    
+                    }
                     $.notify(response.message, {type: 'success'});
                 },
                 error: function (response) {
@@ -82,7 +82,7 @@
                     type: 'POST',
                     url: confirmTranscriptionURL,
                     data: payload,
-                    success: function (response) {                
+                    success: function (response) {
                         $.notify(response.message, {type: 'success'});
                     },
                     error: function (response) {
@@ -95,7 +95,7 @@
         this.$UI.html(this.UI);
         this.initializeTranscriber();
         this.setTranscriptionData = function (id) {
-            let transcriptions = window.currentPhotoTranscriptions; 
+            let transcriptions = window.currentPhotoTranscriptions;
             let transcription = transcriptions[id];
             that.$UI.find('#ajp-transcriber-text').val(transcription.text);
             that.$UI.find('#ajp-transcriber-count').html((id + 1) + ' / ' + transcriptions.length);
@@ -176,7 +176,7 @@
                 }
             });
             that.$UI.find('#ajp-transcriber-anonymous-user-disclaimer').html(gettext('You\'re anonymous, please login to add transcriptions'));
-            
+
             that.$UI.find('#ajp-transcriber-login').text(gettext('Login')).attr('title', gettext('Login')).click(function () {
                 window.openLoginModal('transcribe');
             });

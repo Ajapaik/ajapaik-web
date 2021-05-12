@@ -92,6 +92,18 @@
     gettext('This album contains a film');
     gettext('Title');
     gettext('URL');
+    gettext('Unidentified boy');
+    gettext('Unidentified girl');
+    gettext('Unidentified child');
+    gettext('Unidentified adult man');
+    gettext('Unidentified adult woman');
+    gettext('Unidentified adult');
+    gettext('Unidentified elderly man');
+    gettext('Unidentified elderly woman');
+    gettext('Unidentified elderly person');
+    gettext('Unidentified man');
+    gettext('Unidentified woman');
+    gettext('Unidentified person')
     gettext('Unknown author');
     gettext('You have opened the map with the album filter off, to turn it on, please tick the box next to album name');
     gettext('You have opened the map with the album filter on, to turn it off, please untick the box next to album name');

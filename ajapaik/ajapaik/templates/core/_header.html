@@ -28,35 +28,35 @@
                 </a>
                 {% if album %}
                     <a role="button" class="ajp-header-button" title="{% trans 'Geotag pictures' %}" {% if album %}href="/geotag/?album={{ album.0 }}{% if photo %}&photo={{ photo.id }}{% endif %}"{% endif %}>
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button{% if is_game %} ajp-text-white{% endif %}">add_location</i>
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button{% if is_game %} ajp-text-white{% endif %}">add_location</span>
                     </a>
                 {% endif %}
                 {% if photo and not is_frontpage %}
                     <a href="/map{% if photo.lat and photo.lon %}/?mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=22{% elif album.lat and album.lon %}/?mapType=roadmap&lat={{ album.lat }}&lng={{ album.lon }}&zoom=22{% endif %}">
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button{% if is_map %} ajp-text-white{% endif %}">map</i>
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button{% if is_map %} ajp-text-white{% endif %}">map</span>
                     </a>
                 {% else %}
                     <a role="button" id="ajp-header-map" class="ajp-header-button" title="{% trans 'Show on map' %}" {% if album %}href="/map/?album={{ album.0 }}{% if photo.lat and photo.lon %}&mapType=roadmap&lat={{ photo.lat }}&lng={{ photo.lon }}&zoom=12{% endif %}"{% else %}href="/map"{% endif %}>
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button{% if is_map %} ajp-text-white{% endif %}">map</i>
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button{% if is_map %} ajp-text-white{% endif %}">map</span>
                     </a>
                 {% endif %}
                 {% if is_frontpage %}
-                    <a id="ajp-header-face" role="button" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button">face</i>
+                    <a role="button" class="ajp-cursor-pointer" title="{% trans 'Categorize faces' %}" onclick="handleFaceCategorizationClick()">
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button">face</span>
                     </a>
                 {% endif %}
                 {% if is_newsletter %}
                     <a id="ajp-header-newsletter" role="button" title="{% trans 'Newsletters' %}" href="/uudiskiri/">
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button ajp-text-white">email</i>
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button ajp-text-white">email</span>
                     </a>
                 {% endif %}
                 <a role="button" class="ajp-header-button" title="{% trans 'Add pictures' %}"
                     href="{% url "photo_upload_choice" %}">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if is_curator or is_upload_choice %} ajp-text-white{% endif %}">add_circle</i>
+                    <span aria-hidden class="material-icons notranslate ajp-gray-button{% if is_curator or is_upload_choice %} ajp-text-white{% endif %}">add_circle</span>
                 </a>
                 <a class="ajp-header-button{% if not request.session.photo_selection %} d-none{% endif %}" id="ajp-header-selection-indicator" role="button" title="{% trans 'Current selection' %}" href="/view-selection">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if is_selection %} ajp-text-white{% endif %}">content_copy</i>
-                    <span class="badge">{{ request.session.photo_selection|length }}</span>
+                    <span aria-hidden class="material-icons notranslate ajp-gray-button{% if is_selection %} ajp-text-white{% endif %}">content_copy</span>
+                    <div class="badge">{{ request.session.photo_selection|length }}</div>
                 </a>
             </div>
         </div>
@@ -76,8 +76,8 @@
                         {% endfor %}
                     </div>
                 </div>
-                <a class="ajp-header-right-button" role="button" title="{% trans 'About Ajapaik' %}" id="ajp-header-about-button">
-                        <i aria-hidden class="material-icons notranslate ajp-gray-button">info</i>
+                <a href='#' class="ajp-header-right-button" role="button" title="{% trans 'About Ajapaik' %}" id="ajp-header-about-button">
+                        <span aria-hidden class="material-icons notranslate ajp-gray-button">info</span>
                 </a>
                 <a class="ajp-header-right-button" href="{{ ajapaik_facebook_link }}" target="_blank" title="{% trans 'Ajapaik on Facebook' %}" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@
                 </a>
                 <a role="button" href="#" title="{% trans 'Profile and leaderboard' %}"
                 id="ajp-header-profile" class="ajp-no-background">
-                    <i aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.is_legit %} ajp-text-white{% endif %}">account_circle</i>
+                    <span aria-hidden class="material-icons notranslate ajp-gray-button{% if request.user.profile.is_legit %} ajp-text-white{% endif %}">account_circle</span>
                 </a>
 
                 <div class="score-container">

@@ -23,10 +23,24 @@ function getModifySubmitFunction(annotationId, popoverId) {
         var form = $(event.target);
 
         var newSubjectId = form
-            .find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID)
-            .val();
-        var gender = form.find('#' + constants.elements.SUBJECT_GENDER_SELECT_ID).val();
-        var ageGroup = form.find('#' + constants.elements.SUBJECT_AGE_GROUP_SELECT_ID).val();
+            .find('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).val();
+
+        let gender = constants.fieldValues.common.UNSURE;
+        let ageGroup = constants.fieldValues.common.UNSURE;
+
+        let genderSuggestionId = '#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID;
+        let ageGroupSuggestionId = '#' + constants.elements.SUBJECT_AGEGROUP_SUGGESTION_COMPONENT_ID;
+
+        let pressedGenderButton = form.find(genderSuggestionId + ' button.btn-outline-primary');
+        let pressedAgeGroupButton = form.find(ageGroupSuggestionId + ' button.btn-outline-primary');
+
+        if (pressedGenderButton.length == 1) {
+            gender = pressedGenderButton[0].dataset.value;
+        }
+
+        if (pressedAgeGroupButton.length == 1) {
+            ageGroup = pressedAgeGroupButton[0].dataset.value;
+        }
 
         var payload = {
             annotationId: annotationId,
@@ -39,11 +53,11 @@ function getModifySubmitFunction(annotationId, popoverId) {
     };
 }
 
-function getDefaultValue(detectionRectangle) {
-    if (detectionRectangle.subjectId) {
+function getDefaultValue(annotation) {
+    if (annotation.subjectId) {
         return {
-            label: detectionRectangle.subjectName,
-            id: detectionRectangle.subjectId
+            label: annotation.subjectName,
+            id: annotation.subjectId
         };
     }
 }
@@ -53,9 +67,7 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
     var faceLabel = constants.translations.popover.labels.CHANGE_PERSON_NAME;
     var changeExistingFaceLabel = faceLabel + ':';
 
-    var autocomplete = getPersonAutoComplete(true, 'width: 180px;', defaultValue, changeExistingFaceLabel);
-    var ageGroupSelect = getAgeGroupSelect(constants.translations.selectAge.label.CHANGE_AGE);
-    var genderGroupSelect = getGenderGroupSelect(constants.translations.selectGender.label.CHANGE_GENDER);
+    var autocomplete = getPersonAutoComplete(true, 'width: 320px;;', defaultValue, changeExistingFaceLabel);
     var buttons = [
         getSubmitButton('margin-top: 10px;')
     ];
@@ -70,7 +82,68 @@ function createDetectedFaceModifyPopoverContent(annotation, popoverId) {
         id: 'modify-detected-object-annotation'
     }).on('submit', getModifySubmitFunction(annotation.id, popoverId));
 
-    form.append(autocomplete).append(ageGroupSelect).append(genderGroupSelect);
+
+    let ageGroupSuggestionId =  constants.elements.SUBJECT_AGEGROUP_SUGGESTION_COMPONENT_ID;
+    let ageGroupSuggestionComponent = $('<div>', {
+        id: ageGroupSuggestionId,
+        class: 'd-block text-center'
+    });
+
+    let ageGroupSuggestionComponentLabel = $('<div>', {
+        text: gettext('Change age group'),
+        class: 'my-2'
+    });
+
+    Object.keys(constants.fieldValues.ageGroups).forEach(
+        (x=>ageGroupSuggestionComponent.append(
+        $('<button>',
+            {
+                class: 'mx-1 btn btn-light suggestion-button human-' + x.toLowerCase(),
+                type: 'button',
+                text: gettext(x[0].toUpperCase() + x.slice(1).toLowerCase()),
+                click: function(event) {
+                    $('#' + ageGroupSuggestionId + ' > button').removeClass('btn-outline-primary').removeClass('btn-outline-dark');
+                    $(event.target).addClass('btn-outline-primary');
+                }
+            }
+            ).attr('data-value', x)
+        ))
+    );
+
+    let genderSuggestionId = constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID;
+    let genderSuggestionComponent = $('<div>', {
+        id: genderSuggestionId,
+        class: 'd-block text-center'
+    });
+
+    let genderSuggestionComponentLabel = $('<div>', {
+        text: gettext('Change gender'),
+        class: 'my-2'
+    });
+
+    Object.keys(constants.fieldValues.genders).forEach(
+        (x=>genderSuggestionComponent.append(
+            $('<button>',
+             {
+                class: 'mx-1 btn btn-light suggestion-button human-' + x.toLowerCase(),
+                type: 'button',
+                text: gettext(x[0].toUpperCase() + x.slice(1).toLowerCase()),
+                click: function(event) {
+                    if (!$(event.target).hasClass('ajp-button-disabled')) {
+                        $('#' + genderSuggestionId + ' > button').removeClass('btn-outline-primary').removeClass('btn-outline-dark');
+                        $(event.target).addClass('btn-outline-primary');
+                    }
+                }
+             }
+            ).attr('data-value', x)
+        ))
+    );
+    
+    form.append(autocomplete)
+        .append(ageGroupSuggestionComponentLabel)
+        .append(ageGroupSuggestionComponent)
+        .append(genderSuggestionComponentLabel)
+        .append(genderSuggestionComponent);
 
     return form.append(buttonGroup);
 }
@@ -79,19 +152,28 @@ function createFaceAnnotationEditRectangle(popoverId, annotation, configuration)
     var hasInitializedSelects = false;
 
     var onAnnotationRectangleShow = function () {
-        if (!hasInitializedSelects) {
-            setTimeout(function () {
-                var genderSelect = initializeGenderGroupSelect(annotation.gender);
-                if (annotation && annotation.subjectId) {
-                    genderSelect.disable();
-                }
-                initializeAgeGroupSelect(annotation.age);
-
-                initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID, genderSelect);
-
-                hasInitializedSelects = true;
-            }, 100);
+        if (hasInitializedSelects) {
+            return;
         }
+        setTimeout(function () {
+            if (annotation && annotation.gender) {
+                let selectedGender = annotation.gender;
+
+                if (annotation.subjectId && annotation.gender !== constants.fieldValues.common.UNSURE) {
+                    $('#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID + ' *').addClass('ajp-button-disabled');
+                }
+                $('#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID + ' [data-value=' + selectedGender + ']').addClass('btn-outline-primary');
+            }
+
+            if (annotation && annotation.age) {
+                let selectedAgeGroup = annotation.age;
+
+                $('#' + constants.elements.SUBJECT_AGEGROUP_SUGGESTION_COMPONENT_ID + ' [data-value=' + selectedAgeGroup + ']').addClass('btn-outline-primary');
+            }
+            initializePersonAutocomplete(constants.elements.SUBJECT_AUTOCOMPLETE_ID);
+
+            hasInitializedSelects = true;
+        }, 100);
     };
 
     var popoverTitle = constants.translations.popover.titles.EDIT_FACE_ANNOTATION;

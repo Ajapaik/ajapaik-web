@@ -30,26 +30,26 @@
             "       <div class='card pb-3' id='ajp-dater-previous-datings-card'>",
             "       </div>",
             "       <div class='card' id='ajp-dater-tutorial-card'>",
-            "           <span></span>",
-            "           <button id='ajp-dater-close-tutorial-button'><i class='material-icons notranslate'>close</i></button>",
+            "           <span id='tutorial-block'></span>",
+            "           <button id='ajp-dater-close-tutorial-button'><span class='material-icons notranslate'>close</span></button>",
             "       </div>",
             "       <div class='card d-none' id='ajp-dater-anonymous-user-card'>",
-            "           <i class='material-icons notranslate'>account_circle</i><span></span>",
+            "           <span class='material-icons notranslate'>account_circle</span><div></div>",
             "       </div>",
-            "       <button id='ajp-dater-open-tutorial-button'><i class='material-icons notranslate'>info</i></button>",
+            "       <button id='ajp-dater-open-tutorial-button'><span class='material-icons notranslate'>info</span></button>",
             "       <div class='card' id='ajp-dater-feedback-card'></div>",
             "       <form class='form' id='ajp-dater-form'>",
             "           <div class='form-inline'>",
             "               <div class='form-group'>",
             "                   <input id='ajp-dater-input' type='text' class='form-control' placeholder=''>",
-            "                   <div class='btn' id='ajp-dater-toggle-comment-button'><i class='material-icons notranslate'>comment</i></div>",
+            "                   <div class='btn' id='ajp-dater-toggle-comment-button'><span class='material-icons notranslate'>comment</span></div>",
             "               </div>",
             "           </div>",
             "           <div id='ajp-dater-feedback'></div>",
             "           <input class='form-control d-none' placeholder='' type='text' id='ajp-dater-comment'>",
             "           <div class='btn-group w-100' role='group'>",
-            "               <button type='button' id='ajp-dater-cancel-button' class='btn btn-danger w-50'><i class='material-icons notranslate'>close</i></button>",
-            "               <button type='submit' id='ajp-dater-submit-button' class='btn btn-success w-50'><i class='material-icons notranslate'>check</i></button>",
+            "               <button type='button' id='ajp-dater-cancel-button' class='btn btn-danger w-50'><span class='material-icons notranslate'>close</span></button>",
+            "               <button type='submit' id='ajp-dater-submit-button' class='btn btn-success w-50'><span class='material-icons notranslate'>check</span></button>",
             "           </div>",
             "       </form>",
             "   </div>",
@@ -383,7 +383,7 @@
                     addClass = '';
                 }
                 if (v.comment) {
-                    commentStr = '<i>\"' + v.comment + '\"</i>';
+                    commentStr = '<em>\"' + v.comment + '\"</em>';
                 }
                 if (v.fb_name) {
                     userStr = v.fb_name;
@@ -396,7 +396,7 @@
                 }
                 reparsedInput = that.getValidDates(that.calculateDateFormats(that.extractApproximates(that.extractUserInput(v.raw))));
                 let userLink = v.profile_id ? '<a href="/user/' + v.profile_id + '">' + userStr + '</a>:' : '<b>' + gettext('MUIS') + '</b>';
-                previousDatings.append(userLink + ' ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge" style="left:0px;">' + v.confirmation_count + '</span><i onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</i></div>');
+                previousDatings.append(userLink + ' ' + that.generateDateString(reparsedInput) + ' ' + commentStr + '<span class="badge" style="left:0px;">' + v.confirmation_count + '</span><span onclick="window.confirmDating(' + v.id + ')" class="material-icons notranslate ajp-dater-confirm-button' + addClass + '" data-id="' + v.id + '" title="' + gettext("Confirm dating") + '">thumb_up</span></div><br>');
             });
         };
         this.giveDatingSubmittedFeedback = function (confirmation) {
@@ -460,7 +460,7 @@
                     window.reportDaterOpenComment();
                 }
             });
-            that.$UI.find('#ajp-dater-tutorial-card span').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':</br><span class="font-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':</br><span class="font-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':</br><span class="font-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
+            that.$UI.find('#ajp-dater-tutorial-card #tutorial-block').html('<ul><li>' + gettext('Use YYYY.MM.DD format (MM.DD not obligatory)') + ':</br><span class="font-italic">' + gettext('1878 | 1902.02') + '</span></li><li>' + gettext('Mark date ranges or before/after with either "-" or ".."') + ':</br><span class="font-italic">' + gettext('1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935..') + '</span></li><li>' + gettext('Approximate date in brackets') + ':</br><span class="font-italic">' + gettext('(1944) | (1940.05)..1941.08.21)') + '</span></li></ul>');
             if (docCookies.getItem('ajapaik_closed_dater_instructions') === 'true') {
                 that.$UI.find('#ajp-dater-tutorial-card').hide();
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
@@ -470,8 +470,8 @@
                 that.$UI.find('#ajp-dater-open-tutorial-button').show();
                 docCookies.setItem('ajapaik_closed_dater_instructions', true, 'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
             });
-            that.$UI.find('#ajp-dater-anonymous-user-card').find('span').html(gettext('You\'re anonymous'));
-            that.$UI.find('#ajp-dater-anonymous-user-card').find('i').click(function () {
+            that.$UI.find('#ajp-dater-anonymous-user-card').find('div').html(gettext('You\'re anonymous'));
+            that.$UI.find('#ajp-dater-anonymous-user-card').find('span').click(function () {
                 window.openLoginModal('add-dating');
             });
             that.$UI.find('#ajp-dater-open-tutorial-button').click(function () {

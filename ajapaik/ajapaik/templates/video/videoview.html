@@ -43,7 +43,7 @@
                         </div>
                     {% endif %}
                     {% if video.albums.all|length > 0 %}
-                        <i class="material-icons notranslate">movie</i>
+                        <span class="material-icons notranslate">movie</span>
                     {% endif %}
                     {% for a in video.albums.all %}
                         <div class="row" id="ajp-videoview-album-list">
@@ -55,8 +55,8 @@
                     {% endfor %}
                 </div>
                 <div class="col-3">
-                    <button id="ajp-video-modal-still-button" class="btn disabled float-right"><i
-                            class="material-icons notranslate">camera</i></button>
+                    <button id="ajp-video-modal-still-button" class="btn disabled float-right"><span
+                            class="material-icons notranslate">camera</span></button>
                 </div>
             </div>
         </div>

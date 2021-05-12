@@ -170,11 +170,8 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
                 date = date.replace('.aastad', '')
                 if len(date) < 3:
                     if len(dash_split_date[0]) > 3:
-                        print(date)
-                        print(dash_split_date[0][2:4])
                         if int(dash_split_date[0][2:4]) < int(date):
                             date = dash_split_date[0][0:2] + date
-                            print(date)
                         else:
                             date = str(int(dash_split_date[0][0:2]) + 1) + date
                 date = str(int(date) + 10)
@@ -340,7 +337,10 @@ def add_person_albums(actors, person_album_ids, ns):
         if term is None:
             continue
         if term.text == 'kujutatu' or term.text == 'autor':
-            muis_actor_id = int(actor.find("lido:actor/lido:actorID", ns).text)
+            muis_actor_wrapper = actor.find("lido:actor/lido:actorID", ns)
+            muis_actor_id = None
+            if muis_actor_wrapper is not None:
+                muis_actor_id = int(actor.find("lido:actor/lido:actorID", ns).text)
             names = actor.findall("lido:actor/lido:nameActorSet/lido:appellationValue", ns)
             all_names = ''
             main_name = ''
@@ -360,12 +360,13 @@ def add_person_albums(actors, person_album_ids, ns):
                     person_album = Album(
                         name=main_name,
                         description=all_names,
-                        muis_person_ids=[muis_actor_id],
                         atype=Album.PERSON
                     )
+                    if muis_actor_id:
+                        person_album.muis_person_ids = [muis_actor_id]
                     person_album.save()
                     person_album_ids.append(person_album.id)
-                else:
+                elif muis_actor_id:
                     person_album_ids.append(existing_album.id)
     return person_album_ids, author
 

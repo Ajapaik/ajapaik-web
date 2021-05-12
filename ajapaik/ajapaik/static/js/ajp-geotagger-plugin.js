@@ -290,21 +290,21 @@
             "           <a id='ajp-geotagger-full-screen-link'>",
             "               <img id='ajp-geotagger-image-thumb' class='ajp-image-responsive'>",
             "               <button type='button' id='ajp-geotagger-flip-button' class='btn btn-secondary ajp-no-border-radius'>",
-            "                   <i class='material-icons notranslate'>flip</i>",
-            "               </button>", 
+            "                   <span class='material-icons notranslate'>flip</span>",
+            "               </button>",
             "           </a>",
             "        </div>",
             "        <div id='ajp-geotagger-button-controls'>",
             "            <button type='button' id='ajp-geotagger-description-button' class='btn btn-secondary ajp-no-border-radius'>",
-            "               <i class='material-icons notranslate'>subject</i>",
+            "               <span class='material-icons notranslate'>subject</span>",
             "            </button>",
             "            <p id='ajp-geotagger-description' class='d-none'></p>",
             "            <p id='ajp-geotagger-source' class='d-none'><a href='' target='_blank' title=''></a></p>",
             "            <div class='col-6 col-md-12' id='ajp-geotagger-stats-container'>",
-            "               <i class='material-icons notranslate'>people</i><span id='ajp-geotagger-current-stats'></span>",
+            "               <span class='material-icons notranslate'>people</span><span id='ajp-geotagger-current-stats'></span>",
             "            </div>",
             "            <div class='col-6 col-sm-6 col-md-12 d-none d-block-xs d-block-sm' id='ajp-geotagger-login-container'>",
-            "               <i class='material-icons notranslate'>account_circle</i><span id='ajp-geotagger-current-login'></span>",
+            "               <span class='material-icons notranslate'>account_circle</span><span id='ajp-geotagger-current-login'></span>",
             "               <div class='row' id='ajp-geotagger-email-login-notice'></div>",
             "            </div>",
             "        </div>",
@@ -334,10 +334,10 @@
             "            <div class='btn-group d-flex w-100' role='group' id='ajp-geotagger-game-buttons' aria-label='ajp-geotagger-game-buttons'>",
             "                <div class='btn-group w-100' role='group'>",
             "                    <button type='button' id='ajp-geotagger-skip-button' class='btn btn-secondary ajp-no-border-radius w-50'>",
-            "                        <i class='material-icons notranslate'>close</i>",
+            "                        <span class='material-icons notranslate'>close</span>",
             "                    </button>",
             "                    <button type='button' id='ajp-geotagger-save-button' class='btn btn-success ajp-no-border-radius w-50'>",
-            "                        <i class='material-icons notranslate'>done</i>",
+            "                        <span class='material-icons notranslate'>done</span>",
             "                    </button>",
             "                </div>",
             "            </div>",
@@ -414,18 +414,18 @@
                 "<div id='ajp-geotagger-map-instruction-text'>",
                 "   <p></p>",
                 "   <button id='ajp-geotagger-close-instructions-button' class='btn btn-secondary'>",
-                "       <i class='material-icons notranslate'>close</i>",
+                "       <span class='material-icons notranslate'>close</span>",
                 "   </button>",
                 "</div>"
             ].join('\n'));
             this.mapOpenInstructionsButton = $([
                 "<button id='ajp-geotagger-open-instructions-button'>",
-                "   <i class='material-icons notranslate'>info</i>",
+                "   <span class='material-icons notranslate'>info</span>",
                 "</button>"
             ].join('\n'));
             this.mapShowSearchButton = $([
                 "<button id='ajp-geotagger-show-search-button'>",
-                "   <i class='material-icons notranslate'>search</i>",
+                "   <span class='material-icons notranslate'>search</span>",
                 "</button>"
             ].join('\n'));
             this.streetPanorama = new google.maps.StreetViewPanorama(
@@ -1105,7 +1105,7 @@
                         window.reportGeotaggerNewlyMappedPhoto();
                     }
                     if (that.photoFlipped) {
-                        if(window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
+                        if (window.previouslyEditedPhotoIds.indexOf(that.options.currentPhotoId) === -1) {
                             window.previouslyEditedPhotoIds.push(that.options.currentPhotoId);
                         }
                     }

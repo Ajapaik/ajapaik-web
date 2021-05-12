@@ -22,8 +22,6 @@ class AlbumPhotoInline(admin.TabularInline):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(AlbumPhotoInline, self).formfield_for_dbfield(db_field, **kwargs)
-        if db_field.name == 'album':
-            formfield.choices = formfield.choices
         return formfield
 
 

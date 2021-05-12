@@ -71,9 +71,31 @@ class AlbumData(AjapaikAPIView):
 
     @staticmethod
     def get(request, album_id):
-        if Album.objects.filter(id=album_id) is None:
-            return JsonResponse({'Album does not exist'})
-        album_photo_ids = AlbumPhoto.objects.filter(album_id=album_id).values_list('photo_id', flat=True)
+        album = get_object_or_404(Album, id=album_id)
+        album_photo_ids = AlbumPhoto.objects.filter(album_id=album.id).values_list('photo_id', flat=True)
 
         return JsonResponse({'hasAnnotations': FaceRecognitionRectangle.objects
                             .filter(deleted=None, photo_id__in=album_photo_ids).count() > 0})
+
+
+class Annotation(AjapaikAPIView):
+    '''
+    API Endpoint to get annotation data
+    '''
+
+    @staticmethod
+    def get(request, annotation_id):
+        annotation = get_object_or_404(FaceRecognitionRectangle, id=annotation_id)
+        user_id = annotation.user.id if annotation.user else None
+        user_name = Profile.objects.get(pk=user_id).get_display_name if user_id else None
+        photo_count = Album.objects.get(id=annotation.subject_consensus.id).photo_count_with_subalbums \
+            if annotation.subject_consensus \
+            else None
+        return JsonResponse(
+                {
+                    'id': annotation.id,
+                    'user_id': user_id,
+                    'user_name': user_name,
+                    'photo_count': photo_count
+                }
+            )

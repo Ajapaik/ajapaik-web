@@ -39,14 +39,14 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
             'Content-Type': 'application/json'
         },
         body
-    
+
     })
     .then(window.handleErrors)
     .then(function(data) {
         $.notify(data.message, {type: 'success'});
         if (window.previouslyEditedPhotoIds && window.previouslyEditedPhotoIds.length > 0) {
             photoIds.forEach(id => {
-                if(window.previouslyEditedPhotoIds.indexOf(id) === -1) {
+                if (window.previouslyEditedPhotoIds.indexOf(id) === -1) {
                     window.previouslyEditedPhotoIds.push(id);
                 }
             });
@@ -80,7 +80,7 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
         if (typeof currentPhoto !== 'undefined' && currentPhoto.flip) {
             currentPhoto.flip = !currentPhoto.flip;
         }
-        if(window.lastRotateWas90) {
+        if (window.lastRotateWas90) {
             let temporary = window.currentPhotoOriginalHeight;
             window.currentPhotoOriginalHeight = window.currentPhotoOriginalWidth;
             window.currentPhotoOriginalWidth = temporary;
@@ -161,7 +161,7 @@ function clickPhotoEditButton(buttonId, noop) {
                     $('#' + buttonId).addClass('btn-light');
                     $('#' + buttonId).removeClass('btn-outline-primary');
                 }
-                
+
                 if (newPhotoRotationDegrees == 90) {
                     $('#' + buttonId).removeClass('btn-light');
                     $('#' + buttonId).addClass('btn-outline-primary');
@@ -290,12 +290,12 @@ function invertPhoto () {
     }
     if (photoContainer && photoContainer.hasClass('ajp-photo-inverted')) {
         photoContainer.removeClass('ajp-photo-inverted');
-    } else if(photoContainer) {
+    } else if (photoContainer) {
         photoContainer.addClass('ajp-photo-inverted');
     }
     if (fullScreenImage && fullScreenImage.hasClass('ajp-photo-inverted')) {
         fullScreenImage.removeClass('ajp-photo-inverted');
-    } else if(fullScreenImage) {
+    } else if (fullScreenImage) {
         fullScreenImage.addClass('ajp-photo-inverted');
     }
     window.photoModalCurrentPhotoInverted = !window.photoModalCurrentPhotoInverted;
@@ -314,12 +314,12 @@ function flipPhoto () {
     }
     if (photoContainer && photoContainer.hasClass('ajp-photo-flipped')) {
         photoContainer.removeClass('ajp-photo-flipped');
-    } else if(photoContainer) {
+    } else if (photoContainer) {
         photoContainer.addClass('ajp-photo-flipped');
     }
     if (fullScreenImage && fullScreenImage.parent().hasClass('ajp-photo-flipped')) {
         fullScreenImage.parent().removeClass('ajp-photo-flipped');
-    } else if(fullScreenImage) {
+    } else if (fullScreenImage) {
         fullScreenImage.parent().addClass('ajp-photo-flipped');
     }
     mirrorDetectionAnnotations();

@@ -11,7 +11,6 @@
     {% include "core/_header.html" %}
 {% endblock %}
 {% block layout %}
-{% include "_add_subject_data_tutorial_modal.html" %}
 
 <div class="full-box original-full-box">
     <div class="full-pic" id="ajp-fullscreen-image-container">
@@ -47,51 +46,51 @@
     </div>
     <div id="first-block" class="d-block pb-3 text-center">
         <div>
-            <button class="suggestion-button human-male" data="MALE">
+            <button class="btn suggestion-button human-male" data-value="MALE">
                 {% trans "Male" %}
             </button>
-            <button class="suggestion-button human-female" data="FEMALE">
+            <button class="btn suggestion-button human-female" data-value="FEMALE">
                 {% trans "Female" %}
             </button>
         </div>
         <div>
-            <button class="suggestion-button skip-next" data="">
+            <button class="btn suggestion-button skip-next" data-value="">
                 {% trans "Not sure" %}
             </button>
-            <button class="suggestion-button circled-cross" data="NOT_A_FACE">
+            <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
                 {% trans "Not a Face" %}
             </button>
-            <button class="suggestion-button info" data="INFO">
+            <button class="btn suggestion-button info" data-value="INFO">
                 {% trans "Info" %}
             </button>
         </div>
     </div>
     <div id="second-block" class="d-none pb-3 text-center">
         <div>
-            <button class="suggestion-button human-child" data="CHILD">
+            <button class="btn suggestion-button human-child" data-value="CHILD">
                 {% trans "Child" %}
             </button>
-            <button class="suggestion-button human-adult" data="ADULT">
+            <button class="btn suggestion-button human-adult" data-value="ADULT">
                 {% trans "Adult" %}
             </button>
-            <button class="suggestion-button human-elderly" data="ELDERLY">
+            <button class="btn suggestion-button human-elderly" data-value="ELDERLY">
                 {% trans "Elderly" %}
             </button>
         </div>
         <div>
-            <button class="suggestion-button skip-next" data="">
+            <button class="btn suggestion-button skip-next" data-value="">
                 {% trans "Not sure" %}
             </button>
-            <button class="suggestion-button circled-cross" data="NOT_A_FACE">
+            <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
                 {% trans "Not a Face" %}
             </button>
-            <button class="suggestion-button info" data="INFO">
+            <button class="btn suggestion-button info" data-value="INFO">
                 {% trans "Info" %}
             </button>
         </div>
     </div>
     <div id="third-block" class="row d-none pb-3">
-        <button class="suggestion-button skip-next">
+        <button class="btn suggestion-button skip-next">
             {% trans "Skip" %}
         </button>
     </div>
@@ -121,7 +120,7 @@
         var idleTime = 0;
         $(document).ready(function () {
             //Increment the idle time counter every second.
-            var idleInterval = setInterval(timerIncrement, 1000); 
+            var idleInterval = setInterval(timerIncrement, 1000);
 
             //Zero the idle timer on mouse movement.
             $(this).mousemove(function (e) {
@@ -141,13 +140,11 @@
 
         function timerIncrement() {
             idleTime = idleTime + 1;
-            if (idleTime > 179) { 
+            if (idleTime > 179) {
                 showModal();
             }
         }
 
-        window.isAddSubjectDataView = true;
-        window.addSubjectDataViewPage = 0;
         var isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
         var currentRectangleId = '{{ rectangle.id }}';
         var hasConsensus = '{{ has_consensus }}' === 'True';
@@ -156,7 +153,6 @@
             gender: undefined,
             age: undefined
         };
-        var subjectDataContainer = $('.subject-data-container');
         if (hasConsensus) {
             $('#first-block').removeClass('d-block').addClass('d-none');
             $('#second-block').removeClass('d-none').addClass('d-block');
@@ -219,26 +215,20 @@
         }
 
         ReportBadRectangle = function (id) {
-			$.ajax({
-				type: 'DELETE',
-				url: '/face-recognition/remove-annotation/' + id  + '/',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRFToken', window.docCookies.getItem('csrftoken'));
-                },
-				success: function (response) {
-					if (response.deleted) {
-						$.notify(gettext('Thank you! Bad rectangle deleted.'), {type: 'success'});
-					} else {
-						$.notify(gettext('Thank you!'), {type: 'success'});
-					}
+            deleteRequest(
+                '/face-recognition/remove-annotation/' + id  + '/',
+                undefined,
+                undefined,
+                function(response) {
+                    $.notify(gettext('Thank you!'), {type: 'success'});
                     window.location.href = '{{next_action}}';
-				},
-				error: function () {
+                },
+                function() {
                     $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
                     $('#third-block').removeClass('d-none').addClass('d-flex');
                 }
-			});
-		};
+            )
+        };
 
         var coordinates = {{ coordinates }};
         $('#ajp-loading-overlay').show();
@@ -254,36 +244,30 @@
             drawRectangle();
         });
 
-        AddSubjectData = function (annotation, profile) {
+        AddSubjectData = function (id) {
             $('#ajp-loading-overlay').show();
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'face_recognition_api_subject_data' %}",
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader('X-CSRFTOKEN', window.docCookies.getItem('csrftoken'));
-                },
-                data: {
+            postRequest(
+                "{% url 'face_recognition_api_subject_data' %}",
+                {
                     annotationId: annotation.annotationId,
                     newSubjectId: {% if subject_id %}{{ subject_id }}{% else %}null{% endif %},
                     gender: annotation.gender,
-                    ageGroup: annotation.age,
-                    profile: profile
+                    ageGroup: annotation.age
                 },
-                success: function () {
+                undefined,
+                undefined,
+                function(response) {
                     window.location.href = '{{next_action}}';
                 },
-                error: function () {
+                function() {
                     $('#third-block').removeClass('d-none').addClass('d-flex');
                     $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
-                },
-                complete: function () {
                     $('#ajp-loading-overlay').hide();
                 }
-            });
-        }
-
+            )
+        };
         $('#first-block > div > button').on('click', function(e) {
-            annotation.gender = e.target.attributes.data && e.target.attributes.data.nodeValue;
+            annotation.gender = e.target.dataset && e.target.dataset.value;
             if (annotation.gender === 'INFO') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
@@ -305,7 +289,7 @@
                 $('#first-block').removeClass('d-block').addClass('d-none');
                 if (annotation.gender !== 'NOT_A_FACE') {
                     $('#second-block').removeClass('d-none').addClass('d-block');
-                    addSubjectDataViewPage = 1;
+                    AddSubjectDataViewPage = 1;
                 }
                 else {
                     ReportBadRectangle(currentRectangleId)
@@ -313,7 +297,7 @@
             }
         });
         $('#second-block > div > button').on('click', function(e) {
-            annotation.age = e.target.attributes.data && e.target.attributes.data.nodeValue;
+            annotation.age = e.target.dataset && e.target.dataset.value;
             if (annotation.age === 'INFO') {
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {

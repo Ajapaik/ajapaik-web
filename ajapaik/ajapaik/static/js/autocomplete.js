@@ -370,7 +370,7 @@ yourlabs.Autocomplete.prototype.initialize = function () {
     this.box
         .on('mouseenter', this.choiceSelector, $.proxy(this.boxMouseenter, this))
         .on('mouseleave', this.choiceSelector, $.proxy(this.boxMouseleave, this));
-    if(this.bindMouseDown){
+    if (this.bindMouseDown){
         this.box
         .on('mousedown', this.choiceSelector, $.proxy(this.boxClick, this));
     }
@@ -606,7 +606,7 @@ Calculate and set the outer container's absolute positionning. We're copying
 the system from Django admin's JS widgets like the date calendar, which means:
 
 - the autocomplete box is an element appended to this.co,
-- 
+-
 */
 yourlabs.Autocomplete.prototype.fixPosition = function () {
     var el = this.input.get(0);
@@ -622,7 +622,7 @@ yourlabs.Autocomplete.prototype.fixPosition = function () {
     var top = (findPosY(el) + this.input.outerHeight()) + 'px';
     var left = findPosX(el) + 'px';
 
-    if(absolute_parent !== undefined){
+    if (absolute_parent !== undefined){
         var parentTop = findPosY(absolute_parent);
         var parentLeft = findPosX(absolute_parent);
         var inputBottom = findPosY(el) + this.input.outerHeight();

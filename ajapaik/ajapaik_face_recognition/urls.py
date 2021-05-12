@@ -15,6 +15,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+    url(r'^api/v1/annotation/(?P<annotation_id>\d+)/$', api.Annotation.as_view(),
+        name='face_recognition_api_annotation'),
     url(r'^api/v1/subject-data/$', api.AddSubjectData.as_view(), name='face_recognition_api_subject_data'),
     url(r'^api/v1/album-has-annotations/(?P<album_id>\d+)/$', api.AlbumData.as_view(),
         name='face_recognition_api_album_data')

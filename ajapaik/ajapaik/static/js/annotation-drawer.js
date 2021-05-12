@@ -1,7 +1,7 @@
 'use strict';
 
 function getDetectedObjectRectangle(popoverId, annotation, configuration) {
-    return createSavedObjectDetectionRectangle(
+    return createSavedObjectAnnotation(
         popoverId,
         annotation,
         configuration
@@ -9,7 +9,7 @@ function getDetectedObjectRectangle(popoverId, annotation, configuration) {
 }
 
 function getDetectedObjectModifyRectangle(rectangleId, savedRectangle, configuration) {
-    return createSavedObjectModifyDetectionRectangle(
+    return createSavedObjectModifyAnnotation(
         rectangleId,
         savedRectangle,
         configuration
@@ -40,7 +40,7 @@ function getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaD
     };
 }
 
-function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimensions) {
+function getSavedAnnotation(scaledRectangle, annotation, imageAreaDimensions) {
     let configuration = getScaledRectangleConfiguration(scaledRectangle, annotation, imageAreaDimensions);
 
     if (annotation.wikiDataId) {
@@ -58,7 +58,7 @@ function getSavedDetectionRectangle(scaledRectangle, annotation, imageAreaDimens
     }
 }
 
-function removeExistingDetectionRectangles() {
+function removeExistingAnnotations() {
     $('[data-is-detection-rectangle]').each(function () {
         let rectangle = $(this);
 
@@ -94,22 +94,27 @@ function scaleRectangleForCurrentImageSize(scalingParametersForCurrentImageSize,
     };
 }
 
-function drawDetectionRectangles(detections, imageAreaDimensions) {
+function drawAnnotations(detections, imageAreaDimensions) {
     $('.popover:has(#add-object-class)').remove();
     $('.popover:has(#modify-detected-object)').remove();
     $('.popover:has(#modify-detected-object-annotation)').remove();
 
-    createAnnotationFilters(detections);
+    createAnnotations(detections);
 
     setTimeout(function () {
-        removeExistingDetectionRectangles();
+        removeExistingAnnotations();
 
         let scalesInRelationToTheOriginalPhoto = getCurrentPhotoDimensionScalesInRelationToTheOriginalPhoto(imageAreaDimensions);
 
         detections.forEach(function(savedRectangle) {
-            let scaledRectangle = scaleRectangleForCurrentImageSize(scalesInRelationToTheOriginalPhoto, savedRectangle);
-            let detectionRectangle = getSavedDetectionRectangle(scaledRectangle, savedRectangle, imageAreaDimensions);
-            detectionRectangle.appendTo(ImageAreaSelector.getImageArea());
+            if (savedRectangle.id !== null) {
+                let scaledRectangle = scaleRectangleForCurrentImageSize(scalesInRelationToTheOriginalPhoto, savedRectangle);
+                let annotation = getSavedAnnotation(scaledRectangle, savedRectangle, imageAreaDimensions);
+                if (window.isAnnotatingDisabledByButton) {
+                    annotation.css('visibility', 'hidden');
+                }
+                annotation.appendTo(ImageAreaSelector.getImageArea());
+            }
         });
 
         if (window.photoModalCurrentPhotoFlipped) {
@@ -164,7 +169,7 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
     centerAnnotationContainerInRegardsToBlackBorders(annotationContainer, imageContainer);
 
     imageContainer.append(annotationContainer);
-    moveAnnotationRectanglesElement(annotationContainer, true);
+    moveAnnotations(annotationContainer, true);
 
     $('#' + constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE).remove();
     annotationContainer.attr('id', constants.elements.ANNOTATION_CONTAINER_ID_ON_IMAGE);
@@ -178,7 +183,7 @@ function drawAnnotationContainer(imageContainer, isRedraw) {
 
         addFullScreenExitListener(function () {
             window.removeEventListener('resize', onWindowResize);
-            moveAnnotationRectanglesElement(ImageAreaSelector.getImageArea());
+            moveAnnotations(ImageAreaSelector.getImageArea());
         });
     }
 }
@@ -193,5 +198,5 @@ function drawNewAnnotationRectangle(areaSelection) {
         y2: areaSelection.y2
     };
 
-    return getDetectionRectangle(rectangle, imgRealSize);
+    return getAnnotation(rectangle, imgRealSize);
 }

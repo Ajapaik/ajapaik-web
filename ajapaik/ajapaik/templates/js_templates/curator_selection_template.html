@@ -1,7 +1,7 @@
 {% verbatim %}
     <script id="ajp-curator-selection-template" type="text/x-tmpl">
         <div class="row ajp-curator-selection-item w-100 pl-3" id="ajp-curator-selection-item-{%=formatId(o.id)%}">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="text-align:center">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-center">
                 <img class="img-fluid lazyload ajp-curator-selection-image{% if (o.invert) { %} ajp-photo-inverted{% } %}{% if (o.institution == 'ETERA') { %} ajp-curator-ETERA-result{% } %}{% if (o.flip) { %} ajp-photo-flipped{% } %}{% if (o.classToAdd) { %} {%=o.classToAdd%}{% } %}" {% if (o.institution == 'ETERA') { %}data-src="{%=o.imageUrl%}"{% } else { %}src="{%=o.imageUrl%}"{% } %} onerror="imageFailedToLoad('{%=o.id%}')" onload="imageLoaded('{%=o.id%}')">
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ajp-curator-selection-controls">
@@ -20,17 +20,17 @@
                 <div class="ajp-curator-selection-button-row">
                     <div class="btn-group" role="group">
                       <button title="{%=gettext('Invert colors')%}" type="button" class="btn btn-outline-secondary  {% if (o.invert) { %}active{% } %} ajp-curator-invert-colors-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajp-icon ajp-icon-invert-colors"></i>
+                        <span class="glyphicon ajp-icon ajp-icon-invert-colors"></span>
                       </button>
                       <button title="{%=gettext('Flip')%}" type="button" class="btn btn-outline-secondary  {% if (o.flip) { %}active{% } %} ajp-curator-flip-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajp-icon ajp-icon-flip"></i>
+                        <span class="glyphicon ajp-icon ajp-icon-flip"></span>
                       </button>
                       <button title="{%=gettext('Mark stereophoto')%}" type="button" class="btn btn-outline-secondary d-flex {% if (o.stereo) { %}active{% } %} ajp-curator-stereo-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajp-icon ajp-icon-stereo"></i>
-                        <i class="glyphicon ajp-icon ajp-icon-stereo"></i>
+                        <span class="glyphicon ajp-icon ajp-icon-stereo"></span>
+                        <span class="glyphicon ajp-icon ajp-icon-stereo"></span>
                       </button>
                       <button title="{%=gettext('Rotate')%}" type="button" class="btn btn-outline-secondary ajp-curator-rotate-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajp-icon ajp-icon-rotate"></i>
+                        <span class="glyphicon ajp-icon ajp-icon-rotate"></span>
                       </button>
                     </div>
                     {% if (o.ajapaikId) { %}
@@ -51,7 +51,7 @@
                 </div>
                 <div class="btn-group" role="group">
                       <button title="{%=gettext('Remove from selection')%}" type="button" class="btn btn-outline-secondary  ajp-curator-delete-button" data-id="{%=o.id%}">
-                        <i class="glyphicon ajp-icon ajp-icon-delete"></i>
+                        <span class="glyphicon ajp-icon ajp-icon-delete"></span>
                       </button>
                       <button class="btn btn-success ajp-curator-submit-single" data-id="{%=o.id%}">{%=gettext('Add this picture to album (not the whole set)')%}</button>
                 </div>
@@ -74,7 +74,7 @@
         <div class="row my-1 mr-2">
             <a class="mt-3 mr-2" style="font-size:18px;" href="{%=o.link%}">{%=o.name%} - {%=o.photo_count%} {%=gettext('photos')%}</a>
             <div style="cursor:pointer;color:#343a40;" title="{%=gettext('Edit')%}" class="ajp-curator-edit-album-button mt-2 pt-2" data-id="{%=o.id%}">
-                <i class="material-icons notranslate">edit</i>
+                <span class="material-icons notranslate">edit</span>
             </div>
         </div>
     </script>

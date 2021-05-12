@@ -499,7 +499,8 @@
             window.replaceAll = function (string, find, replace) {
                 return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
             };
-            window.photoPermalink = "{% url 'photo' %}";
+            window.photoPermalink = "{% url 'photo' 0 %}";
+            window.photoPermalink = window.photoPermalink.replace('0/', '');
             window.formatId = function (id) {
                 id = '' + id;
                 id = window.replaceAll(id, ':', '');
@@ -777,7 +778,7 @@
             });
         });
     </script>
-    {% include "js_templates/curator_album_selection_option.html" %}
-    {% include "js_templates/curator_album_selection_separator.html" %}
+    {% include "js_templates/curator_album_selection_option_template.html" %}
+    {% include "js_templates/curator_album_selection_separator_template.html" %}
     {% include "js_templates/curator_selection_template.html" %}
 {% endblock %}

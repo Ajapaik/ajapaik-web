@@ -69,7 +69,7 @@ def _calc_trustworthiness(user_id):
     correct_tries = user_unique_latest_geotags.filter(is_correct=True).count()
 
     if not correct_tries:
-        return 0.00
+        return 0.001
 
     trust = float(1 - 0.9 ** float(correct_tries)) * float(correct_tries) / float(total_tries)
     trust = max(trust, 0.01)
@@ -852,7 +852,7 @@ class Photo(Model):
         padding = 20
         img = Image.open(self.image_no_watermark)
         img = img.convert('RGBA')
-        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/TLUAR_watermark.png'))
+        mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/tluar-watermark.png'))
         longest_side = max(img.size[0], img.size[1])
         coeff = float(longest_side) / 1600.00
         w = int(mark.size[0] * coeff)

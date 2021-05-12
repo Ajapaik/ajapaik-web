@@ -4,14 +4,14 @@
             <img src="{%=o[0][o[1]].url%}" id="ajp-modal-rephoto" class="img-fluid col-xs-12">
         </a>
         <button class="btn ajp-close-rephoto-overlay-button" {% if (!isMobile) { %}
-            style="display: none;"{% } %}><i class="material-icons notranslate">close</i></button>
+            style="display: none;"{% } %}><span class="material-icons notranslate">close</span></button>
         <button class="btn ajp-invert-rephoto-overlay-button"
              {% if (!isMobile) { %}style="display: none;"{% } %}>
-             <i class="material-icons notranslate">invert_colors</i></button>
+             <span class="material-icons notranslate">invert_colors</span></button>
         {% if (o[0] && o[0].length > 1) { %}
             <div id="ajp-rephoto-selection" style="display:none;">
                 {% for (rephoto of o[0]) { %}
-                    <div class="ajp-photo-modal-rephoto-thumb" id="ajp-rephoto-thumb-{%=rephoto.id%}" data-id="{%=rephoto.id%}">
+                    <div class="ajp-photo-modal-rephoto-thumb ajp-cursor-pointer" id="ajp-rephoto-thumb-{%=rephoto.id%}" data-id="{%=rephoto.id%}">
                         <img class="img-fluid"
                                 src="{%=rephoto.url%}"
                                 data-id="{%=rephoto.id%}"/>

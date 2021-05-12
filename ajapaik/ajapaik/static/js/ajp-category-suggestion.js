@@ -14,7 +14,7 @@ function submitCategorySuggestion(photoIds, isMultiSelect) {
             scene,
             viewpointElevation
         })
-    
+
     })
     .then(window.handleErrors)
     .then(function(data) {
@@ -45,7 +45,7 @@ function clickViewpointElevationCategoryButton(buttonId) {
     } else if (buttonId === 'ground-button') {
         viewpointElevation = 'Ground';
     }
-    
+
     if (viewpointElevation === 'Aerial') {
         otherButtonIds = ['#ground-button', '#raised-button'];
     } else if (viewpointElevation === 'Raised') {
@@ -55,13 +55,13 @@ function clickViewpointElevationCategoryButton(buttonId) {
     }
 
     otherButtonIds.forEach(function(id) {
-        if(!$(id).hasClass('btn-outline-primary')) {
+        if (!$(id).hasClass('btn-outline-primary')) {
             $(id).addClass('btn-light');
         }
-        if($(id).hasClass('btn-outline-primary')) {
+        if ($(id).hasClass('btn-outline-primary')) {
             $(id).removeClass('btn-outline-primary');
         }
-        if($(id).hasClass('btn-outline-dark')) {
+        if ($(id).hasClass('btn-outline-dark')) {
             $(id).removeClass('btn-outline-dark');
         }
     });
@@ -81,7 +81,7 @@ function clickSceneCategoryButton(buttonId) {
         ? '#exterior-button'
         : '#interior-button';
 
-    if(!$(otherButtonId).hasClass('btn-light')) {
+    if (!$(otherButtonId).hasClass('btn-light')) {
         $(otherButtonId).addClass('btn-light');
     }
 

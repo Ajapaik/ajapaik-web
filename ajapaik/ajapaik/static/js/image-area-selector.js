@@ -168,13 +168,13 @@ var ImageAreaSelector = (function () {
             isSelecting = !isSelecting;
 
             if (isSelecting) {
-                hideDetectionRectanglesWithoutOpenPopover();
+                hideAnnotationsWithoutOpenPopover();
                 markStartingSizesAndPositions(event);
                 createRectangle();
             } else {
                 onSelect(getFinishedSelectionArea());
 
-                showDetectionRectangles();
+                displayAnnotations(true, true);
                 showControlsOnImage();
                 performCleanup();
             }
@@ -259,7 +259,7 @@ function copyAnnotateButtonToFullScreenView() {
     var annotateButton = fullScreenContainer.find('#mark-object-button');
     var isButtonAlreadyPresent = annotateButton.length > 0;
 
-    if (isAnnotatingDisabled()) {
+    if (window.isAnnotatingDisabled) {
         annotateButton.remove();
         return;
     }

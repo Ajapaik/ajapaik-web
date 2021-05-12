@@ -1,75 +1,88 @@
 {% load i18n static %}
-<!--TODO: Redo this part, use classes instead of copy-pasted style-->
-<div class="d-flex w-100 {% if is_photo_modal %}ajp-mt-1{% else %}row mt-2{% endif %}" style="flex-wrap:wrap;">
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <a data-id="{{ photo.id }}" style="height: 54px;"
-            title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
-            rel="nofollow">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</i>
-        </a>
-        {% trans 'Add a geotag' %}
-    </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <a id="ajp-start-dating-button" data-id="{{ photo.id }}" style="height: 54px;"
-            title="{% trans "Date this image" %}" href="#">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">event</i>
-            <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
-        </a>
-        {% trans 'Date' %}
-    </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#" style="height: 54px;">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</i>
-        </a>
-        {% trans 'Add a rephoto' %}
-    </div>
+{% if sidebar %}
+    <div id="ajp-toolbox-sidebar">
+{% endif %}
+        <div class="{% if is_photo_modal %}mt-1{% else %}row mt-2{% endif %}{% if sidebar %} flex-column pb-2{% else %} d-flex w-100 flex-wrap{% endif %}{%if flexEnd %} ml-3{% endif %}" style="{% if sidebar %}position:fixed;{% endif %}">
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a data-id="{{ photo.id }}"
+                    title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
+                    rel="nofollow">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</span>
+                </a>
+                {% trans 'Add a geotag' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a id="ajp-start-dating-button" data-id="{{ photo.id }}"
+                    title="{% trans "Date this image" %}" href="#">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">event</span>
+                    <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
+                </a>
+                {% trans 'Date' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</span>
+                </a>
+                {% trans 'Add a rephoto' %}
+            </div>
 
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}" style="height: 54px;"
-            id="mark-object-button" class="ajp-button">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</i>
-        </button>
-        {% trans 'Annotate' %}
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+                    id="mark-object-button" class="ajp-button">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</span>
+                </button>
+                {% trans 'Annotate' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">share</span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
+                    <li role="presentation" class="disabled-link">
+                        <div role="menuitem" tabindex="-1" id="ajp-grab-link">
+                            <a href="{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                                {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
+                            </a>
+                            <br>
+                            <span id="share-feedback" class=='font-weight-bold'></span>
+                        </div>
+                    </li>
+                </ul>
+                {% trans 'Share' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper" title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
+                <button id="ajp-categorize-scene" type="button" data-toggle="popover" class="ajp-button" tabindex="0" data-is-categorization-button="true">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">category</span>
+                </button>
+                {% trans 'Categorize' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);"
+                    title="{% trans "Transcribe this image" %}" href="#" class="ajp-button">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</span>
+                    <span id="ajp-photoview-transcriptions-count" class="badge"></span>
+                </button>
+                {% trans 'Transcribe' %}
+            </div>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <button id="ajp-edit-picture" class="ajp-button" type="button" data-toggle="popover" tabindex="0" data-is-edit-button="true">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">edit</span>
+                </button>
+                {% trans 'Edit picture' %}
+            </div>
+            {% if not request.user_agent.is_pc %}
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <button id="ajp-toggle-annotations" class="ajp-button" type="button" tabindex="0">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">check_box_outline_blank</span>
+                </button>
+                <div id="ajp-toggle-annotations-label">{% trans 'Show annotations' %}</div>
+            </div>
+            {% endif %}
+        </div>
+{% if sidebar %}
     </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">share</i>
-        </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
-            <li role="presentation" class="disabled-link">
-                <div role="menuitem" tabindex="-1" id="ajp-grab-link">
-                    <a href="{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
-                        {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
-                    </a>
-                    <br>
-                    <span id="share-feedback" class=='font-weight-bold'></span>
-                </div>
-            </li>
-        </ul>
-        {% trans 'Share' %}
-    </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;" title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
-        <button id="ajp-categorize-scene" type="button" data-toggle="popover" style="height: 54px;" class="ajp-button" tabindex="0" data-is-categorization-button="true">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">category</i>
-        </button>
-        {% trans 'Categorize' %}
-    </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);" style="height: 54px;"
-            title="{% trans "Transcribe this image" %}" href="#" class="ajp-button">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</i>
-            <span id="ajp-photoview-transcriptions-count" class="badge"></span>
-        </button>
-        {% trans 'Transcribe' %}
-    </div>
-    <div class="d-flex mr-2" style="flex-direction: column;justify-content: normal;min-height: 80px;align-items: center;text-align:center;width: 80px;">
-        <button id="ajp-edit-picture" class="ajp-button" type="button" data-toggle="popover" tabindex="0" data-is-edit-button="true">
-            <i class="material-icons notranslate ajp-text-gray ajp-icon-48">edit</i>
-        </button>
-        {% trans 'Edit picture' %}
-    </div>
-</div>
+{% endif %}
 <script src="{% static "js/ajp-picture-edit-suggestion.js" %}"></script>
 <script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
@@ -78,7 +91,7 @@
         var sceneConsensus = undefined;
         var viewpointElevation = 'undefined';
         var viewpointElevationConsensus = undefined;
-        
+
         var isPhotoFlipped = 'undefined';
         var isPhotoFlippedConsensus = undefined;
         var newIsPhotoFlipped = 'undefined';
@@ -90,6 +103,7 @@
         var newPhotoRotationDegrees = 'undefined';
         var viewpointElevation_consensus = undefined;
         var shareUrl = '{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}';
+        window.lastEnteredName = undefined;
 
         function fetchPhotoInfo(url) {
             return fetch(url + '{{ photo.id }}' + '/').then(function(response) {
@@ -152,7 +166,7 @@
                     buttonTranslation = 'Submit';
                 }
 
-                let content = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
+                let content = `<div class='d-flex mb-4 justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;
                 let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
                 content += actionButtonTemplate;
 
@@ -226,7 +240,7 @@
                     buttonTranslation = 'Confirm';
                 }
 
-                let content = `<div class='d-flex' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='flip-button' class='btn mr-2 ` + flipButtonClass +`' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>flip</i><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='invert-button' class='btn ml-2 ` + invertButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>invert_colors</i><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='rotate-button' class='btn ml-2 ` + rotatedButtonClass +`' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>rotate_left</i><span>` + gettext('Rotate') + `</span></button></div></div>`;
+                let content = `<div class='d-flex justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='flip-button' class='btn mr-2 ` + flipButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>flip</span><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='invert-button' class='btn ml-2 ` + invertButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>invert_colors</span><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='rotate-button' class='btn ml-2 ` + rotatedButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>rotate_left</span><span>` + gettext('Rotate') + `</span></button></div></div>`;
                 let actionButtonTemplate = `<button id='send-edit-button' onclick="submitPictureEditSuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100'>` + gettext(buttonTranslation) + `</button>`;
                 content += actionButtonTemplate;
 
@@ -264,7 +278,6 @@
             if (id && $('#' + id).length > 0) {
                 $('#ajp-modal-photo').removeClass();
                 $('#ajp-photoview-main-photo').removeClass();
-                $('#ajp-photoview-main-photo').removeClass();
                 $('#ajp-fullscreen-image').removeClass();
                 $('#ajp-fullscreen-image').addClass('lasyloaded');
                 $('#ajp-fullscreen-image-wrapper').removeClass();
@@ -281,6 +294,21 @@
             }
         });
 
+        $('#ajp-toggle-annotations').on('click', function() {
+            if (window.isAnnotatingDisabledByButton) {
+                window.isAnnotatingDisabledByButton = false;
+                $('#ajp-toggle-annotations > span').text('check_box');
+                $("#ajp-toggle-annotations-label").text(gettext('Hide annotations'));
+                enableAnnotations();
+                displayAnnotations();
+            } else {
+                $('#ajp-toggle-annotations > span').text('check_box_outline_blank');
+                $("#ajp-toggle-annotations-label").text(gettext('Show annotations'));
+                hideAnnotationsWithoutOpenPopover();
+                disableAnnotations();
+                window.isAnnotatingDisabledByButton = true;
+            }
+        });
 
         $('#ajp-start-dating-button').click(function (e) {
             e.preventDefault();
@@ -307,8 +335,7 @@
                 url: "{% url 'get_datings' photo.id %}",
                 success: function (result) {
                     $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
-                    $('#ajp-modal-start-dating-button').find('.badge').html(result.datings.length);
-                    $('#ajp-photoview-start-dating-button').find('.badge').html(result.datings.length);
+                    $('#ajp-photoview-datings-count').html(result.datings.length);
                     window.updateLeaderboard();
                     $('#ajp-dater-input').val(null);
                     $('#ajp-dater-comment').val(null);
@@ -320,7 +347,7 @@
             ObjectTagger.toggleCropping();
         });
 
-        
+
         window.startDater = function (photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
             $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
@@ -358,19 +385,20 @@
         $(document).ready(function () {
             updatePhotoSuggestions();
             updatePhotoAppliedOperations();
-            var rephotoUploadModal = $('#ajp-rephoto-upload-modal'); 
+            var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
             if (window.previouslyEditedPhotoIds && currentlyOpenPhotoId && window.previouslyEditedPhotoIds.includes(currentlyOpenPhotoId.toString())) {
                 window.refreshUpdatedImage('#ajp-modal-photo');
             }
             $(document).on('click', '#ajp-add-rephoto-button', function (e) {
                 e.preventDefault();
+                let url = window.photoUploadModalURL.replace('0', window.$(this).data('id'));
                 $.ajax({
                     cache: false,
-                    url: window.photoUploadModalURL + ($(this).data('id')) + '/',
                     success: function (result) {
                         rephotoUploadModal.data('bs.modal', null);
                         rephotoUploadModal.html(result).modal();
-                    }
+                    },
+                    url
                 });
             });
 
@@ -384,6 +412,23 @@
                     $('#share-feedback').addClass('text-danger').html(gettext('Could not copy link to clipboard'));
                 });
             });
+
+            {% if is_photo_modal %}
+                $('#ajp-photo-modal').on('scroll', function(){
+                    let distanceFromTop = $('#ajp-modal-body').offset().top - $('#ajp-modal-body').scrollTop() - 160 - window.scrollY;
+                    $('#ajp-toolbox-sidebar').css(
+                    {
+                        'position':'relative',
+                        'top': Math.max(distanceFromTop, -160) + 'px'
+                    });
+                });
+            {% endif %}
+
+            if (window.isMobile) {
+                hideAnnotationsWithoutOpenPopover();
+                disableAnnotations();
+                window.isAnnotatingDisabledByButton = true;
+            }
         });
     </script>
 {% endblock %}

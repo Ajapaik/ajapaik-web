@@ -40,7 +40,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
 }
 
 .ajp-text-gray {
-  color: #888 !important;
+  color: #888;
 }
 
 .ajp-no-background {
@@ -114,18 +114,13 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   overflow-x: hidden;
 }
 
+.ajp-body-photoview {
+  background: #fff;
+}
 
 .ajp-body-game-map {
   height: 100%;
   overflow: hidden;
-}
-
-.ajp-flex {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
 }
 
 .container {
@@ -165,7 +160,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   max-height: 100%;
 }
 
-.ajp-caption-album-selection > i {
+.ajp-caption-album-selection > span {
   font-size: 20px;
   margin-right: 5px;
 }
@@ -208,11 +203,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   max-width: 100%;
 }
 
-#ajp-header-face,
-#ajp-header-collections {
-  cursor: pointer;
-}
-
 .ajp-header-button {
   font-size: 0;
 }
@@ -248,8 +238,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   border: none;
 }
 
-.ajp-minimap-start-suggestion-button > i,
-.ajp-minimap-confirm-geotag-button > i {
+.ajp-minimap-start-suggestion-button > span,
+.ajp-minimap-confirm-geotag-button > span {
   font-size: 36px;
 }
 
@@ -345,7 +335,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   z-index: 2000;
 }
 
-.ajp-minimap-start-suggestion-CTA-button > i {
+.ajp-minimap-start-suggestion-CTA-button > span {
   font-size: 70px;
 }
 
@@ -388,11 +378,7 @@ path:hover {
   max-width: calc(30vw - 250px);
 }
 
-#ajp-header-about-button {
-  cursor: pointer;
-}
-
-#ajp-header-about-button > i {
+#ajp-header-about-button > span {
   font-size: 36px;
 }
 
@@ -436,7 +422,6 @@ path:hover {
 .ajp-album-selection-rephoto-count,
 .ajp-album-selection-similar-photo-count,
 .ajp-album-selection-comment-count {
-  background-size: 18px;
   display: inline-block;
   line-height: 24px;
   max-width: 68px;
@@ -470,7 +455,7 @@ path:hover {
   display: block;
 }
 
-#ajp-header-profile > i {
+#ajp-header-profile > span {
   font-size: 36px;
 }
 
@@ -507,7 +492,6 @@ path:hover {
 
 a.fullscreen {
   cursor: zoom-in;
-  cursor: zoom-in;
 }
 
 .full-box {
@@ -535,10 +519,6 @@ a.fullscreen {
 }
 
 .full-pic img {
-  min-width: 128px;
-  min-height: 128px;
-  opacity: 0;
-  cursor: zoom-out;
   min-width: 128px;
   min-height: 128px;
   opacity: 0;
@@ -934,7 +914,7 @@ a.fullscreen {
   display: flex;
 }
 
-#ajp-reverse-side-button > i {
+#ajp-reverse-side-button > span {
   top: 10px;
   right: 12px;
   position: absolute;
@@ -961,7 +941,7 @@ a.fullscreen {
   right: 48px;
 }
 
-#modal-compare-similar > i {
+#modal-compare-similar > span {
   top: 0px;
 }
 
@@ -1053,16 +1033,13 @@ a.fullscreen {
   cursor: pointer;
 }
 
-.ajp-like-photo-overlay-button > i {
-  font-size: 24px;
-}
-
 .ajp-like-photo-overlay-button > span {
+  font-size: 24px;
   position: relative;
   bottom: 5px;
 }
 
-.ajp-like-photo-overlay-button.big > i {
+.ajp-like-photo-overlay-button.big > span {
   font-size: 36px;
 }
 
@@ -1099,7 +1076,7 @@ a.fullscreen {
   right: 0px;
 }
 
-.ajp-compare-similar-overlay-button > i {
+.ajp-compare-similar-overlay-button > span {
   position: relative;
   top: 12px;
 }
@@ -1162,15 +1139,6 @@ a.fullscreen {
   color: gray;
 }
 
-.ajp-photo-modal-photo-curator > i {
-  cursor: pointer;
-}
-
-.ajp-photo-modal-photo-curator > p {
-  display: inline;
-  vertical-align: super;
-}
-
 #ajp-mini-map-geotaggers-dropdown {
   border: none;
   box-shadow: none;
@@ -1202,7 +1170,7 @@ a.fullscreen {
   overflow-y: auto;
   overflow-x: auto;
   width: auto;
-  min-width: calc(65vw + 150px);
+  min-width: 100vw;
 }
 
 #ajp-photo-modal-map-container {
@@ -1252,7 +1220,7 @@ a.fullscreen {
   cursor: pointer;
 }
 
-#ajp-game-show-description > i {
+#ajp-game-show-description > span {
   font-size: 36px;
 }
 
@@ -1261,7 +1229,7 @@ a.fullscreen {
   float: right !important;
 }
 
-.ajp-game-specify-location-button > i {
+.ajp-game-specify-location-button > span {
   font-size: 36px;
 }
 
@@ -1350,7 +1318,8 @@ a.fullscreen {
   max-height: 24px;
 }
 
-#ajp-photoview-start-dating-button > #ajp-photoview-datings-count {
+#ajp-photoview-start-dating-button > #ajp-photoview-datings-count
+#ajp-transcribe-button > #ajp-photoview-transcriptions-count > {
   position: relative;
   margin: 0;
   left: 20px;
@@ -1359,12 +1328,14 @@ a.fullscreen {
   bottom: auto;
 }
 
-#ajp-start-dating-button {
+#ajp-start-dating-button,
+#ajp-transcribe-button {
   height: 48px;
   width: 48px;
 }
 
-#ajp-start-dating-button > span {
+#ajp-photoview-datings-count,
+#ajp-photoview-transcriptions-count {
   position: relative;
   left: 20px;
   top: -23px;
@@ -1556,7 +1527,7 @@ ul.errorlist,
 
 .pac-container {
   z-index: 10000 !important;
-  font-family: Roboto;
+  font-family: Roboto, Georgia, serif;
 }
 
 #pac-input {
@@ -1572,7 +1543,7 @@ ul.errorlist,
   background-color: #fff;
   padding: 0 11px 0 13px;
   width: 200px;
-  font-family: Roboto;
+  font-family: Roboto, Georgia, serif;
   font-size: 15px;
   font-weight: 300;
   text-overflow: ellipsis;
@@ -1835,7 +1806,7 @@ a[href^="http: //maps.google.com/maps"] {
   text-align: right;
 }
 
-.ajp-thumbnail-info-container > div > i {
+.ajp-thumbnail-info-container > div > span {
   color: #fff;
 }
 
@@ -1888,16 +1859,16 @@ footer a {
   float: right;
 }
 
-.ajp-album-selection-game-button > i,
-.ajp-album-selection-album-more-button > i,
-.ajp-album-selection-map-button > i {
+.ajp-album-selection-game-button > span,
+.ajp-album-selection-album-more-button > span,
+.ajp-album-selection-map-button > span {
   font-size: 36px;
   color: #888;
 }
 
-.ajp-album-selection-game-button:hover  > i,
-.ajp-album-selection-album-more-button:hover  > i,
-.ajp-album-selection-map-button:hover  > i {
+.ajp-album-selection-game-button:hover  > span,
+.ajp-album-selection-album-more-button:hover  > span,
+.ajp-album-selection-map-button:hover  > span {
   color: white;
 }
 
@@ -1926,14 +1897,14 @@ footer a {
   cursor: pointer;
 }
 
-.ajp-photo-album-link {
+.ajp-text-medium {
   font-size: 14px;
 }
 
-.ajp-photo-modal-album-icon {
+.ajp-photo-modal-album-icon,
+.ajp-photo-modal-collection-icon {
   color: #888;
   font-size: 36px;
-  cursor: pointer;
 }
 
 #ajp-pager-stats,
@@ -1967,7 +1938,7 @@ footer a {
   color: #fff;
 }
 
-#ajp-header-selected-mode > i {
+#ajp-header-selected-mode > span {
   display: none;
 }
 
@@ -2038,6 +2009,12 @@ input[type=search]::-webkit-search-cancel-button {
   top: 54px;
   position: relative;
   min-height: calc(100vh - 130px);
+}
+
+#ajp-toolbox-sidebar {
+  width:150px;
+  padding-left:12px;
+  z-index: 412;
 }
 
 @media (min-width: 500px) {
@@ -2168,6 +2145,27 @@ input[type=search]::-webkit-search-cancel-button {
   }
 }
 
+@media (max-height: 300) {
+  #ajp-toolbox-sidebar > div {
+    height: 75vh;
+  }
+}
+
+@media (max-height: 600px) {
+  #ajp-toolbox-sidebar > div {
+    height: 85vh;
+  }
+}
+
+@media (max-height: 738px) {
+  #ajp-toolbox-sidebar > div {
+    position: fixed;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 90vh;
+  }
+}
+
 #id_gender > .radio {
     display: inline-block;
 }
@@ -2207,12 +2205,6 @@ input[type=search]::-webkit-search-cancel-button {
 #ajp-modal-similar-photo {
   object-fit: contain;
   object-position: top;
-}
-
-.ajp-photo-modal-similar-photo-thumb,
-.ajp-photo-modal-rephoto-thumb,
-.primaryAction {
-  cursor: pointer;
 }
 
 div.gm-style-mtc > div:nth-of-type(2) {
@@ -2264,18 +2256,18 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   text-align: left;
 }
 
-.ajp-accordion-button > i {
+.ajp-accordion-button > span {
   position: absolute;
   right: 20px;
   top: 20px;
   transition: transform 0.3s linear;
 }
 
-.ajp-accordion-button > i:hover {
+.ajp-accordion-button > span:hover {
   color: #888;
 }
 
-.ajp-accordion-button[aria-expanded="true"] > i {
+.ajp-accordion-button[aria-expanded="true"] > span {
   transform: rotate(180deg);
 }
 
@@ -2355,14 +2347,83 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
   }
 }
 
-#ajp-donation-banner-close {
-  cursor: pointer;
-}
-
 #ajp-add-to-album-button:hover {
   text-decoration: none;
 }
 
 #ajp-add-to-album-button:hover > div {
   text-decoration: underline;
+}
+
+.ajp-toolbox-button-wrapper {
+  flex-direction: column;
+  justify-content: normal;
+  min-height: 80px;
+  align-items: center;
+  text-align:center;
+  width: 80px;
+}
+
+.ajp-toolbox-button-wrapper > a,
+.ajp-toolbox-button-wrapper > button {
+  height: 54px;
+}
+
+.human-child {
+  background-position-y: 20px;
+  background-image: url(../images/material-design-icons/ic_human_child.svg);
+}
+
+.human-elderly {
+  background-size: 54px;
+  background-image: url(../images/material-design-icons/ic_human_elderly.svg);
+}
+
+.human-female {
+  background-image: url(../images/material-design-icons/ic_human_female.svg);
+}
+
+.human-male {
+  background-image: url(../images/material-design-icons/ic_human_male.svg);
+}
+
+.human-adult {
+  background-image: url(../images/material-design-icons/ic_human_adult.svg);
+}
+
+#add-new-subject-button:hover {
+  text-decoration: none;
+}
+
+#add-new-subject-button > div:hover {
+  text-decoration: underline;
+}
+
+.ajp-cursor-pointer {
+  cursor: pointer;
+}
+
+.ajp-cursor-default {
+  cursor: default;
+}
+
+.ajp-pebble {
+  padding: 5px 10px;
+  border-radius: 30px;
+  background: #efefef;
+}
+
+.suggestion-button {
+  min-width: 100px;
+  height: 90px;
+  font-size: 16px;
+  padding-top: 50px;
+  background-position-x: center;
+  background-position-y: 15px;
+  background-repeat: no-repeat;
+}
+
+.suggestion-button:focus,
+.suggestion-button:active {
+  outline: none;
 }

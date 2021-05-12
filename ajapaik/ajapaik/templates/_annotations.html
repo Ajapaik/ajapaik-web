@@ -1,0 +1,25 @@
+{% load i18n comments static %}
+
+<div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
+    <span class="material-icons notranslate ajp-cursor-default pr-3 mt-2" style="color: #888;font-size:36px;">people</span>
+    <div id="person-annotations" class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium">
+        <a id='add-new-subject-button' class="d-flex align-items-center mt-2" title="{% trans "Tag a person" %}" href="#" onclick="ObjectTagger.toggleCropping();">
+            <div style="display: inline-block;font-size: 14px;">{% trans 'Tag a person' %}</div>
+            <span class="material-icons notranslate ajp-text-gray" style="position: relative;">add_box</span>
+        </a>
+    </div>
+</div>
+
+<div class="row pl-3 d-flex flex-row">
+    <div class="mt-2">
+        <span class="material-icons notranslate ajp-cursor-default" style="color: #888;font-size: 36px;">local_offer</span>
+    </div>
+    <div class="ml-3">
+        <div id="object-annotations" class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium">
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/photoview/annotations.js' %}"></script>
+<script src="{% static 'js/photoview/photoview-accordion.js' %}"></script>
+
+<link rel="stylesheet" href="{% static "css/annotations.css" %}"/>

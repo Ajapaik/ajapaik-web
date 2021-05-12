@@ -2,7 +2,7 @@
     <script id="ajp-photo-modal-similar-photo-info-template" type="text/x-tmpl">
         {% if (o.address && o.lat && o.lon && isMobile) { %}
             <div class="w-100">
-                <i>{%=gettext('Approximate address')%}: {%=o.address%}</i>
+                <em>{%=gettext('Approximate address')%}: {%=o.address%}</em>
             </div>
         {% } %}
         {% if (o.author) { %}

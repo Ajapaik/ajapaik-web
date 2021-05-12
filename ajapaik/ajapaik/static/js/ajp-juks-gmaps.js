@@ -202,7 +202,7 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
                 window.reportVanalinnadCityChange(that.vars.site);
             }
         });
-        
+
         that.citySelection = vanalinnadCitySelection.get(0);
 
         if (that.isGeotagger) {

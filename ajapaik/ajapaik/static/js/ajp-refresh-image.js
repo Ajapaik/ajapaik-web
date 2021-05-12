@@ -1,6 +1,6 @@
 
 window.refreshUpdatedImageLight = function(img) {
-    if($(img).length > 0) {
+    if ($(img).length > 0) {
         let url = $(img).attr('src');
         if (url) {
             url = url.split('?timestamp')[0] + '?timestamp=' + Date.now();

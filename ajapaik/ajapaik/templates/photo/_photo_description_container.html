@@ -3,12 +3,12 @@
 <div>
     {% if photo.address and photo.lat and photo.lon and not request.user_agent.is_pc %}
         <div class="w-100">
-            <i>{% trans "Approximate address" %}: {{ photo.address }}</i>
+            <em>{% trans "Approximate address" %}: {{ photo.address }}</em>
         </div>
     {% endif %}
     {% if photo.author %}
         <div class="w-100">
-            <b id="ajp-photo-author">{{ photo.author }}</b>
+            <strong id="ajp-photo-author">{{ photo.author }}</strong>
         </div>
     {% endif %}
     {% if photo.video %}
