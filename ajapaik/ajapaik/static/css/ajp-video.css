@@ -2,15 +2,15 @@
     background: none;
 }
 
-#ajp-video-modal-still-button > i {
+#ajp-video-modal-still-button > span {
     font-size: 48px;
 }
 
-#ajp-video-modal-still-button.enabled > i {
+#ajp-video-modal-still-button.enabled > span {
     color: black;
 }
 
-#ajp-video-modal-still-button.disabled > i {
+#ajp-video-modal-still-button.disabled > span {
     color: #888;
 }
 
@@ -34,7 +34,7 @@
     width: 30px;
 }
 
-.ajp-album-selection-film-icon > i {
+.ajp-album-selection-film-icon > span {
     position: relative;
     top: 9px;
 }
