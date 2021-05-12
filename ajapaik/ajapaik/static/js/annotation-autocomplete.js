@@ -31,7 +31,7 @@ function getPersonAutoComplete(isDisplayedOnOpen, customStyle, defaultValue, cus
 
     var wrapper = $('<div>', {
         id: constants.elements.AUTOCOMPLETE_WRAPPER_ID,
-        style: displayStyle + '; padding-top: 5px; width: 180px;'
+        style: displayStyle + '; padding-top: 5px; width: 320px;'
     });
 
     var label = $('<label>', {
@@ -69,30 +69,31 @@ function getNoPersonFoundResultText() {
 
     return wrapper
         .append(nothingFoundText)
+        .append($('<br>'))
         .append(newSubjectLink)
         .html();
 }
 
 function convertSavedPersonGenderToString(gender) {
     if (gender === SAVED_PERSON_GENDER_FEMALE) {
-        return constants.fieldValues.FEMALE;
+        return constants.fieldValues.genders.FEMALE;
     }
 
     if (gender === SAVED_PERSON_GENDER_MALE) {
-        return constants.fieldValues.MALE;
+        return constants.fieldValues.genders.MALE;
     }
 }
 
-function setGenderValueToReadOnlyIfGenderSetForExistingPerson(person, genderSelect) {
-    if (genderSelect && person && person.data && person.data.gender) {
-        genderSelect.set(person.data.gender);
-        genderSelect.disable();
+function setGenderValueToReadOnlyIfGenderSetForExistingPerson(person) {
+    if (person && person.data && person.data.gender) {
+        $('#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID + ' *').addClass('ajp-button-disabled');
+        $('#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID + ' [data-value=' + person.data.gender + ']').addClass('btn-outline-primary');
     } else {
-        genderSelect.enable();
+        $('#' + constants.elements.SUBJECT_GENDER_SUGGESTION_COMPONENT_ID + ' *').removeClass('ajp-button-disabled');
     }
 }
 
-function initializePersonAutocomplete(autocompleteId, genderSelect) {
+function initializePersonAutocomplete(autocompleteId) {
     var noResultText = getNoPersonFoundResultText();
     var debouncedGetRequest = debounce(getRequest, 400);
 
@@ -104,7 +105,7 @@ function initializePersonAutocomplete(autocompleteId, genderSelect) {
         searchText: noResultText,
         allowDeselect: true,
         onChange: function(person) {
-            setGenderValueToReadOnlyIfGenderSetForExistingPerson(person, genderSelect);
+            setGenderValueToReadOnlyIfGenderSetForExistingPerson(person);
         },
         ajax: function (search, callback) {
 
@@ -158,7 +159,7 @@ function getFormattedSelectOption(option) {
             '<div class="hide-on-select">' +
                 '<div style="float: left;">' +
                     '<a href="' + sanitizeHTML(option.url) + '" data-type="wiki-link" target="_blank" style="padding-right: 5px;">' +
-                        '<i class="material-icons notranslate">open_in_new</i>' +
+                        '<span class="material-icons notranslate">open_in_new</span>' +
                     '</a>' +
                 '</div>' +
                 '<div style="width: 92px;">' +

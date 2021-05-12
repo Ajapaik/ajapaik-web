@@ -30,9 +30,9 @@ function showAddAnotherPopup(triggeringLink) {
     function removeOverlay() {
         if (win.closed) {
             $('#yourlabs_overlay').remove();
-            document.querySelector('#autocomplete-subject').slim.open();
+            document.querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.open();
             setTimeout(() => {
-                document.querySelector('#autocomplete-subject').slim.search(subjectName);
+                document.querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.search(subjectName);
               }, 100);
         } else {
             if (win.window && win.window.$) {
@@ -59,9 +59,6 @@ function initializeAddNewPersonOpeningAPopup() {
     $(document).on('click', '#' + constants.elements.ADD_NEW_SUBJECT_LINK_ID, function (e) {
         e.preventDefault();
         e.stopPropagation();
-        // Workaround for getting data out of now closed programmatically generated iframe
-        // window.docCookies.setItem('ajapaik_last_added_subject_id', null,
-        //     'Fri, 31 Dec 9999 23:59:59 GMT', '/', document.domain, false);
         showAddAnotherPopup($(this));
     });
 }

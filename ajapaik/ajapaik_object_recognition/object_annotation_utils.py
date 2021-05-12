@@ -44,12 +44,11 @@ def convert_to_query_dictionary(dictionary):
     return query_dictionary
 
 
-def transform_annotation_queryset(user_id, query_set, transform_function):
+def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):
     transformed_collection = []
 
     for entry in query_set:
         transformed_collection.append(json.dumps(transform_function(entry, user_id).__dict__))
-
     return transformed_collection
 
 

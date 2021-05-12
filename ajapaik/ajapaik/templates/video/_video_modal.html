@@ -24,7 +24,7 @@
             <div class="row">
                 {% if not request.user.profile.is_legit %}
                 <div id="ajp-video-modal-anonymous-warning" class="col-sm-12 ml-0">
-                    {% trans "You're anonymous. You can now log in with your e-mail." %}<i id="ajp-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</i>
+                    {% trans "You're anonymous. You can now log in with your e-mail." %}<span id="ajp-video-modal-anonymous-icon" class="material-icons notranslate">account_circle</span>
                 </div>
                 {% endif %}
                 <div class="col-sm-9" id="ajp-video-modal-info-column">
@@ -47,8 +47,8 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-3">
-                    <button id="ajp-video-modal-still-button" class="btn disabled float-right"><i
-                            class="material-icons notranslate">camera</i></button>
+                    <button id="ajp-video-modal-still-button" class="btn disabled float-right"><span
+                            class="material-icons notranslate">camera</span></button>
                 </div>
             </div>
         </div>

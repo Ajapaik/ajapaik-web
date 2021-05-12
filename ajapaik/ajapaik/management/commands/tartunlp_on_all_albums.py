@@ -11,7 +11,8 @@ class Command(BaseCommand):
         albums = Album.objects.exclude(
                 Q(atype=Album.AUTO) |
                 Q(name_original_language__isnull=False) |
-                Q(atype=Album.PERSON)
+                Q(atype=Album.PERSON) |
+                Q(atype=Album.COLLECTION)
             ).filter(
             Q(name_et__isnull=False)
             | Q(name_lv__isnull=False)

@@ -670,7 +670,18 @@ class AlbumNearestPhotos(AjapaikAPIView):
             })
 
 
-class AlbumDetails(AjapaikAPIView):
+class AlbumInformation(AjapaikAPIView):
+    '''
+    API endpoint to retrieve album details.
+    '''
+
+    def get(self, request, album_id, format=None):
+        album = get_object_or_404(Album, id=album_id)
+
+        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name})
+
+
+class AlbumPhotos(AjapaikAPIView):
     '''
     API endpoint to retrieve album details and details of this album photos.
     '''

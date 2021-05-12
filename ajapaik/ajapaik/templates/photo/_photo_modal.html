@@ -1,6 +1,6 @@
 {% load i18n ajapaik_templatetags comments static %}
 
-<div class="modal-dialog modal-xxl" id="ajp-photo-modal-dialog" {% if not photo.rephotos.all.0 and not photo.lat and not photo.lon and not photo.similar_photos.all.0 %}style="min-width: calc(40vw + 150px);"{% endif %}>
+<div class="modal-dialog modal-xxl" id="ajp-photo-modal-dialog">
     <div class="modal-content">
         <div class="modal-header ajp-no-border">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,11 +10,16 @@
         <div class="modal-body" id="ajp-modal-body" style="overflow: initial;">
             <div class="container-fluid">
                 <div class="row" style="margin:0 auto;">
-                    <div id="ajp-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
+                    {% if request.user_agent.is_pc %}
+                        {% include '_toolbox.html' with photo=photo sidebar=True flexEnd=False %}
+                        <div class="text-left" style="width:calc(100vw - 212px);left:150px;position:relative;">
+                            <div class="row" style="margin:0 auto;">
+                    {% endif %}
+                    <div id="ajp-photo-modal-original-photo-column" class="col-lg-{% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}6{% else %}12{% endif %} col-12">
                         <div id="ajp-modal-photo-container" class="ajp-photo {% if photo.rephotos.all.0 or photo.lat and photo.lon or photo.similar_photos.all.0 %}float-left{% else %}margin-auto{% endif %}">
                             {% if not is_mapview %}
                             <div class="ajp-photo-modal-previous-button">
-                                <i class="material-icons ajp-icon-48 notranslate">navigate_before</i>
+                                <span class="material-icons ajp-icon-48 notranslate">navigate_before</span>
                             </div>
                             {% endif %}
                             <a class="fullscreen" id="ajp-fullscreen-link" rel=""
@@ -25,13 +30,13 @@
                             </a>
                             {% if not is_mapview %}
                                 <div class="ajp-photo-modal-next-button">
-                                    <i class="material-icons ajp-icon-48 notranslate">navigate_next</i>
+                                    <span class="material-icons ajp-icon-48 notranslate">navigate_next</span>
                                 </div>
                             {% endif %}
                             {% if request.user.profile.is_legit %}
                                 <button class="ajp-thumbnail-selection-icon{% if photo.in_selection %} ajp-thumbnail-selection-icon-blue{% endif %}"
                                         data-id="{{ photo.id }}">
-                                    <i class="material-icons notranslate">check_circle</i>
+                                    <span class="material-icons notranslate">check_circle</span>
                                 </button>
                             {% endif %}
                             {% if reverse_side and not is_selection and not is_mapview %}
@@ -39,22 +44,17 @@
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}
                                     data-id="{{ reverse_side.id }}"
                                     title="{% trans "See the other side of photo" %}">
-                                    <i class="material-icons notranslate">360</i>
+                                    <span class="material-icons notranslate">360</span>
                                 </a>
                             {% endif %}
                             <button class="ajp-like-photo-overlay-button{% if photo.user_likes %} active{% endif %}{% if photo.user_loves %} active big{% endif %}">
-                                {% if photo.user_likes or photo.user_loves %}
-                                    <i class="material-icons notranslate">favorite</i>
-                                    <span class="ajp-like-count">{{ photo.like_count }}</span>
-                                {% else %}
-                                    <i class="material-icons notranslate">favorite_border</i>
-                                    <span class="ajp-like-count">{{ photo.like_count }}</span>
-                                {% endif %}
+                                <span id="favorite-icon" class="material-icons notranslate">{% if photo.user_likes or photo.user_loves %}favorite{% else %}favorite_border{% endif %}</span>
+                                <span class="ajp-like-count">{{ photo.like_count }}</span>
                             </button>
                             <div class="d-block text-right ajp-image-bottom-right">
                                 {% if similar_photo_count > 0 %}
                                 <button class="btn ajp-show-similar-photo-selection-overlay-button" id="ajp-show-similar-photo-selection-overlay-button" {% if request.user_agent.is_pc %}style="display: none"{% endif %}>
-                                    <i class="material-icons notranslate w-100">burst_mode</i>
+                                    <span class="material-icons notranslate w-100">burst_mode</span>
                                     <span style="top:-10px; position: relative;">{% if similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photo_count }}{% endif %}</span>
                                 </button>
                                 {% endif %}
@@ -62,9 +62,9 @@
                                     <button class="ajp-show-rephoto-selection-overlay-button"
                                             {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                         {% if photo.rephotos.all|length < 10 %}
-                                            <i class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</i>
+                                            <span class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</span>
                                         {% else %}
-                                            <i class="material-icons notranslate">filter_9_plus</i>
+                                            <span class="material-icons notranslate">filter_9_plus</span>
                                         {% endif %}
                                     </button>
                                 {% endif %}
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     {% if similar_photos.0 %}
-                        <div id="ajp-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
+                        <div id="ajp-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-12">
                             <div id="ajp-modal-similar-photo-container" class="float-left">
                                 <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.get_pseudo_slug %}">
                                     <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.get_pseudo_slug %}"
@@ -86,11 +86,11 @@
                                         {% endif %}/>
                                     <button id="modal-compare-similar" class="btn ajp-compare-similar-overlay-button"
                                     {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
-                                        <i class="material-icons notranslate">compare</i>
+                                        <span class="material-icons notranslate">compare</span>
                                     </button>
                                     <button class="ajp-close-similar-photo-overlay-button"
                                         {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                        <i class="material-icons notranslate">close</i>
+                                        <span class="material-icons notranslate">close</span>
                                     </button>
                                 </a>
                                 {% if similar_photos|length > 1 %}
@@ -107,10 +107,10 @@
                                 {% endif %}
                             </div>
                         </div>
-                {% endif %}
+                    {% endif %}
                 {% if photo.rephotos.all.0 %}
-                    <div id="ajp-photo-modal-rephoto-column" class="pl-0 col-lg-6 col-xl-6 col-md-12 col-xs-12">
-                        <div id="ajp-modal-rephoto-container" class="float-left">
+                <div id="ajp-photo-modal-rephoto-column" class="pl-0 col-lg-6 col-xl-6 col-12">
+                    <div id="ajp-modal-rephoto-container" class="float-left">
                             <a class="fullscreen" id="ajp-rephoto-full-screen-link" rel=""
                                 href="{% url 'photo' photo.rephotos.all.0.id photo.rephotos.all.0.get_pseudo_slug %}">
                                 <img src="{% url 'image_thumb' photo.rephotos.all.0.id 800 photo.rephotos.all.0.get_pseudo_slug %}"
@@ -118,18 +118,18 @@
                                         alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}"/>
                                 <button class="ajp-close-rephoto-overlay-button"
                                         {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                    <i class="material-icons notranslate">close</i>
+                                    <span class="material-icons notranslate">close</span>
                                 </button>
                                 <button class="ajp-invert-rephoto-overlay-button"
-                                        
+
                                         {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                    <i class="material-icons notranslate">invert_colors</i>
+                                    <span class="material-icons notranslate">invert_colors</span>
                                 </button>
                             </a>
                             {% if photo.rephotos.all|length > 1 %}
                                 <div id="ajp-rephoto-selection" style="display:none;">
                                     {% for rephoto in photo.rephotos.all %}
-                                        <div class="ajp-photo-modal-rephoto-thumb"
+                                        <div class="ajp-photo-modal-rephoto-thumb ajp-cursor-pointer"
                                             id="ajp-rephoto-thumb-{{ rephoto.id }}" data-id="{{ rephoto.id }}">
                                             <img class="img-fluid"
                                                 src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
@@ -141,142 +141,31 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div id="ajp-photo-modal-map-container" class="col-lg-6 col-md-12 pl-0">
-                            <div id="ajp-minimap-disabled-overlay"></div>
-                            <div id="ajp-photo-modal-map-canvas"></div>
+                    <div id="ajp-photo-modal-map-container" class="{% if request.user_agent.is_pc %}col-lg-5 {% else %}col-lg-6 {% endif %}col-md-12 pl-0">
+                        <div id="ajp-minimap-disabled-overlay"></div>
+                        <div id="ajp-photo-modal-map-canvas"></div>
                     </div>
+                    {% if request.user_agent.is_pc %}
+                            </div>
+                            {% if request.user_agent.is_pc %}
+                                {% include 'photo/_photo_info_columns.html' %}
+                            {% endif %}
+                            <div class="row p-0 pt-2">
+                                {% include 'photo/_photo_comments_and_labels.html' %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-12">
+                            {% include 'photo/_photo_info_columns.html' %}
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="modal-footer row p-0 pt-2">
-                    <div class="container-fluid text-left">
 
-                        <!-- start of old photo info -->
-                        <div class="row">
-                            <div id="ajp-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
-                                <!-- start of transcriber block -->
-                                {% include "transcriber/_transcriber.html" with is_modal=False %}
-                                <!-- end of transcriber block -->
-                                {% with photo=photo %}
-                                {% include "photo/_photo_description_container.html" %}
-                                {% endwith %}
-                            </div>
-                            <!-- end of old photo info -->
-                            <!-- start of new photo info -->
-                            {% if photo.rephotos.all|length > 0 %}
-                                {% with rephoto=photo.rephotos.all.0 %}
-                                {% include "photo/_rephoto_description_container.html" %}
-                                {% endwith %}
-                            {% endif %}
-                            <!-- start of similar photo info -->
-                            {% if similar_photos.all|length > 0 %}
-                                <div id="ajp-photo-modal-similar-photo-info-column" class="col-lg-6 col-md-12 col-xs-12">
-                                    {% if similar_photos.all.0.to_photo.author %}
-                                        <div class="w-100">
-                                            <b id="ajp-photo-author">{{ similar_photos.all.0.to_photo.author }}</b>
-                                        </div>
-                                    {% endif %}
-                                    {% if similar_photos.all.0.to_photo.get_display_text %}
-                                        <div id="ajp-photo-description" title="{{ similar_photos.all.0.to_photo.get_display_text }}">
-                                            {% if similar_photos.all.0.to_photo.video %}
-                                                <a href="{% url "frontpage" %}?album={{ similar_photos.all.0.to_photo.albums.all.0.id }}&video={{ similar_photos.all.0.to_photo.video.id }}&t=
-                                                        {{ similar_photos.all.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.all.0.to_photo.get_display_text }}</a>
-                                            {% else %}
-                                                {{ similar_photos.all.0.to_photo.get_display_text }}
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
-                                    {% if similar_photos.all.0.to_photo.date %}
-                                        <div class="w-100">
-                                            {{ similar_photos.all.0.to_photo.date }}
-                                        </div>
-                                    {% elif similar_photos.all.0.to_photo.date_text %}
-                                        <div class="w-100">
-                                            {{ similar_photos.all.0.to_photo.date_text }}
-                                        </div>
-                                    {% endif %}
-                                    {% if similar_photos.all.0.to_photo.licence %}
-                                        {% include "photo/_licence.html" with licence=similar_photos.all.0.to_photo.licence %}
-                                    {% endif %}
-                                    {% if similar_photos.all.0.to_photo.source_url %}
-                                        <div class="d-inline-block" id="ajp-photo-source">
-                                            <a href="{{ similar_photos.all.0.to_photo.source_url }}"
-                                                target="_blank" rel="noopener nofollow">
-                                                {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
-                                                    {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
-                                            </a>
-                                        </div>
-                                    {% elif similar_photos.all.0.to_photo.source.description %}
-                                        <div class="d-inline-block" id="ajp-photo-source">
-                                            {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
-                                                {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                            <!-- end of similar photo info -->
-                        </div>
-                        <!-- end of new photo info -->
-
-                        <!-- start of toolbox block -->
-                        <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
-                            {% include '_toolbox.html' with photo=photo %}
-                        </div>
-                        <!-- end of toolbox block -->
-                        <!-- start of dater block -->
-                        <div class="row" id="ajp-dater-container"></div>
-                        <!-- end of dater block -->
-                        <!-- start of albums block -->
-                        <div class="row ajp-dater-hide-when-dater-visible pl-3 d-flex" style="flex-direction:row;flex-wrap:unset;">
-                            <i class="material-icons notranslate ajp-photo-modal-album-icon float-left pr-3"
-                                title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
-                                {% if a.is_film_still_album %}movie{% else %}collections_bookmark{% endif %}
-                            </i>
-                            <div class="d-inline-flex" style="flex-direction:row;flex-wrap: wrap;justify-content: start;">
-                                {% for a in albums %}
-                                    <div class="d-flex pt-1 pr-2">
-                                        <div>
-                                            <a class="ajp-photo-album-link float-left"
-                                                href="{% if is_mapview %}
-                                                            {% url 'map' %}?album={{ a.id }}
-                                                        {% elif is_frontpage or is_selection %}
-                                                            {% url 'frontpage' %}?album={{ a.id }}
-                                                        {% endif %}">{{ a.name }}</a>
-                                        </div>
-                                        <div class="ajp-photo-modal-album-more-button float-left"
-                                                role="button"
-                                                title="{% trans 'Album details' %}"
-                                                data-id="{{ a.id }}">
-                                        </div>
-                                        <div class="ajp-photo-modal-photo-curator">
-                                            &nbsp;<i title="{% trans "Curator" %}"
-                                                        class="material-icons notranslate ajp-text-gray" style="font-size: 20px;">account_circle</i>
-                                            <p class="d-none" style="font-size: 12px;">{{ a.this_photo_curator.get_display_name }}</p>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <a id="ajp-add-to-album-button" title="{% trans "Add to album" %}" href="#">
-                                    <div style="display: inline-block;position: relative;top: -5px;font-size: 14px;">{% trans 'Add to album' %}</div>
-                                    <i class="material-icons notranslate ajp-text-gray" style="top: 3px;position: relative;">add_box</i>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- end of albums block -->
-                        {% include '_annotation-filter.html' with numberOfColumns=2 %}
-                        <!-- start of comment block -->
-                        <div class="row" id="ajp-comments-container">
-                            <div class="col-md-12" id="ajp-comment-list"></div>
-                            <div class="col-md-12 pl-1" id="ajp-new-comment-form-container">
-                                {% render_comment_form for photo %}
-                            </div>
-                        </div>
-                        <!-- end of comment block -->
-                        {% if request.user.is_superuser %}
-                            <a class="no-text-decoration float-right"
-                                target="_blank"
-                                title="admin" href="/admin/ajapaik/photo/{{ photo.id }}">
-                                &Pi;
-                            </a>
-                        {% endif %}
+                {% if not request.user_agent.is_pc %}
+                    <div class="row p-0 pt-2">
+                        {% include 'photo/_photo_comments_and_labels.html' %}
                     </div>
+                {% endif %}
                 </div>
             </div>
         </div>
@@ -294,7 +183,6 @@
     window.photoModalCurrentImageUrl = "{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}";
     window.currentPhotoOriginalWidth = "{{ photo.width }}";
     window.currentPhotoOriginalHeight = "{{ photo.height }}";
-    window.currentPhotoURL = "{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}";
     window.currentPhotoLat = "{{ photo.lat }}";
     window.currentPhotoLon = "{{ photo.lon }}";
     window.photoModalCurrentPhotoFlipped = false;
@@ -423,7 +311,7 @@
         window.lastRotateWas90 = false;
         ImageAreaSelector.setImageArea('ajp-modal-photo-container');
         ObjectTagger.setPhotoId(window.currentlyOpenPhotoId);
-        ObjectTagger.setDetectionRectangleContainer('#ajp-modal-body');
+        ObjectTagger.setAnnotationContainer('#ajp-modal-body');
 
         getObjectAnnotationClasses();
         getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
@@ -435,8 +323,8 @@
         $('#ajp-dater-container').AjapaikDater();
 
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
-        $(document).on('mouseenter.ajp-namespace', '#ajp-modal-photo-container', showDetectionRectangles);
-        $(document).on('mouseleave.ajp-namespace', '#ajp-modal-photo-container', hideDetectionRectanglesWithoutOpenPopover);
+        $(document).on('mouseenter.ajp-namespace', '#ajp-modal-photo-container', {showPersons: true, showObjects: true}, displayAnnotationsOnMouseLeave);
+        $(document).on('mouseleave.ajp-namespace', '#ajp-modal-photo-container', hideAnnotationsWithoutOpenPopover);
 
         var rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image');
         rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
@@ -460,7 +348,7 @@
                 .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Confirm correct location'))
-                .html('<i class="material-icons notranslate">beenhere</i>').popover();
+                .html('<span class="material-icons notranslate">beenhere</span>').popover();
             if (window.photoModalUserHasConfirmedThisLocation) {
                 $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
             }
@@ -471,10 +359,10 @@
                 .data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Submit your own location'))
-                .html('<i class="material-icons notranslate">edit_location</i>').popover();
+                .html('<span class="material-icons notranslate">edit_location</span>').popover();
             $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
         }
-    
+
         var currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
 
         if (window.userClosedRephotoTools && window.userClosedSimilarPhotoTools) {
@@ -554,7 +442,7 @@
                         $('#ajp-similar-photo-selection').hide();
                     }
                 }
-            });            
+            });
     });
 
     resizeSimilarImage = function () {
@@ -605,5 +493,6 @@
 {% include "js_templates/photo_modal_rephoto_info_template.html" %}
 {% include "js_templates/photo_modal_similar_photo_info_template.html" %}
 {% include "album/_album_creation_modal.html" %}
-{% include "js_templates/curator_album_selection_separator.html" %}
-{% include "js_templates/curator_album_selection_option.html" %}
+{% include "js_templates/curator_album_selection_separator_template.html" %}
+{% include "js_templates/curator_album_selection_option_template.html" %}
+

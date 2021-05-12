@@ -19,7 +19,7 @@
                         <div id="ajp-game-modal-photo-container">
                             <button class="ajp-photo-modal-previous-button ajp-game-previous-photo-button"
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                <i class="material-icons ajp-icon-48 notranslate">navigate_before</i>
+                                <span class="material-icons ajp-icon-48 notranslate">navigate_before</span>
                             </button>
                             <a class="fullscreen" id="ajp-fullscreen-link" rel="" href="">
                                 <img class="img-fluid col-xs-12" id="ajp-game-modal-photo"
@@ -27,13 +27,13 @@
                             </a>
                             <button class="ajp-photo-modal-next-button ajp-game-next-photo-button"
                                     {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                <i class="material-icons ajp-icon-48 notranslate">navigate_next</i>
+                                <span class="material-icons ajp-icon-48 notranslate">navigate_next</span>
                             </button>
                             <button id="ajp-game-flip-button" style="display: none;">
-                                <i class="material-icons notranslate">flip</i>
+                                <span class="material-icons notranslate">flip</span>
                             </button>
                             <button class="ajp-like-photo-overlay-button">
-                                <i class="material-icons notranslate">favorite_border</i>
+                                <span id="favorite-icon" class="material-icons notranslate">favorite_border</span>
                                 <span class="ajp-like-count"></span>
                             </button>
                         </div>
@@ -47,12 +47,12 @@
                     <a id="ajp-game-show-description" href="#"
                         class="ajp-game-show-description-button"
                         title="{% trans "Show description" %}">
-                    <i class="material-icons notranslate">subject</i>
+                    <span class="material-icons notranslate">subject</span>
                     </a>
                     <span id="ajp-photo-modal-specify-location"
                         class="ajp-game-specify-location-button float-left"
                         title="{% trans "Pick the shooting location!" %}">
-                    <i class="material-icons notranslate">add_location</i>
+                    <span class="material-icons notranslate">add_location</span>
                     </span>
                     <ul class="list-unstyled">
                         <li id="ajp-game-photo-description"></li>
@@ -60,20 +60,6 @@
                             <a target="_blank" id="ajp-game-source-link" href="" rel="noopener nofollow"></a>
                         </li>
                     </ul>
-                    <div class="row d-none text-left">
-                        <div class="col-12">
-                            <b id="ajp-game-no-geotags-yet-message mt-2">
-                                {% trans "The picture has not yet been pinned on the map. Be the first!" %}
-                            </b>
-                            <b id="ajp-game-one-geotag-message mt-2">
-                                {% trans "1 suggestion has been submitted for this picture. Add yours!" %}
-                            </b>
-                            <b id="ajp-game-number-of-geotags-message mt-2">
-                                <span id="ajp-game-number-of-geotags"></span>
-                                {% trans "suggestions have been submitted for this picture. Add yours!" %}
-                            </b>
-                        </div>
-                    </div>
                     <p class="d-none d-block-xs" id="ajp-game-status-message"></p>
                 </div>
             </div>
@@ -100,8 +86,7 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        var permalinkURL = "{% url 'photo' %}",
-            streamURL = "{% url 'fetch_stream' %}",
+        var streamURL = "{% url 'fetch_stream' %}",
             difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
             gameURL = "{% url 'game' %}",
             mapURL = "{% url 'map' %}",

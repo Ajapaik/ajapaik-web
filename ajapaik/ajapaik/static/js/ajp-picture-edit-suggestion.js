@@ -39,7 +39,7 @@ function submitPictureEditSuggestion(photoIds, isSelection) {
             'Content-Type': 'application/json'
         },
         body
-    
+
     })
     .then(window.handleErrors)
     .then(function(data) {
@@ -161,7 +161,7 @@ function clickPhotoEditButton(buttonId, noop) {
                     $('#' + buttonId).addClass('btn-light');
                     $('#' + buttonId).removeClass('btn-outline-primary');
                 }
-                
+
                 if (newPhotoRotationDegrees == 90) {
                     $('#' + buttonId).removeClass('btn-light');
                     $('#' + buttonId).addClass('btn-outline-primary');

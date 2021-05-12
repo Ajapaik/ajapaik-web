@@ -24,7 +24,7 @@
                     <p>{% trans "Please select which account would you like to keep using after" %}</p>
                 </div>
                 <div class="col-sm-12">
-                    <button id="merge-accounts-button" class="primaryAction btn btn-primary" disabled>{% trans "Merge the accounts" %}</button>
+                    <button id="merge-accounts-button" class="ajp-cursor-pointer btn btn-primary" disabled>{% trans "Merge the accounts" %}</button>
                 </div>
             {% else %}
                 <div class="col">
@@ -69,7 +69,7 @@
             }
         });
 
-        
+
         $("input[name='user-2']").click(function () {
             var paramChangeBoxes = $("input[name='user-1']");
             if ($(this).is(':checked')) {

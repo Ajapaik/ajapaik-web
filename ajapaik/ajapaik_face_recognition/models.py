@@ -87,7 +87,7 @@ class FaceRecognitionRectangle(models.Model):
             gender = 0
         if gender == 'MALE':
             gender = 1
-        if gender == 'UNSURE' or gender == 'UNKNOWN' or gender == '':
+        if gender == 'UNSURE':
             gender = 2
         if gender == 'NOT_APPLICABLE':
             gender = 3
@@ -97,7 +97,7 @@ class FaceRecognitionRectangle(models.Model):
             age = 1
         if age == 'ELDERLY':
             age = 2
-        if age == 'UNSURE' or age == 'UNKNOWN' or age == '':
+        if age == 'UNSURE':
             age = 3
         if age == 'NOT_APPLICABLE':
             age = 4

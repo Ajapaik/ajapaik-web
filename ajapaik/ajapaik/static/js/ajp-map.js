@@ -92,7 +92,7 @@
                     similarPhotoColumn.hide();
                     $('#ajp-photo-modal-similar-photo-info-column').hide();
                 }
-                if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
+                if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] != 'None' && window.photoModalRephotoArray[0][2] != '') {
                     $('#ajp-photo-modal-date-row').show();
                 }
                 mainPhotoContainer.hover(function () {
@@ -362,7 +362,7 @@
                 photosOnSidePanel = [];
                 loadedPhotosCount = 0;
                 markers.length = 0;
-    
+
                 if (response.photos) {
                     window.lastMarkerSet = [];
                     for (var j = 0; j < response.photos.length; j++) {
@@ -373,7 +373,7 @@
                         );
                         var angleFix;
                         var currentIcon;
-    
+
                         if (photo.azimuth) {
                             var geodesicEndPoint = Math.calculateMapLineEndPoint(
                                 photo.azimuth, currentPosition, 2000
@@ -405,13 +405,13 @@
                         });
                         if (angleFix)
                             window.lastMarkerSet.push(photo.id);
-    
+
                         (function (marker) {
                             google.maps.event.addListener(marker, 'click', function () {
                                 highlightSelected(marker, true);
                             });
                         })(marker);
-    
+
                         markers.push(marker);
                     }
                 }
@@ -465,7 +465,7 @@
         }
     };
 
-    
+
     function loadMoreImages() {
         refreshPane(photosOnSidePanel.slice(
             current_bunch * sidePanelPhotosBunchSize,
@@ -708,7 +708,7 @@
         $('#ajp-header-album-filter-button').prop('title', window.gettext('Remove album filter'));
         if (showMessage) {
             var albumFilterMessage = interpolate(
-                gettext('Pictures only in album: %(albumName)s are shown in the sidebar'), 
+                gettext('Pictures only in album: %(albumName)s are shown in the sidebar'),
                 {
                     'albumName': $('#ajp-header-title').clone().children().remove().end().text().trim()
                 },
@@ -781,7 +781,7 @@
 
     window.toggleSidePanel = function () {
         if (window.innerWidth > 768) {
-            let sidePanelWidth = 0
+            let sidePanelWidth = 0;
             if (!window.isSidePanelOpen) {
                 sidePanelWidth = window.innerWidth / 4;
                 if (sidePanelWidth < 200) {
@@ -795,7 +795,7 @@
             document.getElementById('close-btn').style.left = sidePanelWidth + 'px';
             document.getElementById('close-btn').style.bottom = '';
         } else {
-            let sidePanelHeight = 0
+            let sidePanelHeight = 0;
             if (!window.isSidePanelOpen) {
                 sidePanelHeight = window.innerHeight / 4;
                 if (sidePanelHeight < 200) {
@@ -859,7 +859,7 @@
             highlightSelected(findMarkerByPhotoId(photoId));
         });
 
-        $('#img-wrapper').on('scroll', function () { 
+        $('#img-wrapper').on('scroll', function () {
             if (window.innerWidth < 769 && ($('#img-wrapper')[0].scrollWidth - $('#img-wrapper')[0].scrollLeft - 20) < $('#img-wrapper')[0].clientWidth) {
                 if (!!window.morePhotosCanBeLoaded) {
                     loadMoreImages();
@@ -870,7 +870,7 @@
                     loadMoreImages();
                 }
             }
-        }); 
+        });
 
         //TODO: There has to be a better way
         window.paneImageHoverIn = function (e) {

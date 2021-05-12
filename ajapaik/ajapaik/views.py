@@ -471,14 +471,6 @@ def rephoto_upload(request, photo_id):
     if request.method == 'POST':
         profile = request.get_user().profile
         user = request.get_user()
-        # FIXME: Our interfaces block non-authenticated uploading, but clearly it's possible
-        # if 'fb_access_token' in request.POST:
-        #     token = request.POST.get('fb_access_token')
-        #     profile, fb_data = Profile.facebook.get_user(token)
-        #     if profile is None:
-        #         user = request.get_user()
-        #         profile = user.profile
-        #         profile.update_from_fb_data(token, fb_data)
         social_account = SocialAccount.objects.filter(user=request.user).first()
         if not social_account and not user.email:
             return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
@@ -1331,6 +1323,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
     full_album_id_list = list(album_ids)
     albums = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).prefetch_related('subalbum_of')
+    collection_albums = Album.objects.filter(pk__in=album_ids, atype=Album.COLLECTION)
     for each in albums:
         if each.subalbum_of:
             current_parent = each.subalbum_of
@@ -1456,6 +1449,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         'area': photo_obj.area,
         'album': album,
         'albums': albums,
+        'collection_albums': collection_albums,
         'is_frontpage': is_frontpage,
         'is_mapview': is_mapview,
         'is_selection': is_selection,
@@ -1503,8 +1497,8 @@ def photo_upload_modal(request, photo_id):
 
 def login_modal(request):
     context = {
-        'next': request.META['HTTP_REFERER'],
-        'type': request.GET.get('type')
+        'next': request.META.get('HTTP_REFERER', None),
+        'type': request.GET.get('type', None)
     }
     return render(request, 'authentication/_login_modal_content.html', context)
 
@@ -2526,7 +2520,7 @@ def update_like_state(request):
 
 def muis_import(request):
     user = request.user
-    user_can_import = user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
+    user_can_import = not user.is_anonymous and user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
     if request.method == 'GET':
         url = 'https://www.muis.ee/OAIService/OAIService?verb=ListSets'
         url_response = urllib.request.urlopen(url)
@@ -3386,6 +3380,8 @@ def user_settings(request):
             'preferred_language': profile.preferred_language,
             'newsletter_consent': profile.newsletter_consent
         })
+    if profile is None:
+        return render(request, 'user/settings/user_settings.html', context)
 
     if token is None:
         if profile and profile.is_legit():
@@ -3462,7 +3458,7 @@ def merge_accounts(request):
     if (hasattr(request.user, 'profile')):
         context['profile'] = request.user.profile
     if token is None:
-        if context['profile'] and request.user.profile.is_legit():
+        if 'profile' in context and request.user.profile.is_legit():
             token = ProfileMergeToken(token=str(uuid4()), profile=request.user.profile)
             token.save()
         context['initial'] = True
@@ -3472,7 +3468,7 @@ def merge_accounts(request):
                                                      hours=1)).first()
         if token is None:
             context['invalid'] = True
-            if context['profile'] and request.user.profile.is_legit():
+            if 'profile' in context and request.user.profile.is_legit():
                 token = ProfileMergeToken(token=str(uuid4()), profile=request.user.profile)
                 token.save()
             else:
@@ -3517,7 +3513,6 @@ def geotaggers_modal(request, photo_id):
 
 
 def supporters(request, year=None):
-    request.LANGUAGE_CODE == 'et'
     context = {}
     supporters = {
         'Kulka': {

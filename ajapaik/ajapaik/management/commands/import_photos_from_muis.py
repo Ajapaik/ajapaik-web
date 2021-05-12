@@ -57,7 +57,7 @@ class Command(BaseCommand):
         while start < present:
             dates.append(str(start.strftime('%Y-%m-%d')))
             start += timedelta(days=30)
-        dates.append(str(present))
+        dates.append(str(present.strftime('%Y-%m-%d')))
 
         from_date = None
         for until_date in dates:

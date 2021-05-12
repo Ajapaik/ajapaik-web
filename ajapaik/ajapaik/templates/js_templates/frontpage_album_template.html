@@ -6,11 +6,11 @@
                  data-photos="{%=o.photo_count_with_subalbums%}" width="{%=o.cover_photo_width%}"
                  src="{%=photoThumbURL%}{%=o.cover_photo%}/400/">
             <div class="caption ajp-caption-album-selection">
-                <i class="material-icons notranslate float-left">photo_album</i>
+                <span class="material-icons notranslate float-left">photo_album</span>
                 <p class="ajp-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
                 {% if (o.is_film_still_album) { %}
                     <div class="ajp-album-selection-film-icon" title="{%=gettext('This album contains a film')%}">
-                        <i class="material-icons notranslate">movie</i>
+                        <span class="material-icons notranslate">movie</span>
                     </div>
                 {% } %}
                 <div class="ajp-album-selection-photo-count" title="{%=gettext('Pictures in album')%}">
@@ -40,11 +40,11 @@
                     <div class="ajp-album-selection-album-more-button" role="button" title="{%=gettext('Album details')%}" data-id="{%=o.id%}"></div>
                     {% if (o.geotagged_photo_count_with_subalbums > 0) { %}
                         <div class="ajp-album-selection-map-button" role="button" title="{%=gettext('Show pictures on map')%}" data-href="{%=mapviewURL%}?album={%=o.id%}">
-                            <i class="material-icons notranslate">map</i>
+                            <span class="material-icons notranslate">map</span>
                         </div>
                     {% } %}
                     <div class="ajp-album-selection-game-button" role="button" title="{%=gettext('Geotag pictures in album')%}" data-href="{%=gameURL%}?album={%=o.id%}">
-                        <i class="material-icons notranslate">add_location</i>
+                        <span class="material-icons notranslate">add_location</span>
                     </div>
                 </div>
             </div>

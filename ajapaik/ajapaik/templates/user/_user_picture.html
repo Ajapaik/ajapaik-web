@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if profile.fb_id %}
+<img class="profile-picture" src="https://graph.facebook.com/v7.0/{{ profile.fb_id }}/picture?type=large"
+    alt="{% trans "User Facebook photo" %}"/>
+{% elif profile.google_plus_picture %}
+<img class="profile-picture" src="{{ profile.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
+{% else %}
+<span class="ajp-user-icon material-icons notranslate">account_box</span>
+{% endif %}

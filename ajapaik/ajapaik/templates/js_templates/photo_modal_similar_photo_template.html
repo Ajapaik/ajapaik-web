@@ -3,12 +3,12 @@
         <a class="fullscreen" id="ajp-similar-photo-full-screen-link" rel="" href="{%=o[0][o[1]].fb_url%}">
             <img src="{%=o[0][o[1]].url%}" id="ajp-modal-similar-photo" class="img-fluid col-xs-12">
         </a>
-        <button id="modal-compare-similar" class="btn ajp-compare-similar-overlay-button"{% if (!isMobile) { %} style="opacity:0;"{% } %}><i class="material-icons notranslate">compare</i></button>
+        <button id="modal-compare-similar" class="btn ajp-compare-similar-overlay-button"{% if (!isMobile) { %} style="opacity:0;"{% } %}><span class="material-icons notranslate">compare</span></button>
         <button class="btn ajp-close-similar-photo-overlay-button" {% if (!isMobile) { %}
-            style="display: none;"{% } %}><i class="material-icons notranslate">close</i></button>
+            style="display: none;"{% } %}><span class="material-icons notranslate">close</span></button>
         <button class="btn ajp-invert-similar-photo-overlay-button"
              {% if (!isMobile) { %}
-            style="display: none;"{% } %}><i class="material-icons notranslate">invert_colors</i></button>
+            style="display: none;"{% } %}><span class="material-icons notranslate">invert_colors</span></button>
         {% if (o[0] && o[0].length > 1) { %}
             <div id="ajp-similar-photo-selection" style="display:none;">
                 {% for (similar of o[0]) { %}

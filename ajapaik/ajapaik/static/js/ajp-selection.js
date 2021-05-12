@@ -72,7 +72,7 @@
                         similarityType,
                         photos
                     })
-                
+
                 })
                 .then(handleErrorsSimilar)
                 .then(function(response) {
@@ -176,17 +176,17 @@
                 } else {
                     target.addClass('d-none');
                 }
-                target.find('span').html(len);
+                target.find('div').html(len);
             });
             $this.parent().parent().remove();
         });
 
         let container = 'body';
-        let submitCategoryContent = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>hotel</i><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 btn-light' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>home</i><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>nature_people</i><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 btn-light' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>location_city</i><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid btn-light' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>flight</i><span>` + gettext('Aerial') + `</span></button></div></div>`;
+        let submitCategoryContent = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 btn-light' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid btn-light' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;
         let submitCategoryActionButtonTemplate = `<button id='send-suggestion-button' onclick='submitCategories();' class='btn btn-success mt-3 w-100' disabled>` + gettext('Submit') + `</button>`;
         submitCategoryContent += submitCategoryActionButtonTemplate;
         let submitCategoryTitle = gettext('Categorize scene');
-    
+
         window.submitCategories = function () {
             $.get('/photo-selection/', function (response) {
                 let photos = []
@@ -196,7 +196,7 @@
                 submitCategorySuggestion(photos, true);
             });
         };
-    
+
         $('#ajp-photo-selection-categorize-scenes-button').popover({
             html: true,
             sanitize: false,
@@ -205,12 +205,12 @@
             container,
         });
 
-        let pictureEditContent = `<div class='d-flex' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='flip-button' class='btn mr-2' style='display:grid;'><i class='material-icons notranslate ajp-icon-48'>flip</i><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='invert-button' class='btn ml-2' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>invert_colors</i><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='rotate-button' class='btn ml-2' style='display:grid;'><i class='material-icons ajp-icon-48 notranslate'>rotate_left</i><span>` + gettext('Rotate') + `</span></button></div></div>`;
+        let pictureEditContent = `<div class='d-flex' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='flip-button' class='btn mr-2' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>flip</span><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='invert-button' class='btn ml-2' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>invert_colors</span><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, true);' id='rotate-button' class='btn ml-2' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>rotate_left</span><span>` + gettext('Rotate') + `</span></button></div></div>`;
         let pictureEditActionButtonTemplate = `<button id='send-edit-button' onclick="submitPictureEdits();" class='btn btn-success mt-3 w-100'>` + gettext('Submit') + `</button>`;
         pictureEditContent += pictureEditActionButtonTemplate;
 
         let pictureEditTitle = gettext('Edit');
-    
+
         window.submitPictureEdits = function () {
             $.get('/photo-selection/', function (response) {
                 let photos = []
@@ -220,7 +220,7 @@
                 submitPictureEditSuggestion(photos, true);
             });
         };
-    
+
         $('#ajp-photo-selection-edit-pictures-button').popover({
             html: true,
             sanitize: false,

@@ -67,7 +67,23 @@
     display: none;
 }
 
-.annotation-button-disabled {
-    color: #DCDCDC !important;
-    cursor: no-drop;
+.ajp-button-disabled {
+    opacity: 0.5;
+    cursor: no-drop !important;
+}
+
+.annotations__title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.annotations__checkbox-column {
+    text-align: left;
+}
+
+.annotation-filter {
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

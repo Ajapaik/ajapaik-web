@@ -1,0 +1,117 @@
+{% load i18n ajapaik_templatetags comments %}
+<div class="container-fluid text-left">
+    <!-- start of dater block -->
+    <div class="row my-2" id="ajp-dater-container"></div>
+    <!-- end of dater block -->
+    <!-- start of albums block -->
+    <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
+        <span class="material-icons notranslate ajp-photo-modal-album-icon ajp-cursor-default float-left mt-2 pr-3"
+            title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
+            {% if a.is_film_still_album %}movie{% else %}collections_bookmark{% endif %}
+        </span>
+        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
+            {% for a in albums %}
+                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover">
+                    <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
+                </div>
+            {% endfor %}
+            <a id="ajp-add-to-album-button" class="d-flex flex-row align-items-center mt-2" title="{% trans "Add to album" %}" href="#">
+                <div>{% trans 'Add to album' %}</div>
+                <span class="material-icons notranslate ajp-text-gray">add_box</span>
+            </a>
+        </div>
+    </div>
+    {% include '_annotations.html' with numberOfColumns=2 %}
+    {% if collection_albums.all|length > 0 %}
+    <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
+        <span class="material-icons notranslate ajp-photo-modal-collection-icon ajp-cursor-default float-left mr-3 mt-2"
+            title="{% blocktrans count counter=collection_albums|length %}Picture belongs to collection{% plural %}Picture belongs to collections:{% endblocktrans %}">
+            account_balance
+        </span>
+        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
+            {% for a in collection_albums %}
+                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover">
+                    <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <!-- end of albums block -->
+    <!-- start of comment block -->
+    <div class="row pt-3" id="ajp-comments-container">
+        <div class="col-md-12" id="ajp-comment-list"></div>
+        <div class="col-md-12 pl-1" id="ajp-new-comment-form-container">
+            {% render_comment_form for photo %}
+        </div>
+    </div>
+    <!-- end of comment block -->
+    <!-- start of toolbox block -->
+        {% if not request.user_agent.is_pc %}
+        <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
+            {% include '_toolbox.html' with photo=photo sidebar=False flexEnd=False %}
+        </div>
+    {% endif %}
+    <!-- end of toolbox block -->
+    {% if request.user.is_superuser %}
+        <a id="ajp-photo-modal-discuss" class="no-text-decoration float-right"
+            target="_blank"
+            title="admin" href="/admin/ajapaik/photo/{{ photo.id }}">
+            &Pi;
+        </a>
+    {% endif %}
+</div>
+
+{% block specific_js %}
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.ajp-photo-album-link', function (e) {
+                e.preventDefault();
+                $(this).popover('toggle');
+            });
+
+            let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
+            $(".ajp-photo-album-link").each(function() {
+                let anchorLink = $(this);
+                let requestUrl = album_information_url.replace('0', anchorLink.attr('data-id'));
+                let request = new Request(
+                    requestUrl,
+                    {
+                        method: 'GET',
+                        headers: new Headers()
+                    }
+                );
+
+                fetch(request)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data){
+                    let popoverContent = $('<div>');
+                    if (data.photo_count) {
+                        let photoCountText = interpolate(gettext('Album has <em>%(photoCount)s</em> photos'), {photoCount: data.photo_count}, true);
+                        popoverContent.append(photoCountText);
+                    }
+
+                    let viewAlbumButton = createIconButton(
+                        gettext("Open album"),
+                        'photo_album',
+                        gettext('Open album'),
+                        function() {
+                            window.open('?album=' + annotation.subjectId, '_blank');
+                        }
+                    )
+                    popoverContent.append(viewAlbumButton);
+
+                    anchorLink.popover({
+                        html: true,
+                        sanitize: false,
+                        trigger: 'manual',
+                        container,
+                        content: popoverContent,
+                        title: data.name,
+                    })
+                });
+            });
+        })
+    </script>
+{% endblock %}

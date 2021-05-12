@@ -218,7 +218,7 @@ var DraggableArea = (function () {
     }
 
     function addResizeIndicatorIcon(iconSpecificClass, annotationRectangle, directionSpecificFunction) {
-        var icon = $('<i class="material-icons notranslate resizable-box__arrow">height</i>');
+        var icon = $('<span class="material-icons notranslate resizable-box__arrow">height</span>');
 
         icon.addClass(iconSpecificClass);
         icon.data({'is-detection-controls': true});

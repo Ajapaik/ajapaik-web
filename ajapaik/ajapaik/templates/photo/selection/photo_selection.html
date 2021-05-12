@@ -84,8 +84,8 @@
             {% include "rephoto_upload/_rephoto_upload_modal.html" %}
             {% include "geotaggers/_geotaggers_modal.html" %}
             {% include "album/_album_creation_modal.html" %}
-            {% include "js_templates/curator_album_selection_option.html" %}
-            {% include "js_templates/curator_album_selection_separator.html" %}
+            {% include "js_templates/curator_album_selection_option_template.html" %}
+            {% include "js_templates/curator_album_selection_separator_template.html" %}
         {% else %}
             {% include "authentication/_login.html" with type="photo_selection" %}
         {% endif %}
@@ -96,7 +96,7 @@
         window.isSelection = true;
         var scene = 'undefined';
         var viewpointElevation = 'undefined';
-        
+
         $(document).ready(function () {
             window.previouslyEditedPhotoIds.forEach(id => {
                 window.refreshUpdatedImageLight('a[data-id=' + id + '].ajp-photo-selection-thumbnail-link > img');

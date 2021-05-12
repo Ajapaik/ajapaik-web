@@ -1,4 +1,4 @@
-from ajapaik.ajapaik.models import Photo
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Profile
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
     FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
@@ -34,11 +34,24 @@ def get_all_annotations(user_id, photo_id=None):
         map_face_rectangle_to_rectangle
     )
 
-    return objects + faces
+    # None values must be excluded https://code.djangoproject.com/ticket/20024
+    person_subject_ai_suggestion_ids = face_rectangles.exclude(subject_ai_suggestion_id=None).values_list(
+        'subject_ai_suggestion_id', flat=True)
+    person_subject_consensus_ids = face_rectangles.exclude(subject_consensus_id=None).values_list(
+        'subject_consensus_id', flat=True)
+    albumphotos = AlbumPhoto.objects.filter(photo=photo).exclude(album_id__in=person_subject_ai_suggestion_ids) \
+        .exclude(album_id__in=person_subject_consensus_ids).filter(album__atype=Album.PERSON)
+
+    persons = object_annotation_utils.transform_annotation_queryset(
+        user_id,
+        albumphotos,
+        map_person_album_to_rectangle
+    )
+    return objects + faces + persons
 
 
 def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotation, user_id: int):
-    previous_feedback = object_annotation.feedback.filter(user_id=user_id).first()
+    previous_feedback = object_annotation.feedback.filter(user_id=user_id).order_by('-created_on').first()
     previous_feedback_object = previous_feedback.alternative_object if previous_feedback is not None else None
 
     alternative_object_id = previous_feedback_object.wiki_data_id if previous_feedback_object is not None else None
@@ -46,12 +59,16 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
         if previous_feedback_object is not None \
         else None
 
+    user = Profile.objects.filter(user_id=user_id).first()
+    if user is not None:
+        user = user.get_display_name
+
     return DetectionRectangle({
+        'id': object_annotation.id,
         'x1': object_annotation.x1,
         'y1': object_annotation.y1,
         'x2': object_annotation.x2,
         'y2': object_annotation.y2,
-        'id': object_annotation.id,
         'wiki_data_id': object_annotation.detected_object.wiki_data_id,
         'translations': object_annotation.detected_object.translations,
         'is_editable': object_annotation_utils.is_object_annotation_editable(
@@ -64,7 +81,8 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
             'is_correct_object': previous_feedback.confirmation if previous_feedback is not None else None,
             'alternative_object_id': alternative_object_id,
             'alternative_object_translations': alternative_object_translations
-        }
+        },
+        'user': user
     })
 
 
@@ -84,19 +102,22 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
     gender_and_age = face_annotation.face_recognition_rectangle \
         .filter(proposer_id=user_id) \
         .first()
-    previous_user_feedback = face_annotation.feedback.filter(user_id=user_id).first()
+    previous_user_feedback = face_annotation.feedback.filter(user_id=user_id).order_by('-created').first()
 
     alternative_subject = previous_user_feedback.alternative_subject if previous_user_feedback is not None else None
 
     is_agreeing_on_age = gender_and_age is None or gender_and_age.age is None and original_user_set_age is not None
     is_agreeing_on_gender = not gender_and_age or not gender_and_age.gender and original_user_set_gender
 
+    user = Profile.objects.filter(user_id=user_id).first()
+    if user is not None:
+        user = user.get_display_name
     return DetectionRectangle({
+        'id': face_annotation.id,
         'x1': coordinates[3],
         'y1': coordinates[0],
         'x2': coordinates[1],
         'y2': coordinates[2],
-        'id': face_annotation.id,
         'subject_id': subject_id,
         'subject_name': face_annotation.get_subject_name(),
         'is_editable': object_annotation_utils.is_face_annotation_editable(
@@ -116,5 +137,36 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
             'age': gender_and_age.age if gender_and_age is not None else None,
             'is_correct_gender': is_agreeing_on_gender,
             'gender': gender_and_age.gender if gender_and_age is not None else None
-        }
+        },
+        'user': user
+    })
+
+
+def map_person_album_to_rectangle(albumphoto: AlbumPhoto, user_id: int):
+    user = albumphoto.profile
+
+    return DetectionRectangle({
+        'id': None,
+        'x1': None,
+        'y1': None,
+        'x2': None,
+        'y2': None,
+        'subject_id': albumphoto.album.id,
+        'subject_name': albumphoto.album.name,
+        'is_editable': False,
+        'is_added_by_current_user': False,
+        'gender': object_annotation_utils.parse_gender_to_constant(albumphoto.album.gender),
+        'age': None,
+        'has_user_given_feedback': False,
+        'previous_feedback': {
+            'is_face': None,
+            'is_correct_name': None,
+            'subject_id': None,
+            'subject_name': None,
+            'is_correct_age': None,
+            'age': None,
+            'is_correct_gender': None,
+            'gender': None
+        },
+        user: user
     })

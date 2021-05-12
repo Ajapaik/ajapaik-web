@@ -8,14 +8,7 @@
 {% block layout %}
      <div id="ajp-user-info" class="container-fluid px-3 py-5">
         <div class="mt-4" style="height: 200px;">
-            {% if profile.fb_id %}
-                <img class="profile-picture" src="https://graph.facebook.com/v7.0/{{ profile.fb_id }}/picture?type=large"
-                    alt="{% trans "User Facebook photo" %}"/>
-            {% elif profile.google_plus_picture %}
-                <img class="profile-picture" src="{{ profile.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
-            {% else %}
-                <i class="ajp-user-icon material-icons notranslate">account_box</i>
-            {% endif %}
+            {% include "user/_user_picture.html" with profile=profile %}
         </div>
         <div>
             <h3>
@@ -44,7 +37,7 @@
             {% endif %}
             {% if request.user.profile.is_legit %}
                 <div>
-                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>                    
+                    <a class="btn btn-primary" href="{% url 'user_settings' %}">{% trans "User settings" %}</a>
                 </div>
                 <div class="mt-2">
                     <a class="btn btn-secondary" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>

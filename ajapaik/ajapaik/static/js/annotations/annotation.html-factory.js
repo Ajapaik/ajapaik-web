@@ -128,7 +128,7 @@ function getSubmitButton(style) {
     var submitButtonText = constants.translations.button.SUBMIT;
 
     var submitButton = $('<button>', {
-        class: 'btn btn-primary btn-block',
+        class: 'btn btn-success btn-block',
         type: 'submit',
         style: style
     });
@@ -166,42 +166,6 @@ function getButtonGroup(buttons) {
     });
 
     return wrapper;
-}
-
-function getPopoverCheckbox(labelText, wrapperId, labelId, checkboxName, checkboxId, onCheckboxClick, isChecked) {
-    if (!labelText) {
-        return '';
-    }
-
-    var isCheckboxChecked = getDefaultBooleanCheckboxValue(isChecked);
-    var strikeThrough = isCheckboxChecked ? '' : 'text-decoration: line-through; ';
-
-    var wrapper = $('<div>', {
-        class: 'row',
-        style: 'width: 180px; margin: 0;',
-        id: wrapperId
-    });
-    var label = $('<label>', {
-        id: labelId,
-        for: checkboxName,
-        style: strikeThrough + 'width: 92%;'
-    });
-
-    var input = $('<input>', {
-        class: 'float-right',
-        click: onCheckboxClick,
-        type: 'checkbox',
-        id: checkboxId,
-        name: checkboxName,
-        style: 'margin-top:auto; margin-bottom: auto;',
-        checked: isCheckboxChecked
-    });
-
-    return wrapper
-        .append(label
-            .append(labelText)
-        )
-        .append(input);
 }
 
 function getAnnotationIdentifier(annotation) {
@@ -296,6 +260,23 @@ function setPopoverToOpenOnFullscreenExit(event) {
     popover.data('open-popover-on-fullscreen-exit', true);
 }
 
+function onAnnotationRectangleShown() {
+    let selector = '#autocomplete-subject';
+    let noPersonSelected = document.querySelector(selector) && document.querySelector(selector).slim.data.data[0].text == '';
+    if (!window.lastEnteredName && !noPersonSelected) {
+        return;
+    }
+    if (document.querySelector(selector)) {
+        document.querySelector(selector).slim.open();
+        if (window.lastEnteredName) {
+            setTimeout(() => {
+                document.querySelector(selector).slim.search(window.lastEnteredName);
+                window.lastEnteredName = undefined;
+            }, 100);
+        }
+    }
+}
+
 function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverContent, configuration, onAnnotationRectangleShow, customBorder) {
     var border = customBorder ? customBorder : 'solid';
 
@@ -304,6 +285,10 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         'data-is-detection-rectangle': true,
         'data-annotation-identifier': getAnnotationIdentifier(configuration.annotation),
         class: 'ajp-face-rectangle',
+        click: function(event) {
+            closePopoversOnAnnotationClick(event);
+            setPopoverToOpenOnFullscreenExit(event);
+        },
         css: {
             position: 'absolute',
             left: configuration.leftEdgeDistancePercentage + '%',
@@ -322,13 +307,8 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         DraggableArea.addResizeAndMoveControls(annotationRectangle, configuration);
     }
 
-    annotationRectangle.on('click', function (event) {
-        closePopoversOnRectangleClick(event);
-        setPopoverToOpenOnFullscreenExit(event);
-    });
-
     annotationRectangle.popover({
-        container: ObjectTagger.getDetectionRectangleContainer(),
+        container: ObjectTagger.getAnnotationContainer(),
         html: true,
         placement: function (popoverElement, annotationElement) {
             var popover = $(popoverElement);
@@ -356,9 +336,12 @@ function createAnnotationRectangleWithPopover(popoverId, popoverTitle, popoverCo
         }
     });
 
+    annotationRectangle.on('shown.bs.popover', onAnnotationRectangleShown);
+
     annotationRectangle.on('hide.bs.popover', function () {
         enableHotkeys();
     });
+
 
     return annotationRectangle;
 }

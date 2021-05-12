@@ -5,37 +5,37 @@
             <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown"
                 class="dropdown-toggle ajp-no-background ajp-text-white">
                 {% if album.5 %}
-                    <i id="ajp-header-movie-indicator" class="material-icons notranslate float-left">movie</i>
+                    <span id="ajp-header-movie-indicator" class="material-icons notranslate float-left">movie</span>
                 {% else %}
-                    <i class="material-icons notranslate float-left">photo_album</i>
+                    <span class="material-icons notranslate float-left">photo_album</span>
                 {% endif %}
                 <span id="ajp-header-title" class="float-left">
-                    {{ album.1 }} <i id="ajp-header-arrow-drop-down"
+                    {{ album.1 }} <span id="ajp-header-arrow-drop-down"
                                         class="material-icons notranslate"
-                                        title="{% trans 'Click to choose' %}">arrow_drop_down</i>
+                                        title="{% trans 'Click to choose' %}">arrow_drop_down</span>
                 </span>
             </a>
-            <i id="ajp-header-album-more" class="material-icons notranslate ajp-text-white"
-                title="{% trans 'Album details' %}">more</i>
+            <span id="ajp-header-album-more" class="material-icons notranslate ajp-text-white"
+                title="{% trans 'Album details' %}">more</span>
             <div class="dropdown-menu with-album ajp-dropdown" id="ajp-mode-select">
                 <a href="#" class="dropdown-item" class="dropdown-item" id="ajp-frontpage-show-albums-link"
                     data-mode="albums" title="{% trans "Show albums" %}">
-                    <i class="material-icons notranslate">collections_bookmark</i>
+                    <span class="material-icons notranslate">collections_bookmark</span>
                         <span class="ajp-bottom-4px">{% trans "Albums" %}</span>
                 </a>
                 <a href="#" class="dropdown-item" id="ajp-frontpage-show-pictures-link"
                     data-mode="pictures" title="{% trans "Show pictures" %}">
-                    <i class="material-icons notranslate">collections</i>
+                    <span class="material-icons notranslate">collections</span>
                         <span class="ajp-bottom-4px">{% trans "All pictures" %}</span>
                 </a>
                 <a href="#" id="ajp-frontpage-show-liked-link"
                     data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
-                    <i class="material-icons notranslate">favorite</i>
+                    <span class="material-icons notranslate">favorite</span>
                         <span class="ajp-bottom-4px">{% trans "My favorites" %}</span>
                 </a>
                 <a href="#" id="ajp-frontpage-show-rephotographed-link"
                     data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
-                    <i class="material-icons notranslate">library_add</i> 
+                    <span class="material-icons notranslate">library_add</span>
                         <span class="ajp-bottom-4px">{% trans "My rephotos" %}</span>
                 </a>
             </div>
@@ -45,10 +45,10 @@
         <li class="float-left ajp-album-filter-list-item">
             <div title="{% trans 'Remove album filter' %}" id="ajp-header-album-filter-button"
                 class="ajp-no-background">
-                <i id="ajp-header-album-filter-button-on"
-                    class="material-icons notranslate ajp-gray-button">check_box</i>
-                <i id="ajp-header-album-filter-button-off"
-                    class="material-icons notranslate ajp-gray-button">check_box_outline_blank</i>
+                <span id="ajp-header-album-filter-button-on"
+                    class="material-icons notranslate ajp-gray-button">check_box</span>
+                <span id="ajp-header-album-filter-button-off"
+                    class="material-icons notranslate ajp-gray-button">check_box_outline_blank</span>
             </div>
         </li>
     {% endif %}
@@ -57,31 +57,31 @@
     <div class="dropdown float-left pt-3" style="height:50px;">
         <!--FIXME: DRY-->
         <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown" id="ajp-header-selected-mode">
-            <i id="ajp-header-album-icon" class="material-icons notranslate">collections_bookmark</i>
-            <i id="ajp-header-pictures-icon" class="material-icons notranslate">collections</i>
-            <i id="ajp-header-image-icon" class="material-icons notranslate">insert_image</i>
-            <i id="ajp-header-likes-icon" class="material-icons notranslate">favorite</i>
-            <i id="ajp-header-rephotos-icon" class="material-icons notranslate">library_add</i>
-            <i class="material-icons notranslate float-left">photo_album</i>
+            <span id="ajp-header-album-icon" class="material-icons notranslate">collections_bookmark</span>
+            <span id="ajp-header-pictures-icon" class="material-icons notranslate">collections</span>
+            <span id="ajp-header-image-icon" class="material-icons notranslate">insert_image</span>
+            <span id="ajp-header-likes-icon" class="material-icons notranslate">favorite</span>
+            <span id="ajp-header-rephotos-icon" class="material-icons notranslate">library_add</span>
+            <span class="material-icons notranslate float-left">photo_album</span>
             <span id="ajp-header-title" title="">
-                <i id="ajp-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</i>
+                <span id="ajp-header-arrow-drop-down" class="material-icons notranslate" title="{% trans 'Click to choose' %}">arrow_drop_down</span>
             </span>
         </a>
         <div class="dropdown-menu ajp-dropdown" id="ajp-mode-select">
             <a href="#" class="dropdown-item" id="ajp-frontpage-show-albums-link" data-mode="albums" title="{% trans "Show albums" %}">
-                <i class="material-icons notranslate">collections_bookmark</i>
+                <span class="material-icons notranslate">collections_bookmark</span>
                     <span class="ajp-bottom-4px">{% trans "Albums" %}</span>
             </a>
             <a href="#" class="dropdown-item" id="ajp-frontpage-show-pictures-link" data-mode="pictures" title="{% trans "Show pictures" %}">
-                <i class="material-icons notranslate">collections</i>
+                <span class="material-icons notranslate">collections</span>
                     <span class="ajp-bottom-4px">{% trans "All pictures" %}</span>
             </a>
             <a href="#" id="ajp-frontpage-show-liked-link" data-mode="likes" class='dropdown-item{% if not user_has_likes %} disabled{% endif %}' title="{% trans "Show my favorites" %}">
-                <i class="material-icons notranslate">favorite</i>
+                <span class="material-icons notranslate">favorite</span>
                     <span class="ajp-bottom-4px">{% trans "My favorites" %}</span>
             </a>
             <a href="#" id="ajp-frontpage-show-rephotographed-link" data-mode="rephotos" class='dropdown-item{% if not user_has_rephotos %} disabled{% endif %}' title="{% trans "Show rephotographed by me" %}">
-                <i class="material-icons notranslate">library_add</i>
+                <span class="material-icons notranslate">library_add</span>
                     <span class="ajp-bottom-4px">{% trans "My rephotos" %}</span>
             </a>
         </div>
