@@ -358,7 +358,7 @@ function getUnidentifiedPersonLabel(annotation) {
             label += ' person';
         }
     }
-    label = label.trim();
+    label = gettext(label.trim());
 
     return label.substring(0,1).toUpperCase() + label.substring(1);
 }
@@ -369,7 +369,7 @@ function getSubjectLabel(annotation) {
     if (annotation.subjectName) {
         label += (annotation.subjectName + ' ');
         if (annotation.age && annotation.age != constants.fieldValues.common.UNSURE) {
-            label += '(' + capitalizeFirstLetter(annotation.age) + ')';
+            label += '(' + gettext(capitalizeFirstLetter(annotation.age)) + ')';
         }
     } else {
         label = getUnidentifiedPersonLabel(annotation);
