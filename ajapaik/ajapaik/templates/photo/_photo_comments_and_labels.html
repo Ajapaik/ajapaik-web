@@ -88,7 +88,7 @@
                 }).then(function(data){
                     let popoverContent = $('<div>');
                     if (data.photo_count) {
-                        let photoCountText = interpolate(gettext('Album has <em>%(photoCount)s</em> photos'), {photoCount: data.photo_count}, true);
+                        let photoCountText = interpolate(gettext('Album has <em>%(photoCount)s</em> pictures'), {photoCount: data.photo_count}, true);
                         popoverContent.append(photoCountText);
                     }
 
