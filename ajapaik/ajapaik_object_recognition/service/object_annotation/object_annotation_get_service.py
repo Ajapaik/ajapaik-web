@@ -40,7 +40,7 @@ def get_all_annotations(user_id, photo_id=None):
     person_subject_consensus_ids = face_rectangles.exclude(subject_consensus_id=None).values_list(
         'subject_consensus_id', flat=True)
     albumphotos = AlbumPhoto.objects.filter(photo=photo).exclude(album_id__in=person_subject_ai_suggestion_ids) \
-        .exclude(album_id__in=person_subject_consensus_ids).filter(album__atype=Album.PERSON)
+        .exclude(album_id__in=person_subject_consensus_ids).filter(album__atype=Album.PERSON).distinct('album')
 
     persons = object_annotation_utils.transform_annotation_queryset(
         user_id,
