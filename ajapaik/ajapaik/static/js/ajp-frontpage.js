@@ -185,7 +185,7 @@
 
                 let filterCount = 0;
                 let photoFilters = window.location.search.indexOf('order1=') > -1 ?
-                    ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'] :
+                    ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'portrait', 'square', 'landscape', 'panoramic'] :
                     ['collections', 'people', 'backsides'];
                 photoFilters.forEach(function(filter) {
                     if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
@@ -366,7 +366,7 @@
                     let attribute = window.order2;
                     let message = '';
                     let filterCount = 0;
-                    let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags'];
+                    let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'portrait', 'square', 'landscape', 'panoramic'];
                     let query = window.location.search.indexOf('&q=') > -1 && window.location.search.split('?q=')[1];
 
                     switch (window.order2) {
@@ -426,6 +426,14 @@
                                 categoryMessage = 'No aerial pictures were found';
                             }  else if (window.location.search.indexOf('no_geotags=1') > 0) {
                                 categoryMessage = 'No pictures which have 0 geotags were found';
+                            }  else if (window.location.search.indexOf('portrait=1') > 0) {
+                                categoryMessage = 'No pictures in portrait format were found';
+                            }  else if (window.location.search.indexOf('square=1') > 0) {
+                                categoryMessage = 'No pictures in square format were found';
+                            }  else if (window.location.search.indexOf('panoramic=1') > 0) {
+                                categoryMessage = 'No pictures in panoramic format were found';
+                            }  else if (window.location.search.indexOf('landscape=1') > 0) {
+                                categoryMessage = 'No pictures in landscape format were found';
                             } else {
                                 categoryMessage = 'No pictures were found';
                             }

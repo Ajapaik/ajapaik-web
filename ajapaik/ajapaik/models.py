@@ -956,6 +956,8 @@ class Photo(Model):
         super(Photo, self).save(*args, **kwargs)
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
+        if self.aspect_ratio is None:
+            self.set_aspect_ratio()
 
     def add_to_source_album(self, *args, **kwargs):
         if self.source_id is not None and self.source_id > 0:

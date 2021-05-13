@@ -330,6 +330,14 @@ $('.ajp-navbar').autoHidingNavbar();
                 photoFilters = photoFilters.concat('ground_viewpoint_elevation', 'aerial_viewpoint_elevation');
             } else if (photoFilter == 'aerial_viewpoint_elevation') {
                 photoFilters = photoFilters.concat('ground_viewpoint_elevation', 'raised_viewpoint_elevation');
+            } else if (photoFilter == 'portrait') {
+                photoFilters = photoFilters.concat('square', 'landscape', 'panoramic');
+            } else if (photoFilter == 'square') {
+                photoFilters = photoFilters.concat('portrait', 'landscape', 'panoramic');
+            } else if (photoFilter == 'landscape') {
+                photoFilters = photoFilters.concat('portrait', 'square', 'panoramic');
+            } else if (photoFilter == 'panoramic') {
+                photoFilters = photoFilters.concat('portrait', 'square', 'landscape');
             }
         } else {
             uri.removeQuery(photoFilter);
@@ -344,7 +352,7 @@ $('.ajp-navbar').autoHidingNavbar();
         window.location.href = uri;
     };
 
-    $(document).on('click', '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags', function (e) {
+    $(document).on('click','#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape', function (e) {
         e.preventDefault();
         let idComponents = e.currentTarget.id.split('-');
         window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);

@@ -5,6 +5,7 @@
     gettext('Add this picture to album (not the whole set)');
     gettext('Aerial');
     gettext('Album details');
+    gettext('Album has <em>%(photoCount)s</em> pictures')
     gettext('Approximate address');
     gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.');
     gettext('Author');
@@ -40,6 +41,10 @@
     gettext('No exterior views were found');
     gettext('No interior views were found in this album');
     gettext('No interior views were found');
+    gettext('No pictures in landscape format were found');
+    gettext('No pictures in landscape format were found in this album');
+    gettext('No pictures in panoramic format were found');
+    gettext('No pictures in panoramic format were found in this album');
     gettext('No pictures from the ground level were found in this album');
     gettext('No pictures from the ground level were found');
     gettext('No pictures were found in this album');
@@ -52,12 +57,16 @@
     gettext('No pictures with back sides were found');
     gettext('No pictures with marked faces were found in this album');
     gettext('No pictures with marked faces were found');
+    gettext('No pictures in portrait format were found');
+    gettext('No pictures in portrait format were found in this album');
     gettext('No raised viewpoint pictures were found in this album');
     gettext('No raised viewpoint pictures were found');
     gettext('No results found for: %(query)s in this album');
     gettext('No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search');
     gettext('No results found for: %(query)s');
     gettext('No results found for: %(query)s\nYou could also try to edit filters applied to your search');
+    gettext('No pictures in square format were found');
+    gettext('No pictures in square format were found in this album');
     gettext('Not selected');
     gettext('Number');
     gettext('Picture already in album(s)');

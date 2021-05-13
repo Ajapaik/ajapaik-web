@@ -103,6 +103,42 @@
                             class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.aerial_viewpoint_elevation == '1' %} ajp-text-white{% endif %}">
                             flight
                         </span>
+                <a role="button"
+                    class="ajp-header-button ml-4"
+                    title="{% trans 'Show portrait pictures' %}"
+                    href="#"
+                    id="ajp-header-portrait">
+                        <span aria-hidden
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.portrait == '1' %} ajp-text-white{% endif %}">
+                            crop_portrait
+                        </span>
+                <a role="button"
+                    class="ajp-header-button"
+                    title="{% trans 'Show square pictures' %}"
+                    href="#"
+                    id="ajp-header-square">
+                        <span aria-hidden
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.square == '1' %} ajp-text-white{% endif %}">
+                            crop_square
+                        </span>
+                <a role="button"
+                    class="ajp-header-button"
+                    title="{% trans 'Show landscape pictures' %}"
+                    href="#"
+                    id="ajp-header-landscape">
+                        <span aria-hidden
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.landscape == '1' %} ajp-text-white{% endif %}">
+                            crop_5_4
+                        </span>
+                <a role="button"
+                    class="ajp-header-button"
+                    title="{% trans 'Show panoramic pictures' %}"
+                    href="#"
+                    id="ajp-header-panoramic">
+                        <span aria-hidden
+                            class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.panoramic == '1' %} ajp-text-white{% endif %}">
+                            crop_7_5
+                        </span>
                 </a>
                     <a role="button"
                         class="ajp-header-button ml-4"
