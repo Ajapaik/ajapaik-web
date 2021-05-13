@@ -17,7 +17,7 @@ class Command(BaseCommand):
         muis_url = 'https://www.muis.ee/OAIService/OAIService'
         all_person_album_ids_set = set()
 
-        photos = Photo.objects.filter(source_url__contains='www.muis.ee/museaal')
+        photos = Photo.objects.filter(source_url__contains='muis.ee')
         for photo in photos:
             try:
                 parser = ET.XMLParser(encoding="utf-8")
