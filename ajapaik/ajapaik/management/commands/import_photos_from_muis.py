@@ -96,7 +96,7 @@ class Command(BaseCommand):
                     external_id = rec.find(header + 'd:identifier', ns).text \
                         if rec.find(header + 'd:identifier', ns) is not None \
                         else None
-                    existing_photo = Photo.objects.filter(source=source, external_id=external_id).first()
+                    existing_photo = Photo.objects.filter(external_id=external_id).first()
                     if existing_photo is not None:
                         continue
 
