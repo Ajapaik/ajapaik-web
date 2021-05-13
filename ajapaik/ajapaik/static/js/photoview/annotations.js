@@ -135,7 +135,7 @@ function createAlbumLabelPopoverContent(annotation, child, container) {
         'photo_album',
         gettext('Open album'),
         function() {
-            window.open('?album=' + annotation.subjectId, '_blank');
+            window.open('/?album=' + annotation.subjectId, '_blank');
         }
     )
 
@@ -218,7 +218,7 @@ function createAnnotationLabelPopoverContent(annotation, child, container) {
                 'photo_album',
                 gettext('Open album'),
                 function() {
-                    window.open('?album=' + annotation.subjectId, '_blank');
+                    window.open('/?album=' + annotation.subjectId, '_blank');
                 });
             popoverContent.append(viewAlbumButton);
         }
@@ -255,7 +255,7 @@ function createFaceAnnotationsContent(faceAnnotations) {
         let personPinClass = 'material-icons notranslate ajp-cursor-pointer';
         if (annotation.isAlbum) {
             child = createAlbumLabelPopoverContent(annotation, child, container);
-            personPinClass += 'ajp-text-gray';
+            personPinClass += ' ajp-text-gray';
         } else {
             child = createAnnotationLabelPopoverContent(annotation, child, container);
         }
