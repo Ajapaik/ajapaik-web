@@ -181,11 +181,11 @@ function createAnnotationLabelPopoverContent(annotation, child, container) {
         } else {
             popoverContent.append(gettext('Automatically detected face'));
         }
+        if (popoverContent.children().length > 0) {
+            popoverContent.append($('<br>'))
+            popoverContent.append($('<br>'))
+        }
         if (data.photo_count) {
-            if (popoverContent.children().length > 0) {
-                popoverContent.append($('<br>'))
-                popoverContent.append($('<br>'))
-            }
             let photoCount = $('<span>', { text: data.photo_count }).get(0).outerHTML;
             let photoCountText = interpolate(ngettext(
                 '%(photoCount)s photo',
