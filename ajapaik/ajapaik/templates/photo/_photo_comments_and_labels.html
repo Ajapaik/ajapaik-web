@@ -11,7 +11,7 @@
         </span>
         <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
             {% for a in albums %}
-                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover">
+                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover" onclick="window.albumPhotoLinkClick(event)">
                     <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
                 </div>
             {% endfor %}
@@ -30,7 +30,7 @@
         </span>
         <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
             {% for a in collection_albums %}
-                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover">
+                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover" onclick="window.albumPhotoLinkClick(event)">
                     <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
                 </div>
             {% endfor %}
@@ -65,11 +65,6 @@
 {% block specific_js %}
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.ajp-photo-album-link', function (e) {
-                e.preventDefault();
-                $(this).popover('toggle');
-            });
-
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);

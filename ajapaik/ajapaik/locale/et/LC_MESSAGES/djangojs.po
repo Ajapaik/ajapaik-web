@@ -1135,8 +1135,8 @@ msgid "Automatically detected face"
 msgstr "Automaatselt tuvastatud nägu"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
-msgid "%(photoCount)s photo"
-msgid_plural "%(photoCount)s photos"
+msgid "%(photoCount)s picture"
+msgid_plural "%(photoCount)s pictures"
 msgstr[0] "%(photoCount)s pilt"
 msgstr[1] "%(photoCount)s pilti"
 

@@ -1131,10 +1131,10 @@ msgid "Automatically detected face"
 msgstr "Automatically detected face"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
-msgid "%(photoCount)s photo"
-msgid_plural "%(photoCount)s photos"
-msgstr[0] "%(photoCount)s photo"
-msgstr[1] "%(photoCount)s photos"
+msgid "%(photoCount)s picture"
+msgid_plural "%(photoCount)s pictures"
+msgstr[0] "%(photoCount)s picture"
+msgstr[1] "%(photoCount)s pictures"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"

@@ -179,17 +179,17 @@ function createAnnotationLabelPopoverContent(annotation, child, container) {
             ).get(0).outerHTML;
             popoverContent.append(interpolate(gettext('Annotation was added by %(profileLink)s'), {profileLink}, true));
         } else {
-            popoverContent.append(gettext('Automatically detected face'));
-        }
-        if (popoverContent.children().length > 0) {
-            popoverContent.append($('<br>'))
-            popoverContent.append($('<br>'))
+            popoverContent.append($('<span>', { text: gettext('Automatically detected face')}));
         }
         if (data.photo_count) {
+            if (popoverContent.children().length > 0) {
+                popoverContent.append($('<br>'))
+                popoverContent.append($('<br>'))
+            }
             let photoCount = $('<span>', { text: data.photo_count }).get(0).outerHTML;
             let photoCountText = interpolate(ngettext(
-                '%(photoCount)s photo',
-                '%(photoCount)s photos',
+                '%(photoCount)s picture',
+                '%(photoCount)s pictures',
                 data.photo_count
             ),
             {photoCount},
