@@ -210,7 +210,25 @@
 
     <field name="muis_text_on_object" type="text_en" indexed="true" stored="false" multiValued="false" /> 
 
-    <field name="muis_legends_and_descriptions" type="text_en" indexed="true" stored="false" multiValued="false" /> 
+    <field name="muis_legends_and_descriptions" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_fi" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_en" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_nl" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_ru" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_et" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_de" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_sv" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_lv" type="text_en" indexed="true" stored="false" multiValued="false" />
+
+    <field name="title_lt" type="text_en" indexed="true" stored="false" multiValued="false" />
   </fields>
 
   <!-- field to use to determine and enforce document uniqueness. -->
