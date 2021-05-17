@@ -113,12 +113,26 @@ class PhotoAdmin(ModelAdmin):
         'description_de',
         'description_ru',
         'description_en',
+        'title_et',
+        'title_lv',
+        'title_lt',
+        'title_fi',
+        'title_sv',
+        'title_nl',
+        'title_de',
+        'title_ru',
+        'title_en',
         'author',
         'types',
         'keywords',
         'source__name',
         'source_key',
-        'address'
+        'address',
+        'muis_title',
+        'muis_comment',
+        'muis_event_description_set_note',
+        'muis_text_on_object',
+        'muis_legends_and_descriptions'
     )
 
 
