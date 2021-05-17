@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-05-13 11:41:40+0000\n"
+"PO-Revision-Date: 2021-05-17 11:04:53+0000\n"
 "X-POT-Import-Date: 2021-05-13 05:24:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -605,7 +605,7 @@ msgstr "Zurück"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "Eine Person markieren"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -1955,8 +1955,8 @@ msgstr "Zum Alblum hinzufügen"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bild gehört zu Sammlung"
+msgstr[1] "Bild gehört zu den Sammlungen:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"

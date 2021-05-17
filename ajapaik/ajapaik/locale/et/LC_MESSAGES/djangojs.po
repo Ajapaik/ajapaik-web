@@ -8,7 +8,22 @@
 # This file is distributed under the same license as the Ajapaik package.
 #
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2021-05-14 02:27+0300\nPO-Revision-Date: 2021-05-13 11:41:41+0000\nLast-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\nLanguage-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\nX-Translated-Using: django-rosetta 0.7.4\nX-POT-Import-Date: 2021-05-13 05:24:23+0000\n"
+msgstr ""
+""
+"Project-Id-Version: Ajapaik\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-14 02:27+0300\n"
+"PO-Revision-Date: 2021-05-17 11:04:53+0000\n"
+"Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
@@ -1122,6 +1137,7 @@ msgid "Open album"
 msgstr "Ava album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
+#, fuzzy
 msgid "Tag <em>%(personName)s</em>"
 msgstr "Märgenda <em>%(personName)s</em>"
 
@@ -1135,6 +1151,7 @@ msgid "Automatically detected face"
 msgstr "Automaatselt tuvastatud nägu"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
+#, fuzzy
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] "%(photoCount)s pilt"
@@ -1160,3 +1177,4 @@ msgstr "Automaatselt tuvastatud objekt"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
 msgstr "Vaata Wikidata objekti"
+

@@ -16,84 +16,84 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-05-13 11:41:41+0000\n"
+"PO-Revision-Date: 2021-05-17 11:04:54+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-05-13 05:24:23+0000\n"
+"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:374
+#: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
 msgstr "사용자는 지리 위치를 위한 요청을 거절했습니다."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:380
+#: ajapaik/ajapaik/static/js/ajp-core.js:377
 msgid "Location information is unavailable."
 msgstr "위치 정보를 사용할 수 없습니다."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:383
+#: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "The request to get user location timed out."
 msgstr "사용자 위치를 가져오는 요청 시간이 초과되었습니다."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:386
+#: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "An unknown error occurred."
 msgstr "알 수 없는 오류가 발생했습니다."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:859
-#: ajapaik/ajapaik/static/js/ajp-core.js:875
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
+#: ajapaik/ajapaik/static/js/ajp-core.js:857
+#: ajapaik/ajapaik/static/js/ajp-core.js:873
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
 msgid "System error"
 msgstr "시스템 오류"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1005
-#: ajapaik/ajapaik/static/js/ajp-core.js:1050
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+#: ajapaik/ajapaik/static/js/ajp-core.js:1003
+#: ajapaik/ajapaik/static/js/ajp-core.js:1048
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "Not selected"
 msgstr "선택하지 않음"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1582
+#: ajapaik/ajapaik/static/js/ajp-core.js:1580
 msgid "Go to my location"
 msgstr "내 위치로 이동"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1594
+#: ajapaik/ajapaik/static/js/ajp-core.js:1592
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "닫기"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1746
+#: ajapaik/ajapaik/static/js/ajp-core.js:1744
 msgid "Pick the shooting location!"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1756
-#: ajapaik/ajapaik/static/js/ajp-core.js:1808
+#: ajapaik/ajapaik/static/js/ajp-core.js:1754
+#: ajapaik/ajapaik/static/js/ajp-core.js:1806
 msgid "Geotagged by this many users"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1789
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
+#: ajapaik/ajapaik/static/js/ajp-core.js:1787
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1800
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
+#: ajapaik/ajapaik/static/js/ajp-core.js:1798
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Submit your own location"
 msgstr "내 위치 제출하기"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-core.js:1825
 msgid "You"
 msgstr "나"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1831
+#: ajapaik/ajapaik/static/js/ajp-core.js:1829
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "익명 사용자"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1833
+#: ajapaik/ajapaik/static/js/ajp-core.js:1831
 msgid "Anonymous users"
 msgstr "익명 사용자"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1897
+#: ajapaik/ajapaik/static/js/ajp-core.js:1895
 msgid "Current location"
 msgstr "현재 위치"
 
@@ -173,7 +173,7 @@ msgid "Cancel"
 msgstr "취소"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:62
@@ -226,353 +226,437 @@ msgid "Album details"
 msgstr "앨범 상세 정보"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
+msgid "Album has <em>%(photoCount)s</em> pictures"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
 msgstr "대략적인 주소"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
 msgstr "저자"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "Confirm"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
 msgstr "링크를 클립보드에 복사하지 못했습니다"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
 msgstr "날짜"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 msgid "Description"
 msgstr "설명"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
 msgstr "편집"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
 msgstr "외부"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Image has location and view direction info"
 msgstr "이미지에 위치 및 뷰 방향 정보가 있습니다"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Image has no location info"
 msgstr "이미지에 위치 정보가 없습니다"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Image has only location, no view direction"
 msgstr "이미지에 위치만 있고 뷰 방향은 없습니다"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Image has rephotos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Image has similar photos"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Institution"
 msgstr "기관"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Interior"
 msgstr "내부"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert colors"
 msgstr "색상 반전"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert"
 msgstr "반전"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Licence"
 msgstr "라이선스"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Link copied to clipboard"
 msgstr "링크가 클립보드에 복사되었습니다"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Mark stereophoto"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No aerial pictures were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No exterior views were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No interior views were found in this album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No interior views were found"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
-msgid "No pictures from the ground level were found in this album"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
-msgid "No pictures from the ground level were found"
+msgid "No pictures in landscape format were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
-msgid "No pictures were found in this album"
-msgstr "이 앨범에 사진이 없습니다"
+msgid "No pictures in landscape format were found in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
-msgid "No pictures were found with the selected filters in this album"
+msgid "No pictures in panoramic format were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
-msgid "No pictures were found with the selected filters"
+msgid "No pictures in panoramic format were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
-msgid "No pictures were found"
-msgstr "사진이 없습니다"
+msgid "No pictures from the ground level were found in this album"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
-msgid "No pictures which have 0 geotags were found in this album"
-msgstr "지리 태그가 없는 사진이 이 앨범에 없습니다"
+msgid "No pictures from the ground level were found"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
-msgid "No pictures which have 0 geotags were found"
-msgstr "지리 태그가 없는 사진이 없습니다"
+msgid "No pictures were found in this album"
+msgstr "이 앨범에 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
-msgid "No pictures with back sides were found in this album"
+msgid "No pictures were found with the selected filters in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
-msgid "No pictures with back sides were found"
+msgid "No pictures were found with the selected filters"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
-msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgid "No pictures were found"
+msgstr "사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
-msgid "No pictures with marked faces were found"
-msgstr ""
+msgid "No pictures which have 0 geotags were found in this album"
+msgstr "지리 태그가 없는 사진이 이 앨범에 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
-msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgid "No pictures which have 0 geotags were found"
+msgstr "지리 태그가 없는 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
-msgid "No raised viewpoint pictures were found"
+msgid "No pictures with back sides were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
-msgid "No results found for: %(query)s in this album"
+msgid "No pictures with back sides were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
-msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgid "No pictures with marked faces were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
+msgid "No pictures with marked faces were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+msgid "No pictures in portrait format were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+msgid "No pictures in portrait format were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+msgid "No raised viewpoint pictures were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
+msgid "No raised viewpoint pictures were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
+msgid "No results found for: %(query)s in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
+msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "No results found for: %(query)s"
 msgstr "결과를 찾을 수 없습니다: %(query)s"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
-msgid "Number"
-msgstr "번호"
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
-msgid "Picture already in album(s)"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
-msgid "Picture has location data attached"
-msgstr "사진에 위치 데이터가 첨부되어 있습니다"
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
-msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
-msgid "Picture set has no annotations"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
-msgid "Picture set has no comments"
-msgstr ""
-
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
-msgid "Picture set has no datings"
+msgid "No pictures in square format were found"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
-msgid "Picture set has no geotags"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
-msgid "Picture set has no likes"
+msgid "No pictures in square format were found in this album"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
-msgid "Picture set has no rephotos"
-msgstr ""
+msgid "Number"
+msgstr "번호"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
-msgid "Picture set has no transcriptions"
+msgid "Picture already in album(s)"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
-msgid "Picture set has no views"
-msgstr ""
+msgid "Picture has location data attached"
+msgstr "사진에 위치 데이터가 첨부되어 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
-msgid "Pictures geotagged"
-msgstr "지리 정보가 추가된 사진"
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
-msgid "Pictures in album"
-msgstr "앨범 내 사진"
+msgid "Picture set has no annotations"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
-msgid "Points"
+msgid "Picture set has no comments"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
+msgid "Picture set has no datings"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
+msgid "Picture set has no geotags"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
+msgid "Picture set has no likes"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
+msgid "Picture set has no rephotos"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
+msgid "Picture set has no transcriptions"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+msgid "Picture set has no views"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+msgid "Pictures geotagged"
+msgstr "지리 정보가 추가된 사진"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
+msgid "Pictures in album"
+msgstr "앨범 내 사진"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
+msgid "Points"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Remove from selection"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Rephotos in album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Rotate"
 msgstr "회전"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Show pictures on map"
 msgstr "지도에 사진 표시"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Similar photos in album"
 msgstr "앨범 내 비슷한 사진"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Size"
 msgstr "크기"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 msgid "Source ID"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Source"
 msgstr "출처"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "Thank you! Bad rectangle deleted."
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
 msgid "Thank you!"
 msgstr "감사합니다!"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 msgid "This album contains a film"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Title"
 msgstr "제목"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "URL"
 msgstr "URL"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
+msgid "Unidentified boy"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
+msgid "Unidentified girl"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
+msgid "Unidentified child"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
+msgid "Unidentified adult man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
+msgid "Unidentified adult woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
+msgid "Unidentified adult"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
+msgid "Unidentified elderly man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
+msgid "Unidentified elderly woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
+msgid "Unidentified elderly person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
+msgid "Unidentified man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
+msgid "Unidentified woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
+msgid "Unidentified person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unknown author"
 msgstr "알 수 없는 저자"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
 msgstr "당신은 앨범 필터를 끈 상태에서 지도를 열었습니다. 필터를 켜려면 앨범 이름 옆의 상자를 체크해 주십시오"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
 msgstr "당신은 앨범 필터를 켠 상태에서 지도를 열었습니다. 필터를 끄려면 앨범 이름 옆의 상자의 체크를 해제해 주십시오"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "photos"
 msgstr ""
 
@@ -839,7 +923,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:118
+#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
 msgstr ""
 
@@ -847,11 +931,11 @@ msgstr ""
 msgid "Select gender (optional)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:94
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:121
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
 msgid "Change gender"
 msgstr "성별 바꾸기"
 
@@ -1027,113 +1111,65 @@ msgstr "새 인물 추가"
 msgid "Specify person name"
 msgstr "인명 지정"
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:124
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:126
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:138
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:140
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:151
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:153
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:230
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:232
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:134
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:136
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:217
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:164
-msgid "Tag <i>%(personName)s</i>"
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:147
+msgid "Tag <em>%(personName)s</em>"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:193
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:293
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:180
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:195
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:204
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:214
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:216
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:216
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:295
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:298
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:300
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:311
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:327
-msgid "Unidentified boy"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:330
-msgid "Unidentified girl"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:333
-msgid "Unidentified child"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:338
-msgid "Unidentified adult man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:341
-msgid "Unidentified adult woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:344
-msgid "Unidentified adult"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:349
-msgid "Unidentified elderly man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:352
-msgid "Unidentified elderly woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:355
-msgid "Unidentified elderly person"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:359
-msgid "Unidentified man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:363
-msgid "Unidentified woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:365
-msgid "Unidentified person"
 msgstr ""
 

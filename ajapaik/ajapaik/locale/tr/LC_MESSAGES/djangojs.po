@@ -17,84 +17,84 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-05-13 11:41:42+0000\n"
+"PO-Revision-Date: 2021-05-17 11:04:54+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-05-13 05:24:23+0000\n"
+"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:374
+#: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
 msgstr "Kullanıcı, Coğrafi Konum isteğini reddetti."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:380
+#: ajapaik/ajapaik/static/js/ajp-core.js:377
 msgid "Location information is unavailable."
 msgstr "Konum bilgisi kullanılamıyor."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:383
+#: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "The request to get user location timed out."
 msgstr "Kullanıcı konumunu alma isteği zaman aşımına uğradı."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:386
+#: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "An unknown error occurred."
 msgstr "Bilinmeyen bir hata oluştu."
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:859
-#: ajapaik/ajapaik/static/js/ajp-core.js:875
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
+#: ajapaik/ajapaik/static/js/ajp-core.js:857
+#: ajapaik/ajapaik/static/js/ajp-core.js:873
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
 msgid "System error"
 msgstr "Sistem hatası"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1005
-#: ajapaik/ajapaik/static/js/ajp-core.js:1050
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+#: ajapaik/ajapaik/static/js/ajp-core.js:1003
+#: ajapaik/ajapaik/static/js/ajp-core.js:1048
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "Not selected"
 msgstr "Seçili değil"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1582
+#: ajapaik/ajapaik/static/js/ajp-core.js:1580
 msgid "Go to my location"
 msgstr "Konumuma git"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1594
+#: ajapaik/ajapaik/static/js/ajp-core.js:1592
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
 msgstr "Kapat"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1746
+#: ajapaik/ajapaik/static/js/ajp-core.js:1744
 msgid "Pick the shooting location!"
 msgstr "Çekim yerini seç!"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1756
-#: ajapaik/ajapaik/static/js/ajp-core.js:1808
+#: ajapaik/ajapaik/static/js/ajp-core.js:1754
+#: ajapaik/ajapaik/static/js/ajp-core.js:1806
 msgid "Geotagged by this many users"
 msgstr "Bu birçok kullanıcı tarafından coğrafi etiketleme yapıldı"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1789
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
+#: ajapaik/ajapaik/static/js/ajp-core.js:1787
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
 msgstr "Doğru konumu onayla"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1800
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
+#: ajapaik/ajapaik/static/js/ajp-core.js:1798
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Submit your own location"
 msgstr "Kendi konumunu gönder"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+#: ajapaik/ajapaik/static/js/ajp-core.js:1825
 msgid "You"
 msgstr "Siz"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1831
+#: ajapaik/ajapaik/static/js/ajp-core.js:1829
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
 msgstr "Anonim kullanıcı"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1833
+#: ajapaik/ajapaik/static/js/ajp-core.js:1831
 msgid "Anonymous users"
 msgstr "Anonim kullanıcılar"
 
-#: ajapaik/ajapaik/static/js/ajp-core.js:1897
+#: ajapaik/ajapaik/static/js/ajp-core.js:1895
 msgid "Current location"
 msgstr "Mevcut konum"
 
@@ -174,7 +174,7 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 #: ajapaik/ajapaik/static/js/ajp-selection.js:186
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:62
@@ -227,353 +227,437 @@ msgid "Album details"
 msgstr "Albüm detayları"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
+msgid "Album has <em>%(photoCount)s</em> pictures"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
 msgstr "Yaklaşık adresler"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
 msgstr "5'ten az fotoğraf içeren bir albüm oluşturmak istediğinize emin misiniz? En az 10 veya daha fazla resimli albüm oluşturmanızı öneririz."
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
 msgstr "Yazar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
 msgstr "Sahneyi kategorize et"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
 msgstr "Albümdeki yorumlar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
 msgstr "Yorumlar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "Confirm"
 msgstr "Onayla"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
 msgstr "Bağlantı panoya kopyalanamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
 msgstr "Tarih"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 msgid "Description"
 msgstr "Açıklama"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
 msgstr "Düzenle"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
 msgstr "Dış"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
 msgstr "Geri bildiriminiz gönderilemedi, üzgünüz."
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
 msgstr "Çevir"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
 msgstr "Albümdeki resimleri coğrafi etiketle"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
 msgstr "Yer"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Image has location and view direction info"
 msgstr "Görüntünün konumu ve yön bilgisi var"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Image has no location info"
 msgstr "Görüntünün konum bilgisi yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Image has only location, no view direction"
 msgstr "Görüntünün yalnızca konumu var, görünüm yönü yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Image has rephotos"
 msgstr "Görüntünün yeniden fotoğraflanışı var"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Image has similar photos"
 msgstr "Görüntünün benzer fotoğrafları var"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Institution"
 msgstr "Kurum"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Interior"
 msgstr "İç"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert colors"
 msgstr "Renkleri ters çevir"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert"
 msgstr "Ters çevir"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Licence"
 msgstr "Lisans"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Link copied to clipboard"
 msgstr "Bağlantı panoya kopyalandı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Mark stereophoto"
 msgstr "Mark stereophoto"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No aerial pictures were found in this album"
 msgstr "Bu albümde havadan fotoğraf bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found"
 msgstr "Havadan resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No exterior views were found in this album"
 msgstr "Bu albümde hiçbir dış görünüm bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found"
 msgstr "Dış görünüm bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No interior views were found in this album"
 msgstr "Bu albümde hiçbir iç görünüm bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No interior views were found"
 msgstr "İç görünüm bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+msgid "No pictures in landscape format were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+msgid "No pictures in landscape format were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+msgid "No pictures in panoramic format were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+msgid "No pictures in panoramic format were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures from the ground level were found in this album"
 msgstr "Bu albümde zemin seviyesinden hiçbir fotoğraf bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures from the ground level were found"
 msgstr "Zemin seviyesinden hiçbir fotoğraf bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures were found in this album"
 msgstr "Bu albümde resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures were found with the selected filters in this album"
 msgstr "Bu albümde seçili filtrelere sahip resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures were found with the selected filters"
 msgstr "Seçili filtrelerle hiçbir resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found"
 msgstr "Resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures which have 0 geotags were found in this album"
 msgstr "Bu albümde 0 coğrafi etikete sahip resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures which have 0 geotags were found"
 msgstr "0 coğrafi etiket içeren resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures with back sides were found in this album"
 msgstr "Bu albümde arka yüzü olan resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures with back sides were found"
 msgstr "Arka tarafı olan resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures with marked faces were found in this album"
 msgstr "Bu albümde yüz işaretli resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with marked faces were found"
 msgstr "Yüzleri işaretlenmiş resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+msgid "No pictures in portrait format were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+msgid "No pictures in portrait format were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No raised viewpoint pictures were found in this album"
 msgstr "Bu albümde yükseltilmiş bakış açısı resmi bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No raised viewpoint pictures were found"
 msgstr "Bakış açısı yükseltilmiş resim bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No results found for: %(query)s in this album"
 msgstr "Bu albümde %(query)s için hiçbir sonuç bulunamadı"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
 msgstr "Bu albümde %(query)s için hiçbir sonuç bulunamadı\nAramanıza uygulanan filtreleri de düzenlemeyi deneyebilirsiniz"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "No results found for: %(query)s"
 msgstr "Sonuç bulunamadı: %(query)s"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
 msgstr "%(query)s için sonuç bulunamadı\nAramanıza uygulanan filtreleri de düzenlemeyi deneyebilirsiniz"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
+msgid "No pictures in square format were found"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
+msgid "No pictures in square format were found in this album"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "Number"
 msgstr "Numara"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "Picture already in album(s)"
 msgstr "Resim zaten albümde"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "Picture has location data attached"
 msgstr "Resimde konum verileri eklenmiş"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
 msgstr "Resim zaten Ajapaik'te. Yine de albüme ekleyebilirsin, puan kazanmadın"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "Picture set has no annotations"
 msgstr "Resim setinde ek açıklama yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "Picture set has no comments"
 msgstr "Resim seti için yorum yapılmamış"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Picture set has no datings"
 msgstr "Resim setinde tarih yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Picture set has no geotags"
 msgstr "Resim setinde coğrafi etiket yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture set has no likes"
 msgstr "Resim setinde beğeni yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture set has no rephotos"
 msgstr "Resim seti için yeniden fotoğraflamaya sahip değil"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture set has no transcriptions"
 msgstr "Resim setinde çeviri yazı yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Picture set has no views"
 msgstr "Resim setinde görünüm yok"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Pictures geotagged"
 msgstr "Coğrafi etiketli resimler"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Pictures in album"
 msgstr "Albümdeki resimler"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Points"
 msgstr "Noktalar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
 msgstr "Yüksektildi"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Remove from selection"
 msgstr "Seçimden kaldır"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Rephotos in album"
 msgstr "Albümdeki yeniden fotoğraflamalar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Rotate"
 msgstr "Döndür"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Show pictures on map"
 msgstr "Resimleri haritada göster"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Similar photos in album"
 msgstr "Albümdeki benzer fotoğraflar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Size"
 msgstr "Boyut"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
 msgstr "Bir şeyler ters gitti, lütfen bağlantınızı kontrol edin. Sorun devam ederse, lütfen bizimle Tawk.to adresinden iletişime geçin."
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 msgid "Source ID"
 msgstr "Kaynak kimliği"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Source"
 msgstr "Kaynak"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "Thank you! Bad rectangle deleted."
 msgstr "Teşekkürler! Kötü dikdörtgen silindi."
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
 msgid "Thank you!"
 msgstr "Teşekkürler!"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 msgid "This album contains a film"
 msgstr "Bu albüm bir film içeriyor"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Title"
 msgstr "Başlık"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "URL"
 msgstr "URL"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
+msgid "Unidentified boy"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
+msgid "Unidentified girl"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
+msgid "Unidentified child"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
+msgid "Unidentified adult man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
+msgid "Unidentified adult woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
+msgid "Unidentified adult"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
+msgid "Unidentified elderly man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
+msgid "Unidentified elderly woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
+msgid "Unidentified elderly person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
+msgid "Unidentified man"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
+msgid "Unidentified woman"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
+msgid "Unidentified person"
+msgstr ""
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unknown author"
 msgstr "Bilinmeyen yazar"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
 msgstr "Haritayı albüm filtresi kapalı olarak açtınız, açmak için lütfen albüm adının yanındaki kutuyu işaretleyin"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
 msgstr "Haritayı albüm filtresi açıkken açtınız, kapatmak için lütfen albüm adının yanındaki kutunun işaretini kaldırın"
 
-#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "photos"
 msgstr "fotoğraflar"
 
@@ -840,7 +924,7 @@ msgstr "Anonimsiniz, lütfen transkripsiyon eklemek için giriş yapın"
 msgid "Login"
 msgstr "Oturum aç"
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:118
+#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
 msgstr ""
 
@@ -848,11 +932,11 @@ msgstr ""
 msgid "Select gender (optional)"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:94
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
 msgstr "Yaş grubunu değiştir"
 
-#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:121
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
 msgid "Change gender"
 msgstr "Cinsiyeti değiştir"
 
@@ -1028,113 +1112,65 @@ msgstr "Yeni kişi ekle"
 msgid "Specify person name"
 msgstr "Kişi adını belirtin"
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:124
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:126
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:138
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:140
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:151
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:153
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:230
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:232
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:134
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:136
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:217
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:164
-msgid "Tag <i>%(personName)s</i>"
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:147
+msgid "Tag <em>%(personName)s</em>"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:193
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:293
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:180
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:195
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:204
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:214
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:216
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:216
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:295
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
 msgstr ""
 
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:298
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:300
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:311
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:327
-msgid "Unidentified boy"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:330
-msgid "Unidentified girl"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:333
-msgid "Unidentified child"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:338
-msgid "Unidentified adult man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:341
-msgid "Unidentified adult woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:344
-msgid "Unidentified adult"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:349
-msgid "Unidentified elderly man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:352
-msgid "Unidentified elderly woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:355
-msgid "Unidentified elderly person"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:359
-msgid "Unidentified man"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:363
-msgid "Unidentified woman"
-msgstr ""
-
-#: ajapaik/ajapaik/static/js/photoview/annotations.js:365
-msgid "Unidentified person"
 msgstr ""
 
