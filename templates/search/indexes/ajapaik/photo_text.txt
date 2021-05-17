@@ -22,3 +22,17 @@
         {{ person_album.name }}
     {% endfor %}
 {% endif %}
+{{ object.muis_title }}
+{{ object.muis_comment }}
+{{ object.muis_event_description_set_note }}
+{{ object.muis_text_on_object }}
+{{ object.muis_legends_and_descriptions }}
+{{ object.title_fi }}
+{{ object.title_en }}
+{{ object.title_nl }}
+{{ object.title_ru }}
+{{ object.title_et }}
+{{ object.title_de }}
+{{ object.title_sv }}
+{{ object.title_lv }}
+{{ object.title_lt }}
