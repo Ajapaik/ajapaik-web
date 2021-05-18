@@ -24,9 +24,15 @@ We use [BrowserStack](https://www.browserstack.com) to test on a variety of devi
 
 
 ## Restore data from a dump
+```SQL
+CREATE DATABASE rephoto_production_20190511;
+CREATE USER rephoto WITH ENCRYPTED PASSWORD '';
+GRANT ALL PRIVILEGES ON DATABASE rephoto_production_20190511 TO rephoto;
+```
 ```bash
+psql -d rephoto_production_20190511 -U postgres < rephoto_20210426.schema.dump
 # Data only, no integrity checks while loading it in, no privileges
-pg_restore -f rephoto_20190207.sql -a -x -h localhost -p 5432 --disable-triggers
+pg_restore rephoto_20210426.sql -d rephoto_production_20190511 -a -x --disable-triggers -U postgres
 ``` 
 
 ## Push new image
@@ -103,7 +109,6 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 
 ## To-do list
 
-- TODO: upgrade Postgres 9->13
 - TODO: upgrade to Django 3
 - TODO: command for regular stats exports
 - TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
@@ -113,4 +118,3 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: automate regular DB, media/uploads, media/videos backups
 - TODO: fix # noqa as much as possible (some Django quirks will always annoy flake8 though)
 - TODO: replace face_recognition with something else since it requires the horrendous dlib
-- TODO: upgrade from Python 3.6 before EoL 2021-12-23
