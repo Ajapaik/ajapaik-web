@@ -197,7 +197,7 @@ def get_album_info_modal_content(request):
                    'total_photo_count': album.photo_count_with_subalbums,
                    'geotagged_photo_count': album.geotagged_photo_count_with_subalbums}
 
-        album_photo_ids = album.get_all_photos_queryset_with_subalbums().values_list('id', flat=True)
+        album_photo_ids = album.get_all_photos_queryset_without_auto().values_list('id', flat=True)
         geotags_for_album_photos = GeoTag.objects.filter(photo_id__in=album_photo_ids)
         context['user_geotagged_photo_count'] = geotags_for_album_photos.filter(user=profile).distinct(
             'photo_id').count()
@@ -592,9 +592,7 @@ def game(request):
     facebook_share_photos = None
     if album:
         context['album'] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
-        qs = album.photos.filter(rephoto_of__isnull=True)
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+        qs = album.get_all_photos_queryset_without_auto().filter(rephoto_of__isnull=True)
         context['album_photo_count'] = qs.distinct('id').count()
         facebook_share_photos = album.photos.all()
     elif area:
@@ -652,12 +650,7 @@ def fetch_stream(request):
         else:
             if form_album:
                 # TODO: Could be done later where we're frying our brains with nextPhoto logic anyway
-                photos_ids_in_album = list(form_album.photos.values_list('id', flat=True))
-                subalbums = form_album.subalbums.exclude(atype=Album.AUTO)
-                for sa in subalbums:
-                    photos_ids_in_subalbum = list(sa.photos.values_list('id', flat=True))
-                    photos_ids_in_album += photos_ids_in_subalbum
-                qs = qs.filter(pk__in=photos_ids_in_album)
+                qs = form_album.get_all_photos_queryset_without_auto()
             elif form_area:
                 qs = qs.filter(area=form_area)
             # FIXME: Ugly
@@ -828,9 +821,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         else:
             page = filter_form.cleaned_data['page']
         if album:
-            album_photos_qs = album.photos.all()
-            for sa in album.subalbums.exclude(atype=Album.AUTO):
-                album_photos_qs = album_photos_qs | sa.photos.all()
+            album_photos_qs = album.get_all_photos_queryset_without_auto()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
         if filter_form.cleaned_data['people']:
@@ -1534,9 +1525,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
     if game_album_selection_form.is_valid():
         album = game_album_selection_form.cleaned_data['album']
-        photos_qs = album.photos.prefetch_related('subalbums')
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+        photos_qs = album.get_all_photos_queryset_without_auto().filter(rephoto_of__isnull=True)
 
     selected_photo = None
     selected_rephoto = None
@@ -1553,9 +1542,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list('album_id', flat=True)
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by('-created').first()
         if album:
-            photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
-            for sa in album.subalbums.exclude(atype=Album.AUTO):
-                photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
+            photos_qs = album.get_all_photos_queryset_without_auto().filter(rephoto_of__isnull=True)
 
     if selected_photo and area is None:
         area = Area.objects.filter(pk=selected_photo.area_id).first()
@@ -1803,10 +1790,7 @@ def leaderboard(request, album_id=None):
     if album_id:
         # Album leader-board takes into account any users that have any contributions to the album
         album = get_object_or_404(Album, pk=album_id)
-        # TODO: Almost identical code is used in many places, put under album model
-        album_photos_qs = album.photos.all()
-        for sa in album.subalbums.exclude(atype=Album.AUTO):
-            album_photos_qs = album_photos_qs | sa.photos.all()
+        album_photos_qs = album.get_all_photos_queryset_without_auto().filter(rephoto_of__isnull=True)
         album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
         album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
                                       .values_list('rephoto_of_id', flat=True))
@@ -2532,7 +2516,8 @@ def update_like_state(request):
 
 def muis_import(request):
     user = request.user
-    user_can_import = not user.is_anonymous and user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
+    user_can_import = not user.is_anonymous and \
+        user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
     if request.method == 'GET':
         url = 'https://www.muis.ee/OAIService/OAIService?verb=ListSets'
         url_response = urllib.request.urlopen(url)

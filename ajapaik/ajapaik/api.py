@@ -368,10 +368,8 @@ def api_album_thumb(request, album_id, thumb_size=250):
     a = get_object_or_404(Album, id=album_id)
     random_image = a.photos.order_by('?').first()
     if not random_image:
-        for sa in a.subalbums.exclude(atype=Album.AUTO):
-            random_image = sa.photos.order_by('?').first()
-            if random_image:
-                break
+        photos = a.get_all_photos_queryset_without_auto()
+        random_image = photos.order_by('?').first()
     size_str = str(thumb_size)
     thumb_str = size_str + 'x' + size_str
     try:

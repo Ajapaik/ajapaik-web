@@ -267,34 +267,34 @@ class Album(Model):
     def get_historic_photos_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True)
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+            qs = qs | Photo.objects.filter(id__in=sa.get_historic_photos_queryset_with_subalbums())
         return qs.distinct('id')
 
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+            qs = qs | Photo.objects.filter(id__in=sa.get_geotagged_historic_photo_queryset_with_subalbums())
 
         return qs.distinct('id')
 
     def get_rephotos_queryset_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().filter(rephoto_of__isnull=False)
+        qs = self.get_all_photos_queryset_without_auto().filter(rephoto_of__isnull=False)
 
         return qs.distinct('pk')
 
-    def get_all_photos_queryset_with_subalbums(self):
+    def get_all_photos_queryset_without_auto(self):
         qs = self.photos.all()
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.all()
+        for sa in self.subalbums.exclude(atype=Album.AUTO):
+            qs = qs | Photo.objects.filter(id__in=sa.get_all_photos_queryset_without_auto())
 
         photo_ids = qs.values_list('pk', flat=True)
 
         qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
 
-        return qs.distinct('pk')
+        return qs
 
     def get_comment_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().filter(comment_count__gt=0).order_by()
+        qs = self.get_all_photos_queryset_without_auto().filter(comment_count__gt=0).order_by()
         count = 0
         for each in qs:
             count += each.comment_count
@@ -302,14 +302,14 @@ class Album(Model):
         return count
 
     def get_confirmed_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        qs = self.get_all_photos_queryset_without_auto().order_by()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(
             from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
     def get_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        qs = self.get_all_photos_queryset_without_auto().order_by()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
         return count
