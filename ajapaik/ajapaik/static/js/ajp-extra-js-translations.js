@@ -106,7 +106,7 @@
     gettext('Unidentified child');
     gettext('Unidentified adult man');
     gettext('Unidentified adult woman');
-    gettext('Unidentified adult');
+    gettext('Unidentified adult person');
     gettext('Unidentified elderly man');
     gettext('Unidentified elderly woman');
     gettext('Unidentified elderly person');

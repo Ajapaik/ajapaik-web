@@ -599,8 +599,8 @@ msgid "Unidentified adult woman"
 msgstr "Unidentified adult woman"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
-msgid "Unidentified adult"
-msgstr "Unidentified adult"
+msgid "Unidentified adult person"
+msgstr "Unidentified adult person"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
