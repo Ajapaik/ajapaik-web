@@ -2532,7 +2532,8 @@ def update_like_state(request):
 
 def muis_import(request):
     user = request.user
-    user_can_import = not user.is_anonymous and user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
+    user_can_import = not user.is_anonymous and \
+        user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
     if request.method == 'GET':
         url = 'https://www.muis.ee/OAIService/OAIService?verb=ListSets'
         url_response = urllib.request.urlopen(url)
@@ -2620,6 +2621,7 @@ def csv_import(request):
                 skipped_list.append(row['file'])
                 continue
             album_ids = row['album'].replace(' ', '').split(',')
+            person_album_ids = row['person_album'].replace(' ', '').split(',')
             author = None
             keywords = None
             geography = None
@@ -2753,6 +2755,24 @@ def csv_import(request):
                         album.cover_photo = photo
                         album.light_save()
 
+            for person_album_id in person_album_ids:
+                try:
+                    person_album_id = int(person_album_id)
+                except Exception as e:
+                    print(e)
+                    continue
+                album = Album.objects.filter(id=person_album_id).first()
+                if album is None:
+                    missing_album_list.append(person_album_id)
+                else:
+                    if person_album_id not in unique_album_list:
+                        unique_album_list.append(person_album_id)
+                    ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                    ap.save()
+
+                    if not album.cover_photo:
+                        album.cover_photo = photo
+                        album.light_save()
         all_albums = Album.objects.filter(id__in=unique_album_list)
         if len(all_albums) > 0:
             for album in all_albums:
