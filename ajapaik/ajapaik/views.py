@@ -2638,6 +2638,10 @@ def csv_import(request):
             description_fi = None
             description_ru = None
             title = None
+            title_et = None
+            title_en = None
+            title_fi = None
+            title_ru = None
             types = None
             if 'author' in row.keys():
                 author = row['author']
@@ -2673,6 +2677,14 @@ def csv_import(request):
                 description_ru = row['description_ru']
             if 'title' in row.keys():
                 title = row['title']
+            if 'title_et' in row.keys():
+                title_et = row['title_et']
+            if 'title_en' in row.keys():
+                title_en = row['title_en']
+            if 'title_fi' in row.keys():
+                title_fi = row['title_fi']
+            if 'title_ru' in row.keys():
+                title_ru = row['title_ru']
             if 'types' in row.keys():
                 types = row['types']
 
@@ -2705,6 +2717,14 @@ def csv_import(request):
                     photo.description_fi = description_fi
                 if description_ru:
                     photo.description_ru = description_ru
+                if title_et:
+                    photo.title_et = title_et
+                if title_en:
+                    photo.title_en = title_en
+                if title_fi:
+                    photo.title_fi = title_fi
+                if title_ru:
+                    photo.title_ru = title_ru
                 photo.light_save()
 
                 if geography:
