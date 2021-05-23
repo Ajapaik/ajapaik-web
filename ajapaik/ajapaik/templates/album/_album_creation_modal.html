@@ -30,7 +30,7 @@
                                 <span id="id-albums-deck" class="deck" style="display: inline;">
                                 </span>
                                 <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/open-album-autocomplete/" placeholder="{% trans "Search for an existing album" %}" title="" required="" autocomplete="off" style="display: block;" autofocus>
-                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add-id-albums" style="">
+                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add-id-albums">
                                     <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
                                 </a>
                                 <select style="display:none" class="value-select" name="albums" id="id-albums" multiple="multiple"></select>
@@ -45,11 +45,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-album-curation-modal" id="ajp-curator-cancel-album-selection-button">
-                    {% trans "Cancel" %}
-                </button>
                 <button type="button" class="btn btn-success" id="ajp-curator-confirm-album-selection-button">
                     {% trans "Submit" %}
+                </button>
+                <button type="button" class="btn btn-secondary close-album-curation-modal" id="ajp-curator-cancel-album-selection-button">
+                    {% trans "Cancel" %}
                 </button>
             </div>
         </div>
