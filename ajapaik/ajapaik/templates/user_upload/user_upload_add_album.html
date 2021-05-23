@@ -15,11 +15,11 @@
             {% bootstrap_form form %}
             {% buttons %}
                 <div class="btn-group float-right mb-4" role="group" aria-label="ajp-add-album-button-group">
-                    <button type="button" class="btn btn-danger" onclick="window.close();">
-                        {% trans "Close" %}
-                    </button>
                     <button type="submit" class="btn btn-success">
                         {% trans "Add" %}
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="window.close();">
+                        {% trans "Close" %}
                     </button>
                 </div>
             {% endbuttons %}
