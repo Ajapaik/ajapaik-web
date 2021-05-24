@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-14 02:27+0300\n"
-"PO-Revision-Date: 2021-05-17 11:04:53+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:08+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
+"X-POT-Import-Date: 2021-05-20 14:28:15+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
@@ -618,7 +618,8 @@ msgid "Unidentified adult woman"
 msgstr "Tuvastamata täiskasvanud naine"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
-msgid "Unidentified adult"
+#, fuzzy
+msgid "Unidentified adult person"
 msgstr "Tuvastamata täiskasvanu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110

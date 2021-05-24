@@ -6,6 +6,7 @@
 # Author: H2kks
 # Author: Hedda
 # Author: Joseph
+# Author: Melissadilara
 # Author: Mim.saitkilic
 # Author: Mirzali
 # Author: MuratTheTurkish
@@ -20,7 +21,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-05-13 11:41:43+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:13+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -602,7 +603,7 @@ msgstr "Geri"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "Kişi etiketle"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"

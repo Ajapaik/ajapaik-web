@@ -4,8 +4,10 @@
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: Hedda
+# Author: Melissadilara
 # Author: Mirzali
 # Author: MuratTheTurkish
+# Author: SaldırganSincap
 # Author: Stonecy
 # Author: Suvarioglu
 # --
@@ -17,11 +19,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-05-17 11:04:54+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:10+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
+"X-POT-Import-Date: 2021-05-20 14:28:15+0000\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -228,7 +230,7 @@ msgstr "Albüm detayları"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "Albümde <em>%(photoCount)s</em> resim var"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
@@ -599,27 +601,27 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Tanımlanmamış oğlan"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
 msgid "Unidentified girl"
-msgstr ""
+msgstr "Tanımlanmamış kız"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
 msgid "Unidentified child"
-msgstr ""
+msgstr "Tanımlanmamış çocuk"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "Tanımlanmamış yetişkin erkek"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "Tanımlanmamış yetişkin kadın"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
-msgid "Unidentified adult"
-msgstr ""
+msgid "Unidentified adult person"
+msgstr "Tanımlanmamış yetişkin kişi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
@@ -635,15 +637,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified man"
-msgstr ""
+msgstr "Tanımlanmamış erkek"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified woman"
-msgstr ""
+msgstr "Tanımlanmamış kadın"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified person"
-msgstr ""
+msgstr "Tanımlanmamış kişi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unknown author"
@@ -926,7 +928,7 @@ msgstr "Oturum aç"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Yaş grubu seçin (isteğe bağlı)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
@@ -954,7 +956,7 @@ msgstr "isteğe bağlı"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Tanımlanmamış"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1118,7 +1120,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
-msgstr ""
+msgstr "Yüz etiketle"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
@@ -1137,7 +1139,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr ""
+msgstr "<em>%(personName)s</em> etiketle"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
@@ -1159,7 +1161,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr ""
+msgstr "Kişi tanımlayın"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-05-17 11:04:54+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:10+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
+"X-POT-Import-Date: 2021-05-20 14:28:15+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
@@ -600,7 +600,7 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Oidentifierad pojke"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
 msgid "Unidentified girl"
@@ -619,7 +619,7 @@ msgid "Unidentified adult woman"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
-msgid "Unidentified adult"
+msgid "Unidentified adult person"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
@@ -956,7 +956,7 @@ msgstr "valfri"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Oidentifierad"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1135,11 +1135,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Öppna album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr ""
+msgstr "Markera <em>%(personName)s</em>"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306

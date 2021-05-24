@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-05-13 11:41:41+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:09+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -191,7 +191,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/curator/curator.html:77
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Description"
-msgstr "Kuvailu"
+msgstr "Kuvaus"
 
 #: ajapaik/ajapaik/forms.py:413
 msgid "I am the author"
@@ -728,7 +728,7 @@ msgstr "Litteroi tämä kuva"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "Muokkaa kuvaa"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
@@ -1348,7 +1348,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Tuo kuva"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -1590,15 +1590,15 @@ msgstr "Suodata"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:14
 msgid "Filters"
-msgstr ""
+msgstr "Suodattimet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "collections"
-msgstr ""
+msgstr "kokoelmat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "people"
-msgstr ""
+msgstr "ihmiset"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "back sides of pictures"
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "no filter"
-msgstr ""
+msgstr "ei suodatinta"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "Show person albums"
@@ -1933,11 +1933,11 @@ msgstr "Takaisin kotiin"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Tuo"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Musta lista"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
@@ -2528,7 +2528,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:20
 msgid "Date of birth"
-msgstr ""
+msgstr "Syntymäaika"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Is public figure"
@@ -2536,7 +2536,7 @@ msgstr "On julkisuuden henkilö"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Etunimi Sukunimi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
@@ -2676,9 +2676,9 @@ msgstr ""
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ehdotustasi on muutettu"
 
 #: ajapaik/utils.py:156
 msgid "Your suggestion has been saved"
-msgstr ""
+msgstr "Ehdotuksesi on tallennettu"
 

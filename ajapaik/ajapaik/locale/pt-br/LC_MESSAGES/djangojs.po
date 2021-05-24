@@ -13,11 +13,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-05-17 11:04:54+0000\n"
+"PO-Revision-Date: 2021-05-24 11:56:10+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-05-17 10:59:40+0000\n"
+"X-POT-Import-Date: 2021-05-20 14:28:15+0000\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -614,8 +614,8 @@ msgid "Unidentified adult woman"
 msgstr "Mulher adulta não identificada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
-msgid "Unidentified adult"
-msgstr "Adulto não identificado"
+msgid "Unidentified adult person"
+msgstr "Pessoa adulta não identificada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
