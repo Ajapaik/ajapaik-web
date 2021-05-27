@@ -54,15 +54,15 @@ class Command(BaseCommand):
         dates = []
         start = datetime(2008, 3, 1)
         present = datetime.today() + timedelta(days=1)
-        while start < present:
-            dates.append(str(start.strftime('%Y-%m-%d')))
-            start += timedelta(days=30)
-        dates.append(str(present.strftime('%Y-%m-%d')))
+        while present > start:
+            dates.append(str(present.strftime('%Y-%m-%d')))
+            present -= timedelta(days=30)
+        dates.append(str(start.strftime('%Y-%m-%d')))
 
-        from_date = None
-        for until_date in dates:
-            if from_date is None:
-                from_date = until_date
+        until_date = None
+        for from_date in dates:
+            if until_date is None:
+                until_date = from_date
                 continue
 
             album_ids = (options['album_ids'])
@@ -72,7 +72,8 @@ class Command(BaseCommand):
                 + '&from=' + from_date + '&until=' + until_date + '&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
             parser = ET.XMLParser(encoding="utf-8")
-            tree = ET.fromstring(url_response.read(), parser=parser)
+            redurl = url_response.read()
+            tree = ET.fromstring(redurl, parser=parser)
             ns = {'d': 'http://www.openarchives.org/OAI/2.0/', 'lido': 'http://www.lido-schema.org'}
             header = 'd:header/'
             records = tree.findall('d:ListRecords/d:record', ns)
@@ -239,4 +240,4 @@ class Command(BaseCommand):
                     for person_album in all_person_albums:
                         person_album.set_calculated_fields()
                         person_album.save()
-            from_date = until_date
+            until_date = from_date
