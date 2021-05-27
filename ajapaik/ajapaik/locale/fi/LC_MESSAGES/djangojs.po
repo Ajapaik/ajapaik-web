@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2021-05-24 11:56:08+0000\n"
+"PO-Revision-Date: 2021-05-27 13:33:39+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: MediaWiki 1.36.0-rc.0; Translate 2021-04-28\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-"X-POT-Import-Date: 2021-05-20 14:28:15+0000\n"
+"X-POT-Import-Date: 2021-05-26 12:39:52+0000\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:371
 msgid "User denied the request for Geolocation."
@@ -342,7 +342,7 @@ msgstr "Lisenssi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "Linkki kopioitu leikepöydälle"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Mark stereophoto"
@@ -398,19 +398,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia valituilla suodattimilla"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "Valituilla suodattimilla ei löytynyt kuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found"
-msgstr ""
+msgstr "Kuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures which have 0 geotags were found in this album"
@@ -674,7 +674,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "viimeisin"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
@@ -682,7 +682,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr ""
+msgstr "eniten"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
@@ -826,7 +826,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr ""
+msgstr "Ehdotuksesi"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
@@ -906,7 +906,7 @@ msgstr[1] "Sait %s pistettä"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ehdotustasi on muutettu"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
@@ -930,11 +930,11 @@ msgstr "Kirjaudu sisään"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Valitse ikäryhmä (valinnainen)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "Valitse sukupuoli (valinnainen)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -958,7 +958,7 @@ msgstr "valinnainen"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Tunnistamaton"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1164,7 +1164,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr ""
+msgstr "Tunnista henkilö"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
