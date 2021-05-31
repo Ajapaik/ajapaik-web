@@ -4,7 +4,9 @@ import logging
 import urllib
 import traceback
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
+from urllib.parse import quote
 
 from ajapaik.ajapaik.muis_utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
@@ -12,7 +14,6 @@ from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, App
 import xml.etree.ElementTree as ET
 
 import requests
-from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -68,7 +69,7 @@ class Command(BaseCommand):
             album_ids = (options['album_ids'])
             albums = Album.objects.filter(id__in=album_ids)
             all_person_album_ids_set = set()
-            list_identifiers_url = muis_url + '?verb=ListRecords&set=' + set_name \
+            list_identifiers_url = muis_url + '?verb=ListRecords&set=' + quote(set_name) \
                 + '&from=' + from_date + '&until=' + until_date + '&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
             parser = ET.XMLParser(encoding="utf-8")
