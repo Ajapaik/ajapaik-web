@@ -2,7 +2,7 @@ wheel==0.36.1
 responses==0.12.1
 numpy==1.18.2
 Pillow==8.1.1
-Django==2.2.20
+Django==2.2.21
 django-bulk-update==2.2.0
 django-admin-tools==0.9.0
 django-recaptcha==2.0.6
