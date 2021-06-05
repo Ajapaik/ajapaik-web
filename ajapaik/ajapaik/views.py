@@ -787,9 +787,7 @@ def frontpage_async_albums(request):
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
     profile = request.get_user().profile
-    photos = Photo.objects.filter(rephoto_of__isnull=True).annotate(rephoto_count=Count('rephotos', distinct=True),
-                                                                    similar_photo_count=Count('similar_photos',
-                                                                                              distinct=True))
+    photos = Photo.objects.filter(rephoto_of__isnull=True)
     filter_form = GalleryFilteringForm(request.GET)
     page_size = settings.FRONTPAGE_DEFAULT_PAGE_SIZE
     context = {}
@@ -891,6 +889,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-comment_count')
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'rephotos':
+                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.order_by('rephoto_count')
                 else:
@@ -927,12 +926,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 else:
                     photos = photos.order_by('-annotation_count')
             elif order2 == 'similar_photos':
+                photos = photos.annotate(similar_photo_count=Count('similar_photos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.order_by('similar_photo_count')
                 else:
                     photos = photos.order_by('-similar_photo_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
+                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
                                           order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
@@ -1007,6 +1008,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 if order1 == 'time':
                     default_ordering = True
             elif order2 == 'similar_photos':
+                photos = photos.annotate(similar_photo_count=Count('similar_photos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.order_by('similar_photo_count')
                 else:
@@ -1026,6 +1028,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
         qs_for_fb = photos[:5]
+        if not order2 == 'rephotos':
+            photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
+
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
