@@ -40,7 +40,12 @@
                     </div>
                 </div>
             </div>
-            <div id="ajp-curator-search-results"></div>
+            <div id="ajp-curator-search-results-container">
+                <div id="ajp-curator-search-results-list"></div>
+                <button type="button" class="btn btn-primary btn-block mt-2 ajp-curator-load-more">
+                    {% trans "Load more" %}
+                </button>
+            </div>
             <div class="row" id="ajp-curator-selection"></div>
             <div id="ajp-curator-my-albums" class="container"></div>
             <div class="modal fade" id="ajp-curator-edit-my-album-modal">
@@ -181,7 +186,7 @@
                     if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
                         buildSelectionDiv();
                         $('#ajp-curator-my-albums').hide();
-                        $('#ajp-curator-search-results').hide();
+                        $('#ajp-curator-search-results-container').hide();
                         $('#ajp-curator-selection').show();
                         var ETERAResults = $('.ajp-curator-ETERA-result');
                         if (ETERAResults.length > 0) {
@@ -204,11 +209,11 @@
                         }
                     } else if ($(e.target).attr('href') === '#ajp-curator-results-tab') {
                         $('#ajp-curator-my-albums').hide();
-                        $('#ajp-curator-search-results').show();
+                        $('#ajp-curator-search-results-container').show();
                         $('#ajp-curator-selection').hide();
                     } else if ($(e.target).attr('href') === '#ajp-curator-my-albums-tab') {
                         $('#ajp-curator-my-albums').show();
-                        $('#ajp-curator-search-results').hide();
+                        $('#ajp-curator-search-results-container').hide();
                         $('#ajp-curator-selection').hide();
                     }
                 });
@@ -235,7 +240,7 @@
                 fullResultSet = {},
                 flickrPage = 1,
                 selectionDiv = $('#ajp-curator-selection'),
-                resultDiv = $('#ajp-curator-search-results'),
+                resultDiv = $('#ajp-curator-search-results-list'),
                 changeAreaLat,
                 changeAreaLng;
             window.selectedResults = {};
@@ -401,7 +406,7 @@
                 flickrPage = 1;
                 $('#ajp-loading-overlay').show();
                 $('.ajp-curator-feedback-alert').hide();
-                $('#ajp-curator-search-results').empty();
+                $('#ajp-curator-search-results-list').empty();
                 var filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
                         useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
                         useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
