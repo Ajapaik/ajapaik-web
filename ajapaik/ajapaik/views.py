@@ -1102,6 +1102,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['rephotos_by'] = rephotos_by
         context['rephotos_by_name'] = rephotos_by_name
     else:
+        photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
         context['album'] = None
         context['photo'] = None
         context['rephotos_by'] = None
