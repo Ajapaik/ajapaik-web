@@ -10,22 +10,8 @@ from requests import get, head
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
-def europeana_find_photo_by_url(record_url, profile):
-    photo = None
-    return photo
-
-
 def _filter_out_url(str):
     return 'http' not in str
-
-
-def url_ok(url):
-    try:
-        r = head(url)
-        return r.status_code == 200
-    except:  # noqa
-        return False
-
 
 class EuropeanaDriver(object):
     def __init__(self):
@@ -240,11 +226,9 @@ class EuropeanaDriver(object):
                 for url in p['edmPreview']:
                     if '.tif' not in url:
                         thumbnailUrl = url
-                        # If imageUrl is broken then try to use url from thumbnail generator
-                        if not url_ok(imageUrl):
-                            url = re.search('thumbnail-by-url.json.*?uri=(.*?.jpe?g)', url, re.IGNORECASE)
-                            if url:
-                                imageUrl = urllib.parse.unquote(url.group(1))
+                        url = re.search('thumbnail-by-url.json.*?uri=(.*?.jpe?g)', url, re.IGNORECASE)
+                        if url:
+                            imageUrl = urllib.parse.unquote(url.group(1))
                         break
 
             latitude = p.get('edmPlaceLatitude') or None
