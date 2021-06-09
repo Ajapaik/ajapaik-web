@@ -1002,9 +1002,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('video_timestamp')
             elif order2 == 'added':
                 if order3 == 'reverse':
-                    photos = photos.order_by('created')
+                    photos = photos.order_by('id')
                 else:
-                    photos = photos.order_by('-created')
+                    photos = photos.order_by('-id')
                 if order1 == 'time':
                     default_ordering = True
             elif order2 == 'similar_photos':
@@ -1015,9 +1015,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-similar_photo_count')
         else:
             if order3 == 'reverse':
-                photos = photos.order_by('created')
+                photos = photos.order_by('id')
             else:
-                photos = photos.order_by('-created')
+                photos = photos.order_by('-id')
         if not filter_form.cleaned_data['backsides'] and not order2 == 'transcriptions':
             photos = photos.filter(back_of__isnull=True)
         if requested_photo:
