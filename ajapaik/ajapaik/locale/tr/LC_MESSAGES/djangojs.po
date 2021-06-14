@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-06-03 13:08:08+0000\n"
+"PO-Revision-Date: 2021-06-14 07:50:22+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -373,19 +373,19 @@ msgstr "İç görünüm bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No pictures in landscape format were found"
-msgstr ""
+msgstr "Manzara formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No pictures in landscape format were found in this album"
-msgstr ""
+msgstr "Bu albümde manzara formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No pictures in panoramic format were found"
-msgstr ""
+msgstr "Panoramik formatta resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in panoramic format were found in this album"
-msgstr ""
+msgstr "Bu albümde panoramik formatta resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures from the ground level were found in this album"
@@ -437,11 +437,11 @@ msgstr "Yüzleri işaretlenmiş resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures in portrait format were found"
-msgstr ""
+msgstr "Portre formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "Bu albümde portre formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No raised viewpoint pictures were found in this album"
@@ -470,11 +470,11 @@ msgstr "%(query)s için sonuç bulunamadı\nAramanıza uygulanan filtreleri de d
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No pictures in square format were found"
-msgstr ""
+msgstr "Kare formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 msgid "No pictures in square format were found in this album"
-msgstr ""
+msgstr "Bu albümde kare formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "Number"
@@ -625,15 +625,15 @@ msgstr "Tanımlanmamış yetişkin kişi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Kimliği belirsiz yaşlı adam"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "Kimliği belirsiz yaşlı kadın"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Kimliği belirsiz yaşlı biri"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified man"
@@ -932,7 +932,7 @@ msgstr "Yaş grubu seçin (isteğe bağlı)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "Cinsiyet seçin (isteğe bağlı)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -1116,7 +1116,7 @@ msgstr "Kişi adını belirtin"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr ""
+msgstr "Mevcut açıklamaları değiştirin, başlamak için bir açıklamayı tıklayın"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
@@ -1124,18 +1124,18 @@ msgstr "Yüz etiketle"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr ""
+msgstr "Bir yüz açıklaması belirtin ve kişinin adını ekleyin"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr ""
+msgstr "Bir yüz belirtin ve yüzü etiketleyin"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Albümü aç"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
@@ -1144,20 +1144,20 @@ msgstr "<em>%(personName)s</em> etiketle"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
-msgstr ""
+msgstr "Açıklama, %(profileLink)s tarafından eklendi"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "Otomatik olarak algılanan yüz"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
+msgstr[0] "%(photoCount)s resim"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr ""
+msgstr "Kişinin adıyla birlikte bir yüz açıklaması etiketleme"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
@@ -1165,14 +1165,14 @@ msgstr "Kişi tanımlayın"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr ""
+msgstr "Kişi ek açıklamasını düzenle"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr ""
+msgstr "Otomatik olarak algılanan nesne"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
+msgstr "Nesneyi Vikiveri'de görüntüle"
 

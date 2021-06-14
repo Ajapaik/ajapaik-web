@@ -14,6 +14,7 @@
 # Author: Symposiarch
 # Author: Tiin
 # Author: Umherirrender
+# Author: Umlaut
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -21,7 +22,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-06-03 13:08:06+0000\n"
+"PO-Revision-Date: 2021-06-14 07:50:20+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:52+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -411,7 +412,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found"
-msgstr ""
+msgstr "Keine Bilder vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures which have 0 geotags were found in this album"
@@ -716,7 +717,7 @@ msgstr "Gefällt mir"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr ""
+msgstr "kategorisiert"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"

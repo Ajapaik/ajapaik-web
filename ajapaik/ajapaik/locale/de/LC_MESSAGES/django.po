@@ -16,6 +16,7 @@
 # Author: MuratTheTurkish
 # Author: Pittigrilli
 # Author: Tiin
+# Author: Umlaut
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -23,7 +24,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-06-03 13:08:06+0000\n"
+"PO-Revision-Date: 2021-06-14 07:50:20+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -692,7 +693,7 @@ msgstr "Datiere das Bild"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:20
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:23
 msgid "Add rephoto"
@@ -2520,7 +2521,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Finnland"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
@@ -2644,11 +2645,11 @@ msgstr "Estnisch"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Lettisch"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litauisch"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
