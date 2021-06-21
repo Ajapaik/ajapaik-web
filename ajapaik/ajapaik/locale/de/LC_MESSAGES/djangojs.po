@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-06-14 07:50:20+0000\n"
+"PO-Revision-Date: 2021-06-21 10:25:53+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:52+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,11 +36,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:377
 msgid "Location information is unavailable."
-msgstr ""
+msgstr "Der aktuelle Standort kann nicht ermittelt werden."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:380
 msgid "The request to get user location timed out."
-msgstr ""
+msgstr "Die Abfrage des aktuellen Standorts dauerte zu lange."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:383
 msgid "An unknown error occurred."
@@ -69,7 +69,7 @@ msgstr "Schließen"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1744
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Wähle den Aufnahmeort!"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1754
 #: ajapaik/ajapaik/static/js/ajp-core.js:1806
@@ -79,7 +79,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-core.js:1787
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
-msgstr ""
+msgstr "Korrekten Standort bestätigen"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1798
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
@@ -150,7 +150,7 @@ msgstr "Der Server empfängt ungültige Daten."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr "Commentare im Album"
+msgstr "Kommentare im Album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
@@ -324,11 +324,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Institution"
-msgstr ""
+msgstr "Institution"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Interior"
-msgstr ""
+msgstr "Innenaufnahme"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert colors"
@@ -336,7 +336,7 @@ msgstr "Farben umkehren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert"
-msgstr ""
+msgstr "Umkehren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Licence"
@@ -344,7 +344,7 @@ msgstr "Lizenz"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "Text in die Zwischenablage kopiert"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Mark stereophoto"
@@ -352,27 +352,27 @@ msgstr "Stereofoto markieren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "Keine Luftaufnahmen in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "Keine Luftaufnahmen vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "Keine Außenaufnahmen in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found"
-msgstr ""
+msgstr "Keine Außenaufnahmen vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "Keine Innenaufnahmen in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No interior views were found"
-msgstr ""
+msgstr "Keine Innenaufnahmen vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No pictures in landscape format were found"
@@ -400,7 +400,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "Keine Bilder in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures were found with the selected filters in this album"
@@ -436,15 +436,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "Keine Bildern mit markierten Gesichtern vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures in portrait format were found"
-msgstr ""
+msgstr "Keine Porträtbilder vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "Keine Porträtbilder in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No raised viewpoint pictures were found in this album"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture set has no likes"
-msgstr ""
+msgstr "Das Bildset hat keine Likes"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture set has no rephotos"
@@ -562,7 +562,7 @@ msgstr "Bilder auf der Karte zeigen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Similar photos in album"
-msgstr ""
+msgstr "Ähnliche Fotos im Album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Size"
@@ -604,51 +604,51 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Unbekannter Junge"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
 msgid "Unidentified girl"
-msgstr ""
+msgstr "Unbekanntes Mädchen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
 msgid "Unidentified child"
-msgstr ""
+msgstr "Unbekanntes Kind"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "Unbekannter erwachsener Mann"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "Unbekannte erwachsene Frau"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "Unbekannte erwachsene Person"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Unbekannter älterer Mann"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "Unbekannte ältere Frau"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Unbekannte ältere Person"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified man"
-msgstr ""
+msgstr "Unbekannter Mann"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified woman"
-msgstr ""
+msgstr "Unbekannte Frau"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified person"
-msgstr ""
+msgstr "Unbekannte Person"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unknown author"
@@ -672,11 +672,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "frühestes"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "letztes"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
@@ -757,7 +757,7 @@ msgstr "Wolltest du suchen von:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
-msgstr ""
+msgstr "alle Bilder"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
@@ -777,7 +777,7 @@ msgstr "Refotos von %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
-msgstr ""
+msgstr "Alle Bilder"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
@@ -828,7 +828,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr ""
+msgstr "Ihr Vorschlag"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
@@ -873,7 +873,7 @@ msgstr "Ziehen Sie die Karte so, dass sich die Markierung über dem Objekt befin
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
-msgstr ""
+msgstr "Vergebene Punkte"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
@@ -897,18 +897,18 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "Alle Bilder werden in der Seitenleiste angezeigt"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sie haben %s Punkt bekommen"
+msgstr[1] "Sie haben %s Punkte bekommen"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ihr Vorschlag wurde geändert"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
@@ -932,7 +932,7 @@ msgstr "Anmelden"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Altersgruppe auswählen (optional)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
@@ -960,7 +960,7 @@ msgstr "optional"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Unbekannt"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -988,7 +988,7 @@ msgstr "Löschen"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "What is displayed"
-msgstr ""
+msgstr "Anzeige"
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
@@ -1000,7 +1000,7 @@ msgstr "Objektmarkierung bearbeiten"
 
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Add feedback"
-msgstr ""
+msgstr "Rückmeldung hinzufügen"
 
 #: ajapaik/ajapaik/static/js/constants.js:72
 msgid "Change person name"
@@ -1152,7 +1152,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "Automatisch erkanntes Gesicht"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
@@ -1174,7 +1174,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr ""
+msgstr "Automatisch erkanntes Objekt"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313

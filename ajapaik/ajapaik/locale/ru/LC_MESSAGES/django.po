@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-06-03 13:08:08+0000\n"
+"PO-Revision-Date: 2021-06-21 10:25:56+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -63,7 +63,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Invalid token"
-msgstr ""
+msgstr "Неправильный токен"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Missing parameter photo_ids"
@@ -83,7 +83,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:86
 msgid "Please login"
-msgstr ""
+msgstr "Представьтесь, пожалуйста"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Rephoto upload settings have been saved"
@@ -740,7 +740,7 @@ msgstr "Переписать это изображение"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "Редактировать изображение"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
@@ -796,12 +796,12 @@ msgstr "Меню"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3439
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Адреса электронной почты"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Подтвердить адрес электронной почты"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -857,7 +857,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Добавить адрес электронной почты"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
@@ -929,7 +929,7 @@ msgstr "Ваш пароль был изменён."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -1504,7 +1504,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "С уважением"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1580,19 +1580,19 @@ msgstr "Сообщите мне о последующих комментария
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
-msgstr ""
+msgstr "Текущий пароль"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:5
 msgid "New Password"
-msgstr ""
+msgstr "Новый пароль"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:6
 msgid "New Password (again)"
-msgstr ""
+msgstr "Новый пароль (повторно)"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:7
 msgid "Set password"
-msgstr ""
+msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
@@ -1957,7 +1957,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "В чёрном списке"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
@@ -2379,11 +2379,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "To create an account, click"
-msgstr ""
+msgstr "Чтобы создать учетную запись, нажмите"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "here"
-msgstr ""
+msgstr "здесь"
 
 #: ajapaik/ajapaik/templates/user/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2685,7 +2685,7 @@ msgstr "Эстонский"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "латышский"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
