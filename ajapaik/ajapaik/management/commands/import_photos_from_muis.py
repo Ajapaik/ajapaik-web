@@ -108,9 +108,9 @@ class Command(BaseCommand):
                                     + 'resourceRepresentation/lido:linkResource', ns) is not None\
                         else None
 
-                    image_extension = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                               + 'resourceRepresentation/lido:linkResource',
-                                               ns).attrib['{' + ns['lido'] + '}formatResource'] \
+                    image_extension = (rec.find(resource_wrap + 'lido:resourceSet/lido:'
+                                                + 'resourceRepresentation/lido:linkResource',
+                                                ns).attrib['{' + ns['lido'] + '}formatResource']).lower() \
                         if rec.find(resource_wrap + 'lido:resourceSet/lido:'
                                     + 'resourceRepresentation/lido:linkResource', ns) is not None\
                         else None
@@ -125,7 +125,7 @@ class Command(BaseCommand):
                         if identifier_find is not None \
                         else None
 
-                    if image_url is None:
+                    if image_url is None or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'webp']:
                         continue
 
                     img_data = requests.get(image_url).content
