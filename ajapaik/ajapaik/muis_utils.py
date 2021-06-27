@@ -347,7 +347,7 @@ def add_person_albums(actors, person_album_ids, ns):
             for name in names:
                 if name.attrib['{' + ns['lido'] + '}pref'] == 'preferred':
                     main_name_parts = name.text.split(',')
-                    main_name = main_name_parts[-1].replace(' ', '')
+                    main_name = main_name_parts[-1].strip()
                     if len(main_name_parts) > 1:
                         for part in main_name_parts[0:len(main_name_parts) - 1]:
                             main_name += ' ' + part
