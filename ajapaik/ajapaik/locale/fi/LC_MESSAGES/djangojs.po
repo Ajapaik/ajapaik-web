@@ -5,6 +5,7 @@
 # Author: Joquliina
 # Author: Nike
 # Author: Pyscowicz
+# Author: Sirukisu
 # Author: Zache
 # --
 # This file is part of the Ajapaik Project
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2021-07-01 11:39:34+0000\n"
+"PO-Revision-Date: 2021-07-08 11:00:14+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -148,7 +149,7 @@ msgstr "Palvelimelle saapunut data ei kelpaa."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
@@ -223,7 +224,7 @@ msgstr "Lisää tämä kuva albumiin (ei koko settiä)"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Aerial"
-msgstr ""
+msgstr "Ilmakuva"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
@@ -231,7 +232,7 @@ msgstr "Albumin tiedot"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "Albumissa on <em>%(photoCount)s</em> kuvaa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
@@ -247,7 +248,7 @@ msgstr "Tekijä"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr ""
+msgstr "Luokittele kohtaus"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
@@ -264,7 +265,7 @@ msgstr "Vahvista"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
-msgstr ""
+msgstr "Linkkiä ei voitu kopioida leikepöydälle"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
@@ -281,7 +282,7 @@ msgstr "Muokkaa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr ""
+msgstr "Ulkokuva"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
@@ -326,7 +327,7 @@ msgstr "Instituutio"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Interior"
-msgstr ""
+msgstr "Sisäkuva"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert colors"
@@ -626,15 +627,15 @@ msgstr "Tunnistamaton aikuinen henkilö"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Tunnistamaton iäkäs mies"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "Tunnistamaton iäkäs nainen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Tunnistamaton iäkäs henkilö"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified man"

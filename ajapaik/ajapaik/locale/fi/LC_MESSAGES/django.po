@@ -7,6 +7,7 @@
 # Author: Muovipullo
 # Author: Nike
 # Author: Pyscowicz
+# Author: Sirukisu
 # Author: Zache
 # --
 # This file is part of the Ajapaik Project
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-07-01 11:39:34+0000\n"
+"PO-Revision-Date: 2021-07-08 11:00:14+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -55,15 +56,15 @@ msgstr "Vanhentunut kirjautuminen"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Parametri photo_ids puuttuu"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "No photo with id:"
-msgstr ""
+msgstr "Ei kuvaa tunnuksella:"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "Parametrin photo_id on oltava positiivinen kokonaisluku"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
@@ -122,7 +123,7 @@ msgstr "Jokin meni pieleen"
 
 #: ajapaik/ajapaik/api.py:1940 ajapaik/utils.py:157
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "Ehdotuksesi on tallennettu, mutta aiempi yhteisymmärrys on edelleen voimassa"
 
 #: ajapaik/ajapaik/autocomplete_views.py:300
 msgid "No album found"
@@ -184,7 +185,7 @@ msgstr "Valitse sisältävä albumi"
 
 #: ajapaik/ajapaik/forms.py:411
 msgid "Picture file"
-msgstr ""
+msgstr "Kuvatiedosto"
 
 #: ajapaik/ajapaik/forms.py:412 ajapaik/ajapaik/forms.py:461
 #: ajapaik/ajapaik/models.py:184 ajapaik/ajapaik/models.py:376
@@ -203,23 +204,23 @@ msgstr "Tekijä"
 
 #: ajapaik/ajapaik/forms.py:415
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Lisenssi tai tekijänoikeuksien tila"
 
 #: ajapaik/ajapaik/forms.py:418
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Hyväksytyt tiedostomuodot ovat .png ja .jpg"
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Lisää lyhyt kuvaus kuvasta"
 
 #: ajapaik/ajapaik/forms.py:420
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Kuvan tekijä (valokuvaaja, taidemaalari)"
 
 #: ajapaik/ajapaik/forms.py:422
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Valitse lisenssi, jotta muut ihmiset tietävät, voivatko he uudelleenkäyttää lataamaasi materiaalia.\n\nMikäli olet teoksen luoja, voit valita haluamasi lisenssin (suosittelemme käyttämään avoimia Creative Commons -lisenssejä). Jos joku muu loi teoksen, sinun on käytettävä samaa lisenssiä ja oikeuksien haltijaa, joka teoksella tällä hetkellä on.\n\nHyväksymme tällä hetkellä myös sisältöä, jonka tekijänoikeuksien tila on epäselvä. Valitse  tällöin lisenssiksi 'Tekijänoikeutta ei arvioitu'."
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Description of the picture"
@@ -227,7 +228,7 @@ msgstr "Kuvan kuvaus"
 
 #: ajapaik/ajapaik/forms.py:427
 msgid "Author name"
-msgstr ""
+msgstr "Tekijän nimi"
 
 #: ajapaik/ajapaik/forms.py:433
 msgid "Missing image"
@@ -352,7 +353,7 @@ msgstr "Wikidata-tunniste"
 
 #: ajapaik/ajapaik/models.py:214
 msgid "Name original language"
-msgstr ""
+msgstr "Nimeä alkuperäinen kieli"
 
 #: ajapaik/ajapaik/models.py:233
 msgid "b."
@@ -368,11 +369,11 @@ msgstr "Otsikko"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS-otsikko"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS-kommentti"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -388,11 +389,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1851
 msgid "Interior"
-msgstr ""
+msgstr "Sisäkuva"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1852
 msgid "Exterior"
-msgstr ""
+msgstr "Ulkokuva"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1854
 msgid "Scene"
@@ -603,7 +604,7 @@ msgstr "Takaisin"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "Merkitse henkilö"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -682,7 +683,7 @@ msgstr "Valitse kuvauspaikka"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
-msgstr ""
+msgstr "Lisää paikkamerkintä"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
@@ -690,7 +691,7 @@ msgstr "Anna kuvalle päiväys"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:20
 msgid "Date"
-msgstr ""
+msgstr "Päivämäärä"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:23
 msgid "Add rephoto"
@@ -716,11 +717,11 @@ msgstr "Jaa"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:54
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Lisää luokka - tätä painiketta napsauttamalla voit luokitella tämän kuvan eri luokkiin, esimerkiksi kuvaako se kuvaa sisällä tai ulkona"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
-msgstr ""
+msgstr "Luokittele"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:62
 msgid "Transcribe this image"
@@ -732,7 +733,7 @@ msgstr "Muokkaa kuvaa"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "Näytä merkinnät"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -976,7 +977,7 @@ msgstr "Kirjautumalla sisään voit tallentaa tuloksesi"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "Kirjaudu sisään lisätäksesi kommentin"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
@@ -984,11 +985,11 @@ msgstr "Kirjaudu sisään lisätäksesi kuvia albumiin"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr ""
+msgstr "Kirjaudu sisään lisätäksesi päiväämisen valokuvaan"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr ""
+msgstr "Kirjaudu sisään kirjoittaaksesi puhtaaksi kuvan tekstin"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
@@ -1008,7 +1009,7 @@ msgstr "Kirjautumalla sisään voit tallentaa valikoiman"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "Kirjaudu sisään tuodaksesi valokuvia csv-tiedostosta"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1246,7 +1247,7 @@ msgstr "Valikoi historiallisia valokuvia museoiden ja arkistojen kokoelmista Aja
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr ""
+msgstr "Jokainen voi auttaa rikastuttamaan historiallisten kuvien tietoja Ajapaikissa!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1344,7 +1345,7 @@ msgstr "Lisätietoa"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
-msgstr ""
+msgstr "Tästä voit ladata csv-tiedoston tuodaksesi valokuvia Ajapaikiin"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
@@ -1498,7 +1499,7 @@ msgstr "Vastaa"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "Lahjoituksesi varmentaa Ajapaikin tärkeyden"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
@@ -1622,11 +1623,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "aerial pictures"
-msgstr ""
+msgstr "ilmakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "pictures which are not geotagged"
-msgstr ""
+msgstr "kuvat, joita ei ole merkitty geotunnisteella"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "no filter"
@@ -1634,11 +1635,11 @@ msgstr "ei suodatinta"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "Show person albums"
-msgstr ""
+msgstr "Näytä henkilöalbumit"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "Show pictures with faces"
-msgstr ""
+msgstr "Näytä kuvat, joissa on kasvot"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:56
 msgid "Pictures by collections"
@@ -1654,27 +1655,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:79
 msgid "Show pictures made from the ground level"
-msgstr ""
+msgstr "Näytä maanpinnalta otetut kuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:89
 msgid "Show pictures made from a raised viewpoint"
-msgstr ""
+msgstr "Näytä kuvat, jotka on otettu kohotetusta näkökulmasta"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
 msgid "Show aerial pictures"
-msgstr ""
+msgstr "Näytä ilmakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
 msgid "Show interior pictures"
-msgstr ""
+msgstr "Näytä sisätilakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
 msgid "Show exterior pictures"
-msgstr ""
+msgstr "Näytä ulkotilakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Show pictures which are not geotagged"
-msgstr ""
+msgstr "Näytä kuvat, joita ei ole merkitty geotunnisteella"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:144
 msgid "Sort by distance from you"
@@ -1786,31 +1787,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Ajapaik-käyttäjänä voit"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
-msgstr ""
+msgstr "merkitä kuvat geotunnisteilla parantaaksesi sijantipohjaista hakua,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr ""
+msgstr "uudelleenkuvata historiallisia kuvia luodaksesi nyt-ja-ennen-kuvapareja,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr ""
+msgstr "merkitä henkilöitä kuviin, lisätä kuvia albumeihin, sekä luokitella ja kommentoida kuvia,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
-msgstr ""
+msgstr "kirjoittaa puhtaaksi käsinkirjoitettuja viestejä kuvissa tai postikorttien kääntöpuolella,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
-msgstr ""
+msgstr "lisätä historiallisia kuvia Ajapaikiin – joko etsimällä ja tuomalla julkisista kokoelmista tai lataamalla ne itse."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
-msgstr ""
+msgstr "Ajapaik on Viron valokuvaperintöyhdistyksen (MTÜ Eesti Fotopärand) voittoa tavoittelematon yritys, joka perustettiin Garage48-hackathonilla helmikuussa 2011. Vuosien varrella Ajapaik on saanut apurahaa, mutta pysyvää rahoitusta ei ole. Olisimmekin erittäin kiitollisia, jos voisit <a href='/donate'>tukea meitä</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
@@ -1820,11 +1821,11 @@ msgstr "Ajapaikissa on <b>%(total_photo_count)s</b> historiallista valokuvaa, jo
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
 msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
-msgstr ""
+msgstr "Kuvista löytyi %(person_annotation_count)s kasvoa, henkilö tunnistettiin <b>%(person_annotation_count_with_person_album)s</b> tapauksessa, ikä tai sukupuoli on merkitty <b>%(person_annotation_count_with_subject_data)s</b> kasvoon."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "Yhteenveto omista avustuksistasi löytyy <a href='/me'>käyttäjäprofiilisivultasi</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -1995,11 +1996,11 @@ msgstr "uusintakuva"
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Merkitse samankaltaisiksi tai kopioiksi"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
-msgstr ""
+msgstr "Lisää luokkia kuviin"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
@@ -2027,11 +2028,11 @@ msgstr "Lataa itse"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Muis-tuonti"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV-tuonti"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:98
@@ -2353,7 +2354,7 @@ msgstr "Käyttäjällä ei ole vielä yhtään lisäystä."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Tästä voit ladata historiallisia kuvia Ajapaikiin (tällä hetkellä vain yksi kuva kerrallaan)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, fuzzy, python-format
@@ -2366,7 +2367,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Sinun on lisättävä kuva vähintään yhteen albumiin"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
@@ -2508,7 +2509,7 @@ msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/views.py:3551
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Kulttuuriministeriö"
 
 #: ajapaik/ajapaik/views.py:3557
 msgid "Republic of Estonia National Heritage Board"
@@ -2520,11 +2521,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Suomi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
-msgstr ""
+msgstr "Henkilön nimi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:20
 msgid "Date of birth"
@@ -2540,7 +2541,7 @@ msgstr "Etunimi Sukunimi"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "Lisähuomautukset henkilöstä (muut nimet jne.)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:71
@@ -2615,7 +2616,7 @@ msgstr "Tiedot"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "Luo uusi henkilö"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
@@ -2644,11 +2645,11 @@ msgstr "viro"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Latvialainen"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Liettualainen"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
@@ -2672,7 +2673,7 @@ msgstr "ranska"
 
 #: ajapaik/utils.py:154
 msgid "You have already submitted this suggestion"
-msgstr ""
+msgstr "Olet jo lähettänyt tämän ehdotuksen"
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been changed"
