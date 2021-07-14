@@ -2963,15 +2963,15 @@ def generate_still_from_video(request):
 def donate(request):
     pictures = [
         {
-            'image_url': 'https://ajapaik.ee//media/uploads/muis_eU4vJ5H.jpg',
+            'image_url': 'https://ajapaik.ee//media/uploads/2016/08/07/muis_eU4vJ5H.jpg',
             'resource_url': 'https://ajapaik.ee/photo/82938/'
         },
         {
-            'image_url': 'https://ajapaik.ee//media/uploads/muis_5dtkncr.jpg',
+            'image_url': 'https://ajapaik.ee//media/uploads/2017/03/27/muis_5dtkncr.jpg',
             'resource_url': 'https://ajapaik.ee/photo/111092'
         },
         {
-            'image_url': 'https://ajapaik.ee/media/uploads/muis_YHWUAey.jpg',
+            'image_url': 'https://ajapaik.ee/media/uploads/2016/10/10/muis_YHWUAey.jpg',
             'resource_url': 'https://ajapaik.ee/photo/89376'
         }
     ]
