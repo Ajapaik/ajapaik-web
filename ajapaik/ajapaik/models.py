@@ -807,7 +807,6 @@ class Photo(Model):
         self.light_save()
 
     def find_similar(self):
-        return
         if not settings.DEBUG:
             img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
             self.perceptual_hash = phash(img)
@@ -823,7 +822,6 @@ class Photo(Model):
             self.light_save()
 
     def find_similar_for_existing_photo(self):
-        return
         if self.rephoto_of_id is not None:
             return
         if self.aspect_ratio is None:
