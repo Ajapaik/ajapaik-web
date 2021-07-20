@@ -1124,7 +1124,7 @@ class Photo(Model):
 class ImageSimilarity(Model):
     from_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='from_photo')
     to_photo = ForeignKey(Photo, on_delete=CASCADE, related_name='to_photo')
-    confirmed = BooleanField()
+    confirmed = BooleanField(default=False)
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1213,7 +1213,7 @@ class ImageSimilarity(Model):
 
 class ImageSimilaritySuggestion(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
-    proposer = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_proposer')
+    proposer = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_proposer', null=True, blank=True)
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
