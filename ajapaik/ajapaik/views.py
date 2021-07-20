@@ -31,7 +31,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from allauth.account.forms import AddEmailForm, ChangePasswordForm, SetPasswordForm
 from allauth.account.views import EmailView, PasswordChangeView, PasswordSetView
 from allauth.socialaccount.forms import DisconnectForm
-from allauth.socialaccount.models import SocialAccount, SocialToken
+from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 from allauth.socialaccount.views import ConnectionsView
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
@@ -80,7 +80,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     PhotoSelectionForm, SelectionUploadForm, ConfirmGeotagForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, DatingSubmitForm, DatingConfirmForm, VideoStillCaptureForm, \
     UserPhotoUploadForm, UserPhotoUploadAddAlbumForm, UserSettingsForm, \
-    EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm
+    EditCommentForm, CuratorWholeSetAlbumsSelectionForm, RephotoUploadSettingsForm, OauthDoneForm
 from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFeedback, GeoTag, MyXtdComment, Points, \
     Album, AlbumPhoto, Area, Licence, Skip, Transcription, _calc_trustworthiness, _get_pseudo_slug_for_photo, \
     MuisCollection, PhotoLike, PhotoFlipSuggestion, PhotoViewpointElevationSuggestion, PhotoSceneSuggestion, Dating, \
@@ -3334,6 +3334,36 @@ def terms(request):
 def me(request):
     return redirect('user', user_id=request.get_user().profile.id)
 
+def oauthdone(request):
+    user = request.user
+    form = OauthDoneForm(request.GET)
+    if form.is_valid():
+        if user.is_anonymous:
+            return HttpResponse('No user found', status=404)
+
+        provider=form.cleaned_data['provider']
+        allowed_providers=[ 'facebook', 'google', 'wikimedia-commons']
+        if provider not in allowed_providers:
+            return HttpResponse('Provider not in allowed providers.' + provider, status=404)
+
+        app = SocialApp.objects.get_current(provider)
+
+        if app == None:
+            return HttpResponse('Provider ' + provider + ' not found.', status=404)
+
+        social_token=SocialToken.objects.get(account__user_id=user.id, app=app)
+        if social_token == None:
+            return HttpResponse('Token not found.', status=404)
+
+        token=social_token.token
+        context = {
+            'route': '/login',
+            'provider': provider,
+            'token': token
+        }
+        return render(request, 'socialaccount/oauthdone.html', context)
+
+    return HttpResponse('No user found', status=404)
 
 def user(request, user_id):
     token = ProfileMergeToken.objects.filter(source_profile_id=user_id, used__isnull=False).order_by('used').first()
@@ -3541,7 +3571,6 @@ def merge_accounts(request):
     context['token'] = token
 
     return render(request, 'user/merge/merge_accounts.html', context)
-
 
 def geotaggers_modal(request, photo_id):
     limit = request.GET.get('limit')

@@ -19,6 +19,7 @@ from allauth.account.utils import complete_signup
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.gis.db.models.functions import Distance
@@ -164,12 +165,11 @@ class Login(APIView):
         except:  # noqa
             return None
 
-    def _authenticate_with_facebook(self, request, access_token):
+    def _authenticate_with_oauth2_access_token(self, adapter, request, access_token):
         '''
-        Returns user by facebook access_token.
+        Returns user by oauth2 access_token.
         '''
         try:
-            adapter = FacebookOAuth2Adapter(request)
             app = adapter.get_provider().get_app(request)
             token = adapter.parse_token({'access_token': access_token})
             token.app = app
@@ -184,6 +184,28 @@ class Login(APIView):
             return login.user
         except:  # noqa
             return None
+
+    def _authenticate_with_google2(self, request, access_token):
+        '''
+        Returns user by google access_token.
+        '''
+        adapter = GoogleOAuth2Adapter(request)
+        return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
+
+
+    def _authenticate_with_facebook(self, request, access_token):
+        '''
+        Returns user by facebook access_token.
+        '''
+        adapter = FacebookOAuth2Adapter(request)
+        return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
+
+    def _authenticate_with_wikimedia_commons(self, request, access_token):
+        '''
+        Returns user by facebook access_token.
+        '''
+        adapter = WikimediaCommonsOAuth2Adapter(request)
+        return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
 
     def post(self, request, format=None):
         form = forms.APILoginForm(request.data)
@@ -206,13 +228,19 @@ class Login(APIView):
                 id_token = form.cleaned_data['username']
                 user = self._authenticate_with_google(request._request,
                                                       id_token)
+            elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE2:
+                access_token = form.cleaned_data['password']
+                user = self._authenticate_with_google2( request._request,
+                                                        access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
                 access_token = form.cleaned_data['password']
                 user = self._authenticate_with_facebook(request._request,
                                                         access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
                 # TODO: Finish API endpoint for Wikimedia Commons login
-                pass
+                access_token = form.cleaned_data['password']
+                user = self._authenticate_with_wikimedia_commons(request._request,
+                                                        access_token)
             elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
                 # Deprecated. Kept for backwards compatibility.
                 user = None
