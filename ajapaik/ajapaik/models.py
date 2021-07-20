@@ -1143,6 +1143,8 @@ class ImageSimilarity(Model):
                                                    similarity_type=self.similarity_type)
             suggestion.save()
             return 10, suggestion
+        else:
+            return 0, None
 
     def __update__(self, qs):
         imageSimilarity = qs.first()
