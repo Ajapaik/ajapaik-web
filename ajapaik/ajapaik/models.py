@@ -1178,7 +1178,7 @@ class ImageSimilarity(Model):
         imageSimilarity.to_photo.save()
         suggestion.save()
 
-        if suggestions.filter(proposer=self.user_last_modified.id).count() < 1:
+        if suggestions.filter(proposer=self.user_last_modified).count() < 1:
             return 10, suggestion
         else:
             return 0, suggestion
