@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-07-19 11:00:22+0000\n"
+"PO-Revision-Date: 2021-07-22 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1282,8 +1282,8 @@ msgstr "Давайте розмістимо картинки на мапі"
 #, fuzzy, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "альбом має %(лічильник) фото,"
-msgstr[1] "Альбом містить %(лічильник) фотографій,"
+msgstr[0] "Альбом має %(counter)s фото,"
+msgstr[1] "Альбом має %(counter)s фотографії,"
 msgstr[2] ","
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
@@ -1291,8 +1291,8 @@ msgstr[2] ","
 #, fuzzy, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] "%(лічильник) користувач поставив"
-msgstr[1] "%(лічильника)s користувачі поставили"
+msgstr[0] "%(counter)s користувач поставив"
+msgstr[1] "%(counter)s користувачів поставило"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
@@ -1305,8 +1305,8 @@ msgstr "всі фотографії на мапі."
 #, fuzzy, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] "%(лічильник) на мапі."
-msgstr[1] "%( лічильника) зображення на мапі."
+msgstr[0] "%(counter)s зображення на мапі."
+msgstr[1] "%(counter)s зображень на мапі."
 msgstr[2] "."
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:198
@@ -1833,9 +1833,9 @@ msgstr "Табло лідерів користувачів"
 #, fuzzy, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] "альбом має %(counter) історичну картину,"
-msgstr[1] "Альбом має %(лічильник) історичних зображень,"
-msgstr[2] ""
+msgstr[0] "Альбом має %(counter)s історичну картину,"
+msgstr[1] "Альбом має %(counter)s історичні картини,"
+msgstr[2] ","
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -1855,7 +1855,7 @@ msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
 msgstr[0] "%(counter)s зображення в цьому альбомі."
 msgstr[1] "%(counter)s зображень в цьому альбомі."
-msgstr[2] ""
+msgstr[2] "."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
 #, fuzzy, python-format
