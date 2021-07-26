@@ -5,6 +5,7 @@
 # Author: Dvhassel
 # Author: Elroy
 # Author: Mainframe98
+# Author: McDutchie
 # Author: Nickthijssen1994
 # Author: PonkoSasuke
 # Author: RadioAzureus
@@ -16,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-07-01 11:39:36+0000\n"
+"PO-Revision-Date: 2021-07-26 11:00:23+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -974,9 +975,8 @@ msgid "Log in to add a comment"
 msgstr "Meld je aan om commentaar toe te voegen"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-#, fuzzy
 msgid "Log in to add pictures to an album"
-msgstr "Meld je aan om foto's aan een album toe te voegen"
+msgstr "Meld je aan om afbeeldingen aan een album toe te voegen"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1170,9 +1170,8 @@ msgid "Newsletters"
 msgstr "Nieuwsbrieven"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
-msgstr "Foto's toevoegen"
+msgstr "Afbeeldingen toevoegen"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
