@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2021-07-29 11:00:16+0000\n"
+"PO-Revision-Date: 2021-08-02 11:00:14+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -371,31 +371,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No interior views were found"
-msgstr ""
+msgstr "Sisäkuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No pictures in landscape format were found"
-msgstr ""
+msgstr "Vaakasuuntaisia kuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No pictures in landscape format were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt vaakasuuntaisia kuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No pictures in panoramic format were found"
-msgstr ""
+msgstr "Panoraamakuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in panoramic format were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt panoraamakuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "Kuvia maanpinnan tasolta ei löytynyt tästä albumista"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "Kuvia maanpinnan tasolta ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures were found in this album"
@@ -415,47 +415,47 @@ msgstr "Kuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia, joissa on 0 merkittyä sijaintia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "Kuvia, joissa on 0 merkittyä sijaintia, ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia, joissa on takapuoli"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "Kuvia joissa on myös kuva takapuolesta ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia, joihin on merkitty kasvot"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "Kuvia, joihin on merkitty kasvot, ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures in portrait format were found"
-msgstr ""
+msgstr "Pystysuuntaisia kuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt pystysuuntaisia kuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt kuvia jotka on otettu korotetusta näkökulmasta"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "Kuvia korotetusta katselukulmasta ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "Ei tuloksia haulle: %(query)s tässä albumissa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
@@ -679,7 +679,7 @@ msgstr "viimeisin"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "viimeinen"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
@@ -1138,7 +1138,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Avaa albumi"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "Automaattisesti tunnistetut kasvot"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"

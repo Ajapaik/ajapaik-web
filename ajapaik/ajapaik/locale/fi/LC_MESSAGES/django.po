@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-07-29 11:00:17+0000\n"
+"PO-Revision-Date: 2021-08-02 11:00:15+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -36,11 +36,11 @@ msgstr "Käännä värit"
 
 #: ajapaik/ajapaik/api.py:75
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "Lisää vähintään peilikuva, negatiivi tai käännä -parametri"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "Lisää ainakin sijainti tai katselupaikan korkeus -parametri"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Contributions and settings from the other account were added to current"
@@ -377,15 +377,15 @@ msgstr "MUIS-kommentti"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "MUIS -tapahtuman kuvauksen muistiinpano"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Objektin MUIS-kuvausteksti"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "MUIS -otsikot ja -kuvaukset"
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1851
 msgid "Interior"
@@ -397,27 +397,27 @@ msgstr "Ulkokuva"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1854
 msgid "Scene"
-msgstr ""
+msgstr "Näkymä"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1861
 msgid "Ground"
-msgstr ""
+msgstr "Maan tasalta"
 
 #: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1862
 msgid "Raised"
-msgstr ""
+msgstr "Yläkulmasta"
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1863
 msgid "Aerial"
-msgstr ""
+msgstr "Ilmakuva"
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1865
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Näkökulman korkeus"
 
 #: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
-msgstr ""
+msgstr "Kuvaus alkuperäisellä kielellä"
 
 #: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1217
 msgid "Different"
@@ -478,7 +478,7 @@ msgstr "Vahvista kuvan samankaltaisuus"
 
 #: ajapaik/ajapaik/models.py:1293 ajapaik/ajapaik/models.py:1294
 msgid "Suggestion subject age"
-msgstr ""
+msgstr "Ehdota kohteen ikää"
 
 #: ajapaik/ajapaik/models.py:1295 ajapaik/ajapaik/templates/_toolbox.html:66
 msgid "Transcribe"
@@ -486,11 +486,11 @@ msgstr "Litteroi"
 
 #: ajapaik/ajapaik/models.py:1296
 msgid "Categorize scene"
-msgstr ""
+msgstr "Luokittele näkymä"
 
 #: ajapaik/ajapaik/models.py:1297
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "Lisää näkökulman korkeus"
 
 #: ajapaik/ajapaik/models.py:1298
 msgid "Flip photo"
@@ -498,7 +498,7 @@ msgstr "Peilaa kuva"
 
 #: ajapaik/ajapaik/models.py:1299
 msgid "Invert photo"
-msgstr ""
+msgstr "Kuvan negatiivi"
 
 #: ajapaik/ajapaik/models.py:1300
 msgid "Rotate photo"
@@ -699,7 +699,7 @@ msgstr "Lisää uusintakuva"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:26
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Lisää jälleenvalokuva"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:30
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -1388,7 +1388,6 @@ msgid "Error"
 msgstr "Virhe"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
 msgstr "Avaa albumi (kuka tahansa voi lisätä kuvia)"
 
@@ -1535,15 +1534,15 @@ msgstr "Muita tapoja tukea meitä."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:18
 msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
-msgstr ""
+msgstr "Voit myös auttaa <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">kääntämään Ajapaik -käyttöliittymää</a>"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:19
 msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
-msgstr ""
+msgstr "Kaikenlainen muu apu on myös tervetullutta! Esimerkiksi Ajapaikan edistämisessä, kumppanuuksien luomisessa jne."
 
 #: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
 msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
-msgstr ""
+msgstr "Jos Ajapaik auttaa löytämään sinua kiinnostavia historiallisia kuvia, harkitse <a href=\"/donate/\">Ajapaikan tukemista,</a> jotta voimme tehdä siitä vielä paremman. Kiitos!"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
@@ -1603,23 +1602,23 @@ msgstr "ihmiset"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "back sides of pictures"
-msgstr ""
+msgstr "kuvien takapuolet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "exteriors"
-msgstr ""
+msgstr "Ulkokuva"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "interiors"
-msgstr ""
+msgstr "sisäkuva"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures from the ground"
-msgstr ""
+msgstr "kuvattu maanpinnalta"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures from a raised viewpoint"
-msgstr ""
+msgstr "Näytä kuvat, jotka on otettu kohotetusta näkökulmasta"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "aerial pictures"
@@ -1647,11 +1646,11 @@ msgstr "Kuvat kokoelmien mukaan"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:65
 msgid "Show albums with pictures with back sides"
-msgstr ""
+msgstr "Näytä albumit, joissa on myös kuvien takapuolet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:67
 msgid "Show pictures with back sides"
-msgstr ""
+msgstr "Näytä kuvat, joissa on takapuolet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:79
 msgid "Show pictures made from the ground level"
@@ -1955,8 +1954,8 @@ msgstr "Lisää albumiin"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " Kuva kuuluu kokoelmaan "
+msgstr[1] " Kuva kuuluu kokoelmiin:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2004,7 +2003,7 @@ msgstr "Lisää luokkia kuviin"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
-msgstr ""
+msgstr "Peilaa, käännä ja muuta negatiiviksi kuva(t)"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
