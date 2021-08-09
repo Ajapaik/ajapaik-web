@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2021-08-02 11:00:14+0000\n"
+"PO-Revision-Date: 2021-08-09 11:00:20+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -299,7 +299,7 @@ msgstr "Paikanna albumin kuvia"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr ""
+msgstr "Maan tasalta"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Image has location and view direction info"
@@ -351,23 +351,23 @@ msgstr "Merkitse stereokuva"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt ilmakuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "Ilmakuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt ulkokuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found"
-msgstr ""
+msgstr "Ulkokuvia ei löytynyt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "Tästä albumista ei löytynyt sisäkuvia"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No interior views were found"
@@ -541,7 +541,7 @@ msgstr "Pisteitä"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
-msgstr ""
+msgstr "Yläkulmasta"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Remove from selection"
@@ -561,7 +561,7 @@ msgstr "Näytä kuvat kartalla"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Similar photos in album"
-msgstr ""
+msgstr "Samanlaisia kuvia tässä albumissa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Size"
@@ -667,11 +667,11 @@ msgstr "valokuvaa"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "Järjestus"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "Aikaisintaan"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
@@ -716,7 +716,7 @@ msgstr "tykättyä"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr ""
+msgstr "Luokiteltu"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"

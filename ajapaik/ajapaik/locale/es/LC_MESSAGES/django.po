@@ -8,6 +8,7 @@
 # Author: Geryescalier
 # Author: Jesusmc
 # Author: Joanmp17
+# Author: Leslyvasquez1
 # Author: MarcoAurelio
 # Author: Ncr
 # Author: Rodney Araujo
@@ -19,7 +20,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-07-29 11:00:16+0000\n"
+"PO-Revision-Date: 2021-08-09 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -362,15 +363,15 @@ msgstr "Imagen"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1899
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS título"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS comentario"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -378,11 +379,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
-msgstr ""
+msgstr "MUIS texto encima de objeto"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "MUIS leyendas y descripciones"
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1851
 msgid "Interior"
@@ -601,7 +602,7 @@ msgstr "Volver"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "Etiqueta a una persona"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -730,7 +731,7 @@ msgstr "Editar imagen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "Mostrar anotaciones"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -977,7 +978,6 @@ msgid "Log in to add a comment"
 msgstr "Inicia sesión para añadir un comentario"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
-#, fuzzy
 msgid "Log in to add pictures to an album"
 msgstr "Inicia sesión para agregar fotos al álbum"
 
@@ -1007,7 +1007,7 @@ msgstr "Inicia sesión para guardar la selección"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "Iniciar session para importar fotos del archivo csv"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1109,11 +1109,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:68
 msgid "Same shot"
-msgstr ""
+msgstr "Mismo disparó"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "Ya has revisado todos los pares de imágenes similares"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:19
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
@@ -1123,13 +1123,13 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr ""
+msgstr "Soporte Ajapaik"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik/templates/donate/supporters.html:12
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support us"
-msgstr ""
+msgstr "Apóyenos"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
@@ -1138,7 +1138,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
-msgstr ""
+msgstr "Volver a la página de inicio"
 
 #: ajapaik/ajapaik/templates/core/_header.html:13
 msgid "Search album"
@@ -1204,15 +1204,15 @@ msgstr "Tabla de posiciones"
 #: ajapaik/ajapaik/templates/core/_header.html:107
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Has accedido como"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
-msgstr ""
+msgstr "Galería de fotos viejas históricas del álbum"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:19
 msgid "Historic photo gallery"
-msgstr ""
+msgstr "Galería de fotos históricas"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
 msgid "Mapped old historic photos from the album"
@@ -1232,11 +1232,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:35
 msgid "Before and after view of"
-msgstr ""
+msgstr "Vista de antes y después de"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:37
 msgid "Historic photo of"
-msgstr ""
+msgstr "Fotos históricas de"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
@@ -1251,7 +1251,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:73
 msgid "historic,pictures,old,photos"
-msgstr ""
+msgstr "Históricas, fotos, viejas, fotos"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:54
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:56
@@ -1287,7 +1287,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:97
 msgid "Let's put pictures on the map"
-msgstr ""
+msgstr "Pongamos fotos en el mapa"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:100
 #, python-format
@@ -1307,7 +1307,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
 msgid "all the pictures on the map."
-msgstr ""
+msgstr "Todas las fotos en el mapa"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
@@ -1335,7 +1335,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:482
 msgid "Got it!"
-msgstr ""
+msgstr "Entendido!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "More info"
@@ -1367,7 +1367,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator.html:31
 msgid "Tell your friends on Facebook"
-msgstr ""
+msgstr "Competir con tus amigos en Facebook"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 #: ajapaik/ajapaik/templates/curator/curator.html:129
@@ -1379,15 +1379,15 @@ msgstr "Cerrar"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:50
 msgid "Edit your album"
-msgstr ""
+msgstr "Editar tu álbum"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:61
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:88
 msgid "Open album (anyone can add pictures)"
-msgstr ""
+msgstr "Abrir album (cualquiera puede añadir imágenes)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:96
 msgid "Visible (shown in selection)"
@@ -1399,7 +1399,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator.html:118
 msgid "Place"
-msgstr ""
+msgstr "Lugar"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
@@ -1435,23 +1435,23 @@ msgstr "Filtrar existentes"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:62
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:66
 msgid "DIGAR"
-msgstr ""
+msgstr "DIGAR"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:70
 msgid "MKA"
-msgstr ""
+msgstr "MKA"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:74
 msgid "ETERA"
-msgstr ""
+msgstr "ETERA"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:78
 msgid "UTLIB"
-msgstr ""
+msgstr "UTLIB"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:82
 msgid "Fotis"
@@ -1488,7 +1488,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "Consideraciones amables"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1596,7 +1596,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "people"
-msgstr ""
+msgstr "Personas"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "back sides of pictures"
@@ -1604,11 +1604,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "exteriors"
-msgstr ""
+msgstr "Exterior"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "interiors"
-msgstr ""
+msgstr "Interior"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures from the ground"
@@ -1752,11 +1752,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
-msgstr ""
+msgstr "Y"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
-msgstr ""
+msgstr "1 de"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
