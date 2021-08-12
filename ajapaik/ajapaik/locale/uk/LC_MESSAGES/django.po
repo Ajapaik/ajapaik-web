@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: DDPAT
+# Author: Ата
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-07-29 11:00:20+0000\n"
+"PO-Revision-Date: 2021-08-12 11:00:21+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1279,12 +1280,12 @@ msgid "Let's put pictures on the map"
 msgstr "Давайте розмістимо картинки на мапі"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:100
-#, fuzzy, python-format
+#, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] "Альбом має %(counter)s фото,"
 msgstr[1] "Альбом має %(counter)s фотографії,"
-msgstr[2] ","
+msgstr[2] "Альбом має %(counter)s фотографій,"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
