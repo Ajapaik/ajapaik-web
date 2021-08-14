@@ -79,10 +79,30 @@
                 <div id="ajp-toggle-annotations-label">{% trans 'Show annotations' %}</div>
             </div>
             {% endif %}
+            <hr>
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a target="_blank" title="admin" href="/photo/{{ photo.id }}/manifest.json" >
+                <button id="ajp-iiif-json" class="ajp-button" type="button" data-toggle="popover" tabindex="0" data-is-edit-button="true">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">code</span>
+                </button>
+                </a>
+                {% trans 'Data' %}
+            </div>
+            {% if request.user.is_superuser %}
+            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+                <a target="_blank" title="admin" href="/admin/ajapaik/photo/{{ photo.id }}" >
+                <button id="ajp-admin-link" class="ajp-button" type="button" tabindex="0">
+                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">settings</span>
+                </button>
+                </a>
+                {% trans 'Admin' %}
+            </div>
+            {% endif %}
         </div>
 {% if sidebar %}
     </div>
 {% endif %}
+
 <script src="{% static "js/ajp-picture-edit-suggestion.js" %}"></script>
 <script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
