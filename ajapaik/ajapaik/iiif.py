@@ -62,27 +62,27 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
 
     metadata = []
     if p.date_text:
-        metadata.append({'label': { 'en' : 'Date' }, 'value': { 'none' : p.date_text } })
+        metadata.append({'label': { 'en' : ['Date'] }, 'value': { 'none' : [p.date_text] } })
 
     if p.source:
-        metadata.append({'label': { 'en' : 'Source' }, 'value': { 'none': source_text, '@id': p.source_url } })
+        metadata.append({'label': { 'en' : ['Source'] }, 'value': { 'none': [source_text], '@id': p.source_url } })
 
     if p.source_key:
-        metadata.append({'label': { 'en': 'Identifier' } , 'value': { 'none':  p.source_key } })
+        metadata.append({'label': { 'en': ['Identifier'] } , 'value': { 'none': [p.source_key] } })
 
     if p.author:
-        metadata.append({'label': { 'en': 'Author' } , 'value':  { 'none': p.author } })
+        metadata.append({'label': { 'en': ['Author'] } , 'value':  { 'none': [p.author] } })
 
     if p.licence:
         licence={ '@value': p.licence.name, '@id':p.licence.url}
-        metadata.append({'label': {'en': 'Licence' }, 'value': { 'none' : licence_text, '@id': p.licence.url} })
+        metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text], '@id': p.licence.url} })
 
     if p.lat and p.lon:
-        location={ '@value': 'p.lat, p.lon', 'lat': p.lat, 'lon': p.lon }
-        metadata.append({'label': { 'en' : 'Coordinates' } , 'value': { 'none' : location } })
+        location={ '@value': str(p.lat) +', ' + str(p.lon), 'lat': p.lat, 'lon': p.lon }
+        metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'none' : [location] } })
 
     if p.perceptual_hash:
-        metadata.append({'label': { 'en': 'Perceptual hash' }, 'value': { 'none': p.perceptual_hash }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
+        metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [p.perceptual_hash] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
     content['sequences']=[
@@ -104,7 +104,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
                         'motivation': "sc:painting",
                         'on': "https://ajapaik.ee/photo/" + str(photo_id) + "/canvas/c0.json",
                         'resource': {
-                            '@id': "https://ajapaik.ee/" + str(p.image),
+                            '@id': "https://ajapaik.ee/media/" + str(p.image),
                             '@type': "dctypes:Image",
                             'format': "image/jpeg",
 	                    'width': p.width,
