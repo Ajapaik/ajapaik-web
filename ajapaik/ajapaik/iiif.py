@@ -53,8 +53,11 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         'type': "Manifest",
         'label': { "en" : [ title ] },
         'description': '',
-        'licence': licence_text,
-        'attribution': source_text 
+        'rights': licence_text,
+        'requiredStatement': {
+            'label': { 'en': [ 'Attribution' ] },
+            'value': { 'en': [ source_text ] }
+         },
     }
 
     thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
@@ -65,7 +68,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': { 'en' : ['Date'] }, 'value': { 'none' : [p.date_text] } })
 
     if p.source:
-        metadata.append({'label': { 'en' : ['Source'] }, 'value': { 'none': [source_text], '@id': p.source_url } })
+        metadata.append({'label': { 'en' : ['Source'] }, 'value': { 'none': [source_text] } })
 
     if p.source_key:
         metadata.append({'label': { 'en': ['Identifier'] } , 'value': { 'none': [p.source_key] } })
@@ -75,10 +78,10 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
 
     if p.licence:
         licence={ '@value': p.licence.name, '@id':p.licence.url}
-        metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text], '@id': p.licence.url} })
+        metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text] } })
 
     if p.lat and p.lon:
-        location={ '@value': str(p.lat) +', ' + str(p.lon), 'lat': p.lat, 'lon': p.lon }
+        location={ '@value': str(p.lat) +', ' + str(p.lon) }
         metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'none' : [location] } })
 
     if p.perceptual_hash:
