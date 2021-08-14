@@ -15,61 +15,74 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
     lang_code = request.LANGUAGE_CODE
     p = get_object_or_404(Photo, id=photo_id)
 
-    content={
-        '@context': "http://iiif.io/api/presentation/2/context.json",
-        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
-        '@type': "sc:Manifest"
-    }
-
-    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
-
     if p.title:
        title=p.title 
     else:
        title=p.description
 
-    if p.title:
-        content['description'] = {
-#            '@language': lang_code,
-            '@value': p.description
-        }
+    # Render licence text
+    if p.licence.url and p.licence.name:
+        licence_text='<a href=' + p.licence.url + '>' + p.licence.name +'</a>'
+    elif p.licence.url:
+        licence_text=p.licence.url
+    elif p.licence.name:
+        licence_text=p.licence.name
+    else:
+        licence_text=''
 
-    if p.description:
-        content['label']={
-#             '@language': lang_code,
-             '@value': title
-        }
+    # Render source text
+    if p.source_url and p.source.name and p.source_key:
+        source_text=p.source.name +': <a href=' + p.source_url + '>' + p.source_key + '</a>'
+    elif p.source_url and p.source_key:
+        source_text='<a href=' + p.source_url + '>' + p.source_key + '</a>'
+    elif p.source_url and p.source.name:
+        source_text='<a href=' + p.source_url + '>' + p.source.name + '</a>'
+    elif p.source.name and p.source_key:
+        source_text = p.source.name + ':' + p.source_key
+    elif p.source_name:
+        source_text = p.source_name
+    elif p.source_key:
+        source_text = p.source_key
+    else:
+        source_text = ''
+ 
+
+    content={
+        '@context':  "http://iiif.io/api/presentation/3/context.json",
+        'id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
+        'type': "Manifest",
+        'label': { "en" : [ title ] },
+        'description': '',
+        'licence': licence_text,
+        'attribution': source_text 
+    }
+
+    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
+
 
     metadata = []
     if p.date_text:
-        metadata.append({'label': 'date', 'value': p.date_text})
+        metadata.append({'label': { 'en' : 'Date' }, 'value': { 'none' : p.date_text } })
 
     if p.source:
-        metadata.append({'label': 'source', 'value': p.source.name})
-
-    if p.source_url:
-        metadata.append({'label': 'source_url', 'value': p.source_url})
+        metadata.append({'label': { 'en' : 'Source' }, 'value': { 'none': source_text, '@id': p.source_url } })
 
     if p.source_key:
-        metadata.append({'label': 'identifier', 'value': p.source_key})
+        metadata.append({'label': { 'en': 'Identifier' } , 'value': { 'none':  p.source_key } })
 
     if p.author:
-        metadata.append({'label': 'author', 'value': p.author})
+        metadata.append({'label': { 'en': 'Author' } , 'value':  { 'none': p.author } })
 
     if p.licence:
-        licence={ 'name': p.licence.name, 'url':p.licence.url}
-        metadata.append({'label': 'licence', 'value': licence})
+        licence={ '@value': p.licence.name, '@id':p.licence.url}
+        metadata.append({'label': {'en': 'Licence' }, 'value': { 'none' : licence_text, '@id': p.licence.url} })
 
     if p.lat and p.lon:
-        location={ 'lat': p.lat, 'lon': p.lon }
-        metadata.append({'label': 'DC.Coverage.spatial', 'value': location })
-
-    if p.lat and p.lon:
-        location={ 'lat': p.lat, 'lon': p.lon }
-        metadata.append({'label': 'DC.Coverage.spatial', 'value': location })
+        location={ '@value': 'p.lat, p.lon', 'lat': p.lat, 'lon': p.lon }
+        metadata.append({'label': { 'en' : 'Coordinates' } , 'value': { 'none' : location } })
 
     if p.perceptual_hash:
-        metadata.append({'label': 'perceptual hash', 'value': p.perceptual_hash, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library', 'url': 'https://pypi.org/project/ImageHash/'  })
+        metadata.append({'label': { 'en': 'Perceptual hash' }, 'value': { 'none': p.perceptual_hash }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
     content['sequences']=[
@@ -81,6 +94,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
                 {
                     '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/canvas/c0.json",
                     '@type': "sc:Canvas",
+                    'label': "p 1",
                     'width': p.width,
                     'height': p.height,
                     'images': [
