@@ -52,8 +52,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         'id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
         'type': "Manifest",
         'label': { "en" : [ title ] },
-        'description': '',
-        'rights': licence_text,
+        'rights': p.licence.url,
         'requiredStatement': {
             'label': { 'en': [ 'Attribution' ] },
             'value': { 'en': [ source_text ] }
@@ -81,60 +80,57 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text] } })
 
     if p.lat and p.lon:
-        location={ '@value': str(p.lat) +', ' + str(p.lon) }
-        metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'none' : [location] } })
+        location='Latitude: ' + str(p.lat) +', Longitude: ' + str(p.lon)
+        metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'en' : [location] } })
 
     if p.perceptual_hash:
         metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [p.perceptual_hash] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
-    content['sequences']=[
+    content['items']=[
             {
-                '@id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/sequence/normal.json",
-                '@type': "sc:Sequence",
-                'label': "default order",
-                'canvases': [
-                {
-                    '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/canvas/c0.json",
-                    '@type': "sc:Canvas",
-                    'label': "p 1",
-                    'width': p.width,
-                    'height': p.height,
-                    'images': [
+
+#"id": "https://example.org/iiif/book1/canvas/p1",
+                '@id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
+                '@type': "canvas",
+                'label': "{ 'none': 'p 1' } ",
+                'width': p.width,
+                'height': p.height,
+                'items': [
                     {
-                        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/annotation/a0.json",
-                        '@type': "oa:Annotation",
-                        'motivation': "sc:painting",
-                        'on': "https://ajapaik.ee/photo/" + str(photo_id) + "/canvas/c0.json",
-                        'resource': {
-                            '@id': "https://ajapaik.ee/media/" + str(p.image),
-                            '@type': "dctypes:Image",
-                            'format': "image/jpeg",
-	                    'width': p.width,
-        	            'height': p.height,
-                        }
+                        "id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1/1",
+                        "type": "AnnotationPage",
+                        "items": [
+                            {
+                                "id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/annotation/p0001-image",
+                                "type": "Annotation",
+                                "motivation": "painting",
+                                "body": {
+                                    "id": "https://ajapaik.ee/iiif/work/iiif/ajapaik/" + str(p.image)+ "/full/max/0/default.jpg",
+                                    "type": "Image",
+                                    "format": "image/jpeg",
+                                    "service": [
+                                        {
+                                            "id": "https://example.org/iiif/book1/page1",
+                                            "type": "ImageService3",
+                                            "profile": "level2",
+                                        }
+                                    ],
+                                    "height": p.width,
+                                    "width": p.height
+                                },
+                                "target": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1"
+                            }
+                        ]
                     }
                 ],
-                'label': {
-#                    '@language': lang_code,
-                    '@value': title
-                },
-#                'otherContent': [
-#                   {
-#                      '@id': "https://wd-image-positions.toolforge.org/iiif/Q1231009/P18/list/annotations.json",
-#                      '@type': "sc:AnnotationList",
-#                      'label': "Things depicted on this canvas"
-#                   }
-#                ],
-                'thumbnail': {
-                   '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
-                   '@type': "dctypes:Image",
-                   'format': "image/jpeg",
-                   'width': thumb_width,
-                   'height': thumb_height,
-                }
-                }
-                ]
+#                'thumbnail': {
+#                   '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
+#                   '@type': "dctypes:Image",
+#                   'format': "image/jpeg",
+#                   'width': thumb_width,
+#                   'height': thumb_height,
+#                }
             }
         ]
 
