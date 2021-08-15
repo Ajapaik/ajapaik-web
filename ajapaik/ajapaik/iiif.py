@@ -171,25 +171,27 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
          } 
     }
 
+
+
     metadata = []
     if p.date_text:
-        metadata.append({'label': 'Date', 'value': p.date_text })
+        metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': p.date_text })
 
     if p.source:
-        metadata.append({'label': 'Source', 'value': source_text })
+        metadata.append({'label': multilang_string_v2('Source', 'en'), 'value': source_text })
 
     if p.source_key:
-        metadata.append({'label': 'Identifier', 'value': p.source_key })
+        metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': p.source_key })
 
     if p.author:
-        metadata.append({'label': 'Author' , 'value': p.author })
+        metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': p.author })
 
     if p.licence:
-        metadata.append({'label': 'Licence', 'value': licence_text, 'id': rights_url })
+        metadata.append({'label': multilang_string_v2('Licence', 'en'), 'value': licence_text, 'id': rights_url })
 
     if p.lat and p.lon:
         location='Latitude: ' + str(p.lat) +', Longitude: ' + str(p.lon)
-        metadata.append({'label': 'Coordinates', 'value': location })
+        metadata.append({'label': multilang_string_v2('Coordinates', 'en'), 'value': location })
 
     if p.perceptual_hash:
         # signed int to unsigned int conversion
@@ -197,7 +199,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             phash=str(p.perceptual_hash & 0xffffffffffffffff)
         else:
             phash=str(p.perceptual_hash)
-        metadata.append({'label': 'Perceptual hash', 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
+        metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
     content['sequences']=[
@@ -207,7 +209,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             'canvases': [ {
                 '@id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
                 '@type': "sc:Canvas",
-                'label': { "none": [ "p. 1" ] },
+                'label': multilang_string_v2(title, 'en'),
                 'width': p.width,
                 'height': p.height,
                 'images': [
@@ -291,3 +293,6 @@ def _render_source_text(source, source_url, identifier):
         source_text = identifier
 
     return source_text
+
+def multilang_string_v2(value, language):
+    return { '@value': value, '@language': language}
