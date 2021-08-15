@@ -106,7 +106,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
                                 "type": "Annotation",
                                 "motivation": "painting",
                                 "body": {
-                                    "id": "https://ajapaik.ee/iiif/work/iiif/ajapaik/" + str(p.image)+ "/full/max/0/default.jpg",
+                                    "id": "https://ajapaik.ee/iiif/work/iiif/ajapaik/" + str(p.image)+ ".tif/full/max/0/default.jpg",
                                     "type": "Image",
                                     "format": "image/jpeg",
                                     "service": [
