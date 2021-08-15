@@ -11,7 +11,8 @@ def remove_prefix(text, prefix):
 
 def photo_info(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
-    return redirect('/iiif/ajapaik/' + str(p.image) + "/info.json")
+    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif/info.json"
+    return redirect(iiif_image_url)
 
     content={}
     return JsonResponse(content, content_type='application/json')
@@ -57,6 +58,8 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
      
     # Canonical url to creative commons licence uses http://
     rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
+    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
+    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
 
     content={
         '@context':  "http://iiif.io/api/presentation/3/context.json",
@@ -68,9 +71,14 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
             'label': { 'en': [ 'Attribution' ] },
             'value': { 'en': [ source_text ] }
          },
+         'thumbnail': [ {
+             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
+             '@type': "dctypes:Image",
+             'format': "image/jpeg",
+             'width': thumb_width,
+             'height': thumb_height,
+         } ]
     }
-
-    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
 
     metadata = []
     if p.date_text:
@@ -102,8 +110,6 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [str(phash)] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
-
-    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
     content['items']=[
             {
 
@@ -141,18 +147,16 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
                         ]
                     }
                 ],
-#                'thumbnail': {
-#                   '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
-#                   '@type': "dctypes:Image",
-#                   'format': "image/jpeg",
-#                   'width': thumb_width,
-#                   'height': thumb_height,
-#                }
             }
         ]
 
-    return JsonResponse(content, content_type='application/json')
+    response= JsonResponse(content, content_type='application/json')
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 
+    return response
 
 def photo_annotations(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
