@@ -215,8 +215,8 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
                         "on": canvas_id,
                         "resource":
                             {
-                                    "id": iiif_image_url + "/full/max/0/default.jpg",
-                                    "type": "Image",
+                                    "@id": iiif_image_url + "/full/max/0/default.jpg",
+                                    "@type": "Image",
                                     "format": "image/jpeg",
                                     "service": [
                                         {
