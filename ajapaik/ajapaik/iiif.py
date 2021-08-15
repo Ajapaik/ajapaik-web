@@ -52,12 +52,18 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         source_text = ''
  
 
+
+    rights_url= str(p.licence.url)
+     
+    # Canonical url to creative commons licence uses http://
+    rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
+
     content={
         '@context':  "http://iiif.io/api/presentation/3/context.json",
         'id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
         'type': "Manifest",
         'label': { "en" : [ title ] },
-        'rights': p.licence.url,
+        'rights': str(p.licence.url).replace('https://creativecommons.org', 'http://creativecommons.org'),
         'requiredStatement': {
             'label': { 'en': [ 'Attribution' ] },
             'value': { 'en': [ source_text ] }
@@ -65,7 +71,6 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
     }
 
     thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
-
 
     metadata = []
     if p.date_text:
@@ -89,7 +94,12 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'en' : [location] } })
 
     if p.perceptual_hash:
-        metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [p.perceptual_hash] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
+        # signed int to unsigned int conversion
+        if p.perceptual_hash<0:
+            phash=str(p.perceptual_hash & 0xffffffffffffffff)
+        else:
+            phash=str(p.perceptual_hash)
+        metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [str(phash)] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
 
