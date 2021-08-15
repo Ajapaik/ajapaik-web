@@ -147,31 +147,24 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     rights_url=_render_rights_url(p.licence)
     source_text=_render_source_text(p.source, p.source_url, p.source_key)
 
-    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
+    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 400)
     iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
 
     content={
         '@context':  "http://iiif.io/api/presentation/2/context.json",
-        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
-        '@type': "sc:manifest",
+        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/v2/manifest.json",
+        '@type': "sc:Manifest",
         'label': title ,
-        'licence': rights_url,
         'attribution': source_text,
 
-##        'requiredStatement': {
-##            'label': { 'en': [ 'Attribution' ] },
-##            'value': { 'en': [ source_text ] }
-##         },
          'thumbnail': {
-             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
+             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/400/",
              '@type': "dctypes:Image",
              'format': "image/jpeg",
              'width': thumb_width,
              'height': thumb_height,
-         } 
+         }
     }
-
-
 
     metadata = []
     if p.date_text:
@@ -201,13 +194,15 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             phash=str(p.perceptual_hash)
         metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
+
+    canvas_id='https://ajapaik.ee/photo/' + str(photo_id)+ '/canvas/p1'
     content['metadata']=metadata
     content['sequences']=[
             {
             '@id': 'https://ajapaik.ee/photo/' + str(photo_id) + '/sequence/normal.json',
             '@type': "sc:Sequence",
             'canvases': [ {
-                '@id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
+                '@id': canvas_id,
                 '@type': "sc:Canvas",
                 'label': multilang_string_v2(title, 'en'),
                 'width': p.width,
@@ -217,23 +212,22 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
                         "@id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/annotation/a1",
                         "@type": "oa:Annotation",
                         "motivation": "sc:painting",
-                        "on": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
-                        "resource": [
+                        "on": canvas_id,
+                        "resource":
                             {
                                     "id": iiif_image_url + "/full/max/0/default.jpg",
                                     "type": "Image",
                                     "format": "image/jpeg",
                                     "service": [
                                         {
-                                            "id": iiif_image_url,
-                                            "type": "ImageService2",
-                                            "profile": "level2",
+                                            '@id': iiif_image_url,
+                                            '@context': 'http://iiif.io/api/image/2/context.json',
+                                            'profile': 'http://iiif.io/api/image/2/level1.js'
                                         }
                                     ],
                                     "height": p.width,
                                     "width": p.height
                             }
-                        ]
                     }
                 ]
                 } ],
