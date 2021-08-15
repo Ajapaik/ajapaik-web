@@ -4,6 +4,11 @@ from django.shortcuts import redirect, get_object_or_404, render
 from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike
 from ajapaik.utils import calculate_thumbnail_size
 
+def remove_prefix(text, prefix):
+    if text.startswith(prefix):
+        return text[len(prefix):]
+    return text 
+
 def photo_info(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
     return redirect('/iiif/ajapaik/' + str(p.image) + "/info.json")
@@ -87,6 +92,8 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [p.perceptual_hash] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     content['metadata']=metadata
+
+    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
     content['items']=[
             {
 
@@ -106,13 +113,13 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
                                 "type": "Annotation",
                                 "motivation": "painting",
                                 "body": {
-                                    "id": "https://ajapaik.ee/iiif/work/iiif/ajapaik/" + str(p.image)+ ".tif/full/max/0/default.jpg",
+                                    "id": iiif_image_url + "/full/max/0/default.jpg",
                                     "type": "Image",
                                     "format": "image/jpeg",
                                     "service": [
                                         {
-                                            "id": "https://example.org/iiif/book1/page1",
-                                            "type": "ImageService3",
+                                            "id": iiif_image_url,
+                                            "type": "ImageService2",
                                             "profile": "level2",
                                         }
                                     ],
