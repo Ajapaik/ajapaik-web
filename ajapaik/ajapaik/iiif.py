@@ -110,7 +110,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
 #"id": "https://example.org/iiif/book1/canvas/p1",
                 'id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
                 'type': "canvas",
-                'label': "{ 'none': [ 'p 1' ] } ",
+                'label': { "none": [ "p. 1" ] },
                 'width': p.width,
                 'height': p.height,
                 'items': [
