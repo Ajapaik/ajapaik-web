@@ -17,7 +17,7 @@ def photo_info(request, photo_id=None, pseudo_slug=None):
     content={}
     return JsonResponse(content, content_type='application/json')
 
-def photo_manifest(request, photo_id=None, pseudo_slug=None):
+def photo_manifest_v3(request, photo_id=None, pseudo_slug=None):
     lang_code = request.LANGUAGE_CODE
     p = get_object_or_404(Photo, id=photo_id)
 
@@ -27,35 +27,10 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
        title=p.description
 
     # Render licence text
-    if p.licence.url and p.licence.name:
-        licence_text='<a href=' + p.licence.url + '>' + p.licence.name +'</a>'
-    elif p.licence.url:
-        licence_text=p.licence.url
-    elif p.licence.name:
-        licence_text=p.licence.name
-    else:
-        licence_text=''
+    licence_text=_render_licence_text(p.licence)
+    rights_url=_render_rights_url(p.licence)
+    source_text=_render_source_text(p.source, p.source_url, p.source_key)
 
-    # Render source text
-    if p.source_url and p.source.name and p.source_key:
-        source_text=p.source.name +': <a href=' + p.source_url + '>' + p.source_key + '</a>'
-    elif p.source_url and p.source_key:
-        source_text='<a href=' + p.source_url + '>' + p.source_key + '</a>'
-    elif p.source_url and p.source.name:
-        source_text='<a href=' + p.source_url + '>' + p.source.name + '</a>'
-    elif p.source.name and p.source_key:
-        source_text = p.source.name + ':' + p.source_key
-    elif p.source_name:
-        source_text = p.source_name
-    elif p.source_key:
-        source_text = p.source_key
-    else:
-        source_text = ''
- 
-
-
-    rights_url= str(p.licence.url)
-     
     # Canonical url to creative commons licence uses http://
     rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
     thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
@@ -66,14 +41,14 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         'id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
         'type': "Manifest",
         'label': { "en" : [ title ] },
-        'rights': str(p.licence.url).replace('https://creativecommons.org', 'http://creativecommons.org'),
+        'rights': rights_url,
         'requiredStatement': {
             'label': { 'en': [ 'Attribution' ] },
             'value': { 'en': [ source_text ] }
          },
          'thumbnail': [ {
-             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
-             '@type': "dctypes:Image",
+             'id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
+             'type': "dctypes:Image",
              'format': "image/jpeg",
              'width': thumb_width,
              'height': thumb_height,
@@ -94,7 +69,7 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': { 'en': ['Author'] } , 'value':  { 'none': [p.author] } })
 
     if p.licence:
-        licence={ '@value': p.licence.name, '@id':p.licence.url}
+        licence={ '@value': p.licence.name, '@id':rights_url}
         metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text] } })
 
     if p.lat and p.lon:
@@ -158,9 +133,161 @@ def photo_manifest(request, photo_id=None, pseudo_slug=None):
 
     return response
 
+def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
+    lang_code = request.LANGUAGE_CODE
+    p = get_object_or_404(Photo, id=photo_id)
+
+    if p.title:
+       title=p.title 
+    else:
+       title=p.description
+
+    # Render licence text
+    licence_text=_render_licence_text(p.licence)
+    rights_url=_render_rights_url(p.licence)
+    source_text=_render_source_text(p.source, p.source_url, p.source_key)
+
+    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
+    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
+
+    content={
+        '@context':  "http://iiif.io/api/presentation/2/context.json",
+        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
+        '@type': "sc:manifest",
+        'label': title ,
+        'licence': rights_url,
+        'attribution': source_text,
+
+##        'requiredStatement': {
+##            'label': { 'en': [ 'Attribution' ] },
+##            'value': { 'en': [ source_text ] }
+##         },
+         'thumbnail': {
+             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
+             '@type': "dctypes:Image",
+             'format': "image/jpeg",
+             'width': thumb_width,
+             'height': thumb_height,
+         } 
+    }
+
+    metadata = []
+    if p.date_text:
+        metadata.append({'label': 'Date', 'value': p.date_text })
+
+    if p.source:
+        metadata.append({'label': 'Source', 'value': source_text })
+
+    if p.source_key:
+        metadata.append({'label': 'Identifier', 'value': p.source_key })
+
+    if p.author:
+        metadata.append({'label': 'Author' , 'value': p.author })
+
+    if p.licence:
+        metadata.append({'label': 'Licence', 'value': licence_text, 'id': rights_url })
+
+    if p.lat and p.lon:
+        location='Latitude: ' + str(p.lat) +', Longitude: ' + str(p.lon)
+        metadata.append({'label': 'Coordinates', 'value': location })
+
+    if p.perceptual_hash:
+        # signed int to unsigned int conversion
+        if p.perceptual_hash<0:
+            phash=str(p.perceptual_hash & 0xffffffffffffffff)
+        else:
+            phash=str(p.perceptual_hash)
+        metadata.append({'label': 'Perceptual hash', 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
+
+    content['metadata']=metadata
+    content['sequences']=[
+            {
+            '@id': 'https://ajapaik.ee/photo/' + str(photo_id) + '/sequence/normal.json',
+            '@type': "sc:Sequence",
+            'canvases': [ {
+                '@id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
+                '@type': "sc:Canvas",
+                'label': { "none": [ "p. 1" ] },
+                'width': p.width,
+                'height': p.height,
+                'images': [
+                    {
+                        "@id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/annotation/a1",
+                        "@type": "oa:Annotation",
+                        "motivation": "sc:painting",
+                        "on": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
+                        "resource": [
+                            {
+                                    "id": iiif_image_url + "/full/max/0/default.jpg",
+                                    "type": "Image",
+                                    "format": "image/jpeg",
+                                    "service": [
+                                        {
+                                            "id": iiif_image_url,
+                                            "type": "ImageService2",
+                                            "profile": "level2",
+                                        }
+                                    ],
+                                    "height": p.width,
+                                    "width": p.height
+                            }
+                        ]
+                    }
+                ]
+                } ],
+            }
+        ]
+
+    response= JsonResponse(content, content_type='application/json')
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+
+    return response
+
 def photo_annotations(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
 
     content={}
     return JsonResponse(content, content_type='application/json')
 
+
+
+def _render_licence_text(licence):
+    licence_text=''
+    if licence:
+        if licence.url and licence.name:
+            licence_text='<a href=' + licence.url + '>' + licence.name +'</a>'
+        elif licence.url:
+            licence_text=licence.url
+        elif licence.name:
+            licence_text=licence.name
+    return licence_text
+
+def _render_rights_url(licence):
+    rights_url=''
+    if licence:
+        rights_url= str(licence.url)
+    # Canonical url to creative commons licence uses http://
+    rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
+    return rights_url
+
+def _render_source_text(source, source_url, identifier):
+    source_text = ''
+
+    # Render source text
+    if source_url and source and source.name and identifier:
+        source_text=source.name +': <a href=' + source_url + '>' + identifier + '</a>'
+    elif source_url and identifier:
+        source_text='<a href=' + source_url + '>' + identifier + '</a>'
+    elif source_url and source and source.name:
+        source_text='<a href=' + source_url + '>' + source.name + '</a>'
+    elif source and source.name and identifier:
+        source_text = source.name + ':' + identifier
+    elif source and source.name:
+        source_text = source.name
+    elif identifier:
+        source_text = identifier
+
+    return source_text

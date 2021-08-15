@@ -24,7 +24,7 @@ from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from ajapaik.ajapaik_face_recognition import urls as fr_urls
 from ajapaik.ajapaik_object_recognition import urls as or_urls
-from ajapaik.ajapaik.iiif import photo_info, photo_manifest, photo_annotations
+#from ajapaik.ajapaik.iiif import photo_info, photo_manifest, photo_annotations
 
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
@@ -49,7 +49,8 @@ urlpatterns = [
     url(r'^top50/album/(?P<album_id>\d+)/$', views.top50, name='album_top50'),
     url(r'^photo/(?P<photo_id>\d+)/upload/$', views.rephoto_upload, name='rephoto_upload'),
     url(r'^photo/(?P<photo_id>\d+)/info\.json$', iiif.photo_info, name='iiif_photo_info'),
-    url(r'^photo/(?P<photo_id>\d+)/manifest\.json$', iiif.photo_manifest, name='iiif_photo_manifest'),
+    url(r'^photo/(?P<photo_id>\d+)/manifest\.json$', iiif.photo_manifest_v3, name='iiif_photo_manifest'),
+    url(r'^photo/(?P<photo_id>\d+)/v2/manifest\.json$', iiif.photo_manifest_v2, name='iiif_photo_manifest_v2'),
     url(r'^photo/(?P<photo_id>\d+)/annotations\.json$', iiif.photo_annotations, name='iiif_photo_annotations'),
     url(r'^photo/like/$', views.update_like_state, name='update_like_state'),
     url(r'^photo-upload-modal/(?P<photo_id>\d+)/$', views.photo_upload_modal, name='photo_upload_modal'),
