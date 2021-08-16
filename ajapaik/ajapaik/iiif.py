@@ -196,8 +196,8 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             phash=str(p.perceptual_hash)
         metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
-    attribution_text=_render_attribution(source_text, p.author, p.date, licence_text)
-    sequences.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url))
+    attribution_text=_render_attribution(source_text, p.author, p.date_text, licence_text)
+    sequences.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url, p))
 
     rephotos=Photo.objects.filter(rephoto_of=photo_id)
     for rephoto in rephotos:
@@ -205,13 +205,24 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         rephoto_licence_text=_render_licence_text(rephoto.licence)
         rephoto_rights_url=_render_rights_url(rephoto.licence)
         rephoto_source_text=_render_source_text(rephoto.source, rephoto.source_url, rephoto.source_key)
-        rephoto_attribution=_render_attribution(rephoto_source_text, rephoto.author, rephoto.date, rephoto_licence_text)
+        rephoto_attribution_text=_render_attribution(rephoto_source_text, rephoto.author, rephoto.date_text, rephoto_licence_text)
 
         if rephoto.title:
             rephoto_title=rephoto.title
         else:
             rephoto_title=rephoto.description
-        sequences.append(_get_v2_canvas(photo_id, rephoto_title, lang_code, rephoto_iiif_image_url, rephoto.width, rephoto.height, "rephoto_" + str(rephoto.id), rephoto_attribution, rephoto_rights_url ))
+        sequences.append(_get_v2_canvas(
+            photo_id,
+            rephoto_title,
+            lang_code,
+            rephoto_iiif_image_url,
+            rephoto.width,
+            rephoto.height,
+            "rephoto_" + str(rephoto.id),
+            rephoto_attribution_text,
+            rephoto_rights_url,
+            rephoto
+          ))
 
 
     content['metadata']=metadata
@@ -235,7 +246,10 @@ def photo_annotations(request, photo_id=None, pseudo_slug=None):
 # Helper functions
 #
 
-def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, canvas_name, source_text, licence_url):
+def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, canvas_name, source_text, licence_url, thumbnail):
+
+
+    thumb_width, thumb_height=calculate_thumbnail_size(thumbnail.width, thumbnail.height, 400)
 
     photo_id=str(photo_id)
     canvas_id='https://ajapaik.ee/photo/' + photo_id + '/canvas/' + canvas_name
@@ -248,6 +262,13 @@ def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, ca
                 'label': multilang_string_v2(label, lang_code),
                 'width': width,
                 'height': height,
+                'thumbnail': {
+                    '@id': "https://ajapaik.ee/photo-thumb/" + str(thumbnail.id) + "/400/",
+                    '@type': "dctypes:Image",
+                    'format': "image/jpeg",
+                    'width': thumb_width,
+                    'height': thumb_height,
+                },
                 'images': [
                     {
                         "@id": "https://ajapaik.ee/photo/" + photo_id + "/annotation/" + canvas_name,
@@ -330,7 +351,7 @@ def _render_attribution(source, author, date, licence):
     if author:
         attribution.append(author)
     if date:
-        attribution.append(date)
+        attribution.append(str(date))
     if licence:
         attribution.append(licence)
 
