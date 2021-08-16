@@ -154,8 +154,8 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         '@context':  "http://iiif.io/api/presentation/2/context.json",
         '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/v2/manifest.json",
         '@type': "sc:Manifest",
-        'label': title,
-        'description': title,
+        'label': multilang_string_v2(title, lang_code),
+        'description': multilang_string_v2(title, lang_code),
         'attribution': source_text,
 
          'thumbnail': {
@@ -205,7 +205,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             'canvases': [ {
                 '@id': canvas_id,
                 '@type': "sc:Canvas",
-                'label': multilang_string_v2(title, 'en'),
+                'label': multilang_string_v2(title, lang_code),
                 'width': p.width,
                 'height': p.height,
                 'images': [
