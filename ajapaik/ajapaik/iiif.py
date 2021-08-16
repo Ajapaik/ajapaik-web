@@ -168,7 +168,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     }
 
     metadata = []
-    sequences = []
+    canvases = []
     if p.date_text:
         metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': p.date_text })
 
@@ -197,7 +197,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     attribution_text=_render_attribution(source_text, p.author, p.date_text, licence_text)
-    sequences.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url, p))
+    canvases.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url, p))
 
     rephotos=Photo.objects.filter(rephoto_of=photo_id)
     for rephoto in rephotos:
@@ -211,7 +211,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             rephoto_title=rephoto.title
         else:
             rephoto_title=rephoto.description
-        sequences.append(_get_v2_canvas(
+        canvases.append(_get_v2_canvas(
             photo_id,
             rephoto_title,
             lang_code,
@@ -226,7 +226,12 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
 
     content['metadata']=metadata
-    content['sequences']=sequences
+    content['sequences']={
+            '@id': 'https://ajapaik.ee/photo/' + photo_id + '/sequence/normal.json',
+            '@type': "sc:Sequence",
+            'canvases': canvases
+    }
+
 
     response= JsonResponse(content, content_type='application/json')
     response["Access-Control-Allow-Origin"] = "*"
@@ -254,9 +259,6 @@ def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, ca
     photo_id=str(photo_id)
     canvas_id='https://ajapaik.ee/photo/' + photo_id + '/canvas/' + canvas_name
     canvas={
-            '@id': 'https://ajapaik.ee/photo/' + photo_id + '/sequence/normal.json',
-            '@type': "sc:Sequence",
-            'canvases': [ {
                 '@id': canvas_id,
                 '@type': "sc:Canvas",
                 'label': multilang_string_v2(label, lang_code),
@@ -292,13 +294,12 @@ def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, ca
                     }
                 ]
             }
-        ]
-    }
+
     if source_text:
-        canvas["canvases"][0]["attribution"]=source_text
+        canvas["attribution"]=source_text
 
     if licence_url:
-        canvas["canvases"][0]["licence"]=licence_url
+        canvas["licence"]=licence_url
 
     return canvas
 
