@@ -226,11 +226,11 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
 
     content['metadata']=metadata
-    content['sequences']={
+    content['sequences']=[ {
             '@id': 'https://ajapaik.ee/photo/' + photo_id + '/sequence/normal.json',
             '@type': "sc:Sequence",
             'canvases': canvases
-    }
+    } ]
 
 
     response= JsonResponse(content, content_type='application/json')
