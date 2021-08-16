@@ -48,7 +48,7 @@ def photo_manifest_v3(request, photo_id=None, pseudo_slug=None):
          },
          'thumbnail': [ {
              'id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
-             'type': "dctypes:Image",
+             'type': "Image",
              'format': "image/jpeg",
              'width': thumb_width,
              'height': thumb_height,
@@ -154,7 +154,8 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         '@context':  "http://iiif.io/api/presentation/2/context.json",
         '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/v2/manifest.json",
         '@type': "sc:Manifest",
-        'label': title ,
+        'label': title,
+        'description': title,
         'attribution': source_text,
 
          'thumbnail': {
@@ -216,15 +217,14 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
                         "resource":
                             {
                                     "@id": iiif_image_url + "/full/max/0/default.jpg",
-                                    "@type": "Image",
+                                    "@type": "dctypes:Image",
                                     "format": "image/jpeg",
-                                    "service": [
+                                    "service":
                                         {
                                             '@id': iiif_image_url,
                                             '@context': 'http://iiif.io/api/image/2/context.json',
-                                            'profile': 'http://iiif.io/api/image/2/level1.js'
-                                        }
-                                    ],
+                                            'profile': 'http://iiif.io/api/image/2/level1.json'
+                                        },
                                     "height": p.width,
                                     "width": p.height
                             }
