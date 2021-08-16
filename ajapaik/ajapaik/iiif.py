@@ -168,6 +168,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     }
 
     metadata = []
+    sequences = []
     if p.date_text:
         metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': p.date_text })
 
@@ -195,44 +196,26 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             phash=str(p.perceptual_hash)
         metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
+    attribution_text=_render_attribution(source_text, p.author, p.date, licence_text)
+    sequences.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url))
 
-    canvas_id='https://ajapaik.ee/photo/' + str(photo_id)+ '/canvas/p1'
+    rephotos=Photo.objects.filter(rephoto_of=photo_id)
+    for rephoto in rephotos:
+        rephoto_iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(rephoto.image), 'uploads/') + ".tif"
+        rephoto_licence_text=_render_licence_text(rephoto.licence)
+        rephoto_rights_url=_render_rights_url(rephoto.licence)
+        rephoto_source_text=_render_source_text(rephoto.source, rephoto.source_url, rephoto.source_key)
+        rephoto_attribution=_render_attribution(rephoto_source_text, rephoto.author, rephoto.date, rephoto_licence_text)
+
+        if rephoto.title:
+            rephoto_title=rephoto.title
+        else:
+            rephoto_title=rephoto.description
+        sequences.append(_get_v2_canvas(photo_id, rephoto_title, lang_code, rephoto_iiif_image_url, rephoto.width, rephoto.height, "rephoto_" + str(rephoto.id), rephoto_attribution, rephoto_rights_url ))
+
+
     content['metadata']=metadata
-    content['sequences']=[
-            {
-            '@id': 'https://ajapaik.ee/photo/' + str(photo_id) + '/sequence/normal.json',
-            '@type': "sc:Sequence",
-            'canvases': [ {
-                '@id': canvas_id,
-                '@type': "sc:Canvas",
-                'label': multilang_string_v2(title, lang_code),
-                'width': p.width,
-                'height': p.height,
-                'images': [
-                    {
-                        "@id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/annotation/a1",
-                        "@type": "oa:Annotation",
-                        "motivation": "sc:painting",
-                        "on": canvas_id,
-                        "resource":
-                            {
-                                    "@id": iiif_image_url + "/full/max/0/default.jpg",
-                                    "@type": "dctypes:Image",
-                                    "format": "image/jpeg",
-                                    "service":
-                                        {
-                                            '@id': iiif_image_url,
-                                            '@context': 'http://iiif.io/api/image/2/context.json',
-                                            'profile': 'http://iiif.io/api/image/2/level1.json'
-                                        },
-                                    "height": p.width,
-                                    "width": p.height
-                            }
-                    }
-                ]
-                } ],
-            }
-        ]
+    content['sequences']=sequences
 
     response= JsonResponse(content, content_type='application/json')
     response["Access-Control-Allow-Origin"] = "*"
@@ -248,8 +231,58 @@ def photo_annotations(request, photo_id=None, pseudo_slug=None):
     content={}
     return JsonResponse(content, content_type='application/json')
 
+########################################################################
+# Helper functions
+#
+
+def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, canvas_name, source_text, licence_url):
+
+    photo_id=str(photo_id)
+    canvas_id='https://ajapaik.ee/photo/' + photo_id + '/canvas/' + canvas_name
+    canvas={
+            '@id': 'https://ajapaik.ee/photo/' + photo_id + '/sequence/normal.json',
+            '@type': "sc:Sequence",
+            'canvases': [ {
+                '@id': canvas_id,
+                '@type': "sc:Canvas",
+                'label': multilang_string_v2(label, lang_code),
+                'width': width,
+                'height': height,
+                'images': [
+                    {
+                        "@id": "https://ajapaik.ee/photo/" + photo_id + "/annotation/" + canvas_name,
+                        "@type": "oa:Annotation",
+                        "motivation": "sc:painting",
+                        "on": canvas_id,
+                        "resource":
+                            {
+                                    "@id": iiif_image_url + "/full/max/0/default.jpg",
+                                    "@type": "dctypes:Image",
+                                    "format": "image/jpeg",
+                                    "service":
+                                        {
+                                            '@id': iiif_image_url,
+                                            '@context': 'http://iiif.io/api/image/2/context.json',
+                                            'profile': 'http://iiif.io/api/image/2/level1.json'
+                                        },
+                                    "height": width,
+                                    "width": height
+                            }
+                    }
+                ]
+            }
+        ]
+    }
+    if source_text:
+        canvas["canvases"][0]["attribution"]=source_text
+
+    if licence_url:
+        canvas["canvases"][0]["licence"]=licence_url
+
+    return canvas
 
 
+# print html licence string
 def _render_licence_text(licence):
     licence_text=''
     if licence:
@@ -261,6 +294,7 @@ def _render_licence_text(licence):
             licence_text=licence.name
     return licence_text
 
+# canonical link to licence
 def _render_rights_url(licence):
     rights_url=''
     if licence:
@@ -269,6 +303,7 @@ def _render_rights_url(licence):
     rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
     return rights_url
 
+# Print html credits line
 def _render_source_text(source, source_url, identifier):
     source_text = ''
 
@@ -288,5 +323,19 @@ def _render_source_text(source, source_url, identifier):
 
     return source_text
 
+def _render_attribution(source, author, date, licence):
+    attribution=[]
+    if source:
+        attribution.append(source)
+    if author:
+        attribution.append(author)
+    if date:
+        attribution.append(date)
+    if licence:
+        attribution.append(licence)
+
+    return ", ".join(attribution)
+
 def multilang_string_v2(value, language):
     return { '@value': value, '@language': language}
+
