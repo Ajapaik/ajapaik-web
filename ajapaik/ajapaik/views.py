@@ -831,6 +831,15 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
+
+        # Testing: Album.id 38516 = Photos – blacklisti
+        if not album or album.id!=38516:
+            try:
+                exclude_photos = Album.objects.get(id=38516).photos.all()
+                photos = photos.exclude(pk__in=exclude_photos).all()
+            except Album.DoesNotExist:
+                pass
+
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
                                    face_recognition_rectangles__deleted__isnull=True)
