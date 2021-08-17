@@ -11,127 +11,11 @@ def remove_prefix(text, prefix):
 
 def photo_info(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
-    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif/info.json"
+    iiif_image_url=request.build_absolute_uri('/iiif/work/iiif/ajapaik/' + remove_prefix(str(p.image), 'uploads/') + '.tif/info.json')
     return redirect(iiif_image_url)
 
     content={}
     return JsonResponse(content, content_type='application/json')
-
-def photo_manifest_v3(request, photo_id=None, pseudo_slug=None):
-    lang_code = request.LANGUAGE_CODE
-    p = get_object_or_404(Photo, id=photo_id)
-
-    if p.title:
-       title=p.title 
-    else:
-       title=p.description
-
-    # Render licence text
-    licence_text=_render_licence_text(p.licence)
-    rights_url=_render_rights_url(p.licence)
-    source_text=_render_source_text(p.source, p.source_url, p.source_key)
-
-    # Canonical url to creative commons licence uses http://
-    rights_url=rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
-    thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 800)
-    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
-
-    content={
-        '@context':  "http://iiif.io/api/presentation/3/context.json",
-        'id': "https://ajapaik.ee/photo/" + str(photo_id) + "/manifest.json",
-        'type': "Manifest",
-        'label': { "en" : [ title ] },
-        'rights': rights_url,
-        'requiredStatement': {
-            'label': { 'en': [ 'Attribution' ] },
-            'value': { 'en': [ source_text ] }
-         },
-         'thumbnail': [ {
-             'id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/800/",
-             'type': "Image",
-             'format': "image/jpeg",
-             'width': thumb_width,
-             'height': thumb_height,
-         } ]
-    }
-
-    metadata = []
-    if p.date_text:
-        metadata.append({'label': { 'en' : ['Date'] }, 'value': { 'none' : [p.date_text] } })
-
-    if p.source:
-        metadata.append({'label': { 'en' : ['Source'] }, 'value': { 'none': [source_text] } })
-
-    if p.source_key:
-        metadata.append({'label': { 'en': ['Identifier'] } , 'value': { 'none': [p.source_key] } })
-
-    if p.author:
-        metadata.append({'label': { 'en': ['Author'] } , 'value':  { 'none': [p.author] } })
-
-    if p.licence:
-        licence={ '@value': p.licence.name, '@id':rights_url}
-        metadata.append({'label': {'en': ['Licence'] }, 'value': { 'none' : [licence_text] } })
-
-    if p.lat and p.lon:
-        location='Latitude: ' + str(p.lat) +', Longitude: ' + str(p.lon)
-        metadata.append({'label': { 'en' : ['Coordinates'] } , 'value': { 'en' : [location] } })
-
-    if p.perceptual_hash:
-        # signed int to unsigned int conversion
-        if p.perceptual_hash<0:
-            phash=str(p.perceptual_hash & 0xffffffffffffffff)
-        else:
-            phash=str(p.perceptual_hash)
-        metadata.append({'label': { 'en': ['Perceptual hash'] }, 'value': { 'none': [str(phash)] }, 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
-
-    content['metadata']=metadata
-    content['items']=[
-            {
-
-#"id": "https://example.org/iiif/book1/canvas/p1",
-                'id': "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1",
-                'type': "canvas",
-                'label': { "none": [ "p. 1" ] },
-                'width': p.width,
-                'height': p.height,
-                'items': [
-                    {
-                        "id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1/1",
-                        "type": "AnnotationPage",
-                        "items": [
-                            {
-                                "id": "https://ajapaik.ee/photo/" + str(photo_id)+ "/annotation/p0001-image",
-                                "type": "Annotation",
-                                "motivation": "painting",
-                                "body": {
-                                    "id": iiif_image_url + "/full/max/0/default.jpg",
-                                    "type": "Image",
-                                    "format": "image/jpeg",
-                                    "service": [
-                                        {
-                                            "id": iiif_image_url,
-                                            "type": "ImageService2",
-                                            "profile": "level2",
-                                        }
-                                    ],
-                                    "height": p.width,
-                                    "width": p.height
-                                },
-                                "target": "https://ajapaik.ee/photo/" + str(photo_id)+ "/canvas/p1"
-                            }
-                        ]
-                    }
-                ],
-            }
-        ]
-
-    response= JsonResponse(content, content_type='application/json')
-    response["Access-Control-Allow-Origin"] = "*"
-    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-    response["Access-Control-Max-Age"] = "1000"
-    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
-
-    return response
 
 def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     lang_code = request.LANGUAGE_CODE
@@ -148,20 +32,24 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     source_text=_render_source_text(p.source, p.source_url, p.source_key)
 
     thumb_width, thumb_height=calculate_thumbnail_size(p.width, p.height, 400)
-    iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(p.image), 'uploads/') + ".tif"
+    iiif_image_url=request.build_absolute_uri('/iiif/work/iiif/ajapaik/' + remove_prefix(str(p.image), 'uploads/') + '.tif')
 
     content={
-        '@context':  "http://iiif.io/api/presentation/2/context.json",
-        '@id': "https://ajapaik.ee/photo/" + str(photo_id) + "/v2/manifest.json",
-        '@type': "sc:Manifest",
+        '@context':  'http://iiif.io/api/presentation/2/context.json',
+        '@id': request.build_absolute_uri('/photo/' + str(photo_id) + '/v2/manifest.json'),
+        '@type': 'sc:Manifest',
         'label': multilang_string_v2(title, lang_code),
         'description': multilang_string_v2(title, lang_code),
         'attribution': source_text,
-
-         'thumbnail': {
-             '@id': "https://ajapaik.ee/photo-thumb/" + str(photo_id) + "/400/",
-             '@type': "dctypes:Image",
-             'format': "image/jpeg",
+        'rendering': {
+             '@id': request.build_absolute_uri('/photo/' + str(photo_id)),
+             'format': 'text/html',
+             'label': 'Full record view'
+         },
+        'thumbnail': {
+             '@id': request.build_absolute_uri('/photo-thumb/' + str(photo_id) + '/400/'),
+             '@type': 'dctypes:Image',
+             'format': 'image/jpeg',
              'width': thumb_width,
              'height': thumb_height,
          }
@@ -197,28 +85,41 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         metadata.append({'label': multilang_string_v2('Perceptual hash', 'en'), 'value': str(phash), 'description': 'Perceptual hash (phash) checksum calculated using ImageHash library. https://pypi.org/project/ImageHash/'  })
 
     attribution_text=_render_attribution(source_text, p.author, p.date_text, licence_text)
-    canvases.append(_get_v2_canvas(photo_id, title, lang_code, iiif_image_url, p.width, p.height, "photo_" +str(photo_id), attribution_text, rights_url, p))
+    canvases.append(_get_v2_canvas(request, photo_id, title, lang_code, iiif_image_url, p.width, p.height, 'photo_' +str(photo_id), attribution_text, rights_url, p))
 
     rephotos=Photo.objects.filter(rephoto_of=photo_id)
     for rephoto in rephotos:
-        rephoto_iiif_image_url="https://ajapaik.ee/iiif/work/iiif/ajapaik/" + remove_prefix(str(rephoto.image), 'uploads/') + ".tif"
+        rephoto_iiif_image_url=request.build_absolute_uri('/iiif/work/iiif/ajapaik/' + remove_prefix(str(rephoto.image), 'uploads/') + '.tif')
         rephoto_licence_text=_render_licence_text(rephoto.licence)
         rephoto_rights_url=_render_rights_url(rephoto.licence)
         rephoto_source_text=_render_source_text(rephoto.source, rephoto.source_url, rephoto.source_key)
-        rephoto_attribution_text=_render_attribution(rephoto_source_text, rephoto.author, rephoto.date_text, rephoto_licence_text)
+        if not rephoto_source_text:
+            rephoto_uri=request.build_absolute_uri('/photo/' + str(rephoto.id))
+            rephoto_source_text='Ajapaik.ee: <a href="' + rephoto_uri + '">' + str(rephoto.id) +'</a>'
+
+        # Some author name for the rephotos
+        if rephoto.author:
+            rephoto_author=rephoto.author
+        elif rephoto.user:
+            rephoto_author=rephoto.user.get_display_name
+        else:
+            rephoto_author='Unknown'
+
+        rephoto_attribution_text=_render_attribution(rephoto_source_text, rephoto_author, rephoto.date_text, rephoto_licence_text)
 
         if rephoto.title:
             rephoto_title=rephoto.title
         else:
             rephoto_title=rephoto.description
         canvases.append(_get_v2_canvas(
+            request,
             photo_id,
             rephoto_title,
             lang_code,
             rephoto_iiif_image_url,
             rephoto.width,
             rephoto.height,
-            "rephoto_" + str(rephoto.id),
+            'rephoto_' + str(rephoto.id),
             rephoto_attribution_text,
             rephoto_rights_url,
             rephoto
@@ -227,17 +128,17 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     content['metadata']=metadata
     content['sequences']=[ {
-            '@id': 'https://ajapaik.ee/photo/' + photo_id + '/sequence/normal.json',
-            '@type': "sc:Sequence",
+            '@id': request.build_absolute_uri('/photo/' + photo_id + '/sequence/normal.json'),
+            '@type': 'sc:Sequence',
             'canvases': canvases
     } ]
 
 
     response= JsonResponse(content, content_type='application/json')
-    response["Access-Control-Allow-Origin"] = "*"
-    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-    response["Access-Control-Max-Age"] = "1000"
-    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    response['Access-Control-Max-Age'] = '1000'
+    response['Access-Control-Allow-Headers'] = 'X-Requested-With, Content-Type'
 
     return response
 
@@ -251,55 +152,54 @@ def photo_annotations(request, photo_id=None, pseudo_slug=None):
 # Helper functions
 #
 
-def _get_v2_canvas(photo_id, label, lang_code, iiif_image_url, width, height, canvas_name, source_text, licence_url, thumbnail):
+def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, height, canvas_name, source_text, licence_url, thumbnail):
 
 
     thumb_width, thumb_height=calculate_thumbnail_size(thumbnail.width, thumbnail.height, 400)
 
     photo_id=str(photo_id)
-    canvas_id='https://ajapaik.ee/photo/' + photo_id + '/canvas/' + canvas_name
+    canvas_id=request.build_absolute_uri('/photo/' + photo_id + '/canvas/' + canvas_name)
     canvas={
                 '@id': canvas_id,
-                '@type': "sc:Canvas",
+                '@type': 'sc:Canvas',
                 'label': multilang_string_v2(label, lang_code),
                 'width': width,
                 'height': height,
                 'thumbnail': {
-                    '@id': "https://ajapaik.ee/photo-thumb/" + str(thumbnail.id) + "/400/",
-                    '@type': "dctypes:Image",
-                    'format': "image/jpeg",
+                    '@id': request.build_absolute_uri('/photo-thumb/' + str(thumbnail.id) + '/400/'),
+                    '@type': 'dctypes:Image',
+                    'format': 'image/jpeg',
                     'width': thumb_width,
                     'height': thumb_height,
                 },
                 'images': [
                     {
-                        "@id": "https://ajapaik.ee/photo/" + photo_id + "/annotation/" + canvas_name,
-                        "@type": "oa:Annotation",
-                        "motivation": "sc:painting",
-                        "on": canvas_id,
-                        "resource":
+                        '@id': request.build_absolute_uri('/photo/' + photo_id + '/annotation/' + canvas_name),
+                        '@type': 'oa:Annotation',
+                        'motivation': 'sc:painting',
+                        'on': canvas_id,
+                        'resource':
                             {
-                                    "@id": iiif_image_url + "/full/max/0/default.jpg",
-                                    "@type": "dctypes:Image",
-                                    "format": "image/jpeg",
-                                    "service":
+                                    '@id': iiif_image_url + '/full/max/0/default.jpg',
+                                    '@type': 'dctypes:Image',
+                                    'format': 'image/jpeg',
+                                    'service':
                                         {
                                             '@id': iiif_image_url,
                                             '@context': 'http://iiif.io/api/image/2/context.json',
                                             'profile': 'http://iiif.io/api/image/2/level1.json'
                                         },
-                                    "height": width,
-                                    "width": height
+                                    'height': width,
+                                    'width': height
                             }
                     }
                 ]
             }
-
     if source_text:
-        canvas["attribution"]=source_text
+        canvas['attribution']=source_text
 
     if licence_url:
-        canvas["licence"]=licence_url
+        canvas['licence']=licence_url
 
     return canvas
 
@@ -356,7 +256,7 @@ def _render_attribution(source, author, date, licence):
     if licence:
         attribution.append(licence)
 
-    return ", ".join(attribution)
+    return ', '.join(attribution)
 
 def multilang_string_v2(value, language):
     return { '@value': value, '@language': language}
