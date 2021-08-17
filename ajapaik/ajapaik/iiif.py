@@ -23,8 +23,10 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     if p.title:
        title=p.title 
-    else:
+    elif p.description:
        title=p.description
+    else:
+       title=request.build_absolute_uri('/photo/' + str(photo_id))
 
     # Render licence text
     licence_text=_render_licence_text(p.licence)
@@ -109,8 +111,11 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
         if rephoto.title:
             rephoto_title=rephoto.title
-        else:
+        elif rephoto.description:
             rephoto_title=rephoto.description
+        else:
+            rephoto_title='Rephoto of ' + request.build_absolute_uri('/photo/' + str(photo_id)) + ' with title "' + title +"'"
+
         canvases.append(_get_v2_canvas(
             request,
             photo_id,

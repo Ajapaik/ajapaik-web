@@ -87,6 +87,7 @@
                 </button>
                 </a>
                 {% trans 'Data' %}
+                {% if request.user.is_superuser %}<br><a href="http://universalviewer.io/uv.html?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json">IIIF</a>{% endif %}
             </div>
             {% if request.user.is_superuser %}
             <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
