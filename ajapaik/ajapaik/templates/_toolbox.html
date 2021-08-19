@@ -80,7 +80,7 @@
             </div>
             {% endif %}
             <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button id="ajp-iiif" class="ajp-button" type="button" data-toggle="popover" data-trigger="focus">
+                <button id="ajp-iiif" class="ajp-button" type="button" data-toggle="popover" data-is-edit-button="true">
                     <img style='width:50%' src='https://iiif.io/img/text-bg-about.png' />
                 </button>
                 {% trans 'IIIF' %}
@@ -348,24 +348,23 @@
         });
 
         $('#ajp-iiif').click(function (e) {
-
+            e.preventDefault();
             let title='iiif viewers'
                 let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
                 topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
 
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
-            let content = "<div class='d-flex mb-4 justify-content-center' data-trigger='focus'>";
+            let content = "<div class='d-flex mb-4 justify-content-center' >";
             content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://universalviewer.toolforge.org/#?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/universalviewer-logo.png'/></div><div>` + gettext('UniversalViewer') + `</div></a></div>`;
             content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://mirador.toolforge.org/?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/mirador-logo-black.png'/></div><div style='text-align:center'>` + gettext('Mirador') + `</div></a></div>`;
             content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://demo.tify.rocks/demo.html?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/tify-logo.svg'/></div><div style='text-align:center'>` + gettext('Tify') + `</div></a></div>`;
             content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" title="manifest.json" href="/photo/{{ photo.id }}/v2/manifest.json" ><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><span class="material-icons notranslate ajp-text-gray ajp-icon-48">code</span></div><div>manifest.json</div></a></div>`;
             content+="</div>";
 
-            e.preventDefault();
             $('#ajp-iiif').popover({
                 html: true,
                 sanitize: false,
-                trigger: 'focus',
+                trigger: 'manual',
                 container,
                 content,
                 title
@@ -375,7 +374,7 @@
             if (id && $('#' + id).length > 0) {
                 $('#ajp-iiif').popover('hide');
             } else {
-                $('#ajp-iiif').delay(700).popover('show');
+                $('#ajp-iiif').popover('show');
             }
 
 

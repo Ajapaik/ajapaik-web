@@ -31,6 +31,13 @@ function initializeClosingPopoverWhenClickingOutsideOfPopover() {
             }
 
             if (hasNotClickedEditPopoverEnablingElement) {
+                let id = $('#ajp-iiif').attr('aria-describedby');
+                if (id && $('#' + id).length > 0) {
+                     $('#ajp-iiif').popover('hide');
+                }
+            }
+
+            if (hasNotClickedEditPopoverEnablingElement) {
                 let id = $('#ajp-edit-picture').attr('aria-describedby');
                 if (id && $('#' + id).length > 0) {
                     $('#' + id).popover('hide');
