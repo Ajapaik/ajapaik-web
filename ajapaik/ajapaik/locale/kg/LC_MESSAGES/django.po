@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-08-16 11:00:18+0000\n"
+"PO-Revision-Date: 2021-08-19 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1721,51 +1721,51 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:281
 msgid "Help"
-msgstr ""
+msgstr "Lusadisu"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr ""
+msgstr "Mutindu ya kukabisa"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
-msgstr ""
+msgstr "Na kimvuka yai"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr ""
+msgstr "Pona baparametre 2"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
-msgstr ""
+msgstr "to"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
-msgstr ""
+msgstr "mpi"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
-msgstr ""
+msgstr "1 na kati ya"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr ""
+msgstr "tula bifwanisu na ndonga na kulanda kisika nge kele"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
-msgstr ""
+msgstr "balusa mutindu ya kukabisa"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Muntu yai kele ti kisika sambu na foto yai"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Bantu yai kele ti bisika sambu na foto yai"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "Bo Me soba"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
@@ -1773,7 +1773,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Sambu nge kele muntu ya ke sadilaka Ajapaik, nge lenda"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
@@ -1883,15 +1883,15 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr ""
+msgstr "Ba-album ya nkaka ya pene-pene"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:113
 msgid "Back to map"
-msgstr ""
+msgstr "Vutuka na karte"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr ""
+msgstr "Tablo ya bisalu ya ntama ve"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
 #, python-format
@@ -1906,21 +1906,21 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user/_user_card.html:6
 #: ajapaik/ajapaik/templates/user/user.html:13
 msgid "User Facebook photo"
-msgstr ""
+msgstr "Foto ya muntu ya Facebook"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_card.html:8
 #: ajapaik/ajapaik/templates/user/user.html:15
 msgid "User Google photo"
-msgstr ""
+msgstr "Foto ya muntu ya Google"
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "Vutula na lutiti ya luyantiku"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Importer"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
@@ -1936,40 +1936,40 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
-msgstr ""
+msgstr "Yika na album"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Foto kele ya kimvuka"
+msgstr[1] "Foto kele ya bimvuka:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
-msgstr ""
+msgstr "Adresi ya pene-pene"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
 #: ajapaik/ajapaik/templates/photo/photoview.html:68
 msgid "See the other side of photo"
-msgstr ""
+msgstr "Tala lweka ya nkaka ya foto"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:86
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:87
 #: ajapaik/ajapaik/templates/photo/photoview.html:136
 #: ajapaik/ajapaik/templates/photo/photoview.html:137
 msgid "similar photo"
-msgstr ""
+msgstr "foto ya mutindu mosi"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:89
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:90
 #: ajapaik/ajapaik/templates/photo/photoview.html:139
 #: ajapaik/ajapaik/templates/photo/photoview.html:140
 msgid "duplicate photo"
-msgstr ""
+msgstr "fokula foto"
 
 #: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:38
 msgid "Date taken"
-msgstr ""
+msgstr "Dati bo kangaka yo"
 
 #: ajapaik/ajapaik/templates/photo/photoview.html:29
 #: ajapaik/ajapaik/templates/photo/photoview.html:31
@@ -1977,20 +1977,20 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photo/photoview.html:164
 #: ajapaik/ajapaik/templates/photo/photoview.html:165
 msgid "rephoto"
-msgstr ""
+msgstr "rephoto"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Sonika nde yo kele mutindu mosi to ya kufokula"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
-msgstr ""
+msgstr "Yika mitindu na foto to bafoto"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
-msgstr ""
+msgstr "Balusa foto to bafoto"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
@@ -2002,33 +2002,33 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "Bifwanisu yonso me katuka na kisika mosi"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
 msgid "Import from public collections"
-msgstr ""
+msgstr "Importer katula na bimvuka ya bantu yonso"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr ""
+msgstr "Tula yo nge mosi"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Importer Muis"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "Importer CSV"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:98
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:51
 msgid "Upload"
-msgstr ""
+msgstr "Tula"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:26
 msgid "Select file..."
-msgstr ""
+msgstr "Pona dosier"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
@@ -2036,7 +2036,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
-msgstr ""
+msgstr "nswa"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:56
 msgid "Abort"
@@ -2044,16 +2044,16 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:76
 msgid "Select new file..."
-msgstr ""
+msgstr "Pona dosier ya mpa..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:106
 msgid "File upload failed."
-msgstr ""
+msgstr "Dosier ya nge tulaka me simba ve."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Kuvutuka ya mbote"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
@@ -2083,19 +2083,19 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:195
 msgid "User"
-msgstr ""
+msgstr "Muntu"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:38
 msgid "You currently have no social network accounts connected to this account."
-msgstr ""
+msgstr "Nge kele ve ti konte ya réseau sociaux ya ke sala ti konte yai."
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:41
 msgid "Add a 3rd Party Account"
-msgstr ""
+msgstr "Yika Konte ya Muntu ya Nkaka"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "Nge kele ti"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/user/_user_info.html:5
@@ -2134,8 +2134,8 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(rephotographed_pictures)s</b> foto"
+msgstr[1] "<b>%(rephotographed_pictures)s</b> bafoto"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/user/_user_info.html:26
@@ -2165,23 +2165,23 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(face_annotations_pictures)s</b> foto"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> bafoto"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "annotated <b>%(object_annotations)s</b> kima na"
+msgstr[1] "annotated <b>%(object_annotations)s</b> bima na"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations_pictures)s</b> foto"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> bafoto"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
@@ -2223,23 +2223,23 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
-msgstr ""
+msgstr "Tala"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
-msgstr ""
+msgstr "rephoto na nge"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:87
 msgid "favorite pictures"
-msgstr ""
+msgstr "bafoto ya nge ke zolaka mingi"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is connected to:"
-msgstr ""
+msgstr "Konte kele na kuwakana ti:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:22
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "Konte yai kele ve na kuwakana ti"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:31
 #, python-format
@@ -2272,7 +2272,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "Bumba konte yai (yina ya nkaka ta vukana ti yo)"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:18
 #, python-format
@@ -2286,11 +2286,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "Pona konte yina nge ta zola kulanda kusadila na nima"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Vukisa bakonte"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
@@ -2316,7 +2316,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user/user.html:25
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> kele ti"
 
 #: ajapaik/ajapaik/templates/user/user.html:32
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
@@ -2324,11 +2324,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "To create an account, click"
-msgstr ""
+msgstr "Sambu na kukangula konte, bweta"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "here"
-msgstr ""
+msgstr "awa"
 
 #: ajapaik/ajapaik/templates/user/user.html:42
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2336,11 +2336,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:58
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Muntu yai kele ve ti makabu."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Awa nge lenda tula bafoto ya ntama na Ajapaik (sesepi nge lenda tula foto mosi na mbala mosi)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, python-format
@@ -2349,11 +2349,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "Yika foto na album to ba-album ya nkaka"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Nge fwete yika foto ata na album mosi"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
@@ -2361,20 +2361,20 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
 msgid "Upload and mark on map"
-msgstr ""
+msgstr "Tula mpi tula kidimbu na karte"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:24
 msgid "Add"
-msgstr ""
+msgstr "Yika"
 
 #: ajapaik/ajapaik/templates/video/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr ""
+msgstr "Zina na nge me zabana ve. Nge lenda kota na e-mail na nge."
 
 #: ajapaik/ajapaik/views.py:484
 msgid "Non-authenticated user"
-msgstr ""
+msgstr "Muntu ya me zabana ve"
 
 #: ajapaik/ajapaik/views.py:623
 msgid "Geotagging game"
@@ -2424,77 +2424,77 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2372
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ajapaik/ajapaik/views.py:2432 ajapaik/ajapaik/views.py:2454
 #, python-format
 msgid "Error uploading file: %s (%s)"
-msgstr ""
+msgstr "Kifu ntangu nge ke tula dosier: %s (%s)"
 
 #: ajapaik/ajapaik/views.py:2450
 msgid "Photo already exists in Ajapaik"
-msgstr ""
+msgstr "Foto kele deja na Ajakaik"
 
 #: ajapaik/ajapaik/views.py:2474
 msgid "Please add pictures to your album"
-msgstr ""
+msgstr "Yika bafoto na album na nge"
 
 #: ajapaik/ajapaik/views.py:2476
 msgid "Not enough data submitted"
-msgstr ""
+msgstr "Nge me tinda ve bansangu ya me fwana"
 
 #: ajapaik/ajapaik/views.py:2879
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr ""
+msgstr "Yo ke kaka \"%(film)s\" na %(time)s"
 
 #: ajapaik/ajapaik/views.py:3133
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Nge me tula foto"
 
 #: ajapaik/ajapaik/views.py:3153
 msgid "Album created"
-msgstr ""
+msgstr "Nge me sala album"
 
 #: ajapaik/ajapaik/views.py:3227
 msgid "Sorry but we fail to post your comment."
-msgstr ""
+msgstr "Lolula kansi beto me kuka ve kutula komantere na nge."
 
 #: ajapaik/ajapaik/views.py:3430
 msgid "Change password"
-msgstr ""
+msgstr "Soba mot de passe"
 
 #: ajapaik/ajapaik/views.py:3434
 msgid "Change display name"
-msgstr ""
+msgstr "Soba zina na nge"
 
 #: ajapaik/ajapaik/views.py:3436
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Parametre ya mikanda mpi bandinga"
 
 #: ajapaik/ajapaik/views.py:3444
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Vukisa konte ya nkaka ya Ajapaik ti yai ya mpa"
 
 #: ajapaik/ajapaik/views.py:3528
 msgid "KulKa logo"
-msgstr ""
+msgstr "Logo KulKa"
 
 #: ajapaik/ajapaik/views.py:3533
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "Logo ya Ministere ya Kulonga"
 
 #: ajapaik/ajapaik/views.py:3539
 msgid "EV100 logo"
-msgstr ""
+msgstr "Logo EV100"
 
 #: ajapaik/ajapaik/views.py:3546
 msgid "KYSK logo"
-msgstr ""
+msgstr "Logo KYSK"
 
 #: ajapaik/ajapaik/views.py:3551
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Ministre ya culture"
 
 #: ajapaik/ajapaik/views.py:3557
 msgid "Republic of Estonia National Heritage Board"
@@ -2506,52 +2506,52 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia ya Finlande"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
-msgstr ""
+msgstr "Zina na nge"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:20
 msgid "Date of birth"
-msgstr ""
+msgstr "Dati ya lubutuku"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Is public figure"
-msgstr ""
+msgstr "Ntalu fwete monana"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Prénom Zina"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "Bansangu ya nkaka ya me tala muntu (bazina ya nkaka mpi buna na buna)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:71
 msgid "Child"
-msgstr ""
+msgstr "Mwana"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:74
 msgid "Adult"
-msgstr ""
+msgstr "Mbuta"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
 msgid "Elderly"
-msgstr ""
+msgstr "Mununu"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Me zabana ve"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Yo Ke tadila yo ve"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:196
@@ -2561,7 +2561,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:34
 #: ajapaik/ajapaik_face_recognition/models.py:197
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:38
 msgid "SubjectPhoto"
@@ -2577,7 +2577,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Me zaba ve"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -2587,7 +2587,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
 msgid "Not a Face"
-msgstr ""
+msgstr "Yo ke ve Luse"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
@@ -2597,74 +2597,74 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:64
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:88
 msgid "Info"
-msgstr ""
+msgstr "Bansangu"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "Sala dosier ya mpa ya muntu"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
 msgid "Not sure"
-msgstr ""
+msgstr "Me zaba ve"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:94
 msgid "Skip"
-msgstr ""
+msgstr "Pamuka"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:98
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Sesepi nge kele bakala to nkento"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
 msgid "Currently the age is"
-msgstr ""
+msgstr "Sesepi mvula kele"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Nsangu mosi ve kele awa, nge lenda vutuka na nima"
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr ""
+msgstr "Ndinga ya Estonie"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Ndinga ya Lettonie"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Ndinga ya Lituanie"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
-msgstr ""
+msgstr "Ndinga ya Finlande"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr ""
+msgstr "Ndinga ya Suède"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr ""
+msgstr "Ndinga ya Russie"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: ajapaik/utils.py:154
 msgid "You have already submitted this suggestion"
-msgstr ""
+msgstr "Nge me tindaka deja ngindu yai"
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ngindu na nge me soba"
 
 #: ajapaik/utils.py:156
 msgid "Your suggestion has been saved"
-msgstr ""
+msgstr "Bo me bumba ngindu na nge"
 
