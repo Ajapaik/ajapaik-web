@@ -2,7 +2,7 @@ from dal import autocomplete
 from django.forms import ModelForm
 
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, GeoTag, ImageSimilarity, \
-    ImageSimilaritySuggestion, Photo, Points, Skip, Supporter, Video
+    ImageSimilaritySuggestion, Photo, Points, Profile, Skip, Supporter, Video
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
     FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
@@ -123,6 +123,10 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     elif ac_model == Video:
         field_url_dict = {
             'source': 'source'
+        }
+    elif ac_model == Profile:
+        field_url_dict = {
+            'user': 'user'
         }
     elif ac_model == Supporter:
         field_url_dict = {
