@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-08-02 11:00:16+0000\n"
+"PO-Revision-Date: 2021-08-23 11:00:25+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:52+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -784,7 +784,7 @@ msgstr "Тепер ви можете увійти за допомогою еле
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
 msgid "Toggle map center lock"
-msgstr "Увімкнути/вимкнути центральне блокування мапи"
+msgstr "Перемикнути центральне блокування мапи"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
 msgid "Approximate"
@@ -852,11 +852,11 @@ msgstr "Тепер ви можете перетягнути МАРКЕР, де �
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr "Перетягніть мапу так, щоб коло охоплювало приблизне розташування, натисніть \"Зберегти\", коли будете готові."
+msgstr "Перетягніть мапу так, щоб коло охоплювало приблизне розташування, натисніть «Зберегти», коли будете готові."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Перетягніть мапу так, щоб маркер знаходився поверх об'єкта, який ви бачите на малюнку, натисніть \"Зберегти\", коли будете готові."
+msgstr "Перетягніть мапу так, щоб маркер знаходився поверх об'єкта, який ви бачите на малюнку, натисніть «Зберегти», коли будете готові."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
@@ -887,7 +887,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr "Всі зображення відображаються на бічній панелі"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "Ви набрали %s бал"
@@ -1143,7 +1143,6 @@ msgid "Automatically detected face"
 msgstr "Автоматично розпізнана особа"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
-#, fuzzy
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] "%(photoCount)s зображення"

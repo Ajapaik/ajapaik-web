@@ -10,6 +10,7 @@
 # Author: Falwye
 # Author: H2kks
 # Author: ImaCow
+# Author: Jikrau
 # Author: Killarnee
 # Author: ManuelFranz
 # Author: Mirzali
@@ -24,7 +25,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-07-29 11:00:16+0000\n"
+"PO-Revision-Date: 2021-08-23 11:00:22+0000\n"
 "X-POT-Import-Date: 2021-05-26 12:39:49+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -685,7 +686,7 @@ msgstr "Wähle den Aufnahmeort!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
-msgstr ""
+msgstr "Geotag hinzufügen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
@@ -735,7 +736,7 @@ msgstr "Bild bearbeiten"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "Anmerkungen anzeigen"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -930,7 +931,7 @@ msgstr "Besitzt du bereits einen Account? Dann <a href=\"%(login_url)s\">logge d
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Registrierung Geschlossen"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1556,7 +1557,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
-msgstr ""
+msgstr "Frühere Förderer"
 
 #: ajapaik/ajapaik/templates/donate/donate.html:14
 msgid "Supporters of Ajapaik"
@@ -1921,17 +1922,17 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user/_user_card.html:6
 #: ajapaik/ajapaik/templates/user/user.html:13
 msgid "User Facebook photo"
-msgstr ""
+msgstr "Facebook Foto des Benutzers"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_card.html:8
 #: ajapaik/ajapaik/templates/user/user.html:15
 msgid "User Google photo"
-msgstr ""
+msgstr "Google Foto des Benutzers"
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "Zurück zur Hauptseite"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
@@ -2509,7 +2510,7 @@ msgstr "KYSK logo"
 
 #: ajapaik/ajapaik/views.py:3551
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Kulturministerium"
 
 #: ajapaik/ajapaik/views.py:3557
 msgid "Republic of Estonia National Heritage Board"
