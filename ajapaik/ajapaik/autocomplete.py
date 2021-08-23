@@ -1,8 +1,8 @@
 from dal import autocomplete
 from django.forms import ModelForm
 
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, DatingConfirmation, GeoTag, ImageSimilarity, \
-    ImageSimilaritySuggestion, Photo, Points, Profile, Skip, Supporter, Video
+from ajapaik.ajapaik.models import Album, AlbumPhoto, ApplicationException, Dating, DatingConfirmation, GeoTag, \
+    Location, LocationPhoto, ImageSimilarity, ImageSimilaritySuggestion, Photo, Points, Profile, Skip, Supporter, Video
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
     FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
@@ -24,6 +24,15 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     elif ac_model == AlbumPhoto:
         field_url_dict = {
             'album': 'album',
+            'photo': 'photo',
+            'profile': 'profile'
+        }
+    elif ac_model == ApplicationException:
+        field_url_dict = {
+            'photo': 'photo',
+        }
+    elif ac_model == Dating:
+        field_url_dict = {
             'photo': 'photo',
             'profile': 'profile'
         }
@@ -71,6 +80,15 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
         field_url_dict = {
             'image_similarity': 'image-similarity',
             'proposer': 'profile'
+        }
+    elif ac_model == Location:
+        field_url_dict = {
+            'sublocation_of': 'location',
+        }
+    elif ac_model == LocationPhoto:
+        field_url_dict = {
+            'photo': 'location',
+            'photo': 'photo'
         }
     elif ac_model == ObjectDetectionAnnotation:
         field_url_dict = {

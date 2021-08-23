@@ -16,7 +16,7 @@ from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAuto
     DatingAutocomplete, DatingConfirmationAutocomplete, DeviceAutocomplete, FaceRecognitionRectangleAutocomplete, \
     FaceRecognitionRectangleFeedbackAutocomplete, FaceRecognitionUserSuggestionAutocomplete, \
     FaceRecognitionRectangleSubjectDataSuggestionAutocomplete, GeoTagAutocomplete, \
-    ImageSimilarityAutocomplete, ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, \
+    ImageSimilarityAutocomplete, ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, LocationAutocomplete, \
     ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
     OpenAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, SkipAutocomplete, \
     SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
@@ -263,6 +263,7 @@ urlpatterns += [
         name='image-similarity-autocomplete'),
     url(r'^autocomplete/image-similarity-suggestion-autocomplete/$', ImageSimilaritySuggestionAutocomplete.as_view(),
         name='image-similarity-suggestion-autocomplete'),
+    url(r'^autocomplete/location/$', LocationAutocomplete.as_view(), name='location-autocomplete'),
     url(r'^autocomplete/licence-autocomplete/$', LicenceAutocomplete.as_view(), name='licence-autocomplete'),
     url(r'^autocomplete/object-detection-annotation-autocomplete/$', ObjectDetectionAnnotationAutocomplete.as_view(),
         name='object-detection-annotation-autocomplete'),
