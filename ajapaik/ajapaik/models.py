@@ -365,9 +365,9 @@ class Photo(Model):
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
     aspect_ratio = FloatField(null=True, blank=True)
-    flip = NullBooleanField()
-    invert = NullBooleanField()
-    stereo = NullBooleanField()
+    flip = BooleanField(null=True)
+    invert = BooleanField(null=True)
+    stereo = BooleanField(null=True)
     # In degrees
     rotated = IntegerField(null=True, blank=True)
     date = DateTimeField(null=True, blank=True)
@@ -1874,12 +1874,12 @@ class PhotoViewpointElevationSuggestion(Suggestion):
 
 class PhotoFlipSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
-    flip = NullBooleanField()
+    flip = BooleanField(null=True)
 
 
 class PhotoInvertSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
-    invert = NullBooleanField()
+    invert = BooleanField(null=True)
 
 
 class PhotoRotationSuggestion(Suggestion):

@@ -299,9 +299,9 @@ class Migration(migrations.Migration):
                 ('height', models.IntegerField(blank=True, null=True)),
                 ('width', models.IntegerField(blank=True, null=True)),
                 ('aspect_ratio', models.FloatField(blank=True, null=True)),
-                ('flip', models.NullBooleanField()),
-                ('invert', models.NullBooleanField()),
-                ('stereo', models.NullBooleanField()),
+                ('flip', models.BooleanField(null=True)),
+                ('invert', models.BooleanField(null=True)),
+                ('stereo', models.BooleanField(null=True)),
                 ('rotated', models.IntegerField(blank=True, null=True)),
                 ('date', models.DateTimeField(blank=True, null=True)),
                 ('date_text', models.CharField(blank=True, max_length=255, null=True)),
@@ -420,7 +420,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('flip', models.NullBooleanField()),
+                ('flip', models.BooleanField(null=True)),
             ],
             options={
                 'abstract': False,
@@ -431,7 +431,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('invert', models.NullBooleanField()),
+                ('invert', models.BooleanField(null=True)),
             ],
             options={
                 'abstract': False,

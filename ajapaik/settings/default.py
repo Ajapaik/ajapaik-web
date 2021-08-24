@@ -260,7 +260,7 @@ COMMENTS_XTD_FORM_CLASS = 'ajapaik.ajapaik.forms.CommentForm'
 COMMENTS_XTD_MODEL = 'ajapaik.ajapaik.models.MyXtdComment'
 COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
-    'default': {
+    'ajapaik.photo': {
         'allow_flagging': True,
         'allow_feedback': True,
         'show_feedback': True,
@@ -432,3 +432,5 @@ UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
 
 if os.getenv('GITHUB_WORKFLOW'):
     from .test import *
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'

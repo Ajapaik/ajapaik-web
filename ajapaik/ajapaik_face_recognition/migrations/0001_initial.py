@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_correct', models.BooleanField(default=False)),
-                ('is_correct_person', models.NullBooleanField()),
+                ('is_correct_person', models.BooleanField(null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('alternative_subject',
