@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-08-09 11:00:20+0000\n"
+"PO-Revision-Date: 2021-08-26 11:00:41+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1554,7 +1554,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
-msgstr ""
+msgstr "Aikaisemmat rahoittajat:"
 
 #: ajapaik/ajapaik/templates/donate/donate.html:14
 msgid "Supporters of Ajapaik"
