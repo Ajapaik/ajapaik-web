@@ -109,7 +109,6 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 
 ## To-do list
 
-- TODO: upgrade to Django 3
 - TODO: command for regular stats exports
 - TODO: fix core dump https://github.com/ageitgey/face_recognition/issues/11
 - TODO: automate stats queries or at least document them better (should be possible with a Google Sheets API key?)

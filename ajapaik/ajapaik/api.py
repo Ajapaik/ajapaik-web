@@ -1696,7 +1696,7 @@ class MergeProfiles(AjapaikAPIView):
                 profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
             return JsonResponse({'error': EXPIRED_TOKEN}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id is not profile_merge_token.profile.id:
+            if request.user.profile.id != profile_merge_token.profile.id:
                 if reverse == 'true':
                     merge_profiles(request.user.profile, profile_merge_token.profile)
                     profile_merge_token.target_profile = request.user.profile
