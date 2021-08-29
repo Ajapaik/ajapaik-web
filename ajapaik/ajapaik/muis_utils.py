@@ -1,5 +1,3 @@
-from django.template.defaultfilters import add
-from ajapaik.ajapaik_object_recognition import response
 import itertools
 import requests
 import json

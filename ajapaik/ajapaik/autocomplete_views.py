@@ -1,5 +1,3 @@
-from ajapaik.ajapaik_object_recognition import response
-from requests.api import request
 from dal import autocomplete
 from django.db.models import Q
 from django.http.response import HttpResponse
