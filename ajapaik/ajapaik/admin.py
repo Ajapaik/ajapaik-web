@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import NotRegistered, AlreadyRegistered
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
 

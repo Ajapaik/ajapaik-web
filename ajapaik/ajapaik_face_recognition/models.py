@@ -4,7 +4,7 @@ from django.contrib.gis.db.models import DateTimeField, ImageField
 from django.db import models
 from django.db.models import CASCADE
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 from ajapaik.utils import most_frequent

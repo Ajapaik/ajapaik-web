@@ -1,6 +1,6 @@
 from dal import autocomplete
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ajapaik.ajapaik.models import Photo, Album
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \

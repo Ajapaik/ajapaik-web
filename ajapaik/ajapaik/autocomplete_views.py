@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django.db.models import Q
 from django.http.response import HttpResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
