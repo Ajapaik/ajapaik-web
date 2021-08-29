@@ -1,7 +1,6 @@
-from django.http import HttpResponse, JsonResponse
-from django.utils.http import urlencode
-from django.shortcuts import redirect, get_object_or_404, render
-from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike
+from django.http import JsonResponse
+from django.shortcuts import redirect, get_object_or_404
+from ajapaik.ajapaik.models import Photo
 from ajapaik.utils import calculate_thumbnail_size
 
 def remove_prefix(text, prefix):
@@ -13,9 +12,6 @@ def photo_info(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
     iiif_image_url=request.build_absolute_uri('/iiif/work/iiif/ajapaik/' + remove_prefix(str(p.image), 'uploads/') + '.tif/info.json')
     return redirect(iiif_image_url)
-
-    content={}
-    return JsonResponse(content, content_type='application/json')
 
 def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     lang_code = request.LANGUAGE_CODE
