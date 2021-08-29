@@ -82,8 +82,18 @@
                     return response.json();
                 }).then(function(data){
                     let popoverContent = $('<div>');
+                    if (data.profiles && data.profiles.length > 0) {
+                        popoverContent.append(gettext('Album curated by: '));
+                        data.profiles.forEach(profile => {
+                            popoverContent.append($('<a>', {
+                                href: profile.profile_url,
+                                text: profile.name
+                            }));
+                        });
+                        popoverContent.append($('<br><br>'));
+                    }
                     if (data.photo_count) {
-                        let photoCountText = interpolate(gettext('Album has <em>%(photoCount)s</em> pictures'), {photoCount: data.photo_count}, true);
+                        let photoCountText = interpolate(ngettext('Album has <em>%(photoCount)s</em> picture', 'Album has <em>%(photoCount)s</em> pictures', data.photo_count), {photoCount: data.photo_count}, true);
                         popoverContent.append(photoCountText);
                     }
 
