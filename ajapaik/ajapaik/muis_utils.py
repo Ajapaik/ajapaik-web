@@ -1,3 +1,5 @@
+from django.template.defaultfilters import add
+from ajapaik.ajapaik_object_recognition import response
 import itertools
 import requests
 import json
@@ -6,7 +8,7 @@ import roman
 from django.conf import settings
 import datetime
 
-from ajapaik.ajapaik.models import Album, GeoTag, Location, Photo, LocationPhoto
+from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto
 
 century_suffixes = [
         'saj x',
@@ -429,7 +431,6 @@ def add_geotag_from_address_to_photo(photo, locations):
                 location_object.save()
                 location_object = Location.objects.filter(id=location_object.id).first()
 
-            Location(name=sublocation[0], location_type=sublocation[1])
             location_photo = LocationPhoto.objects.filter(location=location_object, photo=photo).first()
             if location_photo is None:
                 location_photo = LocationPhoto(location=location_object, photo=photo)
@@ -439,6 +440,11 @@ def add_geotag_from_address_to_photo(photo, locations):
             search_string += sublocation[0]
             parent_location_object = location_object
 
+    if location_object.google_reverse_geocode:
+        lat = location_object.google_reverse_geocode.lat
+        lon = location_object.google_reverse_geocode.lon
+        address = location_object.google_reverse_geocode.response.get('results')[0].get('formatted_address')
+    else:
         google_geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?' \
             f'address={search_string}' \
             f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
@@ -450,34 +456,43 @@ def add_geotag_from_address_to_photo(photo, locations):
             # Google was able to answer some geolocation for this description
             address = google_response_parsed.get('results')[0].get('formatted_address')
             lat_lng = google_response_parsed.get('results')[0].get('geometry').get('location')
-        if lat_lng is not None:
-            if photo.lat is None:
-                photo.lat = lat_lng['lat']
-            if photo.lon is None:
-                photo.lon = lat_lng['lng']
-            if photo.address is None:
-                photo.address = address
+            if lat_lng is None:
+                return photo
 
-            source_geotag = GeoTag(
-                lat=lat_lng['lat'],
-                lon=lat_lng['lng'],
-                origin=GeoTag.SOURCE,
-                type=GeoTag.SOURCE_GEOTAG,
-                map_type=GeoTag.NO_MAP,
-                photo=photo,
-                is_correct=False,
-                trustworthiness=0
-            )
+            lat = lat_lng['lat']
+            lon = lat_lng['lng']
+            google_maps_reverse_geocode = GoogleMapsReverseGeocode(lat=lat, lon=lon, response=google_response_parsed)
+            google_maps_reverse_geocode.save()
+            location_object.google_reverse_geocode = google_maps_reverse_geocode
+            location_object.save()
 
-            source_geotag.save()
-            source_geotag = GeoTag.objects.filter(id=source_geotag.id).first()
-            if photo.geotag_count is None:
-                photo.geotag_count = 1
-            else:
-                photo.geotag_count += 1
-            if photo.first_geotag is None:
-                photo.first_geotag = source_geotag.created
-            photo.latest_geotag = source_geotag.created
+    if photo.lat is None:
+        photo.lat = lat
+    if photo.lon is None:
+        photo.lon = lon
+    if photo.address is None:
+        photo.address = address
+
+    source_geotag = GeoTag(
+        lat=lat,
+        lon=lon,
+        origin=GeoTag.SOURCE,
+        type=GeoTag.SOURCE_GEOTAG,
+        map_type=GeoTag.NO_MAP,
+        photo=photo,
+        is_correct=False,
+        trustworthiness=0
+    )
+
+    source_geotag.save()
+    source_geotag = GeoTag.objects.filter(id=source_geotag.id).first()
+    if photo.geotag_count is None:
+        photo.geotag_count = 1
+    else:
+        photo.geotag_count += 1
+    if photo.first_geotag is None:
+        photo.first_geotag = source_geotag.created
+    photo.latest_geotag = source_geotag.created
     return photo
 
 

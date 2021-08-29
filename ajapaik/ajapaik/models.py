@@ -1432,6 +1432,7 @@ class Location(Model):
     location_type = CharField(max_length=255, null=True, blank=True)
     photos = ManyToManyField('Photo', through='LocationPhoto', related_name='locations')
     sublocation_of = ForeignKey('self', blank=True, null=True, related_name='sublocations', on_delete=CASCADE)
+    google_reverse_geocode = ForeignKey('GoogleMapsReverseGeocode', blank=True, null=True, related_name='google_reverse_geocode', on_delete=CASCADE)
 
 
 class FacebookManager(Manager):
@@ -1519,6 +1520,10 @@ class Profile(Model):
                 return _('Anonymous user')
         else:
             return _('Anonymous user')
+
+    @property
+    def get_profile_url(self):
+        return reverse('user', args=(self.id,))
 
     def __unicode__(self):
         return u'%s' % (self.get_display_name,)
@@ -1701,7 +1706,14 @@ class GoogleMapsReverseGeocode(Model):
         db_table = 'project_googlemapsreversegeocode'
 
     def __unicode__(self):
-        return '%d;%d' % (self.lat, self.lon)
+        if self.response.get('results') and self.response.get('results')[0]:
+            location = self.response.get('results')[0].get('formatted_address')
+            return '%s;%s;%s' % (location, self.lat, self.lon)
+        else:
+            return '%s;%s' % (self.lat, self.lon)
+    
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Dating(Model):
