@@ -1,3 +1,5 @@
+from ajapaik.ajapaik_object_recognition import response
+from requests.api import request
 from dal import autocomplete
 from django.db.models import Q
 from django.http.response import HttpResponse
@@ -5,9 +7,9 @@ from django.utils.translation import ugettext as _
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, GeoTag, \
-    ImageSimilarity, ImageSimilaritySuggestion, Licence, Location, Photo, Points, Profile, Skip, Source, \
-    Transcription, User, Video
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Area, Dating, DatingConfirmation, Device, \
+    GeoTag, GoogleMapsReverseGeocode, ImageSimilarity, ImageSimilaritySuggestion, Licence, \
+    Location, Photo, Points, Profile, Skip, Source, Transcription, User, Video
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
     FaceRecognitionUserSuggestion, FaceRecognitionRectangleSubjectDataSuggestion
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
@@ -157,6 +159,16 @@ class GeoTagAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(id__istartswith=self.q)
 
+        return qs
+
+class GoogleMapsReverseGeocodeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return GoogleMapsReverseGeocode.objects.none()
+        qs = GoogleMapsReverseGeocode.objects.all()
+        if self.q:
+            qs = qs.filter(response__icontains=self.q)
+        
         return qs
 
 
