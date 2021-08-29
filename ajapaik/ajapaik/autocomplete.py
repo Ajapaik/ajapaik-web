@@ -84,10 +84,11 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
     elif ac_model == Location:
         field_url_dict = {
             'sublocation_of': 'location',
+            'google_reverse_geocode': 'google-reverse-geocode'
         }
     elif ac_model == LocationPhoto:
         field_url_dict = {
-            'photo': 'location',
+            'location': 'location',
             'photo': 'photo'
         }
     elif ac_model == ObjectDetectionAnnotation:

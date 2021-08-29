@@ -16,7 +16,8 @@ from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAuto
     DatingAutocomplete, DatingConfirmationAutocomplete, DeviceAutocomplete, FaceRecognitionRectangleAutocomplete, \
     FaceRecognitionRectangleFeedbackAutocomplete, FaceRecognitionUserSuggestionAutocomplete, \
     FaceRecognitionRectangleSubjectDataSuggestionAutocomplete, GeoTagAutocomplete, \
-    ImageSimilarityAutocomplete, ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, LocationAutocomplete, \
+    GoogleMapsReverseGeocodeAutocomplete, ImageSimilarityAutocomplete, \
+    ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, LocationAutocomplete, \
     ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
     OpenAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, SkipAutocomplete, \
     SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
@@ -259,6 +260,7 @@ urlpatterns += [
         FaceRecognitionRectangleSubjectDataSuggestionAutocomplete.as_view(),
         name='face-recognition-rectangle-subject-data-suggestion-autocomplete'),
     url(r'^autocomplete/geotag-autocomplete/$', GeoTagAutocomplete.as_view(), name='geotag-autocomplete'),
+    url(r'^autocomplete/google-reverse-geocode-autocomplete/$', GoogleMapsReverseGeocodeAutocomplete.as_view(), name='google-reverse-geocode-autocomplete'),
     url(r'^autocomplete/image-similarity-autocomplete/$', ImageSimilarityAutocomplete.as_view(),
         name='image-similarity-autocomplete'),
     url(r'^autocomplete/image-similarity-suggestion-autocomplete/$', ImageSimilaritySuggestionAutocomplete.as_view(),
