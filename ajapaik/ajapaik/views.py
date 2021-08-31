@@ -1332,17 +1332,14 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             is_selection = True
     else:
         template = 'photo/photoview.html'
+
     if not photo_obj.get_display_text:
         title = 'Unknown photo'
     else:
-        if photo_obj.description_original_language:
-            first_original_language = photo_obj.description_original_language.split(',')[0]
-            original_desc = getattr(photo_obj, f'description_{first_original_language}')
-            title = ' '.join(original_desc.split(' ')[:5])[:50]
-        else:
-            title = ' '.join(photo_obj.get_display_text.split(' ')[:5])[:50]
-        if photo_obj.author:
-            title += u' – ' + photo_obj.author
+        title = ' '.join(photo_obj.get_display_text.split(' ')[:5])[:50]
+
+    if photo_obj.author:
+        title += u' – ' + photo_obj.author
 
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
     full_album_id_list = list(album_ids)
