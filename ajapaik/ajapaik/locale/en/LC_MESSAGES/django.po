@@ -1651,6 +1651,7 @@ msgid "Show landscape pictures"
 msgstr "Show landscape pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
 msgid "Show aerial pictures"
 msgstr "Show aerial pictures"
 
@@ -1661,10 +1662,6 @@ msgstr "Show pictures made from the ground level"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:129
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Show pictures made from a raised viewpoint"
-
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
-msgid "Show aerial pictures"
-msgstr "Show aerial pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:149
 msgid "Show interior pictures"
