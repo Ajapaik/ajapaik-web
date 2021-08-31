@@ -5,7 +5,7 @@
 # Translators:
 # Translators:
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2021-08-29 23:38+0300\nPO-Revision-Date: 2019-02-16 22:56+0000\nLast-Translator: Lauri Elias\nLanguage-Team: English (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/en/)\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2021-09-01 01:48+0300\nPO-Revision-Date: 2019-02-16 22:56+0000\nLast-Translator: Lauri Elias\nLanguage-Team: English (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/en/)\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -102,7 +102,7 @@ msgstr "Something went wrong"
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr "Your suggestion has been saved, but previous consensus remains"
 
-#: ajapaik/ajapaik/autocomplete_views.py:325
+#: ajapaik/ajapaik/autocomplete_views.py:323
 msgid "No album found"
 msgstr "No album found"
 
@@ -768,7 +768,7 @@ msgstr "Menu"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3498
+#: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
 msgstr "E-mail addresses"
 
@@ -1183,8 +1183,8 @@ msgstr "Ajapaik on Facebook"
 msgid "Profile and leaderboard"
 msgstr "Profile and leaderboard"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1890
-#: ajapaik/ajapaik/views.py:1907 ajapaik/ajapaik/views.py:1943
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1876
+#: ajapaik/ajapaik/views.py:1893 ajapaik/ajapaik/views.py:1929
 msgid "Leaderboard"
 msgstr "Leaderboard"
 
@@ -1651,9 +1651,8 @@ msgid "Show landscape pictures"
 msgstr "Show landscape pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
-msgid "Show aerial pictures"
-msgstr "Show aerial pictures"
+msgid "Show panoramic pictures"
+msgstr "Show panoramic pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:119
 msgid "Show pictures made from the ground level"
@@ -1662,6 +1661,10 @@ msgstr "Show pictures made from the ground level"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:129
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Show pictures made from a raised viewpoint"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
+msgid "Show aerial pictures"
+msgstr "Show aerial pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:149
 msgid "Show interior pictures"
@@ -2080,7 +2083,7 @@ msgstr "An error occurred while attempting to login via your social network acco
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3501
+#: ajapaik/ajapaik/views.py:3486
 msgid "Account Connections"
 msgstr "Account Connections"
 
@@ -2382,139 +2385,139 @@ msgstr "Add"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "You're anonymous. You can now log in with your e-mail."
 
-#: ajapaik/ajapaik/views.py:476
+#: ajapaik/ajapaik/views.py:468
 msgid "Non-authenticated user"
 msgstr "Non-authenticated user"
 
-#: ajapaik/ajapaik/views.py:615
+#: ajapaik/ajapaik/views.py:607
 msgid "Geotagging game"
 msgstr "Geotagging game"
 
-#: ajapaik/ajapaik/views.py:683
+#: ajapaik/ajapaik/views.py:675
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - rephotos"
 
-#: ajapaik/ajapaik/views.py:1213
+#: ajapaik/ajapaik/views.py:1205
 msgid "Cannot upload to these albums"
 msgstr "Cannot upload to these albums"
 
-#: ajapaik/ajapaik/views.py:1247
+#: ajapaik/ajapaik/views.py:1239
 msgid "Recuration successful"
 msgstr "Recuration successful"
 
-#: ajapaik/ajapaik/views.py:1249
+#: ajapaik/ajapaik/views.py:1241
 msgid "Problem with album selection"
 msgstr "Problem with album selection"
 
-#: ajapaik/ajapaik/views.py:1251
+#: ajapaik/ajapaik/views.py:1243
 msgid "Faulty data submitted"
 msgstr "Faulty data submitted"
 
-#: ajapaik/ajapaik/views.py:1594 ajapaik/ajapaik/views.py:1601
-#: ajapaik/ajapaik/views.py:1603
+#: ajapaik/ajapaik/views.py:1580 ajapaik/ajapaik/views.py:1587
+#: ajapaik/ajapaik/views.py:1589
 msgid "Browse photos on map"
 msgstr "Browse photos on map"
 
-#: ajapaik/ajapaik/views.py:1745
+#: ajapaik/ajapaik/views.py:1731
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Your contribution didn't change the estimated location for the photo, not yet anyway."
 
-#: ajapaik/ajapaik/views.py:1747
+#: ajapaik/ajapaik/views.py:1733
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "The photo has been mapped to a new location thanks to you."
 
-#: ajapaik/ajapaik/views.py:1749
+#: ajapaik/ajapaik/views.py:1735
 msgid "Your suggestion was first."
 msgstr "Your suggestion was first."
 
-#: ajapaik/ajapaik/views.py:2026
+#: ajapaik/ajapaik/views.py:2012
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 
-#: ajapaik/ajapaik/views.py:2391
+#: ajapaik/ajapaik/views.py:2377
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2451 ajapaik/ajapaik/views.py:2473
+#: ajapaik/ajapaik/views.py:2437 ajapaik/ajapaik/views.py:2459
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Error uploading file: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2469
+#: ajapaik/ajapaik/views.py:2455
 msgid "Photo already exists in Ajapaik"
 msgstr "Photo already exists in Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2493
+#: ajapaik/ajapaik/views.py:2479
 msgid "Please add pictures to your album"
 msgstr "Please add pictures to your album"
 
-#: ajapaik/ajapaik/views.py:2495
+#: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
 msgstr "Not enough data submitted"
 
-#: ajapaik/ajapaik/views.py:2938
+#: ajapaik/ajapaik/views.py:2923
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still from \"%(film)s\" at %(time)s"
 
-#: ajapaik/ajapaik/views.py:3192
+#: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
 msgstr "Photo uploaded"
 
-#: ajapaik/ajapaik/views.py:3212
+#: ajapaik/ajapaik/views.py:3197
 msgid "Album created"
 msgstr "Album created"
 
-#: ajapaik/ajapaik/views.py:3286
+#: ajapaik/ajapaik/views.py:3271
 msgid "Sorry but we fail to post your comment."
 msgstr "Sorry but we fail to post your comment."
 
-#: ajapaik/ajapaik/views.py:3489
+#: ajapaik/ajapaik/views.py:3474
 msgid "Change password"
 msgstr "Change password"
 
-#: ajapaik/ajapaik/views.py:3493
+#: ajapaik/ajapaik/views.py:3478
 msgid "Change display name"
 msgstr "Change display name"
 
-#: ajapaik/ajapaik/views.py:3495
+#: ajapaik/ajapaik/views.py:3480
 msgid "Newsletter and language settings"
 msgstr "Newsletter and language settings"
 
-#: ajapaik/ajapaik/views.py:3503
+#: ajapaik/ajapaik/views.py:3488
 msgid "Merge another Ajapaik account with current one"
 msgstr "Merge another Ajapaik account with current one"
 
-#: ajapaik/ajapaik/views.py:3586
+#: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
 msgstr "KulKa logo"
 
-#: ajapaik/ajapaik/views.py:3591
+#: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
 msgstr "Ministry of Education logo"
 
-#: ajapaik/ajapaik/views.py:3597
+#: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
 msgstr "EV100 logo"
 
-#: ajapaik/ajapaik/views.py:3604
+#: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
 msgstr "KYSK logo"
 
-#: ajapaik/ajapaik/views.py:3609
+#: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"
 msgstr "Ministry of Culture"
 
-#: ajapaik/ajapaik/views.py:3615
+#: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
 msgstr "Republic of Estonia National Heritage Board"
 
-#: ajapaik/ajapaik/views.py:3622
+#: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
 msgstr "Year of Digital Culture 2020"
 
-#: ajapaik/ajapaik/views.py:3629
+#: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"
 msgstr "Wikimedia Finland"
 
