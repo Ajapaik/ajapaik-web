@@ -676,13 +676,28 @@ class AlbumInformation(AjapaikAPIView):
     API endpoint to retrieve album details.
     '''
 
-    def get(self, request, album_id, format=None):
+    def get(self, _, album_id):
         album = get_object_or_404(Album, id=album_id)
         profile_ids = AlbumPhoto.objects.filter(album=album).values_list('profile_id', flat=True)
         profiles = Profile.objects.filter(pk__in=profile_ids)
 
         return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profiles': ProfileLinkSerializer(instance=profiles, many=True).data})
 
+
+class AlbumPhotoInformation(AjapaikAPIView):
+    '''
+    API endpoint to retrieve album details.
+    '''
+
+    def get(self, _, album_id, photo_id):
+        album = get_object_or_404(Album, id=album_id)
+        albumPhoto = AlbumPhoto.objects.filter(album_id=album_id, photo_id=photo_id, profile__isnull=False).order_by('-created').first()
+        
+        profile = None
+        if albumPhoto:
+            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=albumPhoto.profile.id)).data
+        
+        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profile': profile})
 
 class AlbumPhotos(AjapaikAPIView):
     '''

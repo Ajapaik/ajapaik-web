@@ -5,7 +5,7 @@
 # Translators:
 # Translators:
 msgid ""
-msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2021-09-01 01:48+0300\nPO-Revision-Date: 2019-02-16 22:56+0000\nLast-Translator: Lauri Elias\nLanguage-Team: English (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/en/)\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+msgstr "Project-Id-Version: Ajapaik\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2021-09-02 02:15+0300\nPO-Revision-Date: 2019-02-16 22:56+0000\nLast-Translator: Lauri Elias\nLanguage-Team: English (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/en/)\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -91,14 +91,14 @@ msgstr "You have already submitted this transcription, thank you!"
 msgid "Your transcription has been updated, thank you!"
 msgstr "Your transcription has been updated, thank you!"
 
-#: ajapaik/ajapaik/api.py:963 ajapaik/ajapaik/api.py:1628
-#: ajapaik/ajapaik/api.py:1648 ajapaik/ajapaik/api.py:1664
-#: ajapaik/ajapaik/api.py:1682 ajapaik/ajapaik/api.py:1771
-#: ajapaik/ajapaik/api.py:1891
+#: ajapaik/ajapaik/api.py:978 ajapaik/ajapaik/api.py:1643
+#: ajapaik/ajapaik/api.py:1663 ajapaik/ajapaik/api.py:1679
+#: ajapaik/ajapaik/api.py:1697 ajapaik/ajapaik/api.py:1786
+#: ajapaik/ajapaik/api.py:1906
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-#: ajapaik/ajapaik/api.py:1943 ajapaik/utils.py:157
+#: ajapaik/ajapaik/api.py:1958 ajapaik/utils.py:157
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr "Your suggestion has been saved, but previous consensus remains"
 

@@ -134,6 +134,7 @@ urlpatterns += [
     url(r'^api/v1/user/me/$', api.api_user_me.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/information/$', api.AlbumInformation.as_view(), name='api_album_information'),
+    url(r'^api/v1/album/(?P<album_id>\d+)/photo/(?P<photo_id>\d+)/$', api.AlbumPhotoInformation.as_view(), name='api_albumphoto_information'),
     url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/finna/nearest/$', api.FinnaNearestPhotos.as_view()),
     url(r'^api/v1/album/state/$', api.AlbumPhotos.as_view()),
