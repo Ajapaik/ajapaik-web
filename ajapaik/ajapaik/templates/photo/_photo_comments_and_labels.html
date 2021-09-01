@@ -81,14 +81,17 @@
                 .then(function(response) {
                     return response.json();
                 }).then(function(data){
-                    let popoverContent = $('<div>');
+                    let popoverContent = $('<div>', { style: 'max-width:240px;' });
                     if (data.profiles && data.profiles.length > 0) {
                         popoverContent.append(gettext('Album curated by: '));
-                        data.profiles.forEach(profile => {
+                        data.profiles.forEach((profile, key, arr) => {
                             popoverContent.append($('<a>', {
                                 href: profile.profile_url,
                                 text: profile.name
                             }));
+                            if (!Object.is(arr.length - 1, key)) {
+                                popoverContent.append(", ")
+                            }
                         });
                         popoverContent.append($('<br><br>'));
                     }
