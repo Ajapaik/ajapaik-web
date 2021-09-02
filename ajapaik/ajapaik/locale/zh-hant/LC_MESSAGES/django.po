@@ -7,6 +7,7 @@
 # Author: LNDDYL
 # Author: Winston Sung
 # Author: 予弦
+# Author: 列维劳德
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -17,11 +18,11 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-08-30 11:00:43+0000\n"
+"PO-Revision-Date: 2021-09-02 11:00:25+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-08-30 00:32:00+0000\n"
+"X-POT-Import-Date: 2021-09-02 00:30:35+0000\n"
 "X-Generator: MediaWiki 1.36.1; Translate 2021-07-26\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -109,18 +110,18 @@ msgstr "您已準備提交此轉錄，感謝您！"
 msgid "Your transcription has been updated, thank you!"
 msgstr "您的轉錄已更新，感謝您！"
 
-#: ajapaik/ajapaik/api.py:963 ajapaik/ajapaik/api.py:1628
-#: ajapaik/ajapaik/api.py:1648 ajapaik/ajapaik/api.py:1664
-#: ajapaik/ajapaik/api.py:1682 ajapaik/ajapaik/api.py:1771
-#: ajapaik/ajapaik/api.py:1891
+#: ajapaik/ajapaik/api.py:978 ajapaik/ajapaik/api.py:1643
+#: ajapaik/ajapaik/api.py:1663 ajapaik/ajapaik/api.py:1679
+#: ajapaik/ajapaik/api.py:1697 ajapaik/ajapaik/api.py:1786
+#: ajapaik/ajapaik/api.py:1906
 msgid "Something went wrong"
 msgstr "發生不明錯誤"
 
-#: ajapaik/ajapaik/api.py:1943 ajapaik/utils.py:157
+#: ajapaik/ajapaik/api.py:1958 ajapaik/utils.py:157
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr ""
 
-#: ajapaik/ajapaik/autocomplete_views.py:325
+#: ajapaik/ajapaik/autocomplete_views.py:323
 msgid "No album found"
 msgstr "查無相簿"
 
@@ -778,7 +779,7 @@ msgstr "選單"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3498
+#: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
 msgstr "電子郵件地址"
 
@@ -1194,8 +1195,8 @@ msgstr "Facebook 上的 Ajapaik"
 msgid "Profile and leaderboard"
 msgstr "個人檔案與排行榜"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1890
-#: ajapaik/ajapaik/views.py:1907 ajapaik/ajapaik/views.py:1943
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1876
+#: ajapaik/ajapaik/views.py:1893 ajapaik/ajapaik/views.py:1929
 msgid "Leaderboard"
 msgstr "排行榜"
 
@@ -1649,18 +1650,18 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:79
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "顯示縱向照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:89
 msgid "Show square pictures"
-msgstr ""
+msgstr "顯示方形照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "顯示橫向照片"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
-msgid "Show aerial pictures"
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
+msgid "Show panoramic pictures"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:119
@@ -1669,6 +1670,10 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:129
 msgid "Show pictures made from a raised viewpoint"
+msgstr ""
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
+msgid "Show aerial pictures"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:149
@@ -2080,7 +2085,7 @@ msgstr "在嘗試透過您的社交網路帳號登入時發生錯誤。"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3501
+#: ajapaik/ajapaik/views.py:3486
 msgid "Account Connections"
 msgstr "帳號連接"
 
@@ -2362,140 +2367,140 @@ msgstr "添加"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "您為匿名使用者，您現在可以以您的電子郵件來登入。"
 
-#: ajapaik/ajapaik/views.py:476
+#: ajapaik/ajapaik/views.py:468
 msgid "Non-authenticated user"
 msgstr "非認證使用者"
 
-#: ajapaik/ajapaik/views.py:615
+#: ajapaik/ajapaik/views.py:607
 msgid "Geotagging game"
 msgstr "地理標記競賽"
 
-#: ajapaik/ajapaik/views.py:683
+#: ajapaik/ajapaik/views.py:675
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - 翻拍照片"
 
-#: ajapaik/ajapaik/views.py:1213
+#: ajapaik/ajapaik/views.py:1205
 msgid "Cannot upload to these albums"
 msgstr "無法上傳到這些相簿"
 
-#: ajapaik/ajapaik/views.py:1247
+#: ajapaik/ajapaik/views.py:1239
 msgid "Recuration successful"
 msgstr "重新策展成功"
 
-#: ajapaik/ajapaik/views.py:1249
+#: ajapaik/ajapaik/views.py:1241
 msgid "Problem with album selection"
 msgstr "相簿選擇問題"
 
-#: ajapaik/ajapaik/views.py:1251
+#: ajapaik/ajapaik/views.py:1243
 msgid "Faulty data submitted"
 msgstr "已提交不完整資料"
 
-#: ajapaik/ajapaik/views.py:1594 ajapaik/ajapaik/views.py:1601
-#: ajapaik/ajapaik/views.py:1603
+#: ajapaik/ajapaik/views.py:1580 ajapaik/ajapaik/views.py:1587
+#: ajapaik/ajapaik/views.py:1589
 msgid "Browse photos on map"
 msgstr "在地圖上瀏覽照片"
 
-#: ajapaik/ajapaik/views.py:1745
+#: ajapaik/ajapaik/views.py:1731
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "您的貢獻還沒有更改到照片的估計位置"
 
-#: ajapaik/ajapaik/views.py:1747
+#: ajapaik/ajapaik/views.py:1733
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "照片已對應到新的位置，感謝您。"
 
-#: ajapaik/ajapaik/views.py:1749
+#: ajapaik/ajapaik/views.py:1735
 msgid "Your suggestion was first."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2026
+#: ajapaik/ajapaik/views.py:2012
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "搜尋老照片，將它們添加到 Ajapaik，判斷它們的位置並分享相簿成果！"
 
-#: ajapaik/ajapaik/views.py:2391
+#: ajapaik/ajapaik/views.py:2377
 msgid "OK"
 msgstr "好"
 
-#: ajapaik/ajapaik/views.py:2451 ajapaik/ajapaik/views.py:2473
+#: ajapaik/ajapaik/views.py:2437 ajapaik/ajapaik/views.py:2459
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "上傳檔案錯誤：%s（%s）"
 
-#: ajapaik/ajapaik/views.py:2469
+#: ajapaik/ajapaik/views.py:2455
 msgid "Photo already exists in Ajapaik"
 msgstr "照片已存在於 Ajapaik"
 
-#: ajapaik/ajapaik/views.py:2493
+#: ajapaik/ajapaik/views.py:2479
 #, fuzzy
 msgid "Please add pictures to your album"
 msgstr "請添加照片至您的相簿"
 
-#: ajapaik/ajapaik/views.py:2495
+#: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
 msgstr "沒有提交足夠的資料"
 
-#: ajapaik/ajapaik/views.py:2938
+#: ajapaik/ajapaik/views.py:2923
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "來自於 \"%(film)s\" at %(time)s 的靜態攝影"
 
-#: ajapaik/ajapaik/views.py:3192
+#: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
 msgstr "照片已上傳"
 
-#: ajapaik/ajapaik/views.py:3212
+#: ajapaik/ajapaik/views.py:3197
 msgid "Album created"
 msgstr "相簿已建立"
 
-#: ajapaik/ajapaik/views.py:3286
+#: ajapaik/ajapaik/views.py:3271
 msgid "Sorry but we fail to post your comment."
 msgstr "很抱歉，發佈您的評論出現錯誤。"
 
-#: ajapaik/ajapaik/views.py:3489
+#: ajapaik/ajapaik/views.py:3474
 msgid "Change password"
 msgstr "修改密碼"
 
-#: ajapaik/ajapaik/views.py:3493
+#: ajapaik/ajapaik/views.py:3478
 msgid "Change display name"
 msgstr "更改顯示名稱"
 
-#: ajapaik/ajapaik/views.py:3495
+#: ajapaik/ajapaik/views.py:3480
 msgid "Newsletter and language settings"
 msgstr "時事通訊與語言設定"
 
-#: ajapaik/ajapaik/views.py:3503
+#: ajapaik/ajapaik/views.py:3488
 msgid "Merge another Ajapaik account with current one"
 msgstr "與目前帳號合併其他的 Ajapaik 帳號"
 
-#: ajapaik/ajapaik/views.py:3586
+#: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
 msgstr "KulKa 標誌"
 
-#: ajapaik/ajapaik/views.py:3591
+#: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
 msgstr "教育部標誌"
 
-#: ajapaik/ajapaik/views.py:3597
+#: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
 msgstr "EV100 標誌"
 
-#: ajapaik/ajapaik/views.py:3604
+#: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
 msgstr "KYSK 標誌"
 
-#: ajapaik/ajapaik/views.py:3609
+#: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3615
+#: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3622
+#: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3629
+#: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"
 msgstr ""
 

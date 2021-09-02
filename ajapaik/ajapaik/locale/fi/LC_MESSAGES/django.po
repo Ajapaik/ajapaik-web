@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-08-30 11:00:39+0000\n"
+"PO-Revision-Date: 2021-09-02 11:00:20+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-08-30 00:32:00+0000\n"
+"X-POT-Import-Date: 2021-09-02 00:30:35+0000\n"
 "X-Generator: MediaWiki 1.36.1; Translate 2021-07-26\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -114,18 +114,18 @@ msgstr "Olit jo aikaisemmin lähettänyt tämän litteroinnin, kiitos!"
 msgid "Your transcription has been updated, thank you!"
 msgstr "Litterointisi on päivitetty, kiitos!"
 
-#: ajapaik/ajapaik/api.py:963 ajapaik/ajapaik/api.py:1628
-#: ajapaik/ajapaik/api.py:1648 ajapaik/ajapaik/api.py:1664
-#: ajapaik/ajapaik/api.py:1682 ajapaik/ajapaik/api.py:1771
-#: ajapaik/ajapaik/api.py:1891
+#: ajapaik/ajapaik/api.py:978 ajapaik/ajapaik/api.py:1643
+#: ajapaik/ajapaik/api.py:1663 ajapaik/ajapaik/api.py:1679
+#: ajapaik/ajapaik/api.py:1697 ajapaik/ajapaik/api.py:1786
+#: ajapaik/ajapaik/api.py:1906
 msgid "Something went wrong"
 msgstr "Jokin meni pieleen"
 
-#: ajapaik/ajapaik/api.py:1943 ajapaik/utils.py:157
+#: ajapaik/ajapaik/api.py:1958 ajapaik/utils.py:157
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr "Ehdotuksesi on tallennettu, mutta aiempi yhteisymmärrys on edelleen voimassa"
 
-#: ajapaik/ajapaik/autocomplete_views.py:325
+#: ajapaik/ajapaik/autocomplete_views.py:323
 msgid "No album found"
 msgstr "Albumia ei löydy"
 
@@ -783,7 +783,7 @@ msgstr "Valikko"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3498
+#: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
 msgstr "Sähköpostiosoitteet"
 
@@ -1198,8 +1198,8 @@ msgstr "Ajapaik Facebookissa"
 msgid "Profile and leaderboard"
 msgstr "Profiili ja pistetaulukko"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1890
-#: ajapaik/ajapaik/views.py:1907 ajapaik/ajapaik/views.py:1943
+#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1876
+#: ajapaik/ajapaik/views.py:1893 ajapaik/ajapaik/views.py:1929
 msgid "Leaderboard"
 msgstr "Pistetaulukko"
 
@@ -1659,15 +1659,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:89
 msgid "Show square pictures"
-msgstr ""
+msgstr "Näytä neliönmuotoiset kuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
 msgid "Show landscape pictures"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
-msgid "Show aerial pictures"
-msgstr "Näytä ilmakuvat"
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
+msgid "Show panoramic pictures"
+msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:119
 msgid "Show pictures made from the ground level"
@@ -1676,6 +1676,10 @@ msgstr "Näytä maanpinnalta otetut kuvat"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:129
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Näytä kuvat, jotka on otettu kohotetusta näkökulmasta"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:139
+msgid "Show aerial pictures"
+msgstr "Näytä ilmakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:149
 msgid "Show interior pictures"
@@ -2094,7 +2098,7 @@ msgstr "Virhe yritettäessä kirjautua sisään sosiaalisen verkoston tililläsi
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3501
+#: ajapaik/ajapaik/views.py:3486
 msgid "Account Connections"
 msgstr "Tunnusten yhteydet"
 
@@ -2396,140 +2400,140 @@ msgstr "Lisää"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "Olet anonyymi. Voit nyt kirjautua sähköpostiosoitteellasi."
 
-#: ajapaik/ajapaik/views.py:476
+#: ajapaik/ajapaik/views.py:468
 msgid "Non-authenticated user"
 msgstr "Ei tunnistettu käyttäjä"
 
-#: ajapaik/ajapaik/views.py:615
+#: ajapaik/ajapaik/views.py:607
 msgid "Geotagging game"
 msgstr "Paikannuspeli"
 
-#: ajapaik/ajapaik/views.py:683
+#: ajapaik/ajapaik/views.py:675
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s - uusintakuvat"
 
-#: ajapaik/ajapaik/views.py:1213
+#: ajapaik/ajapaik/views.py:1205
 msgid "Cannot upload to these albums"
 msgstr "Et voi lähettää kuvia näihin albumeihin"
 
-#: ajapaik/ajapaik/views.py:1247
+#: ajapaik/ajapaik/views.py:1239
 msgid "Recuration successful"
 msgstr "Uudelleen valikoiminen onnistui"
 
-#: ajapaik/ajapaik/views.py:1249
+#: ajapaik/ajapaik/views.py:1241
 msgid "Problem with album selection"
 msgstr "Albumin valinnassa on ongelma"
 
-#: ajapaik/ajapaik/views.py:1251
+#: ajapaik/ajapaik/views.py:1243
 msgid "Faulty data submitted"
 msgstr "Viallista tietoa lähetetty"
 
-#: ajapaik/ajapaik/views.py:1594 ajapaik/ajapaik/views.py:1601
-#: ajapaik/ajapaik/views.py:1603
+#: ajapaik/ajapaik/views.py:1580 ajapaik/ajapaik/views.py:1587
+#: ajapaik/ajapaik/views.py:1589
 msgid "Browse photos on map"
 msgstr "Selaa kuvia kartalla"
 
-#: ajapaik/ajapaik/views.py:1745
+#: ajapaik/ajapaik/views.py:1731
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Panoksesi ei muuttanut valokuvan arvioitua sijaintia, ainakaan vielä."
 
-#: ajapaik/ajapaik/views.py:1747
+#: ajapaik/ajapaik/views.py:1733
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Valokuva sijoitettiin uuteen sijaintiin panoksesi ansiosta."
 
-#: ajapaik/ajapaik/views.py:1749
+#: ajapaik/ajapaik/views.py:1735
 msgid "Your suggestion was first."
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:2026
+#: ajapaik/ajapaik/views.py:2012
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Etsi vanhoja valokuvia, lisää ne Ajapaikiin, määrittele kuvien sijainnit ja jaa syntynyt albumi!"
 
-#: ajapaik/ajapaik/views.py:2391
+#: ajapaik/ajapaik/views.py:2377
 msgid "OK"
 msgstr "OK"
 
-#: ajapaik/ajapaik/views.py:2451 ajapaik/ajapaik/views.py:2473
+#: ajapaik/ajapaik/views.py:2437 ajapaik/ajapaik/views.py:2459
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Virhe kuvan tallennuksessa: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2469
+#: ajapaik/ajapaik/views.py:2455
 msgid "Photo already exists in Ajapaik"
 msgstr "Kuva on jo Ajapaikissa"
 
-#: ajapaik/ajapaik/views.py:2493
+#: ajapaik/ajapaik/views.py:2479
 #, fuzzy
 msgid "Please add pictures to your album"
 msgstr "Lisää kuvia albumiisi"
 
-#: ajapaik/ajapaik/views.py:2495
+#: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
 msgstr "Tietoja ei ole lisätty tarpeeksi"
 
-#: ajapaik/ajapaik/views.py:2938
+#: ajapaik/ajapaik/views.py:2923
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Still-kuva elokuvasta \"%(film)s\" %(time)s kertaa"
 
-#: ajapaik/ajapaik/views.py:3192
+#: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
 msgstr "Valokuva ladattu"
 
-#: ajapaik/ajapaik/views.py:3212
+#: ajapaik/ajapaik/views.py:3197
 msgid "Album created"
 msgstr "Albumi luotu"
 
-#: ajapaik/ajapaik/views.py:3286
+#: ajapaik/ajapaik/views.py:3271
 msgid "Sorry but we fail to post your comment."
 msgstr "Pahoittelut, kommenttiasi ei voitu julkaista"
 
-#: ajapaik/ajapaik/views.py:3489
+#: ajapaik/ajapaik/views.py:3474
 msgid "Change password"
 msgstr "Vaihda salasana"
 
-#: ajapaik/ajapaik/views.py:3493
+#: ajapaik/ajapaik/views.py:3478
 msgid "Change display name"
 msgstr "Vaihda käyttäjänimi"
 
-#: ajapaik/ajapaik/views.py:3495
+#: ajapaik/ajapaik/views.py:3480
 msgid "Newsletter and language settings"
 msgstr "Uutiskirje ja kieliasetukset"
 
-#: ajapaik/ajapaik/views.py:3503
+#: ajapaik/ajapaik/views.py:3488
 msgid "Merge another Ajapaik account with current one"
 msgstr "Yhdistä toinen Ajapaik-käyttäjätunnus nykyiseen"
 
-#: ajapaik/ajapaik/views.py:3586
+#: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
 msgstr "KulKa logo"
 
-#: ajapaik/ajapaik/views.py:3591
+#: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
 msgstr "Opetusministeriön logo"
 
-#: ajapaik/ajapaik/views.py:3597
+#: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
 msgstr "EV100 logo"
 
-#: ajapaik/ajapaik/views.py:3604
+#: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
 msgstr "KYSK logo"
 
-#: ajapaik/ajapaik/views.py:3609
+#: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"
 msgstr "Kulttuuriministeriö"
 
-#: ajapaik/ajapaik/views.py:3615
+#: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3622
+#: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
 msgstr ""
 
-#: ajapaik/ajapaik/views.py:3629
+#: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"
 msgstr "Wikimedia Suomi"
 
