@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.utils.translation import get_language_info, ugettext_lazy as _
+from django.utils.translation import get_language_info, gettext_lazy as _
 from django_comments import get_model
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm

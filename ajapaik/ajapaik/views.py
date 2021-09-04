@@ -52,7 +52,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import condition
@@ -221,36 +221,29 @@ def get_album_info_modal_content(request):
         context['confirmed_similar_photo_count'] = album.confirmed_similar_photo_count_with_subalbums
 
         # Get all users that have either curated into selected photo set or re-curated into selected album
-        users_curated_into_this_or_sub = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False,
-                                                                   type=AlbumPhoto.CURATED, album=album).values(
+        users_curated_to_album = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False, album=album, type__in=[AlbumPhoto.UPLOADED, AlbumPhoto.CURATED, AlbumPhoto.RECURATED]).values(
             'profile').annotate(count=Count('profile'))
-        users_recurated_into_this = AlbumPhoto.objects.filter(album=album, type=AlbumPhoto.RECURATED,
-                                                              profile__isnull=False).values('profile').annotate(
-            count=Count('profile'))
-        final_score_dict = {}
-        for u in users_curated_into_this_or_sub:
-            final_score_dict[u['profile']] = u['count']
-        for u in users_recurated_into_this:
-            if u['profile'] in final_score_dict:
-                final_score_dict[u['profile']] += u['count']
-            else:
-                final_score_dict[u['profile']] = u['count']
-        album_curators = Profile.objects.filter(user_id__in=final_score_dict.keys(), first_name__isnull=False,
+
+        user_score_dict = {}
+        for u in users_curated_to_album:
+            user_score_dict[u['profile']] = u['count']
+
+        album_curators = Profile.objects.filter(user_id__in=user_score_dict.keys(), first_name__isnull=False,
                                                 last_name__isnull=False)
-        final_score_dict = [x[0] for x in sorted(final_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
+        user_score_dict = [x[0] for x in sorted(user_score_dict.items(), key=operator.itemgetter(1), reverse=True)]
         album_curators = list(album_curators)
-        album_curators.sort(key=lambda z: final_score_dict.index(z.id))
+        album_curators.sort(key=lambda z: user_score_dict.index(z.id))
         context['album_curators'] = album_curators
 
         if album.lat and album.lon:
             context['nearby_albums'] = Album.objects \
-                                           .filter(
+                .filter(
                 geography__distance_lte=(Point(album.lon, album.lat), D(m=50000)),
                 is_public=True,
                 atype=Album.CURATED,
                 id__ne=album.id
             ) \
-                                           .order_by('?')[:3]
+                .order_by('?')[:3]
         album_id_str = str(album.id)
         context['share_game_link'] = request.build_absolute_uri(reverse('game')) + '?album=' + album_id_str
         context['share_map_link'] = request.build_absolute_uri(reverse('map')) + '?album=' + album_id_str
@@ -831,6 +824,15 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
+
+        # Testing: Album.id 38516 = Photos – blacklisti
+        if not album or album.id != 38516:
+            try:
+                exclude_photos = Album.objects.get(id=38516).photos.all()
+                photos = photos.exclude(pk__in=exclude_photos).all()
+            except Album.DoesNotExist:
+                pass
+
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
                                    face_recognition_rectangles__deleted__isnull=True)
@@ -1323,20 +1325,14 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             is_selection = True
     else:
         template = 'photo/photoview.html'
-    if not photo_obj.description:
-        if not photo_obj.get_display_text:
-            title = 'Unknown photo'
-        else:
-            title = photo_obj.get_display_text
+
+    if not photo_obj.get_display_text:
+        title = 'Unknown photo'
     else:
-        if photo_obj.description_original_language:
-            first_original_language = photo_obj.description_original_language.split(',')[0]
-            original_desc = getattr(photo_obj, f'description_{first_original_language}')
-            title = ' '.join(original_desc.split(' ')[:5])[:50]
-        else:
-            title = ' '.join(photo_obj.description.split(' ')[:5])[:50]
-        if photo_obj.author:
-            title += u' – ' + photo_obj.author
+        title = ' '.join(photo_obj.get_display_text.split(' ')[:5])[:50]
+
+    if photo_obj.author:
+        title += u' – ' + photo_obj.author
 
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
     full_album_id_list = list(album_ids)
@@ -2136,7 +2132,7 @@ def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
         Album.objects.filter(((Q(profile=user_profile) | Q(is_public=True)) & ~Q(atype=Album.AUTO)) | (
-                Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
+            Q(open=True) & ~Q(atype=Album.AUTO))).order_by('name').all(), many=True
     )
 
     return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
@@ -2560,8 +2556,7 @@ def muis_import(request):
         return render(request, 'muis-import.html', {
             'user_can_import': user_can_import,
             'collections': collections
-            }
-        )
+        })
 
 
 @user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
@@ -3225,14 +3220,14 @@ class CommentList(View):
     comment_model = django_comments.get_model()
     form_class = django_comments.get_form()
 
-    def _agregate_comment_and_replies(self, comments, flat_comment_list):
+    def _aggregate_comment_and_replies(self, comments, flat_comment_list):
         '''Recursively build comments and their replies list.'''
         for comment in comments:
             flat_comment_list.append(comment)
             subcomments = get_comment_replies(comment).filter(
                 is_removed=False
             ).order_by('submit_date')
-            self._agregate_comment_and_replies(
+            self._aggregate_comment_and_replies(
                 comments=subcomments, flat_comment_list=flat_comment_list
             )
 
@@ -3243,7 +3238,7 @@ class CommentList(View):
         comments = self.comment_model.objects.filter(
             object_pk=photo_id, parent_id=F('pk'), is_removed=False
         ).order_by('submit_date')
-        self._agregate_comment_and_replies(
+        self._aggregate_comment_and_replies(
             comments=comments, flat_comment_list=flat_comment_list
         )
         content = render_to_string(

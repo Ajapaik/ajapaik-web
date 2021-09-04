@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 MAINTAINER Lauri Elias <lauri@ajapaik.ee>
 
+RUN apt-get --allow-releaseinfo-change update
+
 RUN apt-get update && \
     apt-get install -y gdal-bin libgdal-dev python3-gdal proj-bin libproj-dev
 

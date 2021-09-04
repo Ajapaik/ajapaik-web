@@ -1,7 +1,7 @@
-# Translation of Ajapaik Web app - JavaScript to Catalan (català)
+# Translation of Ajapaik Web app - JavaScript to Kongo (Kongo)
 # Exported from translatewiki.net
 #
-# Author: Fitoschido
+# Author: Cgmbo
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,11 +9,11 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-09-02 11:00:19+0000\n"
+"PO-Revision-Date: 2021-09-02 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-09-02 00:30:35+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
+"Language: kg\n"
 "X-Generator: MediaWiki 1.36.1; Translate 2021-07-26\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "Location information is unavailable."
-msgstr "La informació d’ubicació no està disponible."
+msgstr "Bansangu ya kisika kele ve."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:395
 msgid "The request to get user location timed out."
@@ -31,32 +31,32 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "An unknown error occurred."
-msgstr "S’ha produït un error desconegut."
+msgstr "Kifu ya me zabana ve me salama."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:872
 #: ajapaik/ajapaik/static/js/ajp-core.js:888
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "System error"
-msgstr "Error del sistema"
+msgstr "Kifu ya systeme"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1018
 #: ajapaik/ajapaik/static/js/ajp-core.js:1063
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "Not selected"
-msgstr ""
+msgstr "Nge me pona ve"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1595
 msgid "Go to my location"
-msgstr "Vés a la meva ubicació"
+msgstr "Kwenda na kisika na mono"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1607
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
-msgstr "Tanca"
+msgstr "Kanga"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1759
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "Pona kisika ya kukanga foto!"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1769
 #: ajapaik/ajapaik/static/js/ajp-core.js:1821
@@ -66,29 +66,29 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-core.js:1802
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
-msgstr "Confirmeu la ubicació correcta"
+msgstr "Ndimisa kisika ya me fwana"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1813
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 msgid "Submit your own location"
-msgstr "Envieu la vostra pròpia ubicació"
+msgstr "Tinda kisika na nge"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1840
 msgid "You"
-msgstr "Vós"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1844
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
-msgstr "Usuari anònim"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1846
 msgid "Anonymous users"
-msgstr "Usuaris anònims"
+msgstr "Bantu ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1910
 msgid "Current location"
-msgstr "Ubicació actual"
+msgstr "Kisika ya sesepi"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
@@ -104,27 +104,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
-msgstr ""
+msgstr "Na kati ya  %(from)s mpi %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
 msgid "After approximately %(from)s"
-msgstr ""
+msgstr "Na nima ya pene-pene %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
 msgid "After %(from)s"
-msgstr ""
+msgstr "Na nima %(from)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
 msgid "Before approximately %(to)s"
-msgstr ""
+msgstr "Na ntwala ya pene-pene %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
 msgid "Before %(to)s"
-msgstr ""
+msgstr "Na ntwala %(to)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
 msgid "Approximately %(date)s"
-msgstr ""
+msgstr "Pene-pene ya %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
@@ -137,11 +137,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr ""
+msgstr "Ndimisa dati"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
@@ -153,17 +153,17 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "Gràcies!"
+msgstr "Matondo!"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
-msgstr ""
+msgstr "MVULA.NGONDA.KILUMBU"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr "Katula"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
@@ -171,19 +171,19 @@ msgstr "Cancel·la"
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Submit"
-msgstr "Envia"
+msgstr "Tinda"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr ""
+msgstr "Tubila kutalana na nge"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr ""
+msgstr "Sonika MVULA.NGONDA.DATI (NGONDA.KILUMBU ke mfunu)"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr ""
+msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
@@ -191,48 +191,48 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
-msgstr ""
+msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr "Data aproximada entre parèntesis"
+msgstr "Dati ya pene-pene na baparantezi"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
-msgstr ""
+msgstr "(1944) | (1940.05)..1941.08.21)"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "Sou anònim"
+msgstr "Zina na nge me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
-msgstr ""
+msgstr "Yika foto yai na album (kansi yonso ve)"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Aerial"
-msgstr ""
+msgstr "Ya zulu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
-msgstr "Detalls de l’àlbum"
+msgstr "Bansangu ya album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "Album kele ti bafoto <em>%(photoCount)s</em>"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
-msgstr "Adreça aproximada"
+msgstr "Adrese ya pene-pene"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr "Segur que voleu crear un àlbum amb menys de 5 fotos? Us recomanem incloure-hi 10 o més imatges."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
-msgstr ""
+msgstr "Munkwa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
@@ -240,16 +240,16 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr ""
+msgstr "Bakomantere ya kele na album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
-msgstr "Comentaris"
+msgstr "Bakomantere"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "Confirm"
-msgstr ""
+msgstr "Ndimisa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
@@ -257,24 +257,24 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
-msgstr "Data"
+msgstr "Dati"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 msgid "Description"
-msgstr "Descripció"
+msgstr "Ntendula"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
-msgstr "Edita"
+msgstr "Sonika"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr ""
+msgstr "Nganda"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Beto me kuka ve kutinda bakomantere, lolula."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
@@ -287,47 +287,47 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr ""
+msgstr "Ntoto"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Image has location and view direction info"
-msgstr ""
+msgstr "Kifwanisu kele ti bansangu ya kisika mpi ya ndambu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Image has no location info"
-msgstr ""
+msgstr "Kifwanisu kele ve ti bansangu ya kisika"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Image has only location, no view direction"
-msgstr ""
+msgstr "Kifwanisu ke kaka ti kisika, kansi ve ndambu ya kutala"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Image has rephotos"
-msgstr ""
+msgstr "Kifwansu ke ti ba rephoto"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Image has similar photos"
-msgstr ""
+msgstr "Kifwanisu kele ti bafoto ya mutindu mosi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Institution"
-msgstr ""
+msgstr "Kimvuka"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Interior"
-msgstr ""
+msgstr "Kati"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Invert colors"
-msgstr ""
+msgstr "Soba mikubu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert"
-msgstr ""
+msgstr "Soba"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Licence"
-msgstr "Llicència"
+msgstr "Nswa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Link copied to clipboard"
@@ -339,15 +339,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "Beto me mona ve ata foto mosi ya zulu na album yai"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "Beto me mona ve ata foto mosi ya zulu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "Beto me mona ve kuma ya nganda na album yai"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found"
@@ -387,19 +387,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "Beto me mona ve ata kifwanisu mosi na album yai"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "Beto me mona ve ata kifwanisu mosi na bafiltre ya beto ponaka na album yai"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "Beto me mona ve ata kifanisu mosi na bafiltre ya nge ponaka"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found"
-msgstr ""
+msgstr "Beto me mona ve ata kifwanisu mosi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures which have 0 geotags were found in this album"
@@ -468,7 +468,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "Number"
-msgstr ""
+msgstr "Ntalu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "Picture added to album by:"
@@ -476,15 +476,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "Picture already in album(s)"
-msgstr ""
+msgstr "Foto kele deja na album to ba-album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "Kifwanisu kele ti bansangu ya me tala kisika"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr ""
+msgstr "Foto kele deja na Ajapaik. Nge lenda landa kuyika yo na album na nge, bo ta pesa nge ve matonsi ya curation"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "Picture set has no annotations"
@@ -528,66 +528,66 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Points"
-msgstr ""
+msgstr "Matonsi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
-msgstr ""
+msgstr "Yo Me mata"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Remove from selection"
-msgstr ""
+msgstr "Katula na yina bo me pona"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Rephotos in album"
-msgstr ""
+msgstr "Rephoto na album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Rotate"
-msgstr ""
+msgstr "Balusa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Show pictures on map"
-msgstr ""
+msgstr "Songa bifwanisu na karte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Similar photos in album"
-msgstr ""
+msgstr "Bafoto ya mutindu mosi na album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 msgid "Size"
-msgstr "Mida"
+msgstr "Nene"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
+msgstr "Kima mosi me kwendila ve mbote, tala ntete connection na nge. Kana yo ke bonga kaka ve, sonikila beto na Tawk.to"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Source ID"
-msgstr ""
+msgstr "ID ya kisina"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Source"
-msgstr "Font"
+msgstr "Kisina"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
 msgid "Thank you! Bad rectangle deleted."
-msgstr ""
+msgstr "Matondo! Beto me mona rectangle ya mbi."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
 msgid "Thank you!"
-msgstr "Gràcies!"
+msgstr "Matono!"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "This album contains a film"
-msgstr ""
+msgstr "Album yai kele ti filme"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "Title"
-msgstr "Títol"
+msgstr "Ntu-diambu"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "URL"
@@ -595,55 +595,55 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Mwana-bakala ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
 msgid "Unidentified girl"
-msgstr ""
+msgstr "Mwana-nkento ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
 msgid "Unidentified child"
-msgstr ""
+msgstr "Mwana ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "Mbuta-muntu ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "Mama ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "Mbuta ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Mununu ya bakala ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "Mununu ya nkento ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Mununu ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified man"
-msgstr ""
+msgstr "Bakala ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified woman"
-msgstr ""
+msgstr "Nkento ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified person"
-msgstr ""
+msgstr "Muntu ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unknown author"
-msgstr ""
+msgstr "Munkwa-kima ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
@@ -655,47 +655,47 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "photos"
-msgstr ""
+msgstr "bafoto"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "Kutula na ndonga"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "ya ntete mpenza"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "ya nsuka"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "fioti"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr ""
+msgstr "mingi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
-msgstr ""
+msgstr "Bifwanisu ya kele ntama ti nge"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures closest to you"
-msgstr ""
+msgstr "Bifwanisu ya kele pene-pene ti nge"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:126
 msgid "commented"
-msgstr ""
+msgstr "ya kele ti bakomantere"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
-msgstr ""
+msgstr "foto ya bo kangaka diaka"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
-msgstr ""
+msgstr "bo me yika"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
 msgid "geotagged"
@@ -703,7 +703,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:138
 msgid "liked"
-msgstr ""
+msgstr "ya bo me zola"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
@@ -712,7 +712,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
-msgstr ""
+msgstr "ya bo me tula dati"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
 msgid "transcribed"
@@ -724,11 +724,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
-msgstr ""
+msgstr "ya bo me tala"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
-msgstr ""
+msgstr "bifwanisu"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:167
 msgid "By reverse timestamp"
@@ -740,51 +740,51 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:173
 msgid "Pictures from the map"
-msgstr ""
+msgstr "Bifwanisu katuka na karte"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:260
 msgid "Did you mean to search from:"
-msgstr ""
+msgstr "Keti nge vandaka kuzola kusosa katuka na:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:261
 msgid "all pictures"
-msgstr "totes les imatges"
+msgstr "bifwanisu yonso"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:289
 msgid "Albums"
-msgstr "Àlbums"
+msgstr "Ba-album"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "My favorites"
-msgstr ""
+msgstr "Bima ya mono ke zolaka"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:300
 msgid "My rephotos"
-msgstr ""
+msgstr "Barephoto na mono"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:302
 msgid "Rephotos by %(user)s"
-msgstr ""
+msgstr "Barephoto ya %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:307
 msgid "All pictures"
-msgstr ""
+msgstr "Bafoto yonso"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "Nge me tala bafoto yonso ya album yai, beto ke songa bafoto sesepi kaka mpidina."
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:184
 msgid "You have seen all the pictures from this album."
-msgstr ""
+msgstr "Nge me mona bafoto yonso ya album yai."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
 msgid "You're anonymous."
-msgstr "Sou anònim."
+msgstr "Zina na nge me zabana ve."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:380
 msgid " You can now log in with your e-mail."
-msgstr ""
+msgstr "Nge lenda kota sesepi ti e-mail na nge."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
 msgid "Toggle map center lock"
@@ -792,7 +792,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
 msgid "Approximate"
-msgstr ""
+msgstr "Pene-pene"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
@@ -801,7 +801,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Object"
-msgstr ""
+msgstr "Kikuma"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:516
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
@@ -811,31 +811,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
-msgstr "Quadre de cerca"
+msgstr "Lupangu ya nsosa"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
-msgstr ""
+msgstr "Ngindu ya kati-kati"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr ""
+msgstr "Ngindu na nge"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
-msgstr ""
+msgstr "Na nki kiteso kisika ya bo me songa me soba?"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
-msgstr "Continua"
+msgstr "Landa"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:703
 msgid "a little"
-msgstr "una mica"
+msgstr "mwa fioti"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:704
 msgid "a lot"
-msgstr "un muntó"
+msgstr "mingi"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
@@ -864,7 +864,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
-msgstr ""
+msgstr "Matonsi ya bo me pesa nge"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
-msgstr ""
+msgstr "Katula filtre ya album"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
@@ -884,7 +884,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
-msgstr ""
+msgstr "Sadila filtre ya album"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
@@ -899,7 +899,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ngindu na nge me soba"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
@@ -911,31 +911,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the image?"
-msgstr ""
+msgstr "Bo me sonika nki na kifwanisu?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
-msgstr ""
+msgstr "Nge me zabana ve, kota sambu na kuyika bangogo"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
-msgstr ""
+msgstr "Kota"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Pona mvula (kana nge me zola)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "Pona kana bakala to nkento (kana nge me zola)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
-msgstr ""
+msgstr "Soba mvula"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
 msgid "Change gender"
-msgstr ""
+msgstr "Soba bakala to nkento"
 
 #: ajapaik/ajapaik/static/js/constants.js:45
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
@@ -943,43 +943,43 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:48
 msgid "Object is required"
-msgstr ""
+msgstr "Nge fwete tula kikuma"
 
 #: ajapaik/ajapaik/static/js/constants.js:51
 msgid "optional"
-msgstr ""
+msgstr "kana nge me zola"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Ya me zabana ve"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
-msgstr ""
+msgstr "Bakala"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Female"
-msgstr ""
+msgstr "Nkento"
 
 #: ajapaik/ajapaik/static/js/constants.js:55
 msgid "Child"
-msgstr ""
+msgstr "Mwana"
 
 #: ajapaik/ajapaik/static/js/constants.js:56
 msgid "Elderly"
-msgstr ""
+msgstr "Mununu"
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Adult"
-msgstr ""
+msgstr "Mbuta"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Delete"
-msgstr "Suprimeix"
+msgstr "Vwansa"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "What is displayed"
-msgstr "Què s’hi mostra"
+msgstr "Yina ke monana"
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
@@ -995,15 +995,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:72
 msgid "Change person name"
-msgstr ""
+msgstr "Soba zina ya muntu"
 
 #: ajapaik/ajapaik/static/js/constants.js:73
 msgid "Change object class"
-msgstr "Canvia la classe de l’objecte"
+msgstr "Soba kikuma"
 
 #: ajapaik/ajapaik/static/js/constants.js:74
 msgid "Face"
-msgstr ""
+msgstr "Luse"
 
 #: ajapaik/ajapaik/static/js/constants.js:79
 msgid "Failed to load object annotation classes"
@@ -1076,38 +1076,38 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:99
 #: ajapaik/ajapaik/static/js/constants.js:106
 msgid "Searching"
-msgstr ""
+msgstr "Kusosa"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Search for object"
-msgstr ""
+msgstr "Sosa kikuma"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Need 2 characters"
-msgstr ""
+msgstr "Yo fwete vanda bisono 2"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "No results found"
-msgstr "No s’ha trobat cap resultat"
+msgstr "Beto me mona kima ve"
 
 #: ajapaik/ajapaik/static/js/constants.js:105
 msgid "Find existing person"
-msgstr ""
+msgstr "Sosa muntu ya kele deja"
 
 #: ajapaik/ajapaik/static/js/constants.js:107
 msgid "Enter person name"
-msgstr ""
+msgstr "Sonika zina ya muntu"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Add new person"
-msgstr ""
+msgstr "Yika muntu ya mpa"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Specify person name"
-msgstr ""
+msgstr "Monisa zina ya muntu"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
@@ -1130,7 +1130,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Album ya kukangula"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"

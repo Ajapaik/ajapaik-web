@@ -68,7 +68,7 @@
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
-                let requestUrl = album_information_url.replace('0', anchorLink.attr('data-id'));
+                let requestUrl = api_albumphoto_information.replace('album/0', 'album/' + anchorLink.attr('data-id')).replace('photo/0', 'photo/' + '{{ photo.id }}');
                 let request = new Request(
                     requestUrl,
                     {
@@ -81,9 +81,17 @@
                 .then(function(response) {
                     return response.json();
                 }).then(function(data){
-                    let popoverContent = $('<div>');
+                    let popoverContent = $('<div>', { style: 'max-width:240px;' });
+                    if (data.profile) {
+                        popoverContent.append(gettext('Picture added to album by:') + ' ');
+                        popoverContent.append($('<a>', {
+                            href: data.profile.profile_url,
+                            text: data.profile.name
+                        }));
+                        popoverContent.append($('<br><br>'));
+                    }
                     if (data.photo_count) {
-                        let photoCountText = interpolate(gettext('Album has <em>%(photoCount)s</em> pictures'), {photoCount: data.photo_count}, true);
+                        let photoCountText = interpolate(ngettext('Album has <em>%(photoCount)s</em> picture', 'Album has <em>%(photoCount)s</em> pictures', data.photo_count), {photoCount: data.photo_count}, true);
                         popoverContent.append(photoCountText);
                     }
 

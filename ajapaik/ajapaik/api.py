@@ -31,7 +31,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from google.auth.transport import requests as google_auth_requests
 from google.oauth2 import id_token
@@ -45,12 +45,13 @@ from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik import forms
-from ajapaik.ajapaik import serializers
+from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, PhotoSerializer, \
+    PhotoWithDistanceSerializer, ProfileLinkSerializer
 from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, Photo, PhotoSceneSuggestion, Points, Profile, Licence, PhotoLike, \
-    PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, ImageSimilarity, \
-    Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, PhotoRotationSuggestion, \
-    MuisCollection
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Profile, Licence, \
+    PhotoLike, PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, \
+    ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, \
+    PhotoRotationSuggestion, MuisCollection
 from ajapaik.ajapaik.utils import merge_profiles
 from ajapaik.utils import can_action_be_done, suggest_photo_edit
 
@@ -429,11 +430,11 @@ class AlbumList(AjapaikAPIView):
             .exclude(atype=Album.PERSON) \
             .filter(filter_rule) \
             .order_by('-created')
-        albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+        albums = AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
             'error': RESPONSE_STATUSES['OK'],
-            'albums': serializers.AlbumDetailsSerializer(
+            'albums': AlbumDetailsSerializer(
                 instance=albums,
                 many=True,
                 context={'request': request}
@@ -483,14 +484,14 @@ class FinnaNearestPhotos(AjapaikAPIView):
 
         if photos:
             user_profile = user.profile if user.is_authenticated else None
-            photos = serializers.PhotoSerializer.annotate_photos(
+            photos = PhotoSerializer.annotate_photos(
                 photos,
                 user_profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
+                'photos': PhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -665,7 +666,7 @@ class AlbumNearestPhotos(AjapaikAPIView):
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': serializers.AlbumSerializer(
+                    'photos': AlbumSerializer(
                         instance=album,
                         context={
                             'request': request,
@@ -678,14 +679,14 @@ class AlbumNearestPhotos(AjapaikAPIView):
                     distance=Distance(('geography'), ref_location)).filter(distance__lte=(D(m=nearby_range))).order_by(
                     'distance')[start:end]
 
-                photos = serializers.PhotoSerializer.annotate_photos(
+                photos = PhotoSerializer.annotate_photos(
                     photos,
                     user_profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': serializers.PhotoSerializer(
+                    'photos': PhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -703,11 +704,28 @@ class AlbumInformation(AjapaikAPIView):
     API endpoint to retrieve album details.
     '''
 
-    def get(self, request, album_id, format=None):
+    def get(self, _, album_id):
         album = get_object_or_404(Album, id=album_id)
+        profile_ids = AlbumPhoto.objects.filter(album=album).values_list('profile_id', flat=True)
+        profiles = Profile.objects.filter(pk__in=profile_ids)
 
-        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name})
+        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profiles': ProfileLinkSerializer(instance=profiles, many=True).data})
 
+
+class AlbumPhotoInformation(AjapaikAPIView):
+    '''
+    API endpoint to retrieve album details.
+    '''
+
+    def get(self, _, album_id, photo_id):
+        album = get_object_or_404(Album, id=album_id)
+        albumPhoto = AlbumPhoto.objects.filter(album_id=album_id, photo_id=photo_id, profile__isnull=False).order_by('-created').first()
+        
+        profile = None
+        if albumPhoto:
+            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=albumPhoto.profile.id)).data
+        
+        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profile': profile})
 
 class AlbumPhotos(AjapaikAPIView):
     '''
@@ -730,7 +748,7 @@ class AlbumPhotos(AjapaikAPIView):
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
             }
-            response_data.update(serializers.AlbumSerializer(
+            response_data.update(AlbumSerializer(
                 instance=album,
                 context={
                     'request': request,
@@ -761,14 +779,14 @@ class SourceDetails(AjapaikAPIView):
                 rephoto_of__isnull=True,
             )[start:end]
 
-            photos = serializers.PhotoSerializer.annotate_photos(
+            photos = PhotoSerializer.annotate_photos(
                 photos,
                 None
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
+                'photos': PhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -952,7 +970,7 @@ class RephotoUpload(APIView):
 
             photos = Photo.objects.filter(pk=photo.id)
 
-            photos = serializers.PhotoSerializer.annotate_photos(
+            photos = PhotoSerializer.annotate_photos(
                 photos,
                 user_profile
             )
@@ -960,7 +978,7 @@ class RephotoUpload(APIView):
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'id': new_rephoto.pk,
-                'photos': serializers.PhotoSerializer(
+                'photos': PhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1025,13 +1043,13 @@ class PhotoDetails(AjapaikAPIView):
                 rephoto_of__isnull=True
             )
             if photo:
-                photo = serializers.PhotoSerializer.annotate_photos(
+                photo = PhotoSerializer.annotate_photos(
                     photo,
                     user_profile
                 ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
-                    serializers.PhotoSerializer(
+                    PhotoSerializer(
                         instance=photo, context={'request': request}
                     ).data
                 )
@@ -1147,11 +1165,11 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 photos = Photo.objects.filter(likes__profile=user_profile).annotate(
                     distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')[start:end]
-                photos = serializers.PhotoWithDistanceSerializer.annotate_photos(photos, user.profile)
+                photos = PhotoWithDistanceSerializer.annotate_photos(photos, user.profile)
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': serializers.PhotoWithDistanceSerializer(
+                    'photos': PhotoWithDistanceSerializer(
                         instance=photos, many=True, context={'request': request}
                     ).data,
                 })
@@ -1196,14 +1214,14 @@ class PhotosSearch(AjapaikAPIView):
                 photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
-            photos = serializers.PhotoSerializer.annotate_photos(
+            photos = PhotoSerializer.annotate_photos(
                 photos,
                 profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
+                'photos': PhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1250,14 +1268,14 @@ class PhotosInAlbumSearch(AjapaikAPIView):
                 photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
-            photos = serializers.PhotoSerializer.annotate_photos(
+            photos = PhotoSerializer.annotate_photos(
                 photos,
                 profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': serializers.PhotoSerializer(
+                'photos': PhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1295,14 +1313,14 @@ class UserRephotosSearch(AjapaikAPIView):
                     photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                         .order_by('distance')
 
-                photos = serializers.PhotoSerializer.annotate_photos(
+                photos = PhotoSerializer.annotate_photos(
                     photos,
                     user.profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': serializers.PhotoSerializer(
+                    'photos': PhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -1335,11 +1353,11 @@ class AlbumsSearch(AjapaikAPIView):
             albums = Album.objects.filter(
                 id__in=[item.pk for item in sqs]
             )
-            albums = serializers.AlbumDetailsSerializer.annotate_albums(albums)
+            albums = AlbumDetailsSerializer.annotate_albums(albums)
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'albums': serializers.AlbumDetailsSerializer(
+                'albums': AlbumDetailsSerializer(
                     instance=albums,
                     many=True,
                     context={'request': request}
@@ -1513,14 +1531,14 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 else:
                     photos = photos.order_by('rephotos__created')[start:end]
 
-                photos = serializers.PhotoSerializer.annotate_photos(
+                photos = PhotoSerializer.annotate_photos(
                     photos,
                     user.profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': serializers.PhotoSerializer(
+                    'photos': PhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -1724,7 +1742,7 @@ class MergeProfiles(AjapaikAPIView):
                 profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
             return JsonResponse({'error': EXPIRED_TOKEN}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id is not profile_merge_token.profile.id:
+            if request.user.profile.id != profile_merge_token.profile.id:
                 if reverse == 'true':
                     merge_profiles(request.user.profile, profile_merge_token.profile)
                     profile_merge_token.target_profile = request.user.profile

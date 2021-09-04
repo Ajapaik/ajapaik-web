@@ -766,7 +766,7 @@ msgstr[1] "\n                         لقد قمت بعمل %(counter)s إعا�
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:91
 #, python-format
 msgid "\n                        for %(counter)s picture in the album.\n                    "
-msgid_plural "\n                        for %(counter)s picures in the album.\n                    "
+msgid_plural "\n                        for %(counter)s pictures in the album.\n                    "
 msgstr[0] "\n                        لصورة %(counter)s في الألبوم.\n                    "
 msgstr[1] "\n                        لصور %(counter)s في الألبوم.\n                    "
 

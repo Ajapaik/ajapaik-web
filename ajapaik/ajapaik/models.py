@@ -31,7 +31,7 @@ from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
@@ -365,9 +365,9 @@ class Photo(Model):
     height = IntegerField(null=True, blank=True)
     width = IntegerField(null=True, blank=True)
     aspect_ratio = FloatField(null=True, blank=True)
-    flip = NullBooleanField()
-    invert = NullBooleanField()
-    stereo = NullBooleanField()
+    flip = BooleanField(null=True)
+    invert = BooleanField(null=True)
+    stereo = BooleanField(null=True)
     # In degrees
     rotated = IntegerField(null=True, blank=True)
     date = DateTimeField(null=True, blank=True)
@@ -1432,6 +1432,7 @@ class Location(Model):
     location_type = CharField(max_length=255, null=True, blank=True)
     photos = ManyToManyField('Photo', through='LocationPhoto', related_name='locations')
     sublocation_of = ForeignKey('self', blank=True, null=True, related_name='sublocations', on_delete=CASCADE)
+    google_reverse_geocode = ForeignKey('GoogleMapsReverseGeocode', blank=True, null=True, related_name='google_reverse_geocode', on_delete=CASCADE)
 
 
 class FacebookManager(Manager):
@@ -1519,6 +1520,10 @@ class Profile(Model):
                 return _('Anonymous user')
         else:
             return _('Anonymous user')
+
+    @property
+    def get_profile_url(self):
+        return reverse('user', args=(self.id,))
 
     def __unicode__(self):
         return u'%s' % (self.get_display_name,)
@@ -1701,7 +1706,14 @@ class GoogleMapsReverseGeocode(Model):
         db_table = 'project_googlemapsreversegeocode'
 
     def __unicode__(self):
-        return '%d;%d' % (self.lat, self.lon)
+        if self.response.get('results') and self.response.get('results')[0]:
+            location = self.response.get('results')[0].get('formatted_address')
+            return '%s;%s;%s' % (location, self.lat, self.lon)
+        else:
+            return '%s;%s' % (self.lat, self.lon)
+    
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Dating(Model):
@@ -1874,12 +1886,12 @@ class PhotoViewpointElevationSuggestion(Suggestion):
 
 class PhotoFlipSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
-    flip = NullBooleanField()
+    flip = BooleanField(null=True)
 
 
 class PhotoInvertSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
-    invert = NullBooleanField()
+    invert = BooleanField(null=True)
 
 
 class PhotoRotationSuggestion(Suggestion):

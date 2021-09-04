@@ -4,7 +4,7 @@ import os
 from math import cos, sin, radians, atan2, sqrt
 
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 def get_etag(_request, image, _content):

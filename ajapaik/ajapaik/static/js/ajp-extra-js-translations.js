@@ -69,6 +69,7 @@
     gettext('No pictures in square format were found in this album');
     gettext('Not selected');
     gettext('Number');
+    gettext('Picture added to album by:')
     gettext('Picture already in album(s)');
     gettext('Picture has location data attached');
     gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded');

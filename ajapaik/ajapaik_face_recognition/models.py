@@ -4,7 +4,7 @@ from django.contrib.gis.db.models import DateTimeField, ImageField
 from django.db import models
 from django.db.models import CASCADE
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from ajapaik.ajapaik.models import Album, Photo, Points, Profile
 from ajapaik.utils import most_frequent
@@ -168,7 +168,7 @@ class FaceRecognitionRectangleFeedback(models.Model):
     alternative_subject = models.ForeignKey(Album, on_delete=CASCADE, null=True)
     # So users could downvote bad rectangles
     is_correct = models.BooleanField(default=False)
-    is_correct_person = models.NullBooleanField()
+    is_correct_person = models.BooleanField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
