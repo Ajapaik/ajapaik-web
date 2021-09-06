@@ -6,6 +6,7 @@
 # Author: KK
 # Author: Muovipullo
 # Author: Nike
+# Author: Nwme
 # Author: Pyscowicz
 # Author: Sirukisu
 # Author: Zache
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-09-02 11:00:20+0000\n"
+"PO-Revision-Date: 2021-09-06 11:00:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1535,7 +1536,7 @@ msgstr "Muita tapoja tukea meitä."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:18
 msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
-msgstr "Voit myös auttaa <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">kääntämään Ajapaik -käyttöliittymää</a>"
+msgstr "Voit myös auttaa <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">kääntämään Ajapaik-käyttöliittymää</a>"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:19
 msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."

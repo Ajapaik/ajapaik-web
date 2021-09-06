@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-09-02 11:00:21+0000\n"
+"PO-Revision-Date: 2021-09-06 11:00:24+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1669,7 +1669,7 @@ msgstr "Afficher les images en paysage"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:109
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "Afficher les images panoramiques"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:119
 msgid "Show pictures made from the ground level"
