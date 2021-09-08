@@ -102,10 +102,13 @@ def finna_import_photo(id, profile):
                     point_parts = each.split(' ')
                     lon = point_parts[0][6:]
                     lat = point_parts[1][:-1]
-                    p['longitude'] = lon
-                    p['latitude'] = lat
-                    geography = Point(x=float(lon), y=float(lat), srid=4326)
-                    break
+                    try:
+                        p['longitude'] = float(lon)
+                        p['latitude'] = float(lat)
+                        geography = Point(x=float(lon), y=float(lat), srid=4326)
+                        break
+                    except:
+                        continue
 
         title = p.get('title').rstrip()
 
@@ -282,9 +285,12 @@ class FinnaDriver(object):
                             point_parts = each.split(' ')
                             lon = point_parts[0][6:]
                             lat = point_parts[1][:-1]
-                            p['longitude'] = lon
-                            p['latitude'] = lat
-                            break
+                            try:
+                                p['longitude'] = float(lon)
+                                p['latitude'] = float(lat)
+                                break
+                            except:
+                                continue
 
                 summary = ''
                 if 'summary' in p:
