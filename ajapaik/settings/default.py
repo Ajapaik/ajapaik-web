@@ -34,7 +34,7 @@ VANALINNAD_ROOT = '/home/ajapaik/vanalinnad.mooo.com'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+ADMIN_MEDIA_PREFIX = f'{STATIC_URL}admin/'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
@@ -433,4 +433,4 @@ UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
 if os.getenv('GITHUB_WORKFLOW'):
     from .test import *
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

@@ -70,16 +70,16 @@ class PhotoAdmin(ModelAdmin):
         from django.http.response import HttpResponse
         photo = Photo.objects.filter(pk=id.split('/')[0]).first()
         if photo:
-            photo_path = settings.MEDIA_ROOT + '/' + str(photo.image)
+            photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
             img = Image.open(photo_path)
             inverted_grayscale_image = ImageOps.invert(img).convert('L')
             inverted_grayscale_image.save(photo_path)
             photo.invert = not photo.invert
             sorl_delete(photo.image, delete_file=False)
             photo.light_save()
-            return HttpResponse(u'Photo inverted!')
+            return HttpResponse('Photo inverted!')
 
-        return HttpResponse(u'Failed to invert photo!')
+        return HttpResponse('Failed to invert photo!')
 
     extra_buttons = [
         {

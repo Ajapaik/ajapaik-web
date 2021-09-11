@@ -155,52 +155,56 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
     SUGGESTION_CHANGED = _('Your suggestion has been changed')
     SUGGESTION_SAVED = _('Your suggestion has been saved')
     SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED = _('Your suggestion has been saved, but previous consensus remains')
-    if new_value is not None:
-        previous_suggestion = model.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
-        if previous_suggestion and getattr(previous_suggestion, key) == new_value:
-            if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED \
-                    and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
-                response = SUGGESTION_ALREADY_SUGGESTED
+
+    if new_value is None:
+        return _('You must specify a new value when making a suggestion'), \
+               photo_suggestions, was_action_successful, points
+
+    previous_suggestion = model.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
+    if previous_suggestion and getattr(previous_suggestion, key) == new_value:
+        if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED \
+                and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+            response = SUGGESTION_ALREADY_SUGGESTED
+            was_action_successful = False
+    else:
+        new_suggestion = model(proposer=profile, photo=photo)
+        setattr(new_suggestion, key, new_value)
+        photo_suggestions.append(new_suggestion)
+        all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
+            .order_by('proposer_id', '-created').all().distinct('proposer_id')
+
+        if all_suggestions is not None:
+            suggestions = [new_value]
+
+            for suggestion in all_suggestions:
+                suggestions.append(getattr(suggestion, key))
+
+            most_common_choice = most_frequent(suggestions)
+            if new_value != most_common_choice:
+                response = SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
                 was_action_successful = False
+            new_value = most_common_choice
+
+        if function_name is not None:
+            old_value = getattr(photo, key)
+            if function_name == 'do_rotate' and (old_value is None or (new_value != old_value)):
+                getattr(photo, function_name)(new_value)
+            elif (function_name != 'do_rotate') and (
+                    (old_value or new_value is True) and old_value != new_value):
+                getattr(photo, function_name)()
         else:
-            new_suggestion = model(proposer=profile, photo=photo)
-            setattr(new_suggestion, key, new_value)
-            photo_suggestions.append(new_suggestion)
-            all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
-                .order_by('proposer_id', '-created').all().distinct('proposer_id')
+            setattr(photo, key, new_value)
+            photo.save()
 
-            if all_suggestions is not None:
-                suggestions = [new_value]
-
-                for suggestion in all_suggestions:
-                    suggestions.append(getattr(suggestion, key))
-
-                most_common_choice = most_frequent(suggestions)
-                if new_value != most_common_choice:
-                    response = SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
-                    was_action_successful = False
-                new_value = most_common_choice
-
-            if function_name is not None:
-                old_value = getattr(photo, key)
-                if function_name == 'do_rotate' and (old_value is None or (new_value != old_value)):
-                    getattr(photo, function_name)(new_value)
-                elif (function_name != 'do_rotate') and (
-                        (old_value or new_value is True) and old_value != new_value):
-                    getattr(photo, function_name)()
-            else:
-                setattr(photo, key, new_value)
-                photo.save()
-
-            if previous_suggestion:
-                if response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
-                    response = SUGGESTION_CHANGED
-                    was_action_successful = True
-            else:
-                Points(user=profile, action=action_type, photo=photo, points=score, created=timezone.now()).save()
-                if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
-                    response = SUGGESTION_SAVED
-                    was_action_successful = True
-                    points = score
+        if previous_suggestion:
+            if response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+                response = SUGGESTION_CHANGED
+                was_action_successful = True
+        else:
+            Points(user=profile, action=action_type, photo=photo, points=score, created=timezone.now()).save()
+            if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+                response = SUGGESTION_SAVED
+                was_action_successful = True
+                points = score
 
     return response, photo_suggestions, was_action_successful, points

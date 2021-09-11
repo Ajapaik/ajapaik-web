@@ -19,7 +19,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, BigIntegerField, \
     ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
-    PositiveSmallIntegerField, PointField, Manager, NullBooleanField, PositiveIntegerField
+    PositiveSmallIntegerField, PointField, Manager, PositiveIntegerField
 from django.contrib.gis.geos import Point
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
@@ -117,8 +117,8 @@ class Area(Model):
         db_table = 'project_area'
         app_label = 'ajapaik'
 
-    def __unicode__(self):
-        return u'%s' % self.name
+    def __str__(self):
+        return self.name
 
 
 class AlbumPhoto(Model):
@@ -144,16 +144,13 @@ class AlbumPhoto(Model):
         # FIXME: May be causing bugs elsewhere
         # ordering = ['-created']
 
-    def __unicode__(self):
+    def __str__(self):
         if self.profile:
             profilename = self.profile.get_display_name
         else:
             profilename = 'None'
 
-        return u'%d - %d - %s - %s' % (self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], profilename)
-
-    def __str__(self):
-        return self.__unicode__()
+        return '%d - %d - %s - %s' % (self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], profilename)
 
     def delete(self, *args, **kwargs):
         if self.album.atype == Album.CURATED:
@@ -222,7 +219,7 @@ class Album(Model):
     class Meta:
         db_table = 'project_album'
 
-    def __unicode__(self):
+    def __str__(self):
         if self.as_json:
             return json.dumps({
                 'name': self.name,
@@ -230,12 +227,9 @@ class Album(Model):
             })
 
         if self.atype == Album.PERSON and self.date_of_birth:
-            return u'%s (%s %s)' % (self.name, _('b.'), self.date_of_birth)
+            return f'{self.name} ({_("b.")} {str(self.date_of_birth)})'
 
-        return u'%s' % self.name
-
-    def __str__(self):
-        return self.__unicode__()
+        return self.name
 
     def __init__(self, *args, **kwargs):
         super(Album, self).__init__(*args, **kwargs)
@@ -614,11 +608,8 @@ class Photo(Model):
 
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
-    def __unicode__(self):
-        return u'%s - %s (%s) (%s)' % (self.id, self.get_display_text, self.date_text, self.source_key)
-
     def __str__(self):
-        return self.__unicode__()
+        return u'%s - %s (%s) (%s)' % (self.id, self.get_display_text, self.date_text, self.source_key)
 
     def __init__(self, *args, **kwargs):
         super(Photo, self).__init__(*args, **kwargs)
@@ -634,19 +625,19 @@ class Photo(Model):
         return reverse('photo', args=(self.pk,))
 
     def do_flip(self):
-        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
+        photo_path = f'{settings.MEDIA_ROOT}/{str(self.image)}'
         img = Image.open(photo_path)
         flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
         flipped_image.save(photo_path)
         img.close()
         flipped_image.close()
         self.flip = not self.flip
-        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
         img_small_thumb = Image.open(small_thumb_path)
         img_small_thumb = img_small_thumb.transpose(Image.FLIP_LEFT_RIGHT)
         img_small_thumb.save(small_thumb_path)
         img_small_thumb.close()
-        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
         img_bigger_thumb = Image.open(bigger_thumb_path)
         img_bigger_thumb = img_bigger_thumb.transpose(Image.FLIP_LEFT_RIGHT)
         img_bigger_thumb.save(bigger_thumb_path)
@@ -660,11 +651,11 @@ class Photo(Model):
         face_recognition_rectangles = apps.get_model(
             'ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
         if face_recognition_rectangles is not None:
-            for face_recognition_rectangle in face_recognition_rectangles:
-                top, right, bottom, left = face_recognition_rectangle.coordinates.strip('[').strip(']').split(', ')
-                face_recognition_rectangle.coordinates = '[' + top + ', ' + str(
-                    self.width - int(left)) + ', ' + bottom + ', ' + str(self.width - int(right)) + ']'
-                face_recognition_rectangle.save()
+            for rectangle in face_recognition_rectangles:
+                top, right, bottom, left = rectangle.coordinates.strip('[').strip(']').split(', ')
+                rectangle.coordinates = \
+                    f'[{top}, {str(self.width - int(left))}, {bottom}, {str(self.width - int(right))}]'
+                rectangle.save()
 
         object_recognition_rectangles = apps.get_model(
             'ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
@@ -682,7 +673,7 @@ class Photo(Model):
         self.light_save()
 
     def do_invert(self):
-        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
+        photo_path = f'{settings.MEDIA_ROOT}/{str(self.image)}'
         img = Image.open(photo_path)
         inverted_image = ImageOps.invert(img)
         inverted_image.save(photo_path)
@@ -690,12 +681,12 @@ class Photo(Model):
         self.perceptual_hash = phash(inverted_image)
         inverted_image.close()
         self.invert = not self.invert
-        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
         img_small_thumb = Image.open(small_thumb_path)
         img_small_thumb = ImageOps.invert(img_small_thumb)
         img_small_thumb.save(small_thumb_path)
         img_small_thumb.close()
-        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
         img_bigger_thumb = Image.open(bigger_thumb_path)
         img_bigger_thumb = ImageOps.invert(img_bigger_thumb)
         img_bigger_thumb.save(bigger_thumb_path)
@@ -708,7 +699,7 @@ class Photo(Model):
         self.light_save()
 
     def do_rotate(self, degrees):
-        photo_path = settings.MEDIA_ROOT + '/' + str(self.image)
+        photo_path = f'{settings.MEDIA_ROOT}/{str(self.image)}'
         img = Image.open(photo_path)
         original_degrees = 0
         if self.original_rotated is not None:
@@ -720,12 +711,12 @@ class Photo(Model):
         self.perceptual_hash = phash(rotated_image)
         rotated_image.close()
         self.rotated = degrees
-        small_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '400x400', upscale=False).name
+        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
         img_small_thumb = Image.open(small_thumb_path)
         img_small_thumb = img_small_thumb.rotate(rotation_degrees, expand=True)
         img_small_thumb.save(small_thumb_path)
         img_small_thumb.close()
-        bigger_thumb_path = settings.MEDIA_ROOT + '/' + get_thumbnail(self.image, '1024x1024', upscale=False).name
+        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
         img_bigger_thumb = Image.open(bigger_thumb_path)
         img_bigger_thumb = img_bigger_thumb.rotate(rotation_degrees, expand=True)
         img_bigger_thumb.save(bigger_thumb_path)
@@ -755,15 +746,15 @@ class Photo(Model):
             if rotation_degrees == 0:
                 return
             elif rotation_degrees == 90 or rotation_degrees == -270:
-                face_recognition_rectangle.coordinates = '[' + str(self.height - int(right)) + ', ' + str(
-                    bottom) + ', ' + str(self.height - int(left)) + ', ' + str(top) + ']'
+                face_recognition_rectangle.coordinates = \
+                    f'[{str(self.height - int(right))}, {bottom}, {str(self.height - int(left))}, {top}]'
             elif rotation_degrees == 180 or rotation_degrees == -180:
-                face_recognition_rectangle.coordinates = '[' + str(self.height - int(bottom)) + ', ' + str(
-                    self.width - int(left)) + ', ' + str(self.height - int(top)) + ', ' + str(
-                    self.width - int(right)) + ']'
+                face_recognition_rectangle.coordinates = \
+                    f'[{str(self.height - int(bottom))}, {str(self.width - int(left))},' + \
+                    f'{str(self.height - int(top))}, {str(self.width - int(right))}]'
             elif rotation_degrees == 270 or rotation_degrees == -90:
-                face_recognition_rectangle.coordinates = '[' + str(left) + ', ' + str(
-                    self.width - int(top)) + ', ' + str(right) + ', ' + str(self.width - int(bottom)) + ']'
+                face_recognition_rectangle.coordinates = \
+                    f'[{left}, {str(self.width - int(top))}, {right}, {str(self.width - int(bottom))}]'
             face_recognition_rectangle.save()
 
         object_recognition_rectangles = apps.get_model(
@@ -802,13 +793,13 @@ class Photo(Model):
             self.light_save()
 
     def calculate_phash(self):
-        img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+        img = Image.open(f'{settings.MEDIA_ROOT}/{str(self.image)}')
         self.perceptual_hash = phash(img)
         self.light_save()
 
     def find_similar(self):
         if not settings.DEBUG:
-            img = Image.open(settings.MEDIA_ROOT + '/' + str(self.image))
+            img = Image.open(f'{settings.MEDIA_ROOT}/{str(self.image)}')
             self.perceptual_hash = phash(img)
             query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) ' \
                     'AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
@@ -893,7 +884,7 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key=' + settings.GOOGLE_API_KEY
+        url = f'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key={settings.GOOGLE_API_KEY}'
         lat = None
         lon = None
         if self.lat and self.lon:
@@ -1252,8 +1243,8 @@ class PhotoComment(Model):
     class Meta:
         db_table = 'project_photocomment'
 
-    def __unicode__(self):
-        return u'%s' % self.text[:50]
+    def __str__(self):
+        return f'{self.text[:50]}'
 
 
 class PhotoLike(Model):
@@ -1330,7 +1321,7 @@ class Points(Model):
             ('user', 'geotag'), ('user', 'dating'), ('user', 'dating_confirmation'), ('user', 'subject_confirmation'),
             ('user', 'image_similarity_confirmation'))
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
 
 
@@ -1408,18 +1399,12 @@ class GeoTag(Model):
 
         super(GeoTag, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         # Django admin may crash with too long names
-        title = None
-        desc = None
-        if self.photo.title:
-            title = self.photo.title[:50]
-        elif self.photo.get_display_text:
-            desc = self.photo.get_display_text[:50]
-        if self.user:
-            return u'%s - %s - %d' % (title, desc, self.user.id)
-        else:
-            return u'%s - %s' % (title, desc)
+        importer = self.user.get_display_name if self.user else 'Ajapaik'
+        photo = self.photo
+        if importer:
+            return f'{str(self.id)} - {str(photo.id)} - {photo.get_display_text[:50]} - {importer}'
 
 
 class LocationPhoto(Model):
@@ -1432,7 +1417,13 @@ class Location(Model):
     location_type = CharField(max_length=255, null=True, blank=True)
     photos = ManyToManyField('Photo', through='LocationPhoto', related_name='locations')
     sublocation_of = ForeignKey('self', blank=True, null=True, related_name='sublocations', on_delete=CASCADE)
-    google_reverse_geocode = ForeignKey('GoogleMapsReverseGeocode', blank=True, null=True, related_name='google_reverse_geocode', on_delete=CASCADE)
+    google_reverse_geocode = ForeignKey(
+        'GoogleMapsReverseGeocode',
+        blank=True,
+        null=True,
+        related_name='google_reverse_geocode',
+        on_delete=CASCADE
+    )
 
 
 class FacebookManager(Manager):
@@ -1525,11 +1516,8 @@ class Profile(Model):
     def get_profile_url(self):
         return reverse('user', args=(self.id,))
 
-    def __unicode__(self):
-        return u'%s' % (self.get_display_name,)
-
     def __str__(self):
-        return self.__unicode__()
+        return f'{self.get_display_name}'
 
     def merge_from_other(self, other):
         other.photos.update(user=self)
@@ -1618,7 +1606,7 @@ class Source(Model):
     created = DateTimeField(auto_now_add=True)
     modified = DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -1644,8 +1632,8 @@ class Device(Model):
     class Meta:
         db_table = 'project_device'
 
-    def __unicode__(self):
-        return '%s %s %s %s %s' % (self.camera_make, self.camera_model, self.lens_make, self.lens_model, self.software)
+    def __str__(self):
+        return f'{self.camera_make} {self.camera_model} {self.lens_make} {self.lens_model} {self.software}'
 
 
 class Skip(Model):
@@ -1656,8 +1644,8 @@ class Skip(Model):
     class Meta:
         db_table = 'project_skip'
 
-    def __unicode__(self):
-        return '%i %i' % (self.user.pk, self.photo.pk)
+    def __str__(self):
+        return f'{str(self.user.pk)} {str(self.photo.pk)}'
 
 
 # TODO: Do we need this? Kind of violating users' privacy, no?
@@ -1690,11 +1678,8 @@ class Licence(Model):
     class Meta:
         db_table = 'project_licence'
 
-    def __unicode__(self):
-        return '%s' % self.name
-
     def __str__(self):
-        return self.__unicode__()
+        return self.name
 
 
 class GoogleMapsReverseGeocode(Model):
@@ -1705,15 +1690,12 @@ class GoogleMapsReverseGeocode(Model):
     class Meta:
         db_table = 'project_googlemapsreversegeocode'
 
-    def __unicode__(self):
+    def __str__(self):
         if self.response.get('results') and self.response.get('results')[0]:
             location = self.response.get('results')[0].get('formatted_address')
-            return '%s;%s;%s' % (location, self.lat, self.lon)
+            return f'{location};{self.lat};{self.lon}'
         else:
-            return '%s;%s' % (self.lat, self.lon)
-    
-    def __str__(self):
-        return self.__unicode__()
+            return f'{self.lat};{self.lon}'
 
 
 class Dating(Model):
@@ -1740,8 +1722,8 @@ class Dating(Model):
     class Meta:
         db_table = 'project_dating'
 
-    def __unicode__(self):
-        return '%s - %s' % (self.profile.pk, self.photo.pk)
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.photo.pk)}'
 
 
 class DatingConfirmation(Model):
@@ -1753,8 +1735,8 @@ class DatingConfirmation(Model):
     class Meta:
         db_table = 'project_datingconfirmation'
 
-    def __unicode__(self):
-        return '%s - %s' % (self.profile.pk, self.confirmation_of.pk)
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.confirmation_of.pk)}'
 
 
 class Video(Model):
@@ -1784,8 +1766,8 @@ class Video(Model):
             self.slug = slugify(self.name)
             super(Video, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return '%s' % (self.name,)
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse('videoslug', args=(self.id, self.slug))

@@ -86,7 +86,7 @@ def photo_info(request):
 
         source_str = ''
         if photo.source and photo.source_key:
-            source_str = photo.source.description + ' ' + photo.source_key
+            source_str = f'{photo.source.description} {photo.source_key}'
 
         return Response({
             'id': photo.id,

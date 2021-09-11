@@ -6,9 +6,7 @@ from PIL import Image
 
 
 class ImageHash(object):
-    """
-    Hash encapsulation. Can be used for dictionary keys and comparisons.
-    """
+    'Hash encapsulation. Can be used for dictionary keys and comparisons.'
 
     def __init__(self, binary_array):
         self.hash = binary_array
@@ -27,7 +25,7 @@ def binaryhash_to_signed_integer(hash: List[bool]) -> int:
     return int(result, base=2)
 
 
-def phash(image:Image, hash_size:int=8, highfreq_factor:int=4) -> int:
+def phash(image: Image, hash_size: int = 8, highfreq_factor: int = 4) -> int:
     if hash_size < 2:
         raise ValueError('Hash size must be greater than or equal to 2')
     import scipy.fftpack

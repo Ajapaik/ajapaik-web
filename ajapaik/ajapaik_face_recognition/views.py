@@ -274,7 +274,7 @@ def get_subject_data(request, rectangle_id=None):
             next_action = request.build_absolute_uri(
                 reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
             if album_id is not None:
-                next_action += '?album=' + str(album_id)
+                next_action += f'?album={str(album_id)}'
     has_consensus = False
     subject_id = None
     if rectangle and rectangle.subject_consensus:

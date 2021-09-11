@@ -3,7 +3,7 @@ version: '3'
 # Meant for local development
 services:
   db:
-    image: 'postgis/postgis:9.6-3.0-alpine'
+    image: 'postgis/postgis:12-2.5-alpine'
     container_name: 'postgres'
     restart: always
     ports:
@@ -14,7 +14,7 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql
   solr:
-    image: 'solr:6-alpine'
+    image: 'solr:7.6-alpine'
     container_name: 'solr'
     restart: always
     volumes:

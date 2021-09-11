@@ -19,7 +19,7 @@ class ObjectAnnotationClass(models.Model):
 
     def __str__(self):
         english_translation = self.translations
-        return self.wiki_data_id + ': ' + english_translation
+        return f'{self.wiki_data_id}: {english_translation}'
 
 
 class ObjectDetectionAnnotation(models.Model):

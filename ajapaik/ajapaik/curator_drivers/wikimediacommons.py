@@ -12,10 +12,10 @@ from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 def wikimediacommons_find_photo_by_url(record_url, profile):
     photo = None
-    filename = re.search('https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)', record_url, re.IGNORECASE)
+    filename = re.search(r'https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)', record_url, re.IGNORECASE)
     if filename:
         filename = filename.group(1)
-        file_url = 'https://commons.wikimedia.org/wiki/File:' + filename
+        file_url = f'https://commons.wikimedia.org/wiki/File:{filename}'
         photo = Photo.objects.filter(source_url=file_url, source__description='Wikimedia Commons').first()
 
     return photo
@@ -34,16 +34,16 @@ class CommonsDriver(object):
 
         if cleaned_data['fullSearch'].strip().replace('http://', 'https://', ).startswith(
                 'https://petscan.wmflabs.org/'):
-            petscan_url = cleaned_data['fullSearch'].strip() + '&format=json'
+            petscan_url = f'{cleaned_data["fullSearch"].strip()}&format=json'
         elif cleaned_data['fullSearch'].strip().replace('http://', 'https://').startswith(
                 'https://commons.wikimedia.org/wiki/Category:'):
-            target = re.search('https://commons.wikimedia.org/wiki/Category:(.*?)(\?|\#|$)',
+            target = re.search(r'https://commons.wikimedia.org/wiki/Category:(.*?)(\?|\#|$)',
                                cleaned_data['fullSearch']).group(1)
-            petscan_url = 'https://petscan.wmflabs.org/?psid=10268672&format=json&categories=' + target
+            petscan_url = f'https://petscan.wmflabs.org/?psid=10268672&format=json&categories={target}'
             print(petscan_url)
         elif cleaned_data['fullSearch'].strip().startswith('https://commons.wikimedia.org/wiki/'):
-            target = re.search('https://commons.wikimedia.org/wiki/(.*?)(\?|#|$)', cleaned_data['fullSearch']).group(1)
-            petscan_url = 'https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes=' + target
+            target = re.search(r'https://commons.wikimedia.org/wiki/(.*?)(\?|#|$)', cleaned_data['fullSearch']).group(1)
+            petscan_url = f'https://petscan.wmflabs.org/?psid=10268672&format=json&outlinks_yes={target}'
             outlinks_page = target
             print(petscan_url)
 
@@ -56,13 +56,13 @@ class CommonsDriver(object):
             if '*' in json and json['*'][0] and 'a' in json['*'][0] and '*' in json['*'][0]['a']:
                 for p in json['*'][0]['a']['*']:
                     if p['nstext'] == 'File':
-                        titles_all.append('File:' + p['title'].strip())
+                        titles_all.append(f'File:{p["title"].strip()}')
 
             # Failback. Read imagelinks from html
             if outlinks_page != '':
-                url = 'https://commons.wikimedia.org/wiki/' + outlinks_page
+                url = f'https://commons.wikimedia.org/wiki/{outlinks_page}'
                 html = get(url, {}).text
-                urls = re.findall('(file:.*?\.jpe?g)\'', html, re.IGNORECASE)
+                urls = re.findall(r'(file:.*?\.jpe?g)\'', html, re.IGNORECASE)
                 for u in urls:
                     u = urllib.parse.unquote(u)
                     if u not in titles_all:
@@ -133,7 +133,8 @@ class CommonsDriver(object):
             if 'query' in imageinfo and 'pages' in imageinfo['query']:
                 for pageid in imageinfo['query']['pages']:
                     existing_photo = Photo.objects.filter(external_id=pageid,
-                                                            source__description='Wikimedia Commons').first()
+                                                          source__description='Wikimedia Commons'
+                                                          ).first()
                     if remove_existing and existing_photo:
                         print('continue', file=sys.stderr)
                         continue
@@ -167,7 +168,7 @@ class CommonsDriver(object):
                             if 'url' in im:
                                 imageUrl = im['url']
                         else:
-                            imageUrl = thumbnail_url.replace('-500px-', '-' + str(im['width']) + 'px-')
+                            imageUrl = thumbnail_url.replace('-500px-', f'-{str(im["width"])}px-')
 
                         if 'descriptionurl' in im:
                             record_url = im['descriptionurl']
@@ -214,7 +215,7 @@ class CommonsDriver(object):
                                 longitude = em['GPSLongitude']['value']
 
                             if description and description != title and title not in description:
-                                title = title + ' - ' + description
+                                title = f'{title} - {description}'
 
                     if not author or author == '':
                         continue

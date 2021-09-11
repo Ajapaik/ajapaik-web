@@ -150,13 +150,12 @@ class Command(BaseCommand):
         return session
 
     def randomString(self, stringLength=10):
-        """Generate a random string of fixed length """
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(stringLength))
 
     # create user
     def test_register(self, username, password, firstname, lastname, expected_result):
-        url = self.baseurl + "/api/v1/register/"
+        url = f'{self.baseurl}/api/v1/register/'
         data = {
             'type': forms.APILoginForm.LOGIN_TYPE_AJAPAIK,
             'username': username,
@@ -169,7 +168,7 @@ class Command(BaseCommand):
 
     # Test api-login with username and password
     def test_login(self, username, password, expected_result):
-        url = self.baseurl + "/api/v1/login/"
+        url = f'{self.baseurl}/api/v1/login/'
         data = {
             'type': forms.APILoginForm.LOGIN_TYPE_AJAPAIK,
             'username': username,
@@ -180,7 +179,7 @@ class Command(BaseCommand):
 
     # Test api-logout
     def test_logout(self, expected_result, session=False):
-        url = self.baseurl + "/api/v1/logout/"
+        url = f'{self.baseurl}/api/v1/logout/'
         self.test_request(url, 'get', {}, expected_result, session)
 
     # Http basic auth and normal urls
@@ -215,10 +214,10 @@ class Command(BaseCommand):
             self.baseurl = options["baseurl"]
 
         randomname = self.randomString(10)
-        username = randomname + '-ajapaik-test@gmail.com'
+        username = f'{randomname}-ajapaik-test@gmail.com'
         password = self.randomString(16)
-        firstname = 'first ' + randomname
-        lastname = 'last ' + randomname
+        firstname = f'first {randomname}'
+        lastname = f'last {randomname}'
 
         session = self.test_register(username, password, firstname, lastname, '{"error":0')
 
@@ -226,7 +225,7 @@ class Command(BaseCommand):
         self.test_logout('{"error":2')
         session = self.test_login(username, password, '{"error":0')
         self.test_logout('{"error":0', session)
-        self.test_login(username + 'foo', password, '{"error":10')
+        self.test_login(f'{username}foo', password, '{"error":10')
         self.test_logout('{"error":2')
 
         print('\nlogged out')

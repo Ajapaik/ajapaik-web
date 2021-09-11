@@ -54,8 +54,8 @@ class FaceRecognitionRectangle(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return u'%s - %s - %s' % (self.id, self.photo, self.user)
+    def __str__(self):
+        return f'{str(self.id)} - {str(self.photo)} - {str(self.user)}'
 
     def decode_coordinates(self):
         return json.loads(self.coordinates)
@@ -185,9 +185,6 @@ class FaceRecognitionRectangleFeedback(models.Model):
 
         return string_label
 
-    def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.is_correct)
-
 
 class FaceRecognitionUserSuggestion(models.Model):
     USER, ALGORITHM, PICASA = range(3)
@@ -207,5 +204,5 @@ class FaceRecognitionUserSuggestion(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.id, self.rectangle, self.user, self.subject_album_id)
+    def __str__(self):
+        return f'{str(self.id)} - {str(self.rectangle.id)} - {str(self.user.id)} - {str(self.subject_album.id)}'

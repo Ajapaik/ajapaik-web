@@ -63,7 +63,7 @@ class AuthBackend(MiddlewareMixin):
                 return None
 
         if username == settings.BOT_USERNAME:
-            bot_username = u'_bot_%s' % (username)
+            bot_username = f'_bot_{username}'
             try:
                 user = User.objects.get(username=bot_username)
                 Action.log('user_middleware.login.success', {'username': bot_username})
@@ -76,7 +76,7 @@ class AuthBackend(MiddlewareMixin):
 
                 return user
 
-        random_username = u'_%s_%s' % (username[:25], User.objects.make_random_password(length=3))
+        random_username = f'_{username[:25]}_{User.objects.make_random_password(length=3)}'
         user = User.objects.create_user(username=random_username)
         user.save()
         Action.log('user_middleware.create', related_object=user)

@@ -159,6 +159,7 @@ class GeoTagAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+
 class GoogleMapsReverseGeocodeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -166,7 +167,7 @@ class GoogleMapsReverseGeocodeAutocomplete(autocomplete.Select2QuerySetView):
         qs = GoogleMapsReverseGeocode.objects.all()
         if self.q:
             qs = qs.filter(response__icontains=self.q)
-        
+
         return qs
 
 
@@ -324,7 +325,7 @@ class OpenAlbumAutocomplete(APIView):
         if len(qs) > 0:
             result = ''
             for q in qs:
-                result += '<span data-value=' + str(q.id) + '>' + q.name + '</span>'
+                result += f'<span data-value={str(q.id)}>{q.name}</span>'
         return HttpResponse(result, status=200)
 
 
@@ -368,9 +369,9 @@ class SubjectAlbumAutocomplete(autocomplete.Select2QuerySetView):
                 name_lv__icontains=self.q) | Q(name_lt__icontains=self.q))
         for q in qs:
             if q.gender is not None and q.gender > -1:
-                q.name = q.name + ';' + str(q.gender)
+                q.name = f'{q.name};{str(q.gender)}'
             else:
-                q.name = q.name + ';-1'
+                q.name = f'{q.name};-1'
 
         return qs
 

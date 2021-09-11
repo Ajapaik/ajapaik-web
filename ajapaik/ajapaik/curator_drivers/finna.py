@@ -1,3 +1,4 @@
+from copy import Error
 import re
 from json import dumps, loads
 from math import ceil
@@ -41,7 +42,7 @@ def finna_add_to_album(photo, target_album):
 def finna_find_photo_by_url(record_url, profile):
     photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
-        m = re.search('https://(hkm\.|www\.)?finna.fi/Record/(.*?)( |\?|#|$)', record_url)
+        m = re.search(r'https://(hkm\.|www\.)?finna.fi/Record/(.*?)( |\?|#|$)', record_url)
         if m:
             # Already in database?
             external_id = m.group(2)
@@ -58,7 +59,7 @@ def finna_find_photo_by_url(record_url, profile):
             if not photo:
                 photo = finna_import_photo(external_id, profile)
 
-            m = re.search('hkm\.', record_url)
+            m = re.search(r'hkm\.', record_url)
 
             if photo and m:
                 finna_add_to_album(photo, 'Helsinki')
@@ -78,8 +79,6 @@ def finna_import_photo(id, profile):
     })
     results = finna_result.json()
     p = results.get('records', None)
-
-    # print >> sys.stderr, ('import_finna_photo: %s' % 'https://api.finna.fi/v1/record?id=' + id)
 
     if p and p[0]:
         p = p[0]
@@ -107,7 +106,8 @@ def finna_import_photo(id, profile):
                         p['latitude'] = float(lat)
                         geography = Point(x=float(lon), y=float(lat), srid=4326)
                         break
-                    except:
+                    except Error as e:
+                        print(e)
                         continue
 
         title = p.get('title').rstrip()
@@ -123,7 +123,7 @@ def finna_import_photo(id, profile):
         if title in summary:
             description = summary
         elif len(title) < 20:
-            description = title + '; ' + summary
+            description = f'{title}; {summary}'
         else:
             description = title
 
@@ -181,13 +181,13 @@ def finna_import_photo(id, profile):
             external_id=external_id,
             external_sub_id=external_sub_id,
             source_key=p.get('id', None),
-            source_url='https://www.finna.fi' + p.get('recordPage'),
+            source_url=f'https://www.finna.fi{p.get("recordPage")}',
             geography=geography
         )
 
         opener = build_opener()
         opener.addheaders = [('User-Agent', settings.UA)]
-        img_url = 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master')
+        img_url = f'https://www.finna.fi{p["images"][0].replace("size=large", "size=master")}'
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
@@ -289,7 +289,8 @@ class FinnaDriver(object):
                                 p['longitude'] = float(lon)
                                 p['latitude'] = float(lat)
                                 break
-                            except:
+                            except Error as e:
+                                print(e)
                                 continue
 
                 summary = ''
@@ -325,10 +326,10 @@ class FinnaDriver(object):
                     'address': address,
                     'institution': institution,
                     'date': p.get('year', None),
-                    'cachedThumbnailUrl': 'https://www.finna.fi' + p['images'][0] if len(p['images']) else None,
-                    'imageUrl': 'https://www.finna.fi' + p['images'][0].replace('size=large', 'size=master') if len(
+                    'cachedThumbnailUrl': f'https://www.finna.fi{p["images"][0]}' if len(p['images']) else None,
+                    'imageUrl': f'https://www.finna.fi{p["images"][0].replace("size=large", "size=master")}' if len(
                         p['images']) else None,
-                    'urlToRecord': 'https://www.finna.fi' + p['recordPage'],
+                    'urlToRecord': f'https://www.finna.fi{p.get("recordPage")}',
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),
                     'creators': safe_list_get(authors, 0, None),

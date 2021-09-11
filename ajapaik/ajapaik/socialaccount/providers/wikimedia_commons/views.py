@@ -12,11 +12,11 @@ from .provider import WikimediaCommonsProvider
 class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
     provider_id = WikimediaCommonsProvider.id
     wiki_oauth_url = 'https://commons.wikimedia.org/w/rest.php/oauth2'
-    access_token_url = wiki_oauth_url + '/access_token'
+    access_token_url = f'{wiki_oauth_url}/access_token'
     access_token_method = 'POST'
-    authorize_url = wiki_oauth_url + '/authorize'
+    authorize_url = f'{wiki_oauth_url}/authorize'
     authorize_url_method = 'GET'
-    profile_url = wiki_oauth_url + '/resource/profile'
+    profile_url = f'{wiki_oauth_url}/resource/profile'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
@@ -30,7 +30,7 @@ class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
 
 
 class WikimediaCommonsOAuth2CallbackView(OAuth2CallbackView):
-    """ Custom OAuth2CallbackView to return WikimediaCommonsOAuth2Client """
+    # Custom OAuth2CallbackView to return WikimediaCommonsOAuth2Client
 
     def get_client(self, request, app):
         client = super(WikimediaCommonsOAuth2CallbackView, self).get_client(request, app)

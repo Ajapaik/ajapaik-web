@@ -212,7 +212,7 @@ class PhotoSerializer(serializers.ModelSerializer):
             source_key = instance.source_key or ''
             return {
                 'url': instance.source_url,
-                'name': (instance.source.description + ' ' + source_key).strip(),
+                'name': f'{instance.source.description} {source_key}'.strip(),
             }
         else:
             return {
@@ -244,6 +244,7 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
             'favorited',
         )
+
 
 class ProfileLinkSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='get_display_name')
@@ -279,7 +280,7 @@ class RephotoSerializer(serializers.ModelSerializer):
             source_key = instance.source_key or ''
             return {
                 'url': instance.source_url,
-                'name': (instance.source.description + ' ' + source_key).strip(),
+                'name': f'{instance.source.description} {source_key}'.strip(),
             }
         else:
             return {

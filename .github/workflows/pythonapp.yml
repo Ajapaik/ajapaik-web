@@ -5,7 +5,7 @@ on: [ push ]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Install apt dependencies
         run: sudo apt-get update && sudo apt-get install python3-gdal libgdal-dev proj-bin libproj-dev gdal-bin python3-setuptools

@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         f = codecs.open(
-            settings.ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/photo_geotagged_week.txt', 'r',
+            f'{settings.ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/management/commands/photo_geotagged_week.txt', 'r',
             'utf-8')
         data = f.readlines()
         f.close()
@@ -26,4 +26,4 @@ class Command(BaseCommand):
             settings.ABSOLUTE_PROJECT_ROOT +
             '/ajapaik/ajapaik/management/commands/results/photo_geotagged_week_parsed.txt', 'w', 'utf-8')
         for each in sorted(count_dict.items(), key=lambda key_value: key_value[0]):
-            f.write(each[0] + '\t' + str(each[1]) + '\n')
+            f.write(f'{each[0]}\t{str(each[1])}\n')

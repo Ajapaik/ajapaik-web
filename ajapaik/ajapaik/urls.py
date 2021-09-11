@@ -25,7 +25,6 @@ from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from ajapaik.ajapaik_face_recognition import urls as fr_urls
 from ajapaik.ajapaik_object_recognition import urls as or_urls
-#from ajapaik.ajapaik.iiif import photo_info, photo_manifest, photo_annotations
 
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
@@ -52,7 +51,6 @@ urlpatterns = [
     url(r'^photo/(?P<photo_id>\d+)/info\.json$', iiif.photo_info, name='iiif_photo_info'),
     url(r'^photo/(?P<photo_id>\d+)/manifest\.json$', iiif.photo_manifest_v2, name='iiif_photo_manifest_v2'),
     url(r'^photo/(?P<photo_id>\d+)/v2/manifest\.json$', iiif.photo_manifest_v2, name='iiif_photo_manifest_v2'),
-    url(r'^photo/(?P<photo_id>\d+)/annotations\.json$', iiif.photo_annotations, name='iiif_photo_annotations'),
     url(r'^photo/like/$', views.update_like_state, name='update_like_state'),
     url(r'^photo-upload-modal/(?P<photo_id>\d+)/$', views.photo_upload_modal, name='photo_upload_modal'),
     url(r'^photo/(?P<photo_id>\d+)/$', views.photoslug, name='photo'),
@@ -134,7 +132,11 @@ urlpatterns += [
     url(r'^api/v1/user/me/$', api.api_user_me.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/information/$', api.AlbumInformation.as_view(), name='api_album_information'),
-    url(r'^api/v1/album/(?P<album_id>\d+)/photo/(?P<photo_id>\d+)/$', api.AlbumPhotoInformation.as_view(), name='api_albumphoto_information'),
+    url(
+        r'^api/v1/album/(?P<album_id>\d+)/photo/(?P<photo_id>\d+)/$',
+        api.AlbumPhotoInformation.as_view(),
+        name='api_albumphoto_information'
+    ),
     url(r'^api/v1/album/nearest/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/finna/nearest/$', api.FinnaNearestPhotos.as_view()),
     url(r'^api/v1/album/state/$', api.AlbumPhotos.as_view()),
@@ -261,7 +263,10 @@ urlpatterns += [
         FaceRecognitionRectangleSubjectDataSuggestionAutocomplete.as_view(),
         name='face-recognition-rectangle-subject-data-suggestion-autocomplete'),
     url(r'^autocomplete/geotag-autocomplete/$', GeoTagAutocomplete.as_view(), name='geotag-autocomplete'),
-    url(r'^autocomplete/google-reverse-geocode-autocomplete/$', GoogleMapsReverseGeocodeAutocomplete.as_view(), name='google-reverse-geocode-autocomplete'),
+    url(r'^autocomplete/google-reverse-geocode-autocomplete/$',
+        GoogleMapsReverseGeocodeAutocomplete.as_view(),
+        name='google-reverse-geocode-autocomplete'
+        ),
     url(r'^autocomplete/image-similarity-autocomplete/$', ImageSimilarityAutocomplete.as_view(),
         name='image-similarity-autocomplete'),
     url(r'^autocomplete/image-similarity-suggestion-autocomplete/$', ImageSimilaritySuggestionAutocomplete.as_view(),
