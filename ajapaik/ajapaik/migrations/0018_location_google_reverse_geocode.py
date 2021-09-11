@@ -14,6 +14,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='location',
             name='google_reverse_geocode',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='google_reverse_geocode', to='ajapaik.googlemapsreversegeocode'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='google_reverse_geocode',
+                to='ajapaik.googlemapsreversegeocode'
+                ),
         ),
     ]

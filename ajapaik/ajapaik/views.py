@@ -106,10 +106,10 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
     else:
         thumb_size = 1024
     p = get_object_or_404(Photo, id=photo_id)
-    thumb_str = str(thumb_size) + 'x' + str(thumb_size)
+    thumb_str = f'{str(thumb_size)}x{str(thumb_size)}'
     if p.rephoto_of:
         original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
-        thumb_str = str(original_thumb.size[0]) + 'x' + str(original_thumb.size[1])
+        thumb_str = f'{str(original_thumb.size[0])}x{str(original_thumb.size[1])}'
         # TODO: see if restricting Pillow version fixes this
         im = get_thumbnail(p.image, thumb_str, upscale=True, downscale=True, crop='center')
     else:
@@ -121,7 +121,7 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
         im = get_thumbnail(p.image, thumb_str, upscale=False)
         content = im.read()
 
-    return get_image_thumb(request, settings.MEDIA_ROOT + '/' + im.name, content)
+    return get_image_thumb(request, f'{settings.MEDIA_ROOT}/{im.name}', content)
 
 
 @condition(etag_func=get_etag, last_modified_func=last_modified)
@@ -221,8 +221,10 @@ def get_album_info_modal_content(request):
         context['confirmed_similar_photo_count'] = album.confirmed_similar_photo_count_with_subalbums
 
         # Get all users that have either curated into selected photo set or re-curated into selected album
-        users_curated_to_album = AlbumPhoto.objects.filter(photo_id__in=album_photo_ids, profile__isnull=False, album=album, type__in=[AlbumPhoto.UPLOADED, AlbumPhoto.CURATED, AlbumPhoto.RECURATED]).values(
-            'profile').annotate(count=Count('profile'))
+        users_curated_to_album = AlbumPhoto.objects.filter(
+            photo_id__in=album_photo_ids, profile__isnull=False, album=album,
+            type__in=[AlbumPhoto.UPLOADED, AlbumPhoto.CURATED, AlbumPhoto.RECURATED]
+            ).values('profile').annotate(count=Count('profile'))
 
         user_score_dict = {}
         for u in users_curated_to_album:
@@ -245,9 +247,9 @@ def get_album_info_modal_content(request):
             ) \
                 .order_by('?')[:3]
         album_id_str = str(album.id)
-        context['share_game_link'] = request.build_absolute_uri(reverse('game')) + '?album=' + album_id_str
-        context['share_map_link'] = request.build_absolute_uri(reverse('map')) + '?album=' + album_id_str
-        context['share_gallery_link'] = request.build_absolute_uri(reverse('frontpage')) + '?album=' + album_id_str
+        context['share_game_link'] = f'{request.build_absolute_uri(reverse("game"))}?album={album_id_str}'
+        context['share_map_link'] = f'{request.build_absolute_uri(reverse("map"))}?album={album_id_str}'
+        context['share_gallery_link'] = f'{request.build_absolute_uri(reverse("frontpage"))}?album={album_id_str}'
 
         return render(request, 'info/_info_modal_content.html', context)
 
@@ -267,7 +269,7 @@ def _get_exif_data(img):
         if decoded == 'GPSInfo':
             for t in value:
                 sub_decoded = GPSTAGS.get(t, t)
-                exif_data[str(decoded) + '.' + str(sub_decoded)] = value[t]
+                exif_data[f'{str(decoded)}.{str(sub_decoded)}'] = value[t]
         elif len(str(value)) < 50:
             exif_data[decoded] = value
         else:
@@ -277,7 +279,7 @@ def _get_exif_data(img):
 
 
 def _extract_and_save_data_from_exif(photo_with_exif):
-    img = Image.open(settings.MEDIA_ROOT + '/' + str(photo_with_exif.image))
+    img = Image.open(f'{settings.MEDIA_ROOT}/{str(photo_with_exif.image)}')
     exif_data = _get_exif_data(img)
     if exif_data:
         if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' \
@@ -506,7 +508,7 @@ def rephoto_upload(request, photo_id):
                 re_photo.set_aspect_ratio()
                 re_photo.find_similar()
                 new_id = re_photo.pk
-                img = Image.open(settings.MEDIA_ROOT + '/' + str(re_photo.image))
+                img = Image.open(f'{settings.MEDIA_ROOT}/{str(re_photo.image)}')
                 _extract_and_save_data_from_exif(re_photo)
 
                 if re_photo.cam_scale_factor:
@@ -1332,7 +1334,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         title = ' '.join(photo_obj.get_display_text.split(' ')[:5])[:50]
 
     if photo_obj.author:
-        title += u' – ' + photo_obj.author
+        title += f' – {photo_obj.author}'
 
     album_ids = AlbumPhoto.objects.filter(photo_id=photo_obj.id).values_list('album_id', flat=True)
     full_album_id_list = list(album_ids)
@@ -1578,14 +1580,14 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
     if album is not None:
         context['album'] = (album.id, album.name, album.lat, album.lon, ','.join(album.name.split(' ')))
-        context['title'] = album.name + ' - ' + _('Browse photos on map')
+        context['title'] = f'{album.name} - {_("Browse photos on map")}'
         context['facebook_share_photos'] = []
         facebook_share_photos = album.photos.all()[:5]
         for each in facebook_share_photos:
             each = [each.pk, each.get_pseudo_slug(), each.width, each.height]
             context['facebook_share_photos'].append(each)
     elif area is not None:
-        context['title'] = area.name + ' - ' + _('Browse photos on map')
+        context['title'] = f'{area.name} - {_("Browse photos on map")}'
     else:
         context['title'] = _('Browse photos on map')
     context['show_photos'] = True
@@ -2024,44 +2026,31 @@ def curator(request):
     return render(request, 'curator/curator.html', context)
 
 
-def _curator_get_records_by_ids(ids):
-    ids_str = ['"' + each + '"' for each in ids]
-    request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
-    response = requests.post(settings.AJAPAIK_VALIMIMOODUL_URL, data=request_params)
-    response.encoding = 'utf-8'
+def extract_values_from_dictionary_to_result(dictionary: dict, result: dict):
+    try:
+        if 'result' in dictionary:
+            for each in dictionary['result']['firstRecordViews']:
+                result['firstRecordViews'].append(each)
+            if 'page' in dictionary['result']:
+                result['page'] = dictionary['result']['page']
+            if 'pages' in dictionary['result']:
+                result['pages'] = dictionary['result']['pages']
+            if 'ids' in dictionary['result']:
+                result['ids'] = dictionary['result']['ids']
+    except TypeError:
+        print('Could not extract values from dictionary', file=sys.stderr)
 
-    return response
+    return result
 
 
 def _join_2_json_objects(obj1, obj2):
     result = {'firstRecordViews': []}
     # TODO: Why do errors sometimes happen here?
     try:
-        dict_a = json.loads(obj1)
-        dict_b = json.loads(obj2)
-        try:
-            if 'result' in dict_a:
-                for each in dict_a['result']['firstRecordViews']:
-                    result['firstRecordViews'].append(each)
-                if 'page' in dict_a['result']:
-                    result['page'] = dict_a['result']['page']
-                if 'pages' in dict_a['result']:
-                    result['pages'] = dict_a['result']['pages']
-                if 'ids' in dict_a['result']:
-                    result['ids'] = dict_a['result']['ids']
-            if 'result' in dict_b:
-                for each in dict_b['result']['firstRecordViews']:
-                    result['firstRecordViews'].append(each)
-                if 'page' in dict_b['result']:
-                    result['page'] = dict_b['result']['page']
-                if 'pages' in dict_b['result']:
-                    result['pages'] = dict_b['result']['pages']
-                if 'ids' in dict_b['result']:
-                    result['ids'] = dict_b['result']['ids']
-        except TypeError:
-            print('TypeError1', file=sys.stderr)
+        result = extract_values_from_dictionary_to_result(json.loads(obj1), result)
+        result = extract_values_from_dictionary_to_result(json.loads(obj2), result)
     except TypeError:
-        print('TypeError2', file=sys.stderr)
+        print('Could not extract values from dictionary', file=sys.stderr)
 
     return json.dumps({'result': result})
 
@@ -2236,7 +2225,7 @@ def curator_photo_upload_handler(request):
         else:
             context['album_id'] = None
         default_album = Album(
-            name=str(profile.id) + '-' + str(timezone.now()),
+            name=f'{str(profile.id)}-{str(timezone.now())}',
             atype=Album.AUTO,
             profile=profile,
             is_public=False,
@@ -2303,8 +2292,8 @@ def curator_photo_upload_handler(request):
                         muis_id = incoming_muis_id
                         muis_media_id = None
                     if upload_form.cleaned_data['collections'] == 'DIGAR':
-                        upload_form.cleaned_data['identifyingNumber'] = 'nlib-digar:' + upload_form.cleaned_data[
-                            'identifyingNumber']
+                        upload_form.cleaned_data['identifyingNumber'] = \
+                            f'nlib-digar:{upload_form.cleaned_data["identifyingNumber"]}'
                         muis_media_id = 1
                     try:
                         if muis_media_id:
@@ -2342,14 +2331,14 @@ def curator_photo_upload_handler(request):
                             )
                             new_photo.save()
                             if upload_form.cleaned_data['collections'] == 'DIGAR':
-                                new_photo.image = 'uploads/DIGAR_' + str(new_photo.source_key).split(':')[1] + '_1.jpg'
+                                new_photo.image = f'uploads/DIGAR_{str(new_photo.source_key).split(":")[1]}_1.jpg'
                             else:
                                 # Enable plain http and broken SSL
                                 ssl._create_default_https_context = ssl._create_unverified_context
                                 opener = build_opener()
                                 headers = [('User-Agent', settings.UA)]
                                 if etera_token:
-                                    headers.append(('Authorization', 'Bearer ' + etera_token))
+                                    headers.append(('Authorization', f'Bearer {etera_token}'))
                                 opener.addheaders = headers
                                 img_response = opener.open(upload_form.cleaned_data['imageUrl'])
                                 if 'ETERA' in new_photo.source.description:
@@ -2359,18 +2348,18 @@ def curator_photo_upload_handler(request):
                                 else:
                                     new_photo.image.save('muis.jpg', ContentFile(img_response.read()))
                             if new_photo.invert:
-                                photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
+                                photo_path = f'{settings.MEDIA_ROOT}/{str(new_photo.image)}'
                                 img = Image.open(photo_path)
                                 inverted_grayscale_image = ImageOps.invert(img).convert('L')
                                 inverted_grayscale_image.save(photo_path)
                             if new_photo.rotated is not None and new_photo.rotated > 0:
-                                photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
+                                photo_path = f'{settings.MEDIA_ROOT}/{str(new_photo.image)}'
                                 img = Image.open(photo_path)
                                 rot = img.rotate(new_photo.rotated, expand=1)
                                 rot.save(photo_path)
                                 new_photo.width, new_photo.height = rot.size
                             if new_photo.flip:
-                                photo_path = settings.MEDIA_ROOT + '/' + str(new_photo.image)
+                                photo_path = f'{settings.MEDIA_ROOT}/{str(new_photo.image)}'
                                 img = Image.open(photo_path)
                                 flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
                                 flipped_image.save(photo_path)
@@ -2461,11 +2450,10 @@ def curator_photo_upload_handler(request):
                                                   % (upload_form.errors, upload_form.cleaned_data['imageUrl']))
 
         if general_albums:
+            game_reverse = request.build_absolute_uri(reverse('game'))
             for ga in general_albums:
                 requests.post(
-                    'https://graph.facebook.com/v7.0/?id=' + (request.build_absolute_uri(reverse('game'))
-                                                              + '?album=' + str(ga.id))
-                    + '&scrape=true'
+                    f'https://graph.facebook.com/v7.0/?id={game_reverse}?album={str(ga.id)}&scrape=true'
                 )
         for cp in all_curating_points:
             total_points_for_curating += cp.points
@@ -2578,13 +2566,13 @@ def csv_import(request):
         skipped_list = []
         success = None
         unique_album_list = []
-        upload_folder = settings.MEDIA_ROOT + '/uploads/'
+        upload_folder = f'{settings.MEDIA_ROOT}/uploads/'
         final_image_folder = 'uploads/'
 
         if 'zip_file' in request.FILES:
             file_obj = request.FILES['zip_file']
-            import_folder = settings.MEDIA_ROOT + '/import'
-            zip_filename = settings.MEDIA_ROOT + '/import' + str(uuid4()) + '.zip'
+            import_folder = f'{settings.MEDIA_ROOT}/import'
+            zip_filename = f'{settings.MEDIA_ROOT}/import{str(uuid4())}.zip'
 
             with default_storage.open(zip_filename, 'wb+') as destination:
                 for chunk in file_obj.chunks():
@@ -2596,17 +2584,17 @@ def csv_import(request):
             file_names = os.listdir(import_folder)
             for name in file_names:
                 if '.' in name:
-                    os.chmod(import_folder + '/' + name, 0o0774)
-                    if not os.path.exists(upload_folder + '/' + name):
+                    os.chmod(f'{import_folder}/{name}', 0o0664)
+                    if not os.path.exists(f'{upload_folder}/{name}'):
                         shutil.move(os.path.join(import_folder, name), upload_folder)
                     else:
                         existing_file_list.append(upload_folder + name)
-                        os.remove(import_folder + '/' + name)
+                        os.remove(f'{import_folder}/{name}')
                 else:
                     def del_evenReadonly(action, name, exc):
                         os.chmod(name, stat.S_IWRITE)
                         os.remove(name)
-                    shutil.rmtree(import_folder + '/' + name, onerror=del_evenReadonly)
+                    shutil.rmtree(f'{import_folder}/{name}', onerror=del_evenReadonly)
             os.remove(zip_filename)
             os.rmdir(import_folder)
 
@@ -2935,7 +2923,7 @@ def generate_still_from_video(request):
                 still.source_url = request.build_absolute_uri(
                     reverse('photo', args=(still.id, still.get_pseudo_slug())))
                 still.image.save(
-                    unicodedata.normalize('NFKD', description).encode('ascii', 'ignore').decode('ascii') + '.jpeg',
+                    f'{unicodedata.normalize("NFKD", description)}.jpeg',
                     File(tmp))
                 still.light_save()
                 AlbumPhoto(album=a, photo=still, profile=profile, type=AlbumPhoto.STILL).save()
@@ -3173,7 +3161,7 @@ def user_upload(request):
             form = UserPhotoUploadForm()
             photo.add_to_source_album()
             if request.POST.get('geotag') == 'true':
-                return redirect(reverse('frontpage_photos') + '?photo=' + str(photo.id) + '&locationToolsOpen=1')
+                return redirect(f'{reverse("frontpage_photos")}?photo={str(photo.id)}&locationToolsOpen=1')
             else:
                 context['message'] = _('Photo uploaded')
         if albums is None or len(albums) < 1:
@@ -3392,7 +3380,7 @@ def user(request, user_id):
         'photo_suggestions': photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count(),
         'profile': profile,
         'rephotographed_pictures': rephotographed_pictures_qs.count(),
-        'rephotos_link': '/photos/?rephotosBy=' + str(profile.user.id) + '&order1=time&order2=rephotos',
+        'rephotos_link': f'/photos/?rephotosBy={str(profile.user.id)}&order1=time&order2=rephotos',
         'rephotos': rephoto_qs.count(),
         'similar_pictures': similar_pictures_qs.count(),
         'transcriptions': transcriptions_qs.count(),
@@ -3456,7 +3444,7 @@ def user_settings(request):
             context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
             context['link'] = reverse('user', args=(token.profile.id,))
     if token and token.token:
-        context['next'] = request.path + '?token=' + token.token
+        context['next'] = f'{request.path}?token={token.token}'
     context['me'] = reverse('me')
     context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
     context['token'] = token
@@ -3530,7 +3518,7 @@ def merge_accounts(request):
             context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
             context['link'] = reverse('user', args=(token.profile.id,))
     if token and token.token:
-        context['next'] = request.path + '?token=' + token.token
+        context['next'] = f'{request.path}?token={token.token}'
     context['me'] = reverse('me')
     context['profile_social_accounts'] = SocialAccount.objects.filter(user_id=request.user.id)
     context['token'] = token

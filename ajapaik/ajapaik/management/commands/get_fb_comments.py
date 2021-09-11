@@ -13,24 +13,27 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # First get the real FB ids for photos that don't have them in batches of 50
+        fb_graph_url = 'https://graph.facebook.com'
+        access_token = f'{APP_ID}|{settings.FACEBOOK_APP_SECRET}'
         photos = Photo.objects.filter(fb_object_id__isnull=True)
         photo_count = photos.count()
         start = 0
         end = 50
         while start <= photo_count:
+            # TODO: Make it nicer using map and join
             or_clause = 'ids='
             photo_batch = photos[start:end]
             first = True
             for p in photo_batch:
                 if first:
-                    or_clause += "https://ajapaik.ee/photo/" + str(p.id) + '/'
+                    or_clause += f'https://ajapaik.ee/photo/{str(p.id)}/'
                     first = False
                 else:
-                    or_clause += ",https://ajapaik.ee/photo/" + str(p.id) + '/'
+                    or_clause += f',https://ajapaik.ee/photo/{str(p.id)}/'
             if len(or_clause) > 4:
-                response = json.loads(requests.get(
-                    'https://graph.facebook.com/v7.0/?format=json&access_token=%s&%s' % (
-                        APP_ID + '|' + settings.FACEBOOK_APP_SECRET, or_clause)).text)
+                response = json.loads(
+                    requests.get(f'{fb_graph_url}/v7.0/?format=json&access_token={access_token}&%{or_clause}')
+                    )
                 for k, v in response.items():
                     if 'og_object' in v:
                         photo_id = k.split('/')[-2]
@@ -45,6 +48,7 @@ class Command(BaseCommand):
         start = 0
         end = 50
         while start <= photo_count:
+            # TODO: Use map and/or join here instead of for loops
             ids = 'ids='
             photo_batch = photos[start:end]
             first = True
@@ -54,10 +58,10 @@ class Command(BaseCommand):
                         ids += str(p.fb_object_id)
                         first = False
                     else:
-                        ids += ',' + str(p.fb_object_id)
+                        ids += f',{str(p.fb_object_id)}'
             if len(ids) > 0:
-                response = json.loads(requests.get('https://graph.facebook.com/comments/?access_token=%s&%s' % (
-                    APP_ID + '|' + settings.FACEBOOK_APP_SECRET, ids)).text)
+                response = json.loads(
+                    requests.get(f'{fb_graph_url}/comments/?access_token=%{access_token}&%{ids}'))
                 for k, v in response.items():
                     if 'data' in v:
                         for comment in v['data']:
@@ -77,7 +81,6 @@ class Command(BaseCommand):
                                 )
                                 new_photo_comment.save()
                         photo = Photo.objects.filter(fb_object_id=k).first()
-                        # photo.fb_comments_count = len(v['data'])
                         first_comment = photo.comments.order_by('created').first()
                         if first_comment:
                             photo.first_comment = first_comment.created

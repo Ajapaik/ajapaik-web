@@ -39,7 +39,7 @@ class Command(BaseCommand):
         source = Source.objects.filter(name=museum_name).first()
 
         if source is None:
-            sets_url = muis_url + '?verb=ListSets'
+            sets_url = f'{muis_url}?verb=ListSets'
             url_response = urllib.request.urlopen(sets_url)
             parser = ET.XMLParser(encoding="utf-8")
             tree = ET.fromstring(url_response.read(), parser=parser)
@@ -69,8 +69,8 @@ class Command(BaseCommand):
             album_ids = (options['album_ids'])
             albums = Album.objects.filter(id__in=album_ids)
             all_person_album_ids_set = set()
-            list_identifiers_url = muis_url + '?verb=ListRecords&set=' + quote(set_name) \
-                + '&from=' + from_date + '&until=' + until_date + '&metadataPrefix=lido'
+            list_identifiers_url = f'{muis_url}?verb=ListRecords&set={quote(set_name)}&from={from_date}' + \
+                                   f'&until={until_date}&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
             parser = ET.XMLParser(encoding="utf-8")
             redurl = url_response.read()
@@ -79,15 +79,15 @@ class Command(BaseCommand):
             header = 'd:header/'
             records = tree.findall('d:ListRecords/d:record', ns)
             record = 'd:metadata/lido:lidoWrap/lido:lido/'
-            object_identification_wrap = record + 'lido:descriptiveMetadata/lido:objectIdentificationWrap/'
+            object_identification_wrap = f'{record}lido:descriptiveMetadata/lido:objectIdentificationWrap/'
             object_description_wraps = \
-                object_identification_wrap + 'lido:objectDescriptionWrap/lido:objectDescriptionSet'
-            title_wrap = object_identification_wrap + 'lido:titleWrap/'
-            repository_wrap = object_identification_wrap + 'lido:repositoryWrap/'
-            event_wrap = record + 'lido:descriptiveMetadata/lido:eventWrap/'
-            record_wrap = record + 'lido:administrativeMetadata/lido:recordWrap/'
-            resource_wrap = record + 'lido:administrativeMetadata/lido:resourceWrap/'
-            actor_wrap = event_wrap + 'lido:eventSet/lido:event/lido:eventActor/'
+                f'{object_identification_wrap}lido:objectDescriptionWrap/lido:objectDescriptionSet'
+            title_wrap = f'{object_identification_wrap}lido:titleWrap/'
+            repository_wrap = f'{object_identification_wrap}lido:repositoryWrap/'
+            event_wrap = f'{record}lido:descriptiveMetadata/lido:eventWrap/'
+            record_wrap = f'{record}lido:administrativeMetadata/lido:recordWrap/'
+            resource_wrap = f'{record}lido:administrativeMetadata/lido:resourceWrap/'
+            actor_wrap = f'{event_wrap}lido:eventSet/lido:event/lido:eventActor/'
 
             for rec in records:
                 try:
@@ -95,32 +95,29 @@ class Command(BaseCommand):
                     person_album_ids = []
                     creation_date_earliest = None
                     creation_date_latest = None
-                    external_id = rec.find(header + 'd:identifier', ns).text \
-                        if rec.find(header + 'd:identifier', ns) is not None \
+                    external_id = rec.find(f'{header}d:identifier', ns).text \
+                        if rec.find(f'{header}d:identifier', ns) is not None \
                         else None
                     existing_photo = Photo.objects.filter(external_id=external_id).first()
                     if existing_photo is not None:
                         continue
 
-                    image_url = rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                         + 'resourceRepresentation/lido:linkResource', ns).text \
-                        if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                    + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                    rp_lr = 'resourceRepresentation/lido:linkResource'
+                    image_url = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns).text \
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
                         else None
 
-                    image_extension = (rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                                + 'resourceRepresentation/lido:linkResource',
+                    image_extension = (rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}',
                                                 ns).attrib['{' + ns['lido'] + '}formatResource']).lower() \
-                        if rec.find(resource_wrap + 'lido:resourceSet/lido:'
-                                    + 'resourceRepresentation/lido:linkResource', ns) is not None\
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
                         else None
 
-                    source_url_find = rec.find(record_wrap + 'lido:recordInfoSet/lido:recordInfoLink', ns)
+                    source_url_find = rec.find(f'{record_wrap}lido:recordInfoSet/lido:recordInfoLink', ns)
                     source_url = source_url_find.text \
                         if source_url_find is not None \
                         else None
 
-                    identifier_find = rec.find(repository_wrap + 'lido:repositorySet/lido:workID', ns)
+                    identifier_find = rec.find(f'{repository_wrap}lido:repositorySet/lido:workID', ns)
                     identifier = identifier_find.text \
                         if identifier_find is not None \
                         else None
@@ -130,9 +127,9 @@ class Command(BaseCommand):
 
                     img_data = requests.get(image_url).content
                     image_id = external_id.split(':')[-1]
-                    file_name = set_name + '_' + image_id + '.' + image_extension
+                    file_name = f'{set_name}_{image_id}.{image_extension}'
                     file_name = file_name.replace(':', '_')
-                    path = settings.MEDIA_ROOT + '/uploads/' + file_name
+                    path = f'{settings.MEDIA_ROOT}/uploads/{file_name}'
                     with open(path, 'wb') as handler:
                         handler.write(img_data)
                     photo = Photo(
@@ -148,9 +145,9 @@ class Command(BaseCommand):
                     photo.light_save()
 
                     photo = Photo.objects.get(id=photo.id)
-                    photo.image.name = 'uploads/' + file_name
+                    photo.image.name = f'uploads/{file_name}'
 
-                    title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
+                    title_find = rec.find(f'{title_wrap}lido:titleSet/lido:appellationValue', ns)
                     title = title_find.text \
                         if title_find is not None \
                         else None
@@ -167,7 +164,7 @@ class Command(BaseCommand):
                     date_prefix_latest = None
                     date_earliest_has_suffix = False
                     date_latest_has_suffix = False
-                    events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
+                    events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
                     if events is not None and len(events) > 0:
                         locations, \
                             creation_date_earliest, \
@@ -190,7 +187,7 @@ class Command(BaseCommand):
                         creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
                             get_muis_date_and_prefix(dating, True)
 
-                    actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
+                    actors = rec.findall(f'{actor_wrap}lido:actorInRole', ns)
                     person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
                     if author is not None:
                         photo.author = author

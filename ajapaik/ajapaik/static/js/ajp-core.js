@@ -263,7 +263,7 @@ $('.ajp-navbar').autoHidingNavbar();
                 _gaq.push(['_trackEvent', 'Photoview', 'Full-screen']);
             }
         }
-    }
+    };
 
     $(document).on('click', '#ajp-rephoto-full-screen-link', function (e) {
         e.preventDefault();

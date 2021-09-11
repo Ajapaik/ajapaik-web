@@ -21,24 +21,23 @@ class Command(BaseCommand):
         for photo in photos:
             try:
                 parser = ET.XMLParser(encoding="utf-8")
-                list_identifiers_url = muis_url + '?verb=GetRecord&identifier=' + photo.external_id \
-                    + '&metadataPrefix=lido'
+                list_identifiers_url = f'{muis_url}?verb=GetRecord&identifier={photo.external_id}&metadataPrefix=lido'
                 url_response = urllib.request.urlopen(list_identifiers_url)
                 tree = ET.fromstring(url_response.read(), parser=parser)
                 ns = {'d': 'http://www.openarchives.org/OAI/2.0/', 'lido': 'http://www.lido-schema.org'}
 
                 rec = tree.find('d:GetRecord/d:record', ns)
                 record = 'd:metadata/lido:lidoWrap/lido:lido/'
-                object_identification_wrap = record + 'lido:descriptiveMetadata/lido:objectIdentificationWrap/'
+                object_identification_wrap = f'{record}lido:descriptiveMetadata/lido:objectIdentificationWrap/'
                 object_description_wraps = \
-                    object_identification_wrap + 'lido:objectDescriptionWrap/lido:objectDescriptionSet'
-                title_wrap = object_identification_wrap + 'lido:titleWrap/'
-                event_wrap = record + 'lido:descriptiveMetadata/lido:eventWrap/'
-                actor_wrap = event_wrap + 'lido:eventSet/lido:event/lido:eventActor/'
+                    f'{object_identification_wrap}lido:objectDescriptionWrap/lido:objectDescriptionSet'
+                title_wrap = f'{object_identification_wrap}lido:titleWrap/'
+                event_wrap = f'{record}lido:descriptiveMetadata/lido:eventWrap/'
+                actor_wrap = f'{event_wrap}lido:eventSet/lido:event/lido:eventActor/'
 
                 person_album_ids = []
 
-                title_find = rec.find(title_wrap + 'lido:titleSet/lido:appellationValue', ns)
+                title_find = rec.find(f'{title_wrap}lido:titleSet/lido:appellationValue', ns)
                 title = title_find.text \
                     if title_find is not None \
                     else None
@@ -54,7 +53,7 @@ class Command(BaseCommand):
                 date_earliest_has_suffix = False
                 date_latest_has_suffix = False
                 location = []
-                events = rec.findall(event_wrap + 'lido:eventSet/lido:event', ns)
+                events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
                 existing_dating = Dating.objects.filter(photo=photo, profile=None).first()
                 if events is not None and len(events) > 0:
                     location, \
@@ -78,7 +77,7 @@ class Command(BaseCommand):
                     creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
                         get_muis_date_and_prefix(dating, True)
 
-                actors = rec.findall(actor_wrap + 'lido:actorInRole', ns)
+                actors = rec.findall(f'{actor_wrap}lido:actorInRole', ns)
                 person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
                 if author is not None:
                     photo.author = author

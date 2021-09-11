@@ -88,10 +88,10 @@ def test_distance_in_meters():
 
 @pytest.mark.django_db
 def test_can_action_be_done():
-    source = settings.MEDIA_ROOT + '/uploads/test_image.png'
+    source = f'{settings.MEDIA_ROOT}/uploads/test_image.png'
     previous = ''
     for source_split in source.split('/'):
-        previous += '/' + source_split
+        previous += f'/{source_split}'
         if '.png' not in source_split and not os.path.exists(previous):
             os.mkdir(previous)
     white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))

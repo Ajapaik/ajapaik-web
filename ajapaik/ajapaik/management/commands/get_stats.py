@@ -15,7 +15,7 @@ class Command(BaseCommand):
         profiles = Profile.objects.filter(
             Q(score__gt=0) | Q(first_name__isnull=False, last_name__isnull=False)).distinct('user_id')
         results = codecs.open(
-            settings.ABSOLUTE_PROJECT_ROOT + '/ajapaik/ajapaik/management/commands/results/results.txt', 'w',
+            f'{settings.ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/management/commands/results/results.txt', 'w',
             'utf-8')
         results.write(
             'id\temail\tfb_name\tfb_email\tgoogle_name\tgoogle_email\tscore\ttrustworthiness\tfirst_geotag\t'

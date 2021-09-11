@@ -19,7 +19,7 @@ class Command(BaseCommand):
             photo = Photo.objects.get(pk=photo_id)
             # print "Found photo"
             # print photo
-            photo_path = settings.MEDIA_ROOT + "/" + str(photo.image)
+            photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
             # print photo_path
             img = Image.open(photo_path)
             inverted_grayscale_image = ImageOps.invert(img).convert('L')

@@ -423,7 +423,11 @@ class UserPhotoUploadForm(forms.ModelForm):
             'description': _('Add a short description of the picture'),
             'author': _('Author of the picture (photographer, painter)'),
             'licence': _(
-                'Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then.')
+                '''Please select a licence to let other people know if and how they can reuse the material you upload.
+                \n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons
+                 licences). If someone else created the work, you need to use the same licence and rights holder that it
+                 currently has.\n\nCurrently we are also accepting content with unclear copyright status,
+                please choose ‘Copyright not evaluated’ then.''')
         }
         widgets = {
             'description': forms.Textarea(

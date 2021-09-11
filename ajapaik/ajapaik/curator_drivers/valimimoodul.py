@@ -44,7 +44,7 @@ class ValimimoodulDriver(object):
         return response
 
     def get_by_ids(self, ids):
-        ids_str = ['"' + each + '"' for each in ids]
+        ids_str = [str(each) for each in ids]
         request_params = '{"method":"getRecords","params":[[%s]],"id":0}' % ','.join(ids_str)
         response = post(self.url, data=request_params)
         response.encoding = 'utf-8'
@@ -73,9 +73,9 @@ class ValimimoodulDriver(object):
                 each['isETERASecondImage'] = False
                 if each['collections'] == 'DIGAR':
                     current_id = each['imageUrl'].split('=')[-1]
-                    each['imageUrl'] = settings.MEDIA_URL + 'uploads/DIGAR_' + current_id + '_1.jpg'
+                    each['imageUrl'] = f'{settings.MEDIA_URL}uploads/DIGAR_{current_id}_1.jpg'
                     each['identifyingNumber'] = current_id
-                    each['urlToRecord'] = 'http://www.digar.ee/id/nlib-digar:' + current_id
+                    each['urlToRecord'] = f'http://www.digar.ee/id/nlib-digar:{current_id}'
                     each['institution'] = 'Rahvusraamatukogu'
                     each['keywords'] = each['description']
                     each['description'] = each['title']
@@ -106,7 +106,7 @@ class ValimimoodulDriver(object):
                         qs = Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id', 'name')
                         each['albums'] = [[x[0], x[1]] for x in qs]
                         for e in each['albums']:
-                            e[0] = reverse('frontpage') + '?album=' + str(e[0])
+                            e[0] = f'{reverse("frontpage")}?album={str(e[0])}'
                 else:
                     each['ajapaikId'] = False
                     check_dict[each['id']] = True

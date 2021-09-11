@@ -188,61 +188,60 @@ class Login(APIView):
 
     def post(self, request, format=None):
         form = forms.APILoginForm(request.data)
-        if form.is_valid():
-            login_type = form.cleaned_data['type']
-            if login_type == forms.APILoginForm.LOGIN_TYPE_AJAPAIK:
-                email = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                if password is None:
-                    return Response({
-                        'error': RESPONSE_STATUSES['MISSING_PARAMETERS'],
-                        'id': None,
-                        'session': None,
-                        'expires': None,
-                    })
-                user = self._authenticate_by_email(request, email, password)
-                if user is not None:
-                    get_adapter(request).login(request, user)
-            elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
-                id_token = form.cleaned_data['username']
-                user = self._authenticate_with_google(request._request,
-                                                      id_token)
-            elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
-                access_token = form.cleaned_data['password']
-                user = self._authenticate_with_facebook(request._request,
-                                                        access_token)
-            elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
-                # TODO: Finish API endpoint for Wikimedia Commons login
-                pass
-            elif login_type == forms.APILoginForm.LOGIN_TYPE_AUTO:
-                # Deprecated. Kept for backwards compatibility.
-                user = None
+        user = None
 
-            if user is None:
-                # We can't authenticate user with provided data.
-                return Response({
-                    'error': RESPONSE_STATUSES['MISSING_USER'],
-                    'id': None,
-                    'session': None,
-                    'expires': None,
-                })
-
-            if not request.session.session_key:
-                request.session.save()
-
-            return Response({
-                'error': RESPONSE_STATUSES['OK'],
-                'id': user.id,
-                'session': request.session.session_key,
-                'expires': request.session.get_expiry_age(),
-            })
-        else:
+        if not form.is_valid():
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
                 'id': None,
                 'session': None,
                 'expires': None,
             })
+
+        login_type = form.cleaned_data['type']
+        if login_type == forms.APILoginForm.LOGIN_TYPE_AJAPAIK:
+            email = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            if password is None:
+                return Response({
+                    'error': RESPONSE_STATUSES['MISSING_PARAMETERS'],
+                    'id': None,
+                    'session': None,
+                    'expires': None,
+                })
+            user = self._authenticate_by_email(request, email, password)
+            if user is not None:
+                get_adapter(request).login(request, user)
+        elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE:
+            id_token = form.cleaned_data['username']
+            user = self._authenticate_with_google(request._request,
+                                                  id_token)
+        elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
+            access_token = form.cleaned_data['password']
+            user = self._authenticate_with_facebook(request._request,
+                                                    access_token)
+        elif login_type == forms.APILoginForm.LOGIN_TYPE_WIKIMEDIA_COMMONS:
+            # TODO: Finish API endpoint for Wikimedia Commons login
+            pass
+
+        if user is None:
+            # We can't authenticate user with provided data.
+            return Response({
+                'error': RESPONSE_STATUSES['MISSING_USER'],
+                'id': None,
+                'session': None,
+                'expires': None,
+            })
+
+        if not request.session.session_key:
+            request.session.save()
+
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'id': user.id,
+            'session': request.session.session_key,
+            'expires': request.session.get_expiry_age(),
+        })
 
 
 class Register(APIView):
@@ -374,7 +373,7 @@ def api_album_thumb(request, album_id, thumb_size=250):
             if random_image:
                 break
     size_str = str(thumb_size)
-    thumb_str = size_str + 'x' + size_str
+    thumb_str = f'{size_str}x{size_str}'
     try:
         im = get_thumbnail(random_image.image, thumb_str, upscale=False)
     except AttributeError:
@@ -569,7 +568,7 @@ class FinnaNearestPhotos(AjapaikAPIView):
                     # Museovirasto + others
                     title_geo = next(iter(p['rawData']['geographic'] or []), None)
                     if title_geo:
-                        title = '%s ; %s' % (title, title_geo)
+                        title = f'{title} ; {title_geo}'
 
                 # BUG: No date in android app so we add it here to the title text
                 year = p.get('year', None)
@@ -681,7 +680,12 @@ class AlbumInformation(AjapaikAPIView):
         profile_ids = AlbumPhoto.objects.filter(album=album).values_list('profile_id', flat=True)
         profiles = Profile.objects.filter(pk__in=profile_ids)
 
-        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profiles': ProfileLinkSerializer(instance=profiles, many=True).data})
+        return JsonResponse({
+            'id': album.id,
+            'photo_count': album.photo_count_with_subalbums,
+            'name': album.name,
+            'profiles': ProfileLinkSerializer(instance=profiles, many=True).data
+        })
 
 
 class AlbumPhotoInformation(AjapaikAPIView):
@@ -691,13 +695,23 @@ class AlbumPhotoInformation(AjapaikAPIView):
 
     def get(self, _, album_id, photo_id):
         album = get_object_or_404(Album, id=album_id)
-        albumPhoto = AlbumPhoto.objects.filter(album_id=album_id, photo_id=photo_id, profile__isnull=False).order_by('-created').first()
-        
+        album_photo = AlbumPhoto.objects.filter(
+            album_id=album_id,
+            photo_id=photo_id,
+            profile__isnull=False
+        ).order_by('-created').first()
+
         profile = None
-        if albumPhoto:
-            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=albumPhoto.profile.id)).data
-        
-        return JsonResponse({'id': album.id, 'photo_count': album.photo_count_with_subalbums, 'name': album.name, 'profile': profile})
+        if album_photo:
+            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=album_photo.profile.id)).data
+
+        return JsonResponse({
+            'id': album.id,
+            'photo_count': album.photo_count_with_subalbums,
+            'name': album.name,
+            'profile': profile
+        })
+
 
 class AlbumPhotos(AjapaikAPIView):
     '''
@@ -1049,7 +1063,7 @@ class FetchFinnaPhoto(AjapaikAPIView):
             id = form.cleaned_data['id']
 
             # Limit only to Helsinki city museum photos for now
-            m = re.search("https://(hkm\.|www\.)?finna.fi/Record/(hkm\..*?)( |\?|#|$)", id)
+            m = re.search(r"https://(hkm\.|www\.)?finna.fi/Record/(hkm\..*?)( |\?|#|$)", id)
             if m:
                 photo = finna_find_photo_by_url(id, user_profile)
                 if photo:
@@ -1599,8 +1613,6 @@ class Transcriptions(AjapaikAPIView):
                 if previous_transcription_by_current_user:
                     previous_transcription_by_current_user.text = text
                     previous_transcription_by_current_user.save()
-                    if not photo.first_transcription:
-                        photo.first_transcription = previous_transcription_by_current_user.modified
                     photo.latest_transcription = previous_transcription_by_current_user.modified
                     photo.light_save()
                 else:
@@ -1610,27 +1622,21 @@ class Transcriptions(AjapaikAPIView):
                         photo=photo
                     )
                     transcription.save()
-                    TranscriptionFeedback(
-                        user=user,
-                        transcription=transcription
-                    ).save()
                     photo.latest_transcription = transcription.created
                     if not photo.first_transcription:
                         photo.first_transcription = transcription.created
                     photo.transcription_count += 1
                     photo.light_save()
 
-            transcriptionsWithSameText = Transcription.objects.filter(photo=photo, text=text).exclude(user=user)
-            upvoted = False
-            for transcription in transcriptionsWithSameText:
+            transcriptions_with_same_text = Transcription.objects.filter(photo=photo, text=text)
+            for transcription in transcriptions_with_same_text:
                 TranscriptionFeedback(
                     user=user,
                     transcription=transcription
                 ).save()
-                upvoted = True
 
             if count > 0:
-                if upvoted:
+                if len(transcriptions_with_same_text) > 0:
                     return JsonResponse({'message': TRANSCRIPTION_ALREADY_EXISTS})
                 else:
                     return JsonResponse({'message': TRANSCRIPTION_ALREADY_SUBMITTED})
@@ -1819,7 +1825,7 @@ class PhotoSuggestion(AjapaikAPIView):
 
             photo = Photo.objects.filter(id=photo_id).first()
             if photo is None:
-                return JsonResponse({'error': NO_PHOTO_WITH_ID + ' ' + photo_id}, status=404)
+                return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
 
             if scene_suggestion_choice is not None:
                 response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
@@ -1940,7 +1946,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
 
             photo = Photo.objects.filter(id=photo_id).first()
             if photo is None:
-                return JsonResponse({'error': NO_PHOTO_WITH_ID + ' ' + photo_id}, status=404)
+                return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
 
             original_rotation = photo.rotated
             original_flip = photo.flip

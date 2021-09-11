@@ -14,7 +14,7 @@ class Command(BaseCommand):
         # print photos.count()
         for p in photos:
             # print p.id
-            photo_path = settings.MEDIA_ROOT + "/" + str(p.image)
+            photo_path = f'{settings.MEDIA_ROOT}/{str(p.image)}'
             img = Image.open(photo_path)
             flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
             flipped_image.save(photo_path)

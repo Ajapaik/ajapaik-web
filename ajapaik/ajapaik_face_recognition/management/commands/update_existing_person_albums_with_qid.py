@@ -12,7 +12,7 @@ class Command(BaseCommand):
     help = 'Will set Wikidata QID for some of our person albums'
 
     def handle(self, *args, **options):
-        with io.open(os.path.dirname(os.path.abspath(__file__)) + '/qids.csv',
+        with io.open(f'{os.path.dirname(os.path.abspath(__file__))}/qids.csv',
                      encoding='utf-8') as csv_file:
             csv_reader = csv.reader(csv_file)
             line_count = 0

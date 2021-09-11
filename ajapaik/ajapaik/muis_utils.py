@@ -64,7 +64,7 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
     if date.endswith('.a.?'):
         date = date.replace('.a.?', '')
         if date.isdigit():
-            date = 'umbes.' + date
+            date = f'umbes.{date}'
     date = date.strip().strip('.').strip().strip('.')
     irregular_decade_suffixes = [
             '-ndad aastad', "'ndad", '-ndad a', '.dad', '. aastad', ' aastad', 'ndad', '-dad', 'a-d'
@@ -111,37 +111,37 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
     for month in months:
         if month_name_fixed:
             break
-        if date.endswith('. ' + month[0]):
-            date = date.replace('. ' + month[0], '')
-            date = month[1] + '.' + date
+        if date.endswith(f'. {month[0]}'):
+            date = date.replace(f'. {month[0]}', '')
+            date = f'{month[1]}.{date}'
             month_name_fixed = True
-        elif date.endswith('.' + month[0]):
-            date = date.replace('.' + month[0], '')
-            date = month[1] + '.' + date
+        elif date.endswith(f'.{month[0]}'):
+            date = date.replace(f'.{month[0]}', '')
+            date = f'{month[1]}.{date}'
             month_name_fixed = True
-        elif date.endswith(' .' + month[0]):
-            date = date.replace(' .' + month[0], '')
-            date = month[1] + '.' + date
+        elif date.endswith(f' .{month[0]}'):
+            date = date.replace(f' .{month[0]}', '')
+            date = f'{month[1]}.{date}'
             month_name_fixed = True
-        elif date.endswith(' ' + month[0]):
-            date = date.replace(' ' + month[0], '')
-            date = month[1] + '.' + date
+        elif date.endswith(f' {month[0]}'):
+            date = date.replace(f' {month[0]}', '')
+            date = f'{month[1]}.{date}'
             month_name_fixed = True
 
     for month in months:
         if month_name_fixed:
             break
-        if date.startswith(month[0]):
+        if date.startswith(f'{month[0]}. '):
+            date = date.replace(f'{month[0]}. ', '')
+            date = f'{month[1]}.{date}'
+            break
+        elif date.startswith(f'{month[0]}.'):
+            date = date.replace(f'{month[0]}.', '')
+            date = f'{month[1]}.{date}'
+            break
+        elif date.startswith(month[0]):
             date = date.replace(month[0], '')
-            date = month[1] + '.' + date
-            break
-        elif date.startswith(month[0] + '.'):
-            date = date.replace(month[0] + '.', '')
-            date = month[1] + '.' + date
-            break
-        elif date.startswith(month[0] + '. '):
-            date = date.replace(month[0] + '. ', '')
-            date = month[1] + '.' + date
+            date = f'{month[1]}.{date}'
             break
 
     seasons = [
@@ -156,9 +156,9 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
             date = date.replace(season[0], '')
             date = date.strip('.').strip().strip('.').strip()
             if is_later_date:
-                date = season[1][1] + '.' + date
+                date = f'{season[1][1]}.{date}'
             else:
-                date = season[1][0] + '.' + date
+                date = f'{season[1][0]}.{date}'
 
     date = date.replace('..', '.')
     dash_split_date = date.split('-')
@@ -181,8 +181,8 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
 
     date = date.replace('..', '.')
     for prefix in all_date_prefixes:
-        if date.startswith(prefix) and not date.startswith(prefix + '.'):
-            date = date.replace(prefix, prefix + '.', 1)
+        if date.startswith(prefix) and not date.startswith(f'{prefix}.'):
+            date = date.replace(prefix, f'{prefix}.', 1)
             break
 
     quarter_century = 'veerand'
@@ -257,9 +257,9 @@ def reset_modeltranslated_field(photo, attribute_name, attribute_value):
     detection_lang = 'et'
     for language in settings.MODELTRANSLATION_LANGUAGES:
         if language == detection_lang:
-            setattr(photo, attribute_name + '_' + language, attribute_value)
+            setattr(photo, f'{attribute_name}_{language}', attribute_value)
         else:
-            setattr(photo, attribute_name + '_' + language, None)
+            setattr(photo, f'{attribute_name}_{language}', None)
     photo.light_save()
     return photo
 
@@ -336,11 +336,11 @@ def add_person_albums(actors, person_album_ids, ns):
         term = actor.find('lido:roleActor/lido:term', ns)
         if term is None:
             continue
-        if term.text == 'kujutatu' or term.text == 'autor':
+        if term.text in ['kujutatu', 'autor']:
             muis_actor_wrapper = actor.find("lido:actor/lido:actorID", ns)
             muis_actor_id = None
             if muis_actor_wrapper is not None:
-                muis_actor_id = int(actor.find("lido:actor/lido:actorID", ns).text)
+                muis_actor_id = int(muis_actor_wrapper.text)
             names = actor.findall("lido:actor/lido:nameActorSet/lido:appellationValue", ns)
             all_names = ''
             main_name = ''
@@ -350,24 +350,28 @@ def add_person_albums(actors, person_album_ids, ns):
                     main_name = main_name_parts[-1].strip()
                     if len(main_name_parts) > 1:
                         for part in main_name_parts[0:len(main_name_parts) - 1]:
-                            main_name += ' ' + part
+                            main_name += f' {part}'
                 all_names += (name.attrib['{' + ns['lido'] + '}label'] + ': ' + name.text + '. ').capitalize()
+
             if term.text == 'autor':
                 author = main_name
-            else:
-                existing_album = Album.objects.filter(name=main_name, atype=Album.PERSON).first()
-                if existing_album is None:
-                    person_album = Album(
-                        name=main_name,
-                        description=all_names,
-                        atype=Album.PERSON
-                    )
-                    if muis_actor_id:
-                        person_album.muis_person_ids = [muis_actor_id]
-                    person_album.save()
-                    person_album_ids.append(person_album.id)
-                elif muis_actor_id:
-                    person_album_ids.append(existing_album.id)
+                continue
+
+            existing_album = Album.objects.filter(name=main_name, atype=Album.PERSON).first()
+            if existing_album and muis_actor_id:
+                person_album_ids.append(existing_album.id)
+                continue
+
+            person_album = Album(
+                name=main_name,
+                description=all_names,
+                atype=Album.PERSON
+            )
+            if muis_actor_id:
+                person_album.muis_person_ids = [muis_actor_id]
+            person_album.save()
+            person_album_ids.append(person_album.id)
+
     return person_album_ids, author
 
 
@@ -377,36 +381,39 @@ def get_muis_date_and_prefix(date, is_later_date):
     after_date_prefix = 'pärast'
     all_date_prefixes = approximate_date_prefixes + [before_date_prefix, after_date_prefix]
     date = unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
-
-    decade_suffix = 'aastad'
     date_prefix = None
     had_decade_suffix = False
-    if date is not None:
-        earliest_date_split = date.split('.')
-        index = 0
-        for split in earliest_date_split:
-            earliest_date_split[index] = split.strip()
-            index += 1
-        if earliest_date_split[-1] == decade_suffix:
-            had_decade_suffix = True
-        if earliest_date_split[0] in all_date_prefixes:
-            date_prefix = earliest_date_split[0]
-            earliest_date_split = earliest_date_split[1:]
-        earliest_date_split.reverse()
-        while len(earliest_date_split[0]) < 4:
-            earliest_date_split[0] = '0' + earliest_date_split[0]
-        if len(earliest_date_split) > 1:
-            while len(earliest_date_split[1]) < 2:
-                earliest_date_split[1] = '0' + earliest_date_split[1]
-            if len(earliest_date_split) > 2:
-                while len(earliest_date_split[2]) < 2:
-                    earliest_date_split[2] = '0' + earliest_date_split[2]
-            date = '.'.join(earliest_date_split)
-        if len(earliest_date_split) == 1:
-            date = earliest_date_split[0]
+    if date is None:
+        return date, date_prefix, had_decade_suffix
 
-        if date_prefix in approximate_date_prefixes:
-            date = '(' + date + ')'
+    decade_suffix = 'aastad'
+    earliest_date_split = date.split('.')
+    index = 0
+
+    for split in earliest_date_split:
+        earliest_date_split[index] = split.strip()
+        index += 1
+    if earliest_date_split[-1] == decade_suffix:
+        had_decade_suffix = True
+    if earliest_date_split[0] in all_date_prefixes:
+        date_prefix = earliest_date_split[0]
+        earliest_date_split = earliest_date_split[1:]
+    earliest_date_split.reverse()
+    while len(earliest_date_split[0]) < 4:
+        earliest_date_split[0] = f'0{earliest_date_split[0]}'
+    if len(earliest_date_split) > 1:
+        while len(earliest_date_split[1]) < 2:
+            earliest_date_split[1] = f'0{earliest_date_split[1]}'
+        if len(earliest_date_split) > 2:
+            while len(earliest_date_split[2]) < 2:
+                earliest_date_split[2] = f'0{earliest_date_split[2]}'
+        date = '.'.join(earliest_date_split)
+    if len(earliest_date_split) == 1:
+        date = earliest_date_split[0]
+
+    if date_prefix in approximate_date_prefixes:
+        date = f'({date})'
+
     return date, date_prefix, had_decade_suffix
 
 
@@ -481,9 +488,9 @@ def add_geotag_from_address_to_photo(photo, locations):
         is_correct=False,
         trustworthiness=0
     )
-
     source_geotag.save()
     source_geotag = GeoTag.objects.filter(id=source_geotag.id).first()
+
     if photo.geotag_count is None:
         photo.geotag_count = 1
     else:
@@ -491,6 +498,7 @@ def add_geotag_from_address_to_photo(photo, locations):
     if photo.first_geotag is None:
         photo.first_geotag = source_geotag.created
     photo.latest_geotag = source_geotag.created
+
     return photo
 
 
@@ -512,59 +520,57 @@ def raw_date_to_date(raw_date):
 
 def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest, date_prefix_latest, Dating,
                         date_earliest_has_suffix, date_latest_has_suffix):
-    if latest_date is not None or earliest_date is not None:
-        if earliest_date is not None:
-            earliest_date = earliest_date.replace('aastad', '').strip('.')
-        if latest_date is not None:
-            latest_date = latest_date.replace('aastad', '').strip('.')
-        before_date_prefix = 'enne'
-        after_date_prefix = 'pärast'
-        approximate_date_prefixes = ['ligikaudu', 'arvatav aeg', 'umbes']
-        dating = Dating(photo=photo)
-        if date_latest_has_suffix:
-            latest_date = str(int(latest_date) + 10)
+    if latest_date is None and earliest_date is None:
+        return photo
 
-        if date_prefix_earliest in approximate_date_prefixes:
-            dating.start_approximate = True
-        if date_prefix_latest in approximate_date_prefixes:
-            dating.end_approximate = True
-        if latest_date is not None and earliest_date is not None:
-            if earliest_date != latest_date:
-                dating.raw = earliest_date + '-' + latest_date
-                dating.start_accuracy = earliest_date.count('.')
-                dating.end_accuracy = earliest_date.count('.')
-            else:
-                dating.raw = earliest_date
-                dating.start_accuracy = earliest_date.count('.')
-        elif latest_date is not None:
-            dating.raw = latest_date
-            dating.start_accuracy = latest_date.count('.')
-        elif earliest_date is not None:
+    if earliest_date is not None:
+        earliest_date = earliest_date.replace('aastad', '').strip('.')
+    if latest_date is not None:
+        latest_date = latest_date.replace('aastad', '').strip('.')
+    before_date_prefix = 'enne'
+    after_date_prefix = 'pärast'
+    approximate_date_prefixes = ['ligikaudu', 'arvatav aeg', 'umbes']
+    dating = Dating(photo=photo)
+    if date_latest_has_suffix:
+        latest_date = str(int(latest_date) + 10)
+
+    if date_prefix_earliest in approximate_date_prefixes:
+        dating.start_approximate = True
+    if date_prefix_latest in approximate_date_prefixes:
+        dating.end_approximate = True
+    if latest_date is not None and earliest_date is not None:
+        if earliest_date != latest_date:
+            dating.raw = f'{earliest_date}-{latest_date}'
+            dating.start_accuracy = earliest_date.count('.')
+            dating.end_accuracy = earliest_date.count('.')
+        else:
             dating.raw = earliest_date
             dating.start_accuracy = earliest_date.count('.')
+    elif latest_date is not None:
+        dating.raw = latest_date
+        dating.start_accuracy = latest_date.count('.')
+    elif earliest_date is not None:
+        dating.raw = earliest_date
+        dating.start_accuracy = earliest_date.count('.')
 
-        if dating.raw is not None and (latest_date is None or earliest_date is None) or (latest_date == earliest_date):
-            if date_prefix_earliest == before_date_prefix:
-                dating.raw = '-' + dating.raw
-            elif date_prefix_latest == before_date_prefix:
-                dating.raw = '-' + dating.raw
-            if date_prefix_earliest == after_date_prefix:
-                dating.raw += '-'
-            elif date_prefix_latest == after_date_prefix:
-                dating.raw += '-'
+    if dating.raw is not None and (latest_date is None or earliest_date is None) or (latest_date == earliest_date):
+        if before_date_prefix in [date_prefix_earliest, date_prefix_latest]:
+            dating.raw = f'-{dating.raw}'
+        if after_date_prefix in [date_prefix_earliest, date_prefix_latest]:
+            dating.raw += '-'
 
-        if earliest_date is not None:
-            dating.start = raw_date_to_date(earliest_date)
-        if latest_date is not None:
-            if earliest_date == latest_date and date_latest_has_suffix:
-                latest_date = str(int(latest_date) + 10)
-            dating.end = raw_date_to_date(latest_date)
+    if earliest_date is not None:
+        dating.start = raw_date_to_date(earliest_date)
+    if latest_date is not None:
+        if earliest_date == latest_date and date_latest_has_suffix:
+            latest_date = str(int(latest_date) + 10)
+        dating.end = raw_date_to_date(latest_date)
 
-        dating.save()
-        dating = Dating.objects.filter(id=dating.id).first()
-        photo.dating_count = 1
-        if photo.dating_count < 1:
-            photo.first_dating = dating.created
-        photo.dating_count += 1
-        photo.latest_dating = dating.created
+    dating.save()
+    dating = Dating.objects.filter(id=dating.id).first()
+    photo.dating_count = 1
+    if photo.dating_count < 1:
+        photo.first_dating = dating.created
+    photo.dating_count += 1
+    photo.latest_dating = dating.created
     return photo

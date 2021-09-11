@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for language in settings.MODELTRANSLATION_LANGUAGES:
-            attribute = 'name' + '_' + language
+            attribute = f'name_{language}'
             duplicates = Album.objects.values(attribute) \
                               .annotate(name_count=Count(attribute)) \
                               .filter(name_count__gt=1)

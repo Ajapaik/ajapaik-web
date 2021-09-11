@@ -5,7 +5,7 @@
     gettext('Add this picture to album (not the whole set)');
     gettext('Aerial');
     gettext('Album details');
-    gettext('Album has <em>%(photoCount)s</em> pictures')
+    gettext('Album has <em>%(photoCount)s</em> pictures');
     gettext('Approximate address');
     gettext('Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures.');
     gettext('Author');
@@ -69,7 +69,7 @@
     gettext('No pictures in square format were found in this album');
     gettext('Not selected');
     gettext('Number');
-    gettext('Picture added to album by:')
+    gettext('Picture added to album by:');
     gettext('Picture already in album(s)');
     gettext('Picture has location data attached');
     gettext('Picture is already in Ajapaik. You can still add it to your album, no curation points awarded');
@@ -113,7 +113,7 @@
     gettext('Unidentified elderly person');
     gettext('Unidentified man');
     gettext('Unidentified woman');
-    gettext('Unidentified person')
+    gettext('Unidentified person');
     gettext('Unknown author');
     gettext('You have opened the map with the album filter off, to turn it on, please tick the box next to album name');
     gettext('You have opened the map with the album filter on, to turn it off, please untick the box next to album name');

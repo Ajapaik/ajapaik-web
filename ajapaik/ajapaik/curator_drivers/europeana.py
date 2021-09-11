@@ -5,13 +5,14 @@ from json import dumps, loads
 from math import ceil
 
 from django.conf import settings
-from requests import get, head
+from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
 def _filter_out_url(str):
     return 'http' not in str
+
 
 class EuropeanaDriver(object):
     def __init__(self):
@@ -24,9 +25,9 @@ class EuropeanaDriver(object):
             'pages': 0
         }
 
-        url = re.search('https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|#|$)', url).group(1)
-        json_url = 'https://www.europeana.eu/api/v2/' + url + '.json'
-        record_url = 'https://www.europeana.eu/portal/' + url + '.html'
+        url = re.search(r'https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|#|$)', url).group(1)
+        json_url = f'https://www.europeana.eu/api/v2/{url}.json'
+        record_url = 'https://www.europeana.eu/portal/{url}.html'
         json = loads(get(json_url, {'wskey': settings.EUROPEANA_API_KEY}).text)
 
         print(json_url)
@@ -112,7 +113,7 @@ class EuropeanaDriver(object):
         }
 
         if cleaned_data['fullSearch'].strip().startswith('https://www.europeana.eu/portal/'):
-            target_url = re.search('(https://[^.]*?\.europeana.eu/.*?/.*?record.*?)\.(json|html)(\?|#|$)',
+            target_url = re.search(r'(https://[^.]*?\.europeana.eu/.*?/.*?record.*?)\.(json|html)(\?|#|$)',
                                    cleaned_data['fullSearch']).group(1)
 
             response = self.urlToResponseTitles(target_url)
@@ -186,7 +187,7 @@ class EuropeanaDriver(object):
                         break
 
             if title != '' and title not in description:
-                title = title + ' - ' + description
+                title = f'{title} - {description}'
             elif title == '':
                 title = description
 
@@ -199,12 +200,12 @@ class EuropeanaDriver(object):
                     title = p['title'].strip()
 
             if len(title) > 400:
-                t = re.search('\A(.*?\n.*?)\n', title, re.MULTILINE)
+                t = re.search(r'\A(.*?\n.*?)\n', title, re.MULTILINE)
                 if t:
                     title = t.group(1)
 
             if len(title) > 400:
-                t = re.search('\A(.*?)\n', title, re.MULTILINE)
+                t = re.search(r'\A(.*?)\n', title, re.MULTILINE)
                 if t:
                     title = t.group(1)
 
@@ -252,7 +253,7 @@ class EuropeanaDriver(object):
                 'isEuropeanaResult': True,
                 'cachedThumbnailUrl': thumbnailUrl,
                 'title': title,
-                'institution': 'Europeana / ' + institution,
+                'institution': f'Europeana / {institution}',
                 'imageUrl': imageUrl,
                 'id': p['id'],
                 'mediaId': p['id'],
@@ -267,7 +268,7 @@ class EuropeanaDriver(object):
                 'date': date
             }
 
-            print('DEBUG\n' + p['id'] + '\n' + institution)
+            print(f'DEBUG\n{p["id"]}\n{institution}')
             # External will break when saving the photo
             existing_photo = Photo.objects.filter(external_id=p['id'],
                                                   source__description=transformed_item['institution']).first()
