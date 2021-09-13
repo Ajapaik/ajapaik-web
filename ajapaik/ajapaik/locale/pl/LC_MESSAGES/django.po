@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-09-02 11:00:22+0000\n"
+"PO-Revision-Date: 2021-09-13 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-09-02 00:30:35+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,9 +42,8 @@ msgid "Expired token"
 msgstr "Wygasły token"
 
 #: ajapaik/ajapaik/api.py:80
-#, fuzzy
 msgid "Invalid token"
-msgstr "!!Rozmyte!! Zły token"
+msgstr "Nieprawidłowy token"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
@@ -88,7 +87,7 @@ msgstr "Dziękujemy za dodanie opinii o transkrypcji!"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "User display name has been saved"
-msgstr ""
+msgstr "Wyświetlana nazwa użytkownika została zapisana"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "User settings have been saved"

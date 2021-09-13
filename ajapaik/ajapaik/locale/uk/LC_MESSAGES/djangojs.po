@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-09-02 11:00:22+0000\n"
+"PO-Revision-Date: 2021-09-13 11:00:20+0000\n"
 "X-POT-Import-Date: 2021-09-02 00:30:35+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -472,7 +472,7 @@ msgstr "Число"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "Зображення додано до альбому:"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "Picture already in album(s)"
