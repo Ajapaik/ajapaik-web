@@ -688,14 +688,15 @@ def frontpage(request, album_id=None, page=None):
         or request.GET.get('backsides') \
         or request.GET.get('exteriors') \
         or request.GET.get('interiors') \
+        or request.GET.get('portrait') \
+        or request.GET.get('square') \
+        or request.GET.get('landscape') \
+        or request.GET.get('panoramic') \
         or request.GET.get('ground_viewpoint_elevation') \
         or request.GET.get('raised_viewpoint_elevation') \
         or request.GET.get('aerial_viewpoint_elevation') \
         or request.GET.get('no_geotags')\
-        or request.GET.get('portrait') \
-        or request.GET.get('square') \
-        or request.GET.get('landscape') \
-        or request.GET.get('panoramic')
+        or request.GET.get('high_quality')
     context = {
         'is_frontpage': True,
         'title': title,
@@ -745,8 +746,8 @@ def frontpage_async_albums(request):
             albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
         elif form.cleaned_data['backsides']:
             photoIDs = Photo.objects.filter(front_of__isnull=False).values('id')
-            albumPhotos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
-            albums = Album.objects.filter(id__in=albumPhotos, cover_photo__isnull=False, is_public=True)
+            album_photos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
+            albums = Album.objects.filter(id__in=album_photos, cover_photo__isnull=False, is_public=True)
         elif form.cleaned_data['collections']:
             albums = Album.objects.filter(atype=Album.COLLECTION, cover_photo__isnull=False, is_public=True)
         else:
@@ -754,7 +755,6 @@ def frontpage_async_albums(request):
                                           atype=Album.CURATED)
         q = form.cleaned_data['q']
         if q:
-            # TODO: Haystack 2.8.x upgrade requires Django 1.11.x, after that we could move to Python 3.7
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(q))
             albums = albums.filter(pk__in=[r.pk for r in sqs])
         total = albums.count()
@@ -852,6 +852,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(viewpoint_elevation=2)
         if filter_form.cleaned_data['no_geotags']:
             photos = photos.filter(geotag_count=0)
+        if filter_form.cleaned_data['high_quality']:
+            photos = photos.filter(height__gte=1080)
         if filter_form.cleaned_data['portrait']:
             photos = photos.filter(aspect_ratio__lt=0.95)
         if filter_form.cleaned_data['square']:
@@ -1040,12 +1042,12 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'distance',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
-                                        'muis_comment', 'muis_event_description_set_note')[start:end]
+                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')[start:end]
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
-                                        'muis_comment', 'muis_event_description_set_note')[start:end]
+                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')[start:end]
 
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
@@ -1063,6 +1065,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[3] = p[16]
             if p[3] == '' or p[3] is None:
                 p[3] = p[17]
+            if p[2] >= 1080:
+                p[18] = True
+            else:
+                p[18] = False
             if hasattr(p[10], 'm'):
                 p[10] = p[10].m
             p[1], p[2] = calculate_thumbnail_size(p[1], p[2], 400)

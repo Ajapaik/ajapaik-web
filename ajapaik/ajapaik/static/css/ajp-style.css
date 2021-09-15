@@ -896,6 +896,10 @@ a.fullscreen {
   background-image: url(../images/material-design-icons/ic_burst_mode_24px.svg);
 }
 
+.ajp-frontpage-high-quality-label {
+  background-image: url(../images/material-design-icons/high_quality_24px.svg);
+}
+
 #ajp-reverse-side-button {
   top: 0px;
   text-align: center;

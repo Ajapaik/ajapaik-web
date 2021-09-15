@@ -162,7 +162,7 @@
                 window.transcriptionFocused = true;
             }).on('blur', function () {
                 window.transcriptionFocused = false;
-            }).attr('placeholder', gettext('What is written on the image?'));
+            }).attr('placeholder', gettext('What is written on the picture?'));
             that.$UI.find('#ajp-transcriber-submit-button').text(gettext('Submit')).attr('title', gettext('Submit')).click(function (e) {
                 e.preventDefault();
                 that.submit();

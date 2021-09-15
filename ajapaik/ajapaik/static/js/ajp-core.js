@@ -367,7 +367,7 @@ $('.ajp-navbar').autoHidingNavbar();
         window.location.href = uri;
     };
 
-    $(document).on('click','#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape', function (e) {
+    $(document).on('click','#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-high_quality, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape', function (e) {
         e.preventDefault();
         let idComponents = e.currentTarget.id.split('-');
         window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);

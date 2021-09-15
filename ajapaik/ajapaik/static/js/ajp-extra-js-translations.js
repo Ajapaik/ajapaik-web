@@ -23,11 +23,12 @@
     gettext('Flip');
     gettext('Geotag pictures in album');
     gettext('Ground');
-    gettext('Image has location and view direction info');
-    gettext('Image has no location info');
-    gettext('Image has only location, no view direction');
-    gettext('Image has rephotos');
-    gettext('Image has similar photos');
+    gettext('Picture is of high quality');
+    gettext('Picture has location and view direction info');
+    gettext('Picture has no location info');
+    gettext('Picture has only location, no view direction');
+    gettext('Picture has rephotos');
+    gettext('Picture has similar photos');
     gettext('Institution');
     gettext('Interior');
     gettext('Invert colors');
@@ -39,6 +40,8 @@
     gettext('No aerial pictures were found');
     gettext('No exterior views were found in this album');
     gettext('No exterior views were found');
+    gettext('No high-quality pictures were found');
+    gettext('No high-quality pictures were found in this album');
     gettext('No interior views were found in this album');
     gettext('No interior views were found');
     gettext('No pictures in landscape format were found');

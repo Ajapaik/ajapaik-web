@@ -1146,7 +1146,7 @@ class ImageSimilarity(Model):
                                                similarity_type=self.similarity_type)
         suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by(
             'proposer_id', '-created').all().distinct('proposer_id')
-        if self.similarity_type:
+        if self.similarity_type is not None:
             first_suggestion = 0 if self.similarity_type == 1 else 1
             second_suggestion = 0 if self.similarity_type == 2 else 2
             if suggestions.filter(similarity_type=self.similarity_type).count() >= (

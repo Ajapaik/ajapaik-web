@@ -151,6 +151,7 @@ class GalleryFilteringForm(forms.Form):
     raised_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
     aerial_viewpoint_elevation = forms.BooleanField(initial=False, required=False)
     no_geotags = forms.BooleanField(initial=False, required=False)
+    high_quality = forms.BooleanField(initial=False, required=False)
     portrait = forms.BooleanField(initial=False, required=False)
     square = forms.BooleanField(initial=False, required=False)
     landscape = forms.BooleanField(initial=False, required=False)

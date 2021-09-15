@@ -14,29 +14,34 @@
                 {% if (o[6]) { %}
                     {% if (o[4] && o[5]) { %}
                         <div style="transform: rotate({%=o[6]%}deg);" class="ajp-frontpage-azimuth"
-                            title="{%=gettext('Image has location and view direction info')%}">
+                            title="{%=gettext('Picture has location and view direction info')%}">
                             <span class="material-icons notranslate">navigation</span>
                         </div>
                     {% } %}
                 {% } else { %}
                     {% if (o[4] && o[5]) { %}
                         <div class="ajp-frontpage-location-known"
-                            title="{%=gettext('Image has only location, no view direction')%}">
+                            title="{%=gettext('Picture has only location, no view direction')%}">
                         </div>
                     {% } %}
                 {% } %}
                 {% if (!o[4]) { %}
-                    <div class="ajp-frontpage-location-unknown" title="{%=gettext('Image has no location info')%}"></div>
+                    <div class="ajp-frontpage-location-unknown" title="{%=gettext('Picture has no location info')%}"></div>
                 {% } %}
                 {% if (o[7] > 0) { %}
                     <div class="ajp-frontpage-rephoto-count
                         ajp-frontpage-rephoto-count-{% if (o[7] < 9) { %}{%=o[7]%}{% } else { %}9-plus{% } %}"
-                        title="{%=gettext('Image has rephotos')%}">
+                        title="{%=gettext('Picture has rephotos')%}">
                     </div>
                 {% } %}
                 {% if (o[13] > 0) { %}
                     <div class="ajp-frontpage-similar-photo-count"
-                        title="{%=gettext('Image has similar photos')%}">
+                        title="{%=gettext('Picture has similar photos')%}">
+                    </div>
+                {% } %}
+                {% if (o[18]) { %}
+                    <div class="ajp-frontpage-high-quality-label"
+                        title="{%=gettext('Picture is of high quality')%}">
                     </div>
                 {% } %}
                 <span class="ajp-frontpage-comments-count {% if (!o[8] || o[8] == 0) { %}d-none{% } %}" title="{%=gettext('Comments')%}">
