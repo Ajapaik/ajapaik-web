@@ -39,6 +39,8 @@
     gettext('No aerial pictures were found');
     gettext('No exterior views were found in this album');
     gettext('No exterior views were found');
+    gettext('No high-quality pictures were found');
+    gettext('No high-quality pictures were found in this album');
     gettext('No interior views were found in this album');
     gettext('No interior views were found');
     gettext('No pictures in landscape format were found');

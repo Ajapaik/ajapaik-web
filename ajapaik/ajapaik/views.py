@@ -692,6 +692,7 @@ def frontpage(request, album_id=None, page=None):
         or request.GET.get('raised_viewpoint_elevation') \
         or request.GET.get('aerial_viewpoint_elevation') \
         or request.GET.get('no_geotags')\
+        or request.GET.get('high_quality') \
         or request.GET.get('portrait') \
         or request.GET.get('square') \
         or request.GET.get('landscape') \
@@ -852,6 +853,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(viewpoint_elevation=2)
         if filter_form.cleaned_data['no_geotags']:
             photos = photos.filter(geotag_count=0)
+        if filter_form.cleaned_data['high_quality']:
+            photos = photos.filter(height__gte=1080)
         if filter_form.cleaned_data['portrait']:
             photos = photos.filter(aspect_ratio__lt=0.95)
         if filter_form.cleaned_data['square']:
