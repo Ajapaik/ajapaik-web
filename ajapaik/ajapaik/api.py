@@ -476,8 +476,6 @@ class FinnaNearestPhotos(AjapaikAPIView):
             })
 
     def _get_finna_results(self, lat, lon, query, album, distance):
-        # print >>sys.stderr, ('_get_finna_results: %f, %f, %f, %s, %s' % (lat, lon, distance, query, album) )
-
         finna_filters = [
             'free_online_boolean:"1"',
             '~format:"0/Place/"',

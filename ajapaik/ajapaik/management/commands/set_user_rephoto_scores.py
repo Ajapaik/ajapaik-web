@@ -19,4 +19,3 @@ class Command(BaseCommand):
             photos = Photo.objects.filter(rephoto_of__isnull=False, user__isnull=False).distinct('user')
         for p in photos:
             p.user.update_rephoto_score()
-            # print >> self.stdout, (p.user.pk, p.user.user.get_full_name(), p.user.fb_name, p.user.score_rephoto)

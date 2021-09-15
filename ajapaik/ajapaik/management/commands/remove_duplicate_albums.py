@@ -60,11 +60,11 @@ class Command(BaseCommand):
                     photo_id__in=existing_links_to_photo
                 ).delete()
 
-                albumphotos = AlbumPhoto.objects.filter(album_id__in=other_instance_ids)
-                if albumphotos is not None:
-                    for albumphoto in albumphotos:
+                album_photos = AlbumPhoto.objects.filter(album_id__in=other_instance_ids)
+                if album_photos is not None:
+                    for albumphoto in album_photos:
                         albumphoto.album = first_instance
-                    AlbumPhoto.objects.bulk_update(albumphotos, ['album'])
+                    AlbumPhoto.objects.bulk_update(album_photos, ['album'])
 
                 rectangles = FaceRecognitionRectangle.objects.filter(
                     subject_ai_suggestion_id__in=other_instance_ids

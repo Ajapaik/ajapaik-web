@@ -15,10 +15,8 @@ class Command(BaseCommand):
             Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='',
               user__first_name__ne='')
         )
-        # print profiles_with_data.count()
         i = 1
         for each in profiles_with_data:
-            # print i
             if each.fb_name:
                 parts = each.fb_name.split(' ')
                 each.first_name = parts[0]

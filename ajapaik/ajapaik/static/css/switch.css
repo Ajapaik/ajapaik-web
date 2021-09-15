@@ -4,14 +4,11 @@
   box-sizing: border-box;
 }
 
-.switch {
-  margin: 4rem auto;
-}
-
 /* main styles */
 .switch {
   width: 16rem;
   position: relative;
+  margin: 4rem auto;
 }
 
 .switch input {

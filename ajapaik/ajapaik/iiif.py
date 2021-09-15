@@ -215,7 +215,6 @@ def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, h
     return canvas
 
 
-# print html licence string
 def _render_licence_text(licence):
     licence_text = ''
     if licence:
@@ -238,7 +237,6 @@ def _render_rights_url(licence):
     return rights_url
 
 
-# Print html credits line
 def _render_source_text(source, source_url, identifier):
     source_text = ''
 

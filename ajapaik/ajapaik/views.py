@@ -341,7 +341,6 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
     if qs:
-        # albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
         albums = qs.order_by('-created')[start:end]
     else:
         albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
@@ -2245,7 +2244,6 @@ def curator_photo_upload_handler(request):
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
-                # print (upload_form.cleaned_data)
                 if upload_form.cleaned_data['institution']:
                     if upload_form.cleaned_data['institution'] == 'Flickr Commons':
                         licence = flickr_licence

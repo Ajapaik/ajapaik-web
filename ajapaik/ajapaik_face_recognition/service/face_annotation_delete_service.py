@@ -15,8 +15,8 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
     consensus = face_detection_annotation.subject_consensus
     if (consensus and len(FaceRecognitionRectangle.objects.filter(photo=photo, subject_consensus=consensus).exclude(
             id=face_detection_annotation.id).exclude(deleted__isnull=False)) < 1):
-        albumPhotos = AlbumPhoto.objects.filter(photo=photo, album=consensus)
-        for ap in albumPhotos:
+        album_photos = AlbumPhoto.objects.filter(photo=photo, album=consensus)
+        for ap in album_photos:
             ap.delete()
         consensus.set_calculated_fields()
         consensus.save()

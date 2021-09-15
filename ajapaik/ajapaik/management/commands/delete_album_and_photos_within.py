@@ -20,16 +20,12 @@ class Command(BaseCommand):
                 for photo in target.photos.all():
                     if photo.image:
                         if os.path.isfile(photo.image.path):
-                            # print('Want to delete file %s' % photo.image.path)
                             os.remove(photo.image.path)
                     if photo.image_unscaled:
                         if os.path.isfile(photo.image_unscaled.path):
-                            # print('Want to delete file %s' % photo.image.path)
                             os.remove(photo.image_unscaled.path)
                     if photo.image_no_watermark:
                         if os.path.isfile(photo.image_no_watermark.path):
-                            # print('Want to delete file %s' % photo.image.path)
                             os.remove(photo.image_no_watermark.path)
-                    # print('Want to delete Photo %s' % photo.pk)
                     photo.delete()
                 target.delete()

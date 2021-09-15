@@ -9,7 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.all()
         for p in photos:
-            # print p.pk
             comments = MyXtdComment.objects.filter(
                 object_pk=p.pk, is_removed=False
             )

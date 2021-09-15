@@ -69,17 +69,13 @@
      display: inline-block;
      /* for the add-another image */
      vertical-align: middle;
+     position: relative;
  }
  
  .autocomplete-light-widget input,
  .autocomplete-light-widget input:focus {
      margin: 0;
      outline: 0;
- }
- 
- .autocomplete-light-widget {
-     /* "Position" the widget */
-     position: relative;
  }
  
  input.autocomplete {

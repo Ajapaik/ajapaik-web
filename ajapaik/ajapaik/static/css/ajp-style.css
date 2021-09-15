@@ -203,10 +203,6 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   max-width: 100%;
 }
 
-.ajp-header-button {
-  font-size: 0;
-}
-
 .ajp-header-button > svg {
   vertical-align: baseline;
 }
@@ -335,6 +331,7 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
 }
 
 .ajp-header-button {
+  font-size: 0;
   background-size: 36px !important;
   margin-top: 6px;
   background-color: transparent !important;
@@ -464,11 +461,6 @@ path:hover {
   right: 0;
 }
 
-.full-pic {
-  width: 100%;
-  height: 100%;
-}
-
 #ajp-map-container {
   z-index: 98;
 }
@@ -498,6 +490,8 @@ a.fullscreen {
 }
 
 .full-pic {
+  width: 100%;
+  height: 100%;
   position: absolute;
   left: 0;
   top: 0;
@@ -665,6 +659,7 @@ a.fullscreen {
   margin-top: 75px;
   min-width: 50%;
   min-height: 400px;
+  max-width: 99vw !important;
 }
 
 .modal-body {
@@ -799,7 +794,8 @@ a.fullscreen {
 .ajp-rephoto-count,
 .ajp-frontpage-comments-count,
 .ajp-frontpage-rephoto-count,
-.ajp-frontpage-similar-photo-count {
+.ajp-frontpage-similar-photo-count,
+.ajp-frontpage-high-quality-label {
   width: 30px;
   height: 26px;
   color: white;
@@ -1060,11 +1056,6 @@ a.fullscreen {
   top: 0;
 }
 
-.ajp-invert-rephoto-overlay-button,
-.ajp-invert-similar-photo-overlay-button {
-  bottom: 0;
-}
-
 .ajp-compare-similar-overlay-button {
   display: block;
   transition: opacity 0.2s ease-out;
@@ -1079,6 +1070,7 @@ a.fullscreen {
 .ajp-invert-rephoto-overlay-button,
 .ajp-invert-similar-photo-overlay-button {
   z-index: 3001;
+  bottom: 0;
 }
 
 .ajp-invert-rephoto-overlay-button,
@@ -1146,6 +1138,10 @@ a.fullscreen {
 
 #ajp-modal-similar-photo {
   height: -webkit-fill-available;
+  object-fit: contain;
+  object-position: top;
+  position: relative;
+  display: inline-block;
 }
 
 #ajp-modal-photo,
@@ -1205,10 +1201,6 @@ a.fullscreen {
   height: calc(100% - 65px);
 }
 
-.modal-content {
-  max-width: 99vw !important;
-}
-
 #ajp-photo-modal-specify-location {
   margin-right: 2%;
   float: right !important;
@@ -1250,7 +1242,6 @@ a.fullscreen {
 }
 
 #ajp-modal-rephoto-container,
-#ajp-modal-similar-photo-container,
 #ajp-modal-photo-container {
   position: relative;
   display: inline-block;
@@ -1350,9 +1341,6 @@ a.fullscreen {
 #ajp-game-full-screen-show-description-button {
   position: fixed;
   bottom: 2%;
-}
-
-#ajp-game-full-screen-show-description-button {
   left: 2%;
 }
 
@@ -2178,11 +2166,6 @@ input[type=search]::-webkit-search-cancel-button {
   margin-left: -28px;
   font-size: 267px;
   color: #888;
-}
-
-#ajp-modal-similar-photo {
-  object-fit: contain;
-  object-position: top;
 }
 
 div.gm-style-mtc > div:nth-of-type(2) {

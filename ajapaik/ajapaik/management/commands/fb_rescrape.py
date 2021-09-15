@@ -12,6 +12,5 @@ class Command(BaseCommand):
         query_string = 'https://graph.facebook.com/?id=%s&scrape=true'
         url_template = 'https://ajapaik.ee/foto/%d/'
         for p in photos:
-            # print p.id
             url = url_template % p.id
             requests.post(query_string % url)

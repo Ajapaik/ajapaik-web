@@ -19,6 +19,5 @@ class Command(BaseCommand):
             profile.save()
         else:
             for profile in Profile.objects.all():
-                # print profile.id
                 profile.set_calculated_fields()
                 profile.save()

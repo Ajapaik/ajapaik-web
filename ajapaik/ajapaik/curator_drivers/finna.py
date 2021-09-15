@@ -152,7 +152,6 @@ def finna_import_photo(id, profile):
 
         source = Source.objects.filter(description=institution).first()
         if not source:
-            # print >> sys.stderr, ('Saving missing source '%s'' % institution)
             source = Source(
                 name=institution,
                 description=institution
@@ -191,7 +190,6 @@ def finna_import_photo(id, profile):
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
-        # print >> sys.stderr, ('import_finna_photo saving file')
         new_photo.save()
 
         if p.get('latitude') and p.get('longitude') and not \
@@ -218,7 +216,6 @@ def finna_import_photo(id, profile):
             pk=id
         ).first()
 
-        # print >> sys.stderr, ('import_finna_photo saved photo id: %d' % new_photo.id)
         return photo
 
 
