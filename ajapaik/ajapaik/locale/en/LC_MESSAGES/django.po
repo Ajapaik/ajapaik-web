@@ -1587,6 +1587,21 @@ msgid "back sides of pictures"
 msgstr "back sides of pictures"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
+msgid "pictures in portrait format"
+msgstr "pictures in portrait format"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
+msgid "pictures in square format"
+msgstr "pictures in square format"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
+msgid "pictures in landscape format"
+msgstr "pictures in landscape format"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
+msgid "pictures in panoramic format"
+msgstr "pictures in panoramic format"
+
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "exteriors"
 msgstr "exteriors"

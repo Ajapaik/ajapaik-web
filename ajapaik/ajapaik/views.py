@@ -688,15 +688,15 @@ def frontpage(request, album_id=None, page=None):
         or request.GET.get('backsides') \
         or request.GET.get('exteriors') \
         or request.GET.get('interiors') \
+        or request.GET.get('portrait') \
+        or request.GET.get('square') \
+        or request.GET.get('landscape') \
+        or request.GET.get('panoramic') \
         or request.GET.get('ground_viewpoint_elevation') \
         or request.GET.get('raised_viewpoint_elevation') \
         or request.GET.get('aerial_viewpoint_elevation') \
         or request.GET.get('no_geotags')\
-        or request.GET.get('high_quality') \
-        or request.GET.get('portrait') \
-        or request.GET.get('square') \
-        or request.GET.get('landscape') \
-        or request.GET.get('panoramic')
+        or request.GET.get('high_quality')
     context = {
         'is_frontpage': True,
         'title': title,
