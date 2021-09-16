@@ -1,4 +1,3 @@
-from copy import Error
 import re
 from json import dumps, loads
 from math import ceil
@@ -106,7 +105,7 @@ def finna_import_photo(id, profile):
                         p['latitude'] = float(lat)
                         geography = Point(x=float(lon), y=float(lat), srid=4326)
                         break
-                    except Error as e:
+                    except Exception as e:
                         print(e)
                         continue
 
@@ -286,7 +285,7 @@ class FinnaDriver(object):
                                 p['longitude'] = float(lon)
                                 p['latitude'] = float(lat)
                                 break
-                            except Error as e:
+                            except Exception as e:
                                 print(e)
                                 continue
 
