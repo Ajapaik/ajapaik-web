@@ -5,6 +5,7 @@
 # Author: Kly
 # Author: Winston Sung
 # Author: 予弦
+# Author: 列维劳德
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-09-20 11:00:17+0000\n"
+"PO-Revision-Date: 2021-09-23 11:00:14+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -300,29 +301,24 @@ msgid "Picture is of high quality"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
-msgstr "圖片含有位置與檢視方向資訊"
+msgstr "照片含有位置與檢視方向資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
-msgstr "圖片含有位置資訊"
+msgstr "照片中含有位置資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
-msgstr "圖片僅有位置，沒有檢視方向"
+msgstr "照片僅有位置，沒有檢視方向"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
-msgstr "圖片含有翻拍照片"
+msgstr "照片中含有翻拍"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
-msgstr "圖片含有相似照片"
+msgstr "照片含有相似相片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Institution"
@@ -932,9 +928,8 @@ msgid "This transcription is correct"
 msgstr "此轉錄不正確"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
-msgstr "在圖片上寫了什麼？"
+msgstr "在照片上寫了什麼？"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
