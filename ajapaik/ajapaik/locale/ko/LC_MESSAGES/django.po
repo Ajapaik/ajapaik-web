@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-09-20 11:00:17+0000\n"
+"PO-Revision-Date: 2021-09-27 11:00:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1634,7 +1634,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:55
 msgid "high-quality pictures"
-msgstr ""
+msgstr "고품질 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "no filter"
@@ -1702,7 +1702,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:193
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "고품질 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:209
 msgid "Sort by distance from you"
@@ -2680,5 +2680,5 @@ msgstr "내 제안이 저장되었습니다"
 
 #: ajapaik/utils.py:160
 msgid "You must specify a new value when making a suggestion"
-msgstr ""
+msgstr "제안을 할 때 새 값을 지정해야 합니다"
 
