@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2021-09-20 11:00:16+0000\n"
+"PO-Revision-Date: 2021-09-30 11:00:12+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -2552,7 +2552,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3600
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "Digitaalisen kulttuurin vuosi 2020"
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Wikimedia Finland"
