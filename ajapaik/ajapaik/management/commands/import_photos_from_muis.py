@@ -2,6 +2,7 @@ from datetime import datetime, timezone, timedelta
 
 import logging
 import urllib
+import time
 import traceback
 
 from django.conf import settings
@@ -228,11 +229,13 @@ class Command(BaseCommand):
                     exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
                     exception.save()
 
-                for album in albums:
-                    album.set_calculated_fields()
-                    album.save()
-
+                time.sleep(1)
             until_date = from_date
+
+        for album in albums:
+            album.set_calculated_fields()
+            album.save()
+
         all_person_album_ids = list(all_person_album_ids_set)
         all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
 

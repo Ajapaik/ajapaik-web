@@ -1,4 +1,5 @@
 from random import randint
+import time
 
 from django.contrib.gis.geos import Point
 from django.core.management.base import BaseCommand
@@ -10,7 +11,7 @@ class Command(BaseCommand):
     help = 'Refresh albums'
 
     def handle(self, *args, **options):
-        albums = Album.objects.exclude(atype=Album.AUTO)
+        albums = Album.objects.exclude(atype__in=[Album.AUTO, Album.FAVORITES])
         for a in albums:
             historic_photo_qs = a.get_historic_photos_queryset_with_subalbums()
             if not historic_photo_qs.exists():
@@ -38,3 +39,4 @@ class Command(BaseCommand):
                 a.cover_photo_flipped = random_photo.flip
 
             a.light_save()
+            time.sleep(0.2)
