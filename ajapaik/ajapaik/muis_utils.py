@@ -369,7 +369,7 @@ def add_person_albums(actors, person_album_ids, ns):
             )
             if muis_actor_id:
                 person_album.muis_person_ids = [muis_actor_id]
-            person_album.save()
+            person_album.light_save()
             person_album_ids.append(person_album.id)
 
     return person_album_ids, author
