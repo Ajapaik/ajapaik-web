@@ -1151,7 +1151,7 @@ class ImageSimilarity(Model):
             second_suggestion = 0 if self.similarity_type == 2 else 2
             if suggestions.filter(similarity_type=self.similarity_type).count() >= (
                     suggestions.filter(similarity_type=second_suggestion).count() - 1) \
-                    and len(suggestions.filter(similarity_type=self.similarity_type)) >= (
+                    and suggestions.filter(similarity_type=self.similarity_type).count() >= (
                     suggestions.filter(similarity_type=first_suggestion).count() - 1):
                 suggestion.proposer = self.user_last_modified
                 imageSimilarity.similarity_type = self.similarity_type

@@ -374,7 +374,8 @@ class PhotoLikeForm(forms.ModelForm):
 
 
 class AlbumInfoModalForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(Q(atype=Album.CURATED) | Q(atype=Album.COLLECTION)))
+    album = forms.ModelChoiceField(queryset=Album.objects.filter(Q(atype=Album.CURATED) | Q(atype=Album.COLLECTION)
+                                                                 | Q(atype=Album.PERSON)))
     linkToGame = forms.BooleanField(required=False)
     linkToMap = forms.BooleanField(required=False)
     linkToGallery = forms.BooleanField(required=False)

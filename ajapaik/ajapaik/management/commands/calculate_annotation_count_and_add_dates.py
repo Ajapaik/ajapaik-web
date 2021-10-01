@@ -16,10 +16,10 @@ class Command(BaseCommand):
                 objectAnnotations = ObjectDetectionAnnotation.objects.all().filter(photo__id=photo.id)
                 first = None
                 latest = None
-                if faceRecognitionRectangles.count() > 0:
+                if faceRecognitionRectangles.exists():
                     first = faceRecognitionRectangles.order_by('created').first().created
                     latest = faceRecognitionRectangles.order_by('-modified').first().modified
-                if objectAnnotations.count() > 0:
+                if objectAnnotations.exists():
                     if first is None or objectAnnotations.order_by('created_on').first().created_on < first:
                         first = objectAnnotations.order_by('created_on').first().created_on
                     if latest is None or objectAnnotations.order_by('-modified_on').first().modified_on > latest:

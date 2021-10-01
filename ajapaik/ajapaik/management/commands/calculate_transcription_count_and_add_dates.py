@@ -11,7 +11,7 @@ class Command(BaseCommand):
         for photo in photos:
             try:
                 transcriptions = Transcription.objects.all().filter(photo__id=photo.id)
-                if transcriptions.count() > 0:
+                if transcriptions.exists():
                     first_transcription = transcriptions.order_by('created').first()
                     last_transcription = transcriptions.order_by('-modified').first()
                     if first_transcription:

@@ -76,7 +76,7 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
             object_annotation
         ),
         'is_added_by_current_user': object_annotation.user is not None and user_id == object_annotation.user.id,
-        'has_user_given_feedback': object_annotation.feedback.all().count() > 0,
+        'has_user_given_feedback': object_annotation.feedback.all().exists(),
         'previous_feedback': {
             'is_correct_object': previous_feedback.confirmation if previous_feedback is not None else None,
             'alternative_object_id': alternative_object_id,
@@ -127,7 +127,7 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
         'is_added_by_current_user': face_annotation.user is not None and user_id == face_annotation.user.id,
         'gender': object_annotation_utils.parse_gender_to_constant(original_user_set_gender),
         'age': object_annotation_utils.parse_age_to_constant(original_user_set_age),
-        'has_user_given_feedback': face_annotation.feedback.all().count() > 0,
+        'has_user_given_feedback': face_annotation.feedback.all().exists(),
         'previous_feedback': {
             'is_face': previous_user_feedback.is_correct if previous_user_feedback is not None else None,
             'is_correct_name': previous_user_feedback.is_correct_person if previous_user_feedback is not None else None,

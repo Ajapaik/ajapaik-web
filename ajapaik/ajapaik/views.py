@@ -552,8 +552,8 @@ def logout(request):
 @ensure_csrf_cookie
 def game(request):
     profile = request.get_user().profile
-    user_has_likes = profile.likes.count() > 0
-    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
+    user_has_likes = profile.likes.exists()
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
     area_selection_form = AreaSelectionForm(request.GET)
     album_selection_form = AlbumSelectionForm(
         request.GET,
@@ -670,8 +670,8 @@ def frontpage(request, album_id=None, page=None):
     data = _get_filtered_data_for_frontpage(request, album_id, page)
     site = Site.objects.get_current()
 
-    user_has_likes = profile.likes.count() > 0
-    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
+    user_has_likes = profile.likes.exists()
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
 
     if data['rephotos_by_name']:
         title = _('%(name)s - rephotos') % {'name': data['rephotos_by_name']}
@@ -1207,46 +1207,43 @@ def upload_photo_selection(request):
     if form.is_valid() and profile.is_legit():
         albums = Album.objects.filter(id__in=request.POST.getlist('albums'))
         photo_ids = json.loads(form.cleaned_data['selection'])
-        if len(albums) > 0:
-            pass
-        else:
+
+        if not albums.exists():
             context['error'] = _('Cannot upload to these albums')
-        if len(albums) > 0:
-            album_photos = []
-            points = []
-            for a in albums:
-                for pid in photo_ids:
-                    try:
-                        p = Photo.objects.get(pk=pid)
-                        existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
-                        if not existing_link:
-                            album_photos.append(
-                                AlbumPhoto(photo=p,
-                                           album=a,
-                                           profile=profile,
-                                           type=AlbumPhoto.RECURATED
-                                           )
-                            )
-                            points.append(
-                                Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
-                                       created=timezone.now()))
-                    except:  # noqa
-                        pass
-                    if a.cover_photo is None and p is not None:
-                        a.cover_photo = p
 
-            AlbumPhoto.objects.bulk_create(album_photos)
-            Points.objects.bulk_create(points)
+        album_photos = []
+        points = []
+        for a in albums:
+            for pid in photo_ids:
+                try:
+                    p = Photo.objects.get(pk=pid)
+                    existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
+                    if not existing_link:
+                        album_photos.append(
+                            AlbumPhoto(photo=p,
+                                       album=a,
+                                       profile=profile,
+                                       type=AlbumPhoto.RECURATED
+                                       )
+                        )
+                        points.append(
+                            Points(user=profile, action=Points.PHOTO_RECURATION, photo_id=pid, points=30, album=a,
+                                   created=timezone.now()))
+                except:  # noqa
+                    pass
+                if a.cover_photo is None and p is not None:
+                    a.cover_photo = p
 
-            for a in albums:
-                a.set_calculated_fields()
-                a.light_save()
+        AlbumPhoto.objects.bulk_create(album_photos)
+        Points.objects.bulk_create(points)
 
-            profile.set_calculated_fields()
-            profile.save()
-            context['message'] = _('Recuration successful')
-        else:
-            context['error'] = _('Problem with album selection')
+        for a in albums:
+            a.set_calculated_fields()
+            a.light_save()
+
+        profile.set_calculated_fields()
+        profile.save()
+        context['message'] = _('Recuration successful')
     else:
         context['error'] = _('Faulty data submitted')
 
@@ -1279,8 +1276,8 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     profile = request.get_user().profile
     photo_obj = get_object_or_404(Photo, id=photo_id)
 
-    user_has_likes = profile.likes.count() > 0
-    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
+    user_has_likes = profile.likes.exists()
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
 
     # switch places if rephoto url
     rephoto = None
@@ -1300,7 +1297,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         if geotag_count > 0:
             correct_geotags_from_authenticated_users = geotags.exclude(user__pk=profile.user_id).filter(
                 Q(user__first_name__isnull=False, user__last_name__isnull=False, is_correct=True))[:3]
-            if len(correct_geotags_from_authenticated_users) > 0:
+            if correct_geotags_from_authenticated_users.exists():
                 for each in correct_geotags_from_authenticated_users:
                     first_geotaggers.append([each.user.get_display_name, each.lat, each.lon, each.azimuth])
             first_geotaggers = json.dumps(first_geotaggers)
@@ -1434,7 +1431,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     compare_photos_url = request.build_absolute_uri(
         reverse('compare-photos', args=(photo_obj.id, next_similar_photo.id)))
     imageSimilarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
-    if len(imageSimilarities) > 0:
+    if imageSimilarities.exists():
         compare_photos_url = request.build_absolute_uri(
             reverse('compare-photos', args=(photo_obj.id, imageSimilarities.first().to_photo_id)))
 
@@ -1532,8 +1529,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
     albums = _get_album_choices()
     photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
 
-    user_has_likes = profile.likes.count() > 0
-    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).count() > 0
+    user_has_likes = profile.likes.exists()
+    user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
 
     area = None
     album = None
@@ -1739,7 +1736,7 @@ def geotag_add(request):
                     "Your contribution didn't change the estimated location for the photo, not yet anyway.")
             else:
                 context['feedback_message'] = _('The photo has been mapped to a new location thanks to you.')
-            if len(geotags_for_this_photo) == 1:
+            if geotags_for_this_photo.count() == 1:
                 context['feedback_message'] = _('Your suggestion was first.')
         for a in processed_photo.albums.all():
             qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
@@ -2012,7 +2009,7 @@ def curator(request):
     if last_created_album:
         curator_random_image_ids = AlbumPhoto.objects.filter(
             album_id=last_created_album.id).order_by('?').values_list('photo_id', flat=True)
-    if not curator_random_image_ids or len(curator_random_image_ids) < 5:
+    if not curator_random_image_ids or curator_random_image_ids.count() < 5:
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
     site = Site.objects.get_current()
@@ -2020,7 +2017,7 @@ def curator(request):
         'description': _('Search for old photos, add them to Ajapaik, '
                          'determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': f'https://{site.domain}',
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'CURATOR_EUROPEANA_ENABLED': settings.CURATOR_EUROPEANA_ENABLED,
@@ -2225,7 +2222,7 @@ def curator_photo_upload_handler(request):
 
     if selection and len(selection) > 0 and profile is not None and curator_album_selection_form.is_valid():
         general_albums = Album.objects.filter(id__in=request.POST.getlist('albums'))
-        if len(general_albums) > 0:
+        if general_albums.exists():
             context['album_id'] = general_albums[0].pk
         else:
             context['album_id'] = None
@@ -2397,7 +2394,7 @@ def curator_photo_upload_handler(request):
                                                          album=general_albums[0])
                             points_for_curating.save()
                             awarded_curator_points.append(points_for_curating)
-                            if len(general_albums) > 0:
+                            if general_albums.exists():
                                 for a in general_albums:
                                     ap = AlbumPhoto(photo=new_photo, album=a, profile=profile, type=AlbumPhoto.CURATED)
                                     ap.save()
@@ -2431,7 +2428,7 @@ def curator_photo_upload_handler(request):
                             context['photos'][k]['error'] = _('Error uploading file: %s (%s)' %
                                                               (e, upload_form.cleaned_data['imageUrl']))
                     else:
-                        if len(general_albums) > 0:
+                        if general_albums.exists():
                             for a in general_albums:
                                 ap = AlbumPhoto(photo=existing_photo, album=a, profile=profile,
                                                 type=AlbumPhoto.RECURATED)
@@ -2462,7 +2459,7 @@ def curator_photo_upload_handler(request):
         for cp in all_curating_points:
             total_points_for_curating += cp.points
         context['total_points_for_curating'] = total_points_for_curating
-        if len(general_albums) > 0:
+        if general_albums.exists():
             for album in general_albums:
                 album.save()
                 if album.subalbum_of:
@@ -2605,12 +2602,12 @@ def csv_import(request):
         for row in csv.DictReader(decoded_file, delimiter=',', quotechar='"'):
             file_list.append(final_image_folder + row['file'])
 
-        existing_photos = list(Photo.objects.filter(image__in=file_list).values_list('image', flat=True))
+        existing_photos = Photo.objects.filter(image__in=file_list).values_list('image', flat=True)
 
         # TODO: map over row fields instead to directly set attributes of photo with setattr
         # before doing so remove any exceptions like album, source, licence or start using only ids
         for row in csv.DictReader(decoded_file, delimiter=',', quotechar='"'):
-            if len(existing_photos) > 0 and upload_folder + row['file'] in existing_photos:
+            if existing_photos.exists() and f"{upload_folder}{row['file']}" in list(existing_photos):
                 skipped_list.append(row['file'])
                 continue
             album_ids = row['album'].replace(' ', '').split(',')
@@ -2787,7 +2784,7 @@ def csv_import(request):
                         album.cover_photo = photo
                         album.light_save()
         all_albums = Album.objects.filter(id__in=unique_album_list)
-        if len(all_albums) > 0:
+        if all_albums.exists():
             for album in all_albums:
                 album.set_calculated_fields()
                 album.save()

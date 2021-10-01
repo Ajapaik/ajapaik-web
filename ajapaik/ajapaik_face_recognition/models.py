@@ -107,7 +107,7 @@ class FaceRecognitionRectangle(models.Model):
         self.photo.latest_annotation = new_suggestion.created
         self.photo.light_save()
 
-        if last_suggestions_by_other_users.count() > 0:
+        if last_suggestions_by_other_users.exists():
             age_suggestions = []
             gender_suggestions = []
             for suggestion in last_suggestions_by_other_users:

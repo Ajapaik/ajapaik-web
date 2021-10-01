@@ -23,7 +23,7 @@ class AddSubjectData(AjapaikAPIView):
         if newSubjectId and newSubjectId != '':
             person_album = Album.objects.filter(pk=newSubjectId).first()
         new_rectangle = FaceRecognitionRectangle.objects.get(pk=annotation_id)
-        if (person_album and len(AlbumPhoto.objects.filter(photo=new_rectangle.photo, album=person_album)) < 1):
+        if (person_album and not AlbumPhoto.objects.filter(photo=new_rectangle.photo, album=person_album).exists()):
             albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED,
                                     profile=request.user.profile)
             albumPhoto.save()
@@ -75,7 +75,7 @@ class AlbumData(AjapaikAPIView):
         album_photo_ids = AlbumPhoto.objects.filter(album_id=album.id).values_list('photo_id', flat=True)
 
         return JsonResponse({'hasAnnotations': FaceRecognitionRectangle.objects
-                            .filter(deleted=None, photo_id__in=album_photo_ids).count() > 0})
+                            .filter(deleted=None, photo_id__in=album_photo_ids).exists()})
 
 
 class Annotation(AjapaikAPIView):

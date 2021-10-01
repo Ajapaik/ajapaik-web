@@ -1634,7 +1634,7 @@ class Transcriptions(AjapaikAPIView):
                 ).save()
 
             if count > 0:
-                if len(transcriptions_with_same_text) > 0:
+                if transcriptions_with_same_text.exists():
                     return JsonResponse({'message': TRANSCRIPTION_ALREADY_EXISTS})
                 else:
                     return JsonResponse({'message': TRANSCRIPTION_ALREADY_SUBMITTED})
@@ -1655,7 +1655,7 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
     def post(self, request, format=None):
         try:
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
-                                                    user_id=request.user.profile.id).count() > 0:
+                                                    user_id=request.user.profile.id).exists():
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN})
             else:
                 TranscriptionFeedback(

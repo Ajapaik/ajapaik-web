@@ -10,15 +10,11 @@ class Command(BaseCommand):
         photos = Photo.objects.filter(similar_photos__isnull=False)
         for photo in photos:
             try:
-                results = ImageSimilarity.objects.filter(from_photo_id=photo.id).exclude(similarity_type=0)
-                if results.count() > 0:
+                if ImageSimilarity.objects.filter(from_photo_id=photo.id).exclude(similarity_type=0).exists() or \
+                   ImageSimilarity.objects.filter(to_photo_id=photo.id).exclude(similarity_type=0).exists():
                     photo.has_similar = True
                 else:
-                    results = ImageSimilarity.objects.filter(to_photo_id=photo.id).exclude(similarity_type=0)
-                    if results.count() > 0:
-                        photo.has_similar = True
-                    else:
-                        photo.has_similar = False
+                    photo.has_similar = False
                 photo.save()
             except IndexError:
                 pass

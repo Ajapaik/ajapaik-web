@@ -322,7 +322,7 @@ class OpenAlbumAutocomplete(APIView):
                     name_de__icontains=q) | Q(name_no__icontains=q) | Q(name_lv__icontains=q) | Q(name_lt__icontains=q))
 
         result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
-        if len(qs) > 0:
+        if qs.exists():
             result = ''
             for q in qs:
                 result += f'<span data-value={str(q.id)}>{q.name}</span>'
