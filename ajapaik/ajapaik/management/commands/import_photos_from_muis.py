@@ -61,14 +61,15 @@ class Command(BaseCommand):
         dates.append(str(start.strftime('%Y-%m-%d')))
 
         until_date = None
+        all_person_album_ids_set = set()
+        album_ids = (options['album_ids'])
+        albums = Album.objects.filter(id__in=album_ids)
+
         for from_date in dates:
             if until_date is None:
                 until_date = from_date
                 continue
 
-            album_ids = (options['album_ids'])
-            albums = Album.objects.filter(id__in=album_ids)
-            all_person_album_ids_set = set()
             list_identifiers_url = f'{muis_url}?verb=ListRecords&set={quote(set_name)}&from={from_date}' + \
                                    f'&until={until_date}&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
@@ -231,11 +232,11 @@ class Command(BaseCommand):
                     album.set_calculated_fields()
                     album.save()
 
-                all_person_album_ids = list(all_person_album_ids_set)
-                all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
-
-                if all_person_albums is not None:
-                    for person_album in all_person_albums:
-                        person_album.set_calculated_fields()
-                        person_album.save()
             until_date = from_date
+        all_person_album_ids = list(all_person_album_ids_set)
+        all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
+
+        if all_person_albums.exists():
+            for person_album in all_person_albums:
+                person_album.set_calculated_fields()
+                person_album.save()
