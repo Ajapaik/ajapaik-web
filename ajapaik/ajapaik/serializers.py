@@ -164,7 +164,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
 
 class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    title = serializers.CharField(source='description')
+    title = serializers.SerializerMethodField('get_display_text')
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
     longitude = serializers.FloatField(source='lon')
@@ -194,6 +194,9 @@ class PhotoSerializer(serializers.ModelSerializer):
             .annotate(likes_count=Count('likes')) \
             .annotate(favorited=Case(When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False),
                                           then=Value(True)), default=Value(False), output_field=BooleanField()))
+
+    def get_display_text(self, instance):
+        return instance.get_display_text
 
     def get_image(self, instance):
         request = self.context['request']
