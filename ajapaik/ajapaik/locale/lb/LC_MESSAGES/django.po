@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-09-20 11:00:17+0000\n"
+"PO-Revision-Date: 2021-10-04 11:00:20+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2021-09-17 05:27:13+0000\n"
-"X-Generator: MediaWiki 1.36.1; Translate 2021-07-26\n"
+"X-Generator: MediaWiki 1.36.2; Translate 2021-07-26\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
-msgstr ""
+msgstr "Keen Album fonnt"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -139,7 +139,7 @@ msgstr "Bounding box values must be numbers"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -156,7 +156,7 @@ msgstr "Passwuert"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "Confirmatioun vum Passwuert"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
 #: ajapaik/ajapaik/forms.py:209
@@ -202,15 +202,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:423
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Akzeptéiert Formater sinn .png oder .jpg Fichieren"
 
 #: ajapaik/ajapaik/forms.py:424
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Setzt eng kuerz Beschreiwung vum Bild derbäi"
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Auteur vum Bild (Fotograf, Moler)"
 
 #: ajapaik/ajapaik/forms.py:427
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -218,7 +218,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Description of the picture"
-msgstr ""
+msgstr "Beschreiwung vum Bild"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Author name"
@@ -810,11 +810,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "primär"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
-msgstr ""
+msgstr "Primär maachen"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
@@ -1581,11 +1581,11 @@ msgstr "Filtering"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:14
 msgid "Filters"
-msgstr ""
+msgstr "Filteren"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "collections"
-msgstr ""
+msgstr "Sammlungen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "people"
@@ -1609,7 +1609,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "Biller am Panorama-Format"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "exteriors"
@@ -1817,7 +1817,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Als Ajapaik-Benotzer kënnt Dir"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
@@ -2547,7 +2547,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Finland"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
