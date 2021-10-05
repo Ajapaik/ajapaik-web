@@ -233,13 +233,13 @@ class Command(BaseCommand):
             until_date = from_date
 
         for album in albums:
-            album.set_calculated_fields()
-            album.save()
+#            album.set_calculated_fields()
+            album.light_save()
 
         all_person_album_ids = list(all_person_album_ids_set)
         all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
 
         if all_person_albums.exists():
             for person_album in all_person_albums:
-                person_album.set_calculated_fields()
-                person_album.save()
+#                person_album.set_calculated_fields()
+                person_album.light_save()
