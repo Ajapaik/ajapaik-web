@@ -150,7 +150,7 @@ class AlbumPhoto(Model):
         else:
             profilename = 'None'
 
-        return '%d - %d - %s - %s' % (self.album.id, self.photo.id, self.TYPE_CHOICES[self.type][1], profilename)
+        return '%d - %d - %s - %s' % (self.album_id, self.photo_id, self.TYPE_CHOICES[self.type][1], profilename)
 
     def delete(self, *args, **kwargs):
         if self.album.atype == Album.CURATED:
@@ -346,6 +346,12 @@ class Album(Model):
             if translation_done:
                 self.light_save()
 
+    @property
+    def get_album_type(self):
+        if self.is_film_still_album:
+            return 'Film'
+        return Album.TYPE_CHOICES[self.atype][1]
+
 
 class Photo(Model):
     objects = Manager()
@@ -508,6 +514,7 @@ class Photo(Model):
         source_str = ''
         if photo.source:
             source_str = photo.source.description
+        geotags = photo.geotags.distinct('user')
         ret = {
             'id': photo.id,
             'description': photo.get_display_text,
@@ -523,8 +530,8 @@ class Photo(Model):
             },
             'flip': photo.flip,
             'large': _make_fullscreen(photo),
-            'totalGeotags': photo.geotags.distinct('user').count(),
-            'geotagsWithAzimuth': photo.geotags.filter(azimuth__isnull=False).distinct('user').count(),
+            'totalGeotags': geotags.count(),
+            'geotagsWithAzimuth': geotags.filter(azimuth__isnull=False).count(),
             'userAlreadyConfirmed': photo.user_already_confirmed,
             'userAlreadyGeotagged': photo.user_already_geotagged,
             'userLikes': photo.user_likes,
@@ -1179,7 +1186,7 @@ class ImageSimilarity(Model):
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
         points = 0
-        if qs.count() == 0:
+        if len(qs) == 0:
             points, suggestion = self.__add__()
         else:
             points, suggestion = self.__update__(qs)
@@ -1322,7 +1329,7 @@ class Points(Model):
             ('user', 'image_similarity_confirmation'))
 
     def __str__(self):
-        return u'%d - %s - %d' % (self.user.id, self.ACTION_CHOICES[self.action], self.points)
+        return u'%d - %s - %d' % (self.user_id, self.ACTION_CHOICES[self.action], self.points)
 
 
 class Transcription(Model):
@@ -1530,7 +1537,7 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user_id=self.user.id).values_list('rephoto_of', flat=True)
+            rephoto_of__isnull=False, user_id=self.user_id).values_list('rephoto_of', flat=True)
         original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
 
         user_rephoto_score = 0
@@ -1539,13 +1546,13 @@ class Profile(Model):
             oldest_rephoto = None
             rephotos_by_this_user = []
             for rp in p.rephotos.all():
-                if rp.user and rp.user.id == self.user.id:
+                if rp.user and rp.user_id == self.user_id:
                     rephotos_by_this_user.append(rp)
                 if not oldest_rephoto or rp.created < oldest_rephoto.created:
                     oldest_rephoto = rp
             oldest_rephoto_is_from_this_user = oldest_rephoto.user \
                 and self.user \
-                and oldest_rephoto.user.id == self.user.id
+                and oldest_rephoto.user_id == self.user_id
             user_first_bonus_earned = False
             if oldest_rephoto_is_from_this_user:
                 user_first_bonus_earned = True
@@ -1800,21 +1807,18 @@ class MyXtdComment(XtdComment):
         super(MyXtdComment, self).delete(*args, **kwargs)
         photo = Photo.objects.filter(pk=object_pk).first()
         if photo:
-            photo.comment_count = MyXtdComment.objects.filter(
+            comments = MyXtdComment.objects.filter(
                 object_pk=self.object_pk, is_removed=False
-            ).count()
+            )
+            photo.comment_count = comments.count()
             if photo.comment_count == 0:
                 photo.first_comment = None
                 photo.latest_comment = None
             else:
-                first_comment = MyXtdComment.objects.filter(
-                    object_pk=self.object_pk, is_removed=False
-                ).order_by('-submit_date').first()
+                first_comment = comments.order_by('-submit_date').first()
                 if first_comment:
                     photo.first_comment = first_comment.submit_date
-                latest_comment = MyXtdComment.objects.filter(
-                    object_pk=self.object_pk, is_removed=False
-                ).order_by('submit_date').first()
+                latest_comment = comments.order_by('submit_date').first()
                 if latest_comment:
                     photo.latest_comment = latest_comment.submit_date
 

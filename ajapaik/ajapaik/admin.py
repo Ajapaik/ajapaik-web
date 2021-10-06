@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import NotRegistered, AlreadyRegistered
 from django.contrib.auth.models import User
+from django.http.response import HttpResponse
 from django.utils.translation import gettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
@@ -56,18 +57,17 @@ class PhotoAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if obj.lat and obj.lon and obj.bounding_circle_radius:
             # If an administrator sets a bounding circle, invalidate GeoTags outside of it
-            all_photo_geo_tags = GeoTag.objects.filter(photo_id=obj.id)
-            for geo_tag in all_photo_geo_tags:
-                d = self._distance_between_two_points_on_sphere(obj.lon, obj.lat, geo_tag.lon, geo_tag.lat)
+            all_photo_geotags = GeoTag.objects.filter(photo_id=obj.id)
+            for geotag in all_photo_geotags:
+                d = self._distance_between_two_points_on_sphere(obj.lon, obj.lat, geotag.lon, geotag.lat)
                 if d > obj.bounding_circle_radius:
-                    geo_tag.is_correct = False
+                    geotag.is_correct = False
                 else:
-                    geo_tag.is_correct = True
-                geo_tag.save()
+                    geotag.is_correct = True
+                geotag.save()
         obj.save()
 
     def _invertcolors(self, id):
-        from django.http.response import HttpResponse
         photo = Photo.objects.filter(pk=id.split('/')[0]).first()
         if photo:
             photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'

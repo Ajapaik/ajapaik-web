@@ -6,13 +6,16 @@
                  data-photos="{%=o.photo_count_with_subalbums%}" width="{%=o.cover_photo_width%}"
                  src="{%=photoThumbURL%}{%=o.cover_photo%}/400/">
             <div class="caption ajp-caption-album-selection">
-                <span class="material-icons notranslate float-left">photo_album</span>
-                <p class="ajp-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
-                {% if (o.is_film_still_album) { %}
-                    <div class="ajp-album-selection-film-icon" title="{%=gettext('This album contains a film')%}">
-                        <span class="material-icons notranslate">movie</span>
-                    </div>
+                {% if (o.album_type == 'Film') { %}
+                    <span class="material-icons notranslate" title="{%=gettext('This album contains a film')%}">movie</span>
+                {% } if (o.album_type == 'Person') { %}
+                    <span class="material-icons notranslate" title="{%=gettext('This is a person album')%}">person_pin</span>
+                {% } if (o.album_type == 'Collection') { %}
+                    <span class="material-icons notranslate" title="{%=gettext('This is a collection album')%}">account_balance</span>
+                {% } if (o.album_type == 'Curated')  { %}
+                    <span class="material-icons notranslate">photo_album</span>
                 {% } %}
+                <p class="ajp-caption-album-selection-album-title" title="{%=o.name%}">{%=o.name%}</p>
                 <div class="ajp-album-selection-photo-count" title="{%=gettext('Pictures in album')%}">
                     <span>{%=o.photo_count_with_subalbums%}</span>
                 </div>

@@ -701,7 +701,7 @@ class AlbumPhotoInformation(AjapaikAPIView):
 
         profile = None
         if album_photo:
-            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=album_photo.profile.id)).data
+            profile = ProfileLinkSerializer(instance=Profile.objects.get(pk=album_photo.profile_id)).data
 
         return JsonResponse({
             'id': album.id,
@@ -1002,13 +1002,6 @@ class api_user_me(AjapaikAPIView):
             if profile.is_legit():
                 content['name'] = profile.get_display_name
                 content['rephotos'] = profile.photos.filter(rephoto_of__isnull=False).count()
-                # general_user_leaderboard = Profile.objects.filter(score__gt=0).order_by('-score')
-                # general_user_rank = 0
-                # for i in range(0, general_user_leaderboard.count()):
-                #     if general_user_leaderboard[i].user_id == profile.user_id:
-                #         general_user_rank = (i + 1)
-                #         break
-                # content['rank'] = general_user_rank
                 content['rank'] = 0
         return Response(content)
 
@@ -1655,11 +1648,11 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
     def post(self, request, format=None):
         try:
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
-                                                    user_id=request.user.profile.id).exists():
+                                                    user_id=request.user.profile_id).exists():
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN})
             else:
                 TranscriptionFeedback(
-                    user=get_object_or_404(Profile, pk=request.user.profile.id),
+                    user=get_object_or_404(Profile, pk=request.user.profile_id),
                     transcription=get_object_or_404(Transcription, id=request.POST['id'])
                 ).save()
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ADDED})
@@ -1718,7 +1711,7 @@ class MergeProfiles(AjapaikAPIView):
                 profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
             return JsonResponse({'error': EXPIRED_TOKEN}, status=401)
         if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id != profile_merge_token.profile.id:
+            if request.user.profile_id != profile_merge_token.profile_id:
                 if reverse == 'true':
                     merge_profiles(request.user.profile, profile_merge_token.profile)
                     profile_merge_token.target_profile = request.user.profile

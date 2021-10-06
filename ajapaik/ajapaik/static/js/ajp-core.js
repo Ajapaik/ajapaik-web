@@ -307,9 +307,6 @@ $('.ajp-navbar').autoHidingNavbar();
             if (uri.query().indexOf('people') !== -1) {
                 window.location.href = uri.removeQuery('people');
             }
-            if (uri.query().indexOf('backsides') !== -1) {
-                window.location.href = uri.removeQuery('backsides');
-            }
             if (!window.isFrontpage) {
                 if (window.isSelection) {
                     window.history.go(-1);

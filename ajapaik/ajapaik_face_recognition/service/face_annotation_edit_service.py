@@ -19,7 +19,7 @@ def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: H
     )
 
     if not is_annotation_editable:
-        return create_user_feeback(http_request, annotation.id, request)
+        return create_user_feeback(annotation, request)
     else:
         if request.new_subject_id > 0:
             new_subject = Album.objects.get(pk=request.new_subject_id)
@@ -78,10 +78,9 @@ def update_user_suggestions(http_request: HttpRequest, annotation_id: int, updat
         user_suggestion.save()
 
 
-def create_user_feeback(http_request: HttpRequest, annotation_id: int, update_request: FaceAnnotationUpdateRequest):
-    rectangle = FaceRecognitionRectangle.objects.filter(id=update_request.annotation_id).first()
+def create_user_feeback(annotation: FaceRecognitionRectangle, update_request: FaceAnnotationUpdateRequest):
     proposer = Profile.objects.filter(user_id=update_request.user_id).first()
-    new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=rectangle,
+    new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=annotation,
                                                                    proposer=proposer,
                                                                    gender=update_request.new_gender_suggestion,
                                                                    age=update_request.new_age_suggestion)
