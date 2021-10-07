@@ -14,3 +14,4 @@ DATABASES = {
 }
 
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+GOOGLE_MAPS_API_KEY = "GOOGLE_MAPS_API_KEY"

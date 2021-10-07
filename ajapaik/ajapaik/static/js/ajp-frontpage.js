@@ -186,21 +186,17 @@
                 let filterCount = 0;
                 let photoFilters = window.location.search.indexOf('order1=') > -1 ?
                     ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality', 'portrait', 'square', 'landscape', 'panoramic'] :
-                    ['collections', 'people', 'backsides'];
+                    ['collections', 'people'];
                 photoFilters.forEach(function(filter) {
                     if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                         filterCount++;
                     }
                 });
-
-                if (window.order2 !== 'added' ||
-                        window.order3 === 'reverse' ||
-                        filterCount > 0
-                    ) {
-                        filterButton.attr('class', 'ajp-white');
-                    }
                 if (window.order3 === 'reverse') {
                     $('#ajp-reverse-filter-icon').attr('class', 'ajp-white');
+                }
+                if (window.order2 && window.order2 !== 'added' || window.order3 || filterCount > 0) {
+                    filterButton.attr('class', 'ajp-white');
                 }
             },
             syncPagingButtons = function () {

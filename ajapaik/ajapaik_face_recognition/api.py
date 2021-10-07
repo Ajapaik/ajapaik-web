@@ -86,7 +86,7 @@ class Annotation(AjapaikAPIView):
     @staticmethod
     def get(request, annotation_id):
         annotation = get_object_or_404(FaceRecognitionRectangle, id=annotation_id)
-        user_id = annotation.user.id if annotation.user else None
+        user_id = annotation.user_id or None
         user_name = Profile.objects.get(pk=user_id).get_display_name if user_id else None
         photo_count = Album.objects.get(id=annotation.subject_consensus.id).photo_count_with_subalbums \
             if annotation.subject_consensus \

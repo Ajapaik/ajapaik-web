@@ -74,13 +74,10 @@
                         account_balance
                     </span>
                 </a>
+                {% if show_photos %}
                 <a role="button"
                     class="ajp-header-button ml-4"
-                    {% if is_frontpage and not album and not show_photos %}
-                        title="{% trans 'Show albums with pictures with back sides' %}"
-                    {% else %}
-                        title="{% trans 'Show pictures with back sides' %}"
-                    {% endif %}
+                    title="{% trans 'Show pictures with back sides' %}"
                     href="#"
                     id="ajp-header-backsides">
                         <span aria-hidden
@@ -88,7 +85,6 @@
                             picture_in_picture
                         </span>
                 </a>
-                {% if show_photos %}
                 <a role="button"
                     class="ajp-header-button ml-4"
                     title="{% trans 'Show portrait pictures' %}"

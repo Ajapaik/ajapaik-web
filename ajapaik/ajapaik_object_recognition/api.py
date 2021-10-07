@@ -15,7 +15,7 @@ class Annotation(AjapaikAPIView):
     @staticmethod
     def get(request, annotation_id):
         annotation = get_object_or_404(ObjectDetectionAnnotation, id=annotation_id)
-        user_id = annotation.user.id if annotation.user else None
+        user_id = annotation.user_id or None
         user_name = Profile.objects.get(pk=user_id).get_display_name if user_id else None
         return JsonResponse(
                 {

@@ -1,6 +1,5 @@
 import hashlib
 import os
-
 from math import cos, sin, radians, atan2, sqrt
 
 from django.utils import timezone

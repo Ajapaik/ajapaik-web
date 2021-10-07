@@ -122,9 +122,6 @@
             }
             if (split && split.length > 1) {
                 let additionalParameters = '';
-                if (window.location.search.indexOf('backsides=1') > -1) {
-                    additionalParameters = '&backsides=1';
-                }
                 if (window.location.search.indexOf('people=1') > -1) {
                     additionalParameters += '&people=1';
                 }
@@ -145,15 +142,8 @@
                 split = window.location.search.split('?q=');
             }
             let searchUrl = '';
-            if (window.location.search.indexOf('backsides=1') > -1) {
-                searchUrl = '?backsides=1';
-            }
             if (window.location.search.indexOf('people=1') > -1) {
-                if (searchUrl === '') {
-                    searchUrl += '&people=1';
-                } else {
-                    searchUrl += '?backsides=1';
-                }
+                searchUrl = '?people=1';
             }
             if (searchUrl === '' && split && split.length > 1) {
                 searchUrl = '?q=' + split[1];	

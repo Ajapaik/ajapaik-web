@@ -107,12 +107,17 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
     # TODO: Think about what to do about the search thing
     cover_photo_height = serializers.IntegerField()
     cover_photo_width = serializers.IntegerField()
+    album_type = serializers.SerializerMethodField('get_album_type')
 
     class Meta:
         model = Album
         fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
                   'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
-                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album')
+                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album',
+                  'album_type')
+
+    def get_album_type(self, instance):
+        return instance.get_album_type
 
 
 class PhotoMapMarkerSerializer(serializers.ModelSerializer):

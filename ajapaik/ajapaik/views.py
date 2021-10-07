@@ -39,7 +39,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
-from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
@@ -599,8 +598,7 @@ def game(request):
         for each in facebook_share_photos[:5]:
             context['facebook_share_photos'].append([each.pk, each.get_pseudo_slug(), each.width, each.height])
 
-    site = Site.objects.get_current()
-    context['hostname'] = 'https://%s' % (site.domain,)
+    context['hostname'] = request.build_absolute_uri('/')
     if album:
         context['title'] = album.name
     elif area:
@@ -668,7 +666,6 @@ def fetch_stream(request):
 def frontpage(request, album_id=None, page=None):
     profile = request.get_user().profile
     data = _get_filtered_data_for_frontpage(request, album_id, page)
-    site = Site.objects.get_current()
 
     user_has_likes = profile.likes.exists()
     user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
@@ -699,7 +696,7 @@ def frontpage(request, album_id=None, page=None):
     context = {
         'is_frontpage': True,
         'title': title,
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': request.build_absolute_uri('/'),
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'facebook_share_photos': data['fb_share_photos'],
         'album': data['album'],
@@ -743,10 +740,6 @@ def frontpage_async_albums(request):
         start = (page - 1) * page_size
         if form.cleaned_data['people']:
             albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
-        elif form.cleaned_data['backsides']:
-            photoIDs = Photo.objects.filter(front_of__isnull=False).values('id')
-            album_photos = AlbumPhoto.objects.filter(photo_id__in=photoIDs).values('album_id')
-            albums = Album.objects.filter(id__in=album_photos, cover_photo__isnull=False, is_public=True)
         elif form.cleaned_data['collections']:
             albums = Album.objects.filter(atype=Album.COLLECTION, cover_photo__isnull=False, is_public=True)
         else:
@@ -795,26 +788,45 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         order1 = filter_form.cleaned_data['order1']
         order2 = filter_form.cleaned_data['order2']
         order3 = filter_form.cleaned_data['order3']
-        my_likes_only = filter_form.cleaned_data['myLikes']
-        rephotos_by = None
-        rephotos_by_name = None
-        if filter_form.cleaned_data['rephotosBy']:
-            rephotos_by = filter_form.cleaned_data['rephotosBy']
-            name = rephotos_by.get_display_name
-            rephotos_by = rephotos_by.pk
-            rephotos_by_name = name
         default_ordering = False
         if not order1 and not order2:
             order1 = 'time'
             order2 = 'added'
             default_ordering = True
+        context['order1'] = order1
+        context['order2'] = order2
+        context['order3'] = order3
+        my_likes_only = filter_form.cleaned_data['myLikes']
+        rephotos_by_name = None
+        rephotos_by_id = None
+        if filter_form.cleaned_data['rephotosBy']:
+            rephotos_by_name = filter_form.cleaned_data['rephotosBy'].get_display_name
+            rephotos_by_id = filter_form.cleaned_data['rephotosBy'].pk
+            rephotos_by = filter_form.cleaned_data['rephotosBy']
+        else:
+            rephotos_by = None
+        if not album and not requested_photos and not my_likes_only and not rephotos_by \
+           and not filter_form.cleaned_data['order1']:
+            context['fb_share_photos'] = None
+            context['facebook_share_photos'] = None
+            context['album'] = None
+            context['photo'] = None
+            context['page'] = None
+            context['user_has_likes'] = None
+            context['user_has_rephotos'] = None
+            context['my_likes_only'] = None
+            context['rephotos_by'] = rephotos_by_id or None
+            context['rephotos_by_name'] = rephotos_by_name or None
+            context['photos_with_comments'] = None
+            context['photos_with_rephotos'] = None
+            context['photos_with_similar_photos'] = None
+            context['show_photos'] = None
+            context['is_photoset'] = None
+            return context
+        else:
+            show_photos = True
         lat = filter_form.cleaned_data['lat']
         lon = filter_form.cleaned_data['lon']
-        if album or requested_photos or requested_photo or my_likes_only or rephotos_by \
-                or filter_form.cleaned_data['order1']:
-            show_photos = True
-        else:
-            show_photos = False
         if page_override:
             page = int(page_override)
         else:
@@ -828,11 +840,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         # Testing: Album.id 38516 = Photos – blacklisti
         if not album or album.id != 38516:
-            try:
+            blacklist_exists = Album.objects.filter(id=38516).exists()
+            if blacklist_exists:
                 exclude_photos = Album.objects.get(id=38516).photos.all()
                 photos = photos.exclude(pk__in=exclude_photos).all()
-            except Album.DoesNotExist:
-                pass
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -869,10 +880,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             context['is_photoset'] = False
         if my_likes_only:
             photos = photos.filter(likes__profile=profile)
-        if rephotos_by:
-            rephotos_profile = Profile.objects.filter(pk=rephotos_by).first()
-            if rephotos_profile:
-                photos = photos.filter(rephotos__user=rephotos_profile)
+        if rephotos_by_id:
+            photos = photos.filter(rephotos__user_id=rephotos_by_id)
         photos_with_comments = None
         photos_with_rephotos = None
         photos_with_similar_photos = None
@@ -1032,7 +1041,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
         start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
-        qs_for_fb = photos[:5]
         if not order2 == 'rephotos':
             photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
 
@@ -1078,20 +1086,32 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             p.append(_get_pseudo_slug_for_photo(p[3], None, p[0]))
         if album:
             context['album'] = (
-                album.id, album.name, ','.join(album.name.split(' ')), album.lat, album.lon, album.is_film_still_album)
+                album.id,
+                album.name,
+                ','.join(album.name.split(' ')),
+                album.lat,
+                album.lon,
+                album.is_film_still_album,
+                album.get_album_type
+            )
             context['videos'] = VideoSerializer(album.videos.all(), many=True).data
         else:
             context['album'] = None
         fb_share_photos = []
         if requested_photo:
-            context['photo'] = [requested_photo.pk, requested_photo.get_pseudo_slug(), requested_photo.width,
-                                requested_photo.height]
-            fb_share_photos = [[requested_photo.pk, requested_photo.get_pseudo_slug(), requested_photo.width,
-                                requested_photo.height]]
+            context['photo'] = [
+                                requested_photo.pk,
+                                requested_photo.get_pseudo_slug(),
+                                requested_photo.width,
+                                requested_photo.height
+                                ]
+            fb_share_photos = [context['photo']]
         else:
             context['photo'] = None
+            fb_id_list = [p[0] for p in photos[:5]]
+            qs_for_fb = Photo.objects.filter(id__in=fb_id_list)
             for p in qs_for_fb:
-                fb_share_photos.append([p.pk, p.get_pseudo_slug(), p.width, p.height])
+                fb_share_photos.append([p.id, p.get_pseudo_slug(), p.width, p.height])
         context['photos'] = photos
         context['show_photos'] = show_photos
         # FIXME: DRY
@@ -1101,35 +1121,36 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['photos_with_comments'] = photos_with_comments
         context['photos_with_rephotos'] = photos_with_rephotos
         context['photos_with_similar_photos'] = photos_with_similar_photos
-        context['order1'] = order1
-        context['order2'] = order2
-        context['order3'] = order3
         context['page'] = page
         context['total'] = total
         context['max_page'] = max_page
         context['my_likes_only'] = my_likes_only
-        context['rephotos_by'] = rephotos_by
+        context['rephotos_by'] = rephotos_by_id
         context['rephotos_by_name'] = rephotos_by_name
     else:
         photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
         context['album'] = None
         context['photo'] = None
-        context['rephotos_by'] = None
-        context['rephotos_by_name'] = None
         context['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
         context['photos_with_rephotos'] = photos.filter(rephoto_count__isnull=False).count()
         context['photos_with_similar_photos'] = photos.filter(similar_photos__isnull=False)
-        qs_for_fb = photos[:5]
         photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                     'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
                                     'geotag_count', 'title', 'muis_title', 'muis_comment',
                                     'muis_event_description_set_note')[0:page_size]
+        fb_share_photos = []
+        fb_id_list = [p[0] for p in photos[:5]]
+        qs_for_fb = Photo.objects.filter(id__in=fb_id_list)
+        for p in qs_for_fb:
+            fb_share_photos.append([p.id, p.get_pseudo_slug(), p.width, p.height])
+        context['fb_share_photos'] = fb_share_photos
         context['order1'] = 'time'
         context['order2'] = 'added'
-        context['order3'] = None
+        context['order3'] = ''
         context['is_photoset'] = False
         context['my_likes_only'] = False
         context['rephotos_by'] = None
+        context['rephotos_by_name'] = None
         context['total'] = photos.count()
         photos = [list(each) for each in photos]
         for p in photos:
@@ -1138,10 +1159,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
             else:
                 p[11] = 0
-        fb_share_photos = []
-        for p in qs_for_fb:
-            fb_share_photos.append([p.pk, p.get_pseudo_slug(), p.width, p.height])
-        context['fb_share_photos'] = fb_share_photos
         context['photos'] = photos
         context['start'] = 0
         context['end'] = page_size
@@ -1318,7 +1335,6 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     is_frontpage = False
     is_mapview = False
     is_selection = False
-    site = Site.objects.get_current()
     if request.is_ajax():
         template = 'photo/_photo_modal.html'
         if request.GET.get('isFrontpage'):
@@ -1480,7 +1496,7 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         'title': title,
         'description': desc,
         'rephoto': rephoto,
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': request.build_absolute_uri('/'),
         'first_geotaggers': first_geotaggers,
         'is_photoview': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
@@ -1571,11 +1587,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
         'user').count()
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
-    site = Site.objects.get_current()
     context = {'area': area, 'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id,
                'total_photo_count': photos_qs.distinct('id').count(), 'geotagging_user_count': geotagging_user_count,
                'geotagged_photo_count': geotagged_photo_count, 'albums': albums,
-               'hostname': 'https://%s' % (site.domain,),
+               'hostname': request.build_absolute_uri('/'),
                'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
                'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK, 'album': None, 'user_has_likes': user_has_likes,
                'user_has_rephotos': user_has_rephotos, 'query_string': request.GET.get('q')}
@@ -1875,11 +1890,10 @@ def leaderboard(request, album_id=None):
     else:
         template = 'leaderboard/leaderboard.html'
     # FIXME: this shouldn't be necessary, there are easier ways to construct URLs
-    site = Site.objects.get_current()
     context = {
         'is_top_50': False,
         'title': _('Leaderboard'),
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': request.build_absolute_uri('/'),
         'leaderboard': general_leaderboard,
         'album_leaderboard': album_leaderboard,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
@@ -1891,9 +1905,8 @@ def all_time_leaderboard(request):
     _calculate_recent_activity_scores()
     atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ['', 'leaderboard/_block_leaderboard.html', 'leaderboard/leaderboard.html'][request.is_ajax() and 1 or 2]
-    site = Site.objects.get_current()
     context = {
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': request.build_absolute_uri('/'),
         'all_time_leaderboard': atl,
         'title': _('Leaderboard'),
         'is_top_50': True
@@ -1924,13 +1937,12 @@ def top50(request, album_id=None):
         template = 'leaderboard/_block_leaderboard.html'
     else:
         template = 'leaderboard/leaderboard.html'
-    site = Site.objects.get_current()
     context = {
         'activity_leaderboard': activity_leaderboard,
         'album_name': album_name,
         'album_leaderboard': album_leaderboard,
         'all_time_leaderboard': general_leaderboard,
-        'hostname': 'https://%s' % (site.domain,),
+        'hostname': request.build_absolute_uri('/'),
         'title': _('Leaderboard'),
         'is_top_50': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
@@ -2012,12 +2024,11 @@ def curator(request):
     if not curator_random_image_ids or curator_random_image_ids.count() < 5:
         curator_random_image_ids = AlbumPhoto.objects.order_by('?').values_list('photo_id', flat=True)
     curator_random_images = Photo.objects.filter(pk__in=curator_random_image_ids)[:5]
-    site = Site.objects.get_current()
     context = {
         'description': _('Search for old photos, add them to Ajapaik, '
                          'determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
-        'hostname': f'https://{site.domain}',
+        'hostname': request.build_absolute_uri('/'),
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'CURATOR_EUROPEANA_ENABLED': settings.CURATOR_EUROPEANA_ENABLED,
@@ -2445,7 +2456,6 @@ def curator_photo_upload_handler(request):
                         context['photos'][k]['success'] = True
                         context['photos'][k]['message'] = _('Photo already exists in Ajapaik')
             else:
-                print(upload_form.errors)
                 context['photos'][k] = {}
                 context['photos'][k]['error'] = _('Error uploading file: %s (%s)'
                                                   % (upload_form.errors, upload_form.cleaned_data['imageUrl']))
@@ -2524,7 +2534,7 @@ def update_like_state(request):
 def muis_import(request):
     user = request.user
     user_can_import = not user.is_anonymous and \
-        user.profile.is_legit and user.groups.filter(name='csv_uploaders').count() == 1
+        user.profile.is_legit and user.groups.filter(name='csv_uploaders').exists()
     if request.method == 'GET':
         url = 'https://www.muis.ee/OAIService/OAIService?verb=ListSets'
         url_response = urllib.request.urlopen(url)
@@ -2548,7 +2558,7 @@ def muis_import(request):
         })
 
 
-@user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').count() == 1, login_url='/admin/')
+@user_passes_test(lambda u: u.groups.filter(name='csv_uploaders').exists(), login_url='/admin/')
 def csv_import(request):
     if request.method == 'GET':
         form = CsvImportForm
@@ -2972,8 +2982,8 @@ def photo_upload_choice(request):
     context = {
         'is_upload_choice': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-        'user_can_import_from_csv': user.is_superuser and user.groups.filter(name='csv_uploaders').count() == 1,
-        'user_can_import_from_muis': user.is_superuser and user.groups.filter(name='csv_uploaders').count() == 1
+        'user_can_import_from_csv': user.is_superuser and user.groups.filter(name='csv_uploaders').exists(),
+        'user_can_import_from_muis': user.is_superuser and user.groups.filter(name='csv_uploaders').exists()
     }
 
     return render(request, 'photo/upload/photo_upload_choice.html', context)
@@ -3381,7 +3391,7 @@ def user(request, user_id):
         'photo_suggestions': photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count(),
         'profile': profile,
         'rephotographed_pictures': rephotographed_pictures_qs.count(),
-        'rephotos_link': f'/photos/?rephotosBy={str(profile.user.id)}&order1=time&order2=rephotos',
+        'rephotos_link': f'/photos/?rephotosBy={str(profile.user_id)}&order1=time&order2=rephotos',
         'rephotos': rephoto_qs.count(),
         'similar_pictures': similar_pictures_qs.count(),
         'transcriptions': transcriptions_qs.count(),
@@ -3442,8 +3452,8 @@ def user_settings(request):
             else:
                 context['next'] = request.path
         else:
-            context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
-            context['link'] = reverse('user', args=(token.profile.id,))
+            context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user_id)
+            context['link'] = reverse('user', args=(token.profile_id,))
     if token and token.token:
         context['next'] = f'{request.path}?token={token.token}'
     context['me'] = reverse('me')
@@ -3516,8 +3526,8 @@ def merge_accounts(request):
             else:
                 context['next'] = request.path
         else:
-            context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user.id)
-            context['link'] = reverse('user', args=(token.profile.id,))
+            context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user_id)
+            context['link'] = reverse('user', args=(token.profile_id,))
     if token and token.token:
         context['next'] = f'{request.path}?token={token.token}'
     context['me'] = reverse('me')
@@ -3547,7 +3557,7 @@ def geotaggers_modal(request, photo_id):
                 geotaggers.append({'name': geotag.photo.source.name, 'created': geotag.created})
         else:
             geotaggers.append(
-                {'name': geotag.user.get_display_name, 'geotagger_id': geotag.user.id, 'created': geotag.created})
+                {'name': geotag.user.get_display_name, 'geotagger_id': geotag.user_id, 'created': geotag.created})
     context = {
         'geotaggers': geotaggers
     }

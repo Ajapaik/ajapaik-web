@@ -4,8 +4,12 @@
         <div class="dropdown float-left pt-3" id="ajp-header-album-name">
             <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown"
                 class="dropdown-toggle ajp-no-background ajp-text-white">
-                {% if album.5 %}
-                    <span id="ajp-header-movie-indicator" class="material-icons notranslate float-left">movie</span>
+                {% if album.6 == 'Film' %}
+                    <span class="material-icons notranslate float-left" title="{% trans "This album contains a film" %}">movie</span>
+                {% elif album.6 == 'Person' %}
+                    <span class="material-icons notranslate float-left" title="{% trans "This is a person album" %}">person_pin</span>
+                {% elif album.6 == 'Collection' %}
+                    <span class="material-icons notranslate float-left" title="{% trans "This is a collection album" %}">account_balance</span>
                 {% else %}
                     <span class="material-icons notranslate float-left">photo_album</span>
                 {% endif %}

@@ -176,9 +176,9 @@ class FaceRecognitionRectangleFeedback(models.Model):
         string_label = ''
 
         if self.is_correct:
-            string_label += f'Confirmed annotation {self.rectangle.id}'
+            string_label += f'Confirmed annotation {self.rectangle_id}'
         else:
-            string_label += f'Rejected annotation {self.rectangle.id}'
+            string_label += f'Rejected annotation {self.rectangle_id}'
 
         if self.alternative_subject is not None:
             string_label += f', alternative subject suggested: {self.alternative_subject.name}'
@@ -205,4 +205,4 @@ class FaceRecognitionUserSuggestion(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{str(self.id)} - {str(self.rectangle.id)} - {str(self.user.id)} - {str(self.subject_album.id)}'
+        return f'{str(self.id)} - {str(self.rectangle_id)} - {str(self.user_id)} - {str(self.subject_album_id)}'
