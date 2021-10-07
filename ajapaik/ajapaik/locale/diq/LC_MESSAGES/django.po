@@ -13,12 +13,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-04 11:00:18+0000\n"
+"PO-Revision-Date: 2021-10-07 11:00:14+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-09-17 05:27:13+0000\n"
-"X-Generator: MediaWiki 1.36.2; Translate 2021-07-26\n"
+"X-Generator: MediaWiki 1.37.0-beta; Translate 2021-07-26\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -2544,7 +2544,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedyaya Finlandiya"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
