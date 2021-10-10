@@ -314,7 +314,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     modifiedUri.removeQuery(filter);
                 }
             })
-            if (originalUri !== modifiedUri) {
+            if (originalUri.href() !== modifiedUri.href()) {
                 window.location.href = modifiedUri;
             } else if (!window.isFrontpage) {
                 if (window.isSelection) {
