@@ -678,21 +678,12 @@ def frontpage(request, album_id=None, page=None):
         title = ''
 
     last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
-    highlight_filter_icon = (data['order2'] != 'added' or data['order3'] == 'reverse') \
-        or request.GET.get('collections') \
-        or request.GET.get('people') \
-        or request.GET.get('backsides') \
-        or request.GET.get('exteriors') \
-        or request.GET.get('interiors') \
-        or request.GET.get('portrait') \
-        or request.GET.get('square') \
-        or request.GET.get('landscape') \
-        or request.GET.get('panoramic') \
-        or request.GET.get('ground_viewpoint_elevation') \
-        or request.GET.get('raised_viewpoint_elevation') \
-        or request.GET.get('aerial_viewpoint_elevation') \
-        or request.GET.get('no_geotags')\
-        or request.GET.get('high_quality')
+    filters = ['film', 'collections', 'people', 'backsides', 'exteriors', 'interiors',
+               'portrait', 'square', 'landscape', 'panoramic', 'ground_viewpoint_elevation',
+               'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality'
+               ]
+    highlight_filter_icon = (data['order2'] != 'added' or data['order3'] == 'reverse') or \
+        len([filter for filter in filters if filter in request.GET]) > 0
     context = {
         'is_frontpage': True,
         'title': title,
@@ -738,13 +729,18 @@ def frontpage_async_albums(request):
             page = 1
         page_size = settings.FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE
         start = (page - 1) * page_size
+        albums = Album.objects
         if form.cleaned_data['people']:
-            albums = Album.objects.filter(cover_photo__isnull=False, atype=Album.PERSON)
-        elif form.cleaned_data['collections']:
-            albums = Album.objects.filter(atype=Album.COLLECTION, cover_photo__isnull=False, is_public=True)
-        else:
-            albums = Album.objects.filter(is_public=True, cover_photo__isnull=False,
-                                          atype=Album.CURATED)
+            albums = albums.filter(cover_photo__isnull=False, atype=Album.PERSON)
+        if form.cleaned_data['collections']:
+            albums = albums.filter(atype=Album.COLLECTION, cover_photo__isnull=False, is_public=True)
+        if form.cleaned_data['film']:
+            albums = albums.filter(is_film_still_album=True, cover_photo__isnull=False, is_public=True)
+        if albums == Album.objects:
+            albums = albums.exclude(atype__in=[Album.AUTO, Album.FAVORITES]).filter(
+                cover_photo__isnull=False,
+                is_public=True
+            )
         q = form.cleaned_data['q']
         if q:
             sqs = SearchQuerySet().models(Album).filter(content=AutoQuery(q))

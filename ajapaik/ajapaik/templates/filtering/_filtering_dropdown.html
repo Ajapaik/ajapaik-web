@@ -12,6 +12,9 @@
         {% if is_frontpage %}
             <span id="ajp-organiser-dropdown-filter-name">
                 {% trans 'Filters' %}:
+                {% if request.GET.film == '1' %}
+                    {% trans 'film' %},
+                {% endif %}
                 {% if request.GET.collections == '1' %}
                     {% trans 'collections' %},
                 {% endif %}
@@ -54,10 +57,10 @@
                 {% if request.GET.high_quality == '1' %}
                     {% trans 'high-quality pictures' %},
                 {% endif %}
-                {% if not request.GET.collections and not request.GET.people and not request.GET.backsides and not request.GET.portrait and not request.GET.square and not request.GET.landscape and not request.GET.panoramic and not request.GET.exteriors and not request.GET.interiors and not request.GET.ground_viewpoint_elevation and not request.GET.raised_viewpoint_elevation and not request.GET.aerial_viewpoint_elevation and not request.GET.no_geotags and not request.GET.high_quality%}
+                {% if not highlight_filter_icon %}
                     {% trans 'no filter' %}
                 {% endif %}</span>
-            <div>
+            <div id="album-filters-div" {% if show_photos%}class="d-none"{% endif %}>
                 <a role="button"
                     class="ajp-header-button"
                     {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
@@ -66,7 +69,7 @@
                     <span aria-hidden class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</span>
                 </a>
                 <a id="ajp-header-collections"
-                    class="{% if album or show_photos %}d-none{% endif %} ml-4 ajp-cursor-pointer"
+                    class="ml-4 ajp-cursor-pointer"
                     role="button"
                     title="{% trans 'Pictures by collections' %}">
                     <span aria-hidden
@@ -74,7 +77,25 @@
                         account_balance
                     </span>
                 </a>
-                {% if show_photos %}
+                <a role="button"
+                    class="ml-4 ajp-cursor-pointer"
+                    title="{% trans 'Show film albums' %}"
+                    href="#"
+                    id="ajp-header-film">
+                    <span aria-hidden
+                        class="material-icons notranslate ajp-icon-36 ajp-gray-button{% if request.GET.film == '1' %} ajp-text-white{% endif %}">
+                        film
+                    </span>
+                </a>
+            </div>
+            <div id="picture-filters-div" {% if not show_photos%}class="d-none"{% endif %}>
+                <a role="button"
+                    class="ajp-header-button"
+                    {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"{% else %}title="{% trans 'Show pictures with faces' %}"{% endif %}
+                    href="#"
+                    id="ajp-header-people">
+                    <span aria-hidden class="notranslate material-icons ajp-icon-36 ajp-gray-button{% if request.GET.people == '1' %} ajp-text-white{% endif %}">people</span>
+                </a>
                 <a role="button"
                     class="ajp-header-button ml-4"
                     title="{% trans 'Show pictures with back sides' %}"
@@ -194,7 +215,6 @@
                             high_quality
                         </span>
                 </a>
-                {% endif %}
             </div>
         {% endif %}
         {% if show_photos %}

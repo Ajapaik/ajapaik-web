@@ -119,6 +119,7 @@ class AlbumSelectionFilteringForm(forms.Form):
     page = forms.IntegerField(min_value=1, initial=1, required=False)
     people = forms.BooleanField(initial=False, required=False)
     collections = forms.BooleanField(initial=False, required=False)
+    film = forms.BooleanField(initial=False, required=False)
 
 
 class GalleryFilteringForm(forms.Form):

@@ -55,6 +55,9 @@ var map,
     updateStatDiv,
     streetViewOptions;
 
+    window.galleryFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality', 'portrait', 'square', 'landscape', 'panoramic'];
+    window.albumFilters = ['film', 'collections', 'people'];
+
 $('.ajp-navbar').autoHidingNavbar();
 (function ($) {
     'use strict';
@@ -303,11 +306,17 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on('click', '#ajp-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
-            var uri = URI(window.location);
-            if (uri.query().indexOf('people') !== -1) {
-                window.location.href = uri.removeQuery('people');
-            }
-            if (!window.isFrontpage) {
+            let originalUri = URI(window.location);
+            let modifiedUri = URI(window.location);
+            let jointFilters = window.galleryFilters.concat(...window.albumFilters);
+            jointFilters.forEach(filter => {
+                if (modifiedUri.query().indexOf(filter) !== -1) {
+                    modifiedUri.removeQuery(filter);
+                }
+            })
+            if (originalUri !== modifiedUri) {
+                window.location.href = modifiedUri;
+            } else if (!window.isFrontpage) {
                 if (window.isSelection) {
                     window.history.go(-1);
                 } else {
@@ -364,7 +373,7 @@ $('.ajp-navbar').autoHidingNavbar();
         window.location.href = uri;
     };
 
-    $(document).on('click','#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-high_quality, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape', function (e) {
+    $(document).on('click','#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-film, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-high_quality, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape', function (e) {
         e.preventDefault();
         let idComponents = e.currentTarget.id.split('-');
         window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);

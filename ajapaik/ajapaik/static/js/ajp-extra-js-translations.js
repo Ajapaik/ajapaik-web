@@ -70,6 +70,10 @@
     gettext('No results found for: %(query)s\nYou could also try to edit filters applied to your search');
     gettext('No pictures in square format were found');
     gettext('No pictures in square format were found in this album');
+    gettext('No rephotos were found');
+    gettext('No rephotos were found in this album');
+    gettext('No liked pictures were found');
+    gettext('No liked pictures were found in this album');
     gettext('Not selected');
     gettext('Number');
     gettext('Picture added to album by:');

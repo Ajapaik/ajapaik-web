@@ -184,9 +184,7 @@
                 filterButton.attr('class', '');
 
                 let filterCount = 0;
-                let photoFilters = window.location.search.indexOf('order1=') > -1 ?
-                    ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality', 'portrait', 'square', 'landscape', 'panoramic'] :
-                    ['collections', 'people'];
+                let photoFilters = window.location.search.indexOf('order1=') > -1 ? window.galleryFilters: window.albumFilters;
                 photoFilters.forEach(function(filter) {
                     if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                         filterCount++;
@@ -302,6 +300,7 @@
                     } else if (!window.albumId) {
                         title = gettext('All pictures');
                         $('#ajp-header-pictures-icon').show();
+                        $('#ajp-header-album-icon').hide();
                         albumSelectionDiv.addClass('ajp-invisible d-none');
                         historicPhotoGalleryDiv.removeClass('ajp-invisible d-none');
                     }
@@ -362,7 +361,6 @@
                     let attribute = window.order2;
                     let message = '';
                     let filterCount = 0;
-                    let photoFilters = ['people', 'backsides', 'interiors', 'exteriors', 'ground_viewpoint_elevation', 'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality', 'portrait', 'square', 'landscape', 'panoramic'];
                     let query = window.location.search.indexOf('&q=') > -1 && window.location.search.split('?q=')[1];
 
                     switch (window.order2) {
@@ -373,8 +371,7 @@
                             collection = response.photos_with_comments;
                             break;
                     }
-
-                    photoFilters.forEach(function(filter) {
+                    window.galleryFilters.concat('rephotosBy', 'myLikes').forEach(function(filter) {
                         if (window.location.search.indexOf('&' + filter + '=1') > -1 || window.location.search.indexOf('?' + filter + '=1') > -1) {
                             filterCount++;
                         }
@@ -432,6 +429,12 @@
                                 categoryMessage = 'No pictures in panoramic format were found';
                             }  else if (window.location.search.indexOf('landscape=1') > 0) {
                                 categoryMessage = 'No pictures in landscape format were found';
+                            }  else if (window.location.search.indexOf('landscape=1') > 0) {
+                                categoryMessage = 'No pictures in landscape format were found';
+                            }  else if (window.location.search.indexOf('rephotosBy=') > 0) {
+                                categoryMessage = 'No rephotos were found';
+                            }  else if (window.location.search.indexOf('myLikes=1') > 0) {
+                                categoryMessage = 'No liked pictures were found';
                             } else {
                                 categoryMessage = 'No pictures were found';
                             }
