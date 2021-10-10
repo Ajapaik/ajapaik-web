@@ -329,7 +329,7 @@
                     clearTimeout(albumSearchTimeout);
                 }
                 albumSearchTimeout = setTimeout(function () {
-                    if (val !== oldAlbumSearchVal) {
+                    if (!window.showPhotos && val !== oldAlbumSearchVal) {
                         oldAlbumSearchVal = val;
                         window.albumQuery = val;
                         window.photoQuery = null;
