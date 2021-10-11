@@ -393,7 +393,7 @@ function collectAllLabels(detections) {
                 wikiDataId: detection.wikiDataId,
                 label: getLanguageSpecificTranslation(detection.translations)
             });
-        } else {
+        } else if(!detection.wikiDataId) {
             faces.push({
                 id: detection.id,
                 gender: detection.gender,
