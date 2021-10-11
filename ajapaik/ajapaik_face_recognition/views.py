@@ -197,6 +197,7 @@ def get_subject_data(request, rectangle_id=None):
     profile = request.get_user().profile
     rectangle = None
     next_rectangle = None
+    next_action = None
     album_id = request.GET.get('album')
     album_id = album_id and album_id.isdigit() and int(album_id, 10) or None
     unverified_rectangles = FaceRecognitionRectangle.objects.filter(gender=None, deleted=None)
@@ -264,6 +265,12 @@ def get_subject_data(request, rectangle_id=None):
             reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
         if next_rectangle and album_id:
             next_action += f'?album={str(album_id)}'
+    if not next_action and next_rectangle:
+        next_action = request.build_absolute_uri(
+            reverse('face_recognition_subject_data', args=(next_rectangle.id,)))
+    elif not next_action and rectangle:
+        next_action = request.build_absolute_uri(
+            reverse('face_recognition_subject_data', args=(rectangle.id,)))
     has_consensus = False
     subject_id = None
     if rectangle and rectangle.subject_consensus:
