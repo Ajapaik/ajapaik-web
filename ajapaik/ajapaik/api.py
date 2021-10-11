@@ -624,12 +624,17 @@ class AlbumNearestPhotos(AjapaikAPIView):
                 round(form.cleaned_data['latitude'], 4),
                 srid=4326
             )
+            latitude=form.cleaned_data['latitude']
+            longitude=form.cleaned_data['longitude']
             start = form.cleaned_data['start'] or 0
             end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
             if album:
                 photos = Photo.objects.filter(
                     Q(albums=album) | (Q(albums__subalbum_of=album) & ~Q(albums__atype=Album.AUTO)),
-                    rephoto_of__isnull=True).filter(lat__isnull=False, lon__isnull=False).annotate(
+                    rephoto_of__isnull=True).filter(lat__isnull=False, lon__isnull=False,
+                    lon__lte=longitude+1, lon__gte=longitude-1,
+                    lat__lte=latitude+1, lat__gte=latitude-1,
+                    ).annotate(
                     distance=Distance(('geography'), ref_location)).filter(distance__lte=(D(m=nearby_range))).order_by(
                     'distance')[start:end]
 
@@ -644,7 +649,10 @@ class AlbumNearestPhotos(AjapaikAPIView):
                     ).data
                 })
             else:
-                photos = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, ).annotate(
+                photos = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, 
+                    lon__lte=longitude+1, lon__gte=longitude-1,
+                    lat__lte=latitude+1, lat__gte=latitude-1,
+                    ).annotate(
                     distance=Distance(('geography'), ref_location)).filter(distance__lte=(D(m=nearby_range))).order_by(
                     'distance')[start:end]
 
