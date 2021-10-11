@@ -27,7 +27,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends uwsgi python-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
+    apt-get install -y --no-install-recommends  ffmpeg libxext6 uwsgi python3-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
     libxrender-dev gettext procps libgdal-dev && \
     rm -rf /var/lib/apt/lists/*
 
