@@ -39,7 +39,7 @@ def add_subject(request: HttpRequest) -> HttpResponse:
             new_album.atype = Album.PERSON
             new_album.is_public = True
             new_album.open = True
-            new_album.profile.id = request.user.id
+            new_album.profile = request.user.profile
             new_album.save()
 
             status = 201
