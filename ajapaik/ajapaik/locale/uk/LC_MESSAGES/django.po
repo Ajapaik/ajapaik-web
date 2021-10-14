@@ -10,12 +10,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-10-11 11:00:31+0000\n"
+"PO-Revision-Date: 2021-10-14 11:00:35+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"X-Generator: MediaWiki 1.37.0-beta; Translate 2021-07-26\n"
+"X-Generator: MediaWiki 1.38.0-alpha; Translate 2021-07-26\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -596,15 +596,15 @@ msgstr "Оригінальне фото"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Цей альбом містить фільм"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Це особистий альбом"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Це колекційний альбом"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -1594,7 +1594,7 @@ msgstr "Фільтри"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "фільм"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
@@ -1672,7 +1672,7 @@ msgstr "Картинки за колекціями"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "Показати альбоми з фільмами"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
