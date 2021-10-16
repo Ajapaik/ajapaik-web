@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
             # Get photos
             qs = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=sa_ids)
-            return qs.distinct('id').order_by()
+            return qs.distinct('id').only('id').order_by()
 
        # Actual update loop
        albums = Album.objects.exclude(atype__in=[Album.AUTO, Album.FAVORITES])
