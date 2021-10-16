@@ -30,7 +30,6 @@ class Command(BaseCommand):
        # Actual update loop
        albums = Album.objects.exclude(atype__in=[Album.AUTO, Album.FAVORITES])
        for a in albums:
-            ret={}
             starttime = time.time()
 
             historic_photo_qs=get_historical_photo_qs(a)
@@ -53,29 +52,31 @@ class Command(BaseCommand):
             rephoto_qs = Photo.objects.filter(rephoto_of__in=historic_photo_list).distinct('id').values('id').order_by()
 
             ### create all_photos_list from historical photos and add rephotos to it to keep backwards compability with older stats
+            ###
+            ### IMPORTANT: all_photos_list is shallow copy so it is referencing to same item than historic_photos_list
+            ### This means that historic_photos_list will include the rephotos too.
+
             all_photos_list=historic_photos_list
 
             for p in rephoto_qs:
                 all_photos_list.append(p['id'])
 
-            # all_photos_list is shallow copy of historic_photos_list, so delete original reference just to be clear that content 
-            # has been changed
-            del(historic_photos_list)
-
             ### Finally calculate rephoto count
             a.rephoto_count_with_subalbums=len(all_photos_list)-a.photo_count_with_subalbums
 
             # Comment count
-            ret['comment_count']=Photo.objects.filter(id__in=all_photos_list, comment_count__gt=0).order_by().aggregate(Sum('comment_count'))['comment_count__sum']
-            if ret['comment_count']==None:
-                ret['comment_count']=0
+            comment_count=Photo.objects.filter(id__in=all_photos_list, comment_count__gt=0).order_by().aggregate(Sum('comment_count'))['comment_count__sum']
+            if comment_count==None:
+                a.comments_count_with_subalbums=0
+            else:
+                a.comments_count_with_subalbums=comment_count
 
             # Similar photos and confirmed similar photos count
             imagesimilarity_qs=ImageSimilarity.objects.filter(from_photo__in=all_photos_list).only('pk').distinct('pk').order_by()
             a.similar_photo_count_with_subalbums=imagesimilarity_qs.count()
             a.confirmed_similar_photo_count_with_subalbums=imagesimilarity_qs.filter(confirmed=True).count()
 
-            print(str(a) + "("+ str(a.id) + ")\t"+  str(ret['historic_photo_count']) + "\t" + str(time.time() - starttime)) 
+            print(str(a) + "("+ str(a.id) + ")\t"+  str(a.photo_count_with_subalbums) + "\t" + str(time.time() - starttime)) 
 
             # Update cover photo and set missing coordinates
             if not a.lat and not a.lon and a.geotagged_photo_count_with_subalbums:
@@ -86,7 +87,7 @@ class Command(BaseCommand):
                 a.lon = random_photo.lon
                 a.geography = Point(x=float(a.lon), y=float(a.lat), srid=4326)
             else:
-                random_index = randint(0,  ret['historic_photo_count'] - 1)
+                random_index = randint(0,  a.photo_count_with_subalbums - 1)
                 random_photo = Photo.objects.get(pk=historic_photos_list[random_index])
 
             a.cover_photo = random_photo
