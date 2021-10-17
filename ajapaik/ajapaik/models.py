@@ -25,7 +25,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q
+from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q, Sum
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
@@ -264,16 +264,30 @@ class Album(Model):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         return qs.distinct('id')
 
+    def get_historic_photos_queryset_with_subalbums_new(self):
+        sa_ids=[self.id]
+        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
+            sa_ids.append(sa.id)
+        qs = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=sa_ids)
+        return qs.distinct('id')
+
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
         qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
+        return qs.distinct('id')
 
+    def get_geotagged_historic_photo_queryset_with_subalbums_new(self):
+        qs = self.get_historic_photos_queryset_with_subalbums_new().filter(lat__isnull=False, lon__isnull=False)
         return qs.distinct('id')
 
     def get_rephotos_queryset_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().filter(rephoto_of__isnull=False)
+        return qs.distinct('pk')
 
+    def get_rephotos_queryset_with_subalbums_new(self):
+        historic_photo_qs=self.get_historic_photos_queryset_with_subalbums_new().only('id').order_by()
+        qs=Photo.objects.filter(rephoto_of__isnull=False, rephoto_of__in=historic_photo_qs.values('id').order_by()).order_by()
         return qs.distinct('pk')
 
     def get_all_photos_queryset_with_subalbums(self):
@@ -282,9 +296,18 @@ class Album(Model):
             qs = qs | sa.photos.all()
 
         photo_ids = qs.values_list('pk', flat=True)
-
         qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
+        return qs.distinct('pk')
 
+    def get_all_photos_queryset_with_subalbums_new(self):
+        historic_photo_qs=self.get_historic_photos_queryset_with_subalbums_new().order_by()
+        rephoto_qs=Photo.objects.filter(rephoto_of__isnull=False, rephoto_of__in=historic_photo_qs.values('id').order_by()).values('id').distinct('id').order_by()
+
+        historic_photo_list = list(historic_photo_qs.values_list('id', flat=True))
+        for p in rephoto_qs:
+            historic_photo_list.append(p['id'])
+
+        qs=Photo.objects.filter(id__in=historic_photo_list)
         return qs.distinct('pk')
 
     def get_comment_count_with_subalbums(self):
@@ -295,6 +318,23 @@ class Album(Model):
 
         return count
 
+    def get_comment_count_with_subalbums_new(self):
+        historic_photo_qs = self.get_historic_photos_queryset_with_subalbums_new() \
+                                  .filter(Q(comment_count__gt=0) | Q(first_rephoto__isnull=False)) \
+                                  .distinct('id').order_by()
+        photo_list = list(historic_photo_qs.values_list('id', flat=True))
+        rephoto_qs=Photo.objects.filter(comment_count__gt=0, rephoto_of__isnull=False, rephoto_of__in=photo_list).values('id').distinct('id').order_by()
+
+        for p in rephoto_qs:
+                photo_list.append(p['id'])
+
+        count=Photo.objects.filter(id__in=photo_list, comment_count__gt=0).order_by().aggregate(Sum('comment_count'))['comment_count__sum']
+
+        if count==None:
+            return 0
+        else:
+            return count
+
     def get_confirmed_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
@@ -302,8 +342,21 @@ class Album(Model):
             from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
+    def get_confirmed_similar_photo_count_with_subalbums_new(self):
+        qs = self.get_all_photos_queryset_with_subalbums_new().order_by()
+        photo_ids = qs.values_list('pk', flat=True)
+        count = ImageSimilarity.objects.filter(
+            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
+        return count
+
     def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        photo_ids = qs.values_list('pk', flat=True)
+        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
+        return count
+
+    def get_similar_photo_count_with_subalbums_new(self):
+        qs = self.get_all_photos_queryset_with_subalbums_new().order_by()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
         return count
@@ -317,6 +370,47 @@ class Album(Model):
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
         self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
         self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
+
+    def set_calculated_fields_new(self):
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums_new().only(
+            'pk').order_by().count()
+        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums_new().only('pk').order_by().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums_new().only(
+            'pk').order_by().count()
+        self.comments_count_with_subalbums = self.get_comment_count_with_subalbums_new()
+        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums_new()
+        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums_new()
+
+    def set_calculated_fields_new2(self):
+        historic_photo_qs=self.get_historic_photos_queryset_with_subalbums()
+        historic_photos_list=list(historic_photo_qs.values_list('id', flat=True))
+
+        self.photo_count_with_subalbums=len(historic_photos_list)
+        self.geotagged_photo_count_with_subalbums=historic_photo_qs.filter(lat__isnull=False, lon__isnull=False).order_by().count()
+
+        ### IMPORTANT: add rephotos to historical photos list it to keep backwards compability with older stats
+
+        rephoto_qs = Photo.objects.filter(rephoto_of__in=historic_photos_list).distinct('id').values('id').order_by()
+        all_photos_list=historic_photos_list
+        for p in rephoto_qs:
+            all_photos_list.append(p['id'])
+
+        ### Finally calculate rephoto count
+        self.rephoto_count_with_subalbums=len(all_photos_list)-self.photo_count_with_subalbums
+
+        # Comment count
+        comment_count=Photo.objects.filter(id__in=all_photos_list, comment_count__gt=0).order_by().aggregate(Sum('comment_count'))['comment_count__sum']
+        if comment_count==None:
+            self.comments_count_with_subalbums=0
+        else:
+            self.comments_count_with_subalbums=comment_count
+
+        # Similar photos and confirmed similar photos count
+        imagesimilarity_qs=ImageSimilarity.objects.filter(from_photo__in=all_photos_list).only('pk').distinct('pk').order_by()
+        self.similar_photo_count_with_subalbums=imagesimilarity_qs.count()
+        self.confirmed_similar_photo_count_with_subalbums=imagesimilarity_qs.filter(confirmed=True).count()
+
+
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
