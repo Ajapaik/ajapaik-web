@@ -1538,8 +1538,9 @@ def mapview(request, photo_id=None, rephoto_id=None):
     profile = request.get_user().profile
     area_selection_form = AreaSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    albums = _get_album_choices()
-    photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
+    albums = _get_album_choices(None, 0,1)
+    photos_qs = Photo.objects.filter(rephoto_of__isnull=True).values('id')
+    select_all_photos=True
 
     user_has_likes = profile.likes.exists()
     user_has_rephotos = profile.photos.filter(rephoto_of__isnull=False).exists()
@@ -1547,10 +1548,13 @@ def mapview(request, photo_id=None, rephoto_id=None):
     area = None
     album = None
     if area_selection_form.is_valid():
+        select_all_photos=False
         area = area_selection_form.cleaned_data['area']
         photos_qs = photos_qs.filter(area=area)
 
+
     if game_album_selection_form.is_valid():
+        select_all_photos=False
         album = game_album_selection_form.cleaned_data['album']
         photos_qs = album.photos.prefetch_related('subalbums')
         for sa in album.subalbums.exclude(atype=Album.AUTO):
@@ -1571,20 +1575,34 @@ def mapview(request, photo_id=None, rephoto_id=None):
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list('album_id', flat=True)
         album = Album.objects.filter(pk__in=photo_album_ids, is_public=True).order_by('-created').first()
         if album:
+            select_all_photos=False
             photos_qs = album.photos.prefetch_related('subalbums').filter(rephoto_of__isnull=True)
             for sa in album.subalbums.exclude(atype=Album.AUTO):
                 photos_qs = photos_qs | sa.photos.filter(rephoto_of__isnull=True)
 
     if selected_photo and area is None:
+        select_all_photos=False
         area = Area.objects.filter(pk=selected_photo.area_id).first()
         photos_qs = photos_qs.filter(area=area, rephoto_of__isnull=True)
 
-    geotagging_user_count = GeoTag.objects.filter(photo_id__in=photos_qs.values_list('id', flat=True)).distinct(
-        'user').count()
+    # If we using unfiltered view then we can just count all geotags
+    if select_all_photos:
+        geotagging_user_count = GeoTag.objects.distinct('user').values('user').count()
+        total_photo_count = photos_qs.count()
+    else:
+        geotagging_user_count = GeoTag.objects.filter(photo_id__in=photos_qs.values_list('id', flat=True)).distinct(
+            'user').values('user').count()
+        total_photo_count = photos_qs.distinct('id').values('id').count()
+
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
-    context = {'area': area, 'last_geotagged_photo_id': Photo.objects.order_by('-latest_geotag').first().id,
-               'total_photo_count': photos_qs.distinct('id').count(), 'geotagging_user_count': geotagging_user_count,
+    if geotagged_photo_count:
+        last_geotagged_photo_id=Photo.objects.order_by('-latest_geotag').values('id').first().id
+    else:
+        last_geotagged_photo_id=None
+
+    context = {'area': area, 'last_geotagged_photo_id': last_geotagged_photo_id,
+               'total_photo_count': total_photo_count, 'geotagging_user_count': geotagging_user_count,
                'geotagged_photo_count': geotagged_photo_count, 'albums': albums,
                'hostname': request.build_absolute_uri('/'),
                'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
