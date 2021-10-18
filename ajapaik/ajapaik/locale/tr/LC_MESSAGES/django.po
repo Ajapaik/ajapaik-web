@@ -21,7 +21,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-14 11:00:35+0000\n"
+"PO-Revision-Date: 2021-10-18 11:00:27+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -607,15 +607,15 @@ msgstr "Orijinal fotoğraf"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Bu albüm bir film içeriyor"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Bu, bir kişi albümüdür"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Bu, bir koleksiyon albümüdür"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -1599,7 +1599,7 @@ msgstr "Filtreler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
@@ -1615,19 +1615,19 @@ msgstr "resimlerin arka yüzleri"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "portre formatındaki resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
-msgstr ""
+msgstr "kare formatındaki resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "manzara formatındaki resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "panorama formatındaki resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
@@ -1655,7 +1655,7 @@ msgstr "coğrafi etiketlenmemiş resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "yüksek kaliteli resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1677,7 +1677,7 @@ msgstr "Koleksiyonlara göre resimler"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "Film albümlerini göster"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
@@ -1725,7 +1725,7 @@ msgstr "Coğrafi etiketlenmemiş resimleri göster"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "Yüksek kaliteli resimler göster"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -2699,5 +2699,5 @@ msgstr "Öneriniz kaydedildi"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"
-msgstr ""
+msgstr "Öneri yaparken yeni bir değer belirtmelisiniz"
 

@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-10-14 11:00:34+0000\n"
+"PO-Revision-Date: 2021-10-18 11:00:26+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -301,32 +301,27 @@ msgstr "Yer"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "Resim, yüksek kalitede"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
-msgstr "Görüntünün konumu ve yön bilgisi var"
+msgstr "Resmin konumu ve yön bilgisi var"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
-msgstr "Görüntünün konum bilgisi yok"
+msgstr "Resmin konum bilgisi yok"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
-msgstr "Görüntünün yalnızca konumu var, görünüm yönü yok"
+msgstr "Resmin yalnızca konumu var, görünüm yönü yok"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
-msgstr "Görüntünün yeniden fotoğraflanışı var"
+msgstr "Resmin yeniden fotoğraflanışı var"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
-msgstr "Görüntünün benzer fotoğrafları var"
+msgstr "Resmin benzer fotoğrafları var"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Institution"
@@ -374,11 +369,11 @@ msgstr "Dış görünüm bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr ""
+msgstr "Yüksek kaliteli resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr ""
+msgstr "Bu albümde yüksek kaliteli resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
@@ -495,19 +490,19 @@ msgstr "Bu albümde kare formatında resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Yeniden fotoğraflanan resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Bu albümde yeniden fotoğraflanan resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr ""
+msgstr "Beğenilen resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr ""
+msgstr "Bu albümde beğenilen resim bulunamadı"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
@@ -952,9 +947,8 @@ msgid "This transcription is correct"
 msgstr "Bu transkripsiyon doğrudur"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
-msgstr "Resim üzerine ne yazıyor?"
+msgstr "Resimde ne yazıyor?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"

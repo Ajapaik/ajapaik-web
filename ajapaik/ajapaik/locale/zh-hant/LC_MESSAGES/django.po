@@ -5,6 +5,7 @@
 # Author: H2kks
 # Author: Kly
 # Author: LNDDYL
+# Author: Weather Top Wizard
 # Author: Winston Sung
 # Author: 予弦
 # Author: 列维劳德
@@ -18,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-14 11:00:35+0000\n"
+"PO-Revision-Date: 2021-10-18 11:00:28+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,11 +33,11 @@ msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "請求增加翻轉、反轉或旋轉參數"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "請求增加場景或viewpoint_elevation參數"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
@@ -52,15 +53,15 @@ msgstr "無效權杖"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "缺少photo_ids參數"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
-msgstr ""
+msgstr "沒有照片為id:"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "參數photo_id必須是正整數"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
@@ -119,7 +120,7 @@ msgstr "發生不明錯誤"
 
 #: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "您的建議以儲存，但先前的共識仍存在"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
@@ -181,7 +182,7 @@ msgstr "挑選主要相簿"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
-msgstr ""
+msgstr "圖片檔案"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
 #: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
@@ -200,19 +201,19 @@ msgstr "作者"
 
 #: ajapaik/ajapaik/forms.py:421
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "版權或許可狀態"
 
 #: ajapaik/ajapaik/forms.py:424
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "接受.png或.jpg格式檔案"
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "增加圖片的簡短描述"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "圖片作者 (攝影師, 繪師)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -220,11 +221,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
-msgstr ""
+msgstr "圖片描述"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
-msgstr ""
+msgstr "作者名稱"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Missing image"
@@ -349,7 +350,7 @@ msgstr "維基數據識別碼"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "原文名稱"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
@@ -357,59 +358,59 @@ msgstr "圖像"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "標題"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS標題"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS留言"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "MUIS事件描述設置筆記"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
-msgstr ""
+msgstr "MUIS文字為對象"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "MUIS圖例及敘述"
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
-msgstr ""
+msgstr "內部"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
 msgid "Exterior"
-msgstr ""
+msgstr "外觀"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
-msgstr ""
+msgstr "場景"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
 msgid "Ground"
-msgstr ""
+msgstr "場地"
 
 #: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1864
 msgid "Raised"
-msgstr ""
+msgstr "上升"
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1865
 msgid "Aerial"
-msgstr ""
+msgstr "空拍"
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1867
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "視點海拔"
 
 #: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
-msgstr ""
+msgstr "原文描述"
 
 #: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1219
 msgid "Different"
@@ -478,11 +479,11 @@ msgstr "轉錄"
 
 #: ajapaik/ajapaik/models.py:1298
 msgid "Categorize scene"
-msgstr ""
+msgstr "分類場景"
 
 #: ajapaik/ajapaik/models.py:1299
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "增加視點海拔"
 
 #: ajapaik/ajapaik/models.py:1300
 msgid "Flip photo"
@@ -490,7 +491,7 @@ msgstr "翻轉照片"
 
 #: ajapaik/ajapaik/models.py:1301
 msgid "Invert photo"
-msgstr ""
+msgstr "倒置照片"
 
 #: ajapaik/ajapaik/models.py:1302
 msgid "Rotate photo"
@@ -596,7 +597,7 @@ msgstr "返回"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "標記人物"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -604,15 +605,15 @@ msgstr "原始照片"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "此相簿包含影片"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "這是人物相簿"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "這是收藏相簿"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -687,7 +688,7 @@ msgstr "挑選目標位置！"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
-msgstr ""
+msgstr "增加地理標籤"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
@@ -695,7 +696,7 @@ msgstr "替此圖片註明日期"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:20
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:23
 msgid "Add rephoto"
@@ -703,7 +704,7 @@ msgstr "添加翻拍照片"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:26
 msgid "Add a rephoto"
-msgstr ""
+msgstr "添加翻拍照片"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:30
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -721,7 +722,7 @@ msgstr "分享"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:54
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "增加分類 - 點擊此按鈕將使您能將此照片歸類為各種分類，例如該照片是在室內或室外拍攝"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
@@ -733,11 +734,11 @@ msgstr "轉錄此圖片"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "編輯圖片"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "顯示註解"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -981,11 +982,11 @@ msgstr "登入來儲存您的積分"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "登入增加留言"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "登入或增加照片至相簿"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1179,7 +1180,6 @@ msgid "Newsletters"
 msgstr "時事通訊"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "添加照片"
 
@@ -1351,7 +1351,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "匯入照片"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -1395,7 +1395,6 @@ msgid "Error"
 msgstr "錯誤"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:93
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
 msgstr "開放相簿（任何人都能添加照片）"
 
@@ -1594,47 +1593,47 @@ msgstr "篩選"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:14
 msgid "Filters"
-msgstr ""
+msgstr "篩選"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "影片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
-msgstr ""
+msgstr "收藏"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "people"
-msgstr ""
+msgstr "人物"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
 msgid "back sides of pictures"
-msgstr ""
+msgstr "背面照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "縱向格式照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
-msgstr ""
+msgstr "方形格式照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "風景格式照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "全景格式照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
-msgstr ""
+msgstr "外觀"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "interiors"
-msgstr ""
+msgstr "內部"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:46
 msgid "pictures from the ground"
@@ -1642,33 +1641,33 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:49
 msgid "pictures from a raised viewpoint"
-msgstr ""
+msgstr "用上升視點製作的照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:52
 msgid "aerial pictures"
-msgstr ""
+msgstr "空拍照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:55
 msgid "pictures which are not geotagged"
-msgstr ""
+msgstr "未標記地理標籤的照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "高解析度照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
-msgstr ""
+msgstr "無篩選"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
 msgid "Show person albums"
-msgstr ""
+msgstr "顯示人物相簿"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
 msgid "Show pictures with faces"
-msgstr ""
+msgstr "顯示面孔照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
 msgid "Pictures by collections"
@@ -1676,11 +1675,11 @@ msgstr "按收藏的圖片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "顯示影片相簿"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
-msgstr ""
+msgstr "顯示背面照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
@@ -1696,7 +1695,7 @@ msgstr "顯示橫向照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "顯示全景照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
@@ -1704,27 +1703,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:161
 msgid "Show pictures made from a raised viewpoint"
-msgstr ""
+msgstr "顯示用上升視點製作的照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:171
 msgid "Show aerial pictures"
-msgstr ""
+msgstr "顯示空拍照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:181
 msgid "Show interior pictures"
-msgstr ""
+msgstr "顯示內部照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:190
 msgid "Show exterior pictures"
-msgstr ""
+msgstr "顯示外觀照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:200
 msgid "Show pictures which are not geotagged"
-msgstr ""
+msgstr "顯示未標記地理標籤的照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "顯示高解析度照片"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -1836,7 +1835,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "身為Ajapaik的用戶您可以"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
@@ -1844,11 +1843,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr ""
+msgstr "重新拍攝歷史照片以創建當時和現在的之對比照片"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr ""
+msgstr "在圖片上標記人物，將圖片添加到相簿，對圖片進行分類和評論，"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
@@ -1975,11 +1974,11 @@ msgstr "返回首頁"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "匯入"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "黑名單"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
@@ -1995,7 +1994,7 @@ msgstr "添加至相簿"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
+msgstr[0] "屬於收藏的圖片："
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2035,15 +2034,15 @@ msgstr "翻拍"
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "標記相似或重複"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
-msgstr ""
+msgstr "增加分類至照片"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
-msgstr ""
+msgstr "翻轉、反轉或旋轉照片"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
@@ -2067,11 +2066,11 @@ msgstr "上傳您自己的"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "MUIS匯入"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "匯入為 CSV"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:99
@@ -2250,7 +2249,7 @@ msgstr[0] "<b>%(photolikes)s</b> 張個人最愛圖片"
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "已分類 <b>%(photo_suggestions)s</b> 張圖片"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
@@ -2376,17 +2375,17 @@ msgid "Here you can upload historic pictures to Ajapaik (currently one picture a
 msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
 msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不撤銷授予任何人使用此作品的權限。"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "添加圖片至部分相簿"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "您需要增加圖片至至少一個相簿"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
@@ -2464,9 +2463,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "照片已存在於 Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2479
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "請添加照片至您的相簿"
+msgstr "請添加圖片至您的相簿"
 
 #: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
@@ -2527,15 +2525,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "愛沙尼亞共和國國家文物局"
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "數位文化年2020"
 
 #: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "芬蘭維基媒體基金會"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
@@ -2659,11 +2657,11 @@ msgstr "愛沙尼亞語"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "拉脫維亞語"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "立陶宛語"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
