@@ -1597,7 +1597,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     if geotagged_photo_count:
-        last_geotagged_photo_id=Photo.objects.order_by('-latest_geotag').values('id').first().id
+        last_geotagged_photo_id=Photo.objects.order_by('-latest_geotag').values('id').first()['id']
     else:
         last_geotagged_photo_id=None
 
