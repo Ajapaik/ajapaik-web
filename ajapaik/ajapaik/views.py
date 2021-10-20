@@ -563,7 +563,7 @@ def game(request):
     album = None
     area = None
     context = {
-        'albums': _get_album_choices()
+        'albums': _get_album_choices(None, 0, 1)         # Where this is used? Ie. is albums variable used at all
     }
 
     if game_photo_selection_form.is_valid():
@@ -1538,7 +1538,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     profile = request.get_user().profile
     area_selection_form = AreaSelectionForm(request.GET)
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
-    albums = _get_album_choices(None, 0,1)
+    albums = _get_album_choices(None, 0,1) #Where albums variable is used?
     photos_qs = Photo.objects.filter(rephoto_of__isnull=True).values('id')
     select_all_photos=True
 
