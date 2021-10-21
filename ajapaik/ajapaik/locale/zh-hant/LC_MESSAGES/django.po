@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-18 11:00:28+0000\n"
+"PO-Revision-Date: 2021-10-21 11:00:19+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -471,7 +471,7 @@ msgstr "確認圖片相似度"
 
 #: ajapaik/ajapaik/models.py:1295 ajapaik/ajapaik/models.py:1296
 msgid "Suggestion subject age"
-msgstr ""
+msgstr "主題建議年齡"
 
 #: ajapaik/ajapaik/models.py:1297 ajapaik/ajapaik/templates/_toolbox.html:66
 msgid "Transcribe"
@@ -2443,7 +2443,7 @@ msgstr "照片已對應到新的位置，感謝您。"
 
 #: ajapaik/ajapaik/views.py:1755
 msgid "Your suggestion was first."
-msgstr ""
+msgstr "您是第一個提出建議的用戶"
 
 #: ajapaik/ajapaik/views.py:2028
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
@@ -2685,15 +2685,15 @@ msgstr "法語"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
-msgstr ""
+msgstr "您已經提交了此建議"
 
 #: ajapaik/utils.py:154
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "您的建議已更改"
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been saved"
-msgstr ""
+msgstr "您的建議已儲存"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"

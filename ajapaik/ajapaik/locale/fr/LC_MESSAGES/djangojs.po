@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-10-14 11:00:32+0000\n"
+"PO-Revision-Date: 2021-10-21 11:00:16+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -300,30 +300,25 @@ msgstr "Vue au niveau du sol"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "L’image est de haute qualité"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
 msgstr "L’image a des informations de localisation et de direction de vue"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "L’image n’a aucune information de localisation"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
 msgstr "L’image n’a qu’une localisation, pas de direction de vue."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
 msgstr "L’image a été rephotographiée"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
 msgstr "L’image a des photos similaires"
 
@@ -373,11 +368,11 @@ msgstr "Aucune vue extérieure n’a été trouvée"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr ""
+msgstr "Aucune image de haute qualité trouvée"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr ""
+msgstr "Aucune image de haute qualité trouvée dans cet album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
@@ -494,19 +489,19 @@ msgstr "Aucune image au format carré n’a été trouvée dans cet album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Aucune rephoto trouvée"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Aucune rephoto trouvée dans cet album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr ""
+msgstr "Aucune image aimée trouvée"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr ""
+msgstr "Aucune image aimée trouvée dans cet album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
@@ -952,7 +947,6 @@ msgid "This transcription is correct"
 msgstr "Cette transcription est correcte"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
 msgstr "Qu’y a-t-il d’écrit sur l’image ?"
 
