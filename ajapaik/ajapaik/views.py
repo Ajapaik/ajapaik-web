@@ -721,6 +721,7 @@ def frontpage_async_data(request):
 
 
 def frontpage_async_albums(request):
+    print("frontpage_async_albums")
     form = AlbumSelectionFilteringForm(request.GET)
     context = {}
     if form.is_valid():
@@ -769,6 +770,7 @@ def frontpage_async_albums(request):
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
+    print("_get_filtered_data_for_frontpage")
     profile = request.get_user().profile
     photos = Photo.objects.filter(rephoto_of__isnull=True)
     filter_form = GalleryFilteringForm(request.GET)
@@ -828,11 +830,16 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         else:
             page = filter_form.cleaned_data['page']
         if album:
-            album_photos_qs = album.photos.all()
-            for sa in album.subalbums.exclude(atype=Album.AUTO):
-                album_photos_qs = album_photos_qs | sa.photos.all()
-            album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-            photos = photos.filter(id__in=album_photo_ids)
+            album_sa_ids=[album.id]
+            for album_sa in album.subalbums.exclude(atype=Album.AUTO):
+                album_sa_ids.append(album_sa.id)
+            photos = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=album_sa_ids)
+
+#            album_photos_qs = album.photos.all()
+#            for sa in album.subalbums.exclude(atype=Album.AUTO):
+#                album_photos_qs = album_photos_qs | sa.photos.all()
+#            album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
+#            photos = photos.filter(id__in=album_photo_ids)
 
         # Testing: Album.id 38516 = Photos – blacklisti
         if not album or album.id != 38516:
