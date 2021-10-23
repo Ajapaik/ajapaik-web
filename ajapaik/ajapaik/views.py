@@ -833,7 +833,8 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             album_sa_ids=[album.id]
             for album_sa in album.subalbums.exclude(atype=Album.AUTO):
                 album_sa_ids.append(album_sa.id)
-            photos = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=album_sa_ids)
+            album_photo_ids = set(Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=album_sa_ids).values_list('id', flat=True))
+            photos = photos.filter(id__in=album_photo_ids)
 
 #            album_photos_qs = album.photos.all()
 #            for sa in album.subalbums.exclude(atype=Album.AUTO):
