@@ -1690,7 +1690,7 @@ class Profile(Model):
         self.save()
 
     def set_calculated_fields(self):
-        all_time_score=profile.points.aggregate(Sum('points'))['points__sum'] 
+        all_time_score=self.points.aggregate(Sum('points'))['points__sum'] 
         if all_time_score==None:
             all_time_score=0
         self.score = all_time_score
