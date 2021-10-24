@@ -1690,10 +1690,9 @@ class Profile(Model):
         self.save()
 
     def set_calculated_fields(self):
-        all_time_score = 0
-        for p in self.points.all():
-            if p.points:
-                all_time_score += p.points
+        all_time_score=self.points.aggregate(Sum('points'))['points__sum'] 
+        if all_time_score==None:
+            all_time_score=0
         self.score = all_time_score
 
     def get_preferred_language(self):
