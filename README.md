@@ -65,7 +65,7 @@ docker-compose up -f docker-compose.dev.yml
 ## Update Juks' Vanalinnad data
 ```bash
 wget -r --no-parent -A empty.json,layers.xml http://vanalinnad.mooo.com/vector/places/
-wget -r --no-parent -A *.jpg http://vanalinnad.mooo.com/raster/places/
+wget -r --no-parent -A jpg --reject-regex "(.*)\?(.*)" http://vanalinnad.mooo.com/raster/places/
 ```
 
 ## Misc. running instructions
