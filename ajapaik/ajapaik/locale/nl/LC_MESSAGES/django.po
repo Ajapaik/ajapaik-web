@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-10-28 11:00:24+0000\n"
+"PO-Revision-Date: 2021-11-04 12:00:18+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -181,7 +181,7 @@ msgstr "Kies bovenliggend album"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
-msgstr ""
+msgstr "Bestand voor afbeelding"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
 #: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
