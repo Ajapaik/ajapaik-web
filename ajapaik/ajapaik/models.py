@@ -134,7 +134,7 @@ class AlbumPhoto(Model):
     )
 
     album = ForeignKey('Album', on_delete=CASCADE)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
+    photo = ForeignKey('Photo', related_name='albumphoto', on_delete=CASCADE)
     profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links', on_delete=CASCADE)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
@@ -265,7 +265,7 @@ class Album(Model):
         return qs.distinct('id')
 
     def get_historic_photos_queryset_with_subalbums(self):
-        sa_ids=[self.id]
+        sa_ids = [self.id]
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             sa_ids.append(sa.id)
         qs = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(albumphoto__album__in=sa_ids)
