@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:23+0000\n"
+"PO-Revision-Date: 2021-11-11 12:00:15+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -2524,7 +2524,7 @@ msgstr "סליחה, אבל לא הצלחנו לשלוח את התגובה שלך
 
 #: ajapaik/ajapaik/views.py:3474
 msgid "Change password"
-msgstr "שינוי הסיסמה"
+msgstr "שינוי סיסמה"
 
 #: ajapaik/ajapaik/views.py:3478
 msgid "Change display name"
