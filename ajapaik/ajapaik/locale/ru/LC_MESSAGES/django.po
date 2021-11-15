@@ -12,6 +12,7 @@
 # Author: Katunchik
 # Author: Meerrahtar
 # Author: Megakott
+# Author: Merrahtar
 # Author: Movses
 # Author: MuratTheTurkish
 # Author: Natalilake
@@ -32,7 +33,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:25+0000\n"
+"PO-Revision-Date: 2021-11-15 12:00:20+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"

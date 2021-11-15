@@ -3,6 +3,7 @@
 #
 # Author: A Retired User
 # Author: Songhee
+# Author: Underbaaar
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:23+0000\n"
+"PO-Revision-Date: 2021-11-15 12:00:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -210,7 +211,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "그림/사진의 저자"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -355,7 +356,7 @@ msgstr "이미지"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "제목"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
@@ -379,19 +380,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
-msgstr ""
+msgstr "내부"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
 msgid "Exterior"
-msgstr ""
+msgstr "외부"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
-msgstr ""
+msgstr "장면"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
 msgid "Ground"
-msgstr ""
+msgstr "지면"
 
 #: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1864
 msgid "Raised"
@@ -399,11 +400,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1865
 msgid "Aerial"
-msgstr ""
+msgstr "공중"
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1867
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "시점 고도"
 
 #: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
@@ -411,11 +412,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1219
 msgid "Different"
-msgstr ""
+msgstr "다름"
 
 #: ajapaik/ajapaik/models.py:1129 ajapaik/ajapaik/models.py:1220
 msgid "Similar"
-msgstr ""
+msgstr "유사함"
 
 #: ajapaik/ajapaik/models.py:1130 ajapaik/ajapaik/models.py:1221
 msgid "Duplicate"
@@ -1040,7 +1041,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/comments/form.html:6
 msgid "Your comment"
-msgstr ""
+msgstr "나의 댓글"
 
 #: ajapaik/ajapaik/templates/comments/form.html:38
 msgid "Send"
@@ -1494,7 +1495,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "답장하기"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
@@ -1626,11 +1627,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
-msgstr ""
+msgstr "외부"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
 msgid "interiors"
-msgstr ""
+msgstr "내부"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:46
 msgid "pictures from the ground"
@@ -1796,11 +1797,11 @@ msgstr "변수 2개를 선택하십시오"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
-msgstr ""
+msgstr "또는"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
 msgid "and"
-msgstr ""
+msgstr "그리고"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
@@ -2357,7 +2358,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:28
 msgid "here"
-msgstr ""
+msgstr "이 곳"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2546,7 +2547,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "이름, 성"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
@@ -2555,12 +2556,12 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:71
 msgid "Child"
-msgstr ""
+msgstr "아동"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:74
 msgid "Adult"
-msgstr ""
+msgstr "성인"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
@@ -2611,7 +2612,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
 msgid "Not a Face"
-msgstr ""
+msgstr "얼굴이 아님"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"

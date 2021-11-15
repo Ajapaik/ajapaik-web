@@ -4,6 +4,7 @@
 # Author: A Retired User
 # Author: Codenstory
 # Author: Songhee
+# Author: Underbaaar
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:22+0000\n"
+"PO-Revision-Date: 2021-11-15 12:00:18+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,8 +131,9 @@ msgid "Before %(to)s"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
+#, fuzzy
 msgid "Approximately %(date)s"
-msgstr ""
+msgstr "약 %(date)"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
@@ -251,7 +253,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
-msgstr ""
+msgstr "의견"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
@@ -294,7 +296,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr ""
+msgstr "지면"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
@@ -866,11 +868,11 @@ msgstr "계속"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:703
 msgid "a little"
-msgstr ""
+msgstr "많이"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:704
 msgid "a lot"
-msgstr ""
+msgstr "조금"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
@@ -907,7 +909,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
-msgstr ""
+msgstr "역사적인 지도들"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
@@ -953,7 +955,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
-msgstr ""
+msgstr "로그인"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
@@ -1110,7 +1112,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:99
 #: ajapaik/ajapaik/static/js/constants.js:106
 msgid "Searching"
-msgstr ""
+msgstr "검색 중..."
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Search for object"
@@ -1119,7 +1121,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Need 2 characters"
-msgstr ""
+msgstr "2글자 필요"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 #: ajapaik/ajapaik/static/js/constants.js:109
@@ -1177,7 +1179,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "자동으로 얼굴 감지하기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
@@ -1198,7 +1200,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr ""
+msgstr "자동으로 물체 감지됨"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
