@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:23+0000\n"
+"PO-Revision-Date: 2021-11-18 12:00:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -359,11 +359,11 @@ msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS Titel"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS Bemierkung"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -492,7 +492,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1302
 msgid "Rotate photo"
-msgstr ""
+msgstr "Foto dréinen"
 
 #: ajapaik/ajapaik/models.py:1353
 msgid "Map"
@@ -1493,7 +1493,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "Bescht Gréiss"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
