@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:26+0000\n"
+"PO-Revision-Date: 2021-11-22 12:01:08+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -726,7 +726,7 @@ msgstr "增加分類 - 點擊此按鈕將使您能將此照片歸類為各種分
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
-msgstr ""
+msgstr "已分類"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:62
 msgid "Transcribe this image"

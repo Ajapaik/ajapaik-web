@@ -9,6 +9,7 @@
 # Author: RYU N
 # Author: Shirayuki
 # Author: Tmv
+# Author: Weather Top Wizard
 # Author: 沈澄心
 # --
 # This file is part of the Ajapaik Project
@@ -17,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-10-28 11:00:23+0000\n"
+"PO-Revision-Date: 2021-11-22 12:01:03+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -122,7 +123,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
-msgstr ""
+msgstr "アルバムが見つかりません"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -140,7 +141,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -157,7 +158,7 @@ msgstr "パスワード"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "パスワード確認"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
 #: ajapaik/ajapaik/forms.py:209
@@ -256,7 +257,7 @@ msgstr "アルバムの種類"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "Anything else"
-msgstr ""
+msgstr "何でもその"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "Person"
@@ -324,7 +325,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:585
 msgid "Nothing to change."
-msgstr ""
+msgstr "変更するものはありません。"
 
 #: ajapaik/ajapaik/models.py:175 ajapaik/ajapaik_face_recognition/forms.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:23
@@ -348,7 +349,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "原文名"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
@@ -356,7 +357,7 @@ msgstr "画像"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
@@ -424,12 +425,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1284
 msgid "Geotag"
-msgstr ""
+msgstr "ジオタッグ"
 
 #: ajapaik/ajapaik/models.py:1285 ajapaik/ajapaik/models.py:1368
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "Rephoto"
 
 #: ajapaik/ajapaik/models.py:1286
 msgid "Photo upload"
@@ -517,7 +518,7 @@ msgstr "ストリートビュー"
 
 #: ajapaik/ajapaik/models.py:1358
 msgid "Source geotag"
-msgstr ""
+msgstr "ジオタッグソース"
 
 #: ajapaik/ajapaik/models.py:1359
 msgid "Android app"
@@ -549,7 +550,7 @@ msgstr "Googleマップ"
 
 #: ajapaik/ajapaik/models.py:1373
 msgid "Google satellite"
-msgstr ""
+msgstr "Googleサテライト"
 
 #: ajapaik/ajapaik/models.py:1374
 msgid "OpenStreetMap"
@@ -655,7 +656,7 @@ msgstr "お気に入り"
 #: ajapaik/ajapaik/templates/_mode_select.html:41
 #: ajapaik/ajapaik/templates/_mode_select.html:87
 msgid "Show rephotographed by me"
-msgstr ""
+msgstr "私が再撮影を表示"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:43
 #: ajapaik/ajapaik/templates/_mode_select.html:89
@@ -686,23 +687,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
-msgstr ""
+msgstr "ジオタッグを追加"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
-msgstr ""
+msgstr "日付この画像"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:20
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:23
 msgid "Add rephoto"
-msgstr ""
+msgstr "Rephotoを追加"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:26
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Rephoto一枚を追加"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:30
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -710,7 +711,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:34
 msgid "Annotate"
-msgstr ""
+msgstr "注釈"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:37
 #: ajapaik/ajapaik/templates/_toolbox.html:52
@@ -736,7 +737,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "注釈を表示"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -774,7 +775,7 @@ msgstr "サインイン"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "サインアップ"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -788,12 +789,12 @@ msgstr "メニュー"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
-msgstr ""
+msgstr "メールアドレス"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "メールアドレスの確認"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -1094,7 +1095,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/common/game.html:49
 msgid "Show description"
-msgstr ""
+msgstr "説明を表示"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
@@ -2112,7 +2113,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "ソーシャルネットワークログイン失敗"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."

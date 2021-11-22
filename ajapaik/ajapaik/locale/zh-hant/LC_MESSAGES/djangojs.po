@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:24+0000\n"
+"PO-Revision-Date: 2021-11-22 12:01:07+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -699,19 +699,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "最早"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "最新"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "最少"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr ""
+msgstr "最多"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
@@ -924,7 +924,7 @@ msgstr "套用相簿篩選"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "所有圖片在側邊欄裡顯示"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format

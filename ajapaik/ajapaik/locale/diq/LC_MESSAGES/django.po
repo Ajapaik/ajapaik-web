@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:21+0000\n"
+"PO-Revision-Date: 2021-11-22 12:01:02+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -599,7 +599,7 @@ msgstr "Fotrafo oricinal"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Enê albumi de yew film esto"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
@@ -1348,7 +1348,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Fotrafi bıçarne"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
