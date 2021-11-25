@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:23+0000\n"
+"PO-Revision-Date: 2021-11-25 12:00:20+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -142,11 +142,11 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:314
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:364
 msgid "Server received invalid data."
-msgstr ""
+msgstr "Servern mottog ogiltig data."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr ""
+msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
@@ -307,7 +307,6 @@ msgid "Picture has location and view direction info"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "Bilden har ingen platsinformation"
 
@@ -320,7 +319,6 @@ msgid "Picture has rephotos"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
 msgstr "Bilden har liknande foton"
 
@@ -330,7 +328,7 @@ msgstr "Institution"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Interior"
-msgstr ""
+msgstr "Interiör"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert colors"
@@ -338,7 +336,7 @@ msgstr "Invertera färger"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Invert"
-msgstr ""
+msgstr "Invertera"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Licence"
@@ -346,7 +344,7 @@ msgstr "Licens"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "Länken kopierades till urklipp"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "Mark stereophoto"
