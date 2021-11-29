@@ -11,6 +11,7 @@
 # Author: Pacha Tchernof
 # Author: Roman
 # Author: Wileyfoxyx
+# Author: YuliaVo
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -21,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-11-15 12:00:19+0000\n"
+"PO-Revision-Date: 2021-11-29 12:00:16+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -1006,11 +1007,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
-msgstr "Мужской"
+msgstr "Мужчина"
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Female"
-msgstr "Женский"
+msgstr "Женщина"
 
 #: ajapaik/ajapaik/static/js/constants.js:55
 msgid "Child"

@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-11-22 12:01:03+0000\n"
+"PO-Revision-Date: 2021-11-29 12:00:15+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -723,7 +723,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
-msgstr "再撮影"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
@@ -934,7 +934,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
-msgstr "転写に："
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"

@@ -23,6 +23,7 @@
 # Author: Roman
 # Author: Rubin16
 # Author: Wileyfoxyx
+# Author: YuliaVo
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -33,7 +34,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-11-15 12:00:20+0000\n"
+"PO-Revision-Date: 2021-11-29 12:00:16+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -195,7 +196,7 @@ msgstr "Выберите фото"
 
 #: ajapaik/ajapaik/forms.py:233 ajapaik/ajapaik/forms.py:252
 msgid "Choose parent album"
-msgstr "Выбрать родительский альбом"
+msgstr "Выберите основной альбом"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
@@ -259,7 +260,7 @@ msgstr "Отсутствующая лицензия"
 #: ajapaik/ajapaik/forms.py:461
 #: ajapaik/ajapaik/templates/curator/curator.html:107
 msgid "Parent album"
-msgstr "Родительский альбом"
+msgstr "Основной альбом"
 
 #: ajapaik/ajapaik/forms.py:464
 msgid "Location"
@@ -443,7 +444,7 @@ msgstr "Дублировать"
 
 #: ajapaik/ajapaik/models.py:1284
 msgid "Geotag"
-msgstr "Геотэг"
+msgstr "Геометка"
 
 #: ajapaik/ajapaik/models.py:1285 ajapaik/ajapaik/models.py:1368
 #: ajapaik/ajapaik/templates/_comments.html:11
@@ -705,7 +706,7 @@ msgstr "Выбрать место съемки!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
-msgstr "Добавить геотэг"
+msgstr "Добавить геометку"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
@@ -916,7 +917,7 @@ msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:22
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Пожалуйста, свяжитесь с нами, если у вас возникают проблемы с восстановлением пароля."
+msgstr "Если у вас возникли проблемы с восстановлением пароля напишите нам."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
@@ -924,7 +925,7 @@ msgstr "Мы отправили вам электронное письмо. По
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Плохой токен"
+msgstr "Неправильный токен"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -1158,7 +1159,7 @@ msgstr "Поддержите нас"
 #: ajapaik/ajapaik/templates/core/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr "Так же смотрите - Sift.pics"
+msgstr "Загляните на Sift.pics"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
@@ -1218,7 +1219,7 @@ msgstr "Ajapaik на Facebook"
 
 #: ajapaik/ajapaik/templates/core/_header.html:88
 msgid "Profile and leaderboard"
-msgstr "Профиль и лучшие игроки"
+msgstr "Профиль и список лидеров"
 
 #: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1895
 #: ajapaik/ajapaik/views.py:1911 ajapaik/ajapaik/views.py:1946
@@ -2068,7 +2069,7 @@ msgstr "Дата фотографии"
 #: ajapaik/ajapaik/templates/photo/photoview.html:164
 #: ajapaik/ajapaik/templates/photo/photoview.html:165
 msgid "rephoto"
-msgstr "рефото"
+msgstr "переснимок"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
@@ -2135,7 +2136,7 @@ msgstr "Прервать"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:76
 msgid "Select new file..."
-msgstr "Выбрать файл..."
+msgstr "Выбрать новый файл..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:107
 msgid "File upload failed."
@@ -2592,7 +2593,7 @@ msgstr "Логотип Министерства образования"
 
 #: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
-msgstr "EV100 лого"
+msgstr "Логотип EV100"
 
 #: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
@@ -2647,7 +2648,7 @@ msgstr "Взрослый"
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
 msgid "Elderly"
-msgstr "Пожилой возраст"
+msgstr "Пожилой"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
@@ -2657,7 +2658,7 @@ msgstr "Неизвестно"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr "Непригодный"
+msgstr "Не применимо"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:193
@@ -2728,7 +2729,7 @@ msgstr "В настоящее время возраст составляет"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr "Данные отсутствуют, пожалуйста, попробуйте снова позднее"
+msgstr "Данные отсутствуют. Повторите попытку позже."
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
@@ -2736,7 +2737,7 @@ msgstr "Эстонский"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr "латышский"
+msgstr "Латышский"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
