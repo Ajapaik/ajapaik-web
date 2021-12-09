@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:25+0000\n"
+"PO-Revision-Date: 2021-12-09 12:00:19+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1336,7 +1336,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:482
 msgid "Got it!"
-msgstr ""
+msgstr "{{Identical|Got it}}"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "More info"
@@ -1376,7 +1376,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:24
 msgid "Close"
-msgstr ""
+msgstr "{{Identical|Close}}"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:46
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:46
