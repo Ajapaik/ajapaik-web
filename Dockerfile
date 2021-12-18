@@ -1,8 +1,8 @@
-FROM laurielias/python-3.6-dlib:latest AS builder
+FROM laurielias/python-3.8.10-dlib:latest AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
-MAINTAINER Lauri Elias <lauri@ajapaik.ee>
+MAINTAINER Lauri Elias <laurileet@gmail.com>
 
 RUN apt-get --allow-releaseinfo-change update
 
@@ -21,13 +21,12 @@ RUN pip3 install --upgrade pip && \
     pip3 wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
-FROM python:3.6-slim AS deployer
+FROM python:3.8.10-slim AS deployer
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends  ffmpeg libxext6 uwsgi python3-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
+    apt-get install -y --no-install-recommends netcat ffmpeg libxext6 uwsgi python3-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
     libxrender-dev gettext procps libgdal-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -37,7 +36,8 @@ COPY --from=builder /home/docker/ajapaik/wheels ./wheels
 
 COPY requirements.txt wsgi.py manage.py ./
 
-RUN pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels
+RUN pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels \
+    && rm -rf requirements.txt && rm -rf ajapaik/tests && rm -rf ajapaik/ajapaik/tests
 
 COPY ajapaik ./ajapaik
 

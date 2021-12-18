@@ -68,3 +68,8 @@ CACHES = {
 }
 
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+RECAPTCHA_PUBLIC_KEY = 'not-so-seekrit'
+RECAPTCHA_PRIVATE_KEY = 'seekrit'
+
+GOOGLE_MAPS_API_KEY = ''

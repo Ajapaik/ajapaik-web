@@ -6,14 +6,15 @@ This is the open-sourced Django project code for https://ajapaik.ee/
 
 ## Running locally
 ```bash
-docker pull laurielias/ajapaik-web:python-3.6-latest
-docker-compose up
+docker pull laurielias/ajapaik-web:python-3.8.10
+cp ajapaik/ajapaik/settings/local.py.example ajapaik/ajapaik/settings/local.py
+docker-compose up -d
 ```
 
 ## Build it yourself and launch
-python-3.6-dlib is just python:3.6 with dlib and its dependencies installed. (compiling takes 10+ minutes otherwise)
+python-3.8.10-dlib is just python:3.8.10 with dlib and its dependencies installed. (compiling takes many minutes otherwise)
 ```bash
-docker pull laurielias/python-3.6-dlib
+docker pull laurielias/python-3.8.10-dlib
 docker-compose up --build
 ```
 
@@ -37,7 +38,7 @@ pg_restore rephoto_20210426.sql -d rephoto_production_20190511 -a -x --disable-t
 
 ## Push new image
 ```bash
-docker push laurielias/ajapaik-web:python-3.6-latest
+docker push laurielias/ajapaik-web:python-3.8.10
 ```
 
 ## Debug the container
@@ -117,3 +118,4 @@ python manage.py test --settings=ajapaik.settings.test --nomigrations --keepdb
 - TODO: automate regular DB, media/uploads, media/videos backups
 - TODO: fix # noqa as much as possible (some Django quirks will always annoy flake8 though)
 - TODO: replace face_recognition with something else since it requires the horrendous dlib
+- TODO: don't install test/lint requirements in production Docker

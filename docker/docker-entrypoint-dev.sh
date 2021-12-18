@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# TODO: Finish
-# while ! nc -z postgres 5432; do sleep 3; done
+while ! nc -z db 5432; do sleep 3; done
+
+if [ ! -f /home/docker/ajapaik/ajapaik/settings/local.py ]; then
+    cp /home/docker/ajapaik/ajapaik/settings/local.py.example /home/docker/ajapaik/ajapaik/settings/local.py
+fi
 
 cd /home/docker/ajapaik && python manage.py migrate --noinput \
   && python manage.py loaddata licence object_detection_models \

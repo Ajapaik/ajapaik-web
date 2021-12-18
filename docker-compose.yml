@@ -3,7 +3,7 @@ version: '3'
 # Meant for local development
 services:
   db:
-    image: 'postgis/postgis:12-2.5-alpine'
+    image: 'postgis/postgis:13-3.1-alpine'
     container_name: 'postgres'
     restart: always
     ports:
@@ -21,13 +21,13 @@ services:
       - './docker/solr:/opt/solr/server/solr/tester'
     ports:
       - '8983:8983'
-  redis:
-    image: 'redis:alpine'
-    container_name: 'redis'
+  # redis:
+  #   image: 'redis:alpine'
+  #   container_name: 'redis'
   app:
     # TODO: Mount secrets
     build: .
-    image: laurielias/ajapaik-web:python-3.6-latest
+    image: laurielias/ajapaik-web:python-3.8.10
     container_name: ajapaik
     entrypoint: /usr/local/bin/docker-entrypoint-dev.sh
     # entrypoint: tail -f /dev/null
@@ -36,7 +36,7 @@ services:
     depends_on:
       - db
       - solr
-      - redis
+      # - redis
     environment:
       - PYTHONUNBUFFERED=1
     volumes:

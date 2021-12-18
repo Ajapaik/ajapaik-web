@@ -22,7 +22,7 @@ services:
     container_name: 'redis'
   app:
     build: ../../
-    image: 'laurielias/ajapaik-web:python-3.6-latest'
+    image: 'laurielias/ajapaik-web:python-3.8.10-latest'
     container_name: 'ajapaik'
     entrypoint: '/usr/local/bin/docker-entrypoint.sh'
     depends_on:

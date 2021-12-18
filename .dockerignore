@@ -2,8 +2,10 @@
 /.tx/
 /ajapaik.egg-info/
 /.git/
+/.github/
 /.idea/
 /media/
 /ajapaik/settings/local.py
 /ajapaik/ajapaik/client_secrets.json
 /postgresql/
+/.pytest_cache/
