@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-12-09 12:00:19+0000\n"
+"PO-Revision-Date: 2021-12-20 12:00:29+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1147,7 +1147,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:19
 msgid "Show in grid"
-msgstr ""
+msgstr "Ammustra n grigghia"
 
 #: ajapaik/ajapaik/templates/core/_header.html:30
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
@@ -2635,7 +2635,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
 msgid "Not a Face"
-msgstr ""
+msgstr "Nun na facci"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
