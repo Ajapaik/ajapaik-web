@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2021-12-02 12:00:17+0000\n"
+"PO-Revision-Date: 2021-12-27 12:00:16+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -196,7 +196,7 @@ msgstr "Прокомментируйте Ваше датирование"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "Используйте формат YYYY.MM.DD (MM.DD не обязательно)"
+msgstr "Вводите дату в формате ГГГГ.ММ.ДД (ММ.ДД вводить не обязательно)"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
@@ -291,11 +291,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
-msgstr "Не удалось отправить Ваш отзыв, извините."
+msgstr "К сожалению, отправить отзыв не удалось."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
-msgstr "Перевернуть"
+msgstr "Отразить зеркально"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
@@ -312,19 +312,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
-msgstr "Изображение имеет местоположение и информацию о направлении просмотра"
+msgstr "Для снимка доступна информация о местоположении и направлении просмотра"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "Изображение не имеет информации о местоположении"
+msgstr "Информация о местоположении для снимка отсутствует"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
-msgstr "Изображение имеет только местоположение, нет направления просмотра"
+msgstr "Для снимка доступна информация о местоположении; информация о направлении просмотра отсутствует"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Picture has rephotos"
-msgstr "Изображение имеет рефото"
+msgstr "У снимка есть переснятая версия"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Picture has similar photos"
@@ -565,7 +565,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Pictures geotagged"
-msgstr "Фото с геотегами"
+msgstr "Снимки с геометками"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Pictures in album"
@@ -594,7 +594,7 @@ msgstr "Повернуть"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
 msgid "Show pictures on map"
-msgstr "Показать изображения на карте"
+msgstr "Показать снимки на карте"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "Similar photos in album"
@@ -700,7 +700,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
 msgid "photos"
-msgstr "фото"
+msgstr "снимки"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
@@ -736,7 +736,7 @@ msgstr "прокомментировано"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
-msgstr "рефотографировано"
+msgstr "переснято"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"

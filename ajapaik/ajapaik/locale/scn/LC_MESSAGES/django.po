@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2021-12-23 12:00:17+0000\n"
+"PO-Revision-Date: 2021-12-27 12:00:17+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -627,7 +627,7 @@ msgstr "Album"
 #: ajapaik/ajapaik/templates/_mode_select.html:31
 #: ajapaik/ajapaik/templates/_mode_select.html:79
 msgid "Show pictures"
-msgstr ""
+msgstr "Ammustra li mmàggini"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:33
 #: ajapaik/ajapaik/templates/_mode_select.html:81
@@ -1086,7 +1086,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/common/game.html:49
 msgid "Show description"
-msgstr ""
+msgstr "Ammustra discrizzioni"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
