@@ -16,7 +16,10 @@
     {% else %}
         {% if photo.get_display_text %}
             <div id="ajp-photo-description" class="w-100">
-                    {{ photo.get_display_text }}
+                {{ photo.get_display_text }}
+                 {% if photo.title and photo.description %}
+                     <br> {{ photo.description }}
+                 {% endif %}
             </div>
         {% endif %}
     {% endif %}
