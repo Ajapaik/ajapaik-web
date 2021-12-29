@@ -1061,7 +1061,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # FIXME: Replacing objects with arrays is not a good idea, the small speed boost isn't worth it
         for p in photos:
             if p[3] is not None and p[3] != "" and p[14] is not None and p[14] != "":
-                p[3] = p[14] + ". " + p[3]  # add title to image description if both are present.
+                p[3] = p[14] + (". " if p[14][-1] != "." else " ") + p[3]  # add title to image description if both are present.
 
             if p[3] == '' or p[3] is None:
                 p[3] = p[14]
