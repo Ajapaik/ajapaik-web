@@ -80,9 +80,7 @@
             </div>
             {% endif %}
             <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button id="ajp-iiif" class="ajp-button" type="button" data-toggle="popover" data-is-edit-button="true">
-                    <img style='width:50%' src='https://iiif.io/img/text-bg-about.png' />
-                </button>
+                <a id="ajp-iiif" class="ajp-iiif" type="button" data-toggle="popover" data-is-edit-button="true" href="#"></a>
                 {% trans 'IIIF' %}
             </div>
             {% if request.user.is_superuser %}
