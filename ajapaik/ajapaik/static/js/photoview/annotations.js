@@ -106,9 +106,10 @@ function createAlbumLabelPopoverContent(annotation, child, container) {
     let tagButton = createIconButton(
         gettext('Modify existing annotations, click on an annotation to start'),
         'person_pin',
-        gettext('Tag a face'),
+        gettext('Tag the face'),
         function() {
             if (!window.isAnnotatingDisabled) {
+                ObjectTagger.addTag(annotation.label.trim());
                 enableAnnotations();
                 window.lastEnteredName = annotation.label.trim();
                 setTimeout(() => { $('#ajp-face-modify-rectangle-' + annotation.id).click(); }, 10);
@@ -120,7 +121,7 @@ function createAlbumLabelPopoverContent(annotation, child, container) {
     let drawAndTagButton = createIconButton(
         gettext("Draw a face annotation and add person's name"),
         'format_shapes',
-        gettext('Draw and tag a face'),
+        gettext('Draw and tag the face'),
         function() {
             if(!window.isAnnotatingDisabled) {
                 ObjectTagger.toggleCropping();

@@ -97,5 +97,8 @@ var ObjectTagger = {
         } else {
             this.startCropping(isNotOpeningPopoverOnDrawEnd);
         }
+    },
+    addTag: function(name) {
+        ImageAreaSelector.createTagOverlay(name);
     }
 };

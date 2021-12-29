@@ -249,6 +249,28 @@ var ImageAreaSelector = (function () {
 
             getCurrentImageArea().click(clickListener);
             getCurrentImageArea().mousemove(mouseMoveListener);
+        },
+        createTagOverlay: function(name) {
+            var selectionOverlay = $('<div>', {
+                id: constants.elements.IMAGE_SELECTION_OVERLAY_ID,
+                class: 'image-area-selector__overlay annotation__guiding-overlay'
+            });
+
+            var informativeTextContainer = $('<span class="annotation__informative-text"/>')
+                .append(constants.translations.annotations.INFORM_HOW_TO_TAG_PART_1 + name + constants.translations.annotations.INFORM_HOW_TO_TAG_PART_2);
+
+            selectionOverlay.mouseenter(function() {
+                $(this).removeClass('annotation__guiding-overlay');
+                selectionOverlay.addClass('hide');
+            });
+
+            selectionOverlay.mouseleave(function() {
+                $(this).addClass('annotation__guiding-overlay');
+            });
+
+            selectionOverlay.append(informativeTextContainer);
+
+            getCurrentImageArea().append(selectionOverlay);
         }
     };
 })();
