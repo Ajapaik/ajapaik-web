@@ -43,8 +43,8 @@ var constants = {
     translations: {
         annotations: {
             INFORM_HOW_TO_ANNOTATE: gettext('Click (don\'t drag) to start drawing the annotation. Click again to finish drawing.'),
-            INFORM_HOW_TO_TAG_PART_1: gettext('Click the face of '),
-            INFORM_HOW_TO_TAG_PART_2: gettext(' and confirm it in the opening dialogue')
+            INFORM_HOW_TO_TAG_PART_1: gettext('Click the face of <b>'),
+            INFORM_HOW_TO_TAG_PART_2: gettext('</b> and confirm it in the opening dialogue')
         },
         errors: {
             OBJECT_REQUIRED: gettext('Object is required')
