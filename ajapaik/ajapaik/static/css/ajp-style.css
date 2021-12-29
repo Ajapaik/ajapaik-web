@@ -84,6 +84,14 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
   background: none;
 }
 
+.ajp-iiif {
+  background: url(../images/material-design-icons/ic_iiif_24px.svg) no-repeat center center;
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  display: block;
+}
+
 .ajp-black-dropdown-menu {
   width: 100vw;
   top: 57px;
