@@ -1,4 +1,7 @@
-{% load i18n comments %}
+{% load i18n comments static %}
+
+<script src="{% static 'js/simplemde.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
 
 {% if not user.profile.is_legit %}
     <a href="javaScript:void(0);" id="ajp-comment-form-register-link">{% trans "Identify yourself to comment" %}</a>
