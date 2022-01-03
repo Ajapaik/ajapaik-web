@@ -11,8 +11,8 @@ $(document).ready(function () {
             hideIcons: ["side-by-side", "fullscreen", "guide"],
             forceSync: true,   // All the text is instantly copied to the original textarea div so the save works
         });
-        $(div).attr('required', false);
-        $('.CodeMirror textarea').attr('required', true);
+        $(div)[0].removeAttribute('required');
+        $('.CodeMirror textarea').required = true;
         return simplemde;
     }
 
