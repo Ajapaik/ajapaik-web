@@ -115,8 +115,13 @@ $(document).ready(function () {
         reply_form_div.removeClass('d-none');
 
         // Add Simple Markdown Editor toolbar
-        if (reply_toolbar == null)
+        if (reply_toolbar == null) {
             reply_toolbar = addToolbar(reply_textarea);
+        } else if (reply_toolbar.element !== reply_textarea) {
+            reply_toolbar.toTextArea();
+            reply_toolbar = null
+            reply_toolbar = addToolbar(reply_textarea);
+        }
 
         event.preventDefault();
     });
@@ -161,8 +166,13 @@ $(document).ready(function () {
         edit_form_div.removeClass('d-none');
 
         // Add Simple Markdown Editor toolbar
-        if (edit_toolbar == null)
+        if (edit_toolbar == null) {
             edit_toolbar = addToolbar(comment_textarea);
+        } else if (edit_toolbar.element !== comment_textarea) {
+            edit_toolbar.toTextArea();
+            edit_toolbar = null
+            edit_toolbar = addToolbar(comment_textarea);
+        }
 
         event.preventDefault();
     });
