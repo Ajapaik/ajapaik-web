@@ -5,15 +5,17 @@ $(document).ready(function () {
     // Simple Markdown editor toolbar
     // Using: https://github.com/sparksuite/simplemde-markdown-editor
     var addToolbar = function (div) {
-        var simplemde = new SimpleMDE({
-            element: $(div)[0],
-            spellChecker: false,
-            hideIcons: ["side-by-side", "fullscreen", "guide"],
-            forceSync: true,   // All the text is instantly copied to the original textarea div so the save works
-        });
-        $(div)[0].removeAttribute('required');
-        $('.CodeMirror textarea').required = true;
-        return simplemde;
+        if ($(div)[0] !== undefined) {
+            var simplemde = new SimpleMDE({
+                element: $(div)[0],
+                spellChecker: false,
+                hideIcons: ["side-by-side", "fullscreen", "guide"],
+                forceSync: true,   // All the text is instantly copied to the original textarea div so the save works
+            });
+            $(div)[0].removeAttribute('required');
+            $('.CodeMirror textarea').required = true;
+            return simplemde;
+        }
     }
 
     addToolbar('#id_comment');
