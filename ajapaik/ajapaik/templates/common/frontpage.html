@@ -14,7 +14,9 @@
 
 {% block layout %}
     <div class="container-fluid" id="ajp-frontpage-container">
+
         <div class="row">
+            <div id="ajp-album-description" class="flex-grow-1"></div>
             <div id="ajp-album-selection" class="ajp-invisible{% if show_photos %} d-none{% endif %}"></div>
             <div id="ajp-frontpage-historic-photos"
                  class="ajp-invisible{% if not show_photos %} d-none{% endif %}"></div>

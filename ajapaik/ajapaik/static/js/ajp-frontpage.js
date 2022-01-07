@@ -340,6 +340,36 @@
                     }
                 }, 1000);
             };
+
+        window.loadGalleryDescription = function () {
+            var targetDiv = $('#ajp-album-description');
+            if (window.albumId && window.infoModalURL) {
+                $.ajax({
+                    url: window.infoModalURL,
+                    data: {
+                        album: window.albumId,
+                        linkToMap: window.linkToMap,
+                        linkToGame: window.linkToGame,
+                        linkToGallery: window.linkToGallery,
+                        fbShareGame: window.fbShareGame,
+                        fbShareMap: window.fbShareMap,
+                        fbShareGallery: window.fbShareGallery
+                    },
+                    success: function (resp) {
+                        targetDiv.html(resp);
+                        targetDiv.show();
+                    }
+                });
+            }
+            if (window.isFrontpage) {
+                _gaq.push(['_trackEvent', 'Gallery', 'Album info click']);
+            } else if (window.isGame) {
+                _gaq.push(['_trackEvent', 'Game', 'Album info click']);
+            } else if (window.isMapview) {
+                _gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
+            }
+        }
+
         window.updateFrontpagePhotosAsync = function () {
             var targetDiv = $('#ajp-frontpage-historic-photos');
             targetDiv.removeClass('hidden ajp-invisible');
@@ -347,6 +377,7 @@
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();
+            window.loadGalleryDescription();
             $.ajax({
                 url: window.frontpageAsyncURL + window.location.search,
                 method: 'GET',

@@ -612,38 +612,6 @@ $('.ajp-navbar').autoHidingNavbar();
 
     addFullScreenExitListener();
 
-    $(document).on('click', '#ajp-header-album-more', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var targetDiv = $('#ajp-info-modal');
-        if (window.albumId && window.infoModalURL) {
-            $.ajax({
-                url: window.infoModalURL,
-                data: {
-                    album: window.albumId,
-                    linkToMap: window.linkToMap,
-                    linkToGame: window.linkToGame,
-                    linkToGallery: window.linkToGallery,
-                    fbShareGame: window.fbShareGame,
-                    fbShareMap: window.fbShareMap,
-                    fbShareGallery: window.fbShareGallery
-                },
-                success: function (resp) {
-                    targetDiv.html(resp);
-                    targetDiv.modal().on('shown.bs.modal', function () {
-                        window.FB.XFBML.parse($('#ajp-info-modal-like').get(0));
-                    });
-                }
-            });
-        }
-        if (window.isFrontpage) {
-            _gaq.push(['_trackEvent', 'Gallery', 'Album info click']);
-        } else if (window.isGame) {
-            _gaq.push(['_trackEvent', 'Game', 'Album info click']);
-        } else if (window.isMapview) {
-            _gaq.push(['_trackEvent', 'Mapview', 'Album info click']);
-        }
-    });
 
     $(document).on('click', '.ajp-album-selection-album-more-button', function (e) {
         e.preventDefault();
@@ -1104,6 +1072,14 @@ $('.ajp-navbar').autoHidingNavbar();
             _gaq.push(['_trackEvent', 'Map', 'Photo modal share click']);
         }
     });
+
+    $(document).on('click', '#ajp-hide-album-info-button, #ajp-show-album-info-button', function () {
+        $('#ajp-album-info').slideToggle();
+        $('#ajp-album-info-title').fadeToggle();
+        $('#ajp-show-album-info-button').toggle();
+        $('#ajp-hide-album-info-button').toggle();
+    });
+
     $(document).on('click', '#ajp-sift-pics-link', function () {
         if (window.isFrontpage) {
             _gaq.push(['_trackEvent', 'Gallery', 'Sift.pics link click']);
