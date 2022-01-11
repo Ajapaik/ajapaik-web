@@ -25,22 +25,31 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="form-group"><label for="id-albums">Albumid</label>
-                            <span id="id-albums-wrapper" class="modern-style autocomplete-light-widget albums multiple" data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
+                        <div class="form-group"><label for="id-albums">{% trans "Albums" %}</label>
+                            <span id="id-albums-wrapper" class="modern-style autocomplete-light-widget albums multiple"
+                                  data-widget-bootstrap="normal" data-widget-maximum-values="4" data-widget-ready="1">
                                 <span id="id-albums-deck" class="deck" style="display: inline;">
                                 </span>
-                                <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value="" class="form-control autocomplete vTextField" data-autocomplete-choice-selector="[data-value]" data-autocomplete-url="/autocomplete/open-album-autocomplete/" placeholder="{% trans "Search for an existing album" %}" title="" required="" autocomplete="off" style="display: block;" autofocus>
-                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another" id="add-id-albums">
-                                    <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add another">
+                                <input type="text" name="albums-autocomplete" id="id-albums-autocomplete" value=""
+                                       class="form-control autocomplete vTextField"
+                                       data-autocomplete-choice-selector="[data-value]"
+                                       data-autocomplete-url="/autocomplete/open-album-autocomplete/"
+                                       placeholder="{% trans "Search for an existing album" %}" title="" required=""
+                                       autocomplete="off" style="display: block;" autofocus>
+                                <a href="/user-upload-add-album/?_popup=1" class="autocomplete-add-another"
+                                   id="add-id-albums">
+                                    <img src="/static/admin/img/icon_addlink.gif" width="10" height="10"
+                                         alt="Add another">
                                 </a>
-                                <select style="display:none" class="value-select" name="albums" id="id-albums" multiple="multiple"></select>
+                                <select style="display:none" class="value-select" name="albums" id="id-albums"
+                                        multiple="multiple"></select>
                                 <span style="display:none" class="remove">ˣ</span>
                                 <span style="display:none" class="choice-template">
                                     <span class="choice prepend-remove append-option-html">
                                     </span>
                                 </span>
                             </span>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,7 +57,8 @@
                 <button type="button" class="btn btn-success" id="ajp-curator-confirm-album-selection-button">
                     {% trans "Submit" %}
                 </button>
-                <button type="button" class="btn btn-secondary close-album-curation-modal" id="ajp-curator-cancel-album-selection-button">
+                <button type="button" class="btn btn-secondary close-album-curation-modal"
+                        id="ajp-curator-cancel-album-selection-button">
                     {% trans "Cancel" %}
                 </button>
             </div>
@@ -62,8 +72,8 @@
         <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
     {% endcompress %}
     <script>
-    $('.close-album-curation-modal').click(function (e) {
-        $('#ajp-choose-albums-modal').modal('hide');
-    });
+        $('.close-album-curation-modal').click(function() {
+            $('#ajp-choose-albums-modal').modal('hide');
+        });
     </script>
- {% endblock %}
+{% endblock %}

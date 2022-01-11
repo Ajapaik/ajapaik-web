@@ -10,6 +10,7 @@
 <div class="full-box original-full-box">
         <div class="full-pic" id="ajp-fullscreen-image-container">
             <img id="ajp-fullscreen-image" class="lazyload" style="display: none;"
+                src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
                 data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
                 alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}" />
         </div>
@@ -18,6 +19,7 @@
     <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
         <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
             alt="{{ photo2.get_display_text }}"
+            src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
             data-src="{% url "image_full" photo2.pk photo2.get_pseudo_slug %}"
             title="{{ photo2.get_display_text }}/">
     </div>
@@ -78,7 +80,7 @@
     <script>
         $('#ajp-loading-overlay').show();
         if (!docCookies.getItem("similarityModalShown")) {
-            var d = new Date();
+            const d = new Date();
             d.setTime(d.getTime() + 86400000);
             document.cookie = 'similarityModalShown=true;expires=' + d + ';path=/';
             $('#ajp-similar-images-tutorial-modal').modal();
@@ -88,23 +90,23 @@
             $('#ajp-similar-images-tutorial-modal').modal('toggle');
         });
 
-        var height1 = "{{ photo.height }}"
-        var height2 = "{{ photo2.height }}"
-        var width1 = "{{ photo.width }}"
-        var width2 = "{{ photo2.width }}"
+        const height1 = "{{ photo.height }}"
+        const height2 = "{{ photo2.height }}"
+        const width1 = "{{ photo.width }}"
+        const width2 = "{{ photo2.width }}"
 
         resizeDescription = function () {
-            var mainPhoto = $("#ajp-compareview-main-photo");
-            var secondaryPhoto = $("#ajp-compareview-secondary-photo");
+            const mainPhoto = $("#ajp-compareview-main-photo");
+            const secondaryPhoto = $("#ajp-compareview-secondary-photo");
             mainPhoto.siblings().width(mainPhoto.width() || 320);
             secondaryPhoto.siblings().width(secondaryPhoto.width() || 320);
         }
 
         resizePhotos = function () {
-            var mainPhoto = $("#ajp-compareview-main-photo");
-            var secondaryPhoto = $("#ajp-compareview-secondary-photo");
-            var mainPhotoRatio =  width1 / height1;
-            var secondaryPhotoRatio = width2 / height2;
+            const mainPhoto = $("#ajp-compareview-main-photo");
+            const secondaryPhoto = $("#ajp-compareview-secondary-photo");
+            const mainPhotoRatio =  width1 / height1;
+            const secondaryPhotoRatio = width2 / height2;
             if (mainPhotoRatio > secondaryPhotoRatio) {
                 secondaryPhoto.height(mainPhoto.height());
             } else {
@@ -162,7 +164,7 @@
                     window.location.href = "{{next_action}}";
                 }, 1000);
                 $('#ajp-loading-overlay').hide();
-            }).catch((error) => {
+            }).catch(() => {
                 $('#ajp-loading-overlay').hide();
                 $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: "danger"});
             });

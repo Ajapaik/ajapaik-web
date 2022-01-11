@@ -5,7 +5,7 @@
 
 .suggestion-button {
     border: none;
-    max-lines: 135px;
+    max-lines: 135;
     min-width: 100px;
     height: 90px;
     font-size: 16px;

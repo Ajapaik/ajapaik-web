@@ -152,18 +152,18 @@
 {% block specific_js %}
     <script>
         function base64Encode(str) {
-            var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-            var out = "", i = 0, len = str.length, c1, c2, c3;
+            const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+            let out = "", i = 0, len = str.length, c1, c2, c3;
             while (i < len) {
                 c1 = str.charCodeAt(i++) & 0xff;
-                if (i == len) {
+                if (i === len) {
                     out += CHARS.charAt(c1 >> 2);
                     out += CHARS.charAt((c1 & 0x3) << 4);
                     out += "==";
                     break;
                 }
                 c2 = str.charCodeAt(i++);
-                if (i == len) {
+                if (i === len) {
                     out += CHARS.charAt(c1 >> 2);
                     out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
                     out += CHARS.charAt((c2 & 0xF) << 2);
@@ -180,7 +180,20 @@
         }
         $(function () {
             'use strict';
-            var ETERASession;
+            let ETERASession,
+                gameUrl = "{% url 'game' %}",
+                resultCount = 0,
+                url = "{% url 'curator_search' %}",
+                start = 200,
+                resultIds = [],
+                fullResultSet = {},
+                flickrPage = 1,
+                selectionDiv = $('#ajp-curator-selection'),
+                resultDiv = $('#ajp-curator-search-results-list'),
+                changeAreaLat,
+                changeAreaLng;
+            window.selectedResults = {};
+            window.singleSelection = false;
             $(document).ready(function () {
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
@@ -188,7 +201,7 @@
                         $('#ajp-curator-my-albums').hide();
                         $('#ajp-curator-search-results-container').hide();
                         $('#ajp-curator-selection').show();
-                        var ETERAResults = $('.ajp-curator-ETERA-result');
+                        const ETERAResults = $('.ajp-curator-ETERA-result');
                         if (ETERAResults.length > 0) {
                             $.ajaxSetup({
                                 beforeSend: function (xhr) {
@@ -217,12 +230,12 @@
                         $('#ajp-curator-selection').hide();
                     }
                 });
-                var changeInput = document.getElementById('ajp-curator-change-area-name');
+                const changeInput = document.getElementById('ajp-curator-change-area-name');
                 if (changeInput) {
-                    var changeOptions = {};
-                    var changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
+                    const changeOptions = {};
+                    const changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
                     window.google.maps.event.addListener(changeAutocomplete, 'place_changed', function () {
-                        var place = changeAutocomplete.getPlace();
+                        const place = changeAutocomplete.getPlace();
                         $('#ajp-curator-change-area-name-d-none').val(place.name);
                         changeAreaLat = place.geometry.location.lat();
                         changeAreaLng = place.geometry.location.lng();
@@ -232,44 +245,31 @@
                 loadMyAlbums();
                 $('.ajp-navbar').autoHidingNavbar();
             });
-            var gameUrl = "{% url 'game' %}",
-                resultCount = 0,
-                url = "{% url 'curator_search' %}",
-                start = 200,
-                resultIds = [],
-                fullResultSet = {},
-                flickrPage = 1,
-                selectionDiv = $('#ajp-curator-selection'),
-                resultDiv = $('#ajp-curator-search-results-list'),
-                changeAreaLat,
-                changeAreaLng;
-            window.selectedResults = {};
-            window.singleSelection = false;
             $('#ajp-curator-full-search').on('keypress', function (e) {
-                if (e.keyCode == 13) {
+                if (e.keyCode === 13) {
                     $('#ajp-curator-search-button').click();
                 }
             });
-            var createResultElement = function (item) {
+            const createResultElement = function (item) {
                 if (item.cachedThumbnailUrl !== '14e5c228503ec8e7e004a13d48919768') {
                     fullResultSet[item.id] = item;
                     resultDiv.append(tmpl('ajp-curator-result-template', item));
                 } else {
-                    var element = $('#ajp-curator-result-count'),
+                    const element = $('#ajp-curator-result-count'),
                             currentValue = parseInt(element.html(), 10);
                     element.html(currentValue - 1);
                 }
             };
-            var buildSelectionDiv = function () {
+            const buildSelectionDiv = function () {
                 selectionDiv.empty();
-                for (var key in window.selectedResults) {
+                for (const key in window.selectedResults) {
                     if (window.selectedResults.hasOwnProperty(key)) {
-                        var currentItem = window.selectedResults[key];
+                        const currentItem = window.selectedResults[key];
                         selectionDiv.append(tmpl('ajp-curator-selection-template', currentItem));
                     }
                 }
             };
-            var loadMyAlbums = function () {
+            const loadMyAlbums = function () {
                 $.ajax({
                     type: "POST",
                     url: "{% url 'curator_my_album_list' %}",
@@ -277,11 +277,11 @@
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (response) {
-                        var targetDiv = $('#ajp-curator-my-albums'),
+                        const targetDiv = $('#ajp-curator-my-albums'),
                                 responseLength = response.length;
                         targetDiv.empty();
                         $('#ajp-curator-my-albums-size').html(responseLength);
-                        for (var i = 0; i < responseLength; i += 1) {
+                        for (let i = 0; i < responseLength; i += 1) {
                             response[i].link = '/?album=' + response[i].id;
                             targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
                         }
@@ -295,7 +295,7 @@
             $(document).on('click', '.ajp-curator-load-more', function () {
                 $('#ajp-loading-overlay').show();
                 flickrPage += 1;
-                var slice = resultIds.slice(start, start + 200),
+                const slice = resultIds.slice(start, start + 200),
                     filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
                     useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
                     useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
@@ -337,12 +337,12 @@
                             $('.ajp-curator-load-more').hide();
                             $('#ajp-curator-load-more-row').hide();
                         }
-                        var counter = $('#ajp-curator-result-count'),
+                        const counter = $('#ajp-curator-result-count'),
                             prev = parseInt(counter.html(), 10);
                         if (msg.result.firstRecordViews) {
                             counter.html(prev + msg.result.firstRecordViews.length);
-                            for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
-                                var item = msg.result.firstRecordViews[i];
+                            for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                                const item = msg.result.firstRecordViews[i];
                                 createResultElement(item);
                             }
                         }
@@ -356,7 +356,7 @@
                 });
             });
             $('#ajp-curator-search-use-etera').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-digar').prop('checked', false);
                     $('#ajp-curator-search-use-muis').prop('checked', false);
@@ -367,37 +367,37 @@
                 }
             });
             $('#ajp-curator-search-use-muis').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
             });
             $('#ajp-curator-search-use-digar').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
             });
             $('#ajp-curator-search-use-utlib').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
             });
             $('#ajp-curator-search-use-mka').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
             });
             $('#ajp-curator-search-use-flickr').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
             });
             $('#ajp-curator-search-use-finna').change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.is(':checked')) {
                     $('#ajp-curator-search-use-etera').prop('checked', false);
                 }
@@ -407,7 +407,7 @@
                 $('#ajp-loading-overlay').show();
                 $('.ajp-curator-feedback-alert').hide();
                 $('#ajp-curator-search-results-list').empty();
-                var filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
+                const filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
                         useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
                         useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
                         useETERA = $('#ajp-curator-search-use-etera').prop('checked'),
@@ -466,8 +466,8 @@
                             $('.ajp-curator-load-more').hide();
                             $('#ajp-curator-load-more-row').hide();
                         }
-                        for (var i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
-                            var item = msg.result.firstRecordViews[i];
+                        for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                            const item = msg.result.firstRecordViews[i];
                             createResultElement(item);
                         }
                         window._gaq.push(['_trackEvent', 'Curator', 'Search success']);
@@ -478,8 +478,8 @@
                     }
                 });
             });
-            $(document).on('click', '.ajp-result-item', function (e) {
-                var $this = $(this),
+            $(document).on('click', '.ajp-result-item', function () {
+                const $this = $(this),
                         target = fullResultSet[$this.data('id')];
                 if (window.selectedResults[$this.data('id')]) {
                     delete window.selectedResults[$this.data('id')];
@@ -520,18 +520,18 @@
                 return id;
             };
             window.imageLoaded = function (id) {
-                var targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
+                const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
                     targetImage = targetContainer.find('img')[0];
                 if (targetImage) {
                     targetContainer.find('.ajp-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
                 }
             };
             window.imageFailedToLoad = function (id) {
-                var targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id)));
+                const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id)));
                 delete window.selectedResults[id];
                 targetContainer.remove();
             };
-            var toggleButtonActive = function ($this) {
+            const toggleButtonActive = function ($this) {
                 if ($this.hasClass('active')) {
                     $this.removeClass('active');
                 } else {
@@ -539,7 +539,7 @@
                 }
             };
             $(document).on('click', '.ajp-curator-invert-colors-button', function () {
-                var $this = $(this),
+                const $this = $(this),
                         targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
                         target = $($(targetSelector).find('img')[0]);
                 toggleButtonActive($this);
@@ -553,7 +553,7 @@
                 window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
             });
             $(document).on('click', '.ajp-curator-flip-button', function () {
-                var $this = $(this),
+                const $this = $(this),
                         targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
                         target = $($(targetSelector).find('img')[0]);
                 toggleButtonActive($this);
@@ -581,13 +581,13 @@
                 window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
             });
             $(document).on('click', '.ajp-curator-stereo-button', function () {
-                var $this = $(this);
+                const $this = $(this);
                 window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
                 toggleButtonActive($this);
                 window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
             });
             $(document).on('click', '.ajp-curator-rotate-button', function () {
-                var $this = $(this),
+                const $this = $(this),
                         targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id))),
                         targetImage = targetSelectionItem.find('img'),
                         arrayItem = window.selectedResults[$this[0].dataset.id];
@@ -600,8 +600,8 @@
                     }
                 } else {
                     arrayItem.rotated += 90;
-                    var classToAdd = null;
-                    if (arrayItem.rotated == 360) {
+                    let classToAdd = null;
+                    if (arrayItem.rotated === 360) {
                         arrayItem.rotated = 0;
                     } else {
                         classToAdd = 'rotate' + arrayItem.rotated;
@@ -619,7 +619,7 @@
                 window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
             });
             $(document).on('click', '.ajp-curator-delete-button', function () {
-                var targetId = $(this)[0].dataset.id,
+                const targetId = $(this)[0].dataset.id,
                     targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
                     targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
                 if (window.selectedResults[targetId]) {
@@ -647,7 +647,7 @@
             });
             $(document).on('click', '.ajp-curator-submit-single', function () {
                 window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
-                var id = $(this).data('id');
+                const id = $(this).data('id');
                 window.singleSelection = {};
                 window.singleSelection[id] = fullResultSet[id];
                 $('#ajp-curator-submit-selection').click();
@@ -657,7 +657,7 @@
                 window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
             });
             $(document).on('click', '.ajp-curator-edit-album-button', function () {
-                var targetId = $(this)[0].dataset.id;
+                const targetId = $(this)[0].dataset.id;
                 $.ajax({
                     type: "POST",
                     url: "{% url 'curator_get_album_info' %}",
@@ -683,9 +683,9 @@
             // TODO: This is basically REST API functionality, no need for custom Django stuff, come to think of it,
             // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
             $(document).on('click', '#ajp-curator-confirm-album-edit-button', function () {
-                var targetId = $('#ajp-curator-change-album-id').val(),
-                        parentAlbumId = $('#ajp-curator-edit-form-change-album-parent').val();
-                if (parentAlbumId == -1) {
+                const targetId = $('#ajp-curator-change-album-id').val();
+                let parentAlbumId = $('#ajp-curator-edit-form-change-album-parent').val();
+                if (parentAlbumId === -1) {
                     parentAlbumId = null;
                 }
                 $('#ajp-curator-edit-album-error').removeClass('d-block').addClass('d-none');
@@ -719,8 +719,8 @@
                 });
             });
             $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
-                var albums = $('#id-albums').val();
-                var selection = JSON.stringify(window.selectedResults);
+                const albums = $('#id-albums').val();
+                let selection = JSON.stringify(window.selectedResults);
                 if (window.singleSelection) {
                     selection = JSON.stringify(window.singleSelection);
                     window.singleSelection = false;
@@ -745,7 +745,7 @@
                             $('#ajp-curator-upload-error').hide();
                             $('#ajp-curator-upload-error-message').html(window.gettext('System error'));
                             $('#ajp-choose-albums-modal').modal('hide');
-                            var albumPlayLink = gameUrl + '?album=' + response.album_id,
+                            const albumPlayLink = gameUrl + '?album=' + response.album_id,
                                     feedbackModalDiv = $('#ajp-curator-feedback-modal');
                             $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
                             $('#ajp-curator-points-awarded').html(response.total_points_for_curating);
@@ -757,9 +757,9 @@
                                 $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', {gameLink: albumPlayLink}));
                                 window.FB.XFBML.parse();
                             });
-                            for (var key in response.photos) {
+                            for (const key in response.photos) {
                                 if (response.photos.hasOwnProperty(key)) {
-                                    var targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]),
+                                    const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]),
                                             item = response.photos[key];
                                     if (item.error) {
                                         $(targetDiv.find('.alert-danger')[0]).html(item.error).show();

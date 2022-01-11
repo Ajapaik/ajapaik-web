@@ -5,7 +5,8 @@
     <div class="row d-block" style="font-size:0">
         {% for supporter in current_supporters %}
             <a href="{{ supporter.url }}">{{ supporter.name }}
-                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2"
+                     src="{{ STATIC_URL }}{{ supporter.img }}" data-src="{{ STATIC_URL }}{{ supporter.img }}">
             </a>
         {% endfor %}
     </div>
@@ -21,13 +22,14 @@
             {% endif %}
             <br>
         {% endfor %}
-    <br>
+        <br>
     {% endif %}
     <h3>{% trans 'Earlier funders:' %}</h3>
     <div class="row d-block" style="font-size:0">
         {% for supporter in previous_supporters %}
             <a href="{{ supporter.url }}">{{ supporter.name }}
-                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2"
+                     src="{{ STATIC_URL }}{{ supporter.img }}" data-src="{{ STATIC_URL }}{{ supporter.img }}">
             </a>
         {% endfor %}
     </div>

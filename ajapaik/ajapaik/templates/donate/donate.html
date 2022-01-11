@@ -15,7 +15,7 @@
             </div>
             <div class="col-xl-4 col-lg-3 col-md-0 col-sm-0">
                 <a href="{{ picture.resource_url }}">
-                    <img src="{{ picture.image_url}}" class="mw-100 ajp-cursor-pointer"></img>
+                    <img src="{{ picture.image_url }}" class="mw-100 ajp-cursor-pointer" alt="Donation illustration" />
                 </a>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
 {% block specific_js %}
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             window.closeDonationBanner();
         });
     </script>

@@ -1,0 +1,7 @@
+{
+  "name": "Ajapaik web app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}

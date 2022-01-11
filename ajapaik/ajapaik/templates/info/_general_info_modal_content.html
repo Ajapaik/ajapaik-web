@@ -28,16 +28,23 @@
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    {% blocktrans %}Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which <b>{{ total_photos_tagged }}</b> pictures have been put on the map by <b>{{ contributing_users }}</b> users and <b>{{ rephoto_count }}</b> rephotographs for <b>{{ rephotographed_photo_count }}</b> pictures made by <b>{{ rephotographing_users }}</b> users.{% endblocktrans %}
+                    {% blocktrans %}Ajapaik has <b>{{ total_photo_count }}</b> historic pictures, out of which
+                        <b>{{ total_photos_tagged }}</b> pictures have been put on the map by
+                        <b>{{ contributing_users }}</b> users and <b>{{ rephoto_count }}</b> rephotographs for
+                        <b>{{ rephotographed_photo_count }}</b> pictures made by <b>{{ rephotographing_users }}</b>
+                        users.{% endblocktrans %}
                 </div>
                 <div class="row">
-                    {% blocktrans %}There are <b>{{ person_annotation_count }}</b> faces detected on the pictures, a person has been identified in <b>{{ person_annotation_count_with_person_album }}</b> cases, age or gender is marked for <b>{{ person_annotation_count_with_subject_data }}</b> faces.{% endblocktrans %}
+                    {% blocktrans %}There are <b>{{ person_annotation_count }}</b> faces detected on the pictures, a
+                        person has been identified in <b>{{ person_annotation_count_with_person_album }}</b> cases, age
+                        or gender is marked for <b>{{ person_annotation_count_with_subject_data }}</b>
+                        faces.{% endblocktrans %}
                 </div>
-                </br>
+                <br>
                 <div class="row">
                     {% trans "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>." %}
                 </div>
-                </br>
+                <br>
                 <div class="row font-italic">{% trans "General statistics refresh every 10 minutes." %}</div>
             </div>
         </div>

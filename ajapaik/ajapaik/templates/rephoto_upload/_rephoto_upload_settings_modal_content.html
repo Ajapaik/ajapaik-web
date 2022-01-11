@@ -3,40 +3,41 @@
 {% if form %}
     {% bootstrap_form form %}
 {% endif %}
-<button id="rephoto-upload-settings-submit-button" class="ajp-cursor-pointer btn btn-primary" type="submit">{% trans "Submit" %}</button>
+<button id="rephoto-upload-settings-submit-button" class="ajp-cursor-pointer btn btn-primary"
+        type="submit">{% trans "Submit" %}</button>
 {% block specific_js %}
     <script>
-        var rephotoUploadSettingsUrl = "{% url 'api_submit_rephoto_upload_settings' %}";
-        var isRephotoUploadSettingsModal = "{{ isModal }}" == "True";
+        const rephotoUploadSettingsUrl = "{% url 'api_submit_rephoto_upload_settings' %}";
+        const isRephotoUploadSettingsModal = "{{ isModal }}" === 'True';
 
-        $('#rephoto-upload-settings-submit-button').on('click', function () {
+        $('#rephoto-upload-settings-submit-button').on('click', function() {
             SaveRephotoUploadSettings();
         });
 
-        SaveRephotoUploadSettings = function (subject, profile) {
-            let wikimedia_commons_rephoto_upload_consentE = document.getElementById("id_wikimedia_commons_rephoto_upload_consent");
-            let wikimedia_commons_rephoto_upload_consent= wikimedia_commons_rephoto_upload_consentE.options[wikimedia_commons_rephoto_upload_consentE.selectedIndex].value;
+        SaveRephotoUploadSettings = function() {
+            let wikimedia_commons_rephoto_upload_consentE = document.getElementById('id_wikimedia_commons_rephoto_upload_consent');
+            let wikimedia_commons_rephoto_upload_consent = wikimedia_commons_rephoto_upload_consentE.options[wikimedia_commons_rephoto_upload_consentE.selectedIndex].value;
             $('#ajp-loading-overlay').show();
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: rephotoUploadSettingsUrl,
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    wikimedia_commons_rephoto_upload_consent: wikimedia_commons_rephoto_upload_consent
+                    wikimedia_commons_rephoto_upload_consent: wikimedia_commons_rephoto_upload_consent,
                 },
-                success: function (response) {
-                    $.notify(response.message, {type: 'success'});
+                success: function(response) {
+                    $.notify(response.message, { type: 'success' });
                 },
-                error: function (response) {
-                    $.notify(response.message, {type: "danger"});
+                error: function(response) {
+                    $.notify(response.message, { type: 'danger' });
                 },
-                complete: function () {
+                complete: function() {
                     $('#ajp-loading-overlay').hide();
                     if (isRephotoUploadSettingsModal) {
                         $('#ajp-rephoto-upload-settings-modal').modal('hide');
                     }
-                }
+                },
             });
-        }
+        };
     </script>
 {% endblock %}

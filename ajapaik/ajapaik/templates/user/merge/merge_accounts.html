@@ -43,15 +43,15 @@
 {% endblock %}
 {% block specific_js %}
     <script>
-        var currentProfileUrl = "{% url 'me' %}";
-        var mergeUrl = "{% url 'api_merge_users' %}";
-        var reverse = undefined;
+        const currentProfileUrl = "{% url 'me' %}";
+        const mergeUrl = "{% url 'api_merge_users' %}";
+        let reverse = undefined;
         $('#merge-accounts-button').on('click', function () {
             SubmitMergeRequest();
         });
 
         $("input[name='user-1']").click(function () {
-            var paramChangeBoxes = $("input[name='user-2']");
+            const paramChangeBoxes = $("input[name='user-2']");
             if ($(this).is(':checked')) {
                 paramChangeBoxes.prop('checked', false);
                 $('#user-1-merge-text').removeClass('d-none');
@@ -71,7 +71,7 @@
 
 
         $("input[name='user-2']").click(function () {
-            var paramChangeBoxes = $("input[name='user-1']");
+            const paramChangeBoxes = $("input[name='user-1']");
             if ($(this).is(':checked')) {
                 paramChangeBoxes.prop('checked', false);
                 $('#user-2-merge-text').removeClass('d-none');
@@ -89,7 +89,7 @@
             }
         });
 
-        SubmitMergeRequest = function (subject, profile) {
+        SubmitMergeRequest = function () {
             $('#ajp-loading-overlay').show();
             $.ajax({
                 type: "POST",

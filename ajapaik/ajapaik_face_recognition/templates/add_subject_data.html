@@ -3,7 +3,7 @@
 
 {% block specific_css %}
     {% compress css %}
-    <link rel="stylesheet" href="{% static "css/ajp-add-subject-data.css" %}">
+        <link rel="stylesheet" href="{% static "css/ajp-add-subject-data.css" %}">
     {% endcompress %}
 {% endblock %}
 
@@ -12,128 +12,129 @@
 {% endblock %}
 {% block layout %}
 
-<div class="full-box original-full-box">
-    <div class="full-pic" id="ajp-fullscreen-image-container">
-        <img id="ajp-fullscreen-image" class="lazyload" style="display: none;"
-            data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
-            alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}" />
+    <div class="full-box original-full-box">
+        <div class="full-pic" id="ajp-fullscreen-image-container">
+            <img id="ajp-fullscreen-image" class="lazyload" style="display: none;"
+                 data-src="{% url "image_full" photo.pk photo.get_pseudo_slug %}"
+                 alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}" />
+        </div>
     </div>
-</div>
-<div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
-    <div class="d-flex row pt-3">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
-            <a class="fullscreen" id="ajp-fullscreen-link" href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
-                <img class="main-image" alt="{{ photo.get_display_text }}" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}"/>
-            </a>
-            <div class="d-none" id="subject-data-description-container">
-                {% if rectangle.photo.get_display_text %}
-                    <p>
-                        {{ rectangle.photo.get_display_text }}
-                    </p>
-                {% endif %}
-                {% if rectangle.photo.author %}
-                    <p>
-                        {{ rectangle.photo.author }}
-                    </p>
-                {% endif %}
-                {% if rectangle.photo.source_key %}
-                    <p>
-                        {{ rectangle.photo.source_key }}
-                    </p>
-                {% endif %}
+    <div id="subject-data-container" class="container pt-5 d-flex" style="min-height:87vh;opacity:0;">
+        <div class="d-flex row pt-3">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 image-wrapper">
+                <a class="fullscreen" id="ajp-fullscreen-link" href="{% url 'photo' photo.id photo.get_pseudo_slug %}">
+                    <img class="main-image" alt="{{ photo.get_display_text }}"
+                         src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
+                </a>
+                <div class="d-none" id="subject-data-description-container">
+                    {% if rectangle.photo.get_display_text %}
+                        <p>
+                            {{ rectangle.photo.get_display_text }}
+                        </p>
+                    {% endif %}
+                    {% if rectangle.photo.author %}
+                        <p>
+                            {{ rectangle.photo.author }}
+                        </p>
+                    {% endif %}
+                    {% if rectangle.photo.source_key %}
+                        <p>
+                            {{ rectangle.photo.source_key }}
+                        </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <div id="first-block" class="d-block pb-3 text-center">
-        <div>
-            <button class="btn suggestion-button human-male" data-value="MALE">
-                {% trans "Male" %}
-            </button>
-            <button class="btn suggestion-button human-female" data-value="FEMALE">
-                {% trans "Female" %}
+        <div id="first-block" class="d-block pb-3 text-center">
+            <div>
+                <button class="btn suggestion-button human-male" data-value="MALE">
+                    {% trans "Male" %}
+                </button>
+                <button class="btn suggestion-button human-female" data-value="FEMALE">
+                    {% trans "Female" %}
+                </button>
+            </div>
+            <div>
+                <button class="btn suggestion-button skip-next" data-value="UNSURE">
+                    {% trans "Not sure" %}
+                </button>
+                <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
+                    {% trans "Not a Face" %}
+                </button>
+                <button class="btn suggestion-button info" data-value="INFO">
+                    {% trans "Info" %}
+                </button>
+            </div>
+        </div>
+        <div id="second-block" class="d-none pb-3 text-center">
+            <div>
+                <button class="btn suggestion-button human-child" data-value="CHILD">
+                    {% trans "Child" %}
+                </button>
+                <button class="btn suggestion-button human-adult" data-value="ADULT">
+                    {% trans "Adult" %}
+                </button>
+                <button class="btn suggestion-button human-elderly" data-value="ELDERLY">
+                    {% trans "Elderly" %}
+                </button>
+            </div>
+            <div>
+                <button class="btn suggestion-button skip-next" data-value="UNSURE">
+                    {% trans "Not sure" %}
+                </button>
+                <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
+                    {% trans "Not a Face" %}
+                </button>
+                <button class="btn suggestion-button info" data-value="INFO">
+                    {% trans "Info" %}
+                </button>
+            </div>
+        </div>
+        <div id="third-block" class="row d-none pb-3">
+            <button class="btn suggestion-button skip-next">
+                {% trans "Skip" %}
             </button>
         </div>
-        <div>
-            <button class="btn suggestion-button skip-next" data-value="UNSURE">
-                {% trans "Not sure" %}
-            </button>
-            <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
-                {% trans "Not a Face" %}
-            </button>
-            <button class="btn suggestion-button info" data-value="INFO">
-                {% trans "Info" %}
-            </button>
+        <div class="d-none">
+            {% trans "Currently the gender is" %} {{ gender }}
+            <br>
+            {% trans "Currently the age is" %} {{ age }}
         </div>
     </div>
-    <div id="second-block" class="d-none pb-3 text-center">
-        <div>
-            <button class="btn suggestion-button human-child" data-value="CHILD">
-                {% trans "Child" %}
-            </button>
-            <button class="btn suggestion-button human-adult" data-value="ADULT">
-                {% trans "Adult" %}
-            </button>
-            <button class="btn suggestion-button human-elderly" data-value="ELDERLY">
-                {% trans "Elderly" %}
-            </button>
-        </div>
-        <div>
-            <button class="btn suggestion-button skip-next" data-value="UNSURE">
-                {% trans "Not sure" %}
-            </button>
-            <button class="btn suggestion-button circled-cross" data-value="NOT_A_FACE">
-                {% trans "Not a Face" %}
-            </button>
-            <button class="btn suggestion-button info" data-value="INFO">
-                {% trans "Info" %}
-            </button>
-        </div>
-    </div>
-    <div id="third-block" class="row d-none pb-3">
-        <button class="btn suggestion-button skip-next">
-            {% trans "Skip" %}
-        </button>
-    </div>
-    <div class="d-none">
-        {% trans "Currently the gender is" %} {{ gender }}
-        <br>
-        {% trans "Currently the age is" %} {{ age }}
-    </div>
-</div>
 {% endblock %}
 {% block footer %}
     {% include "core/_footer.html" %}
 {% endblock %}
 {% block specific_js %}
     <script>
-        $('#close-add-subject-data-modal').on('click', function () {
+        $('#close-add-subject-data-modal').on('click', function() {
             $('#ajp-add-subject-data-tutorial-modal').modal('toggle');
         });
 
-        showModal = function () {
+        showModal = function() {
             if (!$('#ajp-add-subject-data-tutorial-modal').is(':visible')) {
                 $('#ajp-add-subject-data-tutorial-modal').modal();
             }
-        }
+        };
 
 
         var idleTime = 0;
-        $(document).ready(function () {
+        $(document).ready(function() {
             //Increment the idle time counter every second.
             var idleInterval = setInterval(timerIncrement, 1000);
 
             //Zero the idle timer on mouse movement.
-            $(this).mousemove(function (e) {
+            $(this).mousemove(function(e) {
                 idleTime = 0;
             });
-            $(this).keypress(function (e) {
+            $(this).keypress(function(e) {
                 idleTime = 0;
             });
             //Zero the idle timer on touch events.
-            $(this).bind('touchstart', function () {
+            $(this).bind('touchstart', function() {
                 idleTime = 0;
             });
-            $(this).bind('touchmove', function () {
+            $(this).bind('touchmove', function() {
                 idleTime = 0;
             });
         });
@@ -151,7 +152,7 @@
         var annotation = {
             annotationId: {{ rectangle.id }},
             gender: undefined,
-            age: undefined
+            age: undefined,
         };
         if (hasConsensus) {
             $('#first-block').removeClass('d-block').addClass('d-none');
@@ -160,33 +161,32 @@
         }
         window.currentPhotoOriginalWidth = '{{ photo.width }}';
         window.currentPhotoOriginalHeight = '{{ photo.height }}';
-        resizePhoto = function () {
+        resizePhoto = function() {
             var imageRatio = window.currentPhotoOriginalWidth / window.currentPhotoOriginalHeight;
             if ($(window).width() / ($(window).height() - 275) > imageRatio) {
                 $('img.main-image').css('height', ($(window).height() - 275) + 'px');
                 $('img.main-image').css('width', 'auto');
-            }
-            else {
-                $('img.main-image').css('width', ($(window).height() - 275) * imageRatio)
+            } else {
+                $('img.main-image').css('width', ($(window).height() - 275) * imageRatio);
                 $('img.main-image').css('height', 'auto');
             }
-        }
+        };
 
-        drawRectangle = function () {
+        drawRectangle = function() {
             window.currentPhotoActualHeight = $('img.main-image')[0].height;
             window.currentPhotoActualWidth = $('img.main-image')[0].width;
             $('#ajp-loading-overlay').hide();
-            $('#subject-data-container').css('opacity','1.0');
+            $('#subject-data-container').css('opacity', '1.0');
             var widthScale = currentPhotoActualWidth / window.currentPhotoOriginalWidth,
-            heightScale = currentPhotoActualHeight / window.currentPhotoOriginalHeight,
-            width = (coordinates[1] - coordinates[3]) * widthScale,
-            height = (coordinates[2] - coordinates[0]) * heightScale,
-            leftTop = [coordinates[3] * widthScale, coordinates[0] * heightScale];
+                heightScale = currentPhotoActualHeight / window.currentPhotoOriginalHeight,
+                width = (coordinates[1] - coordinates[3]) * widthScale,
+                height = (coordinates[2] - coordinates[0]) * heightScale,
+                leftTop = [coordinates[3] * widthScale, coordinates[0] * heightScale];
             if (width < 30) {
                 leftTop[0] = leftTop[0] - width * 0.5;
                 width = width * 2;
             }
-            if (height < 30 ) {
+            if (height < 30) {
                 leftTop[1] = leftTop[1] - height * 0.5;
                 height = height * 2;
             }
@@ -200,7 +200,7 @@
                     height: height + 'px',
                     border: '3px solid white',
                     'outline-style': 'solid',
-                    'outline-width': '1px'
+                    'outline-width': '1px',
                 },
                 // TODO: If we know already, display peoples' names
             });
@@ -208,43 +208,42 @@
             if (!!imageWrapper) {
                 imageWrapper.append($faceRectangle);
             }
-        }
+        };
 
-        removeRectangle = function () {
+        removeRectangle = function() {
             $('.ajp-face-rectangle').remove();
-        }
+        };
 
-        ReportBadRectangle = function (id) {
+        ReportBadRectangle = function(id) {
             deleteRequest(
-                '/face-recognition/remove-annotation/' + id  + '/',
+                '/face-recognition/remove-annotation/' + id + '/',
                 undefined,
                 undefined,
                 function(response) {
-                    $.notify(gettext('Thank you!'), {type: 'success'});
+                    $.notify(gettext('Thank you!'), { type: 'success' });
                     window.location.href = '{{next_action}}';
                 },
                 function() {
-                    $.notify(gettext('Failed to send your feedback, sorry.'), {type: 'danger'});
+                    $.notify(gettext('Failed to send your feedback, sorry.'), { type: 'danger' });
                     $('#third-block').removeClass('d-none').addClass('d-flex');
-                }
-            )
+                },
+            );
         };
 
         var coordinates = {{ coordinates }};
-        $('#ajp-loading-overlay').show();
 
-        $(window).on('load', function () {
+        $(window).on('load', function() {
             resizePhoto();
             drawRectangle();
         });
 
-        $(window).on('resize', function () {
+        $(window).on('resize', function() {
             resizePhoto();
             removeRectangle();
             drawRectangle();
         });
 
-        AddSubjectData = function (id) {
+        AddSubjectData = function() {
             $('#ajp-loading-overlay').show();
             postRequest(
                 "{% url 'face_recognition_api_subject_data' %}",
@@ -252,19 +251,19 @@
                     annotationId: annotation.annotationId,
                     newSubjectId: {% if subject_id %}{{ subject_id }}{% else %}null{% endif %},
                     gender: annotation.gender,
-                    ageGroup: annotation.age
+                    ageGroup: annotation.age,
                 },
                 undefined,
                 undefined,
-                function(response) {
+                function() {
                     window.location.href = '{{next_action}}';
                 },
                 function() {
                     $('#third-block').removeClass('d-none').addClass('d-flex');
-                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), {type: 'danger'});
+                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), { type: 'danger' });
                     $('#ajp-loading-overlay').hide();
-                }
-            )
+                },
+            );
         };
         $('#first-block > div > button').on('click', function(e) {
             annotation.gender = e.target.dataset && e.target.dataset.value;
@@ -272,27 +271,24 @@
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
-                        $('#first-block > div > button.info').css('background-color','#d5d5d5');
-                        $('#second-block > div > button.info').css('background-color','#d5d5d5');
+                        $('#first-block > div > button.info').css('background-color', '#d5d5d5');
+                        $('#second-block > div > button.info').css('background-color', '#d5d5d5');
                     }
                     $('#subject-data-description-container').removeClass('d-none');
-                }
-                else {
+                } else {
                     if (isTouchDevice) {
-                        $('#first-block > div > button.info').css('background-color','transparent');
-                        $('#second-block > div > button.info').css('background-color','transparent');
+                        $('#first-block > div > button.info').css('background-color', 'transparent');
+                        $('#second-block > div > button.info').css('background-color', 'transparent');
                     }
                     $('#subject-data-description-container').addClass('d-none');
                 }
-            }
-            else {
+            } else {
                 $('#first-block').removeClass('d-block').addClass('d-none');
                 if (annotation.gender !== 'NOT_A_FACE') {
                     $('#second-block').removeClass('d-none').addClass('d-block');
                     AddSubjectDataViewPage = 1;
-                }
-                else {
-                    ReportBadRectangle(currentRectangleId)
+                } else {
+                    ReportBadRectangle(currentRectangleId);
                 }
             }
         });
@@ -302,25 +298,23 @@
                 var hasClass = $('#subject-data-description-container').hasClass('d-none');
                 if (hasClass === true) {
                     if (isTouchDevice) {
-                        $('#first-block > div > button.info').css('background-color','#d5d5d5');
-                        $('#second-block > div > button.info').css('background-color','#d5d5d5');
+                        $('#first-block > div > button.info').css('background-color', '#d5d5d5');
+                        $('#second-block > div > button.info').css('background-color', '#d5d5d5');
                     }
                     $('#subject-data-description-container').removeClass('d-none');
-                }
-                else {
+                } else {
                     if (isTouchDevice) {
-                        $('#first-block > div > button.info').css('background-color','transparent');
-                        $('#second-block > div > button.info').css('background-color','transparent');
+                        $('#first-block > div > button.info').css('background-color', 'transparent');
+                        $('#second-block > div > button.info').css('background-color', 'transparent');
                     }
                     $('#subject-data-description-container').addClass('d-none');
                 }
-            }
-            else {
+            } else {
                 $('#second-block').removeClass('d-flex').addClass('d-none');
                 if (annotation.age !== 'NOT_A_FACE') {
-                    window.AddSubjectData(annotation)
+                    window.AddSubjectData(annotation);
                 } else {
-                    ReportBadRectangle(currentRectangleId)
+                    ReportBadRectangle(currentRectangleId);
                 }
             }
         });
