@@ -1,6 +1,6 @@
 wheel==0.37.0
 responses==0.13.4
-numpy==1.19.5
+numpy==1.21.0
 Pillow==9.0.0
 Django==3.2.11
 django-bulk-update==2.2.0
