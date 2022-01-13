@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2021-10-28 11:00:24+0000\n"
+"PO-Revision-Date: 2022-01-13 12:00:34+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -44,31 +44,31 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
-msgstr ""
+msgstr "Utløpt nøkkel"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Invalid token"
-msgstr ""
+msgstr "Ugyldig nøkkel"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Manglende parameter photo_ids"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
-msgstr ""
+msgstr "Intet foto med ID:"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "Parameteren photo_id må være et positivt heltall"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Logg inn med en annen konto, du er for tiden logget inn med samme konto du vil flette fra"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
-msgstr ""
+msgstr "Logg inn"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Påkrevd parameter, nøkkel mangler"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
-msgstr ""
+msgstr "Intet album funnet"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -141,7 +141,7 @@ msgstr "Rammekoordinatene må være nummer"
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "Epost"
 
 #: ajapaik/ajapaik/forms.py:19
 msgid "First name"
@@ -158,7 +158,7 @@ msgstr "Password"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "Passordbekreftelse"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
 #: ajapaik/ajapaik/forms.py:209
@@ -181,7 +181,7 @@ msgstr "Velg foreldremappe"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
-msgstr ""
+msgstr "Bildefil"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
 #: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
@@ -200,19 +200,19 @@ msgstr "Forfatter"
 
 #: ajapaik/ajapaik/forms.py:421
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Lisens eller opphavsrettsstatus"
 
 #: ajapaik/ajapaik/forms.py:424
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Tillatte formater er .png- eller .jpg-filer"
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Legg til en kort beskrivelse av bildet"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Bildets opphavsperson (fotograf, maler)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -220,11 +220,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
-msgstr ""
+msgstr "Beskrivelse av bildet"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
-msgstr ""
+msgstr "Opphavspersonens navn"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Missing image"
@@ -281,11 +281,11 @@ msgstr "Er åpen"
 
 #: ajapaik/ajapaik/forms.py:486
 msgid "My preferred language is"
-msgstr ""
+msgstr "Mitt foretrukne språk er"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Jeg ønsker å motta nyhetsbrevet"
 
 #: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
 msgid "Yes"
@@ -293,15 +293,15 @@ msgstr "Ja"
 
 #: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Angi ditt foretrukne språk"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Angi hvorvidt du ønsker å motta nyhetsbrevet"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
@@ -341,7 +341,7 @@ msgstr "Kvinne"
 
 #: ajapaik/ajapaik/models.py:202 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
-msgstr ""
+msgstr "Kjønn"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Wikidata identifier"
@@ -349,7 +349,7 @@ msgstr "Wikidata identifier"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "Navn på opprinnelsesspråk"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
@@ -357,15 +357,15 @@ msgstr "Bilde"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "Tittel"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS-tittel"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS-kommentar"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -381,15 +381,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
-msgstr ""
+msgstr "Interiør"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
 msgid "Exterior"
-msgstr ""
+msgstr "Eksteriør"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
-msgstr ""
+msgstr "Scene"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
 msgid "Ground"
@@ -725,19 +725,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
-msgstr ""
+msgstr "Kategoriser"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:62
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Transkriber dette bildet"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "Rediger bilde"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "Vis annoteringer"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -749,7 +749,7 @@ msgstr "Glemt passordet?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:40
 msgid "User settings"
-msgstr ""
+msgstr "Brukerinnstillinger"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -775,7 +775,7 @@ msgstr "Logg inn"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Registrer deg"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -789,17 +789,17 @@ msgstr "Meny"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Epostadresser"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "Bekreft epostadresse"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr ""
+msgstr "Bekreft at <a href=\"mailto:%(email)s\">%(email)s</a> er en epostadresse for brukeren %(user_display)s."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -812,27 +812,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Følgende epostadresser er knyttet til kontoen din:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "bekreftet"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "ubekreftet"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "primær"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
-msgstr ""
+msgstr "Gjør til primær"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Send bekreftelse på nytt"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:26
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -842,19 +842,19 @@ msgstr "Fjern"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
-msgstr ""
+msgstr "Advarsel:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "Du har for tiden ikke satt opp noen epostadresser. Du bør legge til en epostadresse så du kan motta varsler, tilbakestille passordet ditt, osv."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
-msgstr ""
+msgstr "Legg til epost"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Ønsker du å fjerne den valgte epostadressa?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
