@@ -1,7 +1,7 @@
 .ajp-map-vanalinnad-city-select {
     margin-bottom: 12px;
     display: none;
-    background-color: rgba(255 ,255,255);
+    background-color: rgba(255, 255, 255);
     font-size: 16px;
     border-radius: 5px;
     font-weight: 500;
@@ -14,7 +14,7 @@
 .ajp-map-vanalinnad-year-select {
     margin-bottom: 12px;
     display: none;
-    background-color: rgba(255 ,255,255);
+    background-color: rgba(255, 255, 255);
     font-size: 25px;
     border-radius: 5px;
     font-weight: 500;
@@ -35,30 +35,32 @@
 @media (max-width: 768px) {
     #ajp-map-canvas .ajp-map-vanalinnad-year-select {
         left: auto !important;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         right: 119px !important;
         margin-bottom: 40px;
     }
+
     #ajp-map-canvas .ajp-map-vanalinnad-city-select {
         left: auto !important;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         right: 119px !important;
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }
 
 @media (max-width: 530px) {
     #ajp-map-canvas .ajp-map-vanalinnad-year-select {
-        right: 0px !important;
-        border-bottom-left-radius: 0px;
+        right: 0 !important;
+        border-bottom-left-radius: 0;
         bottom: 84px !important;
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
+
     #ajp-map-canvas .ajp-map-vanalinnad-city-select {
-        right: 0px !important;
-        border-bottom-left-radius: 0px;
+        right: 0 !important;
+        border-bottom-left-radius: 0;
         bottom: 44px !important;
         max-width: 120px;
     }

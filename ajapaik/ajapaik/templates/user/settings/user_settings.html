@@ -20,7 +20,7 @@
 {% endblock layout %}
 {% block specific_js %}
     <script>
-        var scrollToMergeAccountAccordion = "{{ show_accordion }}";
+        const scrollToMergeAccountAccordion = "{{ show_accordion }}";
         if (scrollToMergeAccountAccordion=="True") {
             window.scroll({
                 top: 720,

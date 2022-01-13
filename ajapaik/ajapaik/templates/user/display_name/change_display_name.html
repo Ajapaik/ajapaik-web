@@ -3,38 +3,39 @@
 {% if form %}
     {% bootstrap_form form %}
 {% endif %}
-<button id="change-display-name-submit-button" class="ajp-cursor-pointer btn btn-primary" type="submit">{% trans "Submit" %}</button>
+<button id="change-display-name-submit-button" class="ajp-cursor-pointer btn btn-primary"
+        type="submit">{% trans "Submit" %}</button>
 {% block specific_js %}
     <script>
         var changeDisplayNameUrl = "{% url 'api_change_profile_display_name' %}";
 
-        $('#change-display-name-submit-button').on('click', function () {
+        $('#change-display-name-submit-button').on('click', function() {
             ChangeDisplayName();
         });
 
-        ChangeDisplayName = function (subject, profile) {
-            let displayName = document.getElementById("id_display_name").value;
+        ChangeDisplayName = function() {
+            const displayName = document.getElementById('id_display_name').value;
             $('#ajp-loading-overlay').show();
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: changeDisplayNameUrl,
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    display_name: displayName
+                    display_name: displayName,
                 },
-                success: function (response) {
-                    $.notify(response.message, {type: 'success'});
-                    $('#display-name-settings').text(interpolate(gettext('%(username)s settings'), {username: displayName}, true));
+                success: function(response) {
+                    $.notify(response.message, { type: 'success' });
+                    $('#display-name-settings').text(interpolate(gettext('%(username)s settings'), { username: displayName }, true));
                     $('.clearfix.you > .name > a').text(displayName);
                     $('#ajp-dropdown-user-link').text(displayName);
                 },
-                error: function (response) {
-                    $.notify(response.message, {type: "danger"});
+                error: function(response) {
+                    $.notify(response.message, { type: 'danger' });
                 },
-                complete: function () {
+                complete: function() {
                     $('#ajp-loading-overlay').hide();
-                }
+                },
             });
-        }
+        };
     </script>
 {% endblock %}

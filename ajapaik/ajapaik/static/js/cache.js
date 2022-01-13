@@ -6,51 +6,55 @@
 var TIME_TO_CACHE_IN_MINUTES = 60;
 
 var cacheKeys = {
-    objectClasses: 'OBJECT_CLASSES'
+  objectClasses: 'OBJECT_CLASSES',
 };
 
 function removeData(key) {
-    window.localStorage.removeItem(key);
+  window.localStorage.removeItem(key);
 }
 
 function getTimeStampInSeconds() {
-    return Math.floor(new Date().getTime() / 1000);
+  return Math.floor(new Date().getTime() / 1000);
 }
 
 function storeData(key, data) {
-    window.localStorage.setItem(key, JSON.stringify({
-        timestamp: getTimeStampInSeconds(),
-        data: data
-    }));
+  window.localStorage.setItem(
+    key,
+    JSON.stringify({
+      timestamp: getTimeStampInSeconds(),
+      data: data,
+    })
+  );
 }
 
 function getData(key) {
-    var item = window.localStorage.getItem(key);
+  const item = window.localStorage.getItem(key);
 
-    if (item) {
-        return JSON.parse(item).data;
-    }
+  if (item) {
+    return JSON.parse(item).data;
+  }
 
-    return null;
+  return null;
 }
 
 function getDataWithExpirationValidation(key) {
-    var data = window.localStorage.getItem(key);
+  const data = window.localStorage.getItem(key);
 
-    if (!data) {
-        return null;
-    }
+  if (!data) {
+    return null;
+  }
 
-    var dataObject = JSON.parse(data);
-    var currentTimeStamp = getTimeStampInSeconds();
+  const dataObject = JSON.parse(data);
+  const currentTimeStamp = getTimeStampInSeconds();
 
-    var secondsElapsedSinceCaching = currentTimeStamp - parseFloat(dataObject.timestamp);
-    var minutesElapsedSinceCaching = secondsElapsedSinceCaching / 60;
+  const secondsElapsedSinceCaching =
+    currentTimeStamp - parseFloat(dataObject.timestamp);
+  const minutesElapsedSinceCaching = secondsElapsedSinceCaching / 60;
 
-    if (minutesElapsedSinceCaching >= TIME_TO_CACHE_IN_MINUTES) {
-        removeData(key);
-        return null;
-    }
+  if (minutesElapsedSinceCaching >= TIME_TO_CACHE_IN_MINUTES) {
+    removeData(key);
+    return null;
+  }
 
-    return getData(key);
+  return getData(key);
 }

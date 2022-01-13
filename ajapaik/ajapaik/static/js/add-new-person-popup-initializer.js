@@ -2,67 +2,87 @@
 
 // FIXME: Copied from addanother.js because of how we implemented async popup form loading
 var idToWindowName = function (text) {
-    text = text.replace(/\./g, '__dot__');
-    text = text.replace(/\-/g, '__dash__');
-    text = text.replace(/\[/g, '__braceleft__');
-    text = text.replace(/\]/g, '__braceright__');
-    return text;
+  text = text.replace(/\./g, '__dot__');
+  text = text.replace(/-/g, '__dash__');
+  text = text.replace(/\[/g, '__braceleft__');
+  text = text.replace(/]/g, '__braceright__');
+  return text;
 };
 
 function showAddAnotherPopup(triggeringLink) {
-    var name = triggeringLink.attr('id').replace(/^add_/, '');
-    name = idToWindowName(name);
-    var href = triggeringLink.attr('href');
+  let name = triggeringLink.attr('id').replace(/^add_/, '');
+  name = idToWindowName(name);
+  let href = triggeringLink.attr('href');
 
-    if (href.indexOf('?') === -1) {
-        href += '?';
+  if (href.indexOf('?') === -1) {
+    href += '?';
+  }
+
+  href += '&winName=' + name;
+
+  const height = 500;
+  const width = 800;
+  const left = screen.width / 2 - width / 2;
+  const top = screen.height / 2 - height / 2;
+  const win = window.open(
+    href,
+    name,
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' +
+      width +
+      ', height=' +
+      height +
+      ', top=' +
+      top +
+      ', left=' +
+      left
+  );
+  let subjectName = '';
+  const yourLabsOverlay = $('#yourlabs_overlay');
+
+  function removeOverlay() {
+    if (win.closed) {
+      yourLabsOverlay.remove();
+      document
+        .querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID)
+        .slim.open();
+      setTimeout(() => {
+        document
+          .querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID)
+          .slim.search(subjectName);
+      }, 100);
+    } else {
+      if (win.window && win.window.$) {
+        subjectName = win.window.$('.form-group input#id_name').val();
+      }
+      setTimeout(removeOverlay, 500);
     }
+  }
 
-    href += '&winName=' + name;
+  $('body').append('<div id="yourlabs_overlay"></div>');
+  yourLabsOverlay.click(function () {
+    win.close();
+    $(this).remove();
+  });
 
-    var height = 500;
-    var width = 800;
-    var left = (screen.width / 2) - (width / 2);
-    var top = (screen.height / 2) - (height / 2);
-    var win = window.open(href, name, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-    var subjectName = '';
+  setTimeout(removeOverlay, 1500);
 
-    function removeOverlay() {
-        if (win.closed) {
-            $('#yourlabs_overlay').remove();
-            document.querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.open();
-            setTimeout(() => {
-                document.querySelector('#' + constants.elements.SUBJECT_AUTOCOMPLETE_ID).slim.search(subjectName);
-              }, 100);
-        } else {
-            if (win.window && win.window.$) {
-                subjectName = win.window.$('.form-group input#id_name').val();
-            }
-            setTimeout(removeOverlay, 500);
-        }
-    }
+  win.focus();
 
-    $('body').append('<div id="yourlabs_overlay"></div>');
-    $('#yourlabs_overlay').click(function () {
-        win.close();
-        $(this).remove();
-    });
-
-    setTimeout(removeOverlay, 1500);
-
-    win.focus();
-
-    return false;
+  return false;
 }
 
 function initializeAddNewPersonOpeningAPopup() {
-    $(document).on('click', '#' + constants.elements.ADD_NEW_SUBJECT_LINK_ID, function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        showAddAnotherPopup($(this));
-    });
+  $(document).on(
+    'click',
+    '#' + constants.elements.ADD_NEW_SUBJECT_LINK_ID,
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showAddAnotherPopup($(this));
+    }
+  );
 }
 
 $(document).ready(function () {
-    initializeAddNewPersonOpeningAPopup();
+  initializeAddNewPersonOpeningAPopup();
 });

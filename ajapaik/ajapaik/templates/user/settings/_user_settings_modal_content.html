@@ -3,43 +3,44 @@
 {% if form %}
     {% bootstrap_form form %}
 {% endif %}
-<button id="user-settings-upload-submit-button" class="ajp-cursor-pointer btn btn-primary" type="submit">{% trans "Submit" %}</button>
+<button id="user-settings-upload-submit-button" class="ajp-cursor-pointer btn btn-primary"
+        type="submit">{% trans "Submit" %}</button>
 {% block specific_js %}
     <script>
-        var settingsUrl = "{% url 'api_submit_user_settings' %}";
-        var isModal = "{{ isModal }}" == "True";
+        const settingsUrl = "{% url 'api_submit_user_settings' %}";
+        const isModal = "{{ isModal }}" === 'True';
 
-        $('#user-settings-upload-submit-button').on('click', function () {
+        $('#user-settings-upload-submit-button').on('click', function() {
             SaveSettings();
         });
 
-        SaveSettings = function (subject, profile) {
-            let preferredLanguageE = document.getElementById("id_preferred_language");
-            let preferredLanguage= preferredLanguageE.options[preferredLanguageE.selectedIndex].value;
-            let newsletterConsentE = document.getElementById("id_newsletter_consent");
-            let newsletterConsent= newsletterConsentE.options[newsletterConsentE.selectedIndex].value;
+        SaveSettings = function() {
+            let preferredLanguageE = document.getElementById('id_preferred_language');
+            let preferredLanguage = preferredLanguageE.options[preferredLanguageE.selectedIndex].value;
+            let newsletterConsentE = document.getElementById('id_newsletter_consent');
+            let newsletterConsent = newsletterConsentE.options[newsletterConsentE.selectedIndex].value;
             $('#ajp-loading-overlay').show();
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: settingsUrl,
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                     preferredLanguage: preferredLanguage,
-                    newsletterConsent: newsletterConsent
+                    newsletterConsent: newsletterConsent,
                 },
-                success: function (response) {
-                    $.notify(response.message, {type: 'success'});
+                success: function(response) {
+                    $.notify(response.message, { type: 'success' });
                 },
-                error: function (response) {
-                    $.notify(response.message, {type: "danger"});
+                error: function(response) {
+                    $.notify(response.message, { type: 'danger' });
                 },
-                complete: function () {
+                complete: function() {
                     $('#ajp-loading-overlay').hide();
                     if (isModal) {
                         $('#ajp-user-settings-modal').modal('hide');
                     }
-                }
+                },
             });
-        }
+        };
     </script>
 {% endblock %}

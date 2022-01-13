@@ -48,12 +48,13 @@
                 <div class="panel panel-default" id="ajp-selection-middle-panel">
                     <div class="row panel-body">
                         {% for photo in photos %}
-                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2 m-3 text-center" style="border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white;"
-                                 id="ajp-frontpage-image-container-{{ photo.0 }}" style="min-height: 330px;"
+                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2 m-3 text-center" style="border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white; min-height: 330px;"
+                                 id="ajp-frontpage-image-container-{{ photo.0 }}"
                                  data-id="{{ photo.0 }}">
                                 <a href="{% url 'photo' photo.0 photo.get_pseudo_slug %}"
                                    class="thumbnail ajp-photo-selection-thumbnail-link d-block h-100" data-id="{{ photo.0 }}">
-                                    <img data-src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
+                                    <img src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
+                                            data-src="{% url 'image_thumb' photo.0 250 photo.get_pseudo_slug %}"
                                             width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.0 }}"
                                             class="img-fluid ajp-photo-selection-thumbnail lazyload">
                                     <div class="ajp-remove-from-selection-button" data-id="{{ photo.0 }}"></div>
@@ -65,17 +66,17 @@
             </div>
             <div class="full-box original-full-box">
                 <div class="full-pic" id="ajp-fullscreen-image-container">
-                    <img id="ajp-fullscreen-image" alt=""/>
+                    <img id="ajp-fullscreen-image" alt="" src=""/>
                 </div>
             </div>
             <div class="full-box rephoto-full-box">
                 <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
-                    <img id="ajp-rephoto-full-screen-image" alt=""/>
+                    <img id="ajp-rephoto-full-screen-image" alt="" src=""/>
                 </div>
             </div>
             <div class="full-box similar-full-box">
                 <div class="full-pic" id="ajp-similar-fullscreen-image-container">
-                    <img id="ajp-similar-photo-full-screen-image" alt=""/>
+                    <img id="ajp-similar-photo-full-screen-image" alt="" src=""/>
                 </div>
             </div>
             <div class="modal fade" id="ajp-photo-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>

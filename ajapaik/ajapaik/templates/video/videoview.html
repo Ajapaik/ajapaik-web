@@ -16,8 +16,8 @@
     <div class="container">
         <div class="col-12">
             <div class="row">
-                <video id="ajp-videoview-video" autoplay controls src="{{ video.file.url }}"></video>
-                <div id="ajp-videoview-speed-buttons" class="btn-group" role="group">
+                <video id="ajp-video" autoplay controls src="{{ video.file.url }}"></video>
+                <div id="ajp-video-speed-buttons" class="btn-group" role="group">
                     <button type="button" data-speed="0.25" class="btn btn-secondary">0.25x</button>
                     <button type="button" data-speed="0.5" class="btn btn-secondary">0.5x</button>
                     <button type="button" data-speed="1" class="btn btn-secondary active">1x</button>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-9" id="ajp-videoview-info-column">
+                <div class="col-9" id="ajp-video-info-column">
                     {% if video.author %}
                         <div class="row"><b>{{ video.author }}</b></div>{% endif %}
                     <div class="row">{{ video.name }}</div>
@@ -37,7 +37,7 @@
                         <div class="row">{{ video.date|date:"Y" }}</div>{% endif %}
                     {% if video.source and video.source_key and video.source_url %}
                         <div class="row">
-                            <a id="ajp-videoview-source-link" data-id="{{ video.id }}" target="_blank"
+                            <a id="ajp-video-source-link" data-id="{{ video.id }}" target="_blank"
                                href="{{ video.source_url }}" title="{{ video.source.description }}"
                                class="float-left" rel="noopener">{{ video.source.description }} {{ video.source_key }}</a>
                         </div>
@@ -46,9 +46,9 @@
                         <span class="material-icons notranslate">movie</span>
                     {% endif %}
                     {% for a in video.albums.all %}
-                        <div class="row" id="ajp-videoview-album-list">
+                        <div class="row" id="ajp-video-album-list">
                                 <div class=col-auto">
-                                    <a class="ajp-videoview-album-link"
+                                    <a class="ajp-video-album-link"
                                        href="{% url 'frontpage' %}?album={{ a.id }}">{{ a.name }}</a>
                                 </div>
                         </div>

@@ -2,98 +2,116 @@
 {% if sidebar %}
     <div id="ajp-toolbox-sidebar">
 {% endif %}
-        <div class="{% if is_photo_modal %}mt-1{% else %}row mt-2{% endif %}{% if sidebar %} flex-column pb-2{% else %} d-flex w-100 flex-wrap{% endif %}{%if flexEnd %} ml-3{% endif %}" style="{% if sidebar %}position:fixed;{% endif %}">
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a data-id="{{ photo.id }}"
-                    title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
-                    rel="nofollow">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</span>
-                </a>
-                {% trans 'Add a geotag' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a id="ajp-start-dating-button" data-id="{{ photo.id }}"
-                    title="{% trans "Date this image" %}" href="#">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">event</span>
-                    <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
-                </a>
-                {% trans 'Date' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</span>
-                </a>
-                {% trans 'Add a rephoto' %}
-            </div>
+<div
+    class="{% if is_photo_modal %}mt-1{% else %}row mt-2{% endif %}{% if sidebar %} flex-column pb-2{% else %} d-flex w-100 flex-wrap{% endif %}{% if flexEnd %} ml-3{% endif %}"
+    style="{% if sidebar %}position:fixed;{% endif %}">
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <a data-id="{{ photo.id }}"
+           title="{% trans "Pick the shooting location!" %}" href="/geotag/?photo={{ photo.id }}" target="_blank"
+           rel="nofollow">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_location</span>
+        </a>
+        {% trans 'Add a geotag' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <a id="ajp-start-dating-button" data-id="{{ photo.id }}"
+           title="{% trans "Date this image" %}" href="#">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">event</span>
+            <span id="ajp-photoview-datings-count" class="badge">{{ datings_count }}</span>
+        </a>
+        {% trans 'Date' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <a title="{% trans "Add rephoto" %}" data-id="{{ photo.id }}" id="ajp-add-rephoto-button" href="#">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">add_a_photo</span>
+        </a>
+        {% trans 'Add a rephoto' %}
+    </div>
 
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
-                    id="mark-object-button" class="ajp-button">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</span>
-                </button>
-                {% trans 'Annotate' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">share</span>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
-                    <li role="presentation" class="disabled-link">
-                        <div role="menuitem" tabindex="-1" id="ajp-grab-link">
-                            <a href="{{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
-                                {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
-                            </a>
-                            <br>
-                            <span id="share-feedback" class=='font-weight-bold'></span>
-                        </div>
-                    </li>
-                </ul>
-                {% trans 'Share' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper" title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
-                <button id="ajp-categorize-scene" type="button" data-toggle="popover" class="ajp-button" tabindex="0" data-is-categorization-button="true">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">category</span>
-                </button>
-                {% trans 'Categorize' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);"
-                    title="{% trans "Transcribe this image" %}" href="#" class="ajp-button">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</span>
-                    <span id="ajp-photoview-transcriptions-count" class="badge"></span>
-                </button>
-                {% trans 'Transcribe' %}
-            </div>
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button id="ajp-edit-picture" class="ajp-button" type="button" data-toggle="popover" tabindex="0" data-is-edit-button="true">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">edit</span>
-                </button>
-                {% trans 'Edit picture' %}
-            </div>
-            {% if not request.user_agent.is_pc %}
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <button id="ajp-toggle-annotations" class="ajp-button" type="button" tabindex="0">
-                    <span class="material-icons notranslate ajp-text-gray ajp-icon-48">check_box_outline_blank</span>
-                </button>
-                <div id="ajp-toggle-annotations-label">{% trans 'Show annotations' %}</div>
-            </div>
-            {% endif %}
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a id="ajp-iiif" class="ajp-iiif" type="button" data-toggle="popover" data-is-edit-button="true" href="#"></a>
-                {% trans 'IIIF' %}
-            </div>
-            {% if request.user.is_superuser %}
-            <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
-                <a target="_blank" title="admin" href="/admin/ajapaik/photo/{{ photo.id }}" >
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <button
+            title="{% trans "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image" %}"
+            id="mark-object-button" class="ajp-button">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">format_shapes</span>
+        </button>
+        {% trans 'Annotate' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <a id="ajp-sharing-dropdown-button" href="#" role="button" title="{% trans "Share" %}"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">share</span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="ajp-sharing-dropdown-button">
+            <li role="presentation" class="disabled-link">
+                <div role="menuitem" tabindex="-1" id="ajp-grab-link">
+                    <a href="
+
+
+
+
+
+
+
+
+
+
+                        {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
+                        {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}
+                            {{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
+                    </a>
+                    <br>
+                    <span id="share-feedback" class=='font-weight-bold'></span>
+                </div>
+            </li>
+        </ul>
+        {% trans 'Share' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper"
+         title="{% trans 'Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors' %}">
+        <button id="ajp-categorize-scene" type="button" data-toggle="popover" class="ajp-button" tabindex="0"
+                data-is-categorization-button="true">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">category</span>
+        </button>
+        {% trans 'Categorize' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <button id="ajp-transcribe-button" data-id="{{ photo.id }}" onclick="window.transcriberButtonClick(this);"
+                title="{% trans "Transcribe this image" %}" href="#" class="ajp-button">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">text_fields</span>
+            <span id="ajp-photoview-transcriptions-count" class="badge"></span>
+        </button>
+        {% trans 'Transcribe' %}
+    </div>
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <button id="ajp-edit-picture" class="ajp-button" type="button" data-toggle="popover" tabindex="0"
+                data-is-edit-button="true">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-48">edit</span>
+        </button>
+        {% trans 'Edit picture' %}
+    </div>
+    {% if not request.user_agent.is_pc %}
+        <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+            <button id="ajp-toggle-annotations" class="ajp-button" type="button" tabindex="0">
+                <span class="material-icons notranslate ajp-text-gray ajp-icon-48">check_box_outline_blank</span>
+            </button>
+            <div id="ajp-toggle-annotations-label">{% trans 'Show annotations' %}</div>
+        </div>
+    {% endif %}
+    <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+        <a id="ajp-iiif" class="ajp-iiif" type="button" data-toggle="popover" data-is-edit-button="true" href="#"></a>
+        {% trans 'IIIF' %}
+    </div>
+    {% if request.user.is_superuser %}
+        <div class="d-flex mr-2 ajp-toolbox-button-wrapper">
+            <a target="_blank" title="admin" href="/admin/ajapaik/photo/{{ photo.id }}">
                 <button id="ajp-admin-link" class="ajp-button" type="button" tabindex="0">
                     <span class="material-icons notranslate ajp-text-gray ajp-icon-48">settings</span>
                 </button>
-                </a>
-                {% trans 'Admin' %}
-            </div>
-            {% endif %}
+            </a>
+            {% trans 'Admin' %}
         </div>
+    {% endif %}
+</div>
 {% if sidebar %}
     </div>
 {% endif %}
@@ -142,7 +160,8 @@
                 sceneConsensus = json.scene_consensus;
                 viewpointElevation = json.viewpoint_elevation;
                 viewpointElevationConsensus = json.viewpoint_elevation_consensus;
-                let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
+                let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass,
+                    bottomRightButtonClass;
                 topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
 
                 let buttonTranslation = 'Confirm';
@@ -181,7 +200,7 @@
                     buttonTranslation = 'Submit';
                 }
 
-                let content = `<div class='d-flex mb-4 justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;
+                let content = `<div class='d-flex mb-4 justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;
                 let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
                 content += actionButtonTemplate;
 
@@ -193,10 +212,10 @@
                     trigger: 'manual',
                     container,
                     content,
-                    title
+                    title,
                 });
             });
-        };
+        }
 
         function updatePhotoAppliedOperations() {
             fetchPhotoAppliedOperations().then(function(json) {
@@ -251,11 +270,11 @@
                     invertButtonClass = 'btn-outline-dark';
                 }
 
-                if (isPhotoInvertedConsensus !== undefined  && isPhotoFlippedConsensus === newIsPhotoFlipped && isPhotoInvertedConsensus === newIsPhotoInverted && photoRotationDegreesConsensus === newPhotoRotationDegrees) {
+                if (isPhotoInvertedConsensus !== undefined && isPhotoFlippedConsensus === newIsPhotoFlipped && isPhotoInvertedConsensus === newIsPhotoInverted && photoRotationDegreesConsensus === newPhotoRotationDegrees) {
                     buttonTranslation = 'Confirm';
                 }
 
-                let content = `<div class='d-flex justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='flip-button' class='btn mr-2 ` + flipButtonClass +`' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>flip</span><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='invert-button' class='btn ml-2 ` + invertButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>invert_colors</span><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='rotate-button' class='btn ml-2 ` + rotatedButtonClass +`' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>rotate_left</span><span>` + gettext('Rotate') + `</span></button></div></div>`;
+                let content = `<div class='d-flex justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='flip-button' class='btn mr-2 ` + flipButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>flip</span><span>` + gettext('Flip') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='invert-button' class='btn ml-2 ` + invertButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>invert_colors</span><span>` + gettext('Invert') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickPhotoEditButton(this.id, false);' id='rotate-button' class='btn ml-2 ` + rotatedButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>rotate_left</span><span>` + gettext('Rotate') + `</span></button></div></div>`;
                 let actionButtonTemplate = `<button id='send-edit-button' onclick="submitPictureEditSuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100'>` + gettext(buttonTranslation) + `</button>`;
                 content += actionButtonTemplate;
 
@@ -267,13 +286,15 @@
                     trigger: 'manual',
                     container,
                     content,
-                    title
+                    title,
                 });
             });
-        };
+        }
 
-        $('#ajp-categorize-scene').on('click', function() {
-            let id = $('#ajp-categorize-scene').attr('aria-describedby');
+        const categorizeScene = $('#ajp-categorize-scene');
+
+        categorizeScene.on('click', function() {
+            let id = categorizeScene.attr('aria-describedby');
             if (id && $('#' + id).length > 0) {
                 fetchPhotoSuggestions().then(function(json) {
                     scene = json.scene;
@@ -287,14 +308,15 @@
             }
         });
 
-
-        $('#ajp-edit-picture').on('click', function() {
-            let id = $('#ajp-edit-picture').attr('aria-describedby');
+        const editPicture = $('#ajp-edit-picture');
+        editPicture.on('click', function() {
+            let id = editPicture.attr('aria-describedby');
             if (id && $('#' + id).length > 0) {
                 $('#ajp-modal-photo').removeClass();
                 $('#ajp-photoview-main-photo').removeClass();
-                $('#ajp-fullscreen-image').removeClass();
-                $('#ajp-fullscreen-image').addClass('lasyloaded');
+                const fullScreenImage = $('#ajp-fullscreen-image');
+                fullScreenImage.removeClass();
+                fullScreenImage.addClass('lasyloaded');
                 $('#ajp-fullscreen-image-wrapper').removeClass();
                 window.photoModalCurrentPhotoInverted = false;
                 window.photoModalCurrentPhotoFlipped = false;
@@ -313,19 +335,19 @@
             if (window.isAnnotatingDisabledByButton) {
                 window.isAnnotatingDisabledByButton = false;
                 $('#ajp-toggle-annotations > span').text('check_box');
-                $("#ajp-toggle-annotations-label").text(gettext('Hide annotations'));
+                $('#ajp-toggle-annotations-label').text(gettext('Hide annotations'));
                 enableAnnotations();
                 displayAnnotations();
             } else {
                 $('#ajp-toggle-annotations > span').text('check_box_outline_blank');
-                $("#ajp-toggle-annotations-label").text(gettext('Show annotations'));
+                $('#ajp-toggle-annotations-label').text(gettext('Show annotations'));
                 hideAnnotationsWithoutOpenPopover();
                 disableAnnotations();
                 window.isAnnotatingDisabledByButton = true;
             }
         });
 
-        $('#ajp-start-dating-button').click(function (e) {
+        $('#ajp-start-dating-button').click(function(e) {
             e.preventDefault();
             if (window.isFrontpage) {
                 _gaq.push(['_trackEvent', 'Gallery', 'Photo modal dater photo click']);
@@ -345,67 +367,66 @@
             }
         });
 
-        $('#ajp-iiif').click(function (e) {
+        $('#ajp-iiif').click(function(e) {
             e.preventDefault();
-            let title='iiif viewers'
-                let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass, bottomRightButtonClass;
-                topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
+            let title = 'iiif viewers';
 
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
-            let content = "<div class='d-flex mb-4 justify-content-center' >";
-            content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://universalviewer.toolforge.org/#?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/universalviewer-logo.png'/></div><div>` + gettext('UniversalViewer') + `</div></a></div>`;
-            content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://mirador.toolforge.org/?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/mirador-logo-black.png'/></div><div style='text-align:center'>` + gettext('Mirador') + `</div></a></div>`;
-            content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://demo.tify.rocks/demo.html?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/tify-logo.svg'/></div><div style='text-align:center'>` + gettext('Tify') + `</div></a></div>`;
-            content+= `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" title="manifest.json" href="/photo/{{ photo.id }}/v2/manifest.json" ><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><span class="material-icons notranslate ajp-text-gray ajp-icon-48">code</span></div><div>manifest.json</div></a></div>`;
-            content+="</div>";
+            let content = '<div class=\'d-flex mb-4 justify-content-center\' >';
+            content += `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://universalviewer.toolforge.org/#?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/universalviewer-logo.png'/></div><div>` + gettext('UniversalViewer') + `</div></a></div>`;
+            content += `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://mirador.toolforge.org/?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/mirador-logo-black.png'/></div><div style='text-align:center'>` + gettext('Mirador') + `</div></a></div>`;
+            content += `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" href="https://demo.tify.rocks/demo.html?manifest=https://ajapaik.ee/photo/{{ photo.id }}/v2/manifest.json"><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><img width='50px' src='/static/images/tify-logo.svg'/></div><div style='text-align:center'>` + gettext('Tify') + `</div></a></div>`;
+            content += `<div class='d-flex' style='flex-direction:column;align-items:center;padding:0.5em'><a target="_blank" title="manifest.json" href="/photo/{{ photo.id }}/v2/manifest.json" ><div style='width:50px;height:60px;vertical-align: middle;margin:auto'><span class="material-icons notranslate ajp-text-gray ajp-icon-48">code</span></div><div>manifest.json</div></a></div>`;
+            content += '</div>';
 
-            $('#ajp-iiif').popover({
+            let iiif = $('#ajp-iiif');
+            iiif.popover({
                 html: true,
                 sanitize: false,
                 trigger: 'manual',
                 container,
                 content,
-                title
+                title,
             });
 
-            let id = $('#ajp-iiif').attr('aria-describedby');
+            let id = iiif.attr('aria-describedby');
             if (id && $('#' + id).length > 0) {
-                $('#ajp-iiif').popover('hide');
+                iiif.popover('hide');
             } else {
-                $('#ajp-iiif').popover('show');
+                iiif.popover('show');
             }
 
 
         });
 
-        window.updateDatings = function () {
+        window.updateDatings = function() {
             $.ajax({
                 url: "{% url 'get_datings' photo.id %}",
-                success: function (result) {
+                success: function(result) {
                     $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
                     $('#ajp-photoview-datings-count').html(result.datings.length);
                     window.updateLeaderboard();
                     $('#ajp-dater-input').val(null);
                     $('#ajp-dater-comment').val(null);
-                }
+                },
             });
         };
 
-        $('#mark-object-button').click(function (e) {
+        $('#mark-object-button').click(function() {
             ObjectTagger.toggleCropping();
         });
 
 
-        window.startDater = function (photoId) {
+        window.startDater = function(photoId) {
             $('.ajp-dater-hide-when-dater-visible').hide();
             $('#ajp-dater-container').show().data('AjapaikDater').initializeDaterState({
                 photoId: photoId,
-                previousDatings: window.previousDatings
+                previousDatings: window.previousDatings,
             });
             $('.ajp-close-rephoto-overlay-button').click();
         };
 
-        window.stopDater = function () {
+        window.stopDater = function() {
             $('.ajp-dater-hide-when-dater-visible').show();
             $('#ajp-dater-input').val(null);
             $('#ajp-dater-comment').val(null);
@@ -415,60 +436,62 @@
         };
 
 
-        window.openLoginModal = function (type) {
+        window.openLoginModal = function(type) {
             $.ajax({
                 cache: false,
                 url: window.loginModalUrl,
                 data: {
-                    type
+                    type,
                 },
-                success: function (result) {
+                success: function(result) {
                     let loginModal = $('#ajp-login-modal');
                     loginModal.data('bs.modal', null);
                     loginModal.html(result).modal();
-                }
+                },
             });
         };
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             updatePhotoSuggestions();
             updatePhotoAppliedOperations();
-            var rephotoUploadModal = $('#ajp-rephoto-upload-modal');
+            const rephotoUploadModal = $('#ajp-rephoto-upload-modal');
             if (window.previouslyEditedPhotoIds && currentlyOpenPhotoId && window.previouslyEditedPhotoIds.includes(currentlyOpenPhotoId.toString())) {
                 window.refreshUpdatedImage('#ajp-modal-photo');
             }
-            $(document).on('click', '#ajp-add-rephoto-button', function (e) {
+            $(document).on('click', '#ajp-add-rephoto-button', function(e) {
                 e.preventDefault();
                 let url = window.photoUploadModalURL.replace('0', window.$(this).data('id'));
                 $.ajax({
                     cache: false,
-                    success: function (result) {
+                    success: function(result) {
                         rephotoUploadModal.data('bs.modal', null);
                         rephotoUploadModal.html(result).modal();
                     },
-                    url
+                    url,
                 });
             });
 
             $('#ajp-sharing-dropdown-button').on('click', function(e) {
                 e.preventDefault();
+                const shareFeedback = $('#share-feedback');
                 navigator.clipboard.writeText(shareUrl).then(function() {
-                    $('#share-feedback').removeClass('text-danger');
-                    $('#share-feedback').addClass('text-success').html(gettext('Link copied to clipboard'));
-                }, function(err) {
-                    $('#share-feedback').removeClass('text-success');
-                    $('#share-feedback').addClass('text-danger').html(gettext('Could not copy link to clipboard'));
+                    shareFeedback.removeClass('text-danger');
+                    shareFeedback.addClass('text-success').html(gettext('Link copied to clipboard'));
+                }, function() {
+                    shareFeedback.removeClass('text-success');
+                    shareFeedback.addClass('text-danger').html(gettext('Could not copy link to clipboard'));
                 });
             });
 
             {% if is_photo_modal %}
-                $('#ajp-photo-modal').on('scroll', function(){
-                    let distanceFromTop = $('#ajp-modal-body').offset().top - $('#ajp-modal-body').scrollTop() - 160 - window.scrollY;
+                $('#ajp-photo-modal').on('scroll', function() {
+                    const modalBody = $('#ajp-modal-body');
+                    let distanceFromTop = modalBody.offset().top - modalBody.scrollTop() - 160 - window.scrollY;
                     $('#ajp-toolbox-sidebar').css(
-                    {
-                        'position':'relative',
-                        'top': Math.max(distanceFromTop, -160) + 'px'
-                    });
+                        {
+                            'position': 'relative',
+                            'top': Math.max(distanceFromTop, -160) + 'px',
+                        });
                 });
             {% endif %}
 

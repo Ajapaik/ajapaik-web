@@ -291,9 +291,6 @@
                 GooglePlusLink: "{% if similar.to_photo.user.google_plus_link %}{{ similar.to_photo.user.google_plus_link }}{% endif %}",
                 FullName: "{{ similar.to_photo.user.get_display_name }}",
             {% endif %}
-            {% if similar.to_photo.author %}
-                author: "{{ similar.to_photo.author }}",
-            {% endif %}
             licence: {
                 name: "{{ similar.to_photo.licence.name }}",
                 url: "{{ similar.to_photo.licence.url }}",
@@ -326,10 +323,10 @@
         $(document).on('mouseenter.ajp-namespace', '#ajp-modal-photo-container', {showPersons: true, showObjects: true}, displayAnnotationsOnMouseLeave);
         $(document).on('mouseleave.ajp-namespace', '#ajp-modal-photo-container', hideAnnotationsWithoutOpenPopover);
 
-        var rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image');
+        const rephotoFullScreenImage = $('#ajp-rephoto-full-screen-image');
         rephotoFullScreenImage.attr('data-src', window.photoModalRephotoFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
-        var similarFullScreenImage = $('#ajp-similar-photo-full-screen-image');
+        const similarFullScreenImage = $('#ajp-similar-photo-full-screen-image');
         similarFullScreenImage.attr('data-src', window.photoModalSimilarFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
 
         $('#ajp-comment-form-register-link').click(function (e) {
@@ -339,10 +336,11 @@
 
         // Leaflet-map
         if (typeof get_photoviewModalOptions === "function") {
-            var options = get_photoviewModalOptions();
-            $('#ajp-photo-modal-map-container').AjapaikMinimap(options);
+            const options = get_photoviewModalOptions();
+            const photoModalMapContainer = $('#ajp-photo-modal-map-container');
+            photoModalMapContainer.AjapaikMinimap(options);
             $('.ajp-minimap-start-suggestion-CTA-button').remove();
-            var minimapConfirmGeotagButton = document.createElement('button');
+            const minimapConfirmGeotagButton = document.createElement('button');
             $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
                 .addClass('ajp-minimap-confirm-geotag-button')
                 .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
@@ -352,18 +350,18 @@
             if (window.photoModalUserHasConfirmedThisLocation) {
                 $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
             }
-            $('#ajp-photo-modal-map-container').append(minimapConfirmGeotagButton);
-            var minimapStartSuggestionButton = document.createElement('button');
+            photoModalMapContainer.append(minimapConfirmGeotagButton);
+            const minimapStartSuggestionButton = document.createElement('button');
             $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
                 .addClass('ajp-minimap-start-suggestion-button')
                 .data('trigger', 'hover')
                 .data('placement', 'top').data('toggle', 'popover')
                 .data('content', gettext('Submit your own location'))
                 .html('<span class="material-icons notranslate ajp-icon-36">edit_location</span>').popover();
-            $('#ajp-photo-modal-map-container').append(minimapStartSuggestionButton);
+            photoModalMapContainer.append(minimapStartSuggestionButton);
         }
 
-        var currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
+        const currentPhotoHasLocation = !(window.currentPhotoLat === undefined && window.currentPhotoLon === undefined);
 
         if (window.userClosedRephotoTools && window.userClosedSimilarPhotoTools) {
             if (currentPhotoHasLocation) {
@@ -376,12 +374,12 @@
             }
         }
 
-        mainPhotoContainer = $('#ajp-modal-photo-container'),
-        rephotoContainer = $('#ajp-modal-rephoto-container'),
-        similarPhotoContainer = $('#ajp-modal-similar-photo-container');
+        const mainPhotoContainer = $('#ajp-modal-photo-container'),
+              rephotoContainer = $('#ajp-modal-rephoto-container'),
+              similarPhotoContainer = $('#ajp-modal-similar-photo-container');
             mainPhotoContainer.hover(function () {
                 if (!window.isMobile && !window.isAnnotating) {
-                    var $this = $(this);
+                    const $this = $(this);
                     $this.find('.ajp-thumbnail-selection-icon').show("fade", 250);
                     $this.find('#ajp-reverse-side-button').show("fade", 250);
                     $this.find('.ajp-photo-modal-previous-button').show("fade", 250);
@@ -396,7 +394,7 @@
                 }
             }, function () {
                 if (!window.isMobile) {
-                    var $this = $(this);
+                    const $this = $(this);
                     $this.find('.ajp-thumbnail-selection-icon').hide("fade", 250);
                     $this.find('.ajp-photo-modal-previous-button').hide("fade", 250);
                     $this.find('.ajp-photo-modal-next-button').hide("fade", 250);
@@ -446,7 +444,7 @@
     });
 
     resizeSimilarImage = function () {
-        let height = 320;
+        let height;
         if (window.visualViewport.width < 978) {
             height = 'auto';
         }
@@ -460,8 +458,8 @@
                 height = imgContainerHeight;
             }
         }
-    $('#ajp-modal-similar-photo-container').height(height);
-    $('#ajp-modal-similar-photo').height(height);
+        $('#ajp-modal-similar-photo-container').height(height);
+        $('#ajp-modal-similar-photo').height(height);
     }
 
     $('#ajp-modal-similar-photo').on('load', function () {

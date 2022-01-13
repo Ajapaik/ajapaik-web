@@ -70,7 +70,7 @@
     {% endcompress %}
     <script>
         function previewImage() {
-            var fr = new FileReader();
+            const fr = new FileReader();
             fr.readAsDataURL(document.getElementById('id_image').files[0]);
             $('#upload-preview').show();
             fr.onload = function (oFREvent) {
@@ -83,7 +83,7 @@
                 previewImage();
             }));
             $('#id_uploader_is_author').on('change', (function () {
-                var state = $(this).is(':checked'),
+                const state = $(this).is(':checked'),
                     licenceText = $('#ajp-user-upload-waive-rights-text'),
                     licenceSelection = $('#id_licence').parent(),
                     authorInput = $('#id_author').parent();

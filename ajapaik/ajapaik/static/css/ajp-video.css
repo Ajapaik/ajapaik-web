@@ -61,16 +61,16 @@
     height: 100%;
 }
 
-#ajp-videoview-video {
+#ajp-video {
     width: 100%;
     height: 100%;
 }
 
-#ajp-videoview-album-list {
+#ajp-video-album-list {
     margin-top: 20px;
 }
 
-#ajp-videoview-album-list > div > i {
+#ajp-video-album-list > div > i {
     font-size: 36px;
     color: #888;
 }
@@ -81,7 +81,7 @@
     font-size: 12px;
 }
 
-#ajp-videoview-speed-buttons > button {
+#ajp-video-speed-buttons > button {
     border: none;
     border-radius: 0;
     font-size: 12px;

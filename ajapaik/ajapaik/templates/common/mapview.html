@@ -19,29 +19,30 @@
             <div id="img-wrapper"></div>
         </div>
         <div id="close-btn" onclick="toggleSidePanel()">
-            <span aria-hidden="" class="material-icons notranslate ajp-icon-36 ajp-gray-button">close</span>
+            <span aria-hidden="true" class="material-icons notranslate ajp-icon-36 ajp-gray-button">close</span>
         </div>
         <button id="open-btn" onclick="toggleSidePanel()">{% trans "Show images" %}</button>
         <div id="ajp-map-container">
             <input id="pac-input-mapview" class="controls float-right" type="text" placeholder={% trans "Search box" %}>
-            <div id="ajp-map-canvas" class="ajp-map-canvas-mapview" {% if not album %}style="top:58px !important;" {% endif %}>
+            <div id="ajp-map-canvas" class="ajp-map-canvas-mapview"
+                 {% if not album %}style="top:58px !important;" {% endif %}>
             </div>
         </div>
     </div>
     <div id="ajp-geotagging-container"></div>
     <div class="full-box original-full-box">
         <div class="full-pic" id="ajp-fullscreen-image-container">
-            <img id="ajp-fullscreen-image" alt=""/>
+            <img id="ajp-fullscreen-image" alt="" src="" />
         </div>
     </div>
     <div class="full-box rephoto-full-box">
         <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
-            <img id="ajp-rephoto-full-screen-image" alt=""/>
+            <img id="ajp-rephoto-full-screen-image" alt="" src="" />
         </div>
     </div>
     <div class="full-box similar-full-box">
         <div class="full-pic" id="ajp-similar-fullscreen-image-container">
-            <img id="ajp-similar-photo-full-screen-image" alt=""/>
+            <img id="ajp-similar-photo-full-screen-image" alt="" src="" />
         </div>
     </div>
 {% endblock %}
@@ -53,43 +54,43 @@
             leaderboardFullURL = "{% url "top50" %}",
             difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
             mapDataURL = "{% url "map_objects_by_bounding_box" %}";
-            {% if query_string %}
-                window.photoQuery = "{{ query_string | safe }}";
+        {% if query_string %}
+            window.photoQuery = "{{ query_string | safe }}";
+        {% endif %}
+        {% if album %}
+            const albumId = "{{ album.0 | safe }}";
+            {% if album.1 and album.2 %}
+                window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
             {% endif %}
-            {% if album %}
-                var albumId = "{{ album.0 | safe }}";
-                {% if album.1 and album.2 %}
-                    window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
-                {% endif %}
-            {% endif %}
-        var photoModalCurrentImageUrl;
+        {% endif %}
+        let photoModalCurrentImageUrl;
         window.linkToMap = false;
         window.linkToGame = true;
         window.linkToGallery = true;
         window.fbShareMap = true;
         {% if selected_photo %}
-            var preselectPhotoId = "{{ selected_photo.id }}";
+            const preselectPhotoId = "{{ selected_photo.id }}";
             {% if selected_photo.lat and selected_photo.lon %}
-                var preselectPhotoLat = "{{ selected_photo.lat | safe }}",
+                const preselectPhotoLat = "{{ selected_photo.lat | safe }}",
                     preselectPhotoLng = "{{ selected_photo.lon | safe }}";
             {% endif %}
         {% endif %}
         {% if selected_rephoto %}
-            var preselectRephotoId = "{{ selected_rephoto.id }}";
+            const preselectRephotoId = "{{ selected_rephoto.id }}";
         {% endif %}
         {% if album %}
-            var filteringMessage = window.location.search.indexOf("limitToAlbum=0") < 0
-                ? "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-                : "You have opened the map with the album filter off, to turn it on, please tick the box next to album name";
-            $.notify(gettext(filteringMessage), {type: "info", placement: { from: "top", align: "left" }})
+            const filteringMessage = window.location.search.indexOf('limitToAlbum=0') < 0
+                ? 'You have opened the map with the album filter on, to turn it off, please untick the box next to album name'
+                : 'You have opened the map with the album filter off, to turn it on, please tick the box next to album name';
+            $.notify(gettext(filteringMessage), { type: 'info', placement: { from: 'top', align: 'left' } });
         {% endif %}
 
-        var mapSearchFilterTimeOut;
-        $('#ajp-photo-filter-box').on("input", function () {
+        let mapSearchFilterTimeOut;
+        $('#ajp-photo-filter-box').on('input', function() {
             window.photoQuery = $('#ajp-photo-filter-box').val();
             window.syncMapStateToURL();
             clearTimeout(mapSearchFilterTimeOut);
-            mapSearchFilterTimeOut = setTimeout(function () {
+            mapSearchFilterTimeOut = setTimeout(function() {
                 window.toggleVisiblePaneElements();
             }, 500);
         });
