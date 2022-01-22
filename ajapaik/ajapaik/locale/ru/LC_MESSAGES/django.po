@@ -1318,7 +1318,7 @@ msgstr "Давайте разместим фотографии на карте"
 #, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] "В альбоме %(counter) фотография,"
+msgstr[0] "В альбоме %(counter)s фотография,"
 msgstr[1] "В альбоме %(counter)s фотографии,"
 msgstr[2] "В альбоме %(counter)s фотографий"
 
