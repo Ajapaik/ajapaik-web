@@ -19,7 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
 "X-Generator: MediaWiki 1.38.0-alpha; Translate 2022-01-19\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -1298,6 +1300,7 @@ msgid_plural "Album has %(counter)s photos,"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
@@ -1307,6 +1310,7 @@ msgid_plural "%(counter)s users have put"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
@@ -1321,6 +1325,7 @@ msgid_plural "%(counter)s pictures on the map."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:198
 msgid "Timepatch (Ajapaik)"
@@ -1896,6 +1901,7 @@ msgid_plural "Album has %(counter)s historic pictures,"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -1916,6 +1922,7 @@ msgid_plural "%(counter)s pictures in this album."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
 #, python-format
@@ -1924,6 +1931,7 @@ msgid_plural "%(counter)s users have made"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
 #, python-format
@@ -1932,6 +1940,7 @@ msgid_plural "%(counter)s rephotographs"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
@@ -1941,6 +1950,7 @@ msgid_plural "for %(counter)s picture in the album."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:58
 #, python-format
@@ -1949,6 +1959,7 @@ msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1999,6 +2010,7 @@ msgid_plural "Picture belongs to albums:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:18
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
@@ -2012,6 +2024,7 @@ msgid_plural "Picture belongs to collections:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2174,6 +2187,7 @@ msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/user/_user_info.html:10
@@ -2183,6 +2197,7 @@ msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/user/_user_info.html:15
@@ -2192,6 +2207,7 @@ msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/user/_user_info.html:20
@@ -2201,6 +2217,7 @@ msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/user/_user_info.html:21
@@ -2210,6 +2227,7 @@ msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/user/_user_info.html:26
@@ -2219,6 +2237,7 @@ msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:34
 #, python-format
@@ -2227,6 +2246,7 @@ msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:39
 #: ajapaik/ajapaik/templates/user/_user_info.html:36
@@ -2236,6 +2256,7 @@ msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/user/_user_info.html:37
@@ -2245,6 +2266,7 @@ msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
@@ -2254,6 +2276,7 @@ msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
@@ -2262,6 +2285,7 @@ msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
@@ -2270,6 +2294,7 @@ msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/user/_user_info.html:53
@@ -2279,6 +2304,7 @@ msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/user/_user_info.html:58
@@ -2288,6 +2314,7 @@ msgid_plural "favorited <b>%(photolikes)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:66
 #: ajapaik/ajapaik/templates/user/_user_info.html:63
@@ -2297,6 +2324,7 @@ msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
@@ -2305,6 +2333,7 @@ msgid_plural "You have <b>%(user_points)s</b> points in total"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
@@ -2333,6 +2362,7 @@ msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
@@ -2341,6 +2371,7 @@ msgid_plural "<b>%(object_annotations)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
@@ -2349,6 +2380,7 @@ msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
@@ -2357,6 +2389,7 @@ msgid_plural "<b>%(user_points)s</b> points in total"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
