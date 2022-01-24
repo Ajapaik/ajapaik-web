@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-20 12:00:24+0000\n"
+"PO-Revision-Date: 2022-01-24 12:00:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -63,7 +63,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
-msgstr ""
+msgstr "Срок действия токена истек"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Invalid token"
@@ -91,7 +91,7 @@ msgstr "Представьтесь, пожалуйста"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "Параметры загрузки переснимков сохранены"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
@@ -111,11 +111,11 @@ msgstr "Отзыв о транскрипции добавлен, спасибо!
 
 #: ajapaik/ajapaik/api.py:93
 msgid "User display name has been saved"
-msgstr ""
+msgstr "Отображаемое имя пользователя сохранено"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "User settings have been saved"
-msgstr ""
+msgstr "Пользовательские настройки сохранены"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "You have already given feedback for this transcription"
@@ -300,11 +300,11 @@ msgstr "Открытый"
 
 #: ajapaik/ajapaik/forms.py:486
 msgid "My preferred language is"
-msgstr ""
+msgstr "Язык"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Я хочу подписаться на рассылку"
 
 #: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
 msgid "Yes"
@@ -316,7 +316,7 @@ msgstr "Нет"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Выберите язык"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like to receive the newsletter"
@@ -843,11 +843,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
-msgstr ""
+msgstr "основной"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:24
 msgid "Make Primary"
-msgstr ""
+msgstr "Сделать основным"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
@@ -878,12 +878,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "Авторизуйтесь с помощью стороннего аккаунта, <a href=\"%(signup_url)s\">создайте</a>\n  аккаунт на %(site_name)s или воспользуйтесь формой для входа."
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "Если у вас еще нет аккаунта, сначала <a href=\"%(signup_url)s\">зарегистрируйтесь</a>."
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -917,7 +917,7 @@ msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:22
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Если у вас возникли проблемы с восстановлением пароля напишите нам."
+msgstr "Если у вас возникли проблемы с восстановлением пароля, напишите нам."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
@@ -1000,7 +1000,7 @@ msgstr "Войдите, чтобы сохранить ваш счет"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы оставить комментарий"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
@@ -1008,11 +1008,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы добавить дату для фотографии"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы добавить расшифровку текста на фотографии"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
@@ -1045,7 +1045,7 @@ msgstr "Адрес электронной почты"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:46
 msgid "Register with e-mail"
-msgstr "Зарегистрироваться через e-mail"
+msgstr "Регистрация через e-mail"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:50
 msgid "Log in"
@@ -1143,7 +1143,7 @@ msgstr "Вы уже просмотрели все похожие пары изо
 #: ajapaik/ajapaik/templates/core/_footer.html:19
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr "Эстонское Общество Фотографического Наследия"
+msgstr "Сообщество по сохранению фотографического наследия Эстонии"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
@@ -1163,7 +1163,7 @@ msgstr "Загляните на Sift.pics"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
-msgstr "Обратно на домашнюю страницу"
+msgstr "На главную"
 
 #: ajapaik/ajapaik/templates/core/_header.html:13
 msgid "Search album"
@@ -1211,7 +1211,7 @@ msgstr "Выберите язык"
 
 #: ajapaik/ajapaik/templates/core/_header.html:79
 msgid "About Ajapaik"
-msgstr "О Ajapaik"
+msgstr "О платформе Ajapaik"
 
 #: ajapaik/ajapaik/templates/core/_header.html:82
 msgid "Ajapaik on Facebook"
@@ -1219,17 +1219,17 @@ msgstr "Ajapaik на Facebook"
 
 #: ajapaik/ajapaik/templates/core/_header.html:88
 msgid "Profile and leaderboard"
-msgstr "Профиль и список лидеров"
+msgstr "Учетная запись и рейтинг участников"
 
 #: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1895
 #: ajapaik/ajapaik/views.py:1911 ajapaik/ajapaik/views.py:1946
 msgid "Leaderboard"
-msgstr "Лучшие игроки"
+msgstr "Рейтинг участников"
 
 #: ajapaik/ajapaik/templates/core/_header.html:107
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "Вы авторизованы как"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
@@ -1281,12 +1281,12 @@ msgstr "исторический, изображение, старый, фото
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:54
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:56
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr "исторический, изображения, фото, карта, геотаггированы, локация"
+msgstr "исторические, изображения, старые, фото, карта, геометки, место"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:60
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:62
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
-msgstr "исторические, изображения, фото, краудсорсинг, геотаггинг, игра"
+msgstr "исторические, изображения, старые, фото, краудсорсинг, геометки, игра"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:66
 msgid "historic,picture,old,photo,before,after"
@@ -1843,11 +1843,11 @@ msgstr "обратная сортировка"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "Этот пользователь предложил местоположение для этой фотографии"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "Эти пользователи предложили местоположение для этой фотографии"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
@@ -2402,11 +2402,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
 msgid "Merge the accounts"
-msgstr ""
+msgstr "Объединить аккаунты"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "Недопустимый токен. Попробуйте еще раз или обратитесь в службу поддержки."
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
@@ -2423,7 +2423,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "Настройки пользователя %(username)s"
 
 #: ajapaik/ajapaik/templates/user/user.html:18
 #, python-format
@@ -2444,7 +2444,7 @@ msgstr "здесь"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Добро пожаловать на краудсорсинговую платформу Ajapaik, посвященную историческим фотографиям! Здесь вы можете ставить геометки на карту, оставлять комментарии к фотографиям, отмечать на фотографии людей и многое другое."
 
 #: ajapaik/ajapaik/templates/user/user.html:51
 msgid "This user does not have any contributions."
@@ -2573,15 +2573,15 @@ msgstr "Изменить пароль"
 
 #: ajapaik/ajapaik/views.py:3478
 msgid "Change display name"
-msgstr ""
+msgstr "Изменить отображаемое имя"
 
 #: ajapaik/ajapaik/views.py:3480
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Настройки языка и подписка на рассылку"
 
 #: ajapaik/ajapaik/views.py:3488
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Объединить с другим аккаунтом на платформе Ajapaik"
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
@@ -2609,7 +2609,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "2020: год цифровой культуры"
 
 #: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"

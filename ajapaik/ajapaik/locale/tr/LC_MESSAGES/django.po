@@ -21,13 +21,13 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-20 12:00:24+0000\n"
+"PO-Revision-Date: 2022-01-24 12:00:30+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "X-Generator: MediaWiki 1.38.0-alpha; Translate 2022-01-19\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -1303,7 +1303,6 @@ msgstr "Haritaya resim koyalım"
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
 msgstr[0] "Albümde %(counter)s fotoğrafı var,"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
@@ -1311,8 +1310,6 @@ msgstr[1] ""
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
 msgstr[0] "%(counter)s kullanıcı koydu"
-msgstr[1] ""
-
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
@@ -1325,7 +1322,6 @@ msgstr "haritadaki tüm resimler."
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
 msgstr[0] "haritada %(counter)s resim."
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:198
 msgid "Timepatch (Ajapaik)"
@@ -1899,7 +1895,6 @@ msgstr "Katkıda bulunanların liderlik sıralaması"
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
 msgstr[0] "Albümde %(counter)s tarihi fotoğraf mevcut,"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -1918,21 +1913,18 @@ msgstr "bu albümdeki tüm resimler."
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
 msgstr[0] "bu albümde %(counter)s resim."
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
 #, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
 msgstr[0] "%(counter)s kullanıcı yaptı"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
 #, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
 msgstr[0] "%(counter)s yeniden fotoğraflandırma"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
@@ -1940,14 +1932,12 @@ msgstr[1] ""
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
 msgstr[0] "albümdeki %(counter)s resmi için."
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:58
 #, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
 msgstr[0] "%(counter)s yeniden fotoğraf yaptınız"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1996,7 +1986,6 @@ msgstr "Kara liste"
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "Resim albüme ait"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:18
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
@@ -2008,7 +1997,6 @@ msgstr "Albüme ekle"
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
 msgstr[0] "Resim, şu koleksiyona aittir:"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2169,7 +2157,6 @@ msgstr "Sizin"
 msgid "curated <b>%(curated_pictures)s</b> picture"
 msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
 msgstr[0] "küratörlü <b>%(curated_pictures)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/user/_user_info.html:10
@@ -2177,7 +2164,6 @@ msgstr[1] ""
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
 msgstr[0] "<b>%(geotagged_pictures)s</b> resim için önerilen yer"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/user/_user_info.html:15
@@ -2185,7 +2171,6 @@ msgstr[1] ""
 msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
 msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
 msgstr[0] "<b>%(geotag_confirmations)s</b> resmi için doğrulanmış konum"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/user/_user_info.html:20
@@ -2193,7 +2178,6 @@ msgstr[1] ""
 msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
 msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
 msgstr[0] "için <b> <a href=\"%(link)s\">%(rephotos)s yeni fotorağflama</a></b> yaptı"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/user/_user_info.html:21
@@ -2201,7 +2185,6 @@ msgstr[1] ""
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
 msgstr[0] "<b>%(rephotographed_pictures)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/user/_user_info.html:26
@@ -2209,14 +2192,12 @@ msgstr[1] ""
 msgid "commented on <b>%(commented_pictures)s</b> picture"
 msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
 msgstr[0] "<b>%(commented_pictures)s</b> resmine yorum yaptı"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:34
 #, python-format
 msgid "specified a date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "<b>%(datings)s</b> resmi için bir tarih belirledi"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:39
 #: ajapaik/ajapaik/templates/user/_user_info.html:36
@@ -2224,7 +2205,6 @@ msgstr[1] ""
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
 msgstr[0] "açıklamalı <b>%(face_annotations)s</b> yüzü"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/user/_user_info.html:37
@@ -2232,7 +2212,6 @@ msgstr[1] ""
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
 msgstr[0] "<b>%(face_annotations_pictures)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
@@ -2240,21 +2219,18 @@ msgstr[1] ""
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
 msgstr[0] "açıklamalı <b>%(object_annotations)s</b> nesnesi"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
 msgstr[0] "<b>%(object_annotations_pictures)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
 msgid "transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] "<b>%(transcriptions)s</b> üzerine kopyalanan metin"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/user/_user_info.html:53
@@ -2262,7 +2238,6 @@ msgstr[1] ""
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
 msgstr[0] "bağlı <b>%(similar_pictures)s</b> benzer resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/user/_user_info.html:58
@@ -2270,7 +2245,6 @@ msgstr[1] ""
 msgid "favorited <b>%(photolikes)s</b> picture"
 msgid_plural "favorited <b>%(photolikes)s</b> pictures"
 msgstr[0] "beğenen <b>%(photolikes)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:66
 #: ajapaik/ajapaik/templates/user/_user_info.html:63
@@ -2278,14 +2252,12 @@ msgstr[1] ""
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
 msgstr[0] "kategorize edilmiş <b>%(photo_suggestions)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
 msgstr[0] "Toplamda <b>%(user_points)s puanınız</b> var"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
@@ -2312,28 +2284,24 @@ msgstr "Bu hesap hiçbir yere bağlanmadı"
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
 msgstr[0] "<b>%(datings)s</b> resmi için bir tarih belirledi"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
 msgstr[0] "<b>%(object_annotations)s</b> resim"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
 msgstr[0] "<b>%(transcriptions)s</b> görüntüsüne kopyalanan metin eklendi"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
 msgstr[0] "<b>%(user_points)s toplam puanı</b>"
-msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
