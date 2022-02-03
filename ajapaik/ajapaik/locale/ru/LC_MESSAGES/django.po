@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-24 12:00:29+0000\n"
+"PO-Revision-Date: 2022-02-03 12:00:17+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -320,11 +320,11 @@ msgstr "Выберите язык"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Хотели бы вы подписаться на рассылку?"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Я хочу загрузить свои переснимки на Викисклад"
 
 #: ajapaik/ajapaik/forms.py:517
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
@@ -332,7 +332,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:526
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Укажите предпочтительное отображаемое имя"
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
@@ -424,7 +424,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1867
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Подъем уровня точки обзора"
 
 #: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
@@ -835,11 +835,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
-msgstr ""
+msgstr "подтвержден"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "unverified"
-msgstr ""
+msgstr "не подтвержден"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "primary"
@@ -851,7 +851,7 @@ msgstr "Сделать основным"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:25
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Отправить данные верификации снова"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:26
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -865,7 +865,7 @@ msgstr "Предупреждение:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "Адрес электронной почты еще не установлен. Для получения уведомлений, сброса пароля и других действий необходимо добавить в аккаунт адрес электронной почты."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:40
 msgid "Add E-mail"
@@ -873,7 +873,7 @@ msgstr "Добавить адрес электронной почты"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:47
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Подтвердите удаление выбранного адреса электронной почты."
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
@@ -887,7 +887,7 @@ msgstr "Если у вас еще нет аккаунта, сначала <a hre
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Подтвердите выход из учетной записи."
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -964,7 +964,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "вы уже авторизованы как %(user_name)s"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
@@ -977,7 +977,7 @@ msgstr "Системная ошибка"
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:33
 msgid "Search for an existing album"
-msgstr ""
+msgstr "Поиск существующего альбома"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal_content.html:6
@@ -1004,7 +1004,7 @@ msgstr "Авторизуйтесь, чтобы оставить коммента
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы добавлять изображения в альбомы"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
@@ -1032,12 +1032,12 @@ msgstr "Войдите, чтобы сохранить выбор"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы импортировать фотографии из файла .csv"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "Свяжитесь с %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:39
 msgid "E-mail address"
@@ -1375,7 +1375,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Импортировать фото"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -1541,11 +1541,11 @@ msgstr "Номер счета получателя"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr ""
+msgstr "Ajapaik - некоммерческая краудсорсинговая платформа с открытым исходным кодом. За время существования проекта объем контента значительно возрос, также как и его техническая сложность. По количеству пользователей Ajapaik не уступает таким официальным репозиториям культурного наследия, как «Муис» (Muis), «Фотис» (Fotis) и др."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
-msgstr ""
+msgstr "На протяжении нескольких лет Ajapaik получал финансирование за счет государственных грантов. Однако постоянного источника финансирования, который позволил бы технически поддерживать платформу, совершенствовать пользовательский интерфейс и добавлять новые функции, у проекта нет."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:15
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."

@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-20 12:00:25+0000\n"
+"PO-Revision-Date: 2022-02-03 12:00:17+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2693,7 +2693,7 @@ msgstr "您的建議已更改"
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been saved"
-msgstr "您的建議已儲存"
+msgstr "已儲存您的建議"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"
