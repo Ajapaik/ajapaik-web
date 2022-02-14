@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-20 12:00:22+0000\n"
+"PO-Revision-Date: 2022-02-14 12:00:22+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1691,19 +1691,19 @@ msgstr "Afficher les images avec des faces arrières"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
-msgstr "Afficher les images des portraits"
+msgstr "Afficher les images au format portrait"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
-msgstr "Afficher les images carrées"
+msgstr "Afficher les images au format carré"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
-msgstr "Afficher les images en paysage"
+msgstr "Afficher les images au format paysage"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr "Afficher les images panoramiques"
+msgstr "Afficher les images au format panoramique"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
@@ -2009,8 +2009,8 @@ msgstr "Ajouter à l’album"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] "L’image appartient à la collection"
-msgstr[1] "L’image appartient aux collections :"
+msgstr[0] "L’image appartient à la collection :"
+msgstr[1] "L’image appartient aux collections :"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"

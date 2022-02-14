@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-02-03 12:00:17+0000\n"
+"PO-Revision-Date: 2022-02-14 12:00:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -177,7 +177,7 @@ msgstr "Пароль"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "Подтверждение пароля"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
 #: ajapaik/ajapaik/forms.py:209
@@ -336,7 +336,7 @@ msgstr "Укажите предпочтительное отображаемое
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
-msgstr "E-mail адрес"
+msgstr "Адрес электронной почты"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -364,7 +364,7 @@ msgstr "Пол"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Wikidata identifier"
-msgstr "Идентификатор Wikidata"
+msgstr "Идентификатор Викиданных"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
@@ -453,7 +453,7 @@ msgstr "Переснимок"
 
 #: ajapaik/ajapaik/models.py:1286
 msgid "Photo upload"
-msgstr "Закачать фото"
+msgstr "Загрузка фото"
 
 #: ajapaik/ajapaik/models.py:1287
 msgid "Photo curation"
@@ -831,7 +831,7 @@ msgstr "Cрок действия этой ссылки для подтвержд
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "С вашей учетной записью связаны следующие адреса электронной почты:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:18
 msgid "verified"
@@ -905,11 +905,11 @@ msgstr "Изменить пароль"
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:6
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "Сбросить пароль"
+msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:14
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr "Забыли свой пароль? Введите свой e-mail ниже, и мы отправим вам электронное письмо, позволяющее вам сбросить его."
+msgstr "Забыли пароль? Введите адрес электронной почты и мы отправим вам письмо с инструкциями по сбросу пароля."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:19
 msgid "Reset My Password"
@@ -921,7 +921,7 @@ msgstr "Если у вас возникли проблемы с восстано
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "Мы отправили вам электронное письмо. Пожалуйста, свяжитесь с нами, если вы не получили его в течение нескольких минут."
+msgstr "Мы отправили вам электронное письмо. Cвяжитесь с нами, если вы не получили его в течение нескольких минут."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -964,7 +964,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr "вы уже авторизованы как %(user_name)s"
+msgstr "вы уже вошли как %(user_name)s"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
@@ -1000,23 +1000,23 @@ msgstr "Войдите, чтобы сохранить ваш счет"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr "Авторизуйтесь, чтобы оставить комментарий"
+msgstr "Войдите, чтобы оставить комментарий"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr "Авторизуйтесь, чтобы добавлять изображения в альбомы"
+msgstr "Войдите, чтобы добавлять изображения в альбомы"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr "Авторизуйтесь, чтобы добавить дату для фотографии"
+msgstr "Войдите, чтобы добавить дату для фотографии"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr "Авторизуйтесь, чтобы добавить расшифровку текста на фотографии"
+msgstr "Войдите, чтобы добавить расшифровку текста с фотографии"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
-msgstr "Войдите, чтобы загрузить рефото"
+msgstr "Войдите, чтобы загрузить переснимок"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:19
 msgid "Log in to curate content"
@@ -1024,7 +1024,7 @@ msgstr "Войдите, чтобы курировать контент"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:21
 msgid "Log in to create still frames"
-msgstr "Войдите, чтобы создать неподвижные кадры"
+msgstr "Войдите, чтобы создавать стоп-кадры"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:23
 msgid "Log in to save selection"
@@ -1032,7 +1032,7 @@ msgstr "Войдите, чтобы сохранить выбор"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr "Авторизуйтесь, чтобы импортировать фотографии из файла .csv"
+msgstr "Войдите, чтобы импортировать фотографии из файла .csv"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1229,7 +1229,7 @@ msgstr "Рейтинг участников"
 #: ajapaik/ajapaik/templates/core/_header.html:107
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr "Вы авторизованы как"
+msgstr "Вы вошли как"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
@@ -1936,9 +1936,9 @@ msgstr "все изображения из этого альбома."
 #, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] "Изображение %(counter)s в этом альбоме."
-msgstr[1] "Фото %(counter)s в этом альбоме."
-msgstr[2] ""
+msgstr[0] "В этом альбоме %(counter)s изображение."
+msgstr[1] "В этом альбоме %(counter)s изображения."
+msgstr[2] "В этом альбоме %(counter)s изображений."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
 #, python-format
@@ -1952,9 +1952,9 @@ msgstr[2] ""
 #, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] "%(counter)s рефотограф"
-msgstr[1] "%(counter)s рефотографов"
-msgstr[2] ""
+msgstr[0] "%(counter)s переснимок"
+msgstr[1] "%(counter)s переснимка"
+msgstr[2] "%(counter)s переснимков"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
@@ -1969,9 +1969,9 @@ msgstr[2] ""
 #, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] "Вы сделали %(counter)s рефото"
-msgstr[1] "Вы сделали %(counter)s рефото"
-msgstr[2] ""
+msgstr[0] "Вы сделали %(counter)s переснимок"
+msgstr[1] "Вы сделали %(counter)s переснимка"
+msgstr[2] "Вы сделали %(counter)s переснимков"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
@@ -1983,16 +1983,16 @@ msgstr "Вернуться на карту"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr "Таблица лидеров недавней активности"
+msgstr "Рейтинг недавно активных участников"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr "Таблица лидеров альбома %(album_name)s"
+msgstr "Рейтинг участников альбома %(album_name)s"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:18
 msgid "All time leaderboard"
-msgstr "Лучшие игроки за все время"
+msgstr "Рейтинг участников за все время"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 #: ajapaik/ajapaik/templates/user/_user_picture.html:4
@@ -2019,8 +2019,8 @@ msgstr "В чёрном списке"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] "Изображение принадлежит к альбому"
-msgstr[1] "Изображение принадлежит к альбомам:"
+msgstr[0] "Изображение находится в альбоме"
+msgstr[1] "Изображение находится к альбомах:"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:18
@@ -2043,7 +2043,7 @@ msgstr "Примерный адрес"
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
 #: ajapaik/ajapaik/templates/photo/photoview.html:68
 msgid "See the other side of photo"
-msgstr "Посмотреть другую сторону фото"
+msgstr "Посмотреть оборотную сторону фото"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
@@ -2061,7 +2061,7 @@ msgstr "дубликат фото"
 
 #: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:38
 msgid "Date taken"
-msgstr "Дата фотографии"
+msgstr "Дата съёмки"
 
 #: ajapaik/ajapaik/templates/photo/photoview.html:29
 #: ajapaik/ajapaik/templates/photo/photoview.html:31
@@ -2102,7 +2102,7 @@ msgstr "Импорт из публичных коллекций"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr "Загрузить самому"
+msgstr "Загрузить самостоятельно"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
@@ -2116,7 +2116,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:99
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:51
 msgid "Upload"
-msgstr "Закачать"
+msgstr "Загрузить"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:26
 msgid "Select file..."
@@ -2140,7 +2140,7 @@ msgstr "Выбрать новый файл…"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:107
 msgid "File upload failed."
-msgstr "Закачка файла не удалась"
+msgstr "Загрузка файла не удалась"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
@@ -2168,7 +2168,7 @@ msgstr "Привязки к аккаунту"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr "Вы можете войти в свою учетную запись, используя любую из следующих сторонних учетных записей:"
+msgstr "Вы можете войти в аккаунт, используя любую из следующих сторонних учетных записей:"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:22
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
@@ -2605,7 +2605,7 @@ msgstr "Министерство культуры"
 
 #: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "Совет по национальному наследию Эстонии"
 
 #: ajapaik/ajapaik/views.py:3607
 msgid "Year of Digital Culture 2020"
@@ -2676,11 +2676,11 @@ msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr "Пожалуйста, укажите, какой пол и/или возраст выделенного лица"
+msgstr "Укажите пол и/или возраст выделенного человека"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr "Если Вы не уверены, какого пола и/или возраст человека, пожалуйста, нажмите"
+msgstr "Если вы не уверены, какого пола и/или возраста человека, нажмите"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -2725,7 +2725,7 @@ msgstr "В настоящее время указан пол"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
 msgid "Currently the age is"
-msgstr "В настоящее время возраст составляет"
+msgstr "В настоящее время указан возраст"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
