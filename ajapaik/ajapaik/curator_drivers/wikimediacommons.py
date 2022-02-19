@@ -7,10 +7,11 @@ from math import ceil
 from django.utils.html import strip_tags
 from requests import get
 
-from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik.curator_drivers.curator_utils import handle_existing_photos
+from ajapaik.ajapaik.models import Photo
 
 
-def wikimediacommons_find_photo_by_url(record_url, profile):
+def wikimediacommons_find_photo_by_url(record_url):
     photo = None
     filename = re.search(r'https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)', record_url, re.IGNORECASE)
     if filename:
@@ -144,11 +145,12 @@ class CommonsDriver(object):
                     author = ''
                     description = None
                     date = ''
+                    image_url = None
                     latitude = None
                     longitude = None
                     licence = ''
                     licence_desc = ''
-                    licenceUrl = ''
+                    licence_url = ''
                     record_url = ''
                     thumbnail_url = None
                     credit = ''
@@ -166,9 +168,9 @@ class CommonsDriver(object):
                         allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif']
                         if 'mime' in im and im['mime'] in allowed_mime_types:
                             if 'url' in im:
-                                imageUrl = im['url']
+                                image_url = im['url']
                         else:
-                            imageUrl = thumbnail_url.replace('-500px-', f'-{str(im["width"])}px-')
+                            image_url = thumbnail_url.replace('-500px-', f'-{str(im["width"])}px-')
 
                         if 'descriptionurl' in im:
                             record_url = im['descriptionurl']
@@ -190,7 +192,7 @@ class CommonsDriver(object):
                             if 'LicenseShortName' in em:
                                 licence = strip_tags(em['LicenseShortName']['value']).strip()
                             if 'LicenseUrl' in em:
-                                licenceUrl = strip_tags(em['LicenseUrl']['value']).strip()
+                                licence_url = strip_tags(em['LicenseUrl']['value']).strip()
                             if 'UsageTerms' in em:
                                 licence_desc = strip_tags(em['UsageTerms']['value']).strip()
                             if 'Credit' in em:
@@ -238,7 +240,7 @@ class CommonsDriver(object):
                             'cachedThumbnailUrl': thumbnail_url or None,
                             'title': title,
                             'institution': 'Wikimedia Commons',
-                            'imageUrl': imageUrl,
+                            'imageUrl': image_url,
                             'id': pageid,
                             'mediaId': pageid,
                             'identifyingNumber': pageid,
@@ -248,22 +250,14 @@ class CommonsDriver(object):
                             'creators': author,
                             'description': description,
                             'licence': licence_desc,
-                            'licenceUrl': licenceUrl,
+                            'licenceUrl': licence_url,
                             'date': date
                         }
                     except:  # noqa
                         continue
 
-                    if existing_photo:
-                        transformed_item['ajapaikId'] = existing_photo.id
-                        album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id',
-                                                                                                flat=True)
-                        transformed_item['albums'] = list(
-                            Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
-                                                                                                    'name').distinct())
-
-                    #                        print(transformed_item, file=sys.stderr)
-                    transformed['result']['firstRecordViews'].append(transformed_item)
+                    transformed['result']['firstRecordViews'].append(
+                        handle_existing_photos(existing_photo, transformed_item))
 
         print(nn, ' photos found')
         transformed = dumps(transformed)

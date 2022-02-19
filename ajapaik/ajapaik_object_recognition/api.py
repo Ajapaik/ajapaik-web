@@ -8,9 +8,7 @@ from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 
 
 class Annotation(AjapaikAPIView):
-    '''
-    API Endpoint to get annotation data
-    '''
+    # API Endpoint to get annotation data
 
     @staticmethod
     def get(request, annotation_id):
@@ -18,9 +16,9 @@ class Annotation(AjapaikAPIView):
         user_id = annotation.user_id or None
         user_name = Profile.objects.get(pk=user_id).get_display_name if user_id else None
         return JsonResponse(
-                {
-                    'id': annotation.id,
-                    'user_id': user_id,
-                    'user_name': user_name
-                }
-            )
+            {
+                'id': annotation.id,
+                'user_id': user_id,
+                'user_name': user_name
+            }
+        )

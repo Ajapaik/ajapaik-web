@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         '''
-            Get rephoto for given IDs and replace relation sensative data with
+            Get rephoto for given IDs and replace relation sensitive data with
             data from production DB. Then creates new rephoto in production DB
             with actual IDs.
         '''

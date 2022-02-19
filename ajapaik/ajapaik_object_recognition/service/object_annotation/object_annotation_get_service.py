@@ -1,9 +1,12 @@
+from typing import Optional
+
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Profile
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, \
-    FaceRecognitionRectangleSubjectDataSuggestion
+    FaceRecognitionRectangleSubjectDataSuggestion, FaceRecognitionRectangleFeedback
 from ajapaik.ajapaik_object_recognition import object_annotation_utils
 from ajapaik.ajapaik_object_recognition.domain.detection_rectangle import DetectionRectangle
-from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass
+from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation, ObjectAnnotationClass, \
+    ObjectAnnotationFeedback
 
 
 def get_object_annotation_classes():
@@ -51,7 +54,8 @@ def get_all_annotations(user_id, photo_id=None):
 
 
 def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotation, user_id: int):
-    previous_feedback = object_annotation.feedback.filter(user_id=user_id).order_by('-created_on').first()
+    previous_feedback: ObjectAnnotationFeedback = object_annotation.feedback.filter(user_id=user_id).order_by(
+        '-created_on').first()
     previous_feedback_object = previous_feedback.alternative_object if previous_feedback is not None else None
 
     alternative_object_id = previous_feedback_object.wiki_data_id if previous_feedback_object is not None else None
@@ -99,12 +103,14 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
         additional_data = FaceRecognitionRectangle.objects.filter(id=face_annotation.id).all().first()
     original_user_set_gender = additional_data.gender if additional_data is not None else None
     original_user_set_age = additional_data.age if additional_data is not None else None
-    gender_and_age = face_annotation.face_recognition_rectangle \
+    gender_and_age: FaceRecognitionRectangle = face_annotation.face_recognition_rectangle \
         .filter(proposer_id=user_id) \
         .first()
-    previous_user_feedback = face_annotation.feedback.filter(user_id=user_id).order_by('-created').first()
+    previous_user_feedback: FaceRecognitionRectangleFeedback = face_annotation.feedback.filter(
+        user_id=user_id).order_by('-created').first()
 
-    alternative_subject = previous_user_feedback.alternative_subject if previous_user_feedback is not None else None
+    alternative_subject: Optional[
+        Album] = previous_user_feedback.alternative_subject if previous_user_feedback is not None else None
 
     is_agreeing_on_age = gender_and_age is None or gender_and_age.age is None and original_user_set_age is not None
     is_agreeing_on_gender = not gender_and_age or not gender_and_age.gender and original_user_set_gender
@@ -142,8 +148,8 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
     })
 
 
-def map_person_album_to_rectangle(albumphoto: AlbumPhoto, user_id: int):
-    user = albumphoto.profile
+def map_person_album_to_rectangle(album_photo: AlbumPhoto, _):
+    user = album_photo.profile
 
     return DetectionRectangle({
         'id': None,
@@ -151,11 +157,11 @@ def map_person_album_to_rectangle(albumphoto: AlbumPhoto, user_id: int):
         'y1': None,
         'x2': None,
         'y2': None,
-        'subject_id': albumphoto.album_id,
-        'subject_name': albumphoto.album.name,
+        'subject_id': album_photo.album_id,
+        'subject_name': album_photo.album.name,
         'is_editable': False,
         'is_added_by_current_user': False,
-        'gender': object_annotation_utils.parse_gender_to_constant(albumphoto.album.gender),
+        'gender': object_annotation_utils.parse_gender_to_constant(album_photo.album.gender),
         'age': None,
         'has_user_given_feedback': False,
         'previous_feedback': {

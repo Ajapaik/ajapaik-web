@@ -8,16 +8,17 @@ from django.contrib.gis.geos import Point
 from django.core.files.base import ContentFile
 from requests import get
 
+from ajapaik.ajapaik.curator_drivers.curator_utils import handle_existing_photos
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 
 
-def finna_cut_title(title, shortTitle):
+def finna_cut_title(title, short_title):
     if title is None:
         return None
 
     title = title.rstrip()
-    if shortTitle and len(title) > 255:
-        title = shortTitle.rstrip()
+    if short_title and len(title) > 255:
+        title = short_title.rstrip()
     return title[:255]
 
 
@@ -68,10 +69,10 @@ def finna_find_photo_by_url(record_url, profile):
     return photo
 
 
-def finna_import_photo(id, profile):
+def finna_import_photo(photo_id, profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {
-        'id': id,
+        'id': photo_id,
         'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
                     'recordPage', 'year',
                     'summary', 'rawData'],
@@ -210,9 +211,9 @@ def finna_import_photo(id, profile):
 
         new_photo.save()
         new_photo.add_to_source_album()
-        id = int(new_photo.id)
+        photo_id = int(new_photo.id)
         photo = Photo.objects.filter(
-            pk=id
+            pk=photo_id
         ).first()
 
         return photo
@@ -332,12 +333,9 @@ class FinnaDriver(object):
                     'licence': licence,
                     'description': description2 or p.get('summary', None),
                 }
-                if existing_photo:
-                    transformed_item['ajapaikId'] = existing_photo.id
-                    album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
-                                                      .values_list('id', 'name').distinct())
-                transformed['result']['firstRecordViews'].append(transformed_item)
+
+                transformed['result']['firstRecordViews'].append(
+                    handle_existing_photos(existing_photo, transformed_item))
 
         transformed = dumps(transformed)
 

@@ -26,7 +26,7 @@ class AlbumDetailsSerializer(serializers.ModelSerializer):
     def get_stats(self, instance):
         return {
             'rephotos': instance.rephotos_count,
-            # Currently rephotos don't belong to original photo album.
+            # Currently, rephotos don't belong to original photo album.
             'total': instance.photos_count + instance.rephotos_count
         }
 
@@ -45,7 +45,7 @@ class AlbumSerializer(serializers.ModelSerializer):
     title = serializers.CharField(source='name')
     photos = serializers.SerializerMethodField()
 
-    def get_photos(self, instance):
+    def get_photos(self):
         request = self.context['request']
         user_profile = request.user.profile if request.user.is_authenticated else None
 

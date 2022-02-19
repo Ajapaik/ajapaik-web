@@ -1,36 +1,36 @@
-import itertools
-import requests
-import json
-import roman
-
-from django.conf import settings
 import datetime
+import itertools
+import json
+
+import requests
+import roman
+from django.conf import settings
 
 from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto
 
 century_suffixes = [
-        'saj x',
-        ' saj x',
-        '.saj x',
-        ' .saj x',
-        '.saj. x',
-        '. saj.x',
-        '. saj. x',
-        ' .saj. x',
-        'saj.x',
-        'saj. x',
-        ' saj.x',
-        ' saj. x',
-        'sajandi x',
-        ' sajandi x',
-        '.sajandi x',
-        ' .sajandi x'
-    ]
+    'saj x',
+    ' saj x',
+    '.saj x',
+    ' .saj x',
+    '.saj. x',
+    '. saj.x',
+    '. saj. x',
+    ' .saj. x',
+    'saj.x',
+    'saj. x',
+    ' saj.x',
+    ' saj. x',
+    'sajandi x',
+    ' sajandi x',
+    '.sajandi x',
+    ' .sajandi x'
+]
 
 start_of_century_suffixes = [x.replace('x', 'algus') for x in century_suffixes]
 end_of_century_suffixes = [x.replace('x', 'lõpp') for x in century_suffixes]
-starts_of_century = [b+a for a in start_of_century_suffixes for b in map(str, list(range(1, 21)))]
-ends_of_century = [b+a for a in end_of_century_suffixes for b in map(str, list(range(1, 21)))]
+starts_of_century = [b + a for a in start_of_century_suffixes for b in map(str, list(range(1, 21)))]
+ends_of_century = [b + a for a in end_of_century_suffixes for b in map(str, list(range(1, 21)))]
 
 
 def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date):
@@ -67,16 +67,16 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
             date = f'umbes.{date}'
     date = date.strip().strip('.').strip().strip('.')
     irregular_decade_suffixes = [
-            '-ndad aastad', "'ndad", '-ndad a', '.dad', '. aastad', ' aastad', 'ndad', '-dad', 'a-d'
-        ]
+        '-ndad aastad', "'ndad", '-ndad a', '.dad', '. aastad', ' aastad', 'ndad', '-dad', 'a-d'
+    ]
     for suffix in irregular_decade_suffixes:
         if date.endswith(suffix):
             date = date.replace(suffix, '.aastad')
             break
 
     irregular_approximate_date_prefixes = [
-            'u. ', 'u.', 'u ', 'ca. ', 'ca.', 'ca ', 'ca', 'arvatavasti. ', 'arvatavasti.', 'arvatavasti'
-        ]
+        'u. ', 'u.', 'u ', 'ca. ', 'ca.', 'ca ', 'ca', 'arvatavasti. ', 'arvatavasti.', 'arvatavasti'
+    ]
     for prefix in irregular_approximate_date_prefixes:
         if date.startswith(prefix):
             date = date.replace(prefix, 'umbes.', 1)
@@ -238,10 +238,10 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
         if description_type in muis_description_field_pairs:
             if description_type == 'sisu kirjeldus':
                 photo = reset_modeltranslated_field(
-                        photo,
-                        muis_description_field_pairs[description_type],
-                        description_text
-                    )
+                    photo,
+                    muis_description_field_pairs[description_type],
+                    description_text
+                )
                 photo.description_original_language = None
             elif description_type == 'dateering':
                 dating = description_text
@@ -265,13 +265,13 @@ def reset_modeltranslated_field(photo, attribute_name, attribute_value):
 
 
 def extract_dating_from_event(
-            events,
-            location,
-            creation_date_earliest,
-            creation_date_latest,
-            skip_dating,
-            ns
-        ):
+        events,
+        locations,
+        creation_date_earliest,
+        creation_date_latest,
+        skip_dating,
+        ns
+):
     duplicate_event_type = 'kopeerimine (valmistamine)'
     creation_event_types = ['valmistamine', '<valmistamine/tekkimine>', 'pildistamine', 'sõjandus ja kaitse', 'sõjad']
     date_prefix_earliest = None
@@ -295,27 +295,31 @@ def extract_dating_from_event(
                 if earliest_date is not None and earliest_date.text is not None:
                     creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix, \
                         = get_muis_date_and_prefix(
-                            earliest_date.text, False
-                        )
+                        earliest_date.text, False
+                    )
 
                 if latest_date is not None and latest_date.text is not None:
                     creation_date_latest, date_prefix_latest, latest_had_decade_suffix, \
                         = get_muis_date_and_prefix(
-                            latest_date.text, True
-                        )
+                        latest_date.text, True
+                    )
 
             places = event.findall('lido:eventPlace/lido:place', ns)
             if places is not None:
                 new_location = []
                 for place in places:
                     entity_type = place.attrib['{' + ns['lido'] + '}politicalEntity']
+
                     if entity_type is None:
                         entity_type = place.attrib['{' + ns['lido'] + '}geographicalEntity']
+
                     place_appelation_value = place.find('lido:namePlaceSet/lido:appellationValue', ns)
+
                     if place_appelation_value is not None:
                         new_location.append((place_appelation_value.text, entity_type))
 
                     child = place.find('lido:partOfPlace', ns)
+
                     while child is not None:
                         entity_type = child.attrib['{' + ns['lido'] + '}politicalEntity']
                         if entity_type is None:
@@ -324,10 +328,11 @@ def extract_dating_from_event(
                         if place_appelation_value is not None:
                             new_location.append((place_appelation_value.text, entity_type))
                         child = child.find('lido:partOfPlace', ns)
-                if new_location != []:
-                    location.append(new_location)
-    return location, creation_date_earliest, creation_date_latest, date_prefix_earliest, date_prefix_latest, \
-        earliest_had_decade_suffix, latest_had_decade_suffix
+
+                if new_location:
+                    locations.append(new_location)
+    return locations, creation_date_earliest, creation_date_latest, date_prefix_earliest, date_prefix_latest, \
+           earliest_had_decade_suffix, latest_had_decade_suffix
 
 
 def add_person_albums(actors, person_album_ids, ns):
@@ -417,9 +422,12 @@ def get_muis_date_and_prefix(date, is_later_date):
     return date, date_prefix, had_decade_suffix
 
 
-def add_geotag_from_address_to_photo(photo, locations):
+def add_geotag_from_address_to_photo(photo: Photo, locations: list[tuple[str, str]]):
     locations.sort()
     locations = list(locations for locations, _ in itertools.groupby(locations))
+    lat = None
+    lon = None
+
     for location in locations:
         search_string = ''
         parent_location_object = None
@@ -451,12 +459,12 @@ def add_geotag_from_address_to_photo(photo, locations):
         address = location_object.google_reverse_geocode.response.get('results')[0].get('formatted_address')
     else:
         google_geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?' \
-            f'address={search_string}' \
-            f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
+                             f'address={search_string}' \
+                             f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
         google_response_json = requests.get(google_geocode_url).text
         google_response_parsed = json.loads(google_response_json)
         status = google_response_parsed.get('status', None)
-        lat_lng = None
+
         if status == 'OK':
             # Google was able to answer some geolocation for this description
             address = google_response_parsed.get('results')[0].get('formatted_address')
@@ -518,8 +526,8 @@ def raw_date_to_date(raw_date):
     return date
 
 
-def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest, date_prefix_latest, Dating,
-                        date_earliest_has_suffix, date_latest_has_suffix):
+def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest, date_prefix_latest, dating_class,
+                        date_latest_has_suffix):
     if latest_date is None and earliest_date is None:
         return photo
 
@@ -530,7 +538,7 @@ def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest,
     before_date_prefix = 'enne'
     after_date_prefix = 'pärast'
     approximate_date_prefixes = ['ligikaudu', 'arvatav aeg', 'umbes']
-    dating = Dating(photo=photo)
+    dating = dating_class(photo=photo)
     if date_latest_has_suffix:
         latest_date = str(int(latest_date) + 10)
 
@@ -567,7 +575,7 @@ def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest,
         dating.end = raw_date_to_date(latest_date)
 
     dating.save()
-    dating = Dating.objects.filter(id=dating.id).first()
+    dating = dating_class.objects.filter(id=dating.id).first()
     photo.dating_count = 1
     if photo.dating_count < 1:
         photo.first_dating = dating.created

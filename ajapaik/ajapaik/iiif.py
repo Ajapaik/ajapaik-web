@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
+
 from ajapaik.ajapaik.models import Photo
 from ajapaik.utils import calculate_thumbnail_size
 
@@ -10,14 +11,14 @@ def remove_prefix(text, prefix):
     return text
 
 
-def photo_info(request, photo_id=None, pseudo_slug=None):
+def photo_info(request, photo_id=None):
     p = get_object_or_404(Photo, id=photo_id)
     iiif_image_url = request.build_absolute_uri(
         f'/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), "uploads/")}.tif/info.json')
     return redirect(iiif_image_url)
 
 
-def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
+def photo_manifest_v2(request, photo_id=None):
     lang_code = request.LANGUAGE_CODE
     p = get_object_or_404(Photo, id=photo_id)
 
@@ -38,24 +39,24 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         f'/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), "uploads/")}.tif')
 
     content = {
-        '@context':  'http://iiif.io/api/presentation/2/context.json',
+        '@context': 'https://iiif.io/api/presentation/2/context.json',
         '@id': request.build_absolute_uri(f'/photo/{str(photo_id)}/v2/manifest.json'),
         '@type': 'sc:Manifest',
         'label': multilang_string_v2(title, lang_code),
         'description': multilang_string_v2(title, lang_code),
         'attribution': source_text,
         'rendering': {
-             '@id': request.build_absolute_uri(f'/photo/{str(photo_id)}'),
-             'format': 'text/html',
-             'label': 'Full record view'
-         },
+            '@id': request.build_absolute_uri(f'/photo/{str(photo_id)}'),
+            'format': 'text/html',
+            'label': 'Full record view'
+        },
         'thumbnail': {
-             '@id': request.build_absolute_uri(f'/photo-thumb/{str(photo_id)}/400/'),
-             '@type': 'dctypes:Image',
-             'format': 'image/jpeg',
-             'width': thumb_width,
-             'height': thumb_height,
-         }
+            '@id': request.build_absolute_uri(f'/photo-thumb/{str(photo_id)}/400/'),
+            '@type': 'dctypes:Image',
+            'format': 'image/jpeg',
+            'width': thumb_width,
+            'height': thumb_height,
+        }
     }
 
     metadata = []
@@ -90,7 +91,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             'value': str(phash),
             'description': 'Perceptual hash (phash) checksum calculated using ImageHash library \
                             https://pypi.org/project/ImageHash/'
-            })
+        })
 
     attribution_text = _render_attribution(source_text, p.author, p.date_text, licence_text)
     canvases.append(_get_v2_canvas(request, photo_id, title, lang_code, iiif_image_url, p.width, p.height,
@@ -108,12 +109,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             rephoto_source_text = f'Ajapaik.ee: <a href="{rephoto_uri}">{str(rephoto.id)}</a>'
 
         # Some author name for the rephotos
-        if rephoto.author:
-            rephoto_author = rephoto.author
-        elif rephoto.user:
-            rephoto_author = rephoto.user.get_display_name
-        else:
-            rephoto_author = 'Unknown'
+        rephoto_author = rephoto.author or rephoto.user and rephoto.user.get_display_name or 'Unknown'
 
         rephoto_attribution_text = _render_attribution(
             rephoto_source_text,
@@ -145,9 +141,9 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     content['metadata'] = metadata
     content['sequences'] = [{
-            '@id': request.build_absolute_uri(f'/photo/{photo_id}/sequence/normal.json'),
-            '@type': 'sc:Sequence',
-            'canvases': canvases
+        '@id': request.build_absolute_uri(f'/photo/{photo_id}/sequence/normal.json'),
+        '@type': 'sc:Sequence',
+        'canvases': canvases
     }]
 
     response = JsonResponse(content, content_type='application/json')
@@ -158,6 +154,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     return response
 
+
 ########################################################################
 # Helper functions
 #
@@ -165,47 +162,46 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
 def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, height,
                    canvas_name, source_text, licence_url, thumbnail):
-
     thumb_width, thumb_height = calculate_thumbnail_size(thumbnail.width, thumbnail.height, 400)
 
     photo_id = str(photo_id)
     canvas_id = request.build_absolute_uri(f'/photo/{photo_id}/canvas/{canvas_name}')
     canvas = {
-                '@id': canvas_id,
-                '@type': 'sc:Canvas',
-                'label': multilang_string_v2(label, lang_code),
-                'width': width,
-                'height': height,
-                'thumbnail': {
-                    '@id': request.build_absolute_uri(f'/photo-thumb/{str(thumbnail.id)}/400/'),
-                    '@type': 'dctypes:Image',
-                    'format': 'image/jpeg',
-                    'width': thumb_width,
-                    'height': thumb_height,
-                },
-                'images': [
+        '@id': canvas_id,
+        '@type': 'sc:Canvas',
+        'label': multilang_string_v2(label, lang_code),
+        'width': width,
+        'height': height,
+        'thumbnail': {
+            '@id': request.build_absolute_uri(f'/photo-thumb/{str(thumbnail.id)}/400/'),
+            '@type': 'dctypes:Image',
+            'format': 'image/jpeg',
+            'width': thumb_width,
+            'height': thumb_height,
+        },
+        'images': [
+            {
+                '@id': request.build_absolute_uri(f'/photo/{photo_id}/annotation/{canvas_name}'),
+                '@type': 'oa:Annotation',
+                'motivation': 'sc:painting',
+                'on': canvas_id,
+                'resource':
                     {
-                        '@id': request.build_absolute_uri(f'/photo/{photo_id}/annotation/{canvas_name}'),
-                        '@type': 'oa:Annotation',
-                        'motivation': 'sc:painting',
-                        'on': canvas_id,
-                        'resource':
+                        '@id': f'{iiif_image_url}/full/max/0/default.jpg',
+                        '@type': 'dctypes:Image',
+                        'format': 'image/jpeg',
+                        'service':
                             {
-                                    '@id': f'{iiif_image_url}/full/max/0/default.jpg',
-                                    '@type': 'dctypes:Image',
-                                    'format': 'image/jpeg',
-                                    'service':
-                                              {
-                                                '@id': iiif_image_url,
-                                                '@context': 'http://iiif.io/api/image/2/context.json',
-                                                'profile': 'http://iiif.io/api/image/2/level1.json'
-                                              },
-                                    'height': width,
-                                    'width': height
-                            }
+                                '@id': iiif_image_url,
+                                '@context': 'https://iiif.io/api/image/2/context.json',
+                                'profile': 'https://iiif.io/api/image/2/level1.json'
+                            },
+                        'height': width,
+                        'width': height
                     }
-                ]
             }
+        ]
+    }
     if source_text:
         canvas['attribution'] = source_text
 

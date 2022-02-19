@@ -2,7 +2,8 @@ from json import dumps, loads
 
 from requests import get
 
-from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik.curator_drivers.curator_utils import handle_existing_photos
+from ajapaik.ajapaik.models import Photo
 
 
 def safe_list_get(my_list, idx, default):
@@ -65,12 +66,9 @@ class FotisDriver(object):
                     'urlToRecord': p['_links']['view']['href'],
                     'creators': p['author']
                 }
-                if existing_photo:
-                    transformed_item['ajapaikId'] = existing_photo.id
-                    album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
-                                                      .values_list('id', 'name').distinct())
-                transformed['result']['firstRecordViews'].append(transformed_item)
+
+                transformed['result']['firstRecordViews'].append(
+                    handle_existing_photos(existing_photo, transformed_item))
         transformed = dumps(transformed)
 
         return transformed

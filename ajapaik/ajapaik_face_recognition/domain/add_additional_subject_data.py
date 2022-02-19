@@ -6,8 +6,8 @@ class AddAdditionalSubjectData:
     age = None
     subject_annotation_rectangle_id = None
 
-    def __init__(self, subject_rectangle_id: int, age: int, gender: int, newSubjectId: Optional[int] = None):
+    def __init__(self, subject_rectangle_id: int, age: int, gender: int, new_subject_id: Optional[int] = None):
         self.subject_annotation_rectangle_id = subject_rectangle_id
         self.age = age
         self.gender = gender
-        self.newSubjectId = newSubjectId
+        self.newSubjectId = new_subject_id

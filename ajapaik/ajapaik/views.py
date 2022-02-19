@@ -97,7 +97,7 @@ log = logging.getLogger(__name__)
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
-def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
+def image_thumb(request, photo_id=None, thumb_size=250):
     thumb_size = int(thumb_size)
     if 0 < thumb_size <= 400:
         thumb_size = 400
@@ -277,8 +277,8 @@ def _get_exif_data(img):
 
 
 def _extract_and_save_data_from_exif(photo_with_exif):
-    img = Image.open(f'{settings.MEDIA_ROOT}/{str(photo_with_exif.image)}')
-    exif_data = _get_exif_data(img)
+    img: Image = Image.open(f'{settings.MEDIA_ROOT}/{str(photo_with_exif.image)}')
+    exif_data = img.getexif()
     if exif_data:
         if 'GPSInfo.GPSLatitudeRef' in exif_data and 'GPSInfo.GPSLatitude' in exif_data and 'GPSInfo.GPSLongitudeRef' \
                 in exif_data and 'GPSInfo.GPSLongitude' in exif_data:
@@ -338,7 +338,7 @@ def _extract_and_save_data_from_exif(photo_with_exif):
 
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
-    if qs != None and qs.exists():
+    if qs:
         albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
     else:
         albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
@@ -562,7 +562,7 @@ def game(request):
     album = None
     area = None
     context = {
-        'albums': _get_album_choices(None, 0, 1)  # Where this is used? Ie. is albums variable used at all
+        'albums': _get_album_choices(None, 0, 1)  # Where this is used? i.e. is albums variable used at all
     }
 
     if game_photo_selection_form.is_valid():
@@ -1233,6 +1233,10 @@ def upload_photo_selection(request):
             for pid in photo_ids:
                 try:
                     p = Photo.objects.get(pk=pid)
+
+                    if a.cover_photo is None and p is not None:
+                        a.cover_photo = p
+
                     existing_link = AlbumPhoto.objects.filter(album=a, photo_id=pid).first()
                     if not existing_link:
                         album_photos.append(
@@ -1247,8 +1251,6 @@ def upload_photo_selection(request):
                                    created=timezone.now()))
                 except:  # noqa
                     pass
-                if a.cover_photo is None and p is not None:
-                    a.cover_photo = p
 
         AlbumPhoto.objects.bulk_create(album_photos)
         Points.objects.bulk_create(points)
@@ -3005,12 +3007,11 @@ def upload_photo_to_wikimedia_commons(request, path):
         social_account = SocialAccount.objects.filter(user=request.user).first()
         social_token = SocialToken.objects.filter(account=social_account, expires_at__gt=datetime.date.today()).last()
     if social_token:
-        S = requests.Session()
-        URL = "https://commons.wikimedia.org/w/api.php"
-        FILE_PATH = path
+        session = requests.Session()
+        wikimedia_api_url = "https://commons.wikimedia.org/w/api.php"
 
         # Step 1: Retrieve a login token
-        PARAMS_1 = {
+        params_1 = {
             "action": "query",
             "meta": "tokens",
             "type": "login",
@@ -3021,53 +3022,53 @@ def upload_photo_to_wikimedia_commons(request, path):
             "Authentication": "Bearer " + social_token.token
         }
 
-        R = S.get(url=URL, params=PARAMS_1, headers=headers)
-        DATA = R.json()
-        print(DATA)
+        request = session.get(url=wikimedia_api_url, params=params_1, headers=headers)
+        data = request.json()
+        print(data)
 
-        LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
+        login_token = data["query"]["tokens"]["logintoken"]
 
         # Step 2: Send a post request to login. Use of main account for login is not
         # supported. Obtain credentials via Special:BotPasswords
         # (https://www.mediawiki.org/wiki/Special:BotPasswords) for lgname & lgpassword
-        PARAMS_2 = {
+        params_2 = {
             "action": "login",
             "format": "json",
-            "lgtoken": LOGIN_TOKEN
+            "lgtoken": login_token
         }
 
-        R = S.post(URL, data=PARAMS_2, headers=headers)
-        DATA = R.json()
-        print(DATA)
+        request = session.post(wikimedia_api_url, data=params_2, headers=headers)
+        data = request.json()
+        print(data)
 
         # Step 3: Obtain a CSRF token
-        PARAMS_3 = {
+        params_3 = {
             "action": "query",
             "meta": "tokens",
             "format": "json"
         }
 
-        R = S.get(url=URL, params=PARAMS_3, headers=headers)
+        request = session.get(url=wikimedia_api_url, params=params_3, headers=headers)
 
-        DATA = R.json()
-        print(DATA)
+        data = request.json()
+        print(data)
 
-        CSRF_TOKEN = DATA["query"]["tokens"]["csrftoken"]
+        csrf_token = data["query"]["tokens"]["csrftoken"]
 
         # Step 4: Post request to upload a file directly
-        PARAMS_4 = {
+        params_4 = {
             "action": "upload",
             "filename": "file_1.jpg",
             "format": "json",
-            "token": CSRF_TOKEN,
+            "token": csrf_token,
             "ignorewarnings": 1
         }
 
-        FILE = {'file': ('file_1.jpg', open(FILE_PATH, 'rb'), 'multipart/form-data')}
+        file = {'file': ('file_1.jpg', open(path, 'rb'), 'multipart/form-data')}
 
-        R = S.post(URL, files=FILE, data=PARAMS_4)
-        DATA = R.json()
-        print(DATA)
+        request = session.post(wikimedia_api_url, files=file, data=params_4)
+        data = request.json()
+        print(data)
 
 
 def rephoto_upload_settings_modal(request):
@@ -3124,7 +3125,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
         second_photo = similar_photos.filter(from_photo=photo_obj2).first()
     if first_photo is not None:
         next_pair = first_photo
-    elif (second_photo is not None):
+    elif second_photo is not None:
         next_pair = second_photo
     else:
         if compare_all is True:
@@ -3378,7 +3379,8 @@ def user(request, user_id):
                    curated_pictures_qs.count() + geotags_qs.count() + \
                    rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
                    similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
-                   photolikes_qs.count() + photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count()
+                   photolikes_qs.count() + photo_scene_suggestions_qs.count() + \
+                   photo_viewpoint_elevation_suggestions_qs.count()
 
     user_points = 0
     for point in profile.points.all():
@@ -3503,7 +3505,7 @@ def user_settings(request):
 
 def profile_change_display_name(request):
     form = None
-    if (hasattr(request.user, 'profile')):
+    if hasattr(request.user, 'profile'):
         form = ChangeDisplayNameForm(data={
             'display_name': request.user.profile.display_name
         })
@@ -3517,7 +3519,7 @@ def profile_change_display_name(request):
 def merge_accounts(request):
     context = {}
     token = request.GET.get('token')
-    if (hasattr(request.user, 'profile')):
+    if hasattr(request.user, 'profile'):
         context['profile'] = request.user.profile
     if token is None:
         if 'profile' in context and request.user.profile.is_legit():
@@ -3557,7 +3559,7 @@ def geotaggers_modal(request, photo_id):
             'user').prefetch_related('user')
     geotags = sorted(geotags, key=operator.attrgetter('created'), reverse=True)
     geotaggers = []
-    if (len(geotags) < 1):
+    if len(geotags) < 1:
         return HttpResponse('No geotags found for image', status=404)
     for geotag in geotags:
         if geotag.user is None:
@@ -3574,9 +3576,9 @@ def geotaggers_modal(request, photo_id):
     return render(request, 'geotaggers/_geotaggers_modal_content.html', context)
 
 
-def supporters(request, year=None):
+def supporters(request):
     context = {}
-    supporters = {
+    supporter_organizations = {
         'Kulka': {
             'alternate_text': _('KulKa logo'),
             'url': 'https://www.kulka.ee/et' if request.LANGUAGE_CODE == 'et' else 'https://www.kulka.ee/en',
@@ -3628,30 +3630,28 @@ def supporters(request, year=None):
 
     }
     current_supporters = [
-        supporters['Wikimedia Finland'],
-        supporters['Republic of Estonia National Heritage Board'],
-        supporters['Kulka'],
-        supporters['Year of Digital Culture 2020']
+        supporter_organizations['Wikimedia Finland'],
+        supporter_organizations['Republic of Estonia National Heritage Board'],
+        supporter_organizations['Kulka'],
+        supporter_organizations['Year of Digital Culture 2020']
     ]
 
     previous_supporters = [
-        supporters['Kulka'],
-        supporters['Ministry of Culture'],
-        supporters['EV100'],
-        supporters['Ministry of Education'],
-        supporters['National Foundation of Civil Society']
+        supporter_organizations['Kulka'],
+        supporter_organizations['Ministry of Culture'],
+        supporter_organizations['EV100'],
+        supporter_organizations['Ministry of Education'],
+        supporter_organizations['National Foundation of Civil Society']
     ]
-
-    supporters = Supporter.objects.all()
 
     context['current_supporters'] = current_supporters
     context['previous_supporters'] = previous_supporters
-    context['supporters'] = supporters
+    context['supporters'] = Supporter.objects.all()
 
     return render(request, 'donate/supporters.html', context)
 
 
-def redirect_view(request, photo_id=-1, thumb_size=-1, pseudo_slug=""):
+def redirect_view(request):
     path = request.path
 
     if path.find('/ajapaikaja/') == 0:

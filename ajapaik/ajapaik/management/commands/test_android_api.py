@@ -134,7 +134,7 @@ class Command(BaseCommand):
             else:
                 contents = session.get(url).text
 
-            if (re.search(expected_result, contents)):
+            if re.search(expected_result, contents):
                 status = 'OK'
             else:
                 status = 'ERROR'
@@ -149,9 +149,9 @@ class Command(BaseCommand):
         print(status, '\t', url, '\t', round(endtime - starttime, 6), )
         return session
 
-    def randomString(self, stringLength=10):
+    def random_string(self, string_length=10):
         letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(stringLength))
+        return ''.join(random.choice(letters) for i in range(string_length))
 
     # create user
     def test_register(self, username, password, firstname, lastname, expected_result):
@@ -187,7 +187,6 @@ class Command(BaseCommand):
         for t in self.tests:
             url = t['url'].replace('^', self.baseurl)
             starttime = time.time()
-            status = ''
             session = requests.Session()
             if username and password:
                 session.auth = (username, password)
@@ -195,7 +194,7 @@ class Command(BaseCommand):
             try:
                 contents = session.get(url).text
 
-                if (re.search(t['result'], contents)):
+                if re.search(t['result'], contents):
                     status = 'OK'
                 else:
                     status = 'ERROR'
@@ -213,13 +212,13 @@ class Command(BaseCommand):
         if options["baseurl"]:
             self.baseurl = options["baseurl"]
 
-        randomname = self.randomString(10)
+        randomname = self.random_string(10)
         username = f'{randomname}-ajapaik-test@gmail.com'
-        password = self.randomString(16)
+        password = self.random_string(16)
         firstname = f'first {randomname}'
         lastname = f'last {randomname}'
 
-        session = self.test_register(username, password, firstname, lastname, '{"error":0')
+        self.test_register(username, password, firstname, lastname, '{"error":0')
 
         print('\ntesting username/password login')
         self.test_logout('{"error":2')

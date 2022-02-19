@@ -125,8 +125,8 @@ urlpatterns = [
 urlpatterns += [
     url(r'^api/v1/login/$', api.Login.as_view()),
     url(r'^api/v1/register/$', api.Register.as_view(), name='api_register'),
-    url(r'^api/v1/logout/$', api.api_logout.as_view(), name='api_logout'),
-    url(r'^api/v1/user/me/$', api.api_user_me.as_view()),
+    url(r'^api/v1/logout/$', api.APILogout.as_view(), name='APILogout'),
+    url(r'^api/v1/user/me/$', api.APIUserMe.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/$', api.AlbumNearestPhotos.as_view()),
     url(r'^api/v1/album/(?P<album_id>\d+)/information/$', api.AlbumInformation.as_view(), name='api_album_information'),
     url(
@@ -213,8 +213,6 @@ urlpatterns += [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(packages=['ajapaik.ajapaik'], domain='djangojs'),
         name='javascript-catalog'),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
-    url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True),
-        name='feed'),
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),

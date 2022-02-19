@@ -341,7 +341,7 @@ class ApiPhotoUploadForm(forms.Form):
     accuracy = forms.FloatField(min_value=0, required=False)
     age = forms.FloatField(min_value=0, required=False)
 
-    # We expecting here a date but in model we have datetime field. So to do
+    # We are expecting a date here but in model we have datetime field. So to do
     # less work we define here DateTimeField.
     date = forms.DateTimeField(input_formats=['%d-%m-%Y'])
     scale = forms.FloatField()

@@ -2,6 +2,7 @@ import pytest
 import responses
 
 from ajapaik.ajapaik.models import Photo, Album
+from ajapaik.ajapaik.utils import fill_untranslated_fields
 
 
 @pytest.mark.django_db
@@ -18,7 +19,7 @@ def test_photos_tartunlp_translation():
     # Make sure _fi isn't overridden - et is picked as the source because it is at the start of TARTUNLP_LANGUAGES
     test_instance = Photo(description_et='Estonia teatrimaja, vaade Estonia puiesteelt',
                           description_fi='Viro teatrimaja, vaade Viro puiesteelt')
-    test_instance.fill_untranslated_fields()
+    test_instance = fill_untranslated_fields(test_instance, 'description')
 
     assert 'teatrimaja' in getattr(test_instance, 'description_et')
     assert 'Igaunijas' in getattr(test_instance, 'description_lv')
@@ -44,7 +45,7 @@ def test_albums_tartunlp_translation():
 
     test_instance = Album(name_et='Stereofotosid Pariisist (Prantsusmaa)',
                           name_de='Stereophotos aus Paris (Frankreich)', atype=Album.CURATED)
-    test_instance.fill_untranslated_fields()
+    test_instance = fill_untranslated_fields(test_instance, 'name')
 
     assert 'Pariisist' in getattr(test_instance, 'name_et')
     assert 'Parīzes' in getattr(test_instance, 'name_lv')

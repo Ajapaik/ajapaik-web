@@ -1,4 +1,5 @@
 from __future__ import (absolute_import, division, print_function)
+
 from typing import List
 
 import numpy
@@ -12,16 +13,16 @@ class ImageHash(object):
         self.hash = binary_array
 
 
-def binaryhash_to_signed_integer(hash: List[bool]) -> int:
+def binary_hash_to_signed_integer(b_hash: List[bool]) -> int:
     result = ""
-    for i in hash:
+    for i in b_hash:
         if i:
             result += '1'
         else:
             result += '0'
-    if (result[0] == '1'):
+    if result[0] == '1':
         temp = result[1:].replace('1', '2').replace('0', '1').replace('2', '0')
-        return (-1 * int(temp, base=2) - 1)
+        return -1 * int(temp, base=2) - 1
     return int(result, base=2)
 
 
@@ -38,4 +39,4 @@ def phash(image: Image, hash_size: int = 8, highfreq_factor: int = 4) -> int:
     diff = dctlowfreq > med
     result = ImageHash(diff)
 
-    return binaryhash_to_signed_integer(result.hash.flatten())
+    return binary_hash_to_signed_integer(result.hash.flatten())

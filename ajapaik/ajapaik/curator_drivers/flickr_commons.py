@@ -3,7 +3,8 @@ from json import dumps
 import flickrapi
 from django.conf import settings
 
-from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik.curator_drivers.curator_utils import handle_existing_photos
+from ajapaik.ajapaik.models import Photo
 
 
 class FlickrCommonsDriver(object):
@@ -46,13 +47,8 @@ class FlickrCommonsDriver(object):
                     'latitude': p['latitude'],
                     'longitude': p['longitude']
                 }
-                if existing_photo:
-                    transformed_item['ajapaikId'] = existing_photo.id
-                    album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                    transformed_item['albums'] = list(
-                        Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
-                                                                                                'name').distinct())
-                transformed['result']['firstRecordViews'].append(transformed_item)
+                transformed['result']['firstRecordViews'].append(
+                    handle_existing_photos(existing_photo, transformed_item))
 
         transformed = dumps(transformed)
 

@@ -75,7 +75,7 @@ class ValimimoodulDriver(object):
                     current_id = each['imageUrl'].split('=')[-1]
                     each['imageUrl'] = f'{settings.MEDIA_URL}uploads/DIGAR_{current_id}_1.jpg'
                     each['identifyingNumber'] = current_id
-                    each['urlToRecord'] = f'http://www.digar.ee/id/nlib-digar:{current_id}'
+                    each['urlToRecord'] = f'https://www.digar.ee/id/nlib-digar:{current_id}'
                     each['institution'] = 'Rahvusraamatukogu'
                     each['keywords'] = each['description']
                     each['description'] = each['title']

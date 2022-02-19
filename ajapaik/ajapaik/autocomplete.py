@@ -155,7 +155,7 @@ def autocomplete_form_factory(ac_model, custom_url=None, *args, **kwargs):
 
         # Assign the appropriate widgets based on this model's autocomplete dictionary
     ac_widgets = {}
-    ac_fields = kwargs.get('fields', ('__all__'))
+    ac_fields = kwargs.get('fields', '__all__')
     for field, url in field_url_dict.items():
         is_m2m = field in m2m
         text = 'Type to return a list of %s...' if is_m2m else 'Type to return a %s list...'

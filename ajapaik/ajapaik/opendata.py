@@ -57,7 +57,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
 class PhotoGeoTagViewSet(viewsets.ViewSet):
     permission_classes = (AllowAny,)
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, pk=None):
         queryset = GeoTag.objects.filter(photo__pk=pk)
         serializer = GeoTagSerializer(queryset, many=True)
 

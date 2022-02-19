@@ -24,9 +24,9 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
     face_detection_annotation.deleted = date.today()
     face_detection_annotation.save()
 
-    if (photo.annotation_count is not None and photo.annotation_count > 0):
+    if photo.annotation_count is not None and photo.annotation_count > 0:
         photo.annotation_count -= 1
-        if (photo.annotation_count == 0):
+        if photo.annotation_count == 0:
             photo.first_annotation = None
             photo.latest_annotation = None
 

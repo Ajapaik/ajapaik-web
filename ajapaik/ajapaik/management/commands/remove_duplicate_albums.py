@@ -1,10 +1,11 @@
 # encoding: utf-8
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Count
+
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
-                                            FaceRecognitionUserSuggestion
-from django.conf import settings
+    FaceRecognitionUserSuggestion
 
 
 class Command(BaseCommand):
@@ -14,8 +15,8 @@ class Command(BaseCommand):
         for language in settings.MODELTRANSLATION_LANGUAGES:
             attribute = f'name_{language}'
             duplicates = Album.objects.values(attribute) \
-                              .annotate(name_count=Count(attribute)) \
-                              .filter(name_count__gt=1)
+                .annotate(name_count=Count(attribute)) \
+                .filter(name_count__gt=1)
 
             for duplicate in duplicates:
                 if duplicate[attribute] is None or duplicate[attribute] == '' or duplicate[attribute].isspace():
@@ -62,8 +63,8 @@ class Command(BaseCommand):
 
                 album_photos = AlbumPhoto.objects.filter(album_id__in=other_instance_ids)
                 if album_photos is not None:
-                    for albumphoto in album_photos:
-                        albumphoto.album = first_instance
+                    for album_photo in album_photos:
+                        album_photo.album = first_instance
                     AlbumPhoto.objects.bulk_update(album_photos, ['album'])
 
                 rectangles = FaceRecognitionRectangle.objects.filter(

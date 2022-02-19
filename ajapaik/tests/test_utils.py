@@ -1,15 +1,16 @@
-import os
 import hashlib
-import pytest
+import os
 from datetime import datetime
-from django.contrib.auth.models import User
+
+import pytest
 from PIL import Image
+from django.contrib.auth.models import User
+
 from ajapaik import settings
+from ajapaik.ajapaik.models import Photo, PhotoFlipSuggestion, PhotoRotationSuggestion, Points, Profile
 from ajapaik.utils import average_angle, angle_diff, convert_to_degrees, get_etag, can_action_be_done, \
     calculate_thumbnail_size, calculate_thumbnail_size_max_height, distance_in_meters, last_modified, \
     least_frequent, most_frequent, suggest_photo_edit
-
-from ajapaik.ajapaik.models import Photo, PhotoFlipSuggestion, PhotoRotationSuggestion, Points, Profile
 
 
 def test_get_etag():
@@ -150,32 +151,32 @@ def test_can_action_be_done():
     profile_2 = Profile.objects.filter(pk=profile_2.id).first()
 
     _, flip_suggestions, _, _ = suggest_photo_edit(
-            [],
-            'flip',
-            True,
-            Points,
-            40,
-            Points.FLIP_PHOTO,
-            PhotoFlipSuggestion,
-            photo,
-            profile_2,
-            '',
-            'do_flip'
-        )
+        [],
+        'flip',
+        True,
+        Points,
+        40,
+        Points.FLIP_PHOTO,
+        PhotoFlipSuggestion,
+        photo,
+        profile_2,
+        '',
+        'do_flip'
+    )
     PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
     _, rotation_suggestions, _, _ = suggest_photo_edit(
-            [],
-            'rotated',
-            90,
-            Points,
-            20,
-            Points.ROTATE_PHOTO,
-            PhotoRotationSuggestion,
-            photo,
-            profile_2,
-            '',
-            'do_rotate'
-        )
+        [],
+        'rotated',
+        90,
+        Points,
+        20,
+        Points.ROTATE_PHOTO,
+        PhotoRotationSuggestion,
+        photo,
+        profile_2,
+        '',
+        'do_rotate'
+    )
     PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
 
     user_3 = User.objects.create_user('user3', 'user3@user3.com', 'user3')

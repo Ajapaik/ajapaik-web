@@ -56,7 +56,7 @@ class PhotoAdmin(ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if obj.lat and obj.lon and obj.bounding_circle_radius:
-            # If an administrator sets a bounding circle, invalidate GeoTags outside of it
+            # If an administrator sets a bounding circle, invalidate GeoTags outside it
             all_photo_geotags = GeoTag.objects.filter(photo_id=obj.id)
             for geotag in all_photo_geotags:
                 d = self._distance_between_two_points_on_sphere(obj.lon, obj.lat, geotag.lon, geotag.lat)
@@ -67,8 +67,8 @@ class PhotoAdmin(ModelAdmin):
                 geotag.save()
         obj.save()
 
-    def _invertcolors(self, id):
-        photo = Photo.objects.filter(pk=id.split('/')[0]).first()
+    def _invertcolors(self, photo_id):
+        photo = Photo.objects.filter(pk=photo_id.split('/')[0]).first()
         if photo:
             photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
             img = Image.open(photo_path)

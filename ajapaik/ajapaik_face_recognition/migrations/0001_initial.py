@@ -72,7 +72,8 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
                 ('face_recognition_rectangle', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
                                                                  related_name='face_recognition_rectangle',
-                                                                 to='ajapaik_face_recognition.FaceRecognitionRectangle')),
+                                                                 to='ajapaik_face_recognition.FaceRecognitionRectangle'
+                                                                 )),
                 ('proposer',
                  models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subject_data_proposer',
                                    to='ajapaik.Profile')),

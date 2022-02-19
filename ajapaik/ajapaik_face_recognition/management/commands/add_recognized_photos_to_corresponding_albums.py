@@ -12,25 +12,14 @@ class Command(BaseCommand):
         rectangles = FaceRecognitionRectangle.objects.filter(
             Q(subject_consensus__isnull=False) | Q(subject_ai_suggestion__isnull=False))
         for rectangle in rectangles:
-            if rectangle.subject_consensus:
-                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=rectangle.subject_consensus,
+            suggested_album = rectangle.subject_consensus or rectangle.subject_ai_suggestion
+            if suggested_album:
+                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo, album=suggested_album,
                                                               type=AlbumPhoto.FACE_TAGGED).first()
                 if not existing_relation:
                     new_relation = AlbumPhoto(
                         photo=rectangle.photo,
-                        album=rectangle.subject_consensus,
-                        type=AlbumPhoto.FACE_TAGGED
-                    )
-                    new_relation.save()
-                    print('New relation between %s and %s' % (new_relation.photo.pk, new_relation.album.pk))
-            elif rectangle.subject_ai_suggestion:
-                existing_relation = AlbumPhoto.objects.filter(photo=rectangle.photo,
-                                                              album=rectangle.subject_ai_suggestion,
-                                                              type=AlbumPhoto.FACE_TAGGED).first()
-                if not existing_relation:
-                    new_relation = AlbumPhoto(
-                        photo=rectangle.photo,
-                        album=rectangle.subject_ai_suggestion,
+                        album=suggested_album,
                         type=AlbumPhoto.FACE_TAGGED
                     )
                     new_relation.save()

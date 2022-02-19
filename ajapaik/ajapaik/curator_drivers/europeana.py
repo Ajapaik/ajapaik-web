@@ -7,11 +7,12 @@ from math import ceil
 from django.conf import settings
 from requests import get
 
-from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik.curator_drivers.curator_utils import handle_existing_photos
+from ajapaik.ajapaik.models import Photo
 
 
-def _filter_out_url(str):
-    return 'http' not in str
+def _filter_out_url(string):
+    return 'http' not in string
 
 
 class EuropeanaDriver(object):
@@ -19,7 +20,7 @@ class EuropeanaDriver(object):
         self.search_url = 'https://www.europeana.eu/api/v2/search.json'
         self.page_size = 20
 
-    def urlToResponseTitles(self, url):
+    def url_to_response_titles(self, url):
         response = {
             'titles': [],
             'pages': 0
@@ -34,9 +35,8 @@ class EuropeanaDriver(object):
 
         latitude = None
         longitude = None
-        imageUrl = None
+        image_url = None
         title = None
-        id = None
         description = None
         authors = ''
 
@@ -49,7 +49,7 @@ class EuropeanaDriver(object):
                 return response
 
             if 'edmIsShownBy' in a:
-                imageUrl = a['edmIsShownBy'] or None
+                image_url = a['edmIsShownBy'] or None
 
             for pp in p:
                 if 'dcTitle' in pp:
@@ -85,8 +85,8 @@ class EuropeanaDriver(object):
                 'dcTitleLangAware': title,
                 'dcDescriptionLangAware': description,
                 'edmAgentLabelLangAware': authors,
-                'edmIsShownBy': [imageUrl],
-                'edmPreview': [imageUrl],
+                'edmIsShownBy': [image_url],
+                'edmPreview': [image_url],
                 'dataProvider': a['edmDataProvider']['def'],
                 'edmPlaceLatitude': latitude,
                 'edmPlaceLongitude': longitude,
@@ -116,7 +116,7 @@ class EuropeanaDriver(object):
             target_url = re.search(r'(https://[^.]*?\.europeana.eu/.*?/.*?record.*?)\.(json|html)(\?|#|$)',
                                    cleaned_data['fullSearch']).group(1)
 
-            response = self.urlToResponseTitles(target_url)
+            response = self.url_to_response_titles(target_url)
             print(target_url)
 
         else:
@@ -155,10 +155,12 @@ class EuropeanaDriver(object):
 
             print(p, file=sys.stderr)
 
+            image_url = None
             licence_desc = p['rights'][0] or None
             licence_url = p['rights'][0] or None
             institution = p['dataProvider'][0] or p['provider'][0] or None
             titlelangs = ['def', 'en', 'fi', 'ee', 'se']
+            thumbnail_url = None
 
             if 'date' in p:
                 date = p['date']
@@ -191,7 +193,7 @@ class EuropeanaDriver(object):
             elif title == '':
                 title = description
 
-            if ('title' in p and (not title or title == '')):
+            if 'title' in p and (not title or title == ''):
                 if isinstance(p['title'], list):
                     title = ', '.join(set(p['title']))
                 elif isinstance(p['title'], dict):
@@ -219,17 +221,17 @@ class EuropeanaDriver(object):
             if 'edmIsShownBy' in p:
                 for url in p['edmIsShownBy']:
                     if '.tif' not in url:
-                        imageUrl = url
-                        thumbnailUrl = url
+                        image_url = url
+                        thumbnail_url = url
                         break
 
             if 'edmPreview' in p:
                 for url in p['edmPreview']:
                     if '.tif' not in url:
-                        thumbnailUrl = url
+                        thumbnail_url = url
                         url = re.search('thumbnail-by-url.json.*?uri=(.*?.jpe?g)', url, re.IGNORECASE)
                         if url:
-                            imageUrl = urllib.parse.unquote(url.group(1))
+                            image_url = urllib.parse.unquote(url.group(1))
                         break
 
             latitude = p.get('edmPlaceLatitude') or None
@@ -240,7 +242,7 @@ class EuropeanaDriver(object):
             if longitude:
                 longitude = longitude[0]
 
-            if not imageUrl or imageUrl == '':
+            if not image_url or image_url == '':
                 continue
             if not licence_url or licence_url == '':
                 continue
@@ -251,10 +253,10 @@ class EuropeanaDriver(object):
 
             transformed_item = {
                 'isEuropeanaResult': True,
-                'cachedThumbnailUrl': thumbnailUrl,
+                'cachedThumbnailUrl': thumbnail_url,
                 'title': title,
                 'institution': f'Europeana / {institution}',
-                'imageUrl': imageUrl,
+                'imageUrl': image_url,
                 'id': p['id'],
                 'mediaId': p['id'],
                 'identifyingNumber': p['id'],
@@ -287,14 +289,8 @@ class EuropeanaDriver(object):
                 print('remove existing', file=sys.stderr)
                 continue
 
-            if existing_photo:
-                transformed_item['ajapaikId'] = existing_photo.id
-                album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
-                transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
-                                                  .values_list('id', 'name').distinct())
-
-            print(transformed_item, file=sys.stderr)
-            transformed['result']['firstRecordViews'].append(transformed_item)
+            transformed['result']['firstRecordViews'].append(
+                handle_existing_photos(existing_photo, transformed_item))
 
         transformed = dumps(transformed)
         return transformed

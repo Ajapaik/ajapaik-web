@@ -44,7 +44,7 @@ def convert_to_query_dictionary(dictionary):
     return query_dictionary
 
 
-def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):
+def transform_annotation_queryset(user_id, query_set, transform_function):
     transformed_collection = []
 
     for entry in query_set:

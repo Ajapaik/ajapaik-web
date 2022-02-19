@@ -1,15 +1,16 @@
 from math import ceil
 
-from django.db.models import F
+import requests
+from django.conf import settings
+from django.db.models import F, Model
 from django_comments import get_model
 
 comment_model = get_model()
 
 
 def get_comment_replies(comment):
-    '''
-    Returns queryset that contain all reply for given comment.
-    '''
+    # Returns queryset that contain all reply for given comment.
+
     return comment_model.objects.filter(
         parent_id=comment.pk
     ).exclude(parent_id=F('pk'))
@@ -69,8 +70,8 @@ def merge_profiles(target_profile, source_profile):
         for app_queryset_tuple in value:
             for item in app_queryset_tuple[1]:
                 setattr(item, key, target_profile)
-            Model = apps.get_model(app_queryset_tuple[0], app_queryset_tuple[1].model.__name__)
-            Model.objects.bulk_update(app_queryset_tuple[1], [key])
+            model: Model = apps.get_model(app_queryset_tuple[0], app_queryset_tuple[1].model.__name__)
+            model.objects.bulk_update(app_queryset_tuple[1], [key])
 
     comments = MyXtdComment.objects.filter(user_id=source_profile.id)
     for comment in comments:
@@ -129,3 +130,32 @@ def get_pagination_parameters(page, page_size, photo_count):
         start, end, total, max_page, page = get_pagination_parameters(max_page, page_size, photo_count)
 
     return start, end, total, max_page, page
+
+
+def fill_untranslated_fields(model_instance, field_name):
+    # Find filled field to base translation off
+    translation_source = None
+    original_languages = []
+    for each in settings.TARTUNLP_LANGUAGES:
+        key = f'{field_name}_{each}'
+        if getattr(model_instance, key):
+            translation_source = key
+            original_languages.append(each)
+    setattr(model_instance, f'{field_name}_original_language')
+    model_instance.description_original_language = ','.join(original_languages)
+    if translation_source:
+        translation_done = False
+        for each in settings.TARTUNLP_LANGUAGES:
+            key = f'{field_name}_{each}'
+            current_value = getattr(model_instance, key)
+            if not current_value:
+                headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
+                json = {'text': getattr(model_instance, translation_source), 'tgt': each}
+                response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
+                setattr(model_instance, key, response['result'])
+                translation_done = True
+
+        if translation_done:
+            model_instance.light_save()
+
+    return model_instance

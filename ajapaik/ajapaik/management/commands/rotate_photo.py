@@ -15,7 +15,7 @@ class Command(BaseCommand):
         photo = Photo.objects.filter(pk=photo_id).first()
         photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
         img = Image.open(photo_path)
-        rot = img.rotate(degrees, expand=1)
+        rot = img.rotate(degrees, expand=True)
         rot.save(photo_path)
         if photo.rotated:
             photo.rotated += degrees

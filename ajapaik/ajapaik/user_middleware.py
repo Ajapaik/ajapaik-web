@@ -45,7 +45,7 @@ class AuthBackend(MiddlewareMixin):
     supports_anonymous_user = False
     supports_inactive_user = True
 
-    def authenticate(self, request=None, username=None, password=None, user=None):
+    def authenticate(self, username=None, password=None, user=None):
         if user is not None:
             return user
         if password is not None:

@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from django.contrib.gis.db.models import DateTimeField, ImageField
 from django.db import models
@@ -65,16 +66,8 @@ class FaceRecognitionRectangle(models.Model):
 
         return subject_album.name if subject_album else None
 
-    def get_subject(self):
-        subject_album = None
-
-        # Prefer what people think
-        if self.subject_consensus:
-            subject_album: Album = self.subject_consensus
-        elif self.subject_ai_suggestion:
-            subject_album: Album = self.subject_ai_suggestion
-
-        return subject_album
+    def get_subject(self) -> Optional[Album]:
+        return self.subject_consensus or self.subject_ai_suggestion
 
     def add_subject_data(self, profile, age, gender):
         last_suggestions = FaceRecognitionRectangleSubjectDataSuggestion.objects.filter(
@@ -139,7 +132,7 @@ class FaceRecognitionRectangle(models.Model):
                 user=profile
             ).save()
             points += age_suggestion_points
-        if (last_suggestion_by_current_user is None and gender is not None and int(gender) < 2):
+        if last_suggestion_by_current_user is None and gender is not None and int(gender) < 2:
             gender_suggestion_points = 20
             Points(
                 action=Points.SUGGESTION_SUBJECT_GENDER,
@@ -166,7 +159,7 @@ class FaceRecognitionRectangleFeedback(models.Model):
     rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE, related_name='feedback')
     user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='face_recognition_rectangle_feedback')
     alternative_subject = models.ForeignKey(Album, on_delete=CASCADE, null=True)
-    # So users could downvote bad rectangles
+    # So users could down-vote bad rectangles
     is_correct = models.BooleanField(default=False)
     is_correct_person = models.BooleanField(null=True)
     created = models.DateTimeField(auto_now_add=True)
