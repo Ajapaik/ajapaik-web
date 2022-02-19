@@ -19,8 +19,9 @@ from ajapaik.ajapaik.autocomplete_views import AlbumAutocomplete, AlbumPhotoAuto
     GoogleMapsReverseGeocodeAutocomplete, ImageSimilarityAutocomplete, \
     ImageSimilaritySuggestionAutocomplete, LicenceAutocomplete, LocationAutocomplete, \
     ObjectDetectionAnnotationAutocomplete, ObjectAnnotationClassAutocomplete, ObjectAnnotationFeedbackAutocomplete, \
-    OpenAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, SkipAutocomplete, \
-    SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, VideoAutocomplete
+    OpenAlbumAutocomplete, ParentAlbumAutocomplete, PhotoAutocomplete, PointsAutocomplete, ProfileAutocomplete, \
+    SkipAutocomplete, SubjectAlbumAutocomplete, SourceAutocomplete, TranscriptionAutocomplete, UserAutocomplete, \
+    VideoAutocomplete
 from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from ajapaik.ajapaik_face_recognition import urls as fr_urls
@@ -94,10 +95,6 @@ urlpatterns = [
     url(r'^curator-update-my-album/$', views.curator_update_my_album, name='curator_update_my_album'),
     url(r'^curator-album-list/$', views.curator_my_album_list, name='curator_my_album_list'),
     url(r'^curator-selectable-albums/$', views.curator_selectable_albums, name='curator_selectable_albums'),
-    url(r'^curator-selectable-parent-albums/$', views.curator_selectable_parent_albums,
-        name='curator_selectable_parent_albums'),
-    url(r'^curator-selectable-parent-albums/(?P<album_id>\d+)/$', views.curator_selectable_parent_albums,
-        name='curator_selectable_parent_albums'),
     url(r'^curator-search/$', views.curator_search, name='curator_search'),
     url(r'^curator-upload/$', views.curator_photo_upload_handler, name='curator_photo_upload_handler'),
     url(r'^public-album-create-handler/$', views.public_add_album, name='public_add_album'),
@@ -283,6 +280,8 @@ urlpatterns += [
     url(r'^autocomplete/points-autocomplete/$', PointsAutocomplete.as_view(), name='points-autocomplete'),
     url(r'^autocomplete/profile-autocomplete/$', ProfileAutocomplete.as_view(), name='profile-autocomplete'),
     url(r'^autocomplete/open-album-autocomplete/$', OpenAlbumAutocomplete.as_view(), name='open-album-autocomplete'),
+    url(r'^autocomplete/parent-album-autocomplete/$', ParentAlbumAutocomplete.as_view(),
+        name='open-album-autocomplete'),
     url(r'^autocomplete/skip-autocomplete/$', SkipAutocomplete.as_view(), name='skip-autocomplete'),
     url(r'^autocomplete/source-autocomplete/$', SourceAutocomplete.as_view(), name='source-autocomplete'),
     url(r'^autocomplete/subject-album-autocomplete/$', SubjectAlbumAutocomplete.as_view(),

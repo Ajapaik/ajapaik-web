@@ -306,7 +306,7 @@ class ProfileAutocomplete(autocomplete.Select2QuerySetView):
 class OpenAlbumAutocomplete(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, format=None):
+    def get(self, request):
         if not self.request.user.is_authenticated:
             return Album.objects.none()
 
@@ -314,6 +314,38 @@ class OpenAlbumAutocomplete(APIView):
         exclude = request.GET.getlist('exclude')
 
         qs = Album.objects.all().exclude(id__in=exclude)
+
+        if q:
+            qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(
+                Q(name__icontains=q) | Q(name_et__icontains=q) | Q(name_en__icontains=q) | Q(name_ru__icontains=q) | Q(
+                    name_fi__icontains=q) | Q(name_sv__icontains=q) | Q(name_nl__icontains=q) | Q(
+                    name_de__icontains=q) | Q(name_no__icontains=q) | Q(name_lv__icontains=q) | Q(name_lt__icontains=q))
+
+        result = """<span class="block"><em>""" + _("No album found") + """</em></span>"""
+        if qs.exists():
+            result = ''
+            for q in qs:
+                result += f'<span data-value={str(q.id)}>{q.name}</span>'
+        return HttpResponse(result, status=200)
+
+
+class ParentAlbumAutocomplete(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        if not self.request.user.is_authenticated:
+            return Album.objects.none()
+
+        q = request.GET.get('q')
+        exclude = request.GET.getlist('exclude')
+
+        user_profile = request.get_user().profile
+        qs = Album.objects.filter(
+            (Q(profile=user_profile, subalbum_of__isnull=True, is_public=True)) |
+            (Q(open=True, subalbum_of__isnull=True))
+        ).order_by('-created').all()
+        if exclude:
+            qs = qs.exclude(pk__in=exclude)
 
         if q:
             qs = qs.filter(Q(profile=request.user.profile) | Q(open=True)).filter(

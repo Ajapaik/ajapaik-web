@@ -223,14 +223,12 @@ class CuratorAlbumSelectionForm(forms.Form):
 
 
 class CuratorAlbumEditForm(forms.Form):
+    album_id = forms.IntegerField()
     name = forms.CharField(max_length=255, required=True)
     description = forms.CharField(max_length=2047, required=False)
     open = forms.BooleanField(initial=False, required=False)
     is_public = forms.BooleanField(initial=False, required=False)
-    parent_album = forms.ModelChoiceField(queryset=Album.objects.filter(
-        atype=Album.CURATED, subalbum_of__isnull=True,
-        is_public=True, open=True
-    ), label=_('Choose parent album'), required=False)
+    parent_album_id = forms.IntegerField(required=False)
     areaLat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     areaLng = forms.FloatField(min_value=-180, max_value=180, required=False)
 

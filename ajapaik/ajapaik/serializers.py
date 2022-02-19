@@ -67,9 +67,18 @@ class AlbumSerializer(serializers.ModelSerializer):
 
 
 class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
+    parent_album_id = serializers.SerializerMethodField()
+    parent_album_name = serializers.SerializerMethodField()
+
+    def get_parent_album_id(self, obj):
+        return obj.subalbum_of.id if obj.subalbum_of else None
+
+    def get_parent_album_name(self, obj):
+        return obj.subalbum_of.name if obj.subalbum_of else None
+
     class Meta:
         model = Album
-        fields = ('id', 'name', 'description', 'open', 'is_public', 'subalbum_of')
+        fields = ('id', 'name', 'description', 'open', 'is_public', 'parent_album_id', 'parent_album_name')
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):

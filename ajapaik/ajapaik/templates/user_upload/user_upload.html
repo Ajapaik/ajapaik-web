@@ -4,12 +4,12 @@
 {% block header %}
     {% include "core/_header.html" %}
 {% endblock %}
+
 {% block specific_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "libs/autocomplete/css/autocomplete.css" %}">
     {% endcompress %}
 {% endblock %}
-
 
 {% block layout %}
 <div class="container pb-3 w-50{% if not request.user.profile.is_legit %}" id="ajp-curator-container"{% else %} pt-5"{% endif %}>
