@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-02-14 12:00:23+0000\n"
+"PO-Revision-Date: 2022-02-21 12:00:24+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -95,7 +95,7 @@ msgstr "Параметры загрузки переснимков сохран�
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Необходимый параметр, пропущенный токен"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -1328,8 +1328,8 @@ msgstr[2] "В альбоме %(counter)s фотографий"
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
 msgstr[0] "%(counter)s пользователь указал"
-msgstr[1] "%(counter)s пользователей указали"
-msgstr[2] ""
+msgstr[1] "%(counter)s пользователя указали"
+msgstr[2] "%(counter)s пользователей указали"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
