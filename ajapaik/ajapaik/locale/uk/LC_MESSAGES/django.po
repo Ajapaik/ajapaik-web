@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: DDPAT
+# Author: Ice bulldog
 # Author: Ата
 # --
 # This file is part of the Ajapaik Project
@@ -10,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-01-20 12:00:24+0000\n"
+"PO-Revision-Date: 2022-02-24 12:00:18+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
