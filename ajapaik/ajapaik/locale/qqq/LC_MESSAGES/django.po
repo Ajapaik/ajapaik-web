@@ -6,6 +6,7 @@
 # Author: MuratTheTurkish
 # Author: Puik
 # Author: Robby
+# Author: Verdy p
 # Author: Zache
 # --
 # This file is part of the Ajapaik Project
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-01-20 12:00:24+0000\n"
+"PO-Revision-Date: 2022-03-03 12:00:19+0000\n"
 "Language: qqq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,7 +187,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/curator/curator.html:82
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Description"
-msgstr "{{Identical|Beschreiwung}}"
+msgstr "{{Identical|Description}}"
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "I am the author"

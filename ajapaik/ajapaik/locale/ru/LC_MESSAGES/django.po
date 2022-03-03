@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-02-24 12:00:18+0000\n"
+"PO-Revision-Date: 2022-03-03 12:00:19+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -60,7 +60,7 @@ msgstr "Добавьте в запрос хотя бы параметр scene и
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "Все внесенные вами метаданные и настройки другого аккаунта добавлены в текущий"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
@@ -72,19 +72,19 @@ msgstr "Неверный токен"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Пропущенный параметр photo_id"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
-msgstr ""
+msgstr "Фотографии с идентификатором отсутствуют:"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "Параметр photo_id должен быть положительным целым числом"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Необходимо войти с помощью другого аккаунта. Вы не вошли в аккаунт, для которого выполняется объединение."
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
@@ -139,7 +139,7 @@ msgstr "Что-то пошло не так"
 
 #: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "Предложенная информация сохранена, однако предыдущее согласованное мнение остаётся в силе"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
@@ -236,7 +236,7 @@ msgstr "Автор изображения (фотограф, художник)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr "Выберите, пожалуйста, лицензию, чтобы другие люди знали, могут ли повторно использовать загруженный вами материал и на каких условиях.\n\nЕсли вы являетесь автором, вы можете выбрать лицензию (мы рекомендуем использовать открытые лицензии Creative Commons). Если произведение было создано кем-то другим, вам необходимо использовать ту же лицензию и правообладателя, что он определил.\n\nВ настоящее время мы также принимаем материалы с неясным статусом авторских прав. Тогда выберите «Авторские права не определены»."
+msgstr "Выберите, пожалуйста, лицензию, чтобы другие люди знали, могут ли повторно использовать загруженный вами материал и на каких условиях.\n\nЕсли вы являетесь автором, вы можете выбрать лицензию (мы рекомендуем использовать открытые лицензии Creative Commons). Если произведение было создано кем-то другим, вам необходимо использовать ту же лицензию и правообладателя, указанные ранее.\n\nВ настоящее время мы также принимаем материалы с неясным статусом авторских прав. Тогда выберите «Авторские права не определены»."
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
@@ -341,7 +341,7 @@ msgstr "Адрес электронной почты"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Поле комментариев поддерживает Markdown\n\nАбзацы\nДобавьте две новые строки, чтобы начать новый абзац.\n\nЖирный\n**Геотаггинг** — это первое задание на Ajapaik.\n\nКурсивный\nДалее идут *репетография* и *знакомства*.\n\nСсылки\nПрисоединяйтесь к обсуждению [Ajapaiklejad FB group] (https://www.facebook.com/groups/ajapaiklejad).\n\nКартинки\n![Ajapaik — подарок для EV100] (https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Поле комментариев поддерживает язык разметки Markdown\n\nАбзацы\nДобавьте две новые строки, чтобы начать новый абзац.\n\nЖирный\n**Геометки** — это первое задание на Ajapaik.\n\nКурсивный\nЗатем *переснимки* и *датирование*.\n\nСсылки\nПрисоединяйтесь к обсуждению в группе [Ajapaiklejad FB group] (https://www.facebook.com/groups/ajapaiklejad).\n\nКартинки\n![Ajapaik — значимый ресурс для EV100] (https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:585
 msgid "Nothing to change."
@@ -377,7 +377,7 @@ msgstr "Изображение"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
@@ -401,27 +401,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
-msgstr "Интерьер"
+msgstr "Внутри здания"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
 msgid "Exterior"
-msgstr ""
+msgstr "Снаружи здания"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
-msgstr ""
+msgstr "Место съёемки"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
 msgid "Ground"
-msgstr ""
+msgstr "Наземная"
 
 #: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1864
 msgid "Raised"
-msgstr ""
+msgstr "С возвышения"
 
 #: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1865
 msgid "Aerial"
-msgstr ""
+msgstr "С воздуха"
 
 #: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1867
 msgid "Viewpoint elevation"
@@ -498,7 +498,7 @@ msgstr "Расшифруйте"
 
 #: ajapaik/ajapaik/models.py:1298
 msgid "Categorize scene"
-msgstr ""
+msgstr "Выберите категорию места съёмки"
 
 #: ajapaik/ajapaik/models.py:1299
 msgid "Add viewpoint elevation"
@@ -510,7 +510,7 @@ msgstr "Отразить фото зеркально"
 
 #: ajapaik/ajapaik/models.py:1301
 msgid "Invert photo"
-msgstr ""
+msgstr "Инвертировать фото"
 
 #: ajapaik/ajapaik/models.py:1302
 msgid "Rotate photo"
@@ -703,7 +703,7 @@ msgstr "Решение также может быть принято на кла
 #: ajapaik/ajapaik/templates/common/game.html:54
 #: ajapaik/ajapaik/templates/photo/photoview.html:61
 msgid "Pick the shooting location!"
-msgstr "Выбрать место съемки!"
+msgstr "Где был сделан кадр?"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:12
 msgid "Add a geotag"
@@ -1744,11 +1744,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:200
 msgid "Show pictures which are not geotagged"
-msgstr ""
+msgstr "Показать изображения без геометок"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "Показать изображения высокого качества"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -1898,7 +1898,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "На <a href='/me'>странице своего профиля</a> Вы можете найти информацию о всех добавленных Вами данных к фотографиям."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -1911,7 +1911,7 @@ msgstr "Альбом курируется"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
-msgstr "Список лидеров по вкладам"
+msgstr "Рейтинг участников"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:27
 #, python-format
@@ -1923,15 +1923,15 @@ msgstr[2] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr "Вы не внесли никаких предложений в отношении местоположения изображений в этом альбоме."
+msgstr "Вы не внесли никаких предложений о местоположении изображений этого альбома."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:39
 msgid "You have made a location suggestion for"
-msgstr "Вы сделали предложение местоположения для"
+msgstr "Вы внесли предложение о местоположении для"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:41
 msgid "all the pictures from this album."
-msgstr "все изображения из этого альбома."
+msgstr "всех изображений этого альбома."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:43
 #, python-format
@@ -2125,11 +2125,11 @@ msgstr "Выбрать файл…"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr "Сделайте современное фото с того же места, где была сделана историческая фотография, и загрузите его. Загруженное рефото будет приписано вам под"
+msgstr "Сделайте современное фото с того же места, где была сделана историческая фотография, и загрузите его. Авторство загруженного переснимка будет закреплено за вам согласно"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
-msgstr "лицензия"
+msgstr "лицензии"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:56
 msgid "Abort"
@@ -2433,7 +2433,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:25
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "Для поиска и добавления информации на сайте не обязательно быть зарегистрированным пользователем. И всё же мы рекомендуем создать аккаунт и присоединиться к сообществу участников."
 
 #: ajapaik/ajapaik/templates/user/user.html:28
 msgid "To create an account, click"
@@ -2449,7 +2449,7 @@ msgstr "Добро пожаловать на краудсорсинговую п
 
 #: ajapaik/ajapaik/templates/user/user.html:51
 msgid "This user does not have any contributions."
-msgstr ""
+msgstr "Этот пользователь не добавлял новых данных о фотографиях."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
