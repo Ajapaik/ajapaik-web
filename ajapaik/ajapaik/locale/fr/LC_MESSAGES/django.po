@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-02-14 12:00:22+0000\n"
+"PO-Revision-Date: 2022-03-14 12:00:24+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1525,7 +1525,7 @@ msgstr "Numéro de compte du bénéficiaire"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr "Ajapaik est une plateforme ouverte de production participative à but non lucratif ; son volume de contenu et de complexité technique a considérablement augmenté. L’audience du site est similaire ou supérieure à celle des dépôts d’héritage culturel officiels comme Muis, Fotis, etc."
+msgstr "Ajapaik est une plateforme ouverte de production participative sans but lucratif ; son volume de contenu et de complexité technique a considérablement augmenté. L’audience du site est similaire ou supérieure à celle des dépôts d’héritage culturel officiels comme Muis, Fotis, etc."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
