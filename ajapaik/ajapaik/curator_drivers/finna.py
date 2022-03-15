@@ -323,7 +323,7 @@ class FinnaDriver(object):
                     'institution': institution,
                     'date': p.get('year', None),
                     'cachedThumbnailUrl': f'https://www.finna.fi{p["images"][0]}' if len(p['images']) else None,
-                    'imageUrl': f'https://www.finna.fi{p["images"][0].replace("size=large", "size=master")}' if len(
+                    'imageUrl': f'https://www.finna.fi{p["images"][0]}' if len(
                         p['images']) else None,
                     'urlToRecord': f'https://www.finna.fi{p.get("recordPage")}',
                     'latitude': p.get('latitude', None),

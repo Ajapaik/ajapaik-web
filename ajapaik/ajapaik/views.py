@@ -2394,10 +2394,17 @@ def curator_photo_upload_handler(request):
 
                             lat=None
                             lng=None
-                            if 'latitude' in upload_form.cleaned_data and upload_form.cleaned_data['latitude']>0:
-                                if 'longitude' in upload_form.cleaned_data and upload_form.cleaned_data['longitude']>0:
-                                    lat = upload_form.cleaned_data['latitude']
-                                    lng = upload_form.cleaned_data['longitude']
+                            try:
+                                if 'latitude' in upload_form.cleaned_data \
+                                   and upload_form.cleaned_data['latitude'] !=None \
+                                   and upload_form.cleaned_data['latitude']>0 \
+                                   and 'longitude' in upload_form.cleaned_data \
+                                   and upload_form.cleaned_data['longitude'] !=None \
+                                   and upload_form.cleaned_data['longitude']>0: 
+                                        lat = upload_form.cleaned_data['latitude']
+                                        lng = upload_form.cleaned_data['longitude']
+                            except:
+                                print("lat,lng conversion failed")
 
                             gt_exists = GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
                                                               photo__source_key=new_photo.source_key).exists()
