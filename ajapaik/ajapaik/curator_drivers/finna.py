@@ -185,7 +185,7 @@ def finna_import_photo(id, profile):
 
         opener = build_opener()
         opener.addheaders = [('User-Agent', settings.UA)]
-        img_url = f'https://www.finna.fi{p["images"][0].replace("size=large", "size=master")}'
+        img_url = f'https://www.finna.fi{p["images"][0]}'
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
