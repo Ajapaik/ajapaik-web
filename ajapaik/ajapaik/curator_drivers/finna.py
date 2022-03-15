@@ -197,7 +197,7 @@ def finna_import_photo(id, profile):
 
         opener = build_opener()
         opener.addheaders = [('User-Agent', settings.UA)]
-        img_url = img_url = get_img_url(p)
+        img_url = get_img_url(p)
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
