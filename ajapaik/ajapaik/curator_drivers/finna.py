@@ -37,6 +37,18 @@ def finna_add_to_album(photo, target_album):
         # update counts
         album.save()
 
+def get_img_url(p,size=''):
+    if 'imagesExtended' in p and len(p['imagesExtended']):
+        if 'urls' in p['imagesExtended'][0]:
+            sizes = [size, 'master', 'original', 'large', 'medium', 'small'];
+            for s in sizes:
+                if s in p['imagesExtended'][0]['urls']:
+                    return 'https://api.finna.fi' + p['imagesExtended'][0]['urls'][s]
+
+    if 'images' in p and len(p['images']):
+        return 'https://api.finna.fi' + p['images'][0]
+    else:
+        return None
 
 def finna_find_photo_by_url(record_url, profile):
     photo = None
@@ -74,7 +86,7 @@ def finna_import_photo(id, profile):
         'id': id,
         'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
                     'recordPage', 'year',
-                    'summary', 'rawData'],
+                    'summary', 'rawData', 'imagesExtended'],
     })
     results = finna_result.json()
     p = results.get('records', None)
@@ -185,7 +197,7 @@ def finna_import_photo(id, profile):
 
         opener = build_opener()
         opener.addheaders = [('User-Agent', settings.UA)]
-        img_url = f'https://www.finna.fi{p["images"][0]}'
+        img_url = img_url = get_img_url(p)
         img_response = opener.open(img_url)
         new_photo.image.save('finna.jpg', ContentFile(img_response.read()))
 
@@ -239,7 +251,7 @@ class FinnaDriver(object):
             'lng': 'en-gb',
             'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
                         'recordPage',
-                        'year', 'summary', 'rawData'],
+                        'year', 'summary', 'rawData', 'imagesExtended'],
             'filter[]': [
                 'free_online_boolean:"1"'
             ],
@@ -322,9 +334,8 @@ class FinnaDriver(object):
                     'address': address,
                     'institution': institution,
                     'date': p.get('year', None),
-                    'cachedThumbnailUrl': f'https://www.finna.fi{p["images"][0]}' if len(p['images']) else None,
-                    'imageUrl': f'https://www.finna.fi{p["images"][0]}' if len(
-                        p['images']) else None,
+                    'cachedThumbnailUrl': get_img_url(p, 'small'),
+                    'imageUrl': get_img_url(p),
                     'urlToRecord': f'https://www.finna.fi{p.get("recordPage")}',
                     'latitude': p.get('latitude', None),
                     'longitude': p.get('longitude', None),
