@@ -43,7 +43,10 @@ def get_img_url(p,size=''):
             sizes = [size, 'master', 'original', 'large', 'medium', 'small'];
             for s in sizes:
                 if s in p['imagesExtended'][0]['urls']:
-                    return 'https://api.finna.fi' + p['imagesExtended'][0]['urls'][s]
+                    if p['imagesExtended'][0]['urls'][s].startswith('/'):
+                        return 'https://api.finna.fi' + p['imagesExtended'][0]['urls'][s]
+                    else:
+                        return p['imagesExtended'][0]['urls'][s]
 
     if 'images' in p and len(p['images']):
         return 'https://api.finna.fi' + p['images'][0]
