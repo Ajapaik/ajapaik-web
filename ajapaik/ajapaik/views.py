@@ -94,6 +94,7 @@ from .utils import get_comment_replies, get_pagination_parameters
 
 log = logging.getLogger(__name__)
 
+Image.MAX_IMAGE_PIXELS = 933120000
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
@@ -286,15 +287,19 @@ def _extract_and_save_data_from_exif(photo_with_exif):
             gps_latitude = exif_data.get('GPSInfo.GPSLatitude')
             gps_longitude_ref = exif_data.get('GPSInfo.GPSLongitudeRef')
             gps_longitude = exif_data.get('GPSInfo.GPSLongitude')
-            lat = convert_to_degrees(gps_latitude)
-            if gps_latitude_ref != 'N':
-                lat = 0 - lat
-            lon = convert_to_degrees(gps_longitude)
-            if gps_longitude_ref != 'E':
-                lon = 0 - lon
-            photo_with_exif.lat = lat
-            photo_with_exif.lon = lon
-            photo_with_exif.save()
+            try:
+                lat = convert_to_degrees(gps_latitude)
+                if gps_latitude_ref != 'N':
+                    lat = 0 - lat
+                lon = convert_to_degrees(gps_longitude)
+                if gps_longitude_ref != 'E':
+                    lon = 0 - lon
+                photo_with_exif.lat = lat
+                photo_with_exif.lon = lon
+                photo_with_exif.save()
+            except:
+                print("convert_to_degrees() failed")
+
         if 'Make' in exif_data or 'Model' in exif_data or 'LensMake' in exif_data or 'LensModel' in exif_data \
                 or 'Software' in exif_data:
             camera_make = exif_data.get('Make')
@@ -2386,8 +2391,14 @@ def curator_photo_upload_handler(request):
                                 flipped_image.save(photo_path)
                             context['photos'][k] = {}
                             context['photos'][k]['message'] = _('OK')
-                            lat = upload_form.cleaned_data['latitude']
-                            lng = upload_form.cleaned_data['longitude']
+
+                            lat=None
+                            lng=None
+                            if 'latitude' in upload_form.cleaned_data and upload_form.cleaned_data['latitude']>0:
+                                if 'longitude' in upload_form.cleaned_data and upload_form.cleaned_data['longitude']>0:
+                                    lat = upload_form.cleaned_data['latitude']
+                                    lng = upload_form.cleaned_data['longitude']
+
                             gt_exists = GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
                                                               photo__source_key=new_photo.source_key).exists()
                             if lat and lng and not gt_exists:
