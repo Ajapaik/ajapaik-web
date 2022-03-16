@@ -6,6 +6,7 @@ import logging
 import re
 import sys
 import time
+import datetime
 from urllib.parse import parse_qs
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -397,10 +398,12 @@ class AlbumList(AjapaikAPIView):
         else:
             filter_rule = Q(is_public=True, photos__isnull=False)
 
+        time_threshold = datetime.datetime.now(timezone.utc) - datetime.timedelta(days=90)
         albums = Album.objects \
             .exclude(atype=Album.PERSON) \
+            .filter(created__gt=time_threshold) \
             .filter(filter_rule) \
-            .order_by('-created')
+            .order_by('-created')[:300]
         albums = AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
