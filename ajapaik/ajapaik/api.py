@@ -734,12 +734,22 @@ class AlbumPhotos(AjapaikAPIView):
             start = form.cleaned_data['start'] or 0
             end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
 
-            photos = Photo.objects.filter(
-                Q(albums=album)
-                | (Q(albums__subalbum_of=album)
-                   & ~Q(albums__atype=Album.AUTO)),
-                rephoto_of__isnull=True
-            )[start:end]
+#           Old version
+#            photos = Photo.objects.filter(
+#                Q(albums=album)
+#                | (Q(albums__subalbum_of=album)
+#                   & ~Q(albums__atype=Album.AUTO)),
+#                rephoto_of__isnull=True
+#            )[start:end]
+
+            # Speedup update 16.3.2022 -- Kimmo 
+            a=Album.objects.get(pk=album)
+            qs = a.photos.filter(rephoto_of__isnull=True)
+            for sa in a.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
+                qs = qs | sa.photos.filter(rephoto_of__isnull=True)
+            photos=qs[start:end]
+
+
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
             }
