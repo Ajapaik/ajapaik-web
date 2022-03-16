@@ -743,7 +743,7 @@ class AlbumPhotos(AjapaikAPIView):
 #            )[start:end]
 
             # Speedup update 16.3.2022 -- Kimmo 
-            a=Album.objects.get(pk=album)
+            a=Album.objects.get(pk=album.id)
             qs = a.photos.filter(rephoto_of__isnull=True)
             for sa in a.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
                 qs = qs | sa.photos.filter(rephoto_of__isnull=True)
