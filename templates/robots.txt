@@ -7,5 +7,13 @@ Disallow: /comments/
 Disallow: /leaderboard/
 Disallow: /frontpage-async/
 Disallow: /api/
+Disallow: /map/
+Disallow: /map-data/
+Disallow: /game/
+Disallow: /user/
+Disallow: /accounts/
+Disallow: /face-recognition/
+Disallow: /object-recognition/
+Disallow: /compare-photos/
 
 Sitemap: https://ajapaik.ee/sitemap.xml
