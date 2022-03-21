@@ -3,6 +3,7 @@
 #
 # Author: 1233qwer1234qwer4
 # Author: Anna7321
+# Author: Brettchenweber
 # Author: DraconicDark
 # Author: Elliot
 # Author: FF-11
@@ -25,7 +26,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-03-17 12:00:22+0000\n"
+"PO-Revision-Date: 2022-03-21 12:00:19+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -611,15 +612,15 @@ msgstr "Ursprüngliches Foto"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Dieses Album enthält einen Film"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Dies ist ein persönliches Album"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Dies ist ein Sammelalbum"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -1510,7 +1511,7 @@ msgstr "Antwort an"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "Deine Spende bestätigt die Wichtigkeit von Ajapaik"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
@@ -1562,7 +1563,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:15
 msgid "Ajapaik has received donations from:"
-msgstr ""
+msgstr "Ajapaik hat Spenden erhalten von:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
@@ -1622,7 +1623,7 @@ msgstr "Rückseiten von Bildern"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "Bilder im Porträtformat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
@@ -1634,7 +1635,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "Bilder im Panoramaformat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
