@@ -17,7 +17,7 @@ from html import unescape
 from io import StringIO
 from math import ceil
 from random import choice
-from time import strftime, strptime
+from time import strftime, strptime, time
 from urllib.request import build_opener
 from uuid import uuid4
 from xml.etree import ElementTree as ET
@@ -36,7 +36,7 @@ from allauth.socialaccount.views import ConnectionsView
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.db.models.functions import Distance, GeometryDistance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.core.cache import cache
@@ -773,6 +773,7 @@ def frontpage_async_albums(request):
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
+    starttime = time()
     profile = request.get_user().profile
     photos = Photo.objects.filter(rephoto_of__isnull=True)
     filter_form = GalleryFilteringForm(request.GET)
@@ -822,6 +823,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             context['photos_with_similar_photos'] = None
             context['show_photos'] = None
             context['is_photoset'] = None
+            context['execution_time'] = str(time() - starttime)
             return context
         else:
             show_photos = True
@@ -837,13 +839,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 album_photos_qs = album_photos_qs | sa.photos.all()
             album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
             photos = photos.filter(id__in=album_photo_ids)
-
-        # Testing: Album.id 38516 = Photos – blacklisti
-        if not album or album.id != 38516:
-            blacklist_exists = Album.objects.filter(id=38516).exists()
-            if blacklist_exists:
-                exclude_photos = Album.objects.get(id=38516).photos.all()
-                photos = photos.exclude(pk__in=exclude_photos).all()
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -892,9 +887,9 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
-                photos = photos.annotate(distance=Distance(('geography'), ref_location)).order_by('-distance')
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
             else:
-                photos = photos.annotate(distance=Distance(('geography'), ref_location)).order_by('distance')
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
         elif order1 == 'amount':
             if order2 == 'comments':
                 if order3 == 'reverse':
@@ -1041,15 +1036,39 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
         start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
+
+        # Testing: Album.id 38516 = Photos – blacklisti
+        # Moved here to limit the max blacklist ids sise to page_size for speed
+        # Note: Blacklist will leak if new photos are blacklisted ones
+
+        photos_ids = list(photos.values_list('id', flat=True)[start:end])
+        if not album or album.id != 38516:
+            blacklist_exists = Album.objects.filter(id=38516).exists()
+            if blacklist_exists:
+                exclude_photos = Album.objects.get(id=38516).photos.filter(pk__in=photos_ids).all()
+                photos = photos.exclude(pk__in=exclude_photos).all()
+
+        # Flatten the selected photos to ids so GeometryDistance indexed sort doesn't break in SQL-level
+        # when rephoto count is annotated. This works because it force limits the number of sorted rows
+        if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
+            photo_ids=photos[start:end].values_list('id', flat=True)
+            photos=Photo.objects.filter(id__in=photo_ids).all()
+            if order3 == 'reverse':
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
+            else:
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
+
+
         if not order2 == 'rephotos':
             photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
 
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
+            # Note seeking (start:end) has been alredy done when values are flatted above
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'distance',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
-                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')[start:end]
+                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')
         else:
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
@@ -1170,6 +1189,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['show_photos'] = False
         context['max_page'] = ceil(float(context['total']) / float(page_size))
 
+    context['execution_time'] = str(time() - starttime)
     return context
 
 
