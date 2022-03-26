@@ -2331,7 +2331,7 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 .ajp-toolbox-button-wrapper {
     flex-direction: column;
     justify-content: normal;
-    min-height: 80px;
+    min-height: 68px;
     align-items: center;
     text-align: center;
     width: 80px;
@@ -2339,7 +2339,7 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
 
 .ajp-toolbox-button-wrapper > a,
 .ajp-toolbox-button-wrapper > button {
-    height: 54px;
+    height: 40px;
 }
 
 .human-child {
