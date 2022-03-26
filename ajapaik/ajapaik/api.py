@@ -22,7 +22,7 @@ from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.db.models.functions import Distance, GeometryDistance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.sessions.models import Session
@@ -652,12 +652,10 @@ class AlbumNearestPhotos(AjapaikAPIView):
                     ).data
                 })
             else:
-                photos = Photo.objects.filter(lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True, 
-                    lon__lte=longitude+1, lon__gte=longitude-1,
-                    lat__lte=latitude+1, lat__gte=latitude-1,
-                    ).annotate(
-                    distance=Distance(('geography'), ref_location)).filter(distance__lte=(D(m=nearby_range))).order_by(
-                    'distance')[start:end]
+                # results are flattened to ids lists so that the serialisation stays fast
+                photos = Photo.objects.filter(rephoto_of__isnull=True, ).annotate(distance=GeometryDistance("geography", ref_location)).order_by("distance")[start:end]
+                photo_ids=photos.values_list('id', flat=True)
+                photos=Photo.objects.filter(id__in=photo_ids).order_by(GeometryDistance("geography", ref_location));
 
                 photos = PhotoSerializer.annotate_photos(
                     photos,
