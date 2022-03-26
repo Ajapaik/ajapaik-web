@@ -1050,7 +1050,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         # Flatten the selected photos to ids so GeometryDistance indexed sort doesn't break in SQL-level
         # when rephoto count is annotated. This works because it force limits the number of sorted rows
-        if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
+        if order1 == 'closest' and lat and lon:
             photo_ids=photos[start:end].values_list('id', flat=True)
             photos=Photo.objects.filter(id__in=photo_ids).all()
             if order3 == 'reverse':
@@ -1063,7 +1063,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
 
         # FIXME: Stupid
-        if order1 == 'closest' and lat and lon and not (order1 == 'amount' and order2 == 'geotags'):
+        if order1 == 'closest' and lat and lon:
             # Note seeking (start:end) has been alredy done when values are flatted above
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'distance',
