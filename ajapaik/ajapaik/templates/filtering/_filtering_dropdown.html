@@ -93,6 +93,7 @@
                 </a>
             </div>
             <div id="picture-filters-div" {% if not show_photos %}class="d-none"{% endif %}>
+                <div>
                 <a role="button"
                    class="ajp-header-button"
                    {% if is_frontpage and not album and not show_photos %}title="{% trans 'Show person albums' %}"
@@ -222,9 +223,7 @@
                             high_quality
                         </span>
                 </a>
-            </div>
-        {% endif %}
-        {% if show_photos %}
+                </div>
             <ul class="pl-0">
                 <li id="ajp-organiser-dropdown-sort-order-name"></li>
                 <li data-order1="closest" data-order2="none">
@@ -377,6 +376,7 @@
                     </a>
                 </li>
             </ul>
+        </div>
         {% endif %}
     </div>
 </a>
