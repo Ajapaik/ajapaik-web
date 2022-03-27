@@ -120,6 +120,7 @@ urlpatterns = [
     url(r'^user/merge-accounts/$', views.merge_accounts, name='merge_accounts'),
     url(r'^photo-upload/settings-modal/$', views.rephoto_upload_settings_modal, name='rephoto_upload_settings_modal'),
     url(r'^supporters/$', views.supporters, name='supporters'),
+    url(r'^accounts/launcher/$', views.oauthdone, name='oauthdone'),
 ]
 
 urlpatterns += [

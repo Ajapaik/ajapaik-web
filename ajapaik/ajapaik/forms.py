@@ -14,6 +14,11 @@ from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
                      Profile, Video)
 
 
+class OauthDoneForm(forms.Form):
+    token=forms.CharField(label=_('Token'), max_length=254)
+    route=forms.CharField(label=_('Route'), max_length=254)
+    provider=forms.CharField(label=_('Provider'), max_length=254)
+
 class SignupForm(AllauthSignupForm):
     email = forms.CharField(label=_('Email'), max_length=254)
     first_name = forms.CharField(label=_('First name'), max_length=30)
@@ -42,6 +47,7 @@ class APILoginForm(forms.Form):
     LOGIN_TYPE_AUTO = 'auto'
     LOGIN_TYPE_AJAPAIK = 'ajapaik'
     LOGIN_TYPE_GOOGLE = 'google'
+    LOGIN_TYPE_GOOGLE2 = 'google2'
     LOGIN_TYPE_FACEBOOK = 'fb'
     LOGIN_TYPE_WIKIMEDIA_COMMONS = 'wikimedia-commons'
     LOGIN_TYPES = [
@@ -50,6 +56,7 @@ class APILoginForm(forms.Form):
         # django-allauth integration.
         (LOGIN_TYPE_AJAPAIK, 'Ajapaik'),  # Usual email/password pair.
         (LOGIN_TYPE_GOOGLE, 'Google'),  # Google login.
+        (LOGIN_TYPE_GOOGLE2, 'Google2'),  # Google login with access_token.
         (LOGIN_TYPE_FACEBOOK, 'Facebook'),  # FB user ID.
         (LOGIN_TYPE_WIKIMEDIA_COMMONS, 'Wikimedia Commons')
     ]
