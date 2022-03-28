@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-03-17 12:00:22+0000\n"
+"PO-Revision-Date: 2022-03-28 11:00:27+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1082,7 +1082,7 @@ msgstr "Qeyd ke"
 
 #: ajapaik/ajapaik/templates/common/frontpage.html:30
 msgid "Authentication"
-msgstr "Raştiya Kamiye"
+msgstr "Raştkerdışê kamiye"
 
 #: ajapaik/ajapaik/templates/common/game.html:26
 msgid "Game modal photo"
