@@ -11,6 +11,7 @@
 # Author: Looong
 # Author: Shuiwater
 # Author: SomeyaMako
+# Author: StarrySky
 # Author: Viztor
 # Author: Yfdyh000
 # Author: Ywang
@@ -25,7 +26,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-03-17 12:00:26+0000\n"
+"PO-Revision-Date: 2022-04-04 11:00:21+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,11 +52,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
-msgstr ""
+msgstr "过期于"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Invalid token"
-msgstr ""
+msgstr "无效令牌"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
@@ -231,7 +232,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
-msgstr ""
+msgstr "作者名"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Missing image"
@@ -364,11 +365,11 @@ msgstr "图像"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS标题"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
@@ -396,11 +397,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
-msgstr ""
+msgstr "场景"
 
 #: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
 msgid "Ground"
-msgstr ""
+msgstr "地表"
 
 #: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1864
 msgid "Raised"
@@ -453,7 +454,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1289
 msgid "Dating"
-msgstr ""
+msgstr "评级"
 
 #: ajapaik/ajapaik/models.py:1290
 msgid "Dating confirmation"

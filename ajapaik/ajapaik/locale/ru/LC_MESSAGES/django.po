@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-03-17 12:00:25+0000\n"
+"PO-Revision-Date: 2022-04-04 11:00:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -795,7 +795,7 @@ msgstr "Войти"
 #: ajapaik/ajapaik/templates/account/signup.html:8
 #: ajapaik/ajapaik/templates/account/signup.html:18
 msgid "Sign up"
-msgstr ""
+msgstr "Зарегистрироваться"
 
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:11
 msgid "Messages"
@@ -952,7 +952,7 @@ msgstr "Уже есть аккаунт? Тогда<a href=\"%(login_url)s\">во
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "Регистрация закрыта"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -960,7 +960,7 @@ msgstr "К сожалению, регистрация в настоящее вр
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Примечание"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format

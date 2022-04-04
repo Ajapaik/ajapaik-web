@@ -5,6 +5,7 @@
 # Author: Avengium
 # Author: Canaan9801
 # Author: DannyS712
+# Author: DiegoAmbrocio
 # Author: Fewasser Traduce
 # Author: Fitoschido
 # Author: Geryescalier
@@ -23,7 +24,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-03-17 12:00:23+0000\n"
+"PO-Revision-Date: 2022-04-04 11:00:19+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -374,7 +375,7 @@ msgstr "MUIS comentario"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "Nota sobre la descripción del evento MUIS"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
@@ -609,15 +610,15 @@ msgstr "Foto original"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Este álbum contiene una película"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Este es un álbum de personas"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Este es un álbum de colección"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -1112,11 +1113,11 @@ msgstr "Cuadro de búsqueda"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:58
 msgid "No content overlap"
-msgstr ""
+msgstr "No hay solapamiento de contenidos"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:63
 msgid "Overlapping content"
-msgstr ""
+msgstr "Superposición de contenidos"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:68
 msgid "Same shot"
@@ -1129,7 +1130,7 @@ msgstr "Ya has revisado todos los pares de imágenes similares"
 #: ajapaik/ajapaik/templates/core/_footer.html:19
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr ""
+msgstr "Sociedad del Patrimonio Fotográfico de Estonia"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
@@ -1145,7 +1146,7 @@ msgstr "Apóyenos"
 #: ajapaik/ajapaik/templates/core/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr ""
+msgstr "Vea también - Sift.pics"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
@@ -1227,19 +1228,19 @@ msgstr "Galería de fotos históricas"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
 msgid "Mapped old historic photos from the album"
-msgstr ""
+msgstr "Mapa de fotos históricas antiguas del álbum"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:25
 msgid "Mapped old historic photos"
-msgstr ""
+msgstr "Mapa de fotos históricas antiguas"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:29
 msgid "Help geotag old historic photos from the album"
-msgstr ""
+msgstr "Ayudar a geoetiquetar viejas fotos históricas del álbum"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:31
 msgid "Help geotag old historic photos"
-msgstr ""
+msgstr "Ayudar a geoetiquetar viejas fotos históricas"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:35
 msgid "Before and after view of"
@@ -1251,7 +1252,7 @@ msgstr "Fotos históricas de"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr ""
+msgstr "Conservar las fotos históricas de los museos en Ajapaik para geoetiquetarlas y refotografiarlas"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6

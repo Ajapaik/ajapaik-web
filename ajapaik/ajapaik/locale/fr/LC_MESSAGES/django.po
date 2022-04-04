@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-03-17 12:00:23+0000\n"
+"PO-Revision-Date: 2022-04-04 11:00:19+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2362,7 +2362,7 @@ msgstr "Fusionner les comptes"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr "Jeton non valide, veuillez essayer à nouveau ou contacter le support client"
+msgstr "Jeton non valide, veuillez essayer à nouveau ou contacter l’assistance des clients"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
