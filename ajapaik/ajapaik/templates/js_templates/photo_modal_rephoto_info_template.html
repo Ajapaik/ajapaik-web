@@ -61,5 +61,12 @@
         {% if (o.date) { %}
             <div class="w-100">{%=o.date%}</div>
         {% } %}
+        {% if (o.admin) { %}
+            <div class="w-100">
+            <a target="_blank" title="admin" href="/admin/ajapaik/photo/{%=o.id%}">
+                    <span class="material-icons" style="font-size:0.8em">settings</span>Admin
+            </a>
+            </div>
+        {% } %}
     </script>
 {% endverbatim %}

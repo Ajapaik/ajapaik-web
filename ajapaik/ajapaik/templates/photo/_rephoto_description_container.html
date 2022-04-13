@@ -39,4 +39,11 @@
             <div id="ajp-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>
         </div>
     {% endif %}
+    {% if request.user.is_superuser %}
+        <div id="ajp-photo-admin-link">
+            <a target="_blank" title="admin" href="/admin/ajapaik/photo/{{ rephoto.id }}">
+                    <span class="material-icons" style='font-size:0.8em'>settings</span>{% trans 'Admin' %} 
+            </a>
+        </div>
+    {% endif %} 
 </div>

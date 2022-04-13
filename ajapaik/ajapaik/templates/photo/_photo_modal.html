@@ -240,6 +240,9 @@
             {% if rephoto.date %}
                 date: "{{ rephoto.date|date:"d.m.Y" }}",
             {% endif %}
+            {% if request.user.is_superuser %}
+                admin: "request.user.is_superuser",
+            {% endif %}
             {% if rephoto.user %}
                 user: "{{ rephoto.user.id }}",
                 FBUserName: "{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}",
