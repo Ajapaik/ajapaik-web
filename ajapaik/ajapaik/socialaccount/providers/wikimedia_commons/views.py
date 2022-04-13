@@ -12,6 +12,8 @@ from .provider import WikimediaCommonsProvider
 class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
     provider_id = WikimediaCommonsProvider.id
     wiki_oauth_url = 'https://commons.wikimedia.org/w/rest.php/oauth2'
+#    wiki_oauth_url = 'https://meta.wikimedia.beta.wmflabs.org/w/rest.php/oauth2'
+#    wiki_oauth_url = 'https://commons.wikimedia.beta.wmflabs.org/w/rest.php/oauth2'
     access_token_url = f'{wiki_oauth_url}/access_token'
     access_token_method = 'POST'
     authorize_url = f'{wiki_oauth_url}/authorize'
