@@ -1041,7 +1041,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # Moved here to limit the max blacklist ids sise to page_size for speed
         # Note: Blacklist will leak if new photos are blacklisted ones
 
-        photos_ids = list(photos.values_list('id', flat=True)[start:end])
+        photos_ids = list(photos.values_list('id', flat=True)[start:(end+page_size)])
         if not album or album.id != 38516:
             blacklist_exists = Album.objects.filter(id=38516).exists()
             if blacklist_exists:
@@ -1087,6 +1087,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[3] = p[14] + (". " if p[14][-1] != "." else " ") + p[
                     3]  # add title to image description if both are present.
 
+            # Failback width/height for photos which imagedata arent saved yet
+            if p[1] == '' or p[1] is None:
+                p[1] = 400
+            if p[2] == '' or p[2] is None:
+                p[2] = 400
             if p[3] == '' or p[3] is None:
                 p[3] = p[14]
             if p[3] == '' or p[3] is None:
