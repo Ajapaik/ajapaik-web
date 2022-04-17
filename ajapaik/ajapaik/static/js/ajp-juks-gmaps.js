@@ -18,23 +18,24 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
     this.isGeotagger = isGeotagger;
     this.vanalinnadCitiesMap = {
         'Haapsalu': 'Haapsalu',
-        'Kärdla': 'Kardla',
         'Kuressaare': 'Kuressaare',
-        'Lihula': 'Lihula',
-        'Narva': 'Narva',
-        'Narva-Jõesuu': 'Narva-Jõesuu',
-        'Paide': 'Paide',
-        'Paldiski': 'Paldiski',
+        'Narva-Jõesuu': 'Narva-Joesuu',
         'Pärnu': 'Parnu',
-        'Põltsamaa': 'Poltsamaa',
-        'Põlva': 'Polva',
         'Rakvere': 'Rakvere',
-        'Rapla': 'Rapla',
         'Tallinn': 'Tallinn',
-        'Tartu': 'Tartu',
-        'Valga': 'Valga',
         'Viljandi': 'Viljandi',
-        'Võru': 'Voru'
+        'Jõgeva': 'Jogeva',
+        'Lihula': 'Lihula',
+        'Paide': 'Paide',
+        'Põltsamaa': 'Poltsamaa',
+        'Rapla': 'Rapla',
+        'Tartu': 'Tartu',
+        'Võru': 'Voru',
+        'Kärdla': 'Kardla',
+        'Narva': 'Narva',
+        'Paldiski': 'Paldiski',
+        'Põlva': 'Polva',
+        'Valga': 'Valga'
     };
 
     this.juksMapType = new google.maps.ImageMapType({
