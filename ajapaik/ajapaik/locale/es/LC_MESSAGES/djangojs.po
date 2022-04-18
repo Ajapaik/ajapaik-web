@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app - JavaScript to Spanish (español)
 # Exported from translatewiki.net
 #
+# Author: DiegoAmbrocio
 # Author: Fewasser Traduce
 # Author: Fitoschido
 # Author: Geryescalier
@@ -14,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-03-17 12:00:23+0000\n"
+"PO-Revision-Date: 2022-04-18 11:00:24+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -233,7 +234,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr ""
+msgstr "¿Estás seguro de que quieres crear un álbum con menos de 5 fotos? Recomendamos crear álbumes con al menos 10 o más fotos."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
@@ -595,7 +596,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
+msgstr "Algo ha ido mal, por favor compruebe su conexión. Si el problema persiste, póngase en contacto con nosotros en Tawk.to"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
@@ -680,7 +681,7 @@ msgstr "Autoría desconocida"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "Ha abierto el mapa con el filtro de álbumes desactivado; para activarlo, marque la casilla situada junto al nombre del álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
@@ -805,11 +806,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "Ya has visto todas las fotos de este álbum, ahora te mostramos fotos al azar."
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:184
 msgid "You have seen all the pictures from this album."
-msgstr ""
+msgstr "Ya has visto todas las fotos de este álbum."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
 msgid "You're anonymous."
