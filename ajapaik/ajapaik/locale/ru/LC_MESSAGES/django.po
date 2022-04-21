@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-04 11:00:21+0000\n"
+"PO-Revision-Date: 2022-04-21 11:00:22+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -52,11 +52,11 @@ msgstr "Инвертировать цвета"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "Добавьте в запрос хотя бы параметр переворота, инвертирования или поворота."
+msgstr "Добавьте в запрос не менее одного из следующих параметров: отразить зеркально, инвертировать или повернуть."
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr "Добавьте в запрос хотя бы параметр scene или viewpoint_elevation"
+msgstr "Добавьте в запрос не менее одного из следующих параметров: подъем уровня точки обзора или места съёмки"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
@@ -228,7 +228,7 @@ msgstr "Допустимые форматы — .png и .jpg."
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Add a short description of the picture"
-msgstr "Добавьте короткое описание изображения"
+msgstr "Добавьте краткое описание изображения"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
@@ -616,7 +616,7 @@ msgstr "Назад"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "Отметить человека"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -1266,7 +1266,7 @@ msgstr "Историческое фото"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr "Курируйте исторические фотографии из музеев в Ajapaik для определения местоположения и рефотографирования"
+msgstr "Станьте куратором исторических фотографий из музейных коллекций на платформе Ajapaik, чтобы определить место съёмки и сделать современные снимки тех же мест."
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
@@ -1304,7 +1304,7 @@ msgstr "поиск, музей, старые, фотографии, изобра
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr "Галлерея рефотографий %(rephotos_by_name)s"
+msgstr "Галерея переснимков пользователя %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:95
 #, python-format
@@ -1542,7 +1542,7 @@ msgstr "Номер счета получателя"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr "Ajapaik - некоммерческая краудсорсинговая платформа с открытым исходным кодом. За время существования проекта объем контента значительно возрос, также как и его техническая сложность. По количеству пользователей Ajapaik не уступает таким официальным репозиториям культурного наследия, как «Муис» (Muis), «Фотис» (Fotis) и др."
+msgstr "Ajapaik - некоммерческая краудсорсинговая платформа с открытым исходным кодом. За время существования проекта объем контента значительно возрос, также как и его техническая сложность. По количеству пользователей Ajapaik не уступает таким официальным репозиториям культурного наследия, как Muis, Fotis и др."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
@@ -1610,7 +1610,7 @@ msgstr "Сброс пароля"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
-msgstr ""
+msgstr "Параметры загрузки переснимков"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1776,7 +1776,7 @@ msgstr "Сортировать по времени добавления геот
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:285
 msgid "Sort by rephotos' time added or amount"
-msgstr "Сортировать по времени добавления рефото или количеству"
+msgstr "Сортировать по времени добавления переснимка или количеству"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:295
 msgid "Sort by annotations' time added or amount"
@@ -1844,7 +1844,7 @@ msgstr "обратная сортировка"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr "Этот пользователь предложил местоположение для этой фотографии"
+msgstr "Место съёмки определил этот пользователь"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
@@ -1860,27 +1860,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Пользователи платформы Ajapaik могут"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
-msgstr ""
+msgstr "добавлять геометки к фотографиям для улучшения поиска на основе местоположения,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr ""
+msgstr "делать современные снимки исторических мест для сравнительных фото «тогда и сейчас»,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr ""
+msgstr "отмечать людей на снимках, добавлять фотографии в альбомы, распределять фотографии по категориям и оставлять к ним комментарии,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
-msgstr ""
+msgstr "расшифровывать рукописные надписи на фотографиях или на оборотной стороне открыток,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
-msgstr ""
+msgstr "добавлять исторические кадры на платформу Ajapaik из своей или общедоступных коллекций."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
@@ -1907,7 +1907,7 @@ msgstr "Общая статистика обновляется каждые 10 �
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr "Альбом курируется"
+msgstr "Альбом курируется пользователем"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:23
 msgid "Contributors' leaderboard"

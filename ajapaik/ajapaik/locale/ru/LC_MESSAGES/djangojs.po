@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2022-03-17 12:00:24+0000\n"
+"PO-Revision-Date: 2022-04-21 11:00:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
-msgstr "Пользователь отклонил запрос на геолокацию."
+msgstr "Запрос на позиционирование отклонен пользователем."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
@@ -44,7 +44,7 @@ msgstr "Информация о местоположении недоступн�
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
-msgstr "Тайм-аут запроса на получение местоположения пользователя."
+msgstr "Время для получения местоположения пользователя истекло."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:404
 msgid "An unknown error occurred."
@@ -166,7 +166,7 @@ msgstr "Подтверждение датирования дало вам %(poin
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
-msgstr "Загрузка датирования дала вам %(points)s очков."
+msgstr "За предложение датировки вы получаете %(points)s очков."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
@@ -192,7 +192,7 @@ msgstr "Отправить"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr "Прокомментируйте Ваше датирование"
+msgstr "Оставьте комментарий о своём выборе даты"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
@@ -573,7 +573,7 @@ msgstr "Фото в данном альбоме"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 msgid "Points"
-msgstr "Баллов"
+msgstr "Очков"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
@@ -586,7 +586,7 @@ msgstr "Удалить из выбора"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Rephotos in album"
-msgstr "Рефото в альбоме"
+msgstr "Переснимков в альбоме"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 msgid "Rotate"
@@ -809,7 +809,7 @@ msgstr "Мои переснимки"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr "Фотографии от %(user)s"
+msgstr "Переснимки пользователя %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
@@ -909,7 +909,7 @@ msgstr "Перетащите карту так, чтобы маркер нахо
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
-msgstr "Баллов начислено"
+msgstr "Очков начислено"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
@@ -939,9 +939,9 @@ msgstr ""
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] "Вы набрали %s балл"
-msgstr[1] "Вы набрали %s баллов"
-msgstr[2] ""
+msgstr[0] "Вы получили %s очко"
+msgstr[1] "Вы получили %s очка"
+msgstr[2] "Вы получили %s очков"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
