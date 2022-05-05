@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:21+0000\n"
+"PO-Revision-Date: 2022-05-05 11:00:24+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -389,7 +389,7 @@ msgstr "Комментарий в системе MUIS"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "MUIS event description set note"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
