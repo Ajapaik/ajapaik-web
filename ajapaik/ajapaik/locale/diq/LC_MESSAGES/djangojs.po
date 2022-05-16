@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:19+0000\n"
+"PO-Revision-Date: 2022-05-16 11:00:20+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1162,7 +1162,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Albumi ake"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
