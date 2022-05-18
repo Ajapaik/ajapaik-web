@@ -115,10 +115,18 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         else:
             rephoto_author = 'Unknown'
 
+        rephoto_date_text=""
+        if rephoto.date_text:
+            rephoto_date_text=rephoto.date_text
+        elif rephoto.date:
+            rephoto_date_text=rephoto.date.strftime('%Y-%m-%d')
+        else:
+            rephoto_date_text=""
+
         rephoto_attribution_text = _render_attribution(
             rephoto_source_text,
             rephoto_author,
-            rephoto.date_text,
+            rephoto_date_text,
             rephoto_licence_text
         )
 
@@ -130,17 +138,19 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             rephoto_title = f'Rephoto of {request.build_absolute_uri(f"/photo/{str(photo_id)}")} with title "{title}"'
 
         rephoto_metadata = []
-        if rephoto.date_text:
-            rephoto_metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': rephoto.date_text})
+        if rephoto_date_text:
+            rephoto_metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': rephoto_date_text})
 
-        if rephoto.source:
+        if rephoto_source_text:
             rephoto_metadata.append({'label': multilang_string_v2('Source', 'en'), 'value': rephoto_source_text})
 
         if rephoto.source_key:
             rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': rephoto.source_key})
+        elif not rephoto.source:
+            rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': str(rephoto.id)})
 
-        if rephoto.author:
-            rephoto_metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': rephoto.author})
+        if rephoto_author:
+            rephoto_metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': rephoto_author})
 
         if rephoto.licence:
             rephoto_metadata.append({'label': multilang_string_v2('Licence', 'en'), 'value': rephoto_licence_text, 'id': rephoto_rights_url})
