@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-05-12 11:00:28+0000\n"
+"PO-Revision-Date: 2022-05-19 11:00:45+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -1752,7 +1752,7 @@ msgstr "Показать изображения высокого качеств�
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
-msgstr "Сортировать по дистанции от вас"
+msgstr "Сортировать по расстоянию от вас"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:235
 msgid "Sort by time and ..."
@@ -1764,7 +1764,7 @@ msgstr "Сортировать по дате добавления снимка"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
 msgid "Sort by stills' timestamp"
-msgstr "Сортировать по метке времени"
+msgstr "Сортировать по метке времени стоп-кадра"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:266
 msgid "Sort by views' time added or amount"
@@ -1772,31 +1772,31 @@ msgstr "Сортировать по времени добавления прос
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:275
 msgid "Sort by geotags' time added or amount"
-msgstr "Сортировать по времени добавления геотега или количеству"
+msgstr "Сортировать по времени добавления или количеству геометок"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:285
 msgid "Sort by rephotos' time added or amount"
-msgstr "Сортировать по времени добавления переснимка или количеству"
+msgstr "Сортировать по времени добавления или количеству переснимков"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:295
 msgid "Sort by annotations' time added or amount"
-msgstr ""
+msgstr "Сортировать по времени добавления или количеству примечаний"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:304
 msgid "Sort by transcriptions' time added or amount"
-msgstr ""
+msgstr "Сортировать по времени добавления или количеству транскрипций"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:313
 msgid "Sort by datings' time added or amount"
-msgstr "Сортировать по времени добавления даты или количеству"
+msgstr "Сортировать по времени добавления или количеству добавленных датировок"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:323
 msgid "Sort by comments' time added or amount"
-msgstr "Сортировать по времени добавления комментариев или количеству"
+msgstr "Сортировать по времени добавления или количеству комментариев"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:333
 msgid "Sort by likes' time added or amount"
-msgstr "Сортировать по времени добавления лайков или количеству"
+msgstr "Сортировать по времени добавления или количеству лайков"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:343
 msgid "Sort by amount and ..."
@@ -1884,7 +1884,7 @@ msgstr "добавлять исторические кадры на платфо
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
-msgstr ""
+msgstr "Ajapaik – некоммерческая организация, созданная Эстонским обществом фотографического наследия (MTÜ Eesti Fotopärand) во время хакатона Garage48 в феврале 2011 года. Многие годы Ajapaik финансировался за счёт грантов, но постоянного фонда не существует. Мы будем благодарны любой сумме пожертвования в <a href='/donate'>поддержку проекта</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
