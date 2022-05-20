@@ -43,7 +43,7 @@ def get_random_commons_image(level):
         if page["imageinfo"][0]["mime"]!="image/jpeg":
             if level<5:
                 print("get_random_image() retrying")
-                ret=get_random_image(level+1)
+                ret=get_random_commons_image(level+1)
                 return ret
             else:
                 print("get_random_image() retry failed")
@@ -61,8 +61,8 @@ def get_wikimedia_api_client(user):
     consumer_token = {'key': app.client_id, 'secret': app.secret}
     socialToken= SocialToken.objects.get(account__user=user, account__provider='wikimedia-commons')
     client_id = app.client_id
-    userinfo_url = get_mediawiki_api_url() + '/w/api.php?format=json&action=query&meta=userinfo&uiprop=blockinfo%7Cgroups%7Crights%7Chasmsg'
-    refresh_url = get_mediawiki_api_url() + '/w/rest.php/oauth2/access_token'
+    userinfo_url = get_mediawiki_url() + '/w/api.php?format=json&action=query&meta=userinfo&uiprop=blockinfo%7Cgroups%7Crights%7Chasmsg'
+    refresh_url = get_mediawiki_url() + '/w/rest.php/oauth2/access_token'
 
     token = {
         'access_token': socialToken.token,
@@ -90,7 +90,7 @@ def get_wikimedia_api_client(user):
             print("Refreshing token OK")
         else:
             print("Refreshing token failed")
-            return false
+            return False
 
         client = OAuth2Session(client_id, token=token)
         r = client.get(userinfo_url)
