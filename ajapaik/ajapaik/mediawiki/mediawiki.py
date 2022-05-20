@@ -6,6 +6,13 @@ from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2 import TokenExpiredError
 
+
+def get_mediawiki_url(betacommons=False):
+    if betacommons:
+        return 'https://commons.wikimedia.beta.wmflabs.org'
+    else:
+        return 'https://commons.wikimedia.org'
+
 def download_tmp_file(url):
     user_agent="Ajapaik.ee OAUTH2 Uploader"
     headers={'User-Agent': user_agent}
@@ -54,8 +61,8 @@ def get_wikimedia_api_client(user):
     consumer_token = {'key': app.client_id, 'secret': app.secret}
     socialToken= SocialToken.objects.get(account__user=user, account__provider='wikimedia-commons')
     client_id = app.client_id
-    userinfo_url = 'https://commons.wikimedia.beta.wmflabs.org/w/api.php?format=json&action=query&meta=userinfo&uiprop=blockinfo%7Cgroups%7Crights%7Chasmsg'
-    refresh_url = 'https://commons.wikimedia.beta.wmflabs.org/w/rest.php/oauth2/access_token'
+    userinfo_url = get_mediawiki_api_url() + '/w/api.php?format=json&action=query&meta=userinfo&uiprop=blockinfo%7Cgroups%7Crights%7Chasmsg'
+    refresh_url = get_mediawiki_api_url() + '/w/rest.php/oauth2/access_token'
 
     token = {
         'access_token': socialToken.token,
@@ -91,7 +98,7 @@ def get_wikimedia_api_client(user):
 
 
 def get_csrf_token(client):
-    edit_token_url = 'https://commons.wikimedia.beta.wmflabs.org/w/api.php?action=query&meta=tokens&format=json'
+    edit_token_url = get_mediawiki_url() + '/w/api.php?action=query&meta=tokens&format=json'
     r = client.get(edit_token_url)
     data=r.json()
     csrf_token=data['query']['tokens']['csrftoken']
@@ -99,7 +106,7 @@ def get_csrf_token(client):
 
 
 def upload_file_to_commons(client, source_filename, target_filename, wikitext, comment):
-    mediawiki_api_url="https://commons.wikimedia.beta.wmflabs.org/w/api.php";
+    mediawiki_api_url=get_mediawiki_url() + "/w/api.php"
     csrf_token=get_csrf_token(client)
     upload_payload={
         'action': 'upload',
