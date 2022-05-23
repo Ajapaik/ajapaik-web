@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Eitvys200
+# Author: YuliaVo
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-04-28 11:00:21+0000\n"
+"PO-Revision-Date: 2022-05-23 11:00:27+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2706,35 +2707,35 @@ msgstr ""
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr ""
+msgstr "Eesti"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Latviešu"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lietuvių"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
-msgstr ""
+msgstr "Suomi"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr ""
+msgstr "Svenska"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"

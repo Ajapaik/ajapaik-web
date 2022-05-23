@@ -11,6 +11,7 @@
 # Author: Pyscowicz
 # Author: Rönttönen
 # Author: Sirukisu
+# Author: YuliaVo
 # Author: Yupik
 # Author: Zache
 # --
@@ -23,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2022-04-28 11:00:20+0000\n"
+"PO-Revision-Date: 2022-05-23 11:00:26+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -2691,35 +2692,35 @@ msgstr "Ei enempää dataa, yritä uudelleen myöhemmin"
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr "viro"
+msgstr "Eesti"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr "Latvialainen"
+msgstr "Latviešu"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr "Liettualainen"
+msgstr "Lietuvių"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr "englanti"
+msgstr "English"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
-msgstr "suomi"
+msgstr "Suomi"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr "ruotsi"
+msgstr "Svenska"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr "venäjä"
+msgstr "Русский"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr "ranska"
+msgstr "Français"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
