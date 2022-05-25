@@ -509,6 +509,7 @@ class Photo(Model):
     rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', on_delete=CASCADE)
     first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
     latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
+    rephoto_count = IntegerField(default=0, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
     comment_count = IntegerField(default=0, null=True, blank=True, db_index=True)
     first_comment = DateTimeField(null=True, blank=True, db_index=True)
@@ -1047,6 +1048,7 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
+            self.rephoto_count = self.rephotos.count()
         super(Photo, self).save(*args, **kwargs)
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)

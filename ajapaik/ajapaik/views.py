@@ -899,7 +899,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-comment_count')
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'rephotos':
-                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.order_by('rephoto_count')
                 else:
@@ -1066,10 +1065,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             else:
                 photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
 
-        # Annotate rephoto_count after flattening if number is not needed for sorting
-        if not ( order1 == 'amount' and order2 == 'rephotos' ):
-            photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
-
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon:
             # Note seeking (start:end) has been alredy done when values are flatted above
@@ -1164,7 +1159,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['rephotos_by'] = rephotos_by_id
         context['rephotos_by_name'] = rephotos_by_name
     else:
-        photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
         context['album'] = None
         context['photo'] = None
         context['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
