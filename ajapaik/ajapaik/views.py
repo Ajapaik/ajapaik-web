@@ -943,14 +943,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-similar_photo_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
-                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
-                                          order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
+                    photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
-                                          order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
-                photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
+                    photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
+                photos_with_rephotos = photos.filter(first_rephoto__isnull=False).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
                     photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
@@ -1059,8 +1056,18 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             else:
                 photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
 
+        # Flatten the selected photos to ids so annotating rephotocount is faster in SQL
+        # Needs to be investigated WHY this is faster and could it just be replaced with index
+        if order1 == 'time' and order2 == 'rephotos':
+            photo_ids=photos[start:end].values_list('id', flat=True)
+            photos=Photo.objects.filter(id__in=photo_ids).all()
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
 
-        if not order2 == 'rephotos':
+        # Annotate rephoto_count after flattening if number is not needed for sorting
+        if not ( order1 == 'amount' and order2 == 'rephotos' ):
             photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
 
         # FIXME: Stupid
