@@ -1675,7 +1675,7 @@ def map_objects_by_bounding_box(request):
 
         qs = Photo.objects.filter(
             lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True
-        ).annotate(rephoto_count=Count('rephotos'))
+        )
 
         if album and limit_by_album:
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
