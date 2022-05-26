@@ -25,7 +25,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q, Sum
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, Sum
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
@@ -44,6 +44,24 @@ from sorl.thumbnail import get_thumbnail, delete
 from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
 
+# For doing multicolumn bitmap index queries 
+#
+# Input
+# object.filter(LeftField__bool=True)
+#
+# Output
+# SELECT * FROM foo WHERE CAST(LeftField AS bool) = CAST(RightField AS bool);
+
+class BooleanValue(Transform):
+    lookup_name = 'bool'
+    bilateral = True
+
+    def as_sql(self, compiler, connection):
+        sql, params = compiler.compile(self.lhs)
+        sql = 'CAST(%s AS BOOL)' % sql
+        return sql, params
+
+Field.register_lookup(BooleanValue)
 
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
