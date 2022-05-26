@@ -25,7 +25,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, Sum
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
@@ -525,31 +525,31 @@ class Photo(Model):
     # Useless
     area = ForeignKey('Area', related_name='areas', null=True, blank=True, on_delete=CASCADE)
     rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', on_delete=CASCADE)
-    first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
-    latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
+    first_rephoto = DateTimeField(null=True, blank=True)
+    latest_rephoto = DateTimeField(null=True, blank=True)
     rephoto_count = IntegerField(default=0, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
     comment_count = IntegerField(default=0, null=True, blank=True, db_index=True)
-    first_comment = DateTimeField(null=True, blank=True, db_index=True)
-    latest_comment = DateTimeField(null=True, blank=True, db_index=True)
+    first_comment = DateTimeField(null=True, blank=True)
+    latest_comment = DateTimeField(null=True, blank=True)
     view_count = PositiveIntegerField(default=0)
-    first_view = DateTimeField(null=True, blank=True)
-    latest_view = DateTimeField(null=True, blank=True)
+    first_view = DateTimeField(null=True)
+    latest_view = DateTimeField(null=True)
     like_count = IntegerField(default=0, db_index=True)
-    first_like = DateTimeField(null=True, blank=True, db_index=True)
-    latest_like = DateTimeField(null=True, blank=True, db_index=True)
+    first_like = DateTimeField(null=True, blank=True)
+    latest_like = DateTimeField(null=True, blank=True)
     geotag_count = IntegerField(default=0, db_index=True)
-    first_geotag = DateTimeField(null=True, blank=True, db_index=True)
-    latest_geotag = DateTimeField(null=True, blank=True, db_index=True)
+    first_geotag = DateTimeField(null=True, blank=True)
+    latest_geotag = DateTimeField(null=True, blank=True)
     dating_count = IntegerField(default=0, db_index=True)
-    first_dating = DateTimeField(null=True, blank=True, db_index=True)
-    latest_dating = DateTimeField(null=True, blank=True, db_index=True)
+    first_dating = DateTimeField(null=True, blank=True)
+    latest_dating = DateTimeField(null=True, blank=True)
     transcription_count = IntegerField(default=0, db_index=True)
-    first_transcription = DateTimeField(null=True, blank=True, db_index=True)
-    latest_transcription = DateTimeField(null=True, blank=True, db_index=True)
+    first_transcription = DateTimeField(null=True, blank=True)
+    latest_transcription = DateTimeField(null=True, blank=True)
     annotation_count = IntegerField(default=0, db_index=True)
-    first_annotation = DateTimeField(null=True, blank=True, db_index=True)
-    latest_annotation = DateTimeField(null=True, blank=True, db_index=True)
+    first_annotation = DateTimeField(null=True, blank=True)
+    latest_annotation = DateTimeField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     gps_accuracy = FloatField(null=True, blank=True)
@@ -590,6 +590,24 @@ class Photo(Model):
     class Meta:
         ordering = ['-id']
         db_table = 'project_photo'
+        indexes = [
+            Index(F('latest_annotation').desc(nulls_last=True), name='latest_annotation_idx'),
+            Index(F('first_annotation').asc(nulls_last=True), name='first_annotation_idx'),
+            Index(F('latest_transcription').desc(nulls_last=True), name='latest_transcription_idx'),
+            Index(F('first_transcription').asc(nulls_last=True), name='first_transcription_idx'),
+            Index(F('latest_dating').desc(nulls_last=True), name='latest_dating_idx'),
+            Index(F('first_dating').asc(nulls_last=True), name='first_dating_idx'),
+            Index(F('latest_geotag').desc(nulls_last=True), name='latest_geotag_idx'),
+            Index(F('first_geotag').asc(nulls_last=True), name='first_geotag_idx'),
+            Index(F('latest_like').desc(nulls_last=True), name='latest_like_idx'),
+            Index(F('first_like').asc(nulls_last=True), name='first_like_idx'),
+            Index(F('latest_view').desc(nulls_last=True), name='latest_view_idx'),
+            Index(F('first_view').asc(nulls_last=True), name='first_view_idx'),
+            Index(F('latest_comment').desc(nulls_last=True), name='latest_comment_idx'),
+            Index(F('first_comment').asc(nulls_last=True), name='first_comment_idx'),
+            Index(F('latest_rephoto').desc(nulls_last=True), name='latest_rephoto_idx'),
+            Index(F('first_rephoto').asc(nulls_last=True), name='first_rephoto_idx'),
+        ]
 
     @property
     def get_display_text(self):
