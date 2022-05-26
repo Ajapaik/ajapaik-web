@@ -949,58 +949,40 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photos_with_rephotos = photos.filter(first_rephoto__isnull=False).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
-                                          order_by=['first_comment_is_null', 'project_photo.first_comment'], )
+                    photos = photos.order_by(F('first_comment').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
-                                          order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+                    photos = photos.order_by(F('latest_comment').desc(nulls_last=True))
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
-                                          order_by=['first_geotag_is_null', 'project_photo.first_geotag'], )
+                    photos = photos.order_by(F('first_geotag').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
-                                          order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
+                    photos = photos.order_by(F('latest_geotag').desc(nulls_last=True))
             elif order2 == 'likes':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
-                                          order_by=['first_like_is_null', 'project_photo.first_like'], )
+                    photos = photos.order_by(F('first_like').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
-                                          order_by=['latest_like_is_null', '-project_photo.latest_like'], )
+                    photos = photos.order_by(F('latest_like').desc(nulls_last=True))
             elif order2 == 'views':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
-                                          order_by=['first_view_is_null', 'project_photo.first_view'], )
+                    photos = photos.order_by(F('first_view').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
-                                          order_by=['latest_view_is_null', '-project_photo.latest_view'], )
+                    photos = photos.order_by(F('latest_view').desc(nulls_last=True))
             elif order2 == 'datings':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
-                                          order_by=['first_dating_is_null', 'project_photo.first_dating'], )
+                    photos = photos.order_by(F('first_dating').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
-                                          order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
+                    photos = photos.order_by(F('latest_dating').desc(nulls_last=True))
             elif order2 == 'transcriptions':
                 if order3 == 'reverse':
-                    photos = photos.extra(
-                        select={'first_transcription_is_null': 'project_photo.first_transcription IS NULL', },
-                        order_by=['first_transcription_is_null', 'project_photo.first_transcription'], )
+                    photos = photos.order_by(F('first_transcription').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(
-                        select={'latest_transcription_is_null': 'project_photo.latest_transcription IS NULL', },
-                        order_by=['latest_transcription_is_null', '-project_photo.latest_transcription'], )
+                    photos = photos.order_by(F('latest_transcription').desc(nulls_last=True))
             elif order2 == 'annotations':
                 if order3 == 'reverse':
-                    photos = photos.extra(
-                        select={'first_annotation_is_null': 'project_photo.first_annotation IS NULL', },
-                        order_by=['first_annotation_is_null', 'project_photo.first_annotation'], )
+                    photos = photos.order_by(F('first_annotation').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(
-                        select={'latest_annotation_is_null': 'project_photo.latest_annotation IS NULL', },
-                        order_by=['latest_annotation_is_null', '-project_photo.latest_annotation'], )
+                    photos = photos.order_by(F('latest_annotation').desc(nulls_last=True))
             elif order2 == 'stills':
                 if order3 == 'reverse':
                     photos = photos.order_by('-video_timestamp')
