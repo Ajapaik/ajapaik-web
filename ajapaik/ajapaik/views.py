@@ -613,7 +613,7 @@ def game(request):
     context['is_game'] = True
     context['area_selection_form'] = area_selection_form
     context['album_selection_form'] = album_selection_form
-    context['last_geotagged_photo_id'] = Photo.objects.order_by('-latest_geotag').first().id
+    context['last_geotagged_photo_id'] = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first().id
     context['ajapaik_facebook_link'] = settings.AJAPAIK_FACEBOOK_LINK
     context['user_has_likes'] = user_has_likes
     context['user_has_rephotos'] = user_has_rephotos
@@ -682,7 +682,9 @@ def frontpage(request, album_id=None, page=None):
     else:
         title = ''
 
-    last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
+    # Using "nulls last" here as it uses same index
+    # which is already used in _get_filtered_data_for_frontpage()
+    last_geotagged_photo = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first()
     filters = ['film', 'collections', 'people', 'backsides', 'exteriors', 'interiors',
                'portrait', 'square', 'landscape', 'panoramic', 'ground_viewpoint_elevation',
                'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality'
@@ -1613,7 +1615,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     if geotagged_photo_count:
-        last_geotagged_photo_id = Photo.objects.order_by('-latest_geotag').values('id').first()['id']
+        last_geotagged_photo_id = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).values('id').first()['id']
     else:
         last_geotagged_photo_id = None
 
