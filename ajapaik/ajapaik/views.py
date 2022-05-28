@@ -23,6 +23,7 @@ from uuid import uuid4
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
+import numpy
 import cv2
 import django_comments
 import requests
@@ -836,12 +837,20 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             page = int(page_override)
         else:
             page = filter_form.cleaned_data['page']
+
+        # Do not show hidden photos
+        if not album or album.id != 38516:
+            blacklist_exists = Album.objects.filter(id=38516).exists()
+            if blacklist_exists:
+                photos = photos.exclude(albums__in = [38516])
+
+        # FILTERING BELOW THIS LINE
+
         if album:
-            album_photos_qs = album.photos.all()
+            sa_ids = [album.id]
             for sa in album.subalbums.exclude(atype=Album.AUTO):
-                album_photos_qs = album_photos_qs | sa.photos.all()
-            album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-            photos = photos.filter(id__in=album_photo_ids)
+                sa_ids.append(sa.id)
+            photos = photos.filter(albums__in = sa_ids)
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -887,6 +896,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if q and show_photos:
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
             photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
+
+        # In some cases it is faster to get number of photos before we annotate new columns to it
+        albumsize_before_sorting = 0
+        if not album:
+            albumsize_before_sorting=Photo.objects.filter(pk__in=photos).count()
+
+        # SORTING BELOW THIS LINE
+
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -1016,38 +1033,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photo_count_before_requested = ids.index(requested_photo.id)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
-        start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.estimated_count())
-
-        # Testing: Album.id 38516 = Photos – blacklisti
-        # Moved here to limit the max blacklist ids sise to page_size for speed
-        # Note: Blacklist will leak if new photos are blacklisted ones
-
-        photos_ids = list(photos.values_list('id', flat=True)[start:(end+page_size)])
-        if not album or album.id != 38516:
-            blacklist_exists = Album.objects.filter(id=38516).exists()
-            if blacklist_exists:
-                exclude_photos = Album.objects.get(id=38516).photos.filter(pk__in=photos_ids).all()
-                photos = photos.exclude(pk__in=exclude_photos).all()
-
-        # Flatten the selected photos to ids so GeometryDistance indexed sort doesn't break in SQL-level
-        # when rephoto count is annotated. This works because it force limits the number of sorted rows
-        if order1 == 'closest' and lat and lon:
-            photo_ids=photos[start:end].values_list('id', flat=True)
-            photos=Photo.objects.filter(id__in=photo_ids).all()
-            if order3 == 'reverse':
-                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
-            else:
-                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
-
-        # Flatten the selected photos to ids so annotating rephotocount is faster in SQL
-        # Needs to be investigated WHY this is faster and could it just be replaced with index
-        if order1 == 'time' and order2 == 'rephotos':
-            photo_ids=photos[start:end].values_list('id', flat=True)
-            photos=Photo.objects.filter(id__in=photo_ids).all()
-            if order3 == 'reverse':
-                photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
-            else:
-                photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
+        if albumsize_before_sorting:
+            start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize_before_sorting)
+        else:
+            photos_ids = list(photos.values_list('id', flat=True))
+            albumsize=len(numpy.unique(photos_ids))
+            start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize)
+            # limit QuerySet to selected photos so it is faster to evaluate in next steps
+            photos=photos.filter(id__in=photos_ids[start:end])
 
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon:
