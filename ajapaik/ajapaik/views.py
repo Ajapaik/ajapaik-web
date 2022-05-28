@@ -1016,7 +1016,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photo_count_before_requested = ids.index(requested_photo.id)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
-        start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
+        start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.estimated_count())
 
         # Testing: Album.id 38516 = Photos – blacklisti
         # Moved here to limit the max blacklist ids sise to page_size for speed

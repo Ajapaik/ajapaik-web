@@ -8,6 +8,7 @@ from math import degrees
 from time import sleep
 from urllib.request import urlopen
 
+import re
 import numpy
 import requests
 from PIL import Image, ImageOps
@@ -28,6 +29,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
+from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
@@ -43,6 +45,40 @@ from sorl.thumbnail import get_thumbnail, delete
 
 from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
+
+
+# Impelemnt count estimate as custom function per
+# https://wiki.postgresql.org/wiki/Count_estimate
+# https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
+
+class EstimatedCountQuerySet(QuerySet):
+    def estimated_count(self):
+        estimated_count=0
+
+        # Check that we are using Postgres
+        postgres_engines = ("postgis", "postgresql", "django_postgrespool")
+        engine = settings.DATABASES[self.db]["ENGINE"].split(".")[-1]
+        is_postgres = engine.startswith(postgres_engines)
+
+        # Get estimated count
+        if is_postgres:
+            explain=self.only('pk').explain()
+            m=re.match(".*? rows=(\d+)", explain)
+            if m:
+                estimated_count=int(m[1])
+
+        # If return exact count for small result numbers
+        if estimated_count < 30000:
+            return self.query.get_count(using=self.db)
+        else:
+            return estimated_count
+
+class EstimatedCountManager(Manager):
+    """
+    Custom db manager
+    """
+    def get_queryset(self):
+        return EstimatedCountQuerySet(self.model)
 
 # For doing multicolumn bitmap index queries 
 #
@@ -468,7 +504,7 @@ class Album(Model):
 
 
 class Photo(Model):
-    objects = Manager()
+    objects = EstimatedCountManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
