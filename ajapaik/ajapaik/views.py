@@ -852,6 +852,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 sa_ids.append(sa.id)
             photos = photos.filter(albums__in = sa_ids)
 
+            # In QuerySet "albums__in" is 1:M JOIN  so images will show up
+            # multiple times in results so this needs to be distinct(). Distinct is slow.
+            photos=photos.distinct()
+
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
                                    face_recognition_rectangles__deleted__isnull=True)
@@ -1035,10 +1039,12 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         if albumsize_before_sorting:
             start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize_before_sorting)
+            # limit QuerySet to selected photos so it is faster to evaluate in next steps
+            photos_ids = list(photos.values_list('id', flat=True)[start:end])
+            photos=photos.filter(id__in=photos_ids)
         else:
             photos_ids = list(photos.values_list('id', flat=True))
-            albumsize=len(numpy.unique(photos_ids))
-            start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize)
+            start, end, total, max_page, page = get_pagination_parameters(page, page_size, len(photos_ids))
             # limit QuerySet to selected photos so it is faster to evaluate in next steps
             photos=photos.filter(id__in=photos_ids[start:end])
 
