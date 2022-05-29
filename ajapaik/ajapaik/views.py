@@ -1037,6 +1037,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photo_count_before_requested = ids.index(requested_photo.id)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
+        # Note seeking (start:end) has been here done when results are limited using photo_ids above
         if albumsize_before_sorting:
             start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize_before_sorting)
             # limit QuerySet to selected photos so it is faster to evaluate in next steps
@@ -1050,7 +1051,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon:
-            # Note seeking (start:end) has been alredy done when values are flatted above
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'distance',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
@@ -1059,7 +1059,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
-                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')[start:end]
+                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')
 
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
