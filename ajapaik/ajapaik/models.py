@@ -1,4 +1,5 @@
 import os
+import hashlib
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
@@ -26,6 +27,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.cache import cache
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
@@ -47,11 +49,29 @@ from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
 
 
-# Impelemnt count estimate as custom function per
+# Impelement count estimate as custom function per
 # https://wiki.postgresql.org/wiki/Count_estimate
 # https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
 
 class EstimatedCountQuerySet(QuerySet):
+
+    # Get count from cache if it is available
+    def cached_count(self):
+        cached_count=0
+        key = "query: " + str(hashlib.md5(self.query).hexdigest())
+        cached_count = cache.get(key, cached_count)
+
+        # not in cache or small then query exact value
+        if cached_count < 100000:
+            real_count=self.query.get_count(using=self.db)
+
+            # if real_count is big then update it to cache
+            if real_count>100000:
+                cache.set(key, real_count, 300)
+            return real_count
+
+        return cached_count
+
     def estimated_count(self):
         estimated_count=0
 
@@ -68,7 +88,7 @@ class EstimatedCountQuerySet(QuerySet):
                 estimated_count=int(m[1])
 
         # If return exact count for small result numbers
-        if estimated_count < 30000:
+        if estimated_count < 100000:
             return self.query.get_count(using=self.db)
         else:
             return estimated_count
