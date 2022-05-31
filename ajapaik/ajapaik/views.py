@@ -904,7 +904,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # In some cases it is faster to get number of photos before we annotate new columns to it
         albumsize_before_sorting = 0
         if not album:
-            albumsize_before_sorting=Photo.objects.filter(pk__in=photos).count()
+            albumsize_before_sorting=Photo.objects.filter(pk__in=photos).cached_count()
 
         # SORTING BELOW THIS LINE
 

@@ -58,7 +58,7 @@ class EstimatedCountQuerySet(QuerySet):
     # Get count from cache if it is available
     def cached_count(self):
         cached_count=0
-        key = "query: " + str(hashlib.md5(self.query).hexdigest())
+        key = "query: " + str(hashlib.md5(str(self.query).encode()).hexdigest())
         cached_count = cache.get(key, cached_count)
 
         # not in cache or small then query exact value
