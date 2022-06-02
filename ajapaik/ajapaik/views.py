@@ -46,7 +46,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.temp import NamedTemporaryFile
-from django.db.models import Sum, Q, Count, F
+from django.db.models import Sum, Q, Count, F, Min, Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
@@ -1389,19 +1389,25 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if album:
         album_selection_form = AlbumSelectionForm({'album': album.id})
         if not request.is_ajax():
-            next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').last()
-            if previous_photo is None:
-                previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            next_photo_id = album.photos.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
+            if next_photo_id:
+                next_photo = Photo.objects.get(pk=next_photo_id)
+
+            previous_photo_id = album.photos.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
+            if previous_photo_id:
+                previous_photo = Photo.objects.get(pk=previous_photo_id)
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
         )
         if not request.is_ajax():
-            next_photo = Photo.objects.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').last()
-            if previous_photo is None:
-                previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            next_photo_id = Photo.objects.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
+            if next_photo_id:
+                next_photo = Photo.objects.get(pk=next_photo_id)
+
+            previous_photo_id = Photo.objects.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
+            if previous_photo_id:
+                previous_photo = Photo.objects.get(pk=previous_photo_id)
 
     if album:
         album = (album.id, album.lat, album.lon)
