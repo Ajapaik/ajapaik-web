@@ -3413,62 +3413,61 @@ def user(request, user_id):
     if current_profile == profile:
         is_current_user = True
     if profile.user.is_anonymous:
-        commented_pictures_qs_count = 0
+        commented_pictures_count = 0
     else:
-        commented_pictures_qs_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by(
-            'object_pk').distinct('object_pk').count()
-    curated_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True)
-    datings_qs = Dating.objects.filter(profile_id=profile.id).distinct('photo')
-    face_annotations_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id')
-    face_annotations_pictures_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by(
-        'photo_id').distinct('photo')
-    geotags_qs = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo')
-    geotag_confirmations_qs = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo')
-    object_annotations_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id')
-    object_annotations_pictures_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by(
-        'photo_id').distinct('photo')
-    photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
-    photo_viewpoint_elevation_suggestions_qs = PhotoViewpointElevationSuggestion.objects.filter(
-        proposer_id=profile.id).distinct('photo')
-    photo_scene_suggestions_qs = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(
-        photo_id__in=photo_viewpoint_elevation_suggestions_qs.values_list('photo_id', flat=True))
-    rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False)
-    rephotographed_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by(
-        'rephoto_of_id').distinct('rephoto_of_id')
-    similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
-    transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
-    action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
-                   object_annotations_qs.count() + face_annotations_qs.count() + \
-                   curated_pictures_qs.count() + geotags_qs.count() + \
-                   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
-                   similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
-                   photolikes_qs.count() + photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count()
+        commented_pictures_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
 
-    user_points = 0
-    for point in profile.points.all():
-        user_points += point.points
+    curated_pictures_count            = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True).count()
+    datings_count                     = Dating.objects.filter(profile_id=profile.id).distinct('photo').count()
+    face_annotations_count            = FaceRecognitionRectangle.objects.filter(user_id=profile.id).count()
+    face_annotations_pictures_count   = FaceRecognitionRectangle.objects.filter(user_id=profile.id).distinct('photo').count()
+    geotags_count                     = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo').count()
+    geotag_confirmations_count        = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo').count()
+    object_annotations_count          = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).count()
+    object_annotations_pictures_count = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).distinct('photo').count()
+    photolikes_count                  = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo').count()
+    rephoto_count                     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).count()
+    rephotographed_pictures_count     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id').count()
+    similar_pictures_count            = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity').count()
+    transcriptions_count              = Transcription.objects.filter(user=profile).distinct('photo').count()
+
+    photo_viewpoint_elevation_suggestions_ids = PhotoViewpointElevationSuggestion.objects.filter(
+        proposer_id=profile.id).distinct('photo').values_list('photo_id', flat=True)
+    photo_scene_suggestions_count = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(
+        photo_id__in=photo_viewpoint_elevation_suggestions_ids).count()
+
+    action_count = commented_pictures_count + transcriptions_count + \
+                   object_annotations_count + face_annotations_count + \
+                   curated_pictures_count + geotags_count + \
+                   rephoto_count + rephoto_count + datings_count + \
+                   similar_pictures_count + geotag_confirmations_count + \
+                   photolikes_count + photo_scene_suggestions_count + len(photo_viewpoint_elevation_suggestions_ids)
+
+    user_points=profile.points.aggregate(user_points=Sum('points'))['user_points'] 
+    if user_points == None:
+        user_points = 0
 
     context = {
         'actions': action_count,
-        'commented_pictures': commented_pictures_qs_count,
-        'curated_pictures': curated_pictures_qs.count(),
-        'datings': datings_qs.count(),
-        'face_annotations': face_annotations_qs.count(),
-        'face_annotations_pictures': face_annotations_pictures_qs.count(),
+        'commented_pictures': commented_pictures_count,
+        'curated_pictures': curated_pictures_count,
+        'datings': datings_count,
+        'face_annotations': face_annotations_count,
+        'face_annotations_pictures': face_annotations_pictures_count,
         'favorites_link': '/?order1=time&order2=added&page=1&myLikes=1',
-        'geotag_confirmations': geotag_confirmations_qs.count(),
-        'geotagged_pictures': geotags_qs.count(),
+        'geotag_confirmations': geotag_confirmations_count,
+        'geotagged_pictures': geotags_count,
         'is_current_user': is_current_user,
-        'object_annotations': object_annotations_qs.count(),
-        'object_annotations_pictures': object_annotations_pictures_qs.count(),
-        'photolikes': photolikes_qs.count(),
-        'photo_suggestions': photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count(),
+        'object_annotations': object_annotations_count,
+        'object_annotations_pictures': object_annotations_pictures_count,
+        'photolikes': photolikes_count,
+        'photo_suggestions': photo_scene_suggestions_count + len(photo_viewpoint_elevation_suggestions_ids),
         'profile': profile,
-        'rephotographed_pictures': rephotographed_pictures_qs.count(),
+        'rephotographed_pictures': rephotographed_pictures_count,
         'rephotos_link': f'/photos/?rephotosBy={str(profile.user_id)}&order1=time&order2=rephotos',
-        'rephotos': rephoto_qs.count(),
-        'similar_pictures': similar_pictures_qs.count(),
-        'transcriptions': transcriptions_qs.count(),
+        'rephotos': rephoto_count,
+        'similar_pictures': similar_pictures_count,
+        'transcriptions': transcriptions_count,
         'user_points': user_points
     }
 
