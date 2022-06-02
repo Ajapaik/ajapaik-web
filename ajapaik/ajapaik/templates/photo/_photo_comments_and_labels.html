@@ -1,4 +1,4 @@
-{% load i18n ajapaik_templatetags comments %}
+{% load i18n ajapaik_templatetags comments static %}
 <div class="container-fluid text-left">
     <!-- start of dater block -->
     <div class="row my-2" id="ajp-dater-container"></div>
@@ -19,6 +19,13 @@
                 <div>{% trans 'Add to album' %}</div>
                 <span class="material-icons notranslate ajp-text-gray">add_box</span>
             </a>
+        </div>
+    </div>
+    <div>
+        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
+            <div id="ajp-probability1"></div>
+            <button>Yes</button>
+            <button>No</button>
         </div>
     </div>
     {% include '_annotations.html' with numberOfColumns=2 %}
@@ -62,9 +69,11 @@
     {% endif %}
 </div>
 
+<script src="{% static "js/ajp-picture-category-prediction.js" %}"></script>
 {% block specific_js %}
     <script>
         $(document).ready(function () {
+            getPictureCategory(['{{ photo.get_detail_url }}'])
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
