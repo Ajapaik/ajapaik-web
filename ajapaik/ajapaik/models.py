@@ -277,7 +277,7 @@ class Album(Model):
     is_public_figure = BooleanField(default=False)
     wikidata_qid = CharField(_('Wikidata identifier'), max_length=255, blank=True, null=True)
     face_encodings = TextField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     similar_photo_count_with_subalbums = IntegerField(default=0)
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
