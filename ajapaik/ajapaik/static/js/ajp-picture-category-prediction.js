@@ -1,7 +1,4 @@
 function getPictureCategory(id) {
-    console.log("Here")
-    console.log(id)
-
     $.ajax({
         type: 'GET',
         url: 'http://localhost:7000/predict/test_2.jpg',
