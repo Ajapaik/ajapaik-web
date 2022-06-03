@@ -143,7 +143,6 @@ def get_general_info_modal_content(request):
     profile = request.get_user().profile
     photo_qs = Photo.objects.filter(rephoto_of__isnull=True)
     rephoto_qs = Photo.objects.filter(rephoto_of__isnull=False)
-    user_rephoto_qs = rephoto_qs.filter(user=profile)
     geotags_qs = GeoTag.objects.filter()
     cached_data = cache.get('general_info_modal_cache', None)
     person_annotation_qs = FaceRecognitionRectangle.objects.filter(deleted=None)
@@ -158,8 +157,6 @@ def get_general_info_modal_content(request):
             'rephotos_count': rephoto_qs.count(),
             'rephotographing_users_count': rephoto_qs.order_by('user').distinct('user').count(),
             'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
-            'photos_with_similar_photo_count': photo_qs.exclude(
-                Q(similar_photos=None) & Q(similar_photos=None)).count(),
             'person_annotation_count': person_annotation_qs.count(),
             'person_annotation_count_with_person_album': person_annotation_with_person_album_qs.count(),
             'person_annotation_count_with_subject_data': person_annotation_with_subject_data_qs.count()
@@ -171,15 +168,11 @@ def get_general_info_modal_content(request):
         'contributing_users': cached_data['contributing_users_count'],
         'total_photos_tagged': cached_data['photos_geotagged_count'],
         'rephoto_count': cached_data['rephotos_count'],
-        'photos_with_similar_photo_count': cached_data['photos_with_similar_photo_count'],
         'rephotographing_users': cached_data['rephotographing_users_count'],
         'rephotographed_photo_count': cached_data['photos_with_rephotos_count'],
         'person_annotation_count': cached_data['person_annotation_count'],
         'person_annotation_count_with_person_album': cached_data['person_annotation_count_with_person_album'],
         'person_annotation_count_with_subject_data': cached_data['person_annotation_count_with_subject_data'],
-        'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
-        'user_rephotos': user_rephoto_qs.count(),
-        'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
     return render(request, 'info/_general_info_modal_content.html', context)
