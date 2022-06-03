@@ -3,9 +3,9 @@ function getPictureCategory(id) {
     $.ajax({
         type: 'GET',
         url: 'http://localhost:7000/predict/test_2.jpg',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
-        },
+        // beforeSend: function (xhr) {
+        //     // xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+        // },
         headers: {
             'Content-Type': 'application/json'
         },
@@ -15,6 +15,7 @@ function getPictureCategory(id) {
             $("#ajp-probability1").html(category + " (" + probability + "%) :");
         },
         error: function (error) {
+            console.log("Some error has occured");
             console.log(error)
         }
     });
