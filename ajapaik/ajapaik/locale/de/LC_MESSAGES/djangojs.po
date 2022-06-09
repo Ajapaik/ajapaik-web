@@ -14,6 +14,7 @@
 # Author: Killarnee
 # Author: Mirzali
 # Author: Symposiarch
+# Author: ThisCarthing
 # Author: Tiin
 # Author: Umherirrender
 # Author: Umlaut
@@ -24,7 +25,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-05-26 11:00:32+0000\n"
+"PO-Revision-Date: 2022-06-09 11:00:26+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,7 +63,7 @@ msgstr "Nicht ausgewählt"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
-msgstr ""
+msgstr "Gehe zu meinem Standort"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1613
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
@@ -535,7 +536,7 @@ msgstr "Der Bildersatz hat keine Markierungen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "Das Bildset hat keine Kommentare"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
@@ -919,7 +920,7 @@ msgstr "Historische Karten"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
-msgstr ""
+msgstr "Albumfilter entfernen"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
@@ -927,7 +928,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
-msgstr ""
+msgstr "Albumfilter anwenden"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
@@ -953,9 +954,8 @@ msgid "This transcription is correct"
 msgstr "Diese Abschrift ist richtig"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
-msgstr "Was steht in dem Bild geschrieben?"
+msgstr "Was ist auf dem Bild geschrieben?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
