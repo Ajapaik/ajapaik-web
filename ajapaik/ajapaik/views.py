@@ -114,6 +114,8 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
         im = get_thumbnail(p.image, thumb_str, upscale=True, downscale=True, crop='center')
     else:
         im = get_thumbnail(p.image, thumb_str, upscale=False)
+    print("HERE")
+    print(im)
     try:
         content = im.read()
     except IOError:
@@ -121,7 +123,31 @@ def image_thumb(request, photo_id=None, thumb_size=250, pseudo_slug=None):
         im = get_thumbnail(p.image, thumb_str, upscale=False)
         content = im.read()
 
+    print("====")
+    print(f'{settings.MEDIA_ROOT}/{im.name}')
+    print("====")
     return get_image_thumb(request, f'{settings.MEDIA_ROOT}/{im.name}', content)
+
+
+def image_thumb_path(request, photo_id=None, thumb_size=250):
+    thumb_size = int(thumb_size)
+    if 0 < thumb_size <= 400:
+        thumb_size = 400
+    else:
+        thumb_size = 1024
+    p = get_object_or_404(Photo, id=photo_id)
+    thumb_str = f'{str(thumb_size)}x{str(thumb_size)}'
+    if p.rephoto_of:
+        original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
+        thumb_str = f'{str(original_thumb.size[0])}x{str(original_thumb.size[1])}'
+        # TODO: see if restricting Pillow version fixes this
+        im = get_thumbnail(p.image, thumb_str, upscale=True, downscale=True, crop='center')
+    else:
+        im = get_thumbnail(p.image, thumb_str, upscale=False)
+    print("HERE")
+    print(im)
+    # content = {"image_thumb_path": f'{settings.MEDIA_ROOT}/{im.name}'}
+    return HttpResponse(f'{settings.MEDIA_ROOT}/{im.name}', content_type='text/plain')
 
 
 @condition(etag_func=get_etag, last_modified_func=last_modified)

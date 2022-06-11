@@ -80,6 +80,12 @@ urlpatterns = [
     url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', views.image_thumb, name='image_thumb'),
     url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', views.image_thumb,
         name='image_thumb'),
+
+    url(r'^photo-thumb-path/(?P<photo_id>\d+)/$', views.image_thumb_path, name='image_thumb_path'),
+    # url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', views.image_thumb, name='image_thumb'),
+    # url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', views.image_thumb,
+    #     name='image_thumb'),
+
     url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.image_full, name='image_full'),
     url(r'^photo-selection/$', views.photo_selection, name='photo_selection'),
     url(r'^view-selection/$', views.list_photo_selection, name='list_photo_selection'),
