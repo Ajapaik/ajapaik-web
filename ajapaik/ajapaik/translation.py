@@ -1,6 +1,10 @@
 from modeltranslation.translator import translator, TranslationOptions
 
-from ajapaik.ajapaik.models import Photo, Area, Album, Licence
+from ajapaik.ajapaik.models import Photo, Area, Album, Licence, PhotoSearchIndex
+
+
+class PhotoSearchIndexTranslationOptions(TranslationOptions):
+    fields = ('text',)
 
 
 class PhotoTranslationOptions(TranslationOptions):
@@ -19,6 +23,7 @@ class LicenceTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
+translator.register(PhotoSearchIndex, PhotoSearchIndexTranslationOptions)
 translator.register(Photo, PhotoTranslationOptions)
 translator.register(Area, AreaTranslationOptions)
 translator.register(Album, AlbumTranslationOptions)

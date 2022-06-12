@@ -22,6 +22,7 @@ from urllib.request import build_opener
 from uuid import uuid4
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 import numpy
 import cv2
@@ -889,10 +890,10 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         photos_with_comments = None
         photos_with_rephotos = None
         photos_with_similar_photos = None
+
         q = filter_form.cleaned_data['q']
         if q and show_photos:
-            sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
-            photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
+            photos = Photo.objects.filter(photosearchindex__vector=SearchQuery(q, config='english'))
 
         # In some cases it is faster to get number of photos before we annotate new columns to it
         albumsize_before_sorting = 0

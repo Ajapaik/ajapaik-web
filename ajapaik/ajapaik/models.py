@@ -28,6 +28,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.cache import cache
+from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
@@ -522,6 +524,50 @@ class Album(Model):
             return 'Film'
         return Album.TYPE_CHOICES[self.atype][1]
 
+
+class PhotoSearchIndex(Model):
+    photo     = ForeignKey('Photo', null=True, blank=True, on_delete=CASCADE)
+    text      = TextField(null=True, blank=True)
+    vector    = SearchVectorField(null=True,blank=True)
+    vector_de = SearchVectorField(null=True,blank=True)
+    vector_en = SearchVectorField(null=True,blank=True)
+    vector_et = SearchVectorField(null=True,blank=True)
+    vector_fi = SearchVectorField(null=True,blank=True)
+    vector_ru = SearchVectorField(null=True,blank=True)
+    vector_lv = SearchVectorField(null=True,blank=True)
+    vector_lt = SearchVectorField(null=True,blank=True)
+    vector_nl = SearchVectorField(null=True,blank=True)
+    vector_no = SearchVectorField(null=True,blank=True)
+    vector_sv = SearchVectorField(null=True,blank=True)
+
+    class Meta:
+        indexes = [
+		GinIndex(fields=['vector'], name='text_search_vector_idx'),
+		GinIndex(fields=['vector_de'], name='text_search_vector_de_idx'),
+		GinIndex(fields=['vector_en'], name='text_search_vector_en_idx'),
+		GinIndex(fields=['vector_et'], name='text_search_vector_et_idx'),
+		GinIndex(fields=['vector_fi'], name='text_search_vector_fi_idx'),
+		GinIndex(fields=['vector_ru'], name='text_search_vector_ru_idx'),
+		GinIndex(fields=['vector_lv'], name='text_search_vector_lv_idx'),
+		GinIndex(fields=['vector_lt'], name='text_search_vector_lt_idx'),
+		GinIndex(fields=['vector_nl'], name='text_search_vector_nl_idx'),
+		GinIndex(fields=['vector_no'], name='text_search_vector_no_idx'),
+		GinIndex(fields=['vector_sv'], name='text_search_vector_sv_idx'),
+	]
+
+    def update_vectors(self):
+        self.vector = SearchVector('text', config='english')
+        self.vector_de = SearchVector('text_de', config='german'    )
+        self.vector_en = SearchVector('text_en', config='english'   )
+        self.vector_et = SearchVector('text_et', config='english'   )
+        self.vector_fi = SearchVector('text_fi', config='finnish'   )
+        self.vector_ru = SearchVector('text_ru', config='russian'   )
+        self.vector_lv = SearchVector('text_lv', config='english'   )
+        self.vector_lt = SearchVector('text_lt', config='lithuanian')
+        self.vector_nl = SearchVector('text_nl', config='dutch'     )
+        self.vector_no = SearchVector('text_no', config='norwegian' )
+        self.vector_sv = SearchVector('text_sv', config='swedish'   )
+        self.save()
 
 class Photo(Model):
     objects = EstimatedCountManager()
