@@ -53,7 +53,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.translation import gettext as _
+from django.utils.translation import get_language, gettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import condition
@@ -893,7 +893,60 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
 
         q = filter_form.cleaned_data['q']
         if q and show_photos:
-            photos = Photo.objects.filter(photosearchindex__vector=SearchQuery(q, config='english'))
+            current_language_code=get_language()
+            if current_language_code=='de':
+                language_config='german'
+                photosearchindex_vector_field='photosearchindex__vector_de'
+
+            elif current_language_code=='en':
+                language_config='english'
+                photosearchindex_vector_field='photosearchindex__vector_en'
+
+            elif current_language_code=='et':
+                language_config='english'
+                photosearchindex_vector_field='photosearchindex__vector_et'
+
+            elif current_language_code=='fi':
+                language_config='finnish'
+                photosearchindex_vector_field='photosearchindex__vector_fi'
+
+            elif current_language_code=='lt':
+                language_config='lithuanian'
+                photosearchindex_vector_field='photosearchindex__vector_lt'
+
+            elif current_language_code=='lv':
+                language_config='english'
+                photosearchindex_vector_field='photosearchindex__vector_lv'
+
+            elif current_language_code=='nl':
+                language_config='dutch'
+                photosearchindex_vector_field='photosearchindex__vector_nl'
+
+            elif current_language_code=='no':
+                language_config='norwegian'
+                photosearchindex_vector_field='photosearchindex__vector_no'
+
+            elif current_language_code=='ru':
+                language_config='russian'
+                photosearchindex_vector_field='photosearchindex__vector_ru'
+
+            elif current_language_code=='sv':
+                language_config='swedish'
+                photosearchindex_vector_field='photosearchindex__vector_sv'
+
+            else:
+                language_config=None
+                photosearchindex_vector_field='photosearchindex__vector'
+
+            if language_config:
+                photos = Photo.objects.filter(
+                             Q(**{ photosearchindex_vector_field: SearchQuery(q, config=language_config)})
+                             | Q(photosearchindex__vector=SearchQuery(q, config='english'))
+                         )
+            else:
+                photos = Photo.objects.filter(photosearchindex__vector=SearchQuery(q, config='english'))
+
+
 
         # In some cases it is faster to get number of photos before we annotate new columns to it
         albumsize_before_sorting = 0
