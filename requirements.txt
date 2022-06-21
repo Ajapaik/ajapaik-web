@@ -27,7 +27,7 @@ geopy==2.2.0
 gdal==3.4.2
 google-auth==2.0.0
 hiredis==2.0.0
-numpy==1.21.0
+numpy==1.22.0
 opencv-python==4.5.3.56
 pandas==1.1.5
 Pillow==9.0.1
