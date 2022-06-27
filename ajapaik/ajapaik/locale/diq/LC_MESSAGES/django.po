@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-06-13 11:00:33+0000\n"
+"PO-Revision-Date: 2022-06-27 11:00:28+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2502,7 +2502,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Fotraf bar bi"
 
 #: ajapaik/ajapaik/views.py:3197
 msgid "Album created"
