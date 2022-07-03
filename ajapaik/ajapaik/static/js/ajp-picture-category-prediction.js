@@ -1,5 +1,6 @@
 function getPictureCategory(id) {
     // console.log(id.id);
+        console.log(id)
         $.ajax({
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
@@ -17,7 +18,7 @@ function getPictureCategory(id) {
             console.log(result);
             $.ajax({
                 type: 'GET',
-                url: 'https://staging.ajapaik.ee/predict/' + result,
+                url: 'https://anna.ajapaik.ee/predict/' + result,
                 // url: 'http://localhost:7000/predict/' + result,
                 // beforeSend: function (xhr) {
                 //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
