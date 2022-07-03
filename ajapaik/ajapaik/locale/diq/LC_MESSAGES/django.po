@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:19+0000\n"
+"PO-Revision-Date: 2022-06-27 11:00:28+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -364,15 +364,15 @@ msgstr "Mışewreyê MUISi"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "Şınasnayışê hewadisê MUISi"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Obceyi sero metınê MUISi"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "efsane û şınasnayışê MUISi"
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
@@ -2502,7 +2502,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
-msgstr ""
+msgstr "Fotraf bar bi"
 
 #: ajapaik/ajapaik/views.py:3197
 msgid "Album created"

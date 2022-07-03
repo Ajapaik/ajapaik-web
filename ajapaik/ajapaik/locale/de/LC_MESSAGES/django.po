@@ -17,6 +17,7 @@
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: Pittigrilli
+# Author: ThisCarthing
 # Author: Tiin
 # Author: Umlaut
 # --
@@ -26,7 +27,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-04-28 11:00:19+0000\n"
+"PO-Revision-Date: 2022-06-09 11:00:26+0000\n"
 "X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,7 +77,7 @@ msgstr "Bitte mit einem anderen Konto anmelden. Du bist derzeit mit demselben Ko
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
-msgstr "Anmelden bitte"
+msgstr "Bitte anmelden"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
@@ -127,7 +128,7 @@ msgstr "Etwas ist schief gelaufen"
 
 #: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "Dein Vorschlag wurde gespeichert, aber der vorherige Konsens bleibt bestehen"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
@@ -321,7 +322,7 @@ msgstr "Bitte gib an, ob du deine Refotos auch auf Wikimedia Commons hochladen m
 
 #: ajapaik/ajapaik/forms.py:526
 msgid "Please specify what would you like your display name to be"
-msgstr "Bitte spezifizieren sie, was sie als Anzeigenamen haben möchten."
+msgstr "Bitte spezifizieren Sie, was Sie als Anzeigenamen haben möchten."
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
@@ -369,7 +370,7 @@ msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS-Titel"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
@@ -486,7 +487,7 @@ msgstr "Abschrift anfertigen"
 
 #: ajapaik/ajapaik/models.py:1298
 msgid "Categorize scene"
-msgstr ""
+msgstr "Szene kategorisieren"
 
 #: ajapaik/ajapaik/models.py:1299
 msgid "Add viewpoint elevation"
@@ -711,7 +712,7 @@ msgstr "Refoto hinzufügen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:26
 msgid "Add a rephoto"
-msgstr ""
+msgstr "Refoto hinzufügen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:30
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
@@ -919,7 +920,7 @@ msgstr "Schlechter Token"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr "Der Passwort-Zurücksetezn-Link war ungültig, möglicherweise weil er schon benutzt wurde. Bitte fordere eine <a href=\"%(passwd_reset_url)s\">neue Passwortzurücksetzung</a> an."
+msgstr "Der Passwort-Zurücksetzen-Link war ungültig, möglicherweise weil er schon benutzt wurde. Bitte fordere eine <a href=\"%(passwd_reset_url)s\">neue Passwortzurücksetzung</a> an."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
@@ -940,7 +941,7 @@ msgstr "Besitzt du bereits einen Account? Dann <a href=\"%(login_url)s\">logge d
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr "Registrierung Geschlossen"
+msgstr "Registrierung geschlossen"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1009,7 +1010,7 @@ msgstr "Einloggen, um ein Refoto hochzuladen"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:19
 msgid "Log in to curate content"
-msgstr "Melde dich an um Inhalt zu kuratieren"
+msgstr "Melde dich an, um Inhalt zu kuratieren"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:21
 msgid "Log in to create still frames"
@@ -1021,7 +1022,7 @@ msgstr "Melde dich an, um die Auswahl zu speichern"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "Melde dich an, um Fotos aus einer csv-Datei zu importieren"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1226,7 +1227,7 @@ msgstr "Galerie alter historischer Fotos aus dem Album"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:19
 msgid "Historic photo gallery"
-msgstr "Historische Fotogallerie"
+msgstr "Historische Fotogalerie"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
 msgid "Mapped old historic photos from the album"
@@ -1499,7 +1500,7 @@ msgstr "Auswahl an Ajapaik übermitteln"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
-msgstr "Es gibt einen neuen Kommentar der sich mit deinem beschäftigt."
+msgstr "Es gibt einen neuen Kommentar, der sich mit deinem beschäftigt."
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
@@ -1535,7 +1536,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:15
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
-msgstr ""
+msgstr "Ihre Spende ist eine große Hilfe und bestätigt, dass Ajapaik gebraucht wird. Wenn möglich, sollten Sie einen Dauerauftrag in Erwägung ziehen."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:16
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
@@ -1551,7 +1552,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:19
 msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
-msgstr ""
+msgstr "Auch jede andere Art von Hilfe ist willkommen! Zum Beispiel bei der Werbung für Ajapaik, beim Aufbau von Partnerschaften usw."
 
 #: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
 msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
@@ -1559,7 +1560,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
-msgstr ""
+msgstr "Ajapaik wird derzeit gefördert von:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:15
 msgid "Ajapaik has received donations from:"
@@ -1631,7 +1632,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "Bilder im Querformat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
@@ -1663,7 +1664,7 @@ msgstr "Bilder, die keinen Geotag haben"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "Bilder von hoher Qualität"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1693,19 +1694,19 @@ msgstr "Bilder mit Rückseiten anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "Porträts anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
-msgstr ""
+msgstr "Quadratische Bilder anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "Landschaftsbilder anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "Panoramabilder anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
@@ -1733,7 +1734,7 @@ msgstr "Bilder ohne Geotag anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "Bilder von hoher Qualität anzeigen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -1977,12 +1978,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 #: ajapaik/ajapaik/templates/user/_user_picture.html:4
 msgid "User Facebook photo"
-msgstr "Facebook Foto des Benutzers"
+msgstr "Facebook-Foto des Benutzers"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_picture.html:6
 msgid "User Google photo"
-msgstr "Google Foto des Benutzers"
+msgstr "Google-Foto des Benutzers"
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
@@ -2006,7 +2007,7 @@ msgstr[1] "Das Bild gehört zu den Alben:"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
-msgstr "Zum Alblum hinzufügen"
+msgstr "Zum Album hinzufügen"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
@@ -2052,7 +2053,7 @@ msgstr "Refoto"
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Als ähnlich oder Duplikate markieren"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
@@ -2064,7 +2065,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
-msgstr "Du kannst Fotos durch ziehen und ablegen umsortieren"
+msgstr "Du kannst Fotos durch Ziehen und Ablegen umsortieren"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
 msgid "Images have overlapping content"
@@ -2084,7 +2085,7 @@ msgstr "Selbst hochladen"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Muis-Import"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
@@ -2372,7 +2373,7 @@ msgstr "Bitte einloggen, um Beiträge und Einstellungen von einem Konto auf ein 
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr "Um Einstellungen und Beiträge von einem Konto auf ein anderes zu übertragen,  bitte mit deinem anderen Konto anmelden"
+msgstr "Um Einstellungen und Beiträge von einem Konto auf ein anderes zu übertragen, bitte mit deinem anderen Konto anmelden"
 
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -2410,7 +2411,7 @@ msgstr "Dieser Benutzer hat keine Beiträge."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "Hier kannst du historische Bilder in Ajapaik hochladen (derzeit jeweils ein Bild)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, python-format
@@ -2423,7 +2424,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "Du musst das Bild zu mindestens einem Album hinzufügen"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
@@ -2502,7 +2503,7 @@ msgstr "Das Foto existiert auf Ajapaik bereits"
 
 #: ajapaik/ajapaik/views.py:2479
 msgid "Please add pictures to your album"
-msgstr "Bitte Füge Bilder zu deinem Album hinzu"
+msgstr "Bitte füge Bilder zu deinem Album hinzu"
 
 #: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
@@ -2634,11 +2635,11 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr "Bitte gib an, was das Geschlecht und/oder Alter der hervorgehobenen Person sind"
+msgstr "Bitte gib das Geschlecht und/oder Alter der hervorgehobenen Person an"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr "Wenn du dir nicht sicher bist, was das Geschlecht und/oder Alter dieser Person ist, drücke bitte"
+msgstr "Wenn du dir beim Geschlecht und/oder Alter dieser Person nicht sicher bist, drücke bitte"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -2671,7 +2672,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
 msgid "Not sure"
-msgstr "Nicht Sicher"
+msgstr "Nicht sicher"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:94
 msgid "Skip"
@@ -2687,7 +2688,7 @@ msgstr "Zurzeit ist das Alter"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr "Hier keine Daten, bitte komme später Zurück"
+msgstr "Hier keine Daten, bitte komme später zurück"
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"

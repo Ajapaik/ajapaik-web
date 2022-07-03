@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title>Ajapaik Flutter Oauth-redirect</title>
 </head>
 <body>
+    <center>
     <h1>Ajapaik Flutter Oauth-redirect</h1>
     <a id="continue" href="ajapaik://staging.ajapaik.ee/accounts/launcher?route={{ route|iriencode }}&provider={{ provider|iriencode }}&token={{ token|iriencode }}"><button>Continue login</button></a>
+    </center>
 </body>
 <script type="text/javascript">
-document.getElementById("continue").click();
+window.addEventListener('load', function () {
+  var delayInMilliseconds=1500;
+  setTimeout(function() {
+     document.getElementById("continue").click();
+   }, delayInMilliseconds);
+});
 </script>
 </html>

@@ -23,6 +23,7 @@ from uuid import uuid4
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
+import numpy
 import cv2
 import django_comments
 import requests
@@ -45,7 +46,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.temp import NamedTemporaryFile
-from django.db.models import Sum, Q, Count, F
+from django.db.models import Sum, Q, Count, F, Min, Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
@@ -168,7 +169,6 @@ def get_general_info_modal_content(request):
     profile = request.get_user().profile
     photo_qs = Photo.objects.filter(rephoto_of__isnull=True)
     rephoto_qs = Photo.objects.filter(rephoto_of__isnull=False)
-    user_rephoto_qs = rephoto_qs.filter(user=profile)
     geotags_qs = GeoTag.objects.filter()
     cached_data = cache.get('general_info_modal_cache', None)
     person_annotation_qs = FaceRecognitionRectangle.objects.filter(deleted=None)
@@ -183,8 +183,6 @@ def get_general_info_modal_content(request):
             'rephotos_count': rephoto_qs.count(),
             'rephotographing_users_count': rephoto_qs.order_by('user').distinct('user').count(),
             'photos_with_rephotos_count': rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count(),
-            'photos_with_similar_photo_count': photo_qs.exclude(
-                Q(similar_photos=None) & Q(similar_photos=None)).count(),
             'person_annotation_count': person_annotation_qs.count(),
             'person_annotation_count_with_person_album': person_annotation_with_person_album_qs.count(),
             'person_annotation_count_with_subject_data': person_annotation_with_subject_data_qs.count()
@@ -196,15 +194,11 @@ def get_general_info_modal_content(request):
         'contributing_users': cached_data['contributing_users_count'],
         'total_photos_tagged': cached_data['photos_geotagged_count'],
         'rephoto_count': cached_data['rephotos_count'],
-        'photos_with_similar_photo_count': cached_data['photos_with_similar_photo_count'],
         'rephotographing_users': cached_data['rephotographing_users_count'],
         'rephotographed_photo_count': cached_data['photos_with_rephotos_count'],
         'person_annotation_count': cached_data['person_annotation_count'],
         'person_annotation_count_with_person_album': cached_data['person_annotation_count_with_person_album'],
         'person_annotation_count_with_subject_data': cached_data['person_annotation_count_with_subject_data'],
-        'user_geotagged_photos': geotags_qs.filter(user=profile).distinct('photo').count(),
-        'user_rephotos': user_rephoto_qs.count(),
-        'user_rephotographed_photos': user_rephoto_qs.order_by('rephoto_of_id').distinct('rephoto_of_id').count()
     }
 
     return render(request, 'info/_general_info_modal_content.html', context)
@@ -639,7 +633,7 @@ def game(request):
     context['is_game'] = True
     context['area_selection_form'] = area_selection_form
     context['album_selection_form'] = album_selection_form
-    context['last_geotagged_photo_id'] = Photo.objects.order_by('-latest_geotag').first().id
+    context['last_geotagged_photo_id'] = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first().id
     context['ajapaik_facebook_link'] = settings.AJAPAIK_FACEBOOK_LINK
     context['user_has_likes'] = user_has_likes
     context['user_has_rephotos'] = user_has_rephotos
@@ -708,7 +702,9 @@ def frontpage(request, album_id=None, page=None):
     else:
         title = ''
 
-    last_geotagged_photo = Photo.objects.order_by('-latest_geotag').first()
+    # Using "nulls last" here as it uses same index
+    # which is already used in _get_filtered_data_for_frontpage()
+    last_geotagged_photo = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first()
     filters = ['film', 'collections', 'people', 'backsides', 'exteriors', 'interiors',
                'portrait', 'square', 'landscape', 'panoramic', 'ground_viewpoint_elevation',
                'raised_viewpoint_elevation', 'aerial_viewpoint_elevation', 'no_geotags', 'high_quality'
@@ -860,12 +856,24 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             page = int(page_override)
         else:
             page = filter_form.cleaned_data['page']
+
+        # Do not show hidden photos
+        if not album or album.id != 38516:
+            blacklist_exists = Album.objects.filter(id=38516).exists()
+            if blacklist_exists:
+                photos = photos.exclude(albums__in = [38516])
+
+        # FILTERING BELOW THIS LINE
+
         if album:
-            album_photos_qs = album.photos.all()
+            sa_ids = [album.id]
             for sa in album.subalbums.exclude(atype=Album.AUTO):
-                album_photos_qs = album_photos_qs | sa.photos.all()
-            album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-            photos = photos.filter(id__in=album_photo_ids)
+                sa_ids.append(sa.id)
+            photos = photos.filter(albums__in = sa_ids)
+
+            # In QuerySet "albums__in" is 1:M JOIN  so images will show up
+            # multiple times in results so this needs to be distinct(). Distinct is slow.
+            photos=photos.distinct()
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -911,6 +919,14 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if q and show_photos:
             sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
             photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
+
+        # In some cases it is faster to get number of photos before we annotate new columns to it
+        albumsize_before_sorting = 0
+        if not album:
+            albumsize_before_sorting=Photo.objects.filter(pk__in=photos).cached_count()
+
+        # SORTING BELOW THIS LINE
+
         if order1 == 'closest' and lat and lon:
             ref_location = Point(x=lon, y=lat, srid=4326)
             if order3 == 'reverse':
@@ -925,7 +941,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-comment_count')
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'rephotos':
-                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
                     photos = photos.order_by('rephoto_count')
                 else:
@@ -969,68 +984,47 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                     photos = photos.order_by('-similar_photo_count')
         elif order1 == 'time':
             if order2 == 'rephotos':
-                photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_rephoto_is_null': 'project_photo.first_rephoto IS NULL', },
-                                          order_by=['first_rephoto_is_null', 'project_photo.first_rephoto'], )
+                    photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_rephoto_is_null': 'project_photo.latest_rephoto IS NULL', },
-                                          order_by=['latest_rephoto_is_null', '-project_photo.latest_rephoto'], )
-                photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
+                    photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
+                photos_with_rephotos = photos.filter(first_rephoto__isnull=False).count()
             elif order2 == 'comments':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_comment_is_null': 'project_photo.first_comment IS NULL', },
-                                          order_by=['first_comment_is_null', 'project_photo.first_comment'], )
+                    photos = photos.order_by(F('first_comment').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_comment_is_null': 'project_photo.latest_comment IS NULL', },
-                                          order_by=['latest_comment_is_null', '-project_photo.latest_comment'], )
+                    photos = photos.order_by(F('latest_comment').desc(nulls_last=True))
                 photos_with_comments = photos.filter(comment_count__gt=0).count()
             elif order2 == 'geotags':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_geotag_is_null': 'project_photo.first_geotag IS NULL', },
-                                          order_by=['first_geotag_is_null', 'project_photo.first_geotag'], )
+                    photos = photos.order_by(F('first_geotag').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_geotag_is_null': 'project_photo.latest_geotag IS NULL', },
-                                          order_by=['latest_geotag_is_null', '-project_photo.latest_geotag'], )
+                    photos = photos.order_by(F('latest_geotag').desc(nulls_last=True))
             elif order2 == 'likes':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_like_is_null': 'project_photo.first_like IS NULL', },
-                                          order_by=['first_like_is_null', 'project_photo.first_like'], )
+                    photos = photos.order_by(F('first_like').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_like_is_null': 'project_photo.latest_like IS NULL', },
-                                          order_by=['latest_like_is_null', '-project_photo.latest_like'], )
+                    photos = photos.order_by(F('latest_like').desc(nulls_last=True))
             elif order2 == 'views':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_view_is_null': 'project_photo.first_view IS NULL', },
-                                          order_by=['first_view_is_null', 'project_photo.first_view'], )
+                    photos = photos.order_by(F('first_view').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_view_is_null': 'project_photo.latest_view IS NULL', },
-                                          order_by=['latest_view_is_null', '-project_photo.latest_view'], )
+                    photos = photos.order_by(F('latest_view').desc(nulls_last=True))
             elif order2 == 'datings':
                 if order3 == 'reverse':
-                    photos = photos.extra(select={'first_dating_is_null': 'project_photo.first_dating IS NULL', },
-                                          order_by=['first_dating_is_null', 'project_photo.first_dating'], )
+                    photos = photos.order_by(F('first_dating').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(select={'latest_dating_is_null': 'project_photo.latest_dating IS NULL', },
-                                          order_by=['latest_dating_is_null', '-project_photo.latest_dating'], )
+                    photos = photos.order_by(F('latest_dating').desc(nulls_last=True))
             elif order2 == 'transcriptions':
                 if order3 == 'reverse':
-                    photos = photos.extra(
-                        select={'first_transcription_is_null': 'project_photo.first_transcription IS NULL', },
-                        order_by=['first_transcription_is_null', 'project_photo.first_transcription'], )
+                    photos = photos.order_by(F('first_transcription').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(
-                        select={'latest_transcription_is_null': 'project_photo.latest_transcription IS NULL', },
-                        order_by=['latest_transcription_is_null', '-project_photo.latest_transcription'], )
+                    photos = photos.order_by(F('latest_transcription').desc(nulls_last=True))
             elif order2 == 'annotations':
                 if order3 == 'reverse':
-                    photos = photos.extra(
-                        select={'first_annotation_is_null': 'project_photo.first_annotation IS NULL', },
-                        order_by=['first_annotation_is_null', 'project_photo.first_annotation'], )
+                    photos = photos.order_by(F('first_annotation').asc(nulls_last=True))
                 else:
-                    photos = photos.extra(
-                        select={'latest_annotation_is_null': 'project_photo.latest_annotation IS NULL', },
-                        order_by=['latest_annotation_is_null', '-project_photo.latest_annotation'], )
+                    photos = photos.order_by(F('latest_annotation').desc(nulls_last=True))
             elif order2 == 'stills':
                 if order3 == 'reverse':
                     photos = photos.order_by('-video_timestamp')
@@ -1062,36 +1056,20 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photo_count_before_requested = ids.index(requested_photo.id)
                 page = ceil(float(photo_count_before_requested) / float(page_size))
 
-        start, end, total, max_page, page = get_pagination_parameters(page, page_size, photos.count())
-
-        # Testing: Album.id 38516 = Photos – blacklisti
-        # Moved here to limit the max blacklist ids sise to page_size for speed
-        # Note: Blacklist will leak if new photos are blacklisted ones
-
-        photos_ids = list(photos.values_list('id', flat=True)[start:(end+page_size)])
-        if not album or album.id != 38516:
-            blacklist_exists = Album.objects.filter(id=38516).exists()
-            if blacklist_exists:
-                exclude_photos = Album.objects.get(id=38516).photos.filter(pk__in=photos_ids).all()
-                photos = photos.exclude(pk__in=exclude_photos).all()
-
-        # Flatten the selected photos to ids so GeometryDistance indexed sort doesn't break in SQL-level
-        # when rephoto count is annotated. This works because it force limits the number of sorted rows
-        if order1 == 'closest' and lat and lon:
-            photo_ids=photos[start:end].values_list('id', flat=True)
-            photos=Photo.objects.filter(id__in=photo_ids).all()
-            if order3 == 'reverse':
-                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
-            else:
-                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
-
-
-        if not order2 == 'rephotos':
-            photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
+        # Note seeking (start:end) has been here done when results are limited using photo_ids above
+        if albumsize_before_sorting:
+            start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize_before_sorting)
+            # limit QuerySet to selected photos so it is faster to evaluate in next steps
+            photos_ids = list(photos.values_list('id', flat=True)[start:end])
+            photos=photos.filter(id__in=photos_ids)
+        else:
+            photos_ids = list(photos.values_list('id', flat=True))
+            start, end, total, max_page, page = get_pagination_parameters(page, page_size, len(photos_ids))
+            # limit QuerySet to selected photos so it is faster to evaluate in next steps
+            photos=photos.filter(id__in=photos_ids[start:end])
 
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon:
-            # Note seeking (start:end) has been alredy done when values are flatted above
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'distance',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
@@ -1100,7 +1078,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.values_list('id', 'width', 'height', 'description', 'lat', 'lon', 'azimuth',
                                         'rephoto_count', 'comment_count', 'geotag_count', 'geotag_count',
                                         'geotag_count', 'flip', 'has_similar', 'title', 'muis_title',
-                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')[start:end]
+                                        'muis_comment', 'muis_event_description_set_note', 'geotag_count')
 
         photos = [list(i) for i in photos]
         if default_ordering and album and album.ordered:
@@ -1183,7 +1161,6 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['rephotos_by'] = rephotos_by_id
         context['rephotos_by_name'] = rephotos_by_name
     else:
-        photos = photos.annotate(rephoto_count=Count('rephotos', distinct=True))
         context['album'] = None
         context['photo'] = None
         context['photos_with_comments'] = photos.filter(comment_count__isnull=False).count()
@@ -1431,19 +1408,25 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if album:
         album_selection_form = AlbumSelectionForm({'album': album.id})
         if not request.is_ajax():
-            next_photo = album.photos.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').last()
-            if previous_photo is None:
-                previous_photo = album.photos.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            next_photo_id = album.photos.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
+            if next_photo_id:
+                next_photo = Photo.objects.get(pk=next_photo_id)
+
+            previous_photo_id = album.photos.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
+            if previous_photo_id:
+                previous_photo = Photo.objects.get(pk=previous_photo_id)
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
         )
         if not request.is_ajax():
-            next_photo = Photo.objects.filter(pk__gt=photo_obj.pk).order_by('pk').first()
-            previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').last()
-            if previous_photo is None:
-                previous_photo = Photo.objects.filter(pk__lt=photo_obj.pk).order_by('pk').first()
+            next_photo_id = Photo.objects.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
+            if next_photo_id:
+                next_photo = Photo.objects.get(pk=next_photo_id)
+
+            previous_photo_id = Photo.objects.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
+            if previous_photo_id:
+                previous_photo = Photo.objects.get(pk=previous_photo_id)
 
     if album:
         album = (album.id, album.lat, album.lon)
@@ -1656,7 +1639,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     if geotagged_photo_count:
-        last_geotagged_photo_id = Photo.objects.order_by('-latest_geotag').values('id').first()['id']
+        last_geotagged_photo_id = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).values('id').first()['id']
     else:
         last_geotagged_photo_id = None
 
@@ -1700,7 +1683,7 @@ def map_objects_by_bounding_box(request):
 
         qs = Photo.objects.filter(
             lat__isnull=False, lon__isnull=False, rephoto_of__isnull=True
-        ).annotate(rephoto_count=Count('rephotos'))
+        )
 
         if album and limit_by_album:
             album_photo_ids = album.get_historic_photos_queryset_with_subalbums().values_list('id', flat=True)
@@ -3449,62 +3432,61 @@ def user(request, user_id):
     if current_profile == profile:
         is_current_user = True
     if profile.user.is_anonymous:
-        commented_pictures_qs_count = 0
+        commented_pictures_count = 0
     else:
-        commented_pictures_qs_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by(
-            'object_pk').distinct('object_pk').count()
-    curated_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True)
-    datings_qs = Dating.objects.filter(profile_id=profile.id).distinct('photo')
-    face_annotations_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by('photo_id')
-    face_annotations_pictures_qs = FaceRecognitionRectangle.objects.filter(user_id=profile.id).order_by(
-        'photo_id').distinct('photo')
-    geotags_qs = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo')
-    geotag_confirmations_qs = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo')
-    object_annotations_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by('photo_id')
-    object_annotations_pictures_qs = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).order_by(
-        'photo_id').distinct('photo')
-    photolikes_qs = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo')
-    photo_viewpoint_elevation_suggestions_qs = PhotoViewpointElevationSuggestion.objects.filter(
-        proposer_id=profile.id).distinct('photo')
-    photo_scene_suggestions_qs = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(
-        photo_id__in=photo_viewpoint_elevation_suggestions_qs.values_list('photo_id', flat=True))
-    rephoto_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False)
-    rephotographed_pictures_qs = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by(
-        'rephoto_of_id').distinct('rephoto_of_id')
-    similar_pictures_qs = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity')
-    transcriptions_qs = Transcription.objects.filter(user=profile).distinct('photo')
-    action_count = commented_pictures_qs_count + transcriptions_qs.count() + \
-                   object_annotations_qs.count() + face_annotations_qs.count() + \
-                   curated_pictures_qs.count() + geotags_qs.count() + \
-                   rephoto_qs.count() + rephoto_qs.count() + datings_qs.count() + \
-                   similar_pictures_qs.count() + geotag_confirmations_qs.count() + \
-                   photolikes_qs.count() + photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count()
+        commented_pictures_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
 
-    user_points = 0
-    for point in profile.points.all():
-        user_points += point.points
+    curated_pictures_count            = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True).count()
+    datings_count                     = Dating.objects.filter(profile_id=profile.id).distinct('photo').count()
+    face_annotations_count            = FaceRecognitionRectangle.objects.filter(user_id=profile.id).count()
+    face_annotations_pictures_count   = FaceRecognitionRectangle.objects.filter(user_id=profile.id).distinct('photo').count()
+    geotags_count                     = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo').count()
+    geotag_confirmations_count        = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo').count()
+    object_annotations_count          = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).count()
+    object_annotations_pictures_count = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).distinct('photo').count()
+    photolikes_count                  = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo').count()
+    rephoto_count                     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).count()
+    rephotographed_pictures_count     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id').count()
+    similar_pictures_count            = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity').count()
+    transcriptions_count              = Transcription.objects.filter(user=profile).distinct('photo').count()
+
+    photo_viewpoint_elevation_suggestions_ids = PhotoViewpointElevationSuggestion.objects.filter(
+        proposer_id=profile.id).distinct('photo').values_list('photo_id', flat=True)
+    photo_scene_suggestions_count = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(
+        photo_id__in=photo_viewpoint_elevation_suggestions_ids).count()
+
+    action_count = commented_pictures_count + transcriptions_count + \
+                   object_annotations_count + face_annotations_count + \
+                   curated_pictures_count + geotags_count + \
+                   rephoto_count + rephoto_count + datings_count + \
+                   similar_pictures_count + geotag_confirmations_count + \
+                   photolikes_count + photo_scene_suggestions_count + len(photo_viewpoint_elevation_suggestions_ids)
+
+    user_points=profile.points.aggregate(user_points=Sum('points'))['user_points'] 
+    if user_points == None:
+        user_points = 0
 
     context = {
         'actions': action_count,
-        'commented_pictures': commented_pictures_qs_count,
-        'curated_pictures': curated_pictures_qs.count(),
-        'datings': datings_qs.count(),
-        'face_annotations': face_annotations_qs.count(),
-        'face_annotations_pictures': face_annotations_pictures_qs.count(),
+        'commented_pictures': commented_pictures_count,
+        'curated_pictures': curated_pictures_count,
+        'datings': datings_count,
+        'face_annotations': face_annotations_count,
+        'face_annotations_pictures': face_annotations_pictures_count,
         'favorites_link': '/?order1=time&order2=added&page=1&myLikes=1',
-        'geotag_confirmations': geotag_confirmations_qs.count(),
-        'geotagged_pictures': geotags_qs.count(),
+        'geotag_confirmations': geotag_confirmations_count,
+        'geotagged_pictures': geotags_count,
         'is_current_user': is_current_user,
-        'object_annotations': object_annotations_qs.count(),
-        'object_annotations_pictures': object_annotations_pictures_qs.count(),
-        'photolikes': photolikes_qs.count(),
-        'photo_suggestions': photo_scene_suggestions_qs.count() + photo_viewpoint_elevation_suggestions_qs.count(),
+        'object_annotations': object_annotations_count,
+        'object_annotations_pictures': object_annotations_pictures_count,
+        'photolikes': photolikes_count,
+        'photo_suggestions': photo_scene_suggestions_count + len(photo_viewpoint_elevation_suggestions_ids),
         'profile': profile,
-        'rephotographed_pictures': rephotographed_pictures_qs.count(),
+        'rephotographed_pictures': rephotographed_pictures_count,
         'rephotos_link': f'/photos/?rephotosBy={str(profile.user_id)}&order1=time&order2=rephotos',
-        'rephotos': rephoto_qs.count(),
-        'similar_pictures': similar_pictures_qs.count(),
-        'transcriptions': transcriptions_qs.count(),
+        'rephotos': rephoto_count,
+        'similar_pictures': similar_pictures_count,
+        'transcriptions': transcriptions_count,
         'user_points': user_points
     }
 

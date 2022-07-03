@@ -94,7 +94,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     attribution_text = _render_attribution(source_text, p.author, p.date_text, licence_text)
     canvases.append(_get_v2_canvas(request, photo_id, title, lang_code, iiif_image_url, p.width, p.height,
-                                   f'photo_{str(photo_id)}', attribution_text, rights_url, p))
+                                   f'photo_{str(photo_id)}', attribution_text, rights_url, p, metadata))
 
     rephotos = Photo.objects.filter(rephoto_of=photo_id)
     for rephoto in rephotos:
@@ -115,10 +115,18 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         else:
             rephoto_author = 'Unknown'
 
+        rephoto_date_text=""
+        if rephoto.date_text:
+            rephoto_date_text=rephoto.date_text
+        elif rephoto.date:
+            rephoto_date_text=rephoto.date.strftime('%Y-%m-%d')
+        else:
+            rephoto_date_text=""
+
         rephoto_attribution_text = _render_attribution(
             rephoto_source_text,
             rephoto_author,
-            rephoto.date_text,
+            rephoto_date_text,
             rephoto_licence_text
         )
 
@@ -128,6 +136,28 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             rephoto_title = rephoto.description
         else:
             rephoto_title = f'Rephoto of {request.build_absolute_uri(f"/photo/{str(photo_id)}")} with title "{title}"'
+
+        rephoto_metadata = []
+        if rephoto_date_text:
+            rephoto_metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': rephoto_date_text})
+
+        if rephoto_source_text:
+            rephoto_metadata.append({'label': multilang_string_v2('Source', 'en'), 'value': rephoto_source_text})
+
+        if rephoto.source_key:
+            rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': rephoto.source_key})
+        elif not rephoto.source:
+            rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': str(rephoto.id)})
+
+        if rephoto_author:
+            rephoto_metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': rephoto_author})
+
+        if rephoto.licence:
+            rephoto_metadata.append({'label': multilang_string_v2('Licence', 'en'), 'value': rephoto_licence_text, 'id': rephoto_rights_url})
+
+        if rephoto.lat and rephoto.lon:
+            rephoto_location = f'Latitude: {str(rephoto.lat)}, Longitude: {str(rephoto.lon)}'
+            rephoto_metadata.append({'label': multilang_string_v2('Coordinates', 'en'), 'value': rephoto_location})
 
         canvases.append(_get_v2_canvas(
             request,
@@ -140,7 +170,8 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
             f'rephoto_{str(rephoto.id)}',
             rephoto_attribution_text,
             rephoto_rights_url,
-            rephoto
+            rephoto,
+            rephoto_metadata
         ))
 
     content['metadata'] = metadata
@@ -164,7 +195,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
 
 def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, height,
-                   canvas_name, source_text, licence_url, thumbnail):
+                   canvas_name, source_text, licence_url, thumbnail, metadata):
 
     thumb_width, thumb_height = calculate_thumbnail_size(thumbnail.width, thumbnail.height, 400)
 
@@ -211,6 +242,9 @@ def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, h
 
     if licence_url:
         canvas['licence'] = licence_url
+
+    if metadata:
+        canvas['metadata'] = metadata
 
     return canvas
 

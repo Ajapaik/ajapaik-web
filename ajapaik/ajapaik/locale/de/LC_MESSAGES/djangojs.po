@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1233qwer1234qwer4
+# Author: Brettchenweber
 # Author: DraconicDark
 # Author: Elliot
 # Author: FF-11
@@ -13,6 +14,7 @@
 # Author: Killarnee
 # Author: Mirzali
 # Author: Symposiarch
+# Author: ThisCarthing
 # Author: Tiin
 # Author: Umherirrender
 # Author: Umlaut
@@ -23,7 +25,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-04-28 11:00:19+0000\n"
+"PO-Revision-Date: 2022-06-09 11:00:26+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,7 +63,7 @@ msgstr "Nicht ausgewählt"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
-msgstr ""
+msgstr "Gehe zu meinem Standort"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1613
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
@@ -250,7 +252,7 @@ msgstr "Autor"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr ""
+msgstr "Szene kategorisieren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
@@ -284,11 +286,11 @@ msgstr "Bearbeiten"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr ""
+msgstr "Außenaufnahme"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "Entschuldigung, dein Feedback konnte nicht gesendet werden."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
@@ -305,29 +307,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "Das Bild ist von hoher Qualität"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
-msgstr ""
+msgstr "Das Bild enthält Informationen zum Standort und zur Blickrichtung"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "Das Bild hat keine Standortinformation"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
 msgstr "Das Bild hat nur einen Standort, keine Blickrichtung"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Picture has rephotos"
-msgstr ""
+msgstr "Zu diesem Foto gibt es Refotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Picture has similar photos"
-msgstr ""
+msgstr "Zu diesem Foto gibt es ähnliche Fotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Institution"
@@ -419,7 +419,7 @@ msgstr "Keine Bilder in diesem Album vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "In diesem Album wurden keine Bilder mit den ausgwählten Filtern gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures were found with the selected filters"
@@ -431,27 +431,27 @@ msgstr "Keine Bilder vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr ""
+msgstr "In diesem Album wurden keine Bilder mit 0 Geotags gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "Es wurden keine Bilder mit 0 Geotags gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "In diesem Album wurden keine Bilder mit Rückseiten gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "Es wurden keine Bilder mit Rückseiten gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "In diesem Album wurden keine Bilder mit markierten Gesichtern gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr "Keine Bildern mit markierten Gesichtern vorhanden"
+msgstr "Keine Bilder mit markierten Gesichtern vorhanden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
@@ -496,11 +496,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Es wurden keine Refotos gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "In diesem Album wurden keine Refotos gefunden"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
@@ -536,7 +536,7 @@ msgstr "Der Bildersatz hat keine Markierungen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "Das Bildset hat keine Kommentare"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
@@ -691,7 +691,7 @@ msgstr "Unbekannter Urheber"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr "Sie haben die Karte geöffnet und die Filterleiste ausgeschaltet, bitte kreuzen sie das Kästchen neben Filterleiste an."
+msgstr "Sie haben die Karte geöffnet und die Filterleiste ausgeschaltet, bitte kreuzen Sie das Kästchen neben der Filterleiste an."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
@@ -768,7 +768,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
-msgstr "Angesehen"
+msgstr "angesehen"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
@@ -855,7 +855,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
-msgstr "Suchbox"
+msgstr "Suchfeld"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
@@ -888,7 +888,7 @@ msgstr "Klicken Sie auf die grüne Schaltfläche, um sowohl die Position als auc
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr "Klicke auf die Karte um die Blickrichtung zu sperren oder klcke die gelbe Schaltfläche, um nur den Standort zu speichern."
+msgstr "Klicke auf die Karte, um die Blickrichtung zu sperren, oder klicke auf die gelbe Schaltfläche, um nur den Standort zu speichern."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
@@ -920,7 +920,7 @@ msgstr "Historische Karten"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
-msgstr ""
+msgstr "Albumfilter entfernen"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
@@ -928,7 +928,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
-msgstr ""
+msgstr "Albumfilter anwenden"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
@@ -954,9 +954,8 @@ msgid "This transcription is correct"
 msgstr "Diese Abschrift ist richtig"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
-msgstr "Was steht in dem Bild geschrieben?"
+msgstr "Was ist auf dem Bild geschrieben?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
@@ -984,7 +983,7 @@ msgstr "Geschlecht ändern"
 
 #: ajapaik/ajapaik/static/js/constants.js:45
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr "Klicke (ziehe nicht) um das Zeichnen der Markierung zu starten. Klicke nochmal, um das Zeichnen zu beenden."
+msgstr "Klicke (ziehe nicht), um das Zeichnen der Markierung zu starten. Klicke noch einmal, um das Zeichnen zu beenden."
 
 #: ajapaik/ajapaik/static/js/constants.js:48
 msgid "Object is required"
@@ -1012,7 +1011,7 @@ msgstr "Kind"
 
 #: ajapaik/ajapaik/static/js/constants.js:56
 msgid "Elderly"
-msgstr "Alter"
+msgstr "Älter"
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Adult"

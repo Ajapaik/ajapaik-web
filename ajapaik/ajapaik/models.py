@@ -1,4 +1,5 @@
 import os
+import hashlib
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
@@ -8,6 +9,7 @@ from math import degrees
 from time import sleep
 from urllib.request import urlopen
 
+import re
 import numpy
 import requests
 from PIL import Image, ImageOps
@@ -25,9 +27,11 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, OneToOneField, Q, Sum
+from django.core.cache import cache
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
 from django.db.models.signals import post_save
+from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
@@ -44,6 +48,76 @@ from sorl.thumbnail import get_thumbnail, delete
 from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
 
+
+# Impelement count estimate as custom function per
+# https://wiki.postgresql.org/wiki/Count_estimate
+# https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
+
+class EstimatedCountQuerySet(QuerySet):
+
+    # Get count from cache if it is available
+    def cached_count(self):
+        cached_count=0
+        key = "query: " + str(hashlib.md5(str(self.query).encode()).hexdigest())
+        cached_count = cache.get(key, cached_count)
+
+        # not in cache or small then query exact value
+        if cached_count < 100000:
+            real_count=self.query.get_count(using=self.db)
+
+            # if real_count is big then update it to cache
+            if real_count>100000:
+                cache.set(key, real_count, 300)
+            return real_count
+
+        return cached_count
+
+    def estimated_count(self):
+        estimated_count=0
+
+        # Check that we are using Postgres
+        postgres_engines = ("postgis", "postgresql", "django_postgrespool")
+        engine = settings.DATABASES[self.db]["ENGINE"].split(".")[-1]
+        is_postgres = engine.startswith(postgres_engines)
+
+        # Get estimated count
+        if is_postgres:
+            explain=self.only('pk').explain()
+            m=re.match(".*? rows=(\d+)", explain)
+            if m:
+                estimated_count=int(m[1])
+
+        # If return exact count for small result numbers
+        if estimated_count < 100000:
+            return self.query.get_count(using=self.db)
+        else:
+            return estimated_count
+
+class EstimatedCountManager(Manager):
+    """
+    Custom db manager
+    """
+    def get_queryset(self):
+        return EstimatedCountQuerySet(self.model)
+
+# For doing multicolumn bitmap index queries 
+#
+# Input
+# object.filter(LeftField__bool=True)
+#
+# Output
+# SELECT * FROM foo WHERE CAST(LeftField AS bool) = CAST(RightField AS bool);
+
+class BooleanValue(Transform):
+    lookup_name = 'bool'
+    bilateral = True
+
+    def as_sql(self, compiler, connection):
+        sql, params = compiler.compile(self.lhs)
+        sql = 'CAST(%s AS BOOL)' % sql
+        return sql, params
+
+Field.register_lookup(BooleanValue)
 
 # For filtering empty user first and last name, actually, can be done with ~Q, but this is prettier?
 class NotEqual(Lookup):
@@ -203,7 +277,7 @@ class Album(Model):
     is_public_figure = BooleanField(default=False)
     wikidata_qid = CharField(_('Wikidata identifier'), max_length=255, blank=True, null=True)
     face_encodings = TextField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     similar_photo_count_with_subalbums = IntegerField(default=0)
     confirmed_similar_photo_count_with_subalbums = IntegerField(default=0)
@@ -450,7 +524,7 @@ class Album(Model):
 
 
 class Photo(Model):
-    objects = Manager()
+    objects = EstimatedCountManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
@@ -507,30 +581,31 @@ class Photo(Model):
     # Useless
     area = ForeignKey('Area', related_name='areas', null=True, blank=True, on_delete=CASCADE)
     rephoto_of = ForeignKey('self', blank=True, null=True, related_name='rephotos', on_delete=CASCADE)
-    first_rephoto = DateTimeField(null=True, blank=True, db_index=True)
-    latest_rephoto = DateTimeField(null=True, blank=True, db_index=True)
+    first_rephoto = DateTimeField(null=True, blank=True)
+    latest_rephoto = DateTimeField(null=True, blank=True)
+    rephoto_count = IntegerField(default=0, db_index=True)
     fb_object_id = CharField(max_length=255, null=True, blank=True)
     comment_count = IntegerField(default=0, null=True, blank=True, db_index=True)
-    first_comment = DateTimeField(null=True, blank=True, db_index=True)
-    latest_comment = DateTimeField(null=True, blank=True, db_index=True)
+    first_comment = DateTimeField(null=True, blank=True)
+    latest_comment = DateTimeField(null=True, blank=True)
     view_count = PositiveIntegerField(default=0)
-    first_view = DateTimeField(null=True, blank=True)
-    latest_view = DateTimeField(null=True, blank=True)
+    first_view = DateTimeField(null=True)
+    latest_view = DateTimeField(null=True)
     like_count = IntegerField(default=0, db_index=True)
-    first_like = DateTimeField(null=True, blank=True, db_index=True)
-    latest_like = DateTimeField(null=True, blank=True, db_index=True)
+    first_like = DateTimeField(null=True, blank=True)
+    latest_like = DateTimeField(null=True, blank=True)
     geotag_count = IntegerField(default=0, db_index=True)
-    first_geotag = DateTimeField(null=True, blank=True, db_index=True)
-    latest_geotag = DateTimeField(null=True, blank=True, db_index=True)
+    first_geotag = DateTimeField(null=True, blank=True)
+    latest_geotag = DateTimeField(null=True, blank=True)
     dating_count = IntegerField(default=0, db_index=True)
-    first_dating = DateTimeField(null=True, blank=True, db_index=True)
-    latest_dating = DateTimeField(null=True, blank=True, db_index=True)
+    first_dating = DateTimeField(null=True, blank=True)
+    latest_dating = DateTimeField(null=True, blank=True)
     transcription_count = IntegerField(default=0, db_index=True)
-    first_transcription = DateTimeField(null=True, blank=True, db_index=True)
-    latest_transcription = DateTimeField(null=True, blank=True, db_index=True)
+    first_transcription = DateTimeField(null=True, blank=True)
+    latest_transcription = DateTimeField(null=True, blank=True)
     annotation_count = IntegerField(default=0, db_index=True)
-    first_annotation = DateTimeField(null=True, blank=True, db_index=True)
-    latest_annotation = DateTimeField(null=True, blank=True, db_index=True)
+    first_annotation = DateTimeField(null=True, blank=True)
+    latest_annotation = DateTimeField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
     gps_accuracy = FloatField(null=True, blank=True)
@@ -571,6 +646,24 @@ class Photo(Model):
     class Meta:
         ordering = ['-id']
         db_table = 'project_photo'
+        indexes = [
+            Index(F('latest_annotation').desc(nulls_last=True), name='latest_annotation_idx'),
+            Index(F('first_annotation').asc(nulls_last=True), name='first_annotation_idx'),
+            Index(F('latest_transcription').desc(nulls_last=True), name='latest_transcription_idx'),
+            Index(F('first_transcription').asc(nulls_last=True), name='first_transcription_idx'),
+            Index(F('latest_dating').desc(nulls_last=True), name='latest_dating_idx'),
+            Index(F('first_dating').asc(nulls_last=True), name='first_dating_idx'),
+            Index(F('latest_geotag').desc(nulls_last=True), name='latest_geotag_idx'),
+            Index(F('first_geotag').asc(nulls_last=True), name='first_geotag_idx'),
+            Index(F('latest_like').desc(nulls_last=True), name='latest_like_idx'),
+            Index(F('first_like').asc(nulls_last=True), name='first_like_idx'),
+            Index(F('latest_view').desc(nulls_last=True), name='latest_view_idx'),
+            Index(F('first_view').asc(nulls_last=True), name='first_view_idx'),
+            Index(F('latest_comment').desc(nulls_last=True), name='latest_comment_idx'),
+            Index(F('first_comment').asc(nulls_last=True), name='first_comment_idx'),
+            Index(F('latest_rephoto').desc(nulls_last=True), name='latest_rephoto_idx'),
+            Index(F('first_rephoto').asc(nulls_last=True), name='first_rephoto_idx'),
+        ]
 
     @property
     def get_display_text(self):
@@ -1047,6 +1140,7 @@ class Photo(Model):
         last_rephoto = self.rephotos.order_by('-created').first()
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
+            self.rephoto_count = self.rephotos.count()
         super(Photo, self).save(*args, **kwargs)
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
