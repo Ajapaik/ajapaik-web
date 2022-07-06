@@ -13,9 +13,9 @@ function getPictureCategory(id) {
         },
         success: function (response) {
             console.log("====");
-            // console.log(response);
-            // result = String(response).replaceAll("/", "-");
-            // console.log(result);
+            console.log(response);
+            result = String(response).replaceAll("/", "-");
+            console.log(result);
             // $.ajax({
             //     type: 'GET',
             //     url: 'https://anna.ajapaik.ee/predict/' + result,
