@@ -4,7 +4,7 @@ function getPictureCategory(id) {
         $.ajax({
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
-        url: 'http://localhost:8000/photo-thumb-path/' + id,
+        url: 'https://anna.ajapaik/photo-thumb-path/' + id,
         // beforeSend: function (xhr) {
         //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
         // },
@@ -39,7 +39,7 @@ function getPictureCategory(id) {
         },
         error: function (error) {
             console.log("Some error has occured: OUT");
-            console.log(error)
+                console.log(error)
         }
     });
 
