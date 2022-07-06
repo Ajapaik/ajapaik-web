@@ -8,9 +8,9 @@ function getPictureCategory(id) {
         // beforeSend: function (xhr) {
         //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
         // },
-        headers: {
-            'Content-Type': 'text/plain'
-        },
+        // headers: {
+        //     'Content-Type': 'text/plain'
+        // },
         success: function (response) {
             console.log("====");
             console.log(response);
