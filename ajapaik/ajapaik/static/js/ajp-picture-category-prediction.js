@@ -1,6 +1,6 @@
 function getPictureCategory(id) {
     // console.log(id.id);
-        console.log(id)
+        console.log(typeof id);
         $.ajax({
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
@@ -8,9 +8,9 @@ function getPictureCategory(id) {
         // beforeSend: function (xhr) {
         //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
         // },
-        // headers: {
-        //     'Content-Type': 'text/plain'
-        // },
+        headers: {
+            'Content-Type': 'text/plain'
+        },
         success: function (response) {
             console.log("====");
             console.log(response);
