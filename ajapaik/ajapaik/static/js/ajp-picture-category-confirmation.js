@@ -29,6 +29,7 @@ function postPictureCategory(id, category) {
                 },
                 success: function (response) {
                     console.log("SUCCESS");
+                    $("#ajp-category-confirmation").html("Done");
                 },
                 error: function (error) {
                     console.log("Some error has occured: IN");
