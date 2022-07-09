@@ -18,7 +18,7 @@ function postPictureCategory(id, category) {
             console.log(result);
             $.ajax({
                 type: 'POST',
-                url: 'https://anna.ajapaik.ee/predict/',
+                url: 'https://anna.ajapaik.ee/predict',
                 // url: 'http://localhost:7000/predict/' + result,
                 // beforeSend: function (xhr) {
                 //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
