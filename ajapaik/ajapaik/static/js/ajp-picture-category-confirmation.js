@@ -20,9 +20,9 @@ function postPictureCategory(id, category) {
                 type: 'POST',
                 url: 'https://anna.ajapaik.ee/predict',
                 // url: 'http://localhost:7000/predict/' + result,
-                // beforeSend: function (xhr) {
-                //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
-                // },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+                },
                 data: {'category': 'interior'},
                 headers: {
                     'Content-Type': 'application/json'
