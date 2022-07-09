@@ -208,7 +208,7 @@ INSTALLED_APPS = (
 )
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
-ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
 
 HAYSTACK_CONNECTIONS = {
     'default': {
