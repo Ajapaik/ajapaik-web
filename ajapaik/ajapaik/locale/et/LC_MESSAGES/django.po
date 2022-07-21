@@ -1863,12 +1863,27 @@ msgstr "Ajapaik on MTÜ Eesti Fotopärand mittetulunduslik ettevõtmine, mis sü
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
+msgid ""
+"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                        <b>%(total_photos_tagged)s</b> pictures have been "
+"put on the map by\n"
+"                        <b>%(contributing_users)s</b> users and <b>"
+"%(rephoto_count)s</b> rephotographs for\n"
+"                        <b>%(rephotographed_photo_count)s</b> pictures made "
+"by <b>%(rephotographing_users)s</b>\n"
+"                        users."
 msgstr "Ajapaigas on <b>%(total_photo_count)s</b> ajaloolist pilti, millest <b>%(total_photos_tagged)s</b> pilti on ära kaardistatud <b>%(contributing_users)s</b> kasutaja abiga, ning <b>%(rephoto_count)s</b> ülepildistust <b>%(rephotographed_photo_count)s</b> pildile, mille on teinud <b>%(rephotographing_users)s</b> kasutajat."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
+msgid ""
+"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
+"a\n"
+"                        person has been identified in <b>"
+"%(person_annotation_count_with_person_album)s</b> cases, age\n"
+"                        or gender is marked for <b>"
+"%(person_annotation_count_with_subject_data)s</b>\n"
+"                        faces."
 msgstr "Ajapaigas olevatel piltidel on tuvastatud <b>%(person_annotation_count)s</b> nägu, isik on tuvastatud <b>%(person_annotation_count_with_person_album)s</b> puhul, vanuseklass või sugu on märgitud <b>%(person_annotation_count_with_subject_data)s</b> näole."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
