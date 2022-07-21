@@ -1874,12 +1874,27 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
+msgid ""
+"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
+"                        <b>%(total_photos_tagged)s</b> pictures have been "
+"put on the map by\n"
+"                        <b>%(contributing_users)s</b> users and <b>"
+"%(rephoto_count)s</b> rephotographs for\n"
+"                        <b>%(rephotographed_photo_count)s</b> pictures made "
+"by <b>%(rephotographing_users)s</b>\n"
+"                        users."
 msgstr "Ajapaik hat <b>%(total_photo_count)s</b> historische Bilder, von denen <b>%(total_photos_tagged)s</b> Bilder von <b>%(contributing_users)s</b> Benutzern auf der Karte markiert wurden und <b>%(rephoto_count)s</b> Refotos für <b>%(rephotographed_photo_count)s</b> Bilder von <b>%(rephotographing_users)s</b> Benutzern gemacht wurden."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
+msgid ""
+"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
+"a\n"
+"                        person has been identified in <b>"
+"%(person_annotation_count_with_person_album)s</b> cases, age\n"
+"                        or gender is marked for <b>"
+"%(person_annotation_count_with_subject_data)s</b>\n"
+"                        faces."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
