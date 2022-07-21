@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-05-23 11:00:29+0000\n"
+"PO-Revision-Date: 2022-07-21 11:00:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -745,7 +745,7 @@ msgstr "Добавить категорию. Это позволит отнес�
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
-msgstr "Категоризировать"
+msgstr "Категории"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:62
 msgid "Transcribe this image"
@@ -2734,35 +2734,35 @@ msgstr "Данные отсутствуют. Повторите попытку �
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr "Эстонский"
+msgstr "eesti"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr "Латышский"
+msgstr "latviešu"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr "Литовский"
+msgstr "lietuvių"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr "Английский"
+msgstr "English"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
-msgstr "Финский"
+msgstr "suomi"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr "Шведский"
+msgstr "svenska"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr "Русский"
+msgstr "русский"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr "Французский"
+msgstr "français"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
