@@ -21,21 +21,21 @@
             </a>
         </div>
     </div>
-{#    <div>#}
-{#        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">#}
-{#            <div id="ajp-probability1"></div>#}
-{#            <button class="btn btn-success mr-1 btn-sm">Yes</button>#}
-{#            <button class="btn btn-danger btn-sm">Propose different category</button>#}
-{#            <div id="ajp-category-confirmation"></div>#}
-{#        </div>#}
-{#    </div>#}
     <div>
         <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
             <div id="ajp-probability1"></div>
-            <button>Yes</button>
-            <button>No</button>
+            <button class="btn btn-success mr-1 btn-sm">Yes</button>
+            <button class="btn btn-danger btn-sm">Propose different category</button>
+{#            <div id="ajp-category-confirmation"></div>#}
         </div>
     </div>
+{#    <div>#}
+{#        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">#}
+{#            <div id="ajp-probability1"></div>#}
+{#            <button>Yes</button>#}
+{#            <button>No</button>#}
+{#        </div>#}
+{#    </div>#}
     {% include '_annotations.html' with numberOfColumns=2 %}
     {% if collection_albums.all|length > 0 %}
     <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
