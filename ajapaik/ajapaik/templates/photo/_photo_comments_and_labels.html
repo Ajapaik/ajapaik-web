@@ -24,8 +24,8 @@
     <div>
         <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
             <div id="ajp-probability1"></div>
-            <button class="btn btn-success mr-1 ml-1 btn-sm" onclick="postPictureCategory(1, $('#ajp-probability1').html())">Yes</button>
-            <button class="btn btn-danger btn-sm">Propose different category</button>
+            <button class="btn btn-success mr-1 ml-1 btn-sm" onclick="postPictureCategory(['{{ photo.id }}'], $('#ajp-probability1').html())">Yes</button>
+            <button class="btn btn-danger  mr-1 btn-sm">Propose different category</button>
             <div id="ajp-category-confirmation"></div>
         </div>
     </div>
@@ -82,7 +82,7 @@
 {% block specific_js %}
     <script>
         $(document).ready(function () {
-            getPictureCategory(['{{ photo.id }}'])
+            getPictureCategory(['{{ photo.id }}']);
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
