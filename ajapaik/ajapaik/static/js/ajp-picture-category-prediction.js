@@ -5,9 +5,9 @@ function getPictureCategory(id) {
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
         url: 'https://anna.ajapaik.ee/photo-thumb-path/1',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
-        },
+        // beforeSend: function (xhr) {
+        //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+        // },
         headers: {
             'Content-Type': 'text/plain'
         },
