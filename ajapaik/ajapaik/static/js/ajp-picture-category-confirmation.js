@@ -16,26 +16,26 @@ function postPictureCategory(id, category) {
             console.log(response);
             result = String(response).replaceAll("/", "-");
             console.log(result);
-            $.ajax({
-                type: 'POST',
-                url: 'https://anna.ajapaik.ee/predict',
-                // url: 'http://localhost:7000/predict/' + result,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
-                },
-                data: {'category': 'interior'},
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                success: function (response) {
-                    console.log("SUCCESS");
-                    $("#ajp-category-confirmation").html("Done");
-                },
-                error: function (error) {
-                    console.log("Some error has occured: IN");
-                    console.log(error)
-                }
-            });
+            // $.ajax({
+            //     type: 'POST',
+            //     url: 'https://anna.ajapaik.ee/predict',
+            //     // url: 'http://localhost:7000/predict/' + result,
+            //     beforeSend: function (xhr) {
+            //         xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
+            //     },
+            //     data: {'category': 'interior'},
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     success: function (response) {
+            //         console.log("SUCCESS");
+            //         $("#ajp-category-confirmation").html("Done");
+            //     },
+            //     error: function (error) {
+            //         console.log("Some error has occured: IN");
+            //         console.log(error)
+            //     }
+            // });
         },
         error: function (error) {
             console.log("Some error has occured: OUT");
