@@ -1,5 +1,6 @@
 function postPictureCategory(id, category) {
     console.log(id);
+    category = category.split(" ")[0];
     console.log(category);
     // console.log(id.id);
     console.log("I am in post");
