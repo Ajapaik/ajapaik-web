@@ -73,7 +73,7 @@
             cache: false,
             url: '/photo/' + id + '/?isMapview=1',
             success: function (result) {
-                openPhotoDrawer(imageUrl);
+                openPhotoDrawer(result);
                 var mainPhotoContainer = $('#ajp-modal-photo-container'),
                     rephotoColumn = $('#ajp-photo-modal-rephoto-column'),
                     rephotoContainer = $('#ajp-modal-rephoto-container'),

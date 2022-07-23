@@ -14,7 +14,7 @@ def test_photos_tartunlp_translation():
         'Эстония театрический дом, вид Эстония пуiesteelt',
         'Estlands Theaterhaus, Sicht auf Estland puiesteelt'
     ]:
-        responses.add(responses.POST, 'https://api.tartunlp.ai/translation/v2', json={'imageUrl': each})
+        responses.add(responses.POST, 'https://api.tartunlp.ai/translation/v2', json={'result': each})
     # Make sure _fi isn't overridden - et is picked as the source because it is at the start of TARTUNLP_LANGUAGES
     test_instance = Photo(description_et='Estonia teatrimaja, vaade Estonia puiesteelt',
                           description_fi='Viro teatrimaja, vaade Viro puiesteelt')
@@ -40,7 +40,7 @@ def test_albums_tartunlp_translation():
         'Стереофоты из Парижа (Франция)',
         'Stereofotot Pariisista (Ranska)'
     ]:
-        responses.add(responses.POST, 'https://api.tartunlp.ai/translation/v2', json={'imageUrl': each})
+        responses.add(responses.POST, 'https://api.tartunlp.ai/translation/v2', json={'result': each})
 
     test_instance = Album(name_et='Stereofotosid Pariisist (Prantsusmaa)',
                           name_de='Stereophotos aus Paris (Frankreich)', atype=Album.CURATED)

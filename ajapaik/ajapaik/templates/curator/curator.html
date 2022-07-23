@@ -222,7 +222,7 @@
                         $('#ajp-curator-my-albums').hide();
                         $('#ajp-curator-search-results-container').hide();
                         $('#ajp-curator-selection').show();
-                        const ETERAResults = $('.ajp-curator-ETERA-imageUrl');
+                        const ETERAResults = $('.ajp-curator-ETERA-result');
                         if (ETERAResults.length > 0) {
                             $.ajaxSetup({
                                 beforeSend: function (xhr) {
@@ -273,7 +273,7 @@
             });
             const createResultElement = function (item) {
                 fullResultSet[item.id] = item;
-                resultDiv.append(tmpl('ajp-curator-imageUrl-template', item));
+                resultDiv.append(tmpl('ajp-curator-result-template', item));
             };
             const buildSelectionDiv = function () {
                 selectionDiv.empty();
@@ -352,7 +352,7 @@
                             $('.ajp-curator-load-more').hide();
                             $('#ajp-curator-load-more-row').hide();
                         }
-                        const counter = $('#ajp-curator-imageUrl-count'),
+                        const counter = $('#ajp-curator-result-count'),
                             prev = parseInt(counter.html(), 10);
                         if (msg.result.firstRecordViews) {
                             counter.html(prev + msg.result.firstRecordViews.length);
@@ -473,7 +473,7 @@
                         } else {
                             resultCount = 0;
                         }
-                        $('#ajp-curator-imageUrl-count').html(msg.result.firstRecordViews.length);
+                        $('#ajp-curator-result-count').html(msg.result.firstRecordViews.length);
                         if (resultCount > 200 || (msg.result.page < msg.result.pages)) {
                             $('.ajp-curator-load-more').show();
                             $('#ajp-curator-load-more-row').show();
@@ -493,7 +493,7 @@
                     }
                 });
             });
-            $(document).on('click', '.ajp-imageUrl-item', function () {
+            $(document).on('click', '.ajp-result-item', function () {
                 const $this = $(this),
                         target = fullResultSet[$this.data('id')];
                 if (window.selectedResults[$this.data('id')]) {
@@ -510,7 +510,7 @@
                 window.selectedResults = {};
                 buildSelectionDiv();
                 $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
-                $('.ajp-imageUrl-item').removeClass('ajp-curator-selected-image');
+                $('.ajp-result-item').removeClass('ajp-curator-selected-image');
                 window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
             });
             window.escapeRegExp = function (string) {
@@ -635,7 +635,7 @@
             });
             $(document).on('click', '.ajp-curator-delete-button', function () {
                 const targetId = $(this)[0].dataset.id,
-                    targetResultItem = $('#ajp-imageUrl-item-' + window.escapeSlash(window.formatId(targetId))),
+                    targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
                     targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
                 if (window.selectedResults[targetId]) {
                     delete window.selectedResults[targetId];
@@ -668,7 +668,7 @@
                 $('#ajp-curator-submit-selection').click();
             });
             $(document).on('click', '#ajp-curator-select-all', function () {
-                $('img.ajp-imageUrl-item:not(.ajp-curator-selected-image)').click();
+                $('img.ajp-result-item:not(.ajp-curator-selected-image)').click();
                 window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
             });
             $(document).on('click', '.ajp-curator-edit-album-button', function () {

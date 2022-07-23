@@ -57,12 +57,12 @@ class ValimimoodulDriver(object):
             full_response_json = loads(response.text)
         except ValueError:
             return dumps({
-                'imageUrl': {
+                'result': {
                     'firstRecordViews': []
                 }})
         result = loads(response.text)
-        if 'imageUrl' in result:
-            result = result['imageUrl']
+        if 'result' in result:
+            result = result['result']
             if 'firstRecordViews' in result:
                 data = result['firstRecordViews']
             else:
@@ -114,16 +114,16 @@ class ValimimoodulDriver(object):
             if remove_existing:
                 data = [x for x in data if not x['ajapaikId']]
                 if 'firstRecordViews' in result:
-                    full_response_json['imageUrl']['ids'] = [x for x in full_response_json['imageUrl']['ids']
+                    full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
                                                            if x not in check_dict or check_dict[x]]
 
             data = [x for x in data if not x['isETERASecondImage']]
             if 'firstRecordViews' in result:
-                full_response_json['imageUrl']['ids'] = [x for x in full_response_json['imageUrl']['ids']
+                full_response_json['result']['ids'] = [x for x in full_response_json['result']['ids']
                                                        if x not in etera_second_image_remove_dict or not
                                                        etera_second_image_remove_dict[x]]
                 data = sorted(data, key=lambda k: k['id'])
-                full_response_json['imageUrl']['firstRecordViews'] = data
+                full_response_json['result']['firstRecordViews'] = data
 
             response = dumps(full_response_json)
 

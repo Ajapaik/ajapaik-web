@@ -19,7 +19,7 @@ class FlickrCommonsDriver(object):
     def transform_response(response, remove_existing=False):
         ids = [p['id'] for p in response['photos']['photo']]
         transformed = {
-            'imageUrl': {
+            'result': {
                 'firstRecordViews': [],
                 'page': response['photos']['page'],
                 'pages': response['photos']['pages']
@@ -52,7 +52,7 @@ class FlickrCommonsDriver(object):
                     transformed_item['albums'] = list(
                         Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
                                                                                                 'name').distinct())
-                transformed['imageUrl']['firstRecordViews'].append(transformed_item)
+                transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)
 

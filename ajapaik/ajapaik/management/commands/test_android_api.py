@@ -16,102 +16,102 @@ class Command(BaseCommand):
     tests = [
         {
             'url': '^/api/v1/user/me/',
-            'imageUrl': '"error":0',
+            'result': '"error":0',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/album/state/?id=10',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/album/photos/search/',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/albums/',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/albums/search/?query=Finland',
-            'imageUrl': '"error":0',
+            'result': '"error":0',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photo/state/?id=8',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/album/nearest/?range=20000&longitude=22.306113839149475&latitude=60.41823327541351',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/finna/nearest/?range=20000&longitude=22.306285500526428&latitude=60.41835129261017',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/source/?query=finna.fi',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photos/search/?query=Turku',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/wikidocumentaries/photos/?id=Q19588',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/wikidocumentaries/?query=linkkitorni',
-            'imageUrl': '"error":0',
+            'result': '"error":0',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/wikidocumentaries/?query=Pasila',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/wikidocumentaries/?query=Pasila&lat=60&lon=23',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photo/favorite/set/?id=8',
-            'imageUrl': '"error":0',
+            'result': '"error":0',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photo/fetch-hkm-finna/?id=https://www.finna.fi/Record/hkm.HKMS000005:km0000penx',
-            'imageUrl': '"error":0',
+            'result': '"error":0',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photos/favorite/order-by-distance-to-location/',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photos/filtered/rephotographed-by-user/',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/photos/search/',
-            'imageUrl': 'photos',
+            'result': 'photos',
             'timeout': 1000
         },
         {
             'url': '^/api/v1/logout/',
-            'imageUrl': '"error":',
+            'result': '"error":',
             'timeout': 1000
         },
     ]
@@ -195,7 +195,7 @@ class Command(BaseCommand):
             try:
                 contents = session.get(url).text
 
-                if (re.search(t['imageUrl'], contents)):
+                if (re.search(t['result'], contents)):
                     status = 'OK'
                 else:
                     status = 'ERROR'

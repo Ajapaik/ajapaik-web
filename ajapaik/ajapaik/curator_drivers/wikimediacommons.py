@@ -104,7 +104,7 @@ class CommonsDriver(object):
     @staticmethod
     def transform_response(response, remove_existing=False, current_page=1):
         transformed = {
-            'imageUrl': {
+            'result': {
                 'firstRecordViews': [],
                 'page': current_page,
                 'pages': response['pages']
@@ -263,7 +263,7 @@ class CommonsDriver(object):
                                                                                                     'name').distinct())
 
                     #                        print(transformed_item, file=sys.stderr)
-                    transformed['imageUrl']['firstRecordViews'].append(transformed_item)
+                    transformed['result']['firstRecordViews'].append(transformed_item)
 
         print(nn, ' photos found')
         transformed = dumps(transformed)

@@ -403,8 +403,8 @@
             $.ajax({
                 url: "{% url 'get_datings' photo.id %}",
                 success: function(result) {
-                    $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(imageUrl.datings);
-                    $('#ajp-photoview-datings-count').html(imageUrl.datings.length);
+                    $('#ajp-dater-container').data('AjapaikDater').buildPreviousDatingsDiv(result.datings);
+                    $('#ajp-photoview-datings-count').html(result.datings.length);
                     window.updateLeaderboard();
                     $('#ajp-dater-input').val(null);
                     $('#ajp-dater-comment').val(null);
@@ -446,7 +446,7 @@
                 success: function(result) {
                     let loginModal = $('#ajp-login-modal');
                     loginModal.data('bs.modal', null);
-                    loginModal.html(imageUrl).modal();
+                    loginModal.html(result).modal();
                 },
             });
         };
@@ -465,7 +465,7 @@
                     cache: false,
                     success: function(result) {
                         rephotoUploadModal.data('bs.modal', null);
-                        rephotoUploadModal.html(imageUrl).modal();
+                        rephotoUploadModal.html(result).modal();
                     },
                     url,
                 });

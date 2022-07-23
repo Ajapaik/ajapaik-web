@@ -28,10 +28,10 @@ function getAllAnnotations(customOnSuccess) {
             return JSON.parse(rectangle);
         });
 
-        window.annotations = imageUrl;
+        window.annotations = result;
 
         if (customOnSuccess) {
-            customOnSuccess(imageUrl);
+            customOnSuccess(result);
         }
     };
 

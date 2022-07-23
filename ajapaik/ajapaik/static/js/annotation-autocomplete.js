@@ -227,11 +227,11 @@ function initializeObjectAutocomplete(autocompleteId, isOpenOnView, onChange) {
 
         if (response) {
           response.forEach(function (result) {
-            if (!currentSelectedValue || imageUrl.id !== currentSelectedValue) {
+            if (!currentSelectedValue || result.id !== currentSelectedValue) {
               data.push({
-                innerHTML: getFormattedSelectOption(imageUrl),
-                text: imageUrl.label,
-                value: imageUrl.id,
+                innerHTML: getFormattedSelectOption(result),
+                text: result.label,
+                value: result.id,
               });
             }
           });

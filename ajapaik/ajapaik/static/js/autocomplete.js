@@ -11,7 +11,7 @@ same language:
 
 - The text input element is "input",
 - The box that contains a list of choices is "box",
-- Each imageUrl in the "autocomplete" is a "choice",
+- Each result in the "autocomplete" is a "choice",
 - With a capital A, "Autocomplete", is the class or an instance of the
 class.
 
@@ -230,7 +230,7 @@ yourlabs.Autocomplete = function(input) {
     As the server responds with plain HTML, we need a selector to find the
     choices that it contains.
 
-    For example, if the URL returns an HTML body where every imageUrl is in a
+    For example, if the URL returns an HTML body where every result is in a
     div of class "choice", then this should be set to '.choice'.
      */
     this.choiceSelector = '.choice';
@@ -528,7 +528,7 @@ yourlabs.Autocomplete.prototype.hide = function() {
     this.box.hide();
 };
 
-// This function is in charge of hilighting the right imageUrl from keyboard
+// This function is in charge of hilighting the right result from keyboard
 // navigation.
 yourlabs.Autocomplete.prototype.move = function(e) {
     if (this.value === null)

@@ -38,7 +38,7 @@ class FotisDriver(object):
     def transform_response(self, response, remove_existing=False, fotis_page=1):
         ids = [p['id'] for p in response['records']]
         transformed = {
-            'imageUrl': {
+            'result': {
                 'firstRecordViews': [],
                 'page': fotis_page,
                 'pages': response['pageCount']
@@ -70,7 +70,7 @@ class FotisDriver(object):
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
                     transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
                                                       .values_list('id', 'name').distinct())
-                transformed['imageUrl']['firstRecordViews'].append(transformed_item)
+                transformed['result']['firstRecordViews'].append(transformed_item)
         transformed = dumps(transformed)
 
         return transformed

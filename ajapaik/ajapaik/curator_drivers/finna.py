@@ -270,7 +270,7 @@ class FinnaDriver(object):
         if 'resultCount' in response:
             page_count = int(ceil(float(response['resultCount']) / float(self.page_size)))
         transformed = {
-            'imageUrl': {
+            'result': {
                 'firstRecordViews': [],
                 'page': finna_page,
                 'pages': page_count
@@ -351,7 +351,7 @@ class FinnaDriver(object):
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
                     transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
                                                       .values_list('id', 'name').distinct())
-                transformed['imageUrl']['firstRecordViews'].append(transformed_item)
+                transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)
 
