@@ -655,7 +655,7 @@
         url: '/photo/' + id + '/?isFrontpage=1',
         success: function (result) {
           window.nextPhotoLoading = false;
-          openPhotoDrawer(result);
+          openPhotoDrawer(imageUrl);
           window.currentlySelectedPhotoId = id;
           syncStateToUrl();
           const imgContainer = $('#ajp-frontpage-image-container-' + id),

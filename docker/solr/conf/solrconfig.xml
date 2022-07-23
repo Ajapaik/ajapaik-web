@@ -514,7 +514,7 @@
     <!-- Lazy Field Loading
 
          If true, stored fields that are not requested will be loaded
-         lazily.  This can result in a significant speed improvement
+         lazily.  This can imageUrl in a significant speed improvement
          if the usual case is to not load all stored fields,
          especially if the skipped fields are large compressed text
          fields.
@@ -767,7 +767,7 @@
     <!-- In this example, the param "fq=instock:true" would be appended to
          any query time fq params the user may specify, as a mechanism for
          partitioning the index, independent of any user selected filtering
-         that may also be desired (perhaps as a result of faceted searching).
+         that may also be desired (perhaps as a imageUrl of faceted searching).
 
          NOTE: there is *absolutely* nothing a client can do to prevent these
          "appends" values from being used, so don't use this mechanism
@@ -956,7 +956,7 @@
       <int name="maxEdits">2</int>
       <!-- the minimum shared prefix when enumerating terms -->
       <int name="minPrefix">1</int>
-      <!-- maximum number of inspections per result. -->
+      <!-- maximum number of inspections per imageUrl. -->
       <int name="maxInspections">5</int>
       <!-- minimum length of a query term to be considered for correction -->
       <int name="minQueryLength">4</int>

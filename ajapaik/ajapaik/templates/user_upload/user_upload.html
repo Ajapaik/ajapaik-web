@@ -76,7 +76,7 @@
             fr.readAsDataURL(document.getElementById('id_image').files[0]);
             $('#upload-preview').show();
             fr.onload = function (oFREvent) {
-                document.getElementById('upload-preview').src = oFREvent.target.result;
+                document.getElementById('upload-preview').src = oFREvent.target.imageUrl;
             };
         }
         $(document).ready(function () {

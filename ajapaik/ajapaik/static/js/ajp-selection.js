@@ -24,7 +24,7 @@
                 cache: false,
                 url: '/photo/' + id + '/?isSelection=1',
                 success: function (result) {
-                    openPhotoDrawer(result);
+                    openPhotoDrawer(imageUrl);
                     var imgContainer = $('#ajp-frontpage-image-container-' + id),
                         nextId = imgContainer.next().data('id'),
                         previousId = imgContainer.prev().data('id'),

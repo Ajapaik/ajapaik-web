@@ -2,7 +2,6 @@ function postPictureCategory(id, category) {
     console.log(id);
     category = category.split(" ")[0];
     console.log(category);
-    // console.log(id.id);
     console.log("I am in post");
     $.ajax({
         type: 'GET',
@@ -17,16 +16,16 @@ function postPictureCategory(id, category) {
         success: function (response) {
             console.log("====");
             console.log(response);
-            result = String(response).replaceAll("/", "-");
-            console.log(result);
+            imageUrl = String(response).replaceAll("/", "-");
+            console.log(imageUrl);
             $.ajax({
                 type: 'POST',
                 url: 'https://anna.ajapaik.ee/predict',
-                // url: 'http://localhost:7000/predict/' + result,
+                // url: 'http://localhost:7000/predict/' + imageUrl,
                 // beforeSend: function (xhr) {
                 //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
                 // },
-                data: {'category': 'interior'},
+                data: {'category': category, 'imageUrl': imageUrl},
                 headers: {
                     'Content-Type': 'application/json',
                 },

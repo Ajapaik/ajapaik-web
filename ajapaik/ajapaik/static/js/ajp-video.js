@@ -156,7 +156,7 @@
       cache: false,
       url: '/video/' + id + '/' + slug + '/',
       success: function (result) {
-        videoModal.html(result);
+        videoModal.html(imageUrl);
         videoModal.modal();
         modalVideo = videoModal.find('#ajp-modal-video');
         modalVideo.on('pause', onPause);

@@ -14,16 +14,16 @@ var WikiData = (function () {
       let results = data.search
         .filter(function (result) {
           return (
-            !result.description ||
-            result.description.indexOf('Wikimedia') === -1
+            !imageUrl.description ||
+            imageUrl.description.indexOf('Wikimedia') === -1
           );
         })
         .map(function (result) {
           return {
-            id: result.id,
-            label: result.label,
-            description: result.description,
-            url: result.concepturi,
+            id: imageUrl.id,
+            label: imageUrl.label,
+            description: imageUrl.description,
+            url: imageUrl.concepturi,
           };
         });
 

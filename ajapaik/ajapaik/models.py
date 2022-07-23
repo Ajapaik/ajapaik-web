@@ -87,7 +87,7 @@ class EstimatedCountQuerySet(QuerySet):
             if m:
                 estimated_count=int(m[1])
 
-        # If return exact count for small result numbers
+        # If return exact count for small imageUrl numbers
         if estimated_count < 100000:
             return self.query.get_count(using=self.db)
         else:
@@ -510,7 +510,7 @@ class Album(Model):
                     headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
                     json = {'text': getattr(self, translation_source), 'tgt': each}
                     response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
-                    setattr(self, key, response['result'])
+                    setattr(self, key, response['imageUrl'])
                     translation_done = True
 
             if translation_done:
@@ -1212,7 +1212,7 @@ class Photo(Model):
                     headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
                     json = {'text': getattr(self, translation_source), 'tgt': each}
                     response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
-                    setattr(self, key, response['result'])
+                    setattr(self, key, response['imageUrl'])
                     translation_done = True
             if translation_done:
                 self.light_save()

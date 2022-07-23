@@ -7,7 +7,7 @@
             $.ajax({
                 url: "{% url 'api_transcriptions' photo.id %}",
                 success: function(result) {
-                    window.currentPhotoTranscriptions = result.transcriptions;
+                    window.currentPhotoTranscriptions = imageUrl.transcriptions;
                     if (window.currentPhotoTranscriptions.length > 0) {
                         $('#ajp-transcribe-button').find('.badge').html(window.currentPhotoTranscriptions.length);
                         $('#ajp-transcription-info').removeClass('d-none').addClass('d-flex');

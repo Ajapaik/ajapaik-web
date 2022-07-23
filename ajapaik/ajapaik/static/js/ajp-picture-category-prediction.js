@@ -14,12 +14,12 @@ function getPictureCategory(id) {
         success: function (response) {
             console.log("====");
             console.log(response);
-            result = String(response).replaceAll("/", "-");
-            console.log(result);
+            imageUrl = String(response).replaceAll("/", "-");
+            console.log(imageUrl);
             $.ajax({
                 type: 'GET',
-                url: 'https://anna.ajapaik.ee/predict/' + result,
-                // url: 'http://localhost:7000/predict/' + result,
+                url: 'https://anna.ajapaik.ee/predict/' + imageUrl,
+                // url: 'http://localhost:7000/predict/' + imageUrl,
                 // beforeSend: function (xhr) {
                 //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
                 // },

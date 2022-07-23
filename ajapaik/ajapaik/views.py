@@ -2097,15 +2097,15 @@ def curator(request):
 
 def extract_values_from_dictionary_to_result(dictionary: dict, result: dict):
     try:
-        if 'result' in dictionary:
-            for each in dictionary['result']['firstRecordViews']:
+        if 'imageUrl' in dictionary:
+            for each in dictionary['imageUrl']['firstRecordViews']:
                 result['firstRecordViews'].append(each)
-            if 'page' in dictionary['result']:
-                result['page'] = dictionary['result']['page']
-            if 'pages' in dictionary['result']:
-                result['pages'] = dictionary['result']['pages']
-            if 'ids' in dictionary['result']:
-                result['ids'] = dictionary['result']['ids']
+            if 'page' in dictionary['imageUrl']:
+                result['page'] = dictionary['imageUrl']['page']
+            if 'pages' in dictionary['imageUrl']:
+                result['pages'] = dictionary['imageUrl']['pages']
+            if 'ids' in dictionary['imageUrl']:
+                result['ids'] = dictionary['imageUrl']['ids']
     except TypeError:
         print('Could not extract values from dictionary', file=sys.stderr)
 
@@ -2121,7 +2121,7 @@ def _join_2_json_objects(obj1, obj2):
     except TypeError:
         print('Could not extract values from dictionary', file=sys.stderr)
 
-    return json.dumps({'result': result})
+    return json.dumps({'imageUrl': result})
 
 
 def curator_search(request):
