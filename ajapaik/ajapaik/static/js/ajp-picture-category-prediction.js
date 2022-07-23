@@ -1,6 +1,6 @@
 function getPictureCategory(id) {
     // console.log(id.id);
-        console.log(typeof id);
+        console.log("=====");
         $.ajax({
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
