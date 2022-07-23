@@ -1,10 +1,10 @@
 function getPictureCategory(id) {
-    // console.log(id.id);
+        console.log(id.id);
         console.log("=====");
         $.ajax({
         type: 'GET',
         // url: 'https://staging.ajapaik.ee/predict/image_2.jpg',
-        url: 'http://localhost:8000/photo-thumb-path/1/',
+        url: 'http://localhost:8000/photo-thumb-path/' + id.id,
         // beforeSend: function (xhr) {
         //     xhr.setRequestHeader("X-CSRFTOKEN", window.docCookies.getItem('csrftoken'));
         // },
