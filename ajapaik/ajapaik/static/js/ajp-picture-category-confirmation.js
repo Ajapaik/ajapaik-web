@@ -25,7 +25,8 @@ function postPictureCategory(id, category) {
                 },
                 data: {'category': 'interior'},
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFTOKEN': window.docCookies.getItem('csrftoken')
                 },
                 success: function (response) {
                     console.log("SUCCESS");
