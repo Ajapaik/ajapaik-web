@@ -20,6 +20,7 @@ django-bootstrap4==3.0.1
 django-leaflet==0.28.1
 django-user-agents==0.4.0
 django-allauth==0.45.0
+django-cors-headers
 flickrapi==2.4.0
 geopy==2.2.0
 google-auth==2.0.0
