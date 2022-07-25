@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2022-05-23 11:00:26+0000\n"
+"PO-Revision-Date: 2022-07-25 11:00:45+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -1874,27 +1874,12 @@ msgstr "Ajapaik on Viron valokuvaperintöyhdistyksen (MTÜ Eesti Fotopärand) vo
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid ""
-"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been "
-"put on the map by\n"
-"                        <b>%(contributing_users)s</b> users and <b>"
-"%(rephoto_count)s</b> rephotographs for\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made "
-"by <b>%(rephotographing_users)s</b>\n"
-"                        users."
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "Ajapaikissa on <b>%(total_photo_count)s</b> historiallista valokuvaa, joista <b>%(total_photos_tagged)s</b> kuvaa on lisätty kartalle <b>%(contributing_users)s</b> käyttäjää ja <b>%(rephoto_count)s</b> uudelleenkuvausta <b>%(rephotographed_photo_count)s</b> kuvaa <b>%(rephotographing_users)s</b> käyttäjää."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid ""
-"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
-"a\n"
-"                        person has been identified in <b>"
-"%(person_annotation_count_with_person_album)s</b> cases, age\n"
-"                        or gender is marked for <b>"
-"%(person_annotation_count_with_subject_data)s</b>\n"
-"                        faces."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
 msgstr "Kuvista löytyi %(person_annotation_count)s kasvoa, henkilö tunnistettiin <b>%(person_annotation_count_with_person_album)s</b> tapauksessa, ikä tai sukupuoli on merkitty <b>%(person_annotation_count_with_subject_data)s</b> kasvoon."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38

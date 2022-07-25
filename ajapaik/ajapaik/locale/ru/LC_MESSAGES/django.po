@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-07-21 11:00:27+0000\n"
+"PO-Revision-Date: 2022-07-25 11:00:46+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -43,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -1888,27 +1888,12 @@ msgstr "Ajapaik – некоммерческая организация, соз�
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid ""
-"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been "
-"put on the map by\n"
-"                        <b>%(contributing_users)s</b> users and <b>"
-"%(rephoto_count)s</b> rephotographs for\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made "
-"by <b>%(rephotographing_users)s</b>\n"
-"                        users."
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "На платформе Ajapaik уже собрано <b>%(total_photo_count)s</b> исторических изображений, <b>%(total_photos_tagged)s</b> из которых было добавлено на карту <b>%(contributing_users)s</b> пользователями и <b>%(rephotographing_users)s</b> пользователей сделали <b>%(rephoto_count)s</b> переснимков для <b>%(rephotographed_photo_count)s</b> фотографий."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid ""
-"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
-"a\n"
-"                        person has been identified in <b>"
-"%(person_annotation_count_with_person_album)s</b> cases, age\n"
-"                        or gender is marked for <b>"
-"%(person_annotation_count_with_subject_data)s</b>\n"
-"                        faces."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
 msgstr "На фотографиях найдено <b>%(person_annotation_count)s</b> человек, в <b>%(person_annotation_count_with_person_album)s</b> случаях установлена личность, а в <b>%(person_annotation_count_with_subject_data)s</b> случаях - возраст или пол."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38

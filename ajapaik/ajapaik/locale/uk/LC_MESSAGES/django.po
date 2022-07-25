@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-04-28 11:00:22+0000\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
+"PO-Revision-Date: 2022-07-25 11:00:47+0000\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
@@ -1861,27 +1861,12 @@ msgstr "Ajapaik — це некомерційна компанія Товари
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid ""
-"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been "
-"put on the map by\n"
-"                        <b>%(contributing_users)s</b> users and <b>"
-"%(rephoto_count)s</b> rephotographs for\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made "
-"by <b>%(rephotographing_users)s</b>\n"
-"                        users."
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "Ajapaik має <b>%(total_photo_count)s</b> історичних зображень, з яких <b>%(total_photos_tagged)s</b> зображень було додано на мапу <b>%(contributing_users)s</b> користувачами і <b>%(rephoto_count)s</b> рефотографій для <b>%(rephotographed_photo_count)s</b> фото, зроблених <b>%(rephotographing_users)s</b> користувачами."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid ""
-"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
-"a\n"
-"                        person has been identified in <b>"
-"%(person_annotation_count_with_person_album)s</b> cases, age\n"
-"                        or gender is marked for <b>"
-"%(person_annotation_count_with_subject_data)s</b>\n"
-"                        faces."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
 msgstr "Існує <b>%(person_annotation_count)s</b> особи, виявлені на знімках, особу ідентифіковано в <b>%(person_annotation_count_with_person_album)s</b> випадків, вік або стать позначено <b>%(person_annotation_count_with_subject_data)s</b> осіб."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38

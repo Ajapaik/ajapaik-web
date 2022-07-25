@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-06-20 11:00:33+0000\n"
+"PO-Revision-Date: 2022-07-25 11:00:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -907,7 +907,7 @@ msgstr "נא ליצור איתי קשר אם יש לך בעיה באיפוס ה�
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "שלחנו לך מכתב בדואר אלקטרוני. נא ליצור איתנו קשר אם לא קיבלת אותו אחרי מספר דקות."
+msgstr "שלחנו לך מכתב בדואר אלקטרוני. נא ליצור איתנו קשר אם לא קיבלת אותו אחרי כמה דקות."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -1870,27 +1870,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
-msgid ""
-"Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which\n"
-"                        <b>%(total_photos_tagged)s</b> pictures have been "
-"put on the map by\n"
-"                        <b>%(contributing_users)s</b> users and <b>"
-"%(rephoto_count)s</b> rephotographs for\n"
-"                        <b>%(rephotographed_photo_count)s</b> pictures made "
-"by <b>%(rephotographing_users)s</b>\n"
-"                        users."
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "באיאפאיק יש <b>%(total_photo_count)s</b> תמונות היסטוריות, מתוכן <b>%(total_photos_tagged)s</b> תמונות הוצבו על המפה על־ידי <b>%(contributing_users)s</b> משתמשים ו־<b>%(rephoto_count)s</b> צילומים חוזרים עבור <b>%(rephotographed_photo_count)s</b> צילומים נעשו על־ידי <b>%(rephotographing_users)s</b> משתמשים."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
-msgid ""
-"There are <b>%(person_annotation_count)s</b> faces detected on the pictures, "
-"a\n"
-"                        person has been identified in <b>"
-"%(person_annotation_count_with_person_album)s</b> cases, age\n"
-"                        or gender is marked for <b>"
-"%(person_annotation_count_with_subject_data)s</b>\n"
-"                        faces."
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
 msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
