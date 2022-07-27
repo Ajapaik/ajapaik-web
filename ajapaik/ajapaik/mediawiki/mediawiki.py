@@ -133,7 +133,7 @@ def upload_ajapaik_photo_to_wikimedia_commons(user, photo):
         return False
         
     comment='Uploading test file from ' + params['ajapaik_url']
-    wikitext=get_ajapaik_photo_wikitext(out)
+    wikitext=get_ajapaik_photo_wikitext(params)
         
     r=upload_file_to_wikimedia_commons(user, params['source_filename'], params['commons_filename'], wikitext, comment)
     return r.content

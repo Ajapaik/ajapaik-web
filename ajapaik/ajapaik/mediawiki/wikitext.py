@@ -1,5 +1,6 @@
 import json
 import re
+from ajapaik.ajapaik.mediawiki.mediawiki import is_wikimedia_commons_user
 
 def replace_or_die(old, new, text, die_on_error=False):
    if not old:
@@ -193,8 +194,7 @@ def get_ajapaik_photo_wikitext_params(p):
 
     out={}
     out["licence"]=get_licence_template(p.licence.url)
-#    out["title"]=title_text
-    out["description"]=description_text  or title_text
+    out["description"]=description_text
     out["author"]=author_text
     out["date"]=date_text
     out["place"]=address_text
@@ -204,7 +204,7 @@ def get_ajapaik_photo_wikitext_params(p):
     out["identifierString"]=external_id
     out["footer_template"]=""
     out["location_template"]=location_template
-    out["target_filename"]=target_filename
+    out["commons_filename"]=commons_filename
     out["source_filename"]='media/' + str(p.image)
     out["ajapaik_url"]=ajapaik_url
     return out
