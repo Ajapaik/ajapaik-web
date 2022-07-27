@@ -5,7 +5,7 @@ import os
 from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2 import TokenExpiredError
-
+from ajapaik.ajapaik.mediawiki.wikitext import get_ajapaik_photo_wikitext_params, get_ajapaik_photo_wikitext
 
 def get_mediawiki_url(betacommons=False):
     if betacommons:
@@ -121,4 +121,20 @@ def upload_file_to_commons(client, source_filename, target_filename, wikitext, c
     r = client.post(mediawiki_api_url, data=upload_payload, files=files)
     return r
 
+def upload_ajapaik_photo_to_wikimedia_commons(user, photo):
+    r= is_wikimedia_commons_user(user)
+    if r:
+        print("Already logged in")
+    else:
+        return False
+    
+    params=get_ajapaik_photo_wikitext_params(photo)
+    if not params:
+        return False
+        
+    comment='Uploading test file from ' + params['ajapaik_url']
+    wikitext=get_ajapaik_photo_wikitext(out)
+        
+    r=upload_file_to_wikimedia_commons(user, params['source_filename'], params['commons_filename'], wikitext, comment)
+    return r.content
 
