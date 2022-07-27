@@ -138,3 +138,23 @@ def upload_ajapaik_photo_to_wikimedia_commons(user, photo):
     r=upload_file_to_wikimedia_commons(user, params['source_filename'], params['commons_filename'], wikitext, comment)
     return r.content
 
+def wikimedia_whoami(user):
+    mediawiki_api_url=get_mediawiki_url() + "/w/api.php"
+    userinfo_url=mediawiki_api_url + "?action=query&meta=userinfo&format=json"
+    client=get_wikimedia_api_client(user)
+    r = client.get(userinfo_url)
+    client.close()
+    return r
+
+def is_wikimedia_commons_user(user):
+    socialToken=SocialToken.objects.get(account__user=user, account__provider='wikimedia-commons')
+
+    if socialToken:
+        return True
+    else:
+        # Doing real login
+        r=wikimedia_whoami(user)
+        if r:
+            return True
+    return False
+
