@@ -25,17 +25,20 @@
         <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
             <div id="ajp-probability1"></div>
             <button class="btn btn-success mr-1 ml-1 btn-sm" onclick="postPictureCategory(['{{ photo.id }}'], $('#ajp-probability1').html())">Yes</button>
-            <button class="btn btn-danger  mr-1 btn-sm">Propose different category</button>
+            <button id="ajp-categorize-scene" type="button" onclick="test()" data-toggle="popover" class="btn btn-danger  mr-1 btn-sm">Propose different category</button>
+            <button id="ajp-categorize-scene" type="button" data-toggle="popover" onclick="test()" class="ajp-button" tabindex="0"
+                    data-is-categorization-button="true">
+                <span class="material-icons notranslate ajp-text-gray ajp-icon-36">category</span>
+            </button>
             <div id="ajp-category-confirmation"></div>
         </div>
     </div>
-{#    <div>#}
-{#        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">#}
-{#            <div id="ajp-probability1"></div>#}
-{#            <button>Yes</button>#}
-{#            <button>No</button>#}
-{#        </div>#}
-{#    </div>#}
+
+       <button id="ajp-categorize-scene" type="button" data-toggle="popover" class="ajp-button" tabindex="0"
+                data-is-categorization-button="true">
+            <span class="material-icons notranslate ajp-text-gray ajp-icon-36">category</span>
+        </button>
+
     {% include '_annotations.html' with numberOfColumns=2 %}
     {% if collection_albums.all|length > 0 %}
     <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
@@ -79,10 +82,127 @@
 
 <script src="{% static "js/ajp-picture-category-prediction.js" %}"></script>
 <script src="{% static "js/ajp-picture-category-confirmation.js" %}"></script>
+<script src="{% static "js/ajp-picture-edit-suggestion.js" %}"></script>
+<script src="{% static "js/ajp-category-suggestion.js" %}"></script>
 {% block specific_js %}
     <script>
+
+            function updatePhotoSuggestions() {
+            fetchPhotoSuggestions().then(function(json) {
+                scene = json.scene;
+                sceneConsensus = json.scene_consensus;
+                viewpointElevation = json.viewpoint_elevation;
+                viewpointElevationConsensus = json.viewpoint_elevation_consensus;
+                let topLeftButtonClass, topRightButtonClass, bottomLeftButtonClass, bottomMiddleButtonClass,
+                    bottomRightButtonClass;
+                topLeftButtonClass = topRightButtonClass = bottomLeftButtonClass = bottomMiddleButtonClass = bottomRightButtonClass = 'btn-light';
+
+                let buttonTranslation = 'Confirm';
+                let title = gettext('Categorize scene');
+
+                if (scene === 'Interior') {
+                    topLeftButtonClass = 'btn-outline-primary';
+                } else if (scene === 'Exterior') {
+                    topRightButtonClass = 'btn-outline-primary';
+                }
+
+                if (scene !== 'Interior' && sceneConsensus === 'Interior') {
+                    topLeftButtonClass = 'btn-outline-dark';
+                } else if (scene !== 'Exterior' && sceneConsensus === 'Exterior') {
+                    topRightButtonClass = 'btn-outline-dark';
+                }
+
+                if (viewpointElevation === 'Ground') {
+                    bottomLeftButtonClass = 'btn-outline-primary';
+                } else if (viewpointElevation === 'Raised') {
+                    bottomMiddleButtonClass = 'btn-outline-primary';
+                } else if (viewpointElevation === 'Aerial') {
+                    bottomRightButtonClass = 'btn-outline-primary';
+                }
+
+                if (viewpointElevation !== 'Ground' && viewpointElevationConsensus === 'Ground') {
+                    bottomLeftButtonClass = 'btn-outline-dark';
+                } else if (viewpointElevation !== 'Raised' && viewpointElevationConsensus === 'Raised') {
+                    bottomMiddleButtonClass = 'btn-outline-dark';
+                } else if (viewpointElevation !== 'Aerial' && viewpointElevationConsensus === 'Aerial') {
+                    bottomRightButtonClass = 'btn-outline-dark';
+                }
+
+
+                if (viewpointElevation === 'undefined' && scene === 'undefined') {
+                    buttonTranslation = 'Submit';
+                }
+
+                let content = `<div class='d-flex mb-4 justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;
+                let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;
+                content += actionButtonTemplate;
+
+                let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
+
+                $('#ajp-categorize-scene').popover({
+                    html: true,
+                    sanitize: false,
+                    trigger: 'manual',
+                    container,
+                    content,
+                    title,
+                });
+            });
+        }
+
+            {#const categorizeScene = $('#ajp-categorize-scene');#}
+            {##}
+            {#categorizeScene.on('click', function () {#}
+            {#    let id = categorizeScene.attr('aria-describedby');#}
+            {#    if (id && $('#' + id).length > 0) {#}
+            {#        fetchPhotoSuggestions().then(function (json) {#}
+            {#            scene = json.scene;#}
+            {#            sceneConsensus = json.scene_consensus;#}
+            {#            viewpointElevation = json.viewpoint_elevation;#}
+            {#            viewpointElevationConsensus = json.viewpoint_elevation_consensus;#}
+            {#        });#}
+            {#        $('#ajp-categorize-scene').popover('hide');#}
+            {#    } else {#}
+            {#        $('#ajp-categorize-scene').popover('show');#}
+            {#    }#}
+            {#});#}
+
+
+        {#let content = `<div class='d-flex mb-4 justify-content-center'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 ` + topLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 ` + topRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 ` + bottomLeftButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 ` + bottomMiddleButtonClass + `' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid ` + bottomRightButtonClass + `' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;#}
+        {#let actionButtonTemplate = `<button id='send-suggestion-button' onclick="submitCategorySuggestion(['{{ photo.id }}'], false);" class='btn btn-success mt-3 w-100' disabled>` + gettext(buttonTranslation) + `</button>`;#}
+        {#content += actionButtonTemplate;#}
+        {##}
+        {#let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';#}
+        {##}
+        {#$('#ajp-categorize-scene').popover({#}
+        {#    html: true,#}
+        {#    sanitize: false,#}
+        {#    trigger: 'manual',#}
+        {#    container,#}
+        {#    content,#}
+
+        function test() {
+            console.log("+=+++++")
+            const categorizeScene = $('#ajp-categorize-scene');
+            let id = categorizeScene.attr('aria-describedby');
+            console.log(id);
+            if (id && $('#' + id).length > 0) {
+                fetchPhotoSuggestions().then(function (json) {
+                    scene = json.scene;
+                    sceneConsensus = json.scene_consensus;
+                    viewpointElevation = json.viewpoint_elevation;
+                    viewpointElevationConsensus = json.viewpoint_elevation_consensus;
+                });
+                $('#ajp-categorize-scene').popover('hide');
+            } else {
+                console.log("HERE")
+                $('#ajp-categorize-scene').popover('show');
+            }
+        };
+
         $(document).ready(function () {
             getPictureCategory(['{{ photo.id }}']);
+
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
