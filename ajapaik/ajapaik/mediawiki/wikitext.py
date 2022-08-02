@@ -2,6 +2,9 @@ import json
 import re
 
 def replace_or_die(old, new, text):
+   if not new:
+       new=""
+
    newtext=text.replace(old, new)
    if (newtext==text):
       print("Replace_or_die failed:" + old +"\t" + new)
@@ -10,13 +13,17 @@ def replace_or_die(old, new, text):
    return newtext
 
 def get_licence_template(str): 
-   if (str=="CC BY 4.0"):
-      return "{{cc-by-4.0}}"
-   elif (str=="CC-BY-4.0"):
-      return "{{cc-by-4.0}}"
+   licences={
+      'CC BY 4.0' : '{{cc-by-4.0}}',
+      'CC-BY-4.0' : '{{cc-by-4.0}}',
+      'https://creativecommons.org/licenses/by/4.0/' : '{{cc-by-4.0}}',
+      'https://creativecommons.org/licenses/by/4.0/#1' : '{{cc-by-4.0}}'
+   }
+
+   if str in licences:
+      return licences[str]
    else:
-      print("get_licence_template failed")
-      exit(1)
+      return False
 
 def get_institution_template(str):
    if (str=="Ajapaik"):
@@ -37,7 +44,7 @@ def get_institution_category(str):
       exit(1)
 
 
-def upload_own_photo_wikitext(out):
+def upload_commons_photo_wikitext(out):
    template="""
 =={{int:filedesc}}==
 {{Information
@@ -47,7 +54,7 @@ def upload_own_photo_wikitext(out):
 |author=___AUTHOR___
 |permission=
 |other versions=
-|other fields=___COORD___
+|other fields=___LOCATION_TEMPLATE___
 }}
 
 == {{int:license-header}} ==
@@ -71,7 +78,7 @@ ___PLACE_CATEGORY___
       'SOURCE': out["source"],
 #      'IDENTIFIER': out["identifierString"],
 #      'INSTITUTION_TEMPLATE': get_institution_template(out["institution"]),
-      'COORD': "",
+      'LOCATION_TEMPLATE': out["location_template"],
       'FOOTER_TEMPLATE': out["footer_template"],
       'INSTITUTION_CATEGORY': get_institution_category(out["institution"]),
       'CREATOR_CATEGORY': "",

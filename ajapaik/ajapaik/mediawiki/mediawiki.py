@@ -111,7 +111,7 @@ def upload_file_to_commons(client, source_filename, target_filename, wikitext, c
     upload_payload={
         'action': 'upload',
         'format':'json',
-        'filename':source_filename,
+        'filename':target_filename,
         'comment':comment,
         'text':wikitext,
         'ignorewarnings': 1,
@@ -121,4 +121,12 @@ def upload_file_to_commons(client, source_filename, target_filename, wikitext, c
     r = client.post(mediawiki_api_url, data=upload_payload, files=files)
     return r
 
-
+def wikimedia_whoami(user):
+    mediawiki_api_url=get_mediawiki_url() + "/w/api.php"
+    userinfo_url=mediawiki_api_url + "?action=query&meta=userinfo&uiprop=rights%7Cgroups%7Cgroups%7Cratelimits%7Ctheoreticalratelimits%7Cblockinfo&format=json"
+    client=get_wikimedia_api_client(user)
+    if client:
+       r = client.get(userinfo_url)
+       client.close()
+       return r
+    return False

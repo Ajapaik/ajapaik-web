@@ -436,7 +436,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': [
             'basic',
             'editpage',
-            'uploadfile'
+            'createeditmovepage',
+            'uploadfile',
+            'uploadeditmovefile',
+            'shortenurls'
         ]
     },
 }
