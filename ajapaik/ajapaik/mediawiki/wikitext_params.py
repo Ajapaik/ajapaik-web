@@ -147,6 +147,7 @@ def get_ajapaik_photo_wikitext_params(p):
     out["commons_filename"]=get_commons_filename(p, external_id, date_text)
     out["source_filename"]='media/' + str(p.image)
     out["ajapaik_url"]=ajapaik_url
+    out["comment"]="Uploading " + ajapaik_url
     return out
 
 
