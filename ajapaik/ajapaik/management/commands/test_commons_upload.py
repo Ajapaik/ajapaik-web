@@ -12,8 +12,6 @@ class Command(BaseCommand):
         print(r.content)
 
         client=get_wikimedia_api_client(user)
-        print(wikitext)
-
         image=get_random_commons_image(1)
         local_filename=download_tmp_file(image['image_url'])
 
