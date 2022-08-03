@@ -8,8 +8,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         user = User.objects.filter(username="Zache-test").first()
 
-        r=wikimedia_whoami(user)
-        print(r.content)
+        wikimedia_user=wikimedia_whoami(user)
+        print(wikimedia_user)
 
         client=get_wikimedia_api_client(user)
         image=get_random_commons_image(1)

@@ -1,11 +1,14 @@
 import hashlib
 import requests
 import os
+import json
 
 from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2 import TokenExpiredError
 
+from ajapaik.ajapaik.mediawiki.wikitext import get_ajapaik_photo_wikitext
+from ajapaik.ajapaik.mediawiki.wikitext_params import get_ajapaik_photo_wikitext_params
 
 def get_mediawiki_url(betacommons=False):
     if betacommons:
@@ -122,11 +125,51 @@ def upload_file_to_commons(client, source_filename, target_filename, wikitext, c
     return r
 
 def wikimedia_whoami(user):
-    mediawiki_api_url=get_mediawiki_url() + "/w/api.php"
-    userinfo_url=mediawiki_api_url + "?action=query&meta=userinfo&uiprop=rights%7Cgroups%7Cgroups%7Cratelimits%7Ctheoreticalratelimits%7Cblockinfo&format=json"
-    client=get_wikimedia_api_client(user)
-    if client:
-       r = client.get(userinfo_url)
-       client.close()
-       return r
-    return False
+    try:
+       mediawiki_api_url=get_mediawiki_url() + "/w/api.php"
+       userinfo_url=mediawiki_api_url + "?action=query&meta=userinfo&uiprop=rights%7Cgroups%7Cgroups%7Cratelimits%7Ctheoreticalratelimits%7Cblockinfo&format=json"
+       client=get_wikimedia_api_client(user)
+       if client:
+          r = client.get(userinfo_url)
+          client.close()
+          return json.loads(r.content)
+       return False
+    except:
+       return False
+
+def test_commons_upload_rights(wikimedia_user):
+    if not wikimedia_user:
+        return False
+
+    if not "query" in wikimedia_user:
+        return False
+
+    if not "userinfo" in wikimedia_user["query"]:
+        return False
+
+    if not "rights" in wikimedia_user["query"]["userinfo"]:
+        return False
+
+    required_rights=["createpage", "edit", "upload", "reupload-own", "reupload"]
+    for right in required_rights:
+        if not right in wikimedia_user["query"]["userinfo"]["rights"]:
+            return False
+
+    return True
+
+def upload_ajapaik_photo_to_wikimedia_commons(user, photo):
+    wikimedia_user=wikimedia_whoami(user)
+    if not test_commons_upload_rights(wikimedia_user):
+        return False
+
+    params=get_ajapaik_photo_wikitext_params(photo)
+    if not params:
+        return False
+
+    wikitext=get_ajapaik_photo_wikitext(params)
+    if not wikitext:
+        return False
+
+    r=upload_file_to_wikimedia_commons(user, params['source_filename'], params['commons_filename'], wikitext, comment)
+    return  json.loads(r.content)
+

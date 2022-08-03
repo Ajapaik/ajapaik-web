@@ -158,6 +158,7 @@ urlpatterns += [
         name='api_submit_rephoto_upload_settings'),
     url(r'^api/v1/photo/favorite/set/$', api.ToggleUserFavoritePhoto.as_view()),
     url(r'^api/v1/photo/fetch-hkm-finna/$', api.FetchFinnaPhoto.as_view()),
+    url(r'^api/v1/photo/(?P<photo_id>\d+)/export-to-wikimedia-commons/$', api.ExportToWikimediaCommons.as_view()),
     url(r'^api/v1/photos/favorite/order-by-distance-to-location/$', api.UserFavoritePhotoList.as_view()),
     url(r'^api/v1/photos/filtered/rephotographed-by-user/$', api.PhotosWithUserRephotos.as_view()),
     url(r'^api/v1/photos/search/$', api.PhotosSearch.as_view()),

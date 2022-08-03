@@ -45,6 +45,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
+from ajapaik.ajapaik.mediawiki.mediawiki import  upload_ajapaik_photo_to_wikimedia_commons, wikimedia_whoami, test_commons_upload_rights
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, PhotoSerializer, \
     PhotoWithDistanceSerializer, ProfileLinkSerializer
@@ -72,6 +73,7 @@ RESPONSE_STATUSES = {
     'INVALID_APP_VERSION': 9,  # application version is not supported
     'MISSING_USER': 10,  # user does not exist
     'INVALID_PASSWORD': 11,  # wrong password for existing user
+    'COMMONS_AUTH_ERROR': 12,
 }
 
 # Translations
@@ -1037,6 +1039,39 @@ class RephotoUploadSettings(AjapaikAPIView):
         except:  # noqa
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
+
+class ExportToWikimediaCommons(AjapaikAPIView):
+
+    def post(self, request, photo_id, format=None):
+        return self._handle_request(request, photo_id, format)
+
+    def get(self, request, photo_id, format=None):
+        return self._handle_request(request, photo_id, format)
+
+    def _handle_request(self, request, photo_id, format=None):
+        if not request.user.is_authenticated:
+            return Response({'error': RESPONSE_STATUSES['ACCESS_DENIED']})
+
+        photo = Photo.objects.filter(pk=photo_id).first()
+        if not photo:
+            return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS'], 'photo_id':photo_id})
+
+        wikimedia_user=wikimedia_whoami(request.user)
+        if not wikimedia_user:
+            return Response({'error': RESPONSE_STATUSES['COMMONS_AUTH_ERROR']})
+
+        if not test_commons_upload_rights(wikimedia_user):
+            return Response({'error': RESPONSE_STATUSES['COMMONS_AUTH_ERROR']})
+
+        ret = upload_ajapaik_photo_to_wikimedia_commons(request.user, photo)
+
+        try:
+            if ret['upload']['result']=='Success':
+                return Response({'error': RESPONSE_STATUSES['OK'], 'mediawiki_response': ret, 'commons_filename': ret['upload']['filename']})
+            else:
+                return Response({'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],  'mediawiki_response': ret, 'photo_id':photo_id})
+        except:
+            return Response({'error': RESPONSE_STATUSES['UNKNOWN_ERROR'],  'mediawiki_response': ret, 'photo_id':photo_id})
 
 class api_user_me(AjapaikAPIView):
     def _handle_request(self, data, user, request):
