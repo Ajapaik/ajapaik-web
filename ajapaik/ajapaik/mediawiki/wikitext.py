@@ -44,7 +44,7 @@ def get_institution_category(str):
       exit(1)
 
 
-def upload_commons_photo_wikitext(out):
+def get_ajapaik_photo_wikitext(out):
    template="""
 =={{int:filedesc}}==
 {{Information

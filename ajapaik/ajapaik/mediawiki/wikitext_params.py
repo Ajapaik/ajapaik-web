@@ -18,7 +18,7 @@ def get_date_text(p):
         date_text=''
     return date_text
 
-def get_source_text(p, ajapaik_url):
+def get_source_text(p, ajapaik_url, external_id):
     if p.source_url and 'http' in p.source_url:
         source_url=p.source_url
     else:
