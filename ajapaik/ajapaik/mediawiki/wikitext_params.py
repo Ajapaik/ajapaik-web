@@ -1,3 +1,5 @@
+import re
+
 
 def get_external_id(p):
     if p.external_id and p.external_id.strip():
@@ -32,7 +34,7 @@ def get_source_text(p, ajapaik_url, external_id):
 
 def get_author_text(p):
     if p.rephoto_of_id:
-        pp=p.rephoto_of   
+        pp=p.rephoto_of
         author_text=p.user.get_display_name
     else:
         pp=p
@@ -41,15 +43,15 @@ def get_author_text(p):
 
 def get_description_text(p):
     if p.rephoto_of_id:
-        pp=p.rephoto_of   
+        pp=p.rephoto_of
     else:
         pp=p
 
     if p.rephoto_of_id:
         if p.description:
-            description_text=p.description 
+            description_text=p.description
         elif pp.description:
-            description_text='historical photo description: ' +  pp.description 
+            description_text='historical photo description: ' +  pp.description
         elif p.title:
             description_text=p.title
         elif pp.title:
@@ -63,19 +65,19 @@ def get_description_text(p):
 
 def get_commons_filename(p, external_id, date_text):
     if p.rephoto_of_id:
-        pp=p.rephoto_of   
+        pp=p.rephoto_of
     else:
         pp=p
 
     if pp.title:
-        commons_filename=pp.title[:50] 
+        commons_filename=pp.title[:50]
     elif pp.description:
         commons_filename=pp.description[:50]
     else:
         commons_filename='no name give'
 
     if p.rephoto_of_id:
-        commons_filename="Rephoto of " + commons_filename 
+        commons_filename="Rephoto of " + commons_filename
 
     if external_id:
         commons_filename=commons_filename + '_-_' + external_id
@@ -92,25 +94,25 @@ def get_commons_filename(p, external_id, date_text):
 def get_location_template(p, ajapaik_url):
     if p.lat and p.lon and p.azimuth:
         if p.azimuth < 0:
-            location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) + '|heading:' + str(360-p.azimuth) + ' source:'+ajapaik_url+'}}' 
+            location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) + '|heading:' + str(360-p.azimuth) + ' source:'+ajapaik_url+'}}'
         else:
-            location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) + '|heading:' + str(p.azimuth) + ' source:'+ajapaik_url+'}}' 
+            location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) + '|heading:' + str(p.azimuth) + ' source:'+ajapaik_url+'}}'
     elif p.lat and p.lon:
         location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) +'|source:'+ajapaik_url+' }}'
     elif pp.lat and pp.lon and pp.azimuth:
         if pp.azimuth < 0:
-            location_template='{{Location|' + str(pp.lat) + '|' + str(pp.lon) + '|heading:' + str(360-pp.azimuth) + ' source:'+ajapaik_url+'}}' 
+            location_template='{{Location|' + str(pp.lat) + '|' + str(pp.lon) + '|heading:' + str(360-pp.azimuth) + ' source:'+ajapaik_url+'}}'
         else:
-            location_template='{{Location|' + str(pp.lat) + '|' + str(pp.lon) + '|heading:' + str(pp.azimuth) + ' source:'+ajapaik_url+'}}' 
+            location_template='{{Location|' + str(pp.lat) + '|' + str(pp.lon) + '|heading:' + str(pp.azimuth) + ' source:'+ajapaik_url+'}}'
     elif pp.lat and pp.lon:
         location_template='{{Location|' + str(pp.lat) + '|' + str(pp.lon) +'|source:'+ajapaik_url+' }}'
     else:
-        location_template='' 
+        location_template=''
     return location_template
 
 def get_address_text(p):
     if p.rephoto_of_id:
-        pp=p.rephoto_of   
+        pp=p.rephoto_of
     else:
         pp=p
 
