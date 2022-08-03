@@ -170,6 +170,6 @@ def upload_ajapaik_photo_to_wikimedia_commons(user, photo):
     if not wikitext:
         return False
 
-    r=upload_file_to_wikimedia_commons(user, params['source_filename'], params['commons_filename'], wikitext, params['comment'])
+    r=upload_file_to_commons(user, params['source_filename'], params['commons_filename'], wikitext, params['comment'])
     return  json.loads(r.content)
 
