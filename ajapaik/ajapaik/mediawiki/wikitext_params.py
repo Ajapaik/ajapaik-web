@@ -18,7 +18,7 @@ def get_date_text(p):
         date_text=''
     return date_text
 
-def get_source_text(p):
+def get_source_text(p, ajapaik_url):
     if p.source_url and 'http' in p.source_url:
         source_url=p.source_url
     else:
@@ -140,7 +140,7 @@ def get_ajapaik_photo_wikitext_params(p):
     out["place"]=get_address_text(p)
     out["institution"]=""
     out["year_category"]=""
-    out["source"]=get_source_text(p)
+    out["source"]=get_source_text(p, ajapaik_url)
     out["identifierString"]=external_id
     out["footer_template"]=""
     out["location_template"]=get_location_template(p, ajapaik_url)
