@@ -1,5 +1,5 @@
 import re
-from wikitext import get_licence_template
+from ajapaik.ajapaik.mediawiki.wikitext import get_licence_template
 
 def get_external_id(p):
     if p.external_id and p.external_id.strip():
@@ -132,7 +132,7 @@ def get_address_text(p):
 
 def get_ajapaik_photo_wikitext_params(p):
     ajapaik_url='https://ajapaik.ee/photo/' + str(p.id)
-    external_id=get_external_id_text(p)
+    external_id=get_external_id(p)
     date_text=get_date_text(p)
 
     licence_text=get_licence_template(p.licence.url)
