@@ -73,7 +73,7 @@ ___PLACE_CATEGORY___
       'DESCRIPTION': out["description"],
 #      'PLACE': out["place"],
       'DATE': out["date"],
-      'LICENCE_TEMPLATE': get_licence_template(out["licence"]),
+      'LICENCE_TEMPLATE': out["licence_template"],
 #      'PERMISSION' : "",
       'SOURCE': out["source"],
 #      'IDENTIFIER': out["identifierString"],

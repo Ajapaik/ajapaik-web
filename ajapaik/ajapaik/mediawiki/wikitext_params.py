@@ -140,14 +140,14 @@ def get_ajapaik_photo_wikitext_params(p):
         return False
 
     out={}
-    out["licence"]=get_licence_template(p.licence.url)
+    out["licence_template"]=licence_text
     out["description"]=get_description_text(p)
     out["author"]=get_author_text(p)
     out["date"]=date_text
     out["place"]=get_address_text(p)
     out["institution"]=""
     out["year_category"]=""
-    out["source"]=get_source_text(p, ajapaik_url)
+    out["source"]=get_source_text(p, ajapaik_url, external_id)
     out["identifierString"]=external_id
     out["footer_template"]=""
     out["location_template"]=get_location_template(p, ajapaik_url)
