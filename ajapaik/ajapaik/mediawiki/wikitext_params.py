@@ -1,5 +1,5 @@
 import re
-
+from wikitext import get_licence_template
 
 def get_external_id(p):
     if p.external_id and p.external_id.strip():
@@ -92,6 +92,11 @@ def get_commons_filename(p, external_id, date_text):
     return commons_filename
 
 def get_location_template(p, ajapaik_url):
+    if p.rephoto_of_id:
+        pp=p.rephoto_of
+    else:
+        pp=p
+
     if p.lat and p.lon and p.azimuth:
         if p.azimuth < 0:
             location_template='{{Location|' + str(p.lat) + '|' + str(p.lon) + '|heading:' + str(360-p.azimuth) + ' source:'+ajapaik_url+'}}'
