@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-07-28 11:00:37+0000\n"
+"PO-Revision-Date: 2022-09-01 11:00:26+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1351,7 +1351,7 @@ msgstr "L’obtenir !"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "More info"
-msgstr "Plus d’informations"
+msgstr "Davantage d’informations"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
