@@ -4,6 +4,7 @@
 # Author: Abbe98
 # Author: H2kks
 # Author: Jon Harald Søby
+# Author: Kingu
 # Author: Orf3us
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-09-08 11:00:21+0000\n"
+"PO-Revision-Date: 2022-10-13 11:00:27+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -317,7 +318,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
-msgstr "Epostadresse"
+msgstr "E-postadresse"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -1022,7 +1023,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:39
 msgid "E-mail address"
-msgstr "Epostadresse"
+msgstr "E-postadresse"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:46
 msgid "Register with e-mail"
