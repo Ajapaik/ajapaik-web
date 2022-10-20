@@ -13,7 +13,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-10-06 11:00:30+0000\n"
+"PO-Revision-Date: 2022-10-20 11:00:28+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -603,11 +603,11 @@ msgstr "Enê albumi de yew film esto"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Eno albumo yew kesiyo"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Eno yew albumê koleksiyoniyo"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -732,7 +732,7 @@ msgstr "Resımi vıraze"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
-msgstr ""
+msgstr "Melumato vêşêr bımocne"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -1421,7 +1421,7 @@ msgstr "Albumê mı"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
 msgid "Full search"
-msgstr ""
+msgstr "Cıgeyrayışo tam"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:41
 msgid "Search!"
@@ -1433,7 +1433,7 @@ msgstr "Pêrıne weçine"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:58
 msgid "Filter existing"
-msgstr ""
+msgstr "Filtreyo mewcud"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:62
 msgid "MUIS"
@@ -1469,7 +1469,7 @@ msgstr "Embarê Wikimedya"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1478,7 +1478,7 @@ msgstr "Flickr Commons"
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
 msgid "Clear selection"
-msgstr ""
+msgstr "Weçinıtışi pak ke"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
@@ -1554,7 +1554,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
-msgstr ""
+msgstr "Finansekerdoğê verêni:"
 
 #: ajapaik/ajapaik/templates/donate/donate.html:14
 msgid "Supporters of Ajapaik"
@@ -1642,7 +1642,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:52
 msgid "aerial pictures"
-msgstr ""
+msgstr "hewa ra resımi"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:55
 msgid "pictures which are not geotagged"
@@ -1650,7 +1650,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "resımê be kaliteyê berzi"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1659,20 +1659,20 @@ msgstr "parzûn çıniyo"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
 msgid "Show person albums"
-msgstr ""
+msgstr "Albumanê kesan bımocne"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
 msgid "Show pictures with faces"
-msgstr ""
+msgstr "Resıman be riyan bımocne"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
 msgid "Pictures by collections"
-msgstr ""
+msgstr "Goreyê koleksiyonan ra resımi"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "Albumanê filman bımocne"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
@@ -1977,7 +1977,7 @@ msgstr "Şo pela keyi"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Zerre ke"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
