@@ -93,6 +93,7 @@
             mapURL = "{% url 'map' %}",
             areaId = "{{ area.id | safe }}",
             albumId = "{{ album.0 | safe }}";
+        window.albumId = albumId;
         {% if photo %}
             window.preselectedPhotoId = {{ photo.id | safe }};
         {% endif %}
