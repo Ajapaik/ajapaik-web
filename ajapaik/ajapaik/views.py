@@ -1024,11 +1024,16 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 photos = photos.order_by('-id')
         if not filter_form.cleaned_data['backsides'] and not order2 == 'transcriptions':
             photos = photos.filter(back_of__isnull=True)
-        if requested_photo:
-            ids = list(photos.values_list('id', flat=True))
-            if requested_photo.id in ids:
-                photo_count_before_requested = ids.index(requested_photo.id)
-                page = ceil(float(photo_count_before_requested) / float(page_size))
+
+# FIXME: values aren't used
+# idea is to show page where the selected photo is
+# Warning: all photos is very slow
+#
+#        if requested_photo:
+#            ids = list(photos.values_list('id', flat=True))
+#            if requested_photo.id in ids:
+#                photo_count_before_requested = ids.index(requested_photo.id)
+#                page = ceil(float(photo_count_before_requested) / float(page_size))
 
         # Note seeking (start:end) has been here done when results are limited using photo_ids above
         if albumsize_before_sorting:
