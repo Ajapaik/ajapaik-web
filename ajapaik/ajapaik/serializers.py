@@ -178,6 +178,7 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
 
 class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    full_image = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField('get_display_text')
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
@@ -211,6 +212,17 @@ class PhotoSerializer(serializers.ModelSerializer):
 
     def get_display_text(self, instance):
         return instance.get_display_text
+
+    def get_full_image(self, instance):
+        request = self.context['request']
+        image_name=str(instance.image)
+        prefix='uploads/'
+
+        if image_name.startswith(prefix):
+            image_name=image_name[len(prefix):]
+
+        iiif_jpeg=request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        return iiif_jpeg
 
     def get_image(self, instance):
         request = self.context['request']
@@ -246,7 +258,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = (
-            'id', 'image', 'width', 'height', 'title', 'date',
+            'id', 'image', 'full_image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
             'favorited',
         )
