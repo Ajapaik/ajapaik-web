@@ -26,6 +26,7 @@ from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from ajapaik.ajapaik_face_recognition import urls as fr_urls
 from ajapaik.ajapaik_object_recognition import urls as or_urls
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
@@ -76,11 +77,11 @@ urlpatterns = [
     url(r'^ajapaikaja/$', views.redirect_view, name='legacy_game'),
     url(r'^kaart/$', views.redirect_view, name='legacy_map'),
     # Preferred URLs
-    url(r'^photo-thumb/(?P<photo_id>\d+)/$', views.image_thumb, name='image_thumb'),
-    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', views.image_thumb, name='image_thumb'),
-    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', views.image_thumb,
+    url(r'^photo-thumb/(?P<photo_id>\d+)/$', cache_page(86400)(views.image_thumb), name='image_thumb'),
+    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', cache_page(86400)(views.image_thumb), name='image_thumb'),
+    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', cache_page(86400)(views.image_thumb),
         name='image_thumb'),
-    url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.image_full, name='image_full'),
+    url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', cache_page(86400)(views.image_full), name='image_full'),
     url(r'^photo-selection/$', views.photo_selection, name='photo_selection'),
     url(r'^view-selection/$', views.list_photo_selection, name='list_photo_selection'),
     url(r'^upload-selection/$', views.upload_photo_selection, name='upload_photo_selection'),
@@ -195,7 +196,7 @@ sitemaps = {
 }
 
 urlpatterns += [
-    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'show_indexes': True, 'insecure': False}),
+    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), cache_page(86400)(serve), {'show_indexes': True, 'insecure': False}),
     url(r'^accounts/email/$', views.MyEmailView.as_view(), name="account_email"),
     url(r'^accounts/password/change/$', views.MyPasswordChangeView.as_view(), name="account_change_password"),
     url(r'^accounts/password/set/$', views.MyPasswordSetView.as_view(), name="account_set_password"),
@@ -211,13 +212,13 @@ urlpatterns += [
     url(r'^comments/like-count/(?P<comment_id>\d+)/$', views.get_comment_like_count, name='comments-like-count'),
     url(r'^comments/', include(dcxtd_urls)),
     url(r'^i18n/', include(i18n)),
-    url(r'^jsi18n/$', JavaScriptCatalog.as_view(packages=['ajapaik.ajapaik'], domain='djangojs'),
+    url(r'^jsi18n/$', cache_page(86400)(JavaScriptCatalog.as_view(packages=['ajapaik.ajapaik'], domain='djangojs')),
         name='javascript-catalog'),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
     url(r'^feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True),
         name='feed'),
-    url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+).xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
+    url(r'^sitemap\.xml$', cache_page(86400)(sitemap_views.index), {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+).xml$', cache_page(86400)(sitemap_views.sitemap), {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^face-recognition/', include(fr_urls)),
     url(r'^object-recognition/', include(or_urls))

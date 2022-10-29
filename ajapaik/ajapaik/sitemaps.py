@@ -4,7 +4,8 @@ from django.urls import reverse
 
 
 class PhotoSitemap(Sitemap):
-    priority = 1
+    changefreq = "weekly"
+    priority = 0.5
 
     def items(self):
         return Photo.objects.all()
