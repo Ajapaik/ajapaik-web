@@ -66,7 +66,6 @@ from rest_framework.renderers import JSONRenderer
 from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
-
 from ajapaik.ajapaik.curator_drivers.common import CuratorSearchForm
 from ajapaik.ajapaik.curator_drivers.europeana import EuropeanaDriver
 from ajapaik.ajapaik.curator_drivers.finna import FinnaDriver
@@ -88,6 +87,7 @@ from ajapaik.ajapaik.models import Photo, Profile, Source, Device, DifficultyFee
 from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, CuratorMyAlbumListAlbumSerializer, \
     CuratorAlbumInfoSerializer, FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
+from ajapaik.ajapaik.stats_sql import AlbumStats
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 from ajapaik.utils import get_etag, calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
@@ -178,7 +178,7 @@ def get_general_info_modal_content(request):
     return render(request, 'info/_general_info_modal_content.html', context)
 
 
-def get_album_info_modal_content(request):
+def get_album_info_modal_content_old(request):
     profile = request.get_user().profile
     form = AlbumInfoModalForm(request.GET)
     if form.is_valid():
@@ -248,6 +248,64 @@ def get_album_info_modal_content(request):
         return render(request, 'info/_info_modal_content.html', context)
 
     return HttpResponse('Error')
+
+# 2022-11-02 faster rewrite of get_album_info_modal_content() query
+# number of rephoto_user_count and geotagging_user_count is 1 smaller
+# than old because different way to handle NULL:s
+
+def get_album_info_modal_content(request):
+    starttime=time()
+
+    profile = request.get_user().profile
+    form = AlbumInfoModalForm(request.GET)
+    if form.is_valid():
+        album = form.cleaned_data['album']
+        context = {'album': album, 'link_to_map': form.cleaned_data['linkToMap'],
+                   'link_to_game': form.cleaned_data['linkToGame'],
+                   'link_to_gallery': form.cleaned_data['linkToGallery'],
+                   'fb_share_game': form.cleaned_data['fbShareGame'], 'fb_share_map': form.cleaned_data['fbShareMap'],
+                   'fb_share_gallery': form.cleaned_data['fbShareGallery'],
+                   'total_photo_count': album.photo_count_with_subalbums or 0,
+                   'geotagged_photo_count': album.geotagged_photo_count_with_subalbums}
+
+        subalbums = [album.id]
+        for sa in album.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
+            subalbums.append(sa.id)
+
+        rephotostats=AlbumStats.get_rephoto_stats_sql(subalbums, profile.pk)
+
+        context['user_geotagged_photo_count']     = AlbumStats.get_user_geotagged_photo_count_sql(subalbums, profile.pk)
+        context['geotagging_user_count']          = AlbumStats.get_geotagging_user_count_sql(subalbums)
+        context['rephoto_count']                  = rephotostats["rephoto_count"]
+        context['rephoto_user_count']             = rephotostats["rephoto_user_count"] 
+        context['rephotographed_photo_count']     = rephotostats["rephotographed_photo_count"] 
+        context['user_rephoto_count']             = rephotostats["user_rephoto_count"]
+        context['user_rephotographed_photo_count']= rephotostats["user_rephotographed_photo_count"]
+        context['user_made_all_rephotos']         = rephotostats['user_made_all_rephotos']
+        context['similar_photo_count']            = album.similar_photo_count_with_subalbums 
+        context['confirmed_similar_photo_count']  = album.confirmed_similar_photo_count_with_subalbums
+        context['album_curators']                 = AlbumStats.get_album_curators_sql([album.id])
+
+        if album.lat and album.lon:
+            ref_location = Point(x=album.lon, y=album.lat, srid=4326)
+            context['nearby_albums'] = Album.objects \
+                                           .filter(
+                    geography__dwithin=(ref_location, D(m=5000)),
+                    is_public=True,
+                    atype=Album.CURATED,
+                    id__ne=album.id
+                ).order_by('?')[:3]
+
+        album_id_str = str(album.id)
+        context['share_game_link'] = f'{request.build_absolute_uri(reverse("game"))}?album={album_id_str}'
+        context['share_map_link'] = f'{request.build_absolute_uri(reverse("map"))}?album={album_id_str}'
+        context['share_gallery_link'] = f'{request.build_absolute_uri(reverse("frontpage"))}?album={album_id_str}'
+        context['execution_time']                 = starttime-time()
+
+        return render(request, 'info/_info_modal_content.html', context)
+
+    return HttpResponse('Error')
+
 
 
 def _get_exif_data(img):
