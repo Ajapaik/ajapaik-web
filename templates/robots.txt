@@ -15,5 +15,6 @@ Disallow: /accounts/
 Disallow: /face-recognition/
 Disallow: /object-recognition/
 Disallow: /compare-photos/
+Disallow: /photos/
 
 Sitemap: https://ajapaik.ee/sitemap.xml

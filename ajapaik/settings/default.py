@@ -247,7 +247,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'EXCEPTION_HANDLER': 'ajapaik.ajapaik.api.custom_exception_handler',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 100
 }
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
