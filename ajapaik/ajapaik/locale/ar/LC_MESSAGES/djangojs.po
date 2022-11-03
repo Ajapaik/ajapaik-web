@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2022-10-27 11:00:37+0000\n"
+"PO-Revision-Date: 2022-11-03 12:00:20+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -302,27 +302,22 @@ msgid "Picture is of high quality"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
 msgstr "الصورة لها معلومات موقع واتجاه عرض"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "الصورة لا تحتوي على معلومات الموقع"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
 msgstr "الصورة لها موقع فقط، لا يوجد اتجاه عرض"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
 msgstr "الصورة لديها إعادات صور"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
 msgstr "الصورة لديها صور مماثلة"
 
@@ -476,9 +471,8 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
-#, fuzzy
 msgid "No results found for: %(query)s"
-msgstr ":لم يتم العثور على نتائج ل"
+msgstr ":لم يتم العثور على نتائج ل%(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
@@ -933,7 +927,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "لقد ربحت %s نقاط"
@@ -956,7 +950,6 @@ msgid "This transcription is correct"
 msgstr "هذا النسخ صحيح"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
 msgstr "ما المكتوب على الصورة؟"
 
