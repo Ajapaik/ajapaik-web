@@ -2,19 +2,27 @@ User-agent: *
 Disallow: /facebook/
 Disallow: /photo-upload-modal/
 Disallow: /submit-dating/
+Disallow: /geotag*
 Disallow: /geotag/
 Disallow: /comments/
 Disallow: /leaderboard/
 Disallow: /frontpage-async/
 Disallow: /api/
+Disallow: /api/*
 Disallow: /map/
+Disallow: /map*
 Disallow: /map-data/
 Disallow: /game/
 Disallow: /user/
 Disallow: /accounts/
+Disallow: /accounts*
 Disallow: /face-recognition/
 Disallow: /object-recognition/
 Disallow: /compare-photos/
 Disallow: /photos/
+Disallow: /static/js*
+Disallow: /static/css*
+Disallow: /static/libs*
+Disallow: /static/CACHE*
 
 Sitemap: https://ajapaik.ee/sitemap.xml
