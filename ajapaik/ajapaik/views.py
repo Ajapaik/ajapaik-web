@@ -1355,9 +1355,9 @@ def videoslug(request, video_id, pseudo_slug=None):
 
 @ensure_csrf_cookie
 def photoslug(request, photo_id=None, pseudo_slug=None):
-    # Because of some bad design decisions, we have a URL /photo, let's just give a random photo
+    # Because of some bad design decisions, we have a URL /photo, let's just give a last photo
     if photo_id is None:
-        photo_id = Photo.objects.order_by('?').first().pk
+        photo_id = Photo.objects.last().pk
     # TODO: Should replace slug with correct one, many thing to keep in mind though:
     #  Google indexing, Facebook shares, comments, likes etc.
     profile = request.get_user().profile
@@ -1445,11 +1445,11 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if album:
         album_selection_form = AlbumSelectionForm({'album': album.id})
         if not request.is_ajax():
-            next_photo_id = album.photos.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
+            next_photo_id = AlbumPhoto.objects.filter(photo__gt=photo_obj.pk,album=album.id).aggregate(min_id=Min('photo_id'))['min_id']
             if next_photo_id:
                 next_photo = Photo.objects.get(pk=next_photo_id)
 
-            previous_photo_id = album.photos.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
+            previous_photo_id = AlbumPhoto.objects.filter(photo__lt=photo_obj.pk,album=album.id).aggregate(max_id=Max('photo_id'))['max_id']
             if previous_photo_id:
                 previous_photo = Photo.objects.get(pk=previous_photo_id)
     else:
