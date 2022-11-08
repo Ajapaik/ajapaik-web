@@ -56,7 +56,6 @@ from ajapaik.utils import angle_diff, average_angle
 # https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
 
 class EstimatedCountQuerySet(QuerySet):
-
     # Get count from cache if it is available
     def cached_count(self):
         cached_count=0
@@ -94,6 +93,44 @@ class EstimatedCountQuerySet(QuerySet):
             return self.query.get_count(using=self.db)
         else:
             return estimated_count
+
+    # Do postgresql Full Text Search against indexed model SearchIndexModel
+    # Supported models are Photo and Album. 
+    # Texts searched by default are default text + UI language text
+    # https://docs.djangoproject.com/en/4.1/ref/contrib/postgres/search/
+
+    def textSearchFilter(self, query, language_code=None):
+        vector_field = self.model._meta.text_search_vector
+        if not language_code:
+            language_code=get_language()
+
+        language_configs={
+                         'de':'german',
+                         'en':'english',
+                         'et':'english',
+                         'fi':'finnish',
+                         'lt':'lithuanian',
+                         'lv':'english',
+                         'nl':'dutch',
+                         'no':'norwegian',
+                         'ru':'russian',
+                         'sv':'swedish'
+                     }
+
+        # Default lang
+        default_filter_rule = Q(**{ vector_field: SearchQuery(query, config='english')})
+
+        # Selected lang
+        if language_code in language_configs:
+            language_config=language_configs[language_code]
+            language_vector_field=vector_field + '_' + language_code
+            language_filter_rule = Q(**{ language_vector_field: SearchQuery(query, config=language_config)})
+
+            return self.filter(language_filter_rule | default_filter_rule)
+        else:
+            return self.filter(default_filter_rule)
+
+
 
 class EstimatedCountManager(Manager):
     """
@@ -182,6 +219,48 @@ def _user_post_save(sender, instance, **kwargs):
 
 post_save.connect(_user_post_save, sender=User)
 
+class SearchIndexModel(Model):
+    text      = TextField(null=True, blank=True)
+    vector    = SearchVectorField(null=True,blank=True)
+    vector_de = SearchVectorField(null=True,blank=True)
+    vector_en = SearchVectorField(null=True,blank=True)
+    vector_et = SearchVectorField(null=True,blank=True)
+    vector_fi = SearchVectorField(null=True,blank=True)
+    vector_ru = SearchVectorField(null=True,blank=True)
+    vector_lv = SearchVectorField(null=True,blank=True)
+    vector_lt = SearchVectorField(null=True,blank=True)
+    vector_nl = SearchVectorField(null=True,blank=True)
+    vector_no = SearchVectorField(null=True,blank=True)
+    vector_sv = SearchVectorField(null=True,blank=True)
+
+    class Meta:
+        indexes = [
+		GinIndex(fields=['vector'], name = '%(class)s_vector_idx'),
+		GinIndex(fields=['vector_de'], name = '%(class)s_vector_de_idx'),
+		GinIndex(fields=['vector_en'], name = '%(class)s_vector_en_idx'),
+		GinIndex(fields=['vector_et'], name = '%(class)s_vector_et_idx'),
+		GinIndex(fields=['vector_fi'], name = '%(class)s_vector_fi_idx'),
+		GinIndex(fields=['vector_ru'], name = '%(class)s_vector_ru_idx'),
+		GinIndex(fields=['vector_lv'], name = '%(class)s_vector_lv_idx'),
+		GinIndex(fields=['vector_lt'], name = '%(class)s_vector_lt_idx'),
+		GinIndex(fields=['vector_nl'], name = '%(class)s_vector_nl_idx'),
+		GinIndex(fields=['vector_no'], name = '%(class)s_vector_no_idx'),
+		GinIndex(fields=['vector_sv'], name = '%(class)s_vector_sv_idx'),
+	]
+
+    def update_vectors(self):
+        self.vector = SearchVector('text', config='english')
+        self.vector_de = SearchVector('text_de', config='german'    )
+        self.vector_en = SearchVector('text_en', config='english'   )
+        self.vector_et = SearchVector('text_et', config='english'   )
+        self.vector_fi = SearchVector('text_fi', config='finnish'   )
+        self.vector_ru = SearchVector('text_ru', config='russian'   )
+        self.vector_lv = SearchVector('text_lv', config='english'   )
+        self.vector_lt = SearchVector('text_lt', config='lithuanian')
+        self.vector_nl = SearchVector('text_nl', config='dutch'     )
+        self.vector_no = SearchVector('text_no', config='norwegian' )
+        self.vector_sv = SearchVector('text_sv', config='swedish'   )
+        self.save()
 
 # Pretty much unused
 class Area(Model):
@@ -237,6 +316,8 @@ class AlbumPhoto(Model):
 
 
 class Album(Model):
+    objects = EstimatedCountManager()
+
     CURATED, FAVORITES, AUTO, PERSON, COLLECTION = range(5)
     TYPE_CHOICES = (
         (CURATED, 'Curated'),
@@ -294,6 +375,7 @@ class Album(Model):
 
     class Meta:
         db_table = 'project_album'
+        text_search_vector = 'albumsearchindex__vector'
 
     def __str__(self):
         if self.as_json:
@@ -524,50 +606,11 @@ class Album(Model):
             return 'Film'
         return Album.TYPE_CHOICES[self.atype][1]
 
+class AlbumSearchIndex(SearchIndexModel):
+    photo     = ForeignKey('Album', null=True, blank=True, on_delete=CASCADE)
 
-class PhotoSearchIndex(Model):
+class PhotoSearchIndex(SearchIndexModel):
     photo     = ForeignKey('Photo', null=True, blank=True, on_delete=CASCADE)
-    text      = TextField(null=True, blank=True)
-    vector    = SearchVectorField(null=True,blank=True)
-    vector_de = SearchVectorField(null=True,blank=True)
-    vector_en = SearchVectorField(null=True,blank=True)
-    vector_et = SearchVectorField(null=True,blank=True)
-    vector_fi = SearchVectorField(null=True,blank=True)
-    vector_ru = SearchVectorField(null=True,blank=True)
-    vector_lv = SearchVectorField(null=True,blank=True)
-    vector_lt = SearchVectorField(null=True,blank=True)
-    vector_nl = SearchVectorField(null=True,blank=True)
-    vector_no = SearchVectorField(null=True,blank=True)
-    vector_sv = SearchVectorField(null=True,blank=True)
-
-    class Meta:
-        indexes = [
-		GinIndex(fields=['vector'], name='text_search_vector_idx'),
-		GinIndex(fields=['vector_de'], name='text_search_vector_de_idx'),
-		GinIndex(fields=['vector_en'], name='text_search_vector_en_idx'),
-		GinIndex(fields=['vector_et'], name='text_search_vector_et_idx'),
-		GinIndex(fields=['vector_fi'], name='text_search_vector_fi_idx'),
-		GinIndex(fields=['vector_ru'], name='text_search_vector_ru_idx'),
-		GinIndex(fields=['vector_lv'], name='text_search_vector_lv_idx'),
-		GinIndex(fields=['vector_lt'], name='text_search_vector_lt_idx'),
-		GinIndex(fields=['vector_nl'], name='text_search_vector_nl_idx'),
-		GinIndex(fields=['vector_no'], name='text_search_vector_no_idx'),
-		GinIndex(fields=['vector_sv'], name='text_search_vector_sv_idx'),
-	]
-
-    def update_vectors(self):
-        self.vector = SearchVector('text', config='english')
-        self.vector_de = SearchVector('text_de', config='german'    )
-        self.vector_en = SearchVector('text_en', config='english'   )
-        self.vector_et = SearchVector('text_et', config='english'   )
-        self.vector_fi = SearchVector('text_fi', config='finnish'   )
-        self.vector_ru = SearchVector('text_ru', config='russian'   )
-        self.vector_lv = SearchVector('text_lv', config='english'   )
-        self.vector_lt = SearchVector('text_lt', config='lithuanian')
-        self.vector_nl = SearchVector('text_nl', config='dutch'     )
-        self.vector_no = SearchVector('text_no', config='norwegian' )
-        self.vector_sv = SearchVector('text_sv', config='swedish'   )
-        self.save()
 
 class Photo(Model):
     objects = EstimatedCountManager()
@@ -691,6 +734,7 @@ class Photo(Model):
 
     class Meta:
         ordering = ['-id']
+        text_search_vector = 'photosearchindex__vector'
         db_table = 'project_photo'
         indexes = [
             Index(F('latest_annotation').desc(nulls_last=True), name='latest_annotation_idx'),

@@ -6,6 +6,8 @@ from ajapaik.ajapaik.models import Photo, Area, Album, Licence, PhotoSearchIndex
 class PhotoSearchIndexTranslationOptions(TranslationOptions):
     fields = ('text',)
 
+class AlbumSearchIndexTranslationOptions(TranslationOptions):
+    fields = ('text',)
 
 class PhotoTranslationOptions(TranslationOptions):
     fields = ('title', 'description',)
@@ -24,6 +26,7 @@ class LicenceTranslationOptions(TranslationOptions):
 
 
 translator.register(PhotoSearchIndex, PhotoSearchIndexTranslationOptions)
+translator.register(AlbumSearchIndex, AlbumSearchIndexTranslationOptions)
 translator.register(Photo, PhotoTranslationOptions)
 translator.register(Area, AreaTranslationOptions)
 translator.register(Album, AlbumTranslationOptions)
