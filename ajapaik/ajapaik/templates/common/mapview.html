@@ -58,7 +58,7 @@
             window.photoQuery = "{{ query_string | safe }}";
         {% endif %}
         {% if album %}
-            const albumId = "{{ album.0 | safe }}";
+            window.albumId = "{{ album.0 | safe }}";
             {% if album.1 and album.2 %}
                 window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
             {% endif %}

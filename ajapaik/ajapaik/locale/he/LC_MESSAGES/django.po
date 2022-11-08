@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:20+0000\n"
+"PO-Revision-Date: 2022-10-27 11:00:39+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
-"X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
+"X-Generator: MediaWiki 1.40.0-alpha; Translate 2022-10-21\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -907,7 +907,7 @@ msgstr "נא ליצור איתי קשר אם יש לך בעיה באיפוס ה�
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "שלחנו לך מכתב בדואר אלקטרוני. נא ליצור איתנו קשר אם לא קיבלת אותו אחרי מספר דקות."
+msgstr "שלחנו לך מכתב בדואר אלקטרוני. נא ליצור איתנו קשר אם לא קיבלת אותו אחרי כמה דקות."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -1987,7 +1987,7 @@ msgstr "חזרה לדף הבית"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr "ייבוא"
+msgstr "יבוא"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"

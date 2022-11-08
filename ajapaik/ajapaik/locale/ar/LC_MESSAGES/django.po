@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: BaRaN6161 TURK
+# Author: Dr-Taher
 # Author: FiberAhmed
 # Author: H2kks
 # Author: Meno25
@@ -21,12 +22,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-05-02 11:00:18+0000\n"
+"PO-Revision-Date: 2022-11-03 12:00:21+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
-"X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
+"X-Generator: MediaWiki 1.40.0-alpha; Translate 2022-10-21\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -35,7 +36,7 @@ msgstr "عكس الألوان"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "أضف على الأقل (قلب أو عكس أو تدوير) للطلب"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
@@ -43,7 +44,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "تمت إضافة المساهمات والإعدادات من الحساب الآخر إلى الحساب الحالي"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
@@ -1182,7 +1183,6 @@ msgid "Newsletters"
 msgstr "النشرات الإخبارية"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "إضافة صور"
 
@@ -1413,7 +1413,6 @@ msgid "Error"
 msgstr "خطأ"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:93
-#, fuzzy
 msgid "Open album (anyone can add pictures)"
 msgstr "فتح الألبوم (يمكن لأي شخص إضافة الصور)"
 
@@ -2622,7 +2621,6 @@ msgid "Photo already exists in Ajapaik"
 msgstr "الصورة موجودة بالفعل في أجابيك"
 
 #: ajapaik/ajapaik/views.py:2479
-#, fuzzy
 msgid "Please add pictures to your album"
 msgstr "الرجاء إضافة صور إلى ألبومك"
 
@@ -2737,7 +2735,6 @@ msgstr "مجهول"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
-#, fuzzy
 msgid "Not Applicable"
 msgstr "لا ينطبق"
 

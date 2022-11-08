@@ -5,6 +5,7 @@
 # Author: A Chinese Wikipedian
 # Author: A Retired User
 # Author: Aefgh39622
+# Author: Evesiesta
 # Author: Gerongfenh
 # Author: GuoPC
 # Author: Josephine W.
@@ -26,12 +27,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2022-04-28 11:00:22+0000\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
+"PO-Revision-Date: 2022-11-03 12:00:24+0000\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-Hans\n"
-"X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
+"X-Generator: MediaWiki 1.40.0-alpha; Translate 2022-10-21\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -40,15 +41,15 @@ msgstr "反转色"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "在请求中至少添加翻转、反转或旋转参数"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "在请求中至少添加场景或视点高度参数"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "来自其他帐户的贡献和设置已添加到当前"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
@@ -60,7 +61,7 @@ msgstr "无效令牌"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "缺少参数 photo_ids"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
@@ -68,11 +69,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "参数 photo_id 必须为正整数"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "请使用其他帐户登录，您当前登录的帐户与您要合并的帐户相同"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
@@ -80,15 +81,15 @@ msgstr "请登录"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "翻拍上传设置已保存"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "必填参数，缺少token"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "此转录已存在，以前的转录已被赞同，谢谢！"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Transcription added, thank you!"
@@ -96,27 +97,27 @@ msgstr "抄写已经被添加，谢谢！"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "已添加转录反馈，谢谢！"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "User display name has been saved"
-msgstr ""
+msgstr "用户显示名称已保存"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "User settings have been saved"
-msgstr ""
+msgstr "用户设置已保存"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "您已经为此转录提供了反馈"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "您已提交此转录，谢谢！"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "您的转录已更新，谢谢！"
 
 #: ajapaik/ajapaik/api.py:990 ajapaik/ajapaik/api.py:1640
 #: ajapaik/ajapaik/api.py:1660 ajapaik/ajapaik/api.py:1676
@@ -127,7 +128,7 @@ msgstr "发生了一些错误"
 
 #: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "您的建议已保存，但先前的共识仍然存在"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
@@ -166,7 +167,7 @@ msgstr "密码"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
-msgstr ""
+msgstr "密码确认"
 
 #: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
 #: ajapaik/ajapaik/forms.py:209
@@ -189,7 +190,7 @@ msgstr "选择父相册"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
-msgstr ""
+msgstr "图片文件"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
 #: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
@@ -208,19 +209,19 @@ msgstr "作者"
 
 #: ajapaik/ajapaik/forms.py:421
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "版权许可或状态"
 
 #: ajapaik/ajapaik/forms.py:424
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "接受.png或.jpg格式的文件"
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "添加图片的简短描述"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "图片作者（摄影师、画家）"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
@@ -228,7 +229,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
-msgstr ""
+msgstr "图片描述"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
@@ -309,19 +310,19 @@ msgstr "请选择您首选的语言"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "请说明您是否愿意接收时事通讯"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "我希望将我的照片上传到维基共享资源"
 
 #: ajapaik/ajapaik/forms.py:517
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "请说明您是否希望将您的照片同时上传到维基共享资源"
 
 #: ajapaik/ajapaik/forms.py:526
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "请指定您想要的显示名称"
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
@@ -357,7 +358,7 @@ msgstr "Wikidata识别码"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "原文名称"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
@@ -373,7 +374,7 @@ msgstr "MUIS标题"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS评论"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"

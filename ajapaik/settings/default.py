@@ -104,6 +104,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -197,6 +198,7 @@ INSTALLED_APPS = (
     'ajapaik.ajapaik_face_recognition',
     'ajapaik.ajapaik_object_recognition',
     'django_user_agents',
+    'corsheaders',
 
     # Django allauth and related applications.
     'allauth',
@@ -209,6 +211,15 @@ INSTALLED_APPS = (
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
 ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
+
+# Allow CORS from localhost for developing
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    # match localhost with any port
+    r"^http:\/\/localhost:*([0-9]+)?$",
+    r"^https:\/\/localhost:*([0-9]+)?$",
+    r"^http:\/\/127.0.0.1:*([0-9]+)?$",
+    r"^https:\/\/127.0.0.1:*([0-9]+)?$",
+]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -236,7 +247,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'EXCEPTION_HANDLER': 'ajapaik.ajapaik.api.custom_exception_handler',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 100
 }
 
 DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'

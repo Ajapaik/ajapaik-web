@@ -24,12 +24,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:20+0000\n"
+"PO-Revision-Date: 2022-10-27 11:00:39+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
-"X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
+"X-Generator: MediaWiki 1.40.0-alpha; Translate 2022-10-21\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -1028,7 +1028,7 @@ msgstr "Se connecter avec %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:39
 msgid "E-mail address"
-msgstr "Adresse de messagerie"
+msgstr "Adresse de courriel"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:46
 msgid "Register with e-mail"
@@ -1351,7 +1351,7 @@ msgstr "L’obtenir !"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
 msgid "More info"
-msgstr "Plus d’informations"
+msgstr "Davantage d’informations"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
@@ -1872,7 +1872,7 @@ msgstr "Ajapaik est un travail non lucratif de la Société photographique eston
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr "Ajapaik a <b>%(total_photo_count)s</b> images historiques, dont <b>%(total_photos_tagged)s</b> images ont été placées sur la carte par <b>%(contributing_users)s</b> utilisateurs et <b>%(rephoto_count)s</b> rephotographies en <b>%(rephotographed_photo_count)s</b> images réalisées par <b>%(rephotographing_users)s</b> utilisateurs."
+msgstr "Ajapaik a <b>%(total_photo_count)s</b> images historiques, dont <b>%(total_photos_tagged)s</b> images ont été placées sur la carte par <b>%(contributing_users)s</b> utilisateurs et <b>%(rephoto_count)s</b> rephotographies pour <b>%(rephotographed_photo_count)s</b> images réalisées par <b>%(rephotographing_users)s</b> utilisateurs."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format

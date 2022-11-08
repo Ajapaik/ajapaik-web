@@ -4,6 +4,7 @@
 # Author: Abbe98
 # Author: H2kks
 # Author: Jon Harald Søby
+# Author: Kingu
 # Author: Orf3us
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-04-28 11:00:21+0000\n"
+"PO-Revision-Date: 2022-10-27 11:00:40+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/no/)\n"
 "Language: no\n"
@@ -23,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2021-10-11 07:52:23+0000\n"
-"X-Generator: MediaWiki 1.39.0-alpha; Translate 2022-04-26\n"
+"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
+"X-Generator: MediaWiki 1.40.0-alpha; Translate 2022-10-21\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
@@ -317,7 +318,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:545
 msgid "Email address"
-msgstr "Epostadresse"
+msgstr "E-postadresse"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
@@ -1022,7 +1023,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:39
 msgid "E-mail address"
-msgstr "Epostadresse"
+msgstr "E-postadresse"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:46
 msgid "Register with e-mail"
