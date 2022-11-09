@@ -1,6 +1,6 @@
 from modeltranslation.translator import translator, TranslationOptions
 
-from ajapaik.ajapaik.models import Photo, Area, Album, Licence, PhotoSearchIndex
+from ajapaik.ajapaik.models import Photo, Area, Album, Licence, PhotoSearchIndex,SearchIndexModel,AlbumSearchIndex
 
 
 class PhotoSearchIndexTranslationOptions(TranslationOptions):

@@ -28,7 +28,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.cache import cache
-from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.search import SearchVector, SearchVectorField, SearchQuery
 from django.contrib.postgres.indexes import GinIndex
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
 from django.db.models.fields import Field
@@ -37,11 +37,11 @@ from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext as _
+from django.utils.translation import get_language, gettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from django_extensions.db.fields import json
 from geopy.distance import great_circle
-from haystack import connections
+#from haystack import connections
 from pandas import DataFrame, Series
 from requests import get
 from sklearn.cluster import DBSCAN
@@ -100,7 +100,7 @@ class EstimatedCountQuerySet(QuerySet):
     # https://docs.djangoproject.com/en/4.1/ref/contrib/postgres/search/
 
     def textSearchFilter(self, query, language_code=None):
-        vector_field = self.model._meta.text_search_vector
+        vector_field = str(self.model.__name__).lower() + 'searchindex__vector'
         if not language_code:
             language_code=get_language()
 
@@ -234,6 +234,7 @@ class SearchIndexModel(Model):
     vector_sv = SearchVectorField(null=True,blank=True)
 
     class Meta:
+        abstract=True
         indexes = [
 		GinIndex(fields=['vector'], name = '%(class)s_vector_idx'),
 		GinIndex(fields=['vector_de'], name = '%(class)s_vector_de_idx'),
@@ -314,7 +315,6 @@ class AlbumPhoto(Model):
 
         super(AlbumPhoto, self).delete()
 
-
 class Album(Model):
     objects = EstimatedCountManager()
 
@@ -375,7 +375,6 @@ class Album(Model):
 
     class Meta:
         db_table = 'project_album'
-        text_search_vector = 'albumsearchindex__vector'
 
     def __str__(self):
         if self.as_json:
@@ -734,7 +733,6 @@ class Photo(Model):
 
     class Meta:
         ordering = ['-id']
-        text_search_vector = 'photosearchindex__vector'
         db_table = 'project_photo'
         indexes = [
             Index(F('latest_annotation').desc(nulls_last=True), name='latest_annotation_idx'),

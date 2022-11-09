@@ -22,7 +22,6 @@ from urllib.request import build_opener
 from uuid import uuid4
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
-from django.contrib.postgres.search import SearchQuery, SearchVector
 
 import numpy
 import cv2
@@ -53,7 +52,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.translation import get_language, gettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import condition
