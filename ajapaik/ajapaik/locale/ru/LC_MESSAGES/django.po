@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-10-27 11:00:41+0000\n"
+"PO-Revision-Date: 2022-11-10 12:00:30+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -566,11 +566,11 @@ msgstr "Источник"
 
 #: ajapaik/ajapaik/models.py:1372
 msgid "Google map"
-msgstr "Карты Google"
+msgstr "Карта Google"
 
 #: ajapaik/ajapaik/models.py:1373
 msgid "Google satellite"
-msgstr "Google satellite"
+msgstr "Google спутник"
 
 #: ajapaik/ajapaik/models.py:1374
 msgid "OpenStreetMap"
@@ -1570,7 +1570,7 @@ msgstr "Мы будем рады любой другой помощи! Прив�
 
 #: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
 msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
-msgstr "Если проект помогает в поиске интересующих Вас исторических фотографий, примите во внимание возможность <a href=\"/donate/\">поддержать</a> Ajapaik, чтобы мы могли сделать его ещё лучше. Спасибо!"
+msgstr "Если проект помогает Вам в поиске исторических фотографий, <a href=\"/donate/\">поддержите</a> Ajapaik, чтобы мы могли сделать его ещё лучше. Спасибо!"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
@@ -2354,9 +2354,9 @@ msgstr "Этот аккаунт не связан с другими"
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] "указали дату для <b>%(datings)s</b> изображения"
-msgstr[1] "указали дату для <b>%(datings)s</b> изображений"
-msgstr[2] "указали дату для <b>%(datings)s</b> изображения"
+msgstr[0] "датирование <b>%(datings)s</b> изображения"
+msgstr[1] "датирование <b>%(datings)s</b> изображений"
+msgstr[2] "датирование <b>%(datings)s</b> изображения"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
@@ -2370,9 +2370,9 @@ msgstr[2] "<b>%(object_annotations)s</b> изображений"
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] "транскрибировали текст на <b>%(transcriptions)s</b> изображении"
-msgstr[1] "транскрибировали текст на <b>%(transcriptions)s</b> изображениях"
-msgstr[2] "транскрибировали текст на <b>%(transcriptions)s</b> изображении"
+msgstr[0] "транскрипция текста для <b>%(transcriptions)s</b> изображения"
+msgstr[1] "транскрипция текста для <b>%(transcriptions)s</b> изображений"
+msgstr[2] "транскрипция текста для <b>%(transcriptions)s</b> изображения"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
