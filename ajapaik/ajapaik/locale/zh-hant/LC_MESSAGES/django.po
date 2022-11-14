@@ -7,6 +7,7 @@
 # Author: LNDDYL
 # Author: Weather Top Wizard
 # Author: Winston Sung
+# Author: Zys69913
 # Author: 予弦
 # Author: 列维劳德
 # Author: 神樂坂秀吉
@@ -19,7 +20,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-10-27 11:00:42+0000\n"
+"PO-Revision-Date: 2022-11-14 12:00:23+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -217,7 +218,7 @@ msgstr "圖片作者 (攝影師, 繪師)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "請選擇一個許可證，讓其他人知道他們是否以及如何重複使用您上傳的材料。！N！N！如果您是作者，您可以選擇許可證（我們建議使用開放的知識共享許可證）。如果是其他人創作的作品，您需要使用與當前相同的許可和權利持有人。！N！N！目前我們也接受版權狀態不明確的內容，請選擇“版權未評估”。"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
@@ -990,11 +991,11 @@ msgstr "登入或增加照片至相簿"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr ""
+msgstr "登錄以將約會添加到照片"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr ""
+msgstr "登錄以轉錄照片上的文字"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
@@ -1014,7 +1015,7 @@ msgstr "登入來儲存所選"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "登錄以從 csv 文件導入照片"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1252,7 +1253,7 @@ msgstr "策展來自博物館的歷史性照片到 Ajapaik 來進行地理標記
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr ""
+msgstr "大家可以幫助豐富Ajapaik上的歷史圖片數據！"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1347,7 +1348,7 @@ msgstr "更多資訊"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:20
 msgid "Here you can upload csv to import photos to Ajapaik"
-msgstr ""
+msgstr "在這裡您可以上傳 csv 以將照片導入 Ajapaik"
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
@@ -1501,7 +1502,7 @@ msgstr "回覆"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "您的捐贈證實了 Ajapaik 的重要性"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
@@ -1517,7 +1518,7 @@ msgstr "受益人帳戶號碼"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr ""
+msgstr "Ajapaik 是一個開源的非盈利眾包平台，它的內容量和技術複雜性都大幅增長。該網站的受眾與 Muis、Fotis 等官方文化遺產存儲庫的受眾相當或更高。"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
