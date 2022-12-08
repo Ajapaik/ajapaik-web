@@ -24,7 +24,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-10-27 11:00:39+0000\n"
+"PO-Revision-Date: 2022-12-08 12:00:18+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2345,12 +2345,12 @@ msgstr "Conserver ce compte (l’autre sera fusionné)"
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:18
 #, python-format
 msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr "Vous êtes en train de fusionner votre <a href=\"%(me)s\">compte</a> actuel avec le compte de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Votre id utilisateur sera : %(id)s"
+msgstr "Vous allez fusionner votre <a href=\"%(me)s\">compte</a> actuel avec le compte de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Votre identifiant d’utilisateur sera : %(id)s."
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:21
 #, python-format
 msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr "Votre <a href=\"%(me)s\">compte</a> actuel sera fusionné dans le compte de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Votre id utilisateur sera : %(id)s"
+msgstr "Votre <a href=\"%(me)s\">compte</a> actuel sera fusionné dans le compte de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Votre identifiant d’utilisateur sera : %(id)s."
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
