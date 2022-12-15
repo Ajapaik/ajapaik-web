@@ -10,6 +10,7 @@
 # Author: Zys69913
 # Author: 予弦
 # Author: 列维劳德
+# Author: 捍粵者
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -20,7 +21,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2022-11-14 12:00:23+0000\n"
+"PO-Revision-Date: 2022-12-15 12:00:23+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1248,7 +1249,7 @@ msgstr "歷史性照片屬於"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr "策展來自博物館的歷史性照片到 Ajapaik 來進行地理標記和翻拍"
+msgstr "策展來自博物館的歷史照片到Ajapaik來地理標記和翻拍"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
@@ -1562,7 +1563,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/donate.html:14
 msgid "Supporters of Ajapaik"
-msgstr "Ajapaik 的支持者們"
+msgstr "Ajapaik的支持者"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
@@ -1796,7 +1797,7 @@ msgstr "來自此群組"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr "挑選 2 個參數"
+msgstr "挑選兩個參數"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"
@@ -1848,7 +1849,7 @@ msgstr "重新拍攝歷史照片以創建當時和現在的之對比照片"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr "在圖片上標記人物，將圖片添加到相簿，對圖片進行分類和評論，"
+msgstr "標記圖片人物、將圖片加到相簿、分類和評論圖片，"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
