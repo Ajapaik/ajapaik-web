@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: A Retired User
+# Author: HellojoeAoPS
 # Author: Kly
 # Author: Weather Top Wizard
 # Author: Winston Sung
@@ -17,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2022-10-27 11:00:41+0000\n"
+"PO-Revision-Date: 2023-01-05 12:00:46+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,7 +32,7 @@ msgstr "使用者拒絕了地理位置檢測請求。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
-msgstr "位置資訊不可用。"
+msgstr "沒有位置資訊。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
@@ -64,7 +65,7 @@ msgstr "關閉"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1765
 msgid "Pick the shooting location!"
-msgstr "挑選目標位置！"
+msgstr "選擇拍攝地點！"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
@@ -261,7 +262,7 @@ msgstr "確認"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
-msgstr ""
+msgstr "無法將鏈接複製到剪貼板"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
@@ -278,7 +279,7 @@ msgstr "編輯"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr "外觀"
+msgstr "外部的"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
@@ -290,12 +291,12 @@ msgstr "翻轉"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
-msgstr "在相簿的地理標籤圖片"
+msgstr "地理標記相冊中的圖片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr ""
+msgstr "地面"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
@@ -335,7 +336,7 @@ msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Invert"
-msgstr ""
+msgstr "反轉"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Licence"
@@ -343,7 +344,7 @@ msgstr "授權協議"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "鏈接已復製到剪貼板"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "Mark stereophoto"
@@ -355,15 +356,15 @@ msgstr "沒有在相簿裡發現空拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "沒有找到航拍圖"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "未在該相冊中找到外景"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No exterior views were found"
-msgstr ""
+msgstr "沒有找到外景"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
@@ -375,11 +376,11 @@ msgstr "沒有在相簿裡發現高解析度照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "在此相冊中未找到內景"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No interior views were found"
-msgstr ""
+msgstr "沒有找到內景"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
@@ -395,15 +396,15 @@ msgstr "沒有發現全景格式照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures in panoramic format were found in this album"
-msgstr ""
+msgstr "在此相冊中未找到全景格式的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "在此相冊中找不到地面的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "沒有找到地面的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
@@ -419,7 +420,7 @@ msgstr "用選定篩選下沒有發現照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures were found"
-msgstr ""
+msgstr "沒有找到照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures which have 0 geotags were found in this album"
@@ -427,7 +428,7 @@ msgstr "沒有在相簿裡發現未標記地理標籤的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "沒有找到具有 0 個地理標籤的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
@@ -435,7 +436,7 @@ msgstr "沒有在相簿裡發現背面照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "沒有找到有背面的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
@@ -443,7 +444,7 @@ msgstr "沒有在相簿裡發現標記面孔照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "未找到帶有標記面孔的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
@@ -451,7 +452,7 @@ msgstr "沒有發現縱向格式照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "沒有在相簿裡發現肖像格式的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
@@ -463,11 +464,11 @@ msgstr "沒有發現上升視點照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "在此相冊中未找到 %(query)s 的結果"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "在此相冊中未找到 %(query)s 的結果\n您也可以嘗試編輯應用於您的搜索的過濾器"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
@@ -476,7 +477,7 @@ msgstr "找不到結果：%(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "找不到結果：%(query)s\n您也可以嘗試編輯應用於您的搜索的過濾器"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
@@ -492,15 +493,15 @@ msgstr "沒有發現翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "在此相冊中未找到任何翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr ""
+msgstr "沒有找到喜歡的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr ""
+msgstr "在此相冊中沒有找到喜歡的照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
@@ -508,7 +509,7 @@ msgstr "數值"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "照片添加到相冊："
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
@@ -532,15 +533,15 @@ msgstr "圖片集裡沒有留言"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
-msgstr ""
+msgstr "照片集裡沒有日期"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Picture set has no geotags"
-msgstr ""
+msgstr "照片集沒有地理標籤"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Picture set has no likes"
-msgstr ""
+msgstr "照片集沒有贊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
@@ -548,11 +549,11 @@ msgstr "圖片集裡沒有翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
-msgstr ""
+msgstr "照片集沒有副本"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Picture set has no views"
-msgstr ""
+msgstr "照片集沒有瀏覽量"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Pictures geotagged"
@@ -631,51 +632,51 @@ msgstr "網址"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified boy"
-msgstr ""
+msgstr "身份不明的男孩"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified girl"
-msgstr ""
+msgstr "身份不明的女孩"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified child"
-msgstr ""
+msgstr "身份不明的孩子"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "身份不明的成年男子"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "身份不明的成年女性"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "身份不明的成年人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "身份不明的老人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "身份不明的老年婦女"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "身份不明的老人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
-msgstr ""
+msgstr "身份不明的男人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:122
 msgid "Unidentified woman"
-msgstr ""
+msgstr "身份不明的女人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
 msgid "Unidentified person"
-msgstr ""
+msgstr "身份不明的人"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
 msgid "Unknown author"
@@ -695,7 +696,7 @@ msgstr "照片"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "訂購"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
@@ -760,7 +761,7 @@ msgstr "已註釋"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
-msgstr "已檢視"
+msgstr "已看過"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
@@ -843,7 +844,7 @@ msgstr "對象"
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "拖曳地圖，標記為攝影者所站位置"
+msgstr "抓住並拖動地圖，使標記位於攝影師站立的位置。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
@@ -851,7 +852,7 @@ msgstr "搜尋框"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
-msgstr "中間建議"
+msgstr "中位數建議"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
@@ -884,7 +885,7 @@ msgstr "在地圖上點擊來鎖定檢視的方向，或是點擊黃色按鈕來
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "點擊綠色按鈕來儲存位置與檢視的方向。在地圖上點擊來解開方向，拖拉標記來更正位置。"
+msgstr "單擊綠色按鈕以保存視圖的位置和方向。單擊地圖解鎖方向，拖動 MARKER 以更正位置。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
@@ -942,7 +943,7 @@ msgstr "轉錄由:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
-msgstr "此轉錄不正確"
+msgstr "這個轉錄是正確的"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the picture?"
@@ -958,11 +959,11 @@ msgstr "登入"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "選擇年齡段（可選）"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "選擇性別（可選）"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -1002,7 +1003,7 @@ msgstr "兒童"
 
 #: ajapaik/ajapaik/static/js/constants.js:56
 msgid "Elderly"
-msgstr "上年紀"
+msgstr "老年人"
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Adult"
@@ -1014,11 +1015,11 @@ msgstr "刪除"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "What is displayed"
-msgstr "要展示的是什麼"
+msgstr "展示的是什麼"
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
-msgstr "添加臉部註解"
+msgstr "編輯人臉註釋"
 
 #: ajapaik/ajapaik/static/js/constants.js:68
 msgid "Edit object annotation"
@@ -1086,7 +1087,7 @@ msgstr "成功添加臉部註解"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Unable to save face annotation"
-msgstr "無法保存臉部註解"
+msgstr "無法保存人臉註解"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Successfully edited face annotation"
@@ -1120,7 +1121,7 @@ msgstr "搜尋對象"
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Need 2 characters"
-msgstr "需要 2 名角色"
+msgstr "需要2個字符"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 #: ajapaik/ajapaik/static/js/constants.js:109
@@ -1146,7 +1147,7 @@ msgstr "指定人物名稱"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr ""
+msgstr "修改已有的註解，點擊一個註解開始"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
@@ -1154,11 +1155,11 @@ msgstr "標記面孔"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr ""
+msgstr "拖动面部注释并添加人名"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr ""
+msgstr "拖动并标记一张脸"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
@@ -1174,20 +1175,20 @@ msgstr "標記<em>%(personName)s</em>"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
-msgstr ""
+msgstr "註釋是由 %(profileLink)s 添加的"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "自動檢測人臉"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
+msgstr[0] " %(photoCount)s 圖片"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr ""
+msgstr "用人名標記面部註釋"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
@@ -1195,7 +1196,7 @@ msgstr "辨識人物"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr ""
+msgstr "編輯人物註釋"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
@@ -1204,5 +1205,5 @@ msgstr "自動刪除對象"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr "在維基數據檢視或編輯"
+msgstr "在維基數據上查看對象"
 
