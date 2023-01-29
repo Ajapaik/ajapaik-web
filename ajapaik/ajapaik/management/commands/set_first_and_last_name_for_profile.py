@@ -15,7 +15,7 @@ class Command(BaseCommand):
             Q(user__first_name__isnull=False, user__last_name__isnull=False, user__last_name__ne='',
               user__first_name__ne='')
         )
-        i = 1
+
         for each in profiles_with_data:
             if each.fb_name:
                 parts = each.fb_name.split(' ')
@@ -30,5 +30,4 @@ class Command(BaseCommand):
             elif each.user.first_name and each.user.last_name:
                 each.first_name = each.user.first_name
                 each.last_name = each.user.last_name
-            each.save()
-            i += 1
+            each.save(update_fields=['first_name', 'last_name'])

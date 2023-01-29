@@ -510,7 +510,7 @@ $('.ajp-navbar').autoHidingNavbar();
         if (!$this.hasClass('ajp-minimap-confirm-geotag-button-done')) {
             const photoId = $(this).data('id');
             $.post(
-                window.confirmLocationURL,
+                window.confirmGeotagUrl,
                 {
                     photo: photoId,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),

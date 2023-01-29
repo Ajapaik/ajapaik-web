@@ -15,6 +15,7 @@ for each in all_the_people_we_have_faces_for:
 def recognize_single_rectangle(unrecognized_rectangle: FaceRecognitionRectangle) -> None:
     for person in all_the_people_we_have_faces_for:
         assert isinstance(person, Album)
+        # TODO: Fix the IDE warning, check if this works and is needed
         comparison_results = face_recognition.compare_faces(person.loaded_faces,
                                                             np.array(loads(unrecognized_rectangle.face_encoding)))
         if comparison_results[0]:

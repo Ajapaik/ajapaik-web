@@ -10,28 +10,27 @@ from ajapaik.ajapaik_object_recognition import object_annotation_utils
 
 
 class AddSubjectData(AjapaikAPIView):
-    '''
+    """
     API endpoint for posting subject data.
-    '''
+    """
 
     def post(self, request, format=None):
         annotation_id = request.POST.get('annotationId', None)
         age = request.POST.get('ageGroup', None)
         gender = request.POST.get('gender', None)
-        newSubjectId = request.POST.get('newSubjectId', None)
+        new_subject_id = request.POST.get('newSubjectId', None)
         person_album = None
-        if newSubjectId and newSubjectId != '':
-            person_album = Album.objects.filter(pk=newSubjectId).first()
+        if new_subject_id and new_subject_id != '':
+            person_album = Album.objects.filter(pk=new_subject_id).first()
         new_rectangle = FaceRecognitionRectangle.objects.get(pk=annotation_id)
         if (person_album and not AlbumPhoto.objects.filter(photo=new_rectangle.photo, album=person_album).exists()):
-            albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED,
-                                    profile=request.user.profile)
-            albumPhoto.save()
+            AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED,
+                       profile=request.user.profile)
             person_album.set_calculated_fields()
             person_album.save()
 
         additional_subject_data = AddAdditionalSubjectData(subject_rectangle_id=annotation_id, age=age, gender=gender,
-                                                           newSubjectId=newSubjectId)
+                                                           new_subject_id=new_subject_id)
 
         return self.add_subject_data(additional_subject_data=additional_subject_data, request=request)
 
@@ -49,7 +48,7 @@ class AddSubjectData(AjapaikAPIView):
 
         profile = AddSubjectData.get_profile(request)
         subject_annotation_rectangle_id = additional_subject_data.subject_annotation_rectangle_id
-        new_subject_id = object_annotation_utils.parse_parameter(additional_subject_data.newSubjectId)
+        new_subject_id = object_annotation_utils.parse_parameter(additional_subject_data.new_subject_id)
         age = additional_subject_data.age
         gender = additional_subject_data.gender
         if subject_annotation_rectangle_id is not None:
@@ -65,9 +64,9 @@ class AddSubjectData(AjapaikAPIView):
 
 
 class AlbumData(AjapaikAPIView):
-    '''
+    """
     API Endpoint to check if album has face annotations
-    '''
+    """
 
     @staticmethod
     def get(request, album_id):
@@ -79,9 +78,9 @@ class AlbumData(AjapaikAPIView):
 
 
 class Annotation(AjapaikAPIView):
-    '''
+    """
     API Endpoint to get annotation data
-    '''
+    """
 
     @staticmethod
     def get(request, annotation_id):
@@ -92,10 +91,10 @@ class Annotation(AjapaikAPIView):
             if annotation.subject_consensus \
             else None
         return JsonResponse(
-                {
-                    'id': annotation.id,
-                    'user_id': user_id,
-                    'user_name': user_name,
-                    'photo_count': photo_count
-                }
-            )
+            {
+                'id': annotation.id,
+                'user_id': user_id,
+                'user_name': user_name,
+                'photo_count': photo_count
+            }
+        )

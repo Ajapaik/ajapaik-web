@@ -339,7 +339,7 @@ class ParentAlbumAutocomplete(APIView):
         q = request.GET.get('q')
         exclude = request.GET.getlist('exclude')
 
-        user_profile = request.get_user().profile
+        user_profile = request.user.profile if request.user.is_authenticated else None
         qs = Album.objects.filter(
             (Q(profile=user_profile, subalbum_of__isnull=True, is_public=True)) |
             (Q(open=True, subalbum_of__isnull=True))

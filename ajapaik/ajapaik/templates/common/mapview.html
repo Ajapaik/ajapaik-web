@@ -52,7 +52,7 @@
         $('#ajp-geotagging-container').AjapaikGeotagger();
         var title = "{{ title }}",
             leaderboardFullURL = "{% url "top50" %}",
-            difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
+            addGeotagFeedbackUrl = "{% url "difficulty_feedback" %}",
             mapDataURL = "{% url "map_objects_by_bounding_box" %}";
         {% if query_string %}
             window.photoQuery = "{{ query_string | safe }}";

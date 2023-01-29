@@ -12,23 +12,23 @@ class Command(BaseCommand):
         photos = Photo.objects.all()
         for photo in photos:
             try:
-                faceRecognitionRectangles = FaceRecognitionRectangle.objects.all().filter(photo__id=photo.id)
-                objectAnnotations = ObjectDetectionAnnotation.objects.all().filter(photo__id=photo.id)
+                face_recognition_rectangles = FaceRecognitionRectangle.objects.all().filter(photo__id=photo.id)
+                object_annotations = ObjectDetectionAnnotation.objects.all().filter(photo__id=photo.id)
                 first = None
                 latest = None
-                if faceRecognitionRectangles.exists():
-                    first = faceRecognitionRectangles.order_by('created').first().created
-                    latest = faceRecognitionRectangles.order_by('-modified').first().modified
-                if objectAnnotations.exists():
-                    if first is None or objectAnnotations.order_by('created_on').first().created_on < first:
-                        first = objectAnnotations.order_by('created_on').first().created_on
-                    if latest is None or objectAnnotations.order_by('-modified_on').first().modified_on > latest:
-                        latest = objectAnnotations.order_by('-modified_on').first().modified_on
+                if face_recognition_rectangles.exists():
+                    first = face_recognition_rectangles.order_by('created').first().created
+                    latest = face_recognition_rectangles.order_by('-modified').first().modified
+                if object_annotations.exists():
+                    if first is None or object_annotations.order_by('created_on').first().created_on < first:
+                        first = object_annotations.order_by('created_on').first().created_on
+                    if latest is None or object_annotations.order_by('-modified_on').first().modified_on > latest:
+                        latest = object_annotations.order_by('-modified_on').first().modified_on
                 if first:
                     photo.first_annotation = first
                 if latest:
                     photo.latest_annotation = latest
-                photo.annotation_count = faceRecognitionRectangles.count() + objectAnnotations.count()
+                photo.annotation_count = face_recognition_rectangles.count() + object_annotations.count()
                 photo.light_save()
             except Exception:
                 continue

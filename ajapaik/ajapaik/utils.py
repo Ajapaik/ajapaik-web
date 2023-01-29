@@ -1,15 +1,15 @@
 from math import ceil
 
-from django.db.models import F
+from django.db.models import F, Model
 from django_comments import get_model
 
 comment_model = get_model()
 
 
 def get_comment_replies(comment):
-    '''
+    """
     Returns queryset that contain all reply for given comment.
-    '''
+    """
     return comment_model.objects.filter(
         parent_id=comment.pk
     ).exclude(parent_id=F('pk'))
@@ -69,8 +69,8 @@ def merge_profiles(target_profile, source_profile):
         for app_queryset_tuple in value:
             for item in app_queryset_tuple[1]:
                 setattr(item, key, target_profile)
-            Model = apps.get_model(app_queryset_tuple[0], app_queryset_tuple[1].model.__name__)
-            Model.objects.bulk_update(app_queryset_tuple[1], [key])
+            model: Model = apps.get_model(app_queryset_tuple[0], app_queryset_tuple[1].model.__name__)
+            model.objects.bulk_update(app_queryset_tuple[1], [key])
 
     comments = MyXtdComment.objects.filter(user_id=source_profile.id)
     for comment in comments:
@@ -85,7 +85,7 @@ def merge_profiles(target_profile, source_profile):
     for attribute in attributes:
         attr = getattr(target_profile, attribute)
         attr2 = getattr(source_profile, attribute)
-        if attr is None and attr2 is not None:
+        if not attr and attr2:
             setattr(target_profile, attribute, attr2)
     target_profile.save()
 
@@ -97,7 +97,7 @@ def merge_profiles(target_profile, source_profile):
     emails = EmailAddress.objects.filter(user_id=source_profile.user_id)
     for email in emails:
         current_user_emails = EmailAddress.objects.filter(user_id=target_profile.user_id, primary=True)
-        if current_user_emails is not None:
+        if current_user_emails:
             email.primary = False
         email.user = target_profile.user
         email.save()

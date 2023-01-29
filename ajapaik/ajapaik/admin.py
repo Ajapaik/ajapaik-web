@@ -1,3 +1,5 @@
+import math
+
 from PIL import Image, ImageOps
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
@@ -14,6 +16,21 @@ from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action,
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, MyXtdComment, Supporter, \
     Location, LocationPhoto, ApplicationException
+
+
+def invert_colors(photo_str: str):
+    photo = Photo.objects.filter(pk=photo_str.split('/')[0]).first()
+    if photo:
+        photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
+        img = Image.open(photo_path)
+        inverted_grayscale_image = ImageOps.invert(img).convert('L')
+        inverted_grayscale_image.save(photo_path)
+        photo.invert = not photo.invert
+        sorl_delete(photo.image, delete_file=False)
+        photo.light_save()
+        return HttpResponse('Photo inverted!')
+
+    return HttpResponse('Failed to invert photo!')
 
 
 class AlbumPhotoInline(admin.TabularInline):
@@ -37,16 +54,12 @@ class DatingConfirmationAdmin(ModelAdmin):
 class PhotoAdmin(ModelAdmin):
     @staticmethod
     def _distance_between_two_points_on_sphere(lon_1, lat_1, lon_2, lat_2):
-        import math
 
         rad = math.pi / 180.0
         equatorial_radius_meters = 6378137
-        lon_1_rad = lon_1 * rad
-        lat_1_rad = lat_1 * rad
-        lon_2_rad = lon_2 * rad
-        lat_2_rad = lat_2 * rad
-        cos_angle = math.sin(lat_1_rad) * math.sin(lat_2_rad) + math.cos(lat_1_rad) * math.cos(lat_2_rad) * math.cos(
-            lon_2_rad - lon_1_rad)
+
+        cos_angle = math.sin(lat_1 * rad) * math.sin(lat_2 * rad) + math.cos(lat_1 * rad) * math.cos(
+            lat_2 * rad) * math.cos(rad * (lon_2 - lon_1))
 
         if cos_angle >= 1:
             return 0
@@ -56,41 +69,33 @@ class PhotoAdmin(ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if obj.lat and obj.lon and obj.bounding_circle_radius:
-            # If an administrator sets a bounding circle, invalidate GeoTags outside of it
+            # If an administrator sets a bounding circle, invalidate outside GeoTags
             all_photo_geotags = GeoTag.objects.filter(photo_id=obj.id)
             for geotag in all_photo_geotags:
                 d = self._distance_between_two_points_on_sphere(obj.lon, obj.lat, geotag.lon, geotag.lat)
-                if d > obj.bounding_circle_radius:
+                if d > obj.bounding_circle_radius and geotag.is_correct:
                     geotag.is_correct = False
-                else:
+                elif not geotag.is_correct:
                     geotag.is_correct = True
-                geotag.save()
+                else:
+                    continue
+
+                geotag.save(update_fields=["is_correct"])
         obj.save()
-
-    def _invertcolors(self, id):
-        photo = Photo.objects.filter(pk=id.split('/')[0]).first()
-        if photo:
-            photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
-            img = Image.open(photo_path)
-            inverted_grayscale_image = ImageOps.invert(img).convert('L')
-            inverted_grayscale_image.save(photo_path)
-            photo.invert = not photo.invert
-            sorl_delete(photo.image, delete_file=False)
-            photo.light_save()
-            return HttpResponse('Photo inverted!')
-
-        return HttpResponse('Failed to invert photo!')
 
     extra_buttons = [
         {
-            'url': '_invertcolors',
+            'url': 'invert_colors',
             'textname': _('Invert colors'),
-            'func': _invertcolors
+            'func': invert_colors
         },
     ]
 
-    def change_view(self, request, object_id, form_url='', extra_context={}):
-        extra_context['extra_buttons'] = self.extra_buttons
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        if not extra_context:
+            extra_context = {'extra_buttons': self.extra_buttons}
+        else:
+            extra_context['extra_buttons'] = self.extra_buttons
         return super(PhotoAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
     def get_urls(self):

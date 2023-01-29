@@ -1,4 +1,5 @@
 from json import dumps, loads
+from typing import Any
 
 from requests import get
 
@@ -35,7 +36,7 @@ class FotisDriver(object):
             'pageCount': response_headers['X-Pagination-Page-Count']
         }
 
-    def transform_response(self, response, remove_existing=False, fotis_page=1):
+    def transform_response(self, response: dict[str, Any], remove_existing=False, fotis_page=1):
         ids = [p['id'] for p in response['records']]
         transformed = {
             'result': {

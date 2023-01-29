@@ -8,16 +8,16 @@ from django.contrib.gis.geos import Point
 from django.core.files.base import ContentFile
 from requests import get
 
-from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
+from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source, Profile
 
 
-def finna_cut_title(title, shortTitle):
+def finna_cut_title(title, short_title):
     if title is None:
         return None
 
     title = title.rstrip()
-    if shortTitle and len(title) > 255:
-        title = shortTitle.rstrip()
+    if short_title and len(title) > 255:
+        title = short_title.rstrip()
     return title[:255]
 
 
@@ -26,21 +26,19 @@ def finna_add_to_album(photo, target_album):
         album = Album.objects.filter(name_en=target_album).first()
 
         if not album:
-            album = Album(name_en=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
-            album.save()
+            album = Album.objects.create(name_en=target_album, atype=Album.CURATED, is_public=True, cover_photo=photo)
 
-        ap_found = AlbumPhoto.objects.filter(album=album, photo=photo).first()
-        if not ap_found:
-            ap = AlbumPhoto(album=album, photo=photo)
-            ap.save()
+        if not AlbumPhoto.objects.filter(album=album, photo=photo).first():
+            AlbumPhoto.objects.create(album=album, photo=photo)
 
         # update counts
         album.save()
 
-def get_img_url(p,size=''):
+
+def get_img_url(p, size=''):
     if 'imagesExtended' in p and len(p['imagesExtended']):
         if 'urls' in p['imagesExtended'][0]:
-            sizes = [size, 'master', 'original', 'large', 'medium', 'small'];
+            sizes = [size, 'master', 'original', 'large', 'medium', 'small']
             for s in sizes:
                 if s in p['imagesExtended'][0]['urls']:
                     if p['imagesExtended'][0]['urls'][s].startswith('/'):
@@ -53,7 +51,8 @@ def get_img_url(p,size=''):
     else:
         return None
 
-def finna_find_photo_by_url(record_url, profile):
+
+def finna_find_photo_by_url(record_url, profile: Profile):
     photo = None
     if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
         m = re.search(r'https://(hkm\.|www\.)?finna.fi/Record/(.*?)( |\?|#|$)', record_url)
@@ -83,10 +82,10 @@ def finna_find_photo_by_url(record_url, profile):
     return photo
 
 
-def finna_import_photo(id, profile):
+def finna_import_photo(record_id: int, profile: Profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {
-        'id': id,
+        'id': record_id,
         'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
                     'recordPage', 'year',
                     'summary', 'rawData', 'imagesExtended'],
@@ -208,7 +207,7 @@ def finna_import_photo(id, profile):
 
         if p.get('latitude') and p.get('longitude') and not \
                 GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG, photo__source_key=new_photo.source_key).exists():
-            source_geotag = GeoTag(
+            source_geotag = GeoTag.objects.create(
                 lat=p.get('latitude'),
                 lon=p.get('longitude'),
                 origin=GeoTag.SOURCE,
@@ -219,18 +218,13 @@ def finna_import_photo(id, profile):
                 trustworthiness=0.07,
                 geography=geography
             )
-            source_geotag.save()
             new_photo.latest_geotag = source_geotag.created
             new_photo.set_calculated_fields()
 
         new_photo.save()
         new_photo.add_to_source_album()
-        id = int(new_photo.id)
-        photo = Photo.objects.filter(
-            pk=id
-        ).first()
 
-        return photo
+        return Photo.objects.filter(pk=new_photo.id).first()
 
 
 def safe_list_get(my_list, idx, default):

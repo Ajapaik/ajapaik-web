@@ -71,7 +71,7 @@
         window.previousPageOnModalClose = false;
         window.photoURL = "{% url 'photo' 0 %}";
         window.photoURL = window.photoURL.replace('0/', '');
-        window.photoThumbURL = "{% url 'image_thumb' 0 %}";
+        window.photoThumbURL = "{% url 'image_thumb' '0' %}";
         window.photoThumbURL = window.photoThumbURL.replace('0/', '');
         window.frontpageAsyncURL = "{% url 'frontpage_async_data' %}";
         window.frontpageAlbumsAsyncURL = "{% url 'frontpage_async_albums' %}";

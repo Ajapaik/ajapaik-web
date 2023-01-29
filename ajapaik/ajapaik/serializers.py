@@ -70,10 +70,10 @@ class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
     parent_album_id = serializers.SerializerMethodField()
     parent_album_name = serializers.SerializerMethodField()
 
-    def get_parent_album_id(self, obj):
+    def get_parent_album_id(self, obj: Album):
         return obj.subalbum_of.id if obj.subalbum_of else None
 
-    def get_parent_album_name(self, obj):
+    def get_parent_album_name(self, obj: Album):
         return obj.subalbum_of.name if obj.subalbum_of else None
 
     class Meta:
@@ -210,21 +210,21 @@ class PhotoSerializer(serializers.ModelSerializer):
             .annotate(favorited=Case(When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False),
                                           then=Value(True)), default=Value(False), output_field=BooleanField()))
 
-    def get_display_text(self, instance):
+    def get_display_text(self, instance: Photo):
         return instance.get_display_text
 
-    def get_full_image(self, instance):
+    def get_full_image(self, instance: Photo):
         request = self.context['request']
-        image_name=str(instance.image)
-        prefix='uploads/'
+        image_name = str(instance.image)
+        prefix = 'uploads/'
 
         if image_name.startswith(prefix):
-            image_name=image_name[len(prefix):]
+            image_name = image_name[len(prefix):]
 
-        iiif_jpeg=request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
         return iiif_jpeg
 
-    def get_image(self, instance):
+    def get_image(self, instance: Photo):
         request = self.context['request']
         relative_url = reverse('image_thumb', args=(instance.id,))
 
@@ -236,7 +236,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         else:
             return instance.date_text
 
-    def get_source(self, instance):
+    def get_source(self, instance: Photo):
         if instance.source:
             source_key = instance.source_key or ''
             return {
@@ -248,7 +248,7 @@ class PhotoSerializer(serializers.ModelSerializer):
                 'url': instance.source_url,
             }
 
-    def get_rephotos(self, instance):
+    def get_rephotos(self, instance: Photo):
         return RephotoSerializer(
             instance=instance.rephotos.all(),
             many=True,
@@ -298,13 +298,13 @@ class RephotoSerializer(serializers.ModelSerializer):
         relative_url = reverse('image_thumb', args=(instance.id,))
         return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
 
-    def get_date(self, instance):
+    def get_date(self, instance: Photo):
         if instance.date:
             return instance.date.strftime('%d-%m-%Y')
         else:
             return instance.date_text
 
-    def get_source(self, instance):
+    def get_source(self, instance: Photo):
         if instance.source:
             source_key = instance.source_key or ''
             return {

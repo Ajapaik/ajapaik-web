@@ -388,7 +388,7 @@ GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
 
 # allauth configuration
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
+ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.SafeUrlAdapter'
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
@@ -444,6 +444,6 @@ SOCIALACCOUNT_PROVIDERS = {
 UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36'
 
 if os.getenv('GITHUB_WORKFLOW'):
-    from .test import *
+    pass
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

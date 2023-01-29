@@ -15,9 +15,10 @@ from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
 
 
 class OauthDoneForm(forms.Form):
-    token=forms.CharField(label=_('Token'), max_length=254)
-    route=forms.CharField(label=_('Route'), max_length=254)
-    provider=forms.CharField(label=_('Provider'), max_length=254)
+    token = forms.CharField(label=_('Token'), max_length=254)
+    route = forms.CharField(label=_('Route'), max_length=254)
+    provider = forms.CharField(label=_('Provider'), max_length=254)
+
 
 class SignupForm(AllauthSignupForm):
     email = forms.CharField(label=_('Email'), max_length=254)
@@ -29,10 +30,10 @@ class SignupForm(AllauthSignupForm):
 
     field_order = ['email', 'first_name', 'last_name', 'password1', 'password2', 'captcha']
 
-    def signup(self, request, user):
+    def signup(self, _, user):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.save()
+        user.save(update_fields=['first_name', 'last_name'])
         return user
 
 
@@ -348,8 +349,7 @@ class ApiPhotoUploadForm(forms.Form):
     accuracy = forms.FloatField(min_value=0, required=False)
     age = forms.FloatField(min_value=0, required=False)
 
-    # We expecting here a date but in model we have datetime field. So to do
-    # less work we define here DateTimeField.
+    # We are expecting a date here but in model we have datetime field.
     date = forms.DateTimeField(input_formats=['%d-%m-%Y'])
     scale = forms.FloatField()
     yaw = forms.FloatField()
@@ -499,7 +499,7 @@ class UserSettingsForm(forms.ModelForm):
     def clean(self):
         super(UserSettingsForm, self).clean()
         if not self.cleaned_data.get('preferred_language'):
-            self.errors['preferred_language'] = [_('Please specify your prefered language')]
+            self.errors['preferred_language'] = [_('Please specify your preferred language')]
         if self.cleaned_data.get('newsletter_consent') is None:
             self.errors['newsletter_consent'] = [_('Please specify whether you would like to receive the newsletter')]
 

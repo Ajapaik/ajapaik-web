@@ -1,5 +1,4 @@
-FROM ubuntu:20.04 AS builder
-#FROM laurielias/python-3.8.10-dlib:latest AS builder
+FROM ubuntu:22.10 AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -22,7 +21,7 @@ RUN pip3 install --upgrade pip && \
     pip3 wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
-FROM python:3.8.10-slim AS deployer
+FROM python:3.10.8-slim AS deployer
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -37,7 +36,7 @@ COPY --from=builder /home/docker/ajapaik/wheels ./wheels
 
 COPY requirements.txt wsgi.py manage.py ./
 
-RUN pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels \
+RUN pip3 install --upgrade pip && pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels \
     && rm -rf requirements.txt && rm -rf ajapaik/tests && rm -rf ajapaik/ajapaik/tests
 
 COPY ajapaik ./ajapaik
@@ -49,6 +48,8 @@ COPY docker/uwsgi.ini ./docker/uwsgi.ini
 COPY docker/solr ./docker/solr
 
 COPY docker/docker-entrypoint.sh docker/docker-entrypoint-dev.sh /usr/local/bin/
+
+RUN touch c
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-dev.sh
 

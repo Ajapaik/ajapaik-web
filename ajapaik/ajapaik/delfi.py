@@ -26,8 +26,8 @@ class DelfiBboxRequestForm(forms.Form):
                 bbox_parts = [float(x) for x in bbox_parts]
             except:  # noqa
                 raise forms.ValidationError(_('Bounding box values must be numbers'))
-            our_ref = SpatialReference(4326)
-            delfi_ref = SpatialReference(3301)
+            our_ref = SpatialReference('4326')
+            delfi_ref = SpatialReference('3301')
             trans = CoordTransform(delfi_ref, our_ref)
             top_left = Point(y=bbox_parts[1], x=bbox_parts[0], srid=3301)
             bottom_right = Point(y=bbox_parts[3], x=bbox_parts[2], srid=3301)
@@ -53,8 +53,8 @@ def photos_bbox(request):
                                   lon__gte=form.cleaned_data['top_left'].x,
                                   lat__lte=form.cleaned_data['bottom_right'].y,
                                   lon__lte=form.cleaned_data['bottom_right'].x).order_by('?')[:500]
-        our_ref = SpatialReference(4326)
-        delfi_ref = SpatialReference(3301)
+        our_ref = SpatialReference('4326')
+        delfi_ref = SpatialReference('3301')
         trans = CoordTransform(our_ref, delfi_ref)
         photos = []
         for p in qs:
@@ -78,8 +78,8 @@ def photo_info(request):
     form = DelfiPhotoInfoRequestForm(request.query_params)
     if form.is_valid():
         photo = form.cleaned_data['id']
-        our_ref = SpatialReference(4326)
-        delfi_ref = SpatialReference(3301)
+        our_ref = SpatialReference('4326')
+        delfi_ref = SpatialReference('3301')
         trans = CoordTransform(our_ref, delfi_ref)
         location = Point(x=photo.lon, y=photo.lat, srid=4326)
         location.transform(trans)

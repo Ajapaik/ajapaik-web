@@ -6,7 +6,8 @@ if [ ! -f /home/docker/ajapaik/ajapaik/settings/local.py ]; then
     cp /home/docker/ajapaik/ajapaik/settings/local.py.example /home/docker/ajapaik/ajapaik/settings/local.py
 fi
 
-cd /home/docker/ajapaik && python manage.py migrate --noinput \
-  && python manage.py loaddata licence object_detection_models \
+pip install -r requirements.txt
+
+cd /home/docker/ajapaik && python manage.py loaddata licence object_detection_models \
   && python manage.py update_index && python manage.py compilemessages && \
   python manage.py runserver 0.0.0.0:8000

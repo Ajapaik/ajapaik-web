@@ -22,11 +22,11 @@ def analyse_single_photo(photo: Photo) -> None:
     except:  # noqa
         return
     for detected_face in detected_faces:
-        new_rectangle = FaceRecognitionRectangle(
+        FaceRecognitionRectangle.objects.create(
             photo=photo,
             coordinates=dumps(detected_face)
         )
-        new_rectangle.save()
+
     photo.face_detection_attempted_at = datetime.datetime.now()
     photo.light_save()
 

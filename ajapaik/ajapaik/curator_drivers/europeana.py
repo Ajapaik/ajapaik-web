@@ -10,99 +10,99 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
-def _filter_out_url(str):
-    return 'http' not in str
+def _filter_out_url(url: str):
+    return 'http' not in url
+
+
+def url_to_response_titles(url: str):
+    response = {
+        'titles': [],
+        'pages': 0
+    }
+
+    url = re.search(r'https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|#|$)', url).group(1)
+    json_url = f'https://www.europeana.eu/api/v2/{url}.json'
+    record_url = 'https://www.europeana.eu/portal/{url}.html'
+    json = loads(get(json_url, {'wskey': settings.EUROPEANA_API_KEY}).text)
+
+    print(json_url)
+
+    latitude = None
+    longitude = None
+    image_url = None
+    title = None
+    description = None
+    authors = ''
+
+    if 'object' in json and 'aggregations' in json['object']:
+        d = json['object']
+        a = d['aggregations'][0]
+        p = d['proxies']
+        record_id = re.search('record(/.*?/.*?)$', url).group(1)
+        if not record_id:
+            return response
+
+        if 'edmIsShownBy' in a:
+            image_url = a['edmIsShownBy'] or None
+
+        for pp in p:
+            if 'dcTitle' in pp:
+                title = pp['dcTitle']
+
+            if 'edmPlaceLatitude' in pp and latitude is None:
+                latitude = pp['edmPlaceLatitude']
+            if 'edmPlaceLongitude' in pp and longitude is None:
+                longitude = pp['edmPlaceLongitude']
+
+            if 'dcDescription' in pp:
+                description = pp['dcDescription']
+
+            if 'dcCreator' in pp:
+                if 'http' not in ', '.join(pp['dcCreator']['def']):
+                    authors = pp['dcCreator']
+
+        if 'places' in d:
+            for place in d['places']:
+                if 'latitude' in place and latitude is None:
+                    latitude = [place['latitude']]
+                if 'longitude' in place and longitude is None:
+                    longitude = [place['longitude']]
+
+        if not authors and 'agents' in d:
+            for agent in d['agents']:
+                if 'prefLabel' in agent:
+                    authors = agent['prefLabel']
+                    break
+
+        res = {
+            'rights': a['edmRights']['def'],
+            'dcTitleLangAware': title,
+            'dcDescriptionLangAware': description,
+            'edmAgentLabelLangAware': authors,
+            'edmIsShownBy': [image_url],
+            'edmPreview': [image_url],
+            'dataProvider': a['edmDataProvider']['def'],
+            'edmPlaceLatitude': latitude,
+            'edmPlaceLongitude': longitude,
+            'title': title,
+            'id': record_id,
+            'guid': record_url
+
+        }
+        print(res)
+        response['titles'].append(res)
+        response['pages'] = 1
+
+    print(json)
+    print('---------------')
+    print(response)
+    return response
 
 
 class EuropeanaDriver(object):
     def __init__(self):
         self.search_url = 'https://www.europeana.eu/api/v2/search.json'
         self.page_size = 20
-
-    def urlToResponseTitles(self, url):
-        response = {
-            'titles': [],
-            'pages': 0
-        }
-
-        url = re.search(r'https://[^.]*?\.europeana.eu/.*?/.*?(record.*?)(\.json|.html)?(\?|#|$)', url).group(1)
-        json_url = f'https://www.europeana.eu/api/v2/{url}.json'
-        record_url = 'https://www.europeana.eu/portal/{url}.html'
-        json = loads(get(json_url, {'wskey': settings.EUROPEANA_API_KEY}).text)
-
-        print(json_url)
-
-        latitude = None
-        longitude = None
-        imageUrl = None
-        title = None
-        id = None
-        description = None
-        authors = ''
-
-        if 'object' in json and 'aggregations' in json['object']:
-            d = json['object']
-            a = d['aggregations'][0]
-            p = d['proxies']
-            id = re.search('record(/.*?/.*?)$', url).group(1)
-            if not id:
-                return response
-
-            if 'edmIsShownBy' in a:
-                imageUrl = a['edmIsShownBy'] or None
-
-            for pp in p:
-                if 'dcTitle' in pp:
-                    title = pp['dcTitle']
-
-                if 'edmPlaceLatitude' in pp and latitude is None:
-                    latitude = pp['edmPlaceLatitude']
-                if 'edmPlaceLongitude' in pp and longitude is None:
-                    longitude = pp['edmPlaceLongitude']
-
-                if 'dcDescription' in pp:
-                    description = pp['dcDescription']
-
-                if 'dcCreator' in pp:
-                    if 'http' not in ', '.join(pp['dcCreator']['def']):
-                        authors = pp['dcCreator']
-
-            if 'places' in d:
-                for place in d['places']:
-                    if 'latitude' in place and latitude is None:
-                        latitude = [place['latitude']]
-                    if 'longitude' in place and longitude is None:
-                        longitude = [place['longitude']]
-
-            if not authors and 'agents' in d:
-                for agent in d['agents']:
-                    if 'prefLabel' in agent:
-                        authors = agent['prefLabel']
-                        break
-
-            res = {
-                'rights': a['edmRights']['def'],
-                'dcTitleLangAware': title,
-                'dcDescriptionLangAware': description,
-                'edmAgentLabelLangAware': authors,
-                'edmIsShownBy': [imageUrl],
-                'edmPreview': [imageUrl],
-                'dataProvider': a['edmDataProvider']['def'],
-                'edmPlaceLatitude': latitude,
-                'edmPlaceLongitude': longitude,
-                'title': title,
-                'id': id,
-                'guid': record_url
-
-            }
-            print(res)
-            response['titles'].append(res)
-            response['pages'] = 1
-
-        print(json)
-        print('---------------')
-        print(response)
-        return response
 
     def search(self, cleaned_data):
         titles = []
@@ -116,7 +116,7 @@ class EuropeanaDriver(object):
             target_url = re.search(r'(https://[^.]*?\.europeana.eu/.*?/.*?record.*?)\.(json|html)(\?|#|$)',
                                    cleaned_data['fullSearch']).group(1)
 
-            response = self.urlToResponseTitles(target_url)
+            response = url_to_response_titles(target_url)
             print(target_url)
 
         else:
@@ -142,7 +142,7 @@ class EuropeanaDriver(object):
         return response
 
     @staticmethod
-    def transform_response(response, remove_existing=False, current_page=1):
+    def transform_response(self, response, remove_existing=False, current_page=1):
         transformed = {
             'result': {
                 'firstRecordViews': [],
@@ -150,6 +150,8 @@ class EuropeanaDriver(object):
                 'pages': response['pages']
             }
         }
+        thumbnail_url = None  # TODO: Change the code in such a way, that we don't need to set defaults here
+        image_url = None
         for p in response['titles']:
             date, author, title = None, None, None
 
@@ -191,7 +193,7 @@ class EuropeanaDriver(object):
             elif title == '':
                 title = description
 
-            if ('title' in p and (not title or title == '')):
+            if 'title' in p and not title:
                 if isinstance(p['title'], list):
                     title = ', '.join(set(p['title']))
                 elif isinstance(p['title'], dict):
@@ -219,17 +221,17 @@ class EuropeanaDriver(object):
             if 'edmIsShownBy' in p:
                 for url in p['edmIsShownBy']:
                     if '.tif' not in url:
-                        imageUrl = url
-                        thumbnailUrl = url
+                        image_url = url
+                        thumbnail_url = url
                         break
 
             if 'edmPreview' in p:
                 for url in p['edmPreview']:
                     if '.tif' not in url:
-                        thumbnailUrl = url
+                        thumbnail_url = url
                         url = re.search('thumbnail-by-url.json.*?uri=(.*?.jpe?g)', url, re.IGNORECASE)
                         if url:
-                            imageUrl = urllib.parse.unquote(url.group(1))
+                            image_url = urllib.parse.unquote(url.group(1))
                         break
 
             latitude = p.get('edmPlaceLatitude') or None
@@ -240,7 +242,7 @@ class EuropeanaDriver(object):
             if longitude:
                 longitude = longitude[0]
 
-            if not imageUrl or imageUrl == '':
+            if not image_url:
                 continue
             if not licence_url or licence_url == '':
                 continue
@@ -251,10 +253,10 @@ class EuropeanaDriver(object):
 
             transformed_item = {
                 'isEuropeanaResult': True,
-                'cachedThumbnailUrl': thumbnailUrl,
+                'cachedThumbnailUrl': thumbnail_url,
                 'title': title,
                 'institution': f'Europeana / {institution}',
-                'imageUrl': imageUrl,
+                'imageUrl': image_url,
                 'id': p['id'],
                 'mediaId': p['id'],
                 'identifyingNumber': p['id'],

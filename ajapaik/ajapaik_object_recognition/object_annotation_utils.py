@@ -27,12 +27,8 @@ AGE_STRING_ELDERLY = 'ELDERLY'
 AGE_STRING_UNSURE = 'UNSURE'
 
 
-def is_value_present(val):
-    return val is not None and len(val) > 0
-
-
-def parse_parameter(parameter):
-    if is_value_present(parameter):
+def parse_parameter(parameter: str):
+    if parameter:
         return int(parameter)
 
     return 0
@@ -44,11 +40,12 @@ def convert_to_query_dictionary(dictionary):
     return query_dictionary
 
 
-def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):
+def transform_annotation_queryset(query_set, transform_function, user_id=None):
     transformed_collection = []
 
     for entry in query_set:
-        transformed_collection.append(json.dumps(transform_function(entry, user_id).__dict__))
+        transform_result = transform_function(entry, user_id) if user_id else transform_function(entry)
+        transformed_collection.append(json.dumps(transform_result.__dict__))
     return transformed_collection
 
 
@@ -85,7 +82,7 @@ def is_annotation_editable_time_wise(created_on):
 
 
 def parse_boolean(value):
-    if is_value_present(value):
+    if value:
         return value in ['True', 'true']
 
     return None

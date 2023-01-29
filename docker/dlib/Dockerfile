@@ -1,4 +1,4 @@
-FROM python:3.8.10
+FROM python:3.10.8-slim
 
 MAINTAINER Lauri Elias <laurileet@gmail.com>
 

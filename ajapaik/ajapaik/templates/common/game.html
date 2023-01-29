@@ -88,7 +88,7 @@
 {% block specific_js %}
     <script>
         var streamURL = "{% url 'fetch_stream' %}",
-            difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
+            addGeotagFeedbackUrl = "{% url 'api_geotag_difficulty_feedback' %}",
             gameURL = "{% url 'game' %}",
             mapURL = "{% url 'map' %}",
             areaId = "{{ area.id | safe }}",

@@ -13,7 +13,7 @@ class Command(BaseCommand):
             profile_id = args[0]
         except IndexError:
             pass
-        if profile_id is not None:
+        if profile_id:
             profile = Profile.objects.get(user_id=profile_id)
             profile.set_calculated_fields()
             profile.save()

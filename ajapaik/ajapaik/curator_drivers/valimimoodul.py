@@ -52,7 +52,7 @@ class ValimimoodulDriver(object):
         return response
 
     @staticmethod
-    def transform_response(response, remove_existing=False):
+    def transform_response(self, response, remove_existing=False):
         try:
             full_response_json = loads(response.text)
         except ValueError:

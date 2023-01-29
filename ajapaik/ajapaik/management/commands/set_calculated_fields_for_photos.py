@@ -10,13 +10,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             photo_id = args[0]
+            photos = Photo.objects.filter(pk=photo_id)
         except IndexError:
-            photo_id = None
-        if photo_id:
-            photo = Photo.objects.get(pk=photo_id)
+            photos = Photo.objects.filter(rephoto_of__isnull=True)
+
+        for photo in photos:
             photo.set_calculated_fields()
             photo.save()
-        else:
-            for photo in Photo.objects.filter(rephoto_of__isnull=True):
-                photo.set_calculated_fields()
-                photo.save()

@@ -85,11 +85,11 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
 }
 
 .ajp-iiif {
-  background: url(../images/material-design-icons/ic_iiif_24px.svg) no-repeat center center;
-  width: 48px;
-  height: 48px;
-  background-size: 48px 48px;
-  display: block;
+    background: url(../images/material-design-icons/ic_iiif_24px.svg) no-repeat center center;
+    width: 48px;
+    height: 48px;
+    background-size: 48px 48px;
+    display: block;
 }
 
 .ajp-black-dropdown-menu {
@@ -2281,7 +2281,7 @@ div.gm-style-mtc > div:nth-of-type(2) > div > label {
     color: #007fff;
 }
 
-#supporters img {
+#sponsors img {
     max-height: 120px;
     width: auto;
 }
