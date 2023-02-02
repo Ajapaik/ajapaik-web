@@ -60,7 +60,8 @@ class FotisDriver(object):
                     'title': p['content'] if p['content'] else p['content_original'],
                     'institution': 'Fotis',
                     'cachedThumbnailUrl': p['_links']['image']['href'],
-                    'imageUrl': p['_links']['image']['href'],
+                    # new image url for image files without the black strip below
+                    'imageUrl': 'https://www.meediateek.ee/site/photo?id='+str(p['id']),
                     # 'urlToRecord': p['_links']['view']['href'].replace('http://', 'https://'),
                     'urlToRecord': p['_links']['view']['href'],
                     'creators': p['author']
