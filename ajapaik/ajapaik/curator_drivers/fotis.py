@@ -21,19 +21,32 @@ class FotisDriver(object):
                           '&filter[or][][location][like]=%s' \
                           '&page=%s'
 
-    def search(self, cleaned_data):
-        response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                          cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                          cleaned_data['flickrPage']), )
-        response_headers = response.headers
-        results = loads(response.text)
+    # def search(self, cleaned_data):
+    #     response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+    #                                       cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+    #                                       cleaned_data['flickrPage']), )
+    #     response_headers = response.headers
+    #     results = loads(response.text)
+
+    # added cycle to retrieve more results from Fotis API at once (it gives back 20 for a query)
+    def search(self, cleaned_data, max_results=200):
+        results = []
+        page = 1
+        while len(results) < max_results:
+            response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+                                              cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+                                              cleaned_data['flickrPage']), )
+            response_headers = response.headers
+            page_results = loads(response.text)
+            results += page_results
+            page += 1
 
         return {
-            'records': results,
-            'pageSize': response_headers['X-Pagination-Per-Page'],
-            'page': response_headers['X-Pagination-Current-Page'],
-            'pageCount': response_headers['X-Pagination-Page-Count']
-        }
+        'records': results[:max_results],
+        'pageSize': response_headers['X-Pagination-Per-Page'],
+        'page': response_headers['X-Pagination-Current-Page'],
+        'pageCount': response_headers['X-Pagination-Page-Count']
+    }
 
     def transform_response(self, response, remove_existing=False, fotis_page=1):
         ids = [p['id'] for p in response['records']]
