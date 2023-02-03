@@ -1,5 +1,3 @@
-import json
-
 import requests
 from ajapaik.ajapaik.facebook import APP_ID
 from django.conf import settings
@@ -31,9 +29,9 @@ class Command(BaseCommand):
                 else:
                     or_clause += f',https://ajapaik.ee/photo/{str(p.id)}/'
             if len(or_clause) > 4:
-                response = json.loads(
-                    requests.get(f'{fb_graph_url}/v7.0/?format=json&access_token={access_token}&%{or_clause}')
-                    )
+                response = requests.get(
+                    f'{fb_graph_url}/v7.0/?format=json&access_token={access_token}&%{or_clause}').json()
+
                 for k, v in response.items():
                     if 'og_object' in v:
                         photo_id = k.split('/')[-2]
@@ -60,15 +58,13 @@ class Command(BaseCommand):
                     else:
                         ids += f',{str(p.fb_object_id)}'
             if len(ids) > 0:
-                response = json.loads(
-                    requests.get(f'{fb_graph_url}/comments/?access_token=%{access_token}&%{ids}'))
+                response = requests.get(f'{fb_graph_url}/comments/?access_token=%{access_token}&%{ids}').json()
                 for k, v in response.items():
                     if 'data' in v:
                         for comment in v['data']:
-                            existing_comment = PhotoComment.objects.filter(fb_comment_id=comment['id']).first()
-                            if existing_comment:
+                            if existing_comment := PhotoComment.objects.filter(fb_comment_id=comment['id']).first():
                                 existing_comment.text = comment['message']
-                                existing_comment.save()
+                                existing_comment.save(update_fields=['message'])
                             else:
                                 object_id = comment['id'].split('_')[0]
                                 new_photo_comment = PhotoComment(

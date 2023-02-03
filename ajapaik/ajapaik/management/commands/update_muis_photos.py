@@ -1,13 +1,13 @@
+import urllib
+import xml.etree.ElementTree as ET
 from datetime import datetime
 from datetime import timezone
-import urllib
 
 from django.core.management.base import BaseCommand
 
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, ApplicationException
 from ajapaik.ajapaik.muis_utils import add_dating_to_photo, add_person_albums, add_geotag_from_address_to_photo, \
     extract_dating_from_event, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, ApplicationException
-import xml.etree.ElementTree as ET
 
 
 class Command(BaseCommand):
@@ -38,41 +38,37 @@ class Command(BaseCommand):
                 person_album_ids = []
 
                 title_find = rec.find(f'{title_wrap}lido:titleSet/lido:appellationValue', ns)
-                title = title_find.text \
-                    if title_find is not None \
-                    else None
+                title = title_find and title_find.text or None
                 photo = reset_modeltranslated_field(photo, 'title', title)
                 photo.light_save()
-                dating = None
-                photo, dating = set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns)
+                photo, dating = set_text_fields_from_muis(photo, None, rec, object_description_wraps, ns)
                 photo.light_save()
                 creation_date_earliest = None
                 creation_date_latest = None
                 date_prefix_earliest = None
                 date_prefix_latest = None
-                date_earliest_has_suffix = False
                 date_latest_has_suffix = False
                 location = []
                 events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
                 existing_dating = Dating.objects.filter(photo=photo, profile=None).first()
-                if events is not None and len(events) > 0:
+                if len(events) > 0:
                     location, \
-                        creation_date_earliest, \
-                        creation_date_latest, \
-                        date_prefix_earliest, \
-                        date_prefix_latest, \
-                        date_earliest_has_suffix, \
-                        date_latest_has_suffix, \
+                    creation_date_earliest, \
+                    creation_date_latest, \
+                    date_prefix_earliest, \
+                    date_prefix_latest, \
+                    _, \
+                    date_latest_has_suffix, \
                         = extract_dating_from_event(
-                            events,
-                            location,
-                            creation_date_earliest,
-                            creation_date_latest,
-                            dating is not None and existing_dating is None,
-                            ns
-                        )
+                        events,
+                        location,
+                        creation_date_earliest,
+                        creation_date_latest,
+                        dating is not None and existing_dating is None,
+                        ns
+                    )
                 if dating is not None and existing_dating is None:
-                    creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
+                    creation_date_earliest, date_prefix_earliest, _ = \
                         get_muis_date_and_prefix(dating, False)
                     creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
                         get_muis_date_and_prefix(dating, True)
@@ -81,7 +77,7 @@ class Command(BaseCommand):
                 person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
                 if author is not None:
                     photo.author = author
-                if location != []:
+                if location:
                     photo = add_geotag_from_address_to_photo(photo, location)
                 photo = add_dating_to_photo(
                     photo,
@@ -90,7 +86,6 @@ class Command(BaseCommand):
                     date_prefix_earliest,
                     date_prefix_latest,
                     Dating,
-                    date_earliest_has_suffix,
                     date_latest_has_suffix
                 )
                 dt = datetime.utcnow()
@@ -103,8 +98,7 @@ class Command(BaseCommand):
                     for album in person_albums:
                         if not album.cover_photo:
                             album.cover_photo = photo
-                        ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
-                        ap.save()
+                        AlbumPhoto.objects.create(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
 
                         all_person_album_ids_set.add(album.id)
                 photo.set_calculated_fields()

@@ -16,7 +16,7 @@ def set_feedback(
     feedback.object_detection_annotation = annotation
 
     if request.alternative_wiki_data_label_id is not None and len(request.alternative_wiki_data_label_id) > 0:
-        alternative_object_suggestion = object_annotation_common_service\
+        alternative_object_suggestion = object_annotation_common_service \
             .get_saved_label(request.alternative_wiki_data_label_id)
         feedback.alternative_object = alternative_object_suggestion
     else:
@@ -31,13 +31,11 @@ def add_feedback(request: AddObjectDetectionFeedback):
 
     existing_feedback = get_existing_feedback(annotation, user)
 
-    if existing_feedback is not None:
+    if existing_feedback:
         set_feedback(existing_feedback, request, user, annotation)
-        existing_feedback.save()
     else:
-        new_feedback = ObjectAnnotationFeedback()
+        new_feedback = ObjectAnnotationFeedback.objects.create()
         set_feedback(new_feedback, request, user, annotation)
-        new_feedback.save()
 
 
 def get_existing_feedback(annotation: ObjectDetectionAnnotation, user: Profile):

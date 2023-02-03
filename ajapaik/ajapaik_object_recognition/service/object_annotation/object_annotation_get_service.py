@@ -23,15 +23,15 @@ def get_all_annotations(user_id, photo_id=None):
         .filter(photo=photo, deleted__isnull=True)
 
     objects = object_annotation_utils.transform_annotation_queryset(
-        user_id,
         object_rectangles,
-        map_object_rectangle_to_rectangle
+        map_object_rectangle_to_rectangle,
+        user_id
     )
 
     faces = object_annotation_utils.transform_annotation_queryset(
-        user_id,
         face_rectangles,
-        map_face_rectangle_to_rectangle
+        map_face_rectangle_to_rectangle,
+        user_id
     )
 
     # None values must be excluded https://code.djangoproject.com/ticket/20024
@@ -43,7 +43,6 @@ def get_all_annotations(user_id, photo_id=None):
         .exclude(album_id__in=person_subject_consensus_ids).filter(album__atype=Album.PERSON).distinct('album')
 
     persons = object_annotation_utils.transform_annotation_queryset(
-        user_id,
         album_photos,
         map_person_album_to_rectangle
     )
@@ -60,8 +59,6 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
         else None
 
     user = Profile.objects.filter(user_id=user_id).first()
-    if user is not None:
-        user = user.get_display_name
 
     return DetectionRectangle({
         'id': object_annotation.id,
@@ -82,7 +79,7 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
             'alternative_object_id': alternative_object_id,
             'alternative_object_translations': alternative_object_translations
         },
-        'user': user
+        'user': user and user.get_display_name
     })
 
 
@@ -110,8 +107,7 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
     is_agreeing_on_gender = not gender_and_age or not gender_and_age.gender and original_user_set_gender
 
     user = Profile.objects.filter(user_id=user_id).first()
-    if user is not None:
-        user = user.get_display_name
+
     return DetectionRectangle({
         'id': face_annotation.id,
         'x1': coordinates[3],
@@ -138,12 +134,12 @@ def map_face_rectangle_to_rectangle(face_annotation: FaceRecognitionRectangle, u
             'is_correct_gender': is_agreeing_on_gender,
             'gender': gender_and_age.gender if gender_and_age is not None else None
         },
-        'user': user
+        'user': user and user.get_display_name
     })
 
 
-def map_person_album_to_rectangle(albumphoto: AlbumPhoto, user_id: int):
-    user = albumphoto.profile
+def map_person_album_to_rectangle(album_photo: AlbumPhoto):
+    user = album_photo.profile
 
     return DetectionRectangle({
         'id': None,
@@ -151,11 +147,11 @@ def map_person_album_to_rectangle(albumphoto: AlbumPhoto, user_id: int):
         'y1': None,
         'x2': None,
         'y2': None,
-        'subject_id': albumphoto.album_id,
-        'subject_name': albumphoto.album.name,
+        'subject_id': album_photo.album_id,
+        'subject_name': album_photo.album.name,
         'is_editable': False,
         'is_added_by_current_user': False,
-        'gender': object_annotation_utils.parse_gender_to_constant(albumphoto.album.gender),
+        'gender': object_annotation_utils.parse_gender_to_constant(album_photo.album.gender),
         'age': None,
         'has_user_given_feedback': False,
         'previous_feedback': {

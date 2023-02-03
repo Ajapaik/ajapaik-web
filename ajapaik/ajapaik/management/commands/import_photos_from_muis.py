@@ -1,20 +1,18 @@
-from datetime import datetime, timezone, timedelta
-
 import logging
-import urllib
 import time
 import traceback
-
-from django.conf import settings
-from django.core.management.base import BaseCommand
+import urllib
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
+import requests
+from django.conf import settings
+from django.core.management.base import BaseCommand
+
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, ApplicationException
 from ajapaik.ajapaik.muis_utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, ApplicationException
-import xml.etree.ElementTree as ET
-
-import requests
 
 
 class Command(BaseCommand):
@@ -49,8 +47,7 @@ class Command(BaseCommand):
             for s in sets:
                 if s.find('d:setSpec', ns).text == museum_name:
                     source_description = s.find('d:setName', ns).text
-                    source = Source(name=museum_name, description=source_description)
-                    source.save()
+                    Source.objects.create(name=museum_name, description=source_description)
         source = Source.objects.filter(name=museum_name).first()
 
         dates = []
@@ -75,8 +72,8 @@ class Command(BaseCommand):
                                    f'&until={until_date}&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
             parser = ET.XMLParser(encoding="utf-8")
-            redurl = url_response.read()
-            tree = ET.fromstring(redurl, parser=parser)
+            read_url = url_response.read()
+            tree = ET.fromstring(read_url, parser=parser)
             ns = {'d': 'http://www.openarchives.org/OAI/2.0/', 'lido': 'http://www.lido-schema.org'}
             header = 'd:header/'
             records = tree.findall('d:ListRecords/d:record', ns)
@@ -95,8 +92,6 @@ class Command(BaseCommand):
                 try:
                     locations = []
                     person_album_ids = []
-                    creation_date_earliest = None
-                    creation_date_latest = None
                     external_id = rec.find(f'{header}d:identifier', ns).text \
                         if rec.find(f'{header}d:identifier', ns) is not None \
                         else None
@@ -106,12 +101,12 @@ class Command(BaseCommand):
 
                     rp_lr = 'resourceRepresentation/lido:linkResource'
                     image_url = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns).text \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
                         else None
 
                     image_extension = (rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}',
                                                 ns).attrib['{' + ns['lido'] + '}formatResource']).lower() \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
                         else None
 
                     source_url_find = rec.find(f'{record_wrap}lido:recordInfoSet/lido:recordInfoLink', ns)
@@ -164,25 +159,24 @@ class Command(BaseCommand):
                     creation_date_latest = None
                     date_prefix_earliest = None
                     date_prefix_latest = None
-                    date_earliest_has_suffix = False
                     date_latest_has_suffix = False
                     events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
                     if events is not None and len(events) > 0:
                         locations, \
-                            creation_date_earliest, \
-                            creation_date_latest, \
-                            date_prefix_earliest, \
-                            date_prefix_latest, \
-                            date_earliest_has_suffix, \
-                            date_latest_has_suffix, \
+                        creation_date_earliest, \
+                        creation_date_latest, \
+                        date_prefix_earliest, \
+                        date_prefix_latest, \
+                        date_earliest_has_suffix, \
+                        date_latest_has_suffix, \
                             = extract_dating_from_event(
-                                events,
-                                locations,
-                                creation_date_earliest,
-                                creation_date_latest,
-                                photo.latest_dating is not None or dating is not None,
-                                ns
-                            )
+                            events,
+                            locations,
+                            creation_date_earliest,
+                            creation_date_latest,
+                            photo.latest_dating is not None or dating is not None,
+                            ns
+                        )
                     if dating is not None:
                         creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
                             get_muis_date_and_prefix(dating, False)
@@ -194,7 +188,7 @@ class Command(BaseCommand):
                     if author is not None:
                         photo.author = author
                     photo.add_to_source_album()
-                    if locations != []:
+                    if locations:
                         photo = add_geotag_from_address_to_photo(photo, locations)
 
                     photo = add_dating_to_photo(
@@ -204,7 +198,6 @@ class Command(BaseCommand):
                         date_prefix_earliest,
                         date_prefix_latest,
                         Dating,
-                        date_earliest_has_suffix,
                         date_latest_has_suffix,
                     )
                     photo.light_save()
@@ -226,14 +219,13 @@ class Command(BaseCommand):
                     photo.set_calculated_fields()
                 except Exception as e:
                     logger.exception(e)
-                    exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
-                    exception.save()
+                    ApplicationException.objects.create(exception=traceback.format_exc(), photo=photo)
 
                 time.sleep(1)
             until_date = from_date
 
         for album in albums:
-#            album.set_calculated_fields()
+            # album.set_calculated_fields()
             album.light_save()
 
         all_person_album_ids = list(all_person_album_ids_set)
@@ -241,5 +233,5 @@ class Command(BaseCommand):
 
         if all_person_albums.exists():
             for person_album in all_person_albums:
-#                person_album.set_calculated_fields()
+                #                person_album.set_calculated_fields()
                 person_album.light_save()

@@ -1,24 +1,24 @@
 {% load i18n static %}
 
-<div id="supporters" class="pt-5">
+<div id="sponsors" class="pt-5">
     <h3>{% trans 'Ajapaik is currently using funding received from:' %}</h3>
     <div class="row d-block" style="font-size:0">
-        {% for supporter in current_supporters %}
-            <a href="{{ supporter.url }}">{{ supporter.name }}
-                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2"
-                     src="{{ STATIC_URL }}{{ supporter.img }}" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+        {% for sponsor in current_sponsors %}
+            <a href="{{ sponsor.url }}">{{ sponsor.name }}
+                <img alt="{{ sponsor.alternate_text }}" class="img-fluid lazyload m-2"
+                     src="{{ STATIC_URL }}{{ sponsor.img }}" data-src="{{ STATIC_URL }}{{ sponsor.img }}">
             </a>
         {% endfor %}
     </div>
     <br>
     <br>
-    {% if supporters %}
+    {% if sponsors %}
         <h5>{% trans 'Ajapaik has received donations from:' %}</h5>
-        {% for supporter in supporters %}
-            {% if supporter.profile %}
-                <a href="{% url 'user' supporter.profile.id %}">{{ supporter.profile.get_display_name }}</a>
+        {% for sponsor in sponsors %}
+            {% if sponsor.profile %}
+                <a href="{% url 'user' sponsor.profile.id %}">{{ sponsor.profile.get_display_name }}</a>
             {% else %}
-                {{ supporter.name }}
+                {{ sponsor.name }}
             {% endif %}
             <br>
         {% endfor %}
@@ -26,10 +26,10 @@
     {% endif %}
     <h3>{% trans 'Earlier funders:' %}</h3>
     <div class="row d-block" style="font-size:0">
-        {% for supporter in previous_supporters %}
-            <a href="{{ supporter.url }}">{{ supporter.name }}
-                <img alt="{{ supporter.alternate_text }}" class="img-fluid lazyload m-2"
-                     src="{{ STATIC_URL }}{{ supporter.img }}" data-src="{{ STATIC_URL }}{{ supporter.img }}">
+        {% for sponsor in previous_sponsors %}
+            <a href="{{ sponsor.url }}">{{ sponsor.name }}
+                <img alt="{{ sponsor.alternate_text }}" class="img-fluid lazyload m-2"
+                     src="{{ STATIC_URL }}{{ sponsor.img }}" data-src="{{ STATIC_URL }}{{ sponsor.img }}">
             </a>
         {% endfor %}
     </div>

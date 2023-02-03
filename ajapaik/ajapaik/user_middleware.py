@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.deprecation import MiddlewareMixin
+from rest_framework.request import Request
 
 from ajapaik.ajapaik.models import Action
 
@@ -34,7 +35,7 @@ def set_user(request, user):
 
 
 class UserMiddleware(MiddlewareMixin):
-    def process_request(self, request):
+    def process_request(self, request: Request):
         request.get_user = partial(get_user, request)
         request.set_user = partial(set_user, request)
         request.log_action = partial(Action.log, request=request)
@@ -45,10 +46,10 @@ class AuthBackend(MiddlewareMixin):
     supports_anonymous_user = False
     supports_inactive_user = True
 
-    def authenticate(self, request=None, username=None, password=None, user=None):
-        if user is not None:
+    def authenticate(self, username: str | None = None, password: str | None = None, user: User | None = None):
+        if user:
             return user
-        if password is not None:
+        if password:
             try:
                 user = User.objects.get(username=username)
                 if user.check_password(password):
@@ -71,7 +72,6 @@ class AuthBackend(MiddlewareMixin):
                 return user
             except ObjectDoesNotExist:
                 user = User.objects.create_user(username=bot_username)
-                user.save()
                 Action.log('user_middleware.create.bot', related_object=user)
 
                 return user
@@ -83,7 +83,7 @@ class AuthBackend(MiddlewareMixin):
 
         return user
 
-    def get_user(self, user_id):
+    def get_user(self, user_id: int):
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:

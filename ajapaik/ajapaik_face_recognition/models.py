@@ -101,9 +101,11 @@ class FaceRecognitionRectangle(models.Model):
             age = 3
         if age == 'NOT_APPLICABLE':
             age = 4
-        new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=self,
-                                                                       proposer=profile, gender=gender, age=age)
-        new_suggestion.save()
+        new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion.objects.create(
+            face_recognition_rectangle=self,
+            proposer=profile, gender=gender, age=age
+        )
+
         self.photo.latest_annotation = new_suggestion.created
         self.photo.light_save()
 
@@ -155,7 +157,7 @@ class FaceRecognitionRectangle(models.Model):
 
 class FaceRecognitionRectangleSubjectDataSuggestion(models.Model):
     face_recognition_rectangle = models.ForeignKey(FaceRecognitionRectangle, on_delete=CASCADE,
-                                                   related_name='face_recognition_rectangle')
+                                                   related_name='face_recognition_suggestion_subject_datas')
     proposer = models.ForeignKey(Profile, on_delete=CASCADE, related_name='subject_data_proposer')
     gender = models.PositiveSmallIntegerField(choices=GENDER, null=True)
     age = models.PositiveSmallIntegerField(choices=AGE, null=True)

@@ -1,9 +1,9 @@
-(function () {
+(function() {
     'use strict';
     /*jslint nomen: true*/
     /*jslint browser: true*/
     /*global streamURL*/
-    /*global difficultyFeedbackURL*/
+    /*global addGeotagFeedbackUrl*/
     /*global gameURL*/
     /*global mapURL*/
     /*global isMobile*/
@@ -21,7 +21,7 @@
     window.photoHistory = [];
     window.descriptionViewHistory = {};
     window.photoHistoryIndex = null;
-    window.startSuggestionLocation = function () {
+    window.startSuggestionLocation = function() {
         let startLat = 59;
         let startLon = 26;
         $('#ajp-map-container').hide();
@@ -53,13 +53,13 @@
             isMapview: false,
             isGallery: false,
             tutorialClosed: docCookies.getItem('ajapaik_closed_geotagger_instructions') === 'true',
-            hintUsed: window.gameHintUsed
+            hintUsed: window.gameHintUsed,
         });
         $('body').css('overflow', 'auto');
         window.locationToolsOpen = true;
         window.syncStateToUrl();
     };
-    window.stopSuggestionLocation = function () {
+    window.stopSuggestionLocation = function() {
         $('#ajp-map-container').show();
         $('#ajp-game-photo-modal').show();
         $('.modal-backdrop').show();
@@ -69,7 +69,7 @@
         window.locationToolsOpen = false;
         window.syncStateToUrl();
     };
-    window.syncStateToUrl = function () {
+    window.syncStateToUrl = function() {
         var currentUrl = window.URI(window.location.href);
         currentUrl.removeSearch('album').removeSearch('photo').removeSearch('area').removeSearch('locationToolsOpen');
         if (window.albumId) {
@@ -87,18 +87,18 @@
         window.history.replaceState(null, window.title, currentUrl);
     };
     // For displaying the small map correctly in the modal
-    photoLoadModalResizeFunction = function () {
+    photoLoadModalResizeFunction = function() {
         $('#ajp-photo-modal-map-container').css('max-height', window.outerHeight / 2 + 'px');
         $('#ajp-game-modal-photo').css('max-height', window.outerHeight / 2 + 'px');
         window.showPhotoMapIfApplicable();
     };
-    window.nextPhoto = function (previous) {
+    window.nextPhoto = function(previous) {
         nextPhotoLoading = true;
         modalPhoto.unbind('load');
         window.hideDescriptions();
         window.hideDescriptionButtons();
         var request = {
-            b: new Date().getTime()
+            b: new Date().getTime(),
         };
         if (window.preselectedPhotoId) {
             request.photo = window.preselectedPhotoId;
@@ -137,7 +137,7 @@
         }
         // TODO: Why not POST?
         if (request.photo || request.album || request.area) {
-            $.getJSON(streamURL, request, function (data) {
+            $.getJSON(streamURL, request, function(data) {
                 var textTarget = $('#ajp-game-status-message'),
                     message,
                     descStatus;
@@ -179,7 +179,7 @@
                     window.preselectPhotoId = null;
                 }
                 if (data.nothingMoreToShow) {
-                    message = window.gettext("You've seen all the pictures in this album, we are now showing you random photos.");
+                    message = window.gettext('You\'ve seen all the pictures in this album, we are now showing you random photos.');
                 } else if (data.userSeenAll) {
                     message = window.gettext('You have seen all the pictures from this album.');
                 }
@@ -208,14 +208,14 @@
                 }
                 if (window.fullscreenEnabled) {
                     fullScreenImage.attr('src', currentPhoto.large.url).attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
-                        .on('load', function () {
-                        fullScreenImage.unbind('load');
-                    });
+                        .on('load', function() {
+                            fullScreenImage.unbind('load');
+                        });
                 } else {
                     fullScreenImage.attr('data-src', currentPhoto.large.url).attr('alt', currentPhoto.description)
-                        .on('load', function () {
-                        fullScreenImage.unbind('load');
-                    });
+                        .on('load', function() {
+                            fullScreenImage.unbind('load');
+                        });
                 }
                 fullScreenImage.parent().removeClass('ajp-photo-flipped');
                 modalPhoto.removeClass('ajp-photo-flipped');
@@ -246,30 +246,30 @@
         }
     };
 
-    window.showDescriptions = function () {
+    window.showDescriptions = function() {
         window.gameHintUsed = true;
         window.descriptionViewHistory[currentPhoto.id] = true;
         $('#ajp-game-photo-description').show();
         $('#ajp-game-photo-identifier').show();
         _gaq.push(['_trackEvent', 'Game', 'Show description']);
     };
-    window.showDescriptionButtons = function () {
+    window.showDescriptionButtons = function() {
         $('.ajp-game-show-description-button').show();
     };
-    window.hideDescriptions = function () {
+    window.hideDescriptions = function() {
         $('#ajp-game-photo-description').hide();
         $('#ajp-game-photo-identifier').hide();
     };
-    window.hideDescriptionButtons = function () {
+    window.hideDescriptionButtons = function() {
         $('.ajp-game-show-description-button').hide();
         $('#ajp-game-full-screen-show-description-button').hide();
     };
-    $(document).ready(function () {
+    $(document).ready(function() {
         window.updateLeaderboard();
         $('#ajp-game-photo-modal').modal({
             backdrop: 'static',
-            keyboard: false
-        }).on('shown.bs.modal', function () {
+            keyboard: false,
+        }).on('shown.bs.modal', function() {
             if (window.straightToSpecify) {
                 $('#ajp-photo-modal-specify-location').click();
                 $('.modal-backdrop').hide();
@@ -278,7 +278,7 @@
             window.showPhotoMapIfApplicable();
         });
         if (!isMobile) {
-            $('.ajp-show-similar-photo-selection-overlay-button').hide('fade',250);
+            $('.ajp-show-similar-photo-selection-overlay-button').hide('fade', 250);
         }
         $('#ajp-geotagging-container').AjapaikGeotagger();
         // FIXME: Only place coordinates are in reverse order
@@ -289,28 +289,28 @@
             window.getMap(undefined, undefined, true);
         }
         window.nextPhoto();
-        window.handleAlbumChange = function () {
+        window.handleAlbumChange = function() {
             if (window.albumId) {
                 window.location.href = gameURL + '?album=' + window.albumId;
             }
         };
-        $('#logout-button').click(function () {
+        $('#logout-button').click(function() {
             _gaq.push(['_trackEvent', 'Game', 'Logout']);
         });
-        $('.ajp-game-specify-location-button').click(function () {
+        $('.ajp-game-specify-location-button').click(function() {
             _gaq.push(['_trackEvent', 'Game', 'Specify location mobile button']);
         });
-        $(document).on('click', '#ajp-game-source-link', function () {
+        $(document).on('click', '#ajp-game-source-link', function() {
             _gaq.push(['_trackEvent', 'Game', 'Source link click']);
         });
-        $(document).on('click', '.ajp-game-next-photo-button', function () {
+        $(document).on('click', '.ajp-game-next-photo-button', function() {
             if (!nextPhotoLoading) {
                 var data = {
                     photo_id: currentPhoto.id,
                     origin: 'Game',
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken')
+                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                 };
-                $.post(window.saveLocationURL, data, function () {
+                $.post(window.addGeotagUrl, data, function() {
                     window.nextPhoto();
                 });
                 _gaq.push(['_trackEvent', 'Game', 'Next photo']);
@@ -318,7 +318,7 @@
             window.photoModalCurrentPhotoFlipped = false;
             $('#ajp-game-flip-button').removeClass('active');
         });
-        $(document).on('click', '.ajp-game-previous-photo-button', function () {
+        $(document).on('click', '.ajp-game-previous-photo-button', function() {
             if (!nextPhotoLoading && !$(this).hasClass('ajp-game-previous-photo-button-disabled')) {
                 window.nextPhoto(true);
                 _gaq.push(['_trackEvent', 'Game', 'Previous photo']);
@@ -326,10 +326,10 @@
             window.photoModalCurrentPhotoFlipped = false;
             $('#ajp-game-flip-button').removeClass('active');
         });
-        $(document).on('click', '#ajp-game-close-game-modal', function () {
+        $(document).on('click', '#ajp-game-close-game-modal', function() {
             window.location.href = mapURL + '?album=' + window.albumId;
         });
-        $(document).on('click', 'a.fullscreen', function (e) {
+        $(document).on('click', 'a.fullscreen', function(e) {
             e.preventDefault();
             if (window.BigScreen.enabled) {
                 var div = $('#ajp-fullscreen-image-container'),
@@ -346,20 +346,20 @@
                 _gaq.push(['_trackEvent', 'Game', 'Full-screen']);
             }
         });
-        $(document).on('click', '.ajp-game-show-description-button', function () {
+        $(document).on('click', '.ajp-game-show-description-button', function() {
             window.showDescriptions();
             window.hideDescriptionButtons();
         });
-        $('#ajp-game-modal-body').hover(function () {
+        $('#ajp-game-modal-body').hover(function() {
             if (!isMobile) {
-                $('.ajp-show-similar-photo-selection-overlay-button').show('fade',250);
+                $('.ajp-show-similar-photo-selection-overlay-button').show('fade', 250);
                 $('.ajp-photo-modal-next-button').show();
                 $('.ajp-photo-modal-previous-button').show();
                 $('#ajp-game-flip-button').show();
             }
-        }, function () {
+        }, function() {
             if (!isMobile && !window.fullscreenEnabled) {
-                $('.ajp-show-similar-photo-selection-overlay-button').hide('fade',250);
+                $('.ajp-show-similar-photo-selection-overlay-button').hide('fade', 250);
                 $('.ajp-photo-modal-next-button').hide();
                 $('.ajp-photo-modal-previous-button').hide();
                 $('#ajp-game-flip-button').hide();

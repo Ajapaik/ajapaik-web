@@ -43,12 +43,9 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
 
     annotation_remove_request = AnnotationRemove(annotation_id, request.user.id)
 
-    has_deleted_successfully = object_annotation_delete_service.remove_annotation(annotation_remove_request)
+    object_annotation_delete_service.remove_annotation(annotation_remove_request)
 
-    if has_deleted_successfully:
-        return response.success()
-    else:
-        return response.action_failed()
+    return response.success()
 
 
 def get_all_annotations(request, photo_id=None) -> HttpResponse:

@@ -1,10 +1,11 @@
 # encoding: utf-8
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Count
+
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle, FaceRecognitionRectangleFeedback, \
-                                            FaceRecognitionUserSuggestion
-from django.conf import settings
+    FaceRecognitionUserSuggestion
 
 
 class Command(BaseCommand):
@@ -14,8 +15,8 @@ class Command(BaseCommand):
         for language in settings.MODELTRANSLATION_LANGUAGES:
             attribute = f'name_{language}'
             duplicates = Album.objects.values(attribute) \
-                              .annotate(name_count=Count(attribute)) \
-                              .filter(name_count__gt=1)
+                .annotate(name_count=Count(attribute)) \
+                .filter(name_count__gt=1)
 
             for duplicate in duplicates:
                 if duplicate[attribute] is None or duplicate[attribute] == '' or duplicate[attribute].isspace():
@@ -40,6 +41,7 @@ class Command(BaseCommand):
                 if albums_linking_to_other_instances is not None:
                     for link in albums_linking_to_other_instances:
                         link.subalbum_of = first_instance
+                        link.save(update_fields=["subalbum_of"])
                         link.save()
 
                 for other_instance in other_instances:

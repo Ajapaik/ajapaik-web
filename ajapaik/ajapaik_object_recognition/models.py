@@ -64,7 +64,7 @@ class ObjectAnnotationFeedback(models.Model):
         else:
             string_label += f'Rejected annotation {self.object_detection_annotation.id}'
 
-        if self.alternative_object is not None:
+        if self.alternative_object:
             string_label += f', alternative object suggested: {self.alternative_object.__str__()}'
 
         return string_label

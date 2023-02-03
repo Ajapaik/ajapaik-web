@@ -16,7 +16,7 @@ class FlickrCommonsDriver(object):
                                          extras='tags,geo', page=cleaned_data['flickrPage'])
 
     @staticmethod
-    def transform_response(response, remove_existing=False):
+    def transform_response(self, response, remove_existing=False):
         ids = [p['id'] for p in response['photos']['photo']]
         transformed = {
             'result': {

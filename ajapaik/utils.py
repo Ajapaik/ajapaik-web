@@ -1,12 +1,15 @@
+import datetime as datetime
 import hashlib
 import os
 from math import cos, sin, radians, atan2, sqrt
 
+from PIL.Image import Image
+from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
 
-def get_etag(_request, image, _content):
+def get_etag(_request: HttpRequest, image: Image):
     if os.path.isfile(image):
         m = hashlib.md5()
         with open(image, 'rb') as f:
@@ -16,16 +19,15 @@ def get_etag(_request, image, _content):
     return None
 
 
-def last_modified(_request, image, _content):
-    from datetime import datetime
+def last_modified(_request: HttpRequest, image: Image) -> datetime.datetime | None:
     if os.path.isfile(image):
-        return datetime.fromtimestamp(os.path.getmtime(image))
+        return datetime.datetime.fromtimestamp(os.path.getmtime(image))
 
     return None
 
 
 # FIXME: Ugly functions, make better or import from whatever library we have anyway
-def calculate_thumbnail_size(p_width, p_height, desired_longest_side):
+def calculate_thumbnail_size(p_width: int, p_height: int, desired_longest_side: int) -> tuple[int, int]:
     if p_width and p_height:
         w = float(p_width)
         h = float(p_height)
@@ -44,7 +46,7 @@ def calculate_thumbnail_size(p_width, p_height, desired_longest_side):
     return int(desired_width), int(desired_height)
 
 
-def calculate_thumbnail_size_max_height(p_width, p_height, desired_height):
+def calculate_thumbnail_size_max_height(p_width: int, p_height: int, desired_height: int) -> tuple[int, int]:
     w = float(p_width)
     h = float(p_height)
     desired_height = float(desired_height)
@@ -54,7 +56,7 @@ def calculate_thumbnail_size_max_height(p_width, p_height, desired_height):
     return int(desired_width), int(desired_height)
 
 
-def convert_to_degrees(value):
+def convert_to_degrees(value: list[list[int]]):
     d0 = value[0][0]
     d1 = value[0][1]
     d = float(d0) / float(d1)
@@ -70,7 +72,7 @@ def convert_to_degrees(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def angle_diff(angle1, angle2):
+def angle_diff(angle1: float, angle2: float):
     diff = angle2 - angle1
     if diff < -180:
         diff += 360
@@ -79,7 +81,7 @@ def angle_diff(angle1, angle2):
     return abs(diff)
 
 
-def average_angle(angles):
+def average_angle(angles: list[int]):
     x = y = 0
     for e in angles:
         x += cos(radians(e))
@@ -92,26 +94,26 @@ def distance_in_meters(lon1, lat1, lon2, lat2):
     return (2 * 6350e3 * 3.1415 / 360) * sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
 
-def most_frequent(List):
+def most_frequent(lst: list[float]) -> float:
     counter = 0
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
-        if (current_frequency >= counter):
+        current_frequency = lst.count(i)
+        if current_frequency >= counter:
             counter = current_frequency
             num = i
     return num
 
 
-def least_frequent(List):
+def least_frequent(lst: list[float]) -> float:
     counter = None
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
+        current_frequency = lst.count(i)
         if not counter or current_frequency < counter:
             counter = current_frequency
             num = i
@@ -124,17 +126,17 @@ def can_action_be_done(model, photo, profile, key, new_value):
     setattr(new_suggestion, key, new_value)
 
     all_suggestions = model.objects.filter(
-            photo=photo
-        ).exclude(
-            proposer=profile
-        ).order_by(
-            'proposer_id',
-            '-created'
-        ).all().distinct(
-            'proposer_id'
-        )
+        photo=photo
+    ).exclude(
+        proposer=profile
+    ).order_by(
+        'proposer_id',
+        '-created'
+    ).all().distinct(
+        'proposer_id'
+    )
 
-    if all_suggestions is not None:
+    if all_suggestions:
         suggestions = [new_value]
 
         for suggestion in all_suggestions:
@@ -172,7 +174,7 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
         all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
             .order_by('proposer_id', '-created').all().distinct('proposer_id')
 
-        if all_suggestions is not None:
+        if all_suggestions:
             suggestions = [new_value]
 
             for suggestion in all_suggestions:
@@ -184,12 +186,11 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
                 was_action_successful = False
             new_value = most_common_choice
 
-        if function_name is not None:
+        if function_name:
             old_value = getattr(photo, key)
             if function_name == 'do_rotate' and (old_value is None or (new_value != old_value)):
                 getattr(photo, function_name)(new_value)
-            elif (function_name != 'do_rotate') and (
-                    (old_value or new_value is True) and old_value != new_value):
+            elif (function_name != 'do_rotate') and ((old_value or new_value is True) and old_value != new_value):
                 getattr(photo, function_name)()
         else:
             setattr(photo, key, new_value)
@@ -200,7 +201,7 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
                 response = SUGGESTION_CHANGED
                 was_action_successful = True
         else:
-            Points(user=profile, action=action_type, photo=photo, points=score, created=timezone.now()).save()
+            Points.objects.create(user=profile, action=action_type, photo=photo, points=score, created=timezone.now())
             if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
                 response = SUGGESTION_SAVED
                 was_action_successful = True

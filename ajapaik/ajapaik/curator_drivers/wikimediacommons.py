@@ -10,17 +10,6 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
-def wikimediacommons_find_photo_by_url(record_url, profile):
-    photo = None
-    filename = re.search(r'https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)', record_url, re.IGNORECASE)
-    if filename:
-        filename = filename.group(1)
-        file_url = f'https://commons.wikimedia.org/wiki/File:{filename}'
-        photo = Photo.objects.filter(source_url=file_url, source__description='Wikimedia Commons').first()
-
-    return photo
-
-
 class CommonsDriver(object):
     def __init__(self):
         self.search_url = 'https://commons.wikimedia.org/w/api.php'
@@ -102,7 +91,7 @@ class CommonsDriver(object):
         return response
 
     @staticmethod
-    def transform_response(response, remove_existing=False, current_page=1):
+    def transform_response(self, response, remove_existing=False, current_page=1):
         transformed = {
             'result': {
                 'firstRecordViews': [],
@@ -131,8 +120,8 @@ class CommonsDriver(object):
 
             targetlangs = ['et', 'fi', 'en', 'sv', 'no']
             if 'query' in imageinfo and 'pages' in imageinfo['query']:
-                for pageid in imageinfo['query']['pages']:
-                    existing_photo = Photo.objects.filter(external_id=pageid,
+                for page_id in imageinfo['query']['pages']:
+                    existing_photo = Photo.objects.filter(external_id=page_id,
                                                           source__description='Wikimedia Commons'
                                                           ).first()
                     if remove_existing and existing_photo:
@@ -148,12 +137,12 @@ class CommonsDriver(object):
                     longitude = None
                     licence = ''
                     licence_desc = ''
-                    licenceUrl = ''
+                    licence_url = ''
                     record_url = ''
                     thumbnail_url = None
                     credit = ''
 
-                    pp = imageinfo['query']['pages'][pageid]
+                    pp = imageinfo['query']['pages'][page_id]
                     if 'title' in pp:
                         title = pp['title']
 
@@ -166,9 +155,9 @@ class CommonsDriver(object):
                         allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif']
                         if 'mime' in im and im['mime'] in allowed_mime_types:
                             if 'url' in im:
-                                imageUrl = im['url']
+                                image_url = im['url']
                         else:
-                            imageUrl = thumbnail_url.replace('-500px-', f'-{str(im["width"])}px-')
+                            image_url = thumbnail_url.replace('-500px-', f'-{str(im["width"])}px-')
 
                         if 'descriptionurl' in im:
                             record_url = im['descriptionurl']
@@ -190,7 +179,7 @@ class CommonsDriver(object):
                             if 'LicenseShortName' in em:
                                 licence = strip_tags(em['LicenseShortName']['value']).strip()
                             if 'LicenseUrl' in em:
-                                licenceUrl = strip_tags(em['LicenseUrl']['value']).strip()
+                                licence_url = strip_tags(em['LicenseUrl']['value']).strip()
                             if 'UsageTerms' in em:
                                 licence_desc = strip_tags(em['UsageTerms']['value']).strip()
                             if 'Credit' in em:
@@ -238,17 +227,17 @@ class CommonsDriver(object):
                             'cachedThumbnailUrl': thumbnail_url or None,
                             'title': title,
                             'institution': 'Wikimedia Commons',
-                            'imageUrl': imageUrl,
-                            'id': pageid,
-                            'mediaId': pageid,
-                            'identifyingNumber': pageid,
+                            'imageUrl': image_url,
+                            'id': page_id,
+                            'mediaId': page_id,
+                            'identifyingNumber': page_id,
                             'urlToRecord': record_url,
                             'latitude': latitude,
                             'longitude': longitude,
                             'creators': author,
                             'description': description,
                             'licence': licence_desc,
-                            'licenceUrl': licenceUrl,
+                            'licenceUrl': licence_url,
                             'date': date
                         }
                     except:  # noqa
