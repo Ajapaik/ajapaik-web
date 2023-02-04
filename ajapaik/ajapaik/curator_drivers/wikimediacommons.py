@@ -52,7 +52,7 @@ class CommonsDriver(object):
             json = loads(get(petscan_url, {}).text)
 
             n = 0
-            offset = self.page_size * (cleaned_data['flickrPage'] - 1)
+            offset = self.page_size * (cleaned_data['driverPage'] - 1)
             if '*' in json and json['*'][0] and 'a' in json['*'][0] and '*' in json['*'][0]['a']:
                 for p in json['*'][0]['a']['*']:
                     if p['nstext'] == 'File':
@@ -84,7 +84,7 @@ class CommonsDriver(object):
                 'srnamespace': '6',
                 'srsearch': cleaned_data['fullSearch'],
                 'srlimit': self.page_size,
-                'sroffset': self.page_size * (cleaned_data['flickrPage'] - 1)
+                'sroffset': self.page_size * (cleaned_data['driverPage'] - 1)
             }).text)
 
             if 'query' in json:
@@ -262,9 +262,8 @@ class CommonsDriver(object):
                             Album.objects.filter(pk__in=album_ids, atype=Album.CURATED).values_list('id',
                                                                                                     'name').distinct())
 
-                    #                        print(transformed_item, file=sys.stderr)
                     transformed['result']['firstRecordViews'].append(transformed_item)
 
-        print(nn, ' photos found')
+        print(nn, 'photos found from wikimedia commons')
         transformed = dumps(transformed)
         return transformed

@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.sitemaps import views as sitemap_views
 from django.contrib.staticfiles.views import serve
+from django.views.decorators.cache import cache_page
 from django.views.generic import RedirectView, TemplateView
 from django.views.i18n import JavaScriptCatalog
 from django_comments_xtd import urls as dcxtd_urls
@@ -26,7 +27,6 @@ from ajapaik.ajapaik.bbox_api import PhotosView
 from ajapaik.ajapaik.sitemaps import PhotoSitemap, StaticViewSitemap
 from ajapaik.ajapaik_face_recognition import urls as fr_urls
 from ajapaik.ajapaik_object_recognition import urls as or_urls
-from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     url(r'^stream/', views.fetch_stream, name='fetch_stream'),
@@ -77,11 +77,11 @@ urlpatterns = [
     url(r'^ajapaikaja/$', views.redirect_view, name='legacy_game'),
     url(r'^kaart/$', views.redirect_view, name='legacy_map'),
     # Preferred URLs
-    url(r'^photo-thumb/(?P<photo_id>\d+)/$', cache_page(86400)(views.image_thumb), name='image_thumb'),
-    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', cache_page(86400)(views.image_thumb), name='image_thumb'),
-    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', cache_page(86400)(views.image_thumb),
+    url(r'^photo-thumb/(?P<photo_id>\d+)/$', views.image_thumb, name='image_thumb'),
+    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/', views.image_thumb, name='image_thumb'),
+    url(r'^photo-thumb/(?P<photo_id>\d+)/(?P<thumb_size>\d+)/(?P<pseudo_slug>.*)/$', views.image_thumb,
         name='image_thumb'),
-    url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', cache_page(86400)(views.image_full), name='image_full'),
+    url(r'^photo-full/(?P<photo_id>\d+)/(?P<pseudo_slug>.*)/$', views.image_full, name='image_full'),
     url(r'^photo-selection/$', views.photo_selection, name='photo_selection'),
     url(r'^view-selection/$', views.list_photo_selection, name='list_photo_selection'),
     url(r'^upload-selection/$', views.upload_photo_selection, name='upload_photo_selection'),
@@ -196,7 +196,8 @@ sitemaps = {
 }
 
 urlpatterns += [
-    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), cache_page(86400)(serve), {'show_indexes': True, 'insecure': False}),
+    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), cache_page(86400)(serve),
+        {'show_indexes': True, 'insecure': False}),
     url(r'^accounts/email/$', views.MyEmailView.as_view(), name="account_email"),
     url(r'^accounts/password/change/$', views.MyPasswordChangeView.as_view(), name="account_change_password"),
     url(r'^accounts/password/set/$', views.MyPasswordSetView.as_view(), name="account_set_password"),

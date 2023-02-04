@@ -15,9 +15,10 @@ from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
 
 
 class OauthDoneForm(forms.Form):
-    token=forms.CharField(label=_('Token'), max_length=254)
-    route=forms.CharField(label=_('Route'), max_length=254)
-    provider=forms.CharField(label=_('Provider'), max_length=254)
+    token = forms.CharField(label=_('Token'), max_length=254)
+    route = forms.CharField(label=_('Route'), max_length=254)
+    provider = forms.CharField(label=_('Provider'), max_length=254)
+
 
 class SignupForm(AllauthSignupForm):
     email = forms.CharField(label=_('Email'), max_length=254)
@@ -287,6 +288,11 @@ class CuratorPhotoUploadForm(forms.Form):
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
     licence = forms.CharField(max_length=255, required=False)
     licenceUrl = forms.CharField(max_length=255, required=False)
+    persons = forms.JSONField(required=False)
+    start_date = forms.CharField(max_length=27, required=False)
+    end_date = forms.CharField(max_length=27, required=False)
+    date_start_accuracy = forms.CharField(max_length=32, required=False)
+    date_end_accuracy = forms.CharField(max_length=32, required=False)
 
 
 class SelectionUploadForm(forms.Form):

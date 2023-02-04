@@ -10,7 +10,6 @@ import shutil
 import ssl
 import stat
 import sys
-import unicodedata
 import urllib
 from copy import deepcopy
 from html import unescape
@@ -23,10 +22,10 @@ from uuid import uuid4
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
-import numpy
 import cv2
 import django_comments
 import requests
+import unicodedata
 from PIL import Image, ImageFile, ImageOps
 from PIL.ExifTags import TAGS, GPSTAGS
 from allauth.account.forms import AddEmailForm, ChangePasswordForm, SetPasswordForm
@@ -37,7 +36,7 @@ from allauth.socialaccount.views import ConnectionsView
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.gis.db.models.functions import Distance, GeometryDistance
+from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.core.cache import cache
@@ -249,12 +248,13 @@ def get_album_info_modal_content_old(request):
 
     return HttpResponse('Error')
 
+
 # 2022-11-02 faster rewrite of get_album_info_modal_content() query
 # number of rephoto_user_count and geotagging_user_count is 1 smaller
 # than old because different way to handle NULL:s
 
 def get_album_info_modal_content(request):
-    starttime=time()
+    starttime = time()
 
     profile = request.get_user().profile
     form = AlbumInfoModalForm(request.GET)
@@ -272,40 +272,39 @@ def get_album_info_modal_content(request):
         for sa in album.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             subalbums.append(sa.id)
 
-        rephotostats=AlbumStats.get_rephoto_stats_sql(subalbums, profile.pk)
+        rephotostats = AlbumStats.get_rephoto_stats_sql(subalbums, profile.pk)
 
-        context['user_geotagged_photo_count']     = AlbumStats.get_user_geotagged_photo_count_sql(subalbums, profile.pk)
-        context['geotagging_user_count']          = AlbumStats.get_geotagging_user_count_sql(subalbums)
-        context['rephoto_count']                  = rephotostats["rephoto_count"]
-        context['rephoto_user_count']             = rephotostats["rephoto_user_count"] 
-        context['rephotographed_photo_count']     = rephotostats["rephotographed_photo_count"] 
-        context['user_rephoto_count']             = rephotostats["user_rephoto_count"]
-        context['user_rephotographed_photo_count']= rephotostats["user_rephotographed_photo_count"]
-        context['user_made_all_rephotos']         = rephotostats['user_made_all_rephotos']
-        context['similar_photo_count']            = album.similar_photo_count_with_subalbums 
-        context['confirmed_similar_photo_count']  = album.confirmed_similar_photo_count_with_subalbums
-        context['album_curators']                 = AlbumStats.get_album_curators_sql([album.id])
+        context['user_geotagged_photo_count'] = AlbumStats.get_user_geotagged_photo_count_sql(subalbums, profile.pk)
+        context['geotagging_user_count'] = AlbumStats.get_geotagging_user_count_sql(subalbums)
+        context['rephoto_count'] = rephotostats["rephoto_count"]
+        context['rephoto_user_count'] = rephotostats["rephoto_user_count"]
+        context['rephotographed_photo_count'] = rephotostats["rephotographed_photo_count"]
+        context['user_rephoto_count'] = rephotostats["user_rephoto_count"]
+        context['user_rephotographed_photo_count'] = rephotostats["user_rephotographed_photo_count"]
+        context['user_made_all_rephotos'] = rephotostats['user_made_all_rephotos']
+        context['similar_photo_count'] = album.similar_photo_count_with_subalbums
+        context['confirmed_similar_photo_count'] = album.confirmed_similar_photo_count_with_subalbums
+        context['album_curators'] = AlbumStats.get_album_curators_sql([album.id])
 
         if album.lat and album.lon:
             ref_location = Point(x=album.lon, y=album.lat, srid=4326)
             context['nearby_albums'] = Album.objects \
                                            .filter(
-                    geography__dwithin=(ref_location, D(m=5000)),
-                    is_public=True,
-                    atype=Album.CURATED,
-                    id__ne=album.id
-                ).order_by('?')[:3]
+                geography__dwithin=(ref_location, D(m=5000)),
+                is_public=True,
+                atype=Album.CURATED,
+                id__ne=album.id
+            ).order_by('?')[:3]
 
         album_id_str = str(album.id)
         context['share_game_link'] = f'{request.build_absolute_uri(reverse("game"))}?album={album_id_str}'
         context['share_map_link'] = f'{request.build_absolute_uri(reverse("map"))}?album={album_id_str}'
         context['share_gallery_link'] = f'{request.build_absolute_uri(reverse("frontpage"))}?album={album_id_str}'
-        context['execution_time']                 = starttime-time()
+        context['execution_time'] = starttime - time()
 
         return render(request, 'info/_info_modal_content.html', context)
 
     return HttpResponse('Error')
-
 
 
 def _get_exif_data(img):
@@ -893,7 +892,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if not album or album.id != 38516:
             blacklist_exists = Album.objects.filter(id=38516).exists()
             if blacklist_exists:
-                photos = photos.exclude(albums__in = [38516])
+                photos = photos.exclude(albums__in=[38516])
 
         # FILTERING BELOW THIS LINE
 
@@ -901,11 +900,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             sa_ids = [album.id]
             for sa in album.subalbums.exclude(atype=Album.AUTO):
                 sa_ids.append(sa.id)
-            photos = photos.filter(albums__in = sa_ids)
+            photos = photos.filter(albums__in=sa_ids)
 
             # In QuerySet "albums__in" is 1:M JOIN  so images will show up
             # multiple times in results so this needs to be distinct(). Distinct is slow.
-            photos=photos.distinct()
+            photos = photos.distinct()
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -955,7 +954,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # In some cases it is faster to get number of photos before we annotate new columns to it
         albumsize_before_sorting = 0
         if not album:
-            albumsize_before_sorting=Photo.objects.filter(pk__in=photos).cached_count()
+            albumsize_before_sorting = Photo.objects.filter(pk__in=photos).cached_count()
 
         # SORTING BELOW THIS LINE
 
@@ -1083,27 +1082,27 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         if not filter_form.cleaned_data['backsides'] and not order2 == 'transcriptions':
             photos = photos.filter(back_of__isnull=True)
 
-# FIXME: values aren't used
-# idea is to show page where the selected photo is
-# Warning: all photos is very slow
-#
-#        if requested_photo:
-#            ids = list(photos.values_list('id', flat=True))
-#            if requested_photo.id in ids:
-#                photo_count_before_requested = ids.index(requested_photo.id)
-#                page = ceil(float(photo_count_before_requested) / float(page_size))
+        # FIXME: values aren't used
+        # idea is to show page where the selected photo is
+        # Warning: all photos is very slow
+        #
+        #        if requested_photo:
+        #            ids = list(photos.values_list('id', flat=True))
+        #            if requested_photo.id in ids:
+        #                photo_count_before_requested = ids.index(requested_photo.id)
+        #                page = ceil(float(photo_count_before_requested) / float(page_size))
 
         # Note seeking (start:end) has been here done when results are limited using photo_ids above
         if albumsize_before_sorting:
             start, end, total, max_page, page = get_pagination_parameters(page, page_size, albumsize_before_sorting)
             # limit QuerySet to selected photos so it is faster to evaluate in next steps
             photos_ids = list(photos.values_list('id', flat=True)[start:end])
-            photos=photos.filter(id__in=photos_ids)
+            photos = photos.filter(id__in=photos_ids)
         else:
             photos_ids = list(photos.values_list('id', flat=True))
             start, end, total, max_page, page = get_pagination_parameters(page, page_size, len(photos_ids))
             # limit QuerySet to selected photos so it is faster to evaluate in next steps
-            photos=photos.filter(id__in=photos_ids[start:end])
+            photos = photos.filter(id__in=photos_ids[start:end])
 
         # FIXME: Stupid
         if order1 == 'closest' and lat and lon:
@@ -1390,16 +1389,21 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
             first_geotaggers = json.dumps(first_geotaggers)
         azimuth_count = geotags.filter(azimuth__isnull=False).count()
         first_rephoto = photo_obj.rephotos.all().first()
-        if 'user_view_array' not in request.session:
-            request.session['user_view_array'] = []
-        if photo_obj.id not in request.session['user_view_array']:
+
+    if request.get_user().username != settings.BOT_USERNAME:
+        user_view_array = request.session.get('user_view_array', [])
+
+        if photo_obj.id not in user_view_array:
             photo_obj.view_count += 1
+            user_view_array.append(photo_obj.id)
+            request.session['user_view_array'] = user_view_array
+
         now = timezone.now()
         if not photo_obj.first_view:
             photo_obj.first_view = now
+
         photo_obj.latest_view = now
         photo_obj.light_save()
-        request.session['user_view_array'].append(photo_obj.id)
         request.session.modified = True
 
     is_frontpage = False
@@ -1445,11 +1449,15 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
     if album:
         album_selection_form = AlbumSelectionForm({'album': album.id})
         if not request.is_ajax():
-            next_photo_id = AlbumPhoto.objects.filter(photo__gt=photo_obj.pk,album=album.id).aggregate(min_id=Min('photo_id'))['min_id']
+            next_photo_id = \
+                AlbumPhoto.objects.filter(photo__gt=photo_obj.pk, album=album.id).aggregate(min_id=Min('photo_id'))[
+                    'min_id']
             if next_photo_id:
                 next_photo = Photo.objects.get(pk=next_photo_id)
 
-            previous_photo_id = AlbumPhoto.objects.filter(photo__lt=photo_obj.pk,album=album.id).aggregate(max_id=Max('photo_id'))['max_id']
+            previous_photo_id = \
+                AlbumPhoto.objects.filter(photo__lt=photo_obj.pk, album=album.id).aggregate(max_id=Max('photo_id'))[
+                    'max_id']
             if previous_photo_id:
                 previous_photo = Photo.objects.get(pk=previous_photo_id)
     else:
@@ -1676,7 +1684,8 @@ def mapview(request, photo_id=None, rephoto_id=None):
     geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     if geotagged_photo_count:
-        last_geotagged_photo_id = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).values('id').first()['id']
+        last_geotagged_photo_id = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).values('id').first()[
+            'id']
     else:
         last_geotagged_photo_id = None
 
@@ -2164,15 +2173,7 @@ def _join_2_json_objects(obj1, obj2):
 def curator_search(request):
     form = CuratorSearchForm(request.POST)
     response = json.dumps({})
-    flickr_driver = None
-    valimimoodul_driver = None
-    finna_driver = None
-    commons_driver = None
-    europeana_driver = None
-    fotis_driver = None
     if form.is_valid():
-        if form.cleaned_data['useFlickr']:
-            flickr_driver = FlickrCommonsDriver()
         if form.cleaned_data['useMUIS'] or form.cleaned_data['useMKA'] or form.cleaned_data['useDIGAR'] or \
                 form.cleaned_data['useETERA'] or form.cleaned_data['useUTLIB']:
             valimimoodul_driver = ValimimoodulDriver()
@@ -2180,35 +2181,36 @@ def curator_search(request):
                 response = valimimoodul_driver.transform_response(
                     valimimoodul_driver.get_by_ids(form.cleaned_data['ids']),
                     form.cleaned_data['filterExisting'])
-        if form.cleaned_data['useCommons']:
-            commons_driver = CommonsDriver()
-        if form.cleaned_data['useFinna']:
-            finna_driver = FinnaDriver()
-        if form.cleaned_data['useEuropeana']:
-            europeana_driver = EuropeanaDriver()
-        if form.cleaned_data['useFotis']:
-            fotis_driver = FotisDriver()
+        else:
+            valimimoodul_driver = None
+
         if form.cleaned_data['fullSearch']:
             if valimimoodul_driver and not form.cleaned_data['ids']:
                 response = _join_2_json_objects(response, valimimoodul_driver.transform_response(
                     valimimoodul_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
-            if flickr_driver:
+            if form.cleaned_data['useFlickr']:
+                flickr_driver = FlickrCommonsDriver()
                 response = _join_2_json_objects(response, flickr_driver.transform_response(
                     flickr_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
-            if commons_driver:
+            if form.cleaned_data['useCommons']:
+                commons_driver = CommonsDriver()
                 response = _join_2_json_objects(response, commons_driver.transform_response(
                     commons_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
-            if europeana_driver:
+            if form.cleaned_data['useEuropeana']:
+                europeana_driver = EuropeanaDriver()
                 response = _join_2_json_objects(response, europeana_driver.transform_response(
                     europeana_driver.search(form.cleaned_data), form.cleaned_data['filterExisting']))
-            if finna_driver:
+            if form.cleaned_data['useFinna']:
+                finna_driver = FinnaDriver()
                 response = _join_2_json_objects(response, finna_driver.transform_response(
                     finna_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
-                    form.cleaned_data['flickrPage']))
-            if fotis_driver:
+                    form.cleaned_data['driverPage']))
+            if form.cleaned_data['useFotis']:
+                fotis_driver = FotisDriver()
+                fotis_data = fotis_driver.search(form.cleaned_data)
                 response = _join_2_json_objects(response, fotis_driver.transform_response(
-                    fotis_driver.search(form.cleaned_data), form.cleaned_data['filterExisting'],
-                    form.cleaned_data['flickrPage']))
+                    fotis_data, form.cleaned_data['filterExisting'],
+                    form.cleaned_data['driverPage']))
 
     return HttpResponse(response, content_type='application/json')
 
@@ -2285,7 +2287,7 @@ def curator_update_my_album(request):
     return HttpResponse('Faulty data', status=500)
 
 
-def _get_licence_name_by_url(url):
+def _get_licence_name_from_url(url):
     title = url
     try:
         html = requests.get(url, {}).text.replace('\n', '')
@@ -2317,7 +2319,7 @@ def curator_photo_upload_handler(request):
         'photos': {}
     }
 
-    if selection and len(selection) > 0 and profile is not None and curator_album_selection_form.is_valid():
+    if selection and profile is not None and curator_album_selection_form.is_valid():
         general_albums = Album.objects.filter(id__in=request.POST.getlist('albums'))
         if general_albums.exists():
             context['album_id'] = general_albums[0].pk
@@ -2338,19 +2340,24 @@ def curator_photo_upload_handler(request):
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
-                if upload_form.cleaned_data['institution']:
+                if not upload_form.cleaned_data['institution']:
+                    licence = unknown_licence
+                    source = Source.objects.get(name='AJP')
+                else:
                     if upload_form.cleaned_data['institution'] == 'Flickr Commons':
                         licence = flickr_licence
                     else:
                         # For Finna
                         if upload_form.cleaned_data['licence']:
-                            licence = Licence.objects.filter(name=upload_form.cleaned_data['licence']).first()
+                            licence = Licence.objects.filter(
+                                name=upload_form.cleaned_data['licence']).first() or Licence.objects.filter(
+                                url=upload_form.cleaned_data['licenceUrl']).first()
+
                             if not licence:
-                                licence = Licence.objects.filter(url=upload_form.cleaned_data['licenceUrl']).first()
-                            if not licence:
-                                licence_name = upload_form.cleaned_data['licence']
-                                if upload_form.cleaned_data['licence'] == upload_form.cleaned_data['licenceUrl']:
-                                    licence_name = _get_licence_name_by_url(upload_form.cleaned_data['licenceUrl'])
+                                if upload_form.cleaned_data['licence'] != upload_form.cleaned_data['licenceUrl']:
+                                    licence_name = upload_form.cleaned_data['licence']
+                                else:
+                                    licence_name = _get_licence_name_from_url(upload_form.cleaned_data['licenceUrl'])
 
                                 licence = Licence(
                                     name=licence_name,
@@ -2359,20 +2366,14 @@ def curator_photo_upload_handler(request):
                                 licence.save()
                         else:
                             licence = unknown_licence
-                    upload_form.cleaned_data['institution'] = upload_form.cleaned_data['institution'].split(',')[0]
+                    institution = upload_form.cleaned_data['institution'].split(',')[0]
                     if upload_form.cleaned_data['institution'] == 'ETERA':
                         upload_form.cleaned_data['institution'] = 'TLÜAR ETERA'
                     try:
-                        source = Source.objects.get(description=upload_form.cleaned_data['institution'])
+                        source = Source.objects.get(description=institution)
                     except ObjectDoesNotExist:
-                        source = Source(
-                            name=upload_form.cleaned_data['institution'],
-                            description=upload_form.cleaned_data['institution']
-                        )
-                        source.save()
-                else:
-                    licence = unknown_licence
-                    source = Source.objects.get(name='AJP')
+                        source = Source.objects.create(name=institution, description=institution)
+
                 existing_photo = None
                 if upload_form.cleaned_data['id'] and upload_form.cleaned_data['id'] != '':
                     if upload_form.cleaned_data['collections'] == 'DIGAR':
@@ -2464,19 +2465,8 @@ def curator_photo_upload_handler(request):
                             context['photos'][k] = {}
                             context['photos'][k]['message'] = _('OK')
 
-                            lat=None
-                            lng=None
-                            try:
-                                if 'latitude' in upload_form.cleaned_data \
-                                   and upload_form.cleaned_data['latitude'] !=None \
-                                   and upload_form.cleaned_data['latitude']>0 \
-                                   and 'longitude' in upload_form.cleaned_data \
-                                   and upload_form.cleaned_data['longitude'] !=None \
-                                   and upload_form.cleaned_data['longitude']>0: 
-                                        lat = upload_form.cleaned_data['latitude']
-                                        lng = upload_form.cleaned_data['longitude']
-                            except:
-                                print("lat,lng conversion failed")
+                            lat = upload_form.cleaned_data.get('latitude')
+                            lng = upload_form.cleaned_data.get('longitude')
 
                             gt_exists = GeoTag.objects.filter(type=GeoTag.SOURCE_GEOTAG,
                                                               photo__source_key=new_photo.source_key).exists()
@@ -2523,6 +2513,109 @@ def curator_photo_upload_handler(request):
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()
+
+                            persons = upload_form.cleaned_data.get('persons', [])
+
+                            if persons:
+                                existing_albums = Album.objects.filter(name__in=persons, atype=Album.PERSON)
+                                album_ids = list(existing_albums.values_list('id', flat=True))
+
+                                for album in existing_albums:
+                                    person_ap = AlbumPhoto.objects.create(
+                                        photo=new_photo,
+                                        album=album,
+                                        type=AlbumPhoto.FACE_TAGGED
+                                    )
+                                    created_album_photo_links.append(person_ap)
+
+                                existing_names = existing_albums.values_list('name', flat=True)
+                                new_names = list(set(persons) - set(existing_names))
+
+                                for person_name in new_names:
+                                    album = Album.objects.create(
+                                        name=person_name,
+                                        atype=Album.PERSON,
+                                    )
+                                    album_ids.append(album.id)
+                                    person_ap = AlbumPhoto.objects.create(
+                                        photo=new_photo,
+                                        album=album,
+                                        type=AlbumPhoto.FACE_TAGGED
+                                    )
+                                    created_album_photo_links.append(person_ap)
+
+                                affected_albums = Album.objects.filter(id__in=album_ids)
+                                affected_albums.update(photo_count_with_subalbums=F('photo_count_with_subalbums') + 1)
+
+                                if lat and lng:
+                                    affected_albums.update(
+                                        geotagged_photo_count_with_subalbums=F(
+                                            'geotagged_photo_count_with_subalbums') + 1)
+
+                                affected_albums_without_photo = affected_albums.filter(cover_photo=None)
+                                affected_albums_without_photo.update(cover_photo=new_photo)
+
+                            start_date = upload_form.cleaned_data.get('start_date')
+                            end_date = upload_form.cleaned_data.get('end_date')
+                            date_start_accuracy = upload_form.cleaned_data.get('date_start_accuracy')
+                            date_end_accuracy = upload_form.cleaned_data.get('date_end_accuracy')
+
+                            if start_date or end_date:
+                                if date_start_accuracy == 'Kuu':
+                                    start_accuracy = Dating.MONTH
+                                    raw_start_pattern = '%Y.%m'
+                                elif date_start_accuracy == 'Aasta':
+                                    start_accuracy = Dating.YEAR
+                                    raw_start_pattern = '%Y'
+                                elif date_start_accuracy == 'Kuupäev':
+                                    start_accuracy = Dating.DAY
+                                    raw_start_pattern = '%Y.%m.%d'
+                                else:
+                                    start_accuracy = None
+                                    raw_start_pattern = '%Y.%m.%d'
+
+                                if date_end_accuracy == 'Kuu':
+                                    end_accuracy = Dating.MONTH
+                                    raw_end_pattern = '%Y.%m'
+                                elif date_end_accuracy == 'Aasta':
+                                    end_accuracy = Dating.YEAR
+                                    raw_end_pattern = '%Y'
+                                elif date_end_accuracy == 'Kuupäev':
+                                    end_accuracy = Dating.DAY
+                                    raw_end_pattern = '%Y.%m.%d'
+                                else:
+                                    end_accuracy = None
+                                    raw_end_pattern = '%Y.%m.%d'
+
+                                start = datetime.datetime.fromisoformat(start_date).strftime(
+                                    '%Y-%m-%d') if start_date else None
+
+                                end = datetime.datetime.fromisoformat(end_date).strftime(
+                                    '%Y-%m-%d') if end_date else None
+
+                                raw_start = datetime.datetime.fromisoformat(start_date).strftime(
+                                    raw_start_pattern) if start_date else None
+
+                                raw_end = datetime.datetime.fromisoformat(end_date).strftime(
+                                    raw_end_pattern) if end_date else None
+
+                                dating = Dating.objects.create(
+                                    photo=new_photo,
+                                    start=start or end,
+                                    end=start or end,
+                                    raw=f'{raw_start}-{raw_end}' if start and end else start and f'{raw_start}' or end and f"-{raw_end}",
+                                    start_accuracy=start_accuracy,
+                                    end_accuracy=end_accuracy,
+                                    start_approximate=start_accuracy != Dating.DAY,
+                                    end_approximate=end_accuracy != Dating.DAY,
+                                    comment=f'Data from FOTIS / Andmed FOTIS-est'
+                                )
+
+                                new_photo.dating_count = 1
+                                new_photo.first_dating = dating.created
+                                new_photo.latest_dating = dating.created
+                                new_photo.save(update_fields=['dating_count', 'latest_dating', 'dating_count'])
+
                             created_album_photo_links.append(ap)
                             context['photos'][k]['success'] = True
                             all_curating_points.append(points_for_curating)
@@ -3428,6 +3521,7 @@ def terms(request):
 def me(request):
     return redirect('user', user_id=request.get_user().profile.id)
 
+
 def oauthdone(request):
     user = request.user
     form = OauthDoneForm(request.GET)
@@ -3435,8 +3529,8 @@ def oauthdone(request):
         if user.is_anonymous:
             return HttpResponse('No user found', status=404)
 
-        provider=form.cleaned_data['provider']
-        allowed_providers=[ 'facebook', 'google', 'wikimedia-commons']
+        provider = form.cleaned_data['provider']
+        allowed_providers = ['facebook', 'google', 'wikimedia-commons']
         if provider not in allowed_providers:
             return HttpResponse('Provider not in allowed providers.' + provider, status=404)
 
@@ -3445,11 +3539,11 @@ def oauthdone(request):
         if app == None:
             return HttpResponse('Provider ' + provider + ' not found.', status=404)
 
-        social_token=SocialToken.objects.get(account__user_id=user.id, app=app)
+        social_token = SocialToken.objects.get(account__user_id=user.id, app=app)
         if social_token == None:
             return HttpResponse('Token not found.', status=404)
 
-        token=social_token.token
+        token = social_token.token
         context = {
             'route': '/login',
             'provider': provider,
@@ -3458,6 +3552,7 @@ def oauthdone(request):
         return render(request, 'socialaccount/oauthdone.html', context)
 
     return HttpResponse('No user found', status=404)
+
 
 def user(request, user_id):
     token = ProfileMergeToken.objects.filter(source_profile_id=user_id, used__isnull=False).order_by('used').first()
@@ -3471,25 +3566,33 @@ def user(request, user_id):
     if profile.user.is_anonymous:
         commented_pictures_count = 0
     else:
-        commented_pictures_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by('object_pk').distinct('object_pk').count()
+        commented_pictures_count = MyXtdComment.objects.filter(is_removed=False, user_id=profile.id).order_by(
+            'object_pk').distinct('object_pk').count()
 
-    curated_pictures_count            = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True).count()
-    datings_count                     = Dating.objects.filter(profile_id=profile.id).distinct('photo').count()
-    face_annotations_count            = FaceRecognitionRectangle.objects.filter(user_id=profile.id).count()
-    face_annotations_pictures_count   = FaceRecognitionRectangle.objects.filter(user_id=profile.id).distinct('photo').count()
-    geotags_count                     = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct('photo').count()
-    geotag_confirmations_count        = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct('photo').count()
-    object_annotations_count          = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).count()
-    object_annotations_pictures_count = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).distinct('photo').count()
-    photolikes_count                  = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo').count()
-    rephoto_count                     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).count()
-    rephotographed_pictures_count     = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by('rephoto_of_id').distinct('rephoto_of_id').count()
-    similar_pictures_count            = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct('image_similarity').count()
-    transcriptions_count              = Transcription.objects.filter(user=profile).distinct('photo').count()
+    curated_pictures_count = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=True).count()
+    datings_count = Dating.objects.filter(profile_id=profile.id).distinct('photo').count()
+    face_annotations_count = FaceRecognitionRectangle.objects.filter(user_id=profile.id).count()
+    face_annotations_pictures_count = FaceRecognitionRectangle.objects.filter(user_id=profile.id).distinct(
+        'photo').count()
+    geotags_count = GeoTag.objects.filter(user_id=profile.id).exclude(type=GeoTag.CONFIRMATION).distinct(
+        'photo').count()
+    geotag_confirmations_count = GeoTag.objects.filter(user_id=profile.id, type=GeoTag.CONFIRMATION).distinct(
+        'photo').count()
+    object_annotations_count = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).count()
+    object_annotations_pictures_count = ObjectDetectionAnnotation.objects.filter(user_id=profile.id).distinct(
+        'photo').count()
+    photolikes_count = PhotoLike.objects.filter(profile_id=profile.id).distinct('photo').count()
+    rephoto_count = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).count()
+    rephotographed_pictures_count = Photo.objects.filter(user_id=profile.id, rephoto_of__isnull=False).order_by(
+        'rephoto_of_id').distinct('rephoto_of_id').count()
+    similar_pictures_count = ImageSimilaritySuggestion.objects.filter(proposer=profile).distinct(
+        'image_similarity').count()
+    transcriptions_count = Transcription.objects.filter(user=profile).distinct('photo').count()
 
     photo_viewpoint_elevation_suggestions_ids = PhotoViewpointElevationSuggestion.objects.filter(
         proposer_id=profile.id).distinct('photo').values_list('photo_id', flat=True)
-    photo_scene_suggestions_count = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct('photo').exclude(
+    photo_scene_suggestions_count = PhotoSceneSuggestion.objects.filter(proposer_id=profile.id).distinct(
+        'photo').exclude(
         photo_id__in=photo_viewpoint_elevation_suggestions_ids).count()
 
     action_count = commented_pictures_count + transcriptions_count + \
@@ -3499,7 +3602,7 @@ def user(request, user_id):
                    similar_pictures_count + geotag_confirmations_count + \
                    photolikes_count + photo_scene_suggestions_count + len(photo_viewpoint_elevation_suggestions_ids)
 
-    user_points=profile.points.aggregate(user_points=Sum('points'))['user_points'] 
+    user_points = profile.points.aggregate(user_points=Sum('points'))['user_points']
     if user_points == None:
         user_points = 0
 
@@ -3748,9 +3851,6 @@ def supporters(request, year=None):
     }
     current_supporters = [
         supporters['Wikimedia Finland'],
-        supporters['Republic of Estonia National Heritage Board'],
-        supporters['Kulka'],
-        supporters['Year of Digital Culture 2020']
     ]
 
     previous_supporters = [
@@ -3758,7 +3858,10 @@ def supporters(request, year=None):
         supporters['Ministry of Culture'],
         supporters['EV100'],
         supporters['Ministry of Education'],
-        supporters['National Foundation of Civil Society']
+        supporters['National Foundation of Civil Society'],
+        supporters['Republic of Estonia National Heritage Board'],
+        supporters['Kulka'],
+        supporters['Year of Digital Culture 2020']
     ]
 
     supporters = Supporter.objects.all()

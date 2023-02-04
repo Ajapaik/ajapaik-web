@@ -11,13 +11,13 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
 
 
-def finna_cut_title(title, shortTitle):
+def finna_cut_title(title, short_title):
     if title is None:
         return None
 
     title = title.rstrip()
-    if shortTitle and len(title) > 255:
-        title = shortTitle.rstrip()
+    if short_title and len(title) > 255:
+        title = short_title.rstrip()
     return title[:255]
 
 
@@ -37,10 +37,11 @@ def finna_add_to_album(photo, target_album):
         # update counts
         album.save()
 
-def get_img_url(p,size=''):
+
+def get_img_url(p, size=''):
     if 'imagesExtended' in p and len(p['imagesExtended']):
         if 'urls' in p['imagesExtended'][0]:
-            sizes = [size, 'master', 'original', 'large', 'medium', 'small'];
+            sizes = [size, 'master', 'original', 'large', 'medium', 'small']
             for s in sizes:
                 if s in p['imagesExtended'][0]['urls']:
                     if p['imagesExtended'][0]['urls'][s].startswith('/'):
@@ -52,6 +53,7 @@ def get_img_url(p,size=''):
         return 'https://api.finna.fi' + p['images'][0]
     else:
         return None
+
 
 def finna_find_photo_by_url(record_url, profile):
     photo = None
@@ -83,10 +85,10 @@ def finna_find_photo_by_url(record_url, profile):
     return photo
 
 
-def finna_import_photo(id, profile):
+def finna_import_photo(photo_id, profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {
-        'id': id,
+        'id': photo_id,
         'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
                     'recordPage', 'year',
                     'summary', 'rawData', 'imagesExtended'],
@@ -225,9 +227,9 @@ def finna_import_photo(id, profile):
 
         new_photo.save()
         new_photo.add_to_source_album()
-        id = int(new_photo.id)
+        photo_id = int(new_photo.id)
         photo = Photo.objects.filter(
-            pk=id
+            pk=photo_id
         ).first()
 
         return photo
@@ -249,7 +251,7 @@ class FinnaDriver(object):
         return loads(get(self.search_url, {
             'lookfor': cleaned_data['fullSearch'],
             'type': 'AllFields',
-            'page': cleaned_data['flickrPage'],
+            'page': cleaned_data['driverPage'],
             'limit': self.page_size,
             'lng': 'en-gb',
             'field[]': ['id', 'title', 'shortTitle', 'images', 'imageRights', 'authors', 'source', 'geoLocations',
@@ -268,7 +270,7 @@ class FinnaDriver(object):
         if 'records' in response:
             ids = [p['id'] for p in response['records']]
         if 'resultCount' in response:
-            page_count = int(ceil(float(response['resultCount']) / float(self.page_size)))
+            page_count = ceil(float(response['resultCount']) / float(self.page_size))
         transformed = {
             'result': {
                 'firstRecordViews': [],

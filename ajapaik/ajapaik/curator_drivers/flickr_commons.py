@@ -13,7 +13,7 @@ class FlickrCommonsDriver(object):
 
     def search(self, cleaned_data):
         return self.flickr.photos.search(text=cleaned_data['fullSearch'], media='photos', is_commons=True, per_page=200,
-                                         extras='tags,geo', page=cleaned_data['flickrPage'])
+                                         extras='tags,geo', page=cleaned_data['driverPage'])
 
     @staticmethod
     def transform_response(response, remove_existing=False):

@@ -22,6 +22,6 @@ class CuratorSearchForm(Form):
     useEuropeana = BooleanField(initial=False, required=False)
     useFotis = BooleanField(initial=False, required=False)
     # Also used for Finna and Fotis
-    flickrPage = IntegerField(initial=1, required=False)
+    driverPage = IntegerField(initial=1, required=False)
     filterExisting = BooleanField(initial=True, required=False)
     ids = NotValidatedMultipleChoiceField(coerce=str, required=False)

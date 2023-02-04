@@ -1,15 +1,12 @@
+import math
+import re
+from datetime import datetime, timedelta
 from json import dumps, loads
+from typing import List
 
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
-
-
-def safe_list_get(my_list, idx, default):
-    try:
-        return my_list[idx]
-    except IndexError:
-        return default
 
 
 class FotisDriver(object):
@@ -19,66 +16,87 @@ class FotisDriver(object):
                           '&filter[or][][content][like]=%s' \
                           '&filter[or][][author][like]=%s' \
                           '&filter[or][][location][like]=%s' \
+                          '&filter[or][][person][like]=%s' \
                           '&page=%s'
 
-    # def search(self, cleaned_data):
-    #     response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-    #                                       cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-    #                                       cleaned_data['flickrPage']), )
-    #     response_headers = response.headers
-    #     results = loads(response.text)
-
-    # added cycle to retrieve more results from Fotis API at once (it gives back 20 for a query)
     def search(self, cleaned_data, max_results=200):
+        fotis_multiplier = max_results / 20.0
         results = []
-        page = 1
+        response_headers = {}
+
         while len(results) < max_results:
+            previous_page = int(response_headers.get('X-Pagination-Current-Page', 0))
+
+            if previous_page and previous_page >= int(response_headers.get('X-Pagination-Page-Count')):
+                break
+
+            new_page = previous_page + 1 if previous_page else cleaned_data['driverPage'] if cleaned_data[
+                                                                                                 'driverPage'] < 2 else \
+                (cleaned_data['driverPage'] * int(fotis_multiplier)) - (int(fotis_multiplier) - 1)
+            print(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+                                     cleaned_data['fullSearch'], cleaned_data['fullSearch'],
+                                     cleaned_data['fullSearch'],
+                                     new_page), )
             response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
                                               cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                              cleaned_data['flickrPage']), )
+                                              cleaned_data['fullSearch'],
+                                              new_page), )
             response_headers = response.headers
             page_results = loads(response.text)
             results += page_results
-            page += 1
 
+        # We've hacked FOTIS to make more queries instead of 1, thus we adjust page numbers accordingly
         return {
-        'records': results[:max_results],
-        'pageSize': response_headers['X-Pagination-Per-Page'],
-        'page': response_headers['X-Pagination-Current-Page'],
-        'pageCount': response_headers['X-Pagination-Page-Count']
-    }
+            'records': results[:max_results],
+            'pageSize': 200,
+            'page': math.ceil(int(response_headers['X-Pagination-Current-Page']) / fotis_multiplier),
+            'pageCount': math.ceil(int(response_headers.get('X-Pagination-Page-Count')) / fotis_multiplier)
+        }
 
     def transform_response(self, response, remove_existing=False, fotis_page=1):
         ids = [p['id'] for p in response['records']]
         transformed = {
             'result': {
                 'firstRecordViews': [],
-                'page': fotis_page,
+                'page': response['page'],
                 'pages': response['pageCount']
             }
         }
         existing_photos = Photo.objects.filter(source__description='Fotis', external_id__in=ids).all()
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
+
             if remove_existing and existing_photo:
                 continue
             else:
-                # TODO: Handle weird dating format
-                # FIXME: Fotis SSL is broken, don't use https URLs until they figure it out
-                # image_url = p['_links']['image']['href'].replace('http://', 'https://')
+                persons_str = p.get('person')  # Fotis API doesn't have a nice name for persons
+                dating = p.get('dating', {})
+
+                start_ts = dating.get('date_beginning_timestamp')
+                end_ts = dating.get('date_end_timestamp')
+
+                start_date = datetime(1970, 1, 1) + timedelta(seconds=float(start_ts)) if start_ts else None
+                end_date = datetime(1970, 1, 1) + timedelta(seconds=float(end_ts)) if end_ts else None
+
+                title = p.get('content') or p['content_original']
                 transformed_item = {
-                    'isFotisResult': True,
                     'id': p['id'],
+                    'isFotisResult': True,
                     'identifyingNumber': p['reference_code'],
-                    'title': p['content'] if p['content'] else p['content_original'],
+                    'title': title,
                     'institution': 'Fotis',
                     'cachedThumbnailUrl': p['_links']['image']['href'],
-                    # new image url for image files without the black strip below
-                    'imageUrl': 'https://www.meediateek.ee/site/photo?id='+str(p['id']),
-                    # 'urlToRecord': p['_links']['view']['href'].replace('http://', 'https://'),
+                    # HACK: new image url for image files without the black strip below
+                    'imageUrl': f'https://www.meediateek.ee/site/photo?id={p["id"]}',
                     'urlToRecord': p['_links']['view']['href'],
-                    'creators': p['author']
+                    'creators': p['author'],
+                    'persons': transform_fotis_persons_response(persons_str) if persons_str else [],
+                    'start_date': start_date.isoformat() if start_date else None,
+                    'end_date': end_date.isoformat() if end_date else None,
+                    'date_start_accuracy': dating.get('date_beginning_accuracy'),
+                    'date_end_accuracy': dating.get('date_end_accuracy')  # Kuupäev, Kuu, Aasta, Kümnend, Sajand
                 }
+
                 if existing_photo:
                     transformed_item['ajapaikId'] = existing_photo.id
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
@@ -88,3 +106,23 @@ class FotisDriver(object):
         transformed = dumps(transformed)
 
         return transformed
+
+
+def transform_fotis_persons_response(persons_str: str) -> List[str]:
+    persons_str = persons_str.strip().strip(";")
+
+    if ";" in persons_str:
+        persons = persons_str.strip().split(";")
+    else:
+        persons = [persons_str]
+
+    result = []
+    for person in persons:
+        person = person.strip()
+        match = re.match(r'\b(\w+(?:\s*\w*))\s+\1\b', person)
+        if match:
+            result.append(match.groups()[0])
+        elif person:
+            result.append(person)
+
+    return list(set(result))

@@ -129,7 +129,7 @@ class EuropeanaDriver(object):
                 'qf': 'TYPE:"IMAGE"',
                 'query': cleaned_data['fullSearch'],
                 'rows': self.page_size,
-                'start': self.page_size * (cleaned_data['flickrPage'] - 1) + 1
+                'start': self.page_size * (cleaned_data['driverPage'] - 1) + 1
             }
             json = loads(get(self.search_url, params).text)
 

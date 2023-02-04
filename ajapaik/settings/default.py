@@ -384,7 +384,7 @@ BOT_USER_AGENTS = {
 #     },
 # }
 
-GENERAL_INFO_MODAL_CACHE_TTL = 10 * 60
+GENERAL_INFO_MODAL_CACHE_TTL = 86400  # 60 * 60 * 24
 
 # allauth configuration
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
@@ -444,6 +444,6 @@ SOCIALACCOUNT_PROVIDERS = {
 UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36'
 
 if os.getenv('GITHUB_WORKFLOW'):
-    from .test import *
+    pass
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
