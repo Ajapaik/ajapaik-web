@@ -1,4 +1,4 @@
-wheel==0.37.0
+wheel==0.38.1
 cmake
 Django==3.2.17
 django-admin-tools==0.9.0
