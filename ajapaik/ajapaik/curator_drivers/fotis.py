@@ -1,11 +1,10 @@
 import math
-import re
 from datetime import datetime, timedelta
 from json import dumps, loads
-from typing import List
 
 from requests import get
 
+from ajapaik.ajapaik.fotis_utils import transform_fotis_persons_response
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
@@ -23,6 +22,7 @@ class FotisDriver(object):
         fotis_multiplier = max_results / 20.0
         results = []
         response_headers = {}
+        photo_external_ids = []
 
         while len(results) < max_results:
             previous_page = int(response_headers.get('X-Pagination-Current-Page', 0))
@@ -33,17 +33,21 @@ class FotisDriver(object):
             new_page = previous_page + 1 if previous_page else cleaned_data['driverPage'] if cleaned_data[
                                                                                                  'driverPage'] < 2 else \
                 (cleaned_data['driverPage'] * int(fotis_multiplier)) - (int(fotis_multiplier) - 1)
-            print(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                     cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                     cleaned_data['fullSearch'],
-                                     new_page), )
             response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
                                               cleaned_data['fullSearch'], cleaned_data['fullSearch'],
                                               cleaned_data['fullSearch'],
                                               new_page), )
             response_headers = response.headers
             page_results = loads(response.text)
-            results += page_results
+
+            filtered_results = []
+            for result in page_results:
+                result_id = result.get('id')
+                if result_id and result_id not in photo_external_ids:
+                    filtered_results.append(result)
+                    photo_external_ids.append(result["id"])
+
+            results += filtered_results
 
         # We've hacked FOTIS to make more queries instead of 1, thus we adjust page numbers accordingly
         return {
@@ -106,23 +110,3 @@ class FotisDriver(object):
         transformed = dumps(transformed)
 
         return transformed
-
-
-def transform_fotis_persons_response(persons_str: str) -> List[str]:
-    persons_str = persons_str.strip().strip(";")
-
-    if ";" in persons_str:
-        persons = persons_str.strip().split(";")
-    else:
-        persons = [persons_str]
-
-    result = []
-    for person in persons:
-        person = person.strip()
-        match = re.match(r'\b(\w+(?:\s*\w*))\s+\1\b', person)
-        if match:
-            result.append(match.groups()[0])
-        elif person:
-            result.append(person)
-
-    return list(set(result))

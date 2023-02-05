@@ -91,6 +91,7 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 from ajapaik.utils import get_etag, calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff, last_modified, suggest_photo_edit
+from .fotis_utils import parse_fotis_timestamp_data
 from .utils import get_comment_replies, get_pagination_parameters
 
 log = logging.getLogger(__name__)
@@ -2513,6 +2514,7 @@ def curator_photo_upload_handler(request):
                             ap = AlbumPhoto(photo=new_photo, album=default_album, profile=profile,
                                             type=AlbumPhoto.CURATED)
                             ap.save()
+                            created_album_photo_links.append(ap)
 
                             persons = upload_form.cleaned_data.get('persons', [])
 
@@ -2557,47 +2559,24 @@ def curator_photo_upload_handler(request):
 
                             start_date = upload_form.cleaned_data.get('start_date')
                             end_date = upload_form.cleaned_data.get('end_date')
-                            date_start_accuracy = upload_form.cleaned_data.get('date_start_accuracy')
-                            date_end_accuracy = upload_form.cleaned_data.get('date_end_accuracy')
 
                             if start_date or end_date:
-                                if date_start_accuracy == 'Kuu':
-                                    start_accuracy = Dating.MONTH
-                                    raw_start_pattern = '%Y.%m'
-                                elif date_start_accuracy == 'Aasta':
-                                    start_accuracy = Dating.YEAR
-                                    raw_start_pattern = '%Y'
-                                elif date_start_accuracy == 'Kuupäev':
-                                    start_accuracy = Dating.DAY
-                                    raw_start_pattern = '%Y.%m.%d'
-                                else:
-                                    start_accuracy = None
-                                    raw_start_pattern = '%Y.%m.%d'
+                                date_start_accuracy = upload_form.cleaned_data.get('date_start_accuracy')
+                                date_end_accuracy = upload_form.cleaned_data.get('date_end_accuracy')
 
-                                if date_end_accuracy == 'Kuu':
-                                    end_accuracy = Dating.MONTH
-                                    raw_end_pattern = '%Y.%m'
-                                elif date_end_accuracy == 'Aasta':
-                                    end_accuracy = Dating.YEAR
-                                    raw_end_pattern = '%Y'
-                                elif date_end_accuracy == 'Kuupäev':
-                                    end_accuracy = Dating.DAY
-                                    raw_end_pattern = '%Y.%m.%d'
-                                else:
-                                    end_accuracy = None
-                                    raw_end_pattern = '%Y.%m.%d'
+                                start_accuracy, raw_start_pattern = parse_fotis_timestamp_data(date_start_accuracy)
+                                end_accuracy, raw_end_pattern = parse_fotis_timestamp_data(date_end_accuracy)
+
+                                raw_start = datetime.datetime.fromisoformat(start_date).strftime(
+                                    raw_start_pattern) if start_date else None
+                                raw_end = datetime.datetime.fromisoformat(end_date).strftime(
+                                    raw_end_pattern) if end_date else None
 
                                 start = datetime.datetime.fromisoformat(start_date).strftime(
                                     '%Y-%m-%d') if start_date else None
 
                                 end = datetime.datetime.fromisoformat(end_date).strftime(
                                     '%Y-%m-%d') if end_date else None
-
-                                raw_start = datetime.datetime.fromisoformat(start_date).strftime(
-                                    raw_start_pattern) if start_date else None
-
-                                raw_end = datetime.datetime.fromisoformat(end_date).strftime(
-                                    raw_end_pattern) if end_date else None
 
                                 dating = Dating.objects.create(
                                     photo=new_photo,
@@ -2614,9 +2593,8 @@ def curator_photo_upload_handler(request):
                                 new_photo.dating_count = 1
                                 new_photo.first_dating = dating.created
                                 new_photo.latest_dating = dating.created
-                                new_photo.save(update_fields=['dating_count', 'latest_dating', 'dating_count'])
+                                new_photo.light_save(update_fields=['dating_count', 'latest_dating', 'dating_count'])
 
-                            created_album_photo_links.append(ap)
                             context['photos'][k]['success'] = True
                             all_curating_points.append(points_for_curating)
                         except Exception as e:

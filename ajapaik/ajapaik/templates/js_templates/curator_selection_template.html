@@ -15,8 +15,10 @@
                         <li class="list-group-item">{%=gettext('Source')%}: {%=o.institution%}</li>
                         <li class="list-group-item">{%=gettext('Source ID')%}: <a target="_blank" href="{%=o.urlToRecord%}" rel="noopener nofollow">{%=o.identifyingNumber%}</a></li>
                         <li class="list-group-item">{%=gettext('Size')%}: <span class="ajp-curator-selection-image-size"></span></li>
-                        <li class="list-group-item">{%=gettext('Persons')%}: {%=o.persons%}</li>
-                        <li class="list-group-item">{%=gettext('Dating')%}: ({%=o.start_date%} - {%=o.end_date%}, {%=o.date_accuracy%})</li>
+                        {% if (o.persons && o.persons.length > 0) { %} <li class="list-group-item">{%=gettext('Persons')%}: {%=o.persons%}</li> {% } %}
+                        {% if (o.start_date && o.end_date) { %} <li class="list-group-item">{%=gettext('Dating')%}: {%=o.start_date.substr(0,10)%} - {%=o.end_date.substr(0,10)%} {% if (o.date_start_accuracy) { %} ({%=o.date_start_accuracy%}{% } %}{% if (o.date_end_accuracy) { %}, {%=o.date_end_accuracy%} {% } %})</li> {% } %}
+                        {% if (!o.start_date && o.end_date) { %} <li class="list-group-item">{%=gettext('Dating')%}: {%=o.end_date.substr(0,10)%} {% if (o.date_end_accuracy) { %} ({%=o.date_end_accuracy%})  {% } %}</li> {% } %}
+                        {% if (o.start_date && !o.end_date) { %} <li class="list-group-item">{%=gettext('Dating')%}: {%=o.start_date.substr(0,10)%} {% if (o.date_start_accuracy) { %} ({%=o.date_start_accuracy%}) {% } %}</li> {% } %}
                     </ul>
                 </div>
                 <div class="ajp-curator-selection-button-row">

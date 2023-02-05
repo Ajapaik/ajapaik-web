@@ -1909,11 +1909,13 @@ class GoogleMapsReverseGeocode(Model):
 
 
 class Dating(Model):
-    DAY, MONTH, YEAR = range(3)
+    DAY, MONTH, YEAR, DECADE, CENTURY = range(5)
     ACCURACY_CHOICES = (
         (DAY, _('Day')),
         (MONTH, _('Month')),
         (YEAR, _('Year')),
+        (DECADE, _('Decade')),
+        (CENTURY, _('Century'))
     )
 
     photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
