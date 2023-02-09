@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Hibutima3
 # Author: Joquliina
 # Author: MITO
 # Author: Nike
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 11:00+0200\n"
-"PO-Revision-Date: 2023-01-26 12:00:28+0000\n"
+"PO-Revision-Date: 2023-02-09 12:00:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -305,7 +306,7 @@ msgstr "Maan tasalta"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "Kuva on korkealaatuinen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
@@ -516,7 +517,7 @@ msgstr "Numero"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "Kuva lisätty albumiin käyttäjältä:"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"

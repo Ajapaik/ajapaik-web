@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Hibutima3
 # Author: Joquliina
 # Author: KK
 # Author: MITO
@@ -24,7 +25,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2023-01-26 12:00:29+0000\n"
+"PO-Revision-Date: 2023-02-09 12:00:24+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1564,7 +1565,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:15
 msgid "Ajapaik has received donations from:"
-msgstr ""
+msgstr "Ajapaik on saanut lahjoituksia käyttäjiltä:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:26
 msgid "Earlier funders:"
@@ -1624,7 +1625,7 @@ msgstr "kuvien takapuolet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "kuvat panoraamaformaatissa"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
