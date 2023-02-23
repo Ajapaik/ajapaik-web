@@ -19,6 +19,7 @@
 # Author: Pittigrilli
 # Author: ThisCarthing
 # Author: Tiin
+# Author: Timonade
 # Author: Umlaut
 # --
 # This file is part of the Ajapaik Project
@@ -27,7 +28,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-01-26 12:00:28+0000\n"
+"PO-Revision-Date: 2023-02-23 12:00:23+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,11 +42,11 @@ msgstr "Farben umkehren"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "Fügen Sie der Anfrage mindestens die Parameter flip, invert oder rotate hinzu"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "Fügen Sie der Anfrage mindestens den Parameter scene oder viewpoint_elevation hinzu"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
@@ -358,7 +359,7 @@ msgstr "Wikidata-Kennung"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "Originalsprache"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
