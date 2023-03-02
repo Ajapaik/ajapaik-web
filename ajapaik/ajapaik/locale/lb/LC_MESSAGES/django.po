@@ -3,6 +3,7 @@
 #
 # Author: Robby
 # Author: Soued031
+# Author: Volvox
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-01-26 12:00:30+0000\n"
+"PO-Revision-Date: 2023-03-02 12:00:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -866,7 +867,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr "Sidd Dir sécher datt Dir Iech wëllt ausloggen?"
+msgstr "Sidd Dir sécher, datt Dir Iech wëllt ausloggen?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
