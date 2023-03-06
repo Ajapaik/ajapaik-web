@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Robby
+# Author: Volvox
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -11,7 +12,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-01-26 12:00:29+0000\n"
+"PO-Revision-Date: 2023-03-06 12:00:23+0000\n"
 "Language: lb\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +46,7 @@ msgstr "Systemfeeler"
 #: ajapaik/ajapaik/static/js/ajp-core.js:1069
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Not selected"
-msgstr ""
+msgstr "Net ausgewielt"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
@@ -218,7 +219,7 @@ msgstr "Loftbild"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
-msgstr ""
+msgstr "Detailer vum Album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
@@ -238,11 +239,11 @@ msgstr "Auteur"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr ""
+msgstr "Zeen kategoriséieren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr ""
+msgstr "Bemierkungen am Album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
@@ -293,7 +294,7 @@ msgstr "Buedem"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "D'Bild huet eng héich Qualitéit"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
@@ -301,7 +302,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "Bild huet keng Informatioun iwwer eng Plaz"
+msgstr "D'Bild huet keng Informatioun iwwer eng Plaz"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
@@ -613,7 +614,7 @@ msgstr "Merci!"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "This album contains a film"
-msgstr ""
+msgstr "An dësem Album gëtt et ee Film"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Title"
@@ -625,7 +626,7 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Net identifizéierte Jong"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified girl"
@@ -633,23 +634,23 @@ msgstr "Net identifizéiert Meedchen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified child"
-msgstr ""
+msgstr "Net identifizéiert Kand"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "Net identifizéierten erwuessene Mann"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "Net identifizéiert erwuesse Fra"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "Net identifizéiert erwuesse Persoun"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Net identifizéierten eelere Mann"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
@@ -657,7 +658,7 @@ msgstr "Net identifizéiert eeler Fra"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Net identifizéiert eeler Persoun"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
@@ -669,7 +670,7 @@ msgstr "Net identifizéiert Fra"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
 msgid "Unidentified person"
-msgstr ""
+msgstr "Net identifizéiert Persoun"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
 msgid "Unknown author"
@@ -701,7 +702,7 @@ msgstr "lescht"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "mannst"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
@@ -790,11 +791,11 @@ msgstr "Meng Favoritten"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:294
 msgid "My rephotos"
-msgstr ""
+msgstr "Meng Refotoen"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr ""
+msgstr "Refotoe vum %(user)s"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
@@ -802,11 +803,11 @@ msgstr "All Biller"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "Dir hutt all d'Biller aus dësem Album gesinn. Mir weisen Iech elo zoufälleg Fotoen."
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:184
 msgid "You have seen all the pictures from this album."
-msgstr ""
+msgstr "Dir hutt all d'Biller aus dësem Album gesinn."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
 msgid "You're anonymous."
@@ -924,8 +925,8 @@ msgstr ""
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dir hutt %s Punkt kritt"
+msgstr[1] "Dir hutt %s Punkte kritt"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
@@ -941,7 +942,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the picture?"
-msgstr ""
+msgstr "Wat steet op dem Bild?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
@@ -953,11 +954,11 @@ msgstr "Aloggen"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Altersgrupp auswielen (fakultativ)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "Geschlecht auswielen (fakultativ)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -981,7 +982,7 @@ msgstr "fakultativ"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Net identifizéiert"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1115,7 +1116,7 @@ msgstr "Sich nom Objet"
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Need 2 characters"
-msgstr "Brauch 2 Buschtawen"
+msgstr "Brauch 2 Zeechen"
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 #: ajapaik/ajapaik/static/js/constants.js:109
@@ -1128,12 +1129,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:107
 msgid "Enter person name"
-msgstr ""
+msgstr "Numm vun der Persoun aginn"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Add new person"
-msgstr "Nei Persoun deräisetzen"
+msgstr "Nei Persoun derbäisetzen"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Specify person name"
@@ -1178,8 +1179,8 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(photoCount)s Bild"
+msgstr[1] "%(photoCount)s Biller"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
@@ -1200,5 +1201,5 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
+msgstr "Objet op Wikidata kucken"
 
