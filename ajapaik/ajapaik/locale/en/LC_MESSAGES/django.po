@@ -1586,6 +1586,10 @@ msgstr "Filtering"
 msgid "Filters"
 msgstr "Filters"
 
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:382
+msgid "Model Prediction Filters"
+msgstr "Model Prediction Filters"
+
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
 msgstr "film"

@@ -2036,6 +2036,27 @@ class Suggestion(Model):
         abstract = True
 
 
+class PhotoModelSuggestionConfirmReject(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation_to_confirm = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
+    scene_to_confirm = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    viewpoint_elevation_to_reject = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
+    scene_to_reject = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_confirmation', on_delete=CASCADE)
+
+
 class PhotoSceneSuggestion(Suggestion):
     INTERIOR, EXTERIOR = range(2)
     SCENE_CHOICES = (
