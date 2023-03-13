@@ -22,7 +22,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-01-26 12:00:32+0000\n"
+"PO-Revision-Date: 2023-03-13 12:00:30+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -542,7 +542,7 @@ msgstr "圖庫"
 
 #: ajapaik/ajapaik/models.py:1366
 msgid "Permalink"
-msgstr "靜態連結"
+msgstr "固定連結"
 
 #: ajapaik/ajapaik/models.py:1367
 msgid "Source"
