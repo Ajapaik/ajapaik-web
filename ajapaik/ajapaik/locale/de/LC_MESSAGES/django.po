@@ -28,12 +28,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-02-23 12:00:23+0000\n"
+"PO-Revision-Date: 2023-03-16 12:00:23+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
-"X-Generator: MediaWiki 1.40.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
