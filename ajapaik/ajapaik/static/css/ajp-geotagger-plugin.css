@@ -381,6 +381,13 @@
     border-radius: 0;
 }
 
+.ajp-button {
+        bottom: 3% !important;
+    right: 3% !important;
+    min-width: 150px;
+    border-radius: 0;
+}
+
 #ajp-geotagging-container div.gm-style-mtc > div:nth-of-type(2) {
     bottom: auto;
 }

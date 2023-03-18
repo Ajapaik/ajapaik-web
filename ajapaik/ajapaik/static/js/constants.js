@@ -85,6 +85,7 @@ var constants = {
         'Failed to load object annotation classes'
       ),
       GET_ANNOTATIONS_FAILED: gettext('Failed to load annotations'),
+      GET_CATEGORY_FAILED: gettext('Failed to load object category'),
       ADD_OBJECT_ANNOTATION_SUCCESS: gettext(
         'Successfully added object annotation'
       ),

@@ -1,9 +1,31 @@
-{% load i18n ajapaik_templatetags comments %}
+{% load i18n ajapaik_templatetags comments static %}
 <div class="container-fluid text-left">
     <!-- start of dater block -->
     <div class="row my-2" id="ajp-dater-container"></div>
     <!-- end of dater block -->
     <!-- start of albums block -->
+<!--    TODO: Category confirmation, rejection here-->
+
+    <div id="ajp-latest-category-scene-div" style="display: none">
+        <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset">
+          <span>Scene category:</span>
+            <span id="ajp-latest-category-scene"></span>
+            <div class='btn-group w-10' role='group'>
+            <button type='submit' id='ajp-dater-submit-button1' class='btn btn-success w-5'><span class='material-icons notranslate'>check</span></button>
+            <button type='button' id='ajp-dater-cancel-button1' class='btn btn-danger w-5'><span class='material-icons notranslate'>close</span></button>
+            </div>
+        </div>
+    </div>
+    <div id="ajp-latest-category-view-point-div" style="display: none">
+        <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
+          <span>View Point Elevation category:</span>
+            <span id="ajp-latest-category-view-point"></span>
+            <div class='btn-group w-10' role='group'>
+            <button type='submit' id='ajp-dater-submit-button' class='btn btn-success w-5'><span class='material-icons notranslate'>check</span></button>
+            <button type='button' id='ajp-dater-cancel-button' class='btn btn-danger w-5'><span class='material-icons notranslate'>close</span></button>
+            </div>
+        </div>
+    </div>
     <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
         <span class="material-icons notranslate ajp-photo-modal-album-icon ajp-cursor-default float-left mt-2 pr-3 ajp-icon-36"
             title="{% blocktrans count counter=albums|length %}Picture belongs to album{% plural %}Picture belongs to albums:{% endblocktrans %}">
@@ -62,9 +84,21 @@
     {% endif %}
 </div>
 
+<script src="{% static "js/ajp-picture-category-retrival.js" %}"></script>
+
 {% block specific_js %}
     <script>
         $(document).ready(function () {
+            getPictureCategoryCategories('{{ photo.id }}', function(categoryMap) {
+                if (categoryMap.hasOwnProperty('scene')) {
+                    $("#ajp-latest-category-scene").html(categoryMap["scene"]);
+                    $("#ajp-latest-category-scene-div").show();
+                }
+                if (categoryMap.hasOwnProperty('viewpoint_elevation')) {
+                    $("#ajp-latest-category-view-point").html(categoryMap["viewpoint_elevation"]);
+                    $("#ajp-latest-category-view-point-div").show();
+                }
+            });
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
@@ -81,6 +115,7 @@
                 .then(function(response) {
                     return response.json();
                 }).then(function(data){
+                    console.log(data)
                     let popoverContent = $('<div>', { style: 'max-width:240px;' });
                     if (data.profile) {
                         popoverContent.append(gettext('Picture added to album by:') + ' ');
