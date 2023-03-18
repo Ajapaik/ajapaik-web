@@ -115,7 +115,6 @@
                 .then(function(response) {
                     return response.json();
                 }).then(function(data){
-                    console.log(data)
                     let popoverContent = $('<div>', { style: 'max-width:240px;' });
                     if (data.profile) {
                         popoverContent.append(gettext('Picture added to album by:') + ' ');
