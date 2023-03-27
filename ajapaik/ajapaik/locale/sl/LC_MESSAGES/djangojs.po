@@ -1,0 +1,1206 @@
+# Translation of Ajapaik Web app - JavaScript to Slovenian (slovenščina)
+# Exported from translatewiki.net
+#
+# Author: Eleassar
+# --
+# This file is part of the Ajapaik Project
+# This file is distributed under the same license as the Ajapaik package.
+#
+msgid ""
+msgstr ""
+""
+"PO-Revision-Date: 2023-03-27 15:28:39+0000\n"
+"X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"Plural-Forms: nplurals=4; plural=(n%100 == 1) ? 0 : ( (n%100 == 2) ? 1 : ( (n%100 == 3 || n%100 == 4) ? 2 : 3 ) );\n"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:392
+msgid "User denied the request for Geolocation."
+msgstr "Uporabnik je zavrnil zahtevek za geolokacijo."
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:398
+msgid "Location information is unavailable."
+msgstr "Podatek o lokaciji ni na voljo."
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:401
+msgid "The request to get user location timed out."
+msgstr "Časovna omejitev zahtevka za pridobitev lokacije uporabnika je pretekla."
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:404
+msgid "An unknown error occurred."
+msgstr "Prišlo je do neznane napake."
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:878
+#: ajapaik/ajapaik/static/js/ajp-core.js:894
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
+msgid "System error"
+msgstr "Sistemska napaka"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1024
+#: ajapaik/ajapaik/static/js/ajp-core.js:1069
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
+msgid "Not selected"
+msgstr "Ni izbrano"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1601
+msgid "Go to my location"
+msgstr "Pojdi na mojo lokacijo"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1613
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
+msgid "Close"
+msgstr "Zapri"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1765
+msgid "Pick the shooting location!"
+msgstr "Izberite lokacijo posnetka"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1775
+#: ajapaik/ajapaik/static/js/ajp-core.js:1827
+msgid "Geotagged by this many users"
+msgstr "Geoznačilo je toliko uporabnikov"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1808
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
+msgid "Confirm correct location"
+msgstr "Potrdite pravilno lokacijo"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1819
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
+msgid "Submit your own location"
+msgstr "Predložite svojo lokacijo"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1846
+msgid "You"
+msgstr "Vi"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1850
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
+msgid "Anonymous user"
+msgstr "Anonimen uporabnik"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1852
+msgid "Anonymous users"
+msgstr "Anonimni uporabniki"
+
+#: ajapaik/ajapaik/static/js/ajp-core.js:1916
+msgid "Current location"
+msgstr "Trenutna lokacija"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
+msgid "Between approximately %(from)s and approximately %(to)s"
+msgstr "Med približno %(from)s in približno %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
+msgid "Between approximately %(from)s and %(to)s"
+msgstr "Med približno %(from)s in %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
+msgid "Between %(from)s and approximately %(to)s"
+msgstr "Med %(from)s in približno %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
+msgid "Between %(from)s and %(to)s"
+msgstr "Med %(from)s in %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
+msgid "After approximately %(from)s"
+msgstr "Po približno %(from)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
+msgid "After %(from)s"
+msgstr "Po %(from)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
+msgid "Before approximately %(to)s"
+msgstr "Pred približno %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
+msgid "Before %(to)s"
+msgstr "Pred %(to)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
+msgid "Approximately %(date)s"
+msgstr "Približno %(date)s"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
+msgid "Invalid input, see help text."
+msgstr "Neveljaven vnos, glejte besedilo pomoči."
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:314
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:364
+msgid "Server received invalid data."
+msgstr "Strežnik je prejel neveljavne podatke."
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
+msgid "MUIS"
+msgstr "MUIS"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
+msgid "Confirm dating"
+msgstr "Potrdite datiranje"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
+msgid "Confirming a dating earned you %(points)s points."
+msgstr "S potrditvijo datiranja ste si prislužili %(points)s točk."
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
+msgid "Submitting a dating earned you %(points)s points."
+msgstr "s predložitvijo datiranja ste si prislužili %(points)s točk."
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
+msgid "Thanks!"
+msgstr "Hvala!"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
+msgid "YYYY.MM.DD"
+msgstr "LLLL.MM.DD"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
+#: ajapaik/ajapaik/static/js/constants.js:60
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
+#: ajapaik/ajapaik/static/js/ajp-selection.js:186
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
+#: ajapaik/ajapaik/static/js/constants.js:62
+msgid "Submit"
+msgstr "Pošlji"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
+msgid "Comment your dating"
+msgstr "Komentirajte svoje datiranje"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
+msgstr "Uporabite obliko LLLL.MM.DD (MM.DD ni obvezno)"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "1878 | 1902.02"
+msgstr "1878 | 1902.02"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "Mark date ranges or before/after with either \"-\" or \"..\""
+msgstr "Označite datumske razpone ali pred/za z »-« ali »..«"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr "1910–1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "Approximate date in brackets"
+msgstr "Približen datum v oklepajih"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
+msgid "(1944) | (1940.05)..1941.08.21)"
+msgstr "(1944) | (1940.05)..1941.08.21)"
+
+#: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
+msgid "You're anonymous"
+msgstr "Ste anonimni"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:5
+msgid "Add this picture to album (not the whole set)"
+msgstr "Dodaj v album to sliko (ne celotnega kompleta)"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Aerial"
+msgstr "Zračno"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
+msgid "Album details"
+msgstr "Podatkio o albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
+msgid "Album has <em>%(photoCount)s</em> pictures"
+msgstr "Album vsebuje <em>%(photoCount)s</em> slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
+msgid "Approximate address"
+msgstr "Približen naslov"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
+msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
+msgstr "Ste prepričani, da želite ustvariti album z manj kot 5 fotografijami? Priporočamo, da ustvarite albume z vsaj 10 ali več slikami."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
+msgid "Author"
+msgstr "Avtor"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
+msgid "Categorize scene"
+msgstr "Kategorizirajte prizor"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
+msgid "Comments in album"
+msgstr "Komentarji v albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
+msgid "Comments"
+msgstr "Komentarji"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+msgid "Confirm"
+msgstr "Potrdi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
+msgid "Could not copy link to clipboard"
+msgstr "Povezave ni bilo mogoče kopirati v odložišče"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
+msgid "Date"
+msgstr "Datum"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
+msgid "Description"
+msgstr "Opis"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
+#: ajapaik/ajapaik/static/js/ajp-selection.js:212
+msgid "Edit"
+msgstr "Uredi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
+msgid "Exterior"
+msgstr "Zunanjost"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
+msgid "Failed to send your feedback, sorry."
+msgstr "Povratnih informacij žal ni bilo mogoče poslati."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
+msgid "Flip"
+msgstr "Zrcali"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
+msgid "Geotag pictures in album"
+msgstr "Geooznačevanje slik v albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Ground"
+msgstr "Tla"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
+msgid "Picture is of high quality"
+msgstr "Slika je visoke kakovosti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
+msgid "Picture has location and view direction info"
+msgstr "Na sliki so podatki o lokaciji in smeri pogleda"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
+msgid "Picture has no location info"
+msgstr "Slika nima podatkov o lokaciji"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
+msgid "Picture has only location, no view direction"
+msgstr "Slika ima samo lokacijo, brez smeri pogleda"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
+msgid "Picture has rephotos"
+msgstr "Slika ima refotografije"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
+msgid "Picture has similar photos"
+msgstr "Slika ima podobne fotografije"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
+msgid "Institution"
+msgstr "Ustanova"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
+msgid "Interior"
+msgstr "Notranjost"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
+msgid "Invert colors"
+msgstr "Obrni barve"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
+msgid "Invert"
+msgstr "Obrni"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
+msgid "Licence"
+msgstr "Licenca"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
+msgid "Link copied to clipboard"
+msgstr "Povezava kopirana v odložišče"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
+msgid "Mark stereophoto"
+msgstr "Označi stereofoto"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
+msgid "No aerial pictures were found in this album"
+msgstr "V tem albumu ni bilo mogoče najti nobene zračne slike"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
+msgid "No aerial pictures were found"
+msgstr "Najdena ni bila nobena zračna slika"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
+msgid "No exterior views were found in this album"
+msgstr "V tem albumu ni bilo mogoče najti nobene slike zunanjosti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
+msgid "No exterior views were found"
+msgstr "Najdena ni bila nobena slika zunanjosti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
+msgid "No high-quality pictures were found"
+msgstr "Najdena ni bila nobena visokokakovostna slika"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
+msgid "No high-quality pictures were found in this album"
+msgstr "V tem albumu ni bila najdena nobena visokokakovostna slika"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
+msgid "No interior views were found in this album"
+msgstr "V tem albumu ni bila najdena nobena slika notranjosti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
+msgid "No interior views were found"
+msgstr "Najdena ni bila nobena slika notranjosti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
+msgid "No pictures in landscape format were found"
+msgstr "Slik v ležečem formatu ni bilo mogoče najti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
+msgid "No pictures in landscape format were found in this album"
+msgstr "V tem albumu ni najdenih slik v ležeči obliki"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
+msgid "No pictures in panoramic format were found"
+msgstr "Slik v panoramskem formatu ni bilo mogoče najti"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
+msgid "No pictures in panoramic format were found in this album"
+msgstr "V tem albumu ni najdenih slik v panoramskem formatu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
+msgid "No pictures from the ground level were found in this album"
+msgstr "V tem albumu ni najdenih slik s tal"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
+msgid "No pictures from the ground level were found"
+msgstr "V tem albumu ni najdenih slik s tal"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
+msgid "No pictures were found in this album"
+msgstr "V tem albumu ni najdenih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
+msgid "No pictures were found with the selected filters in this album"
+msgstr "V tem albumu z izbranimi filtri ni najdenih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
+msgid "No pictures were found with the selected filters"
+msgstr "Z izbranimi filtri ni najdenih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
+msgid "No pictures were found"
+msgstr "Ni najdenih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
+msgid "No pictures which have 0 geotags were found in this album"
+msgstr "V tem albumu ni najdenih slik z 0 geooznakami"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
+msgid "No pictures which have 0 geotags were found"
+msgstr "Ni najdenih slik z 0 geooznakami"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
+msgid "No pictures with back sides were found in this album"
+msgstr "V tem albumu ni najdenih slik s hrbtno stranjo"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
+msgid "No pictures with back sides were found"
+msgstr "Ni najdenih slik s hrbtno stranjo"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
+msgid "No pictures with marked faces were found in this album"
+msgstr "V tem albumu ni najdenih slik z označenimi obrazi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
+msgid "No pictures with marked faces were found"
+msgstr "Ni najdenih slik z označenimi obrazi"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
+msgid "No pictures in portrait format were found"
+msgstr "Ni najdenih slik v pokončnem formatu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
+msgid "No pictures in portrait format were found in this album"
+msgstr "V tem albumu ni najdenih slik v pokončnem formatu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
+msgid "No raised viewpoint pictures were found in this album"
+msgstr "V tem albumu ni najdenih slik z dvignjene zorne točke."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
+msgid "No raised viewpoint pictures were found"
+msgstr "Ni najdenih slik z dvignjene zorne točke"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
+msgid "No results found for: %(query)s in this album"
+msgstr "V tem albumu ni zadetkov za: %(query)s"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
+msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
+msgstr "V tem albumu ni zadetkov za: %(query)s\nPoskusite lahko tudi urediti filtre, uporabljene za vaše iskanje"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
+msgid "No results found for: %(query)s"
+msgstr "Ni najdenih zadetkov za: %(query)s"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
+msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
+msgstr "Ni najdenih zadetkov za: %(query)s\nPoskusite lahko tudi urediti filtre, uporabljene za vaše iskanje"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
+msgid "No pictures in square format were found"
+msgstr "Ni najdenih slik v kvadratnem formatu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
+msgid "No pictures in square format were found in this album"
+msgstr "V tem albumu ni najdenih slik v kvadratnem formatu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
+msgid "No rephotos were found"
+msgstr "Ni najdenih refotografij"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
+msgid "No rephotos were found in this album"
+msgstr "V tem albumu ni najdenih refotografij"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
+msgid "No liked pictures were found"
+msgstr "Ni najdenih všečkanih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
+msgid "No liked pictures were found in this album"
+msgstr "V tem albumu ni najdenih všečkanih slik"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
+msgid "Number"
+msgstr "Številka"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
+msgid "Picture added to album by:"
+msgstr "Sliko je v album dodal_a:"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
+msgid "Picture already in album(s)"
+msgstr "Slika je že v albumu(ih)"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
+msgid "Picture has location data attached"
+msgstr "Slika ima pripete podatke o lokaciji"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
+msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
+msgstr "Slika je že v Ajapaiku. Še vedno jo lahko dodate v svoj album, brez točk za pregledovanje."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
+msgid "Picture set has no annotations"
+msgstr "Komplet slik nima označitev"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
+msgid "Picture set has no comments"
+msgstr "Komplet slik je brez komentarjev"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
+msgid "Picture set has no datings"
+msgstr "Komplet slik nima datiranja"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
+msgid "Picture set has no geotags"
+msgstr "Komplet slik nima geooznačevanja"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
+msgid "Picture set has no likes"
+msgstr "Komplet slik nima všečkov"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
+msgid "Picture set has no rephotos"
+msgstr "Komplet slik nima refotografij"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
+msgid "Picture set has no transcriptions"
+msgstr "Komplet slik nima prepisov"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
+msgid "Picture set has no views"
+msgstr "Komplet slik nima pogledov"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
+msgid "Pictures geotagged"
+msgstr "Geooznačene slike"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
+msgid "Pictures in album"
+msgstr "Slike v albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
+msgid "Points"
+msgstr "Točke"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
+#: ajapaik/ajapaik/static/js/ajp-selection.js:185
+msgid "Raised"
+msgstr "Dvignjeno"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
+msgid "Remove from selection"
+msgstr "Odstrani iz izbora"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
+msgid "Rephotos in album"
+msgstr "Refotografije v albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
+msgid "Rotate"
+msgstr "Zasuk"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
+msgid "Show pictures on map"
+msgstr "Prikaz slik na zemljevidu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
+msgid "Similar photos in album"
+msgstr "Podobne slike v albumu"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
+msgid "Size"
+msgstr "Velikost"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
+#: ajapaik/ajapaik/static/js/ajp-selection.js:93
+msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
+msgstr "Nekaj je šlo narobe, preverite povezavo. Če težave ne odpravite, nas kontaktirajte na Tawk.to"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
+msgid "Source ID"
+msgstr "ID vira"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
+msgid "Source"
+msgstr "Vir"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
+msgid "Thank you! Bad rectangle deleted."
+msgstr "Hvala! Napačen pravokoten izbrisan."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
+msgid "Thank you!"
+msgstr "Hvala!"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
+msgid "This album contains a film"
+msgstr "Ta album vsebuje film"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
+msgid "Title"
+msgstr "Naslov"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
+msgid "URL"
+msgstr "URL"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
+msgid "Unidentified boy"
+msgstr "Neprepoznan deček"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
+msgid "Unidentified girl"
+msgstr "Neprepoznana deklica"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
+msgid "Unidentified child"
+msgstr "Neprepoznan otrok"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
+msgid "Unidentified adult man"
+msgstr "Neprepoznan odrasel moški"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
+msgid "Unidentified adult woman"
+msgstr "Neprepoznana odrasla ženska"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
+msgid "Unidentified adult person"
+msgstr "Neprepoznana odrasla oseba"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
+msgid "Unidentified elderly man"
+msgstr "Neprepoznan starejši moški"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
+msgid "Unidentified elderly woman"
+msgstr "Neprepoznana starejša ženska"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
+msgid "Unidentified elderly person"
+msgstr "Neprepoznana starejša oseba"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
+msgid "Unidentified man"
+msgstr "Neprepoznan moški"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:122
+msgid "Unidentified woman"
+msgstr "Neprepoznana ženska"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
+msgid "Unidentified person"
+msgstr "Neprepoznana oseba"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
+msgid "Unknown author"
+msgstr "Neznan avtor"
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
+msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
+msgstr "Odprli ste zemljevid z izklopljenim filtrom albuma. Če ga želite vklopiti, označite polje poleg imena albuma."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
+msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
+msgstr "Odprli ste zemljevid z vklopljenim filtrom albuma. Če ga želite izklopiti, počistite polje poleg imena albuma."
+
+#: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
+msgid "photos"
+msgstr "fotografije"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
+msgid "Ordering"
+msgstr "Razvrščanje"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
+msgid "earliest"
+msgstr "najstarejše"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
+msgid "latest"
+msgstr "najnovejše"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
+msgid "least"
+msgstr "vsaj"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
+msgid "most"
+msgstr "največ"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
+msgid "Pictures furthest from you"
+msgstr "Slike, ki so od vas najbolj odddaljene"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
+msgid "Pictures closest to you"
+msgstr "Slike, ki so vam najbližje"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:126
+msgid "commented"
+msgstr "komentirane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
+msgid "rephotographed"
+msgstr "refotografirane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
+msgid "added"
+msgstr "dodane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
+msgid "geotagged"
+msgstr "geooznačene"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:138
+msgid "liked"
+msgstr "všečkane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
+msgid "categorized"
+msgstr "kategorizirane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
+msgid "dated"
+msgstr "datirane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
+msgid "transcribed"
+msgstr "prepisane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:153
+msgid "annotated"
+msgstr "označene"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
+msgid "viewed"
+msgstr "ogledane"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
+msgid "pictures"
+msgstr "slike"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:167
+msgid "By reverse timestamp"
+msgstr "Po novosti"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
+msgid "By timestamp"
+msgstr "Po starosti"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:173
+msgid "Pictures from the map"
+msgstr "Slike iz zemljevida"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:254
+msgid "Did you mean to search from:"
+msgstr "Ste želeli iskati od:"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
+msgid "all pictures"
+msgstr "vse slike"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:283
+msgid "Albums"
+msgstr "Albumi"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:290
+msgid "My favorites"
+msgstr "Moje priljubljene"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:294
+msgid "My rephotos"
+msgstr "Moje refotografije"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
+msgid "Rephotos by %(user)s"
+msgstr "Refotografije %(user)s"
+
+#: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
+msgid "All pictures"
+msgstr "Vse slike"
+
+#: ajapaik/ajapaik/static/js/ajp-game.js:182
+msgid "You've seen all the pictures in this album, we are now showing you random photos."
+msgstr "Videli ste vse slike v tem albumu; zdaj vam prikazujemo naključne fotografije."
+
+#: ajapaik/ajapaik/static/js/ajp-game.js:184
+msgid "You have seen all the pictures from this album."
+msgstr "Videli ste vse slike iz tega albuma."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
+msgid "You're anonymous."
+msgstr "Ste anonimni."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:380
+msgid " You can now log in with your e-mail."
+msgstr "Zdaj se lahko prijavite s svojim e-poštnim naslovm."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
+msgid "Toggle map center lock"
+msgstr "Preklop sredinskega zaklepa zemljevida"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
+msgid "Approximate"
+msgstr "Približno"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
+msgid "Vantage point"
+msgstr "Točka opazovanja"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
+#: ajapaik/ajapaik/static/js/constants.js:75
+msgid "Object"
+msgstr "Objekt"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:516
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
+msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
+msgstr "Zgrabite in povlecite ZEMLJEVID tako, da bo oznaka tam, kjer je stal fotograf."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
+msgid "Search box"
+msgstr "Iskalno polje"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
+msgid "Median suggestion"
+msgstr "Mediani predlog"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
+msgid "Your suggestion"
+msgstr "Vaš predlog"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
+msgid "How much has the depicted location changed?"
+msgstr "Koliko se je upodobljena lokacija spremenila?"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
+msgid "Continue"
+msgstr "Nadaljuj"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:703
+msgid "a little"
+msgstr "malo"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:704
+msgid "a lot"
+msgstr "zelo"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
+msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite zemljevid, da popravite lokacijo."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
+msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
+msgstr "Kliknite zemljevid, da zaklenete smer pogleda, ali kliknite rumeni gumb, da shranite samo lokacijo."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
+msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
+msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite MARKER, da popravite lokacijo."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
+msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
+msgstr "Zdaj lahko ločeno povlečete OZNAČEVALEC, kjer je stal fotograf, in ZEMLJEVID."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
+msgid "Drag the map so that the circle covers the approximate location, click save when ready."
+msgstr "Povlecite zemljevid tako, da krog pokriva približno lokacijo. Kliknite shrani, ko ste pripravljeni."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
+msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
+msgstr "Povlecite zemljevid tako, da je oznaka na vrhu objekta, ki ga vidite na sliki. Kliknite shrani, ko ste pripravljeni."
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
+msgid "Points awarded"
+msgstr "Dodeljene točke"
+
+#: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
+msgid "Picture flip feedback"
+msgstr "Povratna informacija o obrnitvi slike"
+
+#: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
+msgid "Historic maps"
+msgstr "Zgodovinski zemljevidi"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:708
+msgid "Remove album filter"
+msgstr "Odstrani filter albumov"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:711
+msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
+msgstr "V stranski letvici so prikazane samo slike v albumu: %(albumName)s"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:726
+msgid "Apply album filter"
+msgstr "Uporabi filter albumov"
+
+#: ajapaik/ajapaik/static/js/ajp-map.js:728
+msgid "All pictures are shown in the sidebar"
+msgstr "Vse slike so prikazane v stranski letvici"
+
+#: ajapaik/ajapaik/static/js/ajp-selection.js:82
+#, javascript-format
+msgid "You have gained %s point"
+msgid_plural "You have gained %s points"
+msgstr[0] "Pridobili ste %s točko"
+msgstr[1] "Pridobili ste %s točki"
+msgstr[2] "Pridobili ste %s točke"
+msgstr[3] "Pridobili ste %s točk"
+
+#: ajapaik/ajapaik/static/js/ajp-selection.js:88
+msgid "Your suggestion has been changed"
+msgstr "Vaš predlog je spremenjen"
+
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
+msgid "Transcribed by:"
+msgstr "Prepisal_a:"
+
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
+msgid "This transcription is correct"
+msgstr "Ta prepis je pravilen"
+
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
+msgid "What is written on the picture?"
+msgstr "Kaj je napisano na sliki?"
+
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
+msgid "You're anonymous, please login to add transcriptions"
+msgstr "Ste anonimni; za dodajanje prepisov se prijavite"
+
+#: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
+msgid "Login"
+msgstr "Prijava"
+
+#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
+msgid "Select age group (optional)"
+msgstr "Izberite starostno skupino (izbirno)"
+
+#: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
+msgid "Select gender (optional)"
+msgstr "Izberite spol (izbirno)"
+
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
+msgid "Change age group"
+msgstr "Sprememba starostne skupine"
+
+#: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
+msgid "Change gender"
+msgstr "Sprememba spola"
+
+#: ajapaik/ajapaik/static/js/constants.js:45
+msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
+msgstr "Kliknite (ne povlecite), da začnete risati označitev. Znova kliknite, da risanje končate."
+
+#: ajapaik/ajapaik/static/js/constants.js:48
+msgid "Object is required"
+msgstr "Potreben je objekt"
+
+#: ajapaik/ajapaik/static/js/constants.js:51
+msgid "optional"
+msgstr "izbirno"
+
+#: ajapaik/ajapaik/static/js/constants.js:52
+msgid "Unidentified"
+msgstr "Neprepoznano"
+
+#: ajapaik/ajapaik/static/js/constants.js:53
+msgid "Male"
+msgstr "Moški"
+
+#: ajapaik/ajapaik/static/js/constants.js:54
+msgid "Female"
+msgstr "Ženska"
+
+#: ajapaik/ajapaik/static/js/constants.js:55
+msgid "Child"
+msgstr "Otrok"
+
+#: ajapaik/ajapaik/static/js/constants.js:56
+msgid "Elderly"
+msgstr "Starejši"
+
+#: ajapaik/ajapaik/static/js/constants.js:57
+msgid "Adult"
+msgstr "Odrasel"
+
+#: ajapaik/ajapaik/static/js/constants.js:61
+msgid "Delete"
+msgstr "Izbriši"
+
+#: ajapaik/ajapaik/static/js/constants.js:66
+msgid "What is displayed"
+msgstr "Kaj je prikazano"
+
+#: ajapaik/ajapaik/static/js/constants.js:67
+msgid "Edit face annotation"
+msgstr "Uredi označitev obraza"
+
+#: ajapaik/ajapaik/static/js/constants.js:68
+msgid "Edit object annotation"
+msgstr "Uredi označitev objekta"
+
+#: ajapaik/ajapaik/static/js/constants.js:69
+msgid "Add feedback"
+msgstr "Dodaj povratno informacijo"
+
+#: ajapaik/ajapaik/static/js/constants.js:72
+msgid "Change person name"
+msgstr "Spremeni ime osebe"
+
+#: ajapaik/ajapaik/static/js/constants.js:73
+msgid "Change object class"
+msgstr "Spremeni razred objekta"
+
+#: ajapaik/ajapaik/static/js/constants.js:74
+msgid "Face"
+msgstr "Obraz"
+
+#: ajapaik/ajapaik/static/js/constants.js:79
+msgid "Failed to load object annotation classes"
+msgstr "Nalaganje razredov označitev objektov ni uspelo"
+
+#: ajapaik/ajapaik/static/js/constants.js:80
+msgid "Failed to load annotations"
+msgstr "Nalaganje označitev ni uspelo"
+
+#: ajapaik/ajapaik/static/js/constants.js:81
+msgid "Successfully added object annotation"
+msgstr "Uspešno dodana označitev objekta"
+
+#: ajapaik/ajapaik/static/js/constants.js:82
+msgid "Unable to save object annotation"
+msgstr "Označitve objekta ni bilo mogoče shraniti"
+
+#: ajapaik/ajapaik/static/js/constants.js:83
+msgid "Successfully updated object annotation"
+msgstr "Označitev objekta uspešno shranjenA"
+
+#: ajapaik/ajapaik/static/js/constants.js:84
+msgid "Unable to update object annotation"
+msgstr "Označitve objekta ni bilo mogoče posodobiti"
+
+#: ajapaik/ajapaik/static/js/constants.js:85
+msgid "Successfully added object annotation feedback"
+msgstr "Povratna informacija o označitvi objekta uspešno dodana"
+
+#: ajapaik/ajapaik/static/js/constants.js:86
+msgid "Failed to add object annotation feedback"
+msgstr "Povratne informacije o označitvi objekta ni bilo mogoče dodati"
+
+#: ajapaik/ajapaik/static/js/constants.js:87
+msgid "Successfully removed object annotation"
+msgstr "Uspešno odstranjena označitev objekta"
+
+#: ajapaik/ajapaik/static/js/constants.js:88
+msgid "Unable to remove object annotation"
+msgstr "Označitve objekta ni bilo mogoče odstraniti"
+
+#: ajapaik/ajapaik/static/js/constants.js:89
+msgid "Successfully added face annotation"
+msgstr "Uspešno dodana označitev obraza"
+
+#: ajapaik/ajapaik/static/js/constants.js:90
+msgid "Unable to save face annotation"
+msgstr "Označitve obraza ni bilo mogoče shraniti"
+
+#: ajapaik/ajapaik/static/js/constants.js:91
+msgid "Successfully edited face annotation"
+msgstr "Uspešno urejena označitev obraza"
+
+#: ajapaik/ajapaik/static/js/constants.js:92
+msgid "Failed to save face annotation edit"
+msgstr "Označitve obraza ni bilo mogoče shraniti"
+
+#: ajapaik/ajapaik/static/js/constants.js:93
+msgid "Successfully removed face annotation"
+msgstr "Uspešno odstranjena označitev obraza"
+
+#: ajapaik/ajapaik/static/js/constants.js:94
+msgid "Failed to remove face annotation"
+msgstr "Odstranitve obraza ni bilo mogoče odstraniti"
+
+#: ajapaik/ajapaik/static/js/constants.js:98
+msgid "Find object"
+msgstr "Poišči objekt"
+
+#: ajapaik/ajapaik/static/js/constants.js:99
+#: ajapaik/ajapaik/static/js/constants.js:106
+msgid "Searching"
+msgstr "Iskanje"
+
+#: ajapaik/ajapaik/static/js/constants.js:100
+msgid "Search for object"
+msgstr "Iskanje objektov"
+
+#: ajapaik/ajapaik/static/js/constants.js:101
+#: ajapaik/ajapaik/static/js/constants.js:108
+msgid "Need 2 characters"
+msgstr "Potrebna sta 2 znaka"
+
+#: ajapaik/ajapaik/static/js/constants.js:102
+#: ajapaik/ajapaik/static/js/constants.js:109
+msgid "No results found"
+msgstr "Ni najdenih zadetkov"
+
+#: ajapaik/ajapaik/static/js/constants.js:105
+msgid "Find existing person"
+msgstr "Iskanje obstoječe osebe"
+
+#: ajapaik/ajapaik/static/js/constants.js:107
+msgid "Enter person name"
+msgstr "Vnesite ime osebe"
+
+#: ajapaik/ajapaik/static/js/constants.js:110
+#: ajapaik/ajapaik/static/js/constants.js:113
+msgid "Add new person"
+msgstr "Dodaj novo osebo"
+
+#: ajapaik/ajapaik/static/js/constants.js:114
+msgid "Specify person name"
+msgstr "Določite ime osebe"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:107
+msgid "Modify existing annotations, click on an annotation to start"
+msgstr "Spremenite obstoječe označitve; za začetek kliknite označitev"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:109
+msgid "Tag a face"
+msgstr "Označitev obraza"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:121
+msgid "Draw a face annotation and add person's name"
+msgstr "Narišite označitev obraza in dodajte ime osebe"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:123
+msgid "Draw and tag a face"
+msgstr "Narišite in označite obraz"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:134
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:136
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:217
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:219
+msgid "Open album"
+msgstr "Odpri album"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:147
+msgid "Tag <em>%(personName)s</em>"
+msgstr "Označi <em>%(personName)s</em>"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:180
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:306
+msgid "Annotation was added by %(profileLink)s"
+msgstr "Označitev je dodal_a %(profileLink)s"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:182
+msgid "Automatically detected face"
+msgstr "Samodejno zaznan obraz"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:191
+msgid "%(photoCount)s picture"
+msgid_plural "%(photoCount)s pictures"
+msgstr[0] "%(photoCount)s slika"
+msgstr[1] "%(photoCount)s sliki"
+msgstr[2] "%(photoCount)s slike"
+msgstr[3] "%(photoCount)s slik"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:201
+msgid "Tag a face annotation with person's name"
+msgstr "Označite označitev obraza z imenom osebe"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
+msgid "Identify person"
+msgstr "Prepoznajte osebo"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:203
+msgid "Edit person annotation"
+msgstr "Uredite označitev osebe"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:308
+msgid "Automatically detected object"
+msgstr "Samodejno zaznan objekt"
+
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:311
+#: ajapaik/ajapaik/static/js/photoview/annotations.js:313
+msgid "View object on Wikidata"
+msgstr "Ogled objekta v Wikipodatkih"
+
