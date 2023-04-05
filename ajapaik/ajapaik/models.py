@@ -2113,9 +2113,13 @@ class ImportBlacklist(Model):
                            help_text='To be used if only one specific source key is to be blacklisted')
     source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
                                    help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
-    source_url = URLField(null=True, blank=True, max_length=1023)
-    comment = CharField(max_length=255, null=True, blank=True)
+    source_url = URLField(null=True, blank=True, max_length=1023,
+                          help_text='Used to keep reference to blacklisted item, not used for matching')
+    comment = CharField(max_length=255, null=True, blank=True,
+                        help_text='Used for adding extra information on why the image is blacklisted from import')
 
     def clean(self):
         if self.source_key and self.source_key_pattern:
             raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')
+        if self.source_key_pattern and self.source_key_pattern.startswith("*"):
+            raise ValidationError('Source key pattern can not start with *')
