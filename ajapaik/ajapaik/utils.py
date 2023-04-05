@@ -1,7 +1,10 @@
+import re
 from math import ceil
 
 from django.db.models import F
 from django_comments import get_model
+
+from ajapaik.ajapaik.models import ImportBlacklist
 
 comment_model = get_model()
 
@@ -129,3 +132,20 @@ def get_pagination_parameters(page, page_size, photo_count):
         start, end, total, max_page, page = get_pagination_parameters(max_page, page_size, photo_count)
 
     return start, end, total, max_page, page
+
+
+class ImportBlacklistService:
+    def __init__(self):
+        self.blacklisted_keys = list(
+            ImportBlacklist.objects.exclude(source_key=None).values_list('source_key', flat=True))
+        self.blacklisted_key_patterns = list(ImportBlacklist.objects.exclude(source_key_pattern=None).values_list(
+            'source_key_pattern', flat=True))
+
+    def is_blacklisted(self, source_key: str) -> bool:
+        if source_key in self.blacklisted_keys:
+            return True
+
+        if any(re.compile(pattern).match(source_key) for pattern in self.blacklisted_key_patterns):
+            return True
+
+        return False

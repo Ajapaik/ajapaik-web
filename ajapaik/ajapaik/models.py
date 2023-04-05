@@ -25,7 +25,7 @@ from django.contrib.gis.db.models import Model, TextField, FloatField, CharField
 from django.contrib.gis.geos import Point
 from django.contrib.postgres.fields import ArrayField
 from django.core.cache import cache
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
@@ -49,7 +49,7 @@ from ajapaik.ajapaik.phash import phash
 from ajapaik.utils import angle_diff, average_angle
 
 
-# Impelement count estimate as custom function per
+# Implement count estimate as custom function per
 # https://wiki.postgresql.org/wiki/Count_estimate
 # https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
 
@@ -2106,3 +2106,16 @@ class ApplicationException(Model):
     exception = TextField(_('Title'), null=True, blank=True)
     external_id = CharField(max_length=100, null=True, blank=True)
     photo = ForeignKey('Photo', on_delete=CASCADE)
+
+
+class ImportBlacklist(Model):
+    source_key = CharField(max_length=100, null=True, blank=True, unique=True,
+                           help_text='To be used if only one specific source key is to be blacklisted')
+    source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
+                                   help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
+    source_url = URLField(null=True, blank=True, max_length=1023)
+    comment = CharField(max_length=255, null=True, blank=True)
+
+    def clean(self):
+        if self.source_key and self.source_key_pattern:
+            raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')

@@ -92,7 +92,7 @@ from ajapaik.ajapaik_object_recognition.models import ObjectDetectionAnnotation
 from ajapaik.utils import get_etag, calculate_thumbnail_size, convert_to_degrees, calculate_thumbnail_size_max_height, \
     distance_in_meters, angle_diff, last_modified, suggest_photo_edit
 from .fotis_utils import parse_fotis_timestamp_data
-from .utils import get_comment_replies, get_pagination_parameters
+from .utils import get_comment_replies, get_pagination_parameters, ImportBlacklistService
 
 log = logging.getLogger(__name__)
 
@@ -1531,10 +1531,10 @@ def photoslug(request, photo_id=None, pseudo_slug=None):
         next_similar_photo = next_photo
     compare_photos_url = request.build_absolute_uri(
         reverse('compare-photos', args=(photo_obj.id, next_similar_photo.id)))
-    imageSimilarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
-    if imageSimilarities.exists():
+    image_similarities = ImageSimilarity.objects.filter(from_photo_id=photo_obj.id).exclude(similarity_type=0)
+    if image_similarities.exists():
         compare_photos_url = request.build_absolute_uri(
-            reverse('compare-photos', args=(photo_obj.id, imageSimilarities.first().to_photo_id)))
+            reverse('compare-photos', args=(photo_obj.id, image_similarities.first().to_photo_id)))
 
     people = [x.name for x in photo_obj.people]
     similar_photos = ImageSimilarity.objects.filter(from_photo=photo_obj.id).exclude(similarity_type=0)
@@ -2336,11 +2336,22 @@ def curator_photo_upload_handler(request):
         # 15 => unknown copyright
         unknown_licence = Licence.objects.get(pk=15)
         flickr_licence = Licence.objects.filter(url='https://www.flickr.com/commons/usage/').first()
+        import_blacklist_service = ImportBlacklistService()
+
         for k, v in selection.items():
             upload_form = CuratorPhotoUploadForm(v)
             created_album_photo_links = []
             awarded_curator_points = []
             if upload_form.is_valid():
+                source_key = upload_form.cleaned_data['identifyingNumber']
+
+                if source_key and import_blacklist_service.is_blacklisted(source_key):
+                    context['photos'][k] = {
+                        'error': _(
+                            f'Could not import picture, as it is blacklisted from being imported: {upload_form.cleaned_data["imageUrl"]}')}
+                    context['photos'][k]['success'] = False
+                    continue
+
                 if not upload_form.cleaned_data['institution']:
                     licence = unknown_licence
                     source = Source.objects.get(name='AJP')
@@ -2378,7 +2389,7 @@ def curator_photo_upload_handler(request):
                 existing_photo = None
                 if upload_form.cleaned_data['id'] and upload_form.cleaned_data['id'] != '':
                     if upload_form.cleaned_data['collections'] == 'DIGAR':
-                        incoming_muis_id = upload_form.cleaned_data['identifyingNumber']
+                        incoming_muis_id = source_key
                     else:
                         incoming_muis_id = upload_form.cleaned_data['id']
                     if 'ETERA' in upload_form.cleaned_data['institution']:
@@ -2392,7 +2403,7 @@ def curator_photo_upload_handler(request):
                         muis_id = incoming_muis_id
                         muis_media_id = None
                     if upload_form.cleaned_data['collections'] == 'DIGAR':
-                        upload_form.cleaned_data['identifyingNumber'] = \
+                        source_key = \
                             f'nlib-digar:{upload_form.cleaned_data["identifyingNumber"]}'
                         muis_media_id = 1
                     try:
@@ -2422,7 +2433,7 @@ def curator_photo_upload_handler(request):
                                 licence=licence,
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
-                                source_key=upload_form.cleaned_data['identifyingNumber'],
+                                source_key=source_key,
                                 source_url=upload_form.cleaned_data['urlToRecord'],
                                 flip=upload_form.cleaned_data['flip'],
                                 invert=upload_form.cleaned_data['invert'],
@@ -2605,9 +2616,8 @@ def curator_photo_upload_handler(request):
                                 ap.delete()
                             for cp in awarded_curator_points:
                                 cp.delete()
-                            context['photos'][k] = {}
-                            context['photos'][k]['error'] = _('Error uploading file: %s (%s)' %
-                                                              (e, upload_form.cleaned_data['imageUrl']))
+                            context['photos'][k] = {'error': _('Error uploading file: %s (%s)' %
+                                                               (e, upload_form.cleaned_data['imageUrl']))}
                     else:
                         if general_albums.exists():
                             for a in general_albums:
@@ -2745,6 +2755,7 @@ def csv_import(request):
         not_found_list = []
         profile = request.get_user().profile
         skipped_list = []
+        blacklisted_list = []
         success = None
         unique_album_list = []
         upload_folder = f'{settings.MEDIA_ROOT}/uploads/'
@@ -2784,6 +2795,8 @@ def csv_import(request):
             file_list.append(final_image_folder + row['file'])
 
         existing_photos = Photo.objects.filter(image__in=file_list).values_list('image', flat=True)
+
+        import_blacklist_service = ImportBlacklistService()
 
         # TODO: map over row fields instead to directly set attributes of photo with setattr
         # before doing so remove any exceptions like album, source, licence or start using only ids
@@ -2832,6 +2845,11 @@ def csv_import(request):
                 source = Source.objects.filter(id=row['source']).first()
             if 'source_key' in row.keys():
                 source_key = row['source_key']
+
+                if source_key and import_blacklist_service.is_blacklisted(source_key):
+                    blacklisted_list.append(row['file'])
+                    continue
+
             if 'source_url' in row.keys():
                 source_url = row['source_url']
             if 'date_text' in row.keys():
@@ -2984,6 +3002,9 @@ def csv_import(request):
         if len(skipped_list) > 0:
             already_exists_error = "Some imports were skipped since they already exist on Ajapaik:"
             errors.append({'message': already_exists_error, 'list': list(set(skipped_list))})
+        if len(blacklisted_list) > 0:
+            blacklisted_error = "Some images are blacklisted from Ajapaik, they were not added"
+            errors.append({'message': blacklisted_error, 'list': list(set(blacklisted_list))})
         if len(errors) < 1:
             success = 'OK'
 

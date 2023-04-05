@@ -13,7 +13,7 @@ from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
 from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, MyXtdComment, Supporter, \
-    Location, LocationPhoto, ApplicationException
+    Location, LocationPhoto, ApplicationException, ImportBlacklist
 
 
 class AlbumPhotoInline(admin.TabularInline):
@@ -229,6 +229,10 @@ class ApplicationExceptionAdmin(admin.ModelAdmin):
     form = autocomplete_form_factory(ApplicationException)
 
 
+class ImportBlacklistAdmin(admin.ModelAdmin):
+    form = autocomplete_form_factory(ImportBlacklist)
+
+
 try:
     admin.site.unregister(User)
 except NotRegistered:
@@ -257,3 +261,4 @@ admin.site.register(MyXtdComment, XtdCommentsAdmin)
 admin.site.register(Supporter, SupporterAdmin)
 admin.site.register(LocationPhoto, LocationPhotoAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(ImportBlacklist, ImportBlacklistAdmin)

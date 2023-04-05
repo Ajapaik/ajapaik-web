@@ -1,20 +1,19 @@
-from datetime import datetime, timezone, timedelta
-
 import logging
-import urllib
 import time
 import traceback
-
-from django.conf import settings
-from django.core.management.base import BaseCommand
+import urllib
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
+import requests
+from django.conf import settings
+from django.core.management.base import BaseCommand
+
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, ApplicationException
 from ajapaik.ajapaik.muis_utils import add_person_albums, extract_dating_from_event, add_dating_to_photo, \
     add_geotag_from_address_to_photo, get_muis_date_and_prefix, set_text_fields_from_muis, reset_modeltranslated_field
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Dating, Photo, Source, ApplicationException
-import xml.etree.ElementTree as ET
-
-import requests
+from ajapaik.ajapaik.utils import ImportBlacklistService
 
 
 class Command(BaseCommand):
@@ -38,6 +37,7 @@ class Command(BaseCommand):
         set_name = (options['set_name'])[0]
         museum_name = set_name.split(':')[0]
         source = Source.objects.filter(name=museum_name).first()
+        import_blacklist_service = ImportBlacklistService()
 
         if source is None:
             sets_url = f'{muis_url}?verb=ListSets'
@@ -95,8 +95,6 @@ class Command(BaseCommand):
                 try:
                     locations = []
                     person_album_ids = []
-                    creation_date_earliest = None
-                    creation_date_latest = None
                     external_id = rec.find(f'{header}d:identifier', ns).text \
                         if rec.find(f'{header}d:identifier', ns) is not None \
                         else None
@@ -106,12 +104,12 @@ class Command(BaseCommand):
 
                     rp_lr = 'resourceRepresentation/lido:linkResource'
                     image_url = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns).text \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
                         else None
 
                     image_extension = (rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}',
                                                 ns).attrib['{' + ns['lido'] + '}formatResource']).lower() \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None\
+                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
                         else None
 
                     source_url_find = rec.find(f'{record_wrap}lido:recordInfoSet/lido:recordInfoLink', ns)
@@ -120,9 +118,11 @@ class Command(BaseCommand):
                         else None
 
                     identifier_find = rec.find(f'{repository_wrap}lido:repositorySet/lido:workID', ns)
-                    identifier = identifier_find.text \
-                        if identifier_find is not None \
-                        else None
+                    identifier = identifier_find.text if identifier_find is not None else None
+
+                    if identifier and import_blacklist_service.is_blacklisted(identifier):
+                        logger.info(f'Skipping {identifier} as it is blacklisted.')
+                        continue
 
                     if image_url is None or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'webp']:
                         continue
@@ -142,7 +142,6 @@ class Command(BaseCommand):
                         source=source
                     )
                     dt = datetime.utcnow()
-                    dt.replace(tzinfo=timezone.utc)
                     photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
                     photo.light_save()
 
@@ -169,20 +168,20 @@ class Command(BaseCommand):
                     events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
                     if events is not None and len(events) > 0:
                         locations, \
-                            creation_date_earliest, \
-                            creation_date_latest, \
-                            date_prefix_earliest, \
-                            date_prefix_latest, \
-                            date_earliest_has_suffix, \
-                            date_latest_has_suffix, \
+                        creation_date_earliest, \
+                        creation_date_latest, \
+                        date_prefix_earliest, \
+                        date_prefix_latest, \
+                        date_earliest_has_suffix, \
+                        date_latest_has_suffix, \
                             = extract_dating_from_event(
-                                events,
-                                locations,
-                                creation_date_earliest,
-                                creation_date_latest,
-                                photo.latest_dating is not None or dating is not None,
-                                ns
-                            )
+                            events,
+                            locations,
+                            creation_date_earliest,
+                            creation_date_latest,
+                            photo.latest_dating is not None or dating is not None,
+                            ns
+                        )
                     if dating is not None:
                         creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
                             get_muis_date_and_prefix(dating, False)
@@ -233,7 +232,6 @@ class Command(BaseCommand):
             until_date = from_date
 
         for album in albums:
-#            album.set_calculated_fields()
             album.light_save()
 
         all_person_album_ids = list(all_person_album_ids_set)
@@ -241,5 +239,4 @@ class Command(BaseCommand):
 
         if all_person_albums.exists():
             for person_album in all_person_albums:
-#                person_album.set_calculated_fields()
                 person_album.light_save()
