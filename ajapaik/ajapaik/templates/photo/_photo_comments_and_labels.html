@@ -11,8 +11,8 @@
           <span>Scene category:</span>
             <span id="ajp-latest-category-scene"></span>
             <div class='btn-group w-10' role='group'>
-            <button type='submit' id='ajp-dater-submit-button1' class='btn btn-success w-5'><span class='material-icons notranslate'>check</span></button>
-            <button type='button' id='ajp-dater-cancel-button1' class='btn btn-danger w-5'><span class='material-icons notranslate'>close</span></button>
+            <button type='submit' id='ajp-confirm-scene-category' class='btn btn-success w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text(), 1)"><span class='material-icons notranslate'>check</span></button>
+            <button type='button' id='ajp-reject-scene-category' class='btn btn-danger w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text(), 0)"><span class='material-icons notranslate'>close</span></button>
             </div>
         </div>
     </div>
@@ -21,8 +21,8 @@
           <span>View Point Elevation category:</span>
             <span id="ajp-latest-category-view-point"></span>
             <div class='btn-group w-10' role='group'>
-            <button type='submit' id='ajp-dater-submit-button' class='btn btn-success w-5'><span class='material-icons notranslate'>check</span></button>
-            <button type='button' id='ajp-dater-cancel-button' class='btn btn-danger w-5'><span class='material-icons notranslate'>close</span></button>
+            <button type='submit' id='ajp-confirm-view-point-elevation-category' class='btn btn-success w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'view-point', 1, 1)"><span class='material-icons notranslate'>check</span></button>
+            <button type='button' id='ajp-reject-view-point-elevation-category' class='btn btn-danger w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'view-point', 1, 0)"><span class='material-icons notranslate'>close</span></button>
             </div>
         </div>
     </div>

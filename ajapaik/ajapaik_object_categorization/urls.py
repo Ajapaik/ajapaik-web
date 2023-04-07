@@ -5,7 +5,11 @@ from ajapaik.ajapaik_object_categorization import api
 
 urlpatterns = [
     url(r'^get-latest-category/(?P<photo_id>\d+)/$', views.get_latest_category,
-        name='picture_recognition_get_latest_category')
+        name='picture_recognition_get_latest_category'),
+    url(r'^confirm-latest-category', views.confirm_latest_category,
+        name='picture_recognition_get_latest_category'),
+    url(r'aggregate-category-data', views.aggregate_category_data,
+        name='aggregate_category_data')
 ]
 
 

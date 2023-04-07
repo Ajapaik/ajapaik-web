@@ -81,11 +81,17 @@ var constants = {
       },
     },
     queries: {
+      GET_CATEGORY_FAILED: gettext('Failed to load object category'),
+      POST_CATEGORY_CONFIRMATION_SUCCESS: gettext(
+        'Successfully posted object category confirmation'
+      ),
+      POST_CATEGORY_CONFIRMATION_FAILED: gettext(
+        'Failed to post object category confirmation'
+      ),
       GET_ANNOTATION_CLASSES_FAILED: gettext(
         'Failed to load object annotation classes'
       ),
       GET_ANNOTATIONS_FAILED: gettext('Failed to load annotations'),
-      GET_CATEGORY_FAILED: gettext('Failed to load object category'),
       ADD_OBJECT_ANNOTATION_SUCCESS: gettext(
         'Successfully added object annotation'
       ),

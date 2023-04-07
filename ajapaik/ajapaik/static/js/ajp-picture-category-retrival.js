@@ -11,6 +11,55 @@ function getPictureCategoryCategories(photoId, callback) {
     );
 }
 
+function sendCategoryConfirmation(photoId, category, categoryValue, confirm) {
+
+
+    console.log("categoryValue")
+    console.log(categoryValue)
+
+    var payload = {
+        "photo_id": photoId
+        // "viewpoint_elevation_to_confirm": 1,
+        // "scene_to_confirm": 1,
+        // "viewpoint_elevation_to_reject": 1,
+        // "scene_to_reject": 1
+    }
+
+    if (category === "scene") {
+        if (categoryValue === "interior") {
+            confirm === 1 ? payload["scene_to_confirm"] = 0 : payload["scene_to_reject"] = 0
+        } else if (categoryValue === "exterior") {
+            confirm === 1 ? payload["scene_to_confirm"] = 1 : payload["scene_to_reject"] = 1
+        }
+    } else if (category === "view-point") {
+        if (categoryValue === "ground") {
+            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 0 : payload["viewpoint_elevation_to_reject"] = 0
+        } else if (categoryValue === "raised") {
+            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 1 : payload["viewpoint_elevation_to_reject"] = 1
+        } else {
+            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 2 : payload["viewpoint_elevation_to_reject"] = 2
+        }
+    }
+
+    console.log("PALYLOAD")
+    console.log(payload)
+
+    var onSuccess = function () {
+        console.log("It was a success!")
+    };
+
+    postRequest(
+        '/object-categorization/confirm-latest-category',
+        payload,
+        constants.translations.queries.POST_CATEGORY_CONFIRMATION_SUCCESS,
+        constants.translations.queries.POST_CATEGORY_CONFIRMATION_FAILED,
+        onSuccess
+    );
+    console.log(photoId);
+    console.log(category);
+    console.log(confirm);
+}
+
 function determinePictureCategory(responseData) {
     var responseDict = {}
     var category;
