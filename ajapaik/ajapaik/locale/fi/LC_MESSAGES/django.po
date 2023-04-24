@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 10:59+0200\n"
-"PO-Revision-Date: 2023-03-16 12:00:24+0000\n"
+"PO-Revision-Date: 2023-04-24 11:00:46+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/fi/)\n"
 "Language: fi\n"
@@ -1695,7 +1695,7 @@ msgstr "Näytä kuvat, joissa on takapuolet"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "Näytä muotokuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
@@ -1703,11 +1703,11 @@ msgstr "Näytä neliönmuotoiset kuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "Näytä maisemakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "Näytä panoraamakuvat"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
