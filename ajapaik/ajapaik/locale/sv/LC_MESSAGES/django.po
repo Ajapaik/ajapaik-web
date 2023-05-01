@@ -4,6 +4,7 @@
 # Author: Abbe98
 # Author: H2kks
 # Author: Haxpett
+# Author: Jopparn
 # Author: Sabelöga
 # Author: WikiPhoenix
 # Author: YuliaVo
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-04-27 11:00:40+0000\n"
+"PO-Revision-Date: 2023-05-01 11:00:43+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -157,7 +158,7 @@ msgstr "Efternamn"
 #: ajapaik/ajapaik/forms.py:21
 #: ajapaik/ajapaik/templates/authentication/_login.html:41
 msgid "Password"
-msgstr "Password"
+msgstr "Lösenord"
 
 #: ajapaik/ajapaik/forms.py:22
 msgid "Password confirmation"
@@ -195,7 +196,7 @@ msgstr "Beskrivning"
 
 #: ajapaik/ajapaik/forms.py:419
 msgid "I am the author"
-msgstr "Jag är upphovsinnehavaren "
+msgstr "Jag är upphovsinnehavaren"
 
 #: ajapaik/ajapaik/forms.py:420 ajapaik/ajapaik/models.py:383
 msgid "Author"
@@ -256,7 +257,7 @@ msgstr "Om detta album är bundet till en särskild plats, ange det här"
 
 #: ajapaik/ajapaik/forms.py:468
 msgid "Album type"
-msgstr "Album typ"
+msgstr "Typ av album"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "Anything else"
@@ -324,7 +325,7 @@ msgstr "E-postadress"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Kommentarsfältet har stöd för Markdown\n\nParagrafer\nLägg till två rader för att börja på en ny paragraf.\n\nFet stil\n**Geotaggning** är den första uppgiften med gör i Ajapaik.\n\nKursiv stil\nDärefter kommer *rephotography* och *dating*.\n\nLänkar\nGå med i diskussionen på [Ajapaiklejad FB-grupp](https://www.facebook.com/groups/ajapaiklejad).\n\nBilder\n![Ajapaik är en gåva för EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Kommentarsfältet har stöd för Markdown\n\nParagrafer\nLägg till två rader för att börja på en ny paragraf.\n\nFet stil\n**Geotaggning** är den första uppgiften med gör i Ajapaik.\n\nKursiv stil\nDärefter kommer *rephotography* och *dating*.\n\nLänkar\nGå med i diskussionen på [Ajapaiklejads FB-grupp](https://www.facebook.com/groups/ajapaiklejad).\n\nBilder\n![Ajapaik är en gåva för EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:585
 msgid "Nothing to change."
@@ -348,7 +349,7 @@ msgstr "Kön"
 
 #: ajapaik/ajapaik/models.py:204
 msgid "Wikidata identifier"
-msgstr "Wikidata identifierare"
+msgstr "Wikidata-identifierare"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
@@ -441,11 +442,11 @@ msgstr "Ladda upp foto"
 
 #: ajapaik/ajapaik/models.py:1287
 msgid "Photo curation"
-msgstr "Fotografi urval"
+msgstr "Urval av fotografier"
 
 #: ajapaik/ajapaik/models.py:1288
 msgid "Photo re-curation"
-msgstr "Urval av fotografier"
+msgstr "Nytt urval av fotografier"
 
 #: ajapaik/ajapaik/models.py:1289
 msgid "Dating"
@@ -549,11 +550,11 @@ msgstr "Källa"
 
 #: ajapaik/ajapaik/models.py:1372
 msgid "Google map"
-msgstr "Google karta"
+msgstr "Google Maps"
 
 #: ajapaik/ajapaik/models.py:1373
 msgid "Google satellite"
-msgstr "Google satellit"
+msgstr "Google Satellit"
 
 #: ajapaik/ajapaik/models.py:1374
 msgid "OpenStreetMap"
@@ -956,7 +957,7 @@ msgstr "Samlingsinfo"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:22
 msgid "System error"
-msgstr "System fel"
+msgstr "Systemfel"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:33
@@ -1143,7 +1144,7 @@ msgstr "Stöd oss"
 #: ajapaik/ajapaik/templates/core/_footer.html:34
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
 msgid "See also – Sift.pics"
-msgstr "Se också - Sift.pics"
+msgstr "Se också – Sift.pics"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
@@ -1165,7 +1166,7 @@ msgstr "Visa i rutnät"
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:118
 msgid "Geotag pictures"
-msgstr "Geotagg bilder"
+msgstr "Geotagga bilder"
 
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
@@ -1514,11 +1515,11 @@ msgstr "Detaljer för engångsdonationer"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Beneficiary's name"
-msgstr "Beneficiary's name"
+msgstr "Förmånstagarens namn"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:7
 msgid "Beneficiary's account no"
-msgstr "Beneficiary's account no"
+msgstr "Förmånstagarens kontonr"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
@@ -1534,7 +1535,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:16
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
-msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and You will get income tax refunds for that."
+msgstr "Ajapaik är utvecklad av <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listade i listan över ideella föreningar, stiftelser och religiösa föreningar som drar nytta av inkomstskatteförmåner.  Vi deklarerar dina donationer och du får återbetalning av inkomstskatt för det."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:17
 msgid "Other ways of supporting us"
@@ -2046,9 +2047,8 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
-#, fuzzy
 msgid "Mark as similar or duplicates"
-msgstr "Markera som liknande/dubbletter"
+msgstr "Markera som liknande eller dubbletter"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
@@ -2497,9 +2497,8 @@ msgid "Photo already exists in Ajapaik"
 msgstr "Fotot finns redan i Ajapaik"
 
 #: ajapaik/ajapaik/views.py:2479
-#, fuzzy
 msgid "Please add pictures to your album"
-msgstr "Vänligen lägg till foton till ditt album"
+msgstr "Vänligen lägg till bilder till ditt album"
 
 #: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
@@ -2603,7 +2602,7 @@ msgstr "Vuxen"
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
 msgid "Elderly"
-msgstr "Gamling"
+msgstr "Gammal"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
@@ -2688,7 +2687,7 @@ msgstr "Ingen data här, kom tillbaka senare"
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr "estniska"
+msgstr "Estniska"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
@@ -2700,7 +2699,7 @@ msgstr "Litauiska"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr "engelska"
+msgstr "Engelska"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
@@ -2712,11 +2711,11 @@ msgstr "Svenska"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr "ryska"
+msgstr "Ryska"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr "franska"
+msgstr "Franska"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
