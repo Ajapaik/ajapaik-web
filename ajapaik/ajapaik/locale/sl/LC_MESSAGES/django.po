@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-04-27 11:00:40+0000\n"
+"PO-Revision-Date: 2023-05-08 11:00:46+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -118,11 +118,11 @@ msgstr "Ni najdenega albuma"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "Nastaviti je treba omejevalni okvir"
+msgstr "Nastaviti je treba omejevalno polje"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "Omejevalni okvir mora imeti 4 člane, ločene z vejicami"
+msgstr "Omejevalno polje mora imeti 4 člane, ločene z vejicami"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"

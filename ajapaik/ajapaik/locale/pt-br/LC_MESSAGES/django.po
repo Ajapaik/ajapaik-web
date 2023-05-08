@@ -5,6 +5,7 @@
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
 # Author: Mariagarbin
+# Author: Re demz
 # Author: Yeltsinxyz
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-04-27 11:00:40+0000\n"
+"PO-Revision-Date: 2023-05-08 11:00:46+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -601,15 +602,15 @@ msgstr "Foto original"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Este álbum contém um filme"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "Este é um álbum de pessoas"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "Este é um álbum de coleção"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -854,14 +855,14 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Tem certeza de que deseja remover o endereço de e-mail selecionado?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
-#, python-format
+#, fuzzy, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "Por favor entre com uma das contas de terceiros existentes. Ou, <a href=\"%(signup_url)s\">registre-se</a> para obter uma conta em %(signup_url)s e inicie uma sessão abaixo:"
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "Se você ainda não tiver criado uma conta, por favor <a href=\"%(signup_url)s\">registre-se</a> antes."
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -942,7 +943,7 @@ msgstr "Nota"
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "você já inicou uma sessão como %(user_name)s"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
@@ -1612,19 +1613,19 @@ msgstr "versos das fotos"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "imagens em formato retrato"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
-msgstr ""
+msgstr "imagens em formato quadrado"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "imagens em formato paisagem"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "imagens em formato panorâmico"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
@@ -1652,7 +1653,7 @@ msgstr "fotos sem geo-marcação"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "imagens de alta qualidade"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1682,19 +1683,19 @@ msgstr "Mostrar fotos com versos"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "Mostrar imagens em formato retrato"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
-msgstr ""
+msgstr "Mostrar imagens quadradas"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "Mostra imagens em formato paisagem"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "Mostra imagens panorâmicas"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
@@ -1722,7 +1723,7 @@ msgstr "Mostrar fotos sem geo-marcadores"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "Mostrar imagens de alta qualidade"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -1872,7 +1873,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "Uma visão geral das suas próprias contribuições pode ser encontrada ma sua <a href='/me'>página de usuário</a>."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
 msgid "General statistics refresh every 10 minutes."
@@ -2000,8 +2001,8 @@ msgstr "Adicionar ao álbum"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A imagem pertence à coleção"
+msgstr[1] "A imagem pertence às coleções:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2049,7 +2050,7 @@ msgstr "Adicionar categorias às fotos"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
-msgstr ""
+msgstr "Virar, girar e inverter imagens"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
@@ -2161,24 +2162,24 @@ msgstr "Você tem"
 #, python-format
 msgid "curated <b>%(curated_pictures)s</b> picture"
 msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(curated_pictures)s</b> imagem com curadoria"
+msgstr[1] "<b>%(curated_pictures)s</b> imagens com curadoria"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/user/_user_info.html:10
 #, python-format
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "localização sugerida para <b>%(geotagged_pictures)s</b> imagem"
+msgstr[1] "localizações sugeridas para <b>%(geotagged_pictures)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/user/_user_info.html:15
 #, python-format
 msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
 msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "localização confirmada para <b>%(geotag_confirmations)s</b> imagem"
+msgstr[1] "localizações confimadas para <b>%(geotag_confirmations)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/user/_user_info.html:20
@@ -2193,16 +2194,16 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(rephotographed_pictures)s</b> imagem"
+msgstr[1] "<b>%(rephotographed_pictures)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/user/_user_info.html:26
 #, python-format
 msgid "commented on <b>%(commented_pictures)s</b> picture"
 msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "comentou em <b>%(commented_pictures)s</b> imagem"
+msgstr[1] "comentou em <b>%(commented_pictures)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:34
 #, python-format
