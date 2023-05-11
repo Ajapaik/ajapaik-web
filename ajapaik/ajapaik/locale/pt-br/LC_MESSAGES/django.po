@@ -16,7 +16,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-05-08 11:00:46+0000\n"
+"PO-Revision-Date: 2023-05-11 11:02:09+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -855,9 +855,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Tem certeza de que deseja remover o endereço de e-mail selecionado?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
-#, fuzzy, python-format
+#, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr "Por favor entre com uma das contas de terceiros existentes. Ou, <a href=\"%(signup_url)s\">registre-se</a> para obter uma conta em %(signup_url)s e inicie uma sessão abaixo:"
+msgstr "Por favor entre com uma das contas de terceiros existentes. Ou, <a href=\"%(signup_url)s\">registre-se</a> para obter uma conta em %(site_name)s e inicie uma sessão abaixo:"
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
@@ -930,7 +930,7 @@ msgstr "Já tem uma conta? Então por favor <a href=\"%(login_url)s\">entre</a>.
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "O período de registro acabou"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -1597,7 +1597,7 @@ msgstr "Filtros"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "filme"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
@@ -1869,7 +1869,7 @@ msgstr "Ajapaik tem <b>%(total_photo_count)s</b> fotos históricas, das quais <b
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
 #, python-format
 msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
-msgstr ""
+msgstr "<b>%(person_annotation_count)s</b> rostos foram identificados nas imagens, uma pessoa foi identificada em %(person_annotation_count_with_person_album)s casos, idade or gênero foi marcado para %(person_annotation_count_with_subject_data)s rostos."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
@@ -2209,8 +2209,8 @@ msgstr[1] "comentou em <b>%(commented_pictures)s</b> imagens"
 #, python-format
 msgid "specified a date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "especificou uma data para <b>%(datings)s</b> imagem"
+msgstr[1] "especificou datas para <b>%(datings)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:39
 #: ajapaik/ajapaik/templates/user/_user_info.html:36
@@ -2225,8 +2225,8 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(face_annotations_pictures)s</b> imagem"
+msgstr[1] "<b>%(face_annotations_pictures)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
@@ -2240,8 +2240,8 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations_pictures)s</b> imagem"
+msgstr[1] "<b>%(object_annotations_pictures)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
@@ -2255,31 +2255,31 @@ msgstr[1] ""
 #, python-format
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "conectou <b>%(similar_pictures)s</b> imagem similar"
+msgstr[1] "conectou <b>%(similar_pictures)s</b> imagens similares"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/user/_user_info.html:58
 #, python-format
 msgid "favorited <b>%(photolikes)s</b> picture"
 msgid_plural "favorited <b>%(photolikes)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "favoritou <b>%(photolikes)s</b> imagem"
+msgstr[1] "favoritou <b>%(photolikes)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:66
 #: ajapaik/ajapaik/templates/user/_user_info.html:63
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "categorizou <b>%(photo_suggestions)s</b> imagem"
+msgstr[1] "categorizou <b>%(photo_suggestions)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Você tem <b>%(user_points)s ponto no total</b>"
+msgstr[1] "Você tem <b>%(user_points)s</b> pontos no total"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
@@ -2305,15 +2305,15 @@ msgstr "Esta conta não está conectada a nenhuma outra"
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "especificou uma data para <b>%(datings)s</b> imagem"
+msgstr[1] "especificou datas para <b>%(datings)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations)s</b> imagem"
+msgstr[1] "<b>%(object_annotations)s</b> imagens"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
@@ -2326,23 +2326,23 @@ msgstr[1] ""
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(user_points)s ponto no total</b>"
+msgstr[1] "<b>%(user_points)s</b> pontos no total"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "Manter essa conta (a outra será mesclada)"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:18
 #, python-format
 msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "Você está prestes a mesclar a sua <a href=\"%(me)s\">conta</a> atual com a conta de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. A sua ID de usuário será: %(id)s"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:21
 #, python-format
 msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "A sua <a href=\"%(me)s\">conta</a> atual será mesclada com a conta de <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. A sua ID de usuário será: %(id)s"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
@@ -2371,12 +2371,12 @@ msgstr "Especifique se deseja receber o boletim informativo e qual é o seu idio
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
 #, python-format
 msgid "%(username)s settings"
-msgstr ""
+msgstr "Configuração de %(username)s"
 
 #: ajapaik/ajapaik/templates/user/user.html:18
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> tem"
 
 #: ajapaik/ajapaik/templates/user/user.html:25
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
@@ -2725,5 +2725,5 @@ msgstr "Sua sugestão foi salva"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"
-msgstr ""
+msgstr "Você deve especificar um novo valor ao fazer uma sugestão"
 
