@@ -8,6 +8,7 @@
 # Author: Winston Sung
 # Author: 予弦
 # Author: 列维劳德
+# Author: 捍粵者
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -18,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-04-27 11:00:39+0000\n"
+"PO-Revision-Date: 2023-06-05 11:00:30+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -801,7 +802,7 @@ msgstr "我的翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr "翻拍照片由 %(user)s 做出"
+msgstr "照片由%(user)s翻拍"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
