@@ -91,7 +91,7 @@ class FotisDriver(object):
                     'institution': 'Fotis',
                     'cachedThumbnailUrl': p['_links']['image']['href'],
                     # HACK: new image url for image files without the black strip below
-                    'imageUrl': f'https://www.meediateek.ee/site/photo?id={p["id"]}',
+                    'imageUrl': f'https://www.meediateek.ee/photo/full?id={p["id"]}',
                     'urlToRecord': p['_links']['view']['href'],
                     'creators': p['author'],
                     'persons': transform_fotis_persons_response(persons_str) if persons_str else [],
