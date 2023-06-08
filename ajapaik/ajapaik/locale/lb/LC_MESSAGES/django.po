@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-04-27 11:00:39+0000\n"
+"PO-Revision-Date: 2023-06-08 11:00:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -1968,7 +1968,7 @@ msgstr "All time leaderboard"
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 #: ajapaik/ajapaik/templates/user/_user_picture.html:4
 msgid "User Facebook photo"
-msgstr "User Facebook photo"
+msgstr "Facebook-Foto vum Benotzer"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_picture.html:6

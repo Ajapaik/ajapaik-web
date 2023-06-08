@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-04-27 11:00:38+0000\n"
+"PO-Revision-Date: 2023-06-08 11:00:42+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -835,7 +835,7 @@ msgstr "Objekt"
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "Zgrabite in povlecite ZEMLJEVID tako, da bo oznaka tam, kjer je stal fotograf."
+msgstr "Zgrabite in povlecite ZEMLJEVID tako, da bo označevalec tam, kjer je stal fotograf."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
@@ -876,7 +876,7 @@ msgstr "Kliknite zemljevid, da zaklenete smer pogleda, ali kliknite rumeni gumb,
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite MARKER, da popravite lokacijo."
+msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite OZNAČEVALEC, da popravite lokacijo."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
@@ -888,7 +888,7 @@ msgstr "Povlecite zemljevid tako, da krog pokriva približno lokacijo. Kliknite 
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Povlecite zemljevid tako, da je oznaka na vrhu objekta, ki ga vidite na sliki. Kliknite shrani, ko ste pripravljeni."
+msgstr "Povlecite zemljevid tako, da bo označevalec na vrhu objekta, ki ga vidite na sliki. Ko boste pripravljeni, kliknite »Shrani«."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
