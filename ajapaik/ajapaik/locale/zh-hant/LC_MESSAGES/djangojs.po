@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-06-05 11:00:30+0000\n"
+"PO-Revision-Date: 2023-06-29 11:00:42+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -309,7 +309,7 @@ msgstr "照片含有位置與檢視方向資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "照片中含有位置資訊"
+msgstr "照片沒有位置資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
@@ -834,7 +834,7 @@ msgstr "大約"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
-msgstr "制高點"
+msgstr "有利位置"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:75
@@ -890,7 +890,7 @@ msgstr "單擊綠色按鈕以保存視圖的位置和方向。單擊地圖解鎖
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr "現在您可以分別拖拉攝影者所站的標記與地圖。"
+msgstr "現在您可以分別拖拉攝影者所站的位置標記與地圖。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
@@ -1201,7 +1201,7 @@ msgstr "編輯人物註釋"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr "自動刪除對象"
+msgstr "自動檢測到的對象"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313

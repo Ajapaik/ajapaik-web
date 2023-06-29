@@ -22,7 +22,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-04-27 11:00:41+0000\n"
+"PO-Revision-Date: 2023-06-29 11:00:43+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,11 +36,11 @@ msgstr "反轉色彩"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "請求增加翻轉、反轉或旋轉參數"
+msgstr "至少添加翻轉、反轉或旋轉參數到請求"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr "請求增加場景或viewpoint_elevation參數"
+msgstr "至少將場景或viewpoint_elevation參數添加到請求中"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
@@ -80,7 +80,7 @@ msgstr "翻拍照片上傳設定已儲存"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
-msgstr "缺少需要的權杖參數。"
+msgstr "必需的參數，權杖缺失。"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -104,11 +104,11 @@ msgstr "使用者設定已儲存。"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "You have already given feedback for this transcription"
-msgstr "您已準備對此轉錄給予回饋意見"
+msgstr "您已對此轉錄給予回饋意見"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "You have already submitted this transcription, thank you!"
-msgstr "您已準備提交此轉錄，感謝您！"
+msgstr "您已提交此轉錄，感謝您！"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "Your transcription has been updated, thank you!"
@@ -181,7 +181,7 @@ msgstr "挑選照片"
 
 #: ajapaik/ajapaik/forms.py:233 ajapaik/ajapaik/forms.py:252
 msgid "Choose parent album"
-msgstr "挑選主要相簿"
+msgstr "選擇父相簿"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
@@ -220,7 +220,7 @@ msgstr "圖片作者 (攝影師, 繪師)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr "請選擇一個許可證，讓其他人知道他們是否以及如何重複使用您上傳的材料。！N！N！如果您是作者，您可以選擇許可證（我們建議使用開放的知識共享許可證）。如果是其他人創作的作品，您需要使用與當前相同的許可和權利持有人。！N！N！目前我們也接受版權狀態不明確的內容，請選擇“版權未評估”。"
+msgstr "請選擇一個許可證，讓其他人知道他們是否以及如何重複使用您上傳的材料。\n\n如果您是作者，您可以選擇許可證（我們建議使用開放的知識共享許可證）。如果是其他人創作的作品，您需要使用與當前相同的許可和權利持有人。\n\n目前我們也接受版權狀態不明確的內容，請選擇“版權未評估”。"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
@@ -228,7 +228,7 @@ msgstr "圖片描述"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
-msgstr "作者名稱"
+msgstr "作者名"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Missing image"
@@ -245,7 +245,7 @@ msgstr "缺少授權協議"
 #: ajapaik/ajapaik/forms.py:461
 #: ajapaik/ajapaik/templates/curator/curator.html:107
 msgid "Parent album"
-msgstr "主要相簿"
+msgstr "父相簿"
 
 #: ajapaik/ajapaik/forms.py:464
 msgid "Location"
@@ -474,7 +474,7 @@ msgstr "確認圖片相似度"
 
 #: ajapaik/ajapaik/models.py:1295 ajapaik/ajapaik/models.py:1296
 msgid "Suggestion subject age"
-msgstr "主題建議年齡"
+msgstr "對象建議年齡"
 
 #: ajapaik/ajapaik/models.py:1297 ajapaik/ajapaik/templates/_toolbox.html:66
 msgid "Transcribe"
@@ -1234,11 +1234,11 @@ msgstr "對應舊歷史性照片"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:29
 msgid "Help geotag old historic photos from the album"
-msgstr "幫助對相冊中的舊曆史照片進行地理標記"
+msgstr "幫助相冊中的舊曆史照片進行地理標記"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:31
 msgid "Help geotag old historic photos"
-msgstr "幫助對舊的歷史照片進行地理標記"
+msgstr "幫助舊的歷史照片進行地理標記"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:35
 msgid "Before and after view of"
@@ -2087,7 +2087,7 @@ msgstr "選擇檔案…"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr "從拍出歷史性圖片的同一地點來做出翻拍照片，並將其上傳。所上傳的翻拍照片將會歸功於您基於"
+msgstr "從拍出歷史性圖片的同一地點來拍攝一張現代照片，並將其上傳。所上傳的翻拍照片將會歸功於您基於"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
@@ -2380,7 +2380,7 @@ msgstr "在這裡您可以將歷史圖片上傳到 Ajapaik（目前一次只能�
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不撤銷授予任何人使用此作品的權限。"
+msgstr "我，%(user)s，此作品的版權所有者，基於<a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW\" target=\"_blank\">姓名標示-相同方式分享 4.0 國際（CC-BY-SA）</a>不可撤銷地授予任何人使用此作品的權利。"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
@@ -2476,7 +2476,7 @@ msgstr "沒有提交足夠的資料"
 #: ajapaik/ajapaik/views.py:2923
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr "來自於 \"%(film)s\" at %(time)s 的靜態攝影"
+msgstr "來自於 \"%(film)s\" at %(time)s 的劇照"
 
 #: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
