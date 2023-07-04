@@ -2075,6 +2075,7 @@ class PhotoViewpointElevationSuggestion(Suggestion):
                           on_delete=CASCADE)
 
 
+# TODO: to be deleted
 class PhotoModelSuggestionConfirmReject(Suggestion):
     INTERIOR, EXTERIOR = range(2)
     GROUND_LEVEL, RAISED, AERIAL = range(3)
@@ -2094,6 +2095,38 @@ class PhotoModelSuggestionConfirmReject(Suggestion):
     scene_to_reject = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_confirmation', on_delete=CASCADE)
+
+class PhotoModelSuggestionResult(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+
+class PhotoModelSuggestionAlternativeCategory(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation_alternation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    scene_alternation = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation', on_delete=CASCADE)
 
 
 class PhotoFlipSuggestion(Suggestion):

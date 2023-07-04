@@ -1,42 +1,51 @@
-from ajapaik.ajapaik.models import PhotoModelSuggestionConfirmReject
+from django.views.decorators.csrf import csrf_exempt
+
+from ajapaik.ajapaik.models import PhotoModelSuggestionAlternativeCategory
 from ajapaik.ajapaik_object_categorization.service.object_categorization import object_categorization_service
 from ajapaik.ajapaik_object_categorization import response
 from django.http import HttpResponse, HttpRequest
 
 
-def get_latest_category(request, photo_id=None) -> HttpResponse:
+def get_latest_category_from_result_table(request, photo_id=None) -> HttpResponse:
     if request.method != 'GET':
         return response.not_supported()
 
-    print("===")
-    print(request)
-
-    response_data = object_categorization_service.get_latest_category(photo_id)
+    response_data = object_categorization_service.get_latest_category_from_result_table(photo_id)
 
     return response.success(response_data)
 
 
-def confirm_latest_category(request: HttpRequest) -> HttpResponse:
+def get_uncategorized_photos(request: HttpRequest) -> HttpResponse:
+    if request.method != 'GET':
+        return response.not_supported()
+
+    response_data = object_categorization_service.get_uncategorized_photos()
+
+    return response.success(response_data)
+
+
+def propose_alternative_category(request: HttpRequest) -> HttpResponse:
     if request.method != 'POST':
         return response.not_supported()
-    suggestion = PhotoModelSuggestionConfirmReject()
+    alternative = PhotoModelSuggestionAlternativeCategory()
 
-    suggestion.viewpoint_elevation_to_confirm = request.POST.get("viewpoint_elevation_to_confirm", None)
-    suggestion.scene_to_confirm = request.POST.get("scene_to_confirm", None)
-    suggestion.viewpoint_elevation_to_reject = request.POST.get("viewpoint_elevation_to_reject", None)
-    suggestion.scene_to_reject = request.POST.get("scene_to_reject", None)
-    suggestion.photo_id = request.POST.get("photo_id", None)
-    suggestion.proposer = request.user.profile  # assuming you have a user profile model and the user is authenticated
+    alternative.viewpoint_elevation_alternation = request.POST.get("viewpoint_elevation_to_alternate", None)
+    alternative.scene_alternation = request.POST.get("scene_to_alternate", None)
+    alternative.photo_id = request.POST.get("photo_id", None)
+    alternative.proposer = request.user.profile  # assuming you have a user profile model and the user is authenticated
+    alternative.save()
 
-    # save the instance to the database
-    suggestion.save()
-
-    # redirect the user to a success page
     return response.success()
 
-    # response_data = object_categorization_service.post_latest_category_confirmation(photo_id)
-    #
-    # return response.success(response_data)
+
+@csrf_exempt
+def post_image_category_result_table(request: HttpRequest) -> HttpResponse:
+    if request.method != 'POST':
+        return response.not_supported()
+
+    object_categorization_service.post_image_category_result_table(request)
+
+    return response.success()
 
 
 def aggregate_category_data(request: HttpRequest) -> HttpResponse:

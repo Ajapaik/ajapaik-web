@@ -11,6 +11,42 @@ function getPictureCategoryCategories(photoId, callback) {
     );
 }
 
+function sendCategoryFeedback(photoId, category, categoryValue) {
+    console.log("Persisting category alternation to db")
+    let payload = {
+        "photo_id": photoId
+    };
+
+    if (category === "scene") {
+        if (categoryValue === "interior") {
+            payload["scene_to_alternate"] = 0
+        } else if (categoryValue === "exterior") {
+            payload["scene_to_alternate"] = 1
+        }
+    } else if (category === "view-point") {
+        if (categoryValue === "ground") {
+            payload["viewpoint_elevation_to_alternate"] = 0
+        } else if (categoryValue === "raised") {
+            payload["viewpoint_elevation_to_alternate"] = 1
+        } else {
+            payload["viewpoint_elevation_to_alternate"] = 2
+        }
+    }
+
+    var onSuccess = function () {
+        console.log("It was a success!")
+    };
+
+    postRequest(
+        '/object-categorization/confirm-latest-category',
+        payload,
+        constants.translations.queries.POST_CATEGORY_CONFIRMATION_SUCCESS,
+        constants.translations.queries.POST_CATEGORY_CONFIRMATION_FAILED,
+        onSuccess
+    );
+}
+
+//TODO: to remove
 function sendCategoryConfirmation(photoId, category, categoryValue, confirm) {
 
 
@@ -67,7 +103,7 @@ function determinePictureCategory(responseData) {
     for (let i = 0; i < responseData.length; i++) {
         var data = responseData[i]
         var model = data["model"];
-        if (model === "ajapaik.photoscenesuggestion") {
+        if (model === "ajapaik.photomodelsuggestionresult") {
             category = data["fields"]["scene"]
             if (category === 0) {
                 responseDict["scene"] = "interior";

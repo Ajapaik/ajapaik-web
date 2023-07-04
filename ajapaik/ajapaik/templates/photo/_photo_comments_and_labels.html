@@ -11,8 +11,12 @@
           <span>Scene category:</span>
             <span id="ajp-latest-category-scene"></span>
             <div class='btn-group w-10' role='group'>
-            <button type='submit' id='ajp-confirm-scene-category' class='btn btn-success w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text(), 1)"><span class='material-icons notranslate'>check</span></button>
-            <button type='button' id='ajp-reject-scene-category' class='btn btn-danger w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text(), 0)"><span class='material-icons notranslate'>close</span></button>
+            <button type='submit' id='ajp-confirm-scene-category' class='btn btn-success w-5' onclick="sendCategoryFeedback('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text())"><span class='material-icons notranslate'>check</span></button>
+<!--            <button type='button' id='ajp-reject-scene-category' class='btn btn-danger w-5' onclick="sendCategoryConfirmation('{{ photo.id }}', 'scene', $('#ajp-latest-category-scene').text(), 0)"><span class='material-icons notranslate'>close</span></button>-->
+            <button type="button" id="ajp-reject-scene-category" class="btn btn-danger w-5">
+           <span class="material-icons notranslate">close</span>
+           </button>
+
             </div>
         </div>
     </div>
@@ -85,11 +89,47 @@
 </div>
 
 <script src="{% static "js/ajp-picture-category-retrival.js" %}"></script>
-
 {% block specific_js %}
     <script>
         $(document).ready(function () {
+
+            let feedbackView = `
+                  <div style='width: 150px'>
+                    <button type='button' class='btn btn-light btn-sm c mr-2' id='interior-alternative' onclick="enableInterior()">
+                      <span class='material-icons notranslate ajp-icon-36'>hotel</span><br>Interior
+                    </button>
+                    <button type='button' class='btn btn-light btn-sm' id='exterior-alternative' onclick="enableExterior()">
+                      <span class='material-icons notranslate ajp-icon-36'>home</span><br>Exterior
+                    </button>
+                    <button id='send-suggestion-button' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
+                  </div>`;
+
+              $('#ajp-reject-scene-category').popover({
+                html: true,
+                sanitize: false,
+                trigger: 'manual',
+                content: feedbackView,
+                title: 'Suggest different',
+              });
+
+              $('#ajp-reject-scene-category').on('click', function() {
+                $(this).popover('toggle');
+              });
+
+              $('#send-suggestion-button').on('click', function() {
+                $('#ajp-reject-scene-category').popover('hide');
+              });
+
+              $(document).on('click', function (event) {
+                  const target = $(event.target);
+                  if (!target.is('#ajp-reject-scene-category') && !target.closest('.popover').length) {
+                    $('#ajp-reject-scene-category').popover('hide');
+                  }
+              });
+
             getPictureCategoryCategories('{{ photo.id }}', function(categoryMap) {
+                console.log("===")
+                console.log(categoryMap)
                 if (categoryMap.hasOwnProperty('scene')) {
                     $("#ajp-latest-category-scene").html(categoryMap["scene"]);
                     $("#ajp-latest-category-scene-div").show();
@@ -150,5 +190,25 @@
                 });
             });
         })
+        function enableInterior() {
+          $('#interior-alternative').addClass('active');
+          $('#exterior-alternative').removeClass('active');
+          $('#send-suggestion-button').prop('disabled', false);
+        }
+
+        function enableExterior() {
+          $('#exterior-alternative').addClass('active');
+          $('#interior-alternative').removeClass('active');
+          $('#send-suggestion-button').prop('disabled', false);
+        }
+
+        function sendAlternativeCategoryConfirmation(photoId) {
+            if ($('#interior-alternative').hasClass('active')) {
+                sendCategoryFeedback(photoId, "scene", "interior")
+            } else if ($('#exterior-alternative').hasClass('active')) {
+                sendCategoryFeedback(photoId, "scene", "exterior")
+            }
+            $('#ajp-reject-scene-category').popover('hide');
+        }
     </script>
 {% endblock %}
