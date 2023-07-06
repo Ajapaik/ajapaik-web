@@ -125,31 +125,25 @@
         });
     };
     window.reportDaterOpen = function() {
-        gtag('event', 'click_menu_item', { 'category': 'dater', 'label': 'open', 'value': 0 });
+        gtag('event', 'open_dater', { 'category': 'Photoview' });
     };
     window.reportCloseDater = function() {
-        gtag('event', 'click_menu_item', { 'category': 'dater', 'label': 'close', 'value': 0 });
+        gtag('event', 'close_dater', { 'category': 'Photoview' });
     };
     window.reportDaterOpenTutorial = function() {
-        gtag('event', 'click_menu_item', { 'category': 'dater', 'label': 'open-tutorial', 'value': 0 });
+        gtag('event', 'open_dater_tutorial', { 'category': 'Photoview' });
     };
     window.reportDaterOpenComment = function() {
-        gtag('event', 'click_menu_item', { 'category': 'dater', 'label': 'open-comment', 'value': 0 });
+        gtag('event', 'open_dater_comment', { 'category': 'Photoview' });
     };
     window.reportDaterSubmit = function() {
-        gtag('event', 'submit', { 'category': 'dater', 'label': 100 });
+        gtag('event', 'submit_date', { 'category': 'Photoview' });
     };
     window.reportDaterSubmitWithComment = function() {
-        gtag('event', 'submit_with_comment', {
-            'category': 'dater',
-            'label': 200,
-        });
+        gtag('event', 'submit_date_with_comment', { 'category': 'Photoview' });
     };
     window.reportDaterConfirmSubmit = function() {
-        gtag('event', 'submit', {
-            'category': 'dater',
-            'points': 50,
-        });
+        gtag('event', 'upvote_dating', { 'category': 'Photoview' });
     };
     window.reportVanalinnadYearChange = function(year) {
         gtag('event', 'old_maps_change_year', {

@@ -494,24 +494,24 @@
                 });
             });
             $(document).on('click', '.ajp-result-item', function () {
-                const $this = $(this),
-                        target = fullResultSet[$this.data('id')];
-                if (window.selectedResults[$this.data('id')]) {
-                    delete window.selectedResults[$this.data('id')];
-                    $this.removeClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+                const photo = $(this).data();
+                const target = fullResultSet[photo.id];
+                if (window.selectedResults[photo.id]) {
+                    delete window.selectedResults[photo.id];
+                    $(this).removeClass('ajp-curator-selected-image');
                 } else {
-                    window.selectedResults[$this.data('id')] = target;
-                    $this.addClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+                    window.selectedResults[photo.id] = target;
+                    $(this).addClass('ajp-curator-selected-image');
                 }
+                window.gtag('event', window.selectedResults[photo.id] ? 'add_photo_to_selection' : 'remove_photo_from_selection', { 'category': 'Curator', 'source_id': target.identifier, 'title': target.title});
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
             });
             $(document).on('click', '#ajp-curator-clear-selection', function () {
                 window.selectedResults = {};
                 buildSelectionDiv();
                 $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
                 $('.ajp-result-item').removeClass('ajp-curator-selected-image');
-                window.gtag('event', 'clear_selection', { 'category': 'Curator'});
+                window.gtag('event', 'clear_photo_selection', { 'category': 'Curator'});
             });
             window.escapeRegExp = function (string) {
                 return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -546,11 +546,11 @@
                 delete window.selectedResults[id];
                 targetContainer.remove();
             };
-            const toggleButtonActive = function ($this) {
-                if ($this.hasClass('active')) {
-                    $this.removeClass('active');
+            const toggleButtonActive = function (button) {
+                if (button.hasClass('active')) {
+                    button.removeClass('active');
                 } else {
-                    $this.addClass('active');
+                    button.addClass('active');
                 }
             };
             $(document).on('click', '.ajp-curator-invert-colors-button', function () {
@@ -560,12 +560,13 @@
                 toggleButtonActive($this);
                 if (target.hasClass('ajp-photo-inverted')) {
                     target.removeClass('ajp-photo-inverted');
+                    window.gtag('event', 'remove_photo_invert', { 'category': 'Curator'});
                     window.selectedResults[$this[0].dataset.id].invert = false;
                 } else {
                     target.addClass('ajp-photo-inverted');
+                    window.gtag('event', 'invert_photo', { 'category': 'Curator'});
                     window.selectedResults[$this[0].dataset.id].invert = true;
                 }
-                window.gtag('event', 'invert_photo', { 'category': 'Curator'});
             });
             $(document).on('click', '.ajp-curator-flip-button', function () {
                 const $this = $(this),
@@ -582,6 +583,7 @@
                         target.removeClass('rotate270-flipped').addClass('rotate270');
                     }
                     window.selectedResults[$this[0].dataset.id].flip = false;
+                    window.gtag('event', 'unflip_photo', { 'category': 'Curator'});
                 } else {
                     target.addClass('ajp-photo-flipped');
                     if (target.hasClass('rotate90')) {
@@ -592,14 +594,14 @@
                         target.removeClass('rotate270').addClass('rotate270-flipped');
                     }
                     window.selectedResults[$this[0].dataset.id].flip = true;
+                    window.gtag('event', 'flip_photo', { 'category': 'Curator'});
                 }
-                window.gtag('event', 'flip_photo', { 'category': 'Curator'});
             });
             $(document).on('click', '.ajp-curator-stereo-button', function () {
                 const $this = $(this);
                 window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+                window.gtag('event', !$this.hasClass('active') ? 'make_photo_stereo' : 'remove_photo_stereo', { 'category': 'Curator'});
                 toggleButtonActive($this);
-                window.gtag('event', 'make_photo_stereo', { 'category': 'Curator'});
             });
             $(document).on('click', '.ajp-curator-rotate-button', function () {
                 const $this = $(this),
@@ -634,20 +636,18 @@
                 window.gtag('event', 'rotate_photo', { 'category': 'Curator', 'rotation': arrayItem.rotated});
             });
             $(document).on('click', '.ajp-curator-delete-button', function () {
-                const targetId = $(this)[0].dataset.id,
+                const selectedPhoto = $(this)[0].dataset;
+                const targetId = selectedPhoto.id,
                     targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
                     targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
                 if (window.selectedResults[targetId]) {
                     delete window.selectedResults[targetId];
                     targetSelectionItem.remove();
                     targetResultItem.removeClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
-                } else {
-                    window.selectedResults[$(this)[0].dataset.id] = fullResultSet[targetId];
-                    targetResultItem.addClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
                 }
-                window.gtag('event', 'remove_from_selection', { 'category': 'Curator'});
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
+                const target = fullResultSet[targetId];
+                window.gtag('event', 'remove_photo_from_selection', { 'category': 'Curator', 'source_id': target.identifyingNumber, 'title': target.title});
             });
             $(document).on('click', '#ajp-curator-submit-selection', function () {
                 $('#ajp-curator-upload-error').hide();

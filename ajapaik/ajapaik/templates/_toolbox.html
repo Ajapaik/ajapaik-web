@@ -58,6 +58,12 @@
 
 
 
+
+
+
+
+
+
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}
                             {{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
@@ -352,25 +358,17 @@
 
         $('#ajp-start-dating-button').click(function(e) {
             e.preventDefault();
-            let daterAction = $('#ajp-dater-container').is(':visible') ? 'close' : 'open';
-            let eventCategory;
-            if (window.isFrontpage) {
-                eventCategory = 'Gallery';
-            } else if (window.isMapview) {
-                eventCategory = 'Map';
-            } else if (window.isGame) {
-                eventCategory = 'Game';
-            } else {
-                eventCategory = 'Unclassified';
-            }
-            gtag('event', 'dater_click', {
-                'category': eventCategory,
-                'label': daterAction,
-            });
-            if (daterAction == 'close') {
+
+            if ($('#ajp-dater-container').is(':visible')) {
+                gtag('event', 'close_dater', {
+                    'category': 'Photoview',
+                });
                 window.stopDater();
                 window.reportCloseDater();
             } else {
+                gtag('event', 'open_dater', {
+                    'category': 'Photoview',
+                });
                 window.startDater($(this).data('id'));
                 window.reportDaterOpen();
             }

@@ -316,8 +316,6 @@
         getObjectAnnotationClasses();
         getAllAnnotations(ObjectTagger.handleSavedRectanglesDrawn);
 
-        gtag('event', 'page_view', { 'page_title': "{{ photo.get_pseudo_slug }}", 'page_location': "{{ photo.get_absolute_url }}"});
-
         $('#ajp-rephoto-thumb-' + window.currentlySelectedRephotoId).click();
         $('#ajp-similar-photo-thumb-' + window.currentlySelectedSimilarPhotoId).click();
         window.photoModalOpenedTime = Date.now();
