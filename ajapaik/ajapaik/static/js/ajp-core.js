@@ -1522,15 +1522,15 @@ $('.ajp-navbar').autoHidingNavbar();
             });
         }
         if (window.isFrontpage) {
-            gtag('event', 'rephoto_source_click', { 'category': 'Gallery' });
+            gtag('event', 'about_button_click', { 'category': 'Gallery' });
         } else if (window.isGame) {
-            gtag('event', 'rephoto_source_click', { 'category': 'Game' });
+            gtag('event', 'about_button_click', { 'category': 'Game' });
         } else if (window.isMapview) {
-            gtag('event', 'rephoto_source_click', { 'category': 'Map' });
+            gtag('event', 'about_button_click', { 'category': 'Map' });
         } else if (isPhotoview) {
-            gtag('event', 'rephoto_source_click', { 'category': 'Photoview' });
+            gtag('event', 'about_button_click', { 'category': 'Photoview' });
         } else {
-            gtag('event', 'rephoto_source_click', { 'category': 'Unclassified' });
+            gtag('event', 'about_button_click', { 'category': 'Unclassified' });
         }
     });
 

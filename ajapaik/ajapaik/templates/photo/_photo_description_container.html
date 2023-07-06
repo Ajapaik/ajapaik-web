@@ -35,7 +35,7 @@
     <div class="w-100" id="ajp-photo-source">
         {% if photo.licence %}{% include "photo/_licence.html" with licence=photo.licence %}{% endif %}
         {% if photo.source_url %}
-            href="{{ photo.source_url }}" target="_blank" rel="noopener">
+            <a href="{{ photo.source_url }}" target="_blank" rel="noopener">
                 {{ photo.source.description }}
                 {% if photo.source_key %}{{ photo.source_key }}{% endif %}
             </a>
