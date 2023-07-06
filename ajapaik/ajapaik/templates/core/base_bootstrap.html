@@ -205,6 +205,20 @@
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}" />
     {% endif %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-34VT1155KC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-34VT1155KC');
+    </script>
+    <!-- compress js -->
     <!--[if lt IE 9]>
         <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
     <![endif]-->
@@ -228,29 +242,6 @@
         <link rel="stylesheet" href="{% static "css/image-area-selector.css" %}" />
     {% endcompress %}
     {% block specific_css %}{% endblock %}
-    <script type="text/javascript">
-        // From https://www.themarketingtechnologist.co/migrating-to-google-tag-manager-without-changing-hard-coded-_gaq-push-events/
-        if (typeof _gaq === 'undefined' || typeof _gaq !== 'object') {
-            var _gaq = {};
-            _gaq.push = function(array) {
-                if (array[0] === '_trackPageview') {
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'pagePath': array[1],
-                    });
-                } else if (array[0] === '_trackEvent') {
-                    dataLayer.push({
-                        'event': 'event',
-                        'category': array[1],
-                        'action': array[2],
-                        'label': array[3],
-                        'value': array[4],
-                    });
-                }
-            };
-        }
-    </script>
-    <!-- compress js -->
     <script src="{% static "js/jquery-2.2.4.min.js" %}"></script>
     <script src="{% static "js/jquery-ui.min.js" %}"></script>
     <script src="{% static "js/popper.min.js" %}"></script>
@@ -259,12 +250,6 @@
 </head>
 <body
     class="{% if is_game or is_mapview %}d-flex ajp-body-game-map{% endif %}{% if is_frontpage %} ajp-body-frontpage{% endif %}{% if is_photoview %} ajp-body-photoview{% endif %}">
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQJJQH"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div id="ajp-loading-overlay">
     <div class="ajp-spinner"></div>
 </div>
@@ -313,39 +298,60 @@
             FB.init({ appId: '201052296573134', status: !0, cookie: !0, xfbml: !0, version: 'v2.3' });
             try {
                 FB.Event.subscribe('edge.create', function(a) {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Like added', a]);
-                }),
-                    FB.Event.subscribe('edge.remove', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Like removed', a]);
-                    }),
-                    FB.Event.subscribe('message.send', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Message sent', a]);
-                    }),
-                    FB.Event.subscribe('comment.create', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment added', a.href]);
-                        const parts = a.href.split('/');
-                        $.post(window.updateCommentCountURL, {
-                            photo_id: parts[parts.length - 2],
-                            comment_id: a.commentID,
-                            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                        }, function() {
-                        });
-                    }),
-                    FB.Event.subscribe('comment.remove', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment removed', a.href]);
-                        const parts = a.href.split('/');
-                        $.post(window.updateCommentCountURL, {
-                            photo_id: parts[parts.length - 2],
-                            comment_id: a.commentID,
-                            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                        }, function() {
-                        });
-                    }), FB.Event.subscribe('auth.prompt', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Login prompt']);
-                }), FB.Event.subscribe('auth.login', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Login success']);
-                }), FB.Event.subscribe('auth.logout', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Logged out']);
+                    gtag('event', 'add_like', {
+                        'category': 'Facebook',
+                        'label': a,
+                    });
+                });
+                FB.Event.subscribe('edge.remove', function(a) {
+                    gtag('event', 'unlike', { 'category': 'Facebook', 'label': a });
+                });
+                FB.Event.subscribe('message.send', function(a) {
+                    gtag('event', 'send_message', {
+                        'category': 'Facebook',
+                        'label': a,
+                    });
+                });
+                FB.Event.subscribe('comment.create', function(a) {
+                    gtag('event', 'add_comment', {
+                        'category': 'Facebook',
+                        'label': a.href,
+                    });
+                    const parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
+                    }, function() {
+                    });
+                });
+                FB.Event.subscribe('comment.remove', function(a) {
+                    gtag('event', 'remove_comment', {
+                        'category': 'Facebook',
+                        'label': a.href,
+                    });
+                    const parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
+                    }, function() {
+                    });
+                });
+                FB.Event.subscribe('auth.prompt', function() {
+                    gtag('event', 'login_prompt', {
+                        'category': 'Facebook',
+                    });
+                });
+                FB.Event.subscribe('auth.login', function() {
+                    gtag('event', 'login', {
+                        'category': 'Facebook',
+                    });
+                });
+                FB.Event.subscribe('auth.logout', function() {
+                    gtag('event', 'logout', {
+                        'category': 'Facebook',
+                    });
                 });
             } catch (b) {
                 console.log(b);
@@ -519,7 +525,7 @@
     <script>
         const dataLayer = window.dataLayer || [],
             userLoggedIn = !!window.currentProfileId;
-        dataLayer.push({
+        gtag({
             'event': 'user',
             'logged_in': userLoggedIn,
             'email': window.currentProfileEmail,

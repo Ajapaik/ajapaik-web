@@ -55,6 +55,8 @@
 
 
 
+
+
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}
                             {{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
@@ -349,15 +351,19 @@
 
         $('#ajp-start-dating-button').click(function(e) {
             e.preventDefault();
+            let eventCategory;
             if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal dater photo click']);
+                eventCategory = 'Gallery';
             } else if (window.isMapview) {
-                _gaq.push(['_trackEvent', 'Map', 'Photo modal dater photo click']);
+                eventCategory = 'Map';
             } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal dater photo click']);
+                eventCategory = 'Game';
             } else {
-                _gaq.push(['_trackEvent', 'Game', 'Photo view dater photo click']);
+                eventCategory = 'Unclassified';
             }
+            gtag('event', 'dater_click', {
+                'category': eventCategory,
+            });
             if ($('#ajp-dater-container').is(':visible')) {
                 window.stopDater();
                 window.reportCloseDater();

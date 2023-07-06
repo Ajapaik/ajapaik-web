@@ -39,13 +39,19 @@
         };
 
         transcriberButtonClick = function(button) {
+            let eventCategory;
             if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
+                eventCategory = 'Gallery';
             } else if (window.isMapview) {
-                _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
+                eventCategory = 'Map';
             } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
+                eventCategory = 'Game';
+            } else {
+                eventCategory = 'Unclassified';
             }
+            gtag('event', 'transcriber_click', {
+                'category': eventCategory,
+            });
             if ($('#ajp-transcriber-container').is(':visible')) {
                 window.stopTranscriber();
             } else {

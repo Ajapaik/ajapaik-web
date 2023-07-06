@@ -56,6 +56,6 @@
 </div>
 <script>
     $(document).ready(function () {
-        _gaq.push(["_trackPageview", "{{ video.get_absolute_url }}"]);
+        gtag('event', 'page_view', { 'page_title': "{{ photo.get_pseudo_slug }}", 'page_location': "{{ photo.get_absolute_url }}"});
     });
 </script>
