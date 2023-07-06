@@ -218,6 +218,34 @@
 
         gtag('config', 'G-34VT1155KC');
     </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
+    <script>
+        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
+        $('.modal').on('hidden.bs.modal', function() {
+            if ($('.modal:visible').length) {
+                $('body').addClass('modal-open');
+            }
+        });
+        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
+            if (e.target.id === 'ajp-photo-modal') {
+                $('#ajp-photo-modal').html('');
+            }
+        });
+    </script>
     <!-- compress js -->
     <!--[if lt IE 9]>
         <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
@@ -250,6 +278,12 @@
 </head>
 <body
     class="{% if is_game or is_mapview %}d-flex ajp-body-game-map{% endif %}{% if is_frontpage %} ajp-body-frontpage{% endif %}{% if is_photoview %} ajp-body-photoview{% endif %}">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQJJQH"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="ajp-loading-overlay">
     <div class="ajp-spinner"></div>
 </div>
@@ -298,25 +332,16 @@
             FB.init({ appId: '201052296573134', status: !0, cookie: !0, xfbml: !0, version: 'v2.3' });
             try {
                 FB.Event.subscribe('edge.create', function(a) {
-                    gtag('event', 'add_like', {
-                        'category': 'Facebook',
-                        'label': a,
-                    });
+                    gtag('event', 'like', { 'category': 'Facebook', 'label': a });
                 });
                 FB.Event.subscribe('edge.remove', function(a) {
                     gtag('event', 'unlike', { 'category': 'Facebook', 'label': a });
                 });
                 FB.Event.subscribe('message.send', function(a) {
-                    gtag('event', 'send_message', {
-                        'category': 'Facebook',
-                        'label': a,
-                    });
+                    gtag('event', 'send_message', { 'category': 'Facebook', 'label': a });
                 });
                 FB.Event.subscribe('comment.create', function(a) {
-                    gtag('event', 'add_comment', {
-                        'category': 'Facebook',
-                        'label': a.href,
-                    });
+                    gtag('event', 'add_comment', { 'category': 'Facebook', 'label': a.href });
                     const parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
@@ -326,10 +351,7 @@
                     });
                 });
                 FB.Event.subscribe('comment.remove', function(a) {
-                    gtag('event', 'remove_comment', {
-                        'category': 'Facebook',
-                        'label': a.href,
-                    });
+                    gtag('event', 'remove_comment', { 'category': 'Facebook', 'label': a.href });
                     const parts = a.href.split('/');
                     $.post(window.updateCommentCountURL, {
                         photo_id: parts[parts.length - 2],
@@ -339,19 +361,13 @@
                     });
                 });
                 FB.Event.subscribe('auth.prompt', function() {
-                    gtag('event', 'login_prompt', {
-                        'category': 'Facebook',
-                    });
+                    gtag('event', 'login_prompt', { 'category': 'Facebook' });
                 });
                 FB.Event.subscribe('auth.login', function() {
-                    gtag('event', 'login', {
-                        'category': 'Facebook',
-                    });
+                    gtag('event', 'login', { 'category': 'Facebook' });
                 });
                 FB.Event.subscribe('auth.logout', function() {
-                    gtag('event', 'logout', {
-                        'category': 'Facebook',
-                    });
+                    gtag('event', 'logout', { 'category': 'Facebook' });
                 });
             } catch (b) {
                 console.log(b);
@@ -521,45 +537,6 @@
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
-    </script>
-    <script>
-        const dataLayer = window.dataLayer || [],
-            userLoggedIn = !!window.currentProfileId;
-        gtag({
-            'event': 'user',
-            'logged_in': userLoggedIn,
-            'email': window.currentProfileEmail,
-            'userId': window.currentProfileId,
-            'name': window.currentProfileName,
-        });
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js',
-        });
-        const f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TQJJQH');</script>
-    <!-- End Google Tag Manager -->
-    <script>
-        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
-        $('.modal').on('hidden.bs.modal', function() {
-            if ($('.modal:visible').length) {
-                $('body').addClass('modal-open');
-            }
-        });
-        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
-            if (e.target.id === 'ajp-photo-modal') {
-                $('#ajp-photo-modal').html('');
-            }
-        });
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}

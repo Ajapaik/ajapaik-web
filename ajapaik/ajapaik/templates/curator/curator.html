@@ -300,10 +300,10 @@
                             response[i].link = '/?album=' + response[i].id;
                             targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
                         }
-                        window.gtag('event', 'my_albums_success',  { 'category': 'Curator'});
+                        window.gtag('event', 'load_my_albums_success',  { 'category': 'Curator'});
                     },
                     error: function () {
-                        window.gtag('event', 'my_albums_error', { 'category': 'Curator'});
+                        window.gtag('event', 'load_my_albums_error', { 'category': 'Curator'});
                     }
                 });
             };
@@ -489,7 +489,7 @@
                     },
                     error: function () {
                         $('#ajp-loading-overlay').hide();
-                        window.gtag('event', 'search_error', { 'category': 'Curator');
+                        window.gtag('event', 'search_error', { 'category': 'Curator'});
                     }
                 });
             });
@@ -631,7 +631,7 @@
                         arrayItem.classToAdd = classToAdd;
                     }
                 }
-                window.gtag('event', 'rotate_photo', { 'category': 'Curator'});
+                window.gtag('event', 'rotate_photo', { 'category': 'Curator', 'rotation': arrayItem.rotated});
             });
             $(document).on('click', '.ajp-curator-delete-button', function () {
                 const targetId = $(this)[0].dataset.id,
@@ -797,7 +797,7 @@
                     error: function () {
                         $('#ajp-loading-overlay').hide();
                         $('#ajp-curator-upload-error').show();
-                        window.gtag('event', 'upload_error', { 'category': 'Curator'});
+                        window.gtag('event', 'photo_upload_error', { 'category': 'Curator'});
                     },
 
                 });

@@ -42,7 +42,7 @@
     <input name="next" type="hidden" value="{% if next %}{{ next }}{% else %}{{ request.get_full_path }}{% endif %}">
     <br>
     {% if not hide_registration %}
-        <a class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
+        <a id='ajp-email-register-button' class="d-inline-block w-50 pr-2" href="{% url 'account_signup' %}">
             {% trans "Register with e-mail" %}
         </a>
     {% endif %}

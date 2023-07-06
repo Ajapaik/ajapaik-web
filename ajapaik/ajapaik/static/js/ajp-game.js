@@ -116,7 +116,7 @@
                     request.photo = window.photoHistory[window.photoHistoryIndex];
                 }
             } else {
-                // There's no history or we've reached the end, load a new photo
+                // There's no history, or we've reached the end, load a new photo
                 if (window.photoHistory.length === 0 || window.photoHistoryIndex === (window.photoHistory.length - 1)) {
                     if (window.albumId) {
                         request.album = window.albumId;

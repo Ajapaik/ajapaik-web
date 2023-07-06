@@ -57,6 +57,7 @@
 
 
 
+
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}{{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}">
                         {{ hostname }}{% if is_photo_modal %}{{ photo.get_detail_url }}{% elif rephoto %}
                             {{ rephoto.get_absolute_url }}{% else %}{{ photo.get_absolute_url }}{% endif %}
@@ -351,6 +352,7 @@
 
         $('#ajp-start-dating-button').click(function(e) {
             e.preventDefault();
+            let daterAction = $('#ajp-dater-container').is(':visible') ? 'close' : 'open';
             let eventCategory;
             if (window.isFrontpage) {
                 eventCategory = 'Gallery';
@@ -363,8 +365,9 @@
             }
             gtag('event', 'dater_click', {
                 'category': eventCategory,
+                'label': daterAction,
             });
-            if ($('#ajp-dater-container').is(':visible')) {
+            if (daterAction == 'close') {
                 window.stopDater();
                 window.reportCloseDater();
             } else {

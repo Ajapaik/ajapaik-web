@@ -6,120 +6,120 @@
     /*global isMapview*/
     // Geotagger events
     window.reportGeotaggerMapClick = function() {
-        gtag('event', 'click', { 'category': 'geotagger', 'label': 'map', 'value': 0 });
+        gtag('event', 'click', { 'category': 'Geotagger', 'label': 'map', 'value': 0 });
     };
     window.reportGeotaggerMapDragstart = function() {
         gtag('event', 'map_drag_start', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': 'geotagging',
             'value': 0,
         });
     };
     window.reportGeotaggerMapDragstartFeedback = function() {
         gtag('event', 'map_drag_start', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': 'feedback',
             'value': 0,
         });
     };
     window.reportGeotaggerMarkerDragend = function() {
-        gtag('event', 'map_drag_end', { 'category': 'geotagger', 'label': null, 'value': 0 });
+        gtag('event', 'map_drag_end', { 'category': 'Geotagger', 'label': null, 'value': 0 });
     };
     window.reportGeotaggerFullScreenOpen = function(id) {
         gtag('event', 'fullscreen', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 0,
         });
     };
     window.reportGeotaggerStreetPanoramaOpen = function(id) {
         gtag('event', 'open_streetview', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 0,
         });
     };
     window.reportGeotaggerMapUnlock = function(id) {
-        gtag('event', 'unlock_map', { 'category': 'geotagger', 'label': id.toString(), 'value': 0 });
+        gtag('event', 'unlock_map', { 'category': 'Geotagger', 'label': id.toString(), 'value': 0 });
     };
     window.reportGeotaggerMapLock = function(id) {
-        gtag('event', 'lock_map', { 'category': 'geotagger', 'label': id.toString(), 'value': 0 });
+        gtag('event', 'lock_map', { 'category': 'Geotagger', 'label': id.toString(), 'value': 0 });
     };
     window.reportGeotaggerShowSearch = function(id) {
         gtag('event', 'show_search', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 0,
         });
     };
     window.reportGeotaggerSearch = function(term) {
-        gtag('event', 'search', { 'category': 'geotagger', 'label': term, 'value': 0 });
+        gtag('event', 'search', { 'category': 'Geotagger', 'label': term, 'value': 0 });
     };
     window.reportGeotaggerShowDescription = function(id) {
         gtag('event', 'show_description', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 0,
         });
     };
     window.reportGeotaggerFlip = function(id) {
-        gtag('event', 'flip', { 'category': 'geotagger', 'label': id.toString(), 'value': 0 });
+        gtag('event', 'flip', { 'category': 'Geotagger', 'label': id.toString(), 'value': 0 });
     };
     window.reportGeotaggerSkip = function(id) {
-        gtag('event', 'skip', { 'category': 'geotagger', 'label': id.toString(), 'value': -25 });
+        gtag('event', 'skip', { 'category': 'Geotagger', 'label': id.toString(), 'value': -25 });
     };
     window.reportGeotaggerSaveLocationOnly = function(id) {
         gtag('event', 'save_location', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 50,
         });
     };
     window.reportGeotaggerSaveLocationAndDirection = function(id) {
         gtag('event', 'save_location_with_direction', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': id.toString(),
             'value': 100,
         });
     };
     window.reportGeotaggerShowInstructions = function() {
         gtag('event', 'show_instructions', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': null,
             'value': 0,
         });
     };
     window.reportGeotaggerHideInstructions = function() {
         gtag('event', 'hide_instructions', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': null,
             'value': 0,
         });
     };
     window.reportGeotaggerSendFeedback = function(value) {
         gtag('event', 'send_feedback', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': value.toString(),
             'value': 25,
         });
     };
     window.reportGeotaggerCorrect = function() {
         gtag('event', 'tag_feedback', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': 'correct',
             'value': 100,
         });
     };
     window.reportGeotaggerIncorrect = function() {
         gtag('event', 'tag_feedback', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': 'incorrect',
             'value': -25,
         });
     };
     window.reportGeotaggerNewlyMappedPhoto = function() {
         gtag('event', 'tag_feedback', {
-            'category': 'geotagger',
+            'category': 'Geotagger',
             'label': 'first',
             'value': 200,
         });
@@ -153,14 +153,14 @@
     };
     window.reportVanalinnadYearChange = function(year) {
         gtag('event', 'old_maps_change_year', {
-            'category': isMapview ? 'Map' : 'geotagger',
+            'category': isMapview ? 'Map' : 'Geotagger',
             'label': year,
             'value': 0,
         });
     };
     window.reportVanalinnadCityChange = function(city) {
         gtag('event', 'old_maps_change_city', {
-            'category': isMapview ? 'Map' : 'geotagger',
+            'category': isMapview ? 'Map' : 'Geotagger',
             'label': city,
             'value': 0,
         });
@@ -201,20 +201,6 @@
     };
     window.reportVideoAlbumLinkClick = function() {
         gtag('event', 'click_album_link', { 'category': 'video-album', 'label': null, 'value': 0 });
-    };
-    window.reportDonationOneTimeBankLinkClick = function(bank) {
-        gtag('event', 'one_time_donation_click', {
-            'category': 'General',
-            'label': bank,
-            'value': 25,
-        });
-    };
-    window.reportDonationStandingBankLinkClick = function(bank) {
-        gtag('event', 'standing_donation_click', {
-            'category': 'General',
-            'label': bank,
-            'value': 25,
-        });
     };
     window.reportEmailLoginClick = function() {
         gtag('event', 'login_with_email', { 'category': 'Login', 'label': null, 'value': 0 });
