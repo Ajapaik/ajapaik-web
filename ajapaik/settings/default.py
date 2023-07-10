@@ -211,7 +211,7 @@ INSTALLED_APPS = (
 )
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
-ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
+ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1', '0.0.0.0']
 
 # Allow CORS from localhost for developing
 CORS_ALLOWED_ORIGIN_REGEXES = [
