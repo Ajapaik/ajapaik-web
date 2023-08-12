@@ -25,7 +25,7 @@ from django.contrib.gis.db.models import Model, TextField, FloatField, CharField
 from django.contrib.gis.geos import Point
 from django.contrib.postgres.fields import ArrayField
 from django.core.cache import cache
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
@@ -2127,6 +2127,32 @@ class PhotoModelSuggestionAlternativeCategory(Suggestion):
     scene_alternation = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation', on_delete=CASCADE)
+
+    def validate_unique(self, exclude=None):
+        super().validate_unique(exclude)
+
+        queryset = self.__class__._default_manager.filter(
+            Q(scene_alternation=0) | Q(scene_alternation=1),
+            proposer=self.proposer,
+            photo_id=self.photo_id
+        ).exclude(pk=self.pk)
+
+        print(f"QUERY SET IS {queryset}")
+        print(type(self.scene_alternation))
+        print(self.scene_alternation in ['0', '1'])
+        print(queryset.exists())
+
+        if self.scene_alternation in ['0', '1'] and queryset.exists():
+            raise ValidationError('Only one record with scene_alternation 0 or 1 is allowed.')
+
+    def save(self, *args, **kwargs):
+        self.validate_unique()
+        super().save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'ajapaik_photomodelsuggestionalternativecategory'
+        unique_together = (('proposer', 'photo_id', 'scene_alternation'),
+                           ('proposer', 'photo_id', 'viewpoint_elevation_alternation'))
 
 
 class PhotoFlipSuggestion(Suggestion):

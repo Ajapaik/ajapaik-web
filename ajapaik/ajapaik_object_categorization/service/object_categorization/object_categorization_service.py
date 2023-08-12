@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Max
 from django.http import HttpRequest
 
 from ajapaik.ajapaik.models import PhotoSceneSuggestion, PhotoViewpointElevationSuggestion, \
@@ -84,9 +85,39 @@ def post_image_category_result_table(request: HttpRequest):
     return result
 
 
+# def aggregate_category_data():
+#     """
+#     Methods aggregates data from both Alternative table + User's categories input.
+#     """
+#
+#     one_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
+#
+#     # scene_category = PhotoSceneSuggestion.objects.filter(created__gte=one_week_ago).order_by('-created')
+#     # view_point_category = PhotoViewpointElevationSuggestion.objects.filter(created__gte=one_week_ago).order_by(
+#     #     '-created')
+#
+#     alternative_category = PhotoModelSuggestionAlternativeCategory.objects.filter(created__gte=one_week_ago).order_by(
+#         '-created')
+#
+#     result_categories = {}
+#
+#     # if scene_category.exists():
+#     #     scene_category_dict = serializers.serialize('python', scene_category)
+#     #     result_categories['scene_category_data'] = scene_category_dict
+#     #
+#     # if view_point_category.exists():
+#     #     view_point_dict = serializers.serialize('python', view_point_category)
+#     #     result_categories['view_point_category_data'] = view_point_dict
+#
+#     if alternative_category.exists():
+#         confirm_reject_dict = serializers.serialize('python', alternative_category)
+#         result_categories['alternative_category_data'] = confirm_reject_dict
+#
+#     return result_categories
+
 def aggregate_category_data():
     """
-    Methods aggregates data from both Alternative table + User's categories input.
+    Method aggregates data from both Alternative table + User's categories input.
     """
 
     one_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
@@ -112,6 +143,8 @@ def aggregate_category_data():
         confirm_reject_dict = serializers.serialize('python', alternative_category)
         result_categories['alternative_category_data'] = confirm_reject_dict
 
+    print("=====")
+    print(result_categories)
     return result_categories
 
 
