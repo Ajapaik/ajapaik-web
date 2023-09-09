@@ -205,6 +205,48 @@
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:site_name" content="{% trans "Timepatch (Ajapaik)" %}" />
     {% endif %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-34VT1155KC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-34VT1155KC');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TQJJQH');</script>
+    <!-- End Google Tag Manager -->
+    <script>
+        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
+        $('.modal').on('hidden.bs.modal', function() {
+            if ($('.modal:visible').length) {
+                $('body').addClass('modal-open');
+            }
+        });
+        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
+            if (e.target.id === 'ajp-photo-modal') {
+                $('#ajp-photo-modal').html('');
+            }
+        });
+    </script>
+    <!-- compress js -->
     <!--[if lt IE 9]>
         <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
     <![endif]-->
@@ -228,29 +270,6 @@
         <link rel="stylesheet" href="{% static "css/image-area-selector.css" %}" />
     {% endcompress %}
     {% block specific_css %}{% endblock %}
-    <script type="text/javascript">
-        // From https://www.themarketingtechnologist.co/migrating-to-google-tag-manager-without-changing-hard-coded-_gaq-push-events/
-        if (typeof _gaq === 'undefined' || typeof _gaq !== 'object') {
-            var _gaq = {};
-            _gaq.push = function(array) {
-                if (array[0] === '_trackPageview') {
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'pagePath': array[1],
-                    });
-                } else if (array[0] === '_trackEvent') {
-                    dataLayer.push({
-                        'event': 'event',
-                        'category': array[1],
-                        'action': array[2],
-                        'label': array[3],
-                        'value': array[4],
-                    });
-                }
-            };
-        }
-    </script>
-    <!-- compress js -->
     <script src="{% static "js/jquery-2.2.4.min.js" %}"></script>
     <script src="{% static "js/jquery-ui.min.js" %}"></script>
     <script src="{% static "js/popper.min.js" %}"></script>
@@ -313,39 +332,42 @@
             FB.init({ appId: '201052296573134', status: !0, cookie: !0, xfbml: !0, version: 'v2.3' });
             try {
                 FB.Event.subscribe('edge.create', function(a) {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Like added', a]);
-                }),
-                    FB.Event.subscribe('edge.remove', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Like removed', a]);
-                    }),
-                    FB.Event.subscribe('message.send', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Message sent', a]);
-                    }),
-                    FB.Event.subscribe('comment.create', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment added', a.href]);
-                        const parts = a.href.split('/');
-                        $.post(window.updateCommentCountURL, {
-                            photo_id: parts[parts.length - 2],
-                            comment_id: a.commentID,
-                            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                        }, function() {
-                        });
-                    }),
-                    FB.Event.subscribe('comment.remove', function(a) {
-                        _gaq.push(['_trackEvent', 'Facebook', 'Comment removed', a.href]);
-                        const parts = a.href.split('/');
-                        $.post(window.updateCommentCountURL, {
-                            photo_id: parts[parts.length - 2],
-                            comment_id: a.commentID,
-                            csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
-                        }, function() {
-                        });
-                    }), FB.Event.subscribe('auth.prompt', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Login prompt']);
-                }), FB.Event.subscribe('auth.login', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Login success']);
-                }), FB.Event.subscribe('auth.logout', function() {
-                    _gaq.push(['_trackEvent', 'Facebook', 'Logged out']);
+                    gtag('event', 'like', { 'category': 'Facebook', 'label': a });
+                });
+                FB.Event.subscribe('edge.remove', function(a) {
+                    gtag('event', 'unlike', { 'category': 'Facebook', 'label': a });
+                });
+                FB.Event.subscribe('message.send', function(a) {
+                    gtag('event', 'send_message', { 'category': 'Facebook', 'label': a });
+                });
+                FB.Event.subscribe('comment.create', function(a) {
+                    gtag('event', 'add_comment', { 'category': 'Facebook', 'label': a.href });
+                    const parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
+                    }, function() {
+                    });
+                });
+                FB.Event.subscribe('comment.remove', function(a) {
+                    gtag('event', 'remove_comment', { 'category': 'Facebook', 'label': a.href });
+                    const parts = a.href.split('/');
+                    $.post(window.updateCommentCountURL, {
+                        photo_id: parts[parts.length - 2],
+                        comment_id: a.commentID,
+                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken'),
+                    }, function() {
+                    });
+                });
+                FB.Event.subscribe('auth.prompt', function() {
+                    gtag('event', 'login_prompt', { 'category': 'Facebook' });
+                });
+                FB.Event.subscribe('auth.login', function() {
+                    gtag('event', 'login', { 'category': 'Facebook' });
+                });
+                FB.Event.subscribe('auth.logout', function() {
+                    gtag('event', 'logout', { 'category': 'Facebook' });
                 });
             } catch (b) {
                 console.log(b);
@@ -515,45 +537,6 @@
         {% endif %}
         window.datingPointsSetting = {% settings_value 'DATING_POINTS' %};
         window.datingConfirmationPointsSetting = {% settings_value 'DATING_CONFIRMATION_POINTS' %};
-    </script>
-    <script>
-        const dataLayer = window.dataLayer || [],
-            userLoggedIn = !!window.currentProfileId;
-        dataLayer.push({
-            'event': 'user',
-            'logged_in': userLoggedIn,
-            'email': window.currentProfileEmail,
-            'userId': window.currentProfileId,
-            'name': window.currentProfileName,
-        });
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js',
-        });
-        const f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TQJJQH');</script>
-    <!-- End Google Tag Manager -->
-    <script>
-        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
-        $('.modal').on('hidden.bs.modal', function() {
-            if ($('.modal:visible').length) {
-                $('body').addClass('modal-open');
-            }
-        });
-        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
-            if (e.target.id === 'ajp-photo-modal') {
-                $('#ajp-photo-modal').html('');
-            }
-        });
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}

@@ -30,18 +30,21 @@
 {% block specific_js %}
     <script>
         $(document).ready(function() {
-            const input = document.getElementById('id_location');
-            if (input) {
-                const options = {};
-                const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-                window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                    const place = autocomplete.getPlace();
-                    $('#id_lat').val(place.geometry.location.lat());
-                    $('#id_lon').val(place.geometry.location.lng());
-                    window._gaq.push(['_trackEvent', 'Curator', 'Autocomplete place changed']);
-                });
-            }
-        });
+                const input = document.getElementById('id_location');
+                if (input) {
+                    const options = {};
+                    const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+                    window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                        const place = autocomplete.getPlace();
+                        $('#id_lat').val(place.geometry.location.lat());
+                        $('#id_lon').val(place.geometry.location.lng());
+                        window.gtag('event', 'autocomplete_place_changed', {
+                            'category': 'Curator',
+                        });
+                    });
+                }
+            },
+        );
     </script>
     {% if message %}
         <script>window.close();</script>

@@ -39,16 +39,15 @@
         };
 
         transcriberButtonClick = function(button) {
-            if (window.isFrontpage) {
-                _gaq.push(['_trackEvent', 'Gallery', 'Photo modal date photo click']);
-            } else if (window.isMapview) {
-                _gaq.push(['_trackEvent', 'Map', 'Photo modal date photo click']);
-            } else if (window.isGame) {
-                _gaq.push(['_trackEvent', 'Game', 'Photo modal date photo click']);
-            }
             if ($('#ajp-transcriber-container').is(':visible')) {
+                gtag('event', 'close_transcriber', {
+                    'category': 'Photoview',
+                });
                 window.stopTranscriber();
             } else {
+                gtag('event', 'open_transcriber', {
+                    'category': 'Photoview',
+                });
                 window.startTranscriber($(button).data('id'));
             }
         };
