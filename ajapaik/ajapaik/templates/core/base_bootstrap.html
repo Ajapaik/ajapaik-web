@@ -233,19 +233,6 @@
         f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-TQJJQH');</script>
     <!-- End Google Tag Manager -->
-    <script>
-        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
-        $('.modal').on('hidden.bs.modal', function() {
-            if ($('.modal:visible').length) {
-                $('body').addClass('modal-open');
-            }
-        });
-        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
-            if (e.target.id === 'ajp-photo-modal') {
-                $('#ajp-photo-modal').html('');
-            }
-        });
-    </script>
     <!-- compress js -->
     <!--[if lt IE 9]>
         <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
@@ -274,6 +261,19 @@
     <script src="{% static "js/jquery-ui.min.js" %}"></script>
     <script src="{% static "js/popper.min.js" %}"></script>
     <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}"></script>
+    <script>
+        // Fix for usage of multiple bootstrap modals, as multiple modals is not supported by bootstrap.
+        $('.modal').on('hidden.bs.modal', function() {
+            if ($('.modal:visible').length) {
+                $('body').addClass('modal-open');
+            }
+        });
+        $('#ajp-photo-modal').on('hidden.bs.modal', function(e) {
+            if (e.target.id === 'ajp-photo-modal') {
+                $('#ajp-photo-modal').html('');
+            }
+        });
+    </script>
     <!-- endcompress -->
 </head>
 <body
