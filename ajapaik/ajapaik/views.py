@@ -3306,7 +3306,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
     }
     return render(request, 'compare_photos/compare_photos.html', context)
 
-
+@csrf_exempt
 def user_upload(request):
     context = {
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
