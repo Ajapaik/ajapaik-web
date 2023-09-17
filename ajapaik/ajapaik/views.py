@@ -3313,47 +3313,59 @@ def user_upload(request):
         'is_user_upload': True,
         'show_albums_error': False
     }
+
     if request.method == 'POST':
-        form = UserPhotoUploadForm(request.POST, request.FILES)
         albums = request.POST.getlist('albums')
-        if form.is_valid() and albums is not None and len(albums) > 0:
-            photo = form.save(commit=False)
-            photo.user = request.user.profile
-            if photo.uploader_is_author:
-                photo.author = request.user.profile.get_display_name
-                photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
-            photo.save()
-            photo.set_aspect_ratio()
-            photo.find_similar()
-            albums = request.POST.getlist('albums')
-            album_photos = []
-            for each in albums:
-                album_photos.append(
-                    AlbumPhoto(photo=photo,
-                               album=Album.objects.filter(id=each).first(),
-                               type=AlbumPhoto.UPLOADED,
-                               profile=request.user.profile
-                               ))
-            AlbumPhoto.objects.bulk_create(album_photos)
-            for a in albums:
-                album = Album.objects.filter(id=a).first()
-                if album is not None:
-                    album.set_calculated_fields()
-                    album.light_save()
-            form = UserPhotoUploadForm()
-            photo.add_to_source_album()
+        uploaded_images = request.FILES.getlist('images')
+
+        if uploaded_images:
+            for uploaded_file in uploaded_images:
+                form = UserPhotoUploadForm(request.POST, request.FILES)
+                if form.is_valid():
+                    photo = form.save(commit=False)
+                    photo.user = request.user.profile
+                    if photo.uploader_is_author:
+                        photo.author = request.user.profile.get_display_name()
+                        photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
+                    photo.image = uploaded_file
+                    photo.save()
+                    photo.set_aspect_ratio()
+                    photo.find_similar()
+
+                    album_photos = []
+                    for album_id in albums:
+                        album = Album.objects.filter(id=album_id).first()
+                        if album:
+                            album_photos.append(
+                                AlbumPhoto(
+                                    photo=photo,
+                                    album=album,
+                                    type=AlbumPhoto.UPLOADED,
+                                    profile=request.user.profile
+                                )
+                            )
+                    AlbumPhoto.objects.bulk_create(album_photos)
+
+                    for album_id in albums:
+                        album = Album.objects.filter(id=album_id).first()
+                        if album:
+                            album.set_calculated_fields()
+                            album.light_save()
+
+                    photo.add_to_source_album()
+
             if request.POST.get('geotag') == 'true':
                 return redirect(f'{reverse("frontpage_photos")}?photo={str(photo.id)}&locationToolsOpen=1')
             else:
-                context['message'] = _('Photo uploaded')
-        if albums is None or len(albums) < 1:
-            context['show_albums_error'] = True
+                context['message'] = _('Photos uploaded')
+                form = UserPhotoUploadForm()  # Clear the form for a new upload
+        else:
+            context['show_albums_error'] = True  # Display error if no images are uploaded
     else:
         form = UserPhotoUploadForm()
+
     context['form'] = form
-
     return render(request, 'user_upload/user_upload.html', context)
-
 
 def user_upload_add_album(request):
     context = {

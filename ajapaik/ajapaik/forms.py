@@ -315,6 +315,7 @@ class FrontpagePagingForm(forms.Form):
 
 
 class ApiAlbumNearestPhotosForm(forms.Form):
+    print("HERE")
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
@@ -324,6 +325,7 @@ class ApiAlbumNearestPhotosForm(forms.Form):
 
 
 class ApiFinnaNearestPhotosForm(forms.Form):
+    print("HERE")
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85)
     longitude = forms.FloatField(min_value=-180, max_value=180)
@@ -335,6 +337,7 @@ class ApiFinnaNearestPhotosForm(forms.Form):
 
 
 class ApiAlbumStateForm(forms.Form):
+    print("HERE")
     id = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True))
     state = forms.CharField(max_length=255, required=False)
     start = forms.IntegerField(required=False)
@@ -342,12 +345,14 @@ class ApiAlbumStateForm(forms.Form):
 
 
 class ApiAlbumSourceForm(forms.Form):
+    print("HERE")
     query = forms.CharField(max_length=255, required=True)
     start = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
 
 class ApiPhotoUploadForm(forms.Form):
+    print("HERE")
     id = forms.CharField(max_length=255)
     latitude = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     longitude = forms.FloatField(min_value=-180, max_value=180, required=False)
@@ -417,15 +422,17 @@ class VideoStillCaptureForm(forms.Form):
 
 
 class UserPhotoUploadForm(forms.ModelForm):
+    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
     def __init__(self, *args, **kwargs):
         super(UserPhotoUploadForm, self).__init__(*args, **kwargs)
         self.fields['licence'].queryset = Licence.objects.filter(is_public=True)
 
     class Meta:
         model = Photo
-        fields = ('image', 'description', 'uploader_is_author', 'author', 'licence')
+        fields = ('images', 'description', 'uploader_is_author', 'author', 'licence')
         labels = {
-            'image': _('Picture file'),
+            'images': _('Picture files'),
             'description': _('Description'),
             'uploader_is_author': _('I am the author'),
             'author': _('Author'),
@@ -448,15 +455,23 @@ class UserPhotoUploadForm(forms.ModelForm):
             'author': forms.TextInput(attrs={'placeholder': _('Author name')}),
         }
 
+    def clean_images(self):
+        images = self.cleaned_data.get('images')
+
+        if not images:
+            raise forms.ValidationError(_('At least one image file is required.'))
+
+        # Additional validation for image files can be added here if needed.
+
+        return images
+
     def clean(self):
         super(UserPhotoUploadForm, self).clean()
-        if not self.cleaned_data.get('image'):
-            self.errors['image'] = [_('Missing image')]
+
         if not self.cleaned_data.get('description'):
             self.errors['description'] = [_('Missing description')]
         if not self.cleaned_data.get('uploader_is_author') and not self.cleaned_data.get('licence'):
             self.errors['licence'] = [_('Missing licence')]
-
 
 class UserPhotoUploadAddAlbumForm(forms.ModelForm):
     location = forms.CharField(max_length=255, required=False)
