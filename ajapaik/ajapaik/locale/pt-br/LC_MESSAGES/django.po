@@ -4,6 +4,7 @@
 # Author: Adriana Lioni
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
+# Author: Felipe L. Ewald
 # Author: Mariagarbin
 # Author: Re demz
 # Author: Yeltsinxyz
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-07-06 11:01:07+0000\n"
+"PO-Revision-Date: 2023-09-21 11:00:39+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,7 +71,7 @@ msgstr "Por favor entre"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "As configurações de upload do Rephoto foram salvas"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"

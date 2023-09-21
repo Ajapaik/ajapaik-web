@@ -4,6 +4,7 @@
 # Author: Duke of Wikipädia
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
+# Author: Felipe L. Ewald
 # Author: Re demz
 # Author: Svjatysberega
 # Author: Yeltsinxyz
@@ -16,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-07-06 11:01:06+0000\n"
+"PO-Revision-Date: 2023-09-21 11:00:36+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -398,11 +399,11 @@ msgstr "Nenhuma foto em formato panorâmico foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "Não foram encontradas fotos do nível do solo nesse álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "Não foram encontradas fotos do nível do solo"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
@@ -487,11 +488,11 @@ msgstr "Nenhuma imagem em formato quadrado foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Não foram encontradas rephotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Não foram encontrados rephotos neste album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
@@ -543,7 +544,7 @@ msgstr "O conjunto de imagens não tem curtidas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "O conjunto de imagens não tem rephotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
@@ -903,7 +904,7 @@ msgstr "Pontos atribuídos"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "Feedback de inversão de imagem"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
