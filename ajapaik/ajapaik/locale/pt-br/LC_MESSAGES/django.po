@@ -17,7 +17,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2023-09-21 11:00:39+0000\n"
+"PO-Revision-Date: 2023-09-25 11:00:33+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2187,8 +2187,8 @@ msgstr[1] "localizações confimadas para <b>%(geotag_confirmations)s</b> imagen
 #, python-format
 msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
 msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "feito para <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b>"
+msgstr[1] "feito para <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/user/_user_info.html:21
@@ -2218,8 +2218,8 @@ msgstr[1] "especificou datas para <b>%(datings)s</b> imagens"
 #, python-format
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "rostos anotados em <b>%(face_annotations)s</b>"
+msgstr[1] "rostos anotados em<b>%(face_annotations)s</b>"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/user/_user_info.html:37
@@ -2234,8 +2234,8 @@ msgstr[1] "<b>%(face_annotations_pictures)s</b> imagens"
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "objeto anotado em <b>%(object_annotations)s</b>"
+msgstr[1] "objeto anotado em <b>%(object_annotations)s</b>"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
@@ -2248,8 +2248,8 @@ msgstr[1] "<b>%(object_annotations_pictures)s</b> imagens"
 #, python-format
 msgid "transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "texto transcrito em <b>%(transcriptions)s</b> foto"
+msgstr[1] "adicionado texto transcrito em <b>%(transcriptions)s</b> fotos"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/user/_user_info.html:53
@@ -2320,8 +2320,8 @@ msgstr[1] "<b>%(object_annotations)s</b> imagens"
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "adicionado texto transcrito em <b>%(transcriptions)s</b> foto"
+msgstr[1] "texto transcrito em <b>%(transcriptions)s</b> fotos"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
