@@ -111,30 +111,8 @@
     <script>
         $(document).ready(function () {
 
-            let sceneFeedbackView = `
-                  <div style='width: 150px'>
-                    <button type='button' class='btn btn-light btn-sm c mr-2' id='interior-alternative' onclick="enable('scene', 'interior')">
-                      <span class='material-icons notranslate ajp-icon-36'>hotel</span><br>Interior
-                    </button>
-                    <button type='button' class='btn btn-light btn-sm' id='exterior-alternative' onclick="enable('scene', 'exterior')">
-                      <span class='material-icons notranslate ajp-icon-36'>home</span><br>Exterior
-                    </button>
-                    <button id='send-suggestion-button-scene' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
-                  </div>`;
-
-            let viewPointElevationFeedbackView = `
-                  <div style='width: 200px'>
-                    <button type='button' class='btn btn-light btn-sm c mr-2' id='ground-alternative' onclick="enable('view-point-elevation', 'ground')">
-                      <span class='material-icons notranslate ajp-icon-36'>nature_people</span><br>Ground
-                    </button>
-                    <button type='button' class='btn btn-light btn-sm' id='raised-alternative' onclick="enable('view-point-elevation', 'raised')">
-                      <span class='material-icons notranslate ajp-icon-36'>location_city</span><br>Raised
-                    </button>
-                    <button type='button' class='btn btn-light btn-sm' id='aerial-alternative' onclick="enable('view-point-elevation', 'aerial')">
-                      <span class='material-icons notranslate ajp-icon-36'>flight</span><br>Aerial
-                    </button>
-                    <button id='send-suggestion-button-view-point-elevation' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
-                  </div>`;
+            let sceneFeedbackView = getSceneFeedbackView();
+            let viewPointElevationFeedbackView = getViewPointElevationFeedbackView();
 
               $('#ajp-reject-scene-category').popover({
                 html: true,
@@ -280,6 +258,34 @@
             }
             $('#ajp-reject-scene-category').popover('hide');
             $('#ajp-reject-view-point-elevation-category').popover('hide');
+        }
+
+        function getSceneFeedbackView() {
+            return `
+                  <div style='width: 150px'>
+                    <button type='button' class='btn btn-light btn-sm c mr-2' id='interior-alternative' onclick="enable('scene', 'interior')">
+                      <span class='material-icons notranslate ajp-icon-36'>hotel</span><br>Interior
+                    </button>
+                    <button type='button' class='btn btn-light btn-sm' id='exterior-alternative' onclick="enable('scene', 'exterior')">
+                      <span class='material-icons notranslate ajp-icon-36'>home</span><br>Exterior
+                    </button>
+                    <button id='send-suggestion-button-scene' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
+                  </div>`;
+        }
+        function getViewPointElevationFeedbackView() {
+            return `
+                  <div style='width: 200px'>
+                    <button type='button' class='btn btn-light btn-sm c mr-2' id='ground-alternative' onclick="enable('view-point-elevation', 'ground')">
+                      <span class='material-icons notranslate ajp-icon-36'>nature_people</span><br>Ground
+                    </button>
+                    <button type='button' class='btn btn-light btn-sm' id='raised-alternative' onclick="enable('view-point-elevation', 'raised')">
+                      <span class='material-icons notranslate ajp-icon-36'>location_city</span><br>Raised
+                    </button>
+                    <button type='button' class='btn btn-light btn-sm' id='aerial-alternative' onclick="enable('view-point-elevation', 'aerial')">
+                      <span class='material-icons notranslate ajp-icon-36'>flight</span><br>Aerial
+                    </button>
+                    <button id='send-suggestion-button-view-point-elevation' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
+                  </div>`;
         }
     </script>
 {% endblock %}

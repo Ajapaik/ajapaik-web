@@ -13,8 +13,7 @@ function getImageCategory(photoId, callback) {
 
 function determinePictureCategory(responseData) {
     let responseDict = {};
-    for (let i = 0; i < responseData.length; i++) {
-        let data = responseData[i];
+    for (let data of responseData) {
         let fields = data["fields"];
         if ("scene" in fields) {
             if (fields["scene"] === 0) {
