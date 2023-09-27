@@ -1812,6 +1812,7 @@ class PhotoSuggestion(AjapaikAPIView):
                 if scene_suggestion.scene == 1:
                     scene = 'Exterior'
 
+
             if photo.scene == 0:
                 scene_consensus = 'Interior'
             if photo.scene == 1:
