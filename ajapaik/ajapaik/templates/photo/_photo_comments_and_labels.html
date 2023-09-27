@@ -269,7 +269,7 @@
                     <button type='button' class='btn btn-light btn-sm' id='exterior-alternative' onclick="enable('scene', 'exterior')">
                       <span class='material-icons notranslate ajp-icon-36'>home</span><br>Exterior
                     </button>
-                    <button id='send-suggestion-button-scene' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
+                    <button id='send-suggestion-button-scene' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">{% trans 'Confirm' %}</button>
                   </div>`;
         }
         function getViewPointElevationFeedbackView() {
@@ -284,7 +284,7 @@
                     <button type='button' class='btn btn-light btn-sm' id='aerial-alternative' onclick="enable('view-point-elevation', 'aerial')">
                       <span class='material-icons notranslate ajp-icon-36'>flight</span><br>Aerial
                     </button>
-                    <button id='send-suggestion-button-view-point-elevation' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">Confirm</button>
+                    <button id='send-suggestion-button-view-point-elevation' class='btn btn-success mt-3 w-100' disabled onclick="sendAlternativeCategoryConfirmation({{ photo.id }})">{% trans 'Confirm' %}</button>
                   </div>`;
         }
     </script>
