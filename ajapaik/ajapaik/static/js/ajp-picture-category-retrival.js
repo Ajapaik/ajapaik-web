@@ -1,5 +1,5 @@
-function getPictureCategoryCategories(photoId, callback) {
-    var onSuccess = function (response) {
+function getImageCategory(photoId, callback) {
+    let onSuccess = function (response) {
         callback(determinePictureCategory(response.data));
     };
     getRequest(
@@ -11,8 +11,32 @@ function getPictureCategoryCategories(photoId, callback) {
     );
 }
 
+function determinePictureCategory(responseData) {
+    let responseDict = {};
+    for (let i = 0; i < responseData.length; i++) {
+        let data = responseData[i];
+        let fields = data["fields"];
+        if ("scene" in fields) {
+            if (fields["scene"] === 0) {
+                responseDict["scene"] = "interior";
+            } else {
+                responseDict["scene"] = "exterior";
+            }
+        }
+        if ("viewpoint_elevation" in fields) {
+            if (fields["viewpoint_elevation"] === 0) {
+                responseDict["viewpoint_elevation"] = "ground";
+            } else if (fields["viewpoint_elevation"] === 1) {
+                responseDict["viewpoint_elevation"] = "raised";
+            } else if (fields["viewpoint_elevation"] === 2) {
+                responseDict["viewpoint_elevation"] = "areal";
+            }
+        }
+    }
+    return responseDict;
+}
+
 function sendCategoryFeedback(photoId, category, categoryValue) {
-    console.log("Persisting category alternation to db")
     let payload = {
         "photo_id": photoId
     };
@@ -23,7 +47,7 @@ function sendCategoryFeedback(photoId, category, categoryValue) {
         } else if (categoryValue === "exterior") {
             payload["scene_to_alternate"] = 1
         }
-    } else if (category === "view-point") {
+    } else if (category === "view-point-elevation") {
         if (categoryValue === "ground") {
             payload["viewpoint_elevation_to_alternate"] = 0
         } else if (categoryValue === "raised") {
@@ -33,7 +57,7 @@ function sendCategoryFeedback(photoId, category, categoryValue) {
         }
     }
 
-    var onSuccess = function () {
+    const onSuccess = function () {
         console.log("It was a success!")
     };
 
@@ -44,84 +68,4 @@ function sendCategoryFeedback(photoId, category, categoryValue) {
         constants.translations.queries.POST_CATEGORY_CONFIRMATION_FAILED,
         onSuccess
     );
-}
-
-//TODO: to remove
-function sendCategoryConfirmation(photoId, category, categoryValue, confirm) {
-
-
-    console.log("categoryValue")
-    console.log(categoryValue)
-
-    var payload = {
-        "photo_id": photoId
-        // "viewpoint_elevation_to_confirm": 1,
-        // "scene_to_confirm": 1,
-        // "viewpoint_elevation_to_reject": 1,
-        // "scene_to_reject": 1
-    }
-
-    if (category === "scene") {
-        if (categoryValue === "interior") {
-            confirm === 1 ? payload["scene_to_confirm"] = 0 : payload["scene_to_reject"] = 0
-        } else if (categoryValue === "exterior") {
-            confirm === 1 ? payload["scene_to_confirm"] = 1 : payload["scene_to_reject"] = 1
-        }
-    } else if (category === "view-point") {
-        if (categoryValue === "ground") {
-            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 0 : payload["viewpoint_elevation_to_reject"] = 0
-        } else if (categoryValue === "raised") {
-            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 1 : payload["viewpoint_elevation_to_reject"] = 1
-        } else {
-            confirm === 1 ? payload["viewpoint_elevation_to_confirm"] = 2 : payload["viewpoint_elevation_to_reject"] = 2
-        }
-    }
-
-    console.log("PALYLOAD")
-    console.log(payload)
-
-    var onSuccess = function () {
-        console.log("It was a success!")
-    };
-
-    postRequest(
-        '/object-categorization/confirm-latest-category',
-        payload,
-        constants.translations.queries.POST_CATEGORY_CONFIRMATION_SUCCESS,
-        constants.translations.queries.POST_CATEGORY_CONFIRMATION_FAILED,
-        onSuccess
-    );
-    console.log(photoId);
-    console.log(category);
-    console.log(confirm);
-}
-
-function determinePictureCategory(responseData) {
-    var responseDict = {}
-    var category;
-
-    for (let i = 0; i < responseData.length; i++) {
-        var data = responseData[i]
-        var model = data["model"];
-        if (model === "ajapaik.photomodelsuggestionresult") {
-            category = data["fields"]["scene"]
-            if (category === 0) {
-                responseDict["scene"] = "interior";
-            } else {
-                responseDict["scene"] = "exterior";
-            }
-        }
-        if (model === "ajapaik.photoviewpointelevationsuggestion") {
-            category = data["fields"]["viewpoint_elevation"]
-            if (category === 0) {
-                responseDict["viewpoint_elevation"] = "ground";
-            } else if (category === 1) {
-                responseDict["viewpoint_elevation"] = "raised";
-            } else {
-                responseDict["viewpoint_elevation"] = "areal";
-            }
-        }
-
-    }
-    return responseDict;
 }
