@@ -1,8 +1,6 @@
-from django.views.decorators.csrf import csrf_exempt
-
 from ajapaik.ajapaik.models import PhotoModelSuggestionAlternativeCategory
 from ajapaik.ajapaik_object_categorization.service.object_categorization import object_categorization_service
-from ajapaik.ajapaik_object_categorization import response
+from ajapaik.ajapaik_object_recognition import response
 from django.http import HttpResponse, HttpRequest
 
 
