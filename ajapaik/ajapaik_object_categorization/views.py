@@ -38,7 +38,6 @@ def propose_alternative_category(request: HttpRequest) -> HttpResponse:
     return response.success()
 
 
-@csrf_exempt
 def post_image_category_result_table(request: HttpRequest) -> HttpResponse:
     if request.method != 'POST':
         return response.not_supported()
