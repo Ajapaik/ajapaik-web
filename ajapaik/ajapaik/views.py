@@ -2422,7 +2422,7 @@ def curator_photo_upload_handler(request):
                                 licence=licence,
                                 external_id=muis_id,
                                 external_sub_id=muis_media_id,
-                                source_key=source_key,
+                                source_key=upload_form.cleaned_data['identifyingNumber'],
                                 source_url=upload_form.cleaned_data['urlToRecord'],
                                 flip=upload_form.cleaned_data['flip'],
                                 invert=upload_form.cleaned_data['invert'],
@@ -2785,8 +2785,6 @@ def csv_import(request):
 
         existing_photos = Photo.objects.filter(image__in=file_list).values_list('image', flat=True)
 
-        import_blacklist_service = ImportBlacklistService()
-
         # TODO: map over row fields instead to directly set attributes of photo with setattr
         # before doing so remove any exceptions like album, source, licence or start using only ids
         for row in csv.DictReader(decoded_file, delimiter=',', quotechar='"'):
@@ -2870,7 +2868,7 @@ def csv_import(request):
                     lon=lon,
                     geography=geography,
                     source=source,
-                    source_key=upload_form.cleaned_data['identifyingNumber'],
+                    source_key=source_key,
                     source_url=source_url,
                     date_text=date_text,
                     licence=licence,
