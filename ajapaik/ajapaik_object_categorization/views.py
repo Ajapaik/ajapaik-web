@@ -32,7 +32,7 @@ def propose_alternative_category(request: HttpRequest) -> HttpResponse:
     alternative.viewpoint_elevation_alternation = request.POST.get("viewpoint_elevation_to_alternate", None)
     alternative.scene_alternation = request.POST.get("scene_to_alternate", None)
     alternative.photo_id = request.POST.get("photo_id", None)
-    alternative.proposer = request.user.profile  # assuming you have a user profile model and the user is authenticated
+    alternative.proposer = request.user.profile
     alternative.save()
 
     return response.success()
