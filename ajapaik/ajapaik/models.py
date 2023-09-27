@@ -2090,6 +2090,7 @@ class PhotoModelSuggestionResult(Suggestion):
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
+
 class PhotoModelSuggestionAlternativeCategory(Suggestion):
     INTERIOR, EXTERIOR = range(2)
     GROUND_LEVEL, RAISED, AERIAL = range(3)
@@ -2102,10 +2103,13 @@ class PhotoModelSuggestionAlternativeCategory(Suggestion):
         (RAISED, _('Raised')),
         (AERIAL, _('Aerial'))
     )
-    viewpoint_elevation_alternation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    viewpoint_elevation_alternation = PositiveSmallIntegerField(_('Viewpoint elevation'),
+                                                                choices=VIEWPOINT_ELEVATION_CHOICES, blank=True,
+                                                                null=True)
     scene_alternation = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation', on_delete=CASCADE)
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation',
+                          on_delete=CASCADE)
 
     def validate_unique(self, exclude=None):
         super().validate_unique(exclude)
@@ -2115,11 +2119,6 @@ class PhotoModelSuggestionAlternativeCategory(Suggestion):
             proposer=self.proposer,
             photo_id=self.photo_id
         ).exclude(pk=self.pk)
-
-        print(f"QUERY SET IS {queryset}")
-        print(type(self.scene_alternation))
-        print(self.scene_alternation in ['0', '1'])
-        print(queryset.exists())
 
         if self.scene_alternation in ['0', '1'] and queryset.exists():
             raise ValidationError('Only one record with scene_alternation 0 or 1 is allowed.')

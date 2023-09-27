@@ -417,17 +417,15 @@ class VideoStillCaptureForm(forms.Form):
 
 
 class UserPhotoUploadForm(forms.ModelForm):
-    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
     def __init__(self, *args, **kwargs):
         super(UserPhotoUploadForm, self).__init__(*args, **kwargs)
         self.fields['licence'].queryset = Licence.objects.filter(is_public=True)
 
     class Meta:
         model = Photo
-        fields = ('images', 'description', 'uploader_is_author', 'author', 'licence')
+        fields = ('image', 'description', 'uploader_is_author', 'author', 'licence')
         labels = {
-            'images': _('Picture files'),
+            'image': _('Picture file'),
             'description': _('Description'),
             'uploader_is_author': _('I am the author'),
             'author': _('Author'),
@@ -450,17 +448,10 @@ class UserPhotoUploadForm(forms.ModelForm):
             'author': forms.TextInput(attrs={'placeholder': _('Author name')}),
         }
 
-    def clean_images(self):
-        images = self.cleaned_data.get('images')
-
-        if not images:
-            raise forms.ValidationError(_('At least one image file is required.'))
-
-        return images
-
     def clean(self):
         super(UserPhotoUploadForm, self).clean()
-
+        if not self.cleaned_data.get('image'):
+            self.errors['image'] = [_('Missing image')]
         if not self.cleaned_data.get('description'):
             self.errors['description'] = [_('Missing description')]
         if not self.cleaned_data.get('uploader_is_author') and not self.cleaned_data.get('licence'):
