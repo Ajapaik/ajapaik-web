@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-09-11 11:00:34+0000\n"
+"PO-Revision-Date: 2023-09-28 11:00:48+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -559,7 +559,7 @@ msgstr "Карта дац"
 #: ajapaik/ajapaik/models.py:1518 ajapaik/ajapaik/models.py:1520
 #: ajapaik/ajapaik/templates/comments/list.html:17
 msgid "Anonymous user"
-msgstr "Къайлаха декъашхо"
+msgstr "Аноним декъашхо"
 
 #: ajapaik/ajapaik/models.py:1711
 msgid "Day"
