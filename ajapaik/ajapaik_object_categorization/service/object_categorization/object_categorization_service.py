@@ -20,13 +20,6 @@ def get_latest_category_from_result_table(photo_id=None):
 
 
 def get_uncategorized_photos():
-    """
-    Method returns uncategorized photos for further category prediction.
-    Uncategorized images are those that are:
-       - not present in original Photo table
-       - not present in PhotoModelSuggestionResult (meaning to category was computed for them before)
-    """
-
     photos = Photo.objects.filter(scene=None, viewpoint_elevation=None).values_list('id', 'user', 'image')
 
     photos_without_results = []
@@ -49,10 +42,6 @@ def post_image_category_result_table(request: HttpRequest):
 
 
 def aggregate_category_data():
-    """
-    Method aggregates data from both Alternative table.
-    """
-
     one_week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
 
     alternative_category = PhotoModelSuggestionAlternativeCategory.objects.filter(created__gte=one_week_ago).order_by(
