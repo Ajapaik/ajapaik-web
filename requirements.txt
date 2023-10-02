@@ -2,7 +2,7 @@ wheel==0.37.0
 cmake
 Django==3.2.20
 django-admin-tools==0.9.0
-django-allauth==0.45.0
+django-allauth==0.57.0
 django-autocomplete-light==3.8.2
 django-bootstrap4==3.0.1
 django-bulk-update==2.2.0

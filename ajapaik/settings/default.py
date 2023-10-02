@@ -114,6 +114,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
@@ -163,7 +164,7 @@ REGISTRATION_EMAIL_HTML = False
 LOGIN_REDIRECT_URL = '/'
 REGISTRATION_FORM = 'ajapaik.ajapaik.forms.UserRegistrationForm'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -207,7 +208,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons'
-)
+]
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
 ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']

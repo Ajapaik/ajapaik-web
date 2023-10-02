@@ -28,8 +28,8 @@
 
 {% with 'facebook google wikimedia-commons' as provider_list %}
   {% for provider in provider_list.split %}
-    <div class="{{provider}}-connect my-1">
-        <a href="{% provider_login_url provider %}?next={% if next %}{{ next|urlencode }}{% else %}{{ request.get_full_path|urlencode }}{% endif %}" class="ir">{% blocktrans %}Connect with {{provider}}{% endblocktrans %}</a>
+    <div class="{{provider}}-connect my-2">
+        <a href="/?next={% if next %}{{ next|urlencode }}{% else %}{{ request.get_full_path|urlencode }}{% endif %}" class="ir">{% blocktrans %}Connect with {{provider}}{% endblocktrans %}</a>
     </div>
   {% endfor %}
 {% endwith %}
