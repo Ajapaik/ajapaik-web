@@ -636,7 +636,7 @@ a.fullscreen {
 
 .facebook-connect a {
     width: 169px;
-    height: 21px;
+    height: 28px;
     background: url(../images/connect-with-facebook.png) no-repeat;
 }
 
@@ -644,14 +644,12 @@ a.fullscreen {
     width: 169px;
     height: 57px;
     background: url(../images/connect-with-wikimedia-commons.png) no-repeat;
-    margin-top: -5px;
 }
 
 .google-connect a {
     width: 169px;
-    height: 57px;
+    height: 30px;
     background: url(../images/connect-with-google.png) no-repeat;
-    margin-top: -5px;
 }
 
 .ir {
