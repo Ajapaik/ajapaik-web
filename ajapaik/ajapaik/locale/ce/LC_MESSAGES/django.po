@@ -10,12 +10,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-10-05 11:00:38+0000\n"
+"PO-Revision-Date: 2023-10-12 11:00:39+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ce\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-07-10\n"
+"X-Generator: MediaWiki 1.42.0-alpha; Translate 2023-07-10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ajapaik/ajapaik/admin.py:87
@@ -703,7 +703,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:34
 msgid "Annotate"
-msgstr ""
+msgstr "Аннотйан"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:37
 #: ajapaik/ajapaik/templates/_toolbox.html:52
@@ -2068,11 +2068,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "MIUS чуьра импорт"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
-msgstr ""
+msgstr "CSV-файл импортйар"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:99
@@ -2277,7 +2277,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
-msgstr ""
+msgstr "Хьайнаш хьажа"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
@@ -2289,7 +2289,7 @@ msgstr "хаьржина суьрташ"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:8
 msgid "This account is connected to:"
-msgstr ""
+msgstr "ХӀара аккаунт тӀетесна йу:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is not connected to any other"
@@ -2382,7 +2382,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/user.html:28
 msgid "here"
-msgstr ""
+msgstr "кхузахь"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
@@ -2527,19 +2527,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
-msgstr ""
+msgstr "KulKa логотип"
 
 #: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "Дешаран министраллин логотип"
 
 #: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
-msgstr ""
+msgstr "EV100 логотип"
 
 #: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
-msgstr ""
+msgstr "KYSK логотип"
 
 #: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"
@@ -2585,17 +2585,17 @@ msgstr "Бера"
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:74
 msgid "Adult"
-msgstr ""
+msgstr "Кхиъна"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
 msgid "Elderly"
-msgstr ""
+msgstr "Къена"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Хууш дац"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
@@ -2605,7 +2605,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:193
 msgid "Algorithm"
-msgstr ""
+msgstr "Алгоритм"
 
 #: ajapaik/ajapaik_face_recognition/models.py:34
 #: ajapaik/ajapaik_face_recognition/models.py:194
@@ -2626,7 +2626,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "Ца хаа"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -2636,7 +2636,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
 msgid "Not a Face"
-msgstr ""
+msgstr "ХӀара йуьхь йац"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
@@ -2650,12 +2650,12 @@ msgstr "Хаам"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "Адамах лаьцна керла дӀайаздар кхолла"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
 msgid "Not sure"
-msgstr ""
+msgstr "Билгалла аллил дац"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:94
 msgid "Skip"
