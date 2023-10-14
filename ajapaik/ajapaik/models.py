@@ -2074,6 +2074,63 @@ class PhotoViewpointElevationSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions',
                           on_delete=CASCADE)
 
+class PhotoModelSuggestionResult(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+
+
+class PhotoModelSuggestionAlternativeCategory(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation_alternation = PositiveSmallIntegerField(_('Viewpoint elevation'),
+                                                                choices=VIEWPOINT_ELEVATION_CHOICES, blank=True,
+                                                                null=True)
+    scene_alternation = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+
+    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation',
+                          on_delete=CASCADE)
+
+    def validate_unique(self, exclude=None):
+        # super().validate_unique(exclude)
+        queryset = self.__class__._default_manager.filter(
+            Q(scene_alternation=0) | Q(scene_alternation=1),
+            proposer=self.proposer,
+            photo_id=self.photo_id
+        ).exclude(pk=self.pk)
+
+        if self.scene_alternation in ['0', '1'] and queryset.exists():
+            return False
+        return True
+
+    def save(self, *args, **kwargs):
+        if self.validate_unique():
+            super().save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'ajapaik_photomodelsuggestionalternativecategory'
+        unique_together = (('proposer', 'photo_id', 'scene_alternation'),
+                           ('proposer', 'photo_id', 'viewpoint_elevation_alternation'))
+
 
 class PhotoFlipSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)

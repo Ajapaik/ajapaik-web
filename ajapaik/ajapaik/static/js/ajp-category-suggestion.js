@@ -1,4 +1,5 @@
 function submitCategorySuggestion(photoIds, isMultiSelect) {
+  sendCategorySuggestionToAI(photoIds, scene, viewpointElevation)
   $('#ajp-loading-overlay').show();
   return fetch(photoSceneUrl, {
     method: 'POST',
@@ -98,4 +99,75 @@ function clickSceneCategoryButton(buttonId) {
   $('#' + buttonId).addClass('btn-outline-primary');
   $('#' + buttonId).removeClass('btn-outline-dark');
   $('#' + buttonId).removeClass('btn-light');
+}
+
+function getImageCategory(photoId, callback) {
+  let onSuccess = function (response) {
+    callback(determinePictureCategory(response.data));
+  };
+  getRequest(
+      '/object-categorization/get-latest-category/' + photoId + '/',
+      null,
+      null,
+      constants.translations.queries.GET_CATEGORY_FAILED,
+      onSuccess
+  );
+}
+
+function determinePictureCategory(responseData) {
+  let responseDict = {};
+  for (let data of responseData) {
+    let fields = data["fields"];
+    if ("scene" in fields) {
+      if (fields["scene"] === 0) {
+        responseDict["scene"] = "interior";
+      } else {
+        responseDict["scene"] = "exterior";
+      }
+    }
+    if ("viewpoint_elevation" in fields) {
+      if (fields["viewpoint_elevation"] === 0) {
+        responseDict["viewpoint_elevation"] = "ground";
+      } else if (fields["viewpoint_elevation"] === 1) {
+        responseDict["viewpoint_elevation"] = "raised";
+      } else if (fields["viewpoint_elevation"] === 2) {
+        responseDict["viewpoint_elevation"] = "areal";
+      }
+    }
+  }
+  return responseDict;
+}
+
+function sendCategorySuggestionToAI(photoIds, scene, viewpointElevation) {
+  let sceneVerdict = scene.toLowerCase();
+  let viewpointElevationVerdict = viewpointElevation.toLowerCase();
+
+  let payload = {
+    "photo_id": photoIds[0]
+  };
+
+  if (sceneVerdict === "interior") {
+    payload["scene_to_alternate"] = 0
+  }
+  if (sceneVerdict === "exterior") {
+    payload["scene_to_alternate"] = 1
+  }
+  if (viewpointElevationVerdict === "ground") {
+    payload["viewpoint_elevation_to_alternate"] = 0
+  }
+  if (viewpointElevationVerdict === "raised") {
+    payload["viewpoint_elevation_to_alternate"] = 1
+  }
+  if (viewpointElevationVerdict === "raised") {
+    payload["viewpoint_elevation_to_alternate"] = 2
+  }
+
+  postRequest(
+      '/object-categorization/confirm-latest-category',
+      payload,
+      constants.translations.queries.POST_CATEGORY_CONFIRMATION_SUCCESS,
+      constants.translations.queries.POST_CATEGORY_CONFIRMATION_FAILED,
+      function () {
+      }
+  );
 }

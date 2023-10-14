@@ -104,7 +104,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -197,8 +197,9 @@ INSTALLED_APPS = (
     'leaflet',
     'ajapaik.ajapaik_face_recognition',
     'ajapaik.ajapaik_object_recognition',
+    'ajapaik.ajapaik_object_categorization',
     'django_user_agents',
-    'corsheaders',
+    # 'corsheaders',
 
     # Django allauth and related applications.
     'allauth',
