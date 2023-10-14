@@ -224,7 +224,7 @@ urlpatterns += [
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^face-recognition/', include(fr_urls)),
     url(r'^object-recognition/', include(or_urls)),
-    url(r'^object-categorization/', include(oc_urls)) #TODO verify
+    url(r'^object-categorization/', include(oc_urls))
 ]
 
 if hasattr(settings, 'GOOGLE_ANALYTICS_KEY') and settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
