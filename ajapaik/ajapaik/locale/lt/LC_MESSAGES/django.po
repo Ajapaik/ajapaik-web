@@ -3,6 +3,7 @@
 #
 # Author: Eitvys200
 # Author: Nokeoo
+# Author: Shirayuki
 # Author: Vac31.
 # Author: YuliaVo
 # --
@@ -12,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-10-12 11:00:42+0000\n"
+"PO-Revision-Date: 2023-10-16 11:01:01+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -315,7 +316,7 @@ msgstr "El. pašto adresas"
 
 #: ajapaik/ajapaik/forms.py:550
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "Komentarų laukelis palaiko Markdown\n\nPastraipos\nPridėk dvi naujas eilutes, kad pradėtum naują pastraipą.\n\nParyškintas\n**Geotagging** yra pirmoji Ajapaik užduotis.\n\nKursyvu\nToliau seka *refotografavimas* ir *pasimatymai*.\n\nNuorodos\nPrisijunk prie diskusijos [Ajapaiklejad FB grupėje] (https://www.facebook.com/groups/ajapaiklejad).\n\nVaizdai\n![Ajapaik yra dovana EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Komentarų laukelis palaiko Markdown\n\nPastraipos\nPridėk dvi naujas eilutes, kad pradėtum naują pastraipą.\n\nParyškintas\n**Geotagging** yra pirmoji Ajapaik užduotis.\n\nKursyvu\nToliau seka *refotografavimas* ir *pasimatymai*.\n\nNuorodos\nPrisijunk prie diskusijos [Ajapaiklejad FB grupėje](https://www.facebook.com/groups/ajapaiklejad).\n\nVaizdai\n![Ajapaik yra dovana EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:585
 msgid "Nothing to change."
