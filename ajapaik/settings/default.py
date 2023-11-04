@@ -104,7 +104,7 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '!!! paste your own secret key here !!!'
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -199,7 +199,7 @@ INSTALLED_APPS = (
     'ajapaik.ajapaik_object_recognition',
     'ajapaik.ajapaik_object_categorization',
     'django_user_agents',
-    'corsheaders',
+    # 'corsheaders',
 
     # Django allauth and related applications.
     'allauth',
@@ -399,7 +399,7 @@ ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (  # noqa
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
