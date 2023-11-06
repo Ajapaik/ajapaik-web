@@ -17,6 +17,7 @@
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: Pittigrilli
+# Author: Sebastian Wallroth
 # Author: ThisCarthing
 # Author: Tiin
 # Author: Timonade
@@ -28,7 +29,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-11-02 12:00:30+0000\n"
+"PO-Revision-Date: 2023-11-06 12:00:42+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -375,7 +376,7 @@ msgstr "MUIS-Titel"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS-Kommentar"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -500,7 +501,7 @@ msgstr "Foto kippen"
 
 #: ajapaik/ajapaik/models.py:1301
 msgid "Invert photo"
-msgstr ""
+msgstr "Foto invertieren"
 
 #: ajapaik/ajapaik/models.py:1302
 msgid "Rotate photo"
@@ -683,7 +684,7 @@ msgstr "Bilder vergleichen"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "Geben Sie an, ob sich der Inhalt der Bilder überlappt oder nicht. Bei überlappenden Inhalten ist der Ort bzw. das Objekt derselbe, bei gleicher Aufnahme kann es auch sein, dass eines der Bilder beschnitten ist."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
@@ -731,7 +732,7 @@ msgstr "Teilen"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:54
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "Kategorie hinzufügen - wenn du auf diese Schaltfläche klickst, kannst du das Bild in verschiedene Kategorien einordnen, z. B. ob das Bild einen Innen- oder Außenbereich zeigt"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:58
 msgid "Categorize"
