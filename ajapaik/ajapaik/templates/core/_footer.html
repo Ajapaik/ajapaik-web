@@ -21,22 +21,22 @@
         </ul>
         <ul class="col-lg-3 m-0 list-unstyled">
             <li>
-                <a href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
+                    <a href="{% url 'privacy' %}" title="{% trans "Privacy policy" %}">{% trans "Privacy policy" %}</a>
             </li>
         </ul>
         <ul class="col-lg-3 m-0 list-unstyled">
             <li>
-                    <a href="{% url 'donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
+                    <a href="{% url 'terms' %}" title="{% trans "Terms and conditions" %}">{% trans "Terms and conditions" %}</a>
             </li>
         </ul>
         <ul class="col-lg-3 m-0 list-unstyled">
-            <li class="pt-2">
-                <a target="_blank" href="https://www.hotjar.com/?utm_source=badge" rel="noopener nofollow">
-                    <img id="ajp-hotjar-footer-logo" class="lazyload"
-                         src="/static/images/hotjar-badge.png"
-                         data-src="/static/images/hotjar-badge.png"
-                         alt="Hotjar - Unlimited insights from your web and mobile sites" />
-                </a>
+            <li>
+                <a href="mailto:info@ajapaik.ee">info@ajapaik.ee</a>
+            </li>
+        </ul>
+        <ul class="col-lg-12 m-0 list-unstyled">
+            <li>
+                    <a href="{% url 'donate' %}" title="{% trans "Support Ajapaik" %}">{% trans "Support us" %}</a>
             </li>
         </ul>
     </div>
