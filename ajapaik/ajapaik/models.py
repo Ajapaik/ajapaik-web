@@ -537,8 +537,14 @@ class Album(Model):
         return Album.TYPE_CHOICES[self.atype][1]
 
 
+# Ugly hack to exclude specific photos for some whiny individuals
+class PhotoManager(EstimatedCountManager):
+    def get_queryset(self):
+        return super(PhotoManager, self).get_queryset().exclude(source_key__startswith="ERM Fk 2903")
+
+
 class Photo(Model):
-    objects = EstimatedCountManager()
+    objects = PhotoManager()
     bulk = BulkUpdateManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
