@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-12-07 12:00:33+0000\n"
+"PO-Revision-Date: 2023-12-25 12:00:41+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
-msgstr "Gelieve in te loggen"
+msgstr "Gelieve u aan te melden"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
@@ -927,7 +927,7 @@ msgstr "Wachtwoord instellen"
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Heb je al een account? Gelieve dan <a href=\"%(login_url)s\"> in te loggen</a>."
+msgstr "Hebt u al een account? Gelieve u dan <a href=\"%(login_url)s\">aan te melden</a>."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
@@ -945,7 +945,7 @@ msgstr "Opmerking"
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr "je bent al ingelogd als %(user_name)s"
+msgstr "u bent al aangemeld als %(user_name)s"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
