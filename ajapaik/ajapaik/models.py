@@ -28,7 +28,8 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index, \
+    UniqueConstraint
 from django.db.models.fields import Field
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
@@ -52,6 +53,18 @@ from ajapaik.utils import angle_diff, average_angle
 # Implement count estimate as custom function per
 # https://wiki.postgresql.org/wiki/Count_estimate
 # https://stackoverflow.com/questions/41467751/how-to-override-queryset-count-method-in-djangos-admin-list
+
+INTERIOR, EXTERIOR = range(2)
+GROUND_LEVEL, RAISED, AERIAL = range(3)
+SCENE_CHOICES = (
+    (INTERIOR, _('Interior')),
+    (EXTERIOR, _('Exterior'))
+)
+VIEWPOINT_ELEVATION_CHOICES = (
+    (GROUND_LEVEL, _('Ground')),
+    (RAISED, _('Raised')),
+    (AERIAL, _('Aerial'))
+)
 
 class EstimatedCountQuerySet(QuerySet):
 
@@ -638,18 +651,7 @@ class Photo(Model):
     similar_photos = ManyToManyField('self', through='ImageSimilarity', symmetrical=False)
     back_of = ForeignKey('self', blank=True, null=True, related_name='back', on_delete=CASCADE)
     front_of = ForeignKey('self', blank=True, null=True, related_name='front', on_delete=CASCADE)
-    INTERIOR, EXTERIOR = range(2)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
                                                     blank=True, null=True)
     description_original_language = CharField(_('Description original language'), max_length=255, blank=True, null=True)
@@ -2053,84 +2055,50 @@ class Suggestion(Model):
 
 
 class PhotoSceneSuggestion(Suggestion):
-    INTERIOR, EXTERIOR = range(2)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
 
 
 class PhotoViewpointElevationSuggestion(Suggestion):
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
                                                     blank=True, null=True)
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions',
                           on_delete=CASCADE)
 
 class PhotoModelSuggestionResult(Suggestion):
-    INTERIOR, EXTERIOR = range(2)
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES, blank=True, null=True)
     scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
 
 class PhotoModelSuggestionAlternativeCategory(Suggestion):
-    INTERIOR, EXTERIOR = range(2)
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
-    viewpoint_elevation_alternation = PositiveSmallIntegerField(_('Viewpoint elevation'),
+
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'),
                                                                 choices=VIEWPOINT_ELEVATION_CHOICES, blank=True,
                                                                 null=True)
-    scene_alternation = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
 
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions_alternation',
                           on_delete=CASCADE)
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                fields=['proposer', 'viewpoint_elevation'],
+                condition=Q(scene__isnull=True),
+                name='unique_proposer_viewpoint_elevation_without_scene'
+            ),
+            UniqueConstraint(
+                fields=['proposer', 'scene'],
+                condition=Q(viewpoint_elevation__isnull=True),
+                name='unique_proposer_scene_without_viewpoint_elevation'
+            ),
+        ]
 
     def validate_unique(self, exclude=None):
-        # super().validate_unique(exclude)
-        queryset = self.__class__._default_manager.filter(
-            Q(scene_alternation=0) | Q(scene_alternation=1),
-            proposer=self.proposer,
-            photo_id=self.photo_id
-        ).exclude(pk=self.pk)
-
-        if self.scene_alternation in ['0', '1'] and queryset.exists():
-            return False
-        return True
+        super().validate_unique(exclude)
 
     def save(self, *args, **kwargs):
         if self.validate_unique():
             super().save(*args, **kwargs)
-
-    class Meta:
-        db_table = 'ajapaik_photomodelsuggestionalternativecategory'
-        unique_together = (('proposer', 'photo_id', 'scene_alternation'),
-                           ('proposer', 'photo_id', 'viewpoint_elevation_alternation'))
-
 
 class PhotoFlipSuggestion(Suggestion):
     proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)

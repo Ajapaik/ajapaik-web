@@ -10,13 +10,11 @@ import datetime
 
 def get_latest_category_from_result_table(photo_id=None):
     result = PhotoModelSuggestionResult.objects.filter(photo_id=photo_id).order_by('-created')
-    result_categories = []
 
     if result.exists():
         categories = serializers.serialize('python', result)
-        result_categories.append(categories)
         return categories
-    return result_categories
+    return []
 
 
 def get_uncategorized_photos():

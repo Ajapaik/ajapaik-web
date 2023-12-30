@@ -81,7 +81,6 @@ var constants = {
       },
     },
     queries: {
-      GET_CATEGORY_FAILED: gettext('Failed to load object category'),
       POST_CATEGORY_CONFIRMATION_SUCCESS: gettext(
           'Successfully posted object category confirmation'
       ),
