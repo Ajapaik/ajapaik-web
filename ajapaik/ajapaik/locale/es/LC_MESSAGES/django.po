@@ -14,6 +14,7 @@
 # Author: Leslyvasquez1
 # Author: MarcoAurelio
 # Author: Ncr
+# Author: Nelthal
 # Author: Reverse88
 # Author: Rodney Araujo
 # Author: SpikeShroom
@@ -25,7 +26,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-12-07 12:00:30+0000\n"
+"PO-Revision-Date: 2024-01-15 12:00:22+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1274,29 +1275,29 @@ msgstr "histórico,imágenes,antiguo,fotos,mapa,geoetiquetado,ubicación"
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:60
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:62
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
-msgstr ""
+msgstr "histórico,imágenes,antiguo,fotos,multitud,geoetiquetado,juego"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:66
 msgid "historic,picture,old,photo,before,after"
-msgstr ""
+msgstr "histórico,fotografía,antiguo,foto,antes,después"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:68
 msgid "historic,picture,old,photo"
-msgstr ""
+msgstr "histórico,foto,antiguo,foto"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:71
 msgid "search,museum,old,photos,pictures,historic"
-msgstr ""
+msgstr "buscar,museo,antiguo,fotos,imágenes,histórico"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr ""
+msgstr "Galería de refotografías por %(rephotos_by_name)s"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:95
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
-msgstr ""
+msgstr "El álbum tiene %(album_photo_count)s fotos históricas. ¡Pongamos fotos en el mapa!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:97
 msgid "Let's put pictures on the map"
