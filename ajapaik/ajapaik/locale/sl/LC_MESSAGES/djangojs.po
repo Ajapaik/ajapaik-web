@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-01-25 12:00:29+0000\n"
+"PO-Revision-Date: 2024-02-19 12:00:25+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -593,7 +593,7 @@ msgstr "Velikost"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr "Nekaj je šlo narobe, preverite povezavo. Če težave ne odpravite, nas kontaktirajte na Tawk.to"
+msgstr "Nekaj je šlo narobe, preverite povezavo. Če težave ne boste mogli odpraviti, nas kontaktirajte na Tawk.to"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
