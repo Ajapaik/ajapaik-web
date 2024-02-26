@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-02-19 12:00:25+0000\n"
+"PO-Revision-Date: 2024-02-26 12:00:24+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1040,7 +1040,7 @@ msgstr "Obraz"
 
 #: ajapaik/ajapaik/static/js/constants.js:79
 msgid "Failed to load object annotation classes"
-msgstr "Nalaganje razredov označitev objektov ni uspelo"
+msgstr "Nalaganje razredov označitev predmetov ni uspelo"
 
 #: ajapaik/ajapaik/static/js/constants.js:80
 msgid "Failed to load annotations"
@@ -1048,7 +1048,7 @@ msgstr "Nalaganje označitev ni uspelo"
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "Successfully added object annotation"
-msgstr "Uspešno dodana označitev objekta"
+msgstr "Označitev predmeta uspešno dodana"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Unable to save object annotation"
@@ -1056,7 +1056,7 @@ msgstr "Označitve objekta ni bilo mogoče shraniti"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Successfully updated object annotation"
-msgstr "Označitev objekta uspešno shranjenA"
+msgstr "Označitev predmeta uspešno shranjena"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Unable to update object annotation"
@@ -1068,11 +1068,11 @@ msgstr "Povratna informacija o označitvi objekta uspešno dodana"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Failed to add object annotation feedback"
-msgstr "Povratne informacije o označitvi objekta ni bilo mogoče dodati"
+msgstr "Povratne informacije o označitvi predmeta ni bilo mogoče dodati"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Successfully removed object annotation"
-msgstr "Uspešno odstranjena označitev objekta"
+msgstr "Označitev predmeta uspešno odstranjena"
 
 #: ajapaik/ajapaik/static/js/constants.js:88
 msgid "Unable to remove object annotation"
@@ -1205,5 +1205,5 @@ msgstr "Samodejno zaznan objekt"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr "Ogled objekta v Wikipodatkih"
+msgstr "Ogled predmeta v Wikipodatkih"
 

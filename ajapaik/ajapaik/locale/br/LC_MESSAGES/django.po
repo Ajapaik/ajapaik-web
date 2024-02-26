@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-01-25 12:00:26+0000\n"
+"PO-Revision-Date: 2024-02-26 12:00:21+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
-msgstr ""
+msgstr "Skeudenn ebet gant ar c'hod-anaout:"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
@@ -119,7 +119,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
-msgstr ""
+msgstr "Albom ebet kavet"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
-msgstr ""
+msgstr "Anv an aozer·ez"
 
 #: ajapaik/ajapaik/forms.py:443
 msgid "Missing image"
@@ -249,7 +249,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:468
 msgid "Album type"
-msgstr ""
+msgstr "Seurt albom"
 
 #: ajapaik/ajapaik/forms.py:469
 msgid "Anything else"
@@ -277,11 +277,11 @@ msgstr "zo digor"
 
 #: ajapaik/ajapaik/forms.py:486
 msgid "My preferred language is"
-msgstr ""
+msgstr "Ar yezh a zo gwelloc'h ganin zo"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "Faotañ a ra din resev al lizher-kelaouiñ"
 
 #: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
 msgid "Yes"
@@ -345,7 +345,7 @@ msgstr "Anaouder Wikidata"
 
 #: ajapaik/ajapaik/models.py:211
 msgid "Name original language"
-msgstr ""
+msgstr "Anv er yezh orin"
 
 #: ajapaik/ajapaik/models.py:361
 msgid "Image"
@@ -357,11 +357,11 @@ msgstr "Titl"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
-msgstr ""
+msgstr "Titl MUIS"
 
 #: ajapaik/ajapaik/models.py:378
 msgid "MUIS comment"
-msgstr ""
+msgstr "Evezhiadenn MUIS"
 
 #: ajapaik/ajapaik/models.py:379
 msgid "MUIS event description set note"
@@ -377,11 +377,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
-msgstr ""
+msgstr "Diabarzh"
 
 #: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
 msgid "Exterior"
-msgstr ""
+msgstr "Diavaez"
 
 #: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
 msgid "Scene"
@@ -405,7 +405,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:470
 msgid "Description original language"
-msgstr ""
+msgstr "Deskrivadur er yezh orin"
 
 #: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1219
 msgid "Different"
@@ -442,7 +442,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1289
 msgid "Dating"
-msgstr ""
+msgstr "Amzeriañ"
 
 #: ajapaik/ajapaik/models.py:1290
 msgid "Dating confirmation"
@@ -470,7 +470,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1297 ajapaik/ajapaik/templates/_toolbox.html:66
 msgid "Transcribe"
-msgstr ""
+msgstr "Treuzskrivañ"
 
 #: ajapaik/ajapaik/models.py:1298
 msgid "Categorize scene"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1302
 msgid "Rotate photo"
-msgstr ""
+msgstr "C'hwelañ ar skeudenn"
 
 #: ajapaik/ajapaik/models.py:1353
 msgid "Map"
@@ -613,16 +613,16 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
 msgid "Click to choose"
-msgstr ""
+msgstr "Klikit evit dibab"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:23
 msgid "Album details"
-msgstr ""
+msgstr "Munudoù an albom"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:26
 #: ajapaik/ajapaik/templates/_mode_select.html:75
 msgid "Show albums"
-msgstr ""
+msgstr "Diskouez an albomoù"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:28
 #: ajapaik/ajapaik/templates/_mode_select.html:77
@@ -632,12 +632,12 @@ msgstr "Albomoù"
 #: ajapaik/ajapaik/templates/_mode_select.html:31
 #: ajapaik/ajapaik/templates/_mode_select.html:79
 msgid "Show pictures"
-msgstr ""
+msgstr "Diskouez ar skeudennoù"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:33
 #: ajapaik/ajapaik/templates/_mode_select.html:81
 msgid "All pictures"
-msgstr ""
+msgstr "An holl skeudennoù"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:36
 #: ajapaik/ajapaik/templates/_mode_select.html:83
@@ -647,7 +647,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_mode_select.html:38
 #: ajapaik/ajapaik/templates/_mode_select.html:85
 msgid "My favorites"
-msgstr ""
+msgstr "Ma re garetañ"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:41
 #: ajapaik/ajapaik/templates/_mode_select.html:87
@@ -665,7 +665,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
 msgid "Compare images"
-msgstr ""
+msgstr "Keñveriañ ar skeudennoù"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
@@ -687,11 +687,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:16
 msgid "Date this image"
-msgstr ""
+msgstr "Amzeriañ ar skeudenn-mañ"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:20
 msgid "Date"
-msgstr ""
+msgstr "Deiziad"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:23
 msgid "Add rephoto"
@@ -713,7 +713,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_toolbox.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
 msgid "Share"
-msgstr ""
+msgstr "Rannañ"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:54
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
@@ -725,11 +725,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:62
 msgid "Transcribe this image"
-msgstr ""
+msgstr "Treuzskrivañ ar skeudenn-mañ"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "Kemmañ ar skeudenn"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
@@ -739,13 +739,13 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
 #: ajapaik/ajapaik/templates/account/login.html:37
 msgid "Forgot password?"
-msgstr ""
+msgstr "Ankouaet ho peus ho ker-tremen?"
 
 #: ajapaik/ajapaik/templates/account/base.html:36
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:40
 msgid "User settings"
-msgstr ""
+msgstr "Arventennoù an implijer"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -834,7 +834,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/comments/delete.html:17
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:33
 msgid "Remove"
-msgstr ""
+msgstr "Lemel"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 msgid "Warning:"
@@ -875,7 +875,7 @@ msgstr "Ha sur oc'h e fell deoc'h digevreañ?"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "Cheñch ar ger-tremen"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:5
 #: ajapaik/ajapaik/templates/account/password_reset.html:9
@@ -886,7 +886,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:14
 msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr ""
+msgstr "Ankouaet ho peus ho ker-tremen? Enankit ho chomlec'h-postel amañ dindan ha kaset a vo ur postel deoc'h a roio an tu deoc'h da ziuzañ ur ger-tremen all."
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:19
 msgid "Reset My Password"
@@ -912,18 +912,18 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Cheñchet eo bet ho ker-tremen."
 
 #: ajapaik/ajapaik/templates/account/password_set.html:5
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "Ger-tremen nevez"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
 msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "Ur gont ho peus dija? Neuze <a href=\"%(login_url)s\">kevreit</a> mar plij."
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
@@ -977,7 +977,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "Kevreit evit skrivañ un evezhiadenn"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
@@ -1014,7 +1014,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
 msgid "Connect with %(provider)s"
-msgstr ""
+msgstr "Kevreañ gant %(provider)s"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:39
 msgid "E-mail address"
@@ -1022,7 +1022,7 @@ msgstr "Chomlec'h postel"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:46
 msgid "Register with e-mail"
-msgstr ""
+msgstr "Lakaat e anv gant ur chomlec'h postel"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:50
 msgid "Log in"
@@ -1030,7 +1030,7 @@ msgstr "Kevreañ"
 
 #: ajapaik/ajapaik/templates/comments/delete.html:10
 msgid "Really remove this comment?"
-msgstr ""
+msgstr "Ha faotañ a ra deoc'h lemel an evezhiadenn-mañ?"
 
 #: ajapaik/ajapaik/templates/comments/form.html:4
 msgid "Identify yourself to comment"
@@ -1046,11 +1046,11 @@ msgstr "Kas"
 
 #: ajapaik/ajapaik/templates/comments/list.html:25
 msgid "Like"
-msgstr ""
+msgstr "Plijout a ra din"
 
 #: ajapaik/ajapaik/templates/comments/list.html:29
 msgid "Dislike"
-msgstr ""
+msgstr "Ne blij ket din"
 
 #: ajapaik/ajapaik/templates/comments/list.html:33
 #: ajapaik/ajapaik/templates/comments/list.html:93
@@ -1091,11 +1091,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/common/game.html:49
 msgid "Show description"
-msgstr ""
+msgstr "Diskouez an deskrivadur"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
-msgstr ""
+msgstr "Diskouez ar skeudennoù"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
@@ -1125,7 +1125,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Support Ajapaik"
-msgstr ""
+msgstr "Skoazellañ Ajapaik"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik/templates/donate/supporters.html:12
@@ -1144,7 +1144,7 @@ msgstr "Distreiñ d'ar bajenn degemer"
 
 #: ajapaik/ajapaik/templates/core/_header.html:13
 msgid "Search album"
-msgstr ""
+msgstr "Klask un albom"
 
 #: ajapaik/ajapaik/templates/core/_header.html:16
 msgid "Search photos"
@@ -1163,7 +1163,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
 msgid "Show on map"
-msgstr ""
+msgstr "Diskouez war ar gartenn"
 
 #: ajapaik/ajapaik/templates/core/_header.html:44
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
@@ -1172,11 +1172,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:49
 msgid "Newsletters"
-msgstr ""
+msgstr "Lizheroù-kelaouiñ"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
 msgid "Add pictures"
-msgstr ""
+msgstr "Ouzhpennañ skeudennoù"
 
 #: ajapaik/ajapaik/templates/core/_header.html:57
 msgid "Current selection"
@@ -1309,7 +1309,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
 msgid "all the pictures on the map."
-msgstr ""
+msgstr "an holl skeudennoù war ar gartenn."
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
@@ -1349,7 +1349,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Enporzhiañ ur skeudenn"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -1386,7 +1386,7 @@ msgstr "Kargañ muioc'h"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:55
 msgid "Edit your album"
-msgstr ""
+msgstr "Kemmañ hoc'h albom"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:66
 msgid "Error"
@@ -1414,11 +1414,11 @@ msgstr "Klask"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:16
 msgid "Selection"
-msgstr ""
+msgstr "Diuzad"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:23
 msgid "My albums"
-msgstr ""
+msgstr "Ma albomoù"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
 msgid "Full search"
@@ -1426,11 +1426,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:41
 msgid "Search!"
-msgstr ""
+msgstr "Klask!"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:51
 msgid "Select all"
-msgstr ""
+msgstr "Diuzañ pep tra"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:58
 msgid "Filter existing"
@@ -1483,7 +1483,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
-msgstr ""
+msgstr "Kas an diuzad da Ajapaik"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
@@ -1491,7 +1491,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "A galon"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1595,7 +1595,7 @@ msgstr "Siloù"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
@@ -1643,7 +1643,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:52
 msgid "aerial pictures"
-msgstr ""
+msgstr "skeudennoù aer"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:55
 msgid "pictures which are not geotagged"
@@ -1651,7 +1651,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "skeudennoù a galite uhel"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1665,7 +1665,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
 msgid "Show pictures with faces"
-msgstr ""
+msgstr "Diskouez skeudennoù gant dremmoù"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
 msgid "Pictures by collections"
@@ -1673,7 +1673,7 @@ msgstr "Skeudennoù dre zastumadoù"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "Diskouez albomoù film"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
@@ -1685,7 +1685,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
-msgstr ""
+msgstr "Diskouez skeudennoù karrez"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:171
 msgid "Show aerial pictures"
-msgstr ""
+msgstr "Diskouez skeudennoù aer"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:181
 msgid "Show interior pictures"
@@ -1825,7 +1825,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "Kemmet"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
@@ -1974,7 +1974,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
-msgstr ""
+msgstr "Distreiñ d'an degemer"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
@@ -1994,7 +1994,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
-msgstr ""
+msgstr "Ouzhpennañ d'an albom"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
@@ -2016,7 +2016,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photo/photoview.html:136
 #: ajapaik/ajapaik/templates/photo/photoview.html:137
 msgid "similar photo"
-msgstr ""
+msgstr "skeudenn heñvel"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:84
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:85
@@ -2086,7 +2086,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:26
 msgid "Select file..."
-msgstr ""
+msgstr "Diuzañ ur restr..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
@@ -2094,15 +2094,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
-msgstr ""
+msgstr "aotre-implijout"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:56
 msgid "Abort"
-msgstr ""
+msgstr "Dilezel"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:76
 msgid "Select new file..."
-msgstr ""
+msgstr "Diuzañ ur restr nevez..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:107
 msgid "File upload failed."
@@ -2111,7 +2111,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Laouen omp d'ho kwelet en-dro"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
@@ -2531,23 +2531,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
-msgstr ""
+msgstr "Logo Kulka"
 
 #: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "Logo Ministrerezh an Deskadurezh"
 
 #: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
-msgstr ""
+msgstr "Logo EV100"
 
 #: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
-msgstr ""
+msgstr "Logo KYSK"
 
 #: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "Ministrerezh ar Sevenadur"
 
 #: ajapaik/ajapaik/views.py:3600
 msgid "Republic of Estonia National Heritage Board"
@@ -2559,15 +2559,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3614
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Finland"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
-msgstr ""
+msgstr "Anv an den"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:20
 msgid "Date of birth"
-msgstr ""
+msgstr "Deiziad ganedigezh"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Is public figure"
@@ -2575,7 +2575,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Anv-bihan Anv-familh"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
@@ -2609,12 +2609,12 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:193
 msgid "Algorithm"
-msgstr ""
+msgstr "Algoritm"
 
 #: ajapaik/ajapaik_face_recognition/models.py:34
 #: ajapaik/ajapaik_face_recognition/models.py:194
 msgid "Picasa"
-msgstr ""
+msgstr "Picasa"
 
 #: ajapaik/ajapaik_face_recognition/models.py:38
 msgid "SubjectPhoto"
@@ -2630,7 +2630,7 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
-msgstr ""
+msgstr "N'on ket sur"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
@@ -2640,7 +2640,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
 msgid "Not a Face"
-msgstr ""
+msgstr "N'eo ket un dremm"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
@@ -2659,7 +2659,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
 msgid "Not sure"
-msgstr ""
+msgstr "N'on ket sur"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:94
 msgid "Skip"

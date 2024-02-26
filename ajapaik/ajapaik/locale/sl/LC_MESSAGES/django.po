@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-01-25 12:00:32+0000\n"
+"PO-Revision-Date: 2024-02-26 12:00:27+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -667,7 +667,7 @@ msgstr "Primerjaj sliki"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr "Označi, ali se vsebina na slikah prekriva ali ne. V primeru prekrivanja vsebine je kraj ali predmet enak, v primeru istega posnetka je lahko ena od slik tudi obrezana."
+msgstr "Označite, ali se vsebina na slikah prekriva ali ne. V primeru prekrivanja vsebine je kraj ali predmet isti, v primeru istega posnetka je lahko ena od slik tudi obrezana."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
@@ -2269,10 +2269,10 @@ msgstr[3] "<b>%(face_annotations_pictures)s</b> slikah"
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] "označili <b>%(object_annotations)s</b> objekt na"
-msgstr[1] "označili <b>%(object_annotations)s</b> objekta na"
-msgstr[2] "označili <b>%(object_annotations)s</b> objekte na"
-msgstr[3] "označili <b>%(object_annotations)s</b> objektov na"
+msgstr[0] "označili <b>%(object_annotations)s</b> predmet na"
+msgstr[1] "označili <b>%(object_annotations)s</b> predmeta na"
+msgstr[2] "označili <b>%(object_annotations)s</b> predmete na"
+msgstr[3] "označili <b>%(object_annotations)s</b> predmetov na"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
