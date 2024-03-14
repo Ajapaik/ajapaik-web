@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-01-25 12:00:30+0000\n"
+"PO-Revision-Date: 2024-03-14 12:00:32+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -179,7 +179,7 @@ msgstr "Wybierz album nadrzędny"
 
 #: ajapaik/ajapaik/forms.py:417
 msgid "Picture file"
-msgstr ""
+msgstr "Plik obrazu"
 
 #: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
 #: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
@@ -198,27 +198,27 @@ msgstr "Autor"
 
 #: ajapaik/ajapaik/forms.py:421
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Licencja lub status praw autorskich"
 
 #: ajapaik/ajapaik/forms.py:424
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "Akceptowane formaty to pliki .png lub .jpg"
 
 #: ajapaik/ajapaik/forms.py:425
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "Dodaj krótki opis zdjęcia"
 
 #: ajapaik/ajapaik/forms.py:426
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "Autor obrazu (fotograf, malarz)"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Wybierz licencję, aby inne osoby wiedziały, czy i w jaki sposób mogą ponownie wykorzystać przesłany przez Ciebie materiał.\n\nJeśli jesteś autorem, możesz wybrać licencję (zalecamy korzystanie z otwartych licencji Creative Commons). Jeśli utwór stworzył ktoś inny, musisz skorzystać z tej samej licencji i posiadacza praw, jaki posiada ono aktualnie.\n\nObecnie akceptujemy również treści o niejasnym statusie praw autorskich, wybierz wtedy opcję „Prawa autorskie nie zostały ocenione”."
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Description of the picture"
-msgstr ""
+msgstr "Opis obrazu"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author name"
@@ -279,7 +279,7 @@ msgstr "Jest otwarte"
 
 #: ajapaik/ajapaik/forms.py:486
 msgid "My preferred language is"
-msgstr ""
+msgstr "Mój preferowany język to"
 
 #: ajapaik/ajapaik/forms.py:487
 msgid "I wish to receive the newsletter"
@@ -295,11 +295,11 @@ msgstr "Nie"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Proszę podać preferowany język"
 
 #: ajapaik/ajapaik/forms.py:499
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Proszę określić, czy chcesz otrzymywać newsletter"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
@@ -355,7 +355,7 @@ msgstr "Obraz"
 
 #: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
 msgid "Title"
-msgstr ""
+msgstr "Tytuł"
 
 #: ajapaik/ajapaik/models.py:377
 msgid "MUIS title"
@@ -504,7 +504,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1355
 msgid "GPS"
-msgstr ""
+msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1356
 msgid "Confirmation"
@@ -544,7 +544,7 @@ msgstr "Źródło"
 
 #: ajapaik/ajapaik/models.py:1372
 msgid "Google map"
-msgstr ""
+msgstr "Mapa Google'a"
 
 #: ajapaik/ajapaik/models.py:1373
 msgid "Google satellite"
@@ -560,7 +560,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1376
 msgid "No map"
-msgstr ""
+msgstr "Brak mapy"
 
 #: ajapaik/ajapaik/models.py:1518 ajapaik/ajapaik/models.py:1520
 #: ajapaik/ajapaik/templates/comments/list.html:17
@@ -598,11 +598,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
-msgstr ""
+msgstr "Oryginalne zdjęcie"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "Ten album zawiera film"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
@@ -731,7 +731,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:72
 msgid "Edit picture"
-msgstr ""
+msgstr "Edytuj zdjęcie"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Show annotations"
@@ -787,7 +787,7 @@ msgstr "Menu"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3483
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Adresy e-mail"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
@@ -938,7 +938,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "Komentarz"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
@@ -1177,7 +1177,6 @@ msgid "Newsletters"
 msgstr "Newslettery"
 
 #: ajapaik/ajapaik/templates/core/_header.html:53
-#, fuzzy
 msgid "Add pictures"
 msgstr "Dodaj zdjęcia"
 
@@ -1355,7 +1354,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/csv/csv-import.html:27
 msgid "Import photo"
-msgstr ""
+msgstr "Importuj zdjęcie"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:16
 msgid "Thank you!"
@@ -1392,7 +1391,7 @@ msgstr "Załaduj więcej"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:55
 msgid "Edit your album"
-msgstr ""
+msgstr "Edytuj swój album"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:66
 msgid "Error"
@@ -1424,7 +1423,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:23
 msgid "My albums"
-msgstr ""
+msgstr "Moje albumy"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
 msgid "Full search"
@@ -1485,7 +1484,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
 msgid "Clear selection"
-msgstr ""
+msgstr "Wyczyść wybór"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
@@ -1601,11 +1600,11 @@ msgstr "Filtry"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
-msgstr ""
+msgstr "Kolekcje"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
 msgid "people"
@@ -1994,7 +1993,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
-msgstr ""
+msgstr "Czarna lista"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
@@ -2424,7 +2423,7 @@ msgstr "tutaj"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Witamy w Ajapaik – platformie crowdsourcingowej dla fotografii historycznych. Możesz geotagować i komentować zdjęcia, oznaczać twarze itp."
 
 #: ajapaik/ajapaik/templates/user/user.html:51
 msgid "This user does not have any contributions."
