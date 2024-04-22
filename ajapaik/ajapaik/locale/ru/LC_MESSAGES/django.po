@@ -5,6 +5,7 @@
 # Author: Alexander Yukal
 # Author: DDPAT
 # Author: Diman Russkov
+# Author: Dirruw'o
 # Author: Eleferen
 # Author: H2kks
 # Author: Helpau
@@ -35,7 +36,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-04-11 12:00:30+0000\n"
+"PO-Revision-Date: 2024-04-22 12:00:26+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -394,11 +395,11 @@ msgstr "MUIS event description set note"
 
 #: ajapaik/ajapaik/models.py:380
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Текст MUIS на объекте"
 
 #: ajapaik/ajapaik/models.py:381
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "Легенды и описания МУИС"
 
 #: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
 msgid "Interior"
@@ -2012,7 +2013,7 @@ msgstr "Домой"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Импортировать"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
@@ -2076,7 +2077,7 @@ msgstr "переснимок"
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Отметить как похожие или повторяющиеся"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
