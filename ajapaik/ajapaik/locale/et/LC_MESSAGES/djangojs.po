@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Jrttrw
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app - JavaScript\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2021-05-14 02:27+0300\n"
-"PO-Revision-Date: 2024-04-25 12:00:22+0000\n"
+"PO-Revision-Date: 2024-04-29 12:00:22+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -303,22 +304,18 @@ msgid "Picture is of high quality"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
 msgstr "Pildil on asukoha ja vaate suuna info"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "Pildil pole asukohainfot"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
-msgstr "Pildil on ainult asukoht, aga puudub vaate suund"
+msgstr "Pildil on ainult asukoha info, aga puudub vaate suund"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
 msgstr "Pildist on ülepildistusi"
 
@@ -656,7 +653,6 @@ msgid "Unidentified adult woman"
 msgstr "Tuvastamata täiskasvanud naine"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
-#, fuzzy
 msgid "Unidentified adult person"
 msgstr "Tuvastamata täiskasvanu"
 
@@ -953,7 +949,6 @@ msgid "This transcription is correct"
 msgstr "Transkriptsioon on õige"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
 msgstr "Mis on pildil kirjas?"
 
@@ -1177,7 +1172,6 @@ msgid "Open album"
 msgstr "Ava album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
-#, fuzzy
 msgid "Tag <em>%(personName)s</em>"
 msgstr "Märgenda <em>%(personName)s</em>"
 
@@ -1191,7 +1185,6 @@ msgid "Automatically detected face"
 msgstr "Automaatselt tuvastatud nägu"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
-#, fuzzy
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] "%(photoCount)s pilt"
