@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Jrttrw
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2020-12-01 06:13+0200\n"
-"PO-Revision-Date: 2024-04-25 12:00:23+0000\n"
+"PO-Revision-Date: 2024-05-02 12:00:22+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -71,7 +72,7 @@ msgstr "Palun logi sisse"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
-msgstr "Refoto üleslaadimise seaded salvestatud"
+msgstr "Ülepildistamise üleslaadimise seaded on salvestatud"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
@@ -304,11 +305,11 @@ msgstr "Palun täpsusta, kas soovid saada uudiskirja"
 
 #: ajapaik/ajapaik/forms.py:507
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr "Tahan oma refotod laadida üles ka Wikimedia Commonsisse"
+msgstr "Tahan oma ülepildistused laadida üles ka Wikimedia Commonsisse"
 
 #: ajapaik/ajapaik/forms.py:517
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr "Palun täpsusta, kas soovid oma refotode üleslaadimist ka Wikimedia Commonsisse"
+msgstr "Palun täpsusta, kas soovid oma ülepildistuste üleslaadimist ka Wikimedia Commonsisse"
 
 #: ajapaik/ajapaik/forms.py:526
 msgid "Please specify what would you like your display name to be"
@@ -603,15 +604,15 @@ msgstr "Ajalooline foto"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:8
 msgid "This album contains a film"
-msgstr ""
+msgstr "See album sisaldab filmi"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:10
 msgid "This is a person album"
-msgstr ""
+msgstr "See on isikualbum"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:12
 msgid "This is a collection album"
-msgstr ""
+msgstr "See album on kollektsioon"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/_mode_select.html:71
@@ -655,12 +656,12 @@ msgstr "Minu lemmikud"
 #: ajapaik/ajapaik/templates/_mode_select.html:41
 #: ajapaik/ajapaik/templates/_mode_select.html:87
 msgid "Show rephotographed by me"
-msgstr "Näita minu refotosid"
+msgstr "Näita minu ülepildistusi"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:43
 #: ajapaik/ajapaik/templates/_mode_select.html:89
 msgid "My rephotos"
-msgstr "Minu refotod"
+msgstr "Minu ülepildistused"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:50
 msgid "Remove album filter"
@@ -1385,7 +1386,7 @@ msgstr "Sulge"
 #: ajapaik/ajapaik/templates/curator/curator.html:46
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:46
 msgid "Load more"
-msgstr "Lae rohkem"
+msgstr "Laadi rohkem"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:55
 msgid "Edit your album"
@@ -1586,7 +1587,7 @@ msgstr "Seadista salasõna"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
-msgstr "Refotode üleslaadimisseaded"
+msgstr "Ülepildistuste üleslaadimisseaded"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
 msgid "Filtering"
@@ -1598,7 +1599,7 @@ msgstr "Filtrid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "film"
-msgstr ""
+msgstr "film"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
 msgid "collections"
@@ -1614,19 +1615,19 @@ msgstr "piltide tagaküljed"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "püstised pildid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
 msgid "pictures in square format"
-msgstr ""
+msgstr "ruudukujulised pildid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "rõhtsad pildid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "panoraampildid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
 msgid "exteriors"
@@ -1654,7 +1655,7 @@ msgstr "pildid, mille asukohta pole märgendatud"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
 msgid "high-quality pictures"
-msgstr ""
+msgstr "kõrgekvaliteedilised pildid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
 msgid "no filter"
@@ -1676,7 +1677,7 @@ msgstr "Pildid kogude kaupa"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
 msgid "Show film albums"
-msgstr ""
+msgstr "Näita filmialbumeid"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
 msgid "Show pictures with back sides"
@@ -1684,19 +1685,19 @@ msgstr "Kuva pildid, millel on ka tagumise külje kujutis"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "Näita püstiseid pilte"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
 msgid "Show square pictures"
-msgstr ""
+msgstr "Näita ruudukujulisi pilte"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "Näita rõhtsaid pilte"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "Näita panoraampilte"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
 msgid "Show pictures made from the ground level"
@@ -1724,7 +1725,7 @@ msgstr "Näite pilte, mis pole kaardile märgitud"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
 msgid "Show high-quality pictures"
-msgstr ""
+msgstr "Näita kõrgekvaliteedilisi pilte"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
 msgid "Sort by distance from you"
@@ -2071,7 +2072,7 @@ msgstr "Otsi avalikest kollektsioonidest"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr "Lae ise üles"
+msgstr "Laadi ise üles"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
@@ -2093,7 +2094,7 @@ msgstr "Vali fail..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja lae see siia ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
+msgstr "Tee samast kohast võimalikult täpne tänapäevane ülepildistus ja laadi see siia ajaloolise pildi kõrvale. Foto üleslaadimisega nõustud selle lubama"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
@@ -2118,7 +2119,7 @@ msgstr "Tere tulemast tagasi"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
-msgstr "Palun täpsusta, kas soovid oma refotode üleslaadimist ka Wikimedia Commonsisse."
+msgstr "Palun täpsusta, kas soovid oma ülepildistuste üleslaadimist ka Wikimedia Commonsisse."
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
@@ -2422,7 +2423,7 @@ msgstr "Palun lisage pilt mõnda olemasolevasse albumisse (või mitmesse) või l
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
 msgid "Upload and mark on map"
-msgstr "Lae üles ja märgi kaardile"
+msgstr "Laadi üles ja märgi kaardile"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:21
@@ -2444,7 +2445,7 @@ msgstr "Asukohapakkumiste mäng"
 #: ajapaik/ajapaik/views.py:675
 #, python-format
 msgid "%(name)s - rephotos"
-msgstr "%(name)s - refotod"
+msgstr "%(name)s - ülepildistused"
 
 #: ajapaik/ajapaik/views.py:1229
 msgid "Cannot upload to these albums"
@@ -2506,7 +2507,7 @@ msgstr "Kaader filmist \"%(film)s\" %(time)s"
 
 #: ajapaik/ajapaik/views.py:3177
 msgid "Photo uploaded"
-msgstr "Pilt on üles laetud"
+msgstr "Pilt on üles laaditud"
 
 #: ajapaik/ajapaik/views.py:3197
 msgid "Album created"
@@ -2726,5 +2727,5 @@ msgstr "Su pakkumine on salvestatud"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"
-msgstr ""
+msgstr "Soovituse tegemisel pead sisestama uue väärtuse"
 
