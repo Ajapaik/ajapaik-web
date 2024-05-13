@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-04-25 12:00:24+0000\n"
+"PO-Revision-Date: 2024-05-13 12:00:22+0000\n"
 "X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,11 +35,11 @@ msgstr "反転色"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "少なくとも上下反転、鏡像または回転パラメータをリクエストに追加"
 
 #: ajapaik/ajapaik/api.py:77
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "少なくとも scene または viewpoint_elevation パラメータをリクエストに追加"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
@@ -55,19 +55,19 @@ msgstr "トークンが無効です"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "パラメータ photo_ids が見つかりません"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "No photo with id:"
-msgstr ""
+msgstr "ID付きの写真がありません:"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "パラメータ photo_id は正の整数を指定してください"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "現在、統合元と同じアカウントでログイン中ですから、別のアカウントでログインし直してください"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
@@ -83,54 +83,54 @@ msgstr "必要なパラメーター、トークンが欠けています"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "この転写は既存であり、前回の転写に賛同済みです。お世話になりました。"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "転写を追加しました、お疲れさまでした。"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "転写にフィードバックを追加しました。ありがとうございます！"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "User display name has been saved"
-msgstr ""
+msgstr "ユーザーの表示名を保存しました"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "User settings have been saved"
-msgstr ""
+msgstr "ユーザー設定を保存しました"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "この転写には、すでにフィードバックをいただきました"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "この転写はすでに送信を済ませていただきました。お世話になりました。"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "転写が更新されました。ありがとうございます！"
 
 #: ajapaik/ajapaik/api.py:990 ajapaik/ajapaik/api.py:1640
 #: ajapaik/ajapaik/api.py:1660 ajapaik/ajapaik/api.py:1676
 #: ajapaik/ajapaik/api.py:1694 ajapaik/ajapaik/api.py:1783
 #: ajapaik/ajapaik/api.py:1903
 msgid "Something went wrong"
-msgstr ""
+msgstr "問題が発生しました"
 
 #: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "いただいた提案は保存されましたが、合意は以前のまま変わりません"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 msgid "No album found"
-msgstr ""
+msgstr "アルバムが見つかりません"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "境界ボックスを設定してください"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
@@ -909,7 +909,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "不正なトークンです"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
@@ -948,7 +948,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
 msgid "you are already logged in as %(user_name)s"
-msgstr ""
+msgstr "すでに  %(user_name)s さんとしてログイン済みです"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
@@ -961,7 +961,7 @@ msgstr "システムエラー"
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:32
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:33
 msgid "Search for an existing album"
-msgstr ""
+msgstr "既存のアルバムを検索"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:49
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal_content.html:6
@@ -980,23 +980,23 @@ msgstr "中止"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:7
 msgid "Log in to save your score"
-msgstr ""
+msgstr "ログインしてスコアを保存"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:9
 msgid "Log in to add a comment"
-msgstr ""
+msgstr "ログインしてコメントを追加"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:11
 msgid "Log in to add pictures to an album"
-msgstr ""
+msgstr "ログインして既存のアルバムに画像を追加"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:13
 msgid "Log in to add a dating to a photo"
-msgstr ""
+msgstr "ログインして特定の写真に日付を追加"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr ""
+msgstr "ログインして写真内の文字列を転写"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
@@ -1004,19 +1004,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:19
 msgid "Log in to curate content"
-msgstr ""
+msgstr "ログインしてコンテンツを整理する"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:21
 msgid "Log in to create still frames"
-msgstr ""
+msgstr "ログインして静止画を作成"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:23
 msgid "Log in to save selection"
-msgstr ""
+msgstr "ログインして選択を保存"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:25
 msgid "Log in to import photos from csv file"
-msgstr ""
+msgstr "ログインして CSV ファイルから写真をインポート"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:32
 #, python-format
@@ -1213,7 +1213,7 @@ msgstr "リーダーボード"
 #: ajapaik/ajapaik/templates/core/_header.html:107
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "現在のログイン情報は"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
@@ -1282,7 +1282,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:71
 msgid "search,museum,old,photos,pictures,historic"
-msgstr ""
+msgstr "検索、博物館・美術館、古写真、写真、画像、歴史的"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
 #, python-format
@@ -1426,11 +1426,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
 msgid "Full search"
-msgstr ""
+msgstr "完全一致検索"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:41
 msgid "Search!"
-msgstr "検索!"
+msgstr "検索開始"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:51
 msgid "Select all"
@@ -1841,7 +1841,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
-msgstr ""
+msgstr "位置情報を基準にした検索改善のため、写真にジオタグを付けて、"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
@@ -1857,7 +1857,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
-msgstr ""
+msgstr "Ajapaik に歴史的な画像を追加 – 公開コレクションから検索してインポートするか、自分でアップロードします。"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
@@ -2116,11 +2116,11 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "SNS 経由のログインに失敗しました"
 
 #: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
 msgid "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "ご指定の SNS アカウントでログイン中にエラーが発生しました"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
@@ -2332,11 +2332,11 @@ msgstr "トークンが不正です。もう一度試すか、顧客サポート
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr "投稿内容と設定をあるアカウントから別のものに移行するにはログインしてください"
+msgstr "投稿内容と設定を特定のアカウントから別のものに移行するにはログインしてください"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr "投稿内容と設定を一つのアカウントから別のアカウントへ移行するには、あなたのもう一つのアカウントでログインしてください"
+msgstr "投稿内容と設定を特定のアカウントから別のアカウントへ移行するには、お使いの別のアカウントにログインし直してください"
 
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
@@ -2404,7 +2404,7 @@ msgstr "追加"
 
 #: ajapaik/ajapaik/templates/video/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr ""
+msgstr "匿名のままです。メール経由でログインしてください。"
 
 #: ajapaik/ajapaik/views.py:469
 msgid "Non-authenticated user"
@@ -2449,7 +2449,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:2028
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr ""
+msgstr "古写真を検索して Ajapaik に追加し、撮影場所を特定してアルバムにまとめ、共有しましょう。"
 
 #: ajapaik/ajapaik/views.py:2379
 msgid "OK"
@@ -2507,19 +2507,19 @@ msgstr "もう一つの Ajapaik アカウントを現在の物と統合する"
 
 #: ajapaik/ajapaik/views.py:3571
 msgid "KulKa logo"
-msgstr ""
+msgstr "KulKa のロゴ"
 
 #: ajapaik/ajapaik/views.py:3576
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "文部科学省ロゴ"
 
 #: ajapaik/ajapaik/views.py:3582
 msgid "EV100 logo"
-msgstr ""
+msgstr "EV100 ロゴ"
 
 #: ajapaik/ajapaik/views.py:3589
 msgid "KYSK logo"
-msgstr ""
+msgstr "KYSK ロゴ"
 
 #: ajapaik/ajapaik/views.py:3594
 msgid "Ministry of Culture"

@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-04-25 12:00:23+0000\n"
+"PO-Revision-Date: 2024-05-13 12:00:21+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,19 +26,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
-msgstr ""
+msgstr "利用者は位置情報の提供を拒否しました。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
-msgstr ""
+msgstr "位置情報は利用できません。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
-msgstr ""
+msgstr "ユーザーの位置情報を取得する要求がタイムアウトしました。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:404
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "不明なエラーが発生しました。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:878
 #: ajapaik/ajapaik/static/js/ajp-core.js:894
@@ -50,7 +50,7 @@ msgstr "システムエラー"
 #: ajapaik/ajapaik/static/js/ajp-core.js:1069
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Not selected"
-msgstr ""
+msgstr "選択なし"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
@@ -63,26 +63,26 @@ msgstr "閉じる"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1765
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "撮影場所を選んでください。"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Geotagged by this many users"
-msgstr ""
+msgstr "この数のジオタグを付けたユーザーはこれだけいます"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1808
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
-msgstr ""
+msgstr "正しい場所を確認"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "Submit your own location"
-msgstr ""
+msgstr "自分の位置情報を送信"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1846
 msgid "You"
-msgstr ""
+msgstr "あなたご自身"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1850
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
@@ -91,27 +91,27 @@ msgstr "匿名ユーザー"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1852
 msgid "Anonymous users"
-msgstr ""
+msgstr "匿名利用者"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1916
 msgid "Current location"
-msgstr ""
+msgstr "現在の位置"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "およそ %(from)s と %(to)s の範囲"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
-msgstr ""
+msgstr "およそ %(from)s から %(to)s の範囲"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "%(from)s からおよそ %(to)s の範囲"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
-msgstr ""
+msgstr "%(from)s と %(to)s の範囲"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
 msgid "After approximately %(from)s"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
 msgid "Approximately %(date)s"
-msgstr ""
+msgstr "およそ %(date)s 頃"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr ""
+msgstr "日付の範囲はその前を「-」、その後を「..」で指定"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
-msgstr ""
+msgstr "年月日"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 msgid "Description"
@@ -273,7 +273,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
@@ -302,15 +302,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
-msgstr ""
+msgstr "写真に位置と写角の情報があります"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr ""
+msgstr "写真には位置情報がありません"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
-msgstr ""
+msgstr "写真の位置のみが記載され、写角は不明です"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Picture has rephotos"
@@ -466,7 +466,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "このアルバムでは %(query)s に該当する結果は見つかりません\n検索に適用したフィルターを編集してお試しください"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
@@ -475,7 +475,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "このアルバムでは %(query)s に該当する結果は見つかりません\n検索に適用したフィルターを編集してお試しください"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
@@ -515,7 +515,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture has location data attached"
-msgstr ""
+msgstr "写真に位置データが添えてあります"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
@@ -747,7 +747,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
-msgstr ""
+msgstr "日付"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
 msgid "transcribed"
@@ -858,7 +858,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
-msgstr ""
+msgstr "被写体の位置情報の変更はどの程度ですか？"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
@@ -874,12 +874,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr ""
+msgstr "グリーンのボタンを押し、位置と写角の両方を保存します。写角のロック解除には地図をクリックし、マーカを正しい位置までドラッグしてください。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr ""
+msgstr "地図をクリックして写角をロックするか、黄色のボタンをクリックして撮影場所のみ保存します。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
@@ -891,7 +891,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr ""
+msgstr "地図をドラッグして、おおまかな位置を表示された円内に収めたら、保存をクリック。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
@@ -1018,11 +1018,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
-msgstr ""
+msgstr "顔の注釈を編集"
 
 #: ajapaik/ajapaik/static/js/constants.js:68
 msgid "Edit object annotation"
-msgstr ""
+msgstr "被写体の注釈を編集"
 
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Add feedback"
@@ -1090,11 +1090,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Successfully edited face annotation"
-msgstr ""
+msgstr "顔の注釈の編集に成功しました"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "顔の注釈編集を保存できませんでした"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Successfully removed face annotation"
@@ -1195,7 +1195,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr ""
+msgstr "人物の注釈を編集"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
