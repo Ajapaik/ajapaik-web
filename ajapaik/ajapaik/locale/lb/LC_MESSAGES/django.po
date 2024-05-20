@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-04-25 12:00:25+0000\n"
+"PO-Revision-Date: 2024-05-20 12:00:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -2498,7 +2498,7 @@ msgstr "Setzt wgl. Biller an Ären Album derbäi"
 
 #: ajapaik/ajapaik/views.py:2481
 msgid "Not enough data submitted"
-msgstr "Not enough data submitted"
+msgstr "Net genuch Donnéeën ofgeschéckt"
 
 #: ajapaik/ajapaik/views.py:2923
 #, python-format
