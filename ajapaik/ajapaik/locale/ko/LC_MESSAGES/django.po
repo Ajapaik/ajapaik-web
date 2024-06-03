@@ -3,6 +3,7 @@
 #
 # Author: A Retired User
 # Author: Songhee
+# Author: Suleiman the Magnificent Television
 # Author: Underbaaar
 # Author: Ykhwong
 # Author: 予弦
@@ -17,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-04-25 12:00:24+0000\n"
+"PO-Revision-Date: 2024-06-03 12:00:25+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,7 +30,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
-msgstr "색상 반전"
+msgstr "반전 색상"
 
 #: ajapaik/ajapaik/api.py:76
 msgid "Add at least flip, invert or rotate parameter to the request"
@@ -41,11 +42,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "다른 계좌의 기여와 설정은 현재에 추가되었습니다"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Expired token"
-msgstr ""
+msgstr "유효기간이 만료된 토큰"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Invalid token"
@@ -69,7 +70,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login"
-msgstr "로그인해 주십시오"
+msgstr "로그인해 주세요"
 
 #: ajapaik/ajapaik/api.py:88
 msgid "Rephoto upload settings have been saved"
@@ -77,7 +78,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "필요한 매개 변수, 토큰이 없어"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
