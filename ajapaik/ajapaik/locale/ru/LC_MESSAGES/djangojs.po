@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Alexander Yukal
+# Author: Dirruw'o
 # Author: Kareyac
 # Author: Katunchik
 # Author: Meerrahtar
@@ -22,7 +23,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app - JavaScript\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2024-04-25 12:00:24+0000\n"
+"PO-Revision-Date: 2024-06-17 12:00:23+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -337,7 +338,7 @@ msgstr "Учреждение"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Interior"
-msgstr ""
+msgstr "Интерьер"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert colors"
@@ -1162,7 +1163,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
-msgstr ""
+msgstr "Отметьте лицо"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
