@@ -12,6 +12,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='photo',
             name='soft_deleted',
-            field=models.BooleanField(default=False, help_text='Hide image from being accessed outside of Admin'),
+            field=models.BooleanField(default=False, help_text='Hide image from being accessed, even in ADMIN!'),
         ),
     ]

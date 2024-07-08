@@ -545,7 +545,7 @@ class PhotoManager(EstimatedCountManager):
 
 
 class Photo(Model):
-    objects = EstimatedCountManager()
+    objects = PhotoManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
     image = ImageField(_('Image'), upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
@@ -659,7 +659,8 @@ class Photo(Model):
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
                                                     blank=True, null=True)
     description_original_language = CharField(_('Description original language'), max_length=255, blank=True, null=True)
-    soft_deleted = BooleanField(default=False, help_text=_("Hide image from being accessed outside of Admin"))
+    # TODO: Migrate to use proxy model for admin
+    soft_deleted = BooleanField(default=False, help_text=_("Hide image from being accessed, even in ADMIN!"))
 
     original_lat = None
     original_lon = None
