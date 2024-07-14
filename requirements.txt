@@ -43,6 +43,8 @@ sorl-thumbnail==12.7.0
 user-agents==2.2.0
 pygoogletranslation==2.0.6
 roman==3.3
+urllib3==1.26.11
+sentry-sdk==2.8.0
 
 # Code quality, tests
 typing==3.7.4.3
