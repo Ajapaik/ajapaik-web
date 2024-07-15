@@ -16,6 +16,7 @@
 # Author: MarcoAurelio
 # Author: Ncr
 # Author: Nelthal
+# Author: Rafael.minuesa
 # Author: Reverse88
 # Author: Rodney Araujo
 # Author: SpikeShroom
@@ -27,7 +28,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-11 12:00:16+0000\n"
+"PO-Revision-Date: 2024-07-15 12:00:16+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -605,11 +606,11 @@ msgstr "Año"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Década"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Siglo"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -932,7 +933,6 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Comuníquete con nosotros si tiene algún problema para restablecer tu contraseña."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
 msgstr "Te hemos enviado un correo electrónico. Por favor contáctanos si no lo recibes en unos minutos."
 
@@ -1161,12 +1161,12 @@ msgstr "Sociedad del Patrimonio Fotográfico de Estonia"
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Términos y condiciones"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
