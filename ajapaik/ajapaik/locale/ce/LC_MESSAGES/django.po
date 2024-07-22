@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-11 12:00:15+0000\n"
+"PO-Revision-Date: 2024-07-22 12:00:16+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1589,11 +1589,11 @@ msgstr "Йуха даьхна сурташ чудаьхна параметрш"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:4
 msgid "Filtering"
-msgstr "Литтар"
+msgstr "Фильтрйан"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "Filters"
-msgstr "Литтарш"
+msgstr "Фильтраш"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:18
 msgid "film"
@@ -1657,7 +1657,7 @@ msgstr "лакхара дикаллин сурт"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:63
 msgid "no filter"
-msgstr "литтар доцуш"
+msgstr "фильтр йоцуш"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:68
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99

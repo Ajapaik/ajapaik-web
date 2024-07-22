@@ -11,11 +11,13 @@
 # Author: Hehua
 # Author: HellojoeAoPS
 # Author: Josephine W.
+# Author: Key0121
 # Author: Looong
 # Author: Shuiwater
 # Author: SomeyaMako
 # Author: StarrySky
 # Author: Viztor
+# Author: Xuanxuan1231
 # Author: Yfdyh000
 # Author: Ywang
 # Author: 予弦
@@ -29,7 +31,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-11 12:00:20+0000\n"
+"PO-Revision-Date: 2024-07-22 12:00:21+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -155,7 +157,7 @@ msgstr "边界框值必须是数字"
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "错误令牌"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -607,11 +609,11 @@ msgstr "年"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "十年"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "世纪　"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -934,7 +936,6 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "如果您在重置密码时遇到任何问题，请联系我们。"
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
 msgstr "我们已经给你发了一封电子邮件。如果您在几分钟内没有收到，请联系我们。"
 
@@ -1163,12 +1164,12 @@ msgstr "爱沙尼亚摄影遗产学会"
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "隐私政策"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "条款与条件"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
@@ -1425,7 +1426,7 @@ msgstr "可见（显示在选择中）"
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
 msgid "!!FUZZY!!Search for an existing album"
-msgstr ""
+msgstr "搜索现有相簿"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
