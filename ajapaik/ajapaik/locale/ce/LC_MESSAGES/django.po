@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-22 12:00:16+0000\n"
+"PO-Revision-Date: 2024-07-25 12:00:15+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1222,7 +1222,7 @@ msgstr "Аккаунт а, рейтинг а"
 #: ajapaik/ajapaik/templates/core/_header.html:91 ajapaik/ajapaik/views.py:1998
 #: ajapaik/ajapaik/views.py:2014 ajapaik/ajapaik/views.py:2049
 msgid "Leaderboard"
-msgstr "Декъахочун рейтинг"
+msgstr "Декъашхочун рейтинг"
 
 #: ajapaik/ajapaik/templates/core/_header.html:102
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
