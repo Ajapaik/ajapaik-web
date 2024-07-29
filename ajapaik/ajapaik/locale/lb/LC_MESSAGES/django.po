@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-07-11 12:00:17+0000\n"
+"PO-Revision-Date: 2024-07-29 12:00:17+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -351,7 +351,7 @@ msgstr "Geschlecht"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
-msgstr "Wikidata identifier"
+msgstr "Wikidata-Identifiant"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"

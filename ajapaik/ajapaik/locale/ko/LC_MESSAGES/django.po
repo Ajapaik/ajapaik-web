@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-07-11 12:00:17+0000\n"
+"PO-Revision-Date: 2024-07-29 12:00:17+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,11 +42,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Contributions and settings from the other account were added to current"
-msgstr "다른 계좌의 기여와 설정은 현재에 추가되었습니다"
+msgstr "다른 계정의 기여와 설정은 현재 계정에 추가되었습니다"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Expired token"
-msgstr "유효기간이 만료된 토큰"
+msgstr "만료된 토큰"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
-msgstr "필요한 매개 변수, 토큰이 없어"
+msgstr "변수는 필수입니다. 토큰이 없습니다"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
