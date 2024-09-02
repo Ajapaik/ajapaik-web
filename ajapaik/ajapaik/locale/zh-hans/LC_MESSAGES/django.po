@@ -16,6 +16,7 @@
 # Author: Shuiwater
 # Author: SomeyaMako
 # Author: StarrySky
+# Author: TFX202X
 # Author: Viztor
 # Author: Xuanxuan1231
 # Author: Yfdyh000
@@ -31,7 +32,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-22 12:00:21+0000\n"
+"PO-Revision-Date: 2024-09-02 12:00:23+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -435,7 +436,7 @@ msgstr "描述原始语言"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "隐藏图像，防止管理员以外的人员访问"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
