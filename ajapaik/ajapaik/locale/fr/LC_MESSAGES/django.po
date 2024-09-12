@@ -10,6 +10,7 @@
 # Author: MacOS Weed
 # Author: Märt
 # Author: Pols12
+# Author: Terio legale
 # Author: Thibaut120094
 # Author: Urhixidur
 # Author: VIGNERON
@@ -26,7 +27,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-08-22 12:00:22+0000\n"
+"PO-Revision-Date: 2024-09-12 12:00:22+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -150,9 +151,8 @@ msgstr "Les valeurs du cadre de délimitation doivent être des nombres"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
-#, fuzzy
 msgid "!!FUZZY!!Bad Token"
-msgstr "Mauvais Jeton"
+msgstr "Flou! Mauvais Jeton"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -1421,7 +1421,6 @@ msgstr "Visible (affiché dans la sélection)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
-#, fuzzy
 msgid "!!FUZZY!!Search for an existing album"
 msgstr "Rechercher un album existant"
 
