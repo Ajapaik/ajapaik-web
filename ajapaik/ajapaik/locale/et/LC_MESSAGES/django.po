@@ -3,6 +3,7 @@
 #
 # Author: H2kks
 # Author: Jrttrw
+# Author: Nuclear
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -14,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2020-12-01 06:13+0200\n"
-"PO-Revision-Date: 2024-07-11 12:00:16+0000\n"
+"PO-Revision-Date: 2024-10-17 12:00:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -593,11 +594,11 @@ msgstr "Aasta"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Aastakümme"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Sajand"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -1149,12 +1150,12 @@ msgstr "MTÜ Eesti Fotopärand"
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "Privaatsuspoliitika"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Kasutustingimused"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
