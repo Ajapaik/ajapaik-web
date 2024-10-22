@@ -19,16 +19,18 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, BigIntegerField, \
-    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
-    PositiveSmallIntegerField, PointField, Manager, PositiveIntegerField
+from django.contrib.gis.db.models import Model, FloatField, BigIntegerField, \
+    IntegerField, ImageField, URLField, ManyToManyField, SlugField, \
+    PositiveSmallIntegerField, PointField, Manager
 from django.contrib.gis.geos import Point
 from django.contrib.postgres.fields import ArrayField
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, Q, F, Sum, Index, Model, OneToOneField, \
+    CharField, TextField, DateTimeField, PositiveIntegerField, BooleanField, ForeignKey
+from django.db.models import JSONField
 from django.db.models.fields import Field
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
@@ -37,7 +39,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
-from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
 from pandas import DataFrame, Series
@@ -214,7 +215,8 @@ class AlbumPhoto(Model):
 
     album = ForeignKey('Album', on_delete=CASCADE)
     photo = ForeignKey('Photo', related_name='albumphoto', on_delete=CASCADE)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True,
+                         related_name='album_photo_links', on_delete=CASCADE)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
 
@@ -260,7 +262,8 @@ class Album(Model):
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
     subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums', on_delete=CASCADE)
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True, on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True,
+                         on_delete=CASCADE)
     is_public = BooleanField(_('Is public'), default=True)
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
@@ -577,7 +580,8 @@ class Photo(Model):
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
     # Legacy field name, actually profile
-    user = ForeignKey('Profile', related_name='photos', blank=True, null=True, on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True,
+                      on_delete=CASCADE)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     suggestion_level = FloatField(default=3)
@@ -1081,9 +1085,11 @@ class Photo(Model):
         return reverse('photo', args=(self.id, self.get_pseudo_slug()))
 
     def get_pseudo_slug(self):
-        if self.get_display_text is not None and self.get_display_text != '':
-            slug = '-'.join(slugify(self.get_display_text).split('-')[:6])[:60]
-        elif self.source_key is not None and self.source_key != '':
+        display_text = self.get_display_text
+
+        if display_text:
+            slug = '-'.join(slugify(display_text).split('-')[:6])[:60]
+        elif self.source_key:
             slug = slugify(self.source_key)
         else:
             slug = slugify(self.created.__format__('%Y-%m-%d'))
@@ -1342,7 +1348,8 @@ class ImageSimilarity(Model):
         (DUPLICATE, _('Duplicate'))
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
-    user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True, on_delete=CASCADE)
+    user_last_modified = ForeignKey('Profile', related_name='user_last_modified',
+                                    null=True, on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
@@ -1425,7 +1432,8 @@ class ImageSimilarity(Model):
 
 class ImageSimilaritySuggestion(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
-    proposer = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_proposer', null=True, blank=True)
+    proposer = ForeignKey('Profile', on_delete=CASCADE,
+                          related_name='image_similarity_proposer', null=True, blank=True)
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1434,20 +1442,6 @@ class ImageSimilaritySuggestion(Model):
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
-
-
-class PhotoMetadataUpdate(Model):
-    photo = ForeignKey('Photo', related_name='metadata_updates', on_delete=CASCADE)
-    old_title = CharField(max_length=255, blank=True, null=True)
-    new_title = CharField(max_length=255, blank=True, null=True)
-    old_description = TextField(null=True, blank=True)
-    new_description = TextField(null=True, blank=True)
-    old_author = CharField(null=True, blank=True, max_length=255)
-    new_author = CharField(null=True, blank=True, max_length=255)
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_photometadataupdate'
 
 
 class PhotoComment(Model):
@@ -1475,7 +1469,8 @@ class PhotoLike(Model):
 
 class DifficultyFeedback(Model):
     photo = ForeignKey('Photo', on_delete=CASCADE)
-    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks', on_delete=CASCADE)
+    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks',
+                              on_delete=CASCADE)
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
     geotag = ForeignKey('GeoTag', on_delete=CASCADE)
@@ -1554,7 +1549,8 @@ class Transcription(Model):
 
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
-    user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='transcription_feedback',
+                      on_delete=CASCADE)
     transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name='transcription')
 
 
@@ -1600,7 +1596,8 @@ class GeoTag(Model):
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
     photo_flipped = BooleanField(default=False)
-    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True, on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True,
+                      on_delete=CASCADE)
     photo = ForeignKey('Photo', related_name='geotags', on_delete=CASCADE)
     is_correct = BooleanField(default=False)
     azimuth_correct = BooleanField(default=False)
@@ -1660,6 +1657,306 @@ class FacebookManager(Manager):
             return self.get(fb_id=data.get('id')), data
         except ObjectDoesNotExist:
             return None, data,
+
+
+class Source(Model):
+    name = CharField(max_length=255)
+    description = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'project_source'
+
+
+class Device(Model):
+    camera_make = CharField(null=True, blank=True, max_length=255)
+    camera_model = CharField(null=True, blank=True, max_length=255)
+    lens_make = CharField(null=True, blank=True, max_length=255)
+    lens_model = CharField(null=True, blank=True, max_length=255)
+    software = CharField(null=True, blank=True, max_length=255)
+
+    class Meta:
+        db_table = 'project_device'
+
+    def __str__(self):
+        return f'{self.camera_make} {self.camera_model} {self.lens_make} {self.lens_model} {self.software}'
+
+
+class Skip(Model):
+    user = ForeignKey('Profile', related_name='skips', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    created = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'project_skip'
+
+    def __str__(self):
+        return f'{str(self.user.pk)} {str(self.photo.pk)}'
+
+
+# TODO: Do we need this? Kind of violating users' privacy, no?
+class Action(Model):
+    type = CharField(max_length=255)
+    related_type = ForeignKey(ContentType, null=True, blank=True, on_delete=CASCADE)
+    related_id = PositiveIntegerField(null=True, blank=True)
+    related_object = GenericForeignKey('related_type', 'related_id')
+    params = JSONField(null=True, blank=True)
+
+    @classmethod
+    def log(cls, my_type, params=None, related_object=None, request=None):
+        obj = cls(type=my_type, params=params)
+        if related_object:
+            obj.related_object = related_object
+        obj.save()
+
+        return obj
+
+    class Meta:
+        db_table = 'project_action'
+
+
+class Licence(Model):
+    name = CharField(max_length=255)
+    url = URLField(blank=True, null=True)
+    image_url = URLField(blank=True, null=True)
+    is_public = BooleanField(default=False)
+
+    class Meta:
+        db_table = 'project_licence'
+
+    def __str__(self):
+        return self.name
+
+
+class GoogleMapsReverseGeocode(Model):
+    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)], db_index=True)
+    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], db_index=True)
+    response = JSONField()
+
+    class Meta:
+        db_table = 'project_googlemapsreversegeocode'
+
+    def __str__(self):
+        if self.response.get('results') and self.response.get('results')[0]:
+            location = self.response.get('results')[0].get('formatted_address')
+            return f'{location};{self.lat};{self.lon}'
+        else:
+            return f'{self.lat};{self.lon}'
+
+
+class Dating(Model):
+    DAY, MONTH, YEAR, DECADE, CENTURY = range(5)
+    ACCURACY_CHOICES = (
+        (DAY, _('Day')),
+        (MONTH, _('Month')),
+        (YEAR, _('Year')),
+        (DECADE, _('Decade')),
+        (CENTURY, _('Century'))
+    )
+
+    photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='datings',
+                         on_delete=CASCADE)
+    raw = CharField(max_length=25, null=True, blank=True)
+    comment = TextField(blank=True, null=True)
+    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start_approximate = BooleanField(default=False)
+    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end_approximate = BooleanField(default=False)
+    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_dating'
+
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.photo.pk)}' if self.profile else f'Ajapaik - {str(self.photo.pk)}'
+
+
+class DatingConfirmation(Model):
+    confirmation_of = ForeignKey('Dating', related_name='confirmations', on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='dating_confirmations',
+                         on_delete=CASCADE)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_datingconfirmation'
+
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.confirmation_of.pk)}'
+
+
+class Video(Model):
+    name = CharField(max_length=255)
+    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
+    file = FileField(upload_to='videos', blank=True, null=True)
+    width = IntegerField()
+    height = IntegerField()
+    author = CharField(max_length=255, blank=True, null=True)
+    date = DateField(blank=True, null=True)
+    source = ForeignKey('Source', blank=True, null=True, on_delete=CASCADE)
+    source_key = CharField(max_length=255, blank=True, null=True)
+    source_url = URLField(blank=True, null=True)
+    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
+                             width_field='cover_image_width', blank=True, null=True)
+    cover_image_height = IntegerField(blank=True, null=True)
+    cover_image_width = IntegerField(blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_video'
+
+    def save(self, *args, **kwargs):
+        super(Video, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.name)
+            super(Video, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('videoslug', args=(self.id, self.slug))
+
+
+class MyXtdComment(XtdComment):
+    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
+
+    def save(self, **kwargs):
+        super(MyXtdComment, self).save(**kwargs)
+        photo = Photo.objects.filter(pk=self.object_pk).first()
+        if photo:
+            if not photo.first_comment:
+                photo.first_comment = self.submit_date
+            if not photo.latest_comment or photo.latest_comment < self.submit_date:
+                photo.latest_comment = self.submit_date
+            photo.comment_count = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            ).count()
+            photo.light_save()
+
+    def delete(self, *args, **kwargs):
+        object_pk = deepcopy(self.object_pk)
+        super(MyXtdComment, self).delete(*args, **kwargs)
+        photo = Photo.objects.filter(pk=object_pk).first()
+        if photo:
+            comments = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            )
+            photo.comment_count = comments.count()
+            if photo.comment_count == 0:
+                photo.first_comment = None
+                photo.latest_comment = None
+            else:
+                first_comment = comments.order_by('-submit_date').first()
+                if first_comment:
+                    photo.first_comment = first_comment.submit_date
+                latest_comment = comments.order_by('submit_date').first()
+                if latest_comment:
+                    photo.latest_comment = latest_comment.submit_date
+
+            photo.light_save()
+
+    def like_count(self):
+        return self.flags.filter(flag=LIKEDIT_FLAG).count()
+
+    def dislike_count(self):
+        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
+
+
+class Suggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class PhotoSceneSuggestion(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_scene_suggestions', on_delete=CASCADE)
+
+
+class PhotoViewpointElevationSuggestion(Suggestion):
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_viewpoint_elevation_suggestions',
+                          on_delete=CASCADE)
+
+
+class PhotoFlipSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_flip_suggestions', on_delete=CASCADE)
+    flip = BooleanField(null=True)
+
+
+class PhotoInvertSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_invert_suggestions', on_delete=CASCADE)
+    invert = BooleanField(null=True)
+
+
+class PhotoRotationSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_rotate_suggestions', on_delete=CASCADE)
+    rotated = IntegerField(null=True, blank=True)
+
+
+class Supporter(Model):
+    name = CharField(max_length=255, null=True, blank=True)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter',
+                         on_delete=CASCADE)
+
+
+class MuisCollection(Model):
+    spec = CharField(max_length=255, null=True, blank=True)
+    name = CharField(max_length=255, null=True, blank=True)
+    imported = BooleanField(default=False)
+    blacklisted = BooleanField(default=False)
+
+
+class ApplicationException(Model):
+    exception = TextField(_('Title'), null=True, blank=True)
+    external_id = CharField(max_length=100, null=True, blank=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+
+
+class ImportBlacklist(Model):
+    source_key = CharField(max_length=100, null=True, blank=True, unique=True,
+                           help_text='To be used if only one specific source key is to be blacklisted')
+    source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
+                                   help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
+    source_url = URLField(null=True, blank=True, max_length=1023,
+                          help_text='Used to keep reference to blacklisted item, not used for matching')
+    comment = CharField(max_length=255, null=True, blank=True,
+                        help_text='Used for adding extra information on why the image is blacklisted from import')
+
+    def clean(self):
+        if self.source_key and self.source_key_pattern:
+            raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')
+        if self.source_key_pattern and self.source_key_pattern.startswith("*"):
+            raise ValidationError('Source key pattern can not start with *')
 
 
 class Profile(Model):
@@ -1749,67 +2046,42 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user_id=self.user_id).values_list('rephoto_of', flat=True)
-        original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
+            rephoto_of__isnull=False, user_id=self.user_id).select_related('rephoto_of').only(
+            'rephoto_of').values_list('rephoto_of', flat=True)
+        original_photos = Photo.objects.filter(
+            id__in=set(photo_ids_rephotographed_by_this_user)).prefetch_related('rephotos')
 
         user_rephoto_score = 0
 
         for p in original_photos:
-            oldest_rephoto = None
-            rephotos_by_this_user = []
-            for rp in p.rephotos.all():
-                if rp.user and rp.user_id == self.user_id:
-                    rephotos_by_this_user.append(rp)
-                if not oldest_rephoto or rp.created < oldest_rephoto.created:
-                    oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user \
-                                               and self.user \
-                                               and oldest_rephoto.user_id == self.user_id
-            user_first_bonus_earned = False
-            if oldest_rephoto_is_from_this_user:
-                user_first_bonus_earned = True
-                user_rephoto_score += 1250
-                try:
-                    Points.objects.get(action=Points.REPHOTO, photo=oldest_rephoto)
-                except ObjectDoesNotExist:
+            rephotos_by_this_user = p.rephotos.filter(user_id=self.user_id).order_by('-created')
+            oldest_rephoto = p.rephotos.order_by('-created').first()
+            oldest_rephoto_is_from_this_user = oldest_rephoto in rephotos_by_this_user
+
+            # First rephoto of user gets more points than subsequent ones. First Rephoto ever gets an additional 250p
+            current_score = 1250 if oldest_rephoto_is_from_this_user else 1000
+            for rp in rephotos_by_this_user:
+                # Check that we have a record in the scoring table
+                if not Points.objects.filter(action=Points.REPHOTO, photo=rp).exists():
                     new_record = Points(
-                        user=oldest_rephoto.user,
+                        user=self,
                         action=Points.REPHOTO,
-                        photo=oldest_rephoto,
-                        points=1250,
-                        created=oldest_rephoto.created
+                        photo=rp,
+                        points=current_score,
+                        created=rp.created
                     )
                     new_record.save()
-            for rp in rephotos_by_this_user:
+                user_rephoto_score += current_score
+                # Add 250 points for any subsequent rephotos
                 current_score = 250
-                if rp.id == oldest_rephoto.id:
-                    continue
-                else:
-                    if not user_first_bonus_earned:
-                        current_score = 1000
-                        user_first_bonus_earned = True
-                    # Check that we have a record in the scoring table
-                    try:
-                        Points.objects.get(action=Points.REPHOTO, photo=rp)
-                    except ObjectDoesNotExist:
-                        new_record = Points(
-                            user=rp.user,
-                            action=Points.REPHOTO,
-                            photo=rp,
-                            points=current_score,
-                            created=rp.created
-                        )
-                        new_record.save()
-                    user_rephoto_score += current_score
 
         self.score_rephoto = user_rephoto_score
-        self.save()
+        self.save(update_fields=['score_rephoto'])
 
     def set_calculated_fields(self):
-        all_time_score = self.points.aggregate(Sum('points'))['points__sum']
-        if all_time_score == None:
-            all_time_score = 0
+        all_time_score = self.points.aggregate(Sum('points', default=0))['points__sum']
         self.score = all_time_score
+        self.save(update_fields=['score'])
 
     def get_preferred_language(self):
         if not self.preferred_language:
@@ -1818,316 +2090,19 @@ class Profile(Model):
             return self.preferred_language
 
 
-class Source(Model):
-    name = CharField(max_length=255)
-    description = TextField(null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'project_source'
-
-
 class ProfileMergeToken(Model):
     token = CharField(max_length=36)
     created = DateTimeField(auto_now_add=True)
     used = DateTimeField(null=True, blank=True)
-    profile = ForeignKey('Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
-    source_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_from_profile', on_delete=CASCADE)
-    target_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_into_profile', on_delete=CASCADE)
-
-
-class Device(Model):
-    camera_make = CharField(null=True, blank=True, max_length=255)
-    camera_model = CharField(null=True, blank=True, max_length=255)
-    lens_make = CharField(null=True, blank=True, max_length=255)
-    lens_model = CharField(null=True, blank=True, max_length=255)
-    software = CharField(null=True, blank=True, max_length=255)
-
-    class Meta:
-        db_table = 'project_device'
-
-    def __str__(self):
-        return f'{self.camera_make} {self.camera_model} {self.lens_make} {self.lens_model} {self.software}'
-
-
-class Skip(Model):
-    user = ForeignKey('Profile', related_name='skips', on_delete=CASCADE)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_skip'
-
-    def __str__(self):
-        return f'{str(self.user.pk)} {str(self.photo.pk)}'
-
-
-# TODO: Do we need this? Kind of violating users' privacy, no?
-class Action(Model):
-    type = CharField(max_length=255)
-    related_type = ForeignKey(ContentType, null=True, blank=True, on_delete=CASCADE)
-    related_id = PositiveIntegerField(null=True, blank=True)
-    related_object = GenericForeignKey('related_type', 'related_id')
-    params = json.JSONField(null=True, blank=True)
-
-    @classmethod
-    def log(cls, my_type, params=None, related_object=None, request=None):
-        obj = cls(type=my_type, params=params)
-        if related_object:
-            obj.related_object = related_object
-        obj.save()
-
-        return obj
-
-    class Meta:
-        db_table = 'project_action'
-
-
-class Licence(Model):
-    name = CharField(max_length=255)
-    url = URLField(blank=True, null=True)
-    image_url = URLField(blank=True, null=True)
-    is_public = BooleanField(default=False)
-
-    class Meta:
-        db_table = 'project_licence'
-
-    def __str__(self):
-        return self.name
-
-
-class GoogleMapsReverseGeocode(Model):
-    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)], db_index=True)
-    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], db_index=True)
-    response = json.JSONField()
-
-    class Meta:
-        db_table = 'project_googlemapsreversegeocode'
-
-    def __str__(self):
-        if self.response.get('results') and self.response.get('results')[0]:
-            location = self.response.get('results')[0].get('formatted_address')
-            return f'{location};{self.lat};{self.lon}'
-        else:
-            return f'{self.lat};{self.lon}'
-
-
-class Dating(Model):
-    DAY, MONTH, YEAR, DECADE, CENTURY = range(5)
-    ACCURACY_CHOICES = (
-        (DAY, _('Day')),
-        (MONTH, _('Month')),
-        (YEAR, _('Year')),
-        (DECADE, _('Decade')),
-        (CENTURY, _('Century'))
-    )
-
-    photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='datings', on_delete=CASCADE)
-    raw = CharField(max_length=25, null=True, blank=True)
-    comment = TextField(blank=True, null=True)
-    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
-    start_approximate = BooleanField(default=False)
-    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
-    end_approximate = BooleanField(default=False)
-    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_dating'
-
-    def __str__(self):
-        return f'{str(self.profile.pk)} - {str(self.photo.pk)}' if self.profile else f'Ajapaik - {str(self.photo.pk)}'
-
-
-class DatingConfirmation(Model):
-    confirmation_of = ForeignKey('Dating', related_name='confirmations', on_delete=CASCADE)
-    profile = ForeignKey('Profile', related_name='dating_confirmations', on_delete=CASCADE)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_datingconfirmation'
-
-    def __str__(self):
-        return f'{str(self.profile.pk)} - {str(self.confirmation_of.pk)}'
-
-
-class Video(Model):
-    name = CharField(max_length=255)
-    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
-    file = FileField(upload_to='videos', blank=True, null=True)
-    width = IntegerField()
-    height = IntegerField()
-    author = CharField(max_length=255, blank=True, null=True)
-    date = DateField(blank=True, null=True)
-    source = ForeignKey('Source', blank=True, null=True, on_delete=CASCADE)
-    source_key = CharField(max_length=255, blank=True, null=True)
-    source_url = URLField(blank=True, null=True)
-    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
-                             width_field='cover_image_width', blank=True, null=True)
-    cover_image_height = IntegerField(blank=True, null=True)
-    cover_image_width = IntegerField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_video'
-
-    def save(self, *args, **kwargs):
-        super(Video, self).save(*args, **kwargs)
-        if not self.slug:
-            self.slug = slugify(self.name)
-            super(Video, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('videoslug', args=(self.id, self.slug))
+    profile = ForeignKey('ajapaik.Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
+    source_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+                                related_name='merged_from_profile', on_delete=CASCADE)
+    target_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+                                related_name='merged_into_profile', on_delete=CASCADE)
 
 
 class ProfileDisplayNameChange(Model):
-    profile = ForeignKey('Profile', related_name='display_name_changes', on_delete=CASCADE)
+    profile = ForeignKey('ajapaik.Profile', related_name='display_name_changes',
+                         on_delete=CASCADE)
     display_name = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
-
-
-class MyXtdComment(XtdComment):
-    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
-
-    def save(self, **kwargs):
-        super(MyXtdComment, self).save(**kwargs)
-        photo = Photo.objects.filter(pk=self.object_pk).first()
-        if photo:
-            if not photo.first_comment:
-                photo.first_comment = self.submit_date
-            if not photo.latest_comment or photo.latest_comment < self.submit_date:
-                photo.latest_comment = self.submit_date
-            photo.comment_count = MyXtdComment.objects.filter(
-                object_pk=self.object_pk, is_removed=False
-            ).count()
-            photo.light_save()
-
-    def delete(self, *args, **kwargs):
-        object_pk = deepcopy(self.object_pk)
-        super(MyXtdComment, self).delete(*args, **kwargs)
-        photo = Photo.objects.filter(pk=object_pk).first()
-        if photo:
-            comments = MyXtdComment.objects.filter(
-                object_pk=self.object_pk, is_removed=False
-            )
-            photo.comment_count = comments.count()
-            if photo.comment_count == 0:
-                photo.first_comment = None
-                photo.latest_comment = None
-            else:
-                first_comment = comments.order_by('-submit_date').first()
-                if first_comment:
-                    photo.first_comment = first_comment.submit_date
-                latest_comment = comments.order_by('submit_date').first()
-                if latest_comment:
-                    photo.latest_comment = latest_comment.submit_date
-
-            photo.light_save()
-
-    def like_count(self):
-        return self.flags.filter(flag=LIKEDIT_FLAG).count()
-
-    def dislike_count(self):
-        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
-
-
-class WikimediaCommonsUpload(Model):
-    response_code = IntegerField(null=True, editable=False)
-    response_data = TextField(null=True, editable=False)
-    created = DateTimeField(auto_now_add=True, db_index=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-    url = URLField(null=True, blank=True, max_length=1023)
-
-
-class Suggestion(Model):
-    created = DateTimeField(auto_now_add=True, db_index=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-
-    class Meta:
-        abstract = True
-
-
-class PhotoSceneSuggestion(Suggestion):
-    INTERIOR, EXTERIOR = range(2)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
-    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
-
-
-class PhotoViewpointElevationSuggestion(Suggestion):
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
-    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
-                                                    blank=True, null=True)
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions',
-                          on_delete=CASCADE)
-
-
-class PhotoFlipSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
-    flip = BooleanField(null=True)
-
-
-class PhotoInvertSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
-    invert = BooleanField(null=True)
-
-
-class PhotoRotationSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_rotate_suggestions', on_delete=CASCADE)
-    rotated = IntegerField(null=True, blank=True)
-
-
-class Supporter(Model):
-    name = CharField(max_length=255, null=True, blank=True)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter', on_delete=CASCADE)
-
-
-class MuisCollection(Model):
-    spec = CharField(max_length=255, null=True, blank=True)
-    name = CharField(max_length=255, null=True, blank=True)
-    imported = BooleanField(default=False)
-    blacklisted = BooleanField(default=False)
-
-
-class ApplicationException(Model):
-    exception = TextField(_('Title'), null=True, blank=True)
-    external_id = CharField(max_length=100, null=True, blank=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-
-
-class ImportBlacklist(Model):
-    source_key = CharField(max_length=100, null=True, blank=True, unique=True,
-                           help_text='To be used if only one specific source key is to be blacklisted')
-    source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
-                                   help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
-    source_url = URLField(null=True, blank=True, max_length=1023,
-                          help_text='Used to keep reference to blacklisted item, not used for matching')
-    comment = CharField(max_length=255, null=True, blank=True,
-                        help_text='Used for adding extra information on why the image is blacklisted from import')
-
-    def clean(self):
-        if self.source_key and self.source_key_pattern:
-            raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')
-        if self.source_key_pattern and self.source_key_pattern.startswith("*"):
-            raise ValidationError('Source key pattern can not start with *')

@@ -1,6 +1,5 @@
 import json
 
-from django.http import QueryDict
 from django.utils import timezone
 
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
@@ -36,12 +35,6 @@ def parse_parameter(parameter):
         return int(parameter)
 
     return 0
-
-
-def convert_to_query_dictionary(dictionary):
-    query_dictionary = QueryDict('', mutable=True)
-    query_dictionary.update(dictionary)
-    return query_dictionary
 
 
 def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):

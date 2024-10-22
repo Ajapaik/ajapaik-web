@@ -96,12 +96,3 @@ def get_existing_user_additional_data_suggestion(proposer, annotation_id):
         )
     except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
         return None
-
-
-def get_existing_data_suggestion(annotation_id):
-    try:
-        return FaceRecognitionRectangleSubjectDataSuggestion.objects.get(
-            face_recognition_rectangle_id=annotation_id
-        ).first()
-    except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
-        return None

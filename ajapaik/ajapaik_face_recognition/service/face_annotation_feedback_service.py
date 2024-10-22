@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 
-from ajapaik.ajapaik.models import Profile, Album
+from ajapaik.ajapaik.models import Album, Profile
 from ajapaik.ajapaik_face_recognition.api import AddSubjectData
 from ajapaik.ajapaik_face_recognition.domain.add_additional_subject_data import AddAdditionalSubjectData
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest

@@ -195,8 +195,18 @@ INSTALLED_APPS = [
     'registration',
     'bootstrap4',
     'leaflet',
+    'ajapaik.ajapaik_auth',
+    'ajapaik.ajapaik_comments',
+    'ajapaik.ajapaik_curator',
+    'ajapaik.ajapaik_datings',
     'ajapaik.ajapaik_face_recognition',
+    'ajapaik.ajapaik_geotags',
+    'ajapaik.ajapaik_leaderboard',
+    'ajapaik.ajapaik_misc',
     'ajapaik.ajapaik_object_recognition',
+    'ajapaik.ajapaik_profile',
+    'ajapaik.ajapaik_similar_photos',
+    'ajapaik.ajapaik_upload',
     'django_user_agents',
     'corsheaders',
 
@@ -235,8 +245,6 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-AUTH_PROFILE_MODULE = 'ajapaik.ajapaik.Profile'
-
 LOGIN_URL = '/admin/'
 
 REST_FRAMEWORK = {
@@ -246,7 +254,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'ajapaik.ajapaik.api.custom_exception_handler',
     'PAGE_SIZE': 100
 }
 

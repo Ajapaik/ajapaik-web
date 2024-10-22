@@ -4,6 +4,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import NotRegistered, AlreadyRegistered
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
+from django.urls import re_path
 from django.utils.translation import gettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
@@ -94,9 +95,9 @@ class PhotoAdmin(ModelAdmin):
         return super(PhotoAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
     def get_urls(self):
-        from django.conf.urls import url
         urls = super(PhotoAdmin, self).get_urls()
-        my_urls = list((url(r'^(.+)/%(url)s/$' % b, self.admin_site.admin_view(b['func'])) for b in self.extra_buttons))
+        my_urls = list(
+            (re_path(r'^(.+)/%(url)s/$' % b, self.admin_site.admin_view(b['func'])) for b in self.extra_buttons))
         return my_urls + urls
 
     inlines = (AlbumPhotoInline,)

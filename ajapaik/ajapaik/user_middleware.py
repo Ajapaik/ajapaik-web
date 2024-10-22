@@ -1,5 +1,7 @@
 # http://docs.djangoproject.com/en/dev/topics/http/middleware/
 # http://docs.djangoproject.com/en/dev/topics/auth/
+import secrets
+import string
 from functools import partial
 
 from django.conf import settings
@@ -34,18 +36,15 @@ def set_user(request, user):
 
 
 class UserMiddleware(MiddlewareMixin):
+
     def process_request(self, request):
         request.get_user = partial(get_user, request)
         request.set_user = partial(set_user, request)
         request.log_action = partial(Action.log, request=request)
 
 
-class AuthBackend(MiddlewareMixin):
-    supports_object_permissions = False
-    supports_anonymous_user = False
-    supports_inactive_user = True
-
-    def authenticate(self, request=None, username=None, password=None, user=None):
+class AuthBackend:
+    def authenticate(self, request, username=None, password=None, user=None):
         if user is not None:
             return user
         if password is not None:
@@ -76,7 +75,8 @@ class AuthBackend(MiddlewareMixin):
 
                 return user
 
-        random_username = f'_{username[:25]}_{User.objects.make_random_password(length=3)}'
+        alphabet = string.ascii_letters + string.digits
+        random_username = f"_{username[:25]}_{''.join(secrets.choice(alphabet) for i in range(3))}"
         user = User.objects.create_user(username=random_username)
         user.save()
         Action.log('user_middleware.create', related_object=user)

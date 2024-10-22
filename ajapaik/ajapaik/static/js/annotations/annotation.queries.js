@@ -7,23 +7,23 @@ function getObjectAnnotationClasses() {
         return;
     }
 
-    var onSuccess = function (response) {
+    var onSuccess = function(response) {
         storeData(cacheKeys.objectClasses, response.data);
     };
 
     getRequest(
-      '/object-recognition/get-object-annotation-classes',
+        '/object-recognition/get-object-annotation-classes/',
         null,
         null,
         constants.translations.queries.GET_ANNOTATION_CLASSES_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
 function getAllAnnotations(customOnSuccess) {
     var photoId = ObjectTagger.getPhotoId();
 
-    var onSuccess = function (response) {
+    var onSuccess = function(response) {
         var result = response.data.map(function(rectangle) {
             return JSON.parse(rectangle);
         });
@@ -36,11 +36,11 @@ function getAllAnnotations(customOnSuccess) {
     };
 
     getRequest(
-      '/object-recognition/get-all-face-and-object-annotations/' + photoId + '/',
+        '/object-recognition/get-all-face-and-object-annotations/' + photoId + '/',
         null,
         null,
         constants.translations.queries.GET_ANNOTATIONS_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
@@ -56,30 +56,30 @@ function addNewDetectionAnnotation(payload, onSuccess) {
     }
 
     postRequest(
-        '/object-recognition/add-annotation',
+        '/object-recognition/add-annotation/',
         payload,
         successMessage,
         failMessage,
-        onSuccess
+        onSuccess,
     );
 }
 
 function updateExistingObjectDetectionAnnotation(payload, onSuccess) {
     putRequest(
-        '/object-recognition/update-annotation',
+        '/object-recognition/update-annotation/',
         payload,
         constants.translations.queries.UPDATE_OBJECT_ANNOTATION_SUCCESS,
         constants.translations.queries.UPDATE_OBJECT_ANNOTATION_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
 function deleteSavedObjectAnnotation(annotationId, onSuccess) {
     deleteRequest(
-        '/object-recognition/remove-annotation/' + annotationId,
+        '/object-recognition/remove-annotation/' + annotationId + '/',
         constants.translations.queries.REMOVE_OBJECT_ANNOTATION_SUCCESS,
         constants.translations.queries.REMOVE_OBJECT_ANNOTATION_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
@@ -89,7 +89,7 @@ function addObjectAnnotationFeedback(annotationId, payload, onSuccess) {
         payload,
         constants.translations.queries.ADD_OBJECT_ANNOTATION_FEEDBACK_SUCCESS,
         constants.translations.queries.ADD_OBJECT_ANNOTATION_FEEDBACK_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
@@ -99,7 +99,7 @@ function addFaceAnnotationFeedback(annotationId, payload, onSuccess) {
         payload,
         constants.translations.queries.UPDATE_OBJECT_ANNOTATION_SUCCESS,
         constants.translations.queries.UPDATE_OBJECT_ANNOTATION_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
@@ -109,7 +109,7 @@ function editFaceAnnotation(payload, onSuccess) {
         payload,
         constants.translations.queries.UPDATE_FACE_ANNOTATION_SUCCESS,
         constants.translations.queries.UPDATE_FACE_ANNOTATION_FAILED,
-        onSuccess
+        onSuccess,
     );
 }
 
@@ -118,6 +118,6 @@ function removeFaceAnnotation(annotationId, onSuccess) {
         '/face-recognition/remove-annotation/' + annotationId + '/',
         constants.translations.queries.REMOVE_FACE_ANNOTATION_SUCCESS,
         constants.translations.queries.REMOVE_FACE_ANNOTATION_FAILED,
-        onSuccess
+        onSuccess,
     );
 }

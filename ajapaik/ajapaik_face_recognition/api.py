@@ -92,10 +92,10 @@ class Annotation(AjapaikAPIView):
             if annotation.subject_consensus \
             else None
         return JsonResponse(
-                {
-                    'id': annotation.id,
-                    'user_id': user_id,
-                    'user_name': user_name,
-                    'photo_count': photo_count
-                }
-            )
+            {
+                'id': annotation.id,
+                'user_id': user_id,
+                'user_name': user_name,
+                'photo_count': photo_count
+            }
+        )

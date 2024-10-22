@@ -7,7 +7,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from ajapaik.utils import calculate_thumbnail_size
-from .models import Album, Dating, Profile, Video, Photo, _get_pseudo_slug_for_photo
+from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
 
 log = logging.getLogger(__name__)
 
@@ -215,13 +215,13 @@ class PhotoSerializer(serializers.ModelSerializer):
 
     def get_full_image(self, instance):
         request = self.context['request']
-        image_name=str(instance.image)
-        prefix='uploads/'
+        image_name = str(instance.image)
+        prefix = 'uploads/'
 
         if image_name.startswith(prefix):
-            image_name=image_name[len(prefix):]
+            image_name = image_name[len(prefix):]
 
-        iiif_jpeg=request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
         return iiif_jpeg
 
     def get_image(self, instance):
@@ -272,17 +272,6 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
             'id', 'distance', 'image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
             'favorited',
-        )
-
-
-class ProfileLinkSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='get_display_name')
-    profile_url = serializers.CharField(source='get_profile_url')
-
-    class Meta:
-        model = Profile
-        fields = (
-            'name', 'profile_url'
         )
 
 

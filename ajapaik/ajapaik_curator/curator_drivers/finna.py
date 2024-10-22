@@ -55,36 +55,6 @@ def get_img_url(p, size=''):
         return None
 
 
-def finna_find_photo_by_url(record_url, profile):
-    photo = None
-    if re.search('(finna.fi|helsinkikuvia.fi)', record_url):
-        m = re.search(r'https://(hkm\.|www\.)?finna.fi/Record/(.*?)( |\?|#|$)', record_url)
-        if m:
-            # Already in database?
-            external_id = m.group(2)
-            # Detect old imports where ':' and '+' character is urlencoded
-            external_id_urlencoded_1 = external_id.replace(':', '%3A')
-            external_id_urlencoded_2 = external_id.replace('+', '%2B')
-            external_id_urlencoded_3 = external_id_urlencoded_1.replace('+', '%2B')
-            photo = Photo.objects.filter(
-                external_id__in=[external_id, external_id_urlencoded_1, external_id_urlencoded_2,
-                                 external_id_urlencoded_3],
-            ).first()
-
-            # Import if not found
-            if not photo:
-                photo = finna_import_photo(external_id, profile)
-
-            m = re.search(r'hkm\.', record_url)
-
-            if photo and m:
-                finna_add_to_album(photo, 'Helsinki')
-            elif photo:
-                finna_add_to_album(photo, 'Finland')
-
-    return photo
-
-
 def finna_import_photo(photo_id, profile):
     record_url = 'https://api.finna.fi/v1/record'
     finna_result = get(record_url, {

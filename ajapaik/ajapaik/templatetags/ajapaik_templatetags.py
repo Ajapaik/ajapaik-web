@@ -1,4 +1,3 @@
-from allauth.socialaccount.models import SocialAccount
 from django.template import Library, Node, Variable
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
