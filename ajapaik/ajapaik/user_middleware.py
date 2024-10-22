@@ -41,7 +41,7 @@ class UserMiddleware(MiddlewareMixin):
 
 
 class AuthBackend:
-    def authenticate(self, request, username=None, password=None, user=None):
+    def authenticate(self, request=None, username=None, password=None, user=None):
         if user is not None:
             return user
         if password is not None:

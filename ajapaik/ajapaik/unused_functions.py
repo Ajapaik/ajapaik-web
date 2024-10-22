@@ -1,3 +1,7 @@
+import requests
+from allauth.socialaccount.models import SocialAccount, SocialToken
+
+
 def upload_photo_to_wikimedia_commons(request, path):
     social_token = None
     if request.user and request.user.profile:

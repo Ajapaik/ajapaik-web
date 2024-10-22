@@ -25,7 +25,7 @@ class DelfiBboxRequestForm(forms.Form):
             try:
                 bbox_parts = [float(x) for x in bbox_parts]
             except:  # noqa
-                raise forms.ValidationError(_(f'{bbox_parts[3]}Bounding box values must be numbers'))
+                raise forms.ValidationError(_('Bounding box values must be numbers'))
             our_ref = SpatialReference(4326)
             delfi_ref = SpatialReference(3301)
             trans = CoordTransform(delfi_ref, our_ref)
@@ -68,8 +68,6 @@ def photos_bbox(request):
             })
 
         return Response(photos)
-    else:
-        return Response({"errors": form.errors})
 
     return Response([])
 

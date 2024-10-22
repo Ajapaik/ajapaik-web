@@ -13,7 +13,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         media_root = f'{settings.MEDIA_ROOT}/'
         photos = Photo.objects.values('id', 'image', 'created', 'uploader_is_author', 'rephoto_of_id')
-        #       photos = Photo.objects.all()[:5]
         for photo in photos:
             try:
                 m = re.search(r'uploads/.*?/', photo['image'])
