@@ -7,7 +7,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from ajapaik.utils import calculate_thumbnail_size
-from .models import Album, Dating, Video, Photo, _get_pseudo_slug_for_photo
+from .models import Album, Dating, Video, Photo
 
 log = logging.getLogger(__name__)
 
@@ -150,13 +150,13 @@ class PhotoMapMarkerSerializer(serializers.ModelSerializer):
         return reverse(
             'image_thumb',
             args=(
-            instance.id, 400, _get_pseudo_slug_for_photo(instance.get_display_text, instance.source_key, instance.id))
+                instance.id, 400, instance.get_pseudo_slug())
         )
 
     def get_permalink(self, instance):
         return reverse(
             'photo',
-            args=(instance.id, _get_pseudo_slug_for_photo(instance.get_display_text, instance.source_key, instance.id))
+            args=(instance.id, instance.get_pseudo_slug())
         )
 
     def get_width(self, instance):

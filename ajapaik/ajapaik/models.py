@@ -36,6 +36,7 @@ from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from geopy.distance import great_circle
@@ -161,19 +162,6 @@ def _make_fullscreen(photo):
         'url': reverse('image_full', args=(photo.pk, photo.get_pseudo_slug())),
         'size': [photo.width, photo.height]
     }
-
-
-def _get_pseudo_slug_for_photo(description, source_key, id):
-    slug = None
-
-    if description:
-        slug = '-'.join(slugify(description).split('-')[:6])[:60]
-    elif source_key and not slug:
-        slug = slugify(source_key)
-    elif not slug:
-        slug = slugify(id)
-
-    return slug
 
 
 # TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
@@ -1086,15 +1074,7 @@ class Photo(Model):
         return reverse('photo', args=(self.id, self.get_pseudo_slug()))
 
     def get_pseudo_slug(self):
-        display_text = self.get_display_text
-
-        if display_text:
-            slug = '-'.join(slugify(display_text).split('-')[:6])[:60]
-        elif self.source_key:
-            slug = slugify(self.source_key)
-        else:
-            slug = slugify(self.created.__format__('%Y-%m-%d'))
-
+        slug = get_pseudo_slug_for_photo(self.get_display_text, self.source_key, self.id, self.created)
         return slug
 
     def get_heatmap_points(self):
@@ -2086,3 +2066,18 @@ class ProfileDisplayNameChange(Model):
                          on_delete=CASCADE)
     display_name = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
+
+
+def get_pseudo_slug_for_photo(description, source_key, id, created=None):
+    slug = None
+
+    if description:
+        slug = '-'.join(slugify(description).split('-')[:6])[:60]
+    if not slug and source_key:
+        slug = slugify(source_key)
+    if not slug and created:
+        slug = slugify(created.__format__('%Y-%m-%d'))
+    if not slug:
+        slug = slugify(str(id))
+
+    return slug

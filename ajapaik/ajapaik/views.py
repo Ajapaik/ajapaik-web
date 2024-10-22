@@ -34,8 +34,8 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     PhotoSelectionForm, SelectionUploadForm, AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, CuratorWholeSetAlbumsSelectionForm
 from ajapaik.ajapaik.models import Photo, GeoTag, Points, \
-    Album, AlbumPhoto, Area, Licence, _get_pseudo_slug_for_photo, \
-    MuisCollection, PhotoLike, ImageSimilarity
+    Album, AlbumPhoto, Area, Licence, \
+    MuisCollection, PhotoLike, ImageSimilarity, get_pseudo_slug_for_photo
 from ajapaik.ajapaik.serializers import FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
 from ajapaik.ajapaik.stats_sql import AlbumStats
@@ -684,7 +684,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[11] = 1 if str(p[0]) in request.session['photo_selection'] else 0
             else:
                 p[11] = 0
-            p.append(_get_pseudo_slug_for_photo(p[3], None, p[0]))
+            p.append(get_pseudo_slug_for_photo(p[3], None, p[0]))
         if album:
             context['album'] = (
                 album.id,
