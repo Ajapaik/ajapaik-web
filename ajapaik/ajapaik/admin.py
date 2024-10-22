@@ -11,7 +11,7 @@ from sorl.thumbnail import delete as sorl_delete
 
 from ajapaik import settings
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
-from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
+from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, MyXtdComment, Supporter, \
     Location, LocationPhoto, ApplicationException, ImportBlacklist
@@ -249,7 +249,6 @@ admin.site.register(Points, PointsAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Source, SourceAdmin)
 admin.site.register(Skip, SkipAdmin)
-admin.site.register(Action)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
 admin.site.register(Area, AreaAdmin)

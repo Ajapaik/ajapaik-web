@@ -17,7 +17,6 @@ from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db.models import Model, FloatField, BigIntegerField, \
     IntegerField, ImageField, URLField, ManyToManyField, SlugField, \
@@ -1696,27 +1695,6 @@ class Skip(Model):
 
     def __str__(self):
         return f'{str(self.user.pk)} {str(self.photo.pk)}'
-
-
-# TODO: Do we need this? Kind of violating users' privacy, no?
-class Action(Model):
-    type = CharField(max_length=255)
-    related_type = ForeignKey(ContentType, null=True, blank=True, on_delete=CASCADE)
-    related_id = PositiveIntegerField(null=True, blank=True)
-    related_object = GenericForeignKey('related_type', 'related_id')
-    params = JSONField(null=True, blank=True)
-
-    @classmethod
-    def log(cls, my_type, params=None, related_object=None, request=None):
-        obj = cls(type=my_type, params=params)
-        if related_object:
-            obj.related_object = related_object
-        obj.save()
-
-        return obj
-
-    class Meta:
-        db_table = 'project_action'
 
 
 class Licence(Model):
