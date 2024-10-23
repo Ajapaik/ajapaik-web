@@ -45,16 +45,17 @@ class Command(BaseCommand):
                 rp_lr = 'resourceRepresentation/lido:linkResource'
                 link_resource_record = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns)
 
-                if not link_resource_record:
+                if link_resource_record is None:
                     logger.info(f"Skipping {photo.external_id}, as there is no image resource")
+                    continue
 
                 image_url = link_resource_record.text
 
-                if link_resource_record:
+                if link_resource_record is not None:
                     image_extension = (link_resource_record.attrib['{' + ns['lido'] + '}formatResource']).lower()
                 else:
-                    image_extension = None
                     logger.info(f"Skipping {photo.external_id}, as there is not image extension specified")
+                    continue
 
                 if not image_url or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'webp']:
                     logger.info(f"Skipping {photo.external_id}, as there are no photos which are supported")
