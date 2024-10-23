@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger = logging.getLogger(__name__)
 
-        photo_ids = (options['album_ids'])
+        photo_ids = (options['photo_ids'])
         if not photo_ids:
             logger.info("Please add photo ids that you want to update")
 
