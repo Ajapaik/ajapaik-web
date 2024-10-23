@@ -975,13 +975,19 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
                 AlbumPhoto.objects.filter(photo_id__gt=photo_obj.pk, album=album.id).aggregate(min_id=Min('photo_id'))[
                     'min_id']
             if next_photo_id:
-                next_photo = Photo.objects.get(pk=next_photo_id)
+                try:
+                    next_photo = Photo.objects.get(pk=next_photo_id)
+                except Exception as e:
+                    raise Exception(f"Matching query does not exist {next_photo_id}")
 
             previous_photo_id = \
                 AlbumPhoto.objects.filter(photo_id__lt=photo_obj.pk, album=album.id).aggregate(max_id=Max('photo_id'))[
                     'max_id']
             if previous_photo_id:
-                previous_photo = Photo.objects.get(pk=previous_photo_id)
+                try:
+                    previous_photo = Photo.objects.get(pk=previous_photo_id)
+                except Exception as e:
+                    raise Exception(f"Matching query does not exist {next_photo_id}")
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
