@@ -975,13 +975,15 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
                 AlbumPhoto.objects.filter(photo_id__gt=photo_obj.pk, album=album.id).aggregate(min_id=Min('photo_id'))[
                     'min_id']
             if next_photo_id:
-                next_photo = Photo.objects.get(pk=next_photo_id)
+                # AlbumPhotos can return something which is filtered out by our custom manager, don't use .get() here.
+                next_photo = Photo.objects.filter(pk=next_photo_id).first()
 
             previous_photo_id = \
                 AlbumPhoto.objects.filter(photo_id__lt=photo_obj.pk, album=album.id).aggregate(max_id=Max('photo_id'))[
                     'max_id']
             if previous_photo_id:
-                previous_photo = Photo.objects.get(pk=previous_photo_id)
+                # AlbumPhotos can return something which is filtered out by our custom manager, don't use .get() here.
+                previous_photo = Photo.objects.filter(pk=previous_photo_id).first()
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
@@ -989,11 +991,13 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         if not is_ajax(request):
             next_photo_id = Photo.objects.filter(pk__gt=photo_obj.pk).aggregate(min_id=Min('id'))['min_id']
             if next_photo_id:
-                next_photo = Photo.objects.get(pk=next_photo_id)
+                # AlbumPhotos can return something which is filtered out by our custom manager, don't use .get() here.
+                next_photo = Photo.objects.filter(pk=next_photo_id).first()
 
             previous_photo_id = Photo.objects.filter(pk__lt=photo_obj.pk).aggregate(max_id=Max('id'))['max_id']
             if previous_photo_id:
-                previous_photo = Photo.objects.get(pk=previous_photo_id)
+                # AlbumPhotos can return something which is filtered out by our custom manager, don't use .get() here.
+                previous_photo = Photo.objects.filter(pk=previous_photo_id).first()
 
     if album:
         album = (album.id, album.lat, album.lon)
