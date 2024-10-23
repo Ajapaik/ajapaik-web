@@ -1,36 +1,36 @@
-import itertools
-import requests
-import json
-import roman
-
-from django.conf import settings
 import datetime
+import itertools
+import json
+
+import requests
+import roman
+from django.conf import settings
 
 from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto
 
 century_suffixes = [
-        'saj x',
-        ' saj x',
-        '.saj x',
-        ' .saj x',
-        '.saj. x',
-        '. saj.x',
-        '. saj. x',
-        ' .saj. x',
-        'saj.x',
-        'saj. x',
-        ' saj.x',
-        ' saj. x',
-        'sajandi x',
-        ' sajandi x',
-        '.sajandi x',
-        ' .sajandi x'
-    ]
+    'saj x',
+    ' saj x',
+    '.saj x',
+    ' .saj x',
+    '.saj. x',
+    '. saj.x',
+    '. saj. x',
+    ' .saj. x',
+    'saj.x',
+    'saj. x',
+    ' saj.x',
+    ' saj. x',
+    'sajandi x',
+    ' sajandi x',
+    '.sajandi x',
+    ' .sajandi x'
+]
 
 start_of_century_suffixes = [x.replace('x', 'algus') for x in century_suffixes]
 end_of_century_suffixes = [x.replace('x', 'lõpp') for x in century_suffixes]
-starts_of_century = [b+a for a in start_of_century_suffixes for b in map(str, list(range(1, 21)))]
-ends_of_century = [b+a for a in end_of_century_suffixes for b in map(str, list(range(1, 21)))]
+starts_of_century = [b + a for a in start_of_century_suffixes for b in map(str, list(range(1, 21)))]
+ends_of_century = [b + a for a in end_of_century_suffixes for b in map(str, list(range(1, 21)))]
 
 
 def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date):
@@ -67,16 +67,16 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
             date = f'umbes.{date}'
     date = date.strip().strip('.').strip().strip('.')
     irregular_decade_suffixes = [
-            '-ndad aastad', "'ndad", '-ndad a', '.dad', '. aastad', ' aastad', 'ndad', '-dad', 'a-d'
-        ]
+        '-ndad aastad', "'ndad", '-ndad a', '.dad', '. aastad', ' aastad', 'ndad', '-dad', 'a-d'
+    ]
     for suffix in irregular_decade_suffixes:
         if date.endswith(suffix):
             date = date.replace(suffix, '.aastad')
             break
 
     irregular_approximate_date_prefixes = [
-            'u. ', 'u.', 'u ', 'ca. ', 'ca.', 'ca ', 'ca', 'arvatavasti. ', 'arvatavasti.', 'arvatavasti'
-        ]
+        'u. ', 'u.', 'u ', 'ca. ', 'ca.', 'ca ', 'ca', 'arvatavasti. ', 'arvatavasti.', 'arvatavasti'
+    ]
     for prefix in irregular_approximate_date_prefixes:
         if date.startswith(prefix):
             date = date.replace(prefix, 'umbes.', 1)
@@ -238,10 +238,10 @@ def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
         if description_type in muis_description_field_pairs:
             if description_type == 'sisu kirjeldus':
                 photo = reset_modeltranslated_field(
-                        photo,
-                        muis_description_field_pairs[description_type],
-                        description_text
-                    )
+                    photo,
+                    muis_description_field_pairs[description_type],
+                    description_text
+                )
                 photo.description_original_language = None
             elif description_type == 'dateering':
                 dating = description_text
@@ -265,13 +265,13 @@ def reset_modeltranslated_field(photo, attribute_name, attribute_value):
 
 
 def extract_dating_from_event(
-            events,
-            location,
-            creation_date_earliest,
-            creation_date_latest,
-            skip_dating,
-            ns
-        ):
+        events,
+        location,
+        creation_date_earliest,
+        creation_date_latest,
+        skip_dating,
+        ns
+):
     duplicate_event_type = 'kopeerimine (valmistamine)'
     creation_event_types = ['valmistamine', '<valmistamine/tekkimine>', 'pildistamine', 'sõjandus ja kaitse', 'sõjad']
     date_prefix_earliest = None
@@ -295,14 +295,14 @@ def extract_dating_from_event(
                 if earliest_date is not None and earliest_date.text is not None:
                     creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix, \
                         = get_muis_date_and_prefix(
-                            earliest_date.text, False
-                        )
+                        earliest_date.text, False
+                    )
 
                 if latest_date is not None and latest_date.text is not None:
                     creation_date_latest, date_prefix_latest, latest_had_decade_suffix, \
                         = get_muis_date_and_prefix(
-                            latest_date.text, True
-                        )
+                        latest_date.text, True
+                    )
 
             places = event.findall('lido:eventPlace/lido:place', ns)
             if places is not None:
@@ -327,7 +327,7 @@ def extract_dating_from_event(
                 if new_location != []:
                     location.append(new_location)
     return location, creation_date_earliest, creation_date_latest, date_prefix_earliest, date_prefix_latest, \
-        earliest_had_decade_suffix, latest_had_decade_suffix
+           earliest_had_decade_suffix, latest_had_decade_suffix
 
 
 def add_person_albums(actors, person_album_ids, ns):
@@ -423,6 +423,7 @@ def add_geotag_from_address_to_photo(photo, locations):
     for location in locations:
         search_string = ''
         parent_location_object = None
+
         for sublocation in location:
             location_objects = \
                 Location.objects.filter(name=sublocation[0], location_type=sublocation[1])
@@ -450,26 +451,31 @@ def add_geotag_from_address_to_photo(photo, locations):
         lon = location_object.google_reverse_geocode.lon
         address = location_object.google_reverse_geocode.response.get('results')[0].get('formatted_address')
     else:
+        # $$$ in the start and end of text signifies unstructured data (coordinates, instructions about location, etc.)
+        search_string = search_string.strip("$ ")
         google_geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?' \
-            f'address={search_string}' \
-            f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
+                             f'address={search_string}' \
+                             f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
         google_response_json = requests.get(google_geocode_url).text
         google_response_parsed = json.loads(google_response_json)
         status = google_response_parsed.get('status', None)
-        lat_lng = None
-        if status == 'OK':
-            # Google was able to answer some geolocation for this description
-            address = google_response_parsed.get('results')[0].get('formatted_address')
-            lat_lng = google_response_parsed.get('results')[0].get('geometry').get('location')
-            if lat_lng is None:
-                return photo
 
-            lat = lat_lng['lat']
-            lon = lat_lng['lng']
-            google_maps_reverse_geocode = GoogleMapsReverseGeocode(lat=lat, lon=lon, response=google_response_parsed)
-            google_maps_reverse_geocode.save()
-            location_object.google_reverse_geocode = google_maps_reverse_geocode
-            location_object.save()
+        if not status == 'OK':
+            return photo
+
+        # Google was able to answer some geolocation for this description
+        address = google_response_parsed.get('results')[0].get('formatted_address')
+        lat_lng = google_response_parsed.get('results')[0].get('geometry').get('location')
+
+        if not lat_lng:
+            return photo
+
+        lat = lat_lng['lat']
+        lon = lat_lng['lng']
+        google_maps_reverse_geocode = GoogleMapsReverseGeocode(lat=lat, lon=lon, response=google_response_parsed)
+        google_maps_reverse_geocode.save()
+        location_object.google_reverse_geocode = google_maps_reverse_geocode
+        location_object.save()
 
     if photo.lat is None:
         photo.lat = lat

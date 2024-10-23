@@ -49,8 +49,9 @@ class Command(BaseCommand):
             for s in sets:
                 if s.find('d:setSpec', ns).text == museum_name:
                     source_description = s.find('d:setName', ns).text
-                    source = Source(name=museum_name, description=source_description)
-                    source.save()
+                    Source.objects.create(name=museum_name, description=source_description)
+                    break
+
         source = Source.objects.filter(name=museum_name).first()
 
         dates = []
@@ -95,22 +96,21 @@ class Command(BaseCommand):
                 try:
                     locations = []
                     person_album_ids = []
-                    external_id = rec.find(f'{header}d:identifier', ns).text \
-                        if rec.find(f'{header}d:identifier', ns) is not None \
-                        else None
+                    identifier_record = rec.find(f'{header}d:identifier', ns)
+                    external_id = identifier_record.text if identifier_record else None
                     existing_photo = Photo.objects.filter(external_id=external_id).first()
-                    if existing_photo is not None:
+
+                    if existing_photo:
                         continue
 
                     rp_lr = 'resourceRepresentation/lido:linkResource'
-                    image_url = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns).text \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
-                        else None
+                    link_resource_record = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns)
+                    image_url = link_resource_record.text if link_resource_record else None
 
-                    image_extension = (rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}',
-                                                ns).attrib['{' + ns['lido'] + '}formatResource']).lower() \
-                        if rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns) is not None \
-                        else None
+                    if link_resource_record:
+                        image_extension = (link_resource_record.attrib['{' + ns['lido'] + '}formatResource']).lower()
+                    else:
+                        image_extension = None
 
                     source_url_find = rec.find(f'{record_wrap}lido:recordInfoSet/lido:recordInfoLink', ns)
                     source_url = source_url_find.text \
@@ -118,16 +118,22 @@ class Command(BaseCommand):
                         else None
 
                     identifier_find = rec.find(f'{repository_wrap}lido:repositorySet/lido:workID', ns)
-                    identifier = identifier_find.text if identifier_find is not None else None
+                    identifier = identifier_find.text if identifier_find else None
 
                     if identifier and import_blacklist_service.is_blacklisted(identifier):
                         logger.info(f'Skipping {identifier} as it is blacklisted.')
                         continue
 
-                    if image_url is None or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'webp']:
+                    if not image_url or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'webp']:
+                        logger.info(f"Skipping {identifier}, as there are no photos which are supported")
                         continue
 
-                    img_data = requests.get(image_url).content
+                    response = requests.get(image_url)
+
+                    if response.status_code != 200:
+                        logger.info(f"Skipping {identifier}, as we did not get a valid response when downloading")
+
+                    img_data = response.content
                     image_id = external_id.split(':')[-1]
                     file_name = f'{set_name}_{image_id}.{image_extension}'
                     file_name = file_name.replace(':', '_')
@@ -166,15 +172,14 @@ class Command(BaseCommand):
                     date_earliest_has_suffix = False
                     date_latest_has_suffix = False
                     events = rec.findall(f'{event_wrap}lido:eventSet/lido:event', ns)
-                    if events is not None and len(events) > 0:
-                        locations, \
-                        creation_date_earliest, \
-                        creation_date_latest, \
-                        date_prefix_earliest, \
-                        date_prefix_latest, \
-                        date_earliest_has_suffix, \
-                        date_latest_has_suffix, \
-                            = extract_dating_from_event(
+                    if events and len(events) > 0:
+                        (locations,
+                         creation_date_earliest,
+                         creation_date_latest,
+                         date_prefix_earliest,
+                         date_prefix_latest,
+                         date_earliest_has_suffix,
+                         date_latest_has_suffix) = extract_dating_from_event(
                             events,
                             locations,
                             creation_date_earliest,
@@ -182,7 +187,7 @@ class Command(BaseCommand):
                             photo.latest_dating is not None or dating is not None,
                             ns
                         )
-                    if dating is not None:
+                    if dating:
                         creation_date_earliest, date_prefix_earliest, date_earliest_has_suffix = \
                             get_muis_date_and_prefix(dating, False)
                         creation_date_latest, date_prefix_latest, date_latest_has_suffix = \
@@ -190,10 +195,11 @@ class Command(BaseCommand):
 
                     actors = rec.findall(f'{actor_wrap}lido:actorInRole', ns)
                     person_album_ids, author = add_person_albums(actors, person_album_ids, ns)
-                    if author is not None:
+                    if author:
                         photo.author = author
+
                     photo.add_to_source_album()
-                    if locations != []:
+                    if locations and len(locations) > 0:
                         photo = add_geotag_from_address_to_photo(photo, locations)
 
                     photo = add_dating_to_photo(
@@ -207,6 +213,7 @@ class Command(BaseCommand):
                         date_latest_has_suffix,
                     )
                     photo.light_save()
+
                     for album in albums:
                         if not album.cover_photo:
                             album.cover_photo = photo
@@ -215,13 +222,13 @@ class Command(BaseCommand):
 
                     person_albums = Album.objects.filter(id__in=person_album_ids)
                     if person_albums is not None:
-                        for album in person_albums:
-                            if not album.cover_photo:
-                                album.cover_photo = photo
-                            ap = AlbumPhoto(photo=photo, album=album, type=AlbumPhoto.FACE_TAGGED)
+                        for person_album in person_albums:
+                            if not person_album.cover_photo:
+                                person_album.cover_photo = photo
+                            ap = AlbumPhoto(photo=photo, album=person_album, type=AlbumPhoto.FACE_TAGGED)
                             ap.save()
+                            all_person_album_ids_set.add(person_album.id)
 
-                            all_person_album_ids_set.add(album.id)
                     photo.set_calculated_fields()
                 except Exception as e:
                     logger.exception(e)
@@ -237,6 +244,6 @@ class Command(BaseCommand):
         all_person_album_ids = list(all_person_album_ids_set)
         all_person_albums = Album.objects.filter(id__in=all_person_album_ids)
 
-        if all_person_albums.exists():
+        if all_person_albums:
             for person_album in all_person_albums:
                 person_album.light_save()
