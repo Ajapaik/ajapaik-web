@@ -308,6 +308,9 @@ class Album(Model):
         self.original_lon = self.lon
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            super(Album, self).save(*args, **kwargs)
+
         self.set_calculated_fields()
         if not self.cover_photo and self.photo_count_with_subalbums > 0:
             random_photo = self.photos.order_by('?').first()
