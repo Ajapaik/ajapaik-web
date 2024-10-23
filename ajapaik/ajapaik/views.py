@@ -972,13 +972,13 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         album_selection_form = AlbumSelectionForm({'album': album.id})
         if not is_ajax(request):
             next_photo_id = \
-                AlbumPhoto.objects.filter(photo__gt=photo_obj.pk, album=album.id).aggregate(min_id=Min('photo_id'))[
+                AlbumPhoto.objects.filter(photo_id__gt=photo_obj.pk, album=album.id).aggregate(min_id=Min('photo_id'))[
                     'min_id']
             if next_photo_id:
                 next_photo = Photo.objects.get(pk=next_photo_id)
 
             previous_photo_id = \
-                AlbumPhoto.objects.filter(photo__lt=photo_obj.pk, album=album.id).aggregate(max_id=Max('photo_id'))[
+                AlbumPhoto.objects.filter(photo_id__lt=photo_obj.pk, album=album.id).aggregate(max_id=Max('photo_id'))[
                     'max_id']
             if previous_photo_id:
                 previous_photo = Photo.objects.get(pk=previous_photo_id)
