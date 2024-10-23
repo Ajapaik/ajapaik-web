@@ -987,7 +987,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
                 try:
                     previous_photo = Photo.objects.get(pk=previous_photo_id)
                 except Exception as e:
-                    raise Exception(f"Matching query does not exist {next_photo_id}")
+                    raise Exception(f"Matching query does not exist {previous_photo_id}")
     else:
         album_selection_form = AlbumSelectionForm(
             initial={'album': Album.objects.filter(is_public=True).order_by('-created').first()}
