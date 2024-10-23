@@ -1,7 +1,7 @@
 from rest_framework import filters, viewsets, serializers
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.pagination import LimitOffsetPagination
 
 from ajapaik.ajapaik.models import Photo, GeoTag
 from ajapaik.ajapaik.search_indexes import PhotoIndex
@@ -46,6 +46,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = '__all__'
 
+
 class CustomLimitOffsetPagination(LimitOffsetPagination):
     def get_count(self, queryset):
         """
@@ -55,6 +56,7 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
             return queryset.cached_count()
         except (AttributeError, TypeError):
             return len(queryset)
+
 
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.filter(rephoto_of__isnull=True)
@@ -68,8 +70,8 @@ class PhotoViewSet(viewsets.ModelViewSet):
 class PhotoGeoTagViewSet(viewsets.ViewSet):
     permission_classes = (AllowAny,)
 
-    def retrieve(self, request, pk=None):
-        queryset = GeoTag.objects.filter(photo__pk=pk)
+    def retrieve(self, request, photo_id):
+        queryset = GeoTag.objects.filter(photo__pk=photo_id)
         serializer = GeoTagSerializer(queryset, many=True)
 
         return Response(serializer.data)
