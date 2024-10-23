@@ -6,7 +6,10 @@ import xml.etree.ElementTree as ET
 import requests
 from django.core.management.base import BaseCommand
 
+from ajapaik import settings
 from ajapaik.ajapaik.models import Photo, ApplicationException
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -19,8 +22,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        logger = logging.getLogger(__name__)
-
         photo_ids = (options['photo_ids'])
         if not photo_ids:
             logger.info("Please add photo ids that you want to update")
@@ -29,6 +30,7 @@ class Command(BaseCommand):
         muis_url = 'https://www.muis.ee/OAIService/OAIService'
 
         for photo in photos:
+            logger.info('Running update for: {photo.id}')
             list_identifiers_url = f'{muis_url}?verb=GetRecord&identifier={photo.external_id}&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
 
@@ -45,32 +47,44 @@ class Command(BaseCommand):
                 rp_lr = 'resourceRepresentation/lido:linkResource'
                 link_resource_record = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns)
 
+                if not photo.external_id.startswith('oai:muis.ee'):
+                    logger.info(f'Skipping, not a muis photo, {photo.id} ({photo.external_id})')
+
                 if link_resource_record is None:
-                    logger.info(f"Skipping {photo.external_id}, as there is no image resource")
+                    logger.info(f"Skipping {photo.id} ({photo.external_id}), as there is no image resource")
                     continue
 
                 image_url = link_resource_record.text
 
-                if link_resource_record is not None:
-                    image_extension = (link_resource_record.attrib['{' + ns['lido'] + '}formatResource']).lower()
-                else:
-                    logger.info(f"Skipping {photo.external_id}, as there is not image extension specified")
+                if link_resource_record is None:
+                    logger.info(f"Skipping {photo.id} ({photo.external_id}), as there is not image extension specified")
                     continue
 
+                image_extension = (link_resource_record.attrib['{' + ns['lido'] + '}formatResource']).lower()
+
                 if not image_url or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'webp']:
-                    logger.info(f"Skipping {photo.external_id}, as there are no photos which are supported")
+                    logger.info(
+                        f"Skipping {photo.id} ({photo.external_id}), as there are no photos which are supported")
                     continue
 
                 response = requests.get(image_url)
                 if response.status_code != 200:
-                    logger.info(f"Skipping {photo.external_id}, as we did not get a valid response when downloading")
+                    logger.info(
+                        f"Skipping {photo.id} ({photo.external_id}), as we did not get a valid response when downloading")
+                    continue
 
                 img_data = response.content
-                with open(photo.image.name, 'wb') as handler:
+
+                MEDIA_ROOT = settings.MEDIA_ROOT
+                with open(f'{MEDIA_ROOT}/{photo.image.name}', 'wb') as handler:
                     handler.write(img_data)
 
+                logger.info(f'{MEDIA_ROOT}/{photo.image.name}')
+                photo = Photo.objects.get(id=photo.id)
                 photo.set_calculated_fields()
+                logger.info(f'Updated image file for {photo.id} ({photo.external_id})')
             except Exception as e:
+                logger.info(e)
                 logger.exception(e)
                 exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
                 exception.save()
