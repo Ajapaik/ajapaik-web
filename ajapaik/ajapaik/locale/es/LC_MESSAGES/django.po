@@ -3,6 +3,7 @@
 #
 # Author: Andru1013
 # Author: AnupamM
+# Author: Arturoborrero
 # Author: Avengium
 # Author: Canaan9801
 # Author: DannyS712
@@ -28,12 +29,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-07-15 12:00:16+0000\n"
+"PO-Revision-Date: 2024-10-24 12:00:23+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"X-Generator: MediaWiki 1.43.0-alpha; Translate 2024-07-16\n"
+"X-Generator: MediaWiki 1.44.0-alpha; Translate 2024-07-16\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
@@ -432,7 +433,7 @@ msgstr "Descripción en idioma original"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Ocultar el acceso a la imagen fuera del área de administración"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
