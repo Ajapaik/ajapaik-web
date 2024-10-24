@@ -22,7 +22,7 @@ from ajapaik.ajapaik_profile.forms import ChangeDisplayNameForm, UserSettingsFor
 
 
 def user(request, user_id):
-    token = ProfileMergeToken.objects.filter(used__isnull=False).order_by('used').first()
+    token = ProfileMergeToken.objects.filter(source_profile_id=user_id, used__isnull=False).order_by('used').first()
 
     if token is not None and token.target_profile is not None:
         return redirect('user', user_id=token.target_profile.id)
