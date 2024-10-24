@@ -259,11 +259,11 @@ urlpatterns += [
 
 if hasattr(settings, 'GOOGLE_ANALYTICS_KEY') and settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
     urlpatterns += [
-        path('robots\.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+        path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     ]
 else:
     urlpatterns += [
-        path('robots\.txt', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')),
+        path('robots.txt', TemplateView.as_view(template_name='robots-staging.txt', content_type='text/plain')),
     ]
 
 if settings.DEBUG:
