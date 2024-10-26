@@ -34,14 +34,14 @@ class Command(BaseCommand):
             photos = Photo.objects.filter(rephoto_of=None, back_of_id=None, width=None, height=None,
                                           external_id__startswith='oai:muis.ee')
         else:
-            print("Please add photo ids that you want to update")
+            logger.info("Please add photo ids that you want to update")
 
         if not photos:
-            print("No photos found to update")
+            logger.info("No photos found to update")
 
         muis_url = 'https://www.muis.ee/OAIService/OAIService'
         for photo in photos:
-            print('Running update for: {photo.id}')
+            logger.info('Running update for: {photo.id}')
             list_identifiers_url = f'{muis_url}?verb=GetRecord&identifier={photo.external_id}&metadataPrefix=lido'
             url_response = urllib.request.urlopen(list_identifiers_url)
 
@@ -59,28 +59,28 @@ class Command(BaseCommand):
                 link_resource_record = rec.find(f'{resource_wrap}lido:resourceSet/lido:{rp_lr}', ns)
 
                 if not photo.external_id.startswith('oai:muis.ee'):
-                    print(f'Skipping, not a muis photo, {photo.id} ({photo.external_id})')
+                    logger.info(f'Skipping, not a muis photo, {photo.id} ({photo.external_id})')
 
                 if link_resource_record is None:
-                    print(f"Skipping {photo.id} ({photo.external_id}), as there is no image resource")
+                    logger.info(f"Skipping {photo.id} ({photo.external_id}), as there is no image resource")
                     continue
 
                 image_url = link_resource_record.text
 
                 if link_resource_record is None:
-                    print(f"Skipping {photo.id} ({photo.external_id}), as there is not image extension specified")
+                    logger.info(f"Skipping {photo.id} ({photo.external_id}), as there is not image extension specified")
                     continue
 
                 image_extension = (link_resource_record.attrib['{' + ns['lido'] + '}formatResource']).lower()
 
                 if not image_url or image_extension not in ['gif', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'webp']:
-                    print(
+                    logger.info(
                         f"Skipping {photo.id} ({photo.external_id}), as there are no photos which are supported")
                     continue
 
                 response = requests.get(image_url)
                 if response.status_code != 200:
-                    print(
+                    logger.info(
                         f"Skipping {photo.id} ({photo.external_id}), as we did not get a valid response when downloading")
                     continue
 
@@ -90,12 +90,15 @@ class Command(BaseCommand):
                 with open(f'{MEDIA_ROOT}/{photo.image.name}', 'wb') as handler:
                     handler.write(img_data)
 
-                print(f'{MEDIA_ROOT}/{photo.image.name}')
+                logger.info(f'{MEDIA_ROOT}/{photo.image.name}')
                 photo = Photo.objects.get(id=photo.id)
                 photo.set_calculated_fields()
-                print(f'Updated image file for {photo.id} ({photo.external_id})')
+                # This is weird, but it makes the image dimensions update on save, just calling .save might not work
+                logger.info(logger.info.image, photo.image.width, photo.image.height)
+                photo.save()
+                logger.info(f'Updated image file for {photo.id} ({photo.external_id})')
             except Exception as e:
-                print(e)
+                logger.info(e)
                 logger.exception(e)
                 exception = ApplicationException(exception=traceback.format_exc(), photo=photo)
                 exception.save()

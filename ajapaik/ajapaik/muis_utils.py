@@ -6,7 +6,7 @@ import requests
 import roman
 from django.conf import settings
 
-from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto
+from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto, Dating
 
 century_suffixes = [
     'saj x',
@@ -36,6 +36,7 @@ ends_of_century = [b + a for a in end_of_century_suffixes for b in map(str, list
 def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date):
     date = date.strip('.').strip().strip('.').strip()
     date = date.lower()
+
     if date in starts_of_century:
         if date[:2].isdigit():
             how_many_hundreds = int(date[:2])
@@ -212,61 +213,62 @@ def unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
     return date
 
 
-def set_text_fields_from_muis(photo, dating, rec, object_description_wraps, ns):
-    muis_description_field_pairs = {
+def set_text_fields_from_muis(photo, rec, object_description_wraps, ns):
+    dating = None
+    muis_description_field_mapping = {
         'sisu kirjeldus': 'description',
         'kommentaar': 'muis_comment',
         'pealkiri': 'muis_title',
         '<legendid ja kirjeldused>': 'muis_legends_and_descriptions',
         'tekst objektil': 'muis_text_on_object',
-        'dateering': None
     }
-    for field in muis_description_field_pairs:
-        if muis_description_field_pairs[field] is not None:
-            photo = reset_modeltranslated_field(photo, muis_description_field_pairs[field], None)
-    photo.save()
-    photo = Photo.objects.get(id=photo.id)
+
+    for value in muis_description_field_mapping.values():
+        photo = reset_photo_translated_field(photo, value)
 
     description_finds = rec.findall(object_description_wraps, ns)
+
     for description_element in description_finds:
-        description_text_element = description_element.find('lido:descriptiveNoteValue', ns)
         description_type_element = description_element.find('lido:sourceDescriptiveNote', ns)
-        description_text = description_text_element.text
         if description_type_element is None:
             continue
+
         description_type = description_type_element.text
-        if description_type in muis_description_field_pairs:
+        description_text_element = description_element.find('lido:descriptiveNoteValue', ns)
+        description_text = description_text_element.text
+
+        if description_type in muis_description_field_mapping:
             if description_type == 'sisu kirjeldus':
-                photo = reset_modeltranslated_field(
-                    photo,
-                    muis_description_field_pairs[description_type],
-                    description_text
-                )
                 photo.description_original_language = None
             elif description_type == 'dateering':
                 dating = description_text
             else:
-                setattr(photo, muis_description_field_pairs[description_type], description_text)
+                setattr(photo, muis_description_field_mapping[description_type], description_text)
+
+    photo.light_save()
+
     return photo, dating
 
 
-def reset_modeltranslated_field(photo, attribute_name, attribute_value):
-    setattr(photo, attribute_name, attribute_value)
-    photo.light_save()
+def reset_photo_translated_field(photo, attribute_name, attribute_value=None):
     photo = Photo.objects.get(id=photo.id)
     detection_lang = 'et'
+
+    setattr(photo, attribute_name, attribute_value)
     for language in settings.MODELTRANSLATION_LANGUAGES:
         if language == detection_lang:
             setattr(photo, f'{attribute_name}_{language}', attribute_value)
         else:
             setattr(photo, f'{attribute_name}_{language}', None)
+
     photo.light_save()
+
     return photo
 
 
 def extract_dating_from_event(
         events,
-        location,
+        locations,
         creation_date_earliest,
         creation_date_latest,
         skip_dating,
@@ -276,12 +278,11 @@ def extract_dating_from_event(
     creation_event_types = ['valmistamine', '<valmistamine/tekkimine>', 'pildistamine', 'sõjandus ja kaitse', 'sõjad']
     date_prefix_earliest = None
     date_prefix_latest = None
-    earliest_had_decade_suffix = False
     latest_had_decade_suffix = False
+
     for event in events:
         event_types = event.findall('lido:eventType/lido:term', ns)
-        if event_types is None:
-            continue
+
         for event_type in event_types:
             if event_type.text == duplicate_event_type:
                 break
@@ -292,83 +293,96 @@ def extract_dating_from_event(
                 earliest_date = event.find('lido:eventDate/lido:date/lido:earliestDate', ns)
                 latest_date = event.find('lido:eventDate/lido:date/lido:latestDate', ns)
 
-                if earliest_date is not None and earliest_date.text is not None:
-                    creation_date_earliest, date_prefix_earliest, earliest_had_decade_suffix, \
+                if earliest_date is not None and earliest_date.text:
+                    creation_date_earliest, date_prefix_earliest, _, \
                         = get_muis_date_and_prefix(
                         earliest_date.text, False
                     )
 
-                if latest_date is not None and latest_date.text is not None:
+                if latest_date is not None and latest_date.text:
                     creation_date_latest, date_prefix_latest, latest_had_decade_suffix, \
                         = get_muis_date_and_prefix(
                         latest_date.text, True
                     )
 
             places = event.findall('lido:eventPlace/lido:place', ns)
-            if places is not None:
-                new_location = []
-                for place in places:
-                    entity_type = place.attrib['{' + ns['lido'] + '}politicalEntity']
-                    if entity_type is None:
-                        entity_type = place.attrib['{' + ns['lido'] + '}geographicalEntity']
-                    place_appelation_value = place.find('lido:namePlaceSet/lido:appellationValue', ns)
-                    if place_appelation_value is not None:
-                        new_location.append((place_appelation_value.text, entity_type))
 
-                    child = place.find('lido:partOfPlace', ns)
+            def _get_place_entity(place):
+                new_locations = []
+                entity_type = place.attrib[f"{{{ns['lido']}}}politicalEntity"]
+
+                if entity_type is None:
+                    entity_type = place.attrib[f"{{{ns['lido']}}}geographicalEntity"]
+
+                place_appellation_value = place.find('lido:namePlaceSet/lido:appellationValue', ns)
+                if place_appellation_value is not None:
+                    new_locations.append((place_appellation_value.text, entity_type))
+
+                child = place.find('lido:partOfPlace', ns)
+
+                return new_locations, child
+
+            if places:
+                for place in places:
+                    new_locations, child = get_place_entity(place)
+                    locations.extend(new_locations)
+
                     while child is not None:
-                        entity_type = child.attrib['{' + ns['lido'] + '}politicalEntity']
-                        if entity_type is None:
-                            entity_type = child.attrib['{' + ns['lido'] + '}geographicalEntity']
-                        place_appelation_value = child.find('lido:namePlaceSet/lido:appellationValue', ns)
-                        if place_appelation_value is not None:
-                            new_location.append((place_appelation_value.text, entity_type))
-                        child = child.find('lido:partOfPlace', ns)
-                if new_location != []:
-                    location.append(new_location)
-    return location, creation_date_earliest, creation_date_latest, date_prefix_earliest, date_prefix_latest, \
-           earliest_had_decade_suffix, latest_had_decade_suffix
+                        new_locations, child
+                        locations.extend(new_locations)
+
+    return locations, creation_date_earliest, creation_date_latest, date_prefix_earliest, date_prefix_latest, latest_had_decade_suffix
 
 
 def add_person_albums(actors, person_album_ids, ns):
     author = None
+
     for actor in actors:
         term = actor.find('lido:roleActor/lido:term', ns)
         if term is None:
             continue
+
         if term.text in ['kujutatu', 'autor']:
-            muis_actor_wrapper = actor.find("lido:actor/lido:actorID", ns)
-            muis_actor_id = None
-            if muis_actor_wrapper is not None:
-                muis_actor_id = int(muis_actor_wrapper.text)
             names = actor.findall("lido:actor/lido:nameActorSet/lido:appellationValue", ns)
-            all_names = ''
             main_name = ''
+            all_names = ''
+
             for name in names:
-                if name.attrib['{' + ns['lido'] + '}pref'] == 'preferred':
+                if name.attrib[f"{{{ns['lido']}}}pref"] == 'preferred':
                     main_name_parts = name.text.split(',')
                     main_name = main_name_parts[-1].strip()
+
                     if len(main_name_parts) > 1:
                         for part in main_name_parts[0:len(main_name_parts) - 1]:
                             main_name += f' {part}'
-                all_names += (name.attrib['{' + ns['lido'] + '}label'] + ': ' + name.text + '. ').capitalize()
+
+                label = name.attrib[f"{{{ns['lido']}}}label"]
+                all_names += f"{label}: {name.text}. ".capitalize()
 
             if term.text == 'autor':
                 author = main_name
                 continue
 
             existing_album = Album.objects.filter(name=main_name, atype=Album.PERSON).first()
-            if existing_album and muis_actor_id:
+            muis_actor_wrapper = actor.find("lido:actor/lido:actorID", ns)
+
+            if muis_actor_wrapper is not None:
+                muis_actor_id = int(muis_actor_wrapper.text)
+
+            if existing_album:
+                if muis_actor_id:
+                    existing_album.muis_person_ids = [*existing_album.muis_person_ids, muis_actor_id]
+                    existing_album.save(update_fields=['muis_person_ids'])
+
                 person_album_ids.append(existing_album.id)
                 continue
 
             person_album = Album(
                 name=main_name,
                 description=all_names,
-                atype=Album.PERSON
+                atype=Album.PERSON,
+                muis_person_ids=[muis_actor_id] if muis_actor_id else []
             )
-            if muis_actor_id:
-                person_album.muis_person_ids = [muis_actor_id]
             person_album.light_save()
             person_album_ids.append(person_album.id)
 
@@ -376,13 +390,14 @@ def add_person_albums(actors, person_album_ids, ns):
 
 
 def get_muis_date_and_prefix(date, is_later_date):
+    date_prefix = None
+    had_decade_suffix = False
     approximate_date_prefixes = ['ligikaudu', 'arvatav aeg', 'umbes']
     before_date_prefix = 'enne'
     after_date_prefix = 'pärast'
     all_date_prefixes = approximate_date_prefixes + [before_date_prefix, after_date_prefix]
     date = unstructured_date_to_structured_date(date, all_date_prefixes, is_later_date)
-    date_prefix = None
-    had_decade_suffix = False
+
     if date is None:
         return date, date_prefix, had_decade_suffix
 
@@ -393,14 +408,19 @@ def get_muis_date_and_prefix(date, is_later_date):
     for split in earliest_date_split:
         earliest_date_split[index] = split.strip()
         index += 1
+
     if earliest_date_split[-1] == decade_suffix:
         had_decade_suffix = True
+
     if earliest_date_split[0] in all_date_prefixes:
         date_prefix = earliest_date_split[0]
         earliest_date_split = earliest_date_split[1:]
+
     earliest_date_split.reverse()
+
     while len(earliest_date_split[0]) < 4:
         earliest_date_split[0] = f'0{earliest_date_split[0]}'
+
     if len(earliest_date_split) > 1:
         while len(earliest_date_split[1]) < 2:
             earliest_date_split[1] = f'0{earliest_date_split[1]}'
@@ -408,6 +428,7 @@ def get_muis_date_and_prefix(date, is_later_date):
             while len(earliest_date_split[2]) < 2:
                 earliest_date_split[2] = f'0{earliest_date_split[2]}'
         date = '.'.join(earliest_date_split)
+
     if len(earliest_date_split) == 1:
         date = earliest_date_split[0]
 
@@ -524,8 +545,8 @@ def raw_date_to_date(raw_date):
     return date
 
 
-def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest, date_prefix_latest, Dating,
-                        date_earliest_has_suffix, date_latest_has_suffix):
+def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest, date_prefix_latest,
+                        date_latest_has_suffix):
     if latest_date is None and earliest_date is None:
         return photo
 
@@ -533,6 +554,7 @@ def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest,
         earliest_date = earliest_date.replace('aastad', '').strip('.')
     if latest_date is not None:
         latest_date = latest_date.replace('aastad', '').strip('.')
+
     before_date_prefix = 'enne'
     after_date_prefix = 'pärast'
     approximate_date_prefixes = ['ligikaudu', 'arvatav aeg', 'umbes']
@@ -579,4 +601,5 @@ def add_dating_to_photo(photo, earliest_date, latest_date, date_prefix_earliest,
         photo.first_dating = dating.created
     photo.dating_count += 1
     photo.latest_dating = dating.created
+    photo.save(update_fields=['dating_count', 'latest_dating'])
     return photo

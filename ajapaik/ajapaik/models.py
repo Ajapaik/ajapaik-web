@@ -211,6 +211,7 @@ class AlbumPhoto(Model):
 
     class Meta:
         db_table = 'project_albumphoto'
+
         # FIXME: May be causing bugs elsewhere
         # ordering = ['-created']
 
@@ -331,12 +332,6 @@ class Album(Model):
             self.subalbum_of.save()
         connections['default'].get_unified_index().get_index(Album).update_object(self)
 
-    def get_historic_photos_queryset_with_subalbums_old(self):
-        qs = self.photos.filter(rephoto_of__isnull=True)
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-        return qs.distinct('id')
-
     def get_historic_photos_queryset_with_subalbums(self):
         sa_ids = [self.id]
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
@@ -345,33 +340,14 @@ class Album(Model):
             albumphoto__album__in=sa_ids)
         return qs.distinct('id')
 
-    def get_geotagged_historic_photo_queryset_with_subalbums_old(self):
-        qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
-        return qs.distinct('id')
-
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
         qs = self.get_historic_photos_queryset_with_subalbums().filter(lat__isnull=False, lon__isnull=False)
         return qs.distinct('id')
-
-    def get_rephotos_queryset_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().filter(rephoto_of__isnull=False)
-        return qs.distinct('pk')
 
     def get_rephotos_queryset_with_subalbums(self):
         historic_photo_qs = self.get_historic_photos_queryset_with_subalbums().only('id').order_by()
         qs = Photo.objects.filter(rephoto_of__isnull=False,
                                   rephoto_of__in=historic_photo_qs.values('id').order_by()).order_by()
-        return qs.distinct('pk')
-
-    def get_all_photos_queryset_with_subalbums_old(self):
-        qs = self.photos.all()
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.all()
-
-        photo_ids = qs.values_list('pk', flat=True)
-        qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
         return qs.distinct('pk')
 
     # All photos = historical photos + rephotos
@@ -387,14 +363,6 @@ class Album(Model):
 
         qs = Photo.objects.filter(id__in=historic_photo_list)
         return qs.distinct('pk')
-
-    def get_comment_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().filter(comment_count__gt=0).order_by()
-        count = 0
-        for each in qs:
-            count += each.comment_count
-
-        return count
 
     def get_comment_count_with_subalbums(self):
         historic_photo_qs = self.get_historic_photos_queryset_with_subalbums() \
@@ -416,13 +384,6 @@ class Album(Model):
         else:
             return count
 
-    def get_confirmed_similar_photo_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().order_by()
-        photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(
-            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
-        return count
-
     def get_confirmed_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
@@ -430,28 +391,11 @@ class Album(Model):
             from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
-    def get_similar_photo_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().order_by()
-        photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
-        return count
-
     def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
         return count
-
-    def set_calculated_fields_old(self):
-        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.comments_count_with_subalbums = self.get_comment_count_with_subalbums_old()
-        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums_old()
-        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums_old()
 
     def set_calculated_fields_new(self):
         self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only(
@@ -1902,7 +1846,7 @@ class MuisCollection(Model):
 class ApplicationException(Model):
     exception = TextField(_('Title'), null=True, blank=True)
     external_id = CharField(max_length=100, null=True, blank=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE, null=True)
 
 
 class ImportBlacklist(Model):
