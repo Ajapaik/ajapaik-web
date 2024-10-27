@@ -1,11 +1,11 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
-from captcha.fields import ReCaptchaField
 from dal import autocomplete
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
+from django_recaptcha.fields import ReCaptchaField
 
 from .models import (Album, Area, Dating, GeoTag, Photo, PhotoLike,
                      Profile, Video)
