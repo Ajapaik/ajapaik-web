@@ -124,15 +124,15 @@ def can_action_be_done(model, photo, profile, key, new_value):
     setattr(new_suggestion, key, new_value)
 
     all_suggestions = model.objects.filter(
-            photo=photo
-        ).exclude(
-            proposer=profile
-        ).order_by(
-            'proposer_id',
-            '-created'
-        ).all().distinct(
-            'proposer_id'
-        )
+        photo=photo
+    ).exclude(
+        proposer=profile
+    ).order_by(
+        'proposer_id',
+        '-created'
+    ).all().distinct(
+        'proposer_id'
+    )
 
     if all_suggestions is not None:
         suggestions = [new_value]
@@ -172,7 +172,7 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
         all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
             .order_by('proposer_id', '-created').all().distinct('proposer_id')
 
-        if all_suggestions is not None:
+        if all_suggestions:
             suggestions = [new_value]
 
             for suggestion in all_suggestions:
@@ -182,14 +182,17 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
             if new_value != most_common_choice:
                 response = SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
                 was_action_successful = False
+
             new_value = most_common_choice
 
         if function_name is not None:
             old_value = getattr(photo, key)
             if function_name == 'do_rotate' and (old_value is None or (new_value != old_value)):
                 getattr(photo, function_name)(new_value)
+
             elif (function_name != 'do_rotate') and (
                     (old_value or new_value is True) and old_value != new_value):
+
                 getattr(photo, function_name)()
         else:
             setattr(photo, key, new_value)

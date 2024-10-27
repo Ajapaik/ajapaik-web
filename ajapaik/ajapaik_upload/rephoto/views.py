@@ -77,6 +77,7 @@ def rephoto_upload(request, photo_id):
         for each in photo.albums.all():
             each.rephoto_count_with_subalbums = each.get_rephotos_queryset_with_subalbums().count()
             each.save(update_fields=['rephoto_count_with_subalbums'])
+
         rephoto.image.save('rephoto.jpg', file_obj)
 
         if rephoto.cam_scale_factor:

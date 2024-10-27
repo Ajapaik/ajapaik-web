@@ -47,21 +47,10 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CustomLimitOffsetPagination(LimitOffsetPagination):
-    def get_count(self, queryset):
-        """
-        Determine an object count, supporting either querysets or regular lists.
-        """
-        try:
-            return queryset.cached_count()
-        except (AttributeError, TypeError):
-            return len(queryset)
-
-
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.filter(rephoto_of__isnull=True)
     serializer_class = PhotoSerializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = LimitOffsetPagination
     filter_backends = [filters.SearchFilter]
     search_fields = list(PhotoIndex.fields)
     search_fields.remove('text')

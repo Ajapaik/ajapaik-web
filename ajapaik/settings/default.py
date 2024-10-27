@@ -23,13 +23,13 @@ CURATOR_EUROPEANA_ENABLED = False
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
+ABSOLUTE_TEMPLATES_PATH = f'{ABSOLUTE_PROJECT_ROOT}/templates'
 
 if ABSOLUTE_PROJECT_ROOT not in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
-STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
-MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
+STATIC_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/static-collected'
+MEDIA_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/media'
 VANALINNAD_ROOT = '/home/ajapaik/vanalinnad.mooo.com'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -39,11 +39,11 @@ ADMIN_MEDIA_PREFIX = f'{STATIC_URL}admin/'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 STATICFILES_DIRS = (
-    '%s/ajapaik/ajapaik/static' % ABSOLUTE_PROJECT_ROOT,
+    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/static',
 )
 
 LOCALE_PATHS = (
-    '%s/ajapaik/ajapaik/locale' % ABSOLUTE_PROJECT_ROOT,
+    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/locale',
 )
 
 ADMINS = (

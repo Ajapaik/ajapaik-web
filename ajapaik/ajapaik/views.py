@@ -486,7 +486,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         # In some cases it is faster to get number of photos before we annotate new columns to it
         albumsize_before_sorting = 0
         if not album:
-            albumsize_before_sorting = Photo.objects.filter(pk__in=photos).cached_count()
+            albumsize_before_sorting = Photo.objects.filter(pk__in=photos).cached_count(q)
 
         # SORTING BELOW THIS LINE
 
@@ -660,7 +660,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
                 p[3] = p[14] + (". " if p[14][-1] != "." else " ") + p[
                     3]  # add title to image description if both are present.
 
-            # Failback width/height for photos which imagedata arent saved yet
+            # Failback width/height for photos which imagedata is not saved yet
             if p[1] == '' or p[1] is None:
                 p[1] = 400
             if p[2] == '' or p[2] is None:
