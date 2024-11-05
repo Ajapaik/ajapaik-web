@@ -23,7 +23,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:21+0000\n"
+"PO-Revision-Date: 2024-11-05 14:16:56+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -927,9 +927,8 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "يُرجَى الاتصال بنا إذا كانت لديك أية مشكلة في إعادة تعيين كلمة مرورك."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
-msgstr "لقد أرسلنا لك رسالة بريد إلكتروني، يُرجَى الاتصال بنا إذا كنت لا تتلقاها في غضون دقائق قليلة."
+msgstr "لقد أرسلنا لك رسالة بالبريد الإلكتروني. يرجى الاتصال بنا إذا لم تتلقاها خلال بضع دقائق!"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
