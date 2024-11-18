@@ -17,6 +17,7 @@
 # Author: MarcoAurelio
 # Author: Ncr
 # Author: Nelthal
+# Author: Osvaldorino
 # Author: Rafael.minuesa
 # Author: Reverse88
 # Author: Rodney Araujo
@@ -29,7 +30,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-10-24 12:00:23+0000\n"
+"PO-Revision-Date: 2024-11-18 12:00:13+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -154,8 +155,9 @@ msgstr "Los valores del cuadro delimitador deben ser números"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
+#, fuzzy
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Token malo"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24

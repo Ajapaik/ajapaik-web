@@ -4,6 +4,7 @@
 # Author: 129femtoseconds
 # Author: Aefgh39622
 # Author: H2kks
+# Author: Luna
 # Author: Object＊tofu
 # Author: Omotecho
 # Author: RYU N
@@ -18,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-10-24 12:00:24+0000\n"
+"PO-Revision-Date: 2024-11-18 12:00:14+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -150,7 +151,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "Eメール"
 
 #: ajapaik/ajapaik/forms.py:25
 msgid "First name"
@@ -167,7 +168,7 @@ msgstr "パスワード"
 
 #: ajapaik/ajapaik/forms.py:28
 msgid "Password confirmation"
-msgstr ""
+msgstr "パスワードの確認"
 
 #: ajapaik/ajapaik/forms.py:114 ajapaik/ajapaik/forms.py:195
 #: ajapaik/ajapaik/forms.py:217
@@ -190,7 +191,7 @@ msgstr "親アルバムを選択"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Picture file"
-msgstr ""
+msgstr "画像ファイル"
 
 #: ajapaik/ajapaik/forms.py:429 ajapaik/ajapaik/forms.py:482
 #: ajapaik/ajapaik/models.py:260 ajapaik/ajapaik/models.py:566
@@ -201,7 +202,7 @@ msgstr "説明"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "I am the author"
-msgstr ""
+msgstr "私は著者です"
 
 #: ajapaik/ajapaik/forms.py:431 ajapaik/ajapaik/models.py:573
 msgid "Author"
@@ -286,7 +287,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:484 ajapaik/ajapaik/models.py:265
 msgid "Is open"
-msgstr ""
+msgstr "開いている"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
@@ -366,15 +367,15 @@ msgstr "画像"
 
 #: ajapaik/ajapaik/models.py:565 ajapaik/ajapaik/models.py:2113
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
-msgstr ""
+msgstr "MUISタイトル"
 
 #: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUISコメント"
 
 #: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
