@@ -5,7 +5,6 @@ from django.conf.urls import include, i18n
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from django.contrib.sitemaps import views as sitemap_views
 from django.contrib.staticfiles.views import serve
 from django.urls import re_path, path
 from django.views.decorators.cache import cache_page
@@ -222,8 +221,8 @@ sitemaps = {
 }
 
 urlpatterns += [
-    re_path(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), cache_page(86400)(serve),
-            {'show_indexes': True, 'insecure': False}),
+    re_path(f'{settings.STATIC_URL}(?P<path>.*)$', cache_page(86400)(serve),
+            {'show_indexes': True, 'insecure': True}),
     path('accounts/email/', ajapaik.ajapaik_profile.views.MyEmailView.as_view(), name="account_email"),
     path('accounts/password/change/', ajapaik.ajapaik_profile.views.MyPasswordChangeView.as_view(),
          name="account_change_password"),
@@ -250,14 +249,14 @@ urlpatterns += [
          name='javascript-catalog'),
     path('feed/photos/', RedirectView.as_view(url='http://api.ajapaik.ee/?action=photo&format=atom', permanent=True),
          name='feed'),
-    path('sitemap.xml', cache_page(86400)(sitemap_views.index), {'sitemaps': sitemaps}),
-    path('sitemap-<str:section>.xml', cache_page(86400)(sitemap_views.sitemap), {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap'),
+    # path('sitemap.xml', cache_page(86400)(sitemap_views.index), {'sitemaps': sitemaps}),
+    # path('sitemap-<str:section>.xml', cache_page(86400)(sitemap_views.sitemap), {'sitemaps': sitemaps},
+    #     name='django.contrib.sitemaps.views.sitemap'),
     path('face-recognition/', include(fr_urls)),
     path('object-recognition/', include(or_urls))
 ]
 
-if hasattr(settings, 'GOOGLE_ANALYTICS_KEY') and settings.GOOGLE_ANALYTICS_KEY == 'UA-21689048-1':
+if hasattr(settings, 'GOOGLE_ANALYTICS_KEY'):
     urlpatterns += [
         path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     ]
