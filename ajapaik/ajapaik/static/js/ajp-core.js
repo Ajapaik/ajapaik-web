@@ -66,6 +66,8 @@ window.galleryFilters = [
     'square',
     'landscape',
     'panoramic',
+    'date_from',
+    'date_to',
 ];
 window.albumFilters = ['film', 'collections', 'people'];
 
@@ -456,6 +458,58 @@ $('.ajp-navbar').autoHidingNavbar();
             window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);
         },
     );
+
+    $(document).on(
+        'click',
+        '#removeDateFilters',
+        function(e) {
+            e.preventDefault();
+            let uri = URI(window.location);
+
+            if (uri.query().indexOf('date_from') > -1) {
+                uri.removeQuery('date_from');
+            }
+
+            if (uri.query().indexOf('date_to') > -1) {
+                uri.removeQuery('date_to');
+            }
+
+            window.location.href = uri;
+        },
+    );
+
+    $(document).on(
+        'click',
+        '#applyDateFilters',
+        function(e) {
+            e.preventDefault();
+            let uri = URI(window.location);
+            let dateFromValue = document.getElementById('startingFrom').innerText;
+            let dateFrom = dateFromValue ? new Date(dateFromValue).toISOString().substring(0, 10) : null;
+
+            if (uri.query().indexOf('date_to') > -1) {
+                uri.removeQuery('date_to');
+            }
+            if (uri.query().indexOf('date_from') > -1) {
+                uri.removeQuery('date_from');
+            }
+
+            if (dateFrom !== null) {
+                uri.addQuery('date_from', dateFrom);
+            }
+
+            let dateToValue = document.getElementById('endingAt').innerText;
+            let dateTo = dateToValue ? new Date(dateToValue, 11, 31, 23, 59, 59).toISOString().substring(0, 10) : null;
+
+
+            if (dateTo !== null) {
+                uri.addQuery('date_to', dateTo);
+            }
+
+            window.location.href = uri;
+        },
+    );
+
 
     handleGeolocation = function(position) {
         $('#ajp-geolocation-error').hide();
@@ -2347,5 +2401,37 @@ $('.ajp-navbar').autoHidingNavbar();
             }
             window.positionMinimapCTAButton();
         });
+
+        function getVals() {
+            // Get slider values
+            var parent = this.parentNode;
+            var slides = parent.getElementsByTagName('input');
+            var slide1 = parseFloat(slides[0].value);
+            var slide2 = parseFloat(slides[1].value);
+            // Neither slider will clip the other, so make sure we determine which is larger
+            if (slide1 > slide2) {
+                var tmp = slide2;
+                slide2 = slide1;
+                slide1 = tmp;
+            }
+
+            var displayElement = parent.getElementsByClassName('rangeValues')[0];
+            displayElement.innerHTML = slide1 + ' - ' + slide2;
+        }
+
+        window.onload = function() {
+            // Initialize Sliders
+            var sliderSections = document.getElementsByClassName('range-slider');
+            for (var x = 0; x < sliderSections.length; x++) {
+                var sliders = sliderSections[x].getElementsByTagName('input');
+                for (var y = 0; y < sliders.length; y++) {
+                    if (sliders[y].type === 'range') {
+                        sliders[y].oninput = getVals;
+                        // Manually trigger event first time to display values
+                        sliders[y].oninput();
+                    }
+                }
+            }
+        };
     }
 })(jQuery);

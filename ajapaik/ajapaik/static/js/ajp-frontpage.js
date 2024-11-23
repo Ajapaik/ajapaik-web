@@ -63,7 +63,7 @@
                     });
             },
             syncStateToUrl = function() {
-                const currentUrl = window.URI(window.location.href);
+                let currentUrl = window.URI(window.location.href);
                 currentUrl
                     .removeSearch('photo')
                     .removeSearch('page')
@@ -535,6 +535,8 @@
                                 categoryMessage = 'No rephotos were found';
                             } else if (window.location.search.indexOf('myLikes=1') > 0) {
                                 categoryMessage = 'No liked pictures were found';
+                            } else if (window.location.search.indexOf('dateFrom=') > 0 || window.location.search.indexOf('date=') > 0) {
+                                categoryMessage = 'No pictures were found in date range';
                             } else {
                                 categoryMessage = 'No pictures were found';
                             }

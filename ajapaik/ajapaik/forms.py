@@ -154,6 +154,8 @@ class GalleryFilteringForm(forms.Form):
     square = forms.BooleanField(initial=False, required=False)
     landscape = forms.BooleanField(initial=False, required=False)
     panoramic = forms.BooleanField(initial=False, required=False)
+    date_from = forms.DateField(initial=None, required=False)
+    date_to = forms.DateField(initial=None, required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']

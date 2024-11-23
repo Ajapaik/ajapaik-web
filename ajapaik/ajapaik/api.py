@@ -201,7 +201,7 @@ class Login(APIView):
         adapter = WikimediaCommonsOAuth2Adapter(request)
         return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
 
-    def post(self, request, format=None):
+    def post(self, request):
         form = forms.APILoginForm(request.data)
         user = None
 
@@ -276,7 +276,7 @@ class Register(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def post(self, request, format=None):
+    def post(self, request):
         form = forms.APIRegisterForm(request.data)
         if form.is_valid():
             registration_type = form.cleaned_data['type']
@@ -368,13 +368,13 @@ class AjapaikAPIView(APIView):
                 del request.session['sessionid']
         return request
 
-    def post(self, request, format=None):
+    def post(self, request):
         body = request.body
         post = self._fix_latin1_query_param(request, body)
         request = self._reset_session_cookie(request)
         return self._handle_request(post, request.user, request)
 
-    def get(self, request, format=None):
+    def get(self, request):
         request = self._reset_session_cookie(request)
         return self._handle_request(request.GET, request.user, request)
 
@@ -679,7 +679,7 @@ class AlbumNearestPhotos(AjapaikAPIView):
                 photos = Photo.objects.filter(rephoto_of__isnull=True, ).annotate(
                     distance=GeometryDistance("geography", ref_location)).order_by("distance")[start:end]
                 photo_ids = photos.values_list('id', flat=True)
-                photos = Photo.objects.filter(id__in=photo_ids).order_by(GeometryDistance("geography", ref_location));
+                photos = Photo.objects.filter(id__in=photo_ids).order_by(GeometryDistance("geography", ref_location))
 
                 photos = PhotoSerializer.annotate_photos(
                     photos,
@@ -852,7 +852,7 @@ class RephotoUpload(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def post(self, request, format=None):
+    def post(self, request):
         print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
 
@@ -1022,7 +1022,7 @@ class RephotoUploadSettings(AjapaikAPIView):
     API endpoint for saving rephoto upload settings
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
@@ -1388,14 +1388,14 @@ class AlbumsSearch(AjapaikAPIView):
                 'albums': []
             })
 
-    def post(self, request, format=None):
+    def post(self, request):
         user = request.user or None
         body = request.body
         post = self._fix_latin1_query_param(request, body)
 
         return self._handle_request(post, user, request)
 
-    def get(self, request, format=None):
+    def get(self, request):
         user = request.user or None
         return self._handle_request(request.GET, user, request)
 
@@ -1580,7 +1580,7 @@ class SubmitSimilarPhotos(AjapaikAPIView):
     API endpoint for posting similar photos.
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         points = 0
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
@@ -1616,7 +1616,7 @@ class Transcriptions(AjapaikAPIView):
     API endpoint for getting transcriptions for an image.
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         transcriptions = Transcription.objects.filter(photo_id=photo_id).order_by('-created').values()
         ids = transcriptions.values_list('id', flat=True)
         feedback = TranscriptionFeedback.objects.filter(transcription_id__in=ids)
@@ -1634,7 +1634,7 @@ class Transcriptions(AjapaikAPIView):
         data = {'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True)}
         return JsonResponse(data, safe=False)
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             photo = get_object_or_404(Photo, id=request.POST['photo'])
             user = get_object_or_404(Profile, pk=request.user.profile.id)
@@ -1687,7 +1687,7 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
     API endpoint for confirming transcription for an image.
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
                                                     user_id=request.user.profile.id).exists():
@@ -1707,7 +1707,7 @@ class UserSettings(AjapaikAPIView):
     API endpoint for saving user settings
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.preferred_language = request.POST['preferredLanguage']
@@ -1723,7 +1723,7 @@ class ChangeProfileDisplayName(AjapaikAPIView):
     API endpoint for changing user display name
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.display_name = request.POST['display_name']
@@ -1741,7 +1741,7 @@ class PhotoSuggestion(AjapaikAPIView):
     API endpoints for getting photo scene category and updating it
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         try:
             if request.user.is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
@@ -1788,7 +1788,7 @@ class PhotoSuggestion(AjapaikAPIView):
         except:  # noqa
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
-    def post(self, request, format=None):
+    def post(self, request):
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
         scene = data['scene']
@@ -1848,7 +1848,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
     API endpoints for getting photo scene category and updating it
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         try:
             if request.user.is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
@@ -1899,7 +1899,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
         except:  # noqa
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
-    def post(self, request, format=None):
+    def post(self, request):
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
         flip = data['flip']
@@ -1927,6 +1927,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
         photo_flip_suggestions = []
         photo_rotated_suggestions = []
         photo_invert_suggestions = []
+        original_rotation = 0
 
         for photo_id in photo_ids:
             if not photo_id.isdigit():
@@ -1975,5 +1976,6 @@ class PhotoAppliedOperations(AjapaikAPIView):
         PhotoFlipSuggestion.objects.bulk_create(photo_flip_suggestions)
         PhotoInvertSuggestion.objects.bulk_create(photo_invert_suggestions)
         PhotoRotationSuggestion.objects.bulk_create(photo_rotated_suggestions)
+
         return JsonResponse({'message': response,
                              'rotated_by_90': (was_rotate_successful and abs(rotated - original_rotation) % 180 == 90)})

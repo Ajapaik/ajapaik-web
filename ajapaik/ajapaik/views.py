@@ -35,7 +35,7 @@ from ajapaik.ajapaik.forms import AddAlbumForm, AreaSelectionForm, AlbumSelectio
     AlbumSelectionFilteringForm, CuratorWholeSetAlbumsSelectionForm
 from ajapaik.ajapaik.models import Photo, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, \
-    MuisCollection, PhotoLike, ImageSimilarity, get_pseudo_slug_for_photo
+    MuisCollection, PhotoLike, ImageSimilarity, get_pseudo_slug_for_photo, Dating
 from ajapaik.ajapaik.serializers import FrontpageAlbumSerializer, DatingSerializer, \
     VideoSerializer, PhotoMapMarkerSerializer
 from ajapaik.ajapaik.stats_sql import AlbumStats
@@ -359,7 +359,7 @@ def frontpage_async_albums(request):
 
 
 def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None):
-    starttime = time()
+    start_time = time()
     profile = request.get_user().profile
     photos = Photo.objects.filter(rephoto_of__isnull=True)
     filter_form = GalleryFilteringForm(request.GET)
@@ -409,7 +409,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             context['photos_with_similar_photos'] = None
             context['show_photos'] = None
             context['is_photoset'] = None
-            context['execution_time'] = str(time() - starttime)
+            context['execution_time'] = str(time() - start_time)
             return context
         else:
             show_photos = True
@@ -437,6 +437,11 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             # In QuerySet "albums__in" is 1:M JOIN  so images will show up
             # multiple times in results so this needs to be distinct(). Distinct is slow.
             photos = photos.distinct()
+
+        date_from = filter_form.cleaned_data["date_from"]
+        date_to = filter_form.cleaned_data["date_to"]
+        if date_from or date_to:
+            photos = photos.exclude(datings=None).select_related("datings")
 
         if filter_form.cleaned_data['people']:
             photos = photos.filter(face_recognition_rectangles__isnull=False,
@@ -475,6 +480,18 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
             photos = photos.filter(likes__profile=profile)
         if rephotos_by_id:
             photos = photos.filter(rephotos__user_id=rephotos_by_id)
+
+        if date_from or date_to:
+            datings = Dating.objects.filter(photo_id__in=photos.values_list("id", flat=True))
+
+            if date_from:
+                datings = datings.filter(start__gte=date_from)
+
+            if date_to:
+                datings = datings.filter(end__lte=date_to)
+
+            photos = photos.filter(id__in=datings.values_list("photo_id", flat=True))
+
         photos_with_comments = None
         photos_with_rephotos = None
         photos_with_similar_photos = None
@@ -766,7 +783,7 @@ def _get_filtered_data_for_frontpage(request, album_id=None, page_override=None)
         context['show_photos'] = False
         context['max_page'] = ceil(float(context['total']) / float(page_size))
 
-    context['execution_time'] = str(time() - starttime)
+    context['execution_time'] = str(time() - start_time)
     return context
 
 
