@@ -588,6 +588,7 @@
                 },
                 error: function() {
                     $('#ajp-loading-overlay').hide();
+                    window.loadingPhotos = false;
                 },
             });
         };
