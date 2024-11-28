@@ -226,17 +226,15 @@
                 </div>
                 <div class="flex-row d-flex justify-content-center ajp-text-white mt-4">
                     <div class="col-md-12">
-                        <div>Starting from: <span
-                            id="startingFrom"><strong>{{ request.GET.date_from|slice:":4" }}</strong></span></div>
+                        <div>{% trans "Starting from" %}: <span id="startingFrom"><strong>{{ request.GET.date_from|slice:":4" }}</strong></span></div>
                         <input class='w-50' style='accent-color: #888' id='startingFromInput' type='range' min='1800' step='1' max='{% if request.GET.date_to %}{{ request.GET.date_to|slice:":4" }}{% else %}2024{% endif %}'
                                value='{{ request.GET.date_from|slice:":4" }}'
                                oninput="document.getElementById('endingAtInput').min = this.value;document.getElementById('startingFrom').innerHTML = '<strong>' +  this.value + '</strong>';document.getElementById('applyDateFilters').disabled = false; "
                         />
-                        <div>Ending at: <span
-                            id="endingAt"><strong>{{ request.GET.date_to|slice:":4" }}</strong></span></div>
+                        <div>{% trans "Ending at" %}: <span id="endingAt"><strong>{{ request.GET.date_to|slice:":4" }}</strong></span></div>
                         <input class='w-50' style='accent-color: #888' id='endingAtInput' type='range' min='{% if request.GET.date_from %}{{ request.GET.date_from|slice:":4" }}{% else %}1800{% endif %}' step='1' max='2024'
                                value='{{ request.GET.date_to|slice:":4" }}'
-                               oninput="document.getElementById('startingFromInput').max = this.value;document.getElementById('endingAt').innerHTML = '<strong>' +  this.value + '</strong>';document.getElementById('applyDateFilters').disabled = false; />
+                               oninput="document.getElementById('startingFromInput').max = this.value;document.getElementById('endingAt').innerHTML = '<strong>' +  this.value + '</strong>';document.getElementById('applyDateFilters').disabled = false; "/>
                     </div>
                 </div>
                 <div class="flex-row d-flex justify-content-center ajp-text-white my-2">
@@ -244,12 +242,12 @@
                     <div class="col-md-12">
                         {% if request.GET.date_from or request.GET.date_to %}
                             <button id='removeDateFilters' class='btn btn-dark mr-4'>
-                                Remove date filters
+                                {% trans "Remove date filters" %}
                             </button>
                         {% endif %}
                         <button id='applyDateFilters' class='btn btn-light'
                                 {% if not request.GET.date_from and not request.GET.date_to %}disabled{% endif %}>
-                            Apply date filters
+                            {% trans "Apply date filters" %}
                         </button>
                     </div>
                 </div>
