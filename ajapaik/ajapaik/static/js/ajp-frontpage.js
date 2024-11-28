@@ -426,13 +426,17 @@
         window.updateFrontpagePhotosAsync = function() {
             const targetDiv = $('#ajp-frontpage-historic-photos');
             targetDiv.removeClass('hidden ajp-invisible');
-            $('#ajp-loading-overlay').show();
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();
             $.ajax({
                 url: window.frontpageAsyncURL + window.location.search,
                 method: 'GET',
+                beforeSend: function() {
+                    $('#ajp-loading-overlay').show();
+                    // HACK!
+                    window.loadingPhotos = true;
+                },
                 success: function(response) {
                     setWindowPaginationParameters(response);
                     let collection;
@@ -578,10 +582,13 @@
                         historicPhotoGalleryDiv.justifiedGallery();
                     }
                     $('#ajp-loading-overlay').hide();
+                    // HACK!
+                    window.loadingPhotos = false;
                     $(window).scrollTop(0);
                 },
                 error: function() {
                     $('#ajp-loading-overlay').hide();
+                    window.loadingPhotos = false;
                 },
             });
         };

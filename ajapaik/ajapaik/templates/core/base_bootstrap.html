@@ -325,7 +325,9 @@
             $('#ajp-loading-overlay').show();
         });
         window.addEventListener('pageshow', function() {
-            $('#ajp-loading-overlay').hide();
+            if (!window.loadingPhotos) {
+                $('#ajp-loading-overlay').hide();
+            }
         });
 
         window.fbAsyncInit = function() {
