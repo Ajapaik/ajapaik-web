@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:25+0000\n"
+"PO-Revision-Date: 2024-12-23 12:00:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -955,7 +955,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "We are sorry, but the sign up is currently closed."
+msgstr "Et deet eis leed, mee d'Registréierung ass momentan zou."
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
@@ -1088,7 +1088,7 @@ msgstr "Läschen"
 
 #: ajapaik/ajapaik/templates/comments/list.html:43
 msgid "Are you sure that you want to delete this comment and all replies?"
-msgstr "Sidd Dir sécher, datt dir dës Bemierkung an all Äntwerten dorop läsche wëllt?"
+msgstr "Sidd Dir sécher, datt Dir dës Bemierkung an all Äntwerten dorop läsche wëllt?"
 
 #: ajapaik/ajapaik/templates/comments/list.html:50
 msgid "Edit"
@@ -2532,7 +2532,7 @@ msgstr "Album created"
 
 #: ajapaik/ajapaik/views.py:3463
 msgid "Sorry but we fail to post your comment."
-msgstr "Sorry but we fail to post your comment."
+msgstr "Et deet eis leed, mee mir konnten Är Bemierkung net verëffentlechen."
 
 #: ajapaik/ajapaik/views.py:3705
 msgid "Change password"
