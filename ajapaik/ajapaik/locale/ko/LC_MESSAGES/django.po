@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:25+0000\n"
+"PO-Revision-Date: 2024-12-30 12:00:18+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,11 +54,11 @@ msgstr "잘못된 토큰"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "변수 photo_ids가 없습니다"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
-msgstr ""
+msgstr "다음 id의 사진이 없습니다:"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
@@ -117,11 +117,11 @@ msgstr ""
 #: ajapaik/ajapaik/api.py:1742 ajapaik/ajapaik/api.py:1831
 #: ajapaik/ajapaik/api.py:1951
 msgid "Something went wrong"
-msgstr ""
+msgstr "무언가가 잘못되었습니다"
 
 #: ajapaik/ajapaik/api.py:2003 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "제안이 저장되었지만 이전 합의 사항은 그대로 유지됩니다"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 #: ajapaik/ajapaik/autocomplete_views.py:356
@@ -269,7 +269,7 @@ msgstr "기타"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Person"
-msgstr ""
+msgstr "사람"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/models.py:258
 #: ajapaik/ajapaik/templates/curator/curator.html:79
@@ -281,11 +281,11 @@ msgstr "이름"
 
 #: ajapaik/ajapaik/forms.py:483 ajapaik/ajapaik/models.py:264
 msgid "Is public"
-msgstr ""
+msgstr "공개 여부"
 
 #: ajapaik/ajapaik/forms.py:484 ajapaik/ajapaik/models.py:265
 msgid "Is open"
-msgstr ""
+msgstr "개방 여부"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
@@ -309,7 +309,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "뉴스레터 수신 여부를 지정해 주십시오"
 
 #: ajapaik/ajapaik/forms.py:518
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
@@ -369,7 +369,7 @@ msgstr "제목"
 
 #: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
-msgstr ""
+msgstr "MUIS 제목"
 
 #: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
@@ -522,7 +522,7 @@ msgstr "GPS"
 
 #: ajapaik/ajapaik/models.py:1567
 msgid "Confirmation"
-msgstr ""
+msgstr "확인"
 
 #: ajapaik/ajapaik/models.py:1568
 msgid "StreetView"
@@ -1150,12 +1150,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "개인정보보호정책"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "이용약관"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
@@ -1222,12 +1222,12 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:83
 msgid "Profile and leaderboard"
-msgstr ""
+msgstr "프로필 및 리더보드"
 
 #: ajapaik/ajapaik/templates/core/_header.html:91 ajapaik/ajapaik/views.py:1998
 #: ajapaik/ajapaik/views.py:2014 ajapaik/ajapaik/views.py:2049
 msgid "Leaderboard"
-msgstr ""
+msgstr "리더보드"
 
 #: ajapaik/ajapaik/templates/core/_header.html:102
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
@@ -1984,7 +1984,7 @@ msgstr "사용자 페이스북 사진"
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_picture.html:6
 msgid "User Google photo"
-msgstr ""
+msgstr "사용자 구글 사진"
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
@@ -2016,7 +2016,7 @@ msgstr[0] ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
-msgstr ""
+msgstr "대략적인 주소"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
 #: ajapaik/ajapaik/templates/photo/photoview.html:69
