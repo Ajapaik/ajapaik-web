@@ -11,6 +11,7 @@
 # Author: Shirayuki
 # Author: Tmv
 # Author: Weather Top Wizard
+# Author: かしわのはみん
 # Author: 沈澄心
 # --
 # This file is part of the Ajapaik Project
@@ -19,7 +20,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2024-11-18 12:00:14+0000\n"
+"PO-Revision-Date: 2025-01-13 12:00:19+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2125,7 +2126,7 @@ msgstr "ファイルのアップロードに失敗しました。"
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr "お帰りなさい"
+msgstr "お帰りなさいませ、ご主人様"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
