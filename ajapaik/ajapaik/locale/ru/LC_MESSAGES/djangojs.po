@@ -3,6 +3,7 @@
 #
 # Author: Alexander Yukal
 # Author: Dirruw'o
+# Author: Firapinch
 # Author: Kareyac
 # Author: Katunchik
 # Author: Meerrahtar
@@ -23,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app - JavaScript\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:25+0000\n"
+"PO-Revision-Date: 2025-01-30 12:00:21+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -722,7 +723,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr ""
+msgstr "большинство"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
@@ -755,7 +756,7 @@ msgstr "понравилось"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr ""
+msgstr "категоризированный"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
@@ -919,7 +920,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
-msgstr ""
+msgstr "Исторические карты"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
