@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: BaRaN6161 TURK
+# Author: Brightt11
 # Author: Grkn gll
 # Author: H2kks
 # Author: Hedda
@@ -21,7 +22,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:27+0000\n"
+"PO-Revision-Date: 2025-01-31 08:48:32+0000\n"
 "Language: tr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -146,7 +147,7 @@ msgstr "Sınırlayıcı kutu değerleri sayı olmalıdır"
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Kullanışsız token"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -424,7 +425,7 @@ msgstr "Orijinal dili açıklaması"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Resimleri hizmetliler haricinde herkesten gizleyin"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
@@ -598,11 +599,11 @@ msgstr "Yıl"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Onyıl"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Yüzyıl"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -925,9 +926,8 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Şifrenizi sıfırlamakta sorun yaşıyorsanız lütfen bizimle iletişime geçin."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
-msgstr "Size bir e-posta gönderdik. Eğer birkaç dakika içerisinde ulaşmazsa lütfen bizimle iletişime geçin."
+msgstr "Size bir e-posta gönderdik. Eğer birkaç dakika içerisinde e-posta size ulaşmazsa lütfen bizimle iletişime geçin."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -1154,12 +1154,12 @@ msgstr "Estonya Fotoğraf Mirası Derneği"
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "Gizlilik politikası"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Şartlar ve koşullar"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
@@ -1416,7 +1416,7 @@ msgstr "Görünür (seçimde gösterilir)"
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
 msgid "!!FUZZY!!Search for an existing album"
-msgstr ""
+msgstr "Mevcut bir albümü arayın"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"

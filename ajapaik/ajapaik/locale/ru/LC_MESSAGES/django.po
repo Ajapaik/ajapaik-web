@@ -7,6 +7,7 @@
 # Author: Diman Russkov
 # Author: Dirruw'o
 # Author: Eleferen
+# Author: Firapinch
 # Author: H2kks
 # Author: Helpau
 # Author: Ice bulldog
@@ -36,7 +37,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2024-10-24 12:00:26+0000\n"
+"PO-Revision-Date: 2025-01-31 08:48:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -441,7 +442,7 @@ msgstr "Язык оригинала описания"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Скрыть изображение от доступа за пределами администратора"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
@@ -615,7 +616,7 @@ msgstr "Год"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Десятилетие"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
@@ -942,9 +943,8 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Если у вас возникли проблемы с восстановлением пароля, напишите нам."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
-msgstr "Мы отправили вам электронное письмо. Cвяжитесь с нами, если вы не получили его в течение нескольких минут."
+msgstr "Мы отправили вам письмо. Пожалуйста, свяжитесь с нами, если вы не получите его в течение нескольких\n минут."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -1171,12 +1171,12 @@ msgstr "Эстонское общество фотографического н�
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "Политика конфиденциальности"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Условия и положения"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
