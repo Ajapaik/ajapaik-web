@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-01-20 12:00:19+0000\n"
+"PO-Revision-Date: 2025-02-10 12:00:13+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -2453,7 +2453,7 @@ msgstr "Dir sidd anonym. Dir kënnt Iech elo mat Ärer E-Mail aloggen."
 
 #: ajapaik/ajapaik/views.py:526
 msgid "Non-authenticated user"
-msgstr "Non-authenticated user"
+msgstr "Net-confirméiert Benotzer"
 
 #: ajapaik/ajapaik/views.py:664
 msgid "Geotagging game"
