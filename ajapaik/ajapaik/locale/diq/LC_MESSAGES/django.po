@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1917 Ekim Devrimi
+# Author: GolyatGeri
 # Author: Mirzali
 # Author: Orbot707
 # --
@@ -13,7 +14,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-01-23 12:00:13+0000\n"
+"PO-Revision-Date: 2025-02-24 12:00:11+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -348,7 +349,7 @@ msgstr "Cınsiyet"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
-msgstr "Şınastoğê Wikidata"
+msgstr "Şınastoğê Wikidayıt"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
