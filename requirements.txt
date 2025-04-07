@@ -36,7 +36,7 @@ psycopg2-binary==2.8.6
 pyOpenSSL==20.0.1
 pysolr==3.9.0
 redis==3.5.3
-requests==2.26.0
+requests==2.31.0
 responses==0.13.4
 scikit-learn==0.24.2
 sorl-thumbnail==12.7.0
