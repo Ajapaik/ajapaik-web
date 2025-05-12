@@ -5,6 +5,7 @@
 # Author: Songhee
 # Author: Suleiman the Magnificent Television
 # Author: Underbaaar
+# Author: YeBoy371
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
@@ -18,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-05-08 12:00:17+0000\n"
+"PO-Revision-Date: 2025-05-12 12:00:17+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -558,11 +559,11 @@ msgstr "출처"
 
 #: ajapaik/ajapaik/models.py:1583
 msgid "Google map"
-msgstr "Google 지도"
+msgstr "구글 지도"
 
 #: ajapaik/ajapaik/models.py:1584
 msgid "Google satellite"
-msgstr "Google 위성"
+msgstr "구글 위성"
 
 #: ajapaik/ajapaik/models.py:1585
 msgid "OpenStreetMap"
@@ -1480,7 +1481,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:101
 msgid "Flickr Commons"
-msgstr "Flickr 공용"
+msgstr "플리커 공용"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
