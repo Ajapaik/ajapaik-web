@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-05-12 12:00:17+0000\n"
+"PO-Revision-Date: 2025-05-22 12:00:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +35,7 @@ msgstr "반전 색상"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "요청에 최소한 뒤집기, 반전 또는 회전 매개변수를 추가하세요"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
@@ -144,7 +144,7 @@ msgstr ""
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "오류 토큰"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -249,7 +249,7 @@ msgstr "라이선스 없음"
 
 #: ajapaik/ajapaik/forms.py:472
 msgid "Parent album"
-msgstr ""
+msgstr "상위 앨범"
 
 #: ajapaik/ajapaik/forms.py:475
 #: ajapaik/ajapaik/templates/curator/curator.html:144
@@ -374,7 +374,7 @@ msgstr "MUIS 제목"
 
 #: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
-msgstr ""
+msgstr "MUIS 의견"
 
 #: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
@@ -443,7 +443,7 @@ msgstr ""
 #: ajapaik/ajapaik/models.py:1496 ajapaik/ajapaik/models.py:1579
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "재촬영"
 
 #: ajapaik/ajapaik/models.py:1497
 msgid "Photo upload"
@@ -683,7 +683,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/_mode_select.html:47
 #: ajapaik/ajapaik/templates/_mode_select.html:101
 msgid "My rephotos"
-msgstr ""
+msgstr "내 재촬영 사진"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:54
 msgid "Remove album filter"
@@ -920,7 +920,7 @@ msgstr "내 비밀번호 재설정"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:22
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "비밀번호 재설정에 문제가 있는 경우 저희에게 문의해 주세요."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
@@ -1590,7 +1590,7 @@ msgstr "비밀번호 설정"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:8
 msgid "Rephoto upload settings"
-msgstr "Rephoto 업로드 설정"
+msgstr "재촬영 업로드 설정"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:4
 msgid "Filtering"
@@ -2048,7 +2048,7 @@ msgstr "촬영 날짜"
 #: ajapaik/ajapaik/templates/photo/photoview.html:165
 #: ajapaik/ajapaik/templates/photo/photoview.html:166
 msgid "rephoto"
-msgstr ""
+msgstr "재촬영"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:110
@@ -2282,7 +2282,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
-msgstr ""
+msgstr "재촬영"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:87
 msgid "favorite pictures"
@@ -2434,7 +2434,7 @@ msgstr ""
 #: ajapaik/ajapaik/views.py:731
 #, python-format
 msgid "%(name)s - rephotos"
-msgstr ""
+msgstr "%(name)s - 재촬영"
 
 #: ajapaik/ajapaik/views.py:1299
 msgid "Cannot upload to these albums"
@@ -2496,7 +2496,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3369
 msgid "Photo uploaded"
-msgstr ""
+msgstr "사진 업로드됨"
 
 #: ajapaik/ajapaik/views.py:3389
 msgid "Album created"
@@ -2528,7 +2528,7 @@ msgstr "KulKa 로고"
 
 #: ajapaik/ajapaik/views.py:3807
 msgid "Ministry of Education logo"
-msgstr ""
+msgstr "교육부 로고"
 
 #: ajapaik/ajapaik/views.py:3813
 msgid "EV100 logo"
@@ -2572,7 +2572,7 @@ msgstr "이름, 성"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
-msgstr ""
+msgstr "해당 인물에 대한 추가 설명(다른 이름 등)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
@@ -2587,7 +2587,7 @@ msgstr "성인"
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
 msgid "Elderly"
-msgstr ""
+msgstr "노인"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
@@ -2597,7 +2597,7 @@ msgstr "알 수 없음"
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "해당 없음"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:193
@@ -2676,7 +2676,7 @@ msgstr "에스토니아어"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "라트비아어"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"

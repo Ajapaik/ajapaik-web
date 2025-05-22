@@ -5,6 +5,7 @@
 # Author: Codenstory
 # Author: Songhee
 # Author: Underbaaar
+# Author: YeBoy371
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
@@ -17,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2025-05-08 12:00:16+0000\n"
+"PO-Revision-Date: 2025-05-22 12:00:18+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +67,7 @@ msgstr "닫기"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1765
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "촬영 장소를 선택하세요!"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
@@ -799,11 +800,11 @@ msgstr "내 즐겨찾기"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:294
 msgid "My rephotos"
-msgstr ""
+msgstr "내 재촬영 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr ""
+msgstr "%(user)s님이 재촬영"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
