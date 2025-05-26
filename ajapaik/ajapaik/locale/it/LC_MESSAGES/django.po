@@ -3,6 +3,7 @@
 #
 # Author: Ajeje Brazorf
 # Author: Beta16
+# Author: CarloBerg
 # Author: Champ0999
 # Author: CloeRiva
 # Author: EditGio
@@ -14,7 +15,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-05-08 12:00:17+0000\n"
+"PO-Revision-Date: 2025-05-26 12:00:18+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,19 +32,19 @@ msgstr "Inverti colori"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr ""
+msgstr "Aggiungere almeno il parametro 'flip', 'invert' o 'rotate' alla richiesta"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "Aggiungere almeno il parametro 'scene' o 'viewpoint_elevation' alla richiesta"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Contributions and settings from the other account were added to current"
-msgstr ""
+msgstr "I contributi e le impostazioni dell'altro account sono stati aggiunti a quelli correnti"
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Expired token"
-msgstr ""
+msgstr "Token scaduto"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
@@ -51,19 +52,19 @@ msgstr "Token non valido"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "Parametro mancante photo_ids"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
-msgstr ""
+msgstr "Nessuna foto con identificazione:"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "Il parametro photo_id deve essere un numero intero positivo"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "Si prega di accedere con un account diverso, attualmente sei connesso/a con lo stesso account da cui stai eseguendo la fusione"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Please login"
@@ -79,15 +80,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr ""
+msgstr "Questa trascrizione esiste già, la trascrizione precedente è stata votata positivamente, grazie!"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "Transcription added, thank you!"
-msgstr ""
+msgstr "Trascrizione aggiunta, grazie!"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "Transcription feedback added, thank you!"
-msgstr ""
+msgstr "Feedback sulla trascrizione aggiunto, grazie!"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "User display name has been saved"
