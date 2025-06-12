@@ -5,6 +5,7 @@
 # Author: Kareyac
 # Author: Mansil
 # Author: Mansil alfalb
+# Author: O andras
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -12,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-05-08 12:00:19+0000\n"
+"PO-Revision-Date: 2025-06-12 02:34:29+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1196,9 +1197,8 @@ msgid "Categorize faces"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:48
-#, fuzzy
 msgid "Add pictures"
-msgstr "Adicionar fotografias"
+msgstr "Adicionar imagens"
 
 #: ajapaik/ajapaik/templates/core/_header.html:52
 msgid "Current selection"
