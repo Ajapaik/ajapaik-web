@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-05-08 12:00:17+0000\n"
+"PO-Revision-Date: 2025-06-23 12:00:13+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -1536,7 +1536,7 @@ msgstr "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:17
 msgid "Other ways of supporting us"
-msgstr "Other ways of supporting us"
+msgstr "Aner Manéiere fir eis z'ënnerstëtzen"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:18
 msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
