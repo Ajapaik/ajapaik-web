@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-05-08 12:00:19+0000\n"
+"PO-Revision-Date: 2025-07-17 12:00:15+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -766,7 +766,7 @@ msgstr "Zapomniałeś hasła?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:40
 msgid "User settings"
-msgstr ""
+msgstr "Ustawienia użytkownika"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -867,7 +867,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "Dodaj adres e-mail"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:57
 msgid "Do you really want to remove the selected e-mail address?"
@@ -1117,7 +1117,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
-msgstr ""
+msgstr "Pokaż obrazy"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
