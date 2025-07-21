@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-06-23 12:00:13+0000\n"
+"PO-Revision-Date: 2025-07-21 12:00:17+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -299,7 +299,7 @@ msgstr "Jo"
 
 #: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "No"
-msgstr "Neen"
+msgstr "Nee"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
@@ -1730,19 +1730,19 @@ msgstr "Héichqualitativ Biller weisen"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
 msgid "Sort by distance from you"
-msgstr "Sort by distance from you"
+msgstr "No Distanz zu Iech sortéieren"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:241
 msgid "Sort by time and ..."
-msgstr "Sort by time and ..."
+msgstr "Sortéieren no Zäit an…"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:251
 msgid "Sort by photos' time added"
-msgstr "Sort by photos' time added"
+msgstr "Nom Zäitpunkt, wou d'Foto derbäigesat gouf, sortéieren"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:262
 msgid "Sort by stills' timestamp"
-msgstr "Sort by stills' timestamp"
+msgstr "Nom Zäitstempel vum Standbild sortéieren"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:273
 msgid "Sort by views' time added or amount"
@@ -1778,7 +1778,7 @@ msgstr "Sort by likes' time added or amount"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:351
 msgid "Sort by amount and ..."
-msgstr "Sort by amount and ..."
+msgstr "Sortéieren no Quantitéit an…"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:361
 msgid "Change sorting order"
@@ -1790,7 +1790,7 @@ msgstr "Hëllef"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr "Wéi zortéieren"
+msgstr "Wéi sortéieren"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
