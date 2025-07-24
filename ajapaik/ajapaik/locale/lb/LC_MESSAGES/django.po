@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-07-21 12:00:17+0000\n"
+"PO-Revision-Date: 2025-07-24 12:00:20+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -48,7 +48,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
-msgstr ""
+msgstr "Ongültegen Token"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
