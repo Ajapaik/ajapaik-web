@@ -13,6 +13,7 @@
 # Author: Jikrau
 # Author: Killarnee
 # Author: Mirzali
+# Author: Russianbabe1978
 # Author: Symposiarch
 # Author: ThisCarthing
 # Author: Tiin
@@ -25,7 +26,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-05-08 12:00:15+0000\n"
+"PO-Revision-Date: 2025-07-28 12:00:13+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,7 +81,7 @@ msgstr "Wähle den Aufnahmeort!"
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Geotagged by this many users"
-msgstr ""
+msgstr "Von so vielen Benutzern mit Geotags versehen"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1808
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
